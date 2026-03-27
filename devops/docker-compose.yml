@@ -1,0 +1,102 @@
+# GrowDirect Shared Development Infrastructure
+# Start: cd ~/GrowDirect/devops && docker compose up -d
+# All apps connect to the 'growdirect' network
+#
+# SERVICES:
+#   postgres  → growdirect_postgres  :5432  (all app databases in one instance)
+#   valkey    → growdirect_valkey    :6379  (shared cache/session/queue)
+#   pgadmin   → growdirect_pgadmin  :5050  (http://localhost:5050)
+#   ollama    → growdirect_ollama   :11434 (LLM inference, local-first)
+#
+# APP CONNECTION:
+#   Postgres host: growdirect_postgres (Docker DNS on growdirect network)
+#   Valkey host:   growdirect_valkey
+#   Network name:  growdirect
+#
+# DATABASES (created by init-db/01-create-databases.sql on first boot):
+#   canary, canary_test, cove, cove_test
+#   All have pgvector extension enabled.
+#
+# ADD A NEW APP:
+#   1. Add CREATE DATABASE <appname> to init-db/01-create-databases.sql
+#   2. Connect app Flask container to the 'growdirect' network
+#   3. Set DATABASE_URL=postgresql://growdirect:growdirect_dev@growdirect_postgres:5432/<appname>
+
+services:
+  postgres:
+    image: pgvector/pgvector:pg17
+    container_name: growdirect_postgres
+    environment:
+      POSTGRES_USER: growdirect
+      POSTGRES_PASSWORD: growdirect_dev
+      POSTGRES_DB: growdirect
+    ports:
+      - "5432:5432"
+    volumes:
+      - pgdata:/var/lib/postgresql/data
+      - ./init-db:/docker-entrypoint-initdb.d
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U growdirect"]
+      interval: 5s
+      start_period: 10s
+      retries: 10
+    restart: unless-stopped
+
+  valkey:
+    image: valkey/valkey:8-alpine
+    container_name: growdirect_valkey
+    ports:
+      - "6379:6379"
+    volumes:
+      - valkey_data:/data
+    healthcheck:
+      test: ["CMD", "valkey-cli", "ping"]
+      interval: 5s
+      retries: 5
+    restart: unless-stopped
+
+  pgadmin:
+    image: dpage/pgadmin4:latest
+    container_name: growdirect_pgadmin
+    environment:
+      PGADMIN_DEFAULT_EMAIL: admin@growdirect.com
+      PGADMIN_DEFAULT_PASSWORD: admin
+      PGADMIN_LISTEN_PORT: 80
+      PGADMIN_CONFIG_SERVER_MODE: "False"
+      PGADMIN_CONFIG_MASTER_PASSWORD_REQUIRED: "False"
+    ports:
+      - "5050:80"
+    volumes:
+      - pgadmin_data:/var/lib/pgadmin
+    depends_on:
+      postgres:
+        condition: service_healthy
+    healthcheck:
+      test: ["CMD-SHELL", "wget -q --spider http://localhost:80/misc/ping || exit 1"]
+      interval: 15s
+      start_period: 30s
+      retries: 3
+    restart: unless-stopped
+
+  ollama:
+    image: ollama/ollama
+    container_name: growdirect_ollama
+    ports:
+      - "11434:11434"
+    volumes:
+      - ollama_data:/root/.ollama
+    restart: unless-stopped
+
+volumes:
+  pgdata:
+    name: growdirect_pgdata
+  valkey_data:
+    name: growdirect_valkey_data
+  pgadmin_data:
+    name: growdirect_pgadmin_data
+  ollama_data:
+    name: growdirect_ollama_data
+
+networks:
+  default:
+    name: growdirect
