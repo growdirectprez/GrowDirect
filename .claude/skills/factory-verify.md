@@ -1,12 +1,54 @@
-# factory-verify
+# factory-verify — Verification
 
-## Verification
+## Run the full test suite
 
-1. Run full test suite: `pytest -v` — all must pass
-2. Check for regressions: did any existing tests break?
-3. Verify integration: do the new routes work with existing services?
-4. Check database: run `alembic upgrade head` if migrations were added
-5. Check Docker: does `docker compose up` still work?
-6. Manual smoke test: hit the new URLs, verify responses
+```bash
+python3 -m pytest tests/ -v
+```
 
-Report: "[N] tests pass, [N] new, [N] existing, no regressions"
+Show the output. Do not summarize — paste the actual results. Evidence before assertions.
+
+## Check for regressions
+
+Count tests before and after. Any test that was passing before and is now failing = regression. Fix it before moving on.
+
+## Verify new code has tests
+
+For every new file or function added during assembly:
+- Is there a corresponding test?
+- Does the test cover the happy path AND at least one error path?
+
+If new code has no test, write it now.
+
+## Check migrations
+
+If any models changed:
+```bash
+docker exec <appname>_flask alembic upgrade head
+```
+
+Must succeed with no errors. If migration is missing, generate it:
+```bash
+docker exec <appname>_flask alembic revision --autogenerate -m "description"
+```
+Review the generated migration before committing — autogenerate misses some things.
+
+## Check git diff
+
+```bash
+git diff HEAD~<n> --stat
+```
+
+Does the set of changed files match what the blueprint planned? Unexpected files changed = investigate.
+
+## Report format
+
+```
+Tests: [N] passed, [N] failed, [N] skipped
+New tests: [N]
+Regressions: none / [list any]
+Migrations: [applied / not needed]
+Diff: [matches plan / deviations noted]
+```
+
+Do not proceed to QA with any failures.
