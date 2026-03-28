@@ -1,13 +1,22 @@
 -- GrowDirect Shared Database Initialization
--- Runs once on first postgres container boot (idempotent via IF NOT EXISTS)
+-- Runs once on first postgres container boot (idempotent — safe to re-run)
 -- All app databases land in a single PostgreSQL 17 + pgvector instance.
 
--- Create app databases
-CREATE DATABASE canary OWNER growdirect;
-CREATE DATABASE canary_test OWNER growdirect;
-CREATE DATABASE canary_memory OWNER growdirect;
-CREATE DATABASE cove OWNER growdirect;
-CREATE DATABASE cove_test OWNER growdirect;
+-- Create app databases (idempotent — safe to re-run)
+SELECT 'CREATE DATABASE canary OWNER growdirect'
+WHERE NOT EXISTS (SELECT FROM pg_database WHERE datname = 'canary')\gexec
+
+SELECT 'CREATE DATABASE canary_test OWNER growdirect'
+WHERE NOT EXISTS (SELECT FROM pg_database WHERE datname = 'canary_test')\gexec
+
+SELECT 'CREATE DATABASE canary_memory OWNER growdirect'
+WHERE NOT EXISTS (SELECT FROM pg_database WHERE datname = 'canary_memory')\gexec
+
+SELECT 'CREATE DATABASE cove OWNER growdirect'
+WHERE NOT EXISTS (SELECT FROM pg_database WHERE datname = 'cove')\gexec
+
+SELECT 'CREATE DATABASE cove_test OWNER growdirect'
+WHERE NOT EXISTS (SELECT FROM pg_database WHERE datname = 'cove_test')\gexec
 
 -- Enable pgvector on all databases
 \c canary
@@ -53,6 +62,16 @@ GRANT USAGE ON SCHEMA app TO canary_app;
 GRANT USAGE ON SCHEMA sales TO canary_app;
 GRANT USAGE ON SCHEMA metrics TO canary_app;
 GRANT USAGE ON SCHEMA public TO canary_app;
+-- canary_app: full DML on app and metrics schemas
+ALTER DEFAULT PRIVILEGES FOR ROLE growdirect IN SCHEMA app
+  GRANT SELECT, INSERT, UPDATE, DELETE ON TABLES TO canary_app;
+ALTER DEFAULT PRIVILEGES FOR ROLE growdirect IN SCHEMA metrics
+  GRANT SELECT, INSERT, UPDATE, DELETE ON TABLES TO canary_app;
+-- canary_app: read-only on sales
+ALTER DEFAULT PRIVILEGES FOR ROLE growdirect IN SCHEMA sales
+  GRANT SELECT ON TABLES TO canary_app;
+ALTER DEFAULT PRIVILEGES FOR ROLE growdirect IN SCHEMA public
+  GRANT SELECT, INSERT, UPDATE, DELETE ON TABLES TO canary_app;
 ALTER ROLE canary_app SET search_path TO app, sales, metrics, public;
 
 -- canary_tsp: full access to sales, read-only on app
@@ -60,6 +79,12 @@ GRANT USAGE ON SCHEMA sales TO canary_tsp;
 GRANT USAGE ON SCHEMA app TO canary_tsp;
 GRANT USAGE ON SCHEMA public TO canary_tsp;
 ALTER ROLE canary_tsp SET search_path TO sales, app, public;
+-- canary_tsp: full DML on sales
+ALTER DEFAULT PRIVILEGES FOR ROLE growdirect IN SCHEMA sales
+  GRANT SELECT, INSERT, UPDATE, DELETE ON TABLES TO canary_tsp;
+-- canary_tsp: read-only on app
+ALTER DEFAULT PRIVILEGES FOR ROLE growdirect IN SCHEMA app
+  GRANT SELECT ON TABLES TO canary_tsp;
 
 \c canary_test
 CREATE EXTENSION IF NOT EXISTS vector;
@@ -75,6 +100,16 @@ GRANT USAGE ON SCHEMA sales TO canary_app;
 GRANT USAGE ON SCHEMA metrics TO canary_app;
 GRANT USAGE ON SCHEMA app TO canary_tsp;
 GRANT USAGE ON SCHEMA sales TO canary_tsp;
+ALTER DEFAULT PRIVILEGES FOR ROLE growdirect IN SCHEMA app
+  GRANT SELECT, INSERT, UPDATE, DELETE ON TABLES TO canary_app;
+ALTER DEFAULT PRIVILEGES FOR ROLE growdirect IN SCHEMA metrics
+  GRANT SELECT, INSERT, UPDATE, DELETE ON TABLES TO canary_app;
+ALTER DEFAULT PRIVILEGES FOR ROLE growdirect IN SCHEMA sales
+  GRANT SELECT ON TABLES TO canary_app;
+ALTER DEFAULT PRIVILEGES FOR ROLE growdirect IN SCHEMA sales
+  GRANT SELECT, INSERT, UPDATE, DELETE ON TABLES TO canary_tsp;
+ALTER DEFAULT PRIVILEGES FOR ROLE growdirect IN SCHEMA app
+  GRANT SELECT ON TABLES TO canary_tsp;
 
 \c canary_memory
 CREATE EXTENSION IF NOT EXISTS vector;
@@ -129,9 +164,16 @@ CREATE INDEX IF NOT EXISTS idx_seed_embeddings_source
 
 GRANT ALL ON ALL TABLES IN SCHEMA public TO growdirect;
 GRANT ALL ON ALL TABLES IN SCHEMA public TO canary_app;
+GRANT USAGE ON SCHEMA public TO canary_app;
+ALTER DEFAULT PRIVILEGES FOR ROLE growdirect IN SCHEMA public
+  GRANT SELECT, INSERT, UPDATE, DELETE ON TABLES TO canary_app;
 
 \c cove
 CREATE EXTENSION IF NOT EXISTS vector;
+CREATE EXTENSION IF NOT EXISTS pgcrypto;
+CREATE EXTENSION IF NOT EXISTS "uuid-ossp";
 
 \c cove_test
 CREATE EXTENSION IF NOT EXISTS vector;
+CREATE EXTENSION IF NOT EXISTS pgcrypto;
+CREATE EXTENSION IF NOT EXISTS "uuid-ossp";

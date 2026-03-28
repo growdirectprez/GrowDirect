@@ -31,7 +31,7 @@ services:
       POSTGRES_PASSWORD: growdirect_dev
       POSTGRES_DB: growdirect
     ports:
-      - "5432:5432"
+      - "127.0.0.1:5432:5432"
     volumes:
       - pgdata:/var/lib/postgresql/data
       - ./init-db:/docker-entrypoint-initdb.d
@@ -45,12 +45,13 @@ services:
   valkey:
     image: valkey/valkey:8-alpine
     container_name: growdirect_valkey
+    command: ["valkey-server", "--requirepass", "valkey_dev"]
     ports:
-      - "6379:6379"
+      - "127.0.0.1:6379:6379"
     volumes:
       - valkey_data:/data
     healthcheck:
-      test: ["CMD", "valkey-cli", "ping"]
+      test: ["CMD", "valkey-cli", "-a", "valkey_dev", "ping"]
       interval: 5s
       retries: 5
     restart: unless-stopped
@@ -63,9 +64,9 @@ services:
       PGADMIN_DEFAULT_PASSWORD: admin
       PGADMIN_LISTEN_PORT: 80
       PGADMIN_CONFIG_SERVER_MODE: "False"
-      PGADMIN_CONFIG_MASTER_PASSWORD_REQUIRED: "False"
+      PGADMIN_CONFIG_MASTER_PASSWORD_REQUIRED: "True"
     ports:
-      - "5050:80"
+      - "127.0.0.1:5050:80"
     volumes:
       - pgadmin_data:/var/lib/pgadmin
     depends_on:
@@ -82,9 +83,14 @@ services:
     image: ollama/ollama
     container_name: growdirect_ollama
     ports:
-      - "11434:11434"
+      - "127.0.0.1:11434:11434"
     volumes:
       - ollama_data:/root/.ollama
+    healthcheck:
+      test: ["CMD-SHELL", "curl -sf http://localhost:11434/api/tags || exit 1"]
+      interval: 10s
+      start_period: 30s
+      retries: 5
     restart: unless-stopped
 
 volumes:
