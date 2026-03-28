@@ -155,6 +155,56 @@ Each app is a separate directory with its own:
 
 `ModuleNotFoundError` in container logs = image needs rebuild. Do NOT modify Python code to work around a missing package.
 
+### Docker Image Naming — Required
+
+Every service with a `build:` block **must** have an explicit `image:` tag prefixed
+with the app name. Without this, Docker Compose derives image names from the
+directory + service name (e.g., `devops-flask`). Since all apps keep their compose
+files in `devops/`, services with the same name (like `flask`) collide — starting
+one app silently clobbers the other's image.
+
+**Pattern:** `image: <appname>-<service>`
+
+```yaml
+# Canary
+flask:
+  image: canary-flask        # ← REQUIRED — prevents collision with cove-flask
+  build:
+    context: ..
+    dockerfile: Dockerfile
+
+# Cove
+flask:
+  image: cove-flask           # ← REQUIRED — prevents collision with canary-flask
+  build:
+    context: ../
+    dockerfile: Dockerfile
+```
+
+**Rule:** If you add a `build:` block to any compose service, you must also add
+`image: <appname>-<descriptive-name>`. No exceptions. Services that reuse the
+same Dockerfile (e.g., TSP consumers reusing the Flask image) should reference
+the same image name so Docker builds once and reuses.
+
+### Docker Compose Project Names — Required
+
+Every app compose file **must** have a top-level `name:` field. Without it,
+Docker Compose derives the project name from the directory containing the compose
+file. Since all apps store compose files in `devops/`, they all get project name
+`devops` — causing one app's `docker compose up` to see the other app's containers
+as orphans and potentially recreate or remove them.
+
+```yaml
+# Top of every compose file — before services:
+name: canary          # or cove, canary-qa, canary-enterprise, etc.
+
+services:
+  ...
+```
+
+**Rule:** Every compose file must declare `name: <appname>[-environment]` at the
+top level. The name must be unique across all apps and environments.
+
 ---
 
 ## Model Standards
