@@ -2,3 +2,12 @@ Canary/
 Cove/
 IP/
 .worktrees/
+.DS_Store
+.claude/settings.local.json
+.claude/launch.json
+gis-downloads/
+migrate_off_icloud.sh
+
+# Stray binaries (should be filed in app archives)
+*.pdf
+*.png
