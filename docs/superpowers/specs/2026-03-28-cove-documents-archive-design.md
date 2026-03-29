@@ -19,7 +19,7 @@ Rename the Vault to **Community Documents**. Replace the `is_public` boolean wit
 | Tier | Audience | Examples |
 |------|----------|----------|
 | `member` | All authenticated WPBCA members | CC&Rs, bylaws, meeting minutes, financial reports, Davis-Stirling required disclosures, FAQs, policy statements |
-| `arc` | ARC committee members + board directors | Architectural guidelines, ARC review templates, public-facing ARC informational documents |
+| `arc` | ARC committee members + board directors + admins | Architectural guidelines, ARC review templates, ARC working documents |
 | `board` | Current directors and admins | Executive session notes, legal correspondence, vendor contracts, confidential board materials |
 
 Access enforcement:
@@ -58,12 +58,14 @@ The Archive splits into two access levels:
 
 These community history pages remain available to all authenticated members. They contain public historical context, not research materials.
 
-**ARC/admin-gated:**
+**ARC/board/admin-gated:**
 - `/archive/doc/<category>/<slug>` — individual document viewer (research documents)
 - `/archive/originals/<path:filepath>` — binary files
 - `/archive/data/<filename>` — CSV/JSON data files
 - `POST /archive/request/<path:filepath>` — request original document
 - Promote action (new, see below)
+
+Access check: `member.is_arc or member.is_board or member.is_admin`. Board directors have full Archive access, same as ARC members.
 
 The Archive remains filesystem-based. No database tables, no changes to the markdown + originals structure. The Archive is the research/dev sandbox workspace.
 
@@ -78,11 +80,31 @@ New feature on Archive document pages (ARC/admin-gated routes only): a "Promote 
 4. `POST /archive/promote/<path:filepath>` handles submission: copies the file from Archive filesystem into Vault storage (UUID-named), creates a new `Document` + `DocumentVersion` record in the database
 5. The Archive original stays untouched — this is an explicit copy, not a move
 
-**Embeddings:** Promoted documents do not get embeddings generated at promote time. Embedding generation is deferred to a background process or manual trigger, consistent with how the existing Vault handles uploads. The `embedding` column on Document is nullable.
+**Embeddings:** Promoted documents do not get embeddings generated at promote time. Embedding generation is deferred to a background process or manual trigger, consistent with how the existing Vault handles uploads. The `embedding` column on `DocumentVersion` is nullable.
 
 **Why copy, not link:** Archive content is local filesystem / dev sandbox material. Community Documents are database-tracked records that ship with QA/prod deployments. Keeping them separate means Archive files never accidentally leak into production builds.
 
 **Promotable file types:** Files in `/archive/originals/` with extensions matching the existing `ALLOWED_EXTENSIONS` list (pdf, doc, docx, xls, xlsx, png, jpg, jpeg, gif, txt). Markdown narrative documents are not promotable — they are research context, not standalone documents.
+
+### Upload Permissions
+
+Upload and version creation follow the same tier rules as read access:
+- Any authenticated member can upload `member`-tier documents
+- ARC, board, and admin members can upload `arc`-tier documents
+- Board and admin members can upload `board`-tier documents
+
+The upload form's `access_tier` dropdown only shows tiers the current user has permission to use.
+
+### Service Layer Changes
+
+The `list_documents()` service function currently accepts a `public_only: bool` parameter. This is replaced with tier-aware filtering:
+- Accept the current user's role context
+- Return only documents the user is authorized to see based on their highest access level
+- The filtering happens in the query (server-side), not in the template
+
+The `upload_document()` service validates that the uploader has permission for the selected `access_tier`.
+
+The promote form's category dropdown uses the same `CATEGORIES` constant from `vault/services.py` (updated to include `historical` in place of `archive`).
 
 ### Route Changes
 
@@ -92,21 +114,33 @@ New feature on Archive document pages (ARC/admin-gated routes only): a "Promote 
   - Members see: all member-tier docs
   - ARC members see: member + ARC tabs
   - Board members see: member + ARC + board tabs
-- Upload form: `access_tier` dropdown replaces `is_public` checkbox
-- Document detail page: tier badge displayed
+- Upload form: `access_tier` dropdown replaces `is_public` checkbox (choices filtered by user role)
+- Document detail page: tier badge displayed, 403 if user lacks access
 - All existing templates updated: `vault/upload.html` (dropdown), `vault/index.html` (tier tabs + filtering), `vault/document.html` (tier badge)
 
 **Archive blueprint:**
 - Community pages remain member-accessible (narrative, timeline, chain, catalog)
-- Research/document pages gated to ARC/admin role
-- New routes: `GET/POST /archive/promote/<path:filepath>` — promote form and handler
+- `/archive/catalog` filters vault documents by viewer's access level when merging with archive entries
+- Research/document pages gated to ARC/board/admin role
+- New routes: `GET/POST /archive/promote/<path:filepath>` — both ARC/board/admin-gated, CSRF-protected promote form and handler
 - Existing routes unchanged otherwise
 
 ### Category Cleanup
 
-Rename the existing `archive` category in the Vault category list to `historical` to avoid naming confusion with the Archive blueprint. Migration updates existing documents with `category='archive'` to `category='historical'`.
+Rename the existing `archive` category in the Vault category list to `historical` to avoid naming confusion with the Archive blueprint.
 
 Updated category list: `governing_documents`, `minutes`, `financial_records`, `notices`, `correspondence`, `forms`, `historical`.
+
+Update the `CATEGORIES` constant in `vault/services.py` and the `DocumentUploadForm` category choices. The promote form reuses the same constant.
+
+### Migration
+
+A single Alembic migration handles all schema changes:
+1. Add `access_tier` Enum column with default `member`
+2. Migrate data: `is_public=True` → `member`, `is_public=False` → `board`
+3. Drop `is_public` column
+4. Update `category='archive'` → `category='historical'`
+5. Add `can_access_arc` boolean to `roles` table with default `False`
 
 ### What Stays the Same
 
