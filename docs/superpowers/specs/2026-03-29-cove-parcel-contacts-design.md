@@ -1,7 +1,7 @@
 # Cove Parcel Contacts & Profile Tiles
 
 **Date:** 2026-03-29
-**Status:** Draft
+**Status:** Reviewed
 **Author:** SYD (dev agent) + Jeffe (product)
 
 ---
@@ -77,8 +77,11 @@ parcel_contacts
 
 **Constraints:**
 - Unique partial index: one `primary` contact_type per APN
-- Foreign key: `apn` → `parcels.apn` with cascade delete
+- Foreign key: `apn` → `parcels.apn` with cascade delete (parcel deletion is admin-only with audit logging; cascading contacts is acceptable since parcels represent real property and are effectively never deleted)
 - Index on `apn` for efficient lookups
+- `ContactType` and `ContactRelationship` are Python enums for code safety. The database columns are `String(20)` — no PostgreSQL ENUM types are created. This keeps the partial index filter (`contact_type = 'primary'`) working against plain string values.
+- Validation: `is_minor=True` cannot be combined with `contact_type=primary` (enforced at form and service level)
+- No direct `organization_id` column. Org resolution follows `apn → parcels.organization_id` (two-hop join), consistent with `ParcelProfile`. Org-level contact queries are not expected in this iteration.
 
 ### SQLAlchemy Model
 
@@ -136,14 +139,23 @@ contacts: Mapped[list["ParcelContact"]] = relationship(
 )
 ```
 
-**ParcelProfile** — drop `household_members` JSON column. Keep `pets` JSON, `share_household` toggle (repurposed to control contact tile visibility), and all other fields.
+**ParcelProfile** — drop `household_members` JSON column. Keep `pets` JSON, `share_household` toggle (repurposed to control contact tile visibility), and all other fields. Also:
+- Add missing `created_at` column (platform standard requires both timestamps; currently only has `updated_at`)
+- Update `parcel` relationship to use `Mapped["Parcel"]` typing for consistency with new model
 
 ### Migration
 
-Single Alembic migration:
+Two Alembic migrations (split to protect against data loss):
+
+**Migration 1:** Create table and migrate data
 1. Create `parcel_contacts` table with all columns and indexes
-2. Migrate `parcel_profiles.household_members` JSON data into `parcel_contacts` rows
-3. Drop `household_members` column from `parcel_profiles`
+2. Add `created_at` column to `parcel_profiles` (server_default `now()` for existing rows)
+3. Migrate `parcel_profiles.household_members` JSON data into `parcel_contacts` rows
+
+**Migration 2:** Drop old column (run after verifying migration 1)
+1. Drop `household_members` column from `parcel_profiles`
+
+Both migrations must remain fully transactional — no `autocommit` or `batch_alter_table`. Downgrade for migration 2 recreates the JSON column. Downgrade for migration 1 drops the `parcel_contacts` table and the `created_at` column.
 
 ---
 
@@ -161,7 +173,7 @@ Blueprint: `board_bp` (existing), new routes under `/board/parcels/<apn>/contact
 | POST | `/board/parcels/<apn>/contacts/<contact_id>/edit` | Update contact |
 | POST | `/board/parcels/<apn>/contacts/<contact_id>/delete` | Delete contact |
 
-All routes gated by `@login_required` + board/admin role check.
+All routes gated by `@login_required` + board/admin role check. The nested `/board/parcels/<apn>/contacts` pattern is an intentional evolution toward RESTful resource nesting under the board blueprint, distinct from the public-facing `parcels_bp` at `/parcels`.
 
 ### Parcel Profile Page
 
@@ -177,7 +189,7 @@ Replaces the current directory detail behavior. When a user clicks a row in the 
 
 ### Directory List Changes (`member/templates/member/directory.html`)
 
-**Sort order:** Primary sort by street name (alphabetical), secondary sort by street number (numeric, not lexicographic — so 5, 10, 25 not 10, 25, 5). Applied in the service layer query, not client-side.
+**Sort order:** Primary sort by street name (alphabetical), secondary sort by street number (numeric, not lexicographic — so 5, 10, 25 not 10, 25, 5). Applied in the service layer query using `Parcel.street` and a cast of the numeric prefix from `Parcel.address` (the existing `address_num` property extracts the number via regex; the query should use `func.cast(func.regexp_replace(Parcel.address, '[^0-9].*', '', 'g'), Integer)` for database-side sorting).
 
 **Avatar bubbles:** Currently show first initial of member name. Change to show the **street number** from the parcel address (e.g., "25", "101"). This identifies the property, which is the real identity in an HOA directory.
 
@@ -268,7 +280,7 @@ Board members see all tiles regardless of toggle state.
 |------|--------|
 | `cove/models/parcel_contact.py` | New — `ParcelContact` model, `ContactType` enum, `ContactRelationship` enum |
 | `cove/models/parcel.py` | Add `contacts` relationship |
-| `cove/models/parcel_profile.py` | Drop `household_members` column |
+| `cove/models/parcel_profile.py` | Drop `household_members` column, add `created_at`, fix relationship typing |
 | `cove/models/__init__.py` | Import `ParcelContact` |
 | `cove/board/routes.py` | Add contact CRUD routes |
 | `cove/board/forms.py` | Add `ParcelContactForm` |
@@ -277,7 +289,8 @@ Board members see all tiles regardless of toggle state.
 | `cove/member/services.py` | Update directory detail to include contacts |
 | `cove/member/templates/member/directory_profile.html` | New — tile-based APN profile page |
 | `cove/member/templates/member/directory.html` | Update sort order, avatar bubbles show street number |
-| `migrations/versions/xxx_add_parcel_contacts.py` | New — create table, migrate data, drop column |
+| `migrations/versions/xxx_add_parcel_contacts.py` | New — create table, migrate data, add created_at to parcel_profiles |
+| `migrations/versions/xxx_drop_household_members.py` | New — drop household_members column after verification |
 
 ---
 
