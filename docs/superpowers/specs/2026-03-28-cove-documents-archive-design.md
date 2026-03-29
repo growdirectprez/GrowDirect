@@ -20,47 +20,69 @@ Rename the Vault to **Community Documents**. Replace the `is_public` boolean wit
 |------|----------|----------|
 | `member` | All authenticated WPBCA members | CC&Rs, bylaws, meeting minutes, financial reports, Davis-Stirling required disclosures, FAQs, policy statements |
 | `arc` | ARC committee members + board directors | Architectural guidelines, ARC review templates, public-facing ARC informational documents |
-| `board` | Current directors only | Executive session notes, legal correspondence, vendor contracts, confidential board materials |
+| `board` | Current directors and admins | Executive session notes, legal correspondence, vendor contracts, confidential board materials |
 
 Access enforcement:
 - `member` tier: any authenticated member
-- `arc` tier: members with `can_access_arc` permission or board role
-- `board` tier: members with board role only
+- `arc` tier: members with `can_access_arc` permission, board role, or admin role
+- `board` tier: members with board or admin role
 
-Higher-privilege users see all tiers at or below their level (board sees everything, ARC sees member + ARC, members see member only).
+Higher-privilege users see all tiers at or below their level (board/admin sees everything, ARC sees member + ARC, members see member only).
+
+**Note on `is_public` removal:** The existing `is_public` flag was intended for unauthenticated public access. This design intentionally removes anonymous access — all documents require login. No documents currently served to the public internet lose availability; Davis-Stirling required disclosures are available to all authenticated members via the `member` tier.
 
 ### Data Model Changes
 
 **Document model:**
-- Add `access_tier` column: `String`, one of `member`, `board`, `arc`, default `member`
+- Add `access_tier` column: PostgreSQL Enum type `AccessTier` with values `member`, `arc`, `board`, default `member`
 - Drop `is_public` column
 - Migration: `is_public=True` maps to `member`, `is_public=False` maps to `board`
 
 **Role model:**
-- Add `can_access_arc` boolean permission flag alongside existing flags (`can_vote`, `can_manage_members`, etc.)
+- Add `can_access_arc: Mapped[bool]` permission flag alongside existing flags (`can_vote`, `can_manage_members`, etc.), default `False`
+
+**Member model:**
+- Add `is_arc` property (analogous to existing `is_board`, `is_admin`, `is_inspector`) that checks for any active role with `can_access_arc=True`
 
 No new models. No changes to `DocumentVersion`.
 
 ### Archive Access Gate
 
-All Archive routes (`/archive/*`) get an ARC/admin role check. Currently they only require `@login_required`. After this change, only users with `can_access_arc` or board role can access the Archive.
+The Archive splits into two access levels:
+
+**Member-accessible (read-only, as today):**
+- `/archive/` — narrative landing page
+- `/archive/timeline` — chronological history
+- `/archive/chain` — chain of title
+- `/archive/catalog` — document catalog (merged view of archive entries + live vault documents)
+
+These community history pages remain available to all authenticated members. They contain public historical context, not research materials.
+
+**ARC/admin-gated:**
+- `/archive/doc/<category>/<slug>` — individual document viewer (research documents)
+- `/archive/originals/<path:filepath>` — binary files
+- `/archive/data/<filename>` — CSV/JSON data files
+- `POST /archive/request/<path:filepath>` — request original document
+- Promote action (new, see below)
 
 The Archive remains filesystem-based. No database tables, no changes to the markdown + originals structure. The Archive is the research/dev sandbox workspace.
 
 ### Promote Action: Archive to Community Documents
 
-New feature on Archive document pages: a "Promote to Community Documents" button.
+New feature on Archive document pages (ARC/admin-gated routes only): a "Promote to Community Documents" button.
 
 **Flow:**
-1. User views an Archive document (markdown or original PDF/image)
+1. User views an Archive document (original PDF, image, or .docx)
 2. Clicks "Promote to Community Documents"
-3. Form appears: select access tier, category, title, optional description
-4. On submit: the file is copied from the Archive filesystem into Vault storage (UUID-named), a new `Document` + `DocumentVersion` record is created in the database
+3. `GET /archive/promote/<path:filepath>` renders a form: select access tier, category, title, optional description
+4. `POST /archive/promote/<path:filepath>` handles submission: copies the file from Archive filesystem into Vault storage (UUID-named), creates a new `Document` + `DocumentVersion` record in the database
 5. The Archive original stays untouched — this is an explicit copy, not a move
+
+**Embeddings:** Promoted documents do not get embeddings generated at promote time. Embedding generation is deferred to a background process or manual trigger, consistent with how the existing Vault handles uploads. The `embedding` column on Document is nullable.
 
 **Why copy, not link:** Archive content is local filesystem / dev sandbox material. Community Documents are database-tracked records that ship with QA/prod deployments. Keeping them separate means Archive files never accidentally leak into production builds.
 
-Only files in `/archive/originals/` can be promoted (binary files: PDFs, images). Markdown narrative documents are not promotable — they are research context, not standalone documents.
+**Promotable file types:** Files in `/archive/originals/` with extensions matching the existing `ALLOWED_EXTENSIONS` list (pdf, doc, docx, xls, xlsx, png, jpg, jpeg, gif, txt). Markdown narrative documents are not promotable — they are research context, not standalone documents.
 
 ### Route Changes
 
@@ -72,11 +94,19 @@ Only files in `/archive/originals/` can be promoted (binary files: PDFs, images)
   - Board members see: member + ARC + board tabs
 - Upload form: `access_tier` dropdown replaces `is_public` checkbox
 - Document detail page: tier badge displayed
+- All existing templates updated: `vault/upload.html` (dropdown), `vault/index.html` (tier tabs + filtering), `vault/document.html` (tier badge)
 
 **Archive blueprint:**
-- All routes gated to ARC/admin role
-- New route: `POST /archive/promote/<path:filepath>` — shows promote form, handles file copy + Document creation
+- Community pages remain member-accessible (narrative, timeline, chain, catalog)
+- Research/document pages gated to ARC/admin role
+- New routes: `GET/POST /archive/promote/<path:filepath>` — promote form and handler
 - Existing routes unchanged otherwise
+
+### Category Cleanup
+
+Rename the existing `archive` category in the Vault category list to `historical` to avoid naming confusion with the Archive blueprint. Migration updates existing documents with `category='archive'` to `category='historical'`.
+
+Updated category list: `governing_documents`, `minutes`, `financial_records`, `notices`, `correspondence`, `forms`, `historical`.
 
 ### What Stays the Same
 
@@ -84,7 +114,6 @@ Only files in `/archive/originals/` can be promoted (binary files: PDFs, images)
 - Document versioning in Community Documents
 - Semantic search / pgvector embeddings on Document model
 - Append-only policy (no delete routes)
-- Category system within Community Documents (`governing_documents`, `minutes`, `financial_records`, `notices`, `correspondence`, `forms`, `archive`)
 - Organization-scoped data access
 - Audit logging on uploads and promotions
 
@@ -106,3 +135,4 @@ Board-confidential materials (executive session records per Civil Code 4935) sta
 - OCR or text extraction from uploaded files
 - Document expiration or retention policies
 - Per-document access control (tier-based, not per-document ACLs)
+- Anonymous/unauthenticated public document access
