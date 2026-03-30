@@ -1,0 +1,370 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>The Team — GrowDirect Private Briefing</title>
+<style>
+@import url('https://fonts.googleapis.com/css2?family=Bebas+Neue&family=DM+Serif+Display:ital@0;1&family=DM+Sans:wght@300;400;500;600&family=Space+Mono:wght@400;700&display=swap');
+
+:root {
+  --btc: #F7931A;
+  --gold: #FBBF24;
+  --dark: #080808;
+  --dim: #111111;
+  --card: #141414;
+  --border: #1e1e1e;
+  --text: #E8E4DC;
+  --muted: #8a8a8a;
+  --faint: #222;
+  --green: #22C55E;
+  --red: #EF4444;
+}
+
+
+* { margin:0; padding:0; box-sizing:border-box; }
+html { scroll-behavior: smooth; }
+
+body {
+  background: var(--dark);
+  color: var(--text);
+  font-family: 'DM Sans', sans-serif;
+  font-weight: 300;
+  line-height: 1.7;
+  overflow-x: hidden;
+}
+
+/* Grain overlay */
+body::after {
+  content:'';
+  position:fixed;
+  inset:0;
+  pointer-events:none;
+  z-index:2;
+  opacity:0.02;
+  background-image:url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.85' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
+}
+
+/* Nav */
+nav {
+  position: fixed;
+  top: 0; left: 0; right: 0;
+  z-index: 100;
+  background: rgba(8,8,8,0.92);
+  backdrop-filter: blur(12px);
+  border-bottom: 1px solid var(--border);
+  padding: 0 48px;
+  height: 60px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.nav-logo {
+  font-family: 'Bebas Neue', sans-serif;
+  font-size: 22px;
+  letter-spacing: 0.12em;
+  background: linear-gradient(135deg, var(--btc), var(--gold));
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+  text-decoration: none;
+}
+
+.nav-links {
+  display: flex;
+  gap: 24px;
+  list-style: none;
+  flex-wrap: wrap;
+}
+
+.nav-links a {
+  font-family: 'Space Mono', monospace;
+  font-size: 10px;
+  color: var(--muted);
+  text-decoration: none;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  transition: color 0.2s;
+}
+
+.nav-links a:hover,
+.nav-links a.active { color: var(--gold); }
+
+/* Main content */
+main {
+  max-width: 960px;
+  margin: 0 auto;
+  padding: 100px 32px 80px;
+  position: relative;
+  z-index: 3;
+}
+
+/* Typography */
+h1 {
+  font-family: 'Bebas Neue', sans-serif;
+  font-size: 56px;
+  letter-spacing: 0.08em;
+  background: linear-gradient(135deg, var(--btc), var(--gold));
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+  margin-bottom: 16px;
+  line-height: 1.1;
+}
+
+h2 {
+  font-family: 'Bebas Neue', sans-serif;
+  font-size: 36px;
+  letter-spacing: 0.06em;
+  color: var(--gold);
+  margin-top: 48px;
+  margin-bottom: 16px;
+  padding-bottom: 8px;
+  border-bottom: 1px solid var(--border);
+}
+
+h3 {
+  font-family: 'DM Sans', sans-serif;
+  font-size: 20px;
+  font-weight: 600;
+  color: var(--text);
+  margin-top: 32px;
+  margin-bottom: 12px;
+}
+
+h4 {
+  font-family: 'Space Mono', monospace;
+  font-size: 12px;
+  letter-spacing: 0.15em;
+  text-transform: uppercase;
+  color: var(--btc);
+  margin-top: 24px;
+  margin-bottom: 8px;
+}
+
+p {
+  margin-bottom: 20px;
+  font-size: 16px;
+}
+
+a { color: var(--btc); text-decoration: none; transition: color 0.2s; }
+a:hover { color: var(--gold); }
+
+strong { font-weight: 600; color: var(--text); }
+em { font-style: italic; }
+
+/* Lists */
+ul, ol {
+  margin: 0 0 20px 24px;
+  font-size: 16px;
+}
+
+li {
+  margin-bottom: 8px;
+  line-height: 1.7;
+}
+
+/* Blockquote */
+blockquote {
+  border-left: 3px solid var(--btc);
+  padding: 20px 28px;
+  margin: 32px 0;
+  background: rgba(247,147,26,0.03);
+  font-family: 'DM Serif Display', serif;
+  font-style: italic;
+  font-size: 18px;
+  line-height: 1.6;
+  color: var(--text);
+}
+
+/* Code */
+code {
+  font-family: 'Space Mono', monospace;
+  font-size: 13px;
+  background: var(--dim);
+  padding: 2px 8px;
+  border-radius: 3px;
+  color: var(--btc);
+}
+
+pre {
+  background: var(--dim);
+  border: 1px solid var(--border);
+  border-radius: 6px;
+  padding: 20px 24px;
+  margin: 24px 0;
+  overflow-x: auto;
+}
+
+pre code {
+  background: none;
+  padding: 0;
+  font-size: 13px;
+  color: var(--text);
+  line-height: 1.6;
+}
+
+/* Tables */
+table {
+  width: 100%;
+  border-collapse: collapse;
+  margin: 24px 0;
+  font-size: 14px;
+}
+
+th {
+  font-family: 'Space Mono', monospace;
+  font-size: 10px;
+  letter-spacing: 0.15em;
+  text-transform: uppercase;
+  color: var(--btc);
+  text-align: left;
+  padding: 12px 16px;
+  border-bottom: 2px solid var(--border);
+  background: var(--dim);
+}
+
+td {
+  padding: 12px 16px;
+  border-bottom: 1px solid var(--border);
+  color: var(--text);
+}
+
+tr:hover td { background: rgba(247,147,26,0.02); }
+
+/* Cards */
+.card {
+  background: var(--card);
+  border: 1px solid var(--border);
+  border-radius: 8px;
+  padding: 28px;
+  margin: 20px 0;
+}
+
+/* Horizontal rule */
+hr {
+  border: none;
+  border-top: 1px solid var(--border);
+  margin: 48px 0;
+}
+
+/* Section label */
+.section-label {
+  font-family: 'Space Mono', monospace;
+  font-size: 10px;
+  letter-spacing: 0.25em;
+  text-transform: uppercase;
+  color: var(--muted);
+  margin-bottom: 8px;
+}
+
+/* Footer */
+footer {
+  max-width: 960px;
+  margin: 0 auto;
+  padding: 48px 32px;
+  border-top: 1px solid var(--border);
+  text-align: center;
+  position: relative;
+  z-index: 3;
+}
+
+footer p {
+  font-family: 'Space Mono', monospace;
+  font-size: 10px;
+  color: var(--muted);
+  letter-spacing: 0.15em;
+  text-transform: uppercase;
+  margin-bottom: 8px;
+}
+
+footer .version {
+  color: var(--btc);
+}
+
+/* Responsive */
+@media (max-width: 768px) {
+  nav { padding: 0 20px; height: 50px; }
+  .nav-links { gap: 12px; }
+  .nav-links a { font-size: 8px; }
+  main { padding: 80px 20px 60px; }
+  h1 { font-size: 36px; }
+  h2 { font-size: 28px; }
+}
+
+</style>
+</head>
+<body>
+<nav>
+  <a href="index.html" class="nav-logo">GROWDIRECT</a>
+  <ul class="nav-links">
+    <li><a href="the-pitch.html">The Pitch</a></li><li><a href="eljeffe.html">elJeffe</a></li><li><a href="the-economy.html">The Economy</a></li><li><a href="the-play.html">The Play</a></li><li><a href="the-product.html">The Product</a></li><li><a href="the-fox.html">The Fox</a></li><li><a href="the-goose.html">The Goose</a></li><li><a href="the-owl.html">The Owl</a></li><li><a href="investment-thesis.html">Investment Thesis</a></li><li><a href="the-architecture.html">The Architecture</a></li><li><a href="the-data-model.html">The Data Model</a></li><li><a href="how-we-build.html">How We Build</a></li><li><a href="the-team.html" class="active">The Team</a></li><li><a href="compliance.html">Compliance</a></li><li><a href="protection.html">Protection</a></li><li><a href="the-article.html">The Article</a></li>
+  </ul>
+</nav>
+<main>
+  <div class="section-label">13 — INVESTOR</div>
+  <h1>The Team</h1>
+  <h1>The Team</h1>
+<blockquote>
+<em>"Before the genesis block. And it is the basis for Canary."</em>
+</blockquote>
+<p>---</p>
+<h2>The Founder</h2>
+<p><strong>Geoffrey C. Lyle</strong> brings more than 30 years of enterprise retail technology experience to GrowDirect. His career traces a direct line from the systems that defined modern retail to the Bitcoin-native architecture that will replace them.</p>
+<h3>Career Arc</h3>
+<p>| Era | Role | Significance |
+|---|---|---|
+| <strong>Big Four Consulting</strong> | Enterprise retail management consultant at a predecessor firm | Trained by practitioners who invented the discipline — experiential retail strategy, format innovation, consumer behavior frameworks that are now industry standard |
+| <strong>Enterprise Systems</strong> | Systems integrator across Oracle retail stack — merchandising, financials, HR, mainframe integration | Participated in the US launch of a major international grocery chain's cashierless self-checkout format — a ~$1B build from whiteboard to 200 stores. The first cashierless self-checkout chain in the US. |
+| <strong>SaaS Pioneer</strong> | Co-founded the platform that held one of the largest private databases of retail transaction data in the industry | Built the LP case management, refund anomaly detection, executive analytics, and BOLO proximity network that are the direct ancestors of Canary's Fox, Chirp, Owl, and Fox BOLO modules |
+| <strong>Bitcoin</strong> | Miner, builder, infrastructure architect | The SHA-256 connection: the same cryptographic standard underlying enterprise security certifications is the foundation of the Bitcoin ledger. For someone who grew up around audit, this was not an intellectual leap — it was a homecoming. |
+| <strong>GrowDirect</strong> | Founder, CEO | Mission: give SMB retailers the enterprise-grade loss prevention infrastructure that only the largest chains have ever been able to afford — built Bitcoin-native from day one |</p>
+<h3>Enterprise Credentials</h3>
+<p>The founder's platform processed data across the world's largest retail operations:
+- Combined view across the two largest US and international retail data warehouses — simultaneously
+- The only person with the top-level global number
+- Covered most major US grocery chains and home improvement retail
+- SaaS platform deployed across 6,800+ convenience stores, home improvement, mass merchant, grocery, and specialty retail</p>
+<h3>The Human Element</h3>
+<p>Notable case: participated in a human trafficking investigation involving a major convenience store franchise network — one of the largest such investigations of its kind at the time. This is the origin of the conviction that loss prevention technology is not just about shrinkage. It is about people.</p>
+<p>---</p>
+<h2>The Organization</h2>
+<p>GrowDirect operates with a lean team structured around distinct competencies:</p>
+<p>| Function | Responsibility |
+|---|---|
+| <strong>Engineering</strong> | Full-stack development, API architecture, Bitcoin/Lightning integration, CI/CD pipeline |
+| <strong>Systems Architecture</strong> | Data model design, schema governance, CRDM stewardship |
+| <strong>Program Management</strong> | Sprint delivery, velocity tracking, gate enforcement, factory process |
+| <strong>Quality Assurance</strong> | Test plans, merchant facilitation, dry runs — QA veto is absolute |
+| <strong>UX & Creative</strong> | Wireframes, design system, visual validation, brand compliance |
+| <strong>Documentation</strong> | Companion guides, investor materials, brand compliance |
+| <strong>Legal</strong> | Contracts, IP protection, compliance review, patent strategy |
+| <strong>Research</strong> | IP review, research briefs, thesis development |
+| <strong>Lead Generation</strong> | Agent discoverability, SEO, marketplace positioning |</p>
+<h3>Operating Principles</h3>
+<p>1. <strong>Factory Process is the standard</strong> — no sprint starts without a spec, no story ships without QA sign-off
+2. <strong>Bitcoin-native is non-negotiable</strong> — every design decision assumes cryptographic proof
+3. <strong>Platform-agnostic from day one</strong> — canonical transaction schema before any second POS integration
+4. <strong>Open source is our positioning</strong> — transparency is the brand; expertise is the moat
+5. <strong>Do it right, do it once</strong> — no retrofitting certification requirements
+6. <strong>Simple for retail</strong> — if a store manager can't understand it, simplify
+7. <strong>Ship daily</strong> — something commits every day</p>
+<p>---</p>
+<h2>Why This Team</h2>
+<p>The competitive advantage is not the technology alone — it is the combination of enterprise retail provenance and Bitcoin-native architecture in the same founder. There is no other team that has:</p>
+<p>- Built and deployed the transaction data infrastructure for the world's largest retailers
+- Defined the canonical LP data model that Canary inherits
+- Operated a retail SaaS platform at enterprise scale
+- Understood Bitcoin as infrastructure (not ideology) since before the genesis block</p>
+<p>The founder has been here before. He knows what a proper factory looks like, what happens when it breaks down, and what it takes to build it right. Canary is the continuation.</p>
+<p>---</p>
+<p><em>GrowDirect Confidential</em>
+</p>
+</main>
+<footer>
+  <p>GrowDirect &middot; Canary LP &middot; Confidential &middot; February 27, 2026</p>
+  <p class="version">War Chest v2.1 &middot; Patent Pending — Provisional 63/991,596</p>
+</footer>
+</body>
+</html>

@@ -256,36 +256,47 @@ class MemoryStore:
         query: str,
         limit: int = 10,
         memory_type: Optional[str] = None,
+        layer: Optional[str] = None,
     ) -> dict[str, Any]:
-        """Semantic search with fallback chain: vector -> full-text -> ILIKE."""
+        """Semantic search with fallback chain: vector -> full-text -> ILIKE.
+
+        Args:
+            layer: Filter by memory layer (corp/canary/cove/shared).
+                   None returns all layers.
+        """
         embedding = get_embedding(query, self._config)
+
+        # Build optional filters
+        filters = []
+        filter_params: dict[str, Any] = {}
+        if memory_type:
+            filters.append("AND memory_type = :mtype")
+            filter_params["mtype"] = memory_type
+        if layer:
+            filters.append("AND layer = :layer")
+            filter_params["layer"] = layer
+        extra_where = " ".join(filters)
 
         with self._session() as db:
             # Tier 1: pgvector cosine similarity
             if embedding:
-                type_filter = "AND memory_type = :mtype" if memory_type else ""
                 rows = db.execute(
                     text(f"""
                         SELECT id, session_id, memory_type, content, metadata,
                                layer, created_at,
                                1 - (embedding <=> :embedding::vector) AS similarity
                         FROM alx_memories
-                        WHERE embedding IS NOT NULL {type_filter}
+                        WHERE embedding IS NOT NULL {extra_where}
                         ORDER BY embedding <=> :embedding::vector
                         LIMIT :limit
                     """),
-                    {
-                        "embedding": str(embedding),
-                        "limit": limit,
-                        **({"mtype": memory_type} if memory_type else {}),
-                    },
+                    {"embedding": str(embedding), "limit": limit, **filter_params},
                 ).fetchall()
 
                 if rows:
                     return self._format_recall_results(rows, "vector", query)
 
             # Tier 2: Full-text search
-            type_filter = "AND memory_type = :mtype" if memory_type else ""
             rows = db.execute(
                 text(f"""
                     SELECT id, session_id, memory_type, content, metadata,
@@ -294,15 +305,11 @@ class MemoryStore:
                                    plainto_tsquery('english', :query)) AS similarity
                     FROM alx_memories
                     WHERE to_tsvector('english', content) @@
-                          plainto_tsquery('english', :query) {type_filter}
+                          plainto_tsquery('english', :query) {extra_where}
                     ORDER BY similarity DESC
                     LIMIT :limit
                 """),
-                {
-                    "query": query,
-                    "limit": limit,
-                    **({"mtype": memory_type} if memory_type else {}),
-                },
+                {"query": query, "limit": limit, **filter_params},
             ).fetchall()
 
             if rows:
@@ -314,15 +321,11 @@ class MemoryStore:
                     SELECT id, session_id, memory_type, content, metadata,
                            layer, created_at, 0.0 AS similarity
                     FROM alx_memories
-                    WHERE content ILIKE :pattern {type_filter}
+                    WHERE content ILIKE :pattern {extra_where}
                     ORDER BY created_at DESC
                     LIMIT :limit
                 """),
-                {
-                    "pattern": f"%{query}%",
-                    "limit": limit,
-                    **({"mtype": memory_type} if memory_type else {}),
-                },
+                {"pattern": f"%{query}%", "limit": limit, **filter_params},
             ).fetchall()
 
             return self._format_recall_results(rows, "ilike", query)
@@ -355,9 +358,10 @@ class MemoryStore:
         session_id: Optional[str] = None,
         memory_type: Optional[str] = None,
         since: Optional[str] = None,
+        layer: Optional[str] = None,
         limit: int = 20,
     ) -> dict[str, Any]:
-        """Structured search by session, type, or date."""
+        """Structured search by session, type, date, or layer."""
         with self._session() as db:
             conditions = []
             params: dict[str, Any] = {"limit": limit}
@@ -371,12 +375,16 @@ class MemoryStore:
             if since:
                 conditions.append("created_at >= :since")
                 params["since"] = since
+            if layer:
+                conditions.append("layer = :layer")
+                params["layer"] = layer
 
             where_clause = f"WHERE {' AND '.join(conditions)}" if conditions else ""
 
             rows = db.execute(
                 text(f"""
-                    SELECT id, session_id, memory_type, content, metadata, created_at
+                    SELECT id, session_id, memory_type, content, metadata,
+                           layer, created_at
                     FROM alx_memories
                     {where_clause}
                     ORDER BY created_at DESC
@@ -392,7 +400,8 @@ class MemoryStore:
                     "memory_type": r[2],
                     "content": r[3],
                     "metadata": r[4] if isinstance(r[4], dict) else (json.loads(r[4]) if r[4] else {}),
-                    "created_at": r[5].isoformat() if r[5] else None,
+                    "layer": r[5],
+                    "created_at": r[6].isoformat() if r[6] else None,
                 }
                 for r in rows
             ]
@@ -404,6 +413,7 @@ class MemoryStore:
                     "session_id": session_id,
                     "memory_type": memory_type,
                     "since": since,
+                    "layer": layer,
                 },
             }
 

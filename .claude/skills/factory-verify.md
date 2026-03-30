@@ -1,3 +1,9 @@
+---
+name: factory-verify
+description: |
+  Full test suite execution and regression detection. Runs all tests, checks migration validity, confirms no regressions from assembly.
+---
+
 # factory-verify — Verification
 
 ## Run the full test suite

@@ -1,0 +1,247 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Data Sovereignty Stack — FIG. 4</title>
+<style>
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+  body { background: #0d1117; font-family: 'Segoe UI', system-ui, sans-serif; overflow-x: hidden; }
+  svg { display: block; margin: 0 auto; }
+</style>
+</head>
+<body>
+<svg viewBox="0 0 1000 1200" width="1000" height="1200" xmlns="http://www.w3.org/2000/svg">
+  <defs>
+    <marker id="arr-w" markerWidth="8" markerHeight="6" refX="8" refY="3" orient="auto"><path d="M0,0 L8,3 L0,6" fill="#555"/></marker>
+    <marker id="arr-g" markerWidth="8" markerHeight="6" refX="8" refY="3" orient="auto"><path d="M0,0 L8,3 L0,6" fill="#10b981"/></marker>
+    <marker id="arr-y" markerWidth="8" markerHeight="6" refX="8" refY="3" orient="auto"><path d="M0,0 L8,3 L0,6" fill="#f59e0b"/></marker>
+    <marker id="arr-r" markerWidth="8" markerHeight="6" refX="8" refY="3" orient="auto"><path d="M0,0 L8,3 L0,6" fill="#ef4444"/></marker>
+    <marker id="arr-b" markerWidth="8" markerHeight="6" refX="8" refY="3" orient="auto"><path d="M0,0 L8,3 L0,6" fill="#3b82f6"/></marker>
+    <marker id="arr-rup" markerWidth="8" markerHeight="6" refX="0" refY="3" orient="auto"><path d="M8,0 L0,3 L8,6" fill="#ef4444"/></marker>
+    <marker id="arr-gup" markerWidth="8" markerHeight="6" refX="0" refY="3" orient="auto"><path d="M8,0 L0,3 L8,6" fill="#10b981"/></marker>
+
+    <linearGradient id="bedrock" x1="0%" y1="0%" x2="0%" y2="100%">
+      <stop offset="0%" style="stop-color:#2a1a0a;stop-opacity:1"/>
+      <stop offset="100%" style="stop-color:#0d1117;stop-opacity:1"/>
+    </linearGradient>
+    <linearGradient id="l1-grad" x1="0%" y1="0%" x2="0%" y2="100%">
+      <stop offset="0%" style="stop-color:#0f2922;stop-opacity:1"/>
+      <stop offset="100%" style="stop-color:#0d1117;stop-opacity:1"/>
+    </linearGradient>
+    <linearGradient id="l2-grad" x1="0%" y1="0%" x2="0%" y2="100%">
+      <stop offset="0%" style="stop-color:#1a1a2e;stop-opacity:1"/>
+      <stop offset="100%" style="stop-color:#0d1117;stop-opacity:1"/>
+    </linearGradient>
+    <linearGradient id="app-grad" x1="0%" y1="0%" x2="0%" y2="100%">
+      <stop offset="0%" style="stop-color:#1e293b;stop-opacity:1"/>
+      <stop offset="100%" style="stop-color:#0d1117;stop-opacity:1"/>
+    </linearGradient>
+
+    <filter id="glow-btc">
+      <feGaussianBlur stdDeviation="4" result="blur"/>
+      <feMerge><feMergeNode in="blur"/><feMergeNode in="SourceGraphic"/></feMerge>
+    </filter>
+  </defs>
+
+  <!-- ═══ TITLE ═══ -->
+  <text x="500" y="38" text-anchor="middle" font-size="17" fill="#f0f0f0" font-weight="600" letter-spacing="1.5">DATA SOVEREIGNTY STACK</text>
+  <text x="500" y="58" text-anchor="middle" font-size="12" fill="#666" letter-spacing="0.5">.jeffe Outlives Postgres — Bitcoin Is the Ledger, Everything Else Is Cache</text>
+  <text x="500" y="78" text-anchor="middle" font-size="12" fill="#f59e0b" font-weight="600" letter-spacing="1">FIG. 4 — TRUST HIERARCHY</text>
+
+  <!-- ═══ LEFT AXIS — PERMANENCE SCALE ═══ -->
+  <line x1="70" y1="120" x2="70" y2="1020" stroke="#333" stroke-width="2"/>
+  <!-- Arrowhead up -->
+  <polygon points="64,120 76,120 70,108" fill="#333"/>
+  <text x="70" y="100" text-anchor="middle" font-size="10" fill="#666" font-weight="600" letter-spacing="1">PERMANENCE</text>
+
+  <!-- Scale labels -->
+  <text x="55" y="935" text-anchor="end" font-size="9" fill="#f59e0b" font-weight="600">∞</text>
+  <text x="55" y="700" text-anchor="end" font-size="9" fill="#10b981" font-weight="600">YEARS</text>
+  <text x="55" y="460" text-anchor="end" font-size="9" fill="#3b82f6" font-weight="600">DAYS</text>
+  <text x="55" y="250" text-anchor="end" font-size="9" fill="#8b5cf6" font-weight="600">HOURS</text>
+
+  <!-- Dotted scale lines -->
+  <line x1="80" y1="935" x2="920" y2="935" stroke="#333" stroke-width="0.5" stroke-dasharray="3,5"/>
+  <line x1="80" y1="700" x2="920" y2="700" stroke="#333" stroke-width="0.5" stroke-dasharray="3,5"/>
+  <line x1="80" y1="460" x2="920" y2="460" stroke="#333" stroke-width="0.5" stroke-dasharray="3,5"/>
+
+  <!-- ═══ RIGHT AXIS — QUERYABILITY ═══ -->
+  <line x1="930" y1="120" x2="930" y2="1020" stroke="#333" stroke-width="2"/>
+  <polygon points="924,120 936,120 930,108" fill="#333"/>
+  <text x="930" y="100" text-anchor="middle" font-size="10" fill="#666" font-weight="600" letter-spacing="1">QUERYABILITY</text>
+
+  <text x="945" y="250" text-anchor="start" font-size="9" fill="#8b5cf6" font-weight="600">HIGH</text>
+  <text x="945" y="460" text-anchor="start" font-size="9" fill="#3b82f6" font-weight="600">MEDIUM</text>
+  <text x="945" y="700" text-anchor="start" font-size="9" fill="#10b981" font-weight="600">LOW</text>
+  <text x="945" y="935" text-anchor="start" font-size="9" fill="#f59e0b" font-weight="600">VERIFY ONLY</text>
+
+  <!-- ═══ LAYER 4 (TOP): APPLICATION LAYER ═══ -->
+  <rect x="140" y="140" width="720" height="150" rx="14" fill="url(#app-grad)" stroke="#8b5cf6" stroke-width="2"/>
+  <rect x="152" y="144" width="60" height="18" rx="3" fill="#8b5cf6" opacity="0.25"/>
+  <text x="182" y="156" text-anchor="middle" font-size="9" fill="#a78bfa" font-weight="700">LAYER 4</text>
+
+  <text x="500" y="178" text-anchor="middle" font-size="16" fill="#a78bfa" font-weight="600">APPLICATION LAYER</text>
+  <text x="500" y="198" text-anchor="middle" font-size="11" fill="#888">Dashboard · Detection · API · Analytics</text>
+
+  <!-- App sub-boxes -->
+  <rect x="180" y="215" width="180" height="45" rx="6" fill="#0d1117" stroke="#8b5cf6" stroke-width="1" opacity="0.6"/>
+  <text x="270" y="237" text-anchor="middle" font-size="10" fill="#c4b5fd" font-weight="600">Detection Engine</text>
+  <text x="270" y="252" text-anchor="middle" font-size="9" fill="#666">Rules · Alerts · WebSocket</text>
+
+  <rect x="410" y="215" width="180" height="45" rx="6" fill="#0d1117" stroke="#8b5cf6" stroke-width="1" opacity="0.6"/>
+  <text x="500" y="237" text-anchor="middle" font-size="10" fill="#c4b5fd" font-weight="600">Merchant Dashboard</text>
+  <text x="500" y="252" text-anchor="middle" font-size="9" fill="#666">React · Queryable views</text>
+
+  <rect x="640" y="215" width="180" height="45" rx="6" fill="#0d1117" stroke="#f59e0b" stroke-width="1" opacity="0.6"/>
+  <text x="730" y="237" text-anchor="middle" font-size="10" fill="#fcd34d" font-weight="600">⚡ L402 Validation API</text>
+  <text x="730" y="252" text-anchor="middle" font-size="9" fill="#666">Sat-gated · Revenue</text>
+
+  <!-- Ephemeral badge -->
+  <rect x="780" y="147" width="70" height="18" rx="9" fill="#8b5cf6" opacity="0.15" stroke="#8b5cf6" stroke-width="1"/>
+  <text x="815" y="159" text-anchor="middle" font-size="9" fill="#c4b5fd" font-weight="600">EPHEMERAL</text>
+
+  <!-- Arrow: App → L2 -->
+  <line x1="500" y1="290" x2="500" y2="340" stroke="#555" stroke-width="1.5" marker-end="url(#arr-w)"/>
+  <text x="515" y="320" font-size="9" fill="#666">reads from ↓</text>
+
+  <!-- ═══ LAYER 3 (L2 INDEX): STRUCTURED STORE ═══ -->
+  <rect x="140" y="350" width="720" height="160" rx="14" fill="url(#l2-grad)" stroke="#3b82f6" stroke-width="2"/>
+  <rect x="152" y="354" width="90" height="18" rx="3" fill="#3b82f6" opacity="0.25"/>
+  <text x="197" y="366" text-anchor="middle" font-size="9" fill="#60a5fa" font-weight="700">L2 INDEX</text>
+
+  <text x="500" y="390" text-anchor="middle" font-size="16" fill="#60a5fa" font-weight="600">STRUCTURED STORE</text>
+  <text x="500" y="410" text-anchor="middle" font-size="11" fill="#888">PostgreSQL · Partitioned tables · Queryable · Indexed by merchant</text>
+
+  <!-- Properties -->
+  <rect x="180" y="425" width="200" height="60" rx="6" fill="#0d1117" stroke="#3b82f6" stroke-width="1" opacity="0.5"/>
+  <text x="280" y="445" text-anchor="middle" font-size="10" fill="#93c5fd" font-weight="600">Properties</text>
+  <text x="280" y="460" text-anchor="middle" font-size="9" fill="#888">Mutable · Enrichment allowed</text>
+  <text x="280" y="473" text-anchor="middle" font-size="9" fill="#888">Deletable · Schema-driven</text>
+
+  <!-- Rebuild source -->
+  <rect x="440" y="425" width="200" height="60" rx="6" fill="#0d1117" stroke="#10b981" stroke-width="1" stroke-dasharray="4,3" opacity="0.5"/>
+  <text x="540" y="445" text-anchor="middle" font-size="10" fill="#6ee7b7" font-weight="600">Rebuild Source</text>
+  <text x="540" y="460" text-anchor="middle" font-size="9" fill="#888">Replay from L1 Evidence Store</text>
+  <text x="540" y="473" text-anchor="middle" font-size="9" fill="#34d399">100% reconstructable ↑</text>
+
+  <!-- What dies with it -->
+  <rect x="700" y="425" width="140" height="60" rx="6" fill="#0d1117" stroke="#ef4444" stroke-width="1" opacity="0.3"/>
+  <text x="770" y="445" text-anchor="middle" font-size="10" fill="#fca5a5" font-weight="600">If This Dies</text>
+  <text x="770" y="460" text-anchor="middle" font-size="9" fill="#888">Lose: query speed</text>
+  <text x="770" y="473" text-anchor="middle" font-size="9" fill="#888">Keep: everything else</text>
+
+  <!-- CACHE badge -->
+  <rect x="780" y="357" width="70" height="18" rx="9" fill="#3b82f6" opacity="0.15" stroke="#3b82f6" stroke-width="1"/>
+  <text x="815" y="369" text-anchor="middle" font-size="9" fill="#93c5fd" font-weight="600">CACHE</text>
+
+  <!-- Arrow: L2 → L1 -->
+  <line x1="500" y1="510" x2="500" y2="560" stroke="#555" stroke-width="1.5" marker-end="url(#arr-w)"/>
+  <text x="515" y="540" font-size="9" fill="#666">derived from ↓</text>
+
+  <!-- Rebuild arrow (right side, going UP) -->
+  <path d="M 860 690 Q 890 610 860 530" fill="none" stroke="#10b981" stroke-width="2" stroke-dasharray="6,4" marker-end="url(#arr-gup)"/>
+  <text x="903" y="600" font-size="9" fill="#34d399" font-weight="600">replay</text>
+  <text x="903" y="614" font-size="9" fill="#34d399" font-weight="600">rebuild</text>
+
+  <!-- ═══ LAYER 2 (L1 INDEX): EVIDENCE STORE ═══ -->
+  <rect x="140" y="570" width="720" height="160" rx="14" fill="url(#l1-grad)" stroke="#10b981" stroke-width="2.5"/>
+  <rect x="152" y="574" width="90" height="18" rx="3" fill="#10b981" opacity="0.25"/>
+  <text x="197" y="586" text-anchor="middle" font-size="9" fill="#34d399" font-weight="700">L1 INDEX</text>
+
+  <text x="500" y="610" text-anchor="middle" font-size="16" fill="#34d399" font-weight="600">EVIDENCE STORE</text>
+  <text x="500" y="630" text-anchor="middle" font-size="11" fill="#888">PostgreSQL · Write-once JSONB · Append-only · SHA-256 hash chains</text>
+
+  <!-- Properties -->
+  <rect x="180" y="645" width="200" height="60" rx="6" fill="#0d1117" stroke="#10b981" stroke-width="1" opacity="0.5"/>
+  <text x="280" y="665" text-anchor="middle" font-size="10" fill="#6ee7b7" font-weight="600">Properties</text>
+  <text x="280" y="680" text-anchor="middle" font-size="9" fill="#888">Immutable · Never altered</text>
+  <text x="280" y="693" text-anchor="middle" font-size="9" fill="#888">Append-only · Hash-chained</text>
+
+  <!-- Rebuild source -->
+  <rect x="440" y="645" width="200" height="60" rx="6" fill="#0d1117" stroke="#ef4444" stroke-width="1" stroke-dasharray="4,3" opacity="0.5"/>
+  <text x="540" y="665" text-anchor="middle" font-size="10" fill="#fca5a5" font-weight="600">Rebuild Source</text>
+  <text x="540" y="680" text-anchor="middle" font-size="9" fill="#888">Re-index from Bitcoin inscriptions</text>
+  <text x="540" y="693" text-anchor="middle" font-size="9" fill="#ef4444">Merkle proofs → event hashes ↑</text>
+
+  <!-- What dies with it -->
+  <rect x="700" y="645" width="140" height="60" rx="6" fill="#0d1117" stroke="#ef4444" stroke-width="1" opacity="0.3"/>
+  <text x="770" y="665" text-anchor="middle" font-size="10" fill="#fca5a5" font-weight="600">If This Dies</text>
+  <text x="770" y="680" text-anchor="middle" font-size="9" fill="#888">Lose: fast hash lookup</text>
+  <text x="770" y="693" text-anchor="middle" font-size="9" fill="#888">Keep: Bitcoin proof</text>
+
+  <!-- IMMUTABLE badge -->
+  <rect x="768" y="577" width="82" height="18" rx="9" fill="#10b981" opacity="0.15" stroke="#10b981" stroke-width="1"/>
+  <text x="809" y="589" text-anchor="middle" font-size="9" fill="#6ee7b7" font-weight="600">IMMUTABLE</text>
+
+  <!-- Arrow: L1 → Bitcoin -->
+  <line x1="500" y1="730" x2="500" y2="785" stroke="#555" stroke-width="1.5" marker-end="url(#arr-w)"/>
+  <text x="515" y="763" font-size="9" fill="#666">anchored to ↓</text>
+
+  <!-- Rebuild arrow (right side, going UP from Bitcoin to L1) -->
+  <path d="M 860 910 Q 895 830 860 745" fill="none" stroke="#ef4444" stroke-width="2" stroke-dasharray="6,4" marker-end="url(#arr-rup)"/>
+  <text x="905" y="820" font-size="9" fill="#f87171" font-weight="600">re-index</text>
+  <text x="905" y="834" font-size="9" fill="#f87171" font-weight="600">from chain</text>
+
+  <!-- ═══ THICK SOVEREIGNTY LINE ═══ -->
+  <line x1="110" y1="790" x2="890" y2="790" stroke="#f59e0b" stroke-width="3" stroke-dasharray="12,6"/>
+  <rect x="360" y="778" width="280" height="24" rx="4" fill="#0d1117"/>
+  <text x="500" y="794" text-anchor="middle" font-size="11" fill="#f59e0b" font-weight="700" letter-spacing="1.5">▲ SOVEREIGNTY LINE ▲</text>
+  <text x="500" y="808" text-anchor="middle" font-size="9" fill="#f59e0b">Everything above this line is rebuildable. Below is permanent.</text>
+
+  <!-- ═══ LAYER 1 (BEDROCK): BITCOIN ═══ -->
+  <rect x="140" y="830" width="720" height="170" rx="14" fill="url(#bedrock)" stroke="#f59e0b" stroke-width="3"/>
+
+  <!-- Bitcoin glow circle -->
+  <circle cx="500" cy="915" r="50" fill="#f59e0b" opacity="0.04" filter="url(#glow-btc)"/>
+  <circle cx="500" cy="915" r="50" fill="none" stroke="#f59e0b" stroke-width="2" stroke-dasharray="4,3" opacity="0.5"/>
+
+  <rect x="152" y="834" width="100" height="18" rx="3" fill="#f59e0b" opacity="0.25"/>
+  <text x="202" y="846" text-anchor="middle" font-size="9" fill="#fbbf24" font-weight="700">BEDROCK</text>
+
+  <text x="500" y="870" text-anchor="middle" font-size="18" fill="#fbbf24" font-weight="600">₿ BITCOIN TIME CHAIN</text>
+  <text x="500" y="892" text-anchor="middle" font-size="11" fill="#888">Ordinal Inscriptions · Merkle Roots · .jeffe Namespace · Proof-of-Work</text>
+
+  <!-- Properties row -->
+  <rect x="180" y="910" width="160" height="55" rx="6" fill="#0d1117" stroke="#f59e0b" stroke-width="1" opacity="0.5"/>
+  <text x="260" y="930" text-anchor="middle" font-size="10" fill="#fcd34d" font-weight="600">Properties</text>
+  <text x="260" y="945" text-anchor="middle" font-size="9" fill="#888">Permanent · Immutable</text>
+  <text x="260" y="958" text-anchor="middle" font-size="9" fill="#888">Proof-of-Work secured</text>
+
+  <rect x="370" y="910" width="160" height="55" rx="6" fill="#0d1117" stroke="#f59e0b" stroke-width="1" opacity="0.5"/>
+  <text x="450" y="930" text-anchor="middle" font-size="10" fill="#fcd34d" font-weight="600">Survives</text>
+  <text x="450" y="945" text-anchor="middle" font-size="9" fill="#888">Server failure</text>
+  <text x="450" y="958" text-anchor="middle" font-size="9" fill="#888">Company failure</text>
+
+  <rect x="560" y="910" width="160" height="55" rx="6" fill="#0d1117" stroke="#f59e0b" stroke-width="1" opacity="0.5"/>
+  <text x="640" y="930" text-anchor="middle" font-size="10" fill="#fcd34d" font-weight="600">Contains</text>
+  <text x="640" y="945" text-anchor="middle" font-size="9" fill="#888">.jeffe namespace identity</text>
+  <text x="640" y="958" text-anchor="middle" font-size="9" fill="#888">Every Merkle root ever</text>
+
+  <!-- LEDGER badge -->
+  <rect x="780" y="837" width="70" height="18" rx="9" fill="#f59e0b" opacity="0.2" stroke="#f59e0b" stroke-width="1"/>
+  <text x="815" y="849" text-anchor="middle" font-size="9" fill="#fcd34d" font-weight="700">LEDGER</text>
+
+  <!-- ═══ BOTTOM: THE PRINCIPLE ═══ -->
+  <rect x="140" y="1040" width="720" height="70" rx="12" fill="none" stroke="#f59e0b" stroke-width="1.5" stroke-dasharray="6,4"/>
+  <rect x="140" y="1040" width="720" height="70" rx="12" fill="#f59e0b" opacity="0.03"/>
+  <text x="500" y="1068" text-anchor="middle" font-size="13" fill="#fbbf24" font-weight="600" letter-spacing="0.5">ARCHITECTURAL PRINCIPLE</text>
+  <text x="500" y="1088" text-anchor="middle" font-size="11" fill="#888">Bitcoin is the ledger. Postgres is the index. If chain and index disagree, chain wins. Always.</text>
+  <text x="500" y="1102" text-anchor="middle" font-size="11" fill="#f59e0b" font-weight="600">.jeffe outlives Postgres.</text>
+
+  <!-- ═══ LEGEND ═══ -->
+  <rect x="140" y="1130" width="720" height="40" rx="6" fill="#0d1117" stroke="#333" stroke-width="1"/>
+  <line x1="180" y1="1150" x2="210" y2="1150" stroke="#555" stroke-width="1.5"/>
+  <text x="220" y="1154" font-size="9" fill="#666">reads from</text>
+  <line x1="310" y1="1150" x2="340" y2="1150" stroke="#10b981" stroke-width="2" stroke-dasharray="6,4"/>
+  <text x="350" y="1154" font-size="9" fill="#34d399">replay/rebuild</text>
+  <line x1="460" y1="1150" x2="490" y2="1150" stroke="#ef4444" stroke-width="2" stroke-dasharray="6,4"/>
+  <text x="500" y="1154" font-size="9" fill="#f87171">re-index from chain</text>
+  <line x1="620" y1="1150" x2="650" y2="1150" stroke="#f59e0b" stroke-width="3" stroke-dasharray="12,6"/>
+  <text x="660" y="1154" font-size="9" fill="#f59e0b">sovereignty line</text>
+
+  <!-- Footer -->
+  <text x="500" y="1192" text-anchor="middle" font-size="9" fill="#444">APPLICATION 63/991,596 · Filed February 26, 2026 · PATENT PENDING · CONFIDENTIAL</text>
+</svg>
+</body>
+</html>

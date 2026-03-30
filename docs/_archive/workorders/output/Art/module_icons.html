@@ -1,0 +1,1108 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>GrowDirect/Canary Module Icons — Character System</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen', 'Ubuntu', 'Cantarell', sans-serif;
+            background: #0D1117;
+            color: #C9D1D9;
+            padding: 2rem;
+            line-height: 1.6;
+        }
+
+        .header {
+            max-width: 1200px;
+            margin: 0 auto 3rem;
+            border-bottom: 1px solid #30363D;
+            padding-bottom: 2rem;
+        }
+
+        .header h1 {
+            font-size: 2rem;
+            font-weight: 700;
+            color: #F0883E;
+            margin-bottom: 0.5rem;
+        }
+
+        .header p {
+            color: #8B949E;
+            font-size: 0.95rem;
+        }
+
+        .container {
+            max-width: 1400px;
+            margin: 0 auto;
+        }
+
+        .section {
+            margin-bottom: 4rem;
+        }
+
+        .section-title {
+            font-size: 1.25rem;
+            font-weight: 600;
+            color: #58A6FF;
+            margin-bottom: 2rem;
+            padding-bottom: 0.75rem;
+            border-bottom: 2px solid #30363D;
+        }
+
+        .icon-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(500px, 1fr));
+            gap: 3rem;
+            margin-bottom: 2rem;
+        }
+
+        .icon-card {
+            background: #161B22;
+            border: 1px solid #30363D;
+            border-radius: 8px;
+            padding: 2rem;
+            transition: all 0.3s ease;
+        }
+
+        .icon-card:hover {
+            border-color: #58A6FF;
+            box-shadow: 0 8px 24px rgba(88, 166, 255, 0.15);
+        }
+
+        .icon-card-header {
+            margin-bottom: 1.5rem;
+        }
+
+        .icon-name {
+            font-size: 1.3rem;
+            font-weight: 700;
+            color: #F0883E;
+            margin-bottom: 0.5rem;
+        }
+
+        .icon-module {
+            font-size: 0.85rem;
+            color: #8B949E;
+            font-weight: 500;
+        }
+
+        .color-code {
+            display: flex;
+            gap: 1rem;
+            margin-top: 0.75rem;
+        }
+
+        .color-swatch {
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+
+        .swatch-box {
+            width: 24px;
+            height: 24px;
+            border-radius: 4px;
+            border: 1px solid #30363D;
+        }
+
+        .swatch-label {
+            font-size: 0.75rem;
+            color: #8B949E;
+            font-family: 'Monaco', 'Menlo', monospace;
+        }
+
+        .icon-preview {
+            display: flex;
+            justify-content: space-around;
+            align-items: center;
+            background: #0D1117;
+            border-radius: 6px;
+            padding: 1.5rem 1rem;
+            margin-bottom: 1.5rem;
+            gap: 1rem;
+        }
+
+        .preview-size {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 0.5rem;
+        }
+
+        .preview-size svg {
+            display: block;
+        }
+
+        .size-label {
+            font-size: 0.7rem;
+            color: #8B949E;
+            font-family: 'Monaco', 'Menlo', monospace;
+            text-transform: uppercase;
+        }
+
+        .code-section {
+            margin-top: 1.5rem;
+        }
+
+        .code-label {
+            font-size: 0.75rem;
+            color: #8B949E;
+            text-transform: uppercase;
+            font-weight: 600;
+            margin-bottom: 0.5rem;
+            display: block;
+        }
+
+        .code-block {
+            background: #0D1117;
+            border: 1px solid #30363D;
+            border-radius: 4px;
+            padding: 1rem;
+            font-family: 'Monaco', 'Menlo', monospace;
+            font-size: 0.75rem;
+            overflow-x: auto;
+            position: relative;
+            max-height: 200px;
+            overflow-y: auto;
+        }
+
+        .code-block::-webkit-scrollbar {
+            width: 8px;
+            height: 8px;
+        }
+
+        .code-block::-webkit-scrollbar-track {
+            background: #161B22;
+        }
+
+        .code-block::-webkit-scrollbar-thumb {
+            background: #30363D;
+            border-radius: 4px;
+        }
+
+        .code-block::-webkit-scrollbar-thumb:hover {
+            background: #444C56;
+        }
+
+        .code-content {
+            color: #79C0FF;
+            white-space: pre-wrap;
+            word-break: break-word;
+        }
+
+        .copy-btn {
+            position: absolute;
+            top: 0.5rem;
+            right: 0.5rem;
+            background: #238636;
+            color: #fff;
+            border: none;
+            padding: 0.35rem 0.75rem;
+            border-radius: 4px;
+            font-size: 0.7rem;
+            cursor: pointer;
+            font-weight: 600;
+            transition: background 0.2s;
+            z-index: 10;
+        }
+
+        .copy-btn:hover {
+            background: #2EA043;
+        }
+
+        .tabbar-preview {
+            background: #161B22;
+            border: 1px solid #30363D;
+            border-radius: 8px;
+            padding: 2rem 1.5rem;
+            margin-top: 2rem;
+        }
+
+        .tabbar-preview h3 {
+            font-size: 0.9rem;
+            color: #8B949E;
+            text-transform: uppercase;
+            font-weight: 600;
+            margin-bottom: 1.5rem;
+        }
+
+        .tabbar-container {
+            display: flex;
+            justify-content: center;
+            gap: 2rem;
+            flex-wrap: wrap;
+        }
+
+        .tab-icon {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 0.5rem;
+            cursor: pointer;
+            transition: all 0.2s;
+        }
+
+        .tab-icon:hover {
+            transform: scale(1.1);
+        }
+
+        .tab-label {
+            font-size: 0.7rem;
+            color: #8B949E;
+            text-align: center;
+            max-width: 60px;
+            font-weight: 500;
+        }
+
+        .description-text {
+            color: #8B949E;
+            font-size: 0.9rem;
+            margin-top: 1rem;
+            font-style: italic;
+        }
+
+        footer {
+            max-width: 1200px;
+            margin: 4rem auto 0;
+            padding-top: 2rem;
+            border-top: 1px solid #30363D;
+            text-align: center;
+            color: #8B949E;
+            font-size: 0.85rem;
+        }
+
+        .note {
+            background: #0D1117;
+            border-left: 3px solid #58A6FF;
+            padding: 1rem;
+            margin: 1.5rem 0;
+            border-radius: 4px;
+            font-size: 0.9rem;
+        }
+    </style>
+</head>
+<body>
+    <div class="header">
+        <h1>GrowDirect/Canary Module Icons</h1>
+        <p>Character system for 6-module product interface. All icons share the Canary art style: warm, approachable, slightly stylized, recognizable across 24px–200px sizes.</p>
+    </div>
+
+    <div class="container">
+        <!-- SECTION 1: CANARY (Health Indicator) -->
+        <div class="section">
+            <div class="section-title">1. Canary — Health Status Indicator</div>
+            <div class="icon-grid">
+                <div class="icon-card">
+                    <div class="icon-card-header">
+                        <div class="icon-name">Canary</div>
+                        <div class="icon-module">Health Indicator / Primary Character</div>
+                        <div class="color-code">
+                            <div class="color-swatch">
+                                <div class="swatch-box" style="background: #F59E0B;"></div>
+                                <span class="swatch-label">#F59E0B (Primary)</span>
+                            </div>
+                            <div class="color-swatch">
+                                <div class="swatch-box" style="background: #D97706;"></div>
+                                <span class="swatch-label">#D97706 (Dark)</span>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="icon-preview">
+                        <div class="preview-size">
+                            <svg xmlns="http://www.w3.org/2000/svg" width="200" height="200" viewBox="0 0 100 100">
+                                <circle cx="42" cy="33" r="18" fill="#F59E0B"/>
+                                <ellipse cx="50" cy="58" rx="25" ry="19" fill="#F59E0B"/>
+                                <path d="M36 47 Q16 56 26 74 Q38 66 48 54 Z" fill="#D97706"/>
+                                <path d="M30 56 Q22 62 27 70" stroke="#B45309" stroke-width="1" fill="none" opacity="0.4"/>
+                                <circle cx="48" cy="30" r="4" fill="#0F1923"/>
+                                <circle cx="46.5" cy="28.8" r="1.5" fill="#F59E0B"/>
+                                <path d="M58 32 L70 27 L61 37 Z" fill="#EA580C"/>
+                                <path d="M28 66 Q12 78 18 88 Q28 80 36 72 Z" fill="#D97706"/>
+                                <path d="M73 22 Q80 18 83 26" stroke="#EF4444" stroke-width="2.8" fill="none" stroke-linecap="round"/>
+                                <path d="M78 14 Q87 9 91 20" stroke="#FBBF24" stroke-width="2" fill="none" stroke-linecap="round" opacity="0.85"/>
+                                <path d="M82 7 Q92 1 97 14" stroke="#3FB950" stroke-width="1.5" fill="none" stroke-linecap="round" opacity="0.6"/>
+                            </svg>
+                            <span class="size-label">200px</span>
+                        </div>
+
+                        <div class="preview-size">
+                            <svg xmlns="http://www.w3.org/2000/svg" width="48" height="48" viewBox="0 0 100 100">
+                                <circle cx="42" cy="33" r="18" fill="#F59E0B"/>
+                                <ellipse cx="50" cy="58" rx="25" ry="19" fill="#F59E0B"/>
+                                <path d="M36 47 Q16 56 26 74 Q38 66 48 54 Z" fill="#D97706"/>
+                                <path d="M30 56 Q22 62 27 70" stroke="#B45309" stroke-width="1" fill="none" opacity="0.4"/>
+                                <circle cx="48" cy="30" r="4" fill="#0F1923"/>
+                                <circle cx="46.5" cy="28.8" r="1.5" fill="#F59E0B"/>
+                                <path d="M58 32 L70 27 L61 37 Z" fill="#EA580C"/>
+                                <path d="M28 66 Q12 78 18 88 Q28 80 36 72 Z" fill="#D97706"/>
+                                <path d="M73 22 Q80 18 83 26" stroke="#EF4444" stroke-width="2.8" fill="none" stroke-linecap="round"/>
+                                <path d="M78 14 Q87 9 91 20" stroke="#FBBF24" stroke-width="2" fill="none" stroke-linecap="round" opacity="0.85"/>
+                                <path d="M82 7 Q92 1 97 14" stroke="#3FB950" stroke-width="1.5" fill="none" stroke-linecap="round" opacity="0.6"/>
+                            </svg>
+                            <span class="size-label">48px</span>
+                        </div>
+
+                        <div class="preview-size">
+                            <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 100 100">
+                                <circle cx="42" cy="33" r="18" fill="#F59E0B"/>
+                                <ellipse cx="50" cy="58" rx="25" ry="19" fill="#F59E0B"/>
+                                <path d="M36 47 Q16 56 26 74 Q38 66 48 54 Z" fill="#D97706"/>
+                                <path d="M30 56 Q22 62 27 70" stroke="#B45309" stroke-width="1" fill="none" opacity="0.4"/>
+                                <circle cx="48" cy="30" r="4" fill="#0F1923"/>
+                                <circle cx="46.5" cy="28.8" r="1.5" fill="#F59E0B"/>
+                                <path d="M58 32 L70 27 L61 37 Z" fill="#EA580C"/>
+                                <path d="M28 66 Q12 78 18 88 Q28 80 36 72 Z" fill="#D97706"/>
+                                <path d="M73 22 Q80 18 83 26" stroke="#EF4444" stroke-width="2.8" fill="none" stroke-linecap="round"/>
+                                <path d="M78 14 Q87 9 91 20" stroke="#FBBF24" stroke-width="2" fill="none" stroke-linecap="round" opacity="0.85"/>
+                                <path d="M82 7 Q92 1 97 14" stroke="#3FB950" stroke-width="1.5" fill="none" stroke-linecap="round" opacity="0.6"/>
+                            </svg>
+                            <span class="size-label">24px</span>
+                        </div>
+                    </div>
+
+                    <div class="description-text">
+                        Updated signature: chirp waves now show severity gradients. First wave (red) = critical, second wave (yellow) = warning, third wave (green) = healthy. The bird IS the health indicator.
+                    </div>
+
+                    <div class="code-section">
+                        <span class="code-label">SVG Code</span>
+                        <div class="code-block">
+                            <button class="copy-btn" onclick="copyToClipboard(this)">Copy</button>
+                            <code class="code-content">&lt;svg xmlns="http://www.w3.org/2000/svg" width="1024" height="1024" viewBox="0 0 100 100"&gt;
+    &lt;circle cx="42" cy="33" r="18" fill="#F59E0B"/&gt;
+    &lt;ellipse cx="50" cy="58" rx="25" ry="19" fill="#F59E0B"/&gt;
+    &lt;path d="M36 47 Q16 56 26 74 Q38 66 48 54 Z" fill="#D97706"/&gt;
+    &lt;path d="M30 56 Q22 62 27 70" stroke="#B45309" stroke-width="1" fill="none" opacity="0.4"/&gt;
+    &lt;circle cx="48" cy="30" r="4" fill="#0F1923"/&gt;
+    &lt;circle cx="46.5" cy="28.8" r="1.5" fill="#F59E0B"/&gt;
+    &lt;path d="M58 32 L70 27 L61 37 Z" fill="#EA580C"/&gt;
+    &lt;path d="M28 66 Q12 78 18 88 Q28 80 36 72 Z" fill="#D97706"/&gt;
+    &lt;path d="M73 22 Q80 18 83 26" stroke="#EF4444" stroke-width="2.8" fill="none" stroke-linecap="round"/&gt;
+    &lt;path d="M78 14 Q87 9 91 20" stroke="#FBBF24" stroke-width="2" fill="none" stroke-linecap="round" opacity="0.85"/&gt;
+    &lt;path d="M82 7 Q92 1 97 14" stroke="#3FB950" stroke-width="1.5" fill="none" stroke-linecap="round" opacity="0.6"/&gt;
+&lt;/svg&gt;</code>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- SECTION 2: OWL (Insights) -->
+        <div class="section">
+            <div class="section-title">2. Owl — Insights Module</div>
+            <div class="icon-grid">
+                <div class="icon-card">
+                    <div class="icon-card-header">
+                        <div class="icon-name">Owl</div>
+                        <div class="icon-module">Insights & Analytics</div>
+                        <div class="color-code">
+                            <div class="color-swatch">
+                                <div class="swatch-box" style="background: #8B5CF6;"></div>
+                                <span class="swatch-label">#8B5CF6 (Primary)</span>
+                            </div>
+                            <div class="color-swatch">
+                                <div class="swatch-box" style="background: #6D28D9;"></div>
+                                <span class="swatch-label">#6D28D9 (Dark)</span>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="icon-preview">
+                        <div class="preview-size">
+                            <svg xmlns="http://www.w3.org/2000/svg" width="200" height="200" viewBox="0 0 100 100">
+                                <ellipse cx="50" cy="55" rx="28" ry="32" fill="#8B5CF6"/>
+                                <circle cx="35" cy="42" r="10" fill="#1F1F2F"/>
+                                <circle cx="65" cy="42" r="10" fill="#1F1F2F"/>
+                                <circle cx="35" cy="42" r="6" fill="#C4B5FD"/>
+                                <circle cx="65" cy="42" r="6" fill="#C4B5FD"/>
+                                <circle cx="33" cy="40" r="2.5" fill="#8B5CF6"/>
+                                <circle cx="63" cy="40" r="2.5" fill="#8B5CF6"/>
+                                <path d="M28 22 Q24 18 22 26" fill="#6D28D9"/>
+                                <path d="M72 22 Q76 18 78 26" fill="#6D28D9"/>
+                                <path d="M48 62 L52 62 L50 68 Z" fill="#EA580C"/>
+                                <ellipse cx="50" cy="78" rx="8" ry="5" fill="#6D28D9" opacity="0.6"/>
+                                <path d="M45 85 Q45 90 50 90 Q55 90 55 85 Z" fill="#6D28D9" opacity="0.4"/>
+                                <path d="M42 70 Q38 72 40 78" stroke="#DDD6FE" stroke-width="1.5" fill="none" opacity="0.5"/>
+                                <path d="M58 70 Q62 72 60 78" stroke="#DDD6FE" stroke-width="1.5" fill="none" opacity="0.5"/>
+                            </svg>
+                            <span class="size-label">200px</span>
+                        </div>
+
+                        <div class="preview-size">
+                            <svg xmlns="http://www.w3.org/2000/svg" width="48" height="48" viewBox="0 0 100 100">
+                                <ellipse cx="50" cy="55" rx="28" ry="32" fill="#8B5CF6"/>
+                                <circle cx="35" cy="42" r="10" fill="#1F1F2F"/>
+                                <circle cx="65" cy="42" r="10" fill="#1F1F2F"/>
+                                <circle cx="35" cy="42" r="6" fill="#C4B5FD"/>
+                                <circle cx="65" cy="42" r="6" fill="#C4B5FD"/>
+                                <circle cx="33" cy="40" r="2.5" fill="#8B5CF6"/>
+                                <circle cx="63" cy="40" r="2.5" fill="#8B5CF6"/>
+                                <path d="M28 22 Q24 18 22 26" fill="#6D28D9"/>
+                                <path d="M72 22 Q76 18 78 26" fill="#6D28D9"/>
+                                <path d="M48 62 L52 62 L50 68 Z" fill="#EA580C"/>
+                                <ellipse cx="50" cy="78" rx="8" ry="5" fill="#6D28D9" opacity="0.6"/>
+                                <path d="M45 85 Q45 90 50 90 Q55 90 55 85 Z" fill="#6D28D9" opacity="0.4"/>
+                                <path d="M42 70 Q38 72 40 78" stroke="#DDD6FE" stroke-width="1.5" fill="none" opacity="0.5"/>
+                                <path d="M58 70 Q62 72 60 78" stroke="#DDD6FE" stroke-width="1.5" fill="none" opacity="0.5"/>
+                            </svg>
+                            <span class="size-label">48px</span>
+                        </div>
+
+                        <div class="preview-size">
+                            <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 100 100">
+                                <ellipse cx="50" cy="55" rx="28" ry="32" fill="#8B5CF6"/>
+                                <circle cx="35" cy="42" r="10" fill="#1F1F2F"/>
+                                <circle cx="65" cy="42" r="10" fill="#1F1F2F"/>
+                                <circle cx="35" cy="42" r="6" fill="#C4B5FD"/>
+                                <circle cx="65" cy="42" r="6" fill="#C4B5FD"/>
+                                <circle cx="33" cy="40" r="2.5" fill="#8B5CF6"/>
+                                <circle cx="63" cy="40" r="2.5" fill="#8B5CF6"/>
+                                <path d="M28 22 Q24 18 22 26" fill="#6D28D9"/>
+                                <path d="M72 22 Q76 18 78 26" fill="#6D28D9"/>
+                                <path d="M48 62 L52 62 L50 68 Z" fill="#EA580C"/>
+                                <ellipse cx="50" cy="78" rx="8" ry="5" fill="#6D28D9" opacity="0.6"/>
+                                <path d="M45 85 Q45 90 50 90 Q55 90 55 85 Z" fill="#6D28D9" opacity="0.4"/>
+                                <path d="M42 70 Q38 72 40 78" stroke="#DDD6FE" stroke-width="1.5" fill="none" opacity="0.5"/>
+                                <path d="M58 70 Q62 72 60 78" stroke="#DDD6FE" stroke-width="1.5" fill="none" opacity="0.5"/>
+                            </svg>
+                            <span class="size-label">24px</span>
+                        </div>
+                    </div>
+
+                    <div class="description-text">
+                        Wise owl with defining large round eyes and subtle ear tufts. Rounder, wider body posture sitting down. Pale eye highlights convey perception. Character feels thoughtful and observant.
+                    </div>
+
+                    <div class="code-section">
+                        <span class="code-label">SVG Code</span>
+                        <div class="code-block">
+                            <button class="copy-btn" onclick="copyToClipboard(this)">Copy</button>
+                            <code class="code-content">&lt;svg xmlns="http://www.w3.org/2000/svg" width="1024" height="1024" viewBox="0 0 100 100"&gt;
+    &lt;ellipse cx="50" cy="55" rx="28" ry="32" fill="#8B5CF6"/&gt;
+    &lt;circle cx="35" cy="42" r="10" fill="#1F1F2F"/&gt;
+    &lt;circle cx="65" cy="42" r="10" fill="#1F1F2F"/&gt;
+    &lt;circle cx="35" cy="42" r="6" fill="#C4B5FD"/&gt;
+    &lt;circle cx="65" cy="42" r="6" fill="#C4B5FD"/&gt;
+    &lt;circle cx="33" cy="40" r="2.5" fill="#8B5CF6"/&gt;
+    &lt;circle cx="63" cy="40" r="2.5" fill="#8B5CF6"/&gt;
+    &lt;path d="M28 22 Q24 18 22 26" fill="#6D28D9"/&gt;
+    &lt;path d="M72 22 Q76 18 78 26" fill="#6D28D9"/&gt;
+    &lt;path d="M48 62 L52 62 L50 68 Z" fill="#EA580C"/&gt;
+    &lt;ellipse cx="50" cy="78" rx="8" ry="5" fill="#6D28D9" opacity="0.6"/&gt;
+    &lt;path d="M45 85 Q45 90 50 90 Q55 90 55 85 Z" fill="#6D28D9" opacity="0.4"/&gt;
+    &lt;path d="M42 70 Q38 72 40 78" stroke="#DDD6FE" stroke-width="1.5" fill="none" opacity="0.5"/&gt;
+    &lt;path d="M58 70 Q62 72 60 78" stroke="#DDD6FE" stroke-width="1.5" fill="none" opacity="0.5"/&gt;
+&lt;/svg&gt;</code>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- SECTION 3: FOX (Investigate) -->
+        <div class="section">
+            <div class="section-title">3. Fox — Investigate Module</div>
+            <div class="icon-grid">
+                <div class="icon-card">
+                    <div class="icon-card-header">
+                        <div class="icon-name">Fox</div>
+                        <div class="icon-module">Investigate & Drill-Down</div>
+                        <div class="color-code">
+                            <div class="color-swatch">
+                                <div class="swatch-box" style="background: #F97316;"></div>
+                                <span class="swatch-label">#F97316 (Primary)</span>
+                            </div>
+                            <div class="color-swatch">
+                                <div class="swatch-box" style="background: #EA580C;"></div>
+                                <span class="swatch-label">#EA580C (Dark)</span>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="icon-preview">
+                        <div class="preview-size">
+                            <svg xmlns="http://www.w3.org/2000/svg" width="200" height="200" viewBox="0 0 100 100">
+                                <circle cx="45" cy="35" r="16" fill="#F97316"/>
+                                <ellipse cx="50" cy="58" rx="22" ry="20" fill="#F97316"/>
+                                <path d="M32 22 L26 12 L28 28 Z" fill="#F97316"/>
+                                <path d="M68 22 L74 12 L72 28 Z" fill="#F97316"/>
+                                <ellipse cx="52" cy="74" rx="28" ry="18" fill="#FED7AA" opacity="0.8"/>
+                                <path d="M50 65 Q30 70 22 90 Q35 82 50 75 Z" fill="#EA580C"/>
+                                <path d="M50 65 Q70 70 78 90 Q65 82 50 75 Z" fill="#EA580C"/>
+                                <path d="M48 88 Q40 92 45 98 Q50 95 52 88 Z" fill="#FED7AA"/>
+                                <circle cx="42" cy="33" r="3.5" fill="#0F1923"/>
+                                <circle cx="40.5" cy="31.5" r="1.2" fill="#F97316"/>
+                                <path d="M55 36 L63 33 L56 40 Z" fill="#EA580C"/>
+                                <path d="M42 48 Q35 52 38 58" stroke="#FED7AA" stroke-width="1" fill="none" opacity="0.6"/>
+                                <path d="M58 48 Q65 52 62 58" stroke="#FED7AA" stroke-width="1" fill="none" opacity="0.6"/>
+                            </svg>
+                            <span class="size-label">200px</span>
+                        </div>
+
+                        <div class="preview-size">
+                            <svg xmlns="http://www.w3.org/2000/svg" width="48" height="48" viewBox="0 0 100 100">
+                                <circle cx="45" cy="35" r="16" fill="#F97316"/>
+                                <ellipse cx="50" cy="58" rx="22" ry="20" fill="#F97316"/>
+                                <path d="M32 22 L26 12 L28 28 Z" fill="#F97316"/>
+                                <path d="M68 22 L74 12 L72 28 Z" fill="#F97316"/>
+                                <ellipse cx="52" cy="74" rx="28" ry="18" fill="#FED7AA" opacity="0.8"/>
+                                <path d="M50 65 Q30 70 22 90 Q35 82 50 75 Z" fill="#EA580C"/>
+                                <path d="M50 65 Q70 70 78 90 Q65 82 50 75 Z" fill="#EA580C"/>
+                                <path d="M48 88 Q40 92 45 98 Q50 95 52 88 Z" fill="#FED7AA"/>
+                                <circle cx="42" cy="33" r="3.5" fill="#0F1923"/>
+                                <circle cx="40.5" cy="31.5" r="1.2" fill="#F97316"/>
+                                <path d="M55 36 L63 33 L56 40 Z" fill="#EA580C"/>
+                                <path d="M42 48 Q35 52 38 58" stroke="#FED7AA" stroke-width="1" fill="none" opacity="0.6"/>
+                                <path d="M58 48 Q65 52 62 58" stroke="#FED7AA" stroke-width="1" fill="none" opacity="0.6"/>
+                            </svg>
+                            <span class="size-label">48px</span>
+                        </div>
+
+                        <div class="preview-size">
+                            <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 100 100">
+                                <circle cx="45" cy="35" r="16" fill="#F97316"/>
+                                <ellipse cx="50" cy="58" rx="22" ry="20" fill="#F97316"/>
+                                <path d="M32 22 L26 12 L28 28 Z" fill="#F97316"/>
+                                <path d="M68 22 L74 12 L72 28 Z" fill="#F97316"/>
+                                <ellipse cx="52" cy="74" rx="28" ry="18" fill="#FED7AA" opacity="0.8"/>
+                                <path d="M50 65 Q30 70 22 90 Q35 82 50 75 Z" fill="#EA580C"/>
+                                <path d="M50 65 Q70 70 78 90 Q65 82 50 75 Z" fill="#EA580C"/>
+                                <path d="M48 88 Q40 92 45 98 Q50 95 52 88 Z" fill="#FED7AA"/>
+                                <circle cx="42" cy="33" r="3.5" fill="#0F1923"/>
+                                <circle cx="40.5" cy="31.5" r="1.2" fill="#F97316"/>
+                                <path d="M55 36 L63 33 L56 40 Z" fill="#EA580C"/>
+                                <path d="M42 48 Q35 52 38 58" stroke="#FED7AA" stroke-width="1" fill="none" opacity="0.6"/>
+                                <path d="M58 48 Q65 52 62 58" stroke="#FED7AA" stroke-width="1" fill="none" opacity="0.6"/>
+                            </svg>
+                            <span class="size-label">24px</span>
+                        </div>
+                    </div>
+
+                    <div class="description-text">
+                        Alert fox with pointed perked-up ears, sharp angular features contrasting the round canary. Bushy tail curls up and back. White chest patch and light whiskers. Looks cunning and alert.
+                    </div>
+
+                    <div class="code-section">
+                        <span class="code-label">SVG Code</span>
+                        <div class="code-block">
+                            <button class="copy-btn" onclick="copyToClipboard(this)">Copy</button>
+                            <code class="code-content">&lt;svg xmlns="http://www.w3.org/2000/svg" width="1024" height="1024" viewBox="0 0 100 100"&gt;
+    &lt;circle cx="45" cy="35" r="16" fill="#F97316"/&gt;
+    &lt;ellipse cx="50" cy="58" rx="22" ry="20" fill="#F97316"/&gt;
+    &lt;path d="M32 22 L26 12 L28 28 Z" fill="#F97316"/&gt;
+    &lt;path d="M68 22 L74 12 L72 28 Z" fill="#F97316"/&gt;
+    &lt;ellipse cx="52" cy="74" rx="28" ry="18" fill="#FED7AA" opacity="0.8"/&gt;
+    &lt;path d="M50 65 Q30 70 22 90 Q35 82 50 75 Z" fill="#EA580C"/&gt;
+    &lt;path d="M50 65 Q70 70 78 90 Q65 82 50 75 Z" fill="#EA580C"/&gt;
+    &lt;path d="M48 88 Q40 92 45 98 Q50 95 52 88 Z" fill="#FED7AA"/&gt;
+    &lt;circle cx="42" cy="33" r="3.5" fill="#0F1923"/&gt;
+    &lt;circle cx="40.5" cy="31.5" r="1.2" fill="#F97316"/&gt;
+    &lt;path d="M55 36 L63 33 L56 40 Z" fill="#EA580C"/&gt;
+    &lt;path d="M42 48 Q35 52 38 58" stroke="#FED7AA" stroke-width="1" fill="none" opacity="0.6"/&gt;
+    &lt;path d="M58 48 Q65 52 62 58" stroke="#FED7AA" stroke-width="1" fill="none" opacity="0.6"/&gt;
+&lt;/svg&gt;</code>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- SECTION 4: BULL (Inventory) -->
+        <div class="section">
+            <div class="section-title">4. Bull — Inventory Module</div>
+            <div class="icon-grid">
+                <div class="icon-card">
+                    <div class="icon-card-header">
+                        <div class="icon-name">Bull</div>
+                        <div class="icon-module">Inventory & Stock</div>
+                        <div class="color-code">
+                            <div class="color-swatch">
+                                <div class="swatch-box" style="background: #22C55E;"></div>
+                                <span class="swatch-label">#22C55E (Primary)</span>
+                            </div>
+                            <div class="color-swatch">
+                                <div class="swatch-box" style="background: #16A34A;"></div>
+                                <span class="swatch-label">#16A34A (Dark)</span>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="icon-preview">
+                        <div class="preview-size">
+                            <svg xmlns="http://www.w3.org/2000/svg" width="200" height="200" viewBox="0 0 100 100">
+                                <circle cx="50" cy="40" r="17" fill="#22C55E"/>
+                                <ellipse cx="50" cy="62" rx="26" ry="24" fill="#22C55E"/>
+                                <path d="M35 28 Q30 18 32 26 Q28 20 24 28" fill="#16A34A"/>
+                                <path d="M65 28 Q70 18 68 26 Q72 20 76 28" fill="#16A34A"/>
+                                <path d="M42 70 L38 85 Q38 88 40 88 Q42 88 42 85 Z" fill="#16A34A"/>
+                                <path d="M58 70 L62 85 Q62 88 60 88 Q58 88 58 85 Z" fill="#16A34A"/>
+                                <circle cx="47" cy="38" r="3" fill="#0F1923"/>
+                                <circle cx="45.5" cy="36.5" r="1" fill="#22C55E"/>
+                                <path d="M52 42 L62 40 L54 48 Z" fill="#16A34A"/>
+                                <circle cx="50" cy="68" r="5" fill="#16A34A" opacity="0.6"/>
+                                <circle cx="50" cy="68" r="3" fill="#16A34A" opacity="0.3"/>
+                                <path d="M45 75 Q40 76 42 80" stroke="#86EFAC" stroke-width="1" fill="none" opacity="0.5"/>
+                                <path d="M55 75 Q60 76 58 80" stroke="#86EFAC" stroke-width="1" fill="none" opacity="0.5"/>
+                                <path d="M38 58 Q32 60 35 66" stroke="#86EFAC" stroke-width="1" fill="none" opacity="0.4"/>
+                                <path d="M62 58 Q68 60 65 66" stroke="#86EFAC" stroke-width="1" fill="none" opacity="0.4"/>
+                            </svg>
+                            <span class="size-label">200px</span>
+                        </div>
+
+                        <div class="preview-size">
+                            <svg xmlns="http://www.w3.org/2000/svg" width="48" height="48" viewBox="0 0 100 100">
+                                <circle cx="50" cy="40" r="17" fill="#22C55E"/>
+                                <ellipse cx="50" cy="62" rx="26" ry="24" fill="#22C55E"/>
+                                <path d="M35 28 Q30 18 32 26 Q28 20 24 28" fill="#16A34A"/>
+                                <path d="M65 28 Q70 18 68 26 Q72 20 76 28" fill="#16A34A"/>
+                                <path d="M42 70 L38 85 Q38 88 40 88 Q42 88 42 85 Z" fill="#16A34A"/>
+                                <path d="M58 70 L62 85 Q62 88 60 88 Q58 88 58 85 Z" fill="#16A34A"/>
+                                <circle cx="47" cy="38" r="3" fill="#0F1923"/>
+                                <circle cx="45.5" cy="36.5" r="1" fill="#22C55E"/>
+                                <path d="M52 42 L62 40 L54 48 Z" fill="#16A34A"/>
+                                <circle cx="50" cy="68" r="5" fill="#16A34A" opacity="0.6"/>
+                                <circle cx="50" cy="68" r="3" fill="#16A34A" opacity="0.3"/>
+                                <path d="M45 75 Q40 76 42 80" stroke="#86EFAC" stroke-width="1" fill="none" opacity="0.5"/>
+                                <path d="M55 75 Q60 76 58 80" stroke="#86EFAC" stroke-width="1" fill="none" opacity="0.5"/>
+                                <path d="M38 58 Q32 60 35 66" stroke="#86EFAC" stroke-width="1" fill="none" opacity="0.4"/>
+                                <path d="M62 58 Q68 60 65 66" stroke="#86EFAC" stroke-width="1" fill="none" opacity="0.4"/>
+                            </svg>
+                            <span class="size-label">48px</span>
+                        </div>
+
+                        <div class="preview-size">
+                            <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 100 100">
+                                <circle cx="50" cy="40" r="17" fill="#22C55E"/>
+                                <ellipse cx="50" cy="62" rx="26" ry="24" fill="#22C55E"/>
+                                <path d="M35 28 Q30 18 32 26 Q28 20 24 28" fill="#16A34A"/>
+                                <path d="M65 28 Q70 18 68 26 Q72 20 76 28" fill="#16A34A"/>
+                                <path d="M42 70 L38 85 Q38 88 40 88 Q42 88 42 85 Z" fill="#16A34A"/>
+                                <path d="M58 70 L62 85 Q62 88 60 88 Q58 88 58 85 Z" fill="#16A34A"/>
+                                <circle cx="47" cy="38" r="3" fill="#0F1923"/>
+                                <circle cx="45.5" cy="36.5" r="1" fill="#22C55E"/>
+                                <path d="M52 42 L62 40 L54 48 Z" fill="#16A34A"/>
+                                <circle cx="50" cy="68" r="5" fill="#16A34A" opacity="0.6"/>
+                                <circle cx="50" cy="68" r="3" fill="#16A34A" opacity="0.3"/>
+                                <path d="M45 75 Q40 76 42 80" stroke="#86EFAC" stroke-width="1" fill="none" opacity="0.5"/>
+                                <path d="M55 75 Q60 76 58 80" stroke="#86EFAC" stroke-width="1" fill="none" opacity="0.5"/>
+                                <path d="M38 58 Q32 60 35 66" stroke="#86EFAC" stroke-width="1" fill="none" opacity="0.4"/>
+                                <path d="M62 58 Q68 60 65 66" stroke="#86EFAC" stroke-width="1" fill="none" opacity="0.4"/>
+                            </svg>
+                            <span class="size-label">24px</span>
+                        </div>
+                    </div>
+
+                    <div class="description-text">
+                        Strong bull with signature curved horns, stocky body, and broad shoulders. Nose ring (small circle) adds personality. Solid, reliable posture represents dependable inventory tracking.
+                    </div>
+
+                    <div class="code-section">
+                        <span class="code-label">SVG Code</span>
+                        <div class="code-block">
+                            <button class="copy-btn" onclick="copyToClipboard(this)">Copy</button>
+                            <code class="code-content">&lt;svg xmlns="http://www.w3.org/2000/svg" width="1024" height="1024" viewBox="0 0 100 100"&gt;
+    &lt;circle cx="50" cy="40" r="17" fill="#22C55E"/&gt;
+    &lt;ellipse cx="50" cy="62" rx="26" ry="24" fill="#22C55E"/&gt;
+    &lt;path d="M35 28 Q30 18 32 26 Q28 20 24 28" fill="#16A34A"/&gt;
+    &lt;path d="M65 28 Q70 18 68 26 Q72 20 76 28" fill="#16A34A"/&gt;
+    &lt;path d="M42 70 L38 85 Q38 88 40 88 Q42 88 42 85 Z" fill="#16A34A"/&gt;
+    &lt;path d="M58 70 L62 85 Q62 88 60 88 Q58 88 58 85 Z" fill="#16A34A"/&gt;
+    &lt;circle cx="47" cy="38" r="3" fill="#0F1923"/&gt;
+    &lt;circle cx="45.5" cy="36.5" r="1" fill="#22C55E"/&gt;
+    &lt;path d="M52 42 L62 40 L54 48 Z" fill="#16A34A"/&gt;
+    &lt;circle cx="50" cy="68" r="5" fill="#16A34A" opacity="0.6"/&gt;
+    &lt;circle cx="50" cy="68" r="3" fill="#16A34A" opacity="0.3"/&gt;
+    &lt;path d="M45 75 Q40 76 42 80" stroke="#86EFAC" stroke-width="1" fill="none" opacity="0.5"/&gt;
+    &lt;path d="M55 75 Q60 76 58 80" stroke="#86EFAC" stroke-width="1" fill="none" opacity="0.5"/&gt;
+    &lt;path d="M38 58 Q32 60 35 66" stroke="#86EFAC" stroke-width="1" fill="none" opacity="0.4"/&gt;
+    &lt;path d="M62 58 Q68 60 65 66" stroke="#86EFAC" stroke-width="1" fill="none" opacity="0.4"/&gt;
+&lt;/svg&gt;</code>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- SECTION 5: ROOSTER (Daily Operations) -->
+        <div class="section">
+            <div class="section-title">5. Rooster — Daily Operations Module</div>
+            <div class="icon-grid">
+                <div class="icon-card">
+                    <div class="icon-card-header">
+                        <div class="icon-name">Rooster</div>
+                        <div class="icon-module">Daily Operations & Routine</div>
+                        <div class="color-code">
+                            <div class="color-swatch">
+                                <div class="swatch-box" style="background: #3B82F6;"></div>
+                                <span class="swatch-label">#3B82F6 (Primary)</span>
+                            </div>
+                            <div class="color-swatch">
+                                <div class="swatch-box" style="background: #2563EB;"></div>
+                                <span class="swatch-label">#2563EB (Dark)</span>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="icon-preview">
+                        <div class="preview-size">
+                            <svg xmlns="http://www.w3.org/2000/svg" width="200" height="200" viewBox="0 0 100 100">
+                                <circle cx="50" cy="45" r="16" fill="#3B82F6"/>
+                                <ellipse cx="50" cy="65" rx="24" ry="22" fill="#3B82F6"/>
+                                <path d="M48 24 L45 8 L50 20 L55 8 L52 24 Q50 28 48 24" fill="#EF4444"/>
+                                <path d="M35 70 Q20 72 18 85 Q30 78 38 72 Z" fill="#2563EB"/>
+                                <path d="M65 70 Q80 72 82 85 Q70 78 62 72 Z" fill="#2563EB"/>
+                                <path d="M40 80 Q32 88 35 96 Q45 90 50 84 Z" fill="#2563EB"/>
+                                <path d="M60 80 Q68 88 65 96 Q55 90 50 84 Z" fill="#2563EB"/>
+                                <circle cx="47" cy="43" r="3.5" fill="#0F1923"/>
+                                <circle cx="45.5" cy="41.5" r="1.2" fill="#3B82F6"/>
+                                <path d="M54 46 L64 43 L56 52 Z" fill="#2563EB"/>
+                                <path d="M46 60 Q40 64 43 70" stroke="#BFDBFE" stroke-width="1" fill="none" opacity="0.6"/>
+                                <path d="M54 60 Q60 64 57 70" stroke="#BFDBFE" stroke-width="1" fill="none" opacity="0.6"/>
+                                <path d="M48 50 Q45 54 48 58" stroke="#BFDBFE" stroke-width="0.8" fill="none" opacity="0.4"/>
+                                <path d="M52 50 Q55 54 52 58" stroke="#BFDBFE" stroke-width="0.8" fill="none" opacity="0.4"/>
+                            </svg>
+                            <span class="size-label">200px</span>
+                        </div>
+
+                        <div class="preview-size">
+                            <svg xmlns="http://www.w3.org/2000/svg" width="48" height="48" viewBox="0 0 100 100">
+                                <circle cx="50" cy="45" r="16" fill="#3B82F6"/>
+                                <ellipse cx="50" cy="65" rx="24" ry="22" fill="#3B82F6"/>
+                                <path d="M48 24 L45 8 L50 20 L55 8 L52 24 Q50 28 48 24" fill="#EF4444"/>
+                                <path d="M35 70 Q20 72 18 85 Q30 78 38 72 Z" fill="#2563EB"/>
+                                <path d="M65 70 Q80 72 82 85 Q70 78 62 72 Z" fill="#2563EB"/>
+                                <path d="M40 80 Q32 88 35 96 Q45 90 50 84 Z" fill="#2563EB"/>
+                                <path d="M60 80 Q68 88 65 96 Q55 90 50 84 Z" fill="#2563EB"/>
+                                <circle cx="47" cy="43" r="3.5" fill="#0F1923"/>
+                                <circle cx="45.5" cy="41.5" r="1.2" fill="#3B82F6"/>
+                                <path d="M54 46 L64 43 L56 52 Z" fill="#2563EB"/>
+                                <path d="M46 60 Q40 64 43 70" stroke="#BFDBFE" stroke-width="1" fill="none" opacity="0.6"/>
+                                <path d="M54 60 Q60 64 57 70" stroke="#BFDBFE" stroke-width="1" fill="none" opacity="0.6"/>
+                                <path d="M48 50 Q45 54 48 58" stroke="#BFDBFE" stroke-width="0.8" fill="none" opacity="0.4"/>
+                                <path d="M52 50 Q55 54 52 58" stroke="#BFDBFE" stroke-width="0.8" fill="none" opacity="0.4"/>
+                            </svg>
+                            <span class="size-label">48px</span>
+                        </div>
+
+                        <div class="preview-size">
+                            <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 100 100">
+                                <circle cx="50" cy="45" r="16" fill="#3B82F6"/>
+                                <ellipse cx="50" cy="65" rx="24" ry="22" fill="#3B82F6"/>
+                                <path d="M48 24 L45 8 L50 20 L55 8 L52 24 Q50 28 48 24" fill="#EF4444"/>
+                                <path d="M35 70 Q20 72 18 85 Q30 78 38 72 Z" fill="#2563EB"/>
+                                <path d="M65 70 Q80 72 82 85 Q70 78 62 72 Z" fill="#2563EB"/>
+                                <path d="M40 80 Q32 88 35 96 Q45 90 50 84 Z" fill="#2563EB"/>
+                                <path d="M60 80 Q68 88 65 96 Q55 90 50 84 Z" fill="#2563EB"/>
+                                <circle cx="47" cy="43" r="3.5" fill="#0F1923"/>
+                                <circle cx="45.5" cy="41.5" r="1.2" fill="#3B82F6"/>
+                                <path d="M54 46 L64 43 L56 52 Z" fill="#2563EB"/>
+                                <path d="M46 60 Q40 64 43 70" stroke="#BFDBFE" stroke-width="1" fill="none" opacity="0.6"/>
+                                <path d="M54 60 Q60 64 57 70" stroke="#BFDBFE" stroke-width="1" fill="none" opacity="0.6"/>
+                                <path d="M48 50 Q45 54 48 58" stroke="#BFDBFE" stroke-width="0.8" fill="none" opacity="0.4"/>
+                                <path d="M52 50 Q55 54 52 58" stroke="#BFDBFE" stroke-width="0.8" fill="none" opacity="0.4"/>
+                            </svg>
+                            <span class="size-label">24px</span>
+                        </div>
+                    </div>
+
+                    <div class="description-text">
+                        Proud rooster standing tall with prominent red comb/crest on top. Tail feathers arch up and back. Energetic posture ready for the morning. Represents daily routine and wake-up energy.
+                    </div>
+
+                    <div class="code-section">
+                        <span class="code-label">SVG Code</span>
+                        <div class="code-block">
+                            <button class="copy-btn" onclick="copyToClipboard(this)">Copy</button>
+                            <code class="code-content">&lt;svg xmlns="http://www.w3.org/2000/svg" width="1024" height="1024" viewBox="0 0 100 100"&gt;
+    &lt;circle cx="50" cy="45" r="16" fill="#3B82F6"/&gt;
+    &lt;ellipse cx="50" cy="65" rx="24" ry="22" fill="#3B82F6"/&gt;
+    &lt;path d="M48 24 L45 8 L50 20 L55 8 L52 24 Q50 28 48 24" fill="#EF4444"/&gt;
+    &lt;path d="M35 70 Q20 72 18 85 Q30 78 38 72 Z" fill="#2563EB"/&gt;
+    &lt;path d="M65 70 Q80 72 82 85 Q70 78 62 72 Z" fill="#2563EB"/&gt;
+    &lt;path d="M40 80 Q32 88 35 96 Q45 90 50 84 Z" fill="#2563EB"/&gt;
+    &lt;path d="M60 80 Q68 88 65 96 Q55 90 50 84 Z" fill="#2563EB"/&gt;
+    &lt;circle cx="47" cy="43" r="3.5" fill="#0F1923"/&gt;
+    &lt;circle cx="45.5" cy="41.5" r="1.2" fill="#3B82F6"/&gt;
+    &lt;path d="M54 46 L64 43 L56 52 Z" fill="#2563EB"/&gt;
+    &lt;path d="M46 60 Q40 64 43 70" stroke="#BFDBFE" stroke-width="1" fill="none" opacity="0.6"/&gt;
+    &lt;path d="M54 60 Q60 64 57 70" stroke="#BFDBFE" stroke-width="1" fill="none" opacity="0.6"/&gt;
+    &lt;path d="M48 50 Q45 54 48 58" stroke="#BFDBFE" stroke-width="0.8" fill="none" opacity="0.4"/&gt;
+    &lt;path d="M52 50 Q55 54 52 58" stroke="#BFDBFE" stroke-width="0.8" fill="none" opacity="0.4"/&gt;
+&lt;/svg&gt;</code>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- SECTION 6: GOOSE (Finance) -->
+        <div class="section">
+            <div class="section-title">6. Goose — Money & Finance Module</div>
+            <div class="icon-grid">
+                <div class="icon-card">
+                    <div class="icon-card-header">
+                        <div class="icon-name">Goose</div>
+                        <div class="icon-module">Money & Financial Flow</div>
+                        <div class="color-code">
+                            <div class="color-swatch">
+                                <div class="swatch-box" style="background: #10B981;"></div>
+                                <span class="swatch-label">#10B981 (Primary)</span>
+                            </div>
+                            <div class="color-swatch">
+                                <div class="swatch-box" style="background: #059669;"></div>
+                                <span class="swatch-label">#059669 (Dark)</span>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="icon-preview">
+                        <div class="preview-size">
+                            <svg xmlns="http://www.w3.org/2000/svg" width="200" height="200" viewBox="0 0 100 100">
+                                <circle cx="50" cy="32" r="14" fill="#10B981"/>
+                                <path d="M50 45 Q45 52 45 62 L55 62 Q55 52 50 45 Z" fill="#10B981"/>
+                                <ellipse cx="50" cy="72" rx="22" ry="18" fill="#10B981"/>
+                                <path d="M40 65 L32 48 Q30 42 35 40 Q40 42 42 50 Z" fill="#059669"/>
+                                <path d="M60 65 L68 48 Q70 42 65 40 Q60 42 58 50 Z" fill="#059669"/>
+                                <path d="M45 80 L40 92 Q38 95 42 96 Q45 94 46 88 Z" fill="#059669"/>
+                                <path d="M55 80 L60 92 Q62 95 58 96 Q55 94 54 88 Z" fill="#059669"/>
+                                <path d="M52 30 L60 26 L54 35 Z" fill="#F59E0B"/>
+                                <circle cx="48" cy="30" r="3" fill="#0F1923"/>
+                                <circle cx="46.5" cy="28.5" r="1" fill="#10B981"/>
+                                <path d="M35 65 Q28 70 32 78" stroke="#A7F3D0" stroke-width="1.5" fill="none" opacity="0.5"/>
+                                <path d="M65 65 Q72 70 68 78" stroke="#A7F3D0" stroke-width="1.5" fill="none" opacity="0.5"/>
+                                <ellipse cx="50" cy="85" rx="8" ry="4" fill="#059669" opacity="0.4"/>
+                            </svg>
+                            <span class="size-label">200px</span>
+                        </div>
+
+                        <div class="preview-size">
+                            <svg xmlns="http://www.w3.org/2000/svg" width="48" height="48" viewBox="0 0 100 100">
+                                <circle cx="50" cy="32" r="14" fill="#10B981"/>
+                                <path d="M50 45 Q45 52 45 62 L55 62 Q55 52 50 45 Z" fill="#10B981"/>
+                                <ellipse cx="50" cy="72" rx="22" ry="18" fill="#10B981"/>
+                                <path d="M40 65 L32 48 Q30 42 35 40 Q40 42 42 50 Z" fill="#059669"/>
+                                <path d="M60 65 L68 48 Q70 42 65 40 Q60 42 58 50 Z" fill="#059669"/>
+                                <path d="M45 80 L40 92 Q38 95 42 96 Q45 94 46 88 Z" fill="#059669"/>
+                                <path d="M55 80 L60 92 Q62 95 58 96 Q55 94 54 88 Z" fill="#059669"/>
+                                <path d="M52 30 L60 26 L54 35 Z" fill="#F59E0B"/>
+                                <circle cx="48" cy="30" r="3" fill="#0F1923"/>
+                                <circle cx="46.5" cy="28.5" r="1" fill="#10B981"/>
+                                <path d="M35 65 Q28 70 32 78" stroke="#A7F3D0" stroke-width="1.5" fill="none" opacity="0.5"/>
+                                <path d="M65 65 Q72 70 68 78" stroke="#A7F3D0" stroke-width="1.5" fill="none" opacity="0.5"/>
+                                <ellipse cx="50" cy="85" rx="8" ry="4" fill="#059669" opacity="0.4"/>
+                            </svg>
+                            <span class="size-label">48px</span>
+                        </div>
+
+                        <div class="preview-size">
+                            <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 100 100">
+                                <circle cx="50" cy="32" r="14" fill="#10B981"/>
+                                <path d="M50 45 Q45 52 45 62 L55 62 Q55 52 50 45 Z" fill="#10B981"/>
+                                <ellipse cx="50" cy="72" rx="22" ry="18" fill="#10B981"/>
+                                <path d="M40 65 L32 48 Q30 42 35 40 Q40 42 42 50 Z" fill="#059669"/>
+                                <path d="M60 65 L68 48 Q70 42 65 40 Q60 42 58 50 Z" fill="#059669"/>
+                                <path d="M45 80 L40 92 Q38 95 42 96 Q45 94 46 88 Z" fill="#059669"/>
+                                <path d="M55 80 L60 92 Q62 95 58 96 Q55 94 54 88 Z" fill="#059669"/>
+                                <path d="M52 30 L60 26 L54 35 Z" fill="#F59E0B"/>
+                                <circle cx="48" cy="30" r="3" fill="#0F1923"/>
+                                <circle cx="46.5" cy="28.5" r="1" fill="#10B981"/>
+                                <path d="M35 65 Q28 70 32 78" stroke="#A7F3D0" stroke-width="1.5" fill="none" opacity="0.5"/>
+                                <path d="M65 65 Q72 70 68 78" stroke="#A7F3D0" stroke-width="1.5" fill="none" opacity="0.5"/>
+                                <ellipse cx="50" cy="85" rx="8" ry="4" fill="#059669" opacity="0.4"/>
+                            </svg>
+                            <span class="size-label">24px</span>
+                        </div>
+                    </div>
+
+                    <div class="description-text">
+                        Elegant goose with signature long curved neck (the defining feature). Smooth body, folded wings. Orange/gold beak echoes the Canary. Graceful posture represents prosperous money flow.
+                    </div>
+
+                    <div class="code-section">
+                        <span class="code-label">SVG Code</span>
+                        <div class="code-block">
+                            <button class="copy-btn" onclick="copyToClipboard(this)">Copy</button>
+                            <code class="code-content">&lt;svg xmlns="http://www.w3.org/2000/svg" width="1024" height="1024" viewBox="0 0 100 100"&gt;
+    &lt;circle cx="50" cy="32" r="14" fill="#10B981"/&gt;
+    &lt;path d="M50 45 Q45 52 45 62 L55 62 Q55 52 50 45 Z" fill="#10B981"/&gt;
+    &lt;ellipse cx="50" cy="72" rx="22" ry="18" fill="#10B981"/&gt;
+    &lt;path d="M40 65 L32 48 Q30 42 35 40 Q40 42 42 50 Z" fill="#059669"/&gt;
+    &lt;path d="M60 65 L68 48 Q70 42 65 40 Q60 42 58 50 Z" fill="#059669"/&gt;
+    &lt;path d="M45 80 L40 92 Q38 95 42 96 Q45 94 46 88 Z" fill="#059669"/&gt;
+    &lt;path d="M55 80 L60 92 Q62 95 58 96 Q55 94 54 88 Z" fill="#059669"/&gt;
+    &lt;path d="M52 30 L60 26 L54 35 Z" fill="#F59E0B"/&gt;
+    &lt;circle cx="48" cy="30" r="3" fill="#0F1923"/&gt;
+    &lt;circle cx="46.5" cy="28.5" r="1" fill="#10B981"/&gt;
+    &lt;path d="M35 65 Q28 70 32 78" stroke="#A7F3D0" stroke-width="1.5" fill="none" opacity="0.5"/&gt;
+    &lt;path d="M65 65 Q72 70 68 78" stroke="#A7F3D0" stroke-width="1.5" fill="none" opacity="0.5"/&gt;
+    &lt;ellipse cx="50" cy="85" rx="8" ry="4" fill="#059669" opacity="0.4"/&gt;
+&lt;/svg&gt;</code>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- TABBAR PREVIEW SECTION -->
+        <div class="section">
+            <div class="section-title">Module Characters — Tabbar Preview (48px)</div>
+            <div class="tabbar-preview">
+                <h3>Simulated Tab Navigation</h3>
+                <div class="tabbar-container">
+                    <div class="tab-icon">
+                        <svg xmlns="http://www.w3.org/2000/svg" width="48" height="48" viewBox="0 0 100 100">
+                            <circle cx="42" cy="33" r="18" fill="#F59E0B"/>
+                            <ellipse cx="50" cy="58" rx="25" ry="19" fill="#F59E0B"/>
+                            <path d="M36 47 Q16 56 26 74 Q38 66 48 54 Z" fill="#D97706"/>
+                            <path d="M30 56 Q22 62 27 70" stroke="#B45309" stroke-width="1" fill="none" opacity="0.4"/>
+                            <circle cx="48" cy="30" r="4" fill="#0F1923"/>
+                            <circle cx="46.5" cy="28.8" r="1.5" fill="#F59E0B"/>
+                            <path d="M58 32 L70 27 L61 37 Z" fill="#EA580C"/>
+                            <path d="M28 66 Q12 78 18 88 Q28 80 36 72 Z" fill="#D97706"/>
+                            <path d="M73 22 Q80 18 83 26" stroke="#EF4444" stroke-width="2.8" fill="none" stroke-linecap="round"/>
+                            <path d="M78 14 Q87 9 91 20" stroke="#FBBF24" stroke-width="2" fill="none" stroke-linecap="round" opacity="0.85"/>
+                            <path d="M82 7 Q92 1 97 14" stroke="#3FB950" stroke-width="1.5" fill="none" stroke-linecap="round" opacity="0.6"/>
+                        </svg>
+                        <div class="tab-label">Health</div>
+                    </div>
+
+                    <div class="tab-icon">
+                        <svg xmlns="http://www.w3.org/2000/svg" width="48" height="48" viewBox="0 0 100 100">
+                            <ellipse cx="50" cy="55" rx="28" ry="32" fill="#8B5CF6"/>
+                            <circle cx="35" cy="42" r="10" fill="#1F1F2F"/>
+                            <circle cx="65" cy="42" r="10" fill="#1F1F2F"/>
+                            <circle cx="35" cy="42" r="6" fill="#C4B5FD"/>
+                            <circle cx="65" cy="42" r="6" fill="#C4B5FD"/>
+                            <circle cx="33" cy="40" r="2.5" fill="#8B5CF6"/>
+                            <circle cx="63" cy="40" r="2.5" fill="#8B5CF6"/>
+                            <path d="M28 22 Q24 18 22 26" fill="#6D28D9"/>
+                            <path d="M72 22 Q76 18 78 26" fill="#6D28D9"/>
+                            <path d="M48 62 L52 62 L50 68 Z" fill="#EA580C"/>
+                            <ellipse cx="50" cy="78" rx="8" ry="5" fill="#6D28D9" opacity="0.6"/>
+                            <path d="M45 85 Q45 90 50 90 Q55 90 55 85 Z" fill="#6D28D9" opacity="0.4"/>
+                            <path d="M42 70 Q38 72 40 78" stroke="#DDD6FE" stroke-width="1.5" fill="none" opacity="0.5"/>
+                            <path d="M58 70 Q62 72 60 78" stroke="#DDD6FE" stroke-width="1.5" fill="none" opacity="0.5"/>
+                        </svg>
+                        <div class="tab-label">Insights</div>
+                    </div>
+
+                    <div class="tab-icon">
+                        <svg xmlns="http://www.w3.org/2000/svg" width="48" height="48" viewBox="0 0 100 100">
+                            <circle cx="45" cy="35" r="16" fill="#F97316"/>
+                            <ellipse cx="50" cy="58" rx="22" ry="20" fill="#F97316"/>
+                            <path d="M32 22 L26 12 L28 28 Z" fill="#F97316"/>
+                            <path d="M68 22 L74 12 L72 28 Z" fill="#F97316"/>
+                            <ellipse cx="52" cy="74" rx="28" ry="18" fill="#FED7AA" opacity="0.8"/>
+                            <path d="M50 65 Q30 70 22 90 Q35 82 50 75 Z" fill="#EA580C"/>
+                            <path d="M50 65 Q70 70 78 90 Q65 82 50 75 Z" fill="#EA580C"/>
+                            <path d="M48 88 Q40 92 45 98 Q50 95 52 88 Z" fill="#FED7AA"/>
+                            <circle cx="42" cy="33" r="3.5" fill="#0F1923"/>
+                            <circle cx="40.5" cy="31.5" r="1.2" fill="#F97316"/>
+                            <path d="M55 36 L63 33 L56 40 Z" fill="#EA580C"/>
+                            <path d="M42 48 Q35 52 38 58" stroke="#FED7AA" stroke-width="1" fill="none" opacity="0.6"/>
+                            <path d="M58 48 Q65 52 62 58" stroke="#FED7AA" stroke-width="1" fill="none" opacity="0.6"/>
+                        </svg>
+                        <div class="tab-label">Investigate</div>
+                    </div>
+
+                    <div class="tab-icon">
+                        <svg xmlns="http://www.w3.org/2000/svg" width="48" height="48" viewBox="0 0 100 100">
+                            <circle cx="50" cy="40" r="17" fill="#22C55E"/>
+                            <ellipse cx="50" cy="62" rx="26" ry="24" fill="#22C55E"/>
+                            <path d="M35 28 Q30 18 32 26 Q28 20 24 28" fill="#16A34A"/>
+                            <path d="M65 28 Q70 18 68 26 Q72 20 76 28" fill="#16A34A"/>
+                            <path d="M42 70 L38 85 Q38 88 40 88 Q42 88 42 85 Z" fill="#16A34A"/>
+                            <path d="M58 70 L62 85 Q62 88 60 88 Q58 88 58 85 Z" fill="#16A34A"/>
+                            <circle cx="47" cy="38" r="3" fill="#0F1923"/>
+                            <circle cx="45.5" cy="36.5" r="1" fill="#22C55E"/>
+                            <path d="M52 42 L62 40 L54 48 Z" fill="#16A34A"/>
+                            <circle cx="50" cy="68" r="5" fill="#16A34A" opacity="0.6"/>
+                            <circle cx="50" cy="68" r="3" fill="#16A34A" opacity="0.3"/>
+                            <path d="M45 75 Q40 76 42 80" stroke="#86EFAC" stroke-width="1" fill="none" opacity="0.5"/>
+                            <path d="M55 75 Q60 76 58 80" stroke="#86EFAC" stroke-width="1" fill="none" opacity="0.5"/>
+                            <path d="M38 58 Q32 60 35 66" stroke="#86EFAC" stroke-width="1" fill="none" opacity="0.4"/>
+                            <path d="M62 58 Q68 60 65 66" stroke="#86EFAC" stroke-width="1" fill="none" opacity="0.4"/>
+                        </svg>
+                        <div class="tab-label">Inventory</div>
+                    </div>
+
+                    <div class="tab-icon">
+                        <svg xmlns="http://www.w3.org/2000/svg" width="48" height="48" viewBox="0 0 100 100">
+                            <circle cx="50" cy="45" r="16" fill="#3B82F6"/>
+                            <ellipse cx="50" cy="65" rx="24" ry="22" fill="#3B82F6"/>
+                            <path d="M48 24 L45 8 L50 20 L55 8 L52 24 Q50 28 48 24" fill="#EF4444"/>
+                            <path d="M35 70 Q20 72 18 85 Q30 78 38 72 Z" fill="#2563EB"/>
+                            <path d="M65 70 Q80 72 82 85 Q70 78 62 72 Z" fill="#2563EB"/>
+                            <path d="M40 80 Q32 88 35 96 Q45 90 50 84 Z" fill="#2563EB"/>
+                            <path d="M60 80 Q68 88 65 96 Q55 90 50 84 Z" fill="#2563EB"/>
+                            <circle cx="47" cy="43" r="3.5" fill="#0F1923"/>
+                            <circle cx="45.5" cy="41.5" r="1.2" fill="#3B82F6"/>
+                            <path d="M54 46 L64 43 L56 52 Z" fill="#2563EB"/>
+                            <path d="M46 60 Q40 64 43 70" stroke="#BFDBFE" stroke-width="1" fill="none" opacity="0.6"/>
+                            <path d="M54 60 Q60 64 57 70" stroke="#BFDBFE" stroke-width="1" fill="none" opacity="0.6"/>
+                            <path d="M48 50 Q45 54 48 58" stroke="#BFDBFE" stroke-width="0.8" fill="none" opacity="0.4"/>
+                            <path d="M52 50 Q55 54 52 58" stroke="#BFDBFE" stroke-width="0.8" fill="none" opacity="0.4"/>
+                        </svg>
+                        <div class="tab-label">Operations</div>
+                    </div>
+
+                    <div class="tab-icon">
+                        <svg xmlns="http://www.w3.org/2000/svg" width="48" height="48" viewBox="0 0 100 100">
+                            <circle cx="50" cy="32" r="14" fill="#10B981"/>
+                            <path d="M50 45 Q45 52 45 62 L55 62 Q55 52 50 45 Z" fill="#10B981"/>
+                            <ellipse cx="50" cy="72" rx="22" ry="18" fill="#10B981"/>
+                            <path d="M40 65 L32 48 Q30 42 35 40 Q40 42 42 50 Z" fill="#059669"/>
+                            <path d="M60 65 L68 48 Q70 42 65 40 Q60 42 58 50 Z" fill="#059669"/>
+                            <path d="M45 80 L40 92 Q38 95 42 96 Q45 94 46 88 Z" fill="#059669"/>
+                            <path d="M55 80 L60 92 Q62 95 58 96 Q55 94 54 88 Z" fill="#059669"/>
+                            <path d="M52 30 L60 26 L54 35 Z" fill="#F59E0B"/>
+                            <circle cx="48" cy="30" r="3" fill="#0F1923"/>
+                            <circle cx="46.5" cy="28.5" r="1" fill="#10B981"/>
+                            <path d="M35 65 Q28 70 32 78" stroke="#A7F3D0" stroke-width="1.5" fill="none" opacity="0.5"/>
+                            <path d="M65 65 Q72 70 68 78" stroke="#A7F3D0" stroke-width="1.5" fill="none" opacity="0.5"/>
+                            <ellipse cx="50" cy="85" rx="8" ry="4" fill="#059669" opacity="0.4"/>
+                        </svg>
+                        <div class="tab-label">Finance</div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="note">
+                <strong>Integration Tip:</strong> These icons are optimized for both light and dark interfaces. For dark themes (recommended for Canary), they maintain full vibrancy. On light backgrounds, consider adding a subtle drop shadow or outline to preserve clarity at small sizes.
+            </div>
+        </div>
+    </div>
+
+    <footer>
+        <p>GrowDirect / Canary LP Module Character System — Generated March 1, 2026</p>
+        <p style="margin-top: 0.5rem; font-size: 0.8rem;">All icons share the Canary art style. Warm, approachable, slightly stylized. Readable at 24px and 200px.</p>
+    </footer>
+
+    <script>
+        function copyToClipboard(button) {
+            const codeBlock = button.parentElement.querySelector('.code-content');
+            const text = codeBlock.textContent;
+
+            navigator.clipboard.writeText(text).then(() => {
+                const originalText = button.textContent;
+                button.textContent = 'Copied!';
+                button.style.background = '#238636';
+
+                setTimeout(() => {
+                    button.textContent = originalText;
+                }, 2000);
+            }).catch(() => {
+                alert('Failed to copy. Please try manually selecting and copying.');
+            });
+        }
+    </script>
+</body>
+</html>

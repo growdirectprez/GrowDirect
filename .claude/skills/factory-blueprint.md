@@ -1,3 +1,9 @@
+---
+name: factory-blueprint
+description: |
+  Plan writing for multi-step tasks. Produces architecture decisions, file structure tables, and numbered task lists with acceptance criteria.
+---
+
 # factory-blueprint — Plan Writing
 
 ## Pre-flight
@@ -68,8 +74,13 @@ List any protected files this plan touches:
 - [ ] No CDN links — JS/CSS via npm
 - [ ] CSS: component classes only, no raw utility chains
 
-## Save location
+## Document filing
 
-`~/GrowDirect/<App>/docs/plans/YYYY-MM-DD-<feature-name>.md`
+Plans are working documents — they live in the session, not filed permanently.
+If the plan produces lasting artifacts, file them per CLAUDE.md § Document Filing Rules:
+
+- **Architecture decisions** → `docs/decisions/YYYY-MM-DD-{title}.md`
+- **New or updated SDD** → `docs/sdds/{namespace}/{service}.md`
+- **Superseded docs** → `docs/_archive/YYYY-MM-DD-{name}.md`
 
 Get confirmation before moving to TDD.

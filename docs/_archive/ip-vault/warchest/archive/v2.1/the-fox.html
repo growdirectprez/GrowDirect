@@ -1,0 +1,414 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>The Fox — GrowDirect Private Briefing</title>
+<style>
+@import url('https://fonts.googleapis.com/css2?family=Bebas+Neue&family=DM+Serif+Display:ital@0;1&family=DM+Sans:wght@300;400;500;600&family=Space+Mono:wght@400;700&display=swap');
+
+:root {
+  --btc: #F7931A;
+  --gold: #FBBF24;
+  --dark: #080808;
+  --dim: #111111;
+  --card: #141414;
+  --border: #1e1e1e;
+  --text: #E8E4DC;
+  --muted: #8a8a8a;
+  --faint: #222;
+  --green: #22C55E;
+  --red: #EF4444;
+}
+
+
+* { margin:0; padding:0; box-sizing:border-box; }
+html { scroll-behavior: smooth; }
+
+body {
+  background: var(--dark);
+  color: var(--text);
+  font-family: 'DM Sans', sans-serif;
+  font-weight: 300;
+  line-height: 1.7;
+  overflow-x: hidden;
+}
+
+/* Grain overlay */
+body::after {
+  content:'';
+  position:fixed;
+  inset:0;
+  pointer-events:none;
+  z-index:2;
+  opacity:0.02;
+  background-image:url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.85' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
+}
+
+/* Nav */
+nav {
+  position: fixed;
+  top: 0; left: 0; right: 0;
+  z-index: 100;
+  background: rgba(8,8,8,0.92);
+  backdrop-filter: blur(12px);
+  border-bottom: 1px solid var(--border);
+  padding: 0 48px;
+  height: 60px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.nav-logo {
+  font-family: 'Bebas Neue', sans-serif;
+  font-size: 22px;
+  letter-spacing: 0.12em;
+  background: linear-gradient(135deg, var(--btc), var(--gold));
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+  text-decoration: none;
+}
+
+.nav-links {
+  display: flex;
+  gap: 24px;
+  list-style: none;
+  flex-wrap: wrap;
+}
+
+.nav-links a {
+  font-family: 'Space Mono', monospace;
+  font-size: 10px;
+  color: var(--muted);
+  text-decoration: none;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  transition: color 0.2s;
+}
+
+.nav-links a:hover,
+.nav-links a.active { color: var(--gold); }
+
+/* Main content */
+main {
+  max-width: 960px;
+  margin: 0 auto;
+  padding: 100px 32px 80px;
+  position: relative;
+  z-index: 3;
+}
+
+/* Typography */
+h1 {
+  font-family: 'Bebas Neue', sans-serif;
+  font-size: 56px;
+  letter-spacing: 0.08em;
+  background: linear-gradient(135deg, var(--btc), var(--gold));
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+  margin-bottom: 16px;
+  line-height: 1.1;
+}
+
+h2 {
+  font-family: 'Bebas Neue', sans-serif;
+  font-size: 36px;
+  letter-spacing: 0.06em;
+  color: var(--gold);
+  margin-top: 48px;
+  margin-bottom: 16px;
+  padding-bottom: 8px;
+  border-bottom: 1px solid var(--border);
+}
+
+h3 {
+  font-family: 'DM Sans', sans-serif;
+  font-size: 20px;
+  font-weight: 600;
+  color: var(--text);
+  margin-top: 32px;
+  margin-bottom: 12px;
+}
+
+h4 {
+  font-family: 'Space Mono', monospace;
+  font-size: 12px;
+  letter-spacing: 0.15em;
+  text-transform: uppercase;
+  color: var(--btc);
+  margin-top: 24px;
+  margin-bottom: 8px;
+}
+
+p {
+  margin-bottom: 20px;
+  font-size: 16px;
+}
+
+a { color: var(--btc); text-decoration: none; transition: color 0.2s; }
+a:hover { color: var(--gold); }
+
+strong { font-weight: 600; color: var(--text); }
+em { font-style: italic; }
+
+/* Lists */
+ul, ol {
+  margin: 0 0 20px 24px;
+  font-size: 16px;
+}
+
+li {
+  margin-bottom: 8px;
+  line-height: 1.7;
+}
+
+/* Blockquote */
+blockquote {
+  border-left: 3px solid var(--btc);
+  padding: 20px 28px;
+  margin: 32px 0;
+  background: rgba(247,147,26,0.03);
+  font-family: 'DM Serif Display', serif;
+  font-style: italic;
+  font-size: 18px;
+  line-height: 1.6;
+  color: var(--text);
+}
+
+/* Code */
+code {
+  font-family: 'Space Mono', monospace;
+  font-size: 13px;
+  background: var(--dim);
+  padding: 2px 8px;
+  border-radius: 3px;
+  color: var(--btc);
+}
+
+pre {
+  background: var(--dim);
+  border: 1px solid var(--border);
+  border-radius: 6px;
+  padding: 20px 24px;
+  margin: 24px 0;
+  overflow-x: auto;
+}
+
+pre code {
+  background: none;
+  padding: 0;
+  font-size: 13px;
+  color: var(--text);
+  line-height: 1.6;
+}
+
+/* Tables */
+table {
+  width: 100%;
+  border-collapse: collapse;
+  margin: 24px 0;
+  font-size: 14px;
+}
+
+th {
+  font-family: 'Space Mono', monospace;
+  font-size: 10px;
+  letter-spacing: 0.15em;
+  text-transform: uppercase;
+  color: var(--btc);
+  text-align: left;
+  padding: 12px 16px;
+  border-bottom: 2px solid var(--border);
+  background: var(--dim);
+}
+
+td {
+  padding: 12px 16px;
+  border-bottom: 1px solid var(--border);
+  color: var(--text);
+}
+
+tr:hover td { background: rgba(247,147,26,0.02); }
+
+/* Cards */
+.card {
+  background: var(--card);
+  border: 1px solid var(--border);
+  border-radius: 8px;
+  padding: 28px;
+  margin: 20px 0;
+}
+
+/* Horizontal rule */
+hr {
+  border: none;
+  border-top: 1px solid var(--border);
+  margin: 48px 0;
+}
+
+/* Section label */
+.section-label {
+  font-family: 'Space Mono', monospace;
+  font-size: 10px;
+  letter-spacing: 0.25em;
+  text-transform: uppercase;
+  color: var(--muted);
+  margin-bottom: 8px;
+}
+
+/* Footer */
+footer {
+  max-width: 960px;
+  margin: 0 auto;
+  padding: 48px 32px;
+  border-top: 1px solid var(--border);
+  text-align: center;
+  position: relative;
+  z-index: 3;
+}
+
+footer p {
+  font-family: 'Space Mono', monospace;
+  font-size: 10px;
+  color: var(--muted);
+  letter-spacing: 0.15em;
+  text-transform: uppercase;
+  margin-bottom: 8px;
+}
+
+footer .version {
+  color: var(--btc);
+}
+
+/* Responsive */
+@media (max-width: 768px) {
+  nav { padding: 0 20px; height: 50px; }
+  .nav-links { gap: 12px; }
+  .nav-links a { font-size: 8px; }
+  main { padding: 80px 20px 60px; }
+  h1 { font-size: 36px; }
+  h2 { font-size: 28px; }
+}
+
+</style>
+</head>
+<body>
+<nav>
+  <a href="index.html" class="nav-logo">GROWDIRECT</a>
+  <ul class="nav-links">
+    <li><a href="the-pitch.html">The Pitch</a></li><li><a href="eljeffe.html">elJeffe</a></li><li><a href="the-economy.html">The Economy</a></li><li><a href="the-play.html">The Play</a></li><li><a href="the-product.html">The Product</a></li><li><a href="the-fox.html" class="active">The Fox</a></li><li><a href="the-goose.html">The Goose</a></li><li><a href="the-owl.html">The Owl</a></li><li><a href="investment-thesis.html">Investment Thesis</a></li><li><a href="the-architecture.html">The Architecture</a></li><li><a href="the-data-model.html">The Data Model</a></li><li><a href="how-we-build.html">How We Build</a></li><li><a href="the-team.html">The Team</a></li><li><a href="compliance.html">Compliance</a></li><li><a href="protection.html">Protection</a></li><li><a href="the-article.html">The Article</a></li>
+  </ul>
+</nav>
+<main>
+  <div class="section-label">06 — INVESTOR</div>
+  <h1>The Fox</h1>
+  <h1>The Fox — Case Management</h1>
+<blockquote>
+"Catch them. Track them. Build the case. Close the loop."
+</blockquote>
+<p>---</p>
+<h2>Overview</h2>
+<p>The Fox is Canary's case management module — the place where alerts become investigations, investigations become evidence, and evidence becomes action. When Canary chirps, Owl flags, or Goose detects a crypto anomaly, Fox auto-creates a case file and starts building the record.</p>
+<p>Right now, small retailers catch a thief and... nothing. They ban the person, maybe call the cops, and hope it doesn't happen again. There's no system of record, no pattern tracking, no way to know if the same person hit three of your franchise locations last month.</p>
+<p>Fox fixes that. Every incident gets a case. Every case gets a timeline, evidence locker, loss calculation, and action queue. Over time, Fox builds a rap sheet for every bad actor — employees, customers, vendors — and surfaces patterns that no single-store owner would ever see on their own.</p>
+<p>---</p>
+<h2>Core Features</h2>
+<h3>Subject Profiles</h3>
+- Auto-populated from Canary/Owl data: name, employee ID, transaction history, alert history
+- Photo attachment capability (from CCTV stills or uploaded images)
+- Contact details, social profiles, and known associates (for organized retail crime tracking)
+- Cross-location linking: same subject flagged at multiple franchise locations gets a unified profile</p>
+<h3>Incident Detail</h3>
+- What was stolen/frauded: item, quantity, SKU, serial number, dollar amount
+- When: timestamp, shift, day of week pattern
+- Where: location, register, camera zone
+- How: method (refund abuse, void manipulation, sweethearting, inventory ghost, crypto wash)
+- Evidence: receipt data, transaction logs, alert metadata — auto-attached from Canary</p>
+<h3>Loss Calculator</h3>
+- Auto-calculates total loss per case: retail price + cost of goods + shrinkage impact + recovery costs
+- Aggregates across cases for total exposure per subject, per location, per time period
+- Tags severity: Minor (under $100), Significant ($100-$1,000), Critical ($1,000+), Organized (multi-location/multi-subject)</p>
+<h3>Evidence Locker</h3>
+- Encrypted file storage for photos, video clips, receipts, voice notes, written statements
+- Chain of custody tracking: who uploaded, when, who accessed
+- Admin-only visibility — RBAC-locked so only authorized roles can view sensitive evidence
+- Exportable evidence package for law enforcement or legal proceedings</p>
+<h3>Action Queue</h3>
+- Configurable action templates per case type:
+  - Report to law enforcement (with pre-formatted incident report)
+  - Issue trespass notice / ban from store
+  - Terminate employee (with HR documentation trail)
+  - Blacklist from merchant network (shared across franchise locations)
+  - Escalate to corporate LP team
+  - File insurance claim
+  - Refer to legal counsel
+- Status tracking: Open, Under Investigation, Action Taken, Closed, Referred</p>
+<h3>Timeline & Rap Sheet</h3>
+- Chronological record of every interaction with a subject across all locations
+- Every refund, every void, every alert, every return — builds a complete behavioral history
+- Pattern visualization: frequency charts, escalation trends, time-of-day heatmaps
+- Recidivism tracking: "This subject has been flagged 4 times in 60 days across 3 locations"</p>
+<h3>AI Threat Scoring</h3>
+- Owl-powered threat level (1-10) based on behavioral patterns, frequency, and financial impact
+- Score of 7+ auto-escalates for manager review
+- Score of 9+ auto-generates law enforcement referral package
+- Predictive: "Based on pattern, subject likely to strike Location #4 within 2 weeks"</p>
+<p>---</p>
+<h2>Why It Wins</h2>
+<p>- <strong>Closes the loop</strong> — alerts without case management are just noise. Fox turns detection into action
+- <strong>Franchise power</strong> — corporate sees all cases across all locations. Pattern emerges that no single store would see
+- <strong>Legal readiness</strong> — proper evidence chain and documentation makes prosecution viable for cases that used to be write-offs
+- <strong>Network effect</strong> — shared blacklists and subject profiles across the merchant network make every store safer
+- <strong>Retention driver</strong> — once a merchant has case history in Fox, switching costs are high. It's the stickiest module in the stack</p>
+<p>---</p>
+<h2>Tech Stack</h2>
+<p>| Component | Technology |
+|---|---|
+| Backend | Flask Blueprint, integrated with Canary's existing auth/RBAC |
+| Database | PostgreSQL — cases, subjects, evidence metadata, action logs |
+| File Storage | Encrypted blob storage for evidence files (S3-compatible, with at-rest encryption) |
+| Search | Full-text search across cases, subjects, and evidence notes |
+| Export | PDF case reports, CSV bulk export, JSON API for enterprise integrations |
+| Auth | Role-gated: Viewer sees case status, Analyst sees details, Manager resolves, Admin manages evidence |</p>
+<p>---</p>
+<h2>Roadmap</h2>
+<p>| Phase | Timeline | Deliverables |
+|---|---|---|
+| <strong>Alpha</strong> | Q2 2026 | Basic case CRUD. Auto-create from Canary alerts. Subject profiles. Loss calculator |
+| <strong>Beta</strong> | Q3 2026 | Evidence locker (encrypted). Action queue. PDF export for law enforcement |
+| <strong>v1.0</strong> | Q4 2026 | Owl threat scoring integration. Cross-location subject linking. Franchise dashboard |
+| <strong>v1.5</strong> | Q1 2027 | Network-wide blacklists. Predictive recidivism. API for enterprise LP systems |</p>
+<p>---</p>
+<h2>RBAC Permissions</h2>
+<p>| Capability | Viewer | Analyst | Manager | Admin |
+|---|---|---|---|---|
+| View case list | Yes | Yes | Yes | Yes |
+| View case details | — | Yes | Yes | Yes |
+| Create cases manually | — | Yes | Yes | Yes |
+| Resolve / close cases | — | — | Yes | Yes |
+| Access evidence locker | — | — | Yes | Yes |
+| Manage subjects | — | — | Yes | Yes |
+| Export case reports | — | Yes | Yes | Yes |
+| Delete cases | — | — | — | Yes |
+| Configure action templates | — | — | — | Yes |</p>
+<p>---</p>
+<h2>Integration Points</h2>
+<p>| Module | How Fox Connects |
+|---|---|
+| <strong>Canary</strong> | Auto-creates case when alert severity hits threshold. Links transaction data as evidence |
+| <strong>Owl</strong> | Receives threat scores per subject. Gets pattern analysis for case enrichment |
+| <strong>Goose</strong> | Crypto fraud cases auto-created when Goose detects wash trading or suspicious Lightning activity |</p>
+<p>---</p>
+<p><em>Version: 1.0 — February 2026</em>
+<em>GrowDirect Confidential</em>
+</p>
+</main>
+<footer>
+  <p>GrowDirect &middot; Canary LP &middot; Confidential &middot; February 27, 2026</p>
+  <p class="version">War Chest v2.1 &middot; Patent Pending — Provisional 63/991,596</p>
+</footer>
+</body>
+</html>

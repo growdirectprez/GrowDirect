@@ -1,0 +1,848 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>The Symbiosis: Bitcoin L1 & Avalanche L2</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Space+Grotesk:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+            background: #0d1117;
+            color: #e0e0e0;
+            overflow-x: hidden;
+            padding: 40px 20px;
+            min-height: 100vh;
+        }
+
+        .container {
+            max-width: 1400px;
+            margin: 0 auto;
+        }
+
+        /* Header */
+        .header {
+            text-align: center;
+            margin-bottom: 60px;
+            animation: fadeInDown 0.8s ease-out;
+        }
+
+        .header h1 {
+            font-family: 'Space Grotesk', sans-serif;
+            font-size: clamp(2rem, 5vw, 3.2rem);
+            font-weight: 700;
+            margin-bottom: 16px;
+            background: linear-gradient(135deg, #f59e0b 0%, #2563eb 50%, #e84142 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+            letter-spacing: -0.5px;
+        }
+
+        .header p {
+            font-size: 1.1rem;
+            color: #a0a0a0;
+            margin-top: 12px;
+            max-width: 600px;
+            margin-left: auto;
+            margin-right: auto;
+            line-height: 1.6;
+        }
+
+        /* Key phrase callout */
+        .tagline {
+            text-align: center;
+            margin: 40px 0 60px;
+            padding: 24px 32px;
+            background: rgba(37, 99, 235, 0.08);
+            border: 1px solid rgba(37, 99, 235, 0.2);
+            border-radius: 12px;
+            backdrop-filter: blur(10px);
+            animation: fadeIn 1s ease-out 0.3s backwards;
+        }
+
+        .tagline p {
+            font-size: 1.3rem;
+            font-weight: 500;
+            color: #e0e0e0;
+            letter-spacing: 0.3px;
+        }
+
+        /* Main diagram container */
+        .diagram-wrapper {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            margin-bottom: 80px;
+            animation: fadeInUp 0.8s ease-out 0.2s backwards;
+        }
+
+        /* SVG container */
+        .svg-container {
+            width: 100%;
+            max-width: 1200px;
+            display: flex;
+            justify-content: center;
+        }
+
+        svg {
+            width: 100%;
+            height: auto;
+            filter: drop-shadow(0 20px 60px rgba(0, 0, 0, 0.4));
+        }
+
+        /* Chain card styling */
+        .chain-card {
+            padding: 32px;
+            border-radius: 16px;
+            border: 2px solid;
+            backdrop-filter: blur(20px);
+            position: relative;
+            overflow: hidden;
+            animation: fadeIn 1s ease-out 0.4s backwards;
+        }
+
+        .chain-card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            opacity: 0.05;
+            pointer-events: none;
+        }
+
+        .chain-card.bitcoin {
+            background: rgba(245, 158, 11, 0.08);
+            border-color: rgba(245, 158, 11, 0.3);
+            margin-right: 20px;
+        }
+
+        .chain-card.bitcoin::before {
+            background: linear-gradient(135deg, transparent 0%, #f59e0b 100%);
+        }
+
+        .chain-card.avalanche {
+            background: rgba(232, 65, 66, 0.08);
+            border-color: rgba(232, 65, 66, 0.3);
+            margin-left: 20px;
+        }
+
+        .chain-card.avalanche::before {
+            background: linear-gradient(135deg, #e84142 0%, transparent 100%);
+        }
+
+        .chain-title {
+            font-family: 'Space Grotesk', sans-serif;
+            font-size: 1.4rem;
+            font-weight: 700;
+            margin-bottom: 8px;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .chain-card.bitcoin .chain-title {
+            color: #f59e0b;
+        }
+
+        .chain-card.avalanche .chain-title {
+            color: #e84142;
+        }
+
+        .chain-subtitle {
+            font-size: 0.95rem;
+            color: #888;
+            margin-bottom: 24px;
+            font-style: italic;
+        }
+
+        .chain-features {
+            list-style: none;
+        }
+
+        .chain-features li {
+            padding: 12px 0;
+            padding-left: 24px;
+            position: relative;
+            font-size: 0.95rem;
+            line-height: 1.5;
+            color: #d0d0d0;
+        }
+
+        .chain-features li::before {
+            content: '→';
+            position: absolute;
+            left: 0;
+            font-weight: bold;
+        }
+
+        .chain-card.bitcoin .chain-features li::before {
+            color: #f59e0b;
+        }
+
+        .chain-card.avalanche .chain-features li::before {
+            color: #e84142;
+        }
+
+        /* Symbiosis table */
+        .symbiosis-section {
+            margin-top: 80px;
+            animation: fadeInUp 0.8s ease-out 0.5s backwards;
+        }
+
+        .symbiosis-section h2 {
+            font-family: 'Space Grotesk', sans-serif;
+            font-size: 1.8rem;
+            font-weight: 700;
+            margin-bottom: 32px;
+            text-align: center;
+            color: #e0e0e0;
+        }
+
+        .symbiosis-table {
+            width: 100%;
+            border-collapse: collapse;
+            background: rgba(20, 30, 50, 0.5);
+            border: 1px solid rgba(37, 99, 235, 0.2);
+            border-radius: 12px;
+            overflow: hidden;
+            backdrop-filter: blur(10px);
+            box-shadow: 0 8px 32px rgba(0, 0, 0, 0.3);
+        }
+
+        .symbiosis-table th {
+            background: linear-gradient(90deg, rgba(37, 99, 235, 0.15) 0%, rgba(232, 65, 66, 0.15) 100%);
+            padding: 18px 20px;
+            text-align: left;
+            font-weight: 600;
+            font-size: 0.95rem;
+            color: #b0b0b0;
+            border-bottom: 1px solid rgba(37, 99, 235, 0.2);
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+        }
+
+        .symbiosis-table td {
+            padding: 16px 20px;
+            border-bottom: 1px solid rgba(37, 99, 235, 0.1);
+            font-size: 0.9rem;
+            line-height: 1.6;
+        }
+
+        .symbiosis-table tbody tr:last-child td {
+            border-bottom: none;
+        }
+
+        .symbiosis-table tbody tr:hover {
+            background: rgba(37, 99, 235, 0.05);
+        }
+
+        .function-cell {
+            font-weight: 500;
+            color: #2563eb;
+        }
+
+        .bitcoin-cell {
+            color: #f5a623;
+        }
+
+        .avalanche-cell {
+            color: #e84142;
+        }
+
+        .why-cell {
+            color: #a0a0a0;
+            font-style: italic;
+        }
+
+        /* Key stats section */
+        .stats-section {
+            margin-top: 80px;
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+            gap: 24px;
+            animation: fadeInUp 0.8s ease-out 0.6s backwards;
+        }
+
+        .stat-card {
+            padding: 28px;
+            background: rgba(20, 30, 50, 0.5);
+            border: 1px solid rgba(37, 99, 235, 0.2);
+            border-radius: 12px;
+            backdrop-filter: blur(10px);
+            text-align: center;
+            transition: all 0.3s ease;
+        }
+
+        .stat-card:hover {
+            background: rgba(20, 30, 50, 0.7);
+            border-color: rgba(37, 99, 235, 0.4);
+            transform: translateY(-4px);
+        }
+
+        .stat-value {
+            font-family: 'Space Grotesk', sans-serif;
+            font-size: 2rem;
+            font-weight: 700;
+            margin-bottom: 8px;
+            background: linear-gradient(135deg, #f59e0b 0%, #2563eb 50%, #e84142 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+
+        .stat-label {
+            font-size: 0.9rem;
+            color: #a0a0a0;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+            font-weight: 500;
+        }
+
+        .stat-description {
+            font-size: 0.85rem;
+            color: #888;
+            margin-top: 12px;
+            line-height: 1.5;
+        }
+
+        /* Key phrases section */
+        .phrases-section {
+            margin-top: 80px;
+            padding: 40px;
+            background: linear-gradient(135deg, rgba(37, 99, 235, 0.1) 0%, rgba(232, 65, 66, 0.1) 100%);
+            border: 1px solid rgba(37, 99, 235, 0.2);
+            border-radius: 16px;
+            animation: fadeInUp 0.8s ease-out 0.7s backwards;
+        }
+
+        .phrases-section h3 {
+            font-family: 'Space Grotesk', sans-serif;
+            font-size: 1.4rem;
+            font-weight: 700;
+            margin-bottom: 28px;
+            text-align: center;
+            color: #e0e0e0;
+        }
+
+        .phrases-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 20px;
+        }
+
+        .phrase {
+            padding: 24px;
+            background: rgba(13, 17, 23, 0.6);
+            border-left: 3px solid;
+            border-radius: 8px;
+            font-size: 1.05rem;
+            line-height: 1.7;
+            font-weight: 500;
+            color: #e0e0e0;
+        }
+
+        .phrase:nth-child(1) {
+            border-left-color: #f59e0b;
+        }
+
+        .phrase:nth-child(1)::before {
+            content: '₿';
+            display: block;
+            font-size: 2rem;
+            color: #f59e0b;
+            margin-bottom: 12px;
+            opacity: 0.3;
+        }
+
+        .phrase:nth-child(2) {
+            border-left-color: #2563eb;
+        }
+
+        .phrase:nth-child(2)::before {
+            content: '⚡';
+            display: block;
+            font-size: 2rem;
+            color: #2563eb;
+            margin-bottom: 12px;
+            opacity: 0.3;
+        }
+
+        .phrase:nth-child(3) {
+            border-left-color: #e84142;
+        }
+
+        .phrase:nth-child(3)::before {
+            content: '🌍';
+            display: block;
+            font-size: 2rem;
+            margin-bottom: 12px;
+            opacity: 0.3;
+        }
+
+        .phrase:nth-child(4) {
+            border-left-color: #f59e0b;
+        }
+
+        .phrase:nth-child(4)::before {
+            content: '💰';
+            display: block;
+            font-size: 2rem;
+            margin-bottom: 12px;
+            opacity: 0.3;
+        }
+
+        /* Hierarchy visual */
+        .hierarchy-section {
+            margin-top: 80px;
+            animation: fadeInUp 0.8s ease-out 0.8s backwards;
+        }
+
+        .hierarchy-section h3 {
+            font-family: 'Space Grotesk', sans-serif;
+            font-size: 1.4rem;
+            font-weight: 700;
+            margin-bottom: 32px;
+            text-align: center;
+            color: #e0e0e0;
+        }
+
+        .hierarchy-chain {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            gap: 0;
+            flex-wrap: wrap;
+            row-gap: 24px;
+        }
+
+        .hierarchy-step {
+            padding: 20px 24px;
+            background: rgba(20, 30, 50, 0.6);
+            border: 1px solid rgba(37, 99, 235, 0.3);
+            border-radius: 8px;
+            text-align: center;
+            font-weight: 500;
+            font-size: 0.95rem;
+            white-space: nowrap;
+            flex: 0 1 auto;
+        }
+
+        .hierarchy-step:nth-child(1) {
+            background: rgba(245, 158, 11, 0.12);
+            border-color: rgba(245, 158, 11, 0.3);
+            color: #f59e0b;
+            width: 140px;
+        }
+
+        .hierarchy-step:nth-child(3) {
+            background: rgba(37, 99, 235, 0.12);
+            border-color: rgba(37, 99, 235, 0.3);
+            color: #2563eb;
+            width: 140px;
+        }
+
+        .hierarchy-step:nth-child(5) {
+            background: rgba(37, 99, 235, 0.12);
+            border-color: rgba(37, 99, 235, 0.3);
+            color: #2563eb;
+            width: 140px;
+        }
+
+        .hierarchy-step:nth-child(7) {
+            background: rgba(232, 65, 66, 0.12);
+            border-color: rgba(232, 65, 66, 0.3);
+            color: #e84142;
+            width: 140px;
+        }
+
+        .hierarchy-step:nth-child(9) {
+            background: rgba(245, 158, 11, 0.12);
+            border-color: rgba(245, 158, 11, 0.3);
+            color: #f59e0b;
+            width: 140px;
+        }
+
+        .hierarchy-arrow {
+            font-size: 2rem;
+            color: #666;
+            margin: 0 8px;
+        }
+
+        /* Footer */
+        .footer {
+            margin-top: 80px;
+            text-align: center;
+            padding: 32px;
+            border-top: 1px solid rgba(37, 99, 235, 0.1);
+            animation: fadeIn 0.8s ease-out 0.9s backwards;
+        }
+
+        .footer p {
+            font-size: 0.9rem;
+            color: #888;
+            margin-bottom: 12px;
+        }
+
+        .footer-highlight {
+            font-size: 1.1rem;
+            color: #e0e0e0;
+            font-weight: 600;
+            margin-top: 16px;
+        }
+
+        /* Animations */
+        @keyframes fadeIn {
+            from {
+                opacity: 0;
+            }
+            to {
+                opacity: 1;
+            }
+        }
+
+        @keyframes fadeInDown {
+            from {
+                opacity: 0;
+                transform: translateY(-20px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        @keyframes fadeInUp {
+            from {
+                opacity: 0;
+                transform: translateY(20px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        /* Responsive */
+        @media (max-width: 1024px) {
+            .chain-card {
+                margin-right: 10px;
+                margin-left: 10px;
+            }
+
+            .symbiosis-table {
+                font-size: 0.85rem;
+            }
+
+            .symbiosis-table th,
+            .symbiosis-table td {
+                padding: 12px 16px;
+            }
+        }
+
+        @media (max-width: 768px) {
+            body {
+                padding: 24px 16px;
+            }
+
+            .container {
+                padding: 0 10px;
+            }
+
+            .header h1 {
+                font-size: 1.8rem;
+            }
+
+            .header p {
+                font-size: 0.95rem;
+            }
+
+            .diagram-wrapper {
+                flex-direction: column;
+            }
+
+            .chain-card {
+                width: 100%;
+                margin-right: 0;
+                margin-left: 0;
+                margin-bottom: 24px;
+            }
+
+            .hierarchy-chain {
+                flex-direction: column;
+                gap: 12px;
+            }
+
+            .hierarchy-arrow {
+                transform: rotate(90deg);
+                margin: 4px 0;
+            }
+
+            .symbiosis-table {
+                font-size: 0.8rem;
+            }
+
+            .symbiosis-table th,
+            .symbiosis-table td {
+                padding: 10px 12px;
+            }
+
+            .stat-value {
+                font-size: 1.5rem;
+            }
+
+            .stat-card {
+                padding: 20px;
+            }
+        }
+
+        @media (max-width: 480px) {
+            .header h1 {
+                font-size: 1.4rem;
+            }
+
+            .tagline p {
+                font-size: 1rem;
+            }
+
+            .phrases-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .symbiosis-table {
+                font-size: 0.75rem;
+            }
+
+            .stats-section {
+                grid-template-columns: 1fr;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <!-- Header -->
+        <div class="header">
+            <h1>The Symbiosis</h1>
+            <p>Two chains. One protocol. Neither works alone.</p>
+        </div>
+
+        <!-- Key tagline -->
+        <div class="tagline">
+            <p>Bitcoin is the vault. Avalanche is the lobby.</p>
+        </div>
+
+        <!-- Main SVG Diagram -->
+        <div class="diagram-wrapper">
+            <svg viewBox="0 0 1200 500" xmlns="http://www.w3.org/2000/svg" preserveAspectRatio="xMidYMid meet">
+                <defs>
+                    <!-- Gradients -->
+                    <linearGradient id="bitcoinGlow" x1="0%" y1="0%" x2="100%" y2="100%">
+                        <stop offset="0%" style="stop-color:#f59e0b;stop-opacity:1" />
+                        <stop offset="100%" style="stop-color:#f59e0b;stop-opacity:0.2" />
+                    </linearGradient>
+                    <linearGradient id="avalancheGlow" x1="0%" y1="0%" x2="100%" y2="100%">
+                        <stop offset="0%" style="stop-color:#e84142;stop-opacity:1" />
+                        <stop offset="100%" style="stop-color:#e84142;stop-opacity:0.2" />
+                    </linearGradient>
+                    <linearGradient id="bridgeGradient" x1="0%" y1="0%" x2="100%" y2="0%">
+                        <stop offset="0%" style="stop-color:#f59e0b;stop-opacity:0.6" />
+                        <stop offset="50%" style="stop-color:#2563eb;stop-opacity:0.6" />
+                        <stop offset="100%" style="stop-color:#e84142;stop-opacity:0.6" />
+                    </linearGradient>
+                    <filter id="glow">
+                        <feGaussianBlur stdDeviation="2" result="coloredBlur"/>
+                        <feMerge>
+                            <feMergeNode in="coloredBlur"/>
+                            <feMergeNode in="SourceGraphic"/>
+                        </feMerge>
+                    </filter>
+                </defs>
+
+                <!-- Background -->
+                <rect width="1200" height="500" fill="none"/>
+
+                <!-- Bitcoin L1 Circle -->
+                <circle cx="250" cy="250" r="120" fill="url(#bitcoinGlow)" opacity="0.15" filter="url(#glow)"/>
+                <circle cx="250" cy="250" r="115" fill="none" stroke="#f59e0b" stroke-width="2" opacity="0.5"/>
+                <circle cx="250" cy="250" r="118" fill="none" stroke="#f59e0b" stroke-width="1" opacity="0.2" stroke-dasharray="5,5"/>
+
+                <!-- Bitcoin L1 Icon/Label -->
+                <text x="250" y="240" font-family="Space Grotesk" font-size="32" font-weight="700" fill="#f59e0b" text-anchor="middle" opacity="0.8">₿</text>
+                <text x="250" y="280" font-family="Inter" font-size="18" font-weight="600" fill="#f59e0b" text-anchor="middle">Bitcoin L1</text>
+
+                <!-- Bitcoin L1 Features -->
+                <text x="250" y="320" font-family="Inter" font-size="12" fill="#d0d0d0" text-anchor="middle">Permanence</text>
+                <text x="250" y="336" font-family="Inter" font-size="12" fill="#d0d0d0" text-anchor="middle">Proof-of-Work</text>
+                <text x="250" y="352" font-family="Inter" font-size="12" fill="#d0d0d0" text-anchor="middle">Settlement</text>
+
+                <!-- Avalanche L2 Circle -->
+                <circle cx="950" cy="250" r="120" fill="url(#avalancheGlow)" opacity="0.15" filter="url(#glow)"/>
+                <circle cx="950" cy="250" r="115" fill="none" stroke="#e84142" stroke-width="2" opacity="0.5"/>
+                <circle cx="950" cy="250" r="118" fill="none" stroke="#e84142" stroke-width="1" opacity="0.2" stroke-dasharray="5,5"/>
+
+                <!-- Avalanche L2 Icon/Label -->
+                <text x="950" y="240" font-family="Space Grotesk" font-size="32" font-weight="700" fill="#e84142" text-anchor="middle" opacity="0.8">⚡</text>
+                <text x="950" y="280" font-family="Inter" font-size="18" font-weight="600" fill="#e84142" text-anchor="middle">Avalanche L2</text>
+
+                <!-- Avalanche L2 Features -->
+                <text x="950" y="320" font-family="Inter" font-size="12" fill="#d0d0d0" text-anchor="middle">Speed</text>
+                <text x="950" y="336" font-family="Inter" font-size="12" fill="#d0d0d0" text-anchor="middle">4,500+ TPS</text>
+                <text x="950" y="352" font-family="Inter" font-size="12" fill="#d0d0d0" text-anchor="middle">Sub-second</text>
+
+                <!-- Bridge connections -->
+                <!-- Top bridge: Merkle anchoring -->
+                <path d="M 370 180 Q 600 80 830 180" fill="none" stroke="url(#bridgeGradient)" stroke-width="2" opacity="0.6" stroke-dasharray="8,4"/>
+                <text x="600" y="100" font-family="Inter" font-size="11" fill="#a0a0a0" text-anchor="middle">Merkle Root Anchoring</text>
+                <text x="600" y="115" font-family="Inter" font-size="10" fill="#888" text-anchor="middle">Periodic settlement</text>
+
+                <!-- Middle bridge: Real-time receipts -->
+                <path d="M 370 250 L 830 250" fill="none" stroke="url(#bridgeGradient)" stroke-width="3" opacity="0.4"/>
+                <circle cx="600" cy="250" r="4" fill="#2563eb" opacity="0.8"/>
+                <text x="600" y="270" font-family="Inter" font-size="11" fill="#a0a0a0" text-anchor="middle">Real-time Receipts</text>
+
+                <!-- Bottom bridge: Heartbeat signals -->
+                <path d="M 370 320 Q 600 420 830 320" fill="none" stroke="url(#bridgeGradient)" stroke-width="2" opacity="0.6" stroke-dasharray="8,4"/>
+                <text x="600" y="420" font-family="Inter" font-size="11" fill="#a0a0a0" text-anchor="middle">Heartbeat Monitoring</text>
+                <text x="600" y="435" font-family="Inter" font-size="10" fill="#888" text-anchor="middle">Fee-optimal windows</text>
+
+                <!-- Vault & Lobby labels -->
+                <text x="250" y="450" font-family="Inter" font-size="13" font-weight="600" fill="#f59e0b" text-anchor="middle">"The Vault"</text>
+                <text x="950" y="450" font-family="Inter" font-size="13" font-weight="600" fill="#e84142" text-anchor="middle">"The Lobby"</text>
+            </svg>
+        </div>
+
+        <!-- Symbiosis Table -->
+        <div class="symbiosis-section">
+            <h2>The Symbiosis Map</h2>
+            <table class="symbiosis-table">
+                <thead>
+                    <tr>
+                        <th>Function</th>
+                        <th>Bitcoin L1</th>
+                        <th>Avalanche Sidechain</th>
+                        <th>Why Both Required</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td class="function-cell">Permanence</td>
+                        <td class="bitcoin-cell">Inscriptions live forever</td>
+                        <td>—</td>
+                        <td class="why-cell">Only PoW provides permanent settlement</td>
+                    </tr>
+                    <tr>
+                        <td class="function-cell">Speed</td>
+                        <td>—</td>
+                        <td class="avalanche-cell">Sub-second receipts</td>
+                        <td class="why-cell">Merchants need real-time; L1 can't deliver</td>
+                    </tr>
+                    <tr>
+                        <td class="function-cell">Identity</td>
+                        <td class="bitcoin-cell">Ordinal = the asset</td>
+                        <td class="avalanche-cell">.jeffe = the name</td>
+                        <td class="why-cell">Asset is useless without human-readable handle</td>
+                    </tr>
+                    <tr>
+                        <td class="function-cell">Economics</td>
+                        <td class="bitcoin-cell">Fee window closing</td>
+                        <td class="avalanche-cell">$0.001/tx forever</td>
+                        <td class="why-cell">L1 becomes too expensive for high-frequency ops</td>
+                    </tr>
+                    <tr>
+                        <td class="function-cell">Property Rights</td>
+                        <td class="bitcoin-cell">Satoshi custody = ownership</td>
+                        <td class="avalanche-cell">Skin minting = expression</td>
+                        <td class="why-cell">Own on L1, display on L2</td>
+                    </tr>
+                    <tr>
+                        <td class="function-cell">Scaling</td>
+                        <td class="bitcoin-cell">4 MB blocks, ~7 TPS</td>
+                        <td class="avalanche-cell">4,500+ TPS subnet</td>
+                        <td class="why-cell">L1 can't handle global retail volume</td>
+                    </tr>
+                    <tr>
+                        <td class="function-cell">DNS Resolution</td>
+                        <td class="bitcoin-cell">Raw inscription IDs</td>
+                        <td class="avalanche-cell">merchant.jeffe lookup</td>
+                        <td class="why-cell">Nobody types inscription hashes</td>
+                    </tr>
+                    <tr>
+                        <td class="function-cell">Fee Optimization</td>
+                        <td class="bitcoin-cell">Heartbeat-timed batches</td>
+                        <td class="avalanche-cell">Heartbeat monitoring service</td>
+                        <td class="why-cell">L2 watches market, L1 receives batches</td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+
+        <!-- Key Stats -->
+        <div class="stats-section">
+            <div class="stat-card">
+                <div class="stat-value">$0.001</div>
+                <div class="stat-label">Per Transaction</div>
+                <div class="stat-description">Permanent, proof-of-work secured on Avalanche sidechain</div>
+            </div>
+            <div class="stat-card">
+                <div class="stat-value">&lt;1s</div>
+                <div class="stat-label">Real-time</div>
+                <div class="stat-description">Sub-second confirmations for merchant receipts</div>
+            </div>
+            <div class="stat-card">
+                <div class="stat-value">4,500+</div>
+                <div class="stat-label">TPS</div>
+                <div class="stat-description">Throughput capacity of Avalanche subnet</div>
+            </div>
+            <div class="stat-card">
+                <div class="stat-value">∞</div>
+                <div class="stat-label">Permanence</div>
+                <div class="stat-description">Bitcoin inscriptions secured by proof-of-work</div>
+            </div>
+        </div>
+
+        <!-- Key Phrases -->
+        <div class="phrases-section">
+            <h3>The Investor Message</h3>
+            <div class="phrases-grid">
+                <div class="phrase">Bitcoin is the vault. Avalanche is the lobby.</div>
+                <div class="phrase">Property rights for everyone, anyone, anywhere.</div>
+                <div class="phrase">The protocol that doesn't discriminate.</div>
+                <div class="phrase">Walmart pays for walmart.jeffe.</div>
+            </div>
+        </div>
+
+        <!-- Hierarchy -->
+        <div class="hierarchy-section">
+            <h3>The Strategic Hierarchy</h3>
+            <div class="hierarchy-chain">
+                <div class="hierarchy-step">Fee Window</div>
+                <div class="hierarchy-arrow">→</div>
+                <div class="hierarchy-step">Sidechain</div>
+                <div class="hierarchy-arrow">→</div>
+                <div class="hierarchy-step">Heartbeat</div>
+                <div class="hierarchy-arrow">→</div>
+                <div class="hierarchy-step">Namespace</div>
+                <div class="hierarchy-arrow">→</div>
+                <div class="hierarchy-step">Symbiosis</div>
+            </div>
+        </div>
+
+        <!-- Footer -->
+        <div class="footer">
+            <p>The symbiosis is structural, not cosmetic.</p>
+            <p class="footer-highlight">Neither chain works alone.</p>
+        </div>
+    </div>
+</body>
+</html>

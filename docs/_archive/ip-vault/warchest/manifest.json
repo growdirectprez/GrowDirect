@@ -1,0 +1,968 @@
+{
+  "title": "GrowDirect — War Chest",
+  "version": "3.1",
+  "schema_version": "2.0",
+  "restructured": "2026-02-27 — Full renumber to match Pitch Spine v0.4",
+  "manifesto": {
+    "path": "Canary_IP/Markdown/Strategy/GrowDirect_Manifesto_v1.0.md",
+    "version": "1.0",
+    "version_lock": "Manifesto v1.x → War Chest v3.x | Manifesto v2.x → War Chest v4.x",
+    "rule": "Manifesto updates first. War Chest sources update from it. Outputs rebuild from sources.",
+    "pitch_spine": "Canary_IP/Markdown/Strategy/PITCH_SPINE_v0.4.md",
+    "production_chain": "Canary_IP/Markdown/Strategy/PRODUCTION_CHAIN_v0.1.md"
+  },
+  "last_built": "2026-02-27T14:24:36.072854",
+  "numbering": {
+    "00-09": "Spine OPEN + Acts 1-3 (Demo, Why, What)",
+    "10-19": "Act 4 (How We Make Money — 7 Layers)",
+    "20-29": "Act 5 (How It's Built — Technology)",
+    "30-39": "Acts 6-7 (Moat + Numbers)",
+    "40-42": "Act 8 + Close (Ask + Sovereignty)",
+    "45-54": "Supporting detail (not in Spine but in War Chest)",
+    "90-93": "Utility (disclaimer, changelog, issues, references)"
+  },
+  "sections": [
+    {
+      "order": 0,
+      "name": "The Demo",
+      "slug": "the-demo",
+      "spine": "OPEN + ACT 1",
+      "manifesto": null,
+      "source": "sources/00-the-demo.md",
+      "status": "draft",
+      "description": "Live demo script — thumb drive, stack boot, $1 trigger, heartbeat",
+      "audience": "investor",
+      "feeds": [
+        "pack",
+        "investor",
+        "deck"
+      ],
+      "last_updated": "2026-02-27"
+    },
+    {
+      "order": 1,
+      "name": "The Founder's Case",
+      "slug": "founders-case",
+      "spine": "ACT 2A-2C",
+      "manifesto": [
+        "I.1",
+        "I.2",
+        "I.3"
+      ],
+      "source": "sources/01-founders-case.md",
+      "status": "draft",
+      "blocked_by": "B-056",
+      "description": "tLog problem, LaneHawk incident, 30-year through-line",
+      "audience": "investor",
+      "feeds": [
+        "pack",
+        "investor",
+        "deck"
+      ],
+      "last_updated": "2026-02-27"
+    },
+    {
+      "order": 2,
+      "name": "The Pitch",
+      "slug": "the-pitch",
+      "spine": "ACT 2D-2E",
+      "manifesto": [
+        "II.1",
+        "II.2",
+        "II.3",
+        "II.4"
+      ],
+      "source": "sources/02-the-pitch.md",
+      "status": "written",
+      "description": "Merchant gap, mutable record, trust collapse, market",
+      "audience": "investor",
+      "feeds": [
+        "pack",
+        "investor",
+        "deck"
+      ],
+      "last_updated": "2026-02-27"
+    },
+    {
+      "order": 3,
+      "name": "Canary LP",
+      "slug": "canary",
+      "spine": "ACT 3A",
+      "manifesto": [
+        "III.1"
+      ],
+      "source": "sources/03-canary.md",
+      "status": "written",
+      "description": "Loss prevention as the door, data platform as the house",
+      "audience": "investor",
+      "feeds": [
+        "pack",
+        "investor",
+        "deck"
+      ],
+      "last_updated": "2026-02-27"
+    },
+    {
+      "order": 4,
+      "name": "The CRDM",
+      "slug": "the-crdm",
+      "spine": "ACT 3B",
+      "manifesto": [
+        "III.2"
+      ],
+      "source": "sources/04-the-crdm.md",
+      "status": "written",
+      "description": "Enterprise data warehouse shrunk to fit a phone",
+      "audience": "investor",
+      "feeds": [
+        "pack",
+        "investor",
+        "deck"
+      ],
+      "last_updated": "2026-02-27"
+    },
+    {
+      "order": 5,
+      "name": "The Chirp",
+      "slug": "the-chirp",
+      "spine": "ACT 3C",
+      "manifesto": [
+        "III.3"
+      ],
+      "source": "sources/05-the-chirp.md",
+      "status": "draft",
+      "description": "Plain language. One tap. Eight minutes.",
+      "audience": "investor",
+      "feeds": [
+        "pack",
+        "investor",
+        "deck"
+      ],
+      "last_updated": "2026-02-27"
+    },
+    {
+      "order": 6,
+      "name": "The gLog",
+      "slug": "the-glog",
+      "spine": "ACT 3D",
+      "manifesto": [
+        "III.4"
+      ],
+      "source": "sources/06-the-glog.md",
+      "status": "written",
+      "description": "tLog to gLog. Permanent event record on Bitcoin.",
+      "audience": "investor",
+      "feeds": [
+        "pack",
+        "investor",
+        "deck"
+      ],
+      "last_updated": "2026-02-27"
+    },
+    {
+      "order": 7,
+      "name": "Compliance by Construction",
+      "slug": "compliance",
+      "spine": "ACT 3E",
+      "manifesto": [
+        "III.5"
+      ],
+      "source": "sources/07-compliance.md",
+      "status": "written",
+      "description": "No mutable record. Nothing to comply with.",
+      "audience": "investor",
+      "feeds": [
+        "pack",
+        "investor",
+        "deck"
+      ],
+      "last_updated": "2026-02-27"
+    },
+    {
+      "order": 10,
+      "name": "The Inscription Pool",
+      "slug": "the-pool",
+      "spine": "ACT 4A",
+      "manifesto": [
+        "IV.1"
+      ],
+      "source": "sources/10-the-pool.md",
+      "status": "draft",
+      "description": "Layer 1 — We mint Ordinals. We hold the keys.",
+      "audience": "investor",
+      "feeds": [
+        "pack",
+        "investor",
+        "deck"
+      ],
+      "last_updated": "2026-02-27"
+    },
+    {
+      "order": 11,
+      "name": "The Notarization Service",
+      "slug": "the-notary",
+      "spine": "ACT 4B",
+      "manifesto": [
+        "IV.2"
+      ],
+      "source": "sources/11-the-notary.md",
+      "status": "draft",
+      "description": "Layer 2 — Any webhook sealed and inscribed.",
+      "audience": "investor",
+      "feeds": [
+        "pack",
+        "investor",
+        "deck"
+      ],
+      "last_updated": "2026-02-27"
+    },
+    {
+      "order": 12,
+      "name": "The Validation Gate",
+      "slug": "the-gate",
+      "spine": "ACT 4C",
+      "manifesto": [
+        "IV.3"
+      ],
+      "source": "sources/12-the-gate.md",
+      "status": "draft",
+      "description": "Layer 3 — Pay sats. Get proof. Revenue forever.",
+      "audience": "investor",
+      "feeds": [
+        "pack",
+        "investor",
+        "deck"
+      ],
+      "last_updated": "2026-02-27"
+    },
+    {
+      "order": 13,
+      "name": "The Scaling Model",
+      "slug": "the-scale",
+      "spine": "ACT 4D",
+      "manifesto": [
+        "IV.4"
+      ],
+      "source": "sources/13-the-scale.md",
+      "status": "draft",
+      "description": "Layer 4 — Kubernetes for block space.",
+      "audience": "investor",
+      "feeds": [
+        "pack",
+        "investor",
+        "deck"
+      ],
+      "last_updated": "2026-02-27"
+    },
+    {
+      "order": 14,
+      "name": "Block Space as Write Access",
+      "slug": "the-mining-moat",
+      "spine": "ACT 4E",
+      "manifesto": [
+        "IV.5"
+      ],
+      "source": "sources/14-the-mining-moat.md",
+      "status": "draft",
+      "description": "Layer 5 — The reward never leaves. It becomes the asset.",
+      "audience": "investor",
+      "feeds": [
+        "pack",
+        "investor",
+        "deck"
+      ],
+      "last_updated": "2026-02-27"
+    },
+    {
+      "order": 15,
+      "name": "The Network Effect",
+      "slug": "the-network",
+      "spine": "ACT 4F",
+      "manifesto": [
+        "IV.6"
+      ],
+      "source": "sources/15-the-network.md",
+      "status": "draft",
+      "description": "Layer 6 — Your keys. Your revenue. Royalty flows back.",
+      "audience": "investor",
+      "feeds": [
+        "pack",
+        "investor",
+        "deck"
+      ],
+      "last_updated": "2026-02-27"
+    },
+    {
+      "order": 16,
+      "name": "The Vision",
+      "slug": "the-vision",
+      "spine": "ACT 4G",
+      "manifesto": [
+        "IV.7"
+      ],
+      "source": "sources/16-the-vision.md",
+      "status": "draft",
+      "description": "Layer 7 — The TAM isn't retail. The TAM is everything.",
+      "audience": "investor",
+      "feeds": [
+        "pack",
+        "investor",
+        "deck"
+      ],
+      "last_updated": "2026-02-27"
+    },
+    {
+      "order": 20,
+      "name": "Six-Node Architecture",
+      "slug": "six-nodes",
+      "spine": "ACT 5A",
+      "manifesto": [
+        "V.1"
+      ],
+      "source": "sources/20-six-nodes.md",
+      "status": "written",
+      "description": "Any network in. Bitcoin out.",
+      "audience": "technical",
+      "feeds": [
+        "pack",
+        "deck"
+      ],
+      "last_updated": "2026-02-27"
+    },
+    {
+      "order": 21,
+      "name": "Triple Subscriber Pipeline",
+      "slug": "triple-subscriber",
+      "spine": "ACT 5B",
+      "manifesto": [
+        "V.2"
+      ],
+      "source": "sources/21-triple-subscriber.md",
+      "status": "draft",
+      "description": "Seal. Alert. Inscribe.",
+      "audience": "technical",
+      "feeds": [
+        "pack",
+        "deck"
+      ],
+      "last_updated": "2026-02-27"
+    },
+    {
+      "order": 22,
+      "name": "The Protocol Pipe",
+      "slug": "the-pipe",
+      "spine": "ACT 5C",
+      "manifesto": [
+        "V.4"
+      ],
+      "source": "sources/22-the-pipe.md",
+      "status": "draft",
+      "description": "OAuth → webhook → Chirp → seal → inscribe → receipt.",
+      "audience": "technical",
+      "feeds": [
+        "pack",
+        "deck"
+      ],
+      "last_updated": "2026-02-27"
+    },
+    {
+      "order": 23,
+      "name": "The L402 Validation Gate",
+      "slug": "the-l402",
+      "spine": "ACT 5D",
+      "manifesto": [
+        "V.5"
+      ],
+      "source": "sources/23-the-l402.md",
+      "status": "draft",
+      "description": "402 Payment Required. Pay. Prove.",
+      "audience": "technical",
+      "feeds": [
+        "pack",
+        "deck"
+      ],
+      "last_updated": "2026-02-27"
+    },
+    {
+      "order": 30,
+      "name": "First Mover",
+      "slug": "first-mover",
+      "spine": "ACT 6A",
+      "manifesto": [
+        "VI.1"
+      ],
+      "source": "sources/30-first-mover.md",
+      "status": "written",
+      "description": "The blocks are already written.",
+      "audience": "investor",
+      "feeds": [
+        "pack",
+        "investor",
+        "deck"
+      ],
+      "last_updated": "2026-02-27"
+    },
+    {
+      "order": 31,
+      "name": "The Genesis Pool",
+      "slug": "genesis-pool",
+      "spine": "ACT 6B",
+      "manifesto": [
+        "VI.2"
+      ],
+      "source": "sources/31-genesis-pool.md",
+      "status": "draft",
+      "description": "10M Ordinals from founder's mining reward.",
+      "audience": "investor",
+      "feeds": [
+        "pack",
+        "investor",
+        "deck"
+      ],
+      "last_updated": "2026-02-27"
+    },
+    {
+      "order": 32,
+      "name": "The Fee Window",
+      "slug": "fee-window",
+      "spine": "ACT 6C",
+      "manifesto": [
+        "VI.3"
+      ],
+      "source": "sources/32-fee-window.md",
+      "status": "draft",
+      "description": "Mint the range before it closes.",
+      "audience": "investor",
+      "feeds": [
+        "pack",
+        "investor",
+        "deck"
+      ],
+      "last_updated": "2026-02-27"
+    },
+    {
+      "order": 33,
+      "name": "The Patent",
+      "slug": "the-patent",
+      "spine": "ACT 6D",
+      "manifesto": [
+        "VI.4"
+      ],
+      "source": "sources/33-the-patent.md",
+      "status": "draft",
+      "description": "Filed. Five claims. Six embodiments.",
+      "audience": "investor",
+      "feeds": [
+        "pack",
+        "investor",
+        "deck"
+      ],
+      "last_updated": "2026-02-27"
+    },
+    {
+      "order": 35,
+      "name": "The Market",
+      "slug": "the-market",
+      "spine": "ACT 7A",
+      "manifesto": [
+        "VII.1",
+        "VII.2"
+      ],
+      "source": "sources/35-the-market.md",
+      "status": "written",
+      "description": "$4.7B industry. Zero in SMB.",
+      "audience": "investor",
+      "feeds": [
+        "pack",
+        "investor",
+        "deck"
+      ],
+      "last_updated": "2026-02-27"
+    },
+    {
+      "order": 36,
+      "name": "Revenue Model",
+      "slug": "revenue",
+      "spine": "ACT 7B",
+      "manifesto": [
+        "VII.3"
+      ],
+      "source": "sources/36-revenue.md",
+      "status": "written",
+      "description": "Subscriptions + validation royalty + platform.",
+      "audience": "investor",
+      "feeds": [
+        "pack",
+        "investor",
+        "deck"
+      ],
+      "last_updated": "2026-02-27"
+    },
+    {
+      "order": 37,
+      "name": "Three-Year Projections",
+      "slug": "projections",
+      "spine": "ACT 7C",
+      "manifesto": [
+        "VII.4"
+      ],
+      "source": "sources/37-projections.md",
+      "status": "draft",
+      "description": "45K merchants, $21M ARR Year 3.",
+      "audience": "investor",
+      "feeds": [
+        "pack",
+        "investor",
+        "deck"
+      ],
+      "last_updated": "2026-02-27"
+    },
+    {
+      "order": 38,
+      "name": "The Rollout",
+      "slug": "the-rollout",
+      "spine": "ACT 7D",
+      "manifesto": [
+        "VII.5"
+      ],
+      "source": "sources/38-the-rollout.md",
+      "status": "draft",
+      "description": "Lab → Friendly Merchant → Blitz.",
+      "audience": "investor",
+      "feeds": [
+        "pack",
+        "investor",
+        "deck"
+      ],
+      "last_updated": "2026-02-27"
+    },
+    {
+      "order": 40,
+      "name": "The Ask",
+      "slug": "the-ask",
+      "spine": "ACT 8A-8C",
+      "manifesto": [
+        "VIII.1",
+        "VIII.2",
+        "VIII.3"
+      ],
+      "source": "sources/40-the-ask.md",
+      "status": "gap",
+      "blocked_by": "ISS-002",
+      "description": "What we're raising. Proceeds. Milestones.",
+      "audience": "investor",
+      "feeds": [
+        "pack",
+        "investor",
+        "deck"
+      ],
+      "last_updated": "2026-02-27"
+    },
+    {
+      "order": 41,
+      "name": "Why Now",
+      "slug": "why-now",
+      "spine": "ACT 8D",
+      "manifesto": [
+        "VIII.4"
+      ],
+      "source": "sources/41-why-now.md",
+      "status": "draft",
+      "description": "Fee window. Trust collapse. Market empty.",
+      "audience": "investor",
+      "feeds": [
+        "pack",
+        "investor",
+        "deck"
+      ],
+      "last_updated": "2026-02-27"
+    },
+    {
+      "order": 42,
+      "name": "Sovereignty",
+      "slug": "sovereignty",
+      "spine": "CLOSE",
+      "manifesto": null,
+      "source": "sources/42-sovereignty.md",
+      "status": "draft",
+      "description": "SMS → URL → rehydrate. DR. Sovereignty. The real thesis.",
+      "audience": "investor",
+      "feeds": [
+        "pack",
+        "investor",
+        "deck"
+      ],
+      "last_updated": "2026-02-27"
+    },
+    {
+      "order": 45,
+      "name": "The Fox",
+      "slug": "the-fox",
+      "spine": null,
+      "manifesto": null,
+      "source": "sources/45-the-fox.md",
+      "status": "written",
+      "detail_for": [
+        "03-canary",
+        "05-the-chirp"
+      ],
+      "description": "Case management & threat scoring",
+      "audience": "investor",
+      "feeds": [
+        "pack",
+        "investor"
+      ],
+      "last_updated": "2026-02-27"
+    },
+    {
+      "order": 46,
+      "name": "The Goose",
+      "slug": "the-goose",
+      "spine": null,
+      "manifesto": null,
+      "source": "sources/46-the-goose.md",
+      "status": "written",
+      "detail_for": [
+        "12-the-gate"
+      ],
+      "description": "Bitcoin & Lightning payments",
+      "audience": "investor",
+      "feeds": [
+        "pack",
+        "investor"
+      ],
+      "last_updated": "2026-02-27"
+    },
+    {
+      "order": 47,
+      "name": "The Owl",
+      "slug": "the-owl",
+      "spine": null,
+      "manifesto": null,
+      "source": "sources/47-the-owl.md",
+      "status": "written",
+      "detail_for": [
+        "04-the-crdm"
+      ],
+      "description": "Analytics oracle",
+      "audience": "investor",
+      "feeds": [
+        "pack",
+        "investor"
+      ],
+      "last_updated": "2026-02-27"
+    },
+    {
+      "order": 48,
+      "name": "Investment Thesis",
+      "slug": "investment-thesis",
+      "spine": null,
+      "manifesto": null,
+      "source": "sources/48-investment-thesis.md",
+      "status": "written",
+      "detail_for": [
+        "01-founders-case",
+        "06-the-glog"
+      ],
+      "description": "tLog to gLog — full thesis narrative",
+      "audience": "investor",
+      "feeds": [
+        "pack",
+        "investor"
+      ],
+      "last_updated": "2026-02-27"
+    },
+    {
+      "order": 49,
+      "name": "How We Build",
+      "slug": "how-we-build",
+      "spine": null,
+      "manifesto": null,
+      "source": "sources/49-how-we-build.md",
+      "status": "written",
+      "description": "Factory process, sprint methodology, quality gates",
+      "audience": "internal",
+      "feeds": [
+        "pack"
+      ],
+      "last_updated": "2026-02-27"
+    },
+    {
+      "order": 50,
+      "name": "The Team",
+      "slug": "the-team",
+      "spine": null,
+      "manifesto": null,
+      "source": "sources/50-the-team.md",
+      "status": "written",
+      "description": "Who's involved, roles, structure",
+      "audience": "investor",
+      "feeds": [
+        "pack",
+        "investor",
+        "public"
+      ],
+      "last_updated": "2026-02-27"
+    },
+    {
+      "order": 51,
+      "name": "The Article",
+      "slug": "the-article",
+      "spine": null,
+      "manifesto": null,
+      "source": "sources/51-the-article.md",
+      "status": "written",
+      "description": "Long-form magazine narrative",
+      "audience": "press",
+      "feeds": [
+        "pack",
+        "public"
+      ],
+      "last_updated": "2026-02-27"
+    },
+    {
+      "order": 52,
+      "name": "The Economy (Legacy HTML)",
+      "slug": "the-economy-legacy",
+      "spine": null,
+      "manifesto": [
+        "IV.1-IV.7"
+      ],
+      "source": "sources/52-the-economy-legacy.html",
+      "status": "legacy",
+      "description": "Original economy embed — content being split into 10-16",
+      "audience": "investor",
+      "feeds": [
+        "pack"
+      ],
+      "last_updated": "2026-02-27"
+    },
+    {
+      "order": 53,
+      "name": "The Product (HTML Prototype)",
+      "slug": "the-product",
+      "spine": null,
+      "manifesto": null,
+      "source": "sources/53-the-product.html",
+      "status": "written",
+      "description": "Interactive platform prototype",
+      "audience": "investor",
+      "feeds": [
+        "pack",
+        "investor"
+      ],
+      "last_updated": "2026-02-27"
+    },
+    {
+      "order": 54,
+      "name": "Lightning Wallet — Two Phases",
+      "slug": "lightning-two-phases",
+      "spine": null,
+      "manifesto": [
+        "IV.3",
+        "V.5"
+      ],
+      "source": "sources/54-lightning-two-phases.md",
+      "status": "written",
+      "detail_for": [
+        "06-the-glog",
+        "12-the-gate",
+        "23-the-l402"
+      ],
+      "description": "Phase 1: spend sats to inscribe. Phase 2: earn sats on verification. Same wallet.",
+      "audience": "investor",
+      "feeds": [
+        "pack",
+        "investor",
+        "deck"
+      ],
+      "last_updated": "2026-02-28"
+    },
+    {
+      "order": 55,
+      "name": "Symbiosis Thesis",
+      "slug": "symbiosis-thesis",
+      "spine": null,
+      "manifesto": ["V.8", "V.9", "V.10"],
+      "source": "sources/55-symbiosis-thesis.md",
+      "status": "written",
+      "detail_for": ["20-six-nodes", "31-genesis-pool"],
+      "description": "L1/L2 symbiosis, .jeffe namespace, heartbeat fee optimization",
+      "audience": "investor",
+      "feeds": ["pack", "investor", "deck"],
+      "last_updated": "2026-03-01"
+    },
+    {
+      "order": 56,
+      "name": "Competitive Landscape",
+      "slug": "competitive-landscape",
+      "spine": null,
+      "manifesto": ["VI.6"],
+      "source": "sources/56-competitive-landscape.md",
+      "status": "draft",
+      "description": "Key vault, feature flags, tiered service model positioning",
+      "audience": "investor",
+      "feeds": ["pack", "investor"],
+      "last_updated": "2026-03-01"
+    },
+    {
+      "order": 57,
+      "name": "Genesis Spiral",
+      "slug": "genesis-spiral",
+      "spine": null,
+      "manifesto": ["IV", "V.8", "VI.2"],
+      "source": null,
+      "asset": "_ALX/WorkOrders/output/Art/elJeffe_Genesis_Spiral_v2.html",
+      "status": "written",
+      "description": "Animated entry-page visualization — spiral growth from genesis block, dissolving quotes/code/architecture",
+      "audience": "investor",
+      "feeds": ["investor", "public"],
+      "last_updated": "2026-03-01",
+      "ip_sanitized": true
+    },
+    {
+      "order": 90,
+      "name": "Disclaimer",
+      "slug": "disclaimer",
+      "source": "sources/90-disclaimer.md",
+      "status": "written",
+      "description": "Forward-looking statements, risk factors, legal notice",
+      "utility": true,
+      "feeds": [
+        "pack",
+        "investor"
+      ],
+      "last_updated": "2026-02-27"
+    },
+    {
+      "order": 91,
+      "name": "Change Log",
+      "slug": "changelog",
+      "source": "sources/91-changelog.md",
+      "status": "written",
+      "description": "Version history and structural changes",
+      "utility": true,
+      "feeds": [
+        "pack"
+      ],
+      "last_updated": "2026-02-27"
+    },
+    {
+      "order": 92,
+      "name": "Known Issues",
+      "slug": "issues",
+      "source": "sources/92-issues.md",
+      "status": "written",
+      "description": "Open items, blocked dependencies, known gaps",
+      "utility": true,
+      "feeds": [
+        "pack"
+      ],
+      "last_updated": "2026-02-27"
+    },
+    {
+      "order": 93,
+      "name": "References",
+      "slug": "references",
+      "source": "sources/93-references.md",
+      "status": "written",
+      "description": "Source documents, research briefs, external citations",
+      "utility": true,
+      "feeds": [
+        "pack",
+        "investor"
+      ],
+      "last_updated": "2026-02-27"
+    }
+  ],
+  "outputs": {
+    "pack": {
+      "description": "Multi-page password-gated briefing — complete catalog",
+      "format": "multi-page",
+      "gated": true,
+      "dir": "site/",
+      "version": "0.6",
+      "note": "Needs rebuild after v3.0 source restructure"
+    },
+    "investor": {
+      "description": "Single-page investor site — scrolling narrative",
+      "format": "single-page",
+      "gated": true,
+      "dir": "outputs/investor/",
+      "version": "3.3",
+      "template": "skill/templates/investor_template.html",
+      "note": "Legal sign-off pending",
+      "section_map": {
+        "hero-body": {
+          "source": "sources/02-the-pitch.md",
+          "extract": "first_paragraph"
+        },
+        "problem-intro": {
+          "source": "sources/02-the-pitch.md",
+          "extract": "heading_paragraph",
+          "heading": "The Problem"
+        },
+        "solution-intro": {
+          "source": "sources/02-the-pitch.md",
+          "extract": "heading_paragraph",
+          "heading": "The Solution"
+        },
+        "economy-intro": {
+          "source": "sources/36-revenue.md",
+          "extract": "first_paragraph"
+        },
+        "thesis-intro": {
+          "source": "sources/48-investment-thesis.md",
+          "extract": "first_paragraph"
+        },
+        "thesis-pull-quote": {
+          "source": "sources/48-investment-thesis.md",
+          "extract": "heading_blockquote",
+          "heading": "Brief 5"
+        },
+        "thesis-body": {
+          "source": "sources/48-investment-thesis.md",
+          "extract": "heading_prose",
+          "heading": "Brief 5"
+        },
+        "thesis-compliance-body": {
+          "source": "sources/07-compliance.md",
+          "extract": "first_paragraph"
+        },
+        "market-intro": {
+          "source": "sources/35-the-market.md",
+          "extract": "first_paragraph"
+        },
+        "vision-intro": {
+          "source": "sources/16-the-vision.md",
+          "extract": "first_paragraph"
+        },
+        "built-intro": {
+          "source": "sources/30-first-mover.md",
+          "extract": "first_paragraph"
+        }
+      },
+      "last_built": "2026-02-27T14:56:27.383436"
+    },
+    "deck": {
+      "description": "Pitch deck — follows Spine v0.4. Thumb drive to SMS.",
+      "format": "presentation",
+      "gated": true,
+      "dir": "outputs/deck/",
+      "version": "0.0",
+      "note": "NOT YET BUILT"
+    },
+    "public": {
+      "description": "growdirect.io public site",
+      "format": "multi-page",
+      "gated": false,
+      "dir": "outputs/public/",
+      "version": "0.1",
+      "note": "Parked"
+    }
+  },
+  "archive": {
+    "sources_v2": "sources_v2_archive/",
+    "note": "Pre-restructure sources preserved. Do not delete until v3.0 outputs confirmed working."
+  }
+}

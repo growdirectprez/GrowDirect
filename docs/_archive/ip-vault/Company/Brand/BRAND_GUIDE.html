@@ -1,0 +1,231 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Canary — Brand Style Guide</title>
+<style>
+  @import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&family=Space+Grotesk:wght@400;500;600;700&display=swap');
+  * { margin:0; padding:0; box-sizing:border-box; }
+  body { font-family:'Inter',sans-serif; background:#06090f; color:#cbd5e1; line-height:1.6; }
+
+  .page { max-width:960px; margin:0 auto; padding:60px 32px 100px; }
+
+  h1 { font-family:'Space Grotesk',sans-serif; font-size:2.4rem; font-weight:300; color:#f8fafc; letter-spacing:0.03em; margin-bottom:4px; }
+  .sub { color:#64748b; font-size:1rem; margin-bottom:56px; }
+
+  h2 { font-family:'Space Grotesk',sans-serif; font-size:1.3rem; font-weight:600; color:#f1f5f9; margin-bottom:20px; padding-bottom:10px; border-bottom:1px solid #1e293b; }
+  h3 { font-size:0.85rem; color:#94a3b8; font-weight:500; margin-bottom:8px; }
+
+  section { margin-bottom:56px; }
+
+  /* Color swatches */
+  .swatches { display:grid; grid-template-columns:repeat(auto-fill, minmax(140px,1fr)); gap:12px; }
+  .swatch { border-radius:12px; overflow:hidden; border:1px solid #1e293b; }
+  .swatch-color { height:72px; }
+  .swatch-info { padding:10px 12px; background:#111827; }
+  .swatch-name { font-size:0.8rem; font-weight:600; color:#f1f5f9; }
+  .swatch-hex { font-size:0.72rem; color:#64748b; font-family:'Space Grotesk',monospace; }
+
+  /* Logo grid */
+  .logo-grid { display:grid; grid-template-columns:1fr 1fr; gap:16px; }
+  .logo-card { border-radius:14px; overflow:hidden; border:1px solid #1e293b; }
+  .logo-preview { padding:32px; display:flex; align-items:center; justify-content:center; min-height:180px; }
+  .logo-preview.dark { background:#0F1923; }
+  .logo-preview.light { background:#F8FAFC; }
+  .logo-label { padding:10px 16px; background:#111827; font-size:0.75rem; color:#64748b; display:flex; justify-content:space-between; }
+  .logo-label code { font-family:'Space Grotesk',monospace; color:#94a3b8; font-size:0.7rem; }
+
+  /* Type specimens */
+  .type-row { margin-bottom:24px; }
+  .type-sample { font-size:2rem; letter-spacing:0.04em; color:#f1f5f9; margin-bottom:4px; }
+  .type-meta { font-size:0.78rem; color:#475569; }
+
+  /* Usage rules */
+  .rules { display:grid; grid-template-columns:1fr 1fr; gap:16px; }
+  .rule { padding:20px; background:#111827; border-radius:12px; border:1px solid #1e293b; }
+  .rule.do { border-left:3px solid #34d399; }
+  .rule.dont { border-left:3px solid #ef4444; }
+  .rule-label { font-size:0.7rem; text-transform:uppercase; letter-spacing:0.1em; margin-bottom:6px; font-weight:600; }
+  .rule.do .rule-label { color:#34d399; }
+  .rule.dont .rule-label { color:#ef4444; }
+  .rule p { font-size:0.85rem; color:#94a3b8; }
+
+  /* File list */
+  .file-tree { background:#111827; border-radius:12px; padding:20px 24px; border:1px solid #1e293b; font-family:'Space Grotesk',monospace; font-size:0.8rem; line-height:2; color:#94a3b8; }
+  .file-tree .dir { color:#fbbf24; }
+  .file-tree .file { color:#cbd5e1; }
+</style>
+</head>
+<body>
+<div class="page">
+
+<h1>Canary Brand Guide</h1>
+<p class="sub">Signal Bird identity system &middot; v1.0 &middot; February 2026</p>
+
+<!-- ═══════ COLORS ═══════ -->
+<section>
+  <h2>Color Palette</h2>
+  <h3>Primary</h3>
+  <div class="swatches" style="margin-bottom:16px">
+    <div class="swatch"><div class="swatch-color" style="background:#F59E0B"></div><div class="swatch-info"><div class="swatch-name">Canary Amber</div><div class="swatch-hex">#F59E0B · rgb(245,158,11)</div></div></div>
+    <div class="swatch"><div class="swatch-color" style="background:#D97706"></div><div class="swatch-info"><div class="swatch-name">Dark Amber</div><div class="swatch-hex">#D97706 · shadows/wing</div></div></div>
+    <div class="swatch"><div class="swatch-color" style="background:#FBBF24"></div><div class="swatch-info"><div class="swatch-name">Signal Yellow</div><div class="swatch-hex">#FBBF24 · signal waves</div></div></div>
+    <div class="swatch"><div class="swatch-color" style="background:#EA580C"></div><div class="swatch-info"><div class="swatch-name">Beak Orange</div><div class="swatch-hex">#EA580C · accent only</div></div></div>
+  </div>
+  <h3>Alert</h3>
+  <div class="swatches" style="margin-bottom:16px">
+    <div class="swatch"><div class="swatch-color" style="background:#EF4444"></div><div class="swatch-info"><div class="swatch-name">Alert Red</div><div class="swatch-hex">#EF4444 · notifications</div></div></div>
+    <div class="swatch"><div class="swatch-color" style="background:#34D399"></div><div class="swatch-info"><div class="swatch-name">Trust Green</div><div class="swatch-hex">#34D399 · positive states</div></div></div>
+  </div>
+  <h3>Backgrounds &amp; Text</h3>
+  <div class="swatches">
+    <div class="swatch"><div class="swatch-color" style="background:#0F1923"></div><div class="swatch-info"><div class="swatch-name">Navy (Primary BG)</div><div class="swatch-hex">#0F1923</div></div></div>
+    <div class="swatch"><div class="swatch-color" style="background:#111827"></div><div class="swatch-info"><div class="swatch-name">Slate (Card BG)</div><div class="swatch-hex">#111827</div></div></div>
+    <div class="swatch"><div class="swatch-color" style="background:#1e293b"></div><div class="swatch-info"><div class="swatch-name">Border</div><div class="swatch-hex">#1E293B</div></div></div>
+    <div class="swatch"><div class="swatch-color" style="background:#F1F5F9"></div><div class="swatch-info"><div class="swatch-name">Text Primary</div><div class="swatch-hex">#F1F5F9 · on dark</div></div></div>
+    <div class="swatch"><div class="swatch-color" style="background:#94A3B8"></div><div class="swatch-info"><div class="swatch-name">Text Secondary</div><div class="swatch-hex">#94A3B8 · muted</div></div></div>
+    <div class="swatch"><div class="swatch-color" style="background:#0F172A"></div><div class="swatch-info"><div class="swatch-name">Text on Light</div><div class="swatch-hex">#0F172A</div></div></div>
+  </div>
+</section>
+
+<!-- ═══════ LOGO ═══════ -->
+<section>
+  <h2>Logo Variants</h2>
+  <div class="logo-grid">
+    <div class="logo-card">
+      <div class="logo-preview dark">
+        <svg width="80" height="80" viewBox="0 0 100 100" fill="none">
+          <circle cx="42" cy="33" r="18" fill="#F59E0B"/><ellipse cx="50" cy="58" rx="25" ry="19" fill="#F59E0B"/><path d="M36 47 Q16 56 26 74 Q38 66 48 54 Z" fill="#D97706"/><circle cx="48" cy="30" r="4" fill="#0F1923"/><circle cx="46.5" cy="28.8" r="1.5" fill="#F59E0B"/><path d="M58 32 L70 27 L61 37 Z" fill="#EA580C"/><path d="M28 66 Q12 78 18 88 Q28 80 36 72 Z" fill="#D97706"/><path d="M73 22 Q80 18 83 26" stroke="#FBBF24" stroke-width="2.8" fill="none" stroke-linecap="round"/><path d="M78 14 Q87 9 91 20" stroke="#FBBF24" stroke-width="2" fill="none" stroke-linecap="round" opacity="0.55"/>
+        </svg>
+      </div>
+      <div class="logo-label">Icon — Dark BG <code>icon/canary-dark.png</code></div>
+    </div>
+    <div class="logo-card">
+      <div class="logo-preview light">
+        <svg width="80" height="80" viewBox="0 0 100 100" fill="none">
+          <circle cx="42" cy="33" r="18" fill="#F59E0B"/><ellipse cx="50" cy="58" rx="25" ry="19" fill="#F59E0B"/><path d="M36 47 Q16 56 26 74 Q38 66 48 54 Z" fill="#D97706"/><circle cx="48" cy="30" r="4" fill="#451A03"/><circle cx="46.5" cy="28.8" r="1.5" fill="#F59E0B"/><path d="M58 32 L70 27 L61 37 Z" fill="#EA580C"/><path d="M28 66 Q12 78 18 88 Q28 80 36 72 Z" fill="#D97706"/><path d="M73 22 Q80 18 83 26" stroke="#D97706" stroke-width="2.8" fill="none" stroke-linecap="round"/><path d="M78 14 Q87 9 91 20" stroke="#D97706" stroke-width="2" fill="none" stroke-linecap="round" opacity="0.55"/>
+        </svg>
+      </div>
+      <div class="logo-label">Icon — Light BG <code>icon/canary-light.png</code></div>
+    </div>
+    <div class="logo-card">
+      <div class="logo-preview dark">
+        <svg width="280" height="70" viewBox="0 0 400 100" fill="none">
+          <g transform="translate(12,8) scale(0.84)"><circle cx="42" cy="33" r="18" fill="#F59E0B"/><ellipse cx="50" cy="58" rx="25" ry="19" fill="#F59E0B"/><path d="M36 47 Q16 56 26 74 Q38 66 48 54 Z" fill="#D97706"/><circle cx="48" cy="30" r="4" fill="#0F1923"/><circle cx="46.5" cy="28.8" r="1.5" fill="#F59E0B"/><path d="M58 32 L70 27 L61 37 Z" fill="#EA580C"/><path d="M28 66 Q12 78 18 88 Q28 80 36 72 Z" fill="#D97706"/><path d="M73 22 Q80 18 83 26" stroke="#FBBF24" stroke-width="2.8" fill="none" stroke-linecap="round"/><path d="M78 14 Q87 9 91 20" stroke="#FBBF24" stroke-width="2" fill="none" stroke-linecap="round" opacity="0.55"/></g>
+          <text x="112" y="52" font-family="system-ui,sans-serif" font-size="38" font-weight="700" letter-spacing="3" fill="#F1F5F9">CANARY</text>
+          <text x="114" y="72" font-family="system-ui,sans-serif" font-size="10" letter-spacing="4" fill="#64748B">EARLY WARNING LP</text>
+        </svg>
+      </div>
+      <div class="logo-label">Horizontal Lockup <code>lockup/horizontal-dark.png</code></div>
+    </div>
+    <div class="logo-card">
+      <div class="logo-preview dark" style="min-height:220px">
+        <svg width="120" height="140" viewBox="0 0 200 200" fill="none">
+          <g transform="translate(50,12) scale(1)"><circle cx="42" cy="33" r="18" fill="#F59E0B"/><ellipse cx="50" cy="58" rx="25" ry="19" fill="#F59E0B"/><path d="M36 47 Q16 56 26 74 Q38 66 48 54 Z" fill="#D97706"/><circle cx="48" cy="30" r="4" fill="#0F1923"/><circle cx="46.5" cy="28.8" r="1.5" fill="#F59E0B"/><path d="M58 32 L70 27 L61 37 Z" fill="#EA580C"/><path d="M28 66 Q12 78 18 88 Q28 80 36 72 Z" fill="#D97706"/><path d="M73 22 Q80 18 83 26" stroke="#FBBF24" stroke-width="2.8" fill="none" stroke-linecap="round"/><path d="M78 14 Q87 9 91 20" stroke="#FBBF24" stroke-width="2" fill="none" stroke-linecap="round" opacity="0.55"/></g>
+          <text x="100" y="138" text-anchor="middle" font-family="system-ui,sans-serif" font-size="32" font-weight="700" letter-spacing="4" fill="#F1F5F9">CANARY</text>
+          <text x="100" y="158" text-anchor="middle" font-family="system-ui,sans-serif" font-size="8.5" letter-spacing="4.5" fill="#64748B">EARLY WARNING LP</text>
+        </svg>
+      </div>
+      <div class="logo-label">Stacked Lockup <code>lockup/stacked-dark.png</code></div>
+    </div>
+  </div>
+</section>
+
+<!-- ═══════ TYPOGRAPHY ═══════ -->
+<section>
+  <h2>Typography</h2>
+  <div class="type-row">
+    <div class="type-sample" style="font-family:'Space Grotesk',sans-serif; font-weight:700; letter-spacing:0.04em">CANARY</div>
+    <div class="type-meta">Wordmark: Space Grotesk Bold · letter-spacing: 0.04em · ALL CAPS</div>
+  </div>
+  <div class="type-row">
+    <div class="type-sample" style="font-family:'Inter',sans-serif; font-weight:600; font-size:1.4rem">Headlines use Inter Semibold</div>
+    <div class="type-meta">Headings: Inter 600 · sentence case</div>
+  </div>
+  <div class="type-row">
+    <div class="type-sample" style="font-family:'Inter',sans-serif; font-weight:400; font-size:1rem; color:#94a3b8">Body text is set in Inter Regular at 16px</div>
+    <div class="type-meta">Body: Inter 400 · 16px / 1.6 line-height</div>
+  </div>
+  <div class="type-row">
+    <div class="type-sample" style="font-family:'Space Grotesk',monospace; font-weight:400; font-size:0.85rem; color:#64748b; letter-spacing:0.15em">EARLY WARNING LP</div>
+    <div class="type-meta">Tagline: Space Grotesk Regular · 10-11px · letter-spacing: 0.15em · ALL CAPS</div>
+  </div>
+</section>
+
+<!-- ═══════ USAGE RULES ═══════ -->
+<section>
+  <h2>Usage Guidelines</h2>
+  <div class="rules">
+    <div class="rule do">
+      <div class="rule-label">Do</div>
+      <p>Use the dark background version (#0F1923) as the primary. It's the hero.</p>
+    </div>
+    <div class="rule dont">
+      <div class="rule-label">Don't</div>
+      <p>Place the icon on busy photography or colored backgrounds without a container.</p>
+    </div>
+    <div class="rule do">
+      <div class="rule-label">Do</div>
+      <p>Maintain clear space equal to the bird's head radius around the logo on all sides.</p>
+    </div>
+    <div class="rule dont">
+      <div class="rule-label">Don't</div>
+      <p>Rotate, stretch, add drop shadows, or change the bird's colors.</p>
+    </div>
+    <div class="rule do">
+      <div class="rule-label">Do</div>
+      <p>Use the favicon version (with red alert dot) for browser tabs and app icons.</p>
+    </div>
+    <div class="rule dont">
+      <div class="rule-label">Don't</div>
+      <p>Use the full lockup below 120px wide — switch to the icon-only version.</p>
+    </div>
+  </div>
+</section>
+
+<!-- ═══════ FILE TREE ═══════ -->
+<section>
+  <h2>Asset Files</h2>
+  <div class="file-tree">
+    <span class="dir">brand/</span><br>
+    &nbsp;&nbsp;<span class="dir">icon/</span><br>
+    &nbsp;&nbsp;&nbsp;&nbsp;<span class="file">canary-dark.svg, .png (512px)</span><br>
+    &nbsp;&nbsp;&nbsp;&nbsp;<span class="file">canary-dark-256.svg, .png</span><br>
+    &nbsp;&nbsp;&nbsp;&nbsp;<span class="file">canary-light.svg, .png (512px)</span><br>
+    &nbsp;&nbsp;&nbsp;&nbsp;<span class="file">canary-transparent.svg, .png (512px)</span><br>
+    &nbsp;&nbsp;&nbsp;&nbsp;<span class="file">canary-hero-1024.svg, .png (1024px)</span><br>
+    &nbsp;&nbsp;<span class="dir">lockup/</span><br>
+    &nbsp;&nbsp;&nbsp;&nbsp;<span class="file">horizontal-dark.svg, .png (1600×400)</span><br>
+    &nbsp;&nbsp;&nbsp;&nbsp;<span class="file">horizontal-light.svg, .png</span><br>
+    &nbsp;&nbsp;&nbsp;&nbsp;<span class="file">horizontal-compact-dark.svg, .png (1200×300)</span><br>
+    &nbsp;&nbsp;&nbsp;&nbsp;<span class="file">horizontal-compact-light.svg, .png</span><br>
+    &nbsp;&nbsp;&nbsp;&nbsp;<span class="file">stacked-dark.svg, .png (1024×1024)</span><br>
+    &nbsp;&nbsp;&nbsp;&nbsp;<span class="file">stacked-light.svg, .png</span><br>
+    &nbsp;&nbsp;<span class="dir">favicon/</span><br>
+    &nbsp;&nbsp;&nbsp;&nbsp;<span class="file">favicon.svg, .png (512px)</span><br>
+    &nbsp;&nbsp;&nbsp;&nbsp;<span class="file">favicon-192.png, -180.png, -64.png, -32.png, -16.png</span><br>
+    &nbsp;&nbsp;&nbsp;&nbsp;<span class="file">apple-touch-icon.png (180px)</span><br>
+    &nbsp;&nbsp;<span class="dir">social/</span><br>
+    &nbsp;&nbsp;&nbsp;&nbsp;<span class="file">profile-800.svg, .png (800×800)</span><br>
+    &nbsp;&nbsp;&nbsp;&nbsp;<span class="file">banner-1500x500.svg, .png</span><br>
+    &nbsp;&nbsp;&nbsp;&nbsp;<span class="file">og-1200x630.svg, .png (Open Graph)</span><br>
+    &nbsp;&nbsp;<span class="file">BRAND_GUIDE.html ← you are here</span>
+  </div>
+</section>
+
+<!-- ═══════ ENTITY ═══════ -->
+<section>
+  <h2>Legal Entity</h2>
+  <p style="font-size:0.9rem; color:#94a3b8; line-height:1.8;">
+    <strong style="color:#f1f5f9">Entity name:</strong> Canary DAO LLC<br>
+    <strong style="color:#f1f5f9">Jurisdiction:</strong> Wyoming (W.S. 17-31-101 through 17-31-115)<br>
+    <strong style="color:#f1f5f9">Product name:</strong> Canary · Canary LP<br>
+    <strong style="color:#f1f5f9">Tagline:</strong> "The early warning system for retail shrink."<br>
+    <strong style="color:#f1f5f9">Domain:</strong> growdirect.io (pending rebrand to canary domain)
+  </p>
+</section>
+
+</div>
+</body>
+</html>
