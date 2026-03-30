@@ -74,7 +74,8 @@ One PostgreSQL 17 instance (`growdirect_postgres`). All databases have the
 |----------|-------|---------|
 | `canary` | growdirect | Canary production (schemas: app, sales, metrics) |
 | `canary_test` | growdirect | Canary test runs |
-| `canary_memory` | growdirect | ALX agent knowledge graph |
+| `growdirect_memory` | growdirect | Platform memory bus (all apps) |
+| `growdirect_memory_test` | growdirect | Memory bus test runs |
 | `cove` | growdirect | Cove production |
 | `cove_test` | growdirect | Cove test runs |
 
@@ -127,6 +128,7 @@ Each app is a separate directory with its own:
 | Cove Flask | 5002 |
 | Cove MailHog SMTP | 1026 |
 | Cove MailHog Web | 8026 |
+| Memory Bus MCP | 8003 |
 
 ---
 
@@ -154,6 +156,56 @@ Each app is a separate directory with its own:
 | `Dockerfile` or compose changes | `docker compose up -d --force-recreate flask` |
 
 `ModuleNotFoundError` in container logs = image needs rebuild. Do NOT modify Python code to work around a missing package.
+
+### Docker Image Naming — Required
+
+Every service with a `build:` block **must** have an explicit `image:` tag prefixed
+with the app name. Without this, Docker Compose derives image names from the
+directory + service name (e.g., `devops-flask`). Since all apps keep their compose
+files in `devops/`, services with the same name (like `flask`) collide — starting
+one app silently clobbers the other's image.
+
+**Pattern:** `image: <appname>-<service>`
+
+```yaml
+# Canary
+flask:
+  image: canary-flask        # ← REQUIRED — prevents collision with cove-flask
+  build:
+    context: ..
+    dockerfile: Dockerfile
+
+# Cove
+flask:
+  image: cove-flask           # ← REQUIRED — prevents collision with canary-flask
+  build:
+    context: ../
+    dockerfile: Dockerfile
+```
+
+**Rule:** If you add a `build:` block to any compose service, you must also add
+`image: <appname>-<descriptive-name>`. No exceptions. Services that reuse the
+same Dockerfile (e.g., TSP consumers reusing the Flask image) should reference
+the same image name so Docker builds once and reuses.
+
+### Docker Compose Project Names — Required
+
+Every app compose file **must** have a top-level `name:` field. Without it,
+Docker Compose derives the project name from the directory containing the compose
+file. Since all apps store compose files in `devops/`, they all get project name
+`devops` — causing one app's `docker compose up` to see the other app's containers
+as orphans and potentially recreate or remove them.
+
+```yaml
+# Top of every compose file — before services:
+name: canary          # or cove, canary-qa, canary-enterprise, etc.
+
+services:
+  ...
+```
+
+**Rule:** Every compose file must declare `name: <appname>[-environment]` at the
+top level. The name must be unique across all apps and environments.
 
 ---
 
@@ -235,14 +287,21 @@ OLLAMA_URL=http://growdirect_ollama:11434
 
 ## Factory Process
 
-Six stages, in order:
+Nine stages, in order. Defined in `factory-manifest.json`.
 
-1. **Blueprint** — Specify what you're building (`factory-blueprint` skill)
-2. **TDD** — Write failing tests first (`factory-tdd` skill)
-3. **Assembly** — Implement to make tests pass (`factory-assembly` skill)
-4. **Verify** — Run full test suite, check integration (`factory-verify` skill)
-5. **QA** — Quality assurance pass (`factory-qa` skill)
-6. **Ship** — Deployment preparation (`factory-ship` skill)
+1. **Preflight** — Infrastructure health, env validation, git hygiene (`factory-preflight` skill)
+2. **Research** — Prior art from memory bus, GitNexus, docs (`factory-research` skill)
+3. **Blueprint** — Specify what you're building (`factory-blueprint` skill)
+4. **TDD** — Write failing tests first (`factory-tdd` skill)
+5. **Assembly** — Implement to make tests pass (`factory-assembly` skill)
+6. **Verify** — Run full test suite, check integration (`factory-verify` skill)
+7. **QA** — Quality assurance pass (`factory-qa` skill)
+8. **Ship** — Deployment preparation (`factory-ship` skill)
+9. **Close** — Linear update, session memory, timelog (`factory-close` skill)
+
+Skills live in `.claude/skills/` at the repo root. App-specific skills (e.g.,
+`canary-blueprint`, `cove-tdd`) delegate to the factory base and add domain context.
+Linear integration is handled by `factory-linear` at stage boundaries.
 
 ---
 

@@ -1,0 +1,67 @@
+{
+  "version": "1.0",
+  "pipeline": ["preflight", "research", "blueprint", "tdd", "assembly", "verify", "qa", "ship", "close"],
+  "stages": {
+    "preflight": {
+      "replaces": "startup",
+      "inputs": ["gro_issue"],
+      "outputs": ["preflight_report"],
+      "required_mcps": ["linear"],
+      "optional_mcps": ["memory-bus"],
+      "checks": ["docker", "postgres", "valkey", "ollama", "git_clean", "gro_exists"]
+    },
+    "research": {
+      "inputs": ["gro_issue", "preflight_report"],
+      "outputs": ["context_bundle"],
+      "required_mcps": [],
+      "optional_mcps": ["memory-bus", "gitnexus", "obsidian", "firecrawl"]
+    },
+    "blueprint": {
+      "inputs": ["gro_issue", "preflight_report", "context_bundle"],
+      "outputs": ["docs/plans/{date}-{slug}.md"],
+      "required_mcps": ["linear"],
+      "optional_mcps": ["memory-bus"]
+    },
+    "tdd": {
+      "inputs": ["plan"],
+      "outputs": ["tests/"],
+      "required_mcps": []
+    },
+    "assembly": {
+      "inputs": ["plan", "failing_tests"],
+      "outputs": ["implementation"],
+      "required_mcps": []
+    },
+    "verify": {
+      "inputs": ["implementation"],
+      "outputs": ["verify_report"],
+      "required_mcps": []
+    },
+    "qa": {
+      "inputs": ["verify_report"],
+      "outputs": ["qa_report"],
+      "required_mcps": []
+    },
+    "ship": {
+      "inputs": ["qa_report"],
+      "outputs": ["git_push", "linear_update"],
+      "required_mcps": ["linear"]
+    },
+    "close": {
+      "inputs": ["ship_result"],
+      "outputs": ["session_summary"],
+      "required_mcps": ["linear"],
+      "optional_mcps": ["memory-bus"]
+    }
+  },
+  "apps": {
+    "canary": {
+      "compliance": "pci-awareness",
+      "overrides": ["preflight", "blueprint", "tdd", "assembly", "verify", "qa", "ship", "close"]
+    },
+    "cove": {
+      "compliance": "davis-stirling",
+      "overrides": ["preflight", "blueprint", "tdd", "assembly", "verify", "qa", "ship", "close"]
+    }
+  }
+}

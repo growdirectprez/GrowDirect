@@ -72,7 +72,7 @@ DATABASE_URL=postgresql://growdirect:growdirect_dev@growdirect_postgres:5432/can
 Example VALKEY_URL:
 
 ```
-VALKEY_URL=redis://growdirect_valkey:6379/0
+VALKEY_URL=redis://:valkey_dev@growdirect_valkey:6379/<db_number>
 ```
 
 ---
@@ -85,6 +85,7 @@ The following databases are created on first boot by `init-db/01-create-database
 |----------|-----|-------|
 | `canary` | Canary | Production database |
 | `canary_test` | Canary | Test runner database |
+| `canary_memory` | growdirect | ALX agent knowledge graph |
 | `cove` | Cove | Production database |
 | `cove_test` | Cove | Test runner database |
 
