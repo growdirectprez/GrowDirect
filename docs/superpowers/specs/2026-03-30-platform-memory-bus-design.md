@@ -70,7 +70,27 @@ The service extracts business logic from `canary/services/alx/memory.py`. Core f
 | `session_close` | Close session, store summary/decisions |
 | `domain_context` | Full domain context assembly with token budget |
 
-New field on all memory records: `layer` (enum: `corp`, `canary`, `cove`, `shared`) for scoped retrieval. Defaults to `shared`.
+New field on `alx_memories`: `layer` (enum: `corp`, `canary`, `cove`, `shared`) for scoped retrieval. Defaults to `shared`.
+
+### Internal functions (not MCP tools)
+
+These functions from `memory.py` become internal to `store.py` — not exposed as MCP tools:
+
+| Function | Disposition |
+|----------|-------------|
+| `memory_semantic_search` | Internal to `store.py`. Used by `memory_recall` internally. If Canary's `institutional.py` needs it, it calls `memory_recall` via MCP. |
+| `recall_context_blocks` | Internal to `store.py`. Used by `context_assemble` and `domain_context` internally. |
+| `memory_healthy` | Exposed as the service health check endpoint, not as an MCP tool. |
+
+### Canary `institutional.py` latency consideration
+
+`institutional.py` currently imports `memory_semantic_search` directly for Owl/JPT prompts — a hot path on every merchant-facing chat. Moving to MCP adds a network round-trip. Mitigation options (decided during assembly):
+
+1. **Acceptable latency** — memory bus is on the same Docker network, round-trip is <5ms
+2. **Cache at Canary** — cache institutional context in Valkey with TTL, only hit memory bus on cache miss
+3. **Keep direct DB query** — `institutional.py` queries `growdirect_memory` directly via SQLAlchemy without going through MCP (no code dependency on memory bus, just a DB connection)
+
+Option 1 is the starting point. If latency is measurable in testing, fall back to option 2.
 
 ## Container Config
 
@@ -96,14 +116,43 @@ memory-bus:
       condition: service_healthy
     ollama:
       condition: service_healthy
+  healthcheck:
+    test: ["CMD", "python", "-c", "import httpx; httpx.get('http://localhost:8003/health').raise_for_status()"]
+    interval: 30s
+    timeout: 10s
+    retries: 3
 ```
 
 ## Database Migration
 
-- `canary_memory` renamed to `growdirect_memory` in `devops/init-db/01-create-databases.sql`
-- `02-create-memory-db.sql` moves from `Canary/devops/init-db/` to `GrowDirect/devops/init-db/`, references `growdirect_memory`
+### Rename
+
 - One-time migration script: `ALTER DATABASE canary_memory RENAME TO growdirect_memory`
-- New test DB `growdirect_memory_test` added to init script
+- `devops/init-db/01-create-databases.sql` updated: `CREATE DATABASE canary_memory` → `CREATE DATABASE growdirect_memory`. Memory table DDL removed from this file — it only creates the database and enables extensions.
+- `02-create-memory-db.sql` becomes the single canonical DDL source for all `growdirect_memory` tables. Moves from `Canary/devops/init-db/` to `GrowDirect/devops/init-db/`.
+- New test DB `growdirect_memory_test` added to init script.
+
+### Schema fixes during extraction
+
+**`memory_type` CHECK constraint:** The current constraint only allows `decision`, `finding`, `context`, `architecture`, `session_summary`, `procedure` — but the codebase actively stores `context_block`, `work_product`, `team_profile`, and `foundation`. Update the CHECK constraint to include all actively-used types.
+
+**`layer` column:** Add to `alx_memories` table:
+```sql
+ALTER TABLE alx_memories ADD COLUMN layer TEXT NOT NULL DEFAULT 'shared'
+    CHECK (layer IN ('corp', 'canary', 'cove', 'shared'));
+CREATE INDEX idx_alx_memories_layer ON alx_memories(layer);
+```
+Backfill: all existing records get `layer = 'shared'` (the default). Layer-specific tagging happens going forward as memories are stored with explicit layer values.
+
+`seed_embeddings` does not get a `layer` column — seed data is curated platform knowledge and is always `shared`.
+
+**`updated_at` column:** Add `updated_at TIMESTAMPTZ DEFAULT NOW()` to both `alx_memories` and `seed_embeddings` to comply with platform standards. Add trigger to auto-update on row modification.
+
+### Environment variables
+
+Current Canary env vars that change:
+- `CANARY_MEMORY_DB_URL` — removed from Canary `.env` and `docker-compose.yml`. Memory bus uses `DATABASE_URL` instead.
+- `OWL_URL` — renamed to `OLLAMA_URL` in memory bus config. Canary keeps `OWL_URL` for its own Ollama usage (Owl product knowledge).
 
 ## Canary Cleanup
 
@@ -115,6 +164,12 @@ memory-bus:
 
 **Moved to `services/memory-bus/scripts/`:**
 - `seed_context_blocks.py`, `seed_memory_foundation.py`, `seed_work_products.py`, `seed_team_profiles.py`, `seed_sdds_v2.py`, `embed_memories_batch.py`, `load_memories.py`, `ingest_tier2_batch.py`, `field_registry_seed.py`
+
+**Dropped (stale or superseded):**
+- `enrich_cognee_batch.py` — Cognee integration was removed (GRO-198)
+- `embed_seeds.py` — superseded by `embed_memories_batch.py`
+- `refine_tier1_memories.py` — one-time refinement, already applied
+- `sync_vault_to_pgvector.py` — Obsidian sync, superseded by memory bus MCP
 
 **Updated imports:**
 - `canary/services/owl/institutional.py` — calls memory bus via MCP client instead of direct import

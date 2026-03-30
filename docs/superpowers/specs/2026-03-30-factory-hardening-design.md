@@ -27,6 +27,8 @@ factory-preflight → factory-research → factory-blueprint → factory-tdd →
 
 Preflight identifies the app context. From that point, every stage checks: does `{app}-{stage}.md` exist? If yes, use it (it runs factory base + app-specific additions). If no, use `factory-{stage}.md`.
 
+**Note:** `research` is intentionally absent from app override lists. The factory-level research (memory bus + GitNexus + optional sources) is sufficient for all apps. App-specific research overrides can be added later if an app needs to query a unique source (e.g., Canary querying Square API docs via Firecrawl).
+
 ## 1. factory-manifest.json
 
 Lives at `~/GrowDirect/factory-manifest.json`:
@@ -165,11 +167,11 @@ All skills move to `~/GrowDirect/.claude/skills/`. Flat `.md` files, no subdirec
 | `file-guardian.md` | was `Canary/.claude/skills/critical-file-guardian` | |
 | `gitnexus.md` | consolidated from 6 gitnexus skills | |
 | `jeffe-review.md` | was `Canary/.claude/skills/jeffe-review` | |
-| `founder-probe.md` | was `Canary/.claude/skills/founder-probe` | |
-| `remember-quote.md` | was `Canary/.claude/skills/remember-quote` | |
-| `project-timelog.md` | was `Canary/.claude/skills/project-timelog` | |
-| `session-synthesis.md` | was `Canary/.claude/skills/session-synthesis` | |
-| `rooster.md` | was `Canary/.claude/skills/rooster` | |
+| `founder-probe.md` | was `Canary/.claude/skills/founder-probe/founder-probe/SKILL.md` | |
+| `remember-quote.md` | was `Canary/.claude/skills/remember-quote/remember-quote/SKILL.md` | |
+| `project-timelog.md` | was `Canary/.claude/skills/project-timelog/SKILL.md` | |
+| `session-synthesis.md` | was `Canary/.claude/skills/session-synthesis/session-synthesis/SKILL.md` | |
+| `rooster.md` | was `Canary/.claude/skills/rooster/rooster/SKILL.md` | |
 
 ### Canary-specific
 
@@ -188,7 +190,7 @@ All skills move to `~/GrowDirect/.claude/skills/`. Flat `.md` files, no subdirec
 | `canary-deploy.md` | was `Canary/.claude/skills/canary-deploy/SKILL.md` (inline refs) |
 | `canary-review.md` | was `Canary/.claude/skills/canary-review/SKILL.md` |
 | `canary-scenario.md` | was `Canary/.claude/skills/canary-scenario/SKILL.md` |
-| `canary-uat.md` | was `Canary/.claude/skills/canary-uat/SKILL.md` |
+| `canary-uat.md` | was `Canary/.claude/skills/canary-uat/canary-uat/SKILL.md` |
 
 ### Cove-specific
 
@@ -218,19 +220,21 @@ All skills move to `~/GrowDirect/.claude/skills/`. Flat `.md` files, no subdirec
 
 Skills that had `assets/`, `references/`, `scripts/` subdirectories (canary-deploy, canary-uat, founder-probe, project-timelog, remember-quote, rooster, session-synthesis):
 - Essential content inlined into the flat `.md` file
-- Reference data that's still needed moves to `docs/skills/`
-- Stale assets dropped
+- Reference data that's still needed moves to `docs/skills/{skill-name}/` (e.g., `docs/skills/canary-deploy/environment.md`)
+- Stale assets and `.fuse_hidden*` files dropped
 
-**Total after flattening: ~42 flat `.md` files in one directory.**
+**Total after flattening: 42 flat `.md` files in one directory.**
 
 ## 4. Verification
 
 - `factory-manifest.json` passes JSON schema validation
 - Every skill in the manifest exists as a `.md` file in `GrowDirect/.claude/skills/`
 - Every app override has a corresponding `{app}-{stage}.md` file
-- Old skill directories are gone (`Cove/.claude/skills/` and `Canary/.claude/skills/` empty or removed)
+- Old skill directories are gone (`Cove/.claude/skills/` and `Canary/.claude/skills/` removed). Note: `.claude/settings.json` files in each app are preserved — only the `skills/` subdirectory is removed.
+- `.fuse_hidden*` files in skill directories cleaned up during migration
 - Preflight runs successfully against healthy Docker stack
 - Factory process works end-to-end from new flat location
+- CLAUDE.md Factory Process section updated to reflect 9-stage pipeline (preflight, research, blueprint, tdd, assembly, verify, qa, ship, close)
 
 ## 5. New GRO Issue (out of scope)
 
@@ -246,3 +250,5 @@ Skills that had `assets/`, `references/`, `scripts/` subdirectories (canary-depl
 - [ ] Old skill directories deleted from Cove and Canary
 - [ ] Existing factory process works after reorganization
 - [ ] Pipeline: preflight → research → blueprint → tdd → assembly → verify → qa → ship → close
+- [ ] CLAUDE.md Factory Process section updated to match 9-stage pipeline
+- [ ] `.claude/settings.json` preserved in both Canary and Cove after skills directory removal
