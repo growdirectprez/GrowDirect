@@ -1,11 +1,27 @@
+# App repos (separate git repos)
 Canary/
 Cove/
+
+# Removed directories (contents moved to docs/)
 IP/
-.worktrees/
+gis-downloads/
+
+# macOS
 .DS_Store
+
+# Python
+__pycache__/
+*.pyc
+*.pyo
+.pytest_cache/
+*.egg-info/
+
+# Claude Code
 .claude/settings.local.json
 .claude/launch.json
-gis-downloads/
+.worktrees/
+
+# Runtime artifacts
 migrate_off_icloud.sh
 
 # Stray binaries (should be filed in app archives)
