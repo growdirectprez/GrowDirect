@@ -1,0 +1,189 @@
+{
+  "merchant_id": "__default__",
+  "locale": "en-US",
+  "version": "1.0.0",
+  "generated": "2026-02-28",
+  "registry_source": "B068_TokenRegistry_v1.0.md",
+  "description": "Canary default vocabulary — generic retail. Contains only vocabulary-overridable business terms. UI strings live in the Locale Pack.",
+  "tokens": {
+    "employee": {
+      "label": {
+        "singular": "Employee",
+        "plural": "Employees"
+      }
+    },
+    "location": {
+      "label": {
+        "singular": "Location",
+        "plural": "Locations"
+      }
+    },
+    "cash_drawer": {
+      "label": {
+        "singular": "Cash Drawer",
+        "plural": "Cash Drawers"
+      }
+    },
+    "transaction": {
+      "label": {
+        "singular": "Transaction",
+        "plural": "Transactions"
+      }
+    },
+    "void": {
+      "label": {
+        "singular": "Void",
+        "plural": "Voids"
+      }
+    },
+    "refund": {
+      "label": {
+        "singular": "Refund",
+        "plural": "Refunds"
+      }
+    },
+    "case": {
+      "label": {
+        "singular": "Case",
+        "plural": "Cases"
+      }
+    },
+    "chirp": {
+      "label": {
+        "singular": "Alert",
+        "plural": "Alerts"
+      }
+    },
+    "shift": {
+      "label": {
+        "singular": "Shift",
+        "plural": "Shifts"
+      }
+    },
+    "tender": {
+      "label": {
+        "singular": "Tender",
+        "plural": "Tenders"
+      }
+    },
+    "store": {
+      "label": {
+        "singular": "Store",
+        "plural": "Stores"
+      }
+    },
+    "drawer": {
+      "label": {
+        "singular": "Drawer",
+        "plural": "Drawers"
+      }
+    },
+    "discount": {
+      "label": {
+        "singular": "Discount",
+        "plural": "Discounts"
+      }
+    },
+    "exchange": {
+      "label": {
+        "singular": "Exchange",
+        "plural": "Exchanges"
+      }
+    },
+    "variance": {
+      "label": {
+        "singular": "Variance"
+      }
+    },
+    "shrink": {
+      "label": {
+        "singular": "Shrink"
+      }
+    },
+    "investigation": {
+      "label": {
+        "singular": "Investigation",
+        "plural": "Investigations"
+      }
+    }
+  },
+  "_vertical_examples": {
+    "_note": "Reference implementations. Application ignores this key. Shows how one vocabulary swap deploys Canary to any vertical market.",
+    "restaurant": {
+      "employee": { "singular": "Server", "plural": "Servers" },
+      "location": { "singular": "Restaurant", "plural": "Restaurants" },
+      "cash_drawer": { "singular": "Register", "plural": "Registers" },
+      "transaction": { "singular": "Check", "plural": "Checks" },
+      "void": { "singular": "Void", "plural": "Voids" },
+      "refund": { "singular": "Refund", "plural": "Refunds" },
+      "case": { "singular": "Case", "plural": "Cases" },
+      "chirp": { "singular": "Alert", "plural": "Alerts" },
+      "shift": { "singular": "Shift", "plural": "Shifts" },
+      "tender": { "singular": "Payment", "plural": "Payments" },
+      "store": { "singular": "Restaurant", "plural": "Restaurants" },
+      "drawer": { "singular": "Register", "plural": "Registers" },
+      "discount": { "singular": "Comp", "plural": "Comps" },
+      "exchange": { "singular": "Exchange", "plural": "Exchanges" },
+      "variance": { "singular": "Variance" },
+      "shrink": { "singular": "Loss" },
+      "investigation": { "singular": "Investigation", "plural": "Investigations" }
+    },
+    "specialty_coffee": {
+      "employee": { "singular": "Barista", "plural": "Baristas" },
+      "location": { "singular": "Caf\u00e9", "plural": "Caf\u00e9s" },
+      "cash_drawer": { "singular": "Register", "plural": "Registers" },
+      "transaction": { "singular": "Order", "plural": "Orders" },
+      "void": { "singular": "Void", "plural": "Voids" },
+      "refund": { "singular": "Refund", "plural": "Refunds" },
+      "case": { "singular": "Case", "plural": "Cases" },
+      "chirp": { "singular": "Alert", "plural": "Alerts" },
+      "shift": { "singular": "Shift", "plural": "Shifts" },
+      "tender": { "singular": "Payment", "plural": "Payments" },
+      "store": { "singular": "Shop", "plural": "Shops" },
+      "drawer": { "singular": "Register", "plural": "Registers" },
+      "discount": { "singular": "Discount", "plural": "Discounts" },
+      "exchange": { "singular": "Exchange", "plural": "Exchanges" },
+      "variance": { "singular": "Variance" },
+      "shrink": { "singular": "Shrink" },
+      "investigation": { "singular": "Investigation", "plural": "Investigations" }
+    },
+    "cannabis_dispensary": {
+      "employee": { "singular": "Budtender", "plural": "Budtenders" },
+      "location": { "singular": "Dispensary", "plural": "Dispensaries" },
+      "cash_drawer": { "singular": "Cash Drawer", "plural": "Cash Drawers" },
+      "transaction": { "singular": "Receipt", "plural": "Receipts" },
+      "void": { "singular": "Cancellation", "plural": "Cancellations" },
+      "refund": { "singular": "Return", "plural": "Returns" },
+      "case": { "singular": "Incident", "plural": "Incidents" },
+      "chirp": { "singular": "Flag", "plural": "Flags" },
+      "shift": { "singular": "Shift", "plural": "Shifts" },
+      "tender": { "singular": "Payment", "plural": "Payments" },
+      "store": { "singular": "Dispensary", "plural": "Dispensaries" },
+      "drawer": { "singular": "Drawer", "plural": "Drawers" },
+      "discount": { "singular": "Discount", "plural": "Discounts" },
+      "exchange": { "singular": "Exchange", "plural": "Exchanges" },
+      "variance": { "singular": "Discrepancy" },
+      "shrink": { "singular": "Loss" },
+      "investigation": { "singular": "Review", "plural": "Reviews" }
+    },
+    "franchise_retail": {
+      "employee": { "singular": "Associate", "plural": "Associates" },
+      "location": { "singular": "Store", "plural": "Stores" },
+      "cash_drawer": { "singular": "Till", "plural": "Tills" },
+      "transaction": { "singular": "Sale", "plural": "Sales" },
+      "void": { "singular": "Void", "plural": "Voids" },
+      "refund": { "singular": "Return", "plural": "Returns" },
+      "case": { "singular": "Case", "plural": "Cases" },
+      "chirp": { "singular": "Alert", "plural": "Alerts" },
+      "shift": { "singular": "Shift", "plural": "Shifts" },
+      "tender": { "singular": "Tender", "plural": "Tenders" },
+      "store": { "singular": "Store", "plural": "Stores" },
+      "drawer": { "singular": "Till", "plural": "Tills" },
+      "discount": { "singular": "Markdown", "plural": "Markdowns" },
+      "exchange": { "singular": "Exchange", "plural": "Exchanges" },
+      "variance": { "singular": "Variance" },
+      "shrink": { "singular": "Shrink" },
+      "investigation": { "singular": "Investigation", "plural": "Investigations" }
+    }
+  }
+}

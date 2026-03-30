@@ -85,7 +85,8 @@ The following databases are created on first boot by `init-db/01-create-database
 |----------|-----|-------|
 | `canary` | Canary | Production database |
 | `canary_test` | Canary | Test runner database |
-| `canary_memory` | growdirect | ALX agent knowledge graph |
+| `growdirect_memory` | growdirect | Platform memory bus — ALX sessions + embeddings (GRO-172) |
+| `growdirect_memory_test` | growdirect | Memory bus test runner database |
 | `cove` | Cove | Production database |
 | `cove_test` | Cove | Test runner database |
 

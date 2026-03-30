@@ -8,7 +8,10 @@
       "outputs": ["preflight_report"],
       "required_mcps": ["linear"],
       "optional_mcps": ["memory-bus"],
-      "checks": ["docker", "postgres", "valkey", "ollama", "git_clean", "gro_exists"]
+      "checks": ["docker", "postgres", "valkey", "ollama", "git_clean", "gro_exists"],
+      "skill": "factory-preflight",
+      "eval": "evals/skills/test_platform_preflight.py",
+      "eval_threshold": 1.0
     },
     "research": {
       "inputs": ["gro_issue", "preflight_report"],
@@ -61,7 +64,15 @@
     },
     "cove": {
       "compliance": "davis-stirling",
-      "overrides": ["preflight", "blueprint", "tdd", "assembly", "verify", "qa", "ship", "close"]
+      "overrides": ["preflight", "blueprint", "tdd", "assembly", "verify", "qa", "ship", "close"],
+      "domain_skills": {
+        "quorum": {
+          "skill": "cove-quorum",
+          "module": "cove.governance.quorum",
+          "eval": "evals/skills/test_quorum_calculator.py",
+          "eval_threshold": 0.90
+        }
+      }
     }
   }
 }

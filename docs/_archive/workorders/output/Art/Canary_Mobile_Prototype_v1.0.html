@@ -1,0 +1,1805 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+  <title>Canary LP — Loss Prevention Companion</title>
+
+  <!-- Google Fonts -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Space+Grotesk:wght@600;700&display=swap" rel="stylesheet">
+
+  <style>
+    /* Design System Color Tokens */
+    :root {
+      --ink: #0D1117;
+      --charcoal: #161B22;
+      --card: #1C2128;
+      --border: #21262D;
+      --border-light: #30363D;
+      --signal-yellow: #FBBF24;
+      --accent-gold: #F59E0B;
+      --deep-amber: #D97706;
+      --beak-gold: #E8A317;
+      --health-green: #3FB950;
+      --health-yellow: #FBBF24;
+      --health-red: #F85149;
+      --text-primary: #E6EDF3;
+      --text-body: #C9D1D9;
+      --text-muted: #8B949E;
+      --text-dim: #4B5563;
+      --blue: #58A6FF;
+      --purple: #BC8CFF;
+      --orange: #F0883E;
+
+      /* Spacing Scale */
+      --sp-1: 4px;
+      --sp-2: 8px;
+      --sp-3: 12px;
+      --sp-4: 16px;
+      --sp-5: 20px;
+      --sp-6: 24px;
+      --sp-8: 32px;
+      --sp-10: 40px;
+      --sp-12: 48px;
+
+      /* Border Radius */
+      --radius-sm: 8px;
+      --radius-md: 12px;
+      --radius-lg: 16px;
+      --radius-xl: 20px;
+      --radius-full: 9999px;
+    }
+
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    html, body {
+      width: 100%;
+      height: 100%;
+      background-color: var(--ink);
+      color: var(--text-primary);
+      font-family: 'Inter', sans-serif;
+      font-size: 16px;
+      line-height: 1.5;
+      -webkit-font-smoothing: antialiased;
+      -moz-osx-font-smoothing: grayscale;
+    }
+
+    body {
+      overflow: hidden;
+    }
+
+    /* Animations */
+    @keyframes gentle-bob {
+      0%, 100% { transform: translateY(0px); }
+      50% { transform: translateY(-2px); }
+    }
+
+    @keyframes avatar-pulse {
+      0%, 100% { opacity: 0.15; }
+      50% { opacity: 0.4; }
+    }
+
+    @keyframes health-wave-1 {
+      0% {
+        r: 2px;
+        opacity: 0;
+        stop-color: var(--health-green);
+      }
+      33% {
+        stop-color: var(--health-yellow);
+        opacity: 0.6;
+      }
+      66% {
+        stop-color: var(--health-red);
+        opacity: 0.4;
+      }
+      100% {
+        r: 20px;
+        opacity: 0;
+      }
+    }
+
+    @keyframes beak-open-close {
+      0%, 100% { transform: rotateX(0deg); }
+      25% { transform: rotateX(-8deg); }
+      50% { transform: rotateX(-12deg); }
+      75% { transform: rotateX(-8deg); }
+    }
+
+    @keyframes chirp-dot-pulse {
+      0%, 100% { opacity: 0.5; }
+      50% { opacity: 1; }
+    }
+
+    @keyframes cta-glow {
+      0%, 100% { box-shadow: 0 0 0 0 rgba(251, 191, 36, 0.4); }
+      50% { box-shadow: 0 0 0 8px rgba(251, 191, 36, 0); }
+    }
+
+    @keyframes confetti-fall {
+      to {
+        transform: translateY(100vh) rotate(360deg);
+        opacity: 0;
+      }
+    }
+
+    @keyframes spin-slow {
+      0% { transform: rotate(0deg); }
+      100% { transform: rotate(360deg); }
+    }
+
+    /* App Container */
+    #app {
+      display: flex;
+      flex-direction: column;
+      width: 100%;
+      height: 100vh;
+      background-color: var(--ink);
+      position: relative;
+      max-width: 640px;
+      margin: 0 auto;
+      box-shadow: 0 0 0 1px var(--border);
+    }
+
+    /* Top Bar */
+    .top-bar {
+      display: flex;
+      align-items: center;
+      padding: var(--sp-4) var(--sp-4) var(--sp-5) var(--sp-4);
+      background-color: var(--charcoal);
+      border-bottom: 1px solid var(--border);
+      position: sticky;
+      top: 0;
+      z-index: 100;
+      gap: var(--sp-4);
+    }
+
+    .avatar-container {
+      position: relative;
+      flex-shrink: 0;
+    }
+
+    .avatar-pulse-ring {
+      position: absolute;
+      inset: -4px;
+      border: 2px solid var(--health-green);
+      border-radius: 50%;
+      animation: avatar-pulse 2.5s ease-in-out infinite;
+    }
+
+    .avatar-bird {
+      width: 40px;
+      height: 40px;
+      animation: gentle-bob 3s ease-in-out infinite;
+    }
+
+    .greeting-area {
+      flex: 1;
+      min-width: 0;
+    }
+
+    .greeting-text {
+      font-family: 'Space Grotesk', sans-serif;
+      font-weight: 600;
+      font-size: 1.125rem;
+      color: var(--text-primary);
+      white-space: nowrap;
+      overflow: hidden;
+      text-overflow: ellipsis;
+    }
+
+    .chirp-count {
+      display: flex;
+      align-items: center;
+      gap: var(--sp-2);
+      font-size: 0.8125rem;
+      font-weight: 500;
+      color: var(--signal-yellow);
+      margin-top: 2px;
+    }
+
+    .chirp-dot {
+      width: 6px;
+      height: 6px;
+      border-radius: 50%;
+      background-color: var(--signal-yellow);
+      animation: chirp-dot-pulse 1.8s ease-in-out infinite;
+    }
+
+    /* Content Area */
+    .content-area {
+      flex: 1;
+      overflow-y: auto;
+      padding-bottom: 80px;
+      -webkit-overflow-scrolling: touch;
+    }
+
+    /* Views */
+    .view {
+      display: none;
+      padding: var(--sp-4);
+      min-height: 100%;
+    }
+
+    .view.active {
+      display: flex;
+      flex-direction: column;
+      gap: var(--sp-4);
+    }
+
+    /* Hero Chirp Banner */
+    .hero-chirp {
+      display: flex;
+      gap: var(--sp-4);
+      background-color: var(--card);
+      border: 1px solid var(--border);
+      border-radius: var(--radius-xl);
+      padding: var(--sp-6);
+      cursor: pointer;
+      transition: all 0.2s ease;
+      position: relative;
+      overflow: hidden;
+    }
+
+    .hero-chirp::before {
+      content: '';
+      position: absolute;
+      left: 0;
+      top: 0;
+      bottom: 0;
+      width: 4px;
+      background: linear-gradient(to bottom, var(--health-green), var(--health-yellow), var(--health-red));
+    }
+
+    .hero-chirp:active {
+      transform: scale(0.98);
+    }
+
+    .hero-chirp-icon {
+      flex-shrink: 0;
+      position: relative;
+    }
+
+    .hero-chirp-bird {
+      width: 44px;
+      height: 44px;
+      animation: gentle-bob 3s ease-in-out infinite;
+    }
+
+    .hero-chirp-content {
+      flex: 1;
+      min-width: 0;
+    }
+
+    .chirp-severity {
+      font-size: 0.6875rem;
+      font-weight: 600;
+      letter-spacing: 0.08em;
+      color: var(--health-yellow);
+      text-transform: uppercase;
+      margin-bottom: var(--sp-2);
+    }
+
+    .chirp-title {
+      font-family: 'Space Grotesk', sans-serif;
+      font-weight: 600;
+      font-size: 1.0625rem;
+      color: var(--text-primary);
+      margin-bottom: var(--sp-3);
+      line-height: 1.3;
+    }
+
+    .chirp-meta {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: var(--sp-3);
+    }
+
+    .chirp-time {
+      display: flex;
+      align-items: center;
+      gap: 4px;
+      font-size: 0.75rem;
+      color: var(--text-muted);
+    }
+
+    .chirp-cta {
+      background-color: var(--signal-yellow);
+      color: var(--ink);
+      border: none;
+      border-radius: var(--radius-full);
+      padding: var(--sp-3) var(--sp-5);
+      font-weight: 600;
+      font-size: 0.8125rem;
+      cursor: pointer;
+      min-height: 44px;
+      display: flex;
+      align-items: center;
+      white-space: nowrap;
+      animation: cta-glow 3s ease-in-out infinite;
+      flex-shrink: 0;
+      transition: all 0.2s ease;
+    }
+
+    .chirp-cta:active {
+      transform: scale(0.95);
+    }
+
+    /* Peek Indicator */
+    .peek-indicator {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      height: 32px;
+      padding: 0 var(--sp-4);
+      margin-top: -12px;
+      background-color: transparent;
+      font-size: 0.75rem;
+      color: var(--text-muted);
+      cursor: pointer;
+      transition: all 0.2s ease;
+    }
+
+    .peek-indicator:active {
+      color: var(--signal-yellow);
+    }
+
+    /* Section Label */
+    .section-label {
+      font-size: 0.75rem;
+      font-weight: 500;
+      letter-spacing: 0.06em;
+      color: var(--text-muted);
+      text-transform: uppercase;
+      margin-top: var(--sp-4);
+    }
+
+    /* Action Cards */
+    .action-cards {
+      display: flex;
+      flex-direction: column;
+      gap: var(--sp-4);
+    }
+
+    .action-card {
+      display: flex;
+      align-items: center;
+      gap: var(--sp-4);
+      background-color: var(--card);
+      border: 1px solid var(--border);
+      border-radius: var(--radius-lg);
+      padding: var(--sp-5) var(--sp-5);
+      min-height: 72px;
+      cursor: pointer;
+      transition: all 0.2s ease;
+    }
+
+    .action-card:active {
+      transform: scale(0.98);
+      background-color: var(--border-light);
+    }
+
+    .action-card-icon {
+      width: 44px;
+      height: 44px;
+      min-flex-basis: 44px;
+      border-radius: var(--radius-md);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      flex-shrink: 0;
+    }
+
+    .action-card-icon.rooster {
+      background-color: rgba(251, 191, 36, 0.12);
+      color: var(--signal-yellow);
+    }
+
+    .action-card-icon.bull {
+      background-color: rgba(63, 185, 80, 0.12);
+      color: var(--health-green);
+    }
+
+    .action-card-icon.fox {
+      background-color: rgba(248, 81, 73, 0.12);
+      color: var(--health-red);
+    }
+
+    .action-card-body {
+      flex: 1;
+      min-width: 0;
+    }
+
+    .action-card-title {
+      font-family: 'Space Grotesk', sans-serif;
+      font-weight: 600;
+      font-size: 0.9375rem;
+      color: var(--text-primary);
+      margin-bottom: 2px;
+    }
+
+    .action-card-description {
+      font-size: 0.8125rem;
+      color: var(--text-muted);
+    }
+
+    .action-card-chevron {
+      width: 20px;
+      height: 20px;
+      flex-shrink: 0;
+      color: var(--text-dim);
+    }
+
+    /* Brand Footer */
+    .brand-footer {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: var(--sp-3);
+      margin-top: var(--sp-8);
+      margin-bottom: var(--sp-6);
+    }
+
+    .wordmark {
+      font-family: 'Space Grotesk', sans-serif;
+      font-weight: 700;
+      font-size: 0.875rem;
+      letter-spacing: 0.2em;
+      color: var(--text-dim);
+      text-transform: uppercase;
+    }
+
+    .health-bar {
+      display: flex;
+      gap: 3px;
+    }
+
+    .health-segment {
+      width: 24px;
+      height: 4px;
+      border-radius: 2px;
+      background-color: currentColor;
+    }
+
+    .health-segment.green { color: var(--health-green); }
+    .health-segment.yellow { color: var(--health-yellow); }
+    .health-segment.red { color: var(--health-red); }
+
+    /* Bottom Navigation */
+    .bottom-nav {
+      position: fixed;
+      bottom: 0;
+      left: 0;
+      right: 0;
+      height: 80px;
+      background-color: var(--card);
+      border-top: 1px solid var(--border);
+      display: flex;
+      justify-content: space-around;
+      align-items: flex-start;
+      padding: var(--sp-3) 0 var(--sp-4) 0;
+      z-index: 200;
+      max-width: 640px;
+      margin: 0 auto;
+    }
+
+    .nav-tab {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 4px;
+      padding: var(--sp-2);
+      cursor: pointer;
+      transition: all 0.2s ease;
+      min-width: 44px;
+      min-height: 44px;
+      justify-content: center;
+      color: var(--text-dim);
+    }
+
+    .nav-tab.active {
+      color: var(--signal-yellow);
+    }
+
+    .nav-icon {
+      width: 20px;
+      height: 20px;
+      stroke-width: 2;
+      stroke-linecap: square;
+      stroke-linejoin: miter;
+      fill: none;
+      stroke: currentColor;
+    }
+
+    .nav-label {
+      font-size: 0.625rem;
+      font-weight: 500;
+      text-transform: uppercase;
+      letter-spacing: 0.04em;
+    }
+
+    /* Skeleton Screens for Other Modules */
+    .module-skeleton {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      gap: var(--sp-6);
+      text-align: center;
+      padding: var(--sp-12);
+    }
+
+    .module-icon-large {
+      width: 64px;
+      height: 64px;
+      color: var(--text-muted);
+    }
+
+    .module-name {
+      font-family: 'Space Grotesk', sans-serif;
+      font-weight: 600;
+      font-size: 1.125rem;
+      color: var(--text-primary);
+    }
+
+    .coming-soon-message {
+      font-size: 0.9375rem;
+      color: var(--text-muted);
+      line-height: 1.5;
+    }
+
+    /* Wizard Overlay */
+    .wizard-overlay {
+      position: fixed;
+      inset: 0;
+      background-color: var(--ink);
+      z-index: 300;
+      display: flex;
+      flex-direction: column;
+      max-width: 640px;
+      margin: 0 auto;
+      animation: slideUp 0.3s ease;
+    }
+
+    @keyframes slideUp {
+      from {
+        transform: translateY(100%);
+      }
+      to {
+        transform: translateY(0);
+      }
+    }
+
+    .wizard-header {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: var(--sp-4);
+      background-color: var(--charcoal);
+      border-bottom: 1px solid var(--border);
+    }
+
+    .wizard-back-btn {
+      background: none;
+      border: none;
+      color: var(--signal-yellow);
+      cursor: pointer;
+      font-size: 1.5rem;
+      padding: 0;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      width: 44px;
+      height: 44px;
+    }
+
+    .wizard-progress {
+      flex: 1;
+      text-align: center;
+      font-size: 0.8125rem;
+      font-weight: 600;
+      color: var(--text-muted);
+      letter-spacing: 0.04em;
+      text-transform: uppercase;
+    }
+
+    .wizard-progress-bar {
+      width: 100%;
+      height: 3px;
+      background-color: var(--border);
+      position: relative;
+      overflow: hidden;
+    }
+
+    .wizard-progress-fill {
+      height: 100%;
+      background-color: var(--signal-yellow);
+      transition: width 0.3s ease;
+    }
+
+    .wizard-content {
+      flex: 1;
+      overflow-y: auto;
+      padding: var(--sp-6);
+      display: flex;
+      flex-direction: column;
+    }
+
+    .wizard-step {
+      display: none;
+      flex-direction: column;
+      gap: var(--sp-4);
+    }
+
+    .wizard-step.active {
+      display: flex;
+    }
+
+    .wizard-step-title {
+      font-family: 'Space Grotesk', sans-serif;
+      font-weight: 600;
+      font-size: 1.5rem;
+      color: var(--text-primary);
+      margin-bottom: var(--sp-4);
+    }
+
+    .wizard-step-description {
+      font-size: 0.9375rem;
+      color: var(--text-muted);
+      line-height: 1.6;
+      margin-bottom: var(--sp-4);
+    }
+
+    .form-group {
+      display: flex;
+      flex-direction: column;
+      gap: var(--sp-2);
+    }
+
+    .form-label {
+      font-weight: 600;
+      font-size: 0.9375rem;
+      color: var(--text-primary);
+    }
+
+    .form-input, .form-textarea {
+      background-color: var(--card);
+      border: 1px solid var(--border);
+      border-radius: var(--radius-md);
+      padding: var(--sp-3) var(--sp-4);
+      color: var(--text-primary);
+      font-family: 'Inter', sans-serif;
+      font-size: 1rem;
+      line-height: 1.5;
+    }
+
+    .form-input:focus, .form-textarea:focus {
+      outline: none;
+      border-color: var(--signal-yellow);
+      box-shadow: 0 0 0 3px rgba(251, 191, 36, 0.1);
+    }
+
+    .form-textarea {
+      resize: vertical;
+      min-height: 100px;
+    }
+
+    .checkbox-group {
+      display: flex;
+      flex-direction: column;
+      gap: var(--sp-3);
+    }
+
+    .checkbox-item {
+      display: flex;
+      align-items: center;
+      gap: var(--sp-3);
+      padding: var(--sp-3);
+      background-color: var(--card);
+      border: 1px solid var(--border);
+      border-radius: var(--radius-md);
+      cursor: pointer;
+      transition: all 0.2s ease;
+    }
+
+    .checkbox-item:active {
+      background-color: var(--border-light);
+    }
+
+    .checkbox-item input[type="checkbox"] {
+      width: 20px;
+      height: 20px;
+      cursor: pointer;
+      accent-color: var(--signal-yellow);
+    }
+
+    .checkbox-label {
+      flex: 1;
+      cursor: pointer;
+      color: var(--text-primary);
+      font-size: 0.9375rem;
+    }
+
+    /* Severity Badges */
+    .severity-badge {
+      display: inline-block;
+      padding: var(--sp-2) var(--sp-3);
+      border-radius: var(--radius-sm);
+      font-size: 0.75rem;
+      font-weight: 600;
+      letter-spacing: 0.04em;
+      text-transform: uppercase;
+    }
+
+    .severity-badge.critical {
+      background-color: rgba(248, 81, 73, 0.2);
+      color: var(--health-red);
+    }
+
+    .severity-badge.high {
+      background-color: rgba(251, 191, 36, 0.2);
+      color: var(--health-yellow);
+    }
+
+    .severity-badge.medium {
+      background-color: rgba(88, 166, 255, 0.2);
+      color: var(--blue);
+    }
+
+    /* Buttons */
+    .btn {
+      padding: var(--sp-3) var(--sp-5);
+      border: none;
+      border-radius: var(--radius-full);
+      font-weight: 600;
+      font-size: 0.9375rem;
+      cursor: pointer;
+      min-height: 44px;
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      transition: all 0.2s ease;
+      text-transform: uppercase;
+      letter-spacing: 0.04em;
+      width: 100%;
+    }
+
+    .btn-primary {
+      background-color: var(--signal-yellow);
+      color: var(--ink);
+    }
+
+    .btn-primary:active {
+      transform: scale(0.95);
+      opacity: 0.9;
+    }
+
+    .btn-secondary {
+      background-color: var(--card);
+      color: var(--text-primary);
+      border: 1px solid var(--border);
+    }
+
+    .btn-secondary:active {
+      background-color: var(--border-light);
+    }
+
+    /* Completion Screen */
+    .completion-content {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      gap: var(--sp-6);
+      padding: var(--sp-8) var(--sp-4);
+      text-align: center;
+      flex: 1;
+    }
+
+    .completion-icon {
+      width: 80px;
+      height: 80px;
+      color: var(--health-green);
+    }
+
+    .completion-message {
+      font-family: 'Space Grotesk', sans-serif;
+      font-weight: 600;
+      font-size: 1.5rem;
+      color: var(--text-primary);
+      line-height: 1.3;
+    }
+
+    .completion-description {
+      font-size: 0.9375rem;
+      color: var(--text-muted);
+      line-height: 1.6;
+    }
+
+    /* Confetti */
+    .confetti {
+      position: fixed;
+      width: 10px;
+      height: 10px;
+      pointer-events: none;
+      animation: confetti-fall 2.5s ease-in;
+      z-index: 400;
+    }
+
+    /* Alerts List */
+    .alerts-list {
+      display: flex;
+      flex-direction: column;
+      gap: var(--sp-3);
+    }
+
+    .alert-item {
+      display: flex;
+      gap: var(--sp-4);
+      background-color: var(--card);
+      border: 1px solid var(--border);
+      border-radius: var(--radius-lg);
+      padding: var(--sp-4);
+      cursor: pointer;
+      transition: all 0.2s ease;
+    }
+
+    .alert-item:active {
+      background-color: var(--border-light);
+    }
+
+    .alert-severity-bar {
+      width: 3px;
+      border-radius: 2px;
+      background-color: var(--health-red);
+    }
+
+    .alert-content {
+      flex: 1;
+    }
+
+    .alert-title {
+      font-family: 'Space Grotesk', sans-serif;
+      font-weight: 600;
+      font-size: 0.9375rem;
+      color: var(--text-primary);
+      margin-bottom: var(--sp-2);
+    }
+
+    .alert-meta {
+      display: flex;
+      gap: var(--sp-3);
+      font-size: 0.75rem;
+      color: var(--text-muted);
+    }
+
+    /* Zero State */
+    .zero-state {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      gap: var(--sp-5);
+      text-align: center;
+      padding: var(--sp-12);
+      color: var(--text-muted);
+    }
+
+    .zero-state-icon {
+      width: 60px;
+      height: 60px;
+      opacity: 0.3;
+    }
+
+    .zero-state-text {
+      font-size: 0.9375rem;
+    }
+
+    /* Filter Chips */
+    .filter-chips {
+      display: flex;
+      gap: var(--sp-2);
+      overflow-x: auto;
+      padding: var(--sp-4) 0;
+      margin-bottom: var(--sp-4);
+      -webkit-overflow-scrolling: touch;
+    }
+
+    .filter-chip {
+      padding: var(--sp-2) var(--sp-4);
+      border: 1px solid var(--border);
+      border-radius: var(--radius-full);
+      background-color: transparent;
+      color: var(--text-body);
+      cursor: pointer;
+      font-size: 0.75rem;
+      font-weight: 600;
+      white-space: nowrap;
+      transition: all 0.2s ease;
+    }
+
+    .filter-chip.active {
+      background-color: var(--signal-yellow);
+      color: var(--ink);
+      border-color: var(--signal-yellow);
+    }
+
+    .filter-chip:active {
+      opacity: 0.8;
+    }
+
+    /* Responsive */
+    @media (min-width: 768px) {
+      .action-cards {
+        display: grid;
+        grid-template-columns: repeat(2, 1fr);
+      }
+    }
+
+    @media (min-width: 1024px) {
+      #app {
+        max-width: 720px;
+      }
+
+      .bottom-nav {
+        max-width: 720px;
+      }
+
+      .wizard-overlay {
+        max-width: 720px;
+      }
+    }
+  </style>
+</head>
+<body>
+  <div id="app">
+    <!-- Top Bar -->
+    <div class="top-bar">
+      <div class="avatar-container">
+        <div class="avatar-pulse-ring"></div>
+        <svg class="avatar-bird" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="square" stroke-linejoin="miter">
+          <style>
+            .avatar-bird { color: var(--signal-yellow); }
+          </style>
+          <!-- Canary Icon -->
+          <circle cx="11" cy="10" r="5"/>
+          <polygon points="16,9 21,7 16,11"/>
+          <ellipse cx="12" cy="16" rx="6" ry="3"/>
+          <line x1="8" y1="18" x2="6" y2="22"/>
+          <line x1="14" y1="18" x2="16" y2="22"/>
+        </svg>
+      </div>
+      <div class="greeting-area">
+        <div class="greeting-text">Good morning, Alex</div>
+        <div class="chirp-count">
+          <span>2 Chirps need attention</span>
+          <div class="chirp-dot"></div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Content Area -->
+    <div class="content-area">
+      <!-- Home View -->
+      <div id="home-view" class="view active">
+        <!-- Hero Chirp Banner -->
+        <div class="hero-chirp" onclick="startWizard('cash-shortage')">
+          <div class="hero-chirp-icon">
+            <svg class="hero-chirp-bird" viewBox="0 0 24 24" fill="none" stroke="var(--signal-yellow)" stroke-width="2" stroke-linecap="square" stroke-linejoin="miter">
+              <!-- Chirping Canary with animations -->
+              <circle cx="11" cy="10" r="5"/>
+              <polygon points="16,9 21,7 16,11"/>
+              <ellipse cx="12" cy="16" rx="6" ry="3"/>
+              <line x1="8" y1="18" x2="6" y2="22"/>
+              <line x1="14" y1="18" x2="16" y2="22"/>
+              <!-- Health wave circles (SVG filters would be ideal but inline for simplicity) -->
+              <circle cx="12" cy="16" r="8" fill="none" stroke="var(--health-green)" opacity="0.3" style="animation: health-wave-1 2.2s ease-out infinite;"/>
+              <circle cx="12" cy="16" r="8" fill="none" stroke="var(--health-yellow)" opacity="0.3" style="animation: health-wave-1 2.2s ease-out 0.18s infinite;"/>
+              <circle cx="12" cy="16" r="8" fill="none" stroke="var(--health-red)" opacity="0.3" style="animation: health-wave-1 2.2s ease-out 0.36s infinite;"/>
+            </svg>
+          </div>
+          <div class="hero-chirp-content">
+            <div class="chirp-severity">HIGH</div>
+            <div class="chirp-title">Cash drawer short $47.50 at Main St</div>
+            <div class="chirp-meta">
+              <div class="chirp-time">
+                <span>⏱</span>
+                <span>Detected 23 min ago</span>
+              </div>
+              <button class="chirp-cta" onclick="event.stopPropagation(); startWizard('cash-shortage');">Let's Fix This</button>
+            </div>
+          </div>
+        </div>
+
+        <!-- Peek Indicator -->
+        <div class="peek-indicator" onclick="switchTab('alerts')">
+          <span>+1 more: Unusual refund pattern detected</span>
+          <span style="font-size: 1.2rem;">›</span>
+        </div>
+
+        <!-- Section Label -->
+        <div class="section-label">THIS MORNING</div>
+
+        <!-- Action Cards -->
+        <div class="action-cards">
+          <div class="action-card" onclick="startWizard('open-store')">
+            <div class="action-card-icon rooster">
+              <svg class="nav-icon" viewBox="0 0 24 24">
+                <circle cx="12" cy="11" r="5"/>
+                <polygon points="9,6 12,2 15,6" fill="currentColor" stroke="none"/>
+                <polygon points="17,10 21,9 17,12"/>
+                <line x1="8" y1="16" x2="6" y2="20"/>
+                <line x1="14" y1="16" x2="16" y2="20"/>
+                <polyline points="7,14 5,17 3,15" fill="none"/>
+              </svg>
+            </div>
+            <div class="action-card-body">
+              <div class="action-card-title">Open Your Store</div>
+              <div class="action-card-description">Start your day in under 5 minutes</div>
+            </div>
+            <div class="action-card-chevron">›</div>
+          </div>
+
+          <div class="action-card" onclick="startWizard('count-drawer')">
+            <div class="action-card-icon bull">
+              <svg class="nav-icon" viewBox="0 0 24 24">
+                <rect x="6" y="9" width="12" height="10" rx="2"/>
+                <path d="M6,12 Q2,8 4,4"/>
+                <path d="M18,12 Q22,8 20,4"/>
+                <circle cx="9.5" cy="13" r="1" fill="currentColor" stroke="none"/>
+                <circle cx="14.5" cy="13" r="1" fill="currentColor" stroke="none"/>
+                <line x1="10" y1="17" x2="14" y2="17"/>
+              </svg>
+            </div>
+            <div class="action-card-body">
+              <div class="action-card-title">Count the Register</div>
+              <div class="action-card-description">Register #2 hasn't been counted today</div>
+            </div>
+            <div class="action-card-chevron">›</div>
+          </div>
+
+          <div class="action-card" onclick="startWizard('refund-review')">
+            <div class="action-card-icon fox">
+              <svg class="nav-icon" viewBox="0 0 24 24">
+                <polygon points="12,20 3,12 5,4 12,8 19,4 21,12"/>
+                <circle cx="9" cy="11" r="1" fill="currentColor" stroke="none"/>
+                <circle cx="15" cy="11" r="1" fill="currentColor" stroke="none"/>
+                <polygon points="12,14 10,16 12,18 14,16"/>
+              </svg>
+            </div>
+            <div class="action-card-body">
+              <div class="action-card-title">Refunds This Week</div>
+              <div class="action-card-description">3 refunds flagged by James T. for review</div>
+            </div>
+            <div class="action-card-chevron">›</div>
+          </div>
+        </div>
+
+        <!-- Brand Footer -->
+        <div class="brand-footer">
+          <div class="wordmark">CANARY</div>
+          <div class="health-bar">
+            <div class="health-segment green"></div>
+            <div class="health-segment green"></div>
+            <div class="health-segment green"></div>
+            <div class="health-segment yellow"></div>
+            <div class="health-segment red"></div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Alerts View -->
+      <div id="alerts-view" class="view">
+        <h2 style="font-family: 'Space Grotesk', sans-serif; font-size: 1.5rem; margin-bottom: var(--sp-4);">Active Alerts</h2>
+
+        <div class="filter-chips">
+          <button class="filter-chip active" onclick="filterAlerts('all')">All</button>
+          <button class="filter-chip" onclick="filterAlerts('critical')">Critical</button>
+          <button class="filter-chip" onclick="filterAlerts('high')">High</button>
+          <button class="filter-chip" onclick="filterAlerts('medium')">Medium</button>
+          <button class="filter-chip" onclick="filterAlerts('low')">Low</button>
+        </div>
+
+        <div class="alerts-list" id="alerts-container">
+          <div class="alert-item" onclick="startWizard('cash-shortage')">
+            <div class="alert-severity-bar"></div>
+            <div class="alert-content">
+              <div class="alert-title">Cash drawer short $47.50</div>
+              <div class="alert-meta">
+                <span>Main Street Café</span>
+                <span>23 min ago</span>
+              </div>
+            </div>
+          </div>
+
+          <div class="alert-item" onclick="startWizard('refund-review')">
+            <div class="alert-severity-bar" style="background-color: var(--health-yellow);"></div>
+            <div class="alert-content">
+              <div class="alert-title">Unusual refund pattern detected</div>
+              <div class="alert-meta">
+                <span>7 refunds by James T. — $312 total</span>
+                <span>2 hours ago</span>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Insights Skeleton -->
+      <div id="insights-view" class="view">
+        <div class="module-skeleton">
+          <svg class="module-icon-large" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="square" stroke-linejoin="miter">
+            <rect x="4" y="8" width="16" height="12" rx="3"/>
+            <circle cx="9" cy="14" r="2.5"/>
+            <circle cx="15" cy="14" r="2.5"/>
+            <circle cx="9" cy="14" r="1" fill="currentColor" stroke="none"/>
+            <circle cx="15" cy="14" r="1" fill="currentColor" stroke="none"/>
+            <polygon points="12,16 11,19 13,19"/>
+            <polyline points="4,10 2,4 8,8" fill="none"/>
+            <polyline points="20,10 22,4 16,8" fill="none"/>
+          </svg>
+          <div class="module-name">Insights</div>
+          <div class="coming-soon-message">Your store's trends and patterns — owner only</div>
+        </div>
+      </div>
+
+      <!-- Investigate Skeleton -->
+      <div id="investigate-view" class="view">
+        <div class="module-skeleton">
+          <svg class="module-icon-large" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="square" stroke-linejoin="miter">
+            <polygon points="12,20 3,12 5,4 12,8 19,4 21,12"/>
+            <circle cx="9" cy="11" r="1" fill="currentColor" stroke="none"/>
+            <circle cx="15" cy="11" r="1" fill="currentColor" stroke="none"/>
+            <polygon points="12,14 10,16 12,18 14,16"/>
+          </svg>
+          <div class="module-name">Investigate</div>
+          <div class="coming-soon-message">Case management for serious incidents — owner only</div>
+        </div>
+      </div>
+
+      <!-- Inventory Skeleton -->
+      <div id="inventory-view" class="view">
+        <div class="module-skeleton">
+          <svg class="module-icon-large" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="square" stroke-linejoin="miter">
+            <rect x="6" y="9" width="12" height="10" rx="2"/>
+            <path d="M6,12 Q2,8 4,4"/>
+            <path d="M18,12 Q22,8 20,4"/>
+            <circle cx="9.5" cy="13" r="1" fill="currentColor" stroke="none"/>
+            <circle cx="14.5" cy="13" r="1" fill="currentColor" stroke="none"/>
+            <line x1="10" y1="17" x2="14" y2="17"/>
+          </svg>
+          <div class="module-name">Inventory</div>
+          <div class="coming-soon-message">Stock counts, shrink tracking, and alerts</div>
+        </div>
+      </div>
+
+      <!-- Daily Skeleton -->
+      <div id="daily-view" class="view">
+        <div class="module-skeleton">
+          <svg class="module-icon-large" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="square" stroke-linejoin="miter">
+            <circle cx="12" cy="11" r="5"/>
+            <polygon points="9,6 12,2 15,6" fill="currentColor" stroke="none"/>
+            <polygon points="17,10 21,9 17,12"/>
+            <line x1="8" y1="16" x2="6" y2="20"/>
+            <line x1="14" y1="16" x2="16" y2="20"/>
+            <polyline points="7,14 5,17 3,15" fill="none"/>
+          </svg>
+          <div class="module-name">Daily</div>
+          <div class="coming-soon-message">Opening, closing, and shift handoff routines</div>
+        </div>
+      </div>
+
+      <!-- Money Skeleton -->
+      <div id="money-view" class="view">
+        <div class="module-skeleton">
+          <svg class="module-icon-large" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="square" stroke-linejoin="miter">
+            <circle cx="10" cy="5" r="3"/>
+            <polygon points="13,4 17,3 13,6"/>
+            <path d="M10,8 Q8,12 9,16"/>
+            <ellipse cx="13" cy="18" rx="6" ry="3"/>
+            <line x1="9" y1="20" x2="7" y2="23"/>
+            <line x1="15" y1="20" x2="17" y2="23"/>
+          </svg>
+          <div class="module-name">Money</div>
+          <div class="coming-soon-message">Revenue, margins, and treasury — owner + manager</div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Bottom Navigation -->
+    <div class="bottom-nav">
+      <div class="nav-tab active" onclick="switchTab('home')">
+        <svg class="nav-icon" viewBox="0 0 24 24">
+          <circle cx="11" cy="10" r="5"/>
+          <polygon points="16,9 21,7 16,11"/>
+          <ellipse cx="12" cy="16" rx="6" ry="3"/>
+          <line x1="8" y1="18" x2="6" y2="22"/>
+          <line x1="14" y1="18" x2="16" y2="22"/>
+        </svg>
+        <div class="nav-label">Home</div>
+      </div>
+      <div class="nav-tab" onclick="switchTab('insights')">
+        <svg class="nav-icon" viewBox="0 0 24 24">
+          <rect x="4" y="8" width="16" height="12" rx="3"/>
+          <circle cx="9" cy="14" r="2.5"/>
+          <circle cx="15" cy="14" r="2.5"/>
+          <circle cx="9" cy="14" r="1" fill="currentColor" stroke="none"/>
+          <circle cx="15" cy="14" r="1" fill="currentColor" stroke="none"/>
+          <polygon points="12,16 11,19 13,19"/>
+          <polyline points="4,10 2,4 8,8" fill="none"/>
+          <polyline points="20,10 22,4 16,8" fill="none"/>
+        </svg>
+        <div class="nav-label">Insights</div>
+      </div>
+      <div class="nav-tab" onclick="switchTab('investigate')">
+        <svg class="nav-icon" viewBox="0 0 24 24">
+          <polygon points="12,20 3,12 5,4 12,8 19,4 21,12"/>
+          <circle cx="9" cy="11" r="1" fill="currentColor" stroke="none"/>
+          <circle cx="15" cy="11" r="1" fill="currentColor" stroke="none"/>
+          <polygon points="12,14 10,16 12,18 14,16"/>
+        </svg>
+        <div class="nav-label">Investigate</div>
+      </div>
+      <div class="nav-tab" onclick="switchTab('inventory')">
+        <svg class="nav-icon" viewBox="0 0 24 24">
+          <rect x="6" y="9" width="12" height="10" rx="2"/>
+          <path d="M6,12 Q2,8 4,4"/>
+          <path d="M18,12 Q22,8 20,4"/>
+          <circle cx="9.5" cy="13" r="1" fill="currentColor" stroke="none"/>
+          <circle cx="14.5" cy="13" r="1" fill="currentColor" stroke="none"/>
+          <line x1="10" y1="17" x2="14" y2="17"/>
+        </svg>
+        <div class="nav-label">Inventory</div>
+      </div>
+      <div class="nav-tab" onclick="switchTab('daily')">
+        <svg class="nav-icon" viewBox="0 0 24 24">
+          <circle cx="12" cy="11" r="5"/>
+          <polygon points="9,6 12,2 15,6" fill="currentColor" stroke="none"/>
+          <polygon points="17,10 21,9 17,12"/>
+          <line x1="8" y1="16" x2="6" y2="20"/>
+          <line x1="14" y1="16" x2="16" y2="20"/>
+          <polyline points="7,14 5,17 3,15" fill="none"/>
+        </svg>
+        <div class="nav-label">Daily</div>
+      </div>
+      <div class="nav-tab" onclick="switchTab('money')">
+        <svg class="nav-icon" viewBox="0 0 24 24">
+          <circle cx="10" cy="5" r="3"/>
+          <polygon points="13,4 17,3 13,6"/>
+          <path d="M10,8 Q8,12 9,16"/>
+          <ellipse cx="13" cy="18" rx="6" ry="3"/>
+          <line x1="9" y1="20" x2="7" y2="23"/>
+          <line x1="15" y1="20" x2="17" y2="23"/>
+        </svg>
+        <div class="nav-label">Money</div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Wizard Overlay (hidden, shown when needed) -->
+  <div id="wizard-overlay" class="wizard-overlay" style="display: none;">
+    <div class="wizard-header">
+      <button class="wizard-back-btn" onclick="wizardBack()">←</button>
+      <div class="wizard-progress">
+        <div><span id="current-step">1</span> OF <span id="total-steps">4</span></div>
+        <div class="wizard-progress-bar">
+          <div class="wizard-progress-fill" id="progress-fill"></div>
+        </div>
+      </div>
+    </div>
+
+    <div class="wizard-content" id="wizard-content">
+      <!-- Steps will be dynamically populated -->
+    </div>
+  </div>
+
+  <script>
+    // Application State
+    const appState = {
+      currentView: 'home',
+      activeWizard: null,
+      wizardStep: 0,
+      wizardData: {},
+      filters: 'all'
+    };
+
+    // Wizard Configurations
+    const wizards = {
+      'open-store': {
+        title: 'Open Your Store',
+        totalSteps: 4,
+        steps: [
+          {
+            title: 'Pre-Opening Checklist',
+            description: 'Make sure you\'re ready to open',
+            type: 'checklist',
+            items: [
+              { label: 'Lights on', key: 'lights' },
+              { label: 'Register powered on', key: 'register' },
+              { label: 'Signage visible outside', key: 'signage' }
+            ]
+          },
+          {
+            title: 'Starting Cash',
+            description: 'How much cash are you starting with today?',
+            type: 'currency',
+            field: 'startingCash'
+          },
+          {
+            title: 'Confirm Summary',
+            description: 'Main Street Café is now open with $200.00 starting cash. Ready?',
+            type: 'confirmation'
+          },
+          {
+            title: 'You\'re Open!',
+            description: 'Your store is now open and ready to serve customers.',
+            type: 'completion',
+            confetti: true
+          }
+        ]
+      },
+      'count-drawer': {
+        title: 'Count the Register',
+        totalSteps: 5,
+        steps: [
+          {
+            title: 'Which Register?',
+            description: 'Select the register you\'d like to count',
+            type: 'select',
+            options: [
+              { label: 'Register #1 (Balanced)', sublabel: 'Expected: $487.35', key: 'reg1' },
+              { label: 'Register #2 (Short)', sublabel: 'Expected: $534.85', key: 'reg2' }
+            ],
+            field: 'selectedRegister'
+          },
+          {
+            title: 'Enter Cash Counted',
+            description: 'Count all cash in this register and enter the total',
+            type: 'currency',
+            field: 'actualCash'
+          },
+          {
+            title: 'Variance Check',
+            description: 'Your register is short $47.50. This needs investigation.',
+            type: 'variance-display',
+            variance: -47.50,
+            status: 'critical'
+          },
+          {
+            title: 'Add Notes',
+            description: 'Anything we should know about this variance?',
+            type: 'textarea',
+            field: 'drawerNotes'
+          },
+          {
+            title: 'Done!',
+            description: 'Register counted. Alert logged for investigation.',
+            type: 'completion',
+            confetti: false
+          }
+        ]
+      },
+      'cash-shortage': {
+        title: 'Investigate Shortage',
+        totalSteps: 6,
+        steps: [
+          {
+            title: 'Confirm the Shortage',
+            description: 'Have you recounted the register to verify?',
+            type: 'toggle',
+            field: 'recount',
+            options: [
+              { label: 'Yes, recounted', value: true },
+              { label: 'No, will recount', value: false }
+            ]
+          },
+          {
+            title: 'Who Was Working?',
+            description: 'Which baristas were here during this shift?',
+            type: 'checkbox-group',
+            items: [
+              { label: 'Maria S.', key: 'maria' },
+              { label: 'James T.', key: 'james', checked: true },
+              { label: 'Tyler R.', key: 'tyler' },
+              { label: 'Priya K.', key: 'priya' }
+            ],
+            field: 'baristas'
+          },
+          {
+            title: 'What Happened?',
+            description: 'What\'s the most likely cause of this shortage?',
+            type: 'select',
+            options: [
+              { label: 'Refund error', sublabel: 'Wrong amount refunded', key: 'refund' },
+              { label: 'Math mistake', sublabel: 'Ringing error', key: 'math' },
+              { label: 'Possible theft', sublabel: 'Unexplained cash missing', key: 'theft' },
+              { label: 'Something else', sublabel: 'Other reason', key: 'other' }
+            ],
+            field: 'cause'
+          },
+          {
+            title: 'Investigation Steps',
+            description: 'Check off each step as you complete it',
+            type: 'checklist',
+            items: [
+              { label: 'Review register receipts', key: 'receipts' },
+              { label: 'Cross-check refund log', key: 'refunds' },
+              { label: 'Verify starting cash', key: 'starting' },
+              { label: 'Check for voids', key: 'voids' }
+            ]
+          },
+          {
+            title: 'Prevention Tips',
+            description: 'Based on this shortage, make sure your team knows: Always verify refunds match the register, use the void button if a transaction is wrong, and count cash at shift end.',
+            type: 'tips'
+          },
+          {
+            title: 'Investigation Complete',
+            description: 'You\'ve logged this shortage and documented the cause. Great work keeping your café secure.',
+            type: 'completion',
+            confetti: true
+          }
+        ]
+      },
+      'refund-review': {
+        title: 'Review Refunds',
+        totalSteps: 5,
+        steps: [
+          {
+            title: 'Refund Summary',
+            description: 'James T. processed 7 refunds this week totaling $312',
+            type: 'summary',
+            data: {
+              name: 'James T.',
+              count: 7,
+              total: 312,
+              timeframe: 'This week'
+            }
+          },
+          {
+            title: 'Individual Refunds',
+            description: 'Review each refund for legitimacy',
+            type: 'list',
+            items: [
+              { date: 'Today 11:30 AM', amount: '$45.50', reason: 'Cold brew too cold' },
+              { date: 'Yesterday 3:15 PM', amount: '$18.00', reason: 'Oat milk out' },
+              { date: 'Monday 2:45 PM', amount: '$68.25', reason: 'Spilled drink' },
+              { date: 'Friday 5:30 PM', amount: '$92.50', reason: 'Customer satisfaction' }
+            ]
+          },
+          {
+            title: 'Assessment',
+            description: 'How do you classify these refunds?',
+            type: 'select',
+            options: [
+              { label: 'Legitimate', sublabel: 'Good reasons, proper procedure', key: 'legitimate' },
+              { label: 'Questionable', sublabel: 'Need to discuss with team', key: 'questionable' },
+              { label: 'Suspicious', sublabel: 'Possible policy violation', key: 'suspicious' }
+            ],
+            field: 'assessment'
+          },
+          {
+            title: 'Action Taken',
+            description: 'You\'ve flagged this pattern for review with James. A coaching conversation is scheduled.',
+            type: 'completion'
+          }
+        ]
+      }
+    };
+
+    // UI Helper: Switch between main views
+    function switchTab(tabName) {
+      // Hide all views
+      document.querySelectorAll('.view').forEach(v => v.classList.remove('active'));
+
+      // Hide wizard if open
+      if (document.getElementById('wizard-overlay').style.display !== 'none') {
+        closeWizard();
+      }
+
+      // Show selected view
+      const viewId = tabName === 'alerts' ? 'alerts-view' : `${tabName}-view`;
+      const viewElement = document.getElementById(viewId);
+      if (viewElement) {
+        viewElement.classList.add('active');
+        appState.currentView = tabName;
+      }
+
+      // Update nav tabs
+      document.querySelectorAll('.nav-tab').forEach((tab, idx) => {
+        tab.classList.remove('active');
+      });
+
+      const tabMap = { 'home': 0, 'insights': 1, 'investigate': 2, 'inventory': 3, 'daily': 4, 'money': 5, 'alerts': 0 };
+      if (tabName !== 'alerts') {
+        document.querySelectorAll('.nav-tab')[tabMap[tabName]]?.classList.add('active');
+      }
+    }
+
+    // Wizard: Start a wizard flow
+    function startWizard(wizardKey) {
+      const wizard = wizards[wizardKey];
+      if (!wizard) return;
+
+      appState.activeWizard = wizardKey;
+      appState.wizardStep = 0;
+      appState.wizardData = {};
+
+      document.getElementById('wizard-overlay').style.display = 'flex';
+      document.getElementById('total-steps').textContent = wizard.totalSteps;
+
+      renderWizardStep();
+    }
+
+    // Wizard: Close and return to home
+    function closeWizard() {
+      document.getElementById('wizard-overlay').style.display = 'none';
+      appState.activeWizard = null;
+      switchTab('home');
+    }
+
+    // Wizard: Go back one step
+    function wizardBack() {
+      if (appState.wizardStep > 0) {
+        appState.wizardStep--;
+        renderWizardStep();
+      } else {
+        closeWizard();
+      }
+    }
+
+    // Wizard: Go forward one step
+    function wizardNext() {
+      const wizard = wizards[appState.activeWizard];
+      if (appState.wizardStep < wizard.totalSteps - 1) {
+        appState.wizardStep++;
+        renderWizardStep();
+      } else {
+        closeWizard();
+      }
+    }
+
+    // Wizard: Render current step
+    function renderWizardStep() {
+      const wizard = wizards[appState.activeWizard];
+      const step = wizard.steps[appState.wizardStep];
+      const contentArea = document.getElementById('wizard-content');
+
+      document.getElementById('current-step').textContent = appState.wizardStep + 1;
+      const percentage = ((appState.wizardStep + 1) / wizard.totalSteps) * 100;
+      document.getElementById('progress-fill').style.width = percentage + '%';
+
+      let html = '';
+
+      if (step.type === 'checklist') {
+        html = `
+          <div class="wizard-step active">
+            <h2 class="wizard-step-title">${step.title}</h2>
+            <p class="wizard-step-description">${step.description}</p>
+            <div class="checkbox-group">
+              ${step.items.map(item => `
+                <label class="checkbox-item">
+                  <input type="checkbox" onchange="appState.wizardData['${item.key}'] = this.checked">
+                  <span class="checkbox-label">${item.label}</span>
+                </label>
+              `).join('')}
+            </div>
+            <button class="btn btn-primary" style="margin-top: var(--sp-6);" onclick="wizardNext()">Continue</button>
+          </div>
+        `;
+      } else if (step.type === 'currency') {
+        html = `
+          <div class="wizard-step active">
+            <h2 class="wizard-step-title">${step.title}</h2>
+            <p class="wizard-step-description">${step.description}</p>
+            <div class="form-group">
+              <label class="form-label">Amount</label>
+              <input type="text" class="form-input" placeholder="$0.00" id="currency-input" onchange="appState.wizardData['${step.field}'] = this.value" style="font-size: 1.5rem; font-weight: 600;">
+            </div>
+            <button class="btn btn-primary" style="margin-top: var(--sp-6);" onclick="wizardNext()">Continue</button>
+          </div>
+        `;
+      } else if (step.type === 'toggle') {
+        html = `
+          <div class="wizard-step active">
+            <h2 class="wizard-step-title">${step.title}</h2>
+            <p class="wizard-step-description">${step.description}</p>
+            <div class="checkbox-group" style="margin-bottom: var(--sp-6);">
+              ${step.options.map(opt => `
+                <label class="checkbox-item">
+                  <input type="radio" name="toggle-${step.field}" value="${opt.value}" onchange="appState.wizardData['${step.field}'] = this.value === 'true'">
+                  <span class="checkbox-label">${opt.label}</span>
+                </label>
+              `).join('')}
+            </div>
+            <button class="btn btn-primary" onclick="wizardNext()">Continue</button>
+          </div>
+        `;
+      } else if (step.type === 'checkbox-group') {
+        html = `
+          <div class="wizard-step active">
+            <h2 class="wizard-step-title">${step.title}</h2>
+            <p class="wizard-step-description">${step.description}</p>
+            <div class="checkbox-group">
+              ${step.items.map(item => `
+                <label class="checkbox-item">
+                  <input type="checkbox" ${item.checked ? 'checked' : ''} onchange="
+                    if (!appState.wizardData['${step.field}']) appState.wizardData['${step.field}'] = [];
+                    if (this.checked) {
+                      appState.wizardData['${step.field}'].push('${item.key}');
+                    } else {
+                      appState.wizardData['${step.field}'] = appState.wizardData['${step.field}'].filter(k => k !== '${item.key}');
+                    }
+                  ">
+                  <span class="checkbox-label">${item.label}</span>
+                </label>
+              `).join('')}
+            </div>
+            <button class="btn btn-primary" style="margin-top: var(--sp-6);" onclick="wizardNext()">Continue</button>
+          </div>
+        `;
+      } else if (step.type === 'select') {
+        html = `
+          <div class="wizard-step active">
+            <h2 class="wizard-step-title">${step.title}</h2>
+            <p class="wizard-step-description">${step.description}</p>
+            <div class="checkbox-group">
+              ${step.options.map(opt => `
+                <div class="checkbox-item" onclick="appState.wizardData['${step.field}'] = '${opt.key}'; wizardNext();">
+                  <input type="radio" name="select-${step.field}" value="${opt.key}" style="cursor: pointer;">
+                  <div class="checkbox-label" style="cursor: pointer;">
+                    <div style="font-weight: 600;">${opt.label}</div>
+                    <div style="font-size: 0.8125rem; color: var(--text-muted);">${opt.sublabel || ''}</div>
+                  </div>
+                </div>
+              `).join('')}
+            </div>
+          </div>
+        `;
+      } else if (step.type === 'variance-display') {
+        const statusClass = step.status === 'critical' ? 'health-red' : step.status === 'warning' ? 'health-yellow' : 'health-green';
+        const statusColor = step.status === 'critical' ? 'var(--health-red)' : step.status === 'warning' ? 'var(--health-yellow)' : 'var(--health-green)';
+        html = `
+          <div class="wizard-step active">
+            <h2 class="wizard-step-title">${step.title}</h2>
+            <p class="wizard-step-description">${step.description}</p>
+            <div style="background-color: rgba(248, 81, 73, 0.1); border: 2px solid var(--health-red); border-radius: var(--radius-lg); padding: var(--sp-6); text-align: center; margin: var(--sp-6) 0;">
+              <div style="font-size: 3rem; font-weight: 700; color: var(--health-red); margin-bottom: var(--sp-2);">${step.variance}</div>
+              <div style="font-size: 0.9375rem; color: var(--text-muted);">Register is short this amount</div>
+            </div>
+            <button class="btn btn-primary" style="margin-top: var(--sp-6);" onclick="wizardNext()">Continue</button>
+          </div>
+        `;
+      } else if (step.type === 'textarea') {
+        html = `
+          <div class="wizard-step active">
+            <h2 class="wizard-step-title">${step.title}</h2>
+            <p class="wizard-step-description">${step.description}</p>
+            <div class="form-group">
+              <textarea class="form-textarea" placeholder="Add any notes..." onchange="appState.wizardData['${step.field}'] = this.value"></textarea>
+            </div>
+            <button class="btn btn-primary" style="margin-top: var(--sp-6);" onclick="wizardNext()">Continue</button>
+          </div>
+        `;
+      } else if (step.type === 'tips') {
+        html = `
+          <div class="wizard-step active">
+            <h2 class="wizard-step-title">${step.title}</h2>
+            <div style="background-color: var(--card); border: 1px solid var(--border); border-radius: var(--radius-lg); padding: var(--sp-5); margin: var(--sp-4) 0;">
+              <p style="font-size: 0.9375rem; color: var(--text-body); line-height: 1.6;">${step.description}</p>
+            </div>
+            <label class="checkbox-item" style="margin-top: var(--sp-4);">
+              <input type="checkbox" onchange="appState.wizardData['saveToPlaybook'] = this.checked">
+              <span class="checkbox-label">Save to my playbook</span>
+            </label>
+            <button class="btn btn-primary" style="margin-top: var(--sp-6);" onclick="wizardNext()">Continue</button>
+          </div>
+        `;
+      } else if (step.type === 'completion') {
+        if (step.confetti) {
+          triggerConfetti();
+        }
+        html = `
+          <div class="wizard-step active">
+            <div class="completion-content">
+              <svg class="completion-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                <path d="M20 6L9 17l-5-5"/>
+              </svg>
+              <div class="completion-message">${step.title}</div>
+              <div class="completion-description">${step.description}</div>
+              <button class="btn btn-primary" style="margin-top: var(--sp-8); width: 100%;" onclick="closeWizard()">Back to Home</button>
+            </div>
+          </div>
+        `;
+      } else if (step.type === 'summary') {
+        html = `
+          <div class="wizard-step active">
+            <h2 class="wizard-step-title">${step.title}</h2>
+            <p class="wizard-step-description">${step.description}</p>
+            <div style="background-color: var(--card); border: 1px solid var(--border); border-radius: var(--radius-lg); padding: var(--sp-5); margin: var(--sp-4) 0;">
+              <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: var(--sp-3);">
+                <span style="font-size: 0.9375rem; color: var(--text-muted);">Name</span>
+                <span style="font-weight: 600; color: var(--text-primary);">${step.data.name}</span>
+              </div>
+              <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: var(--sp-3);">
+                <span style="font-size: 0.9375rem; color: var(--text-muted);">Refunds</span>
+                <span style="font-weight: 600; color: var(--text-primary);">${step.data.count}</span>
+              </div>
+              <div style="display: flex; justify-content: space-between; align-items: center;">
+                <span style="font-size: 0.9375rem; color: var(--text-muted);">Total Amount</span>
+                <span style="font-weight: 600; color: var(--text-primary);">$${step.data.total.toFixed(2)}</span>
+              </div>
+            </div>
+            <button class="btn btn-primary" style="margin-top: var(--sp-6);" onclick="wizardNext()">Review Details</button>
+          </div>
+        `;
+      } else if (step.type === 'list') {
+        html = `
+          <div class="wizard-step active">
+            <h2 class="wizard-step-title">${step.title}</h2>
+            <p class="wizard-step-description">${step.description}</p>
+            <div style="display: flex; flex-direction: column; gap: var(--sp-3); margin: var(--sp-4) 0;">
+              ${step.items.map(item => `
+                <div style="background-color: var(--card); border: 1px solid var(--border); border-radius: var(--radius-md); padding: var(--sp-4);">
+                  <div style="display: flex; justify-content: space-between; align-items: center;">
+                    <div>
+                      <div style="font-size: 0.8125rem; color: var(--text-muted); margin-bottom: 2px;">${item.date}</div>
+                      <div style="font-weight: 600; color: var(--text-primary);">${item.reason}</div>
+                    </div>
+                    <div style="font-weight: 700; color: var(--signal-yellow); font-size: 1.125rem;">${item.amount}</div>
+                  </div>
+                </div>
+              `).join('')}
+            </div>
+            <button class="btn btn-primary" style="margin-top: var(--sp-6);" onclick="wizardNext()">Continue</button>
+          </div>
+        `;
+      }
+
+      contentArea.innerHTML = html;
+    }
+
+    // Confetti Animation
+    function triggerConfetti() {
+      const colors = ['var(--signal-yellow)', 'var(--accent-gold)', 'var(--health-green)'];
+      for (let i = 0; i < 30; i++) {
+        const confetti = document.createElement('div');
+        confetti.className = 'confetti';
+        confetti.style.left = Math.random() * 100 + '%';
+        confetti.style.backgroundColor = colors[Math.floor(Math.random() * colors.length)];
+        confetti.style.animation = `confetti-fall ${2 + Math.random() * 1}s ease-in forwards`;
+        confetti.style.animationDelay = Math.random() * 0.3 + 's';
+        document.body.appendChild(confetti);
+
+        setTimeout(() => confetti.remove(), 2500);
+      }
+    }
+
+    // Filter alerts
+    function filterAlerts(filter) {
+      appState.filters = filter;
+
+      // Update filter chips
+      document.querySelectorAll('.filter-chip').forEach(chip => {
+        chip.classList.remove('active');
+      });
+      event.target.classList.add('active');
+
+      // In a real app, this would filter the alerts list
+      // For now, just update UI
+    }
+
+    // Initialize app
+    document.addEventListener('DOMContentLoaded', () => {
+      switchTab('home');
+    });
+  </script>
+</body>
+</html>

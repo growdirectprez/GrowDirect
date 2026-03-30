@@ -1,0 +1,179 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Data Flow Diagram — FIG. 2</title>
+<style>
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+  body { background: #0d1117; font-family: 'Segoe UI', system-ui, sans-serif; }
+  svg { display: block; margin: 0 auto; }
+</style>
+</head>
+<body>
+<svg viewBox="0 0 1000 900" width="1000" height="900" xmlns="http://www.w3.org/2000/svg">
+  <defs>
+    <marker id="a-w" markerWidth="8" markerHeight="6" refX="8" refY="3" orient="auto"><path d="M0,0 L8,3 L0,6" fill="#555"/></marker>
+    <marker id="a-b" markerWidth="8" markerHeight="6" refX="8" refY="3" orient="auto"><path d="M0,0 L8,3 L0,6" fill="#3b82f6"/></marker>
+    <marker id="a-p" markerWidth="8" markerHeight="6" refX="8" refY="3" orient="auto"><path d="M0,0 L8,3 L0,6" fill="#8b5cf6"/></marker>
+    <marker id="a-g" markerWidth="8" markerHeight="6" refX="8" refY="3" orient="auto"><path d="M0,0 L8,3 L0,6" fill="#10b981"/></marker>
+    <marker id="a-y" markerWidth="8" markerHeight="6" refX="8" refY="3" orient="auto"><path d="M0,0 L8,3 L0,6" fill="#f59e0b"/></marker>
+    <marker id="a-r" markerWidth="8" markerHeight="6" refX="8" refY="3" orient="auto"><path d="M0,0 L8,3 L0,6" fill="#ef4444"/></marker>
+  </defs>
+
+  <!-- Title -->
+  <text x="500" y="32" text-anchor="middle" font-size="16" fill="#f0f0f0" font-weight="600" letter-spacing="1.5">SINGLE TRANSACTION DATA FLOW</text>
+  <text x="500" y="50" text-anchor="middle" font-size="11" fill="#666">Webhook to Bitcoin Inscription — Complete Event Journey</text>
+  <text x="500" y="66" text-anchor="middle" font-size="11" fill="#f59e0b" font-weight="600">FIG. 2 — DATA FLOW DIAGRAM</text>
+
+  <!-- ═══ LEFT COLUMN: Timestamp rail ═══ -->
+  <line x1="60" y1="90" x2="60" y2="830" stroke="#333" stroke-width="1"/>
+  <circle cx="60" cy="130" r="4" fill="#3b82f6"/>
+  <text x="60" y="115" text-anchor="middle" font-size="9" fill="#3b82f6" font-weight="600">T+0</text>
+
+  <circle cx="60" cy="240" r="4" fill="#8b5cf6"/>
+  <text x="60" y="225" text-anchor="middle" font-size="9" fill="#8b5cf6" font-weight="600">T+5ms</text>
+
+  <circle cx="60" cy="370" r="4" fill="#f59e0b"/>
+  <text x="60" y="355" text-anchor="middle" font-size="9" fill="#f59e0b" font-weight="600">T+10ms</text>
+
+  <circle cx="60" cy="510" r="4" fill="#10b981"/>
+  <text x="60" y="495" text-anchor="middle" font-size="9" fill="#10b981" font-weight="600">T+15ms</text>
+
+  <circle cx="60" cy="660" r="4" fill="#ef4444"/>
+  <text x="60" y="645" text-anchor="middle" font-size="9" fill="#ef4444" font-weight="600">T+~10min</text>
+
+  <circle cx="60" cy="800" r="4" fill="#f59e0b"/>
+  <text x="60" y="785" text-anchor="middle" font-size="9" fill="#f59e0b" font-weight="600">T+∞</text>
+
+  <!-- ═══ FLOW SHAPES ═══ -->
+
+  <!-- SOURCE: Rounded rect -->
+  <rect x="200" y="100" width="250" height="55" rx="27" fill="#0d1117" stroke="#3b82f6" stroke-width="2"/>
+  <text x="325" y="125" text-anchor="middle" font-size="12" fill="#60a5fa" font-weight="600">Source Network</text>
+  <text x="325" y="142" text-anchor="middle" font-size="9" fill="#888">Generate event · HMAC sign · POST</text>
+
+  <!-- HMAC operation (diamond) -->
+  <polygon points="600,127 660,100 720,127 660,155" fill="#0d1117" stroke="#3b82f6" stroke-width="1.5"/>
+  <text x="660" y="130" text-anchor="middle" font-size="9" fill="#60a5fa" font-weight="600">HMAC</text>
+  <text x="660" y="142" text-anchor="middle" font-size="8" fill="#888">SHA-256</text>
+  <!-- Arrow Source → HMAC -->
+  <line x1="450" y1="127" x2="598" y2="127" stroke="#3b82f6" stroke-width="1.5" marker-end="url(#a-b)"/>
+
+  <!-- Arrow Source → Gateway -->
+  <line x1="325" y1="155" x2="325" y2="208" stroke="#3b82f6" stroke-width="2" marker-end="url(#a-b)"/>
+  <text x="340" y="185" font-size="8" fill="#3b82f6">payload + sig</text>
+
+  <!-- GATEWAY: Trapezoid-ish -->
+  <rect x="200" y="212" width="250" height="55" rx="6" fill="#0d1117" stroke="#8b5cf6" stroke-width="2"/>
+  <text x="325" y="237" text-anchor="middle" font-size="12" fill="#a78bfa" font-weight="600">API Gateway</text>
+  <text x="325" y="254" text-anchor="middle" font-size="9" fill="#888">Validate · Hash · Enqueue · 200 OK</text>
+
+  <!-- SHA-256 operation -->
+  <polygon points="600,240 660,212 720,240 660,267" fill="#0d1117" stroke="#8b5cf6" stroke-width="1.5"/>
+  <text x="660" y="240" text-anchor="middle" font-size="8" fill="#c4b5fd" font-weight="600">SHA-256</text>
+  <text x="660" y="252" text-anchor="middle" font-size="8" fill="#888">raw bytes</text>
+  <!-- Arrow Gateway → SHA -->
+  <line x1="450" y1="240" x2="598" y2="240" stroke="#8b5cf6" stroke-width="1.5" marker-end="url(#a-p)"/>
+  <!-- Arrow: output hash -->
+  <text x="748" y="240" font-size="8" fill="#c4b5fd">→ event_hash</text>
+
+  <!-- Arrow Gateway → Queue -->
+  <line x1="325" y1="267" x2="325" y2="330" stroke="#8b5cf6" stroke-width="2" marker-end="url(#a-p)"/>
+
+  <!-- QUEUE: Hexagon -->
+  <polygon points="325,335 425,360 425,395 325,420 225,395 225,360" fill="#0d1117" stroke="#f59e0b" stroke-width="2.5"/>
+  <text x="325" y="378" text-anchor="middle" font-size="13" fill="#fbbf24" font-weight="700">QUEUE</text>
+  <text x="325" y="395" text-anchor="middle" font-size="9" fill="#fcd34d">fan-out × 3</text>
+
+  <!-- ═══ THREE PARALLEL PATHS ═══ -->
+  <!-- Background lane markers -->
+  <rect x="100" y="450" width="230" height="160" rx="8" fill="#10b981" opacity="0.03" stroke="#10b981" stroke-width="0.5" stroke-dasharray="3,3"/>
+  <rect x="385" y="450" width="230" height="160" rx="8" fill="#f59e0b" opacity="0.03" stroke="#f59e0b" stroke-width="0.5" stroke-dasharray="3,3"/>
+  <rect x="670" y="450" width="230" height="160" rx="8" fill="#ef4444" opacity="0.03" stroke="#ef4444" stroke-width="0.5" stroke-dasharray="3,3"/>
+
+  <!-- Fan-out arrows -->
+  <path d="M 260 410 Q 200 440 200 448" fill="none" stroke="#10b981" stroke-width="2" marker-end="url(#a-g)"/>
+  <line x1="325" y1="420" x2="500" y2="448" stroke="#f59e0b" stroke-width="2" marker-end="url(#a-y)"/>
+  <path d="M 390 410 Q 600 440 780 448" fill="none" stroke="#ef4444" stroke-width="2" marker-end="url(#a-r)"/>
+
+  <!-- SUB 1 Lane -->
+  <text x="215" y="468" text-anchor="middle" font-size="10" fill="#34d399" font-weight="700">SUB 1: HASH & SEAL</text>
+  <!-- Process boxes -->
+  <rect x="130" y="480" width="170" height="35" rx="6" fill="#0d1117" stroke="#10b981" stroke-width="1.5"/>
+  <text x="215" y="501" text-anchor="middle" font-size="9" fill="#34d399">Compute chain_hash</text>
+  <line x1="215" y1="515" x2="215" y2="530" stroke="#10b981" stroke-width="1" marker-end="url(#a-g)"/>
+  <rect x="130" y="532" width="170" height="35" rx="6" fill="#0d1117" stroke="#10b981" stroke-width="1.5"/>
+  <text x="215" y="553" text-anchor="middle" font-size="9" fill="#34d399">INSERT evidence (write-once)</text>
+  <!-- Cylinder: Evidence Store -->
+  <ellipse cx="215" cy="592" rx="50" ry="8" fill="#1e3a5f" stroke="#1e40af" stroke-width="1"/>
+  <rect x="165" y="592" width="100" height="20" fill="#1e3a5f" stroke="none"/>
+  <line x1="165" y1="592" x2="165" y2="612" stroke="#1e40af" stroke-width="1"/>
+  <line x1="265" y1="592" x2="265" y2="612" stroke="#1e40af" stroke-width="1"/>
+  <ellipse cx="215" cy="612" rx="50" ry="8" fill="#1e3a5f" stroke="#1e40af" stroke-width="1"/>
+  <line x1="215" y1="567" x2="215" y2="583" stroke="#10b981" stroke-width="1" marker-end="url(#a-g)"/>
+
+  <!-- SUB 2 Lane -->
+  <text x="500" y="468" text-anchor="middle" font-size="10" fill="#fbbf24" font-weight="700">SUB 2: PARSE & ROUTE</text>
+  <rect x="415" y="480" width="170" height="35" rx="6" fill="#0d1117" stroke="#f59e0b" stroke-width="1.5"/>
+  <text x="500" y="501" text-anchor="middle" font-size="9" fill="#fbbf24">Parse fields · Partition</text>
+  <line x1="500" y1="515" x2="500" y2="530" stroke="#f59e0b" stroke-width="1" marker-end="url(#a-y)"/>
+  <rect x="415" y="532" width="170" height="35" rx="6" fill="#0d1117" stroke="#f59e0b" stroke-width="1.5"/>
+  <text x="500" y="553" text-anchor="middle" font-size="9" fill="#fbbf24">INSERT structured + emit detect</text>
+  <!-- Cylinder: Structured Store -->
+  <ellipse cx="500" cy="592" rx="50" ry="8" fill="#1e3a5f" stroke="#1e40af" stroke-width="1"/>
+  <rect x="450" y="592" width="100" height="20" fill="#1e3a5f" stroke="none"/>
+  <line x1="450" y1="592" x2="450" y2="612" stroke="#1e40af" stroke-width="1"/>
+  <line x1="550" y1="592" x2="550" y2="612" stroke="#1e40af" stroke-width="1"/>
+  <ellipse cx="500" cy="612" rx="50" ry="8" fill="#1e3a5f" stroke="#1e40af" stroke-width="1"/>
+  <line x1="500" y1="567" x2="500" y2="583" stroke="#f59e0b" stroke-width="1" marker-end="url(#a-y)"/>
+
+  <!-- SUB 3 Lane -->
+  <text x="785" y="468" text-anchor="middle" font-size="10" fill="#f87171" font-weight="700">SUB 3: MERKLE & ORDINAL</text>
+  <rect x="700" y="480" width="170" height="35" rx="6" fill="#0d1117" stroke="#ef4444" stroke-width="1.5"/>
+  <text x="785" y="501" text-anchor="middle" font-size="9" fill="#f87171">Accumulate → Merkle tree</text>
+  <line x1="785" y1="515" x2="785" y2="530" stroke="#ef4444" stroke-width="1" marker-end="url(#a-r)"/>
+  <rect x="700" y="532" width="170" height="35" rx="6" fill="#0d1117" stroke="#ef4444" stroke-width="1.5"/>
+  <text x="785" y="553" text-anchor="middle" font-size="9" fill="#f87171">Inscribe Merkle root</text>
+
+  <!-- Bitcoin circle -->
+  <circle cx="785" cy="600" r="22" fill="#0d1117" stroke="#ef4444" stroke-width="2"/>
+  <text x="785" y="605" text-anchor="middle" font-size="16" fill="#f87171">₿</text>
+  <line x1="785" y1="567" x2="785" y2="577" stroke="#ef4444" stroke-width="1.5" marker-end="url(#a-r)"/>
+
+  <!-- ═══ DETECTION + DASHBOARD ═══ -->
+  <rect x="380" y="650" width="160" height="45" rx="8" fill="#0d1117" stroke="#10b981" stroke-width="1.5"/>
+  <text x="460" y="672" text-anchor="middle" font-size="10" fill="#34d399" font-weight="600">Detection</text>
+  <text x="460" y="685" text-anchor="middle" font-size="8" fill="#888">Rules → Alerts → Dashboard</text>
+  <path d="M 500 612 Q 500 635 475 648" fill="none" stroke="#f59e0b" stroke-width="1" marker-end="url(#a-y)"/>
+
+  <!-- ═══ VALIDATION API ═══ -->
+  <rect x="600" y="650" width="180" height="45" rx="8" fill="#0d1117" stroke="#f59e0b" stroke-width="2"/>
+  <text x="633" y="673" font-size="14">⚡</text>
+  <text x="710" y="672" text-anchor="middle" font-size="10" fill="#fbbf24" font-weight="600">L402 Validation API</text>
+  <text x="690" y="685" text-anchor="middle" font-size="8" fill="#888">402 → invoice → sat → proof</text>
+
+  <!-- Arrows into validation -->
+  <path d="M 265 612 Q 400 670 598 670" fill="none" stroke="#10b981" stroke-width="1" stroke-dasharray="4,3" marker-end="url(#a-g)"/>
+  <path d="M 785 622 Q 785 660 782 648" fill="none" stroke="#ef4444" stroke-width="1" stroke-dasharray="4,3" marker-end="url(#a-r)"/>
+
+  <!-- ═══ BILATERAL VERIFICATION BAR ═══ -->
+  <rect x="130" y="730" width="740" height="50" rx="10" fill="none" stroke="#3b82f6" stroke-width="1.5" stroke-dasharray="6,4"/>
+  <rect x="130" y="730" width="740" height="50" rx="10" fill="#3b82f6" opacity="0.03"/>
+
+  <!-- Flow arrows inside bilateral box -->
+  <text x="200" y="752" text-anchor="middle" font-size="9" fill="#60a5fa" font-weight="600">Send Log</text>
+  <text x="300" y="752" text-anchor="middle" font-size="12" fill="#555">↔</text>
+  <text x="400" y="752" text-anchor="middle" font-size="9" fill="#10b981" font-weight="600">Evidence Hash</text>
+  <text x="500" y="752" text-anchor="middle" font-size="12" fill="#555">↔</text>
+  <text x="600" y="752" text-anchor="middle" font-size="9" fill="#ef4444" font-weight="600">Merkle Proof</text>
+  <text x="700" y="752" text-anchor="middle" font-size="12" fill="#555">↔</text>
+  <text x="790" y="752" text-anchor="middle" font-size="9" fill="#f87171" font-weight="600">Block Explorer</text>
+
+  <text x="500" y="770" text-anchor="middle" font-size="10" fill="#60a5fa" font-weight="600">BILATERAL VERIFICATION — NO TRUST REQUIRED</text>
+
+  <!-- Footer -->
+  <text x="500" y="830" text-anchor="middle" font-size="9" fill="#444">APPLICATION 63/991,596 · Filed February 26, 2026 · PATENT PENDING · CONFIDENTIAL</text>
+</svg>
+</body>
+</html>

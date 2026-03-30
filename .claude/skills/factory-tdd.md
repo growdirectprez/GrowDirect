@@ -1,3 +1,9 @@
+---
+name: factory-tdd
+description: |
+  Test-first development workflow. RED-GREEN-REFACTOR cycle with test naming conventions and coverage requirements.
+---
+
 # factory-tdd — Test-First Development
 
 ## The rule

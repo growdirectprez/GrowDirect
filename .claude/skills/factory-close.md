@@ -1,3 +1,9 @@
+---
+name: factory-close
+description: |
+  Session teardown. Session summary, pending items flagged, new issues created for out-of-scope work, post-mortem for shipping sessions.
+---
+
 # factory-close — Session Close
 
 ## Session summary
@@ -18,22 +24,23 @@ Any bugs or gaps discovered outside the current GRO scope? Create a Linear issue
 
 ## Post-mortem (shipping sessions only)
 
-If this session ended with a ship, write a post-mortem:
+If this session ended with a ship, invoke `factory-postmortem` skill.
+Post-mortems go to `docs/post-mortems/YYYY-MM-DD-{feature}.md`.
 
-```
-File: ~/GrowDirect/<App>/docs/post-mortems/YYYY-MM-DD-<feature-name>.md
+Agent writes the post-mortem. Jeffe decides what gets promoted to platform standards.
+Agent does NOT update `~/GrowDirect/CLAUDE.md` — that file has a human gate.
 
-## What worked
-- [specific things that went smoothly]
+## Document filing
 
-## What didn't
-- [specific things that caused delays or rework]
+Before closing, verify any documents created this session are filed correctly
+per CLAUDE.md § Document Filing Rules:
 
-## What to change
-- [concrete suggestions for next time]
-```
+- SDDs → `docs/sdds/{namespace}/{service}.md`
+- Architecture decisions → `docs/decisions/YYYY-MM-DD-{title}.md`
+- Post-mortems → `docs/post-mortems/YYYY-MM-DD-{feature}.md`
+- Superseded docs → `docs/_archive/YYYY-MM-DD-{name}.md`
 
-Agent writes the post-mortem. Jeffe decides what gets promoted to platform standards. Agent does NOT update `~/GrowDirect/CLAUDE.md` — that file has a human gate.
+No homeless docs. If a file was created outside these paths, move it.
 
 ## Close output
 

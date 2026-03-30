@@ -1,0 +1,2608 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Canary LP — Desktop Admin Suite v2.0</title>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Space+Grotesk:wght@600;700&display=swap" rel="stylesheet">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        :root {
+            --bg-ink: #0D1117;
+            --bg-surface: #161B22;
+            --border: #30363D;
+            --text-primary: #C9D1D9;
+            --text-secondary: #8B949E;
+            --signal-yellow: #FBBF24;
+            --health-green: #3FB950;
+            --alert-red: #EF4444;
+            --warning-yellow: #FBBF24;
+            --accent-blue: #58A6FF;
+            --color-canary: #F59E0B;
+            --color-fox: #F97316;
+            --color-owl: #8B5CF6;
+            --color-bull: #22C55E;
+            --color-rooster: #3B82F6;
+            --color-goose: #10B981;
+        }
+
+        body {
+            font-family: 'Inter', sans-serif;
+            background-color: var(--bg-ink);
+            color: var(--text-primary);
+            line-height: 1.5;
+        }
+
+        h1, h2, h3, h4, h5, h6 {
+            font-family: 'Space Grotesk', sans-serif;
+            font-weight: 700;
+        }
+
+        .container {
+            display: flex;
+            height: 100vh;
+            overflow: hidden;
+        }
+
+        /* SIDEBAR */
+        .sidebar {
+            width: 240px;
+            background-color: var(--bg-surface);
+            border-right: 1px solid var(--border);
+            display: flex;
+            flex-direction: column;
+            overflow-y: auto;
+            padding: 20px 0;
+        }
+
+        .sidebar-logo {
+            padding: 0 20px 24px;
+            border-bottom: 1px solid var(--border);
+            margin-bottom: 24px;
+        }
+
+        .sidebar-logo h2 {
+            font-size: 16px;
+            color: var(--text-primary);
+        }
+
+        .sidebar-section {
+            margin-bottom: 24px;
+        }
+
+        .sidebar-section-title {
+            padding: 0 20px;
+            font-size: 11px;
+            font-weight: 600;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+            color: var(--text-secondary);
+            margin-bottom: 8px;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .sidebar-section-icon {
+            width: 24px;
+            height: 24px;
+            flex-shrink: 0;
+        }
+
+        .sidebar-item {
+            padding: 8px 20px;
+            font-size: 14px;
+            color: var(--text-secondary);
+            cursor: pointer;
+            border-left: 3px solid transparent;
+            transition: all 0.2s;
+            display: block;
+        }
+
+        .sidebar-item:hover {
+            color: var(--text-primary);
+            background-color: rgba(88, 166, 255, 0.05);
+        }
+
+        .sidebar-item.active {
+            color: var(--text-primary);
+            background-color: rgba(88, 166, 255, 0.1);
+        }
+
+        .sidebar-item.active.canary { border-left-color: var(--color-canary); }
+        .sidebar-item.active.fox { border-left-color: var(--color-fox); }
+        .sidebar-item.active.owl { border-left-color: var(--color-owl); }
+        .sidebar-item.active.bull { border-left-color: var(--color-bull); }
+        .sidebar-item.active.rooster { border-left-color: var(--color-rooster); }
+        .sidebar-item.active.goose { border-left-color: var(--color-goose); }
+
+        .sidebar-bottom {
+            margin-top: auto;
+            border-top: 1px solid var(--border);
+            padding-top: 16px;
+        }
+
+        /* MAIN CONTENT */
+        .main-content {
+            flex: 1;
+            display: flex;
+            flex-direction: column;
+            overflow: hidden;
+        }
+
+        .topbar {
+            height: 56px;
+            background-color: var(--bg-surface);
+            border-bottom: 1px solid var(--border);
+            display: flex;
+            align-items: center;
+            padding: 0 24px;
+            gap: 16px;
+        }
+
+        .topbar-breadcrumb {
+            font-size: 13px;
+            color: var(--text-secondary);
+        }
+
+        .topbar-spacer {
+            flex: 1;
+        }
+
+        .topbar-search {
+            width: 200px;
+            padding: 8px 12px;
+            background-color: var(--bg-ink);
+            border: 1px solid var(--border);
+            border-radius: 4px;
+            color: var(--text-primary);
+            font-size: 13px;
+        }
+
+        .topbar-search::placeholder {
+            color: var(--text-secondary);
+        }
+
+        .topbar-icon {
+            width: 24px;
+            height: 24px;
+            cursor: pointer;
+            color: var(--text-secondary);
+            transition: color 0.2s;
+        }
+
+        .topbar-icon:hover {
+            color: var(--text-primary);
+        }
+
+        .topbar-avatar {
+            width: 32px;
+            height: 32px;
+            border-radius: 50%;
+            background-color: var(--color-canary);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 14px;
+            font-weight: 600;
+            color: #000;
+        }
+
+        .content-area {
+            flex: 1;
+            overflow-y: auto;
+            padding: 24px;
+        }
+
+        .page {
+            display: none;
+        }
+
+        .page.active {
+            display: block;
+        }
+
+        /* DASHBOARD STATS */
+        .stats-grid {
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            gap: 16px;
+            margin-bottom: 24px;
+        }
+
+        .stat-card {
+            background-color: var(--bg-surface);
+            border: 1px solid var(--border);
+            border-radius: 8px;
+            padding: 16px;
+        }
+
+        .stat-label {
+            font-size: 12px;
+            color: var(--text-secondary);
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+            margin-bottom: 8px;
+        }
+
+        .stat-value {
+            font-size: 28px;
+            font-weight: 700;
+            color: var(--text-primary);
+            margin-bottom: 8px;
+        }
+
+        .stat-change {
+            font-size: 12px;
+            display: flex;
+            align-items: center;
+            gap: 4px;
+        }
+
+        .stat-change.positive {
+            color: var(--health-green);
+        }
+
+        .stat-change.negative {
+            color: var(--alert-red);
+        }
+
+        .stat-change.neutral {
+            color: var(--text-secondary);
+        }
+
+        .stat-bird {
+            width: 24px;
+            height: 24px;
+            display: inline-block;
+        }
+
+        /* DASHBOARD CONTENT */
+        .dashboard-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 24px;
+        }
+
+        .card {
+            background-color: var(--bg-surface);
+            border: 1px solid var(--border);
+            border-radius: 8px;
+            padding: 20px;
+        }
+
+        .card-title {
+            font-size: 14px;
+            font-weight: 600;
+            color: var(--text-primary);
+            margin-bottom: 16px;
+            padding-bottom: 12px;
+            border-bottom: 1px solid var(--border);
+        }
+
+        /* TABLES */
+        table {
+            width: 100%;
+            border-collapse: collapse;
+        }
+
+        thead {
+            background-color: rgba(88, 166, 255, 0.05);
+        }
+
+        th {
+            padding: 12px 16px;
+            text-align: left;
+            font-size: 12px;
+            font-weight: 600;
+            color: var(--text-secondary);
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+            border-bottom: 1px solid var(--border);
+            cursor: pointer;
+            user-select: none;
+        }
+
+        th:hover {
+            background-color: rgba(88, 166, 255, 0.1);
+        }
+
+        td {
+            padding: 12px 16px;
+            border-bottom: 1px solid var(--border);
+            font-size: 13px;
+        }
+
+        tbody tr:hover {
+            background-color: rgba(88, 166, 255, 0.03);
+        }
+
+        .severity-dot {
+            width: 8px;
+            height: 8px;
+            border-radius: 50%;
+            display: inline-block;
+            margin-right: 8px;
+        }
+
+        .severity-critical { background-color: var(--alert-red); }
+        .severity-warning { background-color: var(--warning-yellow); }
+        .severity-info { background-color: var(--accent-blue); }
+
+        .status-badge {
+            display: inline-block;
+            padding: 4px 8px;
+            border-radius: 4px;
+            font-size: 11px;
+            font-weight: 600;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+        }
+
+        .status-active {
+            background-color: rgba(63, 185, 80, 0.15);
+            color: var(--health-green);
+        }
+
+        .status-paused {
+            background-color: rgba(139, 148, 158, 0.15);
+            color: var(--text-secondary);
+        }
+
+        .status-triggered {
+            background-color: rgba(239, 68, 68, 0.15);
+            color: var(--alert-red);
+        }
+
+        /* TOGGLE SWITCH */
+        .toggle {
+            position: relative;
+            width: 40px;
+            height: 24px;
+            background-color: var(--bg-ink);
+            border: 1px solid var(--border);
+            border-radius: 12px;
+            cursor: pointer;
+        }
+
+        .toggle.on {
+            background-color: var(--health-green);
+            border-color: var(--health-green);
+        }
+
+        .toggle-slider {
+            position: absolute;
+            top: 2px;
+            left: 2px;
+            width: 20px;
+            height: 20px;
+            background-color: white;
+            border-radius: 10px;
+            transition: left 0.2s;
+        }
+
+        .toggle.on .toggle-slider {
+            left: 18px;
+        }
+
+        /* FILTER BAR */
+        .filter-bar {
+            display: flex;
+            gap: 12px;
+            margin-bottom: 20px;
+            align-items: center;
+        }
+
+        .filter-group {
+            display: flex;
+            gap: 8px;
+            align-items: center;
+        }
+
+        select, input[type="date"], input[type="search"] {
+            padding: 8px 12px;
+            background-color: var(--bg-ink);
+            border: 1px solid var(--border);
+            border-radius: 4px;
+            color: var(--text-primary);
+            font-size: 13px;
+        }
+
+        select:hover, input:hover {
+            border-color: var(--accent-blue);
+        }
+
+        select {
+            cursor: pointer;
+        }
+
+        /* KANBAN BOARD */
+        .kanban-board {
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            gap: 16px;
+            height: 100%;
+        }
+
+        .kanban-column {
+            background-color: var(--bg-ink);
+            border: 1px solid var(--border);
+            border-radius: 8px;
+            padding: 16px;
+            display: flex;
+            flex-direction: column;
+        }
+
+        .kanban-header {
+            font-size: 13px;
+            font-weight: 600;
+            color: var(--text-primary);
+            margin-bottom: 16px;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .kanban-count {
+            background-color: var(--border);
+            padding: 2px 8px;
+            border-radius: 12px;
+            font-size: 11px;
+            color: var(--text-secondary);
+        }
+
+        .kanban-cards {
+            flex: 1;
+            display: flex;
+            flex-direction: column;
+            gap: 12px;
+            overflow-y: auto;
+        }
+
+        .kanban-card {
+            background-color: var(--bg-surface);
+            border: 1px solid var(--border);
+            border-radius: 8px;
+            padding: 12px;
+            cursor: grab;
+            transition: all 0.2s;
+        }
+
+        .kanban-card:hover {
+            border-color: var(--accent-blue);
+            background-color: rgba(88, 166, 255, 0.05);
+        }
+
+        .kanban-card:active {
+            cursor: grabbing;
+        }
+
+        .kanban-card-title {
+            font-size: 13px;
+            font-weight: 600;
+            color: var(--text-primary);
+            margin-bottom: 8px;
+        }
+
+        .kanban-card-meta {
+            font-size: 12px;
+            color: var(--text-secondary);
+            margin-bottom: 8px;
+        }
+
+        .kanban-card-footer {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            font-size: 11px;
+        }
+
+        /* EMPLOYEE GRID */
+        .employee-grid {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 20px;
+        }
+
+        .employee-card {
+            background-color: var(--bg-surface);
+            border: 1px solid var(--border);
+            border-radius: 8px;
+            padding: 16px;
+            text-align: center;
+            cursor: pointer;
+            transition: all 0.2s;
+        }
+
+        .employee-card:hover {
+            border-color: var(--accent-blue);
+            background-color: rgba(88, 166, 255, 0.05);
+        }
+
+        .employee-avatar {
+            width: 64px;
+            height: 64px;
+            border-radius: 50%;
+            background: linear-gradient(135deg, var(--color-canary), var(--color-fox));
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 24px;
+            margin: 0 auto 12px;
+            color: #000;
+        }
+
+        .employee-name {
+            font-size: 14px;
+            font-weight: 600;
+            color: var(--text-primary);
+            margin-bottom: 4px;
+        }
+
+        .employee-role {
+            font-size: 12px;
+            color: var(--text-secondary);
+            margin-bottom: 12px;
+        }
+
+        .employee-risk {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            gap: 8px;
+            margin-bottom: 8px;
+        }
+
+        .risk-score {
+            font-size: 18px;
+            font-weight: 700;
+        }
+
+        .risk-low { color: var(--health-green); }
+        .risk-medium { color: var(--warning-yellow); }
+        .risk-high { color: var(--alert-red); }
+
+        .employee-status {
+            font-size: 11px;
+            padding: 4px 8px;
+            border-radius: 4px;
+            background-color: rgba(63, 185, 80, 0.15);
+            color: var(--health-green);
+        }
+
+        .employee-status.offline {
+            background-color: rgba(139, 148, 158, 0.15);
+            color: var(--text-secondary);
+        }
+
+        /* SETTINGS TABS */
+        .settings-tabs {
+            display: flex;
+            gap: 0;
+            margin-bottom: 24px;
+            border-bottom: 1px solid var(--border);
+        }
+
+        .settings-tab {
+            padding: 12px 16px;
+            font-size: 13px;
+            font-weight: 600;
+            color: var(--text-secondary);
+            cursor: pointer;
+            border-bottom: 3px solid transparent;
+            transition: all 0.2s;
+        }
+
+        .settings-tab:hover {
+            color: var(--text-primary);
+        }
+
+        .settings-tab.active {
+            color: var(--accent-blue);
+            border-bottom-color: var(--accent-blue);
+        }
+
+        .settings-content {
+            display: none;
+        }
+
+        .settings-content.active {
+            display: block;
+        }
+
+        .settings-section {
+            margin-bottom: 24px;
+        }
+
+        .settings-label {
+            display: block;
+            font-size: 12px;
+            font-weight: 600;
+            color: var(--text-secondary);
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+            margin-bottom: 12px;
+        }
+
+        .form-group {
+            margin-bottom: 16px;
+        }
+
+        .form-label {
+            display: block;
+            font-size: 13px;
+            font-weight: 600;
+            color: var(--text-primary);
+            margin-bottom: 6px;
+        }
+
+        .form-input {
+            width: 100%;
+            padding: 8px 12px;
+            background-color: var(--bg-ink);
+            border: 1px solid var(--border);
+            border-radius: 4px;
+            color: var(--text-primary);
+            font-size: 13px;
+        }
+
+        .form-input:focus {
+            outline: none;
+            border-color: var(--accent-blue);
+            box-shadow: 0 0 0 3px rgba(88, 166, 255, 0.1);
+        }
+
+        .integration-card {
+            background-color: var(--bg-ink);
+            border: 1px solid var(--border);
+            border-radius: 8px;
+            padding: 16px;
+            margin-bottom: 16px;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+        }
+
+        .integration-info h4 {
+            font-size: 14px;
+            color: var(--text-primary);
+            margin-bottom: 4px;
+        }
+
+        .integration-info p {
+            font-size: 12px;
+            color: var(--text-secondary);
+        }
+
+        .integration-status {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .status-connected {
+            background-color: rgba(63, 185, 80, 0.15);
+            color: var(--health-green);
+            padding: 4px 8px;
+            border-radius: 4px;
+            font-size: 11px;
+            font-weight: 600;
+        }
+
+        .status-disconnected {
+            background-color: rgba(139, 148, 158, 0.15);
+            color: var(--text-secondary);
+            padding: 4px 8px;
+            border-radius: 4px;
+            font-size: 11px;
+            font-weight: 600;
+        }
+
+        /* BUTTONS */
+        .btn {
+            padding: 8px 16px;
+            background-color: var(--accent-blue);
+            color: white;
+            border: none;
+            border-radius: 4px;
+            font-size: 13px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.2s;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+        }
+
+        .btn:hover {
+            background-color: #4A96E6;
+            box-shadow: 0 4px 12px rgba(88, 166, 255, 0.3);
+        }
+
+        .btn-secondary {
+            background-color: var(--bg-ink);
+            color: var(--text-primary);
+            border: 1px solid var(--border);
+        }
+
+        .btn-secondary:hover {
+            border-color: var(--accent-blue);
+            background-color: rgba(88, 166, 255, 0.05);
+        }
+
+        /* TIMELINE */
+        .timeline {
+            position: relative;
+        }
+
+        .timeline-item {
+            display: flex;
+            gap: 16px;
+            margin-bottom: 16px;
+            padding-bottom: 16px;
+            border-bottom: 1px solid var(--border);
+        }
+
+        .timeline-item:last-child {
+            border-bottom: none;
+        }
+
+        .timeline-dot {
+            width: 8px;
+            height: 8px;
+            border-radius: 50%;
+            background-color: var(--accent-blue);
+            margin-top: 6px;
+            flex-shrink: 0;
+        }
+
+        .timeline-content {
+            flex: 1;
+        }
+
+        .timeline-time {
+            font-size: 12px;
+            color: var(--text-secondary);
+            margin-bottom: 4px;
+        }
+
+        .timeline-description {
+            font-size: 13px;
+            color: var(--text-primary);
+        }
+
+        /* SKELETON PAGES */
+        .skeleton-hero {
+            text-align: center;
+            margin-bottom: 32px;
+        }
+
+        .skeleton-icon {
+            width: 120px;
+            height: 120px;
+            margin: 0 auto 16px;
+            opacity: 0.3;
+        }
+
+        .skeleton-title {
+            font-size: 28px;
+            font-weight: 700;
+            margin-bottom: 8px;
+        }
+
+        .skeleton-tagline {
+            font-size: 14px;
+            color: var(--text-secondary);
+            margin-bottom: 24px;
+        }
+
+        .coming-soon-badge {
+            display: inline-block;
+            background-color: rgba(88, 166, 255, 0.15);
+            color: var(--accent-blue);
+            padding: 6px 12px;
+            border-radius: 4px;
+            font-size: 11px;
+            font-weight: 600;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+            margin-bottom: 32px;
+        }
+
+        .feature-cards {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 16px;
+            margin-top: 24px;
+        }
+
+        .feature-card {
+            background-color: var(--bg-surface);
+            border: 1px solid var(--border);
+            border-radius: 8px;
+            padding: 16px;
+            text-align: center;
+        }
+
+        .feature-card-title {
+            font-size: 13px;
+            font-weight: 600;
+            color: var(--text-primary);
+            margin-bottom: 8px;
+        }
+
+        .feature-card-description {
+            font-size: 12px;
+            color: var(--text-secondary);
+        }
+
+        /* SCROLLBAR */
+        ::-webkit-scrollbar {
+            width: 8px;
+            height: 8px;
+        }
+
+        ::-webkit-scrollbar-track {
+            background: transparent;
+        }
+
+        ::-webkit-scrollbar-thumb {
+            background-color: var(--border);
+            border-radius: 4px;
+        }
+
+        ::-webkit-scrollbar-thumb:hover {
+            background-color: var(--text-secondary);
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <!-- SIDEBAR -->
+        <div class="sidebar">
+            <div class="sidebar-logo">
+                <h2>GrowDirect</h2>
+            </div>
+
+            <!-- CANARY SECTION -->
+            <div class="sidebar-section">
+                <div class="sidebar-section-title">
+                    <svg class="sidebar-section-icon" viewBox="0 0 100 100" fill="none">
+                        <circle cx="42" cy="33" r="18" fill="#F59E0B"/>
+                        <ellipse cx="50" cy="58" rx="25" ry="19" fill="#F59E0B"/>
+                        <path d="M36 47 Q16 56 26 74 Q38 66 48 54 Z" fill="#D97706"/>
+                        <circle cx="48" cy="30" r="4" fill="#0F1923"/>
+                        <circle cx="46.5" cy="28.8" r="1.5" fill="#F59E0B"/>
+                        <path d="M58 32 L70 27 L61 37 Z" fill="#EA580C"/>
+                        <path d="M28 66 Q12 78 18 88 Q28 80 36 72 Z" fill="#D97706"/>
+                        <path d="M73 22 Q80 18 83 26" stroke="#EF4444" stroke-width="2.8" fill="none" stroke-linecap="round"/>
+                        <path d="M78 14 Q87 9 91 20" stroke="#FBBF24" stroke-width="2" fill="none" stroke-linecap="round" opacity="0.85"/>
+                        <path d="M82 7 Q92 1 97 14" stroke="#3FB950" stroke-width="1.5" fill="none" stroke-linecap="round" opacity="0.6"/>
+                    </svg>
+                    CANARY
+                </div>
+                <div class="sidebar-item active canary" onclick="showPage('dashboard')">Dashboard</div>
+                <div class="sidebar-item canary" onclick="showPage('chirps')">Chirps</div>
+                <div class="sidebar-item canary" onclick="showPage('transactions')">Transactions</div>
+                <div class="sidebar-item canary" onclick="showPage('alerts')">Alerts</div>
+            </div>
+
+            <!-- FOX SECTION -->
+            <div class="sidebar-section">
+                <div class="sidebar-section-title">
+                    <svg class="sidebar-section-icon" viewBox="0 0 100 100" fill="none">
+                        <circle cx="45" cy="35" r="16" fill="#F97316"/>
+                        <ellipse cx="50" cy="58" rx="22" ry="20" fill="#F97316"/>
+                        <path d="M32 22 L26 12 L28 28 Z" fill="#F97316"/>
+                        <path d="M68 22 L74 12 L72 28 Z" fill="#F97316"/>
+                        <circle cx="42" cy="33" r="3.5" fill="#0F1923"/>
+                        <path d="M55 36 L63 33 L56 40 Z" fill="#EA580C"/>
+                    </svg>
+                    FOX
+                </div>
+                <div class="sidebar-item fox" onclick="showPage('cases')">Cases</div>
+                <div class="sidebar-item fox" onclick="showPage('evidence')">Evidence</div>
+                <div class="sidebar-item fox" onclick="showPage('employees')">Employees</div>
+            </div>
+
+            <!-- OWL SECTION -->
+            <div class="sidebar-section">
+                <div class="sidebar-section-title">
+                    <svg class="sidebar-section-icon" viewBox="0 0 100 100" fill="none">
+                        <ellipse cx="50" cy="55" rx="28" ry="32" fill="#8B5CF6"/>
+                        <circle cx="35" cy="42" r="10" fill="#1F1F2F"/>
+                        <circle cx="65" cy="42" r="10" fill="#1F1F2F"/>
+                        <circle cx="35" cy="42" r="6" fill="#C4B5FD"/>
+                        <circle cx="65" cy="42" r="6" fill="#C4B5FD"/>
+                        <path d="M48 62 L52 62 L50 68 Z" fill="#EA580C"/>
+                    </svg>
+                    OWL
+                </div>
+                <div class="sidebar-item owl" onclick="showPage('insights')">Insights</div>
+                <div class="sidebar-item owl" onclick="showPage('reports')">Reports</div>
+                <div class="sidebar-item owl" onclick="showPage('benchmarks')">Benchmarks</div>
+            </div>
+
+            <!-- BULL SECTION -->
+            <div class="sidebar-section">
+                <div class="sidebar-section-title">
+                    <svg class="sidebar-section-icon" viewBox="0 0 100 100" fill="none">
+                        <circle cx="50" cy="40" r="17" fill="#22C55E"/>
+                        <ellipse cx="50" cy="62" rx="26" ry="24" fill="#22C55E"/>
+                        <path d="M35 28 Q30 18 32 26 Q28 20 24 28" fill="#16A34A"/>
+                        <path d="M65 28 Q70 18 68 26 Q72 20 76 28" fill="#16A34A"/>
+                        <circle cx="47" cy="38" r="3" fill="#0F1923"/>
+                        <path d="M52 42 L62 40 L54 48 Z" fill="#16A34A"/>
+                    </svg>
+                    BULL
+                </div>
+                <div class="sidebar-item bull" onclick="showPage('inventory')">Inventory</div>
+                <div class="sidebar-item bull" onclick="showPage('transfers')">Transfers</div>
+                <div class="sidebar-item bull" onclick="showPage('receiving')">Receiving</div>
+            </div>
+
+            <!-- ROOSTER SECTION -->
+            <div class="sidebar-section">
+                <div class="sidebar-section-title">
+                    <svg class="sidebar-section-icon" viewBox="0 0 100 100" fill="none">
+                        <circle cx="50" cy="45" r="16" fill="#3B82F6"/>
+                        <ellipse cx="50" cy="65" rx="24" ry="22" fill="#3B82F6"/>
+                        <path d="M48 24 L45 8 L50 20 L55 8 L52 24 Q50 28 48 24" fill="#EF4444"/>
+                        <circle cx="47" cy="43" r="3.5" fill="#0F1923"/>
+                        <path d="M54 46 L64 43 L56 52 Z" fill="#2563EB"/>
+                    </svg>
+                    ROOSTER
+                </div>
+                <div class="sidebar-item rooster" onclick="showPage('daily-ops')">Daily Ops</div>
+                <div class="sidebar-item rooster" onclick="showPage('scheduling')">Scheduling</div>
+                <div class="sidebar-item rooster" onclick="showPage('checklists')">Checklists</div>
+            </div>
+
+            <!-- GOOSE SECTION -->
+            <div class="sidebar-section">
+                <div class="sidebar-section-title">
+                    <svg class="sidebar-section-icon" viewBox="0 0 100 100" fill="none">
+                        <circle cx="50" cy="32" r="14" fill="#10B981"/>
+                        <path d="M50 45 Q45 52 45 62 L55 62 Q55 52 50 45 Z" fill="#10B981"/>
+                        <ellipse cx="50" cy="72" rx="22" ry="18" fill="#10B981"/>
+                        <path d="M52 30 L60 26 L54 35 Z" fill="#F59E0B"/>
+                        <circle cx="48" cy="30" r="3" fill="#0F1923"/>
+                    </svg>
+                    GOOSE
+                </div>
+                <div class="sidebar-item goose" onclick="showPage('revenue')">Revenue</div>
+                <div class="sidebar-item goose" onclick="showPage('cash-flow')">Cash Flow</div>
+                <div class="sidebar-item goose" onclick="showPage('deposits')">Deposits</div>
+            </div>
+
+            <!-- BOTTOM ITEMS -->
+            <div class="sidebar-bottom">
+                <div class="sidebar-item" onclick="showPage('settings')">⚙️ Settings</div>
+                <div class="sidebar-item" onclick="showPage('audit')">📋 Audit Log</div>
+            </div>
+        </div>
+
+        <!-- MAIN CONTENT -->
+        <div class="main-content">
+            <!-- TOPBAR -->
+            <div class="topbar">
+                <div class="topbar-breadcrumb" id="breadcrumb">Canary / Dashboard</div>
+                <div class="topbar-spacer"></div>
+                <input type="search" class="topbar-search" placeholder="Search...">
+                <svg class="topbar-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                    <circle cx="11" cy="11" r="8"></circle>
+                    <path d="m21 21-4.35-4.35"></path>
+                </svg>
+                <svg class="topbar-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                    <path d="M18 8A6 6 0 0 0 6 8c0 7-3 9-3 9h18s-3-2-3-9"></path>
+                    <path d="M13.73 21a2 2 0 0 1-3.46 0"></path>
+                </svg>
+                <div class="topbar-avatar">SC</div>
+            </div>
+
+            <!-- CONTENT AREA -->
+            <div class="content-area">
+                <!-- DASHBOARD PAGE -->
+                <div id="dashboard" class="page active">
+                    <div class="stats-grid">
+                        <div class="stat-card">
+                            <div class="stat-label">Today's Revenue</div>
+                            <div class="stat-value">$2,847.50</div>
+                            <div class="stat-change positive">↑ 12% vs. yesterday</div>
+                        </div>
+                        <div class="stat-card">
+                            <div class="stat-label">Active Chirps</div>
+                            <div class="stat-value">3</div>
+                            <div class="stat-change negative">2 critical alerts</div>
+                        </div>
+                        <div class="stat-card">
+                            <div class="stat-label">Transactions</div>
+                            <div class="stat-value">142</div>
+                            <div class="stat-change neutral">Since 6:00 AM</div>
+                        </div>
+                        <div class="stat-card">
+                            <div class="stat-label">Store Health</div>
+                            <div class="stat-value">87%</div>
+                            <div class="stat-change positive">↑ 3% this week</div>
+                        </div>
+                    </div>
+
+                    <div class="dashboard-grid">
+                        <div class="card">
+                            <div class="card-title">Recent Alerts</div>
+                            <table>
+                                <thead>
+                                    <tr>
+                                        <th></th>
+                                        <th>Chirp Name</th>
+                                        <th>Time</th>
+                                        <th>Amount</th>
+                                        <th>Status</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <tr>
+                                        <td><span class="severity-dot severity-critical"></span></td>
+                                        <td>No Receipt Refund</td>
+                                        <td>2:45 PM</td>
+                                        <td>$42.50</td>
+                                        <td><span class="status-badge status-triggered">Triggered</span></td>
+                                    </tr>
+                                    <tr>
+                                        <td><span class="severity-dot severity-critical"></span></td>
+                                        <td>Cash Drawer Variance</td>
+                                        <td>1:30 PM</td>
+                                        <td>$156.25</td>
+                                        <td><span class="status-badge status-triggered">Triggered</span></td>
+                                    </tr>
+                                    <tr>
+                                        <td><span class="severity-dot severity-warning"></span></td>
+                                        <td>High Discount Usage</td>
+                                        <td>12:15 PM</td>
+                                        <td>$87.00</td>
+                                        <td><span class="status-badge status-triggered">Triggered</span></td>
+                                    </tr>
+                                    <tr>
+                                        <td><span class="severity-dot severity-warning"></span></td>
+                                        <td>Void Override</td>
+                                        <td>11:45 AM</td>
+                                        <td>$65.50</td>
+                                        <td><span class="status-badge status-triggered">Triggered</span></td>
+                                    </tr>
+                                    <tr>
+                                        <td><span class="severity-dot severity-info"></span></td>
+                                        <td>Large Transaction</td>
+                                        <td>10:30 AM</td>
+                                        <td>$524.00</td>
+                                        <td><span class="status-badge status-triggered">Triggered</span></td>
+                                    </tr>
+                                    <tr>
+                                        <td><span class="severity-dot severity-warning"></span></td>
+                                        <td>Employee Refund Pattern</td>
+                                        <td>9:15 AM</td>
+                                        <td>$203.75</td>
+                                        <td><span class="status-badge status-triggered">Triggered</span></td>
+                                    </tr>
+                                    <tr>
+                                        <td><span class="severity-dot severity-info"></span></td>
+                                        <td>Late Night Activity</td>
+                                        <td>8:00 AM</td>
+                                        <td>$45.00</td>
+                                        <td><span class="status-badge status-triggered">Triggered</span></td>
+                                    </tr>
+                                    <tr>
+                                        <td><span class="severity-dot severity-info"></span></td>
+                                        <td>Bulk Menu Discount</td>
+                                        <td>7:30 AM</td>
+                                        <td>$320.00</td>
+                                        <td><span class="status-badge status-triggered">Triggered</span></td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </div>
+
+                        <div class="card">
+                            <div class="card-title">Today's Activity</div>
+                            <div class="timeline">
+                                <div class="timeline-item">
+                                    <div class="timeline-dot"></div>
+                                    <div class="timeline-content">
+                                        <div class="timeline-time">2:45 PM</div>
+                                        <div class="timeline-description">Critical alert: No Receipt Refund detected</div>
+                                    </div>
+                                </div>
+                                <div class="timeline-item">
+                                    <div class="timeline-dot"></div>
+                                    <div class="timeline-content">
+                                        <div class="timeline-time">1:30 PM</div>
+                                        <div class="timeline-description">Cash drawer variance detected</div>
+                                    </div>
+                                </div>
+                                <div class="timeline-item">
+                                    <div class="timeline-dot"></div>
+                                    <div class="timeline-content">
+                                        <div class="timeline-time">12:15 PM</div>
+                                        <div class="timeline-description">High discount usage flagged</div>
+                                    </div>
+                                </div>
+                                <div class="timeline-item">
+                                    <div class="timeline-dot"></div>
+                                    <div class="timeline-content">
+                                        <div class="timeline-time">11:00 AM</div>
+                                        <div class="timeline-description">Shift change: Sarah → Marcus</div>
+                                    </div>
+                                </div>
+                                <div class="timeline-item">
+                                    <div class="timeline-dot"></div>
+                                    <div class="timeline-content">
+                                        <div class="timeline-time">6:00 AM</div>
+                                        <div class="timeline-description">Store opened - Morning shift started</div>
+                                    </div>
+                                </div>
+                                <div class="timeline-item">
+                                    <div class="timeline-dot"></div>
+                                    <div class="timeline-content">
+                                        <div class="timeline-time">3/1/2026</div>
+                                        <div class="timeline-description">Daily reconciliation completed</div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- CHIRPS PAGE -->
+                <div id="chirps" class="page">
+                    <div class="filter-bar">
+                        <select>
+                            <option>All Categories</option>
+                            <option>Revenue Integrity</option>
+                            <option>Staff Performance</option>
+                            <option>Inventory</option>
+                        </select>
+                        <select>
+                            <option>All Severities</option>
+                            <option>Critical</option>
+                            <option>Warning</option>
+                            <option>Info</option>
+                        </select>
+                        <select>
+                            <option>All Status</option>
+                            <option>Active</option>
+                            <option>Paused</option>
+                        </select>
+                        <input type="search" placeholder="Search chirps...">
+                    </div>
+
+                    <div class="card">
+                        <table>
+                            <thead>
+                                <tr>
+                                    <th>Chirp Name</th>
+                                    <th>Category</th>
+                                    <th>Threshold</th>
+                                    <th>Severity</th>
+                                    <th>Last Triggered</th>
+                                    <th>Status</th>
+                                    <th>Actions</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr>
+                                    <td><strong>No Receipt Refund</strong></td>
+                                    <td>Revenue Integrity</td>
+                                    <td>1 per shift</td>
+                                    <td><span class="status-badge status-triggered">Critical</span></td>
+                                    <td>2:45 PM</td>
+                                    <td><div class="toggle on"><div class="toggle-slider"></div></div></td>
+                                    <td><a href="#" style="color: var(--accent-blue); text-decoration: none;">Edit</a></td>
+                                </tr>
+                                <tr>
+                                    <td><strong>Cash Drawer Variance</strong></td>
+                                    <td>Revenue Integrity</td>
+                                    <td>±$50</td>
+                                    <td><span class="status-badge status-triggered">Critical</span></td>
+                                    <td>1:30 PM</td>
+                                    <td><div class="toggle on"><div class="toggle-slider"></div></div></td>
+                                    <td><a href="#" style="color: var(--accent-blue); text-decoration: none;">Edit</a></td>
+                                </tr>
+                                <tr>
+                                    <td><strong>High Discount Usage</strong></td>
+                                    <td>Revenue Integrity</td>
+                                    <td>>30% of trans.</td>
+                                    <td><span class="status-badge" style="background-color: rgba(251,191,36,0.15); color: var(--warning-yellow);">Warning</span></td>
+                                    <td>12:15 PM</td>
+                                    <td><div class="toggle on"><div class="toggle-slider"></div></div></td>
+                                    <td><a href="#" style="color: var(--accent-blue); text-decoration: none;">Edit</a></td>
+                                </tr>
+                                <tr>
+                                    <td><strong>Void Override</strong></td>
+                                    <td>Revenue Integrity</td>
+                                    <td>2 per hour</td>
+                                    <td><span class="status-badge" style="background-color: rgba(251,191,36,0.15); color: var(--warning-yellow);">Warning</span></td>
+                                    <td>11:45 AM</td>
+                                    <td><div class="toggle on"><div class="toggle-slider"></div></div></td>
+                                    <td><a href="#" style="color: var(--accent-blue); text-decoration: none;">Edit</a></td>
+                                </tr>
+                                <tr>
+                                    <td><strong>Employee Discount Abuse</strong></td>
+                                    <td>Staff Performance</td>
+                                    <td>>$100/day</td>
+                                    <td><span class="status-badge status-triggered">Critical</span></td>
+                                    <td>3/1 8:30 AM</td>
+                                    <td><div class="toggle on"><div class="toggle-slider"></div></div></td>
+                                    <td><a href="#" style="color: var(--accent-blue); text-decoration: none;">Edit</a></td>
+                                </tr>
+                                <tr>
+                                    <td><strong>Large Transaction</strong></td>
+                                    <td>Revenue Integrity</td>
+                                    <td>>$500</td>
+                                    <td><span class="status-badge" style="background-color: rgba(88,166,255,0.15); color: var(--accent-blue);">Info</span></td>
+                                    <td>10:30 AM</td>
+                                    <td><div class="toggle on"><div class="toggle-slider"></div></div></td>
+                                    <td><a href="#" style="color: var(--accent-blue); text-decoration: none;">Edit</a></td>
+                                </tr>
+                                <tr>
+                                    <td><strong>Refund Pattern</strong></td>
+                                    <td>Staff Performance</td>
+                                    <td>>15% trans</td>
+                                    <td><span class="status-badge" style="background-color: rgba(251,191,36,0.15); color: var(--warning-yellow);">Warning</span></td>
+                                    <td>9:15 AM</td>
+                                    <td><div class="toggle on"><div class="toggle-slider"></div></div></td>
+                                    <td><a href="#" style="color: var(--accent-blue); text-decoration: none;">Edit</a></td>
+                                </tr>
+                                <tr>
+                                    <td><strong>Late Night Activity</strong></td>
+                                    <td>Inventory</td>
+                                    <td>After hours</td>
+                                    <td><span class="status-badge" style="background-color: rgba(88,166,255,0.15); color: var(--accent-blue);">Info</span></td>
+                                    <td>8:00 AM</td>
+                                    <td><div class="toggle off"><div class="toggle-slider"></div></div></td>
+                                    <td><a href="#" style="color: var(--accent-blue); text-decoration: none;">Edit</a></td>
+                                </tr>
+                                <tr>
+                                    <td><strong>Bulk Menu Discount</strong></td>
+                                    <td>Revenue Integrity</td>
+                                    <td>>$200</td>
+                                    <td><span class="status-badge" style="background-color: rgba(88,166,255,0.15); color: var(--accent-blue);">Info</span></td>
+                                    <td>7:30 AM</td>
+                                    <td><div class="toggle on"><div class="toggle-slider"></div></div></td>
+                                    <td><a href="#" style="color: var(--accent-blue); text-decoration: none;">Edit</a></td>
+                                </tr>
+                                <tr>
+                                    <td><strong>Temperature Variance</strong></td>
+                                    <td>Inventory</td>
+                                    <td>+/- 2°F</td>
+                                    <td><span class="status-badge" style="background-color: rgba(88,166,255,0.15); color: var(--accent-blue);">Info</span></td>
+                                    <td>3/1 11:00 PM</td>
+                                    <td><div class="toggle on"><div class="toggle-slider"></div></div></td>
+                                    <td><a href="#" style="color: var(--accent-blue); text-decoration: none;">Edit</a></td>
+                                </tr>
+                                <tr>
+                                    <td><strong>Register Overage</strong></td>
+                                    <td>Revenue Integrity</td>
+                                    <td>>$100</td>
+                                    <td><span class="status-badge" style="background-color: rgba(251,191,36,0.15); color: var(--warning-yellow);">Warning</span></td>
+                                    <td>3/1 3:45 PM</td>
+                                    <td><div class="toggle on"><div class="toggle-slider"></div></div></td>
+                                    <td><a href="#" style="color: var(--accent-blue); text-decoration: none;">Edit</a></td>
+                                </tr>
+                                <tr>
+                                    <td><strong>Inventory Count Variance</strong></td>
+                                    <td>Inventory</td>
+                                    <td>>5% variance</td>
+                                    <td><span class="status-badge" style="background-color: rgba(251,191,36,0.15); color: var(--warning-yellow);">Warning</span></td>
+                                    <td>3/1 6:00 AM</td>
+                                    <td><div class="toggle on"><div class="toggle-slider"></div></div></td>
+                                    <td><a href="#" style="color: var(--accent-blue); text-decoration: none;">Edit</a></td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+
+                <!-- TRANSACTIONS PAGE -->
+                <div id="transactions" class="page">
+                    <div class="filter-bar">
+                        <input type="search" placeholder="Search transaction ID...">
+                        <input type="date">
+                        <select>
+                            <option>All Registers</option>
+                            <option>Register 1</option>
+                            <option>Register 2</option>
+                            <option>Register 3</option>
+                        </select>
+                        <select>
+                            <option>All Employees</option>
+                            <option>Sarah Chen</option>
+                            <option>Marcus Johnson</option>
+                            <option>Emma Rodriguez</option>
+                        </select>
+                    </div>
+
+                    <div class="card">
+                        <table>
+                            <thead>
+                                <tr>
+                                    <th>Transaction ID</th>
+                                    <th>Time</th>
+                                    <th>Register</th>
+                                    <th>Employee</th>
+                                    <th>Items</th>
+                                    <th>Total</th>
+                                    <th>Payment</th>
+                                    <th>Flags</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr>
+                                    <td><strong>#TXN-047829</strong></td>
+                                    <td>2:45 PM</td>
+                                    <td>Register 2</td>
+                                    <td>Emma Rodriguez</td>
+                                    <td>Americano, Croissant</td>
+                                    <td>$8.50</td>
+                                    <td>Card</td>
+                                    <td><span class="severity-dot severity-critical"></span></td>
+                                </tr>
+                                <tr>
+                                    <td><strong>#TXN-047828</strong></td>
+                                    <td>2:42 PM</td>
+                                    <td>Register 1</td>
+                                    <td>Marcus Johnson</td>
+                                    <td>Latte, Pastry, Muffin</td>
+                                    <td>$12.75</td>
+                                    <td>Cash</td>
+                                    <td></td>
+                                </tr>
+                                <tr>
+                                    <td><strong>#TXN-047827</strong></td>
+                                    <td>2:38 PM</td>
+                                    <td>Register 3</td>
+                                    <td>Sarah Chen</td>
+                                    <td>Cappuccino</td>
+                                    <td>$5.25</td>
+                                    <td>Card</td>
+                                    <td></td>
+                                </tr>
+                                <tr>
+                                    <td><strong>#TXN-047826</strong></td>
+                                    <td>2:35 PM</td>
+                                    <td>Register 1</td>
+                                    <td>Marcus Johnson</td>
+                                    <td>Venti Mocha, 2x Donut</td>
+                                    <td>$14.50</td>
+                                    <td>Card</td>
+                                    <td><span class="severity-dot severity-warning"></span></td>
+                                </tr>
+                                <tr>
+                                    <td><strong>#TXN-047825</strong></td>
+                                    <td>2:30 PM</td>
+                                    <td>Register 2</td>
+                                    <td>Emma Rodriguez</td>
+                                    <td>Americano, Sandwich</td>
+                                    <td>$11.00</td>
+                                    <td>Mobile Payment</td>
+                                    <td></td>
+                                </tr>
+                                <tr>
+                                    <td><strong>#TXN-047824</strong></td>
+                                    <td>2:25 PM</td>
+                                    <td>Register 3</td>
+                                    <td>Sarah Chen</td>
+                                    <td>Flat White, Cookie</td>
+                                    <td>$7.75</td>
+                                    <td>Cash</td>
+                                    <td></td>
+                                </tr>
+                                <tr>
+                                    <td><strong>#TXN-047823</strong></td>
+                                    <td>2:20 PM</td>
+                                    <td>Register 1</td>
+                                    <td>Marcus Johnson</td>
+                                    <td>Espresso (x3)</td>
+                                    <td>$10.50</td>
+                                    <td>Card</td>
+                                    <td></td>
+                                </tr>
+                                <tr>
+                                    <td><strong>#TXN-047822</strong></td>
+                                    <td>2:15 PM</td>
+                                    <td>Register 2</td>
+                                    <td>Emma Rodriguez</td>
+                                    <td>Macchiato, Biscotti</td>
+                                    <td>$8.25</td>
+                                    <td>Card</td>
+                                    <td></td>
+                                </tr>
+                                <tr>
+                                    <td><strong>#TXN-047821</strong></td>
+                                    <td>2:10 PM</td>
+                                    <td>Register 3</td>
+                                    <td>Sarah Chen</td>
+                                    <td>Cortado, Muffin</td>
+                                    <td>$6.50</td>
+                                    <td>Cash</td>
+                                    <td><span class="severity-dot severity-info"></span></td>
+                                </tr>
+                                <tr>
+                                    <td><strong>#TXN-047820</strong></td>
+                                    <td>2:05 PM</td>
+                                    <td>Register 1</td>
+                                    <td>Marcus Johnson</td>
+                                    <td>Cold Brew, Scone</td>
+                                    <td>$9.00</td>
+                                    <td>Card</td>
+                                    <td></td>
+                                </tr>
+                                <tr>
+                                    <td><strong>#TXN-047819</strong></td>
+                                    <td>2:00 PM</td>
+                                    <td>Register 2</td>
+                                    <td>Emma Rodriguez</td>
+                                    <td>Latte, Panini</td>
+                                    <td>$13.50</td>
+                                    <td>Mobile Payment</td>
+                                    <td></td>
+                                </tr>
+                                <tr>
+                                    <td><strong>#TXN-047818</strong></td>
+                                    <td>1:55 PM</td>
+                                    <td>Register 3</td>
+                                    <td>Sarah Chen</td>
+                                    <td>Cappuccino, Croissant</td>
+                                    <td>$9.75</td>
+                                    <td>Card</td>
+                                    <td></td>
+                                </tr>
+                                <tr>
+                                    <td><strong>#TXN-047817</strong></td>
+                                    <td>1:50 PM</td>
+                                    <td>Register 1</td>
+                                    <td>Marcus Johnson</td>
+                                    <td>Americano (x2)</td>
+                                    <td>$10.00</td>
+                                    <td>Card</td>
+                                    <td></td>
+                                </tr>
+                                <tr>
+                                    <td><strong>#TXN-047816</strong></td>
+                                    <td>1:45 PM</td>
+                                    <td>Register 2</td>
+                                    <td>Emma Rodriguez</td>
+                                    <td>Mocha, Bagel</td>
+                                    <td>$10.25</td>
+                                    <td>Cash</td>
+                                    <td></td>
+                                </tr>
+                                <tr>
+                                    <td><strong>#TXN-047815</strong></td>
+                                    <td>1:40 PM</td>
+                                    <td>Register 3</td>
+                                    <td>Sarah Chen</td>
+                                    <td>Espresso, Madeleine</td>
+                                    <td>$7.00</td>
+                                    <td>Card</td>
+                                    <td></td>
+                                </tr>
+                                <tr>
+                                    <td><strong>#TXN-047814</strong></td>
+                                    <td>1:35 PM</td>
+                                    <td>Register 1</td>
+                                    <td>Marcus Johnson</td>
+                                    <td>Iced Latte, Cookie</td>
+                                    <td>$8.50</td>
+                                    <td>Card</td>
+                                    <td></td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+
+                <!-- CASES (KANBAN) PAGE -->
+                <div id="cases" class="page">
+                    <div class="kanban-board">
+                        <div class="kanban-column">
+                            <div class="kanban-header">
+                                <span>New</span>
+                                <span class="kanban-count">3</span>
+                            </div>
+                            <div class="kanban-cards">
+                                <div class="kanban-card">
+                                    <div class="kanban-card-title">Case #2847</div>
+                                    <div class="kanban-card-meta">Repeated no-receipt refunds</div>
+                                    <div class="status-badge status-triggered">Critical</div>
+                                    <div class="kanban-card-footer">
+                                        <span>Assigned: Emma R.</span>
+                                    </div>
+                                </div>
+                                <div class="kanban-card">
+                                    <div class="kanban-card-title">Case #2846</div>
+                                    <div class="kanban-card-meta">Cash drawer variance pattern</div>
+                                    <div class="status-badge status-triggered">Critical</div>
+                                    <div class="kanban-card-footer">
+                                        <span>Assigned: You</span>
+                                    </div>
+                                </div>
+                                <div class="kanban-card">
+                                    <div class="kanban-card-title">Case #2845</div>
+                                    <div class="kanban-card-meta">Employee discount abuse</div>
+                                    <div class="status-badge" style="background-color: rgba(251,191,36,0.15); color: var(--warning-yellow);">Warning</div>
+                                    <div class="kanban-card-footer">
+                                        <span>Assigned: Sarah C.</span>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="kanban-column">
+                            <div class="kanban-header">
+                                <span>In Progress</span>
+                                <span class="kanban-count">2</span>
+                            </div>
+                            <div class="kanban-cards">
+                                <div class="kanban-card">
+                                    <div class="kanban-card-title">Case #2844</div>
+                                    <div class="kanban-card-meta">Void override spike</div>
+                                    <div class="status-badge" style="background-color: rgba(251,191,36,0.15); color: var(--warning-yellow);">Warning</div>
+                                    <div class="kanban-card-footer">
+                                        <span>Assigned: Marcus J.</span>
+                                    </div>
+                                </div>
+                                <div class="kanban-card">
+                                    <div class="kanban-card-title">Case #2843</div>
+                                    <div class="kanban-card-meta">High discount usage investigation</div>
+                                    <div class="status-badge" style="background-color: rgba(251,191,36,0.15); color: var(--warning-yellow);">Warning</div>
+                                    <div class="kanban-card-footer">
+                                        <span>Assigned: You</span>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="kanban-column">
+                            <div class="kanban-header">
+                                <span>Review</span>
+                                <span class="kanban-count">1</span>
+                            </div>
+                            <div class="kanban-cards">
+                                <div class="kanban-card">
+                                    <div class="kanban-card-title">Case #2842</div>
+                                    <div class="kanban-card-meta">Refund pattern review</div>
+                                    <div class="status-badge" style="background-color: rgba(88,166,255,0.15); color: var(--accent-blue);">Info</div>
+                                    <div class="kanban-card-footer">
+                                        <span>Assigned: Sarah C.</span>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="kanban-column">
+                            <div class="kanban-header">
+                                <span>Closed</span>
+                                <span class="kanban-count">2</span>
+                            </div>
+                            <div class="kanban-cards">
+                                <div class="kanban-card">
+                                    <div class="kanban-card-title">Case #2841</div>
+                                    <div class="kanban-card-meta">Register sync issue</div>
+                                    <div class="status-badge" style="background-color: rgba(88,166,255,0.15); color: var(--accent-blue);">Info</div>
+                                    <div class="kanban-card-footer">
+                                        <span>Closed 2 days ago</span>
+                                    </div>
+                                </div>
+                                <div class="kanban-card">
+                                    <div class="kanban-card-title">Case #2840</div>
+                                    <div class="kanban-card-meta">Training session follow-up</div>
+                                    <div class="status-badge" style="background-color: rgba(88,166,255,0.15); color: var(--accent-blue);">Info</div>
+                                    <div class="kanban-card-footer">
+                                        <span>Closed 5 days ago</span>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- EMPLOYEES PAGE -->
+                <div id="employees" class="page">
+                    <div class="employee-grid">
+                        <div class="employee-card">
+                            <div class="employee-avatar">SC</div>
+                            <div class="employee-name">Sarah Chen</div>
+                            <div class="employee-role">Shift Lead</div>
+                            <div class="employee-risk">
+                                <span class="risk-score risk-low">12</span>
+                                <span style="font-size: 11px; color: var(--text-secondary);">risk</span>
+                            </div>
+                            <div class="employee-status">On Shift</div>
+                        </div>
+
+                        <div class="employee-card">
+                            <div class="employee-avatar">MJ</div>
+                            <div class="employee-name">Marcus Johnson</div>
+                            <div class="employee-role">Barista</div>
+                            <div class="employee-risk">
+                                <span class="risk-score risk-low">8</span>
+                                <span style="font-size: 11px; color: var(--text-secondary);">risk</span>
+                            </div>
+                            <div class="employee-status">On Shift</div>
+                        </div>
+
+                        <div class="employee-card">
+                            <div class="employee-avatar">ER</div>
+                            <div class="employee-name">Emma Rodriguez</div>
+                            <div class="employee-role">Barista</div>
+                            <div class="employee-risk">
+                                <span class="risk-score risk-medium">42</span>
+                                <span style="font-size: 11px; color: var(--text-secondary);">risk</span>
+                            </div>
+                            <div class="employee-status">On Shift</div>
+                        </div>
+
+                        <div class="employee-card">
+                            <div class="employee-avatar">JL</div>
+                            <div class="employee-name">James Lee</div>
+                            <div class="employee-role">Manager</div>
+                            <div class="employee-risk">
+                                <span class="risk-score risk-low">5</span>
+                                <span style="font-size: 11px; color: var(--text-secondary);">risk</span>
+                            </div>
+                            <div class="employee-status offline">Off Shift</div>
+                        </div>
+
+                        <div class="employee-card">
+                            <div class="employee-avatar">AK</div>
+                            <div class="employee-name">Aisha Khan</div>
+                            <div class="employee-role">Barista</div>
+                            <div class="employee-risk">
+                                <span class="risk-score risk-low">18</span>
+                                <span style="font-size: 11px; color: var(--text-secondary);">risk</span>
+                            </div>
+                            <div class="employee-status offline">Off Shift</div>
+                        </div>
+
+                        <div class="employee-card">
+                            <div class="employee-avatar">DP</div>
+                            <div class="employee-name">David Park</div>
+                            <div class="employee-role">Barista</div>
+                            <div class="employee-risk">
+                                <span class="risk-score risk-high">67</span>
+                                <span style="font-size: 11px; color: var(--text-secondary);">risk</span>
+                            </div>
+                            <div class="employee-status offline">Off Shift</div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- SETTINGS PAGE -->
+                <div id="settings" class="page">
+                    <div class="settings-tabs">
+                        <div class="settings-tab active" onclick="showSettingsTab(0)">General</div>
+                        <div class="settings-tab" onclick="showSettingsTab(1)">Chirp Rules</div>
+                        <div class="settings-tab" onclick="showSettingsTab(2)">Notifications</div>
+                        <div class="settings-tab" onclick="showSettingsTab(3)">Integrations</div>
+                    </div>
+
+                    <!-- GENERAL TAB -->
+                    <div class="settings-content active">
+                        <div class="card" style="max-width: 500px;">
+                            <div class="card-title">Store Profile</div>
+                            <div class="settings-section">
+                                <label class="form-label">Store Name</label>
+                                <input type="text" class="form-input" value="Sunrise Coffee">
+                            </div>
+                            <div class="settings-section">
+                                <label class="form-label">Address</label>
+                                <input type="text" class="form-input" value="1847 Oak Street, Portland, OR 97214">
+                            </div>
+                            <div class="settings-section">
+                                <label class="form-label">Hours</label>
+                                <input type="text" class="form-input" value="6:00 AM - 8:00 PM, Daily">
+                            </div>
+                            <div class="settings-section">
+                                <label class="form-label">Timezone</label>
+                                <select class="form-input" style="width: 100%;">
+                                    <option>Pacific Time (PT)</option>
+                                </select>
+                            </div>
+                        </div>
+
+                        <div class="card" style="max-width: 500px; margin-top: 24px;">
+                            <div class="card-title">Vocabulary Pack</div>
+                            <div class="settings-section">
+                                <label class="form-label">Industry Vocabulary</label>
+                                <select class="form-input" style="width: 100%;">
+                                    <option selected>☕ Coffee Shop</option>
+                                    <option>🍕 Pizza/Restaurant</option>
+                                    <option>🏪 Retail</option>
+                                    <option>Custom</option>
+                                </select>
+                                <div style="margin-top: 12px; padding: 12px; background-color: var(--bg-ink); border-radius: 4px; font-size: 12px; color: var(--text-secondary);">
+                                    <strong>Preview:</strong> Barista, Register, Café, Drawer, Espresso Bar, POS
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="card" style="max-width: 500px; margin-top: 24px;">
+                            <div class="card-title">Appearance</div>
+                            <div class="settings-section">
+                                <label class="form-label">Theme</label>
+                                <div style="display: flex; gap: 12px;">
+                                    <div style="flex: 1; padding: 12px; background-color: var(--bg-surface); border: 2px solid var(--accent-blue); border-radius: 4px; text-align: center; font-size: 12px;">Dark (Active)</div>
+                                    <div style="flex: 1; padding: 12px; background-color: var(--bg-surface); border: 1px solid var(--border); border-radius: 4px; text-align: center; font-size: 12px; color: var(--text-secondary);">Light</div>
+                                </div>
+                            </div>
+                            <div class="settings-section">
+                                <label class="form-label">Language</label>
+                                <select class="form-input" style="width: 100%;">
+                                    <option selected>English (US)</option>
+                                    <option>English (UK)</option>
+                                    <option>Spanish</option>
+                                </select>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- CHIRP RULES TAB -->
+                    <div class="settings-content">
+                        <div class="card">
+                            <div class="card-title">Chirp Rules Configuration</div>
+                            <table>
+                                <thead>
+                                    <tr>
+                                        <th>Rule Name</th>
+                                        <th>Category</th>
+                                        <th>Threshold</th>
+                                        <th>Severity</th>
+                                        <th>Schedule</th>
+                                        <th></th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <tr>
+                                        <td>No Receipt Refund</td>
+                                        <td>Revenue</td>
+                                        <td><input type="text" class="form-input" style="width: 80px;" value="1"></td>
+                                        <td><select style="width: 80px; padding: 4px;"><option selected>Critical</option></select></td>
+                                        <td>All Hours</td>
+                                        <td><a href="#" style="color: var(--accent-blue); font-size: 12px;">Edit</a></td>
+                                    </tr>
+                                    <tr>
+                                        <td>Cash Drawer Variance</td>
+                                        <td>Revenue</td>
+                                        <td><input type="text" class="form-input" style="width: 80px;" value="±$50"></td>
+                                        <td><select style="width: 80px; padding: 4px;"><option selected>Critical</option></select></td>
+                                        <td>End of Shift</td>
+                                        <td><a href="#" style="color: var(--accent-blue); font-size: 12px;">Edit</a></td>
+                                    </tr>
+                                    <tr>
+                                        <td>High Discount Usage</td>
+                                        <td>Revenue</td>
+                                        <td><input type="text" class="form-input" style="width: 80px;" value=">30%"></td>
+                                        <td><select style="width: 80px; padding: 4px;"><option>Critical</option><option selected>Warning</option></select></td>
+                                        <td>All Hours</td>
+                                        <td><a href="#" style="color: var(--accent-blue); font-size: 12px;">Edit</a></td>
+                                    </tr>
+                                    <tr>
+                                        <td>Void Override</td>
+                                        <td>Revenue</td>
+                                        <td><input type="text" class="form-input" style="width: 80px;" value="2/hr"></td>
+                                        <td><select style="width: 80px; padding: 4px;"><option>Critical</option><option selected>Warning</option></select></td>
+                                        <td>All Hours</td>
+                                        <td><a href="#" style="color: var(--accent-blue); font-size: 12px;">Edit</a></td>
+                                    </tr>
+                                    <tr>
+                                        <td>Employee Discount Abuse</td>
+                                        <td>Staff</td>
+                                        <td><input type="text" class="form-input" style="width: 80px;" value=">$100"></td>
+                                        <td><select style="width: 80px; padding: 4px;"><option selected>Critical</option></select></td>
+                                        <td>All Hours</td>
+                                        <td><a href="#" style="color: var(--accent-blue); font-size: 12px;">Edit</a></td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                            <button class="btn btn-secondary" style="margin-top: 16px;">+ Add Custom Rule</button>
+                        </div>
+                    </div>
+
+                    <!-- NOTIFICATIONS TAB -->
+                    <div class="settings-content">
+                        <div class="card" style="max-width: 600px;">
+                            <div class="card-title">Notification Channels</div>
+
+                            <div style="margin-bottom: 20px;">
+                                <label class="form-label" style="display: flex; align-items: center; gap: 8px; margin-bottom: 8px;">
+                                    <input type="checkbox" checked> Email
+                                </label>
+                                <input type="email" class="form-input" value="manager@sunrisecoffee.com">
+                            </div>
+
+                            <div style="margin-bottom: 20px;">
+                                <label class="form-label" style="display: flex; align-items: center; gap: 8px; margin-bottom: 8px;">
+                                    <input type="checkbox" checked> SMS
+                                </label>
+                                <input type="tel" class="form-input" value="+1 (555) 123-4567">
+                            </div>
+
+                            <div style="margin-bottom: 20px;">
+                                <label class="form-label" style="display: flex; align-items: center; gap: 8px; margin-bottom: 8px;">
+                                    <input type="checkbox" checked> Push Notifications
+                                </label>
+                            </div>
+
+                            <div style="margin-bottom: 20px;">
+                                <label class="form-label" style="display: flex; align-items: center; gap: 8px; margin-bottom: 8px;">
+                                    <input type="checkbox"> Slack
+                                </label>
+                                <input type="text" class="form-input" placeholder="Webhook URL" disabled>
+                            </div>
+                        </div>
+
+                        <div class="card" style="max-width: 600px; margin-top: 24px;">
+                            <div class="card-title">Alert Routing</div>
+                            <div style="display: flex; justify-content: space-between; margin-bottom: 16px; padding: 12px; background-color: var(--bg-ink); border-radius: 4px;">
+                                <span>Critical Alerts</span>
+                                <label style="display: flex; gap: 8px; align-items: center;">
+                                    <input type="checkbox" checked> All Channels
+                                </label>
+                            </div>
+                            <div style="display: flex; justify-content: space-between; margin-bottom: 16px; padding: 12px; background-color: var(--bg-ink); border-radius: 4px;">
+                                <span>Warning Alerts</span>
+                                <label style="display: flex; gap: 8px; align-items: center;">
+                                    <input type="checkbox" checked> Email & Push
+                                </label>
+                            </div>
+                            <div style="display: flex; justify-content: space-between; margin-bottom: 16px; padding: 12px; background-color: var(--bg-ink); border-radius: 4px;">
+                                <span>Info Alerts</span>
+                                <label style="display: flex; gap: 8px; align-items: center;">
+                                    <input type="checkbox" checked> Push Only
+                                </label>
+                            </div>
+                        </div>
+
+                        <div class="card" style="max-width: 600px; margin-top: 24px;">
+                            <div class="card-title">Quiet Hours</div>
+                            <div class="form-group">
+                                <label class="form-label">Start Time</label>
+                                <input type="time" class="form-input" value="08:00">
+                            </div>
+                            <div class="form-group">
+                                <label class="form-label">End Time</label>
+                                <input type="time" class="form-input" value="21:00">
+                            </div>
+                            <p style="font-size: 12px; color: var(--text-secondary); margin-top: 8px;">Alerts will be batched during quiet hours</p>
+                        </div>
+                    </div>
+
+                    <!-- INTEGRATIONS TAB -->
+                    <div class="settings-content">
+                        <div class="card" style="max-width: 600px;">
+                            <div class="card-title">Third-Party Integrations</div>
+
+                            <div class="integration-card">
+                                <div class="integration-info">
+                                    <h4>Square</h4>
+                                    <p>POS system data sync</p>
+                                </div>
+                                <div class="integration-status">
+                                    <span class="status-connected">Connected</span>
+                                    <span style="font-size: 12px; color: var(--text-secondary);">Last sync: 10 min ago</span>
+                                    <button class="btn btn-secondary" style="padding: 6px 12px; font-size: 11px;">Disconnect</button>
+                                </div>
+                            </div>
+
+                            <div class="integration-card">
+                                <div class="integration-info">
+                                    <h4>Camera System</h4>
+                                    <p>Video evidence integration</p>
+                                </div>
+                                <div class="integration-status">
+                                    <span class="status-disconnected">Not Connected</span>
+                                    <button class="btn" style="padding: 6px 12px; font-size: 11px;">Connect</button>
+                                </div>
+                            </div>
+
+                            <div class="integration-card">
+                                <div class="integration-info">
+                                    <h4>QuickBooks</h4>
+                                    <p>Accounting system sync</p>
+                                </div>
+                                <div class="integration-status">
+                                    <span class="status-disconnected">Not Connected</span>
+                                    <button class="btn" style="padding: 6px 12px; font-size: 11px;">Connect</button>
+                                </div>
+                            </div>
+
+                            <div class="integration-card">
+                                <div class="integration-info">
+                                    <h4>Xero</h4>
+                                    <p>Accounting software integration</p>
+                                </div>
+                                <div class="integration-status">
+                                    <span class="status-disconnected">Not Connected</span>
+                                    <button class="btn" style="padding: 6px 12px; font-size: 11px;">Connect</button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- AUDIT LOG PAGE -->
+                <div id="audit" class="page">
+                    <div class="filter-bar">
+                        <input type="date">
+                        <select>
+                            <option>All Users</option>
+                            <option>Sarah Chen</option>
+                            <option>Marcus Johnson</option>
+                            <option>System</option>
+                        </select>
+                        <select>
+                            <option>All Actions</option>
+                            <option>Create</option>
+                            <option>Update</option>
+                            <option>Delete</option>
+                            <option>Export</option>
+                        </select>
+                        <button class="btn" style="margin-left: auto;">📥 Export CSV</button>
+                    </div>
+
+                    <div class="card">
+                        <table>
+                            <thead>
+                                <tr>
+                                    <th>Timestamp</th>
+                                    <th>User</th>
+                                    <th>Action</th>
+                                    <th>Target</th>
+                                    <th>Details</th>
+                                    <th>IP Address</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr>
+                                    <td>3/1/2026 2:45 PM</td>
+                                    <td>Sarah Chen</td>
+                                    <td>Reviewed</td>
+                                    <td>Case #2847</td>
+                                    <td>Updated case status</td>
+                                    <td>192.168.1.45</td>
+                                </tr>
+                                <tr>
+                                    <td>3/1/2026 2:30 PM</td>
+                                    <td>Marcus Johnson</td>
+                                    <td>Updated</td>
+                                    <td>Chirp Rules</td>
+                                    <td>Modified threshold</td>
+                                    <td>192.168.1.52</td>
+                                </tr>
+                                <tr>
+                                    <td>3/1/2026 2:15 PM</td>
+                                    <td>System</td>
+                                    <td>Alert</td>
+                                    <td>No Receipt Refund</td>
+                                    <td>Threshold exceeded</td>
+                                    <td>10.0.0.1</td>
+                                </tr>
+                                <tr>
+                                    <td>3/1/2026 2:00 PM</td>
+                                    <td>Emma Rodriguez</td>
+                                    <td>Exported</td>
+                                    <td>Daily Transactions</td>
+                                    <td>CSV export</td>
+                                    <td>192.168.1.87</td>
+                                </tr>
+                                <tr>
+                                    <td>3/1/2026 1:45 PM</td>
+                                    <td>James Lee</td>
+                                    <td>Created</td>
+                                    <td>Case #2846</td>
+                                    <td>New investigation case</td>
+                                    <td>192.168.1.101</td>
+                                </tr>
+                                <tr>
+                                    <td>3/1/2026 1:30 PM</td>
+                                    <td>Sarah Chen</td>
+                                    <td>Updated</td>
+                                    <td>Employee Settings</td>
+                                    <td>Modified permissions</td>
+                                    <td>192.168.1.45</td>
+                                </tr>
+                                <tr>
+                                    <td>3/1/2026 1:15 PM</td>
+                                    <td>System</td>
+                                    <td>Alert</td>
+                                    <td>Cash Drawer Variance</td>
+                                    <td>Variance detected</td>
+                                    <td>10.0.0.1</td>
+                                </tr>
+                                <tr>
+                                    <td>3/1/2026 1:00 PM</td>
+                                    <td>Marcus Johnson</td>
+                                    <td>Reviewed</td>
+                                    <td>Transaction #TXN-047829</td>
+                                    <td>Flagged for review</td>
+                                    <td>192.168.1.52</td>
+                                </tr>
+                                <tr>
+                                    <td>3/1/2026 12:45 PM</td>
+                                    <td>Emma Rodriguez</td>
+                                    <td>Created</td>
+                                    <td>Daily Report</td>
+                                    <td>Scheduled report</td>
+                                    <td>192.168.1.87</td>
+                                </tr>
+                                <tr>
+                                    <td>3/1/2026 12:30 PM</td>
+                                    <td>James Lee</td>
+                                    <td>Updated</td>
+                                    <td>Notification Settings</td>
+                                    <td>Modified channels</td>
+                                    <td>192.168.1.101</td>
+                                </tr>
+                                <tr>
+                                    <td>3/1/2026 12:15 PM</td>
+                                    <td>Sarah Chen</td>
+                                    <td>Deleted</td>
+                                    <td>Case #2840</td>
+                                    <td>Closed and archived</td>
+                                    <td>192.168.1.45</td>
+                                </tr>
+                                <tr>
+                                    <td>3/1/2026 12:00 PM</td>
+                                    <td>System</td>
+                                    <td>Alert</td>
+                                    <td>High Discount Usage</td>
+                                    <td>Threshold exceeded</td>
+                                    <td>10.0.0.1</td>
+                                </tr>
+                                <tr>
+                                    <td>3/1/2026 11:45 AM</td>
+                                    <td>Marcus Johnson</td>
+                                    <td>Updated</td>
+                                    <td>Case #2844</td>
+                                    <td>Moved to in progress</td>
+                                    <td>192.168.1.52</td>
+                                </tr>
+                                <tr>
+                                    <td>3/1/2026 11:30 AM</td>
+                                    <td>Emma Rodriguez</td>
+                                    <td>Exported</td>
+                                    <td>Weekly Summary</td>
+                                    <td>PDF export</td>
+                                    <td>192.168.1.87</td>
+                                </tr>
+                                <tr>
+                                    <td>3/1/2026 11:15 AM</td>
+                                    <td>James Lee</td>
+                                    <td>Reviewed</td>
+                                    <td>Audit Log</td>
+                                    <td>Weekly review</td>
+                                    <td>192.168.1.101</td>
+                                </tr>
+                                <tr>
+                                    <td>3/1/2026 11:00 AM</td>
+                                    <td>Sarah Chen</td>
+                                    <td>Updated</td>
+                                    <td>Chirp Configuration</td>
+                                    <td>Schedule adjustment</td>
+                                    <td>192.168.1.45</td>
+                                </tr>
+                                <tr>
+                                    <td>3/1/2026 10:45 AM</td>
+                                    <td>System</td>
+                                    <td>Alert</td>
+                                    <td>Void Override</td>
+                                    <td>Alert triggered</td>
+                                    <td>10.0.0.1</td>
+                                </tr>
+                                <tr>
+                                    <td>3/1/2026 10:30 AM</td>
+                                    <td>Marcus Johnson</td>
+                                    <td>Created</td>
+                                    <td>Investigation Notes</td>
+                                    <td>Case #2843 notes</td>
+                                    <td>192.168.1.52</td>
+                                </tr>
+                                <tr>
+                                    <td>3/1/2026 10:15 AM</td>
+                                    <td>Emma Rodriguez</td>
+                                    <td>Exported</td>
+                                    <td>Transaction Log</td>
+                                    <td>CSV export</td>
+                                    <td>192.168.1.87</td>
+                                </tr>
+                                <tr>
+                                    <td>3/1/2026 10:00 AM</td>
+                                    <td>James Lee</td>
+                                    <td>Login</td>
+                                    <td>Session</td>
+                                    <td>Admin access</td>
+                                    <td>192.168.1.101</td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+
+                <!-- SKELETON PAGES -->
+                <!-- INSIGHTS PAGE -->
+                <div id="insights" class="page">
+                    <div class="skeleton-hero">
+                        <svg class="skeleton-icon" viewBox="0 0 100 100" fill="none">
+                            <ellipse cx="50" cy="55" rx="28" ry="32" fill="#8B5CF6" opacity="0.3"/>
+                            <circle cx="35" cy="42" r="10" fill="#1F1F2F" opacity="0.3"/>
+                            <circle cx="65" cy="42" r="10" fill="#1F1F2F" opacity="0.3"/>
+                        </svg>
+                        <h1 class="skeleton-title" style="color: var(--color-owl);">Insights Dashboard</h1>
+                        <p class="skeleton-tagline">Deep analysis and trend visualization</p>
+                        <div class="coming-soon-badge">Coming Soon</div>
+                    </div>
+                    <div class="feature-cards">
+                        <div class="feature-card">
+                            <div class="feature-card-title">Risk Analysis</div>
+                            <div class="feature-card-description">Predictive risk scoring and behavioral patterns</div>
+                        </div>
+                        <div class="feature-card">
+                            <div class="feature-card-title">Trend Charts</div>
+                            <div class="feature-card-description">Weekly and monthly alert trend visualization</div>
+                        </div>
+                        <div class="feature-card">
+                            <div class="feature-card-title">Comparisons</div>
+                            <div class="feature-card-description">Benchmark against industry standards</div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- REPORTS PAGE -->
+                <div id="reports" class="page">
+                    <div class="skeleton-hero">
+                        <svg class="skeleton-icon" viewBox="0 0 100 100" fill="none">
+                            <ellipse cx="50" cy="55" rx="28" ry="32" fill="#8B5CF6" opacity="0.3"/>
+                        </svg>
+                        <h1 class="skeleton-title" style="color: var(--color-owl);">Reports Hub</h1>
+                        <p class="skeleton-tagline">Automated reporting and export capabilities</p>
+                        <div class="coming-soon-badge">Coming Soon</div>
+                    </div>
+                    <div class="feature-cards">
+                        <div class="feature-card">
+                            <div class="feature-card-title">Daily Digest</div>
+                            <div class="feature-card-description">Automated daily summary reports</div>
+                        </div>
+                        <div class="feature-card">
+                            <div class="feature-card-title">Custom Reports</div>
+                            <div class="feature-card-description">Create and schedule custom reports</div>
+                        </div>
+                        <div class="feature-card">
+                            <div class="feature-card-title">Export Options</div>
+                            <div class="feature-card-description">PDF, CSV, and spreadsheet exports</div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- BENCHMARKS PAGE -->
+                <div id="benchmarks" class="page">
+                    <div class="skeleton-hero">
+                        <svg class="skeleton-icon" viewBox="0 0 100 100" fill="none">
+                            <ellipse cx="50" cy="55" rx="28" ry="32" fill="#8B5CF6" opacity="0.3"/>
+                        </svg>
+                        <h1 class="skeleton-title" style="color: var(--color-owl);">Industry Benchmarks</h1>
+                        <p class="skeleton-tagline">Compare your metrics against industry peers</p>
+                        <div class="coming-soon-badge">Coming Soon</div>
+                    </div>
+                    <div class="feature-cards">
+                        <div class="feature-card">
+                            <div class="feature-card-title">Peer Comparison</div>
+                            <div class="feature-card-description">Anonymous comparison with similar stores</div>
+                        </div>
+                        <div class="feature-card">
+                            <div class="feature-card-title">Performance Score</div>
+                            <div class="feature-card-description">Overall security and compliance scoring</div>
+                        </div>
+                        <div class="feature-card">
+                            <div class="feature-card-title">Improvement Tips</div>
+                            <div class="feature-card-description">Actionable recommendations based on gaps</div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- EVIDENCE PAGE -->
+                <div id="evidence" class="page">
+                    <div class="skeleton-hero">
+                        <svg class="skeleton-icon" viewBox="0 0 100 100" fill="none">
+                            <circle cx="45" cy="35" r="16" fill="#F97316" opacity="0.3"/>
+                            <ellipse cx="50" cy="58" rx="22" ry="20" fill="#F97316" opacity="0.3"/>
+                        </svg>
+                        <h1 class="skeleton-title" style="color: var(--color-fox);">Evidence Gallery</h1>
+                        <p class="skeleton-tagline">Collected proof and documentation for cases</p>
+                        <div class="coming-soon-badge">Coming Soon</div>
+                    </div>
+                    <div class="feature-cards">
+                        <div class="feature-card">
+                            <div class="feature-card-title">Video Clips</div>
+                            <div class="feature-card-description">Linked video evidence from cameras</div>
+                        </div>
+                        <div class="feature-card">
+                            <div class="feature-card-title">Screenshots</div>
+                            <div class="feature-card-description">POS and system screenshots</div>
+                        </div>
+                        <div class="feature-card">
+                            <div class="feature-card-title">Documentation</div>
+                            <div class="feature-card-description">Attached notes and analysis files</div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- INVENTORY PAGE -->
+                <div id="inventory" class="page">
+                    <div class="skeleton-hero">
+                        <svg class="skeleton-icon" viewBox="0 0 100 100" fill="none">
+                            <circle cx="50" cy="40" r="17" fill="#22C55E" opacity="0.3"/>
+                            <ellipse cx="50" cy="62" rx="26" ry="24" fill="#22C55E" opacity="0.3"/>
+                        </svg>
+                        <h1 class="skeleton-title" style="color: var(--color-bull);">Inventory Dashboard</h1>
+                        <p class="skeleton-tagline">Stock levels and par management</p>
+                        <div class="coming-soon-badge">Coming Soon</div>
+                    </div>
+                    <div class="feature-cards">
+                        <div class="feature-card">
+                            <div class="feature-card-title">Stock Levels</div>
+                            <div class="feature-card-description">Real-time inventory monitoring</div>
+                        </div>
+                        <div class="feature-card">
+                            <div class="feature-card-title">Par Management</div>
+                            <div class="feature-card-description">Set and track par levels by item</div>
+                        </div>
+                        <div class="feature-card">
+                            <div class="feature-card-title">Variance Alerts</div>
+                            <div class="feature-card-description">Automatic detection of anomalies</div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- TRANSFERS PAGE -->
+                <div id="transfers" class="page">
+                    <div class="skeleton-hero">
+                        <svg class="skeleton-icon" viewBox="0 0 100 100" fill="none">
+                            <circle cx="50" cy="40" r="17" fill="#22C55E" opacity="0.3"/>
+                        </svg>
+                        <h1 class="skeleton-title" style="color: var(--color-bull);">Inventory Transfers</h1>
+                        <p class="skeleton-tagline">Track inter-store and internal movements</p>
+                        <div class="coming-soon-badge">Coming Soon</div>
+                    </div>
+                    <div class="feature-cards">
+                        <div class="feature-card">
+                            <div class="feature-card-title">Transfer Log</div>
+                            <div class="feature-card-description">Complete history of all transfers</div>
+                        </div>
+                        <div class="feature-card">
+                            <div class="feature-card-title">Approval Workflow</div>
+                            <div class="feature-card-description">Multi-level approval process</div>
+                        </div>
+                        <div class="feature-card">
+                            <div class="feature-card-title">Reconciliation</div>
+                            <div class="feature-card-description">Verify received vs. shipped</div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- RECEIVING PAGE -->
+                <div id="receiving" class="page">
+                    <div class="skeleton-hero">
+                        <svg class="skeleton-icon" viewBox="0 0 100 100" fill="none">
+                            <circle cx="50" cy="40" r="17" fill="#22C55E" opacity="0.3"/>
+                        </svg>
+                        <h1 class="skeleton-title" style="color: var(--color-bull);">Receiving</h1>
+                        <p class="skeleton-tagline">Inbound goods inspection and logging</p>
+                        <div class="coming-soon-badge">Coming Soon</div>
+                    </div>
+                    <div class="feature-cards">
+                        <div class="feature-card">
+                            <div class="feature-card-title">Receiving Log</div>
+                            <div class="feature-card-description">Track all inbound deliveries</div>
+                        </div>
+                        <div class="feature-card">
+                            <div class="feature-card-title">QC Checklist</div>
+                            <div class="feature-card-description">Automated quality control workflows</div>
+                        </div>
+                        <div class="feature-card">
+                            <div class="feature-card-title">Variance Reports</div>
+                            <div class="feature-card-description">Flag discrepancies vs. PO</div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- DAILY OPS PAGE -->
+                <div id="daily-ops" class="page">
+                    <div class="skeleton-hero">
+                        <svg class="skeleton-icon" viewBox="0 0 100 100" fill="none">
+                            <circle cx="50" cy="45" r="16" fill="#3B82F6" opacity="0.3"/>
+                            <ellipse cx="50" cy="65" rx="24" ry="22" fill="#3B82F6" opacity="0.3"/>
+                        </svg>
+                        <h1 class="skeleton-title" style="color: var(--color-rooster);">Daily Operations</h1>
+                        <p class="skeleton-tagline">Shift management and operational tasks</p>
+                        <div class="coming-soon-badge">Coming Soon</div>
+                    </div>
+                    <div class="feature-cards">
+                        <div class="feature-card">
+                            <div class="feature-card-title">Shift Board</div>
+                            <div class="feature-card-description">Current and upcoming shift view</div>
+                        </div>
+                        <div class="feature-card">
+                            <div class="feature-card-title">Task Queue</div>
+                            <div class="feature-card-description">Operational tasks and prioritization</div>
+                        </div>
+                        <div class="feature-card">
+                            <div class="feature-card-title">Real-Time Status</div>
+                            <div class="feature-card-description">Live store operational metrics</div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- SCHEDULING PAGE -->
+                <div id="scheduling" class="page">
+                    <div class="skeleton-hero">
+                        <svg class="skeleton-icon" viewBox="0 0 100 100" fill="none">
+                            <circle cx="50" cy="45" r="16" fill="#3B82F6" opacity="0.3"/>
+                        </svg>
+                        <h1 class="skeleton-title" style="color: var(--color-rooster);">Shift Scheduling</h1>
+                        <p class="skeleton-tagline">Employee scheduling and shift management</p>
+                        <div class="coming-soon-badge">Coming Soon</div>
+                    </div>
+                    <div class="feature-cards">
+                        <div class="feature-card">
+                            <div class="feature-card-title">Calendar View</div>
+                            <div class="feature-card-description">Monthly shift planning calendar</div>
+                        </div>
+                        <div class="feature-card">
+                            <div class="feature-card-title">Auto-Scheduling</div>
+                            <div class="feature-card-description">Intelligent shift recommendations</div>
+                        </div>
+                        <div class="feature-card">
+                            <div class="feature-card-title">Compliance</div>
+                            <div class="feature-card-description">Labor law and rest day tracking</div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- CHECKLISTS PAGE -->
+                <div id="checklists" class="page">
+                    <div class="skeleton-hero">
+                        <svg class="skeleton-icon" viewBox="0 0 100 100" fill="none">
+                            <circle cx="50" cy="45" r="16" fill="#3B82F6" opacity="0.3"/>
+                        </svg>
+                        <h1 class="skeleton-title" style="color: var(--color-rooster);">Daily Checklists</h1>
+                        <p class="skeleton-tagline">Shift opening, closing, and task lists</p>
+                        <div class="coming-soon-badge">Coming Soon</div>
+                    </div>
+                    <div class="feature-cards">
+                        <div class="feature-card">
+                            <div class="feature-card-title">Opening Tasks</div>
+                            <div class="feature-card-description">Morning setup and verification</div>
+                        </div>
+                        <div class="feature-card">
+                            <div class="feature-card-title">Closing Checklist</div>
+                            <div class="feature-card-description">End-of-shift procedures and sign-off</div>
+                        </div>
+                        <div class="feature-card">
+                            <div class="feature-card-title">Compliance Audit</div>
+                            <div class="feature-card-description">Regular training and compliance checks</div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- REVENUE PAGE -->
+                <div id="revenue" class="page">
+                    <div class="skeleton-hero">
+                        <svg class="skeleton-icon" viewBox="0 0 100 100" fill="none">
+                            <circle cx="50" cy="32" r="14" fill="#10B981" opacity="0.3"/>
+                            <path d="M50 45 Q45 52 45 62 L55 62 Q55 52 50 45 Z" fill="#10B981" opacity="0.3"/>
+                        </svg>
+                        <h1 class="skeleton-title" style="color: var(--color-goose);">Revenue Dashboard</h1>
+                        <p class="skeleton-tagline">Sales performance and revenue analytics</p>
+                        <div class="coming-soon-badge">Coming Soon</div>
+                    </div>
+                    <div class="feature-cards">
+                        <div class="feature-card">
+                            <div class="feature-card-title">Daily Revenue</div>
+                            <div class="feature-card-description">Real-time sales tracking and trends</div>
+                        </div>
+                        <div class="feature-card">
+                            <div class="feature-card-title">Category Performance</div>
+                            <div class="feature-card-description">Sales by menu category and item</div>
+                        </div>
+                        <div class="feature-card">
+                            <div class="feature-card-title">Forecasting</div>
+                            <div class="feature-card-description">Predictive revenue projections</div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- CASH FLOW PAGE -->
+                <div id="cash-flow" class="page">
+                    <div class="skeleton-hero">
+                        <svg class="skeleton-icon" viewBox="0 0 100 100" fill="none">
+                            <circle cx="50" cy="32" r="14" fill="#10B981" opacity="0.3"/>
+                        </svg>
+                        <h1 class="skeleton-title" style="color: var(--color-goose);">Cash Flow</h1>
+                        <p class="skeleton-tagline">Payment methods and cash management</p>
+                        <div class="coming-soon-badge">Coming Soon</div>
+                    </div>
+                    <div class="feature-cards">
+                        <div class="feature-card">
+                            <div class="feature-card-title">Payment Mix</div>
+                            <div class="feature-card-description">Cash, card, and mobile payment breakdown</div>
+                        </div>
+                        <div class="feature-card">
+                            <div class="feature-card-title">Reconciliation</div>
+                            <div class="feature-card-description">Cash drawer and register balancing</div>
+                        </div>
+                        <div class="feature-card">
+                            <div class="feature-card-title">Variance Analysis</div>
+                            <div class="feature-card-description">Track cash discrepancies and trends</div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- DEPOSITS PAGE -->
+                <div id="deposits" class="page">
+                    <div class="skeleton-hero">
+                        <svg class="skeleton-icon" viewBox="0 0 100 100" fill="none">
+                            <circle cx="50" cy="32" r="14" fill="#10B981" opacity="0.3"/>
+                        </svg>
+                        <h1 class="skeleton-title" style="color: var(--color-goose);">Deposit Management</h1>
+                        <p class="skeleton-tagline">Daily and periodic deposit tracking</p>
+                        <div class="coming-soon-badge">Coming Soon</div>
+                    </div>
+                    <div class="feature-cards">
+                        <div class="feature-card">
+                            <div class="feature-card-title">Deposit Schedule</div>
+                            <div class="feature-card-description">Planned and completed deposits</div>
+                        </div>
+                        <div class="feature-card">
+                            <div class="feature-card-title">Bank Status</div>
+                            <div class="feature-card-description">Deposit confirmation and clearance</div>
+                        </div>
+                        <div class="feature-card">
+                            <div class="feature-card-title">Discrepancy Reports</div>
+                            <div class="feature-card-description">Flag deposit vs. POS mismatches</div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- ALERTS PAGE -->
+                <div id="alerts" class="page">
+                    <div class="filter-bar">
+                        <select>
+                            <option selected>All Severities</option>
+                            <option>Critical</option>
+                            <option>Warning</option>
+                            <option>Info</option>
+                        </select>
+                        <input type="search" placeholder="Search alerts...">
+                    </div>
+                    <div class="card">
+                        <div class="card-title">Alert Stream</div>
+                        <table>
+                            <thead>
+                                <tr>
+                                    <th></th>
+                                    <th>Alert</th>
+                                    <th>Time</th>
+                                    <th>Store</th>
+                                    <th>Status</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr>
+                                    <td><span class="severity-dot severity-critical"></span></td>
+                                    <td><strong>No Receipt Refund</strong> - $42.50 refund without receipt</td>
+                                    <td>2:45 PM</td>
+                                    <td>Sunrise Coffee</td>
+                                    <td><span class="status-badge status-triggered">Active</span></td>
+                                </tr>
+                                <tr>
+                                    <td><span class="severity-dot severity-critical"></span></td>
+                                    <td><strong>Cash Drawer Variance</strong> - $156.25 overage detected</td>
+                                    <td>1:30 PM</td>
+                                    <td>Sunrise Coffee</td>
+                                    <td><span class="status-badge status-triggered">Active</span></td>
+                                </tr>
+                                <tr>
+                                    <td><span class="severity-dot severity-warning"></span></td>
+                                    <td><strong>High Discount Usage</strong> - 45% of transactions discounted</td>
+                                    <td>12:15 PM</td>
+                                    <td>Sunrise Coffee</td>
+                                    <td><span class="status-badge status-triggered">Active</span></td>
+                                </tr>
+                                <tr>
+                                    <td><span class="severity-dot severity-warning"></span></td>
+                                    <td><strong>Void Override</strong> - 4 voids in past hour</td>
+                                    <td>11:45 AM</td>
+                                    <td>Sunrise Coffee</td>
+                                    <td><span class="status-badge status-triggered">Active</span></td>
+                                </tr>
+                                <tr>
+                                    <td><span class="severity-dot severity-warning"></span></td>
+                                    <td><strong>Employee Discount Pattern</strong> - High usage by Emma R.</td>
+                                    <td>9:15 AM</td>
+                                    <td>Sunrise Coffee</td>
+                                    <td><span class="status-badge status-paused">Resolved</span></td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        function showPage(pageId) {
+            // Hide all pages
+            document.querySelectorAll('.page').forEach(page => {
+                page.classList.remove('active');
+            });
+
+            // Show selected page
+            document.getElementById(pageId).classList.add('active');
+
+            // Update active sidebar items
+            document.querySelectorAll('.sidebar-item').forEach(item => {
+                item.classList.remove('active');
+            });
+
+            // Update breadcrumb
+            const breadcrumbMap = {
+                'dashboard': 'Canary / Dashboard',
+                'chirps': 'Canary / Chirps Management',
+                'transactions': 'Canary / Transactions',
+                'alerts': 'Canary / Alerts',
+                'cases': 'Fox / Cases',
+                'evidence': 'Fox / Evidence',
+                'employees': 'Fox / Employees',
+                'insights': 'Owl / Insights',
+                'reports': 'Owl / Reports',
+                'benchmarks': 'Owl / Benchmarks',
+                'inventory': 'Bull / Inventory',
+                'transfers': 'Bull / Transfers',
+                'receiving': 'Bull / Receiving',
+                'daily-ops': 'Rooster / Daily Ops',
+                'scheduling': 'Rooster / Scheduling',
+                'checklists': 'Rooster / Checklists',
+                'revenue': 'Goose / Revenue',
+                'cash-flow': 'Goose / Cash Flow',
+                'deposits': 'Goose / Deposits',
+                'settings': 'Settings',
+                'audit': 'Audit Log'
+            };
+
+            document.getElementById('breadcrumb').textContent = breadcrumbMap[pageId] || 'Canary';
+        }
+
+        function showSettingsTab(tabIndex) {
+            const tabs = document.querySelectorAll('.settings-tab');
+            const contents = document.querySelectorAll('.settings-content');
+
+            tabs.forEach((tab, idx) => {
+                tab.classList.toggle('active', idx === tabIndex);
+            });
+
+            contents.forEach((content, idx) => {
+                content.classList.toggle('active', idx === tabIndex);
+            });
+        }
+
+        // Initialize dashboard on load
+        document.addEventListener('DOMContentLoaded', function() {
+            showPage('dashboard');
+        });
+    </script>
+</body>
+</html>

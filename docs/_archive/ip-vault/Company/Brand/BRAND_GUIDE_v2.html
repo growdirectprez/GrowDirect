@@ -1,0 +1,639 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Canary — Brand Style Guide v2.0</title>
+<style>
+  @import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&family=Space+Grotesk:wght@400;500;600;700&display=swap');
+  * { margin:0; padding:0; box-sizing:border-box; }
+  body { font-family:'Inter',sans-serif; background:#0a0e14; color:#9ca3af; line-height:1.6; }
+
+  .page { max-width:1060px; margin:0 auto; padding:60px 32px 100px; }
+
+  h1 { font-family:'Space Grotesk',sans-serif; font-size:2.4rem; font-weight:300; color:#e5e7eb; letter-spacing:0.03em; margin-bottom:4px; }
+  .sub { color:#4b5563; font-size:1rem; margin-bottom:56px; }
+  .version-badge { display:inline-block; background:#1f2937; color:#d97706; font-size:0.7rem; font-weight:600; padding:3px 10px; border-radius:20px; margin-left:12px; vertical-align:middle; }
+
+  h2 { font-family:'Space Grotesk',sans-serif; font-size:1.3rem; font-weight:600; color:#d1d5db; margin-bottom:20px; padding-bottom:10px; border-bottom:1px solid #1f2937; }
+  h3 { font-size:0.85rem; color:#6b7280; font-weight:500; margin-bottom:8px; }
+  .section-note { font-size:0.82rem; color:#6b7280; margin-bottom:20px; font-style:italic; }
+
+  section { margin-bottom:56px; }
+
+  /* Color swatches */
+  .swatches { display:grid; grid-template-columns:repeat(auto-fill, minmax(140px,1fr)); gap:12px; }
+  .swatch { border-radius:12px; overflow:hidden; border:1px solid #1f2937; transition: transform 0.2s; }
+  .swatch:hover { transform:translateY(-2px); }
+  .swatch-color { height:72px; position:relative; }
+  .swatch-color .old-dot { position:absolute; bottom:6px; right:6px; width:16px; height:16px; border-radius:50%; border:2px solid rgba(0,0,0,0.3); }
+  .swatch-info { padding:10px 12px; background:#111827; }
+  .swatch-name { font-size:0.8rem; font-weight:600; color:#d1d5db; }
+  .swatch-hex { font-size:0.72rem; color:#4b5563; font-family:'Space Grotesk',monospace; }
+  .swatch-change { font-size:0.65rem; color:#d97706; margin-top:2px; }
+
+  /* Logo grid */
+  .logo-grid { display:grid; grid-template-columns:1fr 1fr; gap:16px; }
+  .logo-grid.three-col { grid-template-columns:1fr 1fr 1fr; }
+  .logo-card { border-radius:14px; overflow:hidden; border:1px solid #1f2937; transition: border-color 0.3s; }
+  .logo-card:hover { border-color:#374151; }
+  .logo-preview { padding:32px; display:flex; align-items:center; justify-content:center; min-height:180px; }
+  .logo-preview.dark { background:#0d1117; }
+  .logo-preview.light { background:#f3f4f6; }
+  .logo-preview.charcoal { background:#1a1f2e; }
+  .logo-label { padding:10px 16px; background:#111827; font-size:0.75rem; color:#6b7280; display:flex; justify-content:space-between; align-items:center; }
+  .logo-label code { font-family:'Space Grotesk',monospace; color:#4b5563; font-size:0.7rem; }
+  .logo-tag { display:inline-block; font-size:0.6rem; font-weight:600; padding:2px 8px; border-radius:10px; margin-left:6px; }
+  .logo-tag.new { background:#065f46; color:#34d399; }
+  .logo-tag.primary { background:#78350f; color:#fbbf24; }
+
+  /* Type specimens */
+  .type-row { margin-bottom:24px; }
+  .type-sample { font-size:2rem; letter-spacing:0.04em; color:#d1d5db; margin-bottom:4px; }
+  .type-meta { font-size:0.78rem; color:#4b5563; }
+
+  /* Usage rules */
+  .rules { display:grid; grid-template-columns:1fr 1fr; gap:16px; }
+  .rule { padding:20px; background:#111827; border-radius:12px; border:1px solid #1f2937; }
+  .rule.do { border-left:3px solid #059669; }
+  .rule.dont { border-left:3px solid #dc2626; }
+  .rule-label { font-size:0.7rem; text-transform:uppercase; letter-spacing:0.1em; margin-bottom:6px; font-weight:600; }
+  .rule.do .rule-label { color:#059669; }
+  .rule.dont .rule-label { color:#dc2626; }
+  .rule p { font-size:0.85rem; color:#6b7280; }
+
+  /* Animation section */
+  .anim-container { display:grid; grid-template-columns:1fr 1fr; gap:24px; }
+  .anim-card { background:#111827; border-radius:14px; border:1px solid #1f2937; padding:32px; text-align:center; }
+  .anim-card h3 { color:#9ca3af; margin-bottom:16px; }
+  .anim-label { font-size:0.78rem; color:#4b5563; margin-top:16px; }
+
+  /* Chirp keyframes */
+  @keyframes wave1 {
+    0%, 100% { opacity:0; transform:translateX(0) scale(0.8); }
+    15% { opacity:0.9; transform:translateX(2px) scale(1); }
+    60% { opacity:0.4; transform:translateX(6px) scale(1.1); }
+    90% { opacity:0; transform:translateX(10px) scale(1.2); }
+  }
+  @keyframes wave2 {
+    0%, 100% { opacity:0; transform:translateX(0) scale(0.7); }
+    20% { opacity:0.6; transform:translateX(3px) scale(0.9); }
+    65% { opacity:0.3; transform:translateX(8px) scale(1); }
+    95% { opacity:0; transform:translateX(12px) scale(1.1); }
+  }
+  @keyframes wave3 {
+    0%, 100% { opacity:0; transform:translateX(0) scale(0.6); }
+    25% { opacity:0.4; transform:translateX(4px) scale(0.8); }
+    70% { opacity:0.2; transform:translateX(10px) scale(0.9); }
+    100% { opacity:0; transform:translateX(14px) scale(1); }
+  }
+  @keyframes beak-open {
+    0%, 70%, 100% { transform:rotate(0deg); }
+    10%, 30%, 50% { transform:rotate(-4deg); }
+    20%, 40%, 60% { transform:rotate(0deg); }
+  }
+  @keyframes beak-close {
+    0%, 70%, 100% { transform:rotate(0deg); }
+    10%, 30%, 50% { transform:rotate(3deg); }
+    20%, 40%, 60% { transform:rotate(0deg); }
+  }
+  @keyframes alert-pulse {
+    0%, 100% { r:5; opacity:0; }
+    10% { r:5; opacity:1; }
+    50% { r:7; opacity:0.8; }
+    90% { r:5; opacity:0; }
+  }
+  @keyframes alert-ring {
+    0%, 100% { r:9; opacity:0; stroke-width:2; }
+    20% { r:9; opacity:0.5; stroke-width:2; }
+    80% { r:16; opacity:0; stroke-width:0.5; }
+  }
+  @keyframes gentle-bob {
+    0%, 100% { transform:translateY(0); }
+    50% { transform:translateY(-2px); }
+  }
+  @keyframes idle-wave {
+    0%, 100% { opacity:0.15; }
+    50% { opacity:0.35; }
+  }
+
+  /* Comparison block */
+  .compare { display:grid; grid-template-columns:1fr 1fr; gap:16px; margin-bottom:24px; }
+  .compare-card { background:#111827; border-radius:12px; border:1px solid #1f2937; padding:20px; }
+  .compare-card h4 { font-family:'Space Grotesk',sans-serif; font-size:0.85rem; color:#4b5563; margin-bottom:12px; font-weight:500; }
+  .compare-card.current h4 { color:#6b7280; }
+  .compare-card.updated h4 { color:#d97706; }
+  .compare-dots { display:flex; gap:8px; flex-wrap:wrap; }
+  .compare-dot { width:36px; height:36px; border-radius:8px; border:1px solid #1f2937; }
+
+  /* File tree */
+  .file-tree { background:#111827; border-radius:12px; padding:20px 24px; border:1px solid #1f2937; font-family:'Space Grotesk',monospace; font-size:0.8rem; line-height:2; color:#6b7280; }
+  .file-tree .dir { color:#d97706; }
+  .file-tree .file { color:#9ca3af; }
+  .file-tree .new-file { color:#059669; }
+
+  /* Tabs for animation states */
+  .tab-bar { display:flex; gap:8px; margin-bottom:16px; }
+  .tab-btn { background:#1f2937; color:#6b7280; border:1px solid #374151; border-radius:8px; padding:6px 16px; font-size:0.78rem; cursor:pointer; font-family:'Inter',sans-serif; transition:all 0.2s; }
+  .tab-btn:hover { color:#9ca3af; }
+  .tab-btn.active { background:#d97706; color:#0a0e14; border-color:#d97706; }
+</style>
+</head>
+<body>
+<div class="page">
+
+<h1>Canary Brand Guide <span class="version-badge">v2.0 — Refined</span></h1>
+<p class="sub">Signal Bird identity system &middot; Neutral palette refinement &middot; February 2026</p>
+
+<!-- ═══════ PALETTE COMPARISON ═══════ -->
+<section>
+  <h2>Palette Evolution</h2>
+  <p class="section-note">Shifted primary tones toward warm stone/slate. Alert amber stays vibrant — it's the signal, not the uniform.</p>
+  <div class="compare">
+    <div class="compare-card current">
+      <h4>v1 — Original</h4>
+      <div class="compare-dots">
+        <div class="compare-dot" style="background:#F59E0B"></div>
+        <div class="compare-dot" style="background:#D97706"></div>
+        <div class="compare-dot" style="background:#FBBF24"></div>
+        <div class="compare-dot" style="background:#EA580C"></div>
+        <div class="compare-dot" style="background:#0F1923"></div>
+        <div class="compare-dot" style="background:#111827"></div>
+      </div>
+    </div>
+    <div class="compare-card updated">
+      <h4>v2 — Refined Neutral</h4>
+      <div class="compare-dots">
+        <div class="compare-dot" style="background:#C8956A"></div>
+        <div class="compare-dot" style="background:#A07553"></div>
+        <div class="compare-dot" style="background:#D4A574"></div>
+        <div class="compare-dot" style="background:#B8845C"></div>
+        <div class="compare-dot" style="background:#0d1117"></div>
+        <div class="compare-dot" style="background:#161b22"></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ═══════ COLORS ═══════ -->
+<section>
+  <h2>Color Palette — Refined</h2>
+
+  <h3>Primary Bird (Toned Down — Warm Stone)</h3>
+  <div class="swatches" style="margin-bottom:16px">
+    <div class="swatch">
+      <div class="swatch-color" style="background:#C8956A"><div class="old-dot" style="background:#F59E0B"></div></div>
+      <div class="swatch-info"><div class="swatch-name">Canary Stone</div><div class="swatch-hex">#C8956A</div><div class="swatch-change">was #F59E0B</div></div>
+    </div>
+    <div class="swatch">
+      <div class="swatch-color" style="background:#A07553"><div class="old-dot" style="background:#D97706"></div></div>
+      <div class="swatch-info"><div class="swatch-name">Wing Shadow</div><div class="swatch-hex">#A07553</div><div class="swatch-change">was #D97706</div></div>
+    </div>
+    <div class="swatch">
+      <div class="swatch-color" style="background:#D4A574"><div class="old-dot" style="background:#FBBF24"></div></div>
+      <div class="swatch-info"><div class="swatch-name">Feather Light</div><div class="swatch-hex">#D4A574</div><div class="swatch-change">was #FBBF24</div></div>
+    </div>
+    <div class="swatch">
+      <div class="swatch-color" style="background:#B8845C"><div class="old-dot" style="background:#EA580C"></div></div>
+      <div class="swatch-info"><div class="swatch-name">Beak Warm</div><div class="swatch-hex">#B8845C</div><div class="swatch-change">was #EA580C</div></div>
+    </div>
+  </div>
+
+  <h3>Alert Colors (Kept Vibrant — The Signal)</h3>
+  <div class="swatches" style="margin-bottom:16px">
+    <div class="swatch">
+      <div class="swatch-color" style="background:#F59E0B"></div>
+      <div class="swatch-info"><div class="swatch-name">Signal Amber</div><div class="swatch-hex">#F59E0B · alert waves</div></div>
+    </div>
+    <div class="swatch">
+      <div class="swatch-color" style="background:#FBBF24"></div>
+      <div class="swatch-info"><div class="swatch-name">Signal Yellow</div><div class="swatch-hex">#FBBF24 · active chirp</div></div>
+    </div>
+    <div class="swatch">
+      <div class="swatch-color" style="background:#EF4444"></div>
+      <div class="swatch-info"><div class="swatch-name">Alert Red</div><div class="swatch-hex">#EF4444 · critical</div></div>
+    </div>
+    <div class="swatch">
+      <div class="swatch-color" style="background:#059669"></div>
+      <div class="swatch-info"><div class="swatch-name">Trust Green</div><div class="swatch-hex">#059669 · positive</div></div>
+    </div>
+  </div>
+
+  <h3>Backgrounds &amp; Text (Cooled Down)</h3>
+  <div class="swatches">
+    <div class="swatch">
+      <div class="swatch-color" style="background:#0d1117"></div>
+      <div class="swatch-info"><div class="swatch-name">Ink (Primary BG)</div><div class="swatch-hex">#0D1117</div></div>
+    </div>
+    <div class="swatch">
+      <div class="swatch-color" style="background:#161b22"></div>
+      <div class="swatch-info"><div class="swatch-name">Charcoal (Card)</div><div class="swatch-hex">#161B22</div></div>
+    </div>
+    <div class="swatch">
+      <div class="swatch-color" style="background:#21262d"></div>
+      <div class="swatch-info"><div class="swatch-name">Border</div><div class="swatch-hex">#21262D</div></div>
+    </div>
+    <div class="swatch">
+      <div class="swatch-color" style="background:#e5e7eb"></div>
+      <div class="swatch-info"><div class="swatch-name">Text Primary</div><div class="swatch-hex">#E5E7EB · on dark</div></div>
+    </div>
+    <div class="swatch">
+      <div class="swatch-color" style="background:#6b7280"></div>
+      <div class="swatch-info"><div class="swatch-name">Text Muted</div><div class="swatch-hex">#6B7280</div></div>
+    </div>
+    <div class="swatch">
+      <div class="swatch-color" style="background:#f3f4f6"></div>
+      <div class="swatch-info"><div class="swatch-name">Light Surface</div><div class="swatch-hex">#F3F4F6</div></div>
+    </div>
+  </div>
+</section>
+
+<!-- ═══════ LOGO VARIANTS ═══════ -->
+<section>
+  <h2>Logo Variants — Original + New Options</h2>
+  <p class="section-note">Same iconic silhouette, three palette treatments. Sound waves become the animated element.</p>
+
+  <h3 style="margin-top:24px">Option A — Warm Stone (Recommended Neutral)</h3>
+  <div class="logo-grid" style="margin-bottom:24px">
+    <div class="logo-card">
+      <div class="logo-preview dark">
+        <svg width="90" height="90" viewBox="0 0 100 100" fill="none">
+          <circle cx="42" cy="33" r="18" fill="#C8956A"/>
+          <ellipse cx="50" cy="58" rx="25" ry="19" fill="#C8956A"/>
+          <path d="M36 47 Q16 56 26 74 Q38 66 48 54 Z" fill="#A07553"/>
+          <circle cx="48" cy="30" r="4" fill="#0d1117"/>
+          <circle cx="46.5" cy="28.8" r="1.5" fill="#C8956A"/>
+          <path d="M58 32 L70 27 L61 37 Z" fill="#B8845C"/>
+          <path d="M28 66 Q12 78 18 88 Q28 80 36 72 Z" fill="#A07553"/>
+          <!-- Neutral waves — subtle -->
+          <path d="M73 22 Q80 18 83 26" stroke="#D4A574" stroke-width="2.8" fill="none" stroke-linecap="round" opacity="0.5"/>
+          <path d="M78 14 Q87 9 91 20" stroke="#D4A574" stroke-width="2" fill="none" stroke-linecap="round" opacity="0.25"/>
+        </svg>
+      </div>
+      <div class="logo-label">A · Warm Stone — Dark <span class="logo-tag primary">Recommended</span></div>
+    </div>
+    <div class="logo-card">
+      <div class="logo-preview light">
+        <svg width="90" height="90" viewBox="0 0 100 100" fill="none">
+          <circle cx="42" cy="33" r="18" fill="#C8956A"/>
+          <ellipse cx="50" cy="58" rx="25" ry="19" fill="#C8956A"/>
+          <path d="M36 47 Q16 56 26 74 Q38 66 48 54 Z" fill="#A07553"/>
+          <circle cx="48" cy="30" r="4" fill="#3d2b1a"/>
+          <circle cx="46.5" cy="28.8" r="1.5" fill="#C8956A"/>
+          <path d="M58 32 L70 27 L61 37 Z" fill="#B8845C"/>
+          <path d="M28 66 Q12 78 18 88 Q28 80 36 72 Z" fill="#A07553"/>
+          <path d="M73 22 Q80 18 83 26" stroke="#A07553" stroke-width="2.8" fill="none" stroke-linecap="round" opacity="0.5"/>
+          <path d="M78 14 Q87 9 91 20" stroke="#A07553" stroke-width="2" fill="none" stroke-linecap="round" opacity="0.25"/>
+        </svg>
+      </div>
+      <div class="logo-label">A · Warm Stone — Light</div>
+    </div>
+  </div>
+
+  <h3>Option B — Muted Brass (Slightly Warmer)</h3>
+  <div class="logo-grid" style="margin-bottom:24px">
+    <div class="logo-card">
+      <div class="logo-preview dark">
+        <svg width="90" height="90" viewBox="0 0 100 100" fill="none">
+          <circle cx="42" cy="33" r="18" fill="#CDA05A"/>
+          <ellipse cx="50" cy="58" rx="25" ry="19" fill="#CDA05A"/>
+          <path d="M36 47 Q16 56 26 74 Q38 66 48 54 Z" fill="#A68040"/>
+          <circle cx="48" cy="30" r="4" fill="#0d1117"/>
+          <circle cx="46.5" cy="28.8" r="1.5" fill="#CDA05A"/>
+          <path d="M58 32 L70 27 L61 37 Z" fill="#B89045"/>
+          <path d="M28 66 Q12 78 18 88 Q28 80 36 72 Z" fill="#A68040"/>
+          <path d="M73 22 Q80 18 83 26" stroke="#D4AD64" stroke-width="2.8" fill="none" stroke-linecap="round" opacity="0.5"/>
+          <path d="M78 14 Q87 9 91 20" stroke="#D4AD64" stroke-width="2" fill="none" stroke-linecap="round" opacity="0.25"/>
+        </svg>
+      </div>
+      <div class="logo-label">B · Muted Brass — Dark <span class="logo-tag new">New</span></div>
+    </div>
+    <div class="logo-card">
+      <div class="logo-preview light">
+        <svg width="90" height="90" viewBox="0 0 100 100" fill="none">
+          <circle cx="42" cy="33" r="18" fill="#CDA05A"/>
+          <ellipse cx="50" cy="58" rx="25" ry="19" fill="#CDA05A"/>
+          <path d="M36 47 Q16 56 26 74 Q38 66 48 54 Z" fill="#A68040"/>
+          <circle cx="48" cy="30" r="4" fill="#3d2b1a"/>
+          <circle cx="46.5" cy="28.8" r="1.5" fill="#CDA05A"/>
+          <path d="M58 32 L70 27 L61 37 Z" fill="#B89045"/>
+          <path d="M28 66 Q12 78 18 88 Q28 80 36 72 Z" fill="#A68040"/>
+          <path d="M73 22 Q80 18 83 26" stroke="#A68040" stroke-width="2.8" fill="none" stroke-linecap="round" opacity="0.5"/>
+          <path d="M78 14 Q87 9 91 20" stroke="#A68040" stroke-width="2" fill="none" stroke-linecap="round" opacity="0.25"/>
+        </svg>
+      </div>
+      <div class="logo-label">B · Muted Brass — Light</div>
+    </div>
+  </div>
+
+  <h3>Option C — Slate Gold (Coolest / Most Neutral)</h3>
+  <div class="logo-grid" style="margin-bottom:24px">
+    <div class="logo-card">
+      <div class="logo-preview dark">
+        <svg width="90" height="90" viewBox="0 0 100 100" fill="none">
+          <circle cx="42" cy="33" r="18" fill="#B8A080"/>
+          <ellipse cx="50" cy="58" rx="25" ry="19" fill="#B8A080"/>
+          <path d="M36 47 Q16 56 26 74 Q38 66 48 54 Z" fill="#8F7A62"/>
+          <circle cx="48" cy="30" r="4" fill="#0d1117"/>
+          <circle cx="46.5" cy="28.8" r="1.5" fill="#B8A080"/>
+          <path d="M58 32 L70 27 L61 37 Z" fill="#9E8A70"/>
+          <path d="M28 66 Q12 78 18 88 Q28 80 36 72 Z" fill="#8F7A62"/>
+          <path d="M73 22 Q80 18 83 26" stroke="#C4B090" stroke-width="2.8" fill="none" stroke-linecap="round" opacity="0.4"/>
+          <path d="M78 14 Q87 9 91 20" stroke="#C4B090" stroke-width="2" fill="none" stroke-linecap="round" opacity="0.2"/>
+        </svg>
+      </div>
+      <div class="logo-label">C · Slate Gold — Dark <span class="logo-tag new">New</span></div>
+    </div>
+    <div class="logo-card">
+      <div class="logo-preview light">
+        <svg width="90" height="90" viewBox="0 0 100 100" fill="none">
+          <circle cx="42" cy="33" r="18" fill="#B8A080"/>
+          <ellipse cx="50" cy="58" rx="25" ry="19" fill="#B8A080"/>
+          <path d="M36 47 Q16 56 26 74 Q38 66 48 54 Z" fill="#8F7A62"/>
+          <circle cx="48" cy="30" r="4" fill="#3d2b1a"/>
+          <circle cx="46.5" cy="28.8" r="1.5" fill="#B8A080"/>
+          <path d="M58 32 L70 27 L61 37 Z" fill="#9E8A70"/>
+          <path d="M28 66 Q12 78 18 88 Q28 80 36 72 Z" fill="#8F7A62"/>
+          <path d="M73 22 Q80 18 83 26" stroke="#8F7A62" stroke-width="2.8" fill="none" stroke-linecap="round" opacity="0.4"/>
+          <path d="M78 14 Q87 9 91 20" stroke="#8F7A62" stroke-width="2" fill="none" stroke-linecap="round" opacity="0.2"/>
+        </svg>
+      </div>
+      <div class="logo-label">C · Slate Gold — Light</div>
+    </div>
+  </div>
+
+  <h3>All Three — Side by Side</h3>
+  <div class="logo-grid three-col" style="margin-bottom:24px">
+    <div class="logo-card">
+      <div class="logo-preview dark" style="min-height:140px">
+        <svg width="70" height="70" viewBox="0 0 100 100" fill="none">
+          <circle cx="42" cy="33" r="18" fill="#C8956A"/><ellipse cx="50" cy="58" rx="25" ry="19" fill="#C8956A"/><path d="M36 47 Q16 56 26 74 Q38 66 48 54 Z" fill="#A07553"/><circle cx="48" cy="30" r="4" fill="#0d1117"/><circle cx="46.5" cy="28.8" r="1.5" fill="#C8956A"/><path d="M58 32 L70 27 L61 37 Z" fill="#B8845C"/><path d="M28 66 Q12 78 18 88 Q28 80 36 72 Z" fill="#A07553"/><path d="M73 22 Q80 18 83 26" stroke="#D4A574" stroke-width="2.8" fill="none" stroke-linecap="round" opacity="0.5"/><path d="M78 14 Q87 9 91 20" stroke="#D4A574" stroke-width="2" fill="none" stroke-linecap="round" opacity="0.25"/>
+        </svg>
+      </div>
+      <div class="logo-label">A · Warm Stone</div>
+    </div>
+    <div class="logo-card">
+      <div class="logo-preview dark" style="min-height:140px">
+        <svg width="70" height="70" viewBox="0 0 100 100" fill="none">
+          <circle cx="42" cy="33" r="18" fill="#CDA05A"/><ellipse cx="50" cy="58" rx="25" ry="19" fill="#CDA05A"/><path d="M36 47 Q16 56 26 74 Q38 66 48 54 Z" fill="#A68040"/><circle cx="48" cy="30" r="4" fill="#0d1117"/><circle cx="46.5" cy="28.8" r="1.5" fill="#CDA05A"/><path d="M58 32 L70 27 L61 37 Z" fill="#B89045"/><path d="M28 66 Q12 78 18 88 Q28 80 36 72 Z" fill="#A68040"/><path d="M73 22 Q80 18 83 26" stroke="#D4AD64" stroke-width="2.8" fill="none" stroke-linecap="round" opacity="0.5"/><path d="M78 14 Q87 9 91 20" stroke="#D4AD64" stroke-width="2" fill="none" stroke-linecap="round" opacity="0.25"/>
+        </svg>
+      </div>
+      <div class="logo-label">B · Muted Brass</div>
+    </div>
+    <div class="logo-card">
+      <div class="logo-preview dark" style="min-height:140px">
+        <svg width="70" height="70" viewBox="0 0 100 100" fill="none">
+          <circle cx="42" cy="33" r="18" fill="#B8A080"/><ellipse cx="50" cy="58" rx="25" ry="19" fill="#B8A080"/><path d="M36 47 Q16 56 26 74 Q38 66 48 54 Z" fill="#8F7A62"/><circle cx="48" cy="30" r="4" fill="#0d1117"/><circle cx="46.5" cy="28.8" r="1.5" fill="#B8A080"/><path d="M58 32 L70 27 L61 37 Z" fill="#9E8A70"/><path d="M28 66 Q12 78 18 88 Q28 80 36 72 Z" fill="#8F7A62"/><path d="M73 22 Q80 18 83 26" stroke="#C4B090" stroke-width="2.8" fill="none" stroke-linecap="round" opacity="0.4"/><path d="M78 14 Q87 9 91 20" stroke="#C4B090" stroke-width="2" fill="none" stroke-linecap="round" opacity="0.2"/>
+        </svg>
+      </div>
+      <div class="logo-label">C · Slate Gold</div>
+    </div>
+  </div>
+
+  <h3>Horizontal Lockups</h3>
+  <div class="logo-grid">
+    <div class="logo-card">
+      <div class="logo-preview dark">
+        <svg width="280" height="70" viewBox="0 0 400 100" fill="none">
+          <g transform="translate(12,8) scale(0.84)">
+            <circle cx="42" cy="33" r="18" fill="#C8956A"/><ellipse cx="50" cy="58" rx="25" ry="19" fill="#C8956A"/><path d="M36 47 Q16 56 26 74 Q38 66 48 54 Z" fill="#A07553"/><circle cx="48" cy="30" r="4" fill="#0d1117"/><circle cx="46.5" cy="28.8" r="1.5" fill="#C8956A"/><path d="M58 32 L70 27 L61 37 Z" fill="#B8845C"/><path d="M28 66 Q12 78 18 88 Q28 80 36 72 Z" fill="#A07553"/><path d="M73 22 Q80 18 83 26" stroke="#D4A574" stroke-width="2.8" fill="none" stroke-linecap="round" opacity="0.5"/><path d="M78 14 Q87 9 91 20" stroke="#D4A574" stroke-width="2" fill="none" stroke-linecap="round" opacity="0.25"/>
+          </g>
+          <text x="112" y="52" font-family="'Space Grotesk',system-ui,sans-serif" font-size="38" font-weight="700" letter-spacing="3" fill="#E5E7EB">CANARY</text>
+          <text x="114" y="72" font-family="'Space Grotesk',system-ui,sans-serif" font-size="10" letter-spacing="4" fill="#4B5563">EARLY WARNING LP</text>
+        </svg>
+      </div>
+      <div class="logo-label">A · Lockup — Dark <span class="logo-tag primary">Recommended</span></div>
+    </div>
+    <div class="logo-card">
+      <div class="logo-preview dark">
+        <svg width="280" height="70" viewBox="0 0 400 100" fill="none">
+          <g transform="translate(12,8) scale(0.84)">
+            <circle cx="42" cy="33" r="18" fill="#CDA05A"/><ellipse cx="50" cy="58" rx="25" ry="19" fill="#CDA05A"/><path d="M36 47 Q16 56 26 74 Q38 66 48 54 Z" fill="#A68040"/><circle cx="48" cy="30" r="4" fill="#0d1117"/><circle cx="46.5" cy="28.8" r="1.5" fill="#CDA05A"/><path d="M58 32 L70 27 L61 37 Z" fill="#B89045"/><path d="M28 66 Q12 78 18 88 Q28 80 36 72 Z" fill="#A68040"/><path d="M73 22 Q80 18 83 26" stroke="#D4AD64" stroke-width="2.8" fill="none" stroke-linecap="round" opacity="0.5"/><path d="M78 14 Q87 9 91 20" stroke="#D4AD64" stroke-width="2" fill="none" stroke-linecap="round" opacity="0.25"/>
+          </g>
+          <text x="112" y="52" font-family="'Space Grotesk',system-ui,sans-serif" font-size="38" font-weight="700" letter-spacing="3" fill="#E5E7EB">CANARY</text>
+          <text x="114" y="72" font-family="'Space Grotesk',system-ui,sans-serif" font-size="10" letter-spacing="4" fill="#4B5563">EARLY WARNING LP</text>
+        </svg>
+      </div>
+      <div class="logo-label">B · Lockup — Dark <span class="logo-tag new">New</span></div>
+    </div>
+  </div>
+</section>
+
+<!-- ═══════ ANIMATED LOGOS ═══════ -->
+<section>
+  <h2>Animated Logo — Chirp Alert</h2>
+  <p class="section-note">The sound waves animate when an alert fires — the bird "chirps." Idle state shows a gentle bob with faint static waves. Alert state fires the waves outward with bright amber signal color.</p>
+
+  <div class="anim-container">
+    <!-- IDLE STATE -->
+    <div class="anim-card">
+      <h3>Idle State (Quiet)</h3>
+      <svg width="140" height="140" viewBox="0 0 100 100" fill="none">
+        <g style="animation: gentle-bob 3s ease-in-out infinite">
+          <circle cx="42" cy="33" r="18" fill="#C8956A"/>
+          <ellipse cx="50" cy="58" rx="25" ry="19" fill="#C8956A"/>
+          <path d="M36 47 Q16 56 26 74 Q38 66 48 54 Z" fill="#A07553"/>
+          <circle cx="48" cy="30" r="4" fill="#0d1117"/>
+          <circle cx="46.5" cy="28.8" r="1.5" fill="#C8956A"/>
+          <path d="M58 32 L70 27 L61 37 Z" fill="#B8845C"/>
+          <path d="M28 66 Q12 78 18 88 Q28 80 36 72 Z" fill="#A07553"/>
+          <!-- Idle waves — soft pulse -->
+          <path d="M73 22 Q80 18 83 26" stroke="#D4A574" stroke-width="2.8" fill="none" stroke-linecap="round" style="animation: idle-wave 2.5s ease-in-out infinite" opacity="0.2"/>
+          <path d="M78 14 Q87 9 91 20" stroke="#D4A574" stroke-width="2" fill="none" stroke-linecap="round" style="animation: idle-wave 2.5s ease-in-out infinite 0.5s" opacity="0.1"/>
+        </g>
+      </svg>
+      <div class="anim-label">Gentle bob · waves barely visible</div>
+    </div>
+
+    <!-- ALERT / CHIRP STATE -->
+    <div class="anim-card" style="border-color:#d97706">
+      <h3 style="color:#d97706">Alert State (Chirping!)</h3>
+      <svg width="140" height="140" viewBox="0 0 120 100" fill="none">
+        <g>
+          <circle cx="42" cy="33" r="18" fill="#C8956A"/>
+          <ellipse cx="50" cy="58" rx="25" ry="19" fill="#C8956A"/>
+          <path d="M36 47 Q16 56 26 74 Q38 66 48 54 Z" fill="#A07553"/>
+          <circle cx="48" cy="30" r="4" fill="#0d1117"/>
+          <circle cx="46.5" cy="28.8" r="1.5" fill="#C8956A"/>
+          <!-- Beak opens/closes with chirp -->
+          <g transform-origin="58 34">
+            <path d="M58 30 L72 25 L62 34 Z" fill="#B8845C" style="animation: beak-open 1.8s ease-in-out infinite"/>
+          </g>
+          <g transform-origin="58 36">
+            <path d="M58 36 L70 38 L62 36 Z" fill="#A07553" style="animation: beak-close 1.8s ease-in-out infinite"/>
+          </g>
+          <path d="M28 66 Q12 78 18 88 Q28 80 36 72 Z" fill="#A07553"/>
+
+          <!-- ANIMATED CHIRP WAVES — bright amber signal -->
+          <g>
+            <path d="M73 22 Q80 18 83 26" stroke="#F59E0B" stroke-width="3" fill="none" stroke-linecap="round" style="animation: wave1 1.8s ease-out infinite"/>
+            <path d="M80 16 Q89 10 93 22" stroke="#FBBF24" stroke-width="2.5" fill="none" stroke-linecap="round" style="animation: wave2 1.8s ease-out infinite 0.15s"/>
+            <path d="M87 10 Q98 3 103 18" stroke="#FBBF24" stroke-width="2" fill="none" stroke-linecap="round" style="animation: wave3 1.8s ease-out infinite 0.3s"/>
+          </g>
+
+          <!-- Alert notification dot -->
+          <circle cx="82" cy="8" fill="#EF4444" style="animation: alert-pulse 1.8s ease-in-out infinite">
+            <animate attributeName="r" values="0;5;7;5;0" dur="1.8s" repeatCount="indefinite"/>
+          </circle>
+          <circle cx="82" cy="8" fill="none" stroke="#EF4444" style="animation: alert-ring 1.8s ease-out infinite"/>
+        </g>
+      </svg>
+      <div class="anim-label">Beak animates · waves burst in amber · red alert dot pulses</div>
+    </div>
+  </div>
+
+  <div style="margin-top:24px">
+    <h3>Full Animation Sequence — Continuous Loop</h3>
+    <div class="anim-card" style="border-color:#374151">
+      <svg width="300" height="160" viewBox="0 0 300 130" fill="none">
+        <!-- Bird body -->
+        <g transform="translate(80,10)">
+          <g style="animation: gentle-bob 3s ease-in-out infinite">
+            <circle cx="42" cy="33" r="18" fill="#C8956A"/>
+            <ellipse cx="50" cy="58" rx="25" ry="19" fill="#C8956A"/>
+            <path d="M36 47 Q16 56 26 74 Q38 66 48 54 Z" fill="#A07553"/>
+            <circle cx="48" cy="30" r="4" fill="#0d1117"/>
+            <circle cx="46.5" cy="28.8" r="1.5" fill="#C8956A"/>
+            <!-- Animated beak -->
+            <g transform-origin="58 34">
+              <path d="M58 30 L72 25 L62 34 Z" fill="#B8845C" style="animation: beak-open 1.8s ease-in-out infinite"/>
+            </g>
+            <g transform-origin="58 36">
+              <path d="M58 36 L70 38 L62 36 Z" fill="#A07553" style="animation: beak-close 1.8s ease-in-out infinite"/>
+            </g>
+            <path d="M28 66 Q12 78 18 88 Q28 80 36 72 Z" fill="#A07553"/>
+
+            <!-- Sound waves — animated chirp in amber -->
+            <path d="M73 22 Q80 18 83 26" stroke="#F59E0B" stroke-width="3" fill="none" stroke-linecap="round" style="animation: wave1 1.8s ease-out infinite"/>
+            <path d="M80 16 Q89 10 93 22" stroke="#FBBF24" stroke-width="2.5" fill="none" stroke-linecap="round" style="animation: wave2 1.8s ease-out infinite 0.15s"/>
+            <path d="M87 10 Q98 3 103 18" stroke="#FBBF24" stroke-width="2" fill="none" stroke-linecap="round" style="animation: wave3 1.8s ease-out infinite 0.3s"/>
+
+            <!-- Alert dot -->
+            <circle cx="95" cy="5" fill="#EF4444" style="animation: alert-pulse 1.8s ease-in-out infinite">
+              <animate attributeName="r" values="0;4;6;4;0" dur="1.8s" repeatCount="indefinite"/>
+            </circle>
+          </g>
+        </g>
+
+        <!-- CANARY text -->
+        <text x="150" y="118" text-anchor="middle" font-family="'Space Grotesk',system-ui,sans-serif" font-size="22" font-weight="700" letter-spacing="3" fill="#E5E7EB">CANARY</text>
+      </svg>
+      <div class="anim-label" style="margin-top:8px">Stacked animated lockup · chirp loop with alert dot · use for loading states, notifications, splash screens</div>
+    </div>
+  </div>
+</section>
+
+<!-- ═══════ ANIMATION SPECS ═══════ -->
+<section>
+  <h2>Animation Specifications</h2>
+  <div class="rules">
+    <div class="rule do">
+      <div class="rule-label">Idle</div>
+      <p>Gentle 3s ease-in-out vertical bob (2px). Sound waves at 10–20% opacity with slow fade. Bird feels alive but calm.</p>
+    </div>
+    <div class="rule do" style="border-left-color:#d97706">
+      <div class="rule-label" style="color:#d97706">Chirp / Alert</div>
+      <p>1.8s cycle. Beak opens ±4°. Three waves burst outward staggered 150ms apart. Waves use Signal Amber (#F59E0B → #FBBF24). Red alert dot pulses and rings expand.</p>
+    </div>
+    <div class="rule do">
+      <div class="rule-label">Timing</div>
+      <p>Wave 1: 0ms delay, full opacity. Wave 2: 150ms delay, 60% opacity. Wave 3: 300ms delay, 40% opacity. Creates a natural sound-radiating-outward feel.</p>
+    </div>
+    <div class="rule dont">
+      <div class="rule-label">Don't</div>
+      <p>Don't loop the chirp endlessly in the UI. Fire on alert, then return to idle. Max 3 chirps per notification event.</p>
+    </div>
+  </div>
+</section>
+
+<!-- ═══════ TYPOGRAPHY ═══════ -->
+<section>
+  <h2>Typography</h2>
+  <div class="type-row">
+    <div class="type-sample" style="font-family:'Space Grotesk',sans-serif; font-weight:700; letter-spacing:0.04em">CANARY</div>
+    <div class="type-meta">Wordmark: Space Grotesk Bold · letter-spacing: 0.04em · ALL CAPS</div>
+  </div>
+  <div class="type-row">
+    <div class="type-sample" style="font-family:'Inter',sans-serif; font-weight:600; font-size:1.4rem">Headlines use Inter Semibold</div>
+    <div class="type-meta">Headings: Inter 600 · sentence case</div>
+  </div>
+  <div class="type-row">
+    <div class="type-sample" style="font-family:'Inter',sans-serif; font-weight:400; font-size:1rem; color:#6b7280">Body text is set in Inter Regular at 16px</div>
+    <div class="type-meta">Body: Inter 400 · 16px / 1.6 line-height</div>
+  </div>
+</section>
+
+<!-- ═══════ USAGE ═══════ -->
+<section>
+  <h2>Usage Guidelines</h2>
+  <div class="rules">
+    <div class="rule do">
+      <div class="rule-label">Do</div>
+      <p>Use the dark background version (#0D1117) as the primary. Neutral bird, bright alert waves.</p>
+    </div>
+    <div class="rule dont">
+      <div class="rule-label">Don't</div>
+      <p>Use the animated chirp on static media (print, business cards). Save it for screens only.</p>
+    </div>
+    <div class="rule do">
+      <div class="rule-label">Do</div>
+      <p>Let the sound waves carry the brand energy. Bird stays calm, waves do the talking.</p>
+    </div>
+    <div class="rule dont">
+      <div class="rule-label">Don't</div>
+      <p>Mix neutral bird colors with alert amber on the bird body. Amber is reserved for waves only.</p>
+    </div>
+    <div class="rule do">
+      <div class="rule-label">Do</div>
+      <p>Use the animated version for: app loading, notification toast, dashboard alert headers.</p>
+    </div>
+    <div class="rule dont">
+      <div class="rule-label">Don't</div>
+      <p>Loop chirp animation continuously. Fire → 2–3 chirps → return to idle. Respect the user's attention.</p>
+    </div>
+  </div>
+</section>
+
+<!-- ═══════ FILES ═══════ -->
+<section>
+  <h2>Asset Files</h2>
+  <div class="file-tree">
+    <span class="dir">brand/</span><br>
+    &nbsp;&nbsp;<span class="dir">icon/</span><br>
+    &nbsp;&nbsp;&nbsp;&nbsp;<span class="file">canary-stone-dark.svg, .png (512px)</span><br>
+    &nbsp;&nbsp;&nbsp;&nbsp;<span class="file">canary-brass-dark.svg, .png (512px)</span><br>
+    &nbsp;&nbsp;&nbsp;&nbsp;<span class="file">canary-slate-dark.svg, .png (512px)</span><br>
+    &nbsp;&nbsp;&nbsp;&nbsp;<span class="file">canary-stone-light.svg, .png (512px)</span><br>
+    &nbsp;&nbsp;<span class="dir">lockup/</span><br>
+    &nbsp;&nbsp;&nbsp;&nbsp;<span class="file">horizontal-stone-dark.svg, .png</span><br>
+    &nbsp;&nbsp;&nbsp;&nbsp;<span class="file">horizontal-brass-dark.svg, .png</span><br>
+    &nbsp;&nbsp;&nbsp;&nbsp;<span class="file">stacked-stone-dark.svg, .png</span><br>
+    &nbsp;&nbsp;<span class="dir new-file">animated/</span><br>
+    &nbsp;&nbsp;&nbsp;&nbsp;<span class="new-file">canary-idle.svg (animated SVG)</span><br>
+    &nbsp;&nbsp;&nbsp;&nbsp;<span class="new-file">canary-chirp.svg (animated SVG)</span><br>
+    &nbsp;&nbsp;&nbsp;&nbsp;<span class="new-file">canary-chirp.gif (fallback)</span><br>
+    &nbsp;&nbsp;&nbsp;&nbsp;<span class="new-file">canary-chirp-lottie.json (Lottie)</span><br>
+    &nbsp;&nbsp;<span class="dir">favicon/</span><br>
+    &nbsp;&nbsp;&nbsp;&nbsp;<span class="file">favicon.svg, .png (512px)</span><br>
+    &nbsp;&nbsp;&nbsp;&nbsp;<span class="file">favicon-sizes.png (192, 180, 64, 32, 16)</span><br>
+    &nbsp;&nbsp;<span class="dir">social/</span><br>
+    &nbsp;&nbsp;&nbsp;&nbsp;<span class="file">profile-800.png, banner-1500x500.png, og-1200x630.png</span><br>
+    &nbsp;&nbsp;<span class="file">BRAND_GUIDE_v2.html ← you are here</span>
+  </div>
+</section>
+
+<!-- ═══════ LEGAL ═══════ -->
+<section>
+  <h2>Legal Entity</h2>
+  <p style="font-size:0.9rem; color:#6b7280; line-height:1.8;">
+    <strong style="color:#d1d5db">Entity name:</strong> Canary DAO LLC<br>
+    <strong style="color:#d1d5db">Jurisdiction:</strong> Wyoming (W.S. 17-31-101 through 17-31-115)<br>
+    <strong style="color:#d1d5db">Product name:</strong> Canary · Canary LP<br>
+    <strong style="color:#d1d5db">Tagline:</strong> "The early warning system for retail shrink."<br>
+    <strong style="color:#d1d5db">Domain:</strong> growdirect.io (pending rebrand to canary domain)
+  </p>
+</section>
+
+</div>
+</body>
+</html>
