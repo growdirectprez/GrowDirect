@@ -64,7 +64,15 @@
     },
     "cove": {
       "compliance": "davis-stirling",
-      "overrides": ["preflight", "blueprint", "tdd", "assembly", "verify", "qa", "ship", "close"]
+      "overrides": ["preflight", "blueprint", "tdd", "assembly", "verify", "qa", "ship", "close"],
+      "domain_skills": {
+        "quorum": {
+          "skill": "cove-quorum",
+          "module": "cove.governance.quorum",
+          "eval": "evals/skills/test_quorum_calculator.py",
+          "eval_threshold": 0.90
+        }
+      }
     }
   }
 }
