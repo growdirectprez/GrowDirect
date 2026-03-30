@@ -67,10 +67,14 @@ def memory_recall(
     query: str,
     limit: int = 10,
     memory_type: Optional[str] = None,
+    layer: Optional[str] = None,
 ) -> str:
-    """Semantic search over memories. Falls back: vector -> full-text -> ILIKE."""
+    """Semantic search over memories. Falls back: vector -> full-text -> ILIKE.
+
+    Use layer to scope results: corp, canary, cove, or shared.
+    """
     result = store.memory_recall(
-        query=query, limit=limit, memory_type=memory_type
+        query=query, limit=limit, memory_type=memory_type, layer=layer
     )
     return json.dumps(result, default=str)
 
@@ -80,13 +84,18 @@ def memory_search(
     session_id: Optional[str] = None,
     memory_type: Optional[str] = None,
     since: Optional[str] = None,
+    layer: Optional[str] = None,
     limit: int = 20,
 ) -> str:
-    """Structured search by session, type, or date."""
+    """Structured search by session, type, date, or layer.
+
+    Use layer to scope results: corp, canary, cove, or shared.
+    """
     result = store.memory_search(
         session_id=session_id,
         memory_type=memory_type,
         since=since,
+        layer=layer,
         limit=limit,
     )
     return json.dumps(result, default=str)
