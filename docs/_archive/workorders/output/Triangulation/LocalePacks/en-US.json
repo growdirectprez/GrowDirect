@@ -1,0 +1,440 @@
+{
+  "locale": "en-US",
+  "version": "1.0.0",
+  "generated": "2026-02-28",
+  "registry_source": "B068_TokenRegistry_v1.0.md",
+  "description": "Complete en-US locale pack — guaranteed fallback for all token resolution. Every key present. No gaps.",
+  "tokens": {
+    "employee": {
+      "label": {
+        "singular": "Employee",
+        "plural": "Employees"
+      }
+    },
+    "location": {
+      "label": {
+        "singular": "Location",
+        "plural": "Locations"
+      }
+    },
+    "cash_drawer": {
+      "label": {
+        "singular": "Cash Drawer",
+        "plural": "Cash Drawers"
+      }
+    },
+    "transaction": {
+      "label": {
+        "singular": "Transaction",
+        "plural": "Transactions"
+      }
+    },
+    "void": {
+      "label": {
+        "singular": "Void",
+        "plural": "Voids"
+      }
+    },
+    "refund": {
+      "label": {
+        "singular": "Refund",
+        "plural": "Refunds"
+      }
+    },
+    "case": {
+      "label": {
+        "singular": "Case",
+        "plural": "Cases"
+      }
+    },
+    "chirp": {
+      "label": {
+        "singular": "Alert",
+        "plural": "Alerts"
+      },
+      "severity": {
+        "critical": {
+          "label": "Critical"
+        },
+        "high": {
+          "label": "Urgent"
+        },
+        "medium": {
+          "label": "Attention"
+        },
+        "low": {
+          "label": "Notice"
+        }
+      },
+      "hero": {
+        "cta": {
+          "label": "Fix this \u2192"
+        },
+        "time": {
+          "label": "{minutes} min wizard"
+        }
+      },
+      "peek": {
+        "more": {
+          "label": "+{count} more: "
+        }
+      },
+      "list": {
+        "active": {
+          "heading": "Active"
+        },
+        "resolved": {
+          "heading": "Resolved"
+        }
+      }
+    },
+    "shift": {
+      "label": {
+        "singular": "Shift",
+        "plural": "Shifts"
+      }
+    },
+    "tender": {
+      "label": {
+        "singular": "Tender",
+        "plural": "Tenders"
+      }
+    },
+    "store": {
+      "label": {
+        "singular": "Store",
+        "plural": "Stores"
+      }
+    },
+    "drawer": {
+      "label": {
+        "singular": "Drawer",
+        "plural": "Drawers"
+      }
+    },
+    "discount": {
+      "label": {
+        "singular": "Discount",
+        "plural": "Discounts"
+      }
+    },
+    "exchange": {
+      "label": {
+        "singular": "Exchange",
+        "plural": "Exchanges"
+      }
+    },
+    "variance": {
+      "label": {
+        "singular": "Variance"
+      }
+    },
+    "shrink": {
+      "label": {
+        "singular": "Shrink"
+      }
+    },
+    "investigation": {
+      "label": {
+        "singular": "Investigation",
+        "plural": "Investigations"
+      }
+    },
+    "companion": {
+      "today": {
+        "greeting": {
+          "morning": "Good morning",
+          "afternoon": "Good afternoon",
+          "evening": "Good evening"
+        },
+        "chirp_count": {
+          "singular": "{count} {chirp.label.singular} needs you",
+          "plural": "{count} {chirp.label.plural} need you",
+          "zero": "Nothing needs your attention right now."
+        },
+        "section": {
+          "morning": "Your morning",
+          "afternoon": "Your afternoon",
+          "evening": "Your evening",
+          "week": "This week"
+        }
+      }
+    },
+    "nav": {
+      "tab": {
+        "home": {
+          "label": "Home"
+        },
+        "insights": {
+          "label": "Insights"
+        },
+        "investigate": {
+          "label": "Investigate"
+        },
+        "inventory": {
+          "label": "Inventory"
+        },
+        "daily": {
+          "label": "Daily"
+        },
+        "money": {
+          "label": "Money"
+        }
+      }
+    },
+    "wizard": {
+      "progress": {
+        "label": "Step {current} of {total}"
+      },
+      "nav": {
+        "back": {
+          "label": "Back"
+        },
+        "next": {
+          "label": "Next"
+        },
+        "confirm": {
+          "label": "Confirm"
+        },
+        "skip": {
+          "label": "Skip"
+        },
+        "done": {
+          "label": "Done"
+        }
+      }
+    },
+    "process": {
+      "open_store": {
+        "title": "Open the Store",
+        "step1": {
+          "title": "Verify Store Ready",
+          "description": "Check each item to confirm readiness.",
+          "item": {
+            "lights": "Lights on",
+            "register": "Register powered",
+            "signage": "Signage visible"
+          }
+        },
+        "step2": {
+          "title": "Open Cash Drawer",
+          "prompt": "Count your starting cash",
+          "validation": {
+            "zero_warning": "Starting with $0.00 \u2014 are you sure?"
+          }
+        },
+        "step3": {
+          "title": "Confirm Opening",
+          "summary": "{location.label.singular} opening with {amount} in {drawer.label.singular}"
+        },
+        "step4": {
+          "title": "Done",
+          "message": "Store is open!"
+        },
+        "error": {
+          "already_open": "{location.label.singular} is already open"
+        }
+      },
+      "count_drawer": {
+        "title": "Count the Drawer",
+        "step1": {
+          "title": "Select Drawer",
+          "expected_label": "Expected cash"
+        },
+        "step2": {
+          "title": "Enter Actual Count"
+        },
+        "step3": {
+          "title": "Variance Check",
+          "balanced": "Balanced \u2014 no variance detected.",
+          "variance": {
+            "warning": "Variance detected \u2014 review recommended.",
+            "critical": "Significant variance \u2014 investigate."
+          }
+        },
+        "step4": {
+          "title": "Document & Close",
+          "notes_prompt": "Explain the variance",
+          "photo_prompt": "Attach count sheet photo (optional)"
+        },
+        "step5": {
+          "title": "Done",
+          "balanced": "Perfect count! Drawer balanced.",
+          "variance": "Variance noted. Keep an eye on it.",
+          "critical": "Significant variance \u2014 consider investigating."
+        },
+        "error": {
+          "no_open": "No open drawers to count",
+          "already_closed": "This drawer was closed by {employee_name} at {time}"
+        }
+      },
+      "refund_alert": {
+        "title": "Resolve Refund Alert",
+        "step1": {
+          "title": "Review the Facts"
+        },
+        "step2": {
+          "title": "Examine Individual Refunds"
+        },
+        "step3": {
+          "title": "Assess the Situation",
+          "option": {
+            "legitimate": "All legitimate \u2014 busy day with returns",
+            "questionable": "Some look questionable",
+            "suspicious": "This is suspicious \u2014 investigate further",
+            "escalate": "Escalate for formal investigation"
+          },
+          "manager_guidance": "Talk to the store owner about this."
+        },
+        "step4": {
+          "title": "Take Action"
+        },
+        "step5": {
+          "title": "Done",
+          "legitimate": "All clear \u2014 refund pattern explained.",
+          "escalated": "Flagged for investigation."
+        }
+      },
+      "shortage": {
+        "title": "Resolve Cash Drawer Shortage",
+        "step1": {
+          "title": "Confirm the Fact",
+          "prompt": "Was the drawer actually short {amount}?",
+          "option": {
+            "yes": "Yes, the drawer was short",
+            "no": "No, it was a false alarm"
+          }
+        },
+        "step2": {
+          "title": "Who Touched It Last?",
+          "prompt": "Select who last worked this drawer",
+          "no_data": "No timecard data available \u2014 you can enter a name manually"
+        },
+        "step3": {
+          "title": "What Might Have Happened?",
+          "prompt": "Select the most likely cause",
+          "cause": {
+            "refund": "Forgot to ring up a refund",
+            "math": "Math error during count",
+            "theft": "Suspected theft",
+            "other": "Something else"
+          },
+          "option": {
+            "escalate": "Escalate for formal investigation"
+          }
+        },
+        "step4": {
+          "title": "Fix It Now"
+        },
+        "step5": {
+          "title": "Learn & Prevent",
+          "playbook_toggle": "Add to team playbook"
+        },
+        "step6": {
+          "title": "Done",
+          "resolved": "Great job \u2014 shrink prevented.",
+          "false_alarm": "False alarm \u2014 glad to hear it!",
+          "escalated": "Case opened \u2014 investigation started."
+        }
+      }
+    },
+    "scorecard": {
+      "shrink": {
+        "headline_label": "Today's estimated shrinkage",
+        "action": {
+          "label": "See details"
+        }
+      },
+      "alerts": {
+        "headline_label": "this week"
+      },
+      "team": {
+        "headline_label": "Team performance"
+      },
+      "inventory": {
+        "headline_label": "Inventory health"
+      },
+      "treasury": {
+        "headline_label": "Treasury snapshot"
+      },
+      "trend": {
+        "up": "\u2191",
+        "down": "\u2193",
+        "stable": "\u2192",
+        "comparison": "vs. {period}"
+      }
+    },
+    "error": {
+      "offline": {
+        "message": "You're offline \u2014 we'll refresh when you're back."
+      },
+      "server": {
+        "message": "Taking a moment. Try again shortly."
+      },
+      "wizard_step": {
+        "message": "This step couldn't load. Tap to retry."
+      },
+      "photo_upload": {
+        "message": "Photo didn't upload. You can try again or skip for now."
+      },
+      "permission": {
+        "message": "This area is for store owners. Talk to {owner_name} if you need access."
+      },
+      "session": {
+        "message": "Please log in again to continue."
+      },
+      "missing_data": {
+        "message": "We don't have {data_type} data for today. You can still complete this step manually."
+      },
+      "retry": {
+        "label": "Try again"
+      }
+    },
+    "brand": {
+      "wordmark": "CANARY"
+    },
+    "shared": {
+      "action": {
+        "fix": "Fix this",
+        "details": "See details",
+        "retry": "Try again",
+        "cancel": "Cancel",
+        "confirm": "Confirm"
+      },
+      "status": {
+        "loading": "Loading..."
+      },
+      "photo": {
+        "optional": "Optional"
+      }
+    }
+  },
+  "_vertical_examples": {
+    "_note": "Reference implementations showing vocabulary pack vertical deployment. Application ignores this key.",
+    "restaurant": {
+      "employee": { "singular": "Server", "plural": "Servers" },
+      "location": { "singular": "Restaurant", "plural": "Restaurants" },
+      "cash_drawer": { "singular": "Register", "plural": "Registers" },
+      "transaction": { "singular": "Check", "plural": "Checks" },
+      "void": { "singular": "Void", "plural": "Voids" }
+    },
+    "specialty_coffee": {
+      "employee": { "singular": "Barista", "plural": "Baristas" },
+      "location": { "singular": "Caf\u00e9", "plural": "Caf\u00e9s" },
+      "cash_drawer": { "singular": "Register", "plural": "Registers" },
+      "transaction": { "singular": "Order", "plural": "Orders" }
+    },
+    "cannabis_dispensary": {
+      "employee": { "singular": "Budtender", "plural": "Budtenders" },
+      "location": { "singular": "Dispensary", "plural": "Dispensaries" },
+      "transaction": { "singular": "Receipt", "plural": "Receipts" },
+      "void": { "singular": "Cancellation", "plural": "Cancellations" }
+    },
+    "franchise_retail": {
+      "employee": { "singular": "Associate", "plural": "Associates" },
+      "location": { "singular": "Store", "plural": "Stores" },
+      "cash_drawer": { "singular": "Till", "plural": "Tills" },
+      "transaction": { "singular": "Sale", "plural": "Sales" }
+    }
+  }
+}

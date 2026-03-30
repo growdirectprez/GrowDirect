@@ -1,0 +1,400 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>How We Build — GrowDirect Private Briefing</title>
+<style>
+@import url('https://fonts.googleapis.com/css2?family=Bebas+Neue&family=DM+Serif+Display:ital@0;1&family=DM+Sans:wght@300;400;500;600&family=Space+Mono:wght@400;700&display=swap');
+
+:root {
+  --btc: #F7931A;
+  --gold: #FBBF24;
+  --dark: #080808;
+  --dim: #111111;
+  --card: #141414;
+  --border: #1e1e1e;
+  --text: #E8E4DC;
+  --muted: #8a8a8a;
+  --faint: #222;
+  --green: #22C55E;
+  --red: #EF4444;
+}
+
+
+* { margin:0; padding:0; box-sizing:border-box; }
+html { scroll-behavior: smooth; }
+
+body {
+  background: var(--dark);
+  color: var(--text);
+  font-family: 'DM Sans', sans-serif;
+  font-weight: 300;
+  line-height: 1.7;
+  overflow-x: hidden;
+}
+
+/* Grain overlay */
+body::after {
+  content:'';
+  position:fixed;
+  inset:0;
+  pointer-events:none;
+  z-index:2;
+  opacity:0.02;
+  background-image:url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.85' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
+}
+
+/* Nav */
+nav {
+  position: fixed;
+  top: 0; left: 0; right: 0;
+  z-index: 100;
+  background: rgba(8,8,8,0.92);
+  backdrop-filter: blur(12px);
+  border-bottom: 1px solid var(--border);
+  padding: 0 48px;
+  height: 60px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.nav-logo {
+  font-family: 'Bebas Neue', sans-serif;
+  font-size: 22px;
+  letter-spacing: 0.12em;
+  background: linear-gradient(135deg, var(--btc), var(--gold));
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+  text-decoration: none;
+}
+
+.nav-links {
+  display: flex;
+  gap: 24px;
+  list-style: none;
+  flex-wrap: wrap;
+}
+
+.nav-links a {
+  font-family: 'Space Mono', monospace;
+  font-size: 10px;
+  color: var(--muted);
+  text-decoration: none;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  transition: color 0.2s;
+}
+
+.nav-links a:hover,
+.nav-links a.active { color: var(--gold); }
+
+/* Main content */
+main {
+  max-width: 960px;
+  margin: 0 auto;
+  padding: 100px 32px 80px;
+  position: relative;
+  z-index: 3;
+}
+
+/* Typography */
+h1 {
+  font-family: 'Bebas Neue', sans-serif;
+  font-size: 56px;
+  letter-spacing: 0.08em;
+  background: linear-gradient(135deg, var(--btc), var(--gold));
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+  margin-bottom: 16px;
+  line-height: 1.1;
+}
+
+h2 {
+  font-family: 'Bebas Neue', sans-serif;
+  font-size: 36px;
+  letter-spacing: 0.06em;
+  color: var(--gold);
+  margin-top: 48px;
+  margin-bottom: 16px;
+  padding-bottom: 8px;
+  border-bottom: 1px solid var(--border);
+}
+
+h3 {
+  font-family: 'DM Sans', sans-serif;
+  font-size: 20px;
+  font-weight: 600;
+  color: var(--text);
+  margin-top: 32px;
+  margin-bottom: 12px;
+}
+
+h4 {
+  font-family: 'Space Mono', monospace;
+  font-size: 12px;
+  letter-spacing: 0.15em;
+  text-transform: uppercase;
+  color: var(--btc);
+  margin-top: 24px;
+  margin-bottom: 8px;
+}
+
+p {
+  margin-bottom: 20px;
+  font-size: 16px;
+}
+
+a { color: var(--btc); text-decoration: none; transition: color 0.2s; }
+a:hover { color: var(--gold); }
+
+strong { font-weight: 600; color: var(--text); }
+em { font-style: italic; }
+
+/* Lists */
+ul, ol {
+  margin: 0 0 20px 24px;
+  font-size: 16px;
+}
+
+li {
+  margin-bottom: 8px;
+  line-height: 1.7;
+}
+
+/* Blockquote */
+blockquote {
+  border-left: 3px solid var(--btc);
+  padding: 20px 28px;
+  margin: 32px 0;
+  background: rgba(247,147,26,0.03);
+  font-family: 'DM Serif Display', serif;
+  font-style: italic;
+  font-size: 18px;
+  line-height: 1.6;
+  color: var(--text);
+}
+
+/* Code */
+code {
+  font-family: 'Space Mono', monospace;
+  font-size: 13px;
+  background: var(--dim);
+  padding: 2px 8px;
+  border-radius: 3px;
+  color: var(--btc);
+}
+
+pre {
+  background: var(--dim);
+  border: 1px solid var(--border);
+  border-radius: 6px;
+  padding: 20px 24px;
+  margin: 24px 0;
+  overflow-x: auto;
+}
+
+pre code {
+  background: none;
+  padding: 0;
+  font-size: 13px;
+  color: var(--text);
+  line-height: 1.6;
+}
+
+/* Tables */
+table {
+  width: 100%;
+  border-collapse: collapse;
+  margin: 24px 0;
+  font-size: 14px;
+}
+
+th {
+  font-family: 'Space Mono', monospace;
+  font-size: 10px;
+  letter-spacing: 0.15em;
+  text-transform: uppercase;
+  color: var(--btc);
+  text-align: left;
+  padding: 12px 16px;
+  border-bottom: 2px solid var(--border);
+  background: var(--dim);
+}
+
+td {
+  padding: 12px 16px;
+  border-bottom: 1px solid var(--border);
+  color: var(--text);
+}
+
+tr:hover td { background: rgba(247,147,26,0.02); }
+
+/* Cards */
+.card {
+  background: var(--card);
+  border: 1px solid var(--border);
+  border-radius: 8px;
+  padding: 28px;
+  margin: 20px 0;
+}
+
+/* Horizontal rule */
+hr {
+  border: none;
+  border-top: 1px solid var(--border);
+  margin: 48px 0;
+}
+
+/* Section label */
+.section-label {
+  font-family: 'Space Mono', monospace;
+  font-size: 10px;
+  letter-spacing: 0.25em;
+  text-transform: uppercase;
+  color: var(--muted);
+  margin-bottom: 8px;
+}
+
+/* Footer */
+footer {
+  max-width: 960px;
+  margin: 0 auto;
+  padding: 48px 32px;
+  border-top: 1px solid var(--border);
+  text-align: center;
+  position: relative;
+  z-index: 3;
+}
+
+footer p {
+  font-family: 'Space Mono', monospace;
+  font-size: 10px;
+  color: var(--muted);
+  letter-spacing: 0.15em;
+  text-transform: uppercase;
+  margin-bottom: 8px;
+}
+
+footer .version {
+  color: var(--btc);
+}
+
+/* Responsive */
+@media (max-width: 768px) {
+  nav { padding: 0 20px; height: 50px; }
+  .nav-links { gap: 12px; }
+  .nav-links a { font-size: 8px; }
+  main { padding: 80px 20px 60px; }
+  h1 { font-size: 36px; }
+  h2 { font-size: 28px; }
+}
+
+</style>
+</head>
+<body>
+<nav>
+  <a href="index.html" class="nav-logo">GROWDIRECT</a>
+  <ul class="nav-links">
+    <li><a href="the-pitch.html">The Pitch</a></li><li><a href="the-economy.html">The Economy</a></li><li><a href="the-play.html">The Play</a></li><li><a href="the-product.html">The Product</a></li><li><a href="the-fox.html">The Fox</a></li><li><a href="the-goose.html">The Goose</a></li><li><a href="the-owl.html">The Owl</a></li><li><a href="investment-thesis.html">Investment Thesis</a></li><li><a href="the-architecture.html">The Architecture</a></li><li><a href="the-data-model.html">The Data Model</a></li><li><a href="how-we-build.html" class="active">How We Build</a></li><li><a href="the-team.html">The Team</a></li><li><a href="compliance.html">Compliance</a></li><li><a href="protection.html">Protection</a></li><li><a href="the-article.html">The Article</a></li>
+  </ul>
+</nav>
+<main>
+  <div class="section-label">12 — INTERNAL</div>
+  <h1>How We Build</h1>
+  <h1>How We Build</h1>
+<blockquote>
+<em>"Do it right, do it once."</em>
+</blockquote>
+<p>---</p>
+<h2>The Factory Process</h2>
+<p>Software built without a process becomes scope creep, half-built features, and technical debt you can never pay back. GrowDirect operates a six-stage factory process — inherited from a decade of enterprise SaaS platform development and refined for the current team.</p>
+<p>The process was first attempted at a previous company, where the founder built the LP platform that became the industry standard. An acquisition interrupted the process before it matured. GrowDirect is the continuation — the factory rebuilt from zero, without the politics.</p>
+<p>---</p>
+<h2>Six Stages</h2>
+<p>Every feature, every sprint, every deliverable passes through six stages in order. You do not start the next stage until the current stage passes its gate.</p>
+<h3>Stage 1: Blueprint</h3>
+<em>"Write it before you build it."</em></p>
+<p>- Epic defined with one-sentence business justification
+- Features listed with owners
+- User stories written for every feature
+- Acceptance criteria written for every user story
+- Database schema impact identified and reviewed
+- API contract defined (endpoints, inputs, outputs, error codes)
+- Security considerations flagged</p>
+<p><strong>Gate:</strong> Spec reviewed, schema validated, every story has acceptance criteria, business justification approved.</p>
+<h3>Stage 2: Parts</h3>
+<em>"Build the foundation before the walls."</em></p>
+<p>- Database migration written and reviewed
+- Migration runs clean on dev and test — no errors, no warnings
+- API stubs created (routes exist, return 501 Not Implemented)
+- Unit tests written for all critical paths <em>before</em> implementation
+- Test file committed to source control before feature code</p>
+<p><strong>Gate:</strong> Migration runs clean. Test file is committed. Stub structure matches the API contract.</p>
+<h3>Stage 3: Assembly</h3>
+<em>"Now you write the code."</em></p>
+<p>- Feature implementation written to make the tests pass
+- Code review by a second team member
+- Integration tests added for cross-module interactions
+- Documentation updated inline</p>
+<p><strong>Gate:</strong> All tests pass. Code review approved. No new warnings.</p>
+<h3>Stage 4: Quality Control</h3>
+<em>"QA has veto power. No exceptions."</em></p>
+<p>- QA executes test plan against every acceptance criterion
+- Regression tests confirm nothing existing is broken
+- Edge cases tested: empty states, error conditions, concurrent access
+- Performance baseline captured</p>
+<p><strong>Gate:</strong> QA sign-off. Every acceptance criterion verified. No P1 or P2 defects open.</p>
+<h3>Stage 5: Packaging</h3>
+<em>"If a store manager can't understand it, simplify."</em></p>
+<p>- Documentation finalized — companion guides, API docs, release notes
+- Brand compliance verified (design system, naming standards)
+- Deployment configuration validated across all environments
+- Rollback procedure documented and tested</p>
+<p><strong>Gate:</strong> Documentation complete. Deployment tested on staging. Rollback verified.</p>
+<h3>Stage 6: Ship</h3>
+<em>"Something commits every day."</em></p>
+<p>- Deploy to production
+- Smoke test in production environment
+- Merchant notification if user-facing change
+- Monitoring confirmed — alerts configured for new endpoints</p>
+<p><strong>Gate:</strong> Running in production. No critical alerts. Merchant confirmed (if applicable).</p>
+<p>---</p>
+<h2>Scope Discipline</h2>
+<p>Six rules that prevent feature creep:</p>
+<p>1. <strong>No code without a spec.</strong> If the story does not exist, the code does not exist.
+2. <strong>No tests after.</strong> Tests come first on critical paths: auth, payments, detection logic, multi-tenant isolation, evidence integrity.
+3. <strong>No skipping QA.</strong> QA veto is absolute. Nothing ships without sign-off.
+4. <strong>No scope expansion mid-sprint.</strong> New ideas go to the backlog. Current sprint scope is locked.
+5. <strong>No "I'll fix it later."</strong> If it's not right, it does not pass the gate.
+6. <strong>No solo heroics.</strong> Every change gets a second set of eyes before merge.</p>
+<p>---</p>
+<h2>Sprint Rhythm</h2>
+<p>| Cadence | What Happens |
+|---|---|
+| <strong>Daily</strong> | Standup — blockers surfaced, work committed |
+| <strong>Weekly</strong> | Demo to stakeholders — working software, not slides |
+| <strong>Bi-weekly</strong> | Sprint close — retrospective, velocity captured, next sprint planned |
+| <strong>Monthly</strong> | Gate review — are we on track for the nearest milestone? |</p>
+<p>---</p>
+<h2>Why It Matters</h2>
+<p>The factory process is not bureaucracy. It is the mechanism that ensures:</p>
+<p>- <strong>Every feature has a business reason</strong> before any code is written
+- <strong>Every user story has testable criteria</strong> before development starts
+- <strong>Every critical path has tests</strong> before implementation
+- <strong>QA has absolute veto</strong> — nothing ships that does not work
+- <strong>Documentation ships with the code</strong> — not as an afterthought</p>
+<p>The founder tried this once before. The company was acquired before the process matured. This time, there is no acquirer. The factory runs to completion.</p>
+<p>---</p>
+<p><em>GrowDirect Confidential</em>
+</p>
+</main>
+<footer>
+  <p>GrowDirect &middot; Canary LP &middot; Confidential &middot; February 27, 2026</p>
+  <p class="version">War Chest v2.2 &middot; Patent Pending — Provisional 63/991,596</p>
+</footer>
+</body>
+</html>

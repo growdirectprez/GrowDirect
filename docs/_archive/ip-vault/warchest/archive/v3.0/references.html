@@ -1,0 +1,560 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>References — GrowDirect Private Briefing</title>
+<style>
+@import url('https://fonts.googleapis.com/css2?family=Bebas+Neue&family=DM+Serif+Display:ital@0;1&family=DM+Sans:wght@300;400;500;600&family=Space+Mono:wght@400;700&display=swap');
+
+:root {
+  --btc: #F7931A;
+  --gold: #FBBF24;
+  --dark: #080808;
+  --dim: #111111;
+  --card: #141414;
+  --border: #1e1e1e;
+  --text: #E8E4DC;
+  --muted: #8a8a8a;
+  --faint: #222;
+  --green: #22C55E;
+  --red: #EF4444;
+}
+
+
+* { margin:0; padding:0; box-sizing:border-box; }
+html { scroll-behavior: smooth; }
+
+body {
+  background: var(--dark);
+  color: var(--text);
+  font-family: 'DM Sans', sans-serif;
+  font-weight: 300;
+  line-height: 1.7;
+  overflow-x: hidden;
+}
+
+/* Grain overlay */
+body::after {
+  content:'';
+  position:fixed;
+  inset:0;
+  pointer-events:none;
+  z-index:2;
+  opacity:0.02;
+  background-image:url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.85' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
+}
+
+/* Nav */
+nav {
+  position: fixed;
+  top: 0; left: 0; right: 0;
+  z-index: 100;
+  background: rgba(8,8,8,0.92);
+  backdrop-filter: blur(12px);
+  border-bottom: 1px solid var(--border);
+  padding: 0 48px;
+  height: 60px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.nav-logo {
+  font-family: 'Bebas Neue', sans-serif;
+  font-size: 22px;
+  letter-spacing: 0.12em;
+  background: linear-gradient(135deg, var(--btc), var(--gold));
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+  text-decoration: none;
+  white-space: nowrap;
+}
+
+.nav-right {
+  display: flex;
+  align-items: center;
+  gap: 20px;
+  position: relative;
+}
+
+.nav-current {
+  font-family: 'Space Mono', monospace;
+  font-size: 10px;
+  color: var(--muted);
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  max-width: 300px;
+}
+
+.nav-toggle {
+  font-family: 'Space Mono', monospace;
+  font-size: 10px;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  color: var(--btc);
+  background: none;
+  border: 1px solid var(--border);
+  border-radius: 4px;
+  padding: 8px 16px;
+  cursor: pointer;
+  transition: all 0.2s;
+  white-space: nowrap;
+}
+
+.nav-toggle:hover {
+  border-color: var(--btc);
+  color: var(--gold);
+}
+
+/* Section dropdown menu */
+.nav-dropdown {
+  display: none;
+  position: fixed;
+  top: 60px;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  z-index: 99;
+  background: rgba(8,8,8,0.96);
+  backdrop-filter: blur(16px);
+  overflow-y: auto;
+  -webkit-overflow-scrolling: touch;
+}
+
+.nav-dropdown.open { display: block; }
+
+.nav-dropdown-inner {
+  max-width: 700px;
+  margin: 0 auto;
+  padding: 32px 48px 80px;
+}
+
+.nav-section-list {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+}
+
+.nav-section-list li {
+  border-bottom: 1px solid var(--border);
+}
+
+.nav-section-list a {
+  display: flex;
+  align-items: baseline;
+  gap: 16px;
+  padding: 14px 0;
+  text-decoration: none;
+  transition: all 0.2s;
+}
+
+.nav-section-list a:hover {
+  padding-left: 8px;
+}
+
+.nav-section-num {
+  font-family: 'Bebas Neue', sans-serif;
+  font-size: 20px;
+  color: var(--btc);
+  min-width: 32px;
+}
+
+.nav-section-name {
+  font-family: 'DM Sans', sans-serif;
+  font-size: 15px;
+  font-weight: 500;
+  color: var(--text);
+  transition: color 0.2s;
+}
+
+.nav-section-list a:hover .nav-section-name,
+.nav-section-list a.active .nav-section-name {
+  color: var(--gold);
+}
+
+.nav-section-list a.active .nav-section-num {
+  color: var(--gold);
+}
+
+.nav-divider {
+  font-family: 'Space Mono', monospace;
+  font-size: 9px;
+  letter-spacing: 0.25em;
+  text-transform: uppercase;
+  color: var(--muted);
+  padding: 24px 0 8px;
+  border-bottom: none !important;
+}
+
+.nav-section-list li.nav-divider + li {
+  border-top: none;
+}
+
+/* Main content */
+main {
+  max-width: 960px;
+  margin: 0 auto;
+  padding: 100px 32px 80px;
+  position: relative;
+  z-index: 3;
+}
+
+/* Typography */
+h1 {
+  font-family: 'Bebas Neue', sans-serif;
+  font-size: 56px;
+  letter-spacing: 0.08em;
+  background: linear-gradient(135deg, var(--btc), var(--gold));
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+  margin-bottom: 16px;
+  line-height: 1.1;
+}
+
+h2 {
+  font-family: 'Bebas Neue', sans-serif;
+  font-size: 36px;
+  letter-spacing: 0.06em;
+  color: var(--gold);
+  margin-top: 48px;
+  margin-bottom: 16px;
+  padding-bottom: 8px;
+  border-bottom: 1px solid var(--border);
+}
+
+h3 {
+  font-family: 'DM Sans', sans-serif;
+  font-size: 20px;
+  font-weight: 600;
+  color: var(--text);
+  margin-top: 32px;
+  margin-bottom: 12px;
+}
+
+h4 {
+  font-family: 'Space Mono', monospace;
+  font-size: 12px;
+  letter-spacing: 0.15em;
+  text-transform: uppercase;
+  color: var(--btc);
+  margin-top: 24px;
+  margin-bottom: 8px;
+}
+
+p {
+  margin-bottom: 20px;
+  font-size: 16px;
+}
+
+a { color: var(--btc); text-decoration: none; transition: color 0.2s; }
+a:hover { color: var(--gold); }
+
+strong { font-weight: 600; color: var(--text); }
+em { font-style: italic; }
+
+/* Lists */
+ul, ol {
+  margin: 0 0 20px 24px;
+  font-size: 16px;
+}
+
+li {
+  margin-bottom: 8px;
+  line-height: 1.7;
+}
+
+/* Blockquote */
+blockquote {
+  border-left: 3px solid var(--btc);
+  padding: 20px 28px;
+  margin: 32px 0;
+  background: rgba(247,147,26,0.03);
+  font-family: 'DM Serif Display', serif;
+  font-style: italic;
+  font-size: 18px;
+  line-height: 1.6;
+  color: var(--text);
+}
+
+/* Code */
+code {
+  font-family: 'Space Mono', monospace;
+  font-size: 13px;
+  background: var(--dim);
+  padding: 2px 8px;
+  border-radius: 3px;
+  color: var(--btc);
+}
+
+pre {
+  background: var(--dim);
+  border: 1px solid var(--border);
+  border-radius: 6px;
+  padding: 20px 24px;
+  margin: 24px 0;
+  overflow-x: auto;
+}
+
+pre code {
+  background: none;
+  padding: 0;
+  font-size: 13px;
+  color: var(--text);
+  line-height: 1.6;
+}
+
+/* Tables */
+table {
+  width: 100%;
+  border-collapse: collapse;
+  margin: 24px 0;
+  font-size: 14px;
+}
+
+th {
+  font-family: 'Space Mono', monospace;
+  font-size: 10px;
+  letter-spacing: 0.15em;
+  text-transform: uppercase;
+  color: var(--btc);
+  text-align: left;
+  padding: 12px 16px;
+  border-bottom: 2px solid var(--border);
+  background: var(--dim);
+}
+
+td {
+  padding: 12px 16px;
+  border-bottom: 1px solid var(--border);
+  color: var(--text);
+}
+
+tr:hover td { background: rgba(247,147,26,0.02); }
+
+/* Cards */
+.card {
+  background: var(--card);
+  border: 1px solid var(--border);
+  border-radius: 8px;
+  padding: 28px;
+  margin: 20px 0;
+}
+
+/* Horizontal rule */
+hr {
+  border: none;
+  border-top: 1px solid var(--border);
+  margin: 48px 0;
+}
+
+/* Section label */
+.section-label {
+  font-family: 'Space Mono', monospace;
+  font-size: 10px;
+  letter-spacing: 0.25em;
+  text-transform: uppercase;
+  color: var(--muted);
+  margin-bottom: 8px;
+}
+
+/* Prev / Next page navigation */
+.page-nav {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-top: 64px;
+  padding-top: 32px;
+  border-top: 1px solid var(--border);
+}
+
+.page-nav a {
+  font-family: 'Space Mono', monospace;
+  font-size: 11px;
+  color: var(--muted);
+  text-decoration: none;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  transition: color 0.2s;
+  max-width: 45%;
+}
+
+.page-nav a:hover { color: var(--gold); }
+.page-nav .prev::before { content: '\2190  '; }
+.page-nav .next::after { content: '  \2192'; }
+
+/* Utility footer links */
+.footer-utils {
+  display: flex;
+  justify-content: center;
+  gap: 32px;
+  margin-top: 20px;
+  padding-top: 16px;
+  border-top: 1px solid var(--border);
+  flex-wrap: wrap;
+}
+
+.footer-utils a {
+  font-family: 'Space Mono', monospace;
+  font-size: 9px;
+  color: var(--muted);
+  text-decoration: none;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  transition: color 0.2s;
+}
+
+.footer-utils a:hover { color: var(--btc); }
+
+/* Footer */
+footer {
+  max-width: 960px;
+  margin: 0 auto;
+  padding: 48px 32px;
+  border-top: 1px solid var(--border);
+  text-align: center;
+  position: relative;
+  z-index: 3;
+}
+
+footer p {
+  font-family: 'Space Mono', monospace;
+  font-size: 10px;
+  color: var(--muted);
+  letter-spacing: 0.15em;
+  text-transform: uppercase;
+  margin-bottom: 8px;
+}
+
+footer .version {
+  color: var(--btc);
+}
+
+/* Embed iframe for interactive pages */
+.embed-frame {
+  width: 100%;
+  min-height: 80vh;
+  border: 1px solid var(--border);
+  border-radius: 8px;
+  background: var(--dim);
+}
+
+/* Responsive */
+@media (max-width: 768px) {
+  nav { padding: 0 20px; height: 50px; }
+  .nav-current { display: none; }
+  .nav-toggle { font-size: 9px; padding: 6px 12px; }
+  .nav-dropdown-inner { padding: 20px; }
+  main { padding: 80px 20px 60px; }
+  h1 { font-size: 36px; }
+  h2 { font-size: 28px; }
+  .page-nav { flex-direction: column; gap: 16px; }
+  .page-nav a { max-width: 100%; text-align: center; }
+  .embed-frame { min-height: 60vh; }
+}
+
+</style>
+</head>
+<body>
+<script>
+if(!sessionStorage.getItem('wc_auth')){
+  window.location.href='index.html?r='+encodeURIComponent(window.location.pathname.split('/').pop());
+}
+</script>
+<nav>
+  <a href="index.html" class="nav-logo">GROWDIRECT</a>
+  <div class="nav-right">
+    <span class="nav-current">References</span>
+    <button class="nav-toggle" onclick="document.getElementById('navDrop').classList.toggle('open');this.textContent=this.textContent==='SECTIONS'?'CLOSE':'SECTIONS'" aria-label="Toggle section menu">SECTIONS</button>
+  </div>
+</nav>
+<div id="navDrop" class="nav-dropdown" onclick="if(event.target===this){this.classList.remove('open');document.querySelector('.nav-toggle').textContent='SECTIONS'}">
+  <div class="nav-dropdown-inner">
+    <ul class="nav-section-list">
+      <li><a href="the-pitch.html"><span class="nav-section-num">01</span><span class="nav-section-name">The Pitch</span></a></li><li><a href="eljeffe.html"><span class="nav-section-num">02</span><span class="nav-section-name">elJeffe</span></a></li><li><a href="the-economy.html"><span class="nav-section-num">03</span><span class="nav-section-name">The Economy</span></a></li><li><a href="the-play.html"><span class="nav-section-num">04</span><span class="nav-section-name">The Play</span></a></li><li><a href="the-product.html"><span class="nav-section-num">05</span><span class="nav-section-name">The Product</span></a></li><li><a href="the-fox.html"><span class="nav-section-num">06</span><span class="nav-section-name">The Fox</span></a></li><li><a href="the-goose.html"><span class="nav-section-num">07</span><span class="nav-section-name">The Goose</span></a></li><li><a href="the-owl.html"><span class="nav-section-num">08</span><span class="nav-section-name">The Owl</span></a></li><li><a href="investment-thesis.html"><span class="nav-section-num">09</span><span class="nav-section-name">Investment Thesis</span></a></li><li><a href="the-architecture.html"><span class="nav-section-num">10</span><span class="nav-section-name">The Architecture</span></a></li><li><a href="the-data-model.html"><span class="nav-section-num">11</span><span class="nav-section-name">The Data Model</span></a></li><li><a href="how-we-build.html"><span class="nav-section-num">12</span><span class="nav-section-name">How We Build</span></a></li><li><a href="the-team.html"><span class="nav-section-num">13</span><span class="nav-section-name">The Team</span></a></li><li><a href="compliance.html"><span class="nav-section-num">14</span><span class="nav-section-name">Compliance</span></a></li><li><a href="protection.html"><span class="nav-section-num">15</span><span class="nav-section-name">Protection</span></a></li><li><a href="the-article.html"><span class="nav-section-num">16</span><span class="nav-section-name">The Article</span></a></li><li><a href="the-market.html"><span class="nav-section-num">17</span><span class="nav-section-name">The Market</span></a></li><li><a href="the-financials.html"><span class="nav-section-num">18</span><span class="nav-section-name">The Financials</span></a></li><li class="nav-divider">Reference &amp; Governance</li><li><a href="disclaimer.html"><span class="nav-section-num">&mdash;</span><span class="nav-section-name">Disclaimer</span></a></li><li><a href="changelog.html"><span class="nav-section-num">&mdash;</span><span class="nav-section-name">Change Log</span></a></li><li><a href="issues.html"><span class="nav-section-num">&mdash;</span><span class="nav-section-name">Known Issues</span></a></li><li><a href="references.html" class="active"><span class="nav-section-num">&mdash;</span><span class="nav-section-name">References</span></a></li>
+    </ul>
+  </div>
+</div>
+<main>
+  <div class="section-label">93 — INVESTOR</div>
+  <h1>References</h1>
+  <h1>References & Bibliography</h1>
+<blockquote>
+<em>Sources, standards, and prior art referenced throughout the GrowDirect Private Briefing.</em>
+</blockquote>
+<p>---</p>
+<h2>Retail Loss Prevention Industry</h2>
+<h3>Market & Scale</h3>
+<p>- <strong>National Retail Federation (NRF)</strong> — <em>2024 National Retail Security Survey</em>. Annual shrinkage estimated at $112.1 billion in the US retail sector, with organized retail crime (ORC) accounting for a growing share.
+- <strong>Loss Prevention Research Council (LPRC)</strong> — Ongoing research into retail crime patterns, detection methodologies, and technology adoption in loss prevention.
+- <strong>D&D Daily</strong> — <em>Daily reporting on retail crime, loss prevention technology, and industry trends.</em></p>
+<h3>Enterprise Systems Heritage</h3>
+<p>- <strong>IBM tLog (Transaction Log)</strong> — The enterprise retail transaction logging standard that originated at IBM's retail division. Deployed across major retailers globally for point-of-sale audit and exception-based reporting. The conceptual ancestor of GrowDirect's gLog architecture.
+- <strong>Tesco TDS (Transaction Data Store)</strong> — Tesco's proprietary evolution of the IBM tLog framework, incorporating supplier-facing analytics and loyalty program integration. The largest single-retailer implementation of transaction-level loss prevention analytics.
+- <strong>GSLM (Global Stock Loss Model)</strong> — Academic and industry framework for classifying retail shrinkage by root cause (external theft, internal theft, process failure, supplier fraud). Informed CRDM's canonical source taxonomy.</p>
+<p>---</p>
+<h2>Bitcoin & Timechain Technology</h2>
+<h3>Protocol & Standards</h3>
+<p>- <strong>Nakamoto, S. (2008)</strong> — <em>Bitcoin: A Peer-to-Peer Electronic Cash System</em>. The foundational whitepaper establishing SHA-256 proof-of-work, UTXO model, and the timechain's immutability guarantees that underpin gLog inscription.
+- <strong>BIP-174 (Partially Signed Bitcoin Transactions)</strong> — Standard for multi-party transaction construction relevant to Goose payment channel architecture.
+- <strong>Ordinals Protocol (Casey Rodarmor, 2023)</strong> — Theory and specification for inscribing arbitrary data onto individual satoshis. The technical mechanism enabling gLog's permanent evidence inscription on the Bitcoin timechain.
+- <strong>Lightning Network (Poon & Dryja, 2016)</strong> — <em>The Bitcoin Lightning Network: Scalable Off-Chain Instant Payments</em>. Payment channel network enabling Goose's micro-fee settlement layer.
+- <strong>L402 Protocol</strong> — HTTP 402-based machine-to-machine payment protocol using Lightning macaroons. Proposed as gLog's API metering and data access control mechanism.</p>
+<h3>Inscription & Data Integrity</h3>
+<p>- <strong>Merkle, R. (1979)</strong> — <em>Secrecy, Authentication, and Public Key Systems</em>. The Merkle tree data structure used in gLog's batch inscription model for aggregating multiple evidence hashes into a single timechain commitment.
+- <strong>RFC 6962 (Certificate Transparency)</strong> — Merkle tree-based append-only log structure. Architectural parallel for gLog's evidence chain design.</p>
+<p>---</p>
+<h2>Data Architecture & Standards</h2>
+<h3>Retail Data Standards</h3>
+<p>- <strong>ARTS (Association for Retail Technology Standards)</strong> — <em>POSLog XML Standard</em>. Industry-standard schema for point-of-sale transaction data. CRDM's canonical source mapping draws from ARTS field definitions.
+- <strong>GS1</strong> — <em>Global Standards for Business Communication</em>. Product identification (GTIN), location identification (GLN), and event tracking (EPCIS) standards referenced in CRDM's multi-POS translation layer.
+- <strong>Square Developer Platform</strong> — <em>Square API Documentation</em>. Primary POS integration target. Webhook events, OAuth 2.0 authentication, and transaction data models inform Canary's capture pipeline design.</p>
+<h3>Database & Architecture</h3>
+<p>- <strong>Event Sourcing Pattern</strong> — Architectural pattern where state changes are stored as an immutable sequence of events rather than mutable current-state records. Core design principle for gLog and the evidence chain.
+- <strong>CQRS (Command Query Responsibility Segregation)</strong> — Separation of read and write operations into distinct models. Applied in Canary's three-database architecture (transactional, analytical, immutable).
+- <strong>Row-Level Security (RLS)</strong> — PostgreSQL-native tenant isolation mechanism used in Canary's multi-tenant architecture to enforce merchant data boundaries at the database level.</p>
+<p>---</p>
+<h2>Legal & Compliance</h2>
+<h3>Regulatory Frameworks</h3>
+<p>- <strong>Sarbanes-Oxley Act (SOX) Section 302/404</strong> — Internal control and audit trail requirements. CRDM's INSERT-only evidence tables and hash chain verification are designed to satisfy SOX-equivalent data integrity standards.
+- <strong>GDPR (General Data Protection Regulation)</strong> — EU privacy regulation. gLog's PII-hashing-before-inscription architecture directly addresses GDPR's right to erasure by ensuring no personal data reaches the timechain.
+- <strong>CCPA (California Consumer Privacy Act)</strong> — California privacy law with similar PII protection requirements to GDPR. Canary's compliance-by-construction approach addresses both frameworks simultaneously.
+- <strong>PCI DSS (Payment Card Industry Data Security Standard)</strong> — Cardholder data protection requirements. Relevant to Goose payment processing module design.</p>
+<h3>Intellectual Property</h3>
+<p>- <strong>US Provisional Patent Application No. 63/991,596</strong> — Filed with the United States Patent and Trademark Office. Covers the staged immutability pipeline, triple-subscriber architecture, and bilateral verification methods described in these Materials.</p>
+<p>---</p>
+<h2>Industry Analogies Referenced</h2>
+<p>| Analogy | Context | Reference |
+|---|---|---|
+| VeriSign / DNS | gLog as a trust registry, analogous to VeriSign's role in internet certificate authority | Investment thesis — digital trust infrastructure |
+| IP Address Ranges | Early block space acquisition compared to early internet IP range allocation — scarce, appreciating digital real estate | Investment thesis — block space moat |
+| Guard Dog for Small Business | Canary LP as an always-on loss prevention system that SMBs can afford | Pitch narrative — product positioning |</p>
+<p>---</p>
+<h2>Internal Research Documents</h2>
+<p>The following internal research briefs inform the content of this briefing. These documents are not included in external distributions but are available for due diligence review upon request under NDA.</p>
+<p>| Document | Scope |
+|---|---|
+| CRDM v1.0 Specification | Full schema specification — 7 canonical sources, field definitions, migration history |
+| Staged Immutability Pipeline Analysis | Patent-relevant technical deep dive on the 6-node capture pipeline |
+| Bitcoin Protocol Position Paper | Strategic analysis of Bitcoin as enterprise infrastructure |
+| Competitive Landscape Analysis | Detailed competitive positioning against enterprise LP vendors |
+| Micropayment Strategy Position Paper | Lightning Network fee economics and metering model |
+| Volume Analysis (Inscription Economics) | Cost modeling for gLog inscription at scale |</p>
+<p>---</p>
+<p><em>Last updated: February 27, 2026</em>
+<em>GrowDirect Confidential — Patent Pending — Provisional 63/991,596</em>
+</p>
+  <div class="page-nav"><a class="prev" href="issues.html">Known Issues</a><span></span></div>
+</main>
+<footer>
+  <p>GrowDirect &middot; Canary LP &middot; Confidential &middot; February 27, 2026</p>
+  <p class="version">War Chest v2.5 &middot; Patent Pending — Provisional 63/991,596</p>
+  <div class="footer-utils"><a href="disclaimer.html">Disclaimer</a> &middot; <a href="changelog.html">Change Log</a> &middot; <a href="issues.html">Known Issues</a> &middot; <a href="references.html">References</a></div>
+</footer>
+</body>
+</html>

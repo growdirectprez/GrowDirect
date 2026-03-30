@@ -1,0 +1,443 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Change Log — GrowDirect Private Briefing</title>
+<style>
+@import url('https://fonts.googleapis.com/css2?family=Bebas+Neue&family=DM+Serif+Display:ital@0;1&family=DM+Sans:wght@300;400;500;600&family=Space+Mono:wght@400;700&display=swap');
+
+:root {
+  --btc: #F7931A;
+  --gold: #FBBF24;
+  --dark: #080808;
+  --dim: #111111;
+  --card: #141414;
+  --border: #1e1e1e;
+  --text: #E8E4DC;
+  --muted: #8a8a8a;
+  --faint: #222;
+  --green: #22C55E;
+  --red: #EF4444;
+}
+
+
+* { margin:0; padding:0; box-sizing:border-box; }
+html { scroll-behavior: smooth; }
+
+body {
+  background: var(--dark);
+  color: var(--text);
+  font-family: 'DM Sans', sans-serif;
+  font-weight: 300;
+  line-height: 1.7;
+  overflow-x: hidden;
+}
+
+/* Grain overlay */
+body::after {
+  content:'';
+  position:fixed;
+  inset:0;
+  pointer-events:none;
+  z-index:2;
+  opacity:0.02;
+  background-image:url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.85' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
+}
+
+/* Nav */
+nav {
+  position: fixed;
+  top: 0; left: 0; right: 0;
+  z-index: 100;
+  background: rgba(8,8,8,0.92);
+  backdrop-filter: blur(12px);
+  border-bottom: 1px solid var(--border);
+  padding: 0 48px;
+  height: 60px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.nav-logo {
+  font-family: 'Bebas Neue', sans-serif;
+  font-size: 22px;
+  letter-spacing: 0.12em;
+  background: linear-gradient(135deg, var(--btc), var(--gold));
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+  text-decoration: none;
+  white-space: nowrap;
+}
+
+.nav-links {
+  display: flex;
+  gap: 24px;
+  list-style: none;
+  flex-wrap: wrap;
+  overflow-x: auto;
+  -webkit-overflow-scrolling: touch;
+  scrollbar-width: none;
+}
+
+.nav-links::-webkit-scrollbar { display: none; }
+
+.nav-links a {
+  font-family: 'Space Mono', monospace;
+  font-size: 10px;
+  color: var(--muted);
+  text-decoration: none;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  transition: color 0.2s;
+  white-space: nowrap;
+}
+
+.nav-links a:hover,
+.nav-links a.active { color: var(--gold); }
+
+/* Main content */
+main {
+  max-width: 960px;
+  margin: 0 auto;
+  padding: 100px 32px 80px;
+  position: relative;
+  z-index: 3;
+}
+
+/* Typography */
+h1 {
+  font-family: 'Bebas Neue', sans-serif;
+  font-size: 56px;
+  letter-spacing: 0.08em;
+  background: linear-gradient(135deg, var(--btc), var(--gold));
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+  margin-bottom: 16px;
+  line-height: 1.1;
+}
+
+h2 {
+  font-family: 'Bebas Neue', sans-serif;
+  font-size: 36px;
+  letter-spacing: 0.06em;
+  color: var(--gold);
+  margin-top: 48px;
+  margin-bottom: 16px;
+  padding-bottom: 8px;
+  border-bottom: 1px solid var(--border);
+}
+
+h3 {
+  font-family: 'DM Sans', sans-serif;
+  font-size: 20px;
+  font-weight: 600;
+  color: var(--text);
+  margin-top: 32px;
+  margin-bottom: 12px;
+}
+
+h4 {
+  font-family: 'Space Mono', monospace;
+  font-size: 12px;
+  letter-spacing: 0.15em;
+  text-transform: uppercase;
+  color: var(--btc);
+  margin-top: 24px;
+  margin-bottom: 8px;
+}
+
+p {
+  margin-bottom: 20px;
+  font-size: 16px;
+}
+
+a { color: var(--btc); text-decoration: none; transition: color 0.2s; }
+a:hover { color: var(--gold); }
+
+strong { font-weight: 600; color: var(--text); }
+em { font-style: italic; }
+
+/* Lists */
+ul, ol {
+  margin: 0 0 20px 24px;
+  font-size: 16px;
+}
+
+li {
+  margin-bottom: 8px;
+  line-height: 1.7;
+}
+
+/* Blockquote */
+blockquote {
+  border-left: 3px solid var(--btc);
+  padding: 20px 28px;
+  margin: 32px 0;
+  background: rgba(247,147,26,0.03);
+  font-family: 'DM Serif Display', serif;
+  font-style: italic;
+  font-size: 18px;
+  line-height: 1.6;
+  color: var(--text);
+}
+
+/* Code */
+code {
+  font-family: 'Space Mono', monospace;
+  font-size: 13px;
+  background: var(--dim);
+  padding: 2px 8px;
+  border-radius: 3px;
+  color: var(--btc);
+}
+
+pre {
+  background: var(--dim);
+  border: 1px solid var(--border);
+  border-radius: 6px;
+  padding: 20px 24px;
+  margin: 24px 0;
+  overflow-x: auto;
+}
+
+pre code {
+  background: none;
+  padding: 0;
+  font-size: 13px;
+  color: var(--text);
+  line-height: 1.6;
+}
+
+/* Tables */
+table {
+  width: 100%;
+  border-collapse: collapse;
+  margin: 24px 0;
+  font-size: 14px;
+}
+
+th {
+  font-family: 'Space Mono', monospace;
+  font-size: 10px;
+  letter-spacing: 0.15em;
+  text-transform: uppercase;
+  color: var(--btc);
+  text-align: left;
+  padding: 12px 16px;
+  border-bottom: 2px solid var(--border);
+  background: var(--dim);
+}
+
+td {
+  padding: 12px 16px;
+  border-bottom: 1px solid var(--border);
+  color: var(--text);
+}
+
+tr:hover td { background: rgba(247,147,26,0.02); }
+
+/* Cards */
+.card {
+  background: var(--card);
+  border: 1px solid var(--border);
+  border-radius: 8px;
+  padding: 28px;
+  margin: 20px 0;
+}
+
+/* Horizontal rule */
+hr {
+  border: none;
+  border-top: 1px solid var(--border);
+  margin: 48px 0;
+}
+
+/* Section label */
+.section-label {
+  font-family: 'Space Mono', monospace;
+  font-size: 10px;
+  letter-spacing: 0.25em;
+  text-transform: uppercase;
+  color: var(--muted);
+  margin-bottom: 8px;
+}
+
+/* Prev / Next page navigation */
+.page-nav {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-top: 64px;
+  padding-top: 32px;
+  border-top: 1px solid var(--border);
+}
+
+.page-nav a {
+  font-family: 'Space Mono', monospace;
+  font-size: 11px;
+  color: var(--muted);
+  text-decoration: none;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  transition: color 0.2s;
+  max-width: 45%;
+}
+
+.page-nav a:hover { color: var(--gold); }
+.page-nav .prev::before { content: '\2190  '; }
+.page-nav .next::after { content: '  \2192'; }
+
+/* Utility footer links */
+.footer-utils {
+  display: flex;
+  justify-content: center;
+  gap: 32px;
+  margin-top: 20px;
+  padding-top: 16px;
+  border-top: 1px solid var(--border);
+  flex-wrap: wrap;
+}
+
+.footer-utils a {
+  font-family: 'Space Mono', monospace;
+  font-size: 9px;
+  color: var(--muted);
+  text-decoration: none;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  transition: color 0.2s;
+}
+
+.footer-utils a:hover { color: var(--btc); }
+
+/* Footer */
+footer {
+  max-width: 960px;
+  margin: 0 auto;
+  padding: 48px 32px;
+  border-top: 1px solid var(--border);
+  text-align: center;
+  position: relative;
+  z-index: 3;
+}
+
+footer p {
+  font-family: 'Space Mono', monospace;
+  font-size: 10px;
+  color: var(--muted);
+  letter-spacing: 0.15em;
+  text-transform: uppercase;
+  margin-bottom: 8px;
+}
+
+footer .version {
+  color: var(--btc);
+}
+
+/* Responsive */
+@media (max-width: 768px) {
+  nav { padding: 0 20px; height: 50px; }
+  .nav-links { gap: 12px; }
+  .nav-links a { font-size: 8px; }
+  main { padding: 80px 20px 60px; }
+  h1 { font-size: 36px; }
+  h2 { font-size: 28px; }
+  .page-nav { flex-direction: column; gap: 16px; }
+  .page-nav a { max-width: 100%; text-align: center; }
+}
+
+</style>
+</head>
+<body>
+<script>
+if(!sessionStorage.getItem('wc_auth')){
+  window.location.href='index.html?r='+encodeURIComponent(window.location.pathname.split('/').pop());
+}
+</script>
+<nav>
+  <a href="index.html" class="nav-logo">GROWDIRECT</a>
+  <ul class="nav-links">
+    <li><a href="the-pitch.html">The Pitch</a></li><li><a href="the-economy.html">The Economy</a></li><li><a href="the-play.html">The Play</a></li><li><a href="the-product.html">The Product</a></li><li><a href="the-fox.html">The Fox</a></li><li><a href="the-goose.html">The Goose</a></li><li><a href="the-owl.html">The Owl</a></li><li><a href="investment-thesis.html">Investment Thesis</a></li><li><a href="the-architecture.html">The Architecture</a></li><li><a href="the-data-model.html">The Data Model</a></li><li><a href="how-we-build.html">How We Build</a></li><li><a href="the-team.html">The Team</a></li><li><a href="compliance.html">Compliance</a></li><li><a href="protection.html">Protection</a></li><li><a href="the-article.html">The Article</a></li>
+  </ul>
+</nav>
+<main>
+  <div class="section-label">91 — INTERNAL</div>
+  <h1>Change Log</h1>
+  <h1>Change Log</h1>
+<blockquote>
+<em>Version history for the GrowDirect Private Briefing.</em>
+</blockquote>
+<p>---</p>
+<h2>Version 2.3 — February 27, 2026</h2>
+<p><strong>Full navigation overhaul + reference pages</strong></p>
+<p>- Added session-based authentication — navigate between pages without re-entering access code
+- Fixed top navigation bar across all pages including index
+- Added previous/next navigation at the bottom of every section
+- Added Disclaimer, Change Log, Issues, and References as utility pages
+- Utility pages accessible from footer and index TOC
+- Back-to-index navigation via GROWDIRECT logo on every page</p>
+<p>---</p>
+<h2>Version 2.2 — February 27, 2026</h2>
+<p><strong>elJeffe page set aside</strong></p>
+<p>- Removed elJeffe orbital diagram from pack (duplicated The Economy content)
+- Section preserved in catalog for future use, removed from all output feeds
+- Pack now builds 15 content pages</p>
+<p>---</p>
+<h2>Version 2.1 — February 27, 2026</h2>
+<p><strong>Full content library population</strong></p>
+<p>- Added 8 new source files: Investment Thesis, Architecture, Data Model, How We Build, Team, Compliance, Protection, The Article
+- All 16 sections now have content (up from 8)
+- Agent name sanitization pass — removed all internal team references from external-facing content
+- Fixed internal team references in product prototype to role-based labels
+- Working Papers index created (WORKING_PAPERS.md) — 7 domains, 37 chapters, 200+ files mapped</p>
+<p>---</p>
+<h2>Version 2.0 — February 27, 2026</h2>
+<p><strong>War Chest v2.0 manifest redesign</strong></p>
+<p>- Manifest upgraded with feeds routing (pack, investor, public)
+- Outputs block added (pack, investor, public targets)
+- Published version history added to manifest
+- Build script patched for feeds-based filtering
+- Muted text color improved from #5a5a5a to #8a8a8a for readability</p>
+<p>---</p>
+<h2>Version 0.6 — February 27, 2026</h2>
+<p><strong>Pre-population build</strong></p>
+<p>- 8 existing content sections built (Pitch, Economy, Play, Product, Fox, Goose, Owl, elJeffe)
+- Password gate operational
+- Pack archived to archive/v0.6/</p>
+<p>---</p>
+<h2>Version 0.5 — February 27, 2026</h2>
+<p>- Navigation refinements
+- Table styling improvements
+- Section ordering stabilized</p>
+<p>---</p>
+<h2>Version 0.4 — February 27, 2026</h2>
+<p>- Design system implementation (Bebas Neue, DM Sans, Space Mono)
+- Bitcoin-orange gradient treatment for headings
+- Grain texture overlay
+- Card component styling</p>
+<p>---</p>
+<h2>Version 0.3 — February 27, 2026</h2>
+<p>- Multi-page site structure implemented
+- Table of contents index page
+- Per-section HTML generation from markdown sources</p>
+<p>---</p>
+<h2>Version 0.2 — February 27, 2026</h2>
+<p>- Initial password-gated prototype
+- Basic markdown-to-HTML conversion
+- First archived build</p>
+<p>---</p>
+<p><em>GrowDirect Confidential</em>
+</p>
+  <div class="page-nav"><a class="prev" href="disclaimer.html">Disclaimer</a><a class="next" href="issues.html">Known Issues</a></div>
+</main>
+<footer>
+  <p>GrowDirect &middot; Canary LP &middot; Confidential &middot; February 27, 2026</p>
+  <p class="version">War Chest v2.3 &middot; Patent Pending — Provisional 63/991,596</p>
+  <div class="footer-utils"><a href="disclaimer.html">Disclaimer</a> &middot; <a href="changelog.html">Change Log</a> &middot; <a href="issues.html">Known Issues</a> &middot; <a href="references.html">References</a></div>
+</footer>
+</body>
+</html>

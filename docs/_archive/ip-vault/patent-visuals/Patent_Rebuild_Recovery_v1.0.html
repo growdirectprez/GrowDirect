@@ -1,0 +1,237 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Rebuild &amp; Recovery Path — FIG. 6</title>
+<style>
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+  body { background: #0d1117; font-family: 'Segoe UI', system-ui, sans-serif; overflow-x: hidden; }
+  svg { display: block; margin: 0 auto; }
+</style>
+</head>
+<body>
+<svg viewBox="0 0 1000 1250" width="1000" height="1250" xmlns="http://www.w3.org/2000/svg">
+  <defs>
+    <marker id="a-w" markerWidth="8" markerHeight="6" refX="8" refY="3" orient="auto"><path d="M0,0 L8,3 L0,6" fill="#555"/></marker>
+    <marker id="a-y" markerWidth="8" markerHeight="6" refX="8" refY="3" orient="auto"><path d="M0,0 L8,3 L0,6" fill="#f59e0b"/></marker>
+    <marker id="a-g" markerWidth="8" markerHeight="6" refX="8" refY="3" orient="auto"><path d="M0,0 L8,3 L0,6" fill="#10b981"/></marker>
+    <marker id="a-r" markerWidth="8" markerHeight="6" refX="8" refY="3" orient="auto"><path d="M0,0 L8,3 L0,6" fill="#ef4444"/></marker>
+    <marker id="a-b" markerWidth="8" markerHeight="6" refX="8" refY="3" orient="auto"><path d="M0,0 L8,3 L0,6" fill="#3b82f6"/></marker>
+
+    <linearGradient id="btc-grd" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" style="stop-color:#2a1a0a;stop-opacity:1"/>
+      <stop offset="100%" style="stop-color:#0d1117;stop-opacity:1"/>
+    </linearGradient>
+    <filter id="glow">
+      <feGaussianBlur stdDeviation="4" result="blur"/>
+      <feMerge><feMergeNode in="blur"/><feMergeNode in="SourceGraphic"/></feMerge>
+    </filter>
+  </defs>
+
+  <!-- ═══ TITLE ═══ -->
+  <text x="500" y="38" text-anchor="middle" font-size="17" fill="#f0f0f0" font-weight="600" letter-spacing="1.5">REBUILD &amp; RECOVERY PATH</text>
+  <text x="500" y="58" text-anchor="middle" font-size="12" fill="#666">The Cockroach Test — If Only Bitcoin Survives, Can You Recover? Yes.</text>
+  <text x="500" y="78" text-anchor="middle" font-size="12" fill="#f59e0b" font-weight="600" letter-spacing="1">FIG. 6 — DISASTER RECOVERY ARCHITECTURE</text>
+
+  <!-- ═══════════════════════════════════ -->
+  <!-- SCENARIO 1: STRUCTURED STORE FAILS -->
+  <!-- ═══════════════════════════════════ -->
+  <rect x="80" y="110" width="840" height="300" rx="14" fill="none" stroke="#3b82f6" stroke-width="1.5"/>
+  <rect x="80" y="110" width="840" height="300" rx="14" fill="#3b82f6" opacity="0.02"/>
+
+  <rect x="95" y="104" width="240" height="20" rx="4" fill="#0d1117"/>
+  <text x="100" y="118" font-size="12" fill="#60a5fa" font-weight="700" letter-spacing="0.5">SCENARIO 1 — L2 INDEX FAILS</text>
+
+  <text x="500" y="145" text-anchor="middle" font-size="11" fill="#888">Structured Store (queryable tables) is corrupted or lost</text>
+
+  <!-- What's dead -->
+  <rect x="120" y="165" width="200" height="70" rx="8" fill="#0d1117" stroke="#ef4444" stroke-width="2"/>
+  <text x="220" y="180" text-anchor="middle" font-size="14" fill="#ef4444">✕</text>
+  <text x="220" y="198" text-anchor="middle" font-size="11" fill="#f87171" font-weight="600">Structured Store</text>
+  <text x="220" y="215" text-anchor="middle" font-size="9" fill="#888">Query tables gone</text>
+  <text x="220" y="228" text-anchor="middle" font-size="9" fill="#888">Dashboard offline</text>
+
+  <!-- What's alive -->
+  <rect x="380" y="165" width="200" height="70" rx="8" fill="#0d1117" stroke="#10b981" stroke-width="2"/>
+  <text x="480" y="180" text-anchor="middle" font-size="14" fill="#10b981">✓</text>
+  <text x="480" y="198" text-anchor="middle" font-size="11" fill="#34d399" font-weight="600">Evidence Store</text>
+  <text x="480" y="215" text-anchor="middle" font-size="9" fill="#888">All raw events intact</text>
+  <text x="480" y="228" text-anchor="middle" font-size="9" fill="#888">Hash chains unbroken</text>
+
+  <rect x="640" y="165" width="200" height="70" rx="8" fill="#0d1117" stroke="#f59e0b" stroke-width="2"/>
+  <text x="740" y="180" text-anchor="middle" font-size="14" fill="#f59e0b">✓</text>
+  <text x="740" y="198" text-anchor="middle" font-size="11" fill="#fbbf24" font-weight="600">₿ Bitcoin</text>
+  <text x="740" y="215" text-anchor="middle" font-size="9" fill="#888">All inscriptions intact</text>
+  <text x="740" y="228" text-anchor="middle" font-size="9" fill="#888">Merkle roots on-chain</text>
+
+  <!-- Recovery flow -->
+  <text x="500" y="265" text-anchor="middle" font-size="10" fill="#10b981" font-weight="700" letter-spacing="0.5">RECOVERY: REPLAY FROM EVIDENCE STORE</text>
+
+  <rect x="160" y="280" width="140" height="40" rx="6" fill="#0d1117" stroke="#10b981" stroke-width="1.5"/>
+  <text x="230" y="304" text-anchor="middle" font-size="9" fill="#34d399" font-weight="600">Read evidence rows</text>
+
+  <line x1="300" y1="300" x2="340" y2="300" stroke="#10b981" stroke-width="2" marker-end="url(#a-g)"/>
+
+  <rect x="350" y="280" width="140" height="40" rx="6" fill="#0d1117" stroke="#10b981" stroke-width="1.5"/>
+  <text x="420" y="304" text-anchor="middle" font-size="9" fill="#34d399" font-weight="600">Parse → structured</text>
+
+  <line x1="490" y1="300" x2="530" y2="300" stroke="#10b981" stroke-width="2" marker-end="url(#a-g)"/>
+
+  <rect x="540" y="280" width="140" height="40" rx="6" fill="#0d1117" stroke="#10b981" stroke-width="1.5"/>
+  <text x="610" y="304" text-anchor="middle" font-size="9" fill="#34d399" font-weight="600">Rebuild partitions</text>
+
+  <line x1="680" y1="300" x2="720" y2="300" stroke="#10b981" stroke-width="2" marker-end="url(#a-g)"/>
+
+  <rect x="730" y="280" width="140" height="40" rx="6" fill="#0d1117" stroke="#3b82f6" stroke-width="1.5"/>
+  <text x="800" y="298" text-anchor="middle" font-size="9" fill="#60a5fa" font-weight="600">L2 restored</text>
+  <text x="800" y="312" text-anchor="middle" font-size="8" fill="#888">100% data recovery</text>
+
+  <!-- Timing -->
+  <rect x="380" y="335" width="160" height="22" rx="11" fill="#10b981" opacity="0.15" stroke="#10b981" stroke-width="1"/>
+  <text x="460" y="350" text-anchor="middle" font-size="9" fill="#6ee7b7" font-weight="700">Recovery time: minutes</text>
+
+  <!-- Data loss badge -->
+  <rect x="580" y="335" width="120" height="22" rx="11" fill="#10b981" opacity="0.15" stroke="#10b981" stroke-width="1"/>
+  <text x="640" y="350" text-anchor="middle" font-size="9" fill="#6ee7b7" font-weight="700">Data loss: ZERO</text>
+
+
+  <!-- ═══════════════════════════════════════ -->
+  <!-- SCENARIO 2: EVIDENCE STORE FAILS -->
+  <!-- ═══════════════════════════════════════ -->
+  <rect x="80" y="440" width="840" height="300" rx="14" fill="none" stroke="#10b981" stroke-width="1.5"/>
+  <rect x="80" y="440" width="840" height="300" rx="14" fill="#10b981" opacity="0.02"/>
+
+  <rect x="95" y="434" width="240" height="20" rx="4" fill="#0d1117"/>
+  <text x="100" y="448" font-size="12" fill="#34d399" font-weight="700" letter-spacing="0.5">SCENARIO 2 — L1 INDEX FAILS</text>
+
+  <text x="500" y="475" text-anchor="middle" font-size="11" fill="#888">Evidence Store (write-once JSONB) is corrupted or lost</text>
+
+  <!-- What's dead -->
+  <rect x="120" y="495" width="200" height="70" rx="8" fill="#0d1117" stroke="#ef4444" stroke-width="2"/>
+  <text x="220" y="510" text-anchor="middle" font-size="14" fill="#ef4444">✕</text>
+  <text x="220" y="528" text-anchor="middle" font-size="11" fill="#f87171" font-weight="600">Evidence Store</text>
+  <text x="220" y="545" text-anchor="middle" font-size="9" fill="#888">Raw payloads gone</text>
+  <text x="220" y="558" text-anchor="middle" font-size="9" fill="#888">Hash chains broken</text>
+
+  <rect x="380" y="495" width="200" height="70" rx="8" fill="#0d1117" stroke="#ef4444" stroke-width="2"/>
+  <text x="480" y="510" text-anchor="middle" font-size="14" fill="#ef4444">✕</text>
+  <text x="480" y="528" text-anchor="middle" font-size="11" fill="#f87171" font-weight="600">Structured Store</text>
+  <text x="480" y="545" text-anchor="middle" font-size="9" fill="#888">Derived data gone</text>
+  <text x="480" y="558" text-anchor="middle" font-size="9" fill="#888">(depends on L1)</text>
+
+  <!-- What's alive -->
+  <rect x="640" y="495" width="200" height="70" rx="8" fill="#0d1117" stroke="#f59e0b" stroke-width="2.5"/>
+  <text x="740" y="510" text-anchor="middle" font-size="14" fill="#f59e0b">✓</text>
+  <text x="740" y="528" text-anchor="middle" font-size="11" fill="#fbbf24" font-weight="600">₿ Bitcoin</text>
+  <text x="740" y="545" text-anchor="middle" font-size="9" fill="#888">All inscriptions intact</text>
+  <text x="740" y="558" text-anchor="middle" font-size="9" fill="#888">Every Merkle root on-chain</text>
+
+  <!-- Recovery flow -->
+  <text x="500" y="595" text-anchor="middle" font-size="10" fill="#f59e0b" font-weight="700" letter-spacing="0.5">RECOVERY: RE-INDEX FROM BITCOIN</text>
+
+  <rect x="120" y="610" width="145" height="40" rx="6" fill="#0d1117" stroke="#f59e0b" stroke-width="1.5"/>
+  <text x="192" y="634" text-anchor="middle" font-size="9" fill="#fbbf24" font-weight="600">Scan all inscriptions</text>
+
+  <line x1="265" y1="630" x2="295" y2="630" stroke="#f59e0b" stroke-width="2" marker-end="url(#a-y)"/>
+
+  <rect x="305" y="610" width="145" height="40" rx="6" fill="#0d1117" stroke="#f59e0b" stroke-width="1.5"/>
+  <text x="377" y="634" text-anchor="middle" font-size="9" fill="#fbbf24" font-weight="600">Extract Merkle roots</text>
+
+  <line x1="450" y1="630" x2="480" y2="630" stroke="#f59e0b" stroke-width="2" marker-end="url(#a-y)"/>
+
+  <rect x="490" y="610" width="145" height="40" rx="6" fill="#0d1117" stroke="#f59e0b" stroke-width="1.5"/>
+  <text x="562" y="634" text-anchor="middle" font-size="9" fill="#fbbf24" font-weight="600">Rebuild hash index</text>
+
+  <line x1="635" y1="630" x2="665" y2="630" stroke="#10b981" stroke-width="2" marker-end="url(#a-g)"/>
+
+  <rect x="675" y="610" width="195" height="40" rx="6" fill="#0d1117" stroke="#10b981" stroke-width="1.5"/>
+  <text x="772" y="628" text-anchor="middle" font-size="9" fill="#34d399" font-weight="600">L1 + L2 restored</text>
+  <text x="772" y="642" text-anchor="middle" font-size="8" fill="#888">Verification integrity intact</text>
+
+  <!-- Timing -->
+  <rect x="320" y="665" width="160" height="22" rx="11" fill="#f59e0b" opacity="0.15" stroke="#f59e0b" stroke-width="1"/>
+  <text x="400" y="680" text-anchor="middle" font-size="9" fill="#fcd34d" font-weight="700">Recovery time: hours</text>
+
+  <!-- Partial data note -->
+  <rect x="520" y="665" width="210" height="22" rx="11" fill="#f59e0b" opacity="0.1" stroke="#f59e0b" stroke-width="1"/>
+  <text x="625" y="680" text-anchor="middle" font-size="9" fill="#fcd34d" font-weight="600">Proof integrity: 100%</text>
+
+  <rect x="310" y="695" width="300" height="22" rx="11" fill="#ef4444" opacity="0.1" stroke="#ef4444" stroke-width="1"/>
+  <text x="460" y="710" text-anchor="middle" font-size="9" fill="#fca5a5" font-weight="600">Raw payloads: lost (only hashes survive on-chain)</text>
+
+
+  <!-- ═══════════════════════════════════════════ -->
+  <!-- SCENARIO 3: EVERYTHING EXCEPT BITCOIN FAILS -->
+  <!-- ═══════════════════════════════════════════ -->
+  <rect x="80" y="760" width="840" height="280" rx="14" fill="none" stroke="#f59e0b" stroke-width="2"/>
+  <rect x="80" y="760" width="840" height="280" rx="14" fill="#f59e0b" opacity="0.03"/>
+
+  <rect x="95" y="754" width="310" height="20" rx="4" fill="#0d1117"/>
+  <text x="100" y="768" font-size="12" fill="#fbbf24" font-weight="700" letter-spacing="0.5">SCENARIO 3 — TOTAL INFRASTRUCTURE FAILURE</text>
+
+  <text x="500" y="798" text-anchor="middle" font-size="11" fill="#888">All Postgres, all servers, all application code — gone</text>
+
+  <!-- Everything dead -->
+  <rect x="120" y="818" width="150" height="55" rx="8" fill="#0d1117" stroke="#ef4444" stroke-width="2"/>
+  <text x="195" y="838" text-anchor="middle" font-size="12" fill="#ef4444">✕</text>
+  <text x="195" y="855" text-anchor="middle" font-size="10" fill="#f87171">Evidence Store</text>
+  <text x="195" y="868" text-anchor="middle" font-size="8" fill="#888">gone</text>
+
+  <rect x="290" y="818" width="150" height="55" rx="8" fill="#0d1117" stroke="#ef4444" stroke-width="2"/>
+  <text x="365" y="838" text-anchor="middle" font-size="12" fill="#ef4444">✕</text>
+  <text x="365" y="855" text-anchor="middle" font-size="10" fill="#f87171">Structured Store</text>
+  <text x="365" y="868" text-anchor="middle" font-size="8" fill="#888">gone</text>
+
+  <rect x="460" y="818" width="150" height="55" rx="8" fill="#0d1117" stroke="#ef4444" stroke-width="2"/>
+  <text x="535" y="838" text-anchor="middle" font-size="12" fill="#ef4444">✕</text>
+  <text x="535" y="855" text-anchor="middle" font-size="10" fill="#f87171">Application</text>
+  <text x="535" y="868" text-anchor="middle" font-size="8" fill="#888">gone</text>
+
+  <!-- Bitcoin survives -->
+  <rect x="660" y="810" width="210" height="72" rx="12" fill="url(#btc-grd)" stroke="#f59e0b" stroke-width="3"/>
+  <circle cx="765" cy="845" r="20" fill="#f59e0b" opacity="0.08" filter="url(#glow)"/>
+  <text x="765" y="838" text-anchor="middle" font-size="16" fill="#fbbf24">₿</text>
+  <text x="765" y="856" text-anchor="middle" font-size="11" fill="#fbbf24" font-weight="700">SURVIVES</text>
+  <text x="765" y="872" text-anchor="middle" font-size="9" fill="#888">Every inscription intact</text>
+
+  <!-- What Bitcoin preserves -->
+  <text x="500" y="908" text-anchor="middle" font-size="10" fill="#fbbf24" font-weight="700" letter-spacing="0.5">WHAT BITCOIN PRESERVES</text>
+
+  <rect x="140" y="920" width="170" height="45" rx="6" fill="#0d1117" stroke="#f59e0b" stroke-width="1"/>
+  <text x="225" y="940" text-anchor="middle" font-size="9" fill="#fbbf24" font-weight="600">.jeffe namespace identity</text>
+  <text x="225" y="955" text-anchor="middle" font-size="8" fill="#888">Who you are, on-chain</text>
+
+  <rect x="330" y="920" width="170" height="45" rx="6" fill="#0d1117" stroke="#f59e0b" stroke-width="1"/>
+  <text x="415" y="940" text-anchor="middle" font-size="9" fill="#fbbf24" font-weight="600">Every Merkle root</text>
+  <text x="415" y="955" text-anchor="middle" font-size="8" fill="#888">Cryptographic proof of data</text>
+
+  <rect x="520" y="920" width="170" height="45" rx="6" fill="#0d1117" stroke="#f59e0b" stroke-width="1"/>
+  <text x="605" y="940" text-anchor="middle" font-size="9" fill="#fbbf24" font-weight="600">Chain sequence history</text>
+  <text x="605" y="955" text-anchor="middle" font-size="8" fill="#888">Ordered, immutable record</text>
+
+  <rect x="710" y="920" width="170" height="45" rx="6" fill="#0d1117" stroke="#f59e0b" stroke-width="1"/>
+  <text x="795" y="940" text-anchor="middle" font-size="9" fill="#fbbf24" font-weight="600">Block timestamps</text>
+  <text x="795" y="955" text-anchor="middle" font-size="8" fill="#888">Proof-of-work time</text>
+
+  <!-- What's lost -->
+  <rect x="300" y="985" width="320" height="28" rx="6" fill="#ef4444" opacity="0.08" stroke="#ef4444" stroke-width="1"/>
+  <text x="460" y="1004" text-anchor="middle" font-size="9" fill="#fca5a5">Lost: raw payloads, parsed data, dashboard state, detection rules</text>
+
+  <!-- What's provable -->
+  <rect x="300" y="1020" width="320" height="28" rx="6" fill="#10b981" opacity="0.08" stroke="#10b981" stroke-width="1"/>
+  <text x="460" y="1039" text-anchor="middle" font-size="9" fill="#6ee7b7" font-weight="600">Provable: that specific data existed at a specific time. Forever.</text>
+
+  <!-- ═══ THE PRINCIPLE ═══ -->
+  <rect x="140" y="1080" width="720" height="80" rx="12" fill="none" stroke="#f59e0b" stroke-width="2" stroke-dasharray="8,4"/>
+  <rect x="140" y="1080" width="720" height="80" rx="12" fill="#f59e0b" opacity="0.04"/>
+
+  <text x="500" y="1108" text-anchor="middle" font-size="14" fill="#fbbf24" font-weight="700" letter-spacing="0.5">THE COCKROACH PRINCIPLE</text>
+  <text x="500" y="1130" text-anchor="middle" font-size="11" fill="#888">Infrastructure is temporary. Proof-of-work is permanent.</text>
+  <text x="500" y="1148" text-anchor="middle" font-size="11" fill="#f59e0b" font-weight="600">The system's value proposition survives the system itself.</text>
+
+  <!-- Footer -->
+  <text x="500" y="1210" text-anchor="middle" font-size="9" fill="#444">APPLICATION 63/991,596 · Filed February 26, 2026 · PATENT PENDING · CONFIDENTIAL</text>
+</svg>
+</body>
+</html>

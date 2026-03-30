@@ -1,0 +1,213 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Triple Subscriber Component Diagram — FIG. 3 (v2.0)</title>
+<style>
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+  body { background: #0a0a0a; color: #e0e0e0; font-family: 'Segoe UI', system-ui, -apple-system, sans-serif; padding: 40px; }
+  .title-block { text-align: center; margin-bottom: 48px; }
+  .title-block h1 { font-size: 20px; font-weight: 600; letter-spacing: 1.5px; color: #f5f5f5; text-transform: uppercase; }
+  .title-block .sub { font-size: 13px; color: #888; margin-top: 6px; }
+  .title-block .fig { font-size: 14px; color: #f59e0b; margin-top: 12px; font-weight: 600; }
+
+  .diagram { max-width: 900px; margin: 0 auto; }
+  .layer { margin-bottom: 32px; }
+  .layer-label { font-size: 10px; font-weight: 700; letter-spacing: 1.5px; text-transform: uppercase; color: #666; margin-bottom: 12px; padding-left: 4px; }
+
+  .component { border: 2px solid; border-radius: 10px; padding: 16px 20px; margin-bottom: 12px; position: relative; }
+  .component h4 { font-size: 14px; font-weight: 600; margin-bottom: 4px; }
+  .component .desc { font-size: 12px; color: #999; line-height: 1.5; }
+  .component .tech { display: inline-block; margin-top: 6px; padding: 2px 8px; border-radius: 3px; font-size: 10px; font-weight: 600; font-family: 'SF Mono', 'Fira Code', monospace; }
+  .component .tier { display: inline-block; margin-top: 6px; margin-left: 8px; padding: 2px 8px; border-radius: 3px; font-size: 10px; font-weight: 700; letter-spacing: 0.8px; text-transform: uppercase; }
+
+  .arrow-label { text-align: center; padding: 4px 0; font-size: 11px; color: #666; font-style: italic; }
+
+  .c-blue { border-color: #3b82f6; background: rgba(59,130,246,0.05); }
+  .c-blue h4 { color: #60a5fa; }
+  .c-blue .tech { background: rgba(59,130,246,0.15); color: #93c5fd; }
+
+  .c-purple { border-color: #8b5cf6; background: rgba(139,92,246,0.05); }
+  .c-purple h4 { color: #a78bfa; }
+  .c-purple .tech { background: rgba(139,92,246,0.15); color: #c4b5fd; }
+
+  .c-yellow { border-color: #f59e0b; background: rgba(245,158,11,0.08); }
+  .c-yellow h4 { color: #fbbf24; }
+  .c-yellow .tech { background: rgba(245,158,11,0.15); color: #fcd34d; }
+
+  .c-green { border-color: #10b981; background: rgba(16,185,129,0.05); }
+  .c-green h4 { color: #34d399; }
+  .c-green .tech { background: rgba(16,185,129,0.15); color: #6ee7b7; }
+  .c-green .tier { background: rgba(16,185,129,0.2); color: #6ee7b7; }
+
+  .c-red { border-color: #ef4444; background: rgba(239,68,68,0.05); }
+  .c-red h4 { color: #f87171; }
+  .c-red .tech { background: rgba(239,68,68,0.15); color: #fca5a5; }
+  .c-red .tier { background: rgba(245,158,11,0.2); color: #fcd34d; }
+
+  .c-amber { border-color: #d97706; background: rgba(217,119,6,0.05); }
+  .c-amber h4 { color: #fbbf24; }
+  .c-amber .tech { background: rgba(217,119,6,0.15); color: #fcd34d; }
+  .c-amber .tier { background: rgba(59,130,246,0.2); color: #93c5fd; }
+
+  .c-deep { border-color: #1e40af; background: rgba(30,64,175,0.08); }
+  .c-deep h4 { color: #60a5fa; }
+  .c-deep .tech { background: rgba(30,64,175,0.2); color: #93c5fd; }
+
+  .three-col { display: grid; grid-template-columns: 1fr 1fr 1fr; gap: 12px; }
+  .two-col { display: grid; grid-template-columns: 1fr 1fr; gap: 12px; }
+
+  /* Sovereignty line */
+  .sovereignty { width: 100%; margin: 20px 0; position: relative; text-align: center; border-top: 3px dashed #f59e0b; padding-top: 8px; }
+  .sovereignty span { background: #0a0a0a; padding: 0 16px; font-size: 10px; font-weight: 700; color: #f59e0b; letter-spacing: 1.5px; text-transform: uppercase; position: relative; top: -16px; }
+
+  /* Rebuild section */
+  .rebuild { display: flex; gap: 16px; justify-content: center; margin: 12px 0; }
+  .rebuild-item { font-size: 11px; padding: 6px 14px; border-radius: 6px; border: 1px dashed; }
+  .rebuild-item.green { color: #34d399; border-color: #10b981; background: rgba(16,185,129,0.05); }
+  .rebuild-item.red { color: #f87171; border-color: #ef4444; background: rgba(239,68,68,0.05); }
+
+  /* Principle box */
+  .principle { margin-top: 24px; border: 1.5px dashed #f59e0b; border-radius: 10px; padding: 16px 24px; text-align: center; background: rgba(245,158,11,0.02); }
+  .principle h4 { font-size: 12px; color: #fbbf24; font-weight: 700; letter-spacing: 1px; margin-bottom: 6px; }
+  .principle p { font-size: 12px; color: #888; }
+  .principle .hl { color: #f59e0b; font-weight: 600; }
+
+  .footer { text-align: center; margin-top: 48px; font-size: 11px; color: #555; letter-spacing: 0.5px; }
+  .footer span { color: #f59e0b; }
+</style>
+</head>
+<body>
+  <div class="title-block">
+    <h1>Triple Subscriber Pipeline — Component Architecture</h1>
+    <div class="sub">Staged Immutability with Bitcoin-Sovereign Data Hierarchy</div>
+    <div class="fig">FIG. 3 — Component Interaction Diagram (v2.0)</div>
+  </div>
+
+  <div class="diagram">
+    <!-- INGESTION LAYER -->
+    <div class="layer">
+      <div class="layer-label">Ingestion Layer</div>
+      <div class="component c-blue">
+        <h4>Source Network (Any Webhook Provider)</h4>
+        <div class="desc">Square, Shopify, Epic, FedEx, or any system capable of HTTP POST webhooks. Generates events with UUID identifiers and signs payloads with HMAC-SHA256.</div>
+        <span class="tech">HTTPS POST + HMAC-SHA256</span>
+      </div>
+      <div class="arrow-label">↓ raw webhook payload + signature ↓</div>
+      <div class="component c-purple">
+        <h4>API Gateway / Webhook Receiver</h4>
+        <div class="desc">Validates HMAC signature. Computes SHA-256 hash of raw payload. Assigns event ID. Publishes to message queue. Returns 200 OK. Single entry point — all events enter here.</div>
+        <span class="tech">Node.js + Express</span>
+      </div>
+    </div>
+
+    <!-- QUEUE LAYER -->
+    <div class="layer">
+      <div class="layer-label">Queue Layer — Critical Path</div>
+      <div class="component c-yellow">
+        <h4>Message Queue (Durable, Ordered)</h4>
+        <div class="desc">Fan-out point. Three independent consumer groups. At-least-once delivery. Message ordering within merchant partition. Each subscriber tracks its own offset independently.</div>
+        <span class="tech">Valkey Streams · Signal Yellow</span>
+      </div>
+    </div>
+
+    <!-- SUBSCRIBER LAYER -->
+    <div class="layer">
+      <div class="layer-label">Subscriber Layer — Triple Independent Consumers</div>
+      <div class="three-col">
+        <div class="component c-green">
+          <h4>Sub 1: Hash & Seal</h4>
+          <div class="desc">Write-once evidence store. SHA-256 hash + hash chain link. Append-only — never altered, never deleted. Bilateral verification source. Rebuildable from Bitcoin inscriptions.</div>
+          <span class="tech">PostgreSQL JSONB · Write-Once</span>
+          <span class="tier">L1 INDEX</span>
+        </div>
+        <div class="component c-amber">
+          <h4>Sub 2: Parse & Route</h4>
+          <div class="desc">Structured schema. Queryable, indexed. Mutable — enrichment allowed. Replayable from Sub 1. Emits to detection engine. Entirely rebuildable from L1.</div>
+          <span class="tech">PostgreSQL Tables · Partitioned</span>
+          <span class="tier">L2 INDEX</span>
+        </div>
+        <div class="component c-red">
+          <h4>Sub 3: Merkle & Ordinal</h4>
+          <div class="desc">Batch hash accumulator. Merkle tree construction. Ordinal inscription. Key custody. Bitcoin base layer anchoring. <strong style="color:#fca5a5;">Bedrock — survives total infrastructure failure.</strong></div>
+          <span class="tech">Node.js Worker · Bitcoin Core</span>
+          <span class="tier">LEDGER</span>
+        </div>
+      </div>
+    </div>
+
+    <!-- REBUILD ARROWS -->
+    <div class="rebuild">
+      <div class="rebuild-item green">↑ L2 rebuilds from L1 (replay evidence → structured tables)</div>
+      <div class="rebuild-item red">↑ L1 rebuilds from ₿ (re-index inscriptions → evidence hashes)</div>
+    </div>
+
+    <!-- SOVEREIGNTY LINE -->
+    <div class="sovereignty">
+      <span>▲ SOVEREIGNTY LINE — Above: rebuildable cache · Below: permanent ledger ▲</span>
+    </div>
+
+    <!-- PERSISTENCE LAYER -->
+    <div class="layer">
+      <div class="layer-label">Persistence Layer — Sovereignty Hierarchy</div>
+      <div class="three-col">
+        <div class="component c-deep" style="position: relative;">
+          <h4>Evidence Store</h4>
+          <div class="desc">Immutable index. JSONB raw payloads. Hash chains. UNIQUE constraint prevents duplicates. Source of truth for bilateral verification and replay/rebuild. <strong style="color:#6ee7b7;">Rebuildable from Bitcoin.</strong></div>
+          <span class="tech">PostgreSQL JSONB · L1 Index</span>
+        </div>
+        <div class="component c-deep">
+          <h4>Structured Store</h4>
+          <div class="desc">Queryable business data. Partitioned by merchant_id. Indexed for search. Feeds dashboard and analytics. <strong style="color:#93c5fd;">Entirely derivable from Evidence Store.</strong></div>
+          <span class="tech">PostgreSQL Tables · L2 Index</span>
+        </div>
+        <div class="component c-deep" style="border-color: #f59e0b; background: rgba(245,158,11,0.06);">
+          <h4 style="color: #fbbf24;">₿ Bitcoin Time Chain</h4>
+          <div class="desc">Inscription IDs. Merkle roots. .jeffe namespace identity. Chain sequence history. Block timestamps. <strong style="color:#fcd34d;">Survives server failure. Survives company failure. Permanent.</strong></div>
+          <span class="tech" style="background: rgba(245,158,11,0.2); color: #fcd34d;">Ordinal Inscriptions · Bedrock</span>
+        </div>
+      </div>
+    </div>
+
+    <!-- APPLICATION LAYER -->
+    <div class="layer">
+      <div class="layer-label">Application & Revenue Layer</div>
+      <div class="two-col">
+        <div class="component c-green">
+          <h4>Detection Engine + Dashboard</h4>
+          <div class="desc">Rule evaluation against parsed events. Real-time alerts via WebSocket. Merchant-facing dashboard with evidence view. Loss prevention, anomaly detection, pattern matching.</div>
+          <span class="tech">Node.js · React Frontend</span>
+        </div>
+        <div class="component c-red" style="border-color: #f59e0b;">
+          <h4 style="color: #fbbf24;">Validation API (L402 Sat-Gated)</h4>
+          <div class="desc">HTTP 402 → Lightning invoice → sat payment → validation response. Returns: verification status, block number, Merkle proof, inscription ID, timestamp. Perpetual revenue per verification. <strong style="color:#fcd34d;">Revenue survives infrastructure — proofs live on Bitcoin.</strong></div>
+          <span class="tech" style="background: rgba(245,158,11,0.2); color: #fcd34d;">L402 · Lightning Network</span>
+        </div>
+      </div>
+    </div>
+
+    <!-- EXTERNAL VERIFICATION -->
+    <div class="layer">
+      <div class="layer-label">External Verification (No Trust Required)</div>
+      <div class="component c-blue" style="border-style: dashed;">
+        <h4>Bilateral Verification Path</h4>
+        <div class="desc">Source network compares its send log against evidence store hash. Merkle proof path verifiable on any Bitcoin block explorer. No intermediary required. Survives total system failure — Bitcoin anchor is independent. The verification path is: <strong>Send Log ↔ Evidence Hash (L1) ↔ Merkle Proof ↔ Block Explorer (₿)</strong>.</div>
+        <span class="tech">SHA-256 Compare · Merkle Proof · Block Explorer</span>
+      </div>
+    </div>
+
+    <!-- PRINCIPLE -->
+    <div class="principle">
+      <h4>ARCHITECTURAL PRINCIPLE</h4>
+      <p>Bitcoin is the ledger. Postgres is the index. Hard constraints on index tables are guardrails, not governance.<br/>
+      If chain and index disagree, chain wins. Always. <span class="hl">.jeffe outlives Postgres.</span><br/>
+      <span class="hl">The system's value proposition survives the system itself.</span></p>
+    </div>
+  </div>
+
+  <div class="footer">
+    APPLICATION <span>63/991,596</span> · Filed February 26, 2026 · CONFIDENTIAL — Patent Pending · v2.0
+  </div>
+</body>
+</html>

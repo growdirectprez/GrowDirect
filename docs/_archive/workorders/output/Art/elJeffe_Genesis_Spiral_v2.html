@@ -1,0 +1,473 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>elJeffe — Genesis</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@200;300;400;500;600&family=Space+Grotesk:wght@300;400;500;600;700&family=JetBrains+Mono:wght@300;400&display=swap" rel="stylesheet">
+    <style>
+        *{margin:0;padding:0;box-sizing:border-box}
+        html,body{width:100%;height:100%;overflow:hidden;background:#060a10;cursor:default}
+        canvas{position:fixed;top:0;left:0}
+        #nebula{z-index:0}
+        #spiral{z-index:1}
+        #content{z-index:2}
+
+        .tagline-wrap{
+            position:fixed;bottom:4vh;left:0;width:100%;
+            text-align:center;z-index:10;pointer-events:none;
+            opacity:0;transition:opacity 4s ease 0.5s;
+        }
+        .tagline-wrap.show{opacity:1}
+        .tagline{
+            font-family:'Space Grotesk',sans-serif;
+            font-size:clamp(0.65rem,1.3vw,1rem);
+            font-weight:500;letter-spacing:5px;
+            text-transform:uppercase;
+            color:rgba(245,158,11,0.8);
+        }
+        .tagline .dim{
+            display:block;margin-top:6px;
+            font-family:'Inter',sans-serif;
+            font-size:clamp(0.45rem,0.8vw,0.65rem);
+            font-weight:300;letter-spacing:7px;
+            color:rgba(160,160,160,0.55);
+        }
+    </style>
+</head>
+<body>
+<canvas id="nebula"></canvas>
+<canvas id="spiral"></canvas>
+<canvas id="content"></canvas>
+<div class="tagline-wrap" id="tag">
+    <div class="tagline">
+        The Canary in the Data Mine
+        <span class="dim">sovereignty through verification</span>
+    </div>
+</div>
+
+<script>
+// ═══════════════════════════════════════════════════════════════
+// CONFIG
+// ═══════════════════════════════════════════════════════════════
+const C = {
+    bg:'#060a10',
+    amber:'#f59e0b', amberGlow:'rgba(245,158,11,',
+    blue:'#2563eb',  blueGlow:'rgba(37,99,235,',
+    red:'#e84142',   redGlow:'rgba(232,65,66,',
+    purple:'#a78bfa',purpleGlow:'rgba(167,139,250,',
+    green:'#34d399',greenGlow:'rgba(52,211,153,',
+    white:'#ffffff',
+};
+
+// ═══════════════════════════════════════════════════════════════
+// CONTENT GALLERY — quotes, code, mermaid fragments
+// Each item has: text, type (quote/code/mermaid/concept), color zone
+// ═══════════════════════════════════════════════════════════════
+const GALLERY = [
+    // Jeffe quotes
+    {t:"Property rights for everyone,\nanyone, anywhere", type:'quote', zone:0.6, color:C.green},
+    {t:"Bitcoin is the vault.\nAvalanche is the lobby.", type:'quote', zone:0.35, color:C.blue},
+    {t:"The record existed.\nThe record could be argued with.", type:'quote', zone:0.12, color:C.amber},
+    {t:"We don't want to add to the stress.\nWe want to ease it.", type:'quote', zone:0.08, color:C.amber},
+    {t:"Any POS. Any merchant.\nOne API call.", type:'quote', zone:0.52, color:C.purple},
+    {t:"Receipt-as-a-Service", type:'quote', zone:0.48, color:C.purple},
+    {t:"The gLog exists because of\nwhat the tLog could not do.", type:'quote', zone:0.15, color:C.amber},
+    {t:"Coffee shop = Universal Music\nNo VIP lane.", type:'quote', zone:0.65, color:C.green},
+    {t:"Custody at the satoshi level\ngates the infinite loop.", type:'quote', zone:0.55, color:C.blue},
+    {t:"The mutable record persists\nas the foundation of the\nentire retail data industry.", type:'quote', zone:0.1, color:C.red},
+
+    // Code fragments (gLog / protocol)
+    {t:"SHA-256(event) → immutable", type:'code', zone:0.2, color:C.blue},
+    {t:"POST /verify\n→ 402 Payment Required\n→ pay sat\n→ 200 OK + proof", type:'code', zone:0.45, color:C.red},
+    {t:"merkle_root = hash(\n  hash(a, b),\n  hash(c, d)\n)", type:'code', zone:0.28, color:C.blue},
+    {t:"inscription.permanent = true\ncustody.owner = merchant", type:'code', zone:0.38, color:C.purple},
+    {t:"seal → batch → inscribe\n→ receipt → verify → sat", type:'code', zone:0.25, color:C.blue},
+    {t:"event_hash = sha256(payload)\nevidence.append(event_hash)\nchain.link(previous_hash)", type:'code', zone:0.32, color:C.blue},
+    {t:"L402_GATE: true\nLIGHTNING_INVOICE: N sats\nVERIFICATION: permanent", type:'code', zone:0.5, color:C.red},
+
+    // Mermaid / architecture concepts (rendered as flow text)
+    {t:"Webhook → Normalize → Hash\n→ Seal → Merkle → Inscribe", type:'mermaid', zone:0.22, color:C.blue},
+    {t:"Source → Gateway → Evidence\n→ Batcher → Bitcoin L1", type:'mermaid', zone:0.18, color:C.amber},
+    {t:"Merchant Events\n  ↓ Notarize\nInscription Pool\n  ↓ Validate\nL402 Gate\n  ↓ Sats\nTreasury\n  ↓ Fund\n∞ loop", type:'mermaid', zone:0.4, color:C.red},
+    {t:"Sub 1: Hash & Seal\nSub 2: Parse & Route\nSub 3: Merkle & Ordinal", type:'mermaid', zone:0.3, color:C.blue},
+    {t:"Layer 1 — The Inscription Pool\nLayer 3 — The Validation Gate\nLayer 5 — Block Space\nLayer 7 — Egalitarian Copyright", type:'mermaid', zone:0.58, color:C.green},
+
+    // Concepts
+    {t:"10,000,000 satoshis\nGenesis Pool", type:'concept', zone:0.05, color:C.amber},
+    {t:"stacked inscriptions\ninfinite loop\non a single satoshi", type:'concept', zone:0.42, color:C.purple},
+    {t:"compliance by construction", type:'concept', zone:0.35, color:C.blue},
+    {t:"the fee window is open\nand it is closing", type:'concept', zone:0.62, color:C.green},
+    {t:"the protocol that benefits\nfrom decentralization IS\nthe protocol that\ndecentralizes itself", type:'concept', zone:0.68, color:C.green},
+    {t:"proof-of-work\nappend-only\nno controller", type:'concept', zone:0.16, color:C.amber},
+    {t:".jeffe", type:'concept', zone:0.44, color:C.red},
+];
+
+// ═══════════════════════════════════════════════════════════════
+// CANVAS SETUP
+// ═══════════════════════════════════════════════════════════════
+const nebC = document.getElementById('nebula');
+const nebCtx = nebC.getContext('2d');
+const spiC = document.getElementById('spiral');
+const spiCtx = spiC.getContext('2d');
+const conC = document.getElementById('content');
+const conCtx = conC.getContext('2d');
+
+let W, H, cx, cy, maxR;
+function resize(){
+    W=window.innerWidth; H=window.innerHeight;
+    [nebC,spiC,conC].forEach(c=>{c.width=W;c.height=H});
+    cx=W/2; cy=H*0.45; maxR=Math.min(W,H)*0.42;
+}
+resize();
+window.addEventListener('resize',resize);
+
+// ═══════════════════════════════════════════════════════════════
+// LAYER 0 — NEBULA (deep space mist + star field)
+// ═══════════════════════════════════════════════════════════════
+const STAR_COUNT = 200;
+const stars = Array.from({length:STAR_COUNT},()=>({
+    x:Math.random()*2, y:Math.random()*2,  // normalized
+    s:0.3+Math.random()*1.8,
+    b:0.15+Math.random()*0.5,
+    twinkleSpeed:0.001+Math.random()*0.003,
+    twinklePhase:Math.random()*Math.PI*2,
+}));
+
+// Nebula clouds — soft radial blobs that drift
+const CLOUD_COUNT = 8;
+const clouds = Array.from({length:CLOUD_COUNT},()=>({
+    x:0.2+Math.random()*0.6,
+    y:0.2+Math.random()*0.6,
+    r:0.08+Math.random()*0.15,
+    color:[C.amberGlow,C.blueGlow,C.redGlow,C.purpleGlow,C.greenGlow][Math.floor(Math.random()*5)],
+    alpha:0.012+Math.random()*0.018,
+    driftX:(Math.random()-0.5)*0.00003,
+    driftY:(Math.random()-0.5)*0.00003,
+    phase:Math.random()*Math.PI*2,
+    breathSpeed:0.0003+Math.random()*0.0005,
+}));
+
+function drawNebula(t){
+    nebCtx.fillStyle=C.bg;
+    nebCtx.fillRect(0,0,W,H);
+
+    // Nebula clouds
+    clouds.forEach(c=>{
+        c.x+=c.driftX; c.y+=c.driftY;
+        c.phase+=c.breathSpeed;
+        if(c.x<0.05||c.x>0.95) c.driftX*=-1;
+        if(c.y<0.05||c.y>0.95) c.driftY*=-1;
+        const breath=0.85+0.15*Math.sin(c.phase);
+        const r=c.r*Math.min(W,H)*breath;
+        const g=nebCtx.createRadialGradient(c.x*W,c.y*H,0,c.x*W,c.y*H,r);
+        g.addColorStop(0,c.color+(c.alpha*1.5)+')');
+        g.addColorStop(0.5,c.color+(c.alpha*0.6)+')');
+        g.addColorStop(1,'transparent');
+        nebCtx.fillStyle=g;
+        nebCtx.fillRect(0,0,W,H);
+    });
+
+    // Stars
+    stars.forEach(s=>{
+        const twinkle=0.5+0.5*Math.sin(t*s.twinkleSpeed+s.twinklePhase);
+        nebCtx.fillStyle=`rgba(255,255,255,${s.b*twinkle})`;
+        nebCtx.beginPath();
+        nebCtx.arc(s.x*W/2+W*0.25, s.y*H/2+H*0.25, s.s*twinkle, 0, Math.PI*2);
+        nebCtx.fill();
+    });
+}
+
+// ═══════════════════════════════════════════════════════════════
+// LAYER 1 — THE SPIRAL (golden ratio growth from genesis)
+// ═══════════════════════════════════════════════════════════════
+const TURNS = 5.5;
+const PTS = Math.floor(TURNS * 400);
+const GROW_SPEED = 2.2;
+let drawn = 0;
+let complete = false;
+let galaxyAngle = 0;
+
+// Color gradient along spiral
+function spiralColor(t){
+    if(t<0.12) return {r:245,g:158,b:11};      // amber — genesis/canary
+    if(t<0.30) return lerpC(t,0.12,0.30,{r:245,g:158,b:11},{r:37,g:99,b:235}); // amber→blue
+    if(t<0.45) return {r:37,g:99,b:235};        // blue — protocol
+    if(t<0.55) return lerpC(t,0.45,0.55,{r:37,g:99,b:235},{r:232,g:65,b:66}); // blue→red
+    if(t<0.60) return {r:232,g:65,b:66};        // red — namespace
+    if(t<0.68) return lerpC(t,0.60,0.68,{r:232,g:65,b:66},{r:167,g:139,b:250}); // red→purple
+    if(t<0.75) return {r:167,g:139,b:250};      // purple — RaaS
+    return lerpC(t,0.75,1.0,{r:167,g:139,b:250},{r:52,g:211,b:153}); // purple→green — sovereign
+}
+function lerpC(t,t0,t1,c0,c1){
+    const p=Math.max(0,Math.min(1,(t-t0)/(t1-t0)));
+    return {r:c0.r+(c1.r-c0.r)*p, g:c0.g+(c1.g-c0.g)*p, b:c0.b+(c1.b-c0.b)*p};
+}
+
+function spiralPt(i, rotation){
+    const t=i/PTS;
+    const angle = t*TURNS*Math.PI*2 - Math.PI/2 + rotation;
+    const r = maxR * Math.pow(t, 0.65);
+    return {x:cx+Math.cos(angle)*r, y:cy+Math.sin(angle)*r, r, t, angle};
+}
+
+// Spiral arm dust (diffuse particles along the arm)
+const DUST_COUNT = 120;
+const dust = Array.from({length:DUST_COUNT},()=>({
+    tBase: Math.random(),
+    offsetAngle: (Math.random()-0.5)*0.4,
+    offsetR: (Math.random()-0.5)*20,
+    size: 0.4+Math.random()*1.5,
+    alpha: 0.06+Math.random()*0.14,
+    twinkle: Math.random()*Math.PI*2,
+    twinkleSpeed: 0.002+Math.random()*0.004,
+}));
+
+// Energy return particles (the closed loop feeding back to center)
+const RETURN_COUNT = 14;
+const returnParts = Array.from({length:RETURN_COUNT},()=>({
+    phase: Math.random()*Math.PI*2,
+    speed: 0.0006+Math.random()*0.001,
+    size: 0.8+Math.random()*1.5,
+}));
+
+function drawSpiral(t){
+    spiCtx.clearRect(0,0,W,H);
+
+    // Slow galaxy rotation
+    if(complete) galaxyAngle += 0.00012;
+    else galaxyAngle += 0.00004;
+
+    // Grow
+    if(drawn<PTS) drawn=Math.min(drawn+GROW_SPEED,PTS);
+    else if(!complete){
+        complete=true;
+        setTimeout(()=>document.getElementById('tag').classList.add('show'),800);
+    }
+
+    const dp=Math.floor(drawn);
+
+    // GENESIS CORE — breathing ember
+    const pulse = 0.65+0.35*Math.sin(t*0.0025);
+    const cR = maxR*0.03*pulse;
+    // Outer glow rings
+    for(let i=5;i>=0;i--){
+        const gr=cR*(1+i*1.8);
+        const g=spiCtx.createRadialGradient(cx,cy,0,cx,cy,gr);
+        g.addColorStop(0,`rgba(245,158,11,${0.08-i*0.012})`);
+        g.addColorStop(0.6,`rgba(245,158,11,${0.02-i*0.003})`);
+        g.addColorStop(1,'transparent');
+        spiCtx.fillStyle=g;
+        spiCtx.beginPath();
+        spiCtx.arc(cx,cy,gr,0,Math.PI*2);
+        spiCtx.fill();
+    }
+    // Core
+    spiCtx.fillStyle=`rgba(245,158,11,${0.5+0.4*pulse})`;
+    spiCtx.beginPath(); spiCtx.arc(cx,cy,cR*0.5,0,Math.PI*2); spiCtx.fill();
+    spiCtx.fillStyle=`rgba(255,255,255,${0.25*pulse})`;
+    spiCtx.beginPath(); spiCtx.arc(cx,cy,cR*0.15,0,Math.PI*2); spiCtx.fill();
+
+    // Draw spiral path
+    if(dp>2){
+        // Main spiral line
+        for(let seg=0;seg<dp-1;seg++){
+            const p0=spiralPt(seg, galaxyAngle);
+            const p1=spiralPt(seg+1, galaxyAngle);
+            const col=spiralColor(p0.t);
+            // Fade older parts slightly
+            const age = 1 - (dp-seg)/dp * 0.3;
+            const a = (0.12 + 0.25*(1-p0.t)) * age;
+            spiCtx.strokeStyle=`rgba(${col.r},${col.g},${col.b},${a})`;
+            spiCtx.lineWidth=1.2;
+            spiCtx.beginPath();
+            spiCtx.moveTo(p0.x,p0.y);
+            spiCtx.lineTo(p1.x,p1.y);
+            spiCtx.stroke();
+        }
+
+        // Glow pass (blurred duplicate)
+        spiCtx.save();
+        spiCtx.filter='blur(5px)';
+        for(let seg=0;seg<dp-1;seg+=3){
+            const p0=spiralPt(seg, galaxyAngle);
+            const p1=spiralPt(Math.min(seg+3,dp-1), galaxyAngle);
+            const col=spiralColor(p0.t);
+            const a = (0.06 + 0.1*(1-p0.t));
+            spiCtx.strokeStyle=`rgba(${col.r},${col.g},${col.b},${a})`;
+            spiCtx.lineWidth=6;
+            spiCtx.beginPath();
+            spiCtx.moveTo(p0.x,p0.y);
+            spiCtx.lineTo(p1.x,p1.y);
+            spiCtx.stroke();
+        }
+        spiCtx.restore();
+    }
+
+    // Growing tip
+    if(dp>2 && dp<PTS){
+        const tip=spiralPt(dp, galaxyAngle);
+        const col=spiralColor(tip.t);
+        const tg=spiCtx.createRadialGradient(tip.x,tip.y,0,tip.x,tip.y,14);
+        tg.addColorStop(0,`rgba(${col.r},${col.g},${col.b},0.8)`);
+        tg.addColorStop(0.3,`rgba(${col.r},${col.g},${col.b},0.3)`);
+        tg.addColorStop(1,'transparent');
+        spiCtx.fillStyle=tg;
+        spiCtx.beginPath(); spiCtx.arc(tip.x,tip.y,14,0,Math.PI*2); spiCtx.fill();
+        spiCtx.fillStyle=`rgba(255,255,255,0.6)`;
+        spiCtx.beginPath(); spiCtx.arc(tip.x,tip.y,1.5,0,Math.PI*2); spiCtx.fill();
+    }
+
+    // Spiral arm dust
+    const maxT = dp/PTS;
+    dust.forEach(d=>{
+        if(d.tBase > maxT) return;
+        d.twinkle += d.twinkleSpeed;
+        const idx = Math.floor(d.tBase * PTS);
+        const p = spiralPt(idx, galaxyAngle);
+        const scatter = d.offsetR + Math.sin(d.twinkle)*5;
+        const px = p.x + Math.cos(p.angle+d.offsetAngle)*scatter;
+        const py = p.y + Math.sin(p.angle+d.offsetAngle)*scatter;
+        const col = spiralColor(d.tBase);
+        const twink = 0.5+0.5*Math.sin(d.twinkle);
+        spiCtx.fillStyle=`rgba(${col.r},${col.g},${col.b},${d.alpha*twink})`;
+        spiCtx.beginPath(); spiCtx.arc(px,py,d.size,0,Math.PI*2); spiCtx.fill();
+    });
+
+    // Energy return flow (closed loop: outer→center)
+    if(complete){
+        returnParts.forEach(rp=>{
+            rp.phase += rp.speed;
+            const prog = (rp.phase%(Math.PI*2))/(Math.PI*2); // 0→1
+            const inward = 1-prog; // going inward
+            const r = maxR*0.7*inward;
+            const angle = rp.phase*2.5 + galaxyAngle;
+            const px=cx+Math.cos(angle)*r;
+            const py=cy+Math.sin(angle)*r;
+            const a = 0.04 + 0.12*inward;
+            spiCtx.fillStyle=`rgba(245,158,11,${a})`;
+            spiCtx.beginPath(); spiCtx.arc(px,py,rp.size+prog,0,Math.PI*2); spiCtx.fill();
+        });
+    }
+}
+
+// ═══════════════════════════════════════════════════════════════
+// LAYER 2 — CONTENT (quotes, code, mermaid dissolving in/out)
+// ═══════════════════════════════════════════════════════════════
+class FloatingContent {
+    constructor(item, idx){
+        this.item = item;
+        this.idx = idx;
+        // Lifecycle timing — stagger appearances
+        this.birthDelay = 3000 + idx * 1800 + Math.random()*2000;
+        this.fadeInDur = 3000;
+        this.holdDur = 5000 + Math.random()*4000;
+        this.fadeOutDur = 3000;
+        this.cycleDur = this.fadeInDur + this.holdDur + this.fadeOutDur;
+        this.pauseDur = 4000 + Math.random()*6000;
+        this.totalCycle = this.cycleDur + this.pauseDur;
+        this.born = false;
+        this.startTime = 0;
+
+        // Position near its zone on the spiral
+        this.baseAngle = item.zone * TURNS * Math.PI * 2 - Math.PI/2 + (Math.random()-0.5)*1.2;
+        this.baseR = maxR * Math.pow(item.zone, 0.65) + (Math.random()-0.5)*60;
+        this.driftSpeed = (Math.random()-0.5)*0.0001;
+    }
+
+    getAlpha(t){
+        if(!this.born){
+            if(t < this.birthDelay) return 0;
+            this.born = true;
+            this.startTime = t;
+        }
+        const elapsed = (t - this.startTime) % this.totalCycle;
+        if(elapsed < this.fadeInDur) return elapsed/this.fadeInDur;
+        if(elapsed < this.fadeInDur+this.holdDur) return 1;
+        if(elapsed < this.cycleDur) return 1-(elapsed-this.fadeInDur-this.holdDur)/this.fadeOutDur;
+        return 0;
+    }
+
+    draw(ctx, t){
+        const alpha = this.getAlpha(t);
+        if(alpha < 0.01) return;
+
+        const angle = this.baseAngle + galaxyAngle + Math.sin(t*0.0003+this.idx)*0.05;
+        const r = this.baseR + Math.sin(t*0.0004+this.idx*0.7)*8;
+        const x = cx + Math.cos(angle)*r;
+        const y = cy + Math.sin(angle)*r;
+
+        ctx.save();
+        ctx.globalAlpha = alpha * 0.65; // ethereal max
+
+        const lines = this.item.t.split('\n');
+        const isCode = this.item.type==='code';
+        const isMermaid = this.item.type==='mermaid';
+        const isQuote = this.item.type==='quote';
+        const isConcept = this.item.type==='concept';
+
+        let fontSize, fontFamily, lineH;
+        if(isCode){
+            fontSize = Math.max(9, Math.min(12, W*0.009));
+            fontFamily = `${fontSize}px 'JetBrains Mono', monospace`;
+            lineH = fontSize*1.5;
+        } else if(isMermaid){
+            fontSize = Math.max(8, Math.min(11, W*0.008));
+            fontFamily = `300 ${fontSize}px 'JetBrains Mono', monospace`;
+            lineH = fontSize*1.5;
+        } else if(isConcept){
+            fontSize = Math.max(10, Math.min(14, W*0.011));
+            fontFamily = `600 ${fontSize}px 'Space Grotesk', sans-serif`;
+            lineH = fontSize*1.6;
+        } else { // quote
+            fontSize = Math.max(10, Math.min(14, W*0.011));
+            fontFamily = `300 italic ${fontSize}px 'Inter', sans-serif`;
+            lineH = fontSize*1.7;
+        }
+
+        ctx.font = fontFamily;
+        ctx.textAlign = 'center';
+        ctx.textBaseline = 'middle';
+
+        // Soft glow behind text
+        ctx.save();
+        ctx.filter = 'blur(12px)';
+        ctx.fillStyle = this.item.color;
+        ctx.globalAlpha = alpha * 0.08;
+        const blockH = lines.length * lineH;
+        ctx.fillRect(x-80, y-blockH/2-8, 160, blockH+16);
+        ctx.restore();
+
+        // Text
+        ctx.fillStyle = this.item.color;
+        lines.forEach((line,i)=>{
+            const ly = y - (lines.length-1)*lineH/2 + i*lineH;
+            ctx.fillText(line, x, ly);
+        });
+
+        ctx.restore();
+    }
+}
+
+const floaters = GALLERY.map((item,i)=>new FloatingContent(item,i));
+
+function drawContent(t){
+    conCtx.clearRect(0,0,W,H);
+    floaters.forEach(f=>f.draw(conCtx, t));
+}
+
+// ═══════════════════════════════════════════════════════════════
+// MAIN LOOP
+// ═══════════════════════════════════════════════════════════════
+function animate(t){
+    drawNebula(t);
+    drawSpiral(t);
+    drawContent(t);
+    requestAnimationFrame(animate);
+}
+requestAnimationFrame(animate);
+</script>
+</body>
+</html>

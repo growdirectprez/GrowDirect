@@ -328,8 +328,50 @@ Linear integration is handled by `factory-linear` at stage boundaries.
 
 ---
 
+## Document Filing Rules
+
+All platform documentation lives in `docs/`. App-specific source material
+(Cove archive, Canary atlas) stays in its app repo.
+
+### Directory structure
+
+```
+docs/
+├── sdds/                      — Service Design Documents (the spine)
+│   ├── platform/              — factory, memory-bus, infra, skill-architecture
+│   ├── canary/                — tsp, chirp, fox, owl, identity, metrics
+│   ├── cove/                  — governance, ballot, archive, parcels, auth
+│   └── alx/                   — mcp-layer, test-lab, qa-agent
+├── decisions/                 — Architecture Decision Records (permanent)
+├── post-mortems/              — Shipping session lessons (permanent)
+├── team/                      — Role profiles
+├── legal/                     — Corporate formation, IP
+├── research/                  — Prior art (LP patterns, IBM/Staples/Tesco)
+└── _archive/                  — Superseded documents (read-only)
+```
+
+### Filing convention
+
+| Type | Path | Naming | Lifecycle |
+|------|------|--------|-----------|
+| SDD | `docs/sdds/{namespace}/{service}.md` | kebab-case | Updated in place |
+| ADR | `docs/decisions/YYYY-MM-DD-{title}.md` | date + kebab | Permanent |
+| Post-mortem | `docs/post-mortems/YYYY-MM-DD-{feature}.md` | date + kebab | Permanent |
+| Team profile | `docs/team/{Name}.md` | proper case | Updated in place |
+| Superseded | `docs/_archive/YYYY-MM-DD-{name}.md` | date of archival | Read-only |
+
+### Rules
+
+- **No homeless docs** — every document has one correct path per the table above
+- **SDDs describe systems that exist** — written from code, not ahead of it
+- **Archive, don't delete** — superseded docs move to `_archive/` with date prefix
+- **ADRs and post-mortems are permanent** — never archived, never modified after creation
+- **App source material stays in app repos** — Cove archive, Canary atlas/field-registry
+
+---
+
 ## Post-Mortem Process
 
-- Agent writes post-mortem after each ship cycle
+- Agent writes post-mortem after each ship cycle to `docs/post-mortems/`
 - Jeffe reviews and decides what gets promoted to platform standards
 - Agent does NOT auto-update this file — human gate prevents bloat
