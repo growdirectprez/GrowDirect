@@ -8,7 +8,10 @@
       "outputs": ["preflight_report"],
       "required_mcps": ["linear"],
       "optional_mcps": ["memory-bus"],
-      "checks": ["docker", "postgres", "valkey", "ollama", "git_clean", "gro_exists"]
+      "checks": ["docker", "postgres", "valkey", "ollama", "git_clean", "gro_exists"],
+      "skill": "factory-preflight",
+      "eval": "evals/skills/test_platform_preflight.py",
+      "eval_threshold": 1.0
     },
     "research": {
       "inputs": ["gro_issue", "preflight_report"],

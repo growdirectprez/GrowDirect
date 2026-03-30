@@ -1,3 +1,9 @@
+---
+name: factory-blueprint
+description: |
+  Plan writing for multi-step tasks. Produces architecture decisions, file structure tables, and numbered task lists with acceptance criteria.
+---
+
 # factory-blueprint — Plan Writing
 
 ## Pre-flight

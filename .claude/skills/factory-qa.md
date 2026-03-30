@@ -1,3 +1,9 @@
+---
+name: factory-qa
+description: |
+  Quality assurance pass. Route testing, auth checks, standards compliance, CSS validation, protected file audits.
+---
+
 # factory-qa — Quality Assurance
 
 ## Route testing

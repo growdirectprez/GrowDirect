@@ -1,3 +1,9 @@
+---
+name: factory-close
+description: |
+  Session teardown. Session summary, pending items flagged, new issues created for out-of-scope work, post-mortem for shipping sessions.
+---
+
 # factory-close — Session Close
 
 ## Session summary

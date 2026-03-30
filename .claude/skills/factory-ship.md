@@ -1,3 +1,9 @@
+---
+name: factory-ship
+description: |
+  Pre-ship checklist and deployment. Tests green, migrations reviewed, git log clean, push to remote, Linear status update.
+---
+
 # factory-ship — Ship
 
 ## Pre-ship checklist
