@@ -9,7 +9,7 @@
 
 ## Context
 
-GrowDirect has 18 SDD files in `docs/sdds/`. One (`skill-architecture.md`) is complete. The remaining 17 are stubs with placeholder sections. All 17 services are fully built in code — the SDDs need to be written from implementation, not designed ahead of it.
+GrowDirect has 18 files in `docs/sdds/`. One (`skill-architecture.md`) is a complete reference document — it uses its own structure (skill taxonomy, eval strategy, pipeline) and is **not** an SDD in the template sense. It is excluded from this build-out and should not be rewritten to match. The remaining 17 are SDD stubs with placeholder sections. All 17 services are fully built in code — the SDDs need to be written from implementation, not designed ahead of it.
 
 These SDDs are the **canonical knowledge layer** for the platform. They feed into:
 - **Memory bus** — semantic search across platform knowledge
@@ -61,7 +61,7 @@ They must be authoritative, correctly scoped (platform vs app), and deduplicated
 
 ### Phase 1 — Deep Code Audit
 
-Parallel agents read all code for all 17 services simultaneously (4 agents, one per namespace). Each agent produces a structured findings report covering:
+Parallel agents read all code for all 17 services simultaneously (3 agents: platform+ALX, canary, cove). ALX services live in the Canary codebase (`canary/services/qa_agent/`, `canary/mcp/`), so the platform+ALX agent reads both the shared infra and the ALX code within Canary to avoid overlap with the Canary agent. Each agent produces a structured findings report covering:
 
 - **Inventory:** Every model, service module, route, config, and test file
 - **Scope check:** Is this correctly placed at app vs platform level?
@@ -122,11 +122,13 @@ Why the service is built this way. Reference ADRs where they exist.
 
 ## 3. Data Model
 
-Every table owned by this service:
-- Table name, columns with types, constraints
-- Relationships (foreign keys, back_populates)
+Every table owned by this service, using SQLAlchemy 2.0 `Mapped[]` notation
+to match codebase conventions (never `Column()`):
+- Table name, columns with `Mapped[type]` annotations, constraints
+- Relationships (foreign keys, `back_populates`)
 - Indexes
 - Mixins applied (audit, tenant, etc.)
+- Relevant Alembic revision IDs (which migrations created/modified these tables)
 
 ## 4. Interfaces
 
@@ -152,21 +154,30 @@ Business logic modules:
 Environment variables, config class fields, feature flags.
 What each controls and its default value.
 
-## 7. Error Handling
+## 7. Security & Compliance
+
+Auth requirements, data sensitivity classification, and regulatory constraints:
+- What auth is required (JWT, session, API key, none)
+- Sensitive data handled (PII, tokens, financial data, votes)
+- Compliance requirements (PCI awareness for Canary, Davis-Stirling for Cove)
+- Data isolation patterns (RLS, schema separation, encryption at rest)
+- Mark N/A with reason for services with no security-sensitive surface
+
+## 8. Error Handling
 
 Failure modes the service handles:
 - What can go wrong
 - How it's detected
 - What happens (retry, fallback, alert, fail-open/closed)
 
-## 8. Testing
+## 9. Testing
 
 - Test files that cover this service
 - Fixture patterns used
 - How to run tests for this service
 - Coverage notes (what's tested, what's not)
 
-## 9. Dependencies
+## 10. Dependencies
 
 ### Upstream (this service depends on)
 Services, databases, external APIs this service calls.
@@ -177,7 +188,7 @@ Services that call into or consume from this service.
 ### Shared Infrastructure
 Postgres, Valkey, Ollama, Docker network dependencies.
 
-## 10. Known Issues & Reconciliation
+## 11. Known Issues & Reconciliation
 
 Findings from the audit:
 - Scope issues (app-level code that should be platform, or vice versa)
