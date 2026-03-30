@@ -816,7 +816,7 @@ def _extract_agent(filepath: str, filename: str) -> str:
     """Extract agent name from filepath or filename."""
     agents = [
         # Agent names discovered from profile directory at runtime
-        "Tom", "Eva", "Will", "Condor", "ALX",
+        "arch", "pm", "Will", "Condor", "ALX",
     ]
     if "WorkOrders/output/" in filepath:
         for agent in agents:

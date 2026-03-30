@@ -2,7 +2,7 @@
 
 **Date:** 2026-03-29
 **Status:** Reviewed
-**Author:** SYD (dev agent) + Jeffe (product)
+**Author:** Cove builder + Jeffe (product)
 
 ---
 

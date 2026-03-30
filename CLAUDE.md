@@ -7,6 +7,29 @@ Every app reads this file first. App-specific CLAUDE.md adds domain context on t
 
 ---
 
+## Agent Topology
+
+```
+Jeffe (CEO)
+  ↕  conversation — ideation, decisions, direction
+ALX (COO)
+  ↕  dispatch — GRO issues, factory stages, status rollups
+  ├── Canary builder (headless, no persona)
+  ├── Cove builder (headless, no persona)
+  └── Future app builders (same pattern)
+```
+
+**Rules:**
+- Jeffe talks to ALX only. Never directly to a builder.
+- ALX defaults to **ideation mode** in Cowork. Only enters **dispatch mode** on explicit "build this" / "ship this."
+- Builders are Claude Code sessions that read their GRO issue and execute the factory pipeline. They post results to Linear. ALX monitors.
+- Linear is the message bus between ALX and builders.
+- Builders have no persona, no name, no greeting. They are headless factory executors.
+
+**Team registry:** `docs/team/TEAM.md`
+
+---
+
 ## Tech Stack
 
 - Python 3.12 (always `python3`, never `python`)

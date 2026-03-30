@@ -26,9 +26,9 @@ If a GRO issue was worked on:
 - Note what was done and what remains
 - Any Davis-Stirling compliance decisions -> document in the issue
 
-### SYD Sign-Off
+### Session Sign-Off
 
-The session close summary should be attributed to SYD. Format:
+The session close summary should be attributed to "Cove builder". Format:
 
 ```
 ## Session Close — [date]

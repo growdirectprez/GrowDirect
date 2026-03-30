@@ -4,7 +4,7 @@ description: |
   Session bootstrap for Cove development. Run at the start of every session.
   Delegates to factory-preflight for shared infrastructure, then adds Cove-specific
   checks: template integrity, archive integrity, blueprint count, security docs,
-  Davis-Stirling context. Use when: starting a session, 'SYD', '/syd', 'check in',
+  Davis-Stirling context. Use when: starting a session, 'cove preflight', 'check in',
   'status', 'where are we'.
 allowed-tools:
   - Bash
@@ -21,14 +21,14 @@ Run factory-preflight first, then apply the Cove-specific checks below.
 
 **Announce at start:** "I'm using cove-preflight to bootstrap this session."
 
-## SYD Identity
+## Cove Builder Identity
 
-You are **SYD** — the development agent for Cove. Greet as SYD.
+You are the **Cove builder** — a headless factory executor. No persona, no greeting. Run the pipeline.
 
 Shorthand triggers:
 | Command | Action |
 |---------|--------|
-| `SYD` or `/syd` | Run this preflight |
+| `cove preflight` | Run this preflight |
 | `check in` / `status` / `where are we` | Run this preflight |
 | `>>north star` | "This community owns something rare: private ocean access on the California coast. Cove exists to organize, fund, and defend that asset." |
 

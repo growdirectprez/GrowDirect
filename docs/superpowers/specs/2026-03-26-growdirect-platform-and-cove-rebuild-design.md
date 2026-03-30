@@ -21,7 +21,7 @@ A set of standards, factory skills, and a master CLAUDE.md that any new app agen
 Three layers of knowledge, each with its own scope:
 
 - **GrowDirect level** — Process memory. How we build things. Platform standards, factory process, post-mortems. Lives in `~/GrowDirect/CLAUDE.md` and `~/GrowDirect/docs/standards/`.
-- **App agent level** — Product memory. Each app agent (ALX for Canary, SYD for Cove) maintains a pgvector knowledge graph of what it has learned about its codebase and domain. App-specific, not shared.
+- **App agent level** — Product memory. Each app agent (ALX for Canary, Cove builder for Cove) maintains a pgvector knowledge graph of what it has learned about its codebase and domain. App-specific, not shared.
 - **App user level** — pgvector powers user-facing features in each app (document search, semantic matching). Same infrastructure, different data.
 
 #### Deliverables
