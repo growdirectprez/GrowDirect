@@ -74,7 +74,8 @@ One PostgreSQL 17 instance (`growdirect_postgres`). All databases have the
 |----------|-------|---------|
 | `canary` | growdirect | Canary production (schemas: app, sales, metrics) |
 | `canary_test` | growdirect | Canary test runs |
-| `canary_memory` | growdirect | ALX agent knowledge graph |
+| `growdirect_memory` | growdirect | Platform memory bus (all apps) |
+| `growdirect_memory_test` | growdirect | Memory bus test runs |
 | `cove` | growdirect | Cove production |
 | `cove_test` | growdirect | Cove test runs |
 
@@ -127,6 +128,7 @@ Each app is a separate directory with its own:
 | Cove Flask | 5002 |
 | Cove MailHog SMTP | 1026 |
 | Cove MailHog Web | 8026 |
+| Memory Bus MCP | 8003 |
 
 ---
 
