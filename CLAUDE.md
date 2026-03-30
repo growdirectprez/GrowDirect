@@ -285,14 +285,21 @@ OLLAMA_URL=http://growdirect_ollama:11434
 
 ## Factory Process
 
-Six stages, in order:
+Nine stages, in order. Defined in `factory-manifest.json`.
 
-1. **Blueprint** — Specify what you're building (`factory-blueprint` skill)
-2. **TDD** — Write failing tests first (`factory-tdd` skill)
-3. **Assembly** — Implement to make tests pass (`factory-assembly` skill)
-4. **Verify** — Run full test suite, check integration (`factory-verify` skill)
-5. **QA** — Quality assurance pass (`factory-qa` skill)
-6. **Ship** — Deployment preparation (`factory-ship` skill)
+1. **Preflight** — Infrastructure health, env validation, git hygiene (`factory-preflight` skill)
+2. **Research** — Prior art from memory bus, GitNexus, docs (`factory-research` skill)
+3. **Blueprint** — Specify what you're building (`factory-blueprint` skill)
+4. **TDD** — Write failing tests first (`factory-tdd` skill)
+5. **Assembly** — Implement to make tests pass (`factory-assembly` skill)
+6. **Verify** — Run full test suite, check integration (`factory-verify` skill)
+7. **QA** — Quality assurance pass (`factory-qa` skill)
+8. **Ship** — Deployment preparation (`factory-ship` skill)
+9. **Close** — Linear update, session memory, timelog (`factory-close` skill)
+
+Skills live in `.claude/skills/` at the repo root. App-specific skills (e.g.,
+`canary-blueprint`, `cove-tdd`) delegate to the factory base and add domain context.
+Linear integration is handled by `factory-linear` at stage boundaries.
 
 ---
 
