@@ -93,6 +93,29 @@ services:
       retries: 5
     restart: unless-stopped
 
+  memory-bus:
+    image: growdirect-memory-bus
+    container_name: growdirect_memory_bus
+    build:
+      context: ../services/memory-bus
+      dockerfile: Dockerfile
+    environment:
+      DATABASE_URL: postgresql://growdirect:growdirect_dev@growdirect_postgres:5432/growdirect_memory
+      OLLAMA_URL: http://growdirect_ollama:11434
+      EMBEDDING_MODEL: qwen3-embedding:8b
+      PORT: "8003"
+    ports:
+      - "127.0.0.1:8003:8003"
+    depends_on:
+      postgres:
+        condition: service_healthy
+    healthcheck:
+      test: ["CMD-SHELL", "curl -sf http://localhost:8003/health || exit 1"]
+      interval: 10s
+      start_period: 15s
+      retries: 5
+    restart: unless-stopped
+
 volumes:
   pgdata:
     name: growdirect_pgdata
