@@ -104,6 +104,7 @@ services:
       OLLAMA_URL: http://growdirect_ollama:11434
       EMBEDDING_MODEL: qwen3-embedding:8b
       PORT: "8003"
+      MCP_API_KEY: ${MCP_API_KEY:-growdirect-memory-dev-key}
     ports:
       - "127.0.0.1:8003:8003"
     depends_on:

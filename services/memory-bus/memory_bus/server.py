@@ -7,6 +7,7 @@ from mcp.server.fastmcp import FastMCP
 
 from memory_bus.config import Config
 from memory_bus.store import MemoryStore
+from growdirect_mcp.auth import validate_api_key, AuthError
 
 logger = logging.getLogger(__name__)
 
@@ -20,8 +21,12 @@ mcp = FastMCP(
 
 
 @mcp.tool()
-def session_start(gro_issues: Optional[list[str]] = None) -> str:
+def session_start(gro_issues: Optional[list[str]] = None, api_key: Optional[str] = None) -> str:
     """Start a new ALX session. Optionally associate GRO issues."""
+    try:
+        validate_api_key(api_key)
+    except AuthError as e:
+        return json.dumps({"error": str(e)})
     result = store.session_start(gro_issues=gro_issues)
     return json.dumps(result, default=str)
 
@@ -32,8 +37,13 @@ def session_close(
     summary: str,
     decisions: Optional[list[str]] = None,
     unresolved: Optional[list[str]] = None,
+    api_key: Optional[str] = None,
 ) -> str:
     """Close a session with summary, decisions, and unresolved items."""
+    try:
+        validate_api_key(api_key)
+    except AuthError as e:
+        return json.dumps({"error": str(e)})
     result = store.session_close(
         session_id=session_id,
         summary=summary,
@@ -50,8 +60,13 @@ def memory_store(
     session_id: Optional[str] = None,
     metadata: Optional[dict] = None,
     layer: str = "shared",
+    api_key: Optional[str] = None,
 ) -> str:
     """Store a memory with embedding, layer tag, and type classification."""
+    try:
+        validate_api_key(api_key)
+    except AuthError as e:
+        return json.dumps({"error": str(e)})
     result = store.memory_store(
         session_id=session_id or "unattached",
         content=content,
@@ -68,11 +83,16 @@ def memory_recall(
     limit: int = 10,
     memory_type: Optional[str] = None,
     layer: Optional[str] = None,
+    api_key: Optional[str] = None,
 ) -> str:
     """Semantic search over memories. Falls back: vector -> full-text -> ILIKE.
 
     Use layer to scope results: corp, canary, cove, or shared.
     """
+    try:
+        validate_api_key(api_key)
+    except AuthError as e:
+        return json.dumps({"error": str(e)})
     result = store.memory_recall(
         query=query, limit=limit, memory_type=memory_type, layer=layer
     )
@@ -86,11 +106,16 @@ def memory_search(
     since: Optional[str] = None,
     layer: Optional[str] = None,
     limit: int = 20,
+    api_key: Optional[str] = None,
 ) -> str:
     """Structured search by session, type, date, or layer.
 
     Use layer to scope results: corp, canary, cove, or shared.
     """
+    try:
+        validate_api_key(api_key)
+    except AuthError as e:
+        return json.dumps({"error": str(e)})
     result = store.memory_search(
         session_id=session_id,
         memory_type=memory_type,
@@ -106,8 +131,13 @@ def context_assemble(
     topic: Optional[str] = None,
     gro_issue: Optional[str] = None,
     limit: int = 15,
+    api_key: Optional[str] = None,
 ) -> str:
     """Assemble a context window for a topic or GRO issue."""
+    try:
+        validate_api_key(api_key)
+    except AuthError as e:
+        return json.dumps({"error": str(e)})
     result = store.context_assemble(
         topic=topic, gro_issue=gro_issue, limit=limit
     )
@@ -119,8 +149,13 @@ def domain_context(
     domain: str,
     topic: Optional[str] = None,
     token_budget: int = 4000,
+    api_key: Optional[str] = None,
 ) -> str:
     """Full domain context assembly with token budget."""
+    try:
+        validate_api_key(api_key)
+    except AuthError as e:
+        return json.dumps({"error": str(e)})
     result = store.domain_context(
         domain=domain, topic=topic, token_budget=token_budget
     )
