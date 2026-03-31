@@ -2,7 +2,7 @@
 
 > **Date:** 2026-03-30
 > **Status:** Approved
-> **Scope:** Platform MCP package, ALX extraction from Canary, Cove polish, Memory Bus sweep, SDD updates
+> **Scope:** Platform MCP package (`growdirect-mcp`), ALX extraction from Canary, Cove polish, Memory Bus full sweep, SDD updates, ADR
 > **Goal:** Establish the official `mcp` Python SDK as the platform standard, extract ALX to platform level, and address all known MCP-related architectural findings from the SDD audit
 
 ---
@@ -14,16 +14,19 @@ The SDD build-out (2026-03-30) audited all 17 services and surfaced critical arc
 1. **Canary built a custom MCP framework** (`MCPTool`/`MCPRegistry`/`create_mcp_blueprint`) without knowing the official `mcp` Python SDK existed. This is legitimate tech debt.
 2. **Cove uses the SDK correctly** — `mcp.server.Server`, `mcp.types.Tool`, stdio transport, async-native. This is the right pattern.
 3. **ALX is tangled into Canary** — the COO/platform agent infrastructure lives in `Canary/canary/mcp/` and `Canary/canary/services/qa_agent/`. ALX belongs at platform level.
-4. **Memory Bus has 7 unaddressed Section 11 findings** — auth, misplaced tests, dead tables, missing indexes, soft FKs, no migration strategy, SDK alignment.
+4. **Memory Bus has 7 unaddressed Section 11 findings** — dual-codebase confusion, auth, misplaced tests, dead tables, missing indexes, soft FKs, no migration strategy, SDK alignment.
 5. **QA Agent is misclassified** — it's a Canary app-level test runner, not ALX. Its SDD sits in `docs/sdds/alx/` incorrectly.
+6. **Dual-codebase confusion** — `services/memory-bus/` (platform memory, FastMCP HTTP) and `Cove/cove/mcp/` (legal knowledge, SDK stdio) are different services with different purposes, but both get called "MCP" and the split is undocumented. Builders don't know which to use.
 
 ### Architectural Decision
 
-- The official `mcp` Python SDK is the platform standard for all MCP servers going forward.
+- The official `mcp` Python SDK is the platform standard for all MCP servers going forward. This decision requires an ADR at `docs/decisions/2026-03-30-mcp-sdk-platform-standard.md`.
 - Cove's implementation is the reference pattern.
 - ALX is a platform service (`services/alx/`), not a Canary service.
+- The MCP SDK package lives at `services/growdirect-mcp/` (platform infrastructure), separate from `services/alx/` (the COO agent). ALX consumes the package but doesn't own it — the package is platform infrastructure that all apps use.
 - Canary's custom MCP framework is tech debt. Canary keeps its 12 domain servers on the custom framework until a separate retrofit spec. No Canary code changes in this spec except removing ALX-specific entries.
 - If Canary needs an app-level agent, that's a Canary app agent, not ALX.
+- Memory Bus (`services/memory-bus/`) is **platform organizational memory** — ALX sessions, decisions, context blocks. Cove MCP (`cove/mcp/`) is **app-level legal knowledge** — CC&Rs, bylaws, litigation documents. They are different services with different purposes, different databases, and different transports. This spec clarifies the boundary and documents it in both SDDs.
 
 ---
 
@@ -31,12 +34,13 @@ The SDD build-out (2026-03-30) audited all 17 services and surfaced critical arc
 
 ### In Scope
 
-1. Platform MCP SDK package at `services/alx/mcp/`
+1. Platform MCP SDK package at `services/growdirect-mcp/`
 2. ALX extraction from Canary to `services/alx/`
 3. Cove MCP polish (registry pattern, remove hardcoded dispatch)
-4. Memory Bus full sweep (all 7 Section 11 findings)
+4. Memory Bus full sweep (all Section 11 findings including dual-codebase clarification)
 5. SDD updates for all affected documents
 6. QA Agent SDD reclassification (`alx/` → `canary/`)
+7. ADR documenting the `mcp` SDK as platform standard
 
 ### Out of Scope
 
@@ -49,9 +53,16 @@ The SDD build-out (2026-03-30) audited all 17 services and surfaced critical arc
 
 ## 1. Platform MCP Package
 
-**Location:** `services/alx/mcp/`
+**Location:** `services/growdirect-mcp/`
 
-A shared platform package wrapping the official `mcp` Python SDK with GrowDirect conventions. Every app's MCP servers import from here.
+A shared platform package wrapping the official `mcp` Python SDK with GrowDirect conventions. Every app's MCP servers import from here. This is platform infrastructure — not owned by ALX, Canary, or Cove. All apps consume it.
+
+### Package Name and Distribution
+
+- **Package name:** `growdirect-mcp`
+- **Import path:** `from growdirect_mcp import GrowDirectRegistry, GrowDirectTool`
+- **Distribution:** Installed via `pip install -e /path/to/services/growdirect-mcp` in dev. In Docker, the package directory is copied into the build context and installed during image build. No private PyPI — the monorepo is the distribution mechanism.
+- **Docker integration:** Each app's `Dockerfile` adds `COPY services/growdirect-mcp /tmp/growdirect-mcp && pip install /tmp/growdirect-mcp` before installing app dependencies. This requires adjusting Docker build contexts to include the platform services directory (e.g., `context: ../../` with appropriate `.dockerignore`).
 
 ### Components
 
@@ -79,9 +90,9 @@ Thin wrapper around SDK `Tool`. Adds:
 Platform-level IDE integration. Replaces Canary's `streamable_server.py`.
 
 - Uses the SDK's native stdio transport (not custom FastMCP wrapper)
-- Discovers tools across all apps by reading manifests from registered servers
+- Discovers tools from SDK-based servers only (Cove, Memory Bus, future apps). Canary's custom framework servers are not discoverable until Canary retrofit.
 - Auth: API key (production), Bearer token (dev)
-- Supports all apps (Canary, Cove, future) — not Canary-specific
+- Supports all apps that use the platform MCP package
 
 #### `auth.py` — Auth Middleware
 
@@ -101,8 +112,8 @@ Composable auth for MCP transports:
 ### Directory Structure
 
 ```
-services/alx/
-├── mcp/
+services/growdirect-mcp/
+├── growdirect_mcp/
 │   ├── __init__.py           — exports GrowDirectRegistry, GrowDirectTool
 │   ├── registry.py           — GrowDirectRegistry (SDK Server wrapper)
 │   ├── tool.py               — GrowDirectTool (SDK Tool wrapper)
@@ -126,8 +137,7 @@ ALX moves from Canary to platform level. ALX is the COO — platform coordinatio
 
 | Source (Canary) | Destination (Platform) | Notes |
 |-----------------|----------------------|-------|
-| `canary/mcp/streamable_server.py` | `services/alx/mcp/bridge.py` | Rewritten to use SDK native stdio, discovers tools across all apps |
-| `canary/mcp/__init__.py` exports | `services/alx/mcp/__init__.py` | New SDK-based implementations |
+| `canary/mcp/streamable_server.py` | `services/growdirect-mcp/growdirect_mcp/bridge.py` | Rewritten to use SDK native stdio, discovers tools from SDK-based servers |
 
 ### What Stays in Canary
 
@@ -149,9 +159,12 @@ ALX moves from Canary to platform level. ALX is the COO — platform coordinatio
 
 ALX at platform level owns:
 
-1. **MCP SDK package** — the toolkit all apps use
-2. **IDE bridge** — stdio tool discovery across all apps
-3. **Memory bus integration** — ALX is the primary consumer of `services/memory-bus/`
+1. **Platform coordination** — dispatch, monitoring, status rollups (future specs)
+2. **Memory bus integration** — ALX is the primary consumer of `services/memory-bus/`
+
+ALX consumes but does NOT own:
+
+- **Platform MCP package** (`services/growdirect-mcp/`) — platform infrastructure, all apps use it
 
 ALX does NOT own (future specs):
 
@@ -182,7 +195,7 @@ async def call_tool(name: str, arguments: dict):
 
 **Target (platform registry):**
 ```python
-from alx.mcp import GrowDirectRegistry, GrowDirectTool
+from growdirect_mcp import GrowDirectRegistry, GrowDirectTool
 
 registry = GrowDirectRegistry(
     server_name="cove-knowledge",
@@ -218,7 +231,17 @@ Cove's `server.py` gets simpler. Registry replaces hardcoded list. Dispatch is a
 
 ## 4. Memory Bus Full Sweep
 
-`services/memory-bus/` is already platform-level. Address all 7 Section 11 findings.
+`services/memory-bus/` is already platform-level. Address all Section 11 findings.
+
+### 4.0 Dual-Codebase Clarification
+
+**Finding (CRITICAL):** `services/memory-bus/` (platform organizational memory) and `Cove/cove/mcp/` (app-level legal knowledge) are both "MCP services" but serve completely different purposes. The split is undocumented and confusing.
+
+**Fix:** Document the boundary explicitly in both SDDs:
+- **Memory Bus** = platform memory. Stores ALX sessions, architectural decisions, context blocks. Database: `growdirect_memory`. Transport: FastMCP HTTP (port 8003). Consumers: ALX, all builders.
+- **Cove Knowledge MCP** = app-level knowledge. Stores CC&Rs, bylaws, litigation docs, property records. Database: `cove` (knowledge_chunks table). Transport: MCP SDK stdio. Consumers: Cove agents, Claude Desktop/Cowork.
+
+They share embedding infrastructure (both use `qwen3-embedding:8b`, 1024-dim) but are architecturally separate. This is correct — platform memory and app-level knowledge are different domains. The confusion was naming, not architecture.
 
 ### 4.1 Authentication
 
@@ -252,19 +275,34 @@ ON alx_memories USING hnsw (embedding vector_cosine_ops);
 
 **Finding:** `alx_memories.session_id` is a text column with no referential integrity constraint. Allows arbitrary session IDs (`'seed-clean'`, `'unattached'`) without corresponding session records.
 
-**Fix:** Create session records for existing orphan session IDs (`seed-clean`, `unattached`, any others). Add foreign key constraint: `REFERENCES alx_sessions(session_id)`. All future memory writes must have a valid session.
+**Fix:** Create session records for existing orphan session IDs, then add the FK constraint.
+
+Data migration:
+1. Query `SELECT DISTINCT session_id FROM alx_memories WHERE session_id NOT IN (SELECT session_id FROM alx_sessions)` to find all orphans
+2. For each orphan, insert a session record with `status='closed'`, `started_at=MIN(created_at)` from that session's memories, `closed_at=MAX(created_at)`
+3. Add FK: `ALTER TABLE alx_memories ADD CONSTRAINT fk_memories_session FOREIGN KEY (session_id) REFERENCES alx_sessions(session_id)`
+
+Post-migration: `seed_clean.py` must create a proper session before writing memories. `memory_store()` must validate that the session exists before accepting writes.
 
 ### 4.6 Alembic Migration Management
 
 **Finding:** `growdirect_memory` schema is managed by raw SQL in `02-create-memory-db.sql`, not through Alembic. Schema changes require manual SQL or volume wipe.
 
-**Fix:** Bring `growdirect_memory` under Alembic. Create initial migration capturing the current DDL (after fixes 4.3–4.5 are applied). All future schema changes go through migrations. Keep `02-create-memory-db.sql` as the bootstrap script for fresh installs only — Alembic `stamp head` after bootstrap.
+**Fix:** Bring `growdirect_memory` under Alembic. Sequencing:
+
+1. Create initial Alembic migration capturing the **pre-fix** DDL (current state of `02-create-memory-db.sql`). This is the baseline.
+2. Fixes 4.3 (drop seed_embeddings), 4.4 (HNSW index), and 4.5 (session_id FK) are each their own Alembic migration, applied in order after the baseline.
+3. Existing dev environments: run `alembic stamp <baseline-rev>` to mark the current schema, then `alembic upgrade head` to apply fixes 4.3–4.5.
+4. Fresh installs: `02-create-memory-db.sql` creates the database and extensions only (no tables). Alembic `upgrade head` creates all tables in their final state.
+5. Update `02-create-memory-db.sql` to remove table DDL — it becomes database/extension bootstrap only.
 
 ### 4.7 SDK Alignment
 
 **Finding:** Memory bus uses FastMCP. Need to verify it's using current patterns and not deprecated APIs.
 
-**Fix:** Review FastMCP usage. If FastMCP is a thin wrapper that delegates to the core `mcp` SDK, keep it. If it diverges or uses deprecated patterns, migrate to the core SDK directly for consistency with Cove and the platform package. The goal is one SDK across the platform.
+**Fix:** FastMCP is the high-level API within the `mcp` package (ships as part of `mcp[cli]`). It is not a separate library — it is the SDK. Cove uses the lower-level `mcp.server.Server` class directly. Both are valid API surfaces within the same package.
+
+Decision: Memory Bus stays on FastMCP (it's already working and FastMCP IS the SDK). Cove stays on `mcp.server.Server`. The platform package (`growdirect-mcp`) wraps whichever API surface is appropriate — both are the official SDK. No migration needed here; the consistency requirement is satisfied by both using the `mcp` package.
 
 ---
 
@@ -272,29 +310,36 @@ ON alx_memories USING hnsw (embedding vector_cosine_ops);
 
 SDDs describe what exists. They update after the code changes.
 
+### New
+
+| Document | Purpose |
+|----------|---------|
+| `docs/decisions/2026-03-30-mcp-sdk-platform-standard.md` | ADR: official `mcp` Python SDK is the platform standard for all MCP servers |
+
 ### Rewrite
 
 | SDD | Reason |
 |-----|--------|
-| `docs/sdds/alx/mcp-service-layer.md` | No longer documents Canary's custom framework. Now documents the platform MCP SDK package at `services/alx/mcp/`, the stdio bridge, and the SDK-first standard. Section 11 replaces "Cove uses different architecture" with "Canary retrofit deferred — separate spec" |
+| `docs/sdds/alx/mcp-service-layer.md` | No longer documents Canary's custom framework. Now documents the platform MCP SDK package at `services/growdirect-mcp/`, the stdio bridge, and the SDK-first standard. Section 11: Canary retrofit deferred (separate spec), `ops` ghost prefix remains as Canary tech debt |
 
 ### Update
 
 | SDD | Sections Affected |
 |-----|-------------------|
-| `docs/sdds/platform/memory-bus.md` | S7 (auth added), S3 (seed_embeddings dropped, HNSW index added, session_id FK), S9 (new tests replace misplaced ones), S11 (all findings resolved) |
+| `docs/sdds/platform/memory-bus.md` | S2 (dual-codebase boundary clarified), S3 (seed_embeddings dropped, HNSW index added, session_id FK), S7 (auth added), S9 (new tests replace misplaced ones), S11 (all findings resolved with cross-reference to Cove knowledge MCP boundary) |
 | `docs/sdds/cove/archive-system.md` | Minor — update if Cove MCP registration changes affect knowledge chunk ingestion paths |
+| `docs/sdds/platform/shared-infrastructure.md` | S4 — add port allocation for any new platform services if applicable |
 
 ### Reclassify
 
 | SDD | From | To | Reason |
 |-----|------|----|--------|
-| `docs/sdds/alx/qa-agent.md` | `docs/sdds/alx/` | `docs/sdds/canary/qa-agent.md` | App-level test runner, not ALX. Rename to reflect what it actually is. |
+| `docs/sdds/alx/qa-agent.md` | `docs/sdds/alx/` | `docs/sdds/canary/qa-agent.md` | App-level test runner, not ALX |
 
 ### Don't Touch
 
 - Canary SDDs (tsp, fox, chirp, owl, identity, metrics) — no code changes
-- Platform SDDs (shared-infrastructure, factory-pipeline) — unaffected
+- Platform SDDs (factory-pipeline) — unaffected
 - Cove SDDs (governance, elections, parcels, member-auth) — unaffected
 - `docs/sdds/alx/test-lab.md` — unaffected by this spec
 
@@ -316,15 +361,22 @@ No Canary code changes in this spec beyond removing ALX entries from server maps
 
 ## Success Criteria
 
-1. `services/alx/mcp/` exists as an installable package wrapping the `mcp` SDK
-2. Platform stdio bridge discovers tools across Canary and Cove
+**Positive assertions (what exists):**
+1. `services/growdirect-mcp/` exists as an installable package wrapping the `mcp` SDK
+2. Platform stdio bridge discovers tools from SDK-based servers (Cove, Memory Bus)
 3. Cove `server.py` uses `GrowDirectRegistry` instead of hardcoded tool list
 4. Memory bus has API key auth, HNSW index, proper FK, Alembic migrations, clean tests
-5. `seed_embeddings` table is gone
+5. Dual-codebase boundary documented in both Memory Bus and Cove SDDs
 6. All affected SDDs updated to reflect current architecture
 7. QA Agent SDD moved to `docs/sdds/canary/`
-8. All changes committed with clean git history
-9. No Canary domain code changed (12 MCP servers still work on custom framework)
+8. ADR written at `docs/decisions/2026-03-30-mcp-sdk-platform-standard.md`
+9. All changes committed with clean git history
+
+**Negative assertions (what doesn't exist):**
+10. `seed_embeddings` table absent from DDL and Alembic head state
+11. No imports of `canary.services.alx.memory` in `services/memory-bus/tests/`
+12. No `alx` entry in Canary's `SERVER_PREFIXES` or `SERVER_BLUEPRINTS`
+13. No Canary domain code changed (12 MCP servers still work on custom framework)
 
 ---
 
@@ -332,10 +384,10 @@ No Canary code changes in this spec beyond removing ALX entries from server maps
 
 | Phase | Work | Depends On |
 |-------|------|------------|
-| 1 | Platform MCP package (`services/alx/mcp/`) | Nothing |
-| 2 | Memory Bus full sweep | Phase 1 (SDK alignment check) |
-| 3 | Cove MCP polish (import platform package) | Phase 1 |
-| 4 | ALX extraction (bridge, server maps) | Phase 1 |
-| 5 | SDD updates + QA Agent reclassification | Phases 2–4 |
+| 1 | Platform MCP package (`services/growdirect-mcp/`) + packaging strategy | Nothing |
+| 2 | Memory Bus full sweep (all findings including Alembic) | Phase 1 (SDK alignment check) |
+| 3 | Cove MCP polish (import platform package) | Phase 1 (package installable) |
+| 4 | ALX extraction (bridge moves to platform, Canary server maps cleaned) | Phase 1 |
+| 5 | SDD updates + QA Agent reclassification + ADR | Phases 2–4 |
 
-Phases 2, 3, 4 can run in parallel after Phase 1 completes.
+Phases 2, 3, 4 can run in parallel after Phase 1 completes. Phase 1 must include the packaging/distribution solution (Docker build context changes) since Phases 2 and 3 depend on importing the platform package.
