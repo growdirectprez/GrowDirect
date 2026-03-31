@@ -585,7 +585,7 @@ PORT=8003
 
 ---
 
-## 7. Security and Compliance
+## 7. Security & Compliance
 
 **Authentication:** None at the MCP transport level. The Memory Bus relies on network isolation — it is only reachable within the `growdirect` Docker network. No API key or token is required to call any tool. Any container on the `growdirect` network can read and write all memories.
 
@@ -744,7 +744,7 @@ The service is registered in the shared devops compose as `growdirect_memory_bus
 
 ---
 
-## 11. Known Issues and Reconciliation
+## 11. Known Issues & Reconciliation
 
 ### CRITICAL: Dual-Codebase Architecture
 

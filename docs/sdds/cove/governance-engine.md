@@ -701,6 +701,10 @@ All governance models use `String(36)` for UUID primary keys rather than the pla
 
 Both `Ballot.chain_hash` and `Proposal.chain_tx_hash` are nullable columns intended for a future blockchain audit trail. No implementation exists yet. These columns have no effect on current operation.
 
+### PROPOSAL_TYPE_DEFAULTS Fallback Diverges from JSON Config
+
+`services.py` contains a hardcoded `PROPOSAL_TYPE_DEFAULTS` dictionary used as a fallback when `wpbca-bylaws-config.json` fails to load. The fallback sets `resolution.notice_period_days = 10`, but the JSON config (the authoritative source) sets it to `4`. If the JSON file ever fails to load, resolution proposals silently get 10-day notice periods instead of 4-day. The fallback should be regenerated from the current JSON values, or the loading mechanism should fail loudly rather than falling back to stale defaults.
+
 ### Electronic Ballot Opt-In Not Yet Enforced
 
 AB 2159 requires member opt-in for electronic secret ballots. The `delivery_preference` column exists on `Member` (electronic | paper | both), but `cast_vote()` does not check whether the member has opted in. The `is_electronic_eligible()` check in `bylaws_config.py` covers the proposal type, but not the member's individual consent. Member-level consent enforcement is a gap.
