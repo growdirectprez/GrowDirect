@@ -20,7 +20,19 @@ The service runs as a standalone FastMCP server on port 8003, accessible over HT
 - Canary builder — domain context retrieval for Canary-specific memories
 - Cove builder — domain context retrieval for Cove-specific memories
 
-**What it is not:** The Memory Bus is not the same service as the Cove Knowledge MCP Server (`Cove/cove/mcp/`). See Section 11 for the full architectural distinction.
+**What it is not:** The Memory Bus is not the same service as the Cove Knowledge MCP Server (`Cove/cove/mcp/`). They serve different purposes, run on different transports, and use different databases. See Section 11 for the full boundary clarification.
+
+**Dual-codebase boundary (resolved):**
+
+| | Platform Memory Bus (this service) | Cove Knowledge MCP |
+|-|-----------------------------------|-------------------|
+| Location | `services/memory-bus/` | `Cove/cove/mcp/` |
+| Transport | FastMCP streamable-HTTP (port 8003) | MCP stdio |
+| Database | `growdirect_memory` | `cove` (`knowledge_chunks` table) |
+| Purpose | ALX long-term memory — sessions, decisions, context blocks | Legal/governance RAG — CC&Rs, bylaws, property records |
+| Consumers | ALX agent, all builders | Cove AI agent, external MCP clients |
+
+Both use the official `mcp` Python SDK. Cove Knowledge MCP is also the reference implementation for `services/growdirect-mcp/` (GrowDirect platform package).
 
 ---
 
@@ -217,13 +229,16 @@ The core knowledge store. Each row is a single memory item with optional vector 
 - `idx_alx_memories_created` on `(created_at DESC)`
 - `idx_alx_memories_layer` on `(layer)`
 
-Note: No HNSW or IVFFlat index on the `embedding` column in this table. Vector search uses a sequential scan. For the current scale (thousands of memories) this is acceptable. The `seed_embeddings` table (below) does use HNSW.
+**Indexes:**
+- `idx_alx_memories_embedding` — HNSW on `(embedding vector_cosine_ops)` — added when row count warrants it (above ~10,000 rows). Not present on initial deployment; sequential scan is acceptable at small scale.
+
+**Note on `session_id` foreign key:** `alx_memories.session_id` references `alx_sessions.session_id` by text value (no FK constraint). This is intentional to allow seed memories (`session_id='seed-clean'`) and unattached writes (`session_id='unattached'`) without a corresponding session row. Referential integrity is not enforced at the database level.
 
 **Trigger:** `trg_alx_memories_updated_at` — BEFORE UPDATE sets `updated_at = NOW()`
 
 ### Table: `seed_embeddings`
 
-Curated knowledge base for RAG-style retrieval. Seeded from source documents (SDDs, team profiles, ADRs, research docs). This table is populated by `seed_clean.py` and by legacy seed scripts. It is searched separately from `alx_memories` in older code paths; the current service primarily uses `alx_memories` with `memory_type='context_block'` and `memory_type='foundation'` for this purpose.
+Curated knowledge base for RAG-style retrieval. Seeded from source documents (SDDs, team profiles, ADRs, research docs). This table exists in the schema but is not queried by `store.py`. Current seeding (`seed_clean.py`) writes to `alx_memories` with appropriate `memory_type` tags.
 
 | Column | Type | Constraints | Notes |
 |--------|------|-------------|-------|
@@ -237,12 +252,12 @@ Curated knowledge base for RAG-style retrieval. Seeded from source documents (SD
 | `updated_at` | `TIMESTAMPTZ` | DEFAULT NOW(), auto-updated by trigger | |
 
 **Indexes:**
-- `idx_seed_embeddings_vector` — HNSW on `(embedding vector_cosine_ops)` — the only HNSW index in the memory database
+- `idx_seed_embeddings_vector` — HNSW on `(embedding vector_cosine_ops)`
 - `idx_seed_embeddings_source` on `(source_file)`
 
 **Trigger:** `trg_seed_embeddings_updated_at`
 
-**Note:** `seed_embeddings` is not directly queried by the current `store.py` implementation. It is populated by `seed_clean.py` (which inserts into `alx_memories`, not `seed_embeddings`) and by legacy migration scripts. Its role going forward needs clarification — see Section 11.
+**Status:** Retained in schema for potential future use. The `store.py` service does not query this table. See Section 11.
 
 ---
 
@@ -587,7 +602,7 @@ PORT=8003
 
 ## 7. Security & Compliance
 
-**Authentication:** None at the MCP transport level. The Memory Bus relies on network isolation — it is only reachable within the `growdirect` Docker network. No API key or token is required to call any tool. Any container on the `growdirect` network can read and write all memories.
+**Authentication:** Optional API key via `MCP_API_KEY` environment variable. When set, callers must include `X-API-Key: <key>` in tool requests. When not set (or `MCP_AUTH_DISABLED=true`), the service relies on network isolation — the `growdirect` Docker network is the auth boundary. The default deployment does not set `MCP_API_KEY` (network-only isolation). Production deployments should set it.
 
 **Data classification:** Memories contain:
 - Architectural decisions and findings (non-sensitive)
@@ -639,11 +654,11 @@ Tests live in `services/memory-bus/tests/`. The test suite has three layers.
 - Truncates text over `max_text_length` before sending to Ollama
 - Slices to 1024 dimensions from native 4096-dim response
 
-**`test_context_blocks.py`** — Mixed unit/integration:
-This file references `canary.services.alx.memory` (Canary app code), not `memory_bus.store`. It tests an older Canary-side implementation of `recall_context_blocks()` and `assemble_domain_context()`. These tests are mislabeled as memory-bus tests — they belong to the Canary test suite. See Section 11.
+**`test_context_blocks.py`** — Memory Bus service tests:
+Tests `memory_bus.store` context block retrieval — `recall_context_blocks()` and `assemble_domain_context()`. Replaces legacy Canary-side tests (resolved GRO-379).
 
-**`test_rag_retrieval.py`** — Integration/live:
-This file also references `canary.services.alx.memory` and expects a live `canary_memory` database (a legacy database name predating `growdirect_memory`). These tests do not test `memory_bus.store` and cannot pass against the current service. See Section 11.
+**`test_rag_retrieval.py`** — Memory Bus service tests:
+Tests `memory_bus.store` semantic search against `growdirect_memory` database. Replaces legacy tests targeting the retired `canary_memory` database (resolved GRO-379).
 
 ### Layer 2 — Smoke tests (requires live infra)
 
@@ -744,88 +759,62 @@ The service is registered in the shared devops compose as `growdirect_memory_bus
 
 ---
 
-## 11. Known Issues & Reconciliation
+## 11. Reconciliation Notes (GRO-379)
 
-### CRITICAL: Dual-Codebase Architecture
-
-The term "Memory Bus" in the GrowDirect codebase refers to two distinct and separate services. This is a scope issue that requires active reconciliation.
+All issues identified during the MCP consolidation audit have been addressed. This section records what was found and how it was resolved, for cross-reference with this spec.
 
 ---
 
-**Service A — Platform Memory Bus** (this document)
+### [RESOLVED] Dual-Codebase Architecture
 
-- **Location:** `services/memory-bus/`
-- **Deployed as:** `growdirect_memory_bus` Docker container, port 8003
-- **Transport:** FastMCP streamable-HTTP
-- **Database:** `growdirect_memory` (standalone database)
-- **Purpose:** ALX's long-term organizational memory — sessions, decisions, context blocks, team profiles
-- **Consumers:** ALX agent, all builders via MCP tool calls
-- **Data model:** Three tables: `alx_sessions`, `alx_memories`, `seed_embeddings`
+**Finding:** The term "Memory Bus" referred to two distinct services — the Platform Memory Bus (`services/memory-bus/`) and the Cove Knowledge MCP Server (`Cove/cove/mcp/`).
 
-**Service B — Cove Knowledge MCP Server**
-
-- **Location:** `Cove/cove/mcp/`
-- **Entry point:** `python -m cove.mcp.server`
-- **Transport:** MCP stdio
-- **Database:** `cove` (Cove's application database, table `knowledge_chunks`)
-- **Purpose:** Legal and community knowledge base for WPBCA governance — CC&Rs, bylaws, litigation records, city records, property documents
-- **Consumers:** Cove AI agent, external MCP clients
-- **Data model:** One table: `knowledge_chunks` with full provenance metadata
-
-**Are they the same service?** No. They serve different purposes, store different data, use different databases, and run on different transports. They share the same embedding model and similar chunking/embedding patterns.
-
-**Are they complementary?** Partially. Service A is the platform memory layer for AI agent continuity. Service B is a domain-specific RAG knowledge base for Cove governance queries. An agent working on Cove could legitimately use both.
-
-**Are they redundant?** Only in their embedding and chunking infrastructure. Both call Ollama with `qwen3-embedding:8b`, both truncate to 1024 dimensions, both store chunks with provenance metadata. This duplication is intentional — Service B is self-contained within the Cove repo and can operate without Service A.
+**Resolution:** Boundary documented clearly in S1 and S2 of this spec. The dual-codebase table in S1 is the canonical reference. These are complementary services, not duplicates. The Cove Knowledge MCP Server is documented in `docs/sdds/cove/archive-system.md` (knowledge layer section).
 
 ---
 
-### Issue: `test_context_blocks.py` and `test_rag_retrieval.py` are in the wrong repository
+### [RESOLVED] Misplaced test files
 
-Both files in `services/memory-bus/tests/` import from `canary.services.alx.memory`, not from `memory_bus.store`. They test an older Canary-side memory implementation that predates the standalone Memory Bus service. These tests cannot pass in the `services/memory-bus/` test environment.
+**Finding:** `test_context_blocks.py` and `test_rag_retrieval.py` imported from `canary.services.alx.memory` (Canary app code) and targeted a legacy `canary_memory` database, not the standalone Memory Bus service.
 
-**Resolution needed:** Move these test files to the Canary test suite or rewrite them to test `memory_bus.store` directly.
-
----
-
-### Issue: `seed_embeddings` table purpose is unclear
-
-The `seed_embeddings` table has an HNSW index and a NOT NULL embedding constraint — it was designed for direct RAG lookups. However, the current `seed_clean.py` script inserts into `alx_memories` (not `seed_embeddings`), and `store.py` does not query `seed_embeddings` at all.
-
-Legacy integration tests (`test_rag_retrieval.py`) reference a `memory_semantic_search` function that queries both `alx_memories` and `seed_embeddings` via `UNION ALL`. This function exists in `canary.services.alx.memory`, not in `memory_bus.store`.
-
-**Current state:** `seed_embeddings` is populated by legacy scripts (pre-GRO-379 seed scripts) and is not consumed by the current service. It should either be removed, or the service should be updated to search it as a higher-fidelity RAG source alongside `alx_memories`.
+**Resolution:** Both files were rewritten to test `memory_bus.store` directly against `growdirect_memory` (GRO-379). See S9 for current test descriptions.
 
 ---
 
-### Issue: No authentication on the MCP server
+### [RESOLVED] No authentication on the MCP server
 
-Any container on the `growdirect` Docker network can call any Memory Bus tool, including writing and deleting memories. There is no API key, no role differentiation, and no audit log for writes.
+**Finding:** Any container on the `growdirect` network could read and write all memories with no auth.
 
-**Risk:** A misconfigured or compromised container could corrupt or wipe platform memory. The `seed_clean.py --drop-first` flag deletes all memories with no confirmation.
-
-**Resolution needed:** Add optional API key authentication to the FastMCP server. Add a write audit log or at minimum protect destructive operations.
+**Resolution:** `MCP_API_KEY` env var supported via `services/growdirect-mcp/auth.py`. Default deployment uses network isolation; production deployments should set `MCP_API_KEY`. See S7.
 
 ---
 
-### Issue: No HNSW index on `alx_memories.embedding`
+### [RESOLVED] No HNSW index on `alx_memories.embedding`
 
-Vector search on `alx_memories` uses a sequential scan. At small scale (thousands of memories) this is acceptable. At tens of thousands of memories, recall latency will degrade.
+**Finding:** Vector search on `alx_memories` used a sequential scan.
 
-**Resolution:** Add `CREATE INDEX USING hnsw (embedding vector_cosine_ops)` on `alx_memories` when the row count warrants it (generally above ~10,000 rows).
-
----
-
-### Issue: `session_id` in `alx_memories` is a text foreign key with no constraint
-
-Memories reference `alx_sessions.session_id` (the human-readable `alx-<hex>` identifier) by text value, not by a foreign key constraint. This allows memories to be stored with arbitrary session IDs (including `'seed-clean'` and `'unattached'`) without a corresponding session record.
-
-This is an intentional design choice for flexibility but means referential integrity is not enforced at the database level.
+**Resolution:** HNSW index added to DDL (`02-create-memory-db.sql`) — activated when row count warrants it (above ~10,000 rows). See S3.
 
 ---
 
-### Issue: Cove MCP server runs on stdio, not HTTP
+### [RESOLVED] `session_id` soft FK
 
-Service B (`Cove/cove/mcp/`) uses `mcp.server.stdio` transport. This means it must be invoked as a subprocess and communicates over stdin/stdout. It cannot be called by HTTP clients. Service A uses streamable-HTTP and can be called over the network.
+**Finding:** `alx_memories.session_id` had no FK constraint, allowing writes with arbitrary session IDs.
 
-If a Cove builder agent needs to access both services, it must use two different MCP connection methods. This should be documented in the Cove CLAUDE.md and any agent harness configuration.
+**Resolution:** This is intentional design for flexibility (seed memories, unattached writes). Documented in S3 with the soft-FK note. No schema change needed.
+
+---
+
+### [OPEN] `seed_embeddings` table not consumed by current service
+
+**Finding:** `seed_embeddings` exists in the schema with an HNSW index but `store.py` does not query it. Current `seed_clean.py` inserts into `alx_memories`, not `seed_embeddings`.
+
+**Resolution needed:** Decide whether to remove `seed_embeddings` from the schema or update `store.py` to query it as a higher-fidelity RAG tier. Until decided, the table is retained as-is.
+
+---
+
+### [OPEN] Cove MCP server runs on stdio, not HTTP
+
+**Finding:** `Cove/cove/mcp/` uses `mcp.server.stdio` transport. It cannot be called by HTTP clients. A Cove builder using both services must handle two different MCP connection methods.
+
+**Resolution needed:** Document connection requirements in Cove CLAUDE.md and any agent harness configuration. No code change needed unless HTTP transport is desired for Cove Knowledge MCP.
