@@ -141,6 +141,7 @@ class MemoryStore:
             "session_id": session_id,
             "status": "closed",
             "closed_at": now.isoformat(),
+            "summary": summary,
         }
 
     def _assemble_startup_context(self, gro_issues: list[str]) -> str:
@@ -200,6 +201,14 @@ class MemoryStore:
         embedding = get_embedding(content, self._config)
 
         with self._session() as db:
+            # Validate session exists (enforces FK integrity at application level)
+            session_check = db.execute(
+                text("SELECT 1 FROM alx_sessions WHERE session_id = :sid"),
+                {"sid": session_id},
+            ).fetchone()
+            if not session_check:
+                return {"error": f"Session '{session_id}' does not exist — call session_start first"}
+
             if embedding:
                 db.execute(
                     text("""
