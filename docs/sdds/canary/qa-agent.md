@@ -1,7 +1,7 @@
 # QA Agent
 
 > **Status:** Complete — written from code
-> **Namespace:** alx
+> **Namespace:** canary
 > **Last updated:** 2026-03-30
 > **Code location:** `Canary/canary/services/qa_agent/`
 > **Linear:** GRO-326
