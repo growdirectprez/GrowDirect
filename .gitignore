@@ -1,6 +1,6 @@
 # App repos (separate git repos)
-Canary/
-Cove/
+/Canary/
+/Cove/
 
 # Removed directories (contents moved to docs/)
 IP/
