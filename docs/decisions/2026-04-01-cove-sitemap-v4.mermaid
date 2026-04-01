@@ -1,0 +1,109 @@
+graph TD
+    classDef public fill:#f0f9f0,stroke:#4a7c59,color:#1a3a1a
+    classDef member fill:#E8F4F4,stroke:#0B4F5A,color:#052B30
+    classDef board fill:#FAF8F3,stroke:#A0522D,color:#332F28
+    classDef research fill:#FDF5F0,stroke:#D4845A,color:#7A3D1F
+    classDef root fill:#0B4F5A,stroke:#052B30,color:#fff
+    classDef gate fill:#fff,stroke:#0B4F5A,color:#0B4F5A,stroke-width:3px,stroke-dasharray:6 3
+    classDef widget fill:#E8F4F4,stroke:#1A7C7C,color:#052B30,stroke-width:2px
+
+    ROOT["abalonecove.org"]:::root
+    ROOT --> LANDING
+    GATE["Magic link login"]:::gate
+    LANDING --> GATE
+    GATE --> MEM
+    GATE --> BRD
+    GATE --> ARC
+
+    subgraph LANDING["Public — Home Bulletin + Front Desk"]
+        direction TB
+        L1["Board announcements — reverse chron"]
+        L2["Pinned items — upcoming vote, next meeting"]
+        L3["Published results and certified records"]
+
+        subgraph WIDGET_PUB["Contact the Board widget"]
+            direction TB
+            W1["Request escrow documents — APN required"]
+            W2["Ask a general question"]
+            W3["Form: name, email, lot/APN, message"]
+            W4["Creates board notification + record"]
+        end
+
+        L4["Sign in to participate"]
+    end
+
+    subgraph MEM["Member — 4 sections"]
+        direction TB
+
+        HOME2["Home — personalized bulletin"]
+        HOME2 --- H1["Board announcements + your notifications"]
+        HOME2 --- H2["Your open ballots and vote status"]
+        HOME2 --- H3["Your assessment status"]
+
+        subgraph WIDGET_MEM["Message the Board widget"]
+            direction TB
+            WM1["Tied to your account and parcel"]
+            WM2["Request types: question, escrow, complaint"]
+            WM3["Your request history"]
+            WM4["Creates notification to board with full context"]
+        end
+
+        VOTE["Vote"]
+        VOTE --- V1["Active proposals — cast ballot"]
+        VOTE --- V2["Elections — candidate slate"]
+        VOTE --- V3["Results and certified records"]
+        VOTE --- V4["Proceedings — compliance log"]
+
+        DOCM["Documents"]
+        DOCM --- D1["Bylaws, CC&Rs, rules"]
+        DOCM --- D2["Meeting minutes and agendas"]
+        DOCM --- D3["Board resolutions"]
+        DOCM --- D4["Search and filter by category"]
+
+        COMM["Community"]
+        COMM --- C1["Fixed map — all 81 lots"]
+        COMM --- C2["Tap lot — profile card popup"]
+        COMM --- C3["Slide-out directory — address book style"]
+        COMM --- C4["My profile and contact info"]
+    end
+
+    subgraph BRD["Board Dashboard"]
+        direction TB
+
+        BO["Operations"]
+        BO --- B1["Compose and pin announcements"]
+        BO --- B2["Create proposals and elections"]FAQ
+        BO --- B3["Publish and manage documents"]
+        BO --- B4["Treasury — budget and assessments"]
+        BO --- B5["Member roster and verification"]
+        BO --- B6["ARC review queue"]
+        BO --- B7["Meeting scheduling and minutes"]
+        BO --- B8["Compliance — publish proceedings"]
+
+        subgraph INBOX["Request Inbox"]
+            direction TB
+            I1["All requests — public and member"]
+            I2["Status: new, in progress, resolved"]
+            I3["Attach documents to response"]
+            I4["Resolve and notify requestor"]
+        end
+    end
+
+    subgraph ARC["ARC Historian — admin only"]
+        direction TB
+        RW["Research Workbench"]
+        RW --- R1["Parcel lineage and temporal data"]
+        RW --- R2["Advanced map — layers and overlays"]
+        RW --- R3["Document provenance and chain of custody"]
+        RW --- R4["APN deep-dive — title history"]
+        RW --- R5["Boundary calibration"]
+        RW --- R6["Archive narratives"]
+    end
+
+    class L1,L2,L3,L4 public
+    class W1,W2,W3,W4 widget
+    class HOME2,VOTE,DOCM,COMM,H1,H2,H3,V1,V2,V3,V4,D1,D2,D3,D4,C1,C2,C3,C4 member
+    class WM1,WM2,WM3,WM4 widget
+    class BO,B1,B2,B3,B4,B5,B6,B7,B8 board
+    class I1,I2,I3,I4 board
+    class RW,R1,R2,R3,R4,R5,R6 research
