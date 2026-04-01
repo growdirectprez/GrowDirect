@@ -3,7 +3,7 @@
 GrowDirect builds enterprise SaaS tools using a factory process for consistent delivery.
 Every app reads this file first. App-specific CLAUDE.md adds domain context on top.
 
-**Apps:** Canary (loss prevention for Square merchants) · Cove (HOA governance)
+**Apps:** Canary (loss prevention for Square merchants) · Cove (HOA governance) · Viva (treasury operations — research phase)
 
 ---
 
@@ -101,6 +101,8 @@ One PostgreSQL 17 instance (`growdirect_postgres`). All databases have the
 | `growdirect_memory_test` | growdirect | Memory bus test runs |
 | `cove` | growdirect | Cove production |
 | `cove_test` | growdirect | Cove test runs |
+| `viva` | growdirect | Viva production (treasury ops) |
+| `viva_test` | growdirect | Viva test runs |
 
 **Dev credentials:** `growdirect / growdirect_dev`
 
@@ -111,6 +113,7 @@ app's flask container to the `growdirect` network.
 **Valkey DB allocation:**
 - DB 0 → Canary
 - DB 1 → Cove
+- DB 2 → Viva
 
 ---
 
@@ -149,6 +152,7 @@ Each app is a separate directory with its own:
 | Canary Owl MCP | 8001 |
 | Canary QA Agent | 8002 |
 | Cove Flask | 5002 |
+| Viva API/Dashboard | 5003 |
 | Cove MailHog SMTP | 1026 |
 | Cove MailHog Web | 8026 |
 | Memory Bus MCP | 8003 |

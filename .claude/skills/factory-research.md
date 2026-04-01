@@ -21,9 +21,22 @@ sources so blueprint doesn't start from scratch.
 
 **Announce at start:** "Running factory-research — gathering prior art and context."
 
-## Sources (all optional)
+## Sources
 
-### 1. Memory Bus
+### 0. Platform Standards (MANDATORY)
+
+Read `~/GrowDirect/CLAUDE.md` and the app's `CLAUDE.md`. This is not optional — it runs every time, even if all other sources are unavailable.
+
+Extract and include in the context bundle:
+- **Model standards:** PK type (`Mapped[uuid.UUID]`), timestamp requirements, relationship syntax
+- **Auth pattern:** session backend, login methods, role model
+- **Config pattern:** env-based classes, no hardcoded secrets
+- **Infrastructure:** which databases, which ports, which shared services
+- **Hard rules:** no SQLite, no lazy pipes, canonical UUID, etc.
+
+If the app's existing code deviates from the platform standard (e.g., `String(36)` UUIDs in Cove), note the deviation and mark the platform standard as authoritative for new code.
+
+### 1. Memory Bus (optional)
 
 If the memory bus MCP is available:
 
@@ -74,6 +87,10 @@ Compile findings into a context bundle:
 
 ```markdown
 ## Research Context for GRO-XXX
+
+### Platform Standards (from ~/GrowDirect/CLAUDE.md)
+[PK type, model syntax, timestamps, auth pattern, hard rules]
+[App-specific deviations noted with "DEVIATION:" prefix]
 
 ### Prior Decisions
 [memory_recall results — key decisions related to this work]

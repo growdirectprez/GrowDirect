@@ -27,6 +27,10 @@ Run the factory-blueprint skill, then apply the Cove-specific additions below.
 
 ## Cove-Specific Additions
 
+### Cove UUID Warning
+
+Every existing Cove table uses `String(36)` UUIDs. This is a **historical holdover** — do NOT copy this pattern. All new tables must use `Mapped[uuid.UUID]` per platform standard. New FKs pointing to existing Cove tables use `String(36)` for compatibility only — document this as tech debt in the plan.
+
 ### Compliance Pre-Flight
 
 Before writing the plan, check Davis-Stirling compliance if this feature touches governance:

@@ -15,10 +15,12 @@ def get_embedding(text: str, config: Config) -> Optional[list[float]]:
         response = httpx.post(
             f"{config.ollama_url}/api/embed",
             json={"model": config.embedding_model, "input": truncated},
-            timeout=30.0,
+            timeout=120.0,
         )
         response.raise_for_status()
-        embedding = response.json()["embedding"]
+        data = response.json()
+        # Ollama /api/embed returns "embeddings" (array of arrays)
+        embedding = data["embeddings"][0]
         # Matryoshka truncation: native 4096d -> 1024d
         return [float(v) for v in embedding[: config.embedding_dimensions]]
     except Exception:

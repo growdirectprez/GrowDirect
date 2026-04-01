@@ -9,8 +9,21 @@ description: |
 ## Pre-flight
 
 1. Confirm a GRO issue exists. No ticket = no work. Ask if none was given.
-2. Read the app's `CLAUDE.md` — understand existing models, routes, and patterns.
+2. Read **`~/GrowDirect/CLAUDE.md`** (platform standards) **and** the app's `CLAUDE.md` — in that order. The platform file defines the canonical patterns (UUID type, model syntax, config, auth). The app file adds domain context. When the app's existing code contradicts the platform standard, the platform standard wins for new code.
 3. Check if the other app already solved this problem (Hard Rule 8). If yes, model the solution on it.
+
+### Platform standard compliance (mandatory before drafting)
+
+Before writing any plan that includes new tables, models, or schemas:
+
+- **UUID PKs:** `Mapped[uuid.UUID]` with `default=uuid.uuid4`. NOT `String(36)` even if every existing table in the app uses it. `String(36)` is a historical holdover — flag it in the plan but do not propagate it.
+- **Timestamps:** `created_at: Mapped[datetime]` and `updated_at: Mapped[datetime]` on every table.
+- **Model syntax:** SQLAlchemy 2.0 `Mapped[]` annotations. No `Column()`.
+- **Relationships:** `Mapped[list["Model"]]` with `back_populates`.
+- **FK compatibility:** New FKs pointing to existing `String(36)` PKs use `String(36)` for compatibility. Document this as tech debt, not as the pattern to follow.
+- **Cross-reference existing specs:** Check `docs/superpowers/specs/` and `docs/sdds/` for related designs. Note what this plan supersedes or complements.
+
+If any of these are violated in the plan, stop and fix before moving to task list.
 
 ## Plan header
 
