@@ -15,7 +15,8 @@ store = MemoryStore(config)
 
 mcp = FastMCP(
     "GrowDirect Memory Bus",
-    description="Platform-level organizational knowledge store",
+    host="0.0.0.0",
+    port=config.port,
 )
 
 
@@ -128,4 +129,4 @@ def domain_context(
 
 
 if __name__ == "__main__":
-    mcp.run(transport="streamable-http", host="0.0.0.0", port=config.port)
+    mcp.run(transport="streamable-http")

@@ -110,7 +110,7 @@ services:
       postgres:
         condition: service_healthy
     healthcheck:
-      test: ["CMD-SHELL", "curl -sf http://localhost:8003/health || exit 1"]
+      test: ["CMD-SHELL", "curl -so /dev/null -w '%{http_code}' http://localhost:8003/mcp | grep -q '406' || exit 1"]
       interval: 10s
       start_period: 15s
       retries: 5
