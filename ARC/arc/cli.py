@@ -65,10 +65,36 @@ def validate(project: str):
 
 @main.command()
 @click.argument("project")
-def generate(project: str):
+@click.option(
+    "--output-dir", "-o",
+    default=None,
+    help="Output directory for .rb files. Defaults to projects/<project>/ruby/",
+)
+def generate(project: str, output_dir: str | None):
     """Generate SketchUp Ruby scripts from spatial model."""
+    from arc.model.serialization import load_project
+    from arc.model.validator import validate_project as _validate
+    from arc.generate.sketchup_ruby import generate_ruby_scripts
+
     model_path = PROJECTS_DIR / project / "model" / "spatial_model.json"
     if not model_path.exists():
         click.echo(f"Model not found: {model_path}")
         raise SystemExit(1)
-    click.echo(f"Generating Ruby scripts for project: {project}")
+
+    proj = load_project(model_path)
+
+    errors = _validate(proj)
+    error_count = sum(1 for e in errors if e.level == "error")
+    if error_count:
+        for err in errors:
+            if err.level == "error":
+                click.echo(f"  [ERROR] {err.entity_id}: {err.message}")
+        click.echo(f"\n{error_count} validation error(s). Fix model before generating.")
+        raise SystemExit(1)
+
+    out_dir = Path(output_dir) if output_dir else PROJECTS_DIR / project / "ruby"
+    generated = generate_ruby_scripts(proj, out_dir)
+
+    click.echo(f"Generated {len(generated)} file(s) in {out_dir}:")
+    for path in generated:
+        click.echo(f"  {path.name}")
