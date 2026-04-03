@@ -1,0 +1,1171 @@
+{
+  "schema_version": 1,
+  "project": "seacove",
+  "address": "25 Sea Cove Drive, Rancho Palos Verdes, CA 90275",
+  "coordinate_system": {
+    "x": "east",
+    "y": "north",
+    "z": "up",
+    "origin": "SW corner of original house"
+  },
+  "lot": {
+    "boundaries": [],
+    "setbacks": {
+      "front": 20.0,
+      "side": 5.0,
+      "rear": 15.0
+    },
+    "apn": "7585-021-069"
+  },
+  "structure": {
+    "floors": [
+      {
+        "level": 0,
+        "label": "Ground Floor",
+        "plate_height": 8.0,
+        "z_origin": 0.0,
+        "rooms": [
+          {
+            "id": "living_room",
+            "label": "Living Room",
+            "polygon": [
+              [
+                0,
+                0
+              ],
+              [
+                18,
+                0
+              ],
+              [
+                18,
+                18
+              ],
+              [
+                0,
+                18
+              ]
+            ],
+            "wall_refs": [
+              "wall_s_living",
+              "wall_west",
+              "wall_n_living",
+              "wall_connect"
+            ],
+            "sources": [
+              {
+                "ref": "as-built-rb",
+                "confidence": 0.8
+              }
+            ]
+          },
+          {
+            "id": "kitchen",
+            "label": "Kitchen",
+            "polygon": [
+              [
+                12,
+                10
+              ],
+              [
+                18,
+                10
+              ],
+              [
+                18,
+                18
+              ],
+              [
+                12,
+                18
+              ]
+            ],
+            "wall_refs": [
+              "wall_kitchen",
+              "wall_connect",
+              "wall_n_living"
+            ],
+            "sources": [
+              {
+                "ref": "as-built-rb",
+                "confidence": 0.8
+              }
+            ]
+          },
+          {
+            "id": "hall",
+            "label": "Hall",
+            "polygon": [
+              [
+                18,
+                0
+              ],
+              [
+                42,
+                0
+              ],
+              [
+                42,
+                14
+              ],
+              [
+                18,
+                14
+              ]
+            ],
+            "wall_refs": [
+              "wall_s_bedrooms",
+              "wall_hall",
+              "wall_connect"
+            ],
+            "sources": [
+              {
+                "ref": "as-built-rb",
+                "confidence": 0.8
+              }
+            ]
+          },
+          {
+            "id": "bathroom",
+            "label": "Bathroom",
+            "polygon": [
+              [
+                18,
+                0
+              ],
+              [
+                24,
+                0
+              ],
+              [
+                24,
+                6
+              ],
+              [
+                18,
+                6
+              ]
+            ],
+            "wall_refs": [
+              "wall_bath_south",
+              "wall_bath_west",
+              "wall_connect"
+            ],
+            "sources": [
+              {
+                "ref": "as-built-rb",
+                "confidence": 0.8
+              }
+            ]
+          },
+          {
+            "id": "bathroom2",
+            "label": "Bathroom 2",
+            "polygon": [
+              [
+                24,
+                0
+              ],
+              [
+                42,
+                0
+              ],
+              [
+                42,
+                14
+              ],
+              [
+                24,
+                14
+              ]
+            ],
+            "wall_refs": [
+              "wall_s_bedrooms",
+              "wall_bath_west",
+              "wall_hall",
+              "wall_east"
+            ],
+            "sources": [
+              {
+                "ref": "as-built-rb",
+                "confidence": 0.8
+              }
+            ]
+          },
+          {
+            "id": "bedroom1",
+            "label": "Bedroom 1",
+            "polygon": [
+              [
+                18,
+                14
+              ],
+              [
+                26,
+                14
+              ],
+              [
+                26,
+                28
+              ],
+              [
+                18,
+                28
+              ]
+            ],
+            "wall_refs": [
+              "wall_hall",
+              "wall_br1_divider",
+              "wall_n_bedrooms"
+            ],
+            "sources": [
+              {
+                "ref": "as-built-rb",
+                "confidence": 0.8
+              }
+            ]
+          },
+          {
+            "id": "bedroom2",
+            "label": "Bedroom 2",
+            "polygon": [
+              [
+                26,
+                14
+              ],
+              [
+                34,
+                14
+              ],
+              [
+                34,
+                28
+              ],
+              [
+                26,
+                28
+              ]
+            ],
+            "wall_refs": [
+              "wall_br1_divider",
+              "wall_br2_divider",
+              "wall_n_bedrooms"
+            ],
+            "sources": [
+              {
+                "ref": "as-built-rb",
+                "confidence": 0.8
+              }
+            ]
+          },
+          {
+            "id": "garage",
+            "label": "Garage",
+            "polygon": [
+              [
+                42,
+                -2
+              ],
+              [
+                62,
+                -2
+              ],
+              [
+                62,
+                16
+              ],
+              [
+                42,
+                16
+              ]
+            ],
+            "wall_refs": [
+              "wall_gar_south",
+              "wall_gar_north",
+              "wall_gar_east",
+              "wall_east"
+            ],
+            "sources": [
+              {
+                "ref": "as-built-rb",
+                "confidence": 0.8
+              }
+            ]
+          },
+          {
+            "id": "addition_br1",
+            "label": "Addition BR1",
+            "polygon": [
+              [
+                5,
+                28
+              ],
+              [
+                17,
+                28
+              ],
+              [
+                17,
+                42
+              ],
+              [
+                5,
+                42
+              ]
+            ],
+            "wall_refs": [
+              "wall_add_north",
+              "wall_add_west",
+              "wall_add_divider"
+            ],
+            "sources": [
+              {
+                "ref": "as-built-rb",
+                "confidence": 0.8
+              }
+            ]
+          },
+          {
+            "id": "addition_br2",
+            "label": "Addition BR2",
+            "polygon": [
+              [
+                17,
+                28
+              ],
+              [
+                30,
+                28
+              ],
+              [
+                30,
+                42
+              ],
+              [
+                17,
+                42
+              ]
+            ],
+            "wall_refs": [
+              "wall_add_north",
+              "wall_add_east",
+              "wall_add_divider"
+            ],
+            "sources": [
+              {
+                "ref": "as-built-rb",
+                "confidence": 0.8
+              }
+            ]
+          }
+        ],
+        "walls": [
+          {
+            "id": "wall_s_living",
+            "type": "exterior",
+            "from": [
+              0.0,
+              0.0
+            ],
+            "to": [
+              28.0,
+              0.0
+            ],
+            "thickness_in": 6.0,
+            "rooms": {
+              "interior": "living_room",
+              "exterior": null
+            },
+            "openings": [
+              {
+                "type": "door",
+                "position_along_wall": 14.0,
+                "width": 3.0,
+                "height": 7.0,
+                "sill_height": 0.0,
+                "label": "Front Door",
+                "sources": [
+                  {
+                    "ref": "as-built-rb",
+                    "confidence": 0.8
+                  }
+                ]
+              }
+            ],
+            "sources": [
+              {
+                "ref": "as-built-rb",
+                "confidence": 0.8
+              }
+            ]
+          },
+          {
+            "id": "wall_s_bedrooms",
+            "type": "exterior",
+            "from": [
+              28.0,
+              0.0
+            ],
+            "to": [
+              42.0,
+              0.0
+            ],
+            "thickness_in": 6.0,
+            "rooms": {
+              "interior": "bathroom2",
+              "exterior": null
+            },
+            "sources": [
+              {
+                "ref": "as-built-rb",
+                "confidence": 0.8
+              }
+            ]
+          },
+          {
+            "id": "wall_n_living",
+            "type": "exterior",
+            "from": [
+              0.0,
+              18.0
+            ],
+            "to": [
+              28.0,
+              18.0
+            ],
+            "thickness_in": 6.0,
+            "rooms": {
+              "interior": "living_room",
+              "exterior": null
+            },
+            "sources": [
+              {
+                "ref": "as-built-rb",
+                "confidence": 0.8
+              }
+            ]
+          },
+          {
+            "id": "wall_n_bedrooms",
+            "type": "exterior",
+            "from": [
+              18.0,
+              28.0
+            ],
+            "to": [
+              42.0,
+              28.0
+            ],
+            "thickness_in": 6.0,
+            "rooms": {
+              "interior": "bedroom1",
+              "exterior": null
+            },
+            "sources": [
+              {
+                "ref": "as-built-rb",
+                "confidence": 0.8
+              }
+            ]
+          },
+          {
+            "id": "wall_west",
+            "type": "exterior",
+            "from": [
+              0.0,
+              0.0
+            ],
+            "to": [
+              0.0,
+              18.0
+            ],
+            "thickness_in": 6.0,
+            "rooms": {
+              "interior": "living_room",
+              "exterior": null
+            },
+            "sources": [
+              {
+                "ref": "as-built-rb",
+                "confidence": 0.8
+              }
+            ]
+          },
+          {
+            "id": "wall_east",
+            "type": "exterior",
+            "from": [
+              42.0,
+              0.0
+            ],
+            "to": [
+              42.0,
+              28.0
+            ],
+            "thickness_in": 6.0,
+            "rooms": {
+              "interior": "bedroom2",
+              "exterior": null
+            },
+            "sources": [
+              {
+                "ref": "as-built-rb",
+                "confidence": 0.8
+              }
+            ]
+          },
+          {
+            "id": "wall_connect",
+            "type": "interior",
+            "from": [
+              18.0,
+              0.0
+            ],
+            "to": [
+              18.0,
+              18.0
+            ],
+            "thickness_in": 6.0,
+            "rooms": {
+              "interior": "living_room",
+              "exterior": "bathroom"
+            },
+            "sources": [
+              {
+                "ref": "as-built-rb",
+                "confidence": 0.8
+              }
+            ]
+          },
+          {
+            "id": "wall_hall",
+            "type": "interior",
+            "from": [
+              18.0,
+              14.0
+            ],
+            "to": [
+              42.0,
+              14.0
+            ],
+            "thickness_in": 6.0,
+            "rooms": {
+              "interior": "hall",
+              "exterior": "bedroom1"
+            },
+            "sources": [
+              {
+                "ref": "as-built-rb",
+                "confidence": 0.8
+              }
+            ]
+          },
+          {
+            "id": "wall_br1_divider",
+            "type": "interior",
+            "from": [
+              26.0,
+              14.0
+            ],
+            "to": [
+              26.0,
+              28.0
+            ],
+            "thickness_in": 6.0,
+            "rooms": {
+              "interior": "bedroom1",
+              "exterior": "bedroom2"
+            },
+            "sources": [
+              {
+                "ref": "as-built-rb",
+                "confidence": 0.8
+              }
+            ]
+          },
+          {
+            "id": "wall_br2_divider",
+            "type": "interior",
+            "from": [
+              34.0,
+              14.0
+            ],
+            "to": [
+              34.0,
+              28.0
+            ],
+            "thickness_in": 6.0,
+            "rooms": {
+              "interior": "bedroom2",
+              "exterior": "bedroom1"
+            },
+            "sources": [
+              {
+                "ref": "as-built-rb",
+                "confidence": 0.8
+              }
+            ]
+          },
+          {
+            "id": "wall_kitchen",
+            "type": "interior",
+            "from": [
+              12.0,
+              10.0
+            ],
+            "to": [
+              18.0,
+              10.0
+            ],
+            "thickness_in": 6.0,
+            "rooms": {
+              "interior": "kitchen",
+              "exterior": "living_room"
+            },
+            "sources": [
+              {
+                "ref": "as-built-rb",
+                "confidence": 0.8
+              }
+            ]
+          },
+          {
+            "id": "wall_bath_south",
+            "type": "interior",
+            "from": [
+              18.0,
+              6.0
+            ],
+            "to": [
+              24.0,
+              6.0
+            ],
+            "thickness_in": 6.0,
+            "rooms": {
+              "interior": "bathroom",
+              "exterior": "hall"
+            },
+            "sources": [
+              {
+                "ref": "as-built-rb",
+                "confidence": 0.8
+              }
+            ]
+          },
+          {
+            "id": "wall_bath_west",
+            "type": "interior",
+            "from": [
+              24.0,
+              0.0
+            ],
+            "to": [
+              24.0,
+              14.0
+            ],
+            "thickness_in": 6.0,
+            "rooms": {
+              "interior": "bathroom",
+              "exterior": "bathroom2"
+            },
+            "sources": [
+              {
+                "ref": "as-built-rb",
+                "confidence": 0.8
+              }
+            ]
+          },
+          {
+            "id": "wall_add_north",
+            "type": "exterior",
+            "from": [
+              5.0,
+              42.0
+            ],
+            "to": [
+              30.0,
+              42.0
+            ],
+            "thickness_in": 6.0,
+            "rooms": {
+              "interior": "addition_br1",
+              "exterior": null
+            },
+            "sources": [
+              {
+                "ref": "as-built-rb",
+                "confidence": 0.8
+              }
+            ]
+          },
+          {
+            "id": "wall_add_west",
+            "type": "exterior",
+            "from": [
+              5.0,
+              28.0
+            ],
+            "to": [
+              5.0,
+              42.0
+            ],
+            "thickness_in": 6.0,
+            "rooms": {
+              "interior": "addition_br1",
+              "exterior": null
+            },
+            "sources": [
+              {
+                "ref": "as-built-rb",
+                "confidence": 0.8
+              }
+            ]
+          },
+          {
+            "id": "wall_add_east",
+            "type": "exterior",
+            "from": [
+              30.0,
+              28.0
+            ],
+            "to": [
+              30.0,
+              42.0
+            ],
+            "thickness_in": 6.0,
+            "rooms": {
+              "interior": "addition_br2",
+              "exterior": null
+            },
+            "sources": [
+              {
+                "ref": "as-built-rb",
+                "confidence": 0.8
+              }
+            ]
+          },
+          {
+            "id": "wall_add_divider",
+            "type": "interior",
+            "from": [
+              17.0,
+              28.0
+            ],
+            "to": [
+              17.0,
+              42.0
+            ],
+            "thickness_in": 6.0,
+            "rooms": {
+              "interior": "addition_br1",
+              "exterior": "addition_br2"
+            },
+            "sources": [
+              {
+                "ref": "as-built-rb",
+                "confidence": 0.8
+              }
+            ]
+          },
+          {
+            "id": "wall_add_bath",
+            "type": "interior",
+            "from": [
+              12.0,
+              35.0
+            ],
+            "to": [
+              17.0,
+              35.0
+            ],
+            "thickness_in": 6.0,
+            "rooms": {
+              "interior": "addition_br1",
+              "exterior": "addition_br1"
+            },
+            "sources": [
+              {
+                "ref": "as-built-rb",
+                "confidence": 0.8
+              }
+            ]
+          },
+          {
+            "id": "wall_gar_south",
+            "type": "exterior",
+            "from": [
+              42.0,
+              -2.0
+            ],
+            "to": [
+              62.0,
+              -2.0
+            ],
+            "thickness_in": 6.0,
+            "rooms": {
+              "interior": "garage",
+              "exterior": null
+            },
+            "sources": [
+              {
+                "ref": "as-built-rb",
+                "confidence": 0.8
+              }
+            ]
+          },
+          {
+            "id": "wall_gar_north",
+            "type": "exterior",
+            "from": [
+              42.0,
+              16.0
+            ],
+            "to": [
+              62.0,
+              16.0
+            ],
+            "thickness_in": 6.0,
+            "rooms": {
+              "interior": "garage",
+              "exterior": null
+            },
+            "sources": [
+              {
+                "ref": "as-built-rb",
+                "confidence": 0.8
+              }
+            ]
+          },
+          {
+            "id": "wall_gar_east",
+            "type": "exterior",
+            "from": [
+              62.0,
+              -2.0
+            ],
+            "to": [
+              62.0,
+              16.0
+            ],
+            "thickness_in": 6.0,
+            "rooms": {
+              "interior": "garage",
+              "exterior": null
+            },
+            "sources": [
+              {
+                "ref": "as-built-rb",
+                "confidence": 0.8
+              }
+            ]
+          }
+        ],
+        "structural": {
+          "posts": [
+            {
+              "position": [
+                2.0,
+                0.0
+              ],
+              "size_in": 4.0,
+              "material": "douglas_fir",
+              "z_base": 0.0
+            },
+            {
+              "position": [
+                8.0,
+                0.0
+              ],
+              "size_in": 4.0,
+              "material": "douglas_fir",
+              "z_base": 0.0
+            },
+            {
+              "position": [
+                14.0,
+                0.0
+              ],
+              "size_in": 4.0,
+              "material": "douglas_fir",
+              "z_base": 0.0
+            },
+            {
+              "position": [
+                20.0,
+                0.0
+              ],
+              "size_in": 4.0,
+              "material": "douglas_fir",
+              "z_base": 0.0
+            },
+            {
+              "position": [
+                26.0,
+                0.0
+              ],
+              "size_in": 4.0,
+              "material": "douglas_fir",
+              "z_base": 0.0
+            },
+            {
+              "position": [
+                2.0,
+                18.0
+              ],
+              "size_in": 4.0,
+              "material": "douglas_fir",
+              "z_base": 0.0
+            },
+            {
+              "position": [
+                8.0,
+                18.0
+              ],
+              "size_in": 4.0,
+              "material": "douglas_fir",
+              "z_base": 0.0
+            },
+            {
+              "position": [
+                14.0,
+                18.0
+              ],
+              "size_in": 4.0,
+              "material": "douglas_fir",
+              "z_base": 0.0
+            },
+            {
+              "position": [
+                20.0,
+                18.0
+              ],
+              "size_in": 4.0,
+              "material": "douglas_fir",
+              "z_base": 0.0
+            },
+            {
+              "position": [
+                26.0,
+                18.0
+              ],
+              "size_in": 4.0,
+              "material": "douglas_fir",
+              "z_base": 0.0
+            },
+            {
+              "position": [
+                42.0,
+                0.0
+              ],
+              "size_in": 4.0,
+              "material": "douglas_fir",
+              "z_base": 0.0
+            },
+            {
+              "position": [
+                42.0,
+                14.0
+              ],
+              "size_in": 4.0,
+              "material": "douglas_fir",
+              "z_base": 0.0
+            },
+            {
+              "position": [
+                42.0,
+                28.0
+              ],
+              "size_in": 4.0,
+              "material": "douglas_fir",
+              "z_base": 0.0
+            },
+            {
+              "position": [
+                18.0,
+                28.0
+              ],
+              "size_in": 4.0,
+              "material": "douglas_fir",
+              "z_base": 0.0
+            },
+            {
+              "position": [
+                0.0,
+                0.0
+              ],
+              "size_in": 4.0,
+              "material": "douglas_fir",
+              "z_base": 0.0
+            },
+            {
+              "position": [
+                0.0,
+                18.0
+              ],
+              "size_in": 4.0,
+              "material": "douglas_fir",
+              "z_base": 0.0
+            }
+          ],
+          "beams": [
+            {
+              "from": [
+                -2.0,
+                9.0
+              ],
+              "to": [
+                30.0,
+                9.0
+              ],
+              "width_in": 4.0,
+              "depth_in": 10.0,
+              "z": 8.0,
+              "material": "douglas_fir",
+              "label": "Ridge Beam - Living Wing"
+            },
+            {
+              "from": [
+                18.0,
+                14.0
+              ],
+              "to": [
+                44.0,
+                14.0
+              ],
+              "width_in": 4.0,
+              "depth_in": 10.0,
+              "z": 8.0,
+              "material": "douglas_fir",
+              "label": "Ridge Beam - Bedroom Wing"
+            }
+          ]
+        }
+      }
+    ]
+  },
+  "sources": [
+    {
+      "id": "as-built-rb",
+      "type": "ruby_script",
+      "file": "25-Seacove-As-Built.rb",
+      "notes": "Hand-coded SketchUp Ruby model \u2014 reference for spatial model"
+    },
+    {
+      "id": "original-blueprints",
+      "type": "blueprint",
+      "file": "25 Seacove Blueprints/",
+      "notes": "1958 original Douglas Rucker drawings"
+    },
+    {
+      "id": "dim-reference",
+      "type": "document",
+      "file": "blueprint-dimensions-reference.md",
+      "notes": "Compiled dimension reference from blueprint analysis"
+    }
+  ],
+  "roof": {
+    "planes": [
+      {
+        "label": "Living Wing Roof",
+        "type": "flat",
+        "slope": 0.02,
+        "overhang": 3.5,
+        "boundary": [
+          [
+            0,
+            0
+          ],
+          [
+            28,
+            0
+          ],
+          [
+            28,
+            18
+          ],
+          [
+            0,
+            18
+          ]
+        ],
+        "z_base": 8.833333333333334
+      },
+      {
+        "label": "Bedroom Wing Roof",
+        "type": "flat",
+        "slope": 0.02,
+        "overhang": 3.5,
+        "boundary": [
+          [
+            18,
+            0
+          ],
+          [
+            42,
+            0
+          ],
+          [
+            42,
+            28
+          ],
+          [
+            18,
+            28
+          ]
+        ],
+        "z_base": 8.533333333333333
+      },
+      {
+        "label": "Addition Roof",
+        "type": "flat",
+        "slope": 0.02,
+        "overhang": 3.5,
+        "boundary": [
+          [
+            5,
+            28
+          ],
+          [
+            30,
+            28
+          ],
+          [
+            30,
+            42
+          ],
+          [
+            5,
+            42
+          ]
+        ],
+        "z_base": 8.3
+      },
+      {
+        "label": "Garage Roof",
+        "type": "flat",
+        "slope": 0.02,
+        "overhang": 3.5,
+        "boundary": [
+          [
+            42,
+            -2
+          ],
+          [
+            62,
+            -2
+          ],
+          [
+            62,
+            16
+          ],
+          [
+            42,
+            16
+          ]
+        ],
+        "z_base": 7.5
+      }
+    ]
+  },
+  "notes": "V0 model built from hand-coded Ruby script dimensions. Garage is east of main house at offset (42, -2). 1960 addition is north at offset (5, 28)."
+}
