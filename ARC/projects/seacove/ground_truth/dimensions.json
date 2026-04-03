@@ -1,0 +1,16 @@
+{
+  "source": "blueprint-dimensions-reference.md",
+  "note": "Dimensions marked with low confidence need field verification",
+  "dimensions": [
+    {"description": "overall width E-W", "value_ft": 41.58, "raw": "41'-7\"", "confidence": 0.5, "sheet": "floor_plan"},
+    {"description": "garage width", "value_ft": 19.0, "raw": "19'-0\"", "confidence": 0.6, "sheet": "floor_plan"},
+    {"description": "living room width", "value_ft": 22.5, "raw": "22'-6\"", "confidence": 0.5, "sheet": "floor_plan"},
+    {"description": "living room depth segment", "value_ft": 11.42, "raw": "11'-5\"", "confidence": 0.5, "sheet": "floor_plan"},
+    {"description": "roof overhang", "value_ft": 3.5, "raw": "3'-6\"", "confidence": 0.5, "sheet": "elevation"},
+    {"description": "ceiling height", "value_ft": 8.0, "raw": "8'-0\"", "confidence": 0.5, "sheet": "section"},
+    {"description": "existing storage area width", "value_ft": 8.0, "raw": "8'-0\"", "confidence": 0.7, "sheet": "A-2"},
+    {"description": "existing storage area depth", "value_ft": 14.0, "raw": "14'-0\"", "confidence": 0.7, "sheet": "A-2"},
+    {"description": "1960 addition width", "value_ft": 36.0, "raw": "36'-0\"", "confidence": 0.5, "sheet": "addition"},
+    {"description": "garage addition width", "value_ft": 20.0, "raw": "20'-0\"", "confidence": 0.5, "sheet": "garage"}
+  ]
+}
