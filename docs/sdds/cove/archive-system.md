@@ -620,6 +620,7 @@ The archive module has no dedicated test file as of this writing. The following 
 |----------|-------|
 | `cove/agent/` | Queries `knowledge_chunks` table populated from the archive corpus |
 | `cove/vault/` | Receives promoted documents via `upload_document` |
+| `Cove/cove/mcp/server.py` | MCP Knowledge Server — exposes `knowledge_ingest_document`, `knowledge_add_chunk`, and search tools over stdio. Uses `growdirect-mcp` platform package (`GrowDirectRegistry`, `GrowDirectTool`). See `docs/sdds/alx/mcp-service-layer.md`. |
 
 ### Shared Infrastructure
 
