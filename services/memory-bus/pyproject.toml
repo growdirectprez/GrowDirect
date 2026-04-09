@@ -9,6 +9,8 @@ dependencies = [
     "pgvector>=0.3.0",
     "psycopg2-binary>=2.9",
     "httpx>=0.27",
+    "alembic>=1.13",
+    "growdirect-mcp>=0.1.0",
 ]
 
 [project.optional-dependencies]

@@ -204,6 +204,44 @@ def insert_memory(engine, config, content, memory_type, layer, metadata, dry_run
 # Main
 # ---------------------------------------------------------------------------
 
+def ensure_seed_session(engine):
+    """Create a session record for seed-clean if one doesn't exist."""
+    from sqlalchemy import text
+    session_id = "seed-clean"
+    now = datetime.now(timezone.utc).isoformat()
+    with engine.connect() as conn:
+        existing = conn.execute(
+            text("SELECT 1 FROM alx_sessions WHERE session_id = :sid"),
+            {"sid": session_id},
+        ).fetchone()
+        if not existing:
+            conn.execute(
+                text("""
+                INSERT INTO alx_sessions (session_id, status, started_at, summary)
+                VALUES (:sid, 'active', :now, 'Seed script session')
+                """),
+                {"sid": session_id, "now": now},
+            )
+            conn.commit()
+
+
+def close_seed_session(engine):
+    """Mark the seed-clean session as closed."""
+    from sqlalchemy import text
+    session_id = "seed-clean"
+    now = datetime.now(timezone.utc).isoformat()
+    with engine.connect() as conn:
+        conn.execute(
+            text("""
+            UPDATE alx_sessions
+            SET status = 'closed', closed_at = :now, summary = 'Seed complete'
+            WHERE session_id = :sid
+            """),
+            {"sid": session_id, "now": now},
+        )
+        conn.commit()
+
+
 def main():
     parser = argparse.ArgumentParser(description="Seed memory bus from clean docs/")
     parser.add_argument("--dry-run", action="store_true", help="Print what would be seeded")
@@ -218,6 +256,9 @@ def main():
     if args.drop_first and not args.dry_run:
         count = drop_all_memories(engine)
         print(f"Dropped {count} existing memories")
+
+    if not args.dry_run:
+        ensure_seed_session(engine)
 
     total = 0
     embedded = 0
@@ -253,6 +294,9 @@ def main():
 
     action = "Would seed" if args.dry_run else "Seeded"
     print(f"\n{action}: {total} memories ({embedded} with embeddings)")
+
+    if not args.dry_run:
+        close_seed_session(engine)
 
 
 if __name__ == "__main__":
