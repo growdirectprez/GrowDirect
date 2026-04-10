@@ -386,6 +386,21 @@ def directory_redirect():
 - GeoJSON and lot API must check `DirectoryPreference` before exposing name/bio/avatar
 - Handle `Parcel.geometry = None` gracefully in Leaflet client
 
+### SVG Tract Map — Parcel Map Tracing (post-v1)
+- Reference document: `docs/maps/LACA-Parcel-Maps-Tract-14649.pdf` (LA County Assessor official parcel map, Tract 14649)
+- The SVG tract map (`tract-map.svg`) lot sizes and positions MUST match the official assessor map
+- **Orientation:** rotate to landscape — the map should be wider than tall, matching how you'd view the neighborhood from Palos Verdes Dr South
+- Trace lot boundaries from the assessor PDF pages (3 sheets covering the full tract)
+- Each lot group retains `data-apn` attribute and `.lp` class for interactivity
+
+### Interaction behaviors
+- Click a lot → popup card appears anchored near click position
+- Click empty map space, press Escape, or open directory → popup card dismisses
+- Directory panel slides from right on "Directory" button click
+- Click scrim (behind directory panel) → directory retreats
+- Click directory entry → map highlights lot + card appears
+- Click lot on map → directory scrolls to matching entry
+
 ---
 
 ## GRO-397: Board Dashboard Expansion

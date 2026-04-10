@@ -1,0 +1,235 @@
+{
+  "main": {
+    "id": "de391ded75ee7314",
+    "type": "split",
+    "children": [
+      {
+        "id": "c83b11bab16bfbc8",
+        "type": "tabs",
+        "children": [
+          {
+            "id": "d0ebf714c90a38f3",
+            "type": "leaf",
+            "state": {
+              "type": "markdown",
+              "state": {
+                "file": "docs/council/dao-council-viva-treasury-engine-2026-03-31.md",
+                "mode": "source",
+                "source": false
+              },
+              "icon": "lucide-file",
+              "title": "dao-council-viva-treasury-engine-2026-03-31"
+            }
+          }
+        ]
+      }
+    ],
+    "direction": "vertical"
+  },
+  "left": {
+    "id": "ad6514a8d86dee92",
+    "type": "split",
+    "children": [
+      {
+        "id": "9e32b763b441d981",
+        "type": "tabs",
+        "children": [
+          {
+            "id": "5014a68028027074",
+            "type": "leaf",
+            "state": {
+              "type": "file-explorer",
+              "state": {
+                "sortOrder": "alphabetical",
+                "autoReveal": false
+              },
+              "icon": "lucide-folder-closed",
+              "title": "Files"
+            }
+          },
+          {
+            "id": "fcf34bc2ea764fac",
+            "type": "leaf",
+            "state": {
+              "type": "search",
+              "state": {
+                "query": "",
+                "matchingCase": false,
+                "explainSearch": false,
+                "collapseAll": false,
+                "extraContext": false,
+                "sortOrder": "alphabetical"
+              },
+              "icon": "lucide-search",
+              "title": "Search"
+            }
+          },
+          {
+            "id": "d75fb799ea88b045",
+            "type": "leaf",
+            "state": {
+              "type": "bookmarks",
+              "state": {},
+              "icon": "lucide-bookmark",
+              "title": "Bookmarks"
+            }
+          }
+        ]
+      }
+    ],
+    "direction": "horizontal",
+    "width": 300
+  },
+  "right": {
+    "id": "1301307c638efd68",
+    "type": "split",
+    "children": [
+      {
+        "id": "5aa42df61773a449",
+        "type": "tabs",
+        "children": [
+          {
+            "id": "3d0f08ec32be796e",
+            "type": "leaf",
+            "state": {
+              "type": "backlink",
+              "state": {
+                "file": "docs/council/dao-council-viva-treasury-engine-2026-03-31.md",
+                "collapseAll": false,
+                "extraContext": false,
+                "sortOrder": "alphabetical",
+                "showSearch": false,
+                "searchQuery": "",
+                "backlinkCollapsed": false,
+                "unlinkedCollapsed": true
+              },
+              "icon": "links-coming-in",
+              "title": "Backlinks for dao-council-viva-treasury-engine-2026-03-31"
+            }
+          },
+          {
+            "id": "d623d3cafe20016c",
+            "type": "leaf",
+            "state": {
+              "type": "outgoing-link",
+              "state": {
+                "file": "docs/council/dao-council-viva-treasury-engine-2026-03-31.md",
+                "linksCollapsed": false,
+                "unlinkedCollapsed": true
+              },
+              "icon": "links-going-out",
+              "title": "Outgoing links from dao-council-viva-treasury-engine-2026-03-31"
+            }
+          },
+          {
+            "id": "95d9371b22fd2ed5",
+            "type": "leaf",
+            "state": {
+              "type": "tag",
+              "state": {
+                "sortOrder": "frequency",
+                "useHierarchy": true,
+                "showSearch": false,
+                "searchQuery": ""
+              },
+              "icon": "lucide-tags",
+              "title": "Tags"
+            }
+          },
+          {
+            "id": "c6eed3c36105caaf",
+            "type": "leaf",
+            "state": {
+              "type": "all-properties",
+              "state": {
+                "sortOrder": "frequency",
+                "showSearch": false,
+                "searchQuery": ""
+              },
+              "icon": "lucide-archive",
+              "title": "All properties"
+            }
+          },
+          {
+            "id": "3ee1d1a32888df43",
+            "type": "leaf",
+            "state": {
+              "type": "outline",
+              "state": {
+                "file": "docs/council/dao-council-viva-treasury-engine-2026-03-31.md",
+                "followCursor": false,
+                "showSearch": false,
+                "searchQuery": ""
+              },
+              "icon": "lucide-list",
+              "title": "Outline of dao-council-viva-treasury-engine-2026-03-31"
+            }
+          }
+        ]
+      }
+    ],
+    "direction": "horizontal",
+    "width": 300,
+    "collapsed": true
+  },
+  "left-ribbon": {
+    "hiddenItems": {
+      "switcher:Open quick switcher": false,
+      "graph:Open graph view": false,
+      "canvas:Create new canvas": false,
+      "daily-notes:Open today's daily note": false,
+      "templates:Insert template": false,
+      "command-palette:Open command palette": false,
+      "bases:Create new base": false
+    }
+  },
+  "active": "d0ebf714c90a38f3",
+  "lastOpenFiles": [
+    "Cove/docs/vault/maps",
+    "Cove/docs/vault/governance",
+    "Cove/docs/vault/founding-documents",
+    "Cove/docs/vault",
+    "Cove/docs/admin/research/risk/legal-risk-assessment.md",
+    "Cove/docs/admin/research/risk/pv-corp-delaware-search-2026-03-25.md",
+    "Cove/docs/admin/research/risk",
+    "Cove/docs/admin/research/litigation/0-clipper-enforcement/title-claim-summary.md",
+    "Cove/docs/admin/research/litigation/0-clipper-enforcement/deed-restriction-chain.md",
+    "Cove/docs/admin/research/litigation/0-clipper-enforcement/07-tongva-tribal-notification.md",
+    "Cove/docs/admin/research/litigation/0-clipper-enforcement/06-rpv-community-development.md",
+    "Cove/docs/admin/research/litigation/0-clipper-enforcement/01-usfws-complaint.md",
+    "Cove/docs/admin/research/litigation/0-clipper-enforcement/05-coastal-commission-complaint.md",
+    "Cove/docs/admin/research/litigation/0-clipper-enforcement/03-shpo-complaint.md",
+    "Cove/docs/admin/research/litigation/0-clipper-enforcement/04-cdfw-complaint.md",
+    "Cove/docs/admin/research/litigation/0-clipper-enforcement/02-nahc-complaint.md",
+    "Cove/docs/admin/research/litigation/0-clipper-enforcement/00-SEND-CHECKLIST.md",
+    "Cove/docs/admin/research/litigation/2024-08-fppc-complaint.md",
+    "Cove/docs/admin/research/litigation/2024-12-opposition-to-demurrer.md",
+    "Cove/docs/admin/research/litigation/2024-09-petition-filed.md",
+    "Cove/docs/admin/research/litigation/2024-09-summons.md",
+    "Cove/docs/admin/research/litigation/2024-11-city-demurrer.md",
+    "Cove/docs/admin/research/litigation/2024-09-case-assignment.md",
+    "Cove/docs/admin/research/litigation/0-clipper-enforcement",
+    "Cove/docs/admin/research/litigation",
+    "Cove/docs/admin/research/governance/2012-bylaws.md",
+    "Cove/docs/admin/research/governance/2009-restated-declaration.md",
+    "Cove/docs/admin/research/governance",
+    "Cove/docs/admin/research/founding/1965-pv-news-protective-declaration-article.md",
+    "Cove/docs/admin/research/founding/1957-pv-news-pvha-bylaws-and-zoning.md",
+    "Cove/docs/admin/research/founding/1953-pv-news-rolling-hills-history.md",
+    "Cove/docs/admin/research/founding/1952-grant-deed-lot-1.md",
+    "Cove/docs/admin/research/founding/1951-our-city-column-declaration-overview.md",
+    "Cove/docs/admin/research/founding",
+    "Cove/docs/admin/research/briefs",
+    "Cove/docs/admin/research",
+    "Seacove/seacove scans/crops/SeaCove_8e.jpg",
+    "Seacove/seacove scans/crops/SeaCove_8d.jpg",
+    "Seacove/seacove scans/crops/SeaCove_8c.jpg",
+    "Seacove/seacove scans/crops/SeaCove_8b.jpg",
+    "Seacove/seacove scans/crops/SeaCove_8a.jpg",
+    "Seacove/seacove scans/crops/SeaCove_7f.jpg",
+    "Seacove/seacove scans/crops/SeaCove_7e.jpg",
+    "Seacove/seacove scans/crops/SeaCove_7d.jpg",
+    "Seacove/seacove scans/crops/SeaCove_7c.jpg",
+    "Seacove/seacove scans/crops/SeaCove_7b.jpg"
+  ]
+}

@@ -1,0 +1,316 @@
+<script>
+/*
+ * ═══════════════════════════════════════════════════════════════
+ *  ANGELIQUE LYLE — LP BEHAVIOR LAYER v3
+ *  Injected via Luxury Presence → Global Scripts → Body JavaScript
+ *  Paste into: LP Global Scripts > Body JavaScript (wrapped in script tags)
+ *
+ *  Design system: prototype-angeliquelyle.html (approved 2026-04-08)
+ *
+ *  Handles:
+ *    1. Font injection (DM Serif Display, DM Sans, Cormorant)
+ *    2. Logo image swap (replace LP text logo with brand image)
+ *    3. Nav scroll shadow
+ *    4. History seam injection (scrolling ticker after hero)
+ *    5. Scroll reveals
+ *    6. Modal system
+ *    7. Smooth scroll nav
+ *    8. Active nav highlighting
+ *    9. Lazy images
+ *   10. Webhook bridge (disabled — enable when Angel API is live)
+ *
+ *  DEPRECATED from prototype (LP-native instead):
+ *    - Newsletter section → LP footer subscribe handles this
+ *    - Custom form HTML  → LP form section handles this
+ *    - Redirect logic    → LP CRM is primary, webhook mirrors
+ * ═══════════════════════════════════════════════════════════════
+ */
+
+(function() {
+  'use strict';
+
+  // ── FONT INJECTION ──────────────────────────────────────────
+  // LP may not have our fonts — inject DM Serif Display, DM Sans, Cormorant
+  if (!document.querySelector('link[href*="DM+Serif+Display"]')) {
+    var link = document.createElement('link');
+    link.rel = 'stylesheet';
+    link.href = 'https://fonts.googleapis.com/css2?family=Cormorant:ital,wght@0,300;0,400;1,300;1,400;1,500&family=DM+Sans:wght@300;400;500;600;700&family=DM+Serif+Display:ital@0;1&display=swap';
+    document.head.appendChild(link);
+  }
+
+  // ── LOGO IMAGE SWAP ─────────────────────────────────────────
+  // Replace LP's text logo with the brand image
+  // Upload logo-angelique-transparent.png to LP Media Library first,
+  // then update LOGO_URL with the LP CDN path
+  function initLogoSwap() {
+    var LOGO_URL = ''; // ← paste LP media URL after upload
+
+    if (!LOGO_URL) return; // skip if not configured yet
+
+    var logoEl = document.querySelector('.logo__name');
+    if (!logoEl) return;
+
+    var logoLink = logoEl.closest('a') || logoEl.parentElement;
+    var img = document.createElement('img');
+    img.src = LOGO_URL;
+    img.alt = 'Angelique — Palos Verdes Peninsula · South Bay Beach Cities';
+    img.className = 'al-logo-img';
+    img.style.height = '40px';
+    img.style.display = 'block';
+
+    // Insert image and hide text
+    logoLink.insertBefore(img, logoEl);
+    logoEl.style.display = 'none';
+  }
+
+  // ── NAV SCROLL SHADOW ───────────────────────────────────────
+  function initNavScroll() {
+    var header = document.querySelector('.header') || document.querySelector('nav');
+    if (!header) return;
+
+    function onScroll() {
+      if (window.scrollY > 40) {
+        header.classList.add('al-scrolled');
+      } else {
+        header.classList.remove('al-scrolled');
+      }
+    }
+
+    window.addEventListener('scroll', onScroll, { passive: true });
+    onScroll();
+  }
+
+  // ── HISTORY SEAM INJECTION ──────────────────────────────────
+  // Inject the scrolling neighborhood ticker after the hero (Opening) section
+  function initSeam() {
+    var opening = document.querySelector('.opening');
+    if (!opening) return;
+
+    // Don't inject twice
+    if (document.querySelector('.al-history-seam')) return;
+
+    var neighborhoods = [
+      'Lunada Bay', 'Malaga Cove', 'Portuguese Bend',
+      'Palos Verdes Estates', 'Rancho Palos Verdes', 'Rolling Hills',
+      'Point Vicente', 'Rolling Hills Estates',
+      'Manhattan Beach', 'Hermosa Beach', 'Redondo Beach', 'Torrance'
+    ];
+
+    // Build seam HTML
+    var seam = document.createElement('div');
+    seam.className = 'al-history-seam';
+
+    var label = document.createElement('div');
+    label.className = 'al-seam-label';
+    label.textContent = 'Est. 1913';
+    seam.appendChild(label);
+
+    var scroll = document.createElement('div');
+    scroll.className = 'al-seam-scroll';
+
+    // Build spans with dot separators
+    neighborhoods.forEach(function(name, i) {
+      var span = document.createElement('span');
+      span.textContent = name;
+      scroll.appendChild(span);
+      if (i < neighborhoods.length - 1) {
+        var dot = document.createElement('span');
+        dot.textContent = '·';
+        scroll.appendChild(dot);
+      }
+    });
+
+    // Duplicate for seamless infinite scroll
+    var children = Array.from(scroll.children);
+    children.forEach(function(child) {
+      scroll.appendChild(child.cloneNode(true));
+    });
+
+    seam.appendChild(scroll);
+
+    // Insert after opening section
+    opening.parentNode.insertBefore(seam, opening.nextSibling);
+  }
+
+  // ── SCROLL REVEAL ───────────────────────────────────────────
+  function initScrollReveal() {
+    var reveals = document.querySelectorAll('.al-reveal');
+    if (!reveals.length) return;
+
+    var observer = new IntersectionObserver(
+      function(entries) {
+        entries.forEach(function(entry) {
+          if (entry.isIntersecting) {
+            entry.target.classList.add('al-visible');
+            observer.unobserve(entry.target);
+          }
+        });
+      },
+      { threshold: 0.12 }
+    );
+
+    reveals.forEach(function(el) { observer.observe(el); });
+  }
+
+  // ── MODAL SYSTEM ────────────────────────────────────────────
+  window.alOpenModal = function(id) {
+    var modal = document.getElementById(id);
+    if (modal) {
+      modal.classList.add('active');
+      document.body.style.overflow = 'hidden';
+    }
+  };
+
+  window.alCloseModal = function(id) {
+    var modal = document.getElementById(id);
+    if (modal) {
+      modal.classList.remove('active');
+      document.body.style.overflow = '';
+    }
+  };
+
+  // Close on overlay click
+  document.addEventListener('click', function(e) {
+    if (e.target.classList.contains('al-modal-overlay') && e.target.classList.contains('active')) {
+      e.target.classList.remove('active');
+      document.body.style.overflow = '';
+    }
+  });
+
+  // Close on Escape
+  document.addEventListener('keydown', function(e) {
+    if (e.key === 'Escape') {
+      document.querySelectorAll('.al-modal-overlay.active').forEach(function(m) {
+        m.classList.remove('active');
+      });
+      document.body.style.overflow = '';
+    }
+  });
+
+  // ── SMOOTH SCROLL NAV ──────────────────────────────────────
+  function initSmoothScroll() {
+    document.querySelectorAll('a[href^="#"]').forEach(function(a) {
+      a.addEventListener('click', function(e) {
+        var href = a.getAttribute('href');
+        if (href === '#') return;
+        var target = document.querySelector(href);
+        if (target) {
+          e.preventDefault();
+          target.scrollIntoView({ behavior: 'smooth' });
+        }
+      });
+    });
+  }
+
+  // ── ACTIVE NAV HIGHLIGHTING ────────────────────────────────
+  function initActiveNav() {
+    var sections = document.querySelectorAll('section[id], [class*="featured-"], .opening');
+    if (!sections.length) return;
+
+    var navLinks = document.querySelectorAll('.navigation__link, .header a[href^="#"]');
+    if (!navLinks.length) return;
+
+    var observer = new IntersectionObserver(
+      function(entries) {
+        entries.forEach(function(entry) {
+          if (entry.isIntersecting) {
+            var id = entry.target.getAttribute('id');
+            if (!id) return;
+            navLinks.forEach(function(link) {
+              var isMatch = link.getAttribute('href') === '#' + id;
+              link.style.color = isMatch ? 'var(--al-black)' : '';
+            });
+          }
+        });
+      },
+      { threshold: 0.3, rootMargin: '-72px 0px 0px 0px' }
+    );
+
+    sections.forEach(function(section) { observer.observe(section); });
+  }
+
+  // ── LAZY IMAGE LOADING ─────────────────────────────────────
+  function initLazyImages() {
+    document.querySelectorAll('img:not([loading])').forEach(function(img) {
+      var rect = img.getBoundingClientRect();
+      if (rect.top > window.innerHeight) {
+        img.loading = 'lazy';
+      }
+    });
+  }
+
+  // ── FORM WEBHOOK BRIDGE ────────────────────────────────────
+  // Intercept LP form submissions and mirror data to Angel/Cove
+  // Runs AFTER LP's own handler — LP CRM still gets the lead
+  function initWebhookBridge() {
+    var ANGEL_ENDPOINT = ''; // e.g., 'https://cove.growdirect.io/api/webhooks/lp'
+    var WEBHOOK_ENABLED = false; // flip to true when Angel webhook is live
+
+    if (!WEBHOOK_ENABLED || !ANGEL_ENDPOINT) return;
+
+    document.addEventListener('submit', function(e) {
+      var form = e.target;
+      if (!form || form.tagName !== 'FORM') return;
+
+      var formData = new FormData(form);
+      var payload = {};
+      formData.forEach(function(value, key) {
+        payload[key] = value;
+      });
+
+      // Add attribution metadata
+      payload._source = 'lp_form';
+      payload._domain = 'angeliquelyle.com';
+      payload._page = window.location.pathname;
+      payload._timestamp = new Date().toISOString();
+      payload._referrer = document.referrer || '';
+
+      // Fire-and-forget — don't block LP's handler
+      try {
+        fetch(ANGEL_ENDPOINT, {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify(payload),
+          keepalive: true
+        }).catch(function() { /* silent — LP CRM is safety net */ });
+      } catch (err) { /* silent */ }
+    }, true); // capture phase
+  }
+
+  // ── FOOTER LOGO BRAND ──────────────────────────────────────
+  // Style the footer logo text as Cormorant italic "Angelique"
+  function initFooterBrand() {
+    var footerLogo = document.querySelector('.footer .logo__name');
+    if (!footerLogo) return;
+
+    // Re-show the text in footer with Cormorant styling
+    // (CSS hides .logo__name globally, but footer needs it visible)
+    footerLogo.style.fontSize = '1.5rem';
+    footerLogo.style.fontFamily = "'Cormorant', Georgia, serif";
+    footerLogo.style.fontWeight = '300';
+    footerLogo.style.fontStyle = 'italic';
+    footerLogo.style.color = '#FFFFFF';
+    footerLogo.textContent = 'Angelique';
+  }
+
+  // ── INITIALIZE ──────────────────────────────────────────────
+  function init() {
+    initLogoSwap();
+    initNavScroll();
+    initSeam();
+    initScrollReveal();
+    initSmoothScroll();
+    initActiveNav();
+    initLazyImages();
+    initWebhookBridge();
+    initFooterBrand();
+  }
+
+  if (document.readyState === 'loading') {
+    document.addEventListener('DOMContentLoaded', init);
+  } else {
+    init();
+  }
+
+})();
+</script>

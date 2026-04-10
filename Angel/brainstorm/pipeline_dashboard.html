@@ -1,0 +1,659 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Angelique Lyle · Lead Pipeline Architecture</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,500;1,400&family=Outfit:wght@300;400;500;600&display=swap" rel="stylesheet">
+<style>
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+  :root {
+    --sand: #F4EFE6; --sand-mid: #E8DDD0; --sand-dark: #C8B99A;
+    --ocean: #1C3A4A; --ocean-mid: #2C5568; --foam: #F9F7F4;
+    --drift: #8A9BA8; --stone: #4A5A62; --white: #FFFFFF; --ink: #1A2428;
+    --green: #2D8A5E; --green-light: #E8F5EE;
+    --amber: #B8860B; --amber-light: #FFF8E7;
+    --blue: #2563EB; --blue-light: #EFF6FF;
+    --serif: 'Playfair Display', Georgia, serif;
+    --sans: 'Outfit', system-ui, sans-serif;
+  }
+  html { scroll-behavior: smooth; }
+  body { font-family: var(--sans); background: var(--foam); color: var(--ink); }
+
+  /* Header */
+  .header {
+    background: var(--ocean); padding: 3rem 3rem 2.5rem;
+    position: relative; overflow: hidden;
+  }
+  .header::before {
+    content: ''; position: absolute; top: -60px; right: -60px;
+    width: 300px; height: 300px; border: 1px solid rgba(200,185,154,0.1);
+    border-radius: 50%;
+  }
+  .header::after {
+    content: ''; position: absolute; top: -120px; right: -120px;
+    width: 500px; height: 500px; border: 1px solid rgba(200,185,154,0.05);
+    border-radius: 50%;
+  }
+  .header-eyebrow {
+    font-size: 0.65rem; letter-spacing: 0.22em; text-transform: uppercase;
+    color: var(--sand-dark); margin-bottom: 0.75rem;
+    display: flex; align-items: center; gap: 0.75rem;
+  }
+  .header-eyebrow::before { content: ''; display: block; width: 32px; height: 1px; background: var(--sand-dark); }
+  .header h1 {
+    font-family: var(--serif); font-size: 2.4rem; font-weight: 400;
+    color: var(--sand); line-height: 1.15; margin-bottom: 0.75rem;
+    position: relative;
+  }
+  .header h1 em { font-style: italic; color: var(--sand-dark); }
+  .header-sub { font-size: 0.9rem; color: var(--drift); font-weight: 300; max-width: 600px; line-height: 1.7; position: relative; }
+  .header-goal {
+    display: inline-flex; align-items: center; gap: 0.75rem;
+    background: rgba(200,185,154,0.15); border: 1px solid rgba(200,185,154,0.25);
+    padding: 0.75rem 1.25rem; margin-top: 1.25rem; position: relative;
+  }
+  .header-goal .num { font-family: var(--serif); font-size: 1.8rem; color: var(--sand-dark); line-height: 1; }
+  .header-goal .label { font-size: 0.72rem; letter-spacing: 0.08em; text-transform: uppercase; color: var(--drift); }
+
+  /* Section */
+  .section { padding: 3rem; max-width: 1200px; margin: 0 auto; }
+  .section-tag {
+    font-size: 0.65rem; letter-spacing: 0.2em; text-transform: uppercase;
+    color: var(--sand-dark); margin-bottom: 0.75rem;
+    display: flex; align-items: center; gap: 0.75rem;
+  }
+  .section-tag::before { content: ''; display: block; width: 28px; height: 1px; background: var(--sand-dark); }
+  .section-heading {
+    font-family: var(--serif); font-size: 1.8rem; font-weight: 400;
+    color: var(--ocean); line-height: 1.2; margin-bottom: 1.5rem;
+  }
+  .section-heading em { font-style: italic; }
+
+  /* Pipeline Flow */
+  .pipeline-flow {
+    display: grid; grid-template-columns: repeat(5, 1fr); gap: 2px;
+    background: var(--sand-mid); margin-bottom: 3rem;
+  }
+  .pipeline-stage {
+    background: var(--white); padding: 1.5rem; text-align: center;
+    position: relative;
+  }
+  .pipeline-stage::after {
+    content: '→'; position: absolute; right: -8px; top: 50%;
+    transform: translateY(-50%); color: var(--sand-dark); font-size: 1.2rem;
+    z-index: 2;
+  }
+  .pipeline-stage:last-child::after { display: none; }
+  .stage-icon {
+    width: 48px; height: 48px; border-radius: 50%; margin: 0 auto 0.75rem;
+    display: flex; align-items: center; justify-content: center;
+    font-size: 1.2rem;
+  }
+  .stage-icon.attract { background: var(--blue-light); color: var(--blue); }
+  .stage-icon.capture { background: var(--amber-light); color: var(--amber); }
+  .stage-icon.nurture { background: var(--green-light); color: var(--green); }
+  .stage-icon.convert { background: #FEE2E2; color: #DC2626; }
+  .stage-icon.referral { background: #F3E8FF; color: #7C3AED; }
+  .stage-name {
+    font-size: 0.65rem; letter-spacing: 0.15em; text-transform: uppercase;
+    color: var(--sand-dark); margin-bottom: 0.25rem;
+  }
+  .stage-title {
+    font-family: var(--serif); font-size: 1.1rem; color: var(--ocean);
+    margin-bottom: 0.5rem;
+  }
+  .stage-metric {
+    font-size: 0.78rem; color: var(--stone); line-height: 1.5;
+  }
+  .stage-metric strong { color: var(--ocean); }
+
+  /* Source Cards */
+  .sources-grid {
+    display: grid; grid-template-columns: repeat(3, 1fr); gap: 2px;
+    background: var(--sand-mid); margin-bottom: 3rem;
+  }
+  .source-card {
+    background: var(--white); padding: 1.75rem; position: relative;
+  }
+  .source-card.primary { border-top: 3px solid var(--ocean); }
+  .source-card.secondary { border-top: 3px solid var(--sand-dark); }
+  .source-card.passive { border-top: 3px solid var(--drift); }
+  .source-type {
+    font-size: 0.6rem; letter-spacing: 0.15em; text-transform: uppercase;
+    color: var(--sand-dark); margin-bottom: 0.5rem;
+  }
+  .source-name {
+    font-family: var(--serif); font-size: 1.15rem; color: var(--ocean);
+    margin-bottom: 0.5rem;
+  }
+  .source-desc { font-size: 0.82rem; color: var(--stone); line-height: 1.65; font-weight: 300; margin-bottom: 0.75rem; }
+  .source-tool {
+    display: inline-block; font-size: 0.62rem; letter-spacing: 0.1em;
+    text-transform: uppercase; padding: 4px 10px;
+    background: var(--foam); color: var(--stone); margin-right: 4px; margin-bottom: 4px;
+  }
+  .source-leads {
+    margin-top: 0.75rem; padding-top: 0.75rem;
+    border-top: 1px solid var(--sand-mid);
+    font-size: 0.75rem; color: var(--drift);
+  }
+  .source-leads strong { color: var(--ocean); font-family: var(--serif); font-size: 1rem; }
+
+  /* Compass Tools */
+  .compass-section { background: var(--ocean); padding: 3rem; margin: 0 -3rem; width: calc(100% + 6rem); }
+  .compass-inner { max-width: 1200px; margin: 0 auto; }
+  .compass-grid {
+    display: grid; grid-template-columns: repeat(3, 1fr); gap: 2px;
+    background: rgba(200,185,154,0.15);
+  }
+  .compass-card {
+    background: rgba(28,58,74,0.95); padding: 1.75rem;
+    backdrop-filter: blur(8px);
+  }
+  .compass-card-name {
+    font-family: var(--serif); font-size: 1.1rem; color: var(--sand);
+    margin-bottom: 0.5rem;
+  }
+  .compass-card-role {
+    font-size: 0.62rem; letter-spacing: 0.12em; text-transform: uppercase;
+    color: var(--sand-dark); margin-bottom: 0.75rem;
+  }
+  .compass-card-desc { font-size: 0.82rem; color: var(--drift); line-height: 1.65; font-weight: 300; margin-bottom: 0.75rem; }
+  .compass-card-action {
+    font-size: 0.72rem; letter-spacing: 0.08em; text-transform: uppercase;
+    color: var(--sand-dark); padding-top: 0.75rem;
+    border-top: 1px solid rgba(200,185,154,0.2);
+  }
+
+  /* Weekly Rhythm */
+  .rhythm-grid {
+    display: grid; grid-template-columns: repeat(5, 1fr); gap: 2px;
+    background: var(--sand-mid); margin-bottom: 2rem;
+  }
+  .rhythm-day {
+    background: var(--white); padding: 1.25rem;
+  }
+  .rhythm-day-name {
+    font-size: 0.65rem; letter-spacing: 0.15em; text-transform: uppercase;
+    color: var(--sand-dark); margin-bottom: 0.75rem;
+  }
+  .rhythm-task {
+    font-size: 0.78rem; color: var(--stone); line-height: 1.6;
+    padding: 0.4rem 0; border-bottom: 1px solid var(--sand-mid);
+  }
+  .rhythm-task:last-child { border-bottom: none; }
+  .rhythm-task .time {
+    font-size: 0.65rem; color: var(--drift); display: block; margin-bottom: 2px;
+  }
+  .rhythm-task .tool-tag {
+    display: inline-block; font-size: 0.55rem; letter-spacing: 0.08em;
+    text-transform: uppercase; padding: 2px 6px;
+    background: var(--ocean); color: var(--sand-dark); margin-top: 3px;
+  }
+
+  /* Math Section */
+  .math-grid {
+    display: grid; grid-template-columns: 1fr 1fr; gap: 3rem;
+    align-items: start; margin-bottom: 2rem;
+  }
+  .math-card {
+    background: var(--white); border: 1px solid var(--sand-mid); padding: 2rem;
+  }
+  .math-card-title {
+    font-family: var(--serif); font-size: 1.2rem; color: var(--ocean);
+    margin-bottom: 1rem;
+  }
+  .math-row {
+    display: flex; justify-content: space-between; align-items: center;
+    padding: 0.6rem 0; border-bottom: 1px solid var(--sand-mid);
+    font-size: 0.85rem; color: var(--stone);
+  }
+  .math-row:last-child { border-bottom: none; }
+  .math-row .val {
+    font-family: var(--serif); font-size: 1.1rem; color: var(--ocean);
+  }
+  .math-row.total {
+    border-top: 2px solid var(--ocean); border-bottom: none;
+    padding-top: 0.75rem; margin-top: 0.25rem;
+  }
+  .math-row.total .val { font-size: 1.3rem; color: var(--green); }
+
+  /* Nurture Sequences */
+  .sequence-grid {
+    display: grid; grid-template-columns: 1fr 1fr; gap: 2px;
+    background: var(--sand-mid); margin-bottom: 2rem;
+  }
+  .sequence-card { background: var(--white); padding: 1.75rem; }
+  .sequence-card-name {
+    font-family: var(--serif); font-size: 1.1rem; color: var(--ocean);
+    margin-bottom: 0.25rem;
+  }
+  .sequence-card-audience { font-size: 0.65rem; letter-spacing: 0.1em; text-transform: uppercase; color: var(--sand-dark); margin-bottom: 0.75rem; }
+  .sequence-step {
+    display: flex; gap: 0.75rem; padding: 0.5rem 0;
+    border-bottom: 1px solid var(--sand-mid); font-size: 0.8rem; color: var(--stone);
+  }
+  .sequence-step:last-child { border-bottom: none; }
+  .sequence-step .when {
+    font-size: 0.65rem; letter-spacing: 0.08em; text-transform: uppercase;
+    color: var(--sand-dark); min-width: 60px; flex-shrink: 0; padding-top: 2px;
+  }
+
+  /* Footer */
+  .doc-footer {
+    background: var(--ink); padding: 2rem 3rem;
+    text-align: center;
+  }
+  .doc-footer p { font-size: 0.72rem; color: var(--stone); }
+  .doc-footer a { color: var(--sand-dark); }
+
+  @media (max-width: 900px) {
+    .pipeline-flow { grid-template-columns: 1fr; }
+    .pipeline-stage::after { display: none; }
+    .sources-grid, .compass-grid, .sequence-grid { grid-template-columns: 1fr; }
+    .rhythm-grid { grid-template-columns: 1fr 1fr; }
+    .math-grid { grid-template-columns: 1fr; }
+  }
+</style>
+</head>
+<body>
+
+<!-- ── HEADER ──────────────────────────────────────────── -->
+<div class="header">
+  <div class="header-eyebrow">Pipeline Architecture · April 2026</div>
+  <h1>Angelique Lyle<br><em>Lead Pipeline Playbook</em></h1>
+  <p class="header-sub">
+    A focused system designed for an experienced agent who doesn't need volume — just 1-2 high-quality, relationship-ready leads per week flowing through Compass and OwnPalosVerdes.com.
+  </p>
+  <div class="header-goal">
+    <div class="num">1–2</div>
+    <div>
+      <div class="label">Quality Leads / Week</div>
+      <div style="font-size:0.7rem; color:var(--drift); margin-top:2px;">= 5–8 conversations / month → 2–3 closings / quarter</div>
+    </div>
+  </div>
+</div>
+
+<!-- ── PIPELINE STAGES ─────────────────────────────────── -->
+<div class="section">
+  <div class="section-tag">The Pipeline</div>
+  <h2 class="section-heading">Five stages, <em>one closed loop.</em></h2>
+
+  <div class="pipeline-flow">
+    <div class="pipeline-stage">
+      <div class="stage-icon attract">🌊</div>
+      <div class="stage-name">Stage 1</div>
+      <div class="stage-title">Attract</div>
+      <div class="stage-metric">SEO, social, referrals bring <strong>~20 visitors/day</strong> to OwnPalosVerdes.com</div>
+    </div>
+    <div class="pipeline-stage">
+      <div class="stage-icon capture">📥</div>
+      <div class="stage-name">Stage 2</div>
+      <div class="stage-title">Capture</div>
+      <div class="stage-metric"><strong>5–10%</strong> convert via guide download, valuation request, or contact form</div>
+    </div>
+    <div class="pipeline-stage">
+      <div class="stage-icon nurture">💬</div>
+      <div class="stage-name">Stage 3</div>
+      <div class="stage-title">Nurture</div>
+      <div class="stage-metric">Compass CRM drips + Collections keep leads <strong>warm for weeks/months</strong></div>
+    </div>
+    <div class="pipeline-stage">
+      <div class="stage-icon convert">🤝</div>
+      <div class="stage-name">Stage 4</div>
+      <div class="stage-title">Convert</div>
+      <div class="stage-metric">Angelique's 20+ years of expertise <strong>close 25–35%</strong> of qualified leads</div>
+    </div>
+    <div class="pipeline-stage">
+      <div class="stage-icon referral">🔄</div>
+      <div class="stage-name">Stage 5</div>
+      <div class="stage-title">Referral Loop</div>
+      <div class="stage-metric">Compass One keeps clients connected → <strong>referrals + repeat</strong></div>
+    </div>
+  </div>
+
+  <!-- ── LEAD SOURCES ──────────────────────────────────── -->
+  <div class="section-tag">Lead Sources</div>
+  <h2 class="section-heading">Where the <em>1–2 leads per week</em> come from.</h2>
+
+  <div class="sources-grid">
+    <div class="source-card primary">
+      <div class="source-type">Primary · Inbound</div>
+      <div class="source-name">OwnPalosVerdes.com</div>
+      <div class="source-desc">
+        SEO-optimized content pulls in buyers and sellers searching for Peninsula real estate.
+        Lead magnets (PV Welcome Guide, home valuation) convert visitors to contacts.
+      </div>
+      <div>
+        <span class="source-tool">SEO Content</span>
+        <span class="source-tool">Lead Forms</span>
+        <span class="source-tool">Blog</span>
+      </div>
+      <div class="source-leads">Target: <strong>3–5</strong> leads/week from organic search</div>
+    </div>
+
+    <div class="source-card primary">
+      <div class="source-type">Primary · Proactive</div>
+      <div class="source-name">Compass Likely to Sell</div>
+      <div class="source-desc">
+        AI identifies homeowners in Angelique's database who are statistically likely to sell.
+        She reaches out with a personalized market update before they list with someone else.
+      </div>
+      <div>
+        <span class="source-tool">Compass AI</span>
+        <span class="source-tool">CRM Data</span>
+        <span class="source-tool">CoreLogic</span>
+      </div>
+      <div class="source-leads">Target: <strong>2–3</strong> warm outreach calls/week</div>
+    </div>
+
+    <div class="source-card primary">
+      <div class="source-type">Primary · Relationship</div>
+      <div class="source-name">Sphere of Influence</div>
+      <div class="source-desc">
+        Past clients, friends, community contacts. After 20+ years, this is Angelique's deepest well.
+        Monthly touchpoints + Compass One keep her top-of-mind when someone says "I know a great agent."
+      </div>
+      <div>
+        <span class="source-tool">Compass CRM</span>
+        <span class="source-tool">Compass One</span>
+        <span class="source-tool">Email</span>
+      </div>
+      <div class="source-leads">Target: <strong>1–2</strong> referrals/week (highest close rate)</div>
+    </div>
+
+    <div class="source-card secondary">
+      <div class="source-type">Secondary · Social</div>
+      <div class="source-name">Instagram + YouTube</div>
+      <div class="source-desc">
+        Neighborhood tours, market insights, and lifestyle content build authority. DMs and comments become warm conversations. Bio link drives to OwnPalosVerdes.com.
+      </div>
+      <div>
+        <span class="source-tool">Reels</span>
+        <span class="source-tool">YouTube SEO</span>
+        <span class="source-tool">Stories</span>
+      </div>
+      <div class="source-leads">Target: <strong>1–2</strong> DM conversations/week</div>
+    </div>
+
+    <div class="source-card secondary">
+      <div class="source-type">Secondary · Local</div>
+      <div class="source-name">Google Business Profile</div>
+      <div class="source-desc">
+        Optimized profile appears in "real estate agent near me" and map searches. Reviews from past clients build instant trust. Drives calls and website clicks.
+      </div>
+      <div>
+        <span class="source-tool">Local SEO</span>
+        <span class="source-tool">Reviews</span>
+        <span class="source-tool">Google Maps</span>
+      </div>
+      <div class="source-leads">Target: <strong>1–2</strong> calls or clicks/week</div>
+    </div>
+
+    <div class="source-card passive">
+      <div class="source-type">Passive · Platform</div>
+      <div class="source-name">Compass Network</div>
+      <div class="source-desc">
+        Compass-to-Compass referrals, coming-soon listings, and internal agent network. Compass Exclusive listings give Angelique inventory no one else can show.
+      </div>
+      <div>
+        <span class="source-tool">Compass Exclusives</span>
+        <span class="source-tool">Agent Network</span>
+      </div>
+      <div class="source-leads">Target: <strong>1–2</strong> referrals/month</div>
+    </div>
+  </div>
+</div>
+
+<!-- ── COMPASS TOOLS ───────────────────────────────────── -->
+<div class="section" style="padding-top:0;">
+  <div class="compass-section">
+    <div class="compass-inner">
+      <div class="section-tag" style="color:var(--sand-dark);">Compass Toolkit</div>
+      <h2 class="section-heading" style="color:var(--sand);">How each Compass tool <em>feeds the pipeline.</em></h2>
+
+      <div class="compass-grid">
+        <div class="compass-card">
+          <div class="compass-card-name">Compass CRM</div>
+          <div class="compass-card-role">Pipeline Stage: All</div>
+          <div class="compass-card-desc">Central hub for all contacts. Segment by buyer/seller/sphere. Track every touchpoint. Set reminders for follow-ups. Run email campaigns.</div>
+          <div class="compass-card-action">→ Clean database, segment contacts, set up automated touchpoints</div>
+        </div>
+        <div class="compass-card">
+          <div class="compass-card-name">Likely to Sell</div>
+          <div class="compass-card-role">Pipeline Stage: Attract + Capture</div>
+          <div class="compass-card-desc">AI scans your contacts + CoreLogic data to flag homeowners likely to sell. Surfaces warm leads you already know — the highest-conversion outreach you can make.</div>
+          <div class="compass-card-action">→ Check weekly, make 2–3 personalized calls per week</div>
+        </div>
+        <div class="compass-card">
+          <div class="compass-card-name">Collections</div>
+          <div class="compass-card-role">Pipeline Stage: Nurture</div>
+          <div class="compass-card-desc">Visual property boards shared with buyer clients. Real-time collaboration. When a client opens and lingers on a listing, you get notified — that's a buying signal.</div>
+          <div class="compass-card-action">→ Create a Collection for every active buyer within 24 hours</div>
+        </div>
+        <div class="compass-card">
+          <div class="compass-card-name">Compass One</div>
+          <div class="compass-card-role">Pipeline Stage: Convert + Referral</div>
+          <div class="compass-card-desc">Client dashboard for the full journey — before, during, and after the deal. Keeps docs, timeline, and market updates in one place. Stays active post-close for referrals.</div>
+          <div class="compass-card-action">→ Invite every client to Compass One at first meeting</div>
+        </div>
+        <div class="compass-card">
+          <div class="compass-card-name">Marketing Center</div>
+          <div class="compass-card-role">Pipeline Stage: Attract + Nurture</div>
+          <div class="compass-card-desc">AI-powered design studio for listing flyers, social posts, brochures, and digital ads. Generate listing descriptions and social captions in minutes.</div>
+          <div class="compass-card-action">→ Create listing materials same-day, share across social channels</div>
+        </div>
+        <div class="compass-card">
+          <div class="compass-card-name">Business Tracker</div>
+          <div class="compass-card-role">Pipeline Stage: Convert</div>
+          <div class="compass-card-desc">Deal dashboard with pipeline visualization, transaction checklists, and milestone tracking. See where every deal stands at a glance.</div>
+          <div class="compass-card-action">→ Review pipeline every Monday morning, update deal stages</div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- ── THE MATH ─────────────────────────────────────────── -->
+<div class="section">
+  <div class="section-tag">The Math</div>
+  <h2 class="section-heading">Why <em>1–2 leads/week</em> changes everything.</h2>
+
+  <div class="math-grid">
+    <div class="math-card">
+      <div class="math-card-title">Weekly Pipeline Math</div>
+      <div class="math-row"><span>Website visitors (organic)</span> <span class="val">~140/wk</span></div>
+      <div class="math-row"><span>Conversion to lead (5%)</span> <span class="val">7</span></div>
+      <div class="math-row"><span>Likely to Sell outreach</span> <span class="val">+2–3</span></div>
+      <div class="math-row"><span>Sphere referrals</span> <span class="val">+1–2</span></div>
+      <div class="math-row"><span>Social DMs</span> <span class="val">+1</span></div>
+      <div class="math-row total"><span>Total leads entering pipeline</span> <span class="val">~12/wk</span></div>
+      <div class="math-row"><span>Qualified after first conversation</span> <span class="val">~4–5</span></div>
+      <div class="math-row" style="border-bottom:none;"><span>Quality leads Angelique works</span> <span class="val" style="color:var(--green); font-size:1.4rem;">1–2/wk</span></div>
+    </div>
+
+    <div class="math-card">
+      <div class="math-card-title">Annual Business Impact</div>
+      <div class="math-row"><span>Quality leads per week</span> <span class="val">1.5 avg</span></div>
+      <div class="math-row"><span>Quality leads per year</span> <span class="val">~78</span></div>
+      <div class="math-row"><span>Close rate (experienced agent)</span> <span class="val">25–35%</span></div>
+      <div class="math-row"><span>Closed transactions / year</span> <span class="val">20–27</span></div>
+      <div class="math-row"><span>Average sale price (PV)</span> <span class="val">$2.1M</span></div>
+      <div class="math-row"><span>Average commission (2.5%)</span> <span class="val">$52,500</span></div>
+      <div class="math-row total"><span>Estimated GCI</span> <span class="val">$1.05M–$1.4M</span></div>
+      <div class="math-row" style="border-bottom:none; color:var(--drift); font-size:0.78rem;"><span>Pipeline cost (from strategy doc)</span> <span style="font-size:0.78rem;">~$2K/mo = $24K/yr</span></div>
+    </div>
+  </div>
+</div>
+
+<!-- ── NURTURE SEQUENCES ───────────────────────────────── -->
+<div class="section" style="padding-top:0;">
+  <div class="section-tag">Nurture Sequences</div>
+  <h2 class="section-heading">Automated follow-up <em>in Compass CRM.</em></h2>
+
+  <div class="sequence-grid">
+    <div class="sequence-card">
+      <div class="sequence-card-name">New Buyer Lead</div>
+      <div class="sequence-card-audience">Website form · Social DM · Referral</div>
+      <div class="sequence-step"><span class="when">Day 0</span> Personal text or call within 5 minutes of lead arriving</div>
+      <div class="sequence-step"><span class="when">Day 1</span> Welcome email + link to PV Welcome Guide download</div>
+      <div class="sequence-step"><span class="when">Day 3</span> Compass Collection created with curated listings matching their criteria</div>
+      <div class="sequence-step"><span class="when">Day 7</span> "How's the search going?" check-in email or text</div>
+      <div class="sequence-step"><span class="when">Day 14</span> Market insight email specific to their target neighborhood</div>
+      <div class="sequence-step"><span class="when">Day 30</span> Phone call — offer to schedule a neighborhood tour</div>
+      <div class="sequence-step"><span class="when">Monthly</span> Compass Collections auto-update with new listings</div>
+    </div>
+
+    <div class="sequence-card">
+      <div class="sequence-card-name">Likely to Sell</div>
+      <div class="sequence-card-audience">Compass AI flagged · Sphere contact</div>
+      <div class="sequence-step"><span class="when">Day 0</span> Personal call: "I was looking at market data in your area and thought of you..."</div>
+      <div class="sequence-step"><span class="when">Day 2</span> Follow-up email with personalized CMA (Compass market analysis)</div>
+      <div class="sequence-step"><span class="when">Day 7</span> "Recent sale near you" email with comparable sale data</div>
+      <div class="sequence-step"><span class="when">Day 14</span> Hand-written note or drop-by with small gift</div>
+      <div class="sequence-step"><span class="when">Day 30</span> Phone check-in if no response — update CRM status</div>
+      <div class="sequence-step"><span class="when">Quarterly</span> Re-run Likely to Sell analysis on dormant contacts</div>
+    </div>
+
+    <div class="sequence-card">
+      <div class="sequence-card-name">Home Valuation Request</div>
+      <div class="sequence-card-audience">Website "What's My Home Worth?" form</div>
+      <div class="sequence-step"><span class="when">Day 0</span> Call within 5 minutes — discuss their goals, not just the number</div>
+      <div class="sequence-step"><span class="when">Day 1</span> Email Compass CMA report with personalized analysis</div>
+      <div class="sequence-step"><span class="when">Day 3</span> Follow-up: "Any questions about the analysis?"</div>
+      <div class="sequence-step"><span class="when">Day 7</span> Send "3 things that increase your home's value" content</div>
+      <div class="sequence-step"><span class="when">Day 21</span> Invite to Compass One for ongoing market tracking</div>
+      <div class="sequence-step"><span class="when">Monthly</span> Automated neighborhood market update via CRM</div>
+    </div>
+
+    <div class="sequence-card">
+      <div class="sequence-card-name">Past Client / Sphere</div>
+      <div class="sequence-card-audience">Closed clients · Personal network</div>
+      <div class="sequence-step"><span class="when">Monthly</span> Market update email (Compass Marketing Center template)</div>
+      <div class="sequence-step"><span class="when">Quarterly</span> Personal check-in call or coffee invitation</div>
+      <div class="sequence-step"><span class="when">Annual</span> Home anniversary card + current home value update</div>
+      <div class="sequence-step"><span class="when">Annual</span> Holiday gift or community event invitation</div>
+      <div class="sequence-step"><span class="when">Ongoing</span> Compass One keeps them connected with market data</div>
+      <div class="sequence-step"><span class="when">Always</span> Engage with their social media — comment, like, share</div>
+    </div>
+  </div>
+</div>
+
+<!-- ── WEEKLY RHYTHM ────────────────────────────────────── -->
+<div class="section" style="padding-top:0;">
+  <div class="section-tag">Weekly Rhythm</div>
+  <h2 class="section-heading">Angelique's <em>pipeline routine.</em></h2>
+  <p style="font-size:0.88rem; color:var(--stone); line-height:1.7; margin-bottom:1.5rem; font-weight:300; max-width:700px;">
+    This isn't about spending hours on marketing. It's about 30–45 minutes of focused pipeline work each morning, plus the client-facing work Angelique already excels at.
+  </p>
+
+  <div class="rhythm-grid">
+    <div class="rhythm-day">
+      <div class="rhythm-day-name">Monday</div>
+      <div class="rhythm-task">
+        <span class="time">8:30 AM · 15 min</span>
+        Review pipeline in Business Tracker. Update deal stages.
+        <span class="tool-tag">Business Tracker</span>
+      </div>
+      <div class="rhythm-task">
+        <span class="time">9:00 AM · 20 min</span>
+        Check Likely to Sell flags. Make 2–3 personalized calls.
+        <span class="tool-tag">Likely to Sell</span>
+      </div>
+      <div class="rhythm-task">
+        <span class="time">9:30 AM · 10 min</span>
+        Review weekend website leads. Respond within 5 min.
+        <span class="tool-tag">CRM</span>
+      </div>
+    </div>
+
+    <div class="rhythm-day">
+      <div class="rhythm-day-name">Tuesday</div>
+      <div class="rhythm-task">
+        <span class="time">8:30 AM · 20 min</span>
+        Create/update Collections for active buyers.
+        <span class="tool-tag">Collections</span>
+      </div>
+      <div class="rhythm-task">
+        <span class="time">9:00 AM · 15 min</span>
+        Respond to social DMs and comments.
+        <span class="tool-tag">Instagram</span>
+      </div>
+      <div class="rhythm-task">
+        <span class="time">Afternoon</span>
+        Showings, client meetings, tours.
+      </div>
+    </div>
+
+    <div class="rhythm-day">
+      <div class="rhythm-day-name">Wednesday</div>
+      <div class="rhythm-task">
+        <span class="time">8:30 AM · 30 min</span>
+        Record neighborhood Reel or YouTube short.
+        <span class="tool-tag">Content</span>
+      </div>
+      <div class="rhythm-task">
+        <span class="time">9:00 AM · 15 min</span>
+        Sphere outreach: 5 personal texts or calls.
+        <span class="tool-tag">CRM</span>
+      </div>
+      <div class="rhythm-task">
+        <span class="time">Afternoon</span>
+        Client work + new lead follow-ups.
+      </div>
+    </div>
+
+    <div class="rhythm-day">
+      <div class="rhythm-day-name">Thursday</div>
+      <div class="rhythm-task">
+        <span class="time">8:30 AM · 20 min</span>
+        Review blog post draft (VA-prepared). Approve + publish.
+        <span class="tool-tag">OwnPalosVerdes.com</span>
+      </div>
+      <div class="rhythm-task">
+        <span class="time">9:00 AM · 15 min</span>
+        Create listing materials in Marketing Center.
+        <span class="tool-tag">Marketing Center</span>
+      </div>
+      <div class="rhythm-task">
+        <span class="time">Afternoon</span>
+        Showings, listings, client meetings.
+      </div>
+    </div>
+
+    <div class="rhythm-day">
+      <div class="rhythm-day-name">Friday</div>
+      <div class="rhythm-task">
+        <span class="time">8:30 AM · 10 min</span>
+        Invite any new clients to Compass One.
+        <span class="tool-tag">Compass One</span>
+      </div>
+      <div class="rhythm-task">
+        <span class="time">9:00 AM · 15 min</span>
+        Schedule next week's social posts.
+        <span class="tool-tag">Social</span>
+      </div>
+      <div class="rhythm-task">
+        <span class="time">9:30 AM · 10 min</span>
+        Review week's leads. Tag and segment in CRM.
+        <span class="tool-tag">CRM</span>
+      </div>
+    </div>
+  </div>
+
+  <p style="font-size:0.82rem; color:var(--drift); line-height:1.7; font-weight:300;">
+    <strong style="color:var(--ocean);">Total pipeline time:</strong> ~35–45 minutes each morning, 5 days a week.
+    The rest of Angelique's day is what she does best — meeting clients, showing homes, and closing deals.
+  </p>
+</div>
+
+<!-- ── FOOTER ──────────────────────────────────────────── -->
+<div class="doc-footer">
+  <p>Angelique Lyle · OwnPalosVerdes.com · Pipeline Playbook · April 2026</p>
+  <p style="margin-top:0.5rem;">CA DRE# 01475592 · Compass · <a href="tel:3107518335">(310) 751-8335</a></p>
+</div>
+
+</body>
+</html>

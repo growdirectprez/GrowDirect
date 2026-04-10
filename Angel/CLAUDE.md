@@ -1,0 +1,300 @@
+> **Platform parent:** Read `~/GrowDirect/CLAUDE.md` first. This file adds Angel-specific domain context on top of GrowDirect platform standards.
+> **Cove parent:** Read `~/GrowDirect/Cove/CLAUDE.md` second. Angel is a Cove module — models, blueprints, and migrations live in the Cove repo.
+> **ADR:** `~/GrowDirect/docs/decisions/2026-04-06-angel-as-cove-module.md`
+> **Team profiles:** `~/GrowDirect/docs/team/`
+
+# Angel — Agent Instructions
+
+You are the **Angel builder** — a headless factory executor for Angel, GrowDirect's real estate intelligence and lead generation platform. You have no persona and no name. You pick up GRO issues from Linear and run the factory pipeline.
+
+- **Founder:** Jeffe (CEO — talks to ALX, not directly to builders)
+- **Product:** Angel — AI-powered real estate assistant and lead generation platform for Compass agents
+- **First deployment:** Angelique Lyle, Accardo Real Estate Associates at Compass (Palos Verdes Peninsula)
+- **Architecture:** Cove module (not a standalone app) + Angel Agent sidecar + TheHillPV.com content engine
+- **Task source:** Linear (GRO-prefixed issues, Angel project). No issue = no work.
+- **Code lives in:** `~/GrowDirect/Cove/` (models, blueprints, migrations, templates, static)
+- **Knowledge lives in:** `~/GrowDirect/Angel/knowledge/` (domain content, voice profiles)
+- **SDDs:** `~/GrowDirect/docs/sdds/angel/` (overview, data-platform, angel-agent, web-strategy, brand-and-launch, execution-plan)
+
+---
+
+## What Angel Is
+
+Angel is a real estate intelligence platform that turns 20 years of local
+expertise and a proprietary property dataset into a 24/7 AI-powered lead
+generation engine for Angelique Lyle.
+
+Three components:
+
+1. **Data platform** — CRMLS listings, county parcels (from Cove), ATTOM enrichment, market snapshots. All tables in the `cove` database. APN is the universal key.
+
+2. **Angel Agent** — Claude-powered chatbot sidecar (port 8004) that answers questions about PV real estate using 12 MCP tools. Follows Canary QA Agent sidecar pattern.
+
+3. **TheHillPV.com** — Flask content engine served from Cove (angel_web_bp). Data-driven neighborhood pages, auto-generated market reports, school guide, street profiles. Full SEO control.
+
+The bridge between Angel and Cove is the **APN**. The same parcel data that powers HOA governance powers real estate intelligence.
+
+---
+
+## Critical: Angel Is a Cove Module
+
+Angel does NOT have its own Flask app, database, Docker compose, or port. It lives inside Cove:
+
+| Component | Location |
+|-----------|----------|
+| Models | `Cove/cove/models/listing.py`, `lead.py`, `market_snapshot.py` |
+| Blueprints | `Cove/cove/angel/` (angel_chat_bp, angel_web_bp, angel_webhook_bp) |
+| Templates | `Cove/templates/angel/` |
+| Static | `Cove/static/js/angel-widget.js`, `Cove/static/css/angel/` |
+| Migrations | `Cove/migrations/versions/` (shared Alembic) |
+| Database | `cove` on `growdirect_postgres:5432` |
+| Cache | Valkey DB 1 (shared with Cove) |
+
+The only standalone Angel container is the **Agent sidecar** (port 8004), which
+is added to `Cove/devops/docker-compose.yml` as a separate service.
+
+### What stays in Angel/
+
+```
+Angel/
+├── CLAUDE.md                        # This file
+├── knowledge/                       # Domain knowledge base
+│   ├── agentic-profile.md           # Angelique's persona, voice, backstory
+│   ├── compass-platform.md          # Private Exclusives, Concierge, Redfin alliance
+│   ├── listing-playbook.md          # 5-phase listing launch strategy
+│   ├── market-knowledge.md          # Peninsula + Beach Cities neighborhoods
+│   ├── school-guide.md              # PVPUSD deep knowledge
+│   ├── crm-pipeline.md              # Lead stages, follow-up sequences
+│   └── brand-system.md              # Visual identity, typography, palette
+├── Top Producer - Residential*/     # CRMLS listing CSV exports (source data)
+└── brainstorm/                      # Original HTML artifacts (archive)
+```
+
+Angel/ is a knowledge and data repo. All executable code goes in Cove/.
+
+---
+
+## Hard Rules
+
+### APN Is the Primary Key (Inherited from Cove)
+
+Every lead in Angel resolves back to a **parcel** identified by its Assessor's
+Parcel Number (APN). The APN links Angel to Cove's data model and to county
+records, MLS listings, and grant deeds.
+
+```
+Parcel (APN) → Listing (active/pending/sold)
+Parcel (APN) → Owner → Lead
+Parcel (APN) → Grant Deed → Transfer Event
+Parcel (APN) → Community (Cove membership) → Relationship
+```
+
+- **Lookups:** APN first, address second, owner name third
+- **Lead source:** A lead is born when an APN changes status (listed, price reduced, sold, transfer)
+- **Pipeline tracking:** Deals move through stages tied to APN events
+- **Cove bridge:** If the APN exists in a Cove-managed community, Angel inherits the membership context. Since tables are in the same database, this is a native JOIN — no dblink, no bridge views.
+
+### Angelique's Voice Is Non-Negotiable
+
+All client-facing content generated by Angel must conform to the Agentic Profile
+(`knowledge/agentic-profile.md`). Key rules:
+
+- First person ("I"), warm, confident, grounded
+- Lead with empathy — acknowledge the stress of moving/buying/selling
+- Specific local knowledge — street names, school campuses, neighborhood quirks
+- Never: "stunning," "turn-key," "prestigious," "luxury lifestyle"
+- Never: third person, aggressive urgency, corporate jargon
+- Signature phrases: "Life above the Pacific," "the Hill," "I figured it out the hard way"
+
+### Compass Compliance
+
+- CA DRE# 01475592 on all formal marketing material
+- Compass and Accardo Real Estate Associates as supporting credits
+- No specific income or appreciation guarantees
+- Fair Housing: never steer based on protected classes
+- NAR MLOS: seller must sign written disclosure for Private Exclusives
+
+### No Standalone Data — Cove DB Is the Source of Truth
+
+Angel tables (listings, leads, market_snapshots) coexist with Cove tables
+(parcels, members, organizations) in the same `cove` database. Queries JOIN
+directly — no bridges, no dblink, no separate data store. If Angel needs
+parcel data that doesn't exist in Cove yet, extend Cove's model.
+
+---
+
+## Architecture
+
+```
+AngeliqueLyle.com (Luxury Presence — flagship)
+    │  Angel chat widget embedded via LP dashboard
+    │  LP forms → Custom Webhook → Cove
+    │
+TheHillPV.com (Flask — content engine)
+    │  Server-rendered from Cove data (angel_web_bp)
+    │  Angel chat widget native
+    │  Full SEO control
+    │
+    ▼
+Cove Flask (port 5002)
+    │  angel_chat_bp — proxies to Agent sidecar
+    │  angel_web_bp — TheHillPV content pages
+    │  angel_webhook_bp — receives LP lead events
+    │
+    ├──► Angel Agent Sidecar (port 8004)
+    │    Claude-powered, 12 MCP tools
+    │    Reads from Cove DB directly
+    │    Pattern: Canary/canary/services/qa_agent/
+    │
+    ├──► Cove DB (listings, leads, market_snapshots + parcels, members)
+    │
+    ├──► Twilio SMS → Angelique's phone
+    │
+    └──► Compass CRM (async sync)
+```
+
+### Services
+
+| Service | Port | Container | Purpose |
+|---------|------|-----------|---------|
+| Cove Flask | 5002 | `cove-flask` | Hosts Cove + Angel blueprints, TheHillPV.com |
+| Angel Agent | 8004 | `angel-agent` | Claude-powered chat sidecar (added to Cove compose) |
+
+### External Services
+
+| Service | Purpose | Status |
+|---------|---------|--------|
+| Anthropic API | Angel Agent LLM | Ready (API key required) |
+| ATTOM API | Property enrichment | Script exists, needs key activation |
+| Twilio | SMS lead notifications | Needs account setup |
+| Cloudflare | DNS + CDN for TheHillPV.com | Needs setup |
+| Luxury Presence | AngeliqueLyle.com hosting | Active (Angelique's account) |
+| LP Custom Webhook | Lead events from LP → Cove | Confirmed available in LP dashboard |
+
+---
+
+## Cove Data Bridge
+
+Angel and Cove share the same database. The mapping:
+
+| Cove Concept | Angel Concept | Shared Key |
+|-------------|---------------|------------|
+| Parcel | Property | APN |
+| Member (owner) | Lead / Prospect | APN → owner |
+| Assessment (dues) | Listing value | APN → property |
+| Ownership transfer | Grant deed / Sale | APN → transfer event |
+| Community membership | Sphere of influence | APN → neighborhood |
+| ARC application | Property improvement | APN → value signal |
+
+### What Angel Adds on Top of Cove
+
+- **MLS listing status** — active, pending, sold, expired, withdrawn
+- **Lead pipeline** — identified → engaged → captured → contacted → showing → offer → escrow → closed → archived
+- **Market snapshots** — monthly aggregated stats per area
+- **Compass CRM sync** — contacts, collections, activities
+- **Content generation** — TheHillPV.com pages, listing descriptions, market reports
+- **Chat agent** — conversational AI with 12 MCP tools
+
+---
+
+## TheHillPV.com Content Engine
+
+TheHillPV.com is a data-driven Flask content site served from Cove's angel_web_bp.
+It is NOT an LP site — we have full programmatic control.
+
+```
+TheHillPV.com
+├── / (home) — "Life Above the Pacific" — editorial landing
+├── /neighborhoods/{slug} — RPV, PVE, RHE, RH, Lunada Bay, etc.
+├── /schools — PVPUSD guide, feeder patterns, ratings
+├── /market — Monthly market report (auto-generated from data)
+├── /market/{area}/{month} — Granular market snapshots
+├── /streets/{slug} — Notable streets / micro-neighborhoods
+├── /guides/{slug} — Relocation guide, first-time buyer, downsizer
+├── /blog/{slug} — Editorial content in Angelique's voice
+├── /ask — Full-page Angel chat experience
+└── /api/chat — Angel Agent endpoint (proxied to sidecar)
+```
+
+**Why Flask, not LP:** LP has no content publishing API. A content engine that
+auto-generates 60+ market reports/year and 50+ street profiles from a live
+database needs programmatic control. Monthly reports self-publish. SEO is fully
+controlled (schema.org, sitemap.xml, structured data). Angel widget is native.
+
+**AngeliqueLyle.com stays on LP** — IDX, managed hosting, brochure content.
+Widget injected via LP dashboard custom script section.
+
+---
+
+## Lead Flow
+
+```
+Visitor → Website (any domain) → Angel Chat Widget
+    │
+    3-10 turns of conversation (parcel lookups, market data)
+    │
+    "I'd love to connect you with Angelique directly"
+    │
+    Phone number captured
+    │
+    ├── SMS to Angelique (Twilio)
+    ├── Lead record in Cove DB (with source attribution)
+    └── Compass CRM sync (async)
+```
+
+### Lead Stages
+
+identified → engaged → captured → contacted → showing → offer → escrow → closed → archived
+
+### Attribution Fields
+
+- `source_domain` — thehillpv.com, angeliquelyle.com, ownpalosverdes.com
+- `source_page` — the specific URL
+- `source_referrer` — how they found the site
+- `conversation_turns` — chat depth before capture
+
+---
+
+## Factory Skills
+
+Angel does not have its own factory-prefixed skills. Since Angel is a Cove module,
+use **Cove's factory skills** for all pipeline stages:
+
+| Stage | Skill | Notes |
+|-------|-------|-------|
+| Preflight | `cove-preflight` | Checks shared Cove infra |
+| Blueprint | `cove-blueprint` | Scope to Angel models/blueprints within Cove |
+| TDD | `cove-tdd` | Tests live in `Cove/tests/` |
+| Assembly | `cove-assembly` | Code goes in `Cove/cove/angel/` |
+| Verify | `cove-verify` | Run full Cove test suite |
+| QA | `cove-qa` | Includes Angel routes/templates |
+| Ship | `cove-ship` | Cove deploy pipeline |
+| Close | `cove-close` | Standard close process |
+
+Angel's **domain-specific skills** (`Angel/.claude/skills/`) handle voice, market
+intel, lead engine, compass tools, and pipeline ops — these are used during
+Assembly and content generation, not as factory stage replacements.
+
+---
+
+## Protected Files
+
+- `knowledge/agentic-profile.md` — Angelique's persona (voice changes require Jeffe approval)
+- `knowledge/compass-platform.md` — Compass compliance rules
+
+All other protected files (Dockerfile, compose, migrations, extensions) are in
+the Cove repo — see `~/GrowDirect/Cove/CLAUDE.md` for that list.
+
+---
+
+## Current Status
+
+**Phase:** Foundation + Agent MVP (active build)
+**Client:** Angelique Lyle, Compass, Palos Verdes Peninsula
+**Execution plan:** `~/GrowDirect/docs/sdds/angel/execution-plan.md` (v4)
+**Linear project:** Angel — Real Estate Intelligence Platform
+**16 live issues** across Phase 0 (Foundation), Phase 1 (Agent MVP), Phase 2 (Content Engine & Integration)
+
+---
+
+*Angel | GrowDirect Inc. | Confidential*

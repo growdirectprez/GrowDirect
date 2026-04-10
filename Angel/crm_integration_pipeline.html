@@ -1,0 +1,595 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Lead Capture → Compass CRM Integration Pipeline</title>
+<link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@300;400;500;600;700&family=DM+Serif+Display:ital@0;1&display=swap" rel="stylesheet">
+<style>
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+  :root {
+    --black: #000000; --near-black: #1A1A1A; --gray-800: #333333; --gray-600: #666666;
+    --gray-400: #999999; --gray-200: #E0E0E0; --gray-100: #F2F2F2; --off-white: #F7F7F7; --white: #FFFFFF;
+    --heading: 'DM Serif Display', Georgia, serif; --body: 'DM Sans', system-ui, sans-serif;
+  }
+  body { font-family: var(--body); background: var(--white); color: var(--near-black); line-height: 1.6; }
+
+  /* Header */
+  .header {
+    background: var(--black); color: var(--white); padding: 3rem 2rem 2.5rem;
+    text-align: center;
+  }
+  .header h1 { font-family: var(--heading); font-size: 2rem; margin-bottom: 0.5rem; }
+  .header p { color: var(--gray-200); font-size: 0.95rem; max-width: 600px; margin: 0 auto; }
+  .badge { display: inline-block; background: var(--white); color: var(--black); font-size: 0.7rem;
+    font-weight: 600; letter-spacing: 0.08em; text-transform: uppercase; padding: 0.25rem 0.75rem;
+    border-radius: 0px; margin-bottom: 1rem; }
+
+  .container { max-width: 960px; margin: 0 auto; padding: 2rem 1.5rem; }
+
+  /* Section headers */
+  .section-label {
+    font-size: 0.7rem; letter-spacing: 0.12em; text-transform: uppercase;
+    color: var(--gray-600); font-weight: 600; margin-bottom: 0.5rem;
+  }
+  h2 { font-family: var(--heading); font-size: 1.5rem; color: var(--black); margin-bottom: 1rem; }
+  h3 { font-family: var(--heading); font-size: 1.15rem; color: var(--black); margin-bottom: 0.5rem; }
+
+  /* Big picture flow */
+  .flow-overview {
+    display: flex; align-items: center; justify-content: center; gap: 0;
+    padding: 2rem 0; flex-wrap: wrap;
+  }
+  .flow-step {
+    text-align: center; padding: 1rem 1.2rem; min-width: 140px;
+  }
+  .flow-icon {
+    width: 56px; height: 56px; border-radius: 0px; display: flex; align-items: center;
+    justify-content: center; margin: 0 auto 0.5rem; font-size: 1.4rem;
+  }
+  .flow-step .label { font-weight: 600; font-size: 0.85rem; color: var(--black); }
+  .flow-step .sub { font-size: 0.72rem; color: var(--gray-600); margin-top: 0.15rem; }
+  .flow-arrow { font-size: 1.5rem; color: var(--gray-400); padding: 0 0.3rem; margin-top: -1rem; }
+
+  /* Cards */
+  .card {
+    background: var(--white); border-radius: 0px; padding: 1.5rem;
+    box-shadow: none; margin-bottom: 1.5rem;
+    border-left: 4px solid var(--gray-800);
+  }
+  .card.ocean-border { border-left-color: var(--gray-800); }
+  .card.gold-border { border-left-color: var(--gray-800); }
+  .card.green-border { border-left-color: var(--gray-800); }
+
+  /* Integration detail blocks */
+  .integration-grid {
+    display: grid; grid-template-columns: 1fr 1fr; gap: 1.5rem; margin: 1.5rem 0;
+  }
+  @media (max-width: 700px) { .integration-grid { grid-template-columns: 1fr; } }
+
+  .touch-point {
+    background: var(--white); border-radius: 0px; padding: 1.25rem;
+    box-shadow: none; border-top: 3px solid var(--black);
+  }
+  .touch-point h4 {
+    font-family: var(--heading); font-size: 1rem; color: var(--black); margin-bottom: 0.35rem;
+  }
+  .touch-point .tech {
+    font-size: 0.72rem; color: var(--white); background: var(--gray-800);
+    padding: 0.15rem 0.5rem; border-radius: 0px; display: inline-block; margin-bottom: 0.5rem;
+  }
+  .touch-point p { font-size: 0.85rem; color: var(--gray-600); }
+
+  /* Zap configs */
+  .zap-card {
+    background: var(--black); border-radius: 0px; padding: 1.5rem; margin-bottom: 1rem;
+    color: var(--white);
+  }
+  .zap-card h4 { color: var(--white); font-family: var(--heading); font-size: 1.05rem; margin-bottom: 0.75rem; }
+  .zap-flow {
+    display: flex; align-items: center; gap: 0.5rem; flex-wrap: wrap; margin-bottom: 0.75rem;
+  }
+  .zap-node {
+    background: rgba(255,255,255,0.1); border: 1px solid rgba(255,255,255,0.3);
+    border-radius: 0px; padding: 0.4rem 0.75rem; font-size: 0.8rem;
+  }
+  .zap-node.trigger { border-color: rgba(255,255,255,0.5); color: var(--white); }
+  .zap-node.action { border-color: rgba(255,255,255,0.5); color: var(--white); }
+  .zap-arrow { color: var(--gray-400); font-size: 1.2rem; }
+  .zap-detail { font-size: 0.8rem; color: var(--gray-200); line-height: 1.5; }
+  .zap-detail strong { color: var(--white); }
+
+  /* Pipeline stages */
+  .pipeline-stage {
+    display: flex; align-items: flex-start; gap: 1rem; padding: 1rem 0;
+    border-bottom: 1px solid var(--gray-200);
+  }
+  .pipeline-stage:last-child { border-bottom: none; }
+  .stage-num {
+    font-family: var(--heading); font-size: 1.5rem; color: var(--black);
+    font-weight: 600; min-width: 2rem;
+  }
+  .stage-content h4 { font-family: var(--heading); color: var(--black); margin-bottom: 0.25rem; }
+  .stage-content p { font-size: 0.85rem; color: var(--gray-600); }
+  .stage-content .tools {
+    margin-top: 0.35rem; font-size: 0.75rem; color: var(--gray-600);
+  }
+  .stage-content .tools span {
+    background: var(--off-white); padding: 0.15rem 0.5rem; border-radius: 0px;
+    margin-right: 0.35rem; display: inline-block; margin-top: 0.2rem;
+  }
+
+  /* Data mapping table */
+  table { width: 100%; border-collapse: collapse; margin: 1rem 0; font-size: 0.85rem; }
+  th { background: var(--black); color: var(--white); padding: 0.6rem 0.75rem;
+    text-align: left; font-weight: 500; font-size: 0.75rem; letter-spacing: 0.05em;
+    text-transform: uppercase; }
+  td { padding: 0.6rem 0.75rem; border-bottom: 1px solid var(--gray-200); }
+  tr:nth-child(even) td { background: var(--off-white); }
+
+  /* Cost callout */
+  .cost-row {
+    display: flex; justify-content: space-between; align-items: center;
+    padding: 0.5rem 0; border-bottom: 1px solid var(--gray-200);
+  }
+  .cost-row:last-child { border-bottom: none; }
+  .cost-row .item { font-size: 0.9rem; }
+  .cost-row .price { font-weight: 600; color: var(--black); }
+  .cost-row .price.free { color: var(--gray-600); }
+
+  /* Callout box */
+  .callout {
+    background: var(--off-white); border-radius: 0px; padding: 1.25rem;
+    margin: 1.5rem 0; border-left: 4px solid var(--black);
+  }
+  .callout p { font-size: 0.85rem; color: var(--gray-600); }
+  .callout strong { color: var(--black); }
+
+  /* Footer */
+  .footer {
+    text-align: center; padding: 2rem; color: var(--gray-600); font-size: 0.75rem;
+    border-top: 1px solid var(--gray-200); margin-top: 2rem;
+  }
+</style>
+</head>
+<body>
+
+<div class="header">
+  <div class="badge">Backend Architecture</div>
+  <h1>Lead Capture → Compass CRM Pipeline</h1>
+  <p>How every contact from OwnPalosVerdes.com flows into Angelique's Compass CRM automatically — no manual data entry, no leads lost.</p>
+</div>
+
+<!-- ═══ BIG PICTURE FLOW ═══ -->
+<div class="container">
+  <div class="section-label">The Big Picture</div>
+  <h2>End-to-End Lead Flow</h2>
+
+  <div class="flow-overview">
+    <div class="flow-step">
+      <div class="flow-icon" style="background:var(--black);color:var(--white);">🌐</div>
+      <div class="label">Website Form</div>
+      <div class="sub">OwnPalosVerdes.com</div>
+    </div>
+    <div class="flow-arrow">→</div>
+    <div class="flow-step">
+      <div class="flow-icon" style="background:var(--off-white);color:var(--black);">⚡</div>
+      <div class="label">Form Backend</div>
+      <div class="sub">Formspree or Vercel</div>
+    </div>
+    <div class="flow-arrow">→</div>
+    <div class="flow-step">
+      <div class="flow-icon" style="background:var(--gray-800);color:var(--white);">🔗</div>
+      <div class="label">Zapier</div>
+      <div class="sub">Automation Layer</div>
+    </div>
+    <div class="flow-arrow">→</div>
+    <div class="flow-step">
+      <div class="flow-icon" style="background:var(--gray-600);color:var(--white);">📋</div>
+      <div class="label">Compass CRM</div>
+      <div class="sub">Contact Created</div>
+    </div>
+    <div class="flow-arrow">→</div>
+    <div class="flow-step">
+      <div class="flow-icon" style="background:var(--black);color:var(--white);">🔄</div>
+      <div class="label">Nurture</div>
+      <div class="sub">Auto Sequences</div>
+    </div>
+  </div>
+
+  <!-- ═══ CAPTURE POINTS ═══ -->
+  <div style="margin-top: 2.5rem;">
+    <div class="section-label">Step 1</div>
+    <h2>Lead Capture Points on the Site</h2>
+    <p style="color:var(--gray-600); margin-bottom:1.25rem; font-size:0.9rem;">Every form on OwnPalosVerdes.com is a capture point. Each one collects different data and triggers a different CRM workflow.</p>
+
+    <div class="integration-grid">
+      <div class="touch-point">
+        <h4>Contact Form</h4>
+        <span class="tech">General Inquiry</span>
+        <p>Name, email, phone, message. The catch-all — someone wants to talk. Goes straight to Angelique's inbox AND creates a CRM contact.</p>
+      </div>
+      <div class="touch-point">
+        <h4>Welcome Guide Download</h4>
+        <span class="tech">Lead Magnet</span>
+        <p>Name, email, "moving from" city. Triggers the Relocation Nurture Sequence. This is the highest-intent capture — they're actively planning a move.</p>
+      </div>
+      <div class="touch-point">
+        <h4>Home Valuation Request</h4>
+        <span class="tech">Seller Lead</span>
+        <p>Name, email, property address. Triggers the Likely to Sell sequence. Tags as "Seller Lead" in Compass with the property address attached.</p>
+      </div>
+      <div class="touch-point">
+        <h4>School Guide / Newsletter</h4>
+        <span class="tech">Content Subscriber</span>
+        <p>Email only. Lower commitment, higher volume. Gets tagged "Content Subscriber" and enters the long-term nurture drip.</p>
+      </div>
+    </div>
+  </div>
+
+  <!-- ═══ FORM BACKEND ═══ -->
+  <div style="margin-top: 2.5rem;">
+    <div class="section-label">Step 2</div>
+    <h2>Form Backend: Where Submissions Go</h2>
+
+    <div class="card ocean-border">
+      <h3>Option A: Formspree (Recommended to Start)</h3>
+      <p style="font-size:0.9rem; color:var(--gray-600); margin-bottom:0.75rem;">
+        Zero backend code. Add a Formspree endpoint to each HTML form, and submissions go to Formspree's dashboard + trigger Zapier webhooks. Takes 15 minutes to set up.
+      </p>
+      <table>
+        <tr><th>Pros</th><th>Cons</th></tr>
+        <tr><td>No code changes to Vercel deploy</td><td>50 submissions/mo on free tier</td></tr>
+        <tr><td>Built-in spam filtering (reCAPTCHA)</td><td>$8/mo for 100 submissions</td></tr>
+        <tr><td>Direct Zapier integration</td><td>Less control over validation</td></tr>
+        <tr><td>Email notifications built in</td><td>Third-party dependency</td></tr>
+      </table>
+    </div>
+
+    <div class="card">
+      <h3>Option B: Vercel Serverless Functions (Later)</h3>
+      <p style="font-size:0.9rem; color:var(--gray-600); margin-bottom:0.75rem;">
+        Custom API routes on OwnPalosVerdes.com itself. More control — validate data, enrich with ATTOM API, send to multiple destinations. Build this once you outgrow Formspree.
+      </p>
+      <table>
+        <tr><th>Pros</th><th>Cons</th></tr>
+        <tr><td>Full control over data processing</td><td>Requires Node.js code</td></tr>
+        <tr><td>Can enrich leads before CRM (ATTOM)</td><td>You maintain the code</td></tr>
+        <tr><td>No per-submission costs</td><td>Need custom spam protection</td></tr>
+        <tr><td>Can write to multiple systems simultaneously</td><td>More complex setup</td></tr>
+      </table>
+    </div>
+
+    <div class="callout">
+      <p><strong>Our recommendation:</strong> Start with Formspree for immediate lead capture (today). Migrate to Vercel serverless functions when you add ATTOM data enrichment or exceed 100 leads/month — a good problem to have.</p>
+    </div>
+  </div>
+
+  <!-- ═══ ZAPIER ZAPS ═══ -->
+  <div style="margin-top: 2.5rem;">
+    <div class="section-label">Step 3</div>
+    <h2>Zapier Automation Configurations</h2>
+    <p style="color:var(--gray-600); margin-bottom:1.25rem; font-size:0.9rem;">Each form type needs its own Zap with specific triggers, actions, and CRM tags. Here are the four Zaps you need:</p>
+
+    <div class="zap-card">
+      <h4>Zap 1: General Contact → Compass CRM</h4>
+      <div class="zap-flow">
+        <span class="zap-node trigger">⚡ Formspree → New Submission</span>
+        <span class="zap-arrow">→</span>
+        <span class="zap-node action">📧 Gmail → Send Email to Angelique</span>
+        <span class="zap-arrow">→</span>
+        <span class="zap-node action">📋 Compass → Create Contact</span>
+      </div>
+      <div class="zap-detail">
+        <strong>Trigger:</strong> Formspree submission where form = "contact"<br>
+        <strong>Action 1:</strong> Email Angelique immediately (angelique.lyle@compass.com) with name, phone, message<br>
+        <strong>Action 2:</strong> Create contact in Compass CRM → Tag: "Website Lead" + "General Inquiry"<br>
+        <strong>Action 3:</strong> Add to Compass Collection: "New Leads — This Week"
+      </div>
+    </div>
+
+    <div class="zap-card">
+      <h4>Zap 2: Welcome Guide Download → Relocation Nurture</h4>
+      <div class="zap-flow">
+        <span class="zap-node trigger">⚡ Formspree → New Submission</span>
+        <span class="zap-arrow">→</span>
+        <span class="zap-node action">📋 Compass → Create Contact</span>
+        <span class="zap-arrow">→</span>
+        <span class="zap-node action">📧 Mailchimp → Add to Sequence</span>
+      </div>
+      <div class="zap-detail">
+        <strong>Trigger:</strong> Formspree submission where form = "welcome-guide"<br>
+        <strong>Action 1:</strong> Create contact in Compass → Tags: "Relocating Family", "Welcome Guide Download", source city from form<br>
+        <strong>Action 2:</strong> Add to Mailchimp/Compass Marketing → "Relocation Nurture Sequence" (7-email drip over 6 weeks)<br>
+        <strong>Action 3:</strong> Send Welcome Guide PDF via email immediately<br>
+        <strong>Priority:</strong> 🔴 High — these are your hottest leads
+      </div>
+    </div>
+
+    <div class="zap-card">
+      <h4>Zap 3: Home Valuation → Seller Pipeline</h4>
+      <div class="zap-flow">
+        <span class="zap-node trigger">⚡ Formspree → New Submission</span>
+        <span class="zap-arrow">→</span>
+        <span class="zap-node action">📋 Compass → Create Contact</span>
+        <span class="zap-arrow">→</span>
+        <span class="zap-node action">🏠 Compass → Likely to Sell Check</span>
+      </div>
+      <div class="zap-detail">
+        <strong>Trigger:</strong> Formspree submission where form = "valuation"<br>
+        <strong>Action 1:</strong> Create contact in Compass → Tags: "Seller Lead", "Valuation Request"<br>
+        <strong>Action 2:</strong> Add property address to contact notes<br>
+        <strong>Action 3:</strong> Email Angelique: "🏠 New valuation request — [Address]" with contact details<br>
+        <strong>Action 4:</strong> Add to Compass Collection: "Active Seller Leads"<br>
+        <strong>Follow-up:</strong> Angelique runs Compass Likely to Sell on the address manually, then calls within 24 hours
+      </div>
+    </div>
+
+    <div class="zap-card">
+      <h4>Zap 4: Newsletter/Content Subscriber → Long Nurture</h4>
+      <div class="zap-flow">
+        <span class="zap-node trigger">⚡ Formspree → New Submission</span>
+        <span class="zap-arrow">→</span>
+        <span class="zap-node action">📧 Mailchimp → Add Subscriber</span>
+        <span class="zap-arrow">→</span>
+        <span class="zap-node action">📋 Compass → Create Contact</span>
+      </div>
+      <div class="zap-detail">
+        <strong>Trigger:</strong> Formspree submission where form = "newsletter"<br>
+        <strong>Action 1:</strong> Add to Mailchimp list → "OwnPalosVerdes Subscribers"<br>
+        <strong>Action 2:</strong> Create contact in Compass → Tag: "Content Subscriber", "Newsletter"<br>
+        <strong>Priority:</strong> 🟡 Medium — long-term nurture, convert over 3–12 months
+      </div>
+    </div>
+  </div>
+
+  <!-- ═══ DATA MAPPING ═══ -->
+  <div style="margin-top: 2.5rem;">
+    <div class="section-label">Step 4</div>
+    <h2>Data Mapping: Form Fields → Compass CRM</h2>
+
+    <div class="card ocean-border">
+      <table>
+        <tr>
+          <th>Form Field</th>
+          <th>Compass CRM Field</th>
+          <th>Notes</th>
+        </tr>
+        <tr>
+          <td>Full Name</td>
+          <td>Contact → First Name / Last Name</td>
+          <td>Split on space in Zapier</td>
+        </tr>
+        <tr>
+          <td>Email</td>
+          <td>Contact → Email</td>
+          <td>Primary identifier — deduplicates</td>
+        </tr>
+        <tr>
+          <td>Phone</td>
+          <td>Contact → Phone</td>
+          <td>Optional on most forms</td>
+        </tr>
+        <tr>
+          <td>Message / Notes</td>
+          <td>Contact → Notes</td>
+          <td>Append, don't overwrite</td>
+        </tr>
+        <tr>
+          <td>"Moving from" City</td>
+          <td>Contact → Tags + Notes</td>
+          <td>Tag: "From: Austin" etc.</td>
+        </tr>
+        <tr>
+          <td>Property Address</td>
+          <td>Contact → Notes + Collection</td>
+          <td>For valuation requests</td>
+        </tr>
+        <tr>
+          <td>Form Source (hidden field)</td>
+          <td>Contact → Tags</td>
+          <td>"Source: OwnPalosVerdes"</td>
+        </tr>
+        <tr>
+          <td>UTM Parameters (hidden)</td>
+          <td>Contact → Notes</td>
+          <td>Tracks which content/ad drove the lead</td>
+        </tr>
+      </table>
+    </div>
+
+    <div class="callout">
+      <p><strong>Hidden fields matter.</strong> Every form should include hidden fields for <code>form_source</code> (which page), <code>utm_source</code>, <code>utm_medium</code>, and <code>utm_campaign</code>. This is how you know which content is actually generating leads — the school guide? A Facebook ad? The relocation article from Austin? Without this, you're flying blind.</p>
+    </div>
+  </div>
+
+  <!-- ═══ COMPASS CRM WORKFLOW ═══ -->
+  <div style="margin-top: 2.5rem;">
+    <div class="section-label">Step 5</div>
+    <h2>Inside Compass CRM: What Happens to Each Lead</h2>
+
+    <div class="card gold-border">
+      <div class="pipeline-stage">
+        <div class="stage-num">1</div>
+        <div class="stage-content">
+          <h4>Contact Created + Tagged</h4>
+          <p>Zapier creates the contact with tags based on form type. Angelique sees the new lead in her CRM dashboard immediately. Contact is auto-added to the appropriate Collection.</p>
+          <div class="tools"><span>Compass CRM</span><span>Collections</span><span>Tags</span></div>
+        </div>
+      </div>
+      <div class="pipeline-stage">
+        <div class="stage-num">2</div>
+        <div class="stage-content">
+          <h4>Smart Routing</h4>
+          <p>Hot leads (valuation requests, contact forms with phone numbers) get an immediate email + text alert to Angelique. Content subscribers enter the automated drip — no manual action needed.</p>
+          <div class="tools"><span>Gmail Notification</span><span>Zapier Filter</span></div>
+        </div>
+      </div>
+      <div class="pipeline-stage">
+        <div class="stage-num">3</div>
+        <div class="stage-content">
+          <h4>Nurture Sequence Activated</h4>
+          <p>Each lead type enters a different email sequence via Compass Marketing Center or Mailchimp. The Relocation sequence runs 7 emails over 6 weeks. The Seller sequence runs 5 emails over 4 weeks. Content subscribers get the monthly newsletter.</p>
+          <div class="tools"><span>Compass Marketing Center</span><span>Mailchimp</span></div>
+        </div>
+      </div>
+      <div class="pipeline-stage">
+        <div class="stage-num">4</div>
+        <div class="stage-content">
+          <h4>Engagement Tracking</h4>
+          <p>Compass tracks email opens, link clicks, and property searches. When a nurture lead starts opening every email or browsing listings, they move from "nurture" to "active" — that's Angelique's signal to pick up the phone.</p>
+          <div class="tools"><span>Compass Business Tracker</span><span>Email Analytics</span></div>
+        </div>
+      </div>
+      <div class="pipeline-stage">
+        <div class="stage-num">5</div>
+        <div class="stage-content">
+          <h4>Personal Outreach</h4>
+          <p>Angelique makes the call. By now she knows: where they're moving from, what content they downloaded, which neighborhoods they're browsing, and how engaged they are. She's not cold-calling — she's following up with someone who already trusts her expertise.</p>
+          <div class="tools"><span>Compass CRM</span><span>Phone</span><span>Compass Collections</span></div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ═══ FORM CODE EXAMPLE ═══ -->
+  <div style="margin-top: 2.5rem;">
+    <div class="section-label">Implementation</div>
+    <h2>What the Form Code Looks Like</h2>
+
+    <div class="card ocean-border">
+      <h3>HTML Form → Formspree Endpoint</h3>
+      <p style="font-size:0.85rem; color:var(--gray-600); margin-bottom:1rem;">This is the actual code change needed on OwnPalosVerdes.com. Each form points to a unique Formspree endpoint.</p>
+      <pre style="background:var(--near-black); color:var(--gray-200); padding:1.25rem; border-radius:0px; font-size:0.78rem; overflow-x:auto; line-height:1.7;"><code>&lt;form action="https://formspree.io/f/<span style="color:var(--white);">YOUR_FORM_ID</span>" method="POST"&gt;
+
+  &lt;!-- Visible fields --&gt;
+  &lt;input type="text" name="name" placeholder="Full Name" required&gt;
+  &lt;input type="email" name="email" placeholder="Email" required&gt;
+  &lt;input type="tel" name="phone" placeholder="Phone (optional)"&gt;
+  &lt;textarea name="message" placeholder="How can I help?"&gt;&lt;/textarea&gt;
+
+  &lt;!-- Hidden fields for tracking --&gt;
+  &lt;input type="hidden" name="form_source" value="contact"&gt;
+  &lt;input type="hidden" name="page_url" id="page-url"&gt;
+  &lt;input type="hidden" name="utm_source" id="utm-source"&gt;
+  &lt;input type="hidden" name="utm_medium" id="utm-medium"&gt;
+  &lt;input type="hidden" name="utm_campaign" id="utm-campaign"&gt;
+
+  &lt;!-- Honeypot spam trap --&gt;
+  &lt;input type="text" name="_gotcha" style="display:none"&gt;
+
+  &lt;button type="submit"&gt;Send Message&lt;/button&gt;
+&lt;/form&gt;
+
+&lt;script&gt;
+  // Auto-fill hidden fields from URL parameters
+  const params = new URLSearchParams(window.location.search);
+  document.getElementById('page-url').value = window.location.href;
+  document.getElementById('utm-source').value = params.get('utm_source') || '';
+  document.getElementById('utm-medium').value = params.get('utm_medium') || '';
+  document.getElementById('utm-campaign').value = params.get('utm_campaign') || '';
+&lt;/script&gt;</code></pre>
+    </div>
+  </div>
+
+  <!-- ═══ COST BREAKDOWN ═══ -->
+  <div style="margin-top: 2.5rem;">
+    <div class="section-label">Investment</div>
+    <h2>Integration Stack Costs</h2>
+
+    <div class="card green-border">
+      <div class="cost-row">
+        <span class="item"><strong>Formspree</strong> — Form backend (up to 50 submissions/mo)</span>
+        <span class="price free">Free</span>
+      </div>
+      <div class="cost-row">
+        <span class="item"><strong>Formspree Gold</strong> — 100+ submissions/mo</span>
+        <span class="price">$8/mo</span>
+      </div>
+      <div class="cost-row">
+        <span class="item"><strong>Zapier</strong> — Free tier (100 tasks/mo, 5 Zaps)</span>
+        <span class="price free">Free</span>
+      </div>
+      <div class="cost-row">
+        <span class="item"><strong>Zapier Starter</strong> — 750 tasks/mo, multi-step Zaps</span>
+        <span class="price">$20/mo</span>
+      </div>
+      <div class="cost-row">
+        <span class="item"><strong>Mailchimp</strong> — Email sequences (up to 500 contacts)</span>
+        <span class="price free">Free</span>
+      </div>
+      <div class="cost-row">
+        <span class="item"><strong>Compass CRM</strong> — Included with Compass</span>
+        <span class="price free">$0 (included)</span>
+      </div>
+      <div class="cost-row" style="border-top:2px solid var(--black); padding-top:0.75rem; margin-top:0.25rem;">
+        <span class="item"><strong>Total to start</strong></span>
+        <span class="price" style="font-size:1.1rem;">$0–28/mo</span>
+      </div>
+    </div>
+
+    <div class="callout">
+      <p><strong>The math:</strong> If the integration produces even one additional closing per year, it pays for itself roughly 500x over. The real cost isn't the tools — it's the leads you lose by not having this set up.</p>
+    </div>
+  </div>
+
+  <!-- ═══ SETUP CHECKLIST ═══ -->
+  <div style="margin-top: 2.5rem;">
+    <div class="section-label">Action Items</div>
+    <h2>Setup Checklist (2–3 Hours Total)</h2>
+
+    <div class="card gold-border">
+      <div class="pipeline-stage">
+        <div class="stage-num">☐</div>
+        <div class="stage-content">
+          <h4>Create Formspree Account</h4>
+          <p>Sign up at formspree.io. Create 4 form endpoints (contact, welcome-guide, valuation, newsletter). Takes 10 minutes.</p>
+        </div>
+      </div>
+      <div class="pipeline-stage">
+        <div class="stage-num">☐</div>
+        <div class="stage-content">
+          <h4>Wire Forms on OwnPalosVerdes.com</h4>
+          <p>Update each HTML form's <code>action</code> attribute to point to the Formspree endpoint. Add hidden fields for UTM tracking. Test each form. Takes 30 minutes.</p>
+        </div>
+      </div>
+      <div class="pipeline-stage">
+        <div class="stage-num">☐</div>
+        <div class="stage-content">
+          <h4>Set Up Zapier Account + 4 Zaps</h4>
+          <p>Connect Formspree → Zapier → Compass CRM. Create the 4 Zaps described above. Test each end-to-end with a dummy submission. Takes 45 minutes.</p>
+        </div>
+      </div>
+      <div class="pipeline-stage">
+        <div class="stage-num">☐</div>
+        <div class="stage-content">
+          <h4>Configure Compass CRM Tags & Collections</h4>
+          <p>Create tags: "Website Lead", "Relocating Family", "Seller Lead", "Content Subscriber", "Source: OwnPalosVerdes". Create Collections: "New Leads — This Week", "Active Seller Leads", "Relocation Pipeline". Takes 20 minutes.</p>
+        </div>
+      </div>
+      <div class="pipeline-stage">
+        <div class="stage-num">☐</div>
+        <div class="stage-content">
+          <h4>Build Email Sequences</h4>
+          <p>Write and schedule the Relocation Nurture (7 emails), Seller Nurture (5 emails), and monthly newsletter template in Compass Marketing Center or Mailchimp. Takes 2–3 hours (we can help write these).</p>
+        </div>
+      </div>
+      <div class="pipeline-stage">
+        <div class="stage-num">☐</div>
+        <div class="stage-content">
+          <h4>End-to-End Test</h4>
+          <p>Submit a test lead through each form. Verify it appears in Compass CRM with correct tags. Verify email notification arrives. Verify nurture sequence triggers. Takes 15 minutes.</p>
+        </div>
+      </div>
+    </div>
+  </div>
+
+</div>
+
+<div class="footer">
+  Angelique Lyle · Accardo Real Estate Associates · Compass · CA DRE# 01475592<br>
+  Prepared by Alejandro · April 2026
+</div>
+
+</body>
+</html>

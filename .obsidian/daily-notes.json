@@ -1,0 +1,5 @@
+{
+  "folder": "Brain/journal",
+  "format": "YYYY-MM-DD",
+  "template": "Brain/templates/daily-note"
+}

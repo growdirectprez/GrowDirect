@@ -1,0 +1,798 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Angelique Lyle · AI Intelligence System · Relocation Dominance</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,500;1,400&family=Outfit:wght@300;400;500;600&display=swap" rel="stylesheet">
+<style>
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+  :root {
+    --sand: #F4EFE6; --sand-mid: #E8DDD0; --sand-dark: #C8B99A;
+    --ocean: #1C3A4A; --ocean-mid: #2C5568; --foam: #F9F7F4;
+    --drift: #8A9BA8; --stone: #4A5A62; --white: #FFFFFF; --ink: #1A2428;
+    --green: #2D8A5E; --green-light: #E8F5EE;
+    --amber: #B8860B; --amber-light: #FFF8E7;
+    --blue: #2563EB; --blue-light: #EFF6FF;
+    --purple: #7C3AED; --purple-light: #F3E8FF;
+    --red: #DC2626; --red-light: #FEE2E2;
+    --serif: 'Playfair Display', Georgia, serif;
+    --sans: 'Outfit', system-ui, sans-serif;
+  }
+  html { scroll-behavior: smooth; }
+  body { font-family: var(--sans); background: var(--foam); color: var(--ink); }
+
+  /* Header */
+  .header {
+    background: linear-gradient(135deg, var(--ink) 0%, var(--ocean) 100%);
+    padding: 3.5rem 3rem 3rem; position: relative; overflow: hidden;
+  }
+  .header::before {
+    content: ''; position: absolute; inset: 0;
+    background: repeating-linear-gradient(0deg, transparent, transparent 40px, rgba(200,185,154,0.03) 40px, rgba(200,185,154,0.03) 41px);
+  }
+  .header-badge {
+    display: inline-flex; align-items: center; gap: 0.5rem;
+    background: rgba(200,185,154,0.12); border: 1px solid rgba(200,185,154,0.2);
+    padding: 0.4rem 0.8rem; margin-bottom: 1rem; position: relative;
+  }
+  .header-badge span { font-size: 0.6rem; letter-spacing: 0.2em; text-transform: uppercase; color: var(--sand-dark); }
+  .header-badge .dot { width: 6px; height: 6px; border-radius: 50%; background: var(--green); animation: pulse 2s infinite; }
+  @keyframes pulse { 0%, 100% { opacity: 1; } 50% { opacity: 0.4; } }
+  .header h1 {
+    font-family: var(--serif); font-size: 2.6rem; font-weight: 400;
+    color: var(--sand); line-height: 1.12; margin-bottom: 0.75rem; position: relative;
+  }
+  .header h1 em { font-style: italic; color: var(--sand-dark); }
+  .header-sub { font-size: 0.88rem; color: var(--drift); font-weight: 300; max-width: 680px; line-height: 1.75; position: relative; }
+  .header-sub strong { color: var(--sand); font-weight: 500; }
+
+  /* Section */
+  .section { padding: 3rem; max-width: 1200px; margin: 0 auto; }
+  .section-tag {
+    font-size: 0.65rem; letter-spacing: 0.2em; text-transform: uppercase;
+    color: var(--sand-dark); margin-bottom: 0.75rem;
+    display: flex; align-items: center; gap: 0.75rem;
+  }
+  .section-tag::before { content: ''; display: block; width: 28px; height: 1px; background: var(--sand-dark); }
+  .section-heading {
+    font-family: var(--serif); font-size: 1.8rem; font-weight: 400;
+    color: var(--ocean); line-height: 1.2; margin-bottom: 0.75rem;
+  }
+  .section-heading em { font-style: italic; }
+  .section-intro { font-size: 0.88rem; color: var(--stone); line-height: 1.75; font-weight: 300; margin-bottom: 2rem; max-width: 720px; }
+
+  /* Persona Card */
+  .persona-banner {
+    background: var(--ocean); padding: 2.5rem; margin-bottom: 3rem;
+    display: grid; grid-template-columns: 1fr 1fr; gap: 3rem;
+    position: relative; overflow: hidden;
+  }
+  .persona-banner::before {
+    content: ''; position: absolute; top: -80px; right: -80px;
+    width: 300px; height: 300px; border: 1px solid rgba(200,185,154,0.08); border-radius: 50%;
+  }
+  .persona-left {}
+  .persona-tag { font-size: 0.6rem; letter-spacing: 0.2em; text-transform: uppercase; color: var(--sand-dark); margin-bottom: 0.5rem; }
+  .persona-name { font-family: var(--serif); font-size: 1.6rem; color: var(--sand); margin-bottom: 0.25rem; }
+  .persona-subtitle { font-size: 0.82rem; color: var(--drift); font-weight: 300; margin-bottom: 1.25rem; line-height: 1.6; }
+  .persona-detail {
+    display: flex; gap: 0.75rem; padding: 0.5rem 0; border-bottom: 1px solid rgba(200,185,154,0.15);
+    font-size: 0.8rem; color: var(--drift);
+  }
+  .persona-detail:last-child { border-bottom: none; }
+  .persona-detail .label { color: var(--sand-dark); font-size: 0.62rem; letter-spacing: 0.1em; text-transform: uppercase; min-width: 80px; padding-top: 2px; }
+  .persona-right { display: flex; flex-direction: column; gap: 0.75rem; }
+  .persona-search {
+    background: rgba(255,255,255,0.06); border: 1px solid rgba(200,185,154,0.15);
+    padding: 0.75rem 1rem; display: flex; align-items: center; gap: 0.75rem;
+  }
+  .persona-search .icon { color: var(--sand-dark); font-size: 0.9rem; }
+  .persona-search .query { font-size: 0.8rem; color: var(--drift); font-family: monospace; }
+  .persona-search .vol { font-size: 0.62rem; color: var(--sand-dark); letter-spacing: 0.08em; text-transform: uppercase; margin-left: auto; }
+
+  /* Data Stack */
+  .data-stack {
+    display: grid; grid-template-columns: repeat(3, 1fr); gap: 2px;
+    background: var(--sand-mid); margin-bottom: 3rem;
+  }
+  .data-card {
+    background: var(--white); padding: 1.75rem; position: relative;
+  }
+  .data-card.tier1 { border-left: 4px solid var(--ocean); }
+  .data-card.tier2 { border-left: 4px solid var(--sand-dark); }
+  .data-card.tier3 { border-left: 4px solid var(--drift); }
+  .data-tier { font-size: 0.6rem; letter-spacing: 0.15em; text-transform: uppercase; color: var(--sand-dark); margin-bottom: 0.4rem; }
+  .data-name { font-family: var(--serif); font-size: 1.1rem; color: var(--ocean); margin-bottom: 0.2rem; }
+  .data-price { font-size: 0.72rem; color: var(--green); margin-bottom: 0.75rem; }
+  .data-desc { font-size: 0.8rem; color: var(--stone); line-height: 1.6; font-weight: 300; margin-bottom: 0.75rem; }
+  .data-use { font-size: 0.72rem; color: var(--drift); padding-top: 0.75rem; border-top: 1px solid var(--sand-mid); line-height: 1.6; }
+  .data-use strong { color: var(--ocean); font-weight: 500; }
+
+  /* AI Workflow */
+  .workflow-dark { background: var(--ink); padding: 3rem; margin: 0 -3rem; width: calc(100% + 6rem); }
+  .workflow-inner { max-width: 1200px; margin: 0 auto; }
+  .workflow-grid {
+    display: grid; grid-template-columns: repeat(4, 1fr); gap: 2px;
+    background: rgba(200,185,154,0.1);
+  }
+  .workflow-step {
+    background: rgba(28,58,74,0.95); padding: 1.5rem; position: relative;
+  }
+  .workflow-step::after {
+    content: '→'; position: absolute; right: -7px; top: 50%;
+    transform: translateY(-50%); color: var(--sand-dark); font-size: 1rem; z-index: 2;
+  }
+  .workflow-step:last-child::after { display: none; }
+  .step-num {
+    font-family: var(--serif); font-size: 2rem; color: rgba(200,185,154,0.2);
+    position: absolute; top: 0.75rem; right: 1rem;
+  }
+  .step-icon { font-size: 1.4rem; margin-bottom: 0.75rem; }
+  .step-name { font-size: 0.62rem; letter-spacing: 0.15em; text-transform: uppercase; color: var(--sand-dark); margin-bottom: 0.25rem; }
+  .step-title { font-family: var(--serif); font-size: 1rem; color: var(--sand); margin-bottom: 0.5rem; }
+  .step-desc { font-size: 0.78rem; color: var(--drift); line-height: 1.6; font-weight: 300; }
+  .step-tool { display: inline-block; font-size: 0.55rem; letter-spacing: 0.08em; text-transform: uppercase; padding: 3px 8px; background: rgba(200,185,154,0.15); color: var(--sand-dark); margin-top: 0.5rem; margin-right: 3px; }
+
+  /* Content Intercept */
+  .intercept-grid {
+    display: grid; grid-template-columns: 1fr 1fr; gap: 2px;
+    background: var(--sand-mid); margin-bottom: 2rem;
+  }
+  .intercept-card { background: var(--white); padding: 1.75rem; }
+  .intercept-type { font-size: 0.6rem; letter-spacing: 0.15em; text-transform: uppercase; color: var(--sand-dark); margin-bottom: 0.5rem; }
+  .intercept-title { font-family: var(--serif); font-size: 1.05rem; color: var(--ocean); margin-bottom: 0.5rem; }
+  .intercept-desc { font-size: 0.8rem; color: var(--stone); line-height: 1.6; font-weight: 300; margin-bottom: 0.75rem; }
+  .intercept-keywords { display: flex; flex-wrap: wrap; gap: 4px; }
+  .intercept-kw {
+    font-size: 0.62rem; letter-spacing: 0.06em; padding: 3px 8px;
+    background: var(--foam); color: var(--stone); border: 1px solid var(--sand-mid);
+  }
+
+  /* Stealth AI Tools */
+  .stealth-grid {
+    display: grid; grid-template-columns: repeat(2, 1fr); gap: 2px;
+    background: var(--sand-mid); margin-bottom: 2rem;
+  }
+  .stealth-card { background: var(--white); padding: 1.75rem; }
+  .stealth-card.highlight { background: var(--ocean); }
+  .stealth-card.highlight .stealth-name { color: var(--sand); }
+  .stealth-card.highlight .stealth-role { color: var(--sand-dark); }
+  .stealth-card.highlight .stealth-desc { color: var(--drift); }
+  .stealth-card.highlight .stealth-example { background: rgba(200,185,154,0.1); border-color: rgba(200,185,154,0.2); }
+  .stealth-card.highlight .stealth-example p { color: var(--drift); }
+  .stealth-name { font-family: var(--serif); font-size: 1.1rem; color: var(--ocean); margin-bottom: 0.2rem; }
+  .stealth-role { font-size: 0.62rem; letter-spacing: 0.1em; text-transform: uppercase; color: var(--sand-dark); margin-bottom: 0.75rem; }
+  .stealth-desc { font-size: 0.8rem; color: var(--stone); line-height: 1.6; font-weight: 300; margin-bottom: 0.75rem; }
+  .stealth-example {
+    background: var(--foam); border: 1px solid var(--sand-mid);
+    padding: 0.75rem; margin-bottom: 0.5rem;
+  }
+  .stealth-example p { font-size: 0.75rem; color: var(--stone); line-height: 1.6; font-style: italic; }
+  .stealth-example .label { font-size: 0.58rem; letter-spacing: 0.1em; text-transform: uppercase; color: var(--sand-dark); font-style: normal; margin-bottom: 4px; }
+
+  /* School Matrix */
+  .school-table { width: 100%; border-collapse: collapse; margin-bottom: 2rem; }
+  .school-table th {
+    background: var(--ocean); color: var(--white); font-size: 0.65rem;
+    letter-spacing: 0.1em; text-transform: uppercase; padding: 0.75rem 1rem;
+    text-align: left; font-weight: 500;
+  }
+  .school-table td {
+    padding: 0.75rem 1rem; font-size: 0.82rem; color: var(--stone);
+    border-bottom: 1px solid var(--sand-mid); line-height: 1.5;
+  }
+  .school-table tr:nth-child(even) td { background: var(--foam); }
+
+  /* Monthly AI Ops */
+  .ops-timeline { margin-bottom: 2rem; }
+  .ops-month {
+    display: grid; grid-template-columns: 120px 1fr; gap: 1.5rem;
+    padding: 1.5rem 0; border-bottom: 1px solid var(--sand-mid);
+  }
+  .ops-month:last-child { border-bottom: none; }
+  .ops-month-name { font-family: var(--serif); font-size: 1.1rem; color: var(--ocean); }
+  .ops-month-phase { font-size: 0.62rem; letter-spacing: 0.1em; text-transform: uppercase; color: var(--sand-dark); }
+  .ops-tasks { display: flex; flex-direction: column; gap: 0.4rem; }
+  .ops-task { font-size: 0.82rem; color: var(--stone); line-height: 1.5; padding-left: 1rem; border-left: 2px solid var(--sand-mid); }
+  .ops-task strong { color: var(--ocean); font-weight: 500; }
+
+  /* Footer */
+  .doc-footer { background: var(--ink); padding: 2rem 3rem; text-align: center; }
+  .doc-footer p { font-size: 0.72rem; color: var(--stone); }
+  .doc-footer a { color: var(--sand-dark); }
+
+  @media (max-width: 900px) {
+    .persona-banner, .intercept-grid, .stealth-grid { grid-template-columns: 1fr; }
+    .data-stack { grid-template-columns: 1fr; }
+    .workflow-grid { grid-template-columns: 1fr 1fr; }
+    .workflow-step::after { display: none; }
+    .ops-month { grid-template-columns: 1fr; gap: 0.5rem; }
+  }
+</style>
+</head>
+<body>
+
+<!-- ── HEADER ──────────────────────────────────────────── -->
+<div class="header">
+  <div class="header-badge">
+    <div class="dot"></div>
+    <span>AI Intelligence System · Confidential</span>
+  </div>
+  <h1>The Stealth<br><em>Relocation Engine</em></h1>
+  <p class="header-sub">
+    An AI-powered data intelligence system that makes Angelique the first agent a relocating family encounters —
+    before they ever Google "Palos Verdes real estate agent." <strong>She doesn't chase leads. She's already there when they start looking.</strong>
+  </p>
+</div>
+
+<!-- ── THE INSIGHT ─────────────────────────────────────── -->
+<div class="section">
+  <div class="section-tag">The Insight</div>
+  <h2 class="section-heading">Angelique <em>is</em> the relocation story.</h2>
+  <p class="section-intro">
+    Twenty years ago, Angelique moved to Palos Verdes not knowing a soul — two kids, a pile of boxes, and a search engine full of questions no website could answer.
+    Which neighborhood? Which school? Where to get a decent coffee?
+    Today, the moms doing that exact search at midnight from Dallas or Chicago or San Jose are her perfect client.
+    And with the right data and AI tools, we can find them before anyone else does.
+  </p>
+
+  <!-- Persona -->
+  <div class="persona-banner">
+    <div class="persona-left">
+      <div class="persona-tag">Target Persona</div>
+      <div class="persona-name">The Relocating Mom</div>
+      <div class="persona-subtitle">
+        Spouse of a tech/aerospace/medical executive transferring to South Bay.
+        Driving the school + neighborhood decision. Doing 80% of the research online before anyone calls an agent.
+      </div>
+      <div class="persona-detail"><span class="label">Age</span> 32–48</div>
+      <div class="persona-detail"><span class="label">Income</span> $300K–$1M+ household</div>
+      <div class="persona-detail"><span class="label">Arriving from</span> Bay Area, Seattle, Austin, Dallas, NYC, Chicago, international</div>
+      <div class="persona-detail"><span class="label">Timeline</span> 3–9 months before move</div>
+      <div class="persona-detail"><span class="label">Decision driver</span> Schools first, then neighborhood feel, then house</div>
+      <div class="persona-detail"><span class="label">Pain point</span> Overwhelmed by options, doesn't know the Hill, needs a trusted local guide</div>
+      <div class="persona-detail"><span class="label">Research hours</span> 15–25 hours online before contacting any agent</div>
+    </div>
+    <div class="persona-right">
+      <div style="font-size:0.62rem; letter-spacing:0.15em; text-transform:uppercase; color:var(--sand-dark); margin-bottom:0.25rem;">What She's Googling at 11pm</div>
+      <div class="persona-search"><span class="icon">🔍</span><span class="query">best schools Palos Verdes</span><span class="vol">720/mo</span></div>
+      <div class="persona-search"><span class="icon">🔍</span><span class="query">Palos Verdes vs Manhattan Beach families</span><span class="vol">210/mo</span></div>
+      <div class="persona-search"><span class="icon">🔍</span><span class="query">moving to Palos Verdes with kids</span><span class="vol">170/mo</span></div>
+      <div class="persona-search"><span class="icon">🔍</span><span class="query">PVE elementary school rankings</span><span class="vol">140/mo</span></div>
+      <div class="persona-search"><span class="icon">🔍</span><span class="query">Lunada Bay neighborhood family friendly</span><span class="vol">90/mo</span></div>
+      <div class="persona-search"><span class="icon">🔍</span><span class="query">corporate relocation South Bay Los Angeles</span><span class="vol">320/mo</span></div>
+      <div class="persona-search"><span class="icon">🔍</span><span class="query">Palos Verdes Peninsula High School review</span><span class="vol">260/mo</span></div>
+      <div class="persona-search"><span class="icon">🔍</span><span class="query">is Rancho Palos Verdes safe for families</span><span class="vol">110/mo</span></div>
+    </div>
+  </div>
+</div>
+
+<!-- ── DATA INTELLIGENCE STACK ─────────────────────────── -->
+<div class="section" style="padding-top:0;">
+  <div class="section-tag">Data Intelligence Stack</div>
+  <h2 class="section-heading">Mining opportunities <em>no one else sees.</em></h2>
+  <p class="section-intro">
+    Layer these data sources together to identify relocation families months before they contact a local agent.
+    None of Angelique's competitors are doing this.
+  </p>
+
+  <div class="data-stack">
+    <div class="data-card tier1">
+      <div class="data-tier">Tier 1 · Property Intelligence</div>
+      <div class="data-name">ATTOM Data API</div>
+      <div class="data-price">From $95/mo (API) | Property Navigator from $50/mo</div>
+      <div class="data-desc">
+        158M+ U.S. properties. Sales history, ownership records, tax data, permits, comps, school ratings, crime data, hazard risk.
+        The backbone for identifying who's selling where — and where buyers are coming from.
+      </div>
+      <div class="data-use">
+        <strong>Relocation use:</strong> Track sales in feeder cities (Bay Area, Seattle, Austin) where aerospace/tech employers are consolidating to South Bay.
+        Cross-reference with PV property searches to spot inbound migration patterns.
+      </div>
+    </div>
+
+    <div class="data-card tier1">
+      <div class="data-tier">Tier 1 · Predictive Seller ID</div>
+      <div class="data-name">SmartZip + Compass Likely to Sell</div>
+      <div class="data-price">SmartZip ~$500–800/mo | Likely to Sell: included with Compass</div>
+      <div class="data-desc">
+        AI analyzes 24+ data sources to predict which homeowners will sell within 12 months — up to 72% accuracy. SmartZip adds automated marketing to flagged homeowners.
+        Compass Likely to Sell works inside the CRM she already has.
+      </div>
+      <div class="data-use">
+        <strong>Relocation use:</strong> Identify PV homeowners likely to sell → these become listings → Angelique markets them to her inbound relocation pipeline. She controls both sides.
+      </div>
+    </div>
+
+    <div class="data-card tier1">
+      <div class="data-tier">Tier 1 · Employer Intelligence</div>
+      <div class="data-name">LinkedIn + Corporate Relocation Feeds</div>
+      <div class="data-price">Free – $80/mo (LinkedIn Sales Navigator)</div>
+      <div class="data-desc">
+        Track hiring surges and relocations at South Bay employers: Northrop Grumman, Boeing, Raytheon, aerospace startups, Terranea/hospitality, medical centers.
+        When a company announces 200 new hires, 50–100 families will relocate.
+      </div>
+      <div class="data-use">
+        <strong>Relocation use:</strong> Monitor job postings and hiring announcements. When aerospace companies expand Redondo/El Segundo operations,
+        run targeted content and ads to employees in feeder cities.
+      </div>
+    </div>
+
+    <div class="data-card tier2">
+      <div class="data-tier">Tier 2 · School Data</div>
+      <div class="data-name">GreatSchools API + Niche.com + PVPUSD</div>
+      <div class="data-price">Free (GreatSchools data) | Content creation</div>
+      <div class="data-desc">
+        School rankings, test scores, program data, parent reviews. The #1 factor relocating moms research.
+        PVPUSD (Palos Verdes Peninsula Unified School District) is the decision driver.
+      </div>
+      <div class="data-use">
+        <strong>Relocation use:</strong> Build the definitive school guide content on OwnPalosVerdes.com.
+        When a mom Googles "best schools Palos Verdes," Angelique's content is the answer — not GreatSchools, not Niche.
+      </div>
+    </div>
+
+    <div class="data-card tier2">
+      <div class="data-tier">Tier 2 · Behavioral Signals</div>
+      <div class="data-name">Google Analytics 4 + Meta Pixel + Compass Insights</div>
+      <div class="data-price">Free – included</div>
+      <div class="data-desc">
+        Track who visits OwnPalosVerdes.com, from where, which pages they read, how long they stay.
+        A visitor from Austin reading the school guide for 8 minutes is a relocation lead.
+      </div>
+      <div class="data-use">
+        <strong>Relocation use:</strong> Build retargeting audiences of out-of-state visitors.
+        Serve them Angelique's "I moved here too" content on Instagram and YouTube.
+      </div>
+    </div>
+
+    <div class="data-card tier2">
+      <div class="data-tier">Tier 2 · MLS + Market Data</div>
+      <div class="data-name">Compass MLS Feed + Redfin Data Center</div>
+      <div class="data-price">Included with Compass | Redfin Data Center: free</div>
+      <div class="data-desc">
+        Real-time listing data, days on market, price trends, absorption rates.
+        Redfin's migration data shows which cities are sending buyers to LA County.
+      </div>
+      <div class="data-use">
+        <strong>Relocation use:</strong> Redfin's migration data literally shows "users searching in PV who currently live in [city]."
+        Target content and ads to those feeder markets.
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- ── AI WORKFLOW ──────────────────────────────────────── -->
+<div class="section" style="padding-top:0;">
+  <div class="workflow-dark">
+    <div class="workflow-inner">
+      <div class="section-tag" style="color:var(--sand-dark);">The AI Workflow</div>
+      <h2 class="section-heading" style="color:var(--sand);">How the data becomes <em>leads.</em></h2>
+      <p style="font-size:0.85rem; color:var(--drift); line-height:1.7; margin-bottom:2rem; max-width:680px; font-weight:300;">
+        This is the stealth engine. None of this is visible to competing agents. Angelique looks like she's just posting great content —
+        but behind the scenes, AI is mining data, generating personalized outreach, and putting her in front of relocating families
+        at exactly the right moment.
+      </p>
+
+      <div class="workflow-grid">
+        <div class="workflow-step">
+          <div class="step-num">01</div>
+          <div class="step-icon">📡</div>
+          <div class="step-name">Monitor</div>
+          <div class="step-title">Data Signals</div>
+          <div class="step-desc">
+            AI monitors ATTOM property data, employer hiring feeds, Redfin migration data, and website analytics weekly.
+            Flags new relocation signals: "Northrop hiring 150 in El Segundo" or "Austin visitor read 6 school pages."
+          </div>
+          <span class="step-tool">ATTOM API</span>
+          <span class="step-tool">LinkedIn</span>
+          <span class="step-tool">GA4</span>
+        </div>
+
+        <div class="workflow-step">
+          <div class="step-num">02</div>
+          <div class="step-icon">🎯</div>
+          <div class="step-name">Target</div>
+          <div class="step-title">Content + Ads</div>
+          <div class="step-desc">
+            Claude AI generates hyper-targeted content: "Moving from Austin to Palos Verdes? Here's what you need to know about schools."
+            Meta/Google ads target feeder-city zip codes with Angelique's relocation content.
+          </div>
+          <span class="step-tool">Claude AI</span>
+          <span class="step-tool">Meta Ads</span>
+          <span class="step-tool">Google Ads</span>
+        </div>
+
+        <div class="workflow-step">
+          <div class="step-num">03</div>
+          <div class="step-icon">📥</div>
+          <div class="step-name">Capture</div>
+          <div class="step-title">Lead Magnet</div>
+          <div class="step-desc">
+            Visitor downloads "The PV Relocation Guide: Schools, Neighborhoods & Life on the Hill" — a comprehensive PDF only Angelique offers.
+            Name + email + moving timeline captured → Compass CRM.
+          </div>
+          <span class="step-tool">OwnPalosVerdes.com</span>
+          <span class="step-tool">Compass CRM</span>
+        </div>
+
+        <div class="workflow-step">
+          <div class="step-num">04</div>
+          <div class="step-icon">🤝</div>
+          <div class="step-name">Connect</div>
+          <div class="step-title">Personal Outreach</div>
+          <div class="step-desc">
+            Angelique sends a personal video text: "Hi, I'm Angelique — I moved here 20 years ago just like you're about to. I'd love to tell you what I wish someone had told me."
+            This is why experienced agents close. The AI got her there. She does the rest.
+          </div>
+          <span class="step-tool">Compass One</span>
+          <span class="step-tool">Collections</span>
+          <span class="step-tool">Video Text</span>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- ── CONTENT INTERCEPT STRATEGY ──────────────────────── -->
+<div class="section">
+  <div class="section-tag">Content Intercept</div>
+  <h2 class="section-heading">Own the searches <em>relocating moms make.</em></h2>
+  <p class="section-intro">
+    These aren't "real estate" searches — they're lifestyle and school searches.
+    No other PV agent is writing this content. That's the gap Angelique fills.
+  </p>
+
+  <div class="intercept-grid">
+    <div class="intercept-card">
+      <div class="intercept-type">Pillar Content · Schools</div>
+      <div class="intercept-title">The Complete Guide to PVPUSD Schools (2026)</div>
+      <div class="intercept-desc">
+        Every school in the district: ratings, programs, feeder patterns, parent culture, extracurriculars, sports.
+        Written by a mom who raised her kids here — not a data aggregator.
+        This single piece could drive 500+ visits/month from relocating families.
+      </div>
+      <div class="intercept-keywords">
+        <span class="intercept-kw">Palos Verdes schools</span>
+        <span class="intercept-kw">PVPUSD ratings</span>
+        <span class="intercept-kw">best elementary school PV</span>
+        <span class="intercept-kw">Palos Verdes Peninsula High School</span>
+        <span class="intercept-kw">Lunada Bay Elementary review</span>
+        <span class="intercept-kw">Malaga Cove school</span>
+      </div>
+    </div>
+
+    <div class="intercept-card">
+      <div class="intercept-type">Pillar Content · Relocation</div>
+      <div class="intercept-title">Moving to Palos Verdes: A Family's Complete Guide</div>
+      <div class="intercept-desc">
+        The guide Angelique wished she had 20 years ago. Neighborhoods by family vibe, commute times to aerospace corridor,
+        where to find your people, kids' activities, the real scoop on the Hill culture. Lead magnet.
+      </div>
+      <div class="intercept-keywords">
+        <span class="intercept-kw">moving to Palos Verdes</span>
+        <span class="intercept-kw">relocating to South Bay LA</span>
+        <span class="intercept-kw">Palos Verdes family guide</span>
+        <span class="intercept-kw">PV relocation</span>
+        <span class="intercept-kw">South Bay neighborhoods families</span>
+      </div>
+    </div>
+
+    <div class="intercept-card">
+      <div class="intercept-type">Comparison Content · High Value</div>
+      <div class="intercept-title">PV Estates vs Rancho PV vs Rolling Hills: Which Is Right for Your Family?</div>
+      <div class="intercept-desc">
+        The neighborhood comparison no one else writes honestly. Price ranges, school assignments, lot sizes, vibe, commute differences.
+        This is what relocation families Google at midnight trying to narrow down.
+      </div>
+      <div class="intercept-keywords">
+        <span class="intercept-kw">PVE vs RPV</span>
+        <span class="intercept-kw">Palos Verdes neighborhoods comparison</span>
+        <span class="intercept-kw">which Palos Verdes neighborhood</span>
+        <span class="intercept-kw">Rolling Hills vs PVE</span>
+      </div>
+    </div>
+
+    <div class="intercept-card">
+      <div class="intercept-type">Feeder City Content · SEO Weapon</div>
+      <div class="intercept-title">Series: "From [City] to Palos Verdes"</div>
+      <div class="intercept-desc">
+        City-specific relocation guides: "Moving from Austin to PV," "Bay Area to South Bay," "Seattle to PV."
+        Each targets the exact search a relocating spouse makes. No other PV agent has these pages.
+      </div>
+      <div class="intercept-keywords">
+        <span class="intercept-kw">moving from Austin to LA</span>
+        <span class="intercept-kw">Bay Area to South Bay</span>
+        <span class="intercept-kw">Seattle to Palos Verdes</span>
+        <span class="intercept-kw">Dallas to LA relocation</span>
+        <span class="intercept-kw">NYC to Palos Verdes</span>
+      </div>
+    </div>
+
+    <div class="intercept-card">
+      <div class="intercept-type">Video Content · YouTube SEO</div>
+      <div class="intercept-title">"If I Were Moving Here Today" Series</div>
+      <div class="intercept-desc">
+        Angelique walks through each neighborhood on camera: "Here's the school your kids would go to.
+        Here's where the moms grab coffee. Here's the trail we walk after drop-off."
+        Authentic, personal, impossible to replicate.
+      </div>
+      <div class="intercept-keywords">
+        <span class="intercept-kw">Palos Verdes neighborhood tour</span>
+        <span class="intercept-kw">Lunada Bay walkthrough</span>
+        <span class="intercept-kw">PV family life</span>
+        <span class="intercept-kw">life in Palos Verdes</span>
+      </div>
+    </div>
+
+    <div class="intercept-card">
+      <div class="intercept-type">Employer-Targeted Content</div>
+      <div class="intercept-title">Working at Northrop/Boeing/Raytheon? Living on the Peninsula.</div>
+      <div class="intercept-desc">
+        "If you just got an offer at Northrop Grumman in Redondo Beach, here's why your family should look at Palos Verdes —
+        and what every neighborhood means for your commute." Target by employer.
+      </div>
+      <div class="intercept-keywords">
+        <span class="intercept-kw">Northrop Grumman Redondo Beach housing</span>
+        <span class="intercept-kw">live near aerospace corridor LA</span>
+        <span class="intercept-kw">South Bay housing defense workers</span>
+        <span class="intercept-kw">El Segundo commute Palos Verdes</span>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- ── SCHOOL MATRIX ───────────────────────────────────── -->
+<div class="section" style="padding-top:0;">
+  <div class="section-tag">School Intelligence</div>
+  <h2 class="section-heading">The school matrix <em>moms are searching for.</em></h2>
+  <p class="section-intro">
+    This is the content that wins. Build this as an interactive page on OwnPalosVerdes.com with Angelique's personal commentary on each school.
+    No agent on the Peninsula has this.
+  </p>
+
+  <table class="school-table">
+    <tr>
+      <th>School</th>
+      <th>Type</th>
+      <th>Grades</th>
+      <th>Neighborhood</th>
+      <th>Angelique's Take</th>
+      <th>Content Opportunity</th>
+    </tr>
+    <tr>
+      <td><strong>Lunada Bay Elementary</strong></td>
+      <td>Public</td>
+      <td>K–5</td>
+      <td>Lunada Bay (PVE)</td>
+      <td>Walking distance, tight community, art + STEM</td>
+      <td>"A day at Lunada Bay Elementary" video</td>
+    </tr>
+    <tr>
+      <td><strong>Malaga Cove Intermediate</strong></td>
+      <td>Public</td>
+      <td>6–8</td>
+      <td>Malaga Cove (PVE)</td>
+      <td>Beautiful campus, strong academics, music program</td>
+      <td>Feeder pattern guide: elementary → middle</td>
+    </tr>
+    <tr>
+      <td><strong>Palos Verdes Peninsula HS</strong></td>
+      <td>Public</td>
+      <td>9–12</td>
+      <td>Rolling Hills Estates</td>
+      <td>#34 in CA, IB program, championship athletics</td>
+      <td>"Why PVPHS ranks #34 in California" article</td>
+    </tr>
+    <tr>
+      <td><strong>Palos Verdes High School</strong></td>
+      <td>Public</td>
+      <td>9–12</td>
+      <td>Palos Verdes Estates</td>
+      <td>Oceanfront campus, arts focus, strong AP</td>
+      <td>"Two great high schools: how to choose" comparison</td>
+    </tr>
+    <tr>
+      <td><strong>Chadwick School</strong></td>
+      <td>Private K–12</td>
+      <td>K–12</td>
+      <td>RPV</td>
+      <td>Elite private option on the Hill, 45-acre campus</td>
+      <td>"Public vs. Private on the Peninsula" guide</td>
+    </tr>
+    <tr>
+      <td><strong>Rolling Hills Prep</strong></td>
+      <td>Private</td>
+      <td>6–12</td>
+      <td>RPV</td>
+      <td>Small, progressive, project-based learning</td>
+      <td>Include in private school comparison</td>
+    </tr>
+    <tr>
+      <td><strong>Marymount California</strong></td>
+      <td>Private</td>
+      <td>9–12</td>
+      <td>RPV</td>
+      <td>Catholic, college prep, diverse student body</td>
+      <td>Faith-based education options article</td>
+    </tr>
+  </table>
+</div>
+
+<!-- ── STEALTH AI TOOLS ────────────────────────────────── -->
+<div class="section" style="padding-top:0;">
+  <div class="section-tag">Stealth AI Advantage</div>
+  <h2 class="section-heading">AI tools that work <em>behind the scenes.</em></h2>
+  <p class="section-intro">
+    Angelique's public persona is warm, personal, and authentic — the mom who moved here and became the expert.
+    Behind the curtain, AI is generating content, mining data, personalizing outreach, and optimizing everything.
+    The audience never sees the machinery. They just see an agent who's always one step ahead.
+  </p>
+
+  <div class="stealth-grid">
+    <div class="stealth-card highlight">
+      <div class="stealth-name">Claude AI (Content Engine)</div>
+      <div class="stealth-role">Blog posts · Social captions · Email sequences · Market reports</div>
+      <div class="stealth-desc">
+        Claude drafts all written content from Angelique's voice and expertise. Blog posts, Instagram captions, email nurture sequences,
+        market report summaries, neighborhood guides. Angelique reviews, adds personal touches, and approves.
+        Output: 4–6 pieces/week at a fraction of the time.
+      </div>
+      <div class="stealth-example">
+        <div class="label">Example output</div>
+        <p>"Moving from Austin? I get it — the sticker shock is real, but here's what you're getting: a school district that ranks in the top 2% in California,
+        ocean views from your morning run, and a community that still feels like a small town. Here's what I tell every family making that move..."</p>
+      </div>
+    </div>
+
+    <div class="stealth-card">
+      <div class="stealth-name">AI-Powered Ad Targeting</div>
+      <div class="stealth-role">Meta Ads · Google Ads · Retargeting</div>
+      <div class="stealth-desc">
+        Automated audience building: retarget out-of-state visitors to OwnPalosVerdes.com.
+        Lookalike audiences from past relocation clients. Employer-targeted campaigns
+        geo-fenced to tech campuses in feeder cities.
+      </div>
+      <div class="stealth-example">
+        <div class="label">Example campaign</div>
+        <p>Meta ad served to women 30–48 in Austin, TX who follow school-related pages → "Thinking about moving to LA? Here's why families choose Palos Verdes."
+        → Clicks to OwnPalosVerdes.com school guide → Downloads relocation guide → Enters CRM.</p>
+      </div>
+    </div>
+
+    <div class="stealth-card">
+      <div class="stealth-name">Automated Market Intelligence</div>
+      <div class="stealth-role">ATTOM API · Redfin Data · Weekly Digest</div>
+      <div class="stealth-desc">
+        A weekly automated report: new listings in PV, price changes, comparable sales, days on market trends,
+        feeder city migration data from Redfin. Claude summarizes into a 2-minute briefing for Angelique
+        and a shareable market update for her email list.
+      </div>
+      <div class="stealth-example">
+        <div class="label">Example weekly brief</div>
+        <p>"This week: 4 new listings in PVE ($1.8M–$3.2M), median DOM down to 18 days. Redfin shows 23% of PV searches
+        originating from Bay Area (up from 19% last quarter). Three Likely to Sell flags in your sphere — see CRM."</p>
+      </div>
+    </div>
+
+    <div class="stealth-card">
+      <div class="stealth-name">Personalized Video at Scale</div>
+      <div class="stealth-role">BombBomb or Loom · Personal touch</div>
+      <div class="stealth-desc">
+        When a high-value lead downloads the relocation guide, Angelique records a 30-second personal video:
+        "Hi Sarah, I saw you downloaded our PV guide — I moved here from [city] too, and I'd love to share
+        what I wish I'd known. Want to grab a virtual coffee?" AI drafts the script. She hits record.
+      </div>
+      <div class="stealth-example">
+        <div class="label">Why this works</div>
+        <p>No other agent sends a personal video within hours. The combination of speed (AI alert) + authenticity (real video from a real person)
+        creates an emotional connection before any competitor even knows the lead exists.</p>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- ── MONTHLY AI OPS ──────────────────────────────────── -->
+<div class="section" style="padding-top:0;">
+  <div class="section-tag">Implementation Timeline</div>
+  <h2 class="section-heading">Building the engine <em>over 6 months.</em></h2>
+
+  <div class="ops-timeline">
+    <div class="ops-month">
+      <div>
+        <div class="ops-month-name">Month 1</div>
+        <div class="ops-month-phase">Foundation</div>
+      </div>
+      <div class="ops-tasks">
+        <div class="ops-task"><strong>Deploy OwnPalosVerdes.com</strong> with modernized design, lead capture forms, and analytics.</div>
+        <div class="ops-task"><strong>Publish school guide pillar page</strong> — the single most important piece of content.</div>
+        <div class="ops-task"><strong>Set up Google Business Profile</strong> and begin soliciting reviews from past clients.</div>
+        <div class="ops-task"><strong>Clean Compass CRM</strong> — segment all contacts, tag by source and type.</div>
+        <div class="ops-task"><strong>Install GA4 + Meta Pixel</strong> on site for behavioral tracking.</div>
+      </div>
+    </div>
+
+    <div class="ops-month">
+      <div>
+        <div class="ops-month-name">Month 2</div>
+        <div class="ops-month-phase">Content Engine</div>
+      </div>
+      <div class="ops-tasks">
+        <div class="ops-task"><strong>Publish relocation guide</strong> (lead magnet PDF + web version).</div>
+        <div class="ops-task"><strong>Launch "From [City] to PV" series</strong> — start with Austin, Bay Area, Seattle.</div>
+        <div class="ops-task"><strong>Begin weekly blog cadence</strong> using Claude AI for drafts, Angelique for review.</div>
+        <div class="ops-task"><strong>Set up ATTOM API access</strong> (free trial → evaluate for ongoing subscription).</div>
+        <div class="ops-task"><strong>Launch Instagram</strong> with "I moved here 20 years ago" origin story content.</div>
+      </div>
+    </div>
+
+    <div class="ops-month">
+      <div>
+        <div class="ops-month-name">Month 3</div>
+        <div class="ops-month-phase">Paid + Social</div>
+      </div>
+      <div class="ops-tasks">
+        <div class="ops-task"><strong>Launch retargeting ads</strong> on Meta — target out-of-state visitors to OwnPalosVerdes.com.</div>
+        <div class="ops-task"><strong>Begin employer-targeted campaigns</strong> — Northrop, Boeing, aerospace corridor.</div>
+        <div class="ops-task"><strong>Start YouTube</strong> with "If I Were Moving Here Today" neighborhood series.</div>
+        <div class="ops-task"><strong>Activate Compass Likely to Sell</strong> workflow — 2-3 proactive calls/week.</div>
+        <div class="ops-task"><strong>First neighborhood guides</strong> published (PVE, RPV, Rolling Hills).</div>
+      </div>
+    </div>
+
+    <div class="ops-month">
+      <div>
+        <div class="ops-month-name">Month 4</div>
+        <div class="ops-month-phase">Optimization</div>
+      </div>
+      <div class="ops-tasks">
+        <div class="ops-task"><strong>Review GA4 data</strong> — which content drives leads? Which feeder cities convert?</div>
+        <div class="ops-task"><strong>Expand ad targeting</strong> to top-performing feeder cities identified by data.</div>
+        <div class="ops-task"><strong>Launch Compass One</strong> for all active clients — post-close relationship loop.</div>
+        <div class="ops-task"><strong>Publish employer-specific content</strong> based on hiring data signals.</div>
+        <div class="ops-task"><strong>Refine CRM nurture sequences</strong> based on what's converting.</div>
+      </div>
+    </div>
+
+    <div class="ops-month">
+      <div>
+        <div class="ops-month-name">Month 5</div>
+        <div class="ops-month-phase">Scale</div>
+      </div>
+      <div class="ops-tasks">
+        <div class="ops-task"><strong>Evaluate SmartZip</strong> for predictive seller targeting beyond Compass Likely to Sell.</div>
+        <div class="ops-task"><strong>Build automated weekly intelligence briefing</strong> using ATTOM + Redfin + Claude.</div>
+        <div class="ops-task"><strong>Launch relocation partnership outreach</strong> — corporate relocation companies, HR contacts at major employers.</div>
+        <div class="ops-task"><strong>Add "From Dallas to PV" and "From Chicago to PV"</strong> content based on data.</div>
+        <div class="ops-task"><strong>YouTube optimization pass</strong> — thumbnails, descriptions, end screens.</div>
+      </div>
+    </div>
+
+    <div class="ops-month">
+      <div>
+        <div class="ops-month-name">Month 6</div>
+        <div class="ops-month-phase">Full System</div>
+      </div>
+      <div class="ops-tasks">
+        <div class="ops-task"><strong>Full pipeline operational.</strong> Data → Content → Capture → Nurture → Close → Referral.</div>
+        <div class="ops-task"><strong>Measure:</strong> website traffic, lead volume, lead quality, cost per lead, close rate, GCI.</div>
+        <div class="ops-task"><strong>Expected result:</strong> 1-2 quality relocation leads/week, 2-3 closings/quarter, $1M+ annual GCI.</div>
+        <div class="ops-task"><strong>Quarterly SEO audit</strong> — what's ranking, what needs updating, new keyword opportunities.</div>
+        <div class="ops-task"><strong>Begin planning Phase 2:</strong> expand to South Bay (Redondo, Manhattan Beach, Hermosa) as adjacent markets.</div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- ── FOOTER ──────────────────────────────────────────── -->
+<div class="doc-footer">
+  <p style="font-size:0.82rem; color:var(--sand-dark); margin-bottom:0.5rem;">The Stealth Relocation Engine</p>
+  <p>Angelique Lyle · OwnPalosVerdes.com · AI Intelligence System · April 2026</p>
+  <p style="margin-top:0.5rem;">CA DRE# 01475592 · Compass · <a href="tel:3107518335">(310) 751-8335</a></p>
+  <p style="margin-top:1rem; font-size:0.62rem; color:rgba(74,90,98,0.5);">CONFIDENTIAL · For internal strategy use only</p>
+</div>
+
+</body>
+</html>

@@ -1,0 +1,26 @@
+{
+  "interfaceFontSize": 14,
+  "showLineNumber": true,
+  "strictLineBreaks": false,
+  "readableLineLength": true,
+  "showFrontmatterBlock": true,
+  "attachmentFolderPath": "Brain/attachments",
+  "newFileLocation": "folder",
+  "newFileFolderPath": "Brain/inbox",
+  "userIgnoreFilters": [
+    "**/node_modules",
+    "**/.venv",
+    "**/.venv-mcp",
+    "**/.git",
+    "**/venv",
+    "**/__pycache__",
+    "**/*.pyc",
+    "**/site-packages",
+    "**/.cursor",
+    "**/migrations/versions",
+    "**/locales/packs",
+    "lp-injection"
+  ],
+  "alwaysUpdateLinks": true,
+  "useMarkdownLinks": false
+}

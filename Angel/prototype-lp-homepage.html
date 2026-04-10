@@ -1,0 +1,476 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Angelique Lyle | Palos Verdes Real Estate — Lead-Gen Homepage Prototype</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@300;400;500;600;700&family=DM+Serif+Display:ital@0;1&display=swap" rel="stylesheet">
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    :root {
+      --black: #000000;
+      --near-black: #1A1A1A;
+      --gray-900: #222222;
+      --gray-800: #333333;
+      --gray-600: #666666;
+      --gray-400: #999999;
+      --gray-200: #E0E0E0;
+      --gray-100: #F2F2F2;
+      --off-white: #F7F7F7;
+      --white: #FFFFFF;
+      --heading: 'DM Serif Display', Georgia, serif;
+      --body: 'DM Sans', system-ui, sans-serif;
+    }
+
+    html { scroll-behavior: smooth; }
+    body { font-family: var(--body); background: var(--white); color: var(--near-black); overflow-x: hidden; }
+
+    /* ── NAV ─────────────────────────────────────────────── */
+    nav {
+      position: fixed; top: 0; left: 0; right: 0; z-index: 100;
+      padding: 0 3rem; display: flex; align-items: center; justify-content: space-between;
+      height: 64px; background: rgba(255,255,255,0.97); backdrop-filter: blur(12px);
+      border-bottom: 1px solid var(--gray-200);
+    }
+    .nav-logo { font-family: var(--heading); font-size: 1.1rem; color: var(--black); text-decoration: none; }
+    .nav-logo span { font-style: italic; color: var(--gray-600); }
+    .nav-links { display: flex; gap: 1.8rem; list-style: none; }
+    .nav-links a {
+      font-size: 0.7rem; letter-spacing: 0.12em; text-transform: uppercase;
+      color: var(--gray-600); text-decoration: none; font-weight: 500; transition: color 0.2s;
+    }
+    .nav-links a:hover { color: var(--black); }
+    .nav-cta {
+      font-size: 0.7rem; letter-spacing: 0.1em; text-transform: uppercase;
+      padding: 8px 18px; border: 1px solid var(--black); color: var(--black);
+      background: none; font-family: var(--body); font-weight: 600; cursor: pointer;
+      transition: background 0.2s, color 0.2s; text-decoration: none;
+    }
+    .nav-cta:hover { background: var(--black); color: var(--white); }
+
+    /* ── HERO ─────────────────────────────────────────────── */
+    .hero {
+      min-height: 100vh; padding-top: 64px;
+      display: grid; grid-template-columns: 1fr 1fr;
+      background: var(--black);
+    }
+    .hero-left {
+      display: flex; flex-direction: column; justify-content: center;
+      padding: 4rem 4rem 4rem 5rem; color: var(--white);
+    }
+    .hero-eyebrow {
+      font-size: 0.62rem; letter-spacing: 0.22em; text-transform: uppercase;
+      color: var(--gray-400); margin-bottom: 1.5rem;
+      display: flex; align-items: center; gap: 0.75rem;
+    }
+    .hero-eyebrow::before { content: ''; display: block; width: 32px; height: 1px; background: var(--gray-600); }
+    .hero-title {
+      font-family: var(--heading); font-size: clamp(2.4rem, 4.5vw, 3.8rem);
+      font-weight: 400; line-height: 1.08; color: var(--white); margin-bottom: 1.5rem;
+    }
+    .hero-title em { font-style: italic; }
+    .hero-sub {
+      font-size: 0.95rem; line-height: 1.7; color: rgba(255,255,255,0.7);
+      max-width: 420px; margin-bottom: 2rem;
+    }
+    .hero-stats {
+      display: grid; grid-template-columns: 1fr 1fr; gap: 1.5rem;
+      border-top: 1px solid rgba(255,255,255,0.15); padding-top: 1.5rem;
+    }
+    .hero-stat-num { font-family: var(--heading); font-size: 1.6rem; color: var(--white); }
+    .hero-stat-label { font-size: 0.65rem; letter-spacing: 0.1em; text-transform: uppercase; color: var(--gray-400); margin-top: 0.25rem; }
+
+    /* ── HERO RIGHT: FORM ─────────────────────────────────── */
+    .hero-right {
+      position: relative;
+      background: url('https://media-production.lp-cdn.com/cdn-cgi/image/format=auto,quality=85,fit=scale-down,width=1280/https://media-production.lp-cdn.com/media/ruzqfo5d9fxziagofncw') center/cover;
+    }
+    .hero-right::before {
+      content: ''; position: absolute; inset: 0;
+      background: linear-gradient(135deg, rgba(0,0,0,0.55) 0%, rgba(0,0,0,0.25) 100%);
+    }
+    .form-card {
+      position: relative; z-index: 2;
+      margin: auto; max-width: 380px;
+      background: rgba(255,255,255,0.97); backdrop-filter: blur(8px);
+      padding: 2.5rem 2rem; border-radius: 2px;
+      box-shadow: 0 24px 64px rgba(0,0,0,0.3);
+    }
+    .form-card h3 {
+      font-family: var(--heading); font-size: 1.5rem; margin-bottom: 0.35rem; color: var(--near-black);
+    }
+    .form-card .form-sub {
+      font-size: 0.82rem; color: var(--gray-600); margin-bottom: 1.5rem; line-height: 1.5;
+    }
+    .form-group { margin-bottom: 1rem; }
+    .form-group label {
+      display: block; font-size: 0.65rem; letter-spacing: 0.1em;
+      text-transform: uppercase; color: var(--gray-600); margin-bottom: 0.35rem; font-weight: 600;
+    }
+    .form-group input, .form-group select {
+      width: 100%; padding: 10px 12px; border: 1px solid var(--gray-200);
+      font-family: var(--body); font-size: 0.88rem; background: var(--white);
+      transition: border-color 0.2s; outline: none;
+    }
+    .form-group input:focus, .form-group select:focus { border-color: var(--black); }
+    .form-group select { appearance: none; cursor: pointer; }
+    .form-submit {
+      width: 100%; padding: 12px; background: var(--black); color: var(--white);
+      border: none; font-family: var(--body); font-size: 0.8rem; letter-spacing: 0.1em;
+      text-transform: uppercase; font-weight: 600; cursor: pointer; margin-top: 0.5rem;
+      transition: background 0.2s;
+    }
+    .form-submit:hover { background: var(--gray-900); }
+    .form-or {
+      text-align: center; font-size: 0.75rem; color: var(--gray-400);
+      margin: 1rem 0; position: relative;
+    }
+    .form-or::before, .form-or::after {
+      content: ''; position: absolute; top: 50%; width: 35%; height: 1px; background: var(--gray-200);
+    }
+    .form-or::before { left: 0; }
+    .form-or::after { right: 0; }
+    .form-calendar {
+      display: block; width: 100%; padding: 10px; text-align: center;
+      border: 1px solid var(--gray-200); color: var(--near-black);
+      font-family: var(--body); font-size: 0.78rem; font-weight: 500;
+      text-decoration: none; transition: border-color 0.2s;
+    }
+    .form-calendar:hover { border-color: var(--black); }
+    .form-privacy {
+      font-size: 0.68rem; color: var(--gray-400); text-align: center; margin-top: 1rem; line-height: 1.5;
+    }
+
+    /* ── EXPLORE CARDS ────────────────────────────────────── */
+    .explore {
+      padding: 5rem 5rem 4rem;
+    }
+    .explore-header { margin-bottom: 3rem; }
+    .section-tag {
+      font-size: 0.62rem; letter-spacing: 0.2em; text-transform: uppercase;
+      color: var(--gray-400); margin-bottom: 0.75rem;
+    }
+    .section-heading {
+      font-family: var(--heading); font-size: clamp(1.8rem, 3vw, 2.6rem);
+      font-weight: 400; line-height: 1.15;
+    }
+    .section-heading em { font-style: italic; }
+    .explore-grid {
+      display: grid; grid-template-columns: repeat(3, 1fr); gap: 1.5rem;
+    }
+    .explore-card {
+      position: relative; overflow: hidden; aspect-ratio: 4/3;
+      border-radius: 2px; text-decoration: none; display: block;
+    }
+    .explore-card img {
+      width: 100%; height: 100%; object-fit: cover;
+      transition: transform 0.4s;
+    }
+    .explore-card:hover img { transform: scale(1.04); }
+    .explore-card-overlay {
+      position: absolute; inset: 0;
+      background: linear-gradient(to top, rgba(0,0,0,0.7) 0%, transparent 60%);
+      display: flex; flex-direction: column; justify-content: flex-end; padding: 1.5rem;
+    }
+    .explore-card-tag {
+      font-size: 0.6rem; letter-spacing: 0.15em; text-transform: uppercase;
+      color: rgba(255,255,255,0.7); margin-bottom: 0.35rem;
+    }
+    .explore-card-title {
+      font-family: var(--heading); font-size: 1.3rem; color: var(--white);
+      margin-bottom: 0.25rem;
+    }
+    .explore-card-desc {
+      font-size: 0.78rem; color: rgba(255,255,255,0.8); line-height: 1.4;
+    }
+    .explore-card-arrow {
+      position: absolute; top: 1rem; right: 1rem;
+      width: 32px; height: 32px; border-radius: 50%;
+      background: rgba(255,255,255,0.15); backdrop-filter: blur(4px);
+      display: flex; align-items: center; justify-content: center;
+      color: var(--white); font-size: 0.85rem;
+      opacity: 0; transition: opacity 0.3s;
+    }
+    .explore-card:hover .explore-card-arrow { opacity: 1; }
+
+    /* ── TESTIMONIALS ─────────────────────────────────────── */
+    .testimonials {
+      padding: 4rem 5rem 5rem; background: var(--off-white);
+    }
+    .testimonials-header { margin-bottom: 3rem; }
+    .testimonials-grid {
+      display: grid; grid-template-columns: repeat(3, 1fr); gap: 2rem;
+    }
+    .testimonial-card {
+      background: var(--white); padding: 2rem; border: 1px solid var(--gray-200);
+    }
+    .testimonial-stars { color: var(--black); font-size: 0.9rem; letter-spacing: 0.1em; margin-bottom: 1rem; }
+    .testimonial-text {
+      font-size: 0.9rem; line-height: 1.7; color: var(--gray-800); margin-bottom: 1.5rem;
+      font-style: italic;
+    }
+    .testimonial-name { font-weight: 600; font-size: 0.82rem; color: var(--near-black); }
+    .testimonial-detail { font-size: 0.72rem; color: var(--gray-400); margin-top: 0.15rem; }
+
+    /* ── BOOK TIME / CTA ─────────────────────────────────── */
+    .book-time {
+      padding: 5rem; text-align: center; background: var(--black); color: var(--white);
+    }
+    .book-time .section-tag { color: var(--gray-400); }
+    .book-time .section-heading { color: var(--white); margin-bottom: 1rem; }
+    .book-time .section-heading em { font-style: italic; }
+    .book-time-sub {
+      font-size: 0.95rem; color: rgba(255,255,255,0.6); max-width: 480px;
+      margin: 0 auto 2.5rem; line-height: 1.6;
+    }
+    .book-time-actions { display: flex; justify-content: center; gap: 1.5rem; flex-wrap: wrap; }
+    .btn-white {
+      padding: 12px 28px; background: var(--white); color: var(--black);
+      border: none; font-family: var(--body); font-size: 0.78rem; letter-spacing: 0.1em;
+      text-transform: uppercase; font-weight: 600; cursor: pointer; text-decoration: none;
+      transition: background 0.2s;
+    }
+    .btn-white:hover { background: var(--gray-100); }
+    .btn-outline-white {
+      padding: 12px 28px; background: none; color: var(--white);
+      border: 1px solid rgba(255,255,255,0.4); font-family: var(--body); font-size: 0.78rem;
+      letter-spacing: 0.1em; text-transform: uppercase; font-weight: 500;
+      cursor: pointer; text-decoration: none; transition: border-color 0.2s;
+    }
+    .btn-outline-white:hover { border-color: var(--white); }
+    .book-time-contact {
+      margin-top: 2.5rem; font-size: 0.82rem; color: rgba(255,255,255,0.5);
+    }
+    .book-time-contact a { color: rgba(255,255,255,0.8); text-decoration: none; }
+    .book-time-contact a:hover { color: var(--white); }
+
+    /* ── FOOTER ────────────────────────────────────────────── */
+    footer {
+      padding: 2.5rem 5rem; display: flex; align-items: center;
+      justify-content: space-between; border-top: 1px solid var(--gray-200);
+      font-size: 0.72rem; color: var(--gray-400);
+    }
+    footer a { color: var(--gray-600); text-decoration: none; }
+    .footer-brand { font-family: var(--heading); font-size: 0.9rem; color: var(--gray-800); }
+    .footer-legal { display: flex; gap: 1.5rem; }
+
+    /* ── RESPONSIVE ─────────────────────────────────────── */
+    @media (max-width: 900px) {
+      .hero { grid-template-columns: 1fr; min-height: auto; }
+      .hero-left { padding: 3rem 2rem; }
+      .hero-right { min-height: 500px; display: flex; align-items: center; justify-content: center; padding: 2rem; }
+      .explore-grid { grid-template-columns: 1fr; }
+      .testimonials-grid { grid-template-columns: 1fr; }
+      nav { padding: 0 1.5rem; }
+      .nav-links { display: none; }
+      .explore, .testimonials, .book-time { padding: 3rem 2rem; }
+      footer { flex-direction: column; gap: 1rem; text-align: center; padding: 2rem; }
+    }
+  </style>
+</head>
+<body>
+
+<!-- ── NAV ──────────────────────────────────────────────────── -->
+<nav>
+  <a href="#" class="nav-logo">Angelique <span>Lyle</span></a>
+  <ul class="nav-links">
+    <li><a href="https://thehillpv.com/neighborhoods">Neighborhoods</a></li>
+    <li><a href="https://thehillpv.com/schools">Schools</a></li>
+    <li><a href="https://thehillpv.com/market">Market</a></li>
+    <li><a href="#testimonials">Reviews</a></li>
+    <li><a href="#book">Book Time</a></li>
+  </ul>
+  <a href="tel:3107518335" class="nav-cta">(310) 751-8335</a>
+</nav>
+
+<!-- ── HERO: Headline + Form ───────────────────────────────── -->
+<section class="hero">
+  <div class="hero-left">
+    <div class="hero-eyebrow">Palos Verdes Peninsula · South Bay Beach Cities</div>
+    <h1 class="hero-title">
+      Life above<br>the <em>Pacific</em><br>starts here.
+    </h1>
+    <p class="hero-sub">
+      Top 1.5% nationally. 20+ years guiding families home to the Peninsula and South Bay. USC grad, relocation specialist, and a mom who raised her kids right here on this Hill.
+    </p>
+    <div class="hero-stats">
+      <div>
+        <div class="hero-stat-num">$2.8M</div>
+        <div class="hero-stat-label">PVE Median 2026</div>
+      </div>
+      <div>
+        <div class="hero-stat-num">Top 1.5%</div>
+        <div class="hero-stat-label">Agents Nationwide</div>
+      </div>
+      <div>
+        <div class="hero-stat-num">20+</div>
+        <div class="hero-stat-label">Years on the Hill</div>
+      </div>
+      <div>
+        <div class="hero-stat-num">5.0 ★</div>
+        <div class="hero-stat-label">Client Reviews</div>
+      </div>
+    </div>
+  </div>
+
+  <div class="hero-right">
+    <div class="form-card">
+      <h3>Let's find your home.</h3>
+      <p class="form-sub">Tell me what you're looking for and I'll personally follow up — usually within the hour.</p>
+      <form id="lead-form" onsubmit="handleSubmit(event)">
+        <div class="form-group">
+          <label>Full Name</label>
+          <input type="text" name="full_name" placeholder="Your name" required>
+        </div>
+        <div class="form-group">
+          <label>Email</label>
+          <input type="email" name="email" placeholder="you@example.com" required>
+        </div>
+        <div class="form-group">
+          <label>Phone</label>
+          <input type="tel" name="phone" placeholder="(310) 555-0000">
+        </div>
+        <div class="form-group">
+          <label>What brings you to Palos Verdes?</label>
+          <select name="interest" required>
+            <option value="" disabled selected>Choose one...</option>
+            <option value="buying">Looking to buy on the Hill</option>
+            <option value="selling">Thinking about selling</option>
+            <option value="relocating">Relocating to the South Bay</option>
+            <option value="schools">Exploring schools for my kids</option>
+            <option value="investing">Investment property</option>
+            <option value="just_looking">Just exploring</option>
+          </select>
+        </div>
+        <div class="form-group">
+          <label>Current Address or City (optional)</label>
+          <input type="text" name="address" placeholder="Where are you now?">
+        </div>
+        <button type="submit" class="form-submit">Connect with Angelique →</button>
+      </form>
+      <div class="form-or">or</div>
+      <a href="#book" class="form-calendar">📅 Book a 15-min call</a>
+      <p class="form-privacy">No spam. No pressure. Just a real conversation with a real person.</p>
+    </div>
+  </div>
+</section>
+
+<!-- ── EXPLORE THE HILL ────────────────────────────────────── -->
+<section class="explore">
+  <div class="explore-header">
+    <div class="section-tag">Explore the Hill</div>
+    <h2 class="section-heading">Discover what makes<br><em>this place home.</em></h2>
+  </div>
+  <div class="explore-grid">
+    <a href="https://thehillpv.com/neighborhoods" class="explore-card">
+      <img src="https://media-production.lp-cdn.com/cdn-cgi/image/format=auto,quality=85,fit=scale-down,width=800/https://media-production.lp-cdn.com/media/o607sthxr9jhjwmqebxj" alt="Neighborhoods">
+      <div class="explore-card-arrow">↗</div>
+      <div class="explore-card-overlay">
+        <div class="explore-card-tag">6 Communities</div>
+        <div class="explore-card-title">Neighborhoods</div>
+        <div class="explore-card-desc">PVE, RPV, Rolling Hills, RHE + beach cities</div>
+      </div>
+    </a>
+    <a href="https://thehillpv.com/schools" class="explore-card">
+      <img src="https://media-production.lp-cdn.com/cdn-cgi/image/format=auto,quality=85,fit=scale-down,width=800/https://media-production.lp-cdn.com/media/zverjeorqcaigxqhjxmz" alt="Schools">
+      <div class="explore-card-arrow">↗</div>
+      <div class="explore-card-overlay">
+        <div class="explore-card-tag">PVPUSD · Private · Charter</div>
+        <div class="explore-card-title">School Guide</div>
+        <div class="explore-card-desc">Feeder patterns, ratings, campus tours</div>
+      </div>
+    </a>
+    <a href="https://thehillpv.com/market" class="explore-card">
+      <img src="https://media-production.lp-cdn.com/cdn-cgi/image/format=auto,quality=85,fit=scale-down,width=800/https://media-production.lp-cdn.com/media/di4dokutbsissq1mzsac" alt="Market">
+      <div class="explore-card-arrow">↗</div>
+      <div class="explore-card-overlay">
+        <div class="explore-card-tag">Updated Monthly</div>
+        <div class="explore-card-title">Market Report</div>
+        <div class="explore-card-desc">Prices, inventory, days on market by zip</div>
+      </div>
+    </a>
+  </div>
+</section>
+
+<!-- ── TESTIMONIALS ─────────────────────────────────────────── -->
+<section class="testimonials" id="testimonials">
+  <div class="testimonials-header">
+    <div class="section-tag">Client Stories</div>
+    <h2 class="section-heading">What the <em>Peninsula says.</em></h2>
+  </div>
+  <div class="testimonials-grid">
+    <div class="testimonial-card">
+      <div class="testimonial-stars">★★★★★</div>
+      <p class="testimonial-text">"Angelique made selling our home of 25 years feel manageable. She knew the neighborhood, priced it perfectly, and communicated every step. We got over asking in 9 days."</p>
+      <div class="testimonial-name">Mary H.</div>
+      <div class="testimonial-detail">Seller · Palos Verdes Estates</div>
+    </div>
+    <div class="testimonial-card">
+      <div class="testimonial-stars">★★★★★</div>
+      <p class="testimonial-text">"We relocated from Chicago with two kids. Angelique spent hours showing us schools, parks, and the neighborhoods that fit our family. She didn't just find us a house — she found us a community."</p>
+      <div class="testimonial-name">Dorothy & Bill H.</div>
+      <div class="testimonial-detail">Buyers · Rolling Hills Estates</div>
+    </div>
+    <div class="testimonial-card">
+      <div class="testimonial-stars">★★★★★</div>
+      <p class="testimonial-text">"This was our third transaction with Angelique. Her market knowledge is unmatched on the Hill. She told us to wait three weeks before listing — we ended up $200K above what we would have gotten."</p>
+      <div class="testimonial-name">The Kellner Family</div>
+      <div class="testimonial-detail">Repeat Clients · Lunada Bay</div>
+    </div>
+  </div>
+</section>
+
+<!-- ── BOOK TIME / FINAL CTA ───────────────────────────────── -->
+<section class="book-time" id="book">
+  <div class="section-tag">Ready to Talk?</div>
+  <h2 class="section-heading">Let's find your<br><em>perfect address.</em></h2>
+  <p class="book-time-sub">
+    Whether you're buying, selling, or just starting to think about it — a quick call with Angelique is always free and always honest.
+  </p>
+  <div class="book-time-actions">
+    <a href="#" class="btn-white">📅 Schedule a Call</a>
+    <a href="tel:3107518335" class="btn-outline-white">Call (310) 751-8335</a>
+    <a href="mailto:angelique@angeliquelyle.com" class="btn-outline-white">Email Angelique</a>
+  </div>
+  <p class="book-time-contact">
+    Accardo Real Estate Associates · <a href="https://compass.com">Compass</a> · CA DRE# 01475592
+  </p>
+</section>
+
+<!-- ── FOOTER ──────────────────────────────────────────────── -->
+<footer>
+  <span class="footer-brand">Angelique <em>Lyle</em></span>
+  <span>&copy; 2026 Angelique Lyle · Accardo Real Estate Associates · Compass</span>
+  <div class="footer-legal">
+    <a href="#">Privacy</a>
+    <a href="#">Terms</a>
+  </div>
+</footer>
+
+<script>
+function handleSubmit(e) {
+  e.preventDefault();
+  const form = e.target;
+  const data = Object.fromEntries(new FormData(form));
+
+  // Map interest to redirect URL
+  const redirects = {
+    buying: 'https://thehillpv.com/neighborhoods',
+    selling: 'https://thehillpv.com/market',
+    relocating: 'https://thehillpv.com/guides/relocation',
+    schools: 'https://thehillpv.com/schools',
+    investing: 'https://thehillpv.com/market',
+    just_looking: 'https://thehillpv.com/'
+  };
+
+  // In production: POST to LP webhook endpoint
+  // fetch('/api/webhooks/lp', { method: 'POST', body: JSON.stringify(data) });
+
+  alert('Lead captured! In production this would:\n\n1. Save to LP CRM (native)\n2. Fire webhook to Cove leads table\n3. SMS Angelique via Twilio\n4. Redirect to: ' + redirects[data.interest]);
+}
+</script>
+
+</body>
+</html>

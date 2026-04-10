@@ -1,0 +1,331 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+<title>Welcome — Angelique Lyle Open House</title>
+<link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@300;400;500;600;700&family=DM+Serif+Display:ital@0;1&display=swap" rel="stylesheet">
+<style>
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+  :root {
+    --black: #000000; --near-black: #1A1A1A; --gray-800: #333333;
+    --gray-600: #666666; --gray-400: #999999; --gray-200: #E0E0E0;
+    --gray-100: #F2F2F2; --off-white: #F7F7F7; --white: #FFFFFF;
+    --heading: 'DM Serif Display', Georgia, serif;
+    --body: 'DM Sans', system-ui, sans-serif;
+  }
+  html { height: 100%; }
+  body {
+    font-family: var(--body); background: var(--white); color: var(--near-black);
+    min-height: 100%; display: flex; flex-direction: column;
+    -webkit-font-smoothing: antialiased;
+  }
+
+  /* Header */
+  .header {
+    background: var(--black); color: var(--white); padding: 1.75rem 1.5rem 1.5rem;
+    text-align: center;
+  }
+  .header .tag {
+    display: inline-block; font-size: 0.55rem; font-weight: 600;
+    letter-spacing: 0.2em; text-transform: uppercase; color: var(--gray-400);
+    margin-bottom: 0.5rem;
+  }
+  .header h1 {
+    font-family: var(--heading); font-size: 1.6rem; font-weight: 400;
+    margin-bottom: 0.35rem; letter-spacing: -0.01em;
+  }
+  .header .address {
+    color: var(--gray-400); font-size: 0.85rem; font-weight: 300;
+  }
+  .header .hosted {
+    color: var(--gray-600); font-size: 0.7rem; margin-top: 0.35rem;
+    letter-spacing: 0.05em;
+  }
+
+  /* Form */
+  .form-container {
+    flex: 1; padding: 1.5rem; max-width: 480px; margin: 0 auto; width: 100%;
+  }
+  .form-intro { text-align: center; margin-bottom: 1.5rem; }
+  .form-intro p { font-size: 0.88rem; color: var(--gray-600); line-height: 1.5; }
+
+  .field { margin-bottom: 1rem; }
+  .field label {
+    display: block; font-size: 0.65rem; font-weight: 600;
+    letter-spacing: 0.12em; text-transform: uppercase; color: var(--gray-400);
+    margin-bottom: 0.35rem;
+  }
+  .field label .req { color: var(--black); }
+  .field input, .field select, .field textarea {
+    width: 100%; padding: 0.75rem 0.85rem;
+    border: 1.5px solid var(--gray-200); border-radius: 4px;
+    font-family: var(--body); font-size: 16px; color: var(--near-black);
+    background: var(--white); transition: border-color 0.2s;
+    -webkit-appearance: none; appearance: none;
+  }
+  .field input:focus, .field select:focus, .field textarea:focus {
+    outline: none; border-color: var(--black);
+  }
+  .field input::placeholder, .field textarea::placeholder { color: var(--gray-400); }
+  .field select {
+    background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='12' viewBox='0 0 12 12'%3E%3Cpath d='M2 4l4 4 4-4' fill='none' stroke='%23999' stroke-width='1.5'/%3E%3C/svg%3E");
+    background-repeat: no-repeat; background-position: right 0.75rem center;
+    padding-right: 2rem;
+  }
+  .field textarea { resize: vertical; min-height: 70px; }
+
+  .row-2 { display: grid; grid-template-columns: 1fr 1fr; gap: 0.75rem; }
+
+  /* Radio group — flat black/white */
+  .radio-group { display: flex; gap: 0.5rem; flex-wrap: wrap; }
+  .radio-option { flex: 1; min-width: 0; }
+  .radio-option input { display: none; }
+  .radio-option label {
+    display: block; text-align: center; padding: 0.6rem 0.5rem;
+    border: 1.5px solid var(--gray-200); border-radius: 4px;
+    font-size: 0.82rem; color: var(--gray-600); cursor: pointer;
+    transition: all 0.15s; text-transform: none; letter-spacing: 0; font-weight: 400;
+  }
+  .radio-option input:checked + label {
+    border-color: var(--black); background: var(--black); color: var(--white);
+  }
+
+  /* Submit — flat black */
+  .submit-btn {
+    width: 100%; padding: 0.85rem; border: none; border-radius: 4px;
+    background: var(--black); color: var(--white); font-family: var(--body);
+    font-size: 0.9rem; font-weight: 500; cursor: pointer; margin-top: 0.5rem;
+    transition: background 0.15s;
+  }
+  .submit-btn:active { background: var(--gray-800); }
+
+  .disclaimer {
+    text-align: center; font-size: 0.6rem; color: var(--gray-400);
+    margin-top: 0.75rem; line-height: 1.5;
+  }
+
+  /* Footer */
+  .footer {
+    text-align: center; padding: 1rem; color: var(--gray-400);
+    font-size: 0.65rem; border-top: 1px solid var(--gray-100);
+    letter-spacing: 0.02em;
+  }
+
+  /* Success */
+  .success-screen {
+    display: none; text-align: center; padding: 3rem 2rem;
+    flex: 1; justify-content: center; align-items: center; flex-direction: column;
+  }
+  .success-screen.active { display: flex; }
+  .success-icon {
+    width: 56px; height: 56px; border-radius: 50%; background: var(--black);
+    display: flex; align-items: center; justify-content: center;
+    margin: 0 auto 1.25rem; font-size: 1.5rem; color: var(--white);
+  }
+  .success-screen h2 {
+    font-family: var(--heading); font-size: 1.5rem; color: var(--black);
+    margin-bottom: 0.5rem; font-weight: 400;
+  }
+  .success-screen p {
+    font-size: 0.88rem; color: var(--gray-600); max-width: 300px;
+    margin: 0 auto; line-height: 1.5;
+  }
+  .success-screen .contact-btn {
+    display: inline-flex; align-items: center; gap: 0.5rem;
+    margin-top: 1.5rem; padding: 0.75rem 1.75rem;
+    background: var(--black); color: var(--white); border-radius: 4px;
+    font-family: var(--body); font-size: 0.85rem; font-weight: 500;
+    text-decoration: none;
+  }
+  .success-screen .contact-btn:active { background: var(--gray-800); }
+  .success-screen .reset-btn {
+    margin-top: 1rem; padding: 0.6rem 1.5rem;
+    border: 1.5px solid var(--gray-200); border-radius: 4px;
+    background: transparent; color: var(--gray-600);
+    font-family: var(--body); font-size: 0.8rem; cursor: pointer;
+  }
+
+  .form-screen { display: block; }
+  .form-screen.hidden { display: none; }
+</style>
+</head>
+<body>
+
+<div class="header">
+  <div class="tag">Open House</div>
+  <h1>Welcome</h1>
+  <div class="address" id="property-address">2715 Grand Summit Road, Torrance</div>
+  <div class="hosted">Angelique Lyle · Accardo Real Estate Associates · Compass</div>
+</div>
+
+<div class="form-screen" id="form-screen">
+  <div class="form-container">
+    <div class="form-intro">
+      <p>So glad you're here. Please sign in so I can follow up with any information you need.</p>
+    </div>
+
+    <form id="signin-form" action="https://formspree.io/f/YOUR_FORM_ID" method="POST">
+      <input type="hidden" name="form_source" value="open-house-signin">
+      <input type="hidden" name="property_address" id="hidden-address" value="2715 Grand Summit Road, Torrance">
+      <input type="hidden" name="open_house_date" id="hidden-date">
+      <input type="hidden" name="utm_source" value="qr-code">
+      <input type="hidden" name="utm_medium" value="open-house">
+      <input type="text" name="_gotcha" style="display:none">
+
+      <div class="row-2">
+        <div class="field">
+          <label>First Name <span class="req">*</span></label>
+          <input type="text" name="first_name" placeholder="First" required autocomplete="given-name">
+        </div>
+        <div class="field">
+          <label>Last Name <span class="req">*</span></label>
+          <input type="text" name="last_name" placeholder="Last" required autocomplete="family-name">
+        </div>
+      </div>
+
+      <div class="field">
+        <label>Email <span class="req">*</span></label>
+        <input type="email" name="email" placeholder="you@email.com" required autocomplete="email">
+      </div>
+
+      <div class="field">
+        <label>Phone</label>
+        <input type="tel" name="phone" placeholder="(310) 555-1234" autocomplete="tel">
+      </div>
+
+      <div class="field">
+        <label>Are you working with an agent?</label>
+        <div class="radio-group">
+          <div class="radio-option">
+            <input type="radio" name="has_agent" id="agent-no" value="No" checked>
+            <label for="agent-no">No</label>
+          </div>
+          <div class="radio-option">
+            <input type="radio" name="has_agent" id="agent-yes" value="Yes">
+            <label for="agent-yes">Yes</label>
+          </div>
+          <div class="radio-option">
+            <input type="radio" name="has_agent" id="agent-looking" value="Just looking">
+            <label for="agent-looking">Just Looking</label>
+          </div>
+        </div>
+      </div>
+
+      <div class="field">
+        <label>What brings you here today?</label>
+        <div class="radio-group">
+          <div class="radio-option">
+            <input type="radio" name="buyer_type" id="type-buy" value="Looking to buy" checked>
+            <label for="type-buy">Buying</label>
+          </div>
+          <div class="radio-option">
+            <input type="radio" name="buyer_type" id="type-sell" value="Thinking of selling">
+            <label for="type-sell">Selling</label>
+          </div>
+          <div class="radio-option">
+            <input type="radio" name="buyer_type" id="type-neighbor" value="Neighbor">
+            <label for="type-neighbor">Neighbor</label>
+          </div>
+          <div class="radio-option">
+            <input type="radio" name="buyer_type" id="type-relocating" value="Relocating to area">
+            <label for="type-relocating">Relocating</label>
+          </div>
+        </div>
+      </div>
+
+      <div class="field" id="relocating-field" style="display:none;">
+        <label>Where are you moving from?</label>
+        <input type="text" name="moving_from" placeholder="City, State">
+      </div>
+
+      <div class="field">
+        <label>Price Range</label>
+        <select name="price_range">
+          <option value="">Select...</option>
+          <option value="Under $1M">Under $1M</option>
+          <option value="$1M - $1.5M">$1M – $1.5M</option>
+          <option value="$1.5M - $2M">$1.5M – $2M</option>
+          <option value="$2M - $3M">$2M – $3M</option>
+          <option value="$3M - $5M">$3M – $5M</option>
+          <option value="$5M+">$5M+</option>
+          <option value="Not sure">Not sure yet</option>
+        </select>
+      </div>
+
+      <div class="field">
+        <label>Anything else?</label>
+        <textarea name="notes" placeholder="Timeline, neighborhoods, school preferences..." rows="2"></textarea>
+      </div>
+
+      <button type="submit" class="submit-btn" id="submit-btn">Sign In →</button>
+      <div class="disclaimer">Your information is private and only used by Angelique to help with your real estate needs.</div>
+    </form>
+  </div>
+</div>
+
+<div class="success-screen" id="success-screen">
+  <div class="success-icon">✓</div>
+  <h2>You're all set</h2>
+  <p>Thank you for visiting. Enjoy the tour — I'll follow up with more info on this home and the neighborhood.</p>
+  <a href="data:text/vcard;charset=utf-8,BEGIN%3AVCARD%0AVERSION%3A3.0%0AN%3ALyle%3BAngelique%0AFN%3AAngelique%20Lyle%0AORG%3AAccardo%20Real%20Estate%20Associates%20%C2%B7%20Compass%0ATITLE%3ARealtor%20%C2%B7%20Top%201.5%25%20Nationwide%0AEMAIL%3Aangelique.lyle%40compass.com%0AURL%3Ahttps%3A%2F%2Fownpalosverdes.com%0AADR%3BTYPE%3DWORK%3A%3B%3B550%20Silver%20Spur%20Road%20Suite%20110%3BRancho%20Palos%20Verdes%3BCA%3B90275%3BUSA%0ANOTE%3ACA%20DRE%23%2001475592%0AEND%3AVCARD"
+     download="Angelique_Lyle_Compass.vcf" class="contact-btn">
+    Save My Contact →
+  </a>
+  <button class="reset-btn" id="reset-btn">Next Guest →</button>
+</div>
+
+<div class="footer">
+  Angelique Lyle · CA DRE# 01475592<br>
+  Accardo Real Estate Associates · Compass
+</div>
+
+<script>
+  document.getElementById('hidden-date').value = new Date().toLocaleDateString('en-US', {
+    weekday: 'long', year: 'numeric', month: 'long', day: 'numeric'
+  });
+  document.querySelectorAll('input[name="buyer_type"]').forEach(r => {
+    r.addEventListener('change', () => {
+      document.getElementById('relocating-field').style.display =
+        r.value === 'Relocating to area' ? 'block' : 'none';
+    });
+  });
+  const form = document.getElementById('signin-form');
+  const formScreen = document.getElementById('form-screen');
+  const successScreen = document.getElementById('success-screen');
+  const submitBtn = document.getElementById('submit-btn');
+  form.addEventListener('submit', async (e) => {
+    e.preventDefault();
+    submitBtn.textContent = 'Signing in...';
+    submitBtn.disabled = true;
+    try {
+      const data = new FormData(form);
+      await fetch(form.action, { method: 'POST', body: data, headers: { 'Accept': 'application/json' } });
+    } catch (err) {
+      const entry = {};
+      new FormData(form).forEach((v, k) => entry[k] = v);
+      const saved = JSON.parse(localStorage.getItem('oh_entries') || '[]');
+      saved.push(entry);
+      localStorage.setItem('oh_entries', JSON.stringify(saved));
+    }
+    formScreen.classList.add('hidden');
+    successScreen.classList.add('active');
+  });
+  document.getElementById('reset-btn').addEventListener('click', () => {
+    form.reset();
+    submitBtn.textContent = 'Sign In →';
+    submitBtn.disabled = false;
+    successScreen.classList.remove('active');
+    formScreen.classList.remove('hidden');
+    document.getElementById('relocating-field').style.display = 'none';
+    window.scrollTo(0, 0);
+  });
+  const params = new URLSearchParams(window.location.search);
+  if (params.get('address')) {
+    const addr = decodeURIComponent(params.get('address'));
+    document.getElementById('property-address').textContent = addr;
+    document.getElementById('hidden-address').value = addr;
+  }
+</script>
+</body>
+</html>

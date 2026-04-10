@@ -1,0 +1,110 @@
+<h2>Blueprint Parser Pipeline</h2>
+<p class="subtitle">How should we break down blueprint PDFs into model components?</p>
+
+<div class="section">
+  <h3>Your Blueprint Set — 25 Seacove</h3>
+  <p>18 PDF files spanning 3 eras of construction:</p>
+
+  <div style="display: grid; grid-template-columns: 1fr 1fr 1fr; gap: 16px; margin: 20px 0;">
+    <div style="background: #1a2332; border: 1px solid #2a3a4a; border-radius: 8px; padding: 16px;">
+      <div class="label" style="color: #4a9eff;">1958 Original (Rucker)</div>
+      <ul style="font-size: 14px; margin: 8px 0; padding-left: 16px;">
+        <li>Page 1 — Plot Plan</li>
+        <li>Page 2 — Foundation Plan</li>
+        <li>Page 3 — Floor Plan</li>
+        <li>Page 4 — Exterior Elevations</li>
+        <li>Page 5 — Interior Elevations</li>
+        <li>Page 7 — HVAC Plan</li>
+      </ul>
+    </div>
+    <div style="background: #1a2332; border: 1px solid #2a3a4a; border-radius: 8px; padding: 16px;">
+      <div class="label" style="color: #f5a623;">1960 Addition</div>
+      <ul style="font-size: 14px; margin: 8px 0; padding-left: 16px;">
+        <li>Page 1 — Floor Plan</li>
+        <li>Page 2 — Details</li>
+      </ul>
+      <div class="label" style="color: #f5a623; margin-top: 12px;">Garage Addition</div>
+      <ul style="font-size: 14px; margin: 8px 0; padding-left: 16px;">
+        <li>Page 1 — Plan</li>
+        <li>Page 2 — Details</li>
+        <li>Page 3 — Details</li>
+      </ul>
+    </div>
+    <div style="background: #1a2332; border: 1px solid #2a3a4a; border-radius: 8px; padding: 16px;">
+      <div class="label" style="color: #7ed321;">2020 RPG CAD Remodel</div>
+      <ul style="font-size: 14px; margin: 8px 0; padding-left: 16px;">
+        <li>A1 — Floor Plan</li>
+        <li>A1 — Lyle comments</li>
+        <li>A2 — Elevations/Details</li>
+        <li>Phase 3 plans (×2)</li>
+      </ul>
+      <div class="label" style="color: #7ed321; margin-top: 12px;">Survey</div>
+      <ul style="font-size: 14px; margin: 8px 0; padding-left: 16px;">
+        <li>Site Survey</li>
+      </ul>
+    </div>
+  </div>
+</div>
+
+<div class="section">
+  <h3>The Problem</h3>
+  <p style="font-size: 15px; line-height: 1.6;">
+    A single blueprint page contains dozens of dimensions, annotations, and construction details crammed together.
+    Sending a whole page to vision AI and asking "extract all dimensions" produces unreliable, incomplete results.
+    Faded 1958 hand-drawn plans make it worse.
+  </p>
+</div>
+
+<div class="section">
+  <h3>The Proposed Approach: Surgical Cropping</h3>
+  <div style="display: grid; grid-template-columns: repeat(4, 1fr); gap: 12px; margin: 20px 0;">
+    <div style="background: #0d1117; border: 2px solid #4a9eff; border-radius: 8px; padding: 16px; text-align: center;">
+      <div style="font-size: 28px; margin-bottom: 8px;">📄</div>
+      <div style="font-weight: 600; margin-bottom: 4px;">1. Load Page</div>
+      <div style="font-size: 13px; color: #8b949e;">PDF → high-res image<br>(300 DPI)</div>
+    </div>
+    <div style="background: #0d1117; border: 2px solid #f5a623; border-radius: 8px; padding: 16px; text-align: center;">
+      <div style="font-size: 28px; margin-bottom: 8px;">✂️</div>
+      <div style="font-weight: 600; margin-bottom: 4px;">2. Crop Region</div>
+      <div style="font-size: 13px; color: #8b949e;">Select one detail:<br>a wall, a footing, a window</div>
+    </div>
+    <div style="background: #0d1117; border: 2px solid #7ed321; border-radius: 8px; padding: 16px; text-align: center;">
+      <div style="font-size: 28px; margin-bottom: 8px;">🔍</div>
+      <div style="font-weight: 600; margin-bottom: 4px;">3. Extract</div>
+      <div style="font-size: 13px; color: #8b949e;">Vision AI reads JUST<br>this crop's dimensions</div>
+    </div>
+    <div style="background: #0d1117; border: 2px solid #bd93f9; border-radius: 8px; padding: 16px; text-align: center;">
+      <div style="font-size: 28px; margin-bottom: 8px;">✓</div>
+      <div style="font-weight: 600; margin-bottom: 4px;">4. Verify</div>
+      <div style="font-size: 13px; color: #8b949e;">Human confirms or<br>corrects each reading</div>
+    </div>
+  </div>
+  <p style="font-size: 14px; color: #8b949e; text-align: center;">Repeat for every component on every page → accumulate into spatial model</p>
+</div>
+
+<h3>How granular should the crops be?</h3>
+<p class="subtitle">This determines how many extraction passes per blueprint page</p>
+
+<div class="options">
+  <div class="option" data-choice="a" onclick="toggleSelect(this)">
+    <div class="letter">A</div>
+    <div class="content">
+      <h3>By Construction System</h3>
+      <p>One crop per system per page. Foundation plan → one crop for footings, one for slab, one for stem walls. ~3-6 crops per page.</p>
+    </div>
+  </div>
+  <div class="option" data-choice="b" onclick="toggleSelect(this)">
+    <div class="letter">B</div>
+    <div class="content">
+      <h3>By Individual Element</h3>
+      <p>One crop per wall, per footing, per opening. Foundation plan → one crop per footing run. ~10-20 crops per page. Most accurate but most work.</p>
+    </div>
+  </div>
+  <div class="option" data-choice="c" onclick="toggleSelect(this)">
+    <div class="letter">C</div>
+    <div class="content">
+      <h3>Adaptive — Start Coarse, Zoom In</h3>
+      <p>First pass: whole page overview to identify regions. Second pass: crop each region. Third pass: zoom into problem areas where AI struggled. Let the AI's confidence drive how deep you go.</p>
+    </div>
+  </div>
+</div>

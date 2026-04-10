@@ -1,0 +1,458 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Your Neighborhood, Your Schools — TheHillPV.com</title>
+  <meta name="description" content="Choosing a neighborhood on the Palos Verdes Peninsula means choosing your kid's school path. Here's what that actually looks like, neighborhood by neighborhood.">
+  <style>
+    @import url('https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,600;0,700;1,400&family=Inter:wght@300;400;500;600&display=swap');
+
+    :root {
+      --ocean: #3b6f8a;
+      --ocean-light: #5d94ad;
+      --sand: #f0ebe2;
+      --sand-dark: #ddd5c8;
+      --terracotta: #9e4a2a;
+      --terracotta-light: #c4724a;
+      --sage: #6e8f68;
+      --sage-light: #e6ede5;
+      --charcoal: #2a2622;
+      --warm-white: #f8f5f0;
+      --text: #3a3530;
+      --text-light: #7a7268;
+      --pvphs: #3b6f8a;
+      --pvhs: #6e8f68;
+    }
+
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+    body { font-family: 'Inter', -apple-system, sans-serif; background: var(--warm-white); color: var(--text); line-height: 1.6; }
+
+    /* HEADER */
+    header {
+      background: var(--sand);
+      color: var(--charcoal);
+      position: relative; overflow: hidden;
+      border-bottom: 3px solid var(--terracotta);
+    }
+    .header-top { display: flex; justify-content: space-between; align-items: center; max-width: 1100px; margin: 0 auto; padding: 16px 24px; position: relative; z-index: 1; }
+    .brand { font-family: 'Playfair Display', serif; font-size: 1.4rem; font-weight: 600; }
+    .brand span { color: var(--terracotta); font-weight: 400; }
+    .nav-links { display: flex; gap: 24px; font-size: 0.85rem; font-weight: 500; letter-spacing: 0.03em; text-transform: uppercase; }
+    .nav-links a { color: var(--text-light); text-decoration: none; }
+
+    .hero { max-width: 1100px; margin: 0 auto; padding: 48px 24px 56px; position: relative; z-index: 1; }
+    .hero .label { display: inline-block; background: var(--terracotta); color: white; padding: 6px 16px; border-radius: 4px; font-size: 0.8rem; font-weight: 500; letter-spacing: 0.05em; text-transform: uppercase; margin-bottom: 16px; }
+    .hero h1 { font-family: 'Playfair Display', serif; font-size: 2.6rem; font-weight: 700; line-height: 1.15; margin-bottom: 12px; color: var(--charcoal); }
+    .hero .subtitle { font-size: 1.05rem; font-weight: 400; color: var(--text-light); max-width: 640px; }
+
+    /* CONTENT */
+    .content { max-width: 1100px; margin: 0 auto; padding: 40px 24px; }
+
+    .intro-quote {
+      font-family: 'Playfair Display', serif; font-size: 1.15rem; font-style: italic;
+      color: var(--text-light); max-width: 700px; line-height: 1.7;
+      border-left: 3px solid var(--terracotta); padding-left: 20px; margin-bottom: 40px;
+    }
+    .intro-quote strong { font-style: normal; color: var(--text); }
+
+    /* KEY INSIGHT BOX */
+    .insight-box {
+      background: var(--sand); border-radius: 12px; padding: 28px 32px; margin-bottom: 40px;
+      border-left: 4px solid var(--terracotta);
+    }
+    .insight-box h3 { font-family: 'Playfair Display', serif; font-size: 1.2rem; color: var(--ocean); margin-bottom: 10px; }
+    .insight-box p { font-size: 0.92rem; line-height: 1.7; }
+
+    /* FEEDER DIAGRAM */
+    .feeder-visual {
+      display: grid; grid-template-columns: 1fr 1fr; gap: 32px; margin-bottom: 48px;
+    }
+    .feeder-path {
+      background: white; border-radius: 12px; padding: 28px; border: 1px solid var(--sand-dark);
+    }
+    .feeder-path h3 {
+      font-family: 'Playfair Display', serif; font-size: 1.3rem; margin-bottom: 4px;
+    }
+    .feeder-path .hs-badge {
+      display: inline-block; padding: 3px 12px; border-radius: 4px; font-size: 0.7rem;
+      font-weight: 600; text-transform: uppercase; letter-spacing: 0.04em; margin-bottom: 16px;
+    }
+    .feeder-path .hs-badge.pen { background: #e3ecf4; color: var(--pvphs); }
+    .feeder-path .hs-badge.pvh { background: var(--sage-light); color: var(--pvhs); }
+    .feeder-path .feel { font-size: 0.88rem; color: var(--text-light); font-style: italic; margin-bottom: 16px; }
+
+    .school-step {
+      display: flex; align-items: flex-start; gap: 14px; margin-bottom: 14px;
+      padding-left: 8px; border-left: 2px solid var(--sand-dark); padding-bottom: 14px;
+    }
+    .school-step:last-child { border-left: 2px solid transparent; padding-bottom: 0; margin-bottom: 0; }
+    .step-dot {
+      width: 28px; height: 28px; border-radius: 50%; display: flex; align-items: center;
+      justify-content: center; font-size: 0.7rem; font-weight: 700; color: white; flex-shrink: 0;
+      margin-left: -22px;
+    }
+    .step-dot.elem { background: var(--terracotta); }
+    .step-dot.mid { background: var(--ocean-light); }
+    .step-dot.high { background: var(--ocean); }
+    .step-info h4 { font-size: 0.92rem; font-weight: 600; color: var(--charcoal); }
+    .step-info p { font-size: 0.82rem; color: var(--text-light); line-height: 1.5; margin-top: 2px; }
+
+    /* NEIGHBORHOOD CARDS */
+    .section-title {
+      font-family: 'Playfair Display', serif; font-size: 1.6rem; font-weight: 600;
+      color: var(--ocean); margin: 48px 0 8px;
+    }
+    .section-subtitle { font-size: 0.9rem; color: var(--text-light); margin-bottom: 24px; }
+
+    .neighborhood-card {
+      background: white; border-radius: 12px; padding: 32px; border: 1px solid var(--sand-dark);
+      margin-bottom: 24px; display: grid; grid-template-columns: 1fr 280px; gap: 32px;
+      transition: box-shadow 0.25s;
+    }
+    .neighborhood-card:hover { box-shadow: 0 4px 20px rgba(0,0,0,0.06); }
+
+    .neighborhood-card h3 {
+      font-family: 'Playfair Display', serif; font-size: 1.35rem; margin-bottom: 4px;
+    }
+    .neighborhood-card .city-tag {
+      font-size: 0.72rem; font-weight: 600; text-transform: uppercase;
+      letter-spacing: 0.05em; color: var(--text-light); margin-bottom: 12px;
+    }
+    .neighborhood-card .voice {
+      font-family: 'Playfair Display', serif; font-style: italic;
+      font-size: 0.95rem; color: var(--text); line-height: 1.65;
+      margin-bottom: 16px;
+    }
+    .neighborhood-card .school-chain {
+      display: flex; gap: 6px; align-items: center; flex-wrap: wrap;
+      margin-bottom: 8px;
+    }
+    .school-pill {
+      padding: 4px 12px; border-radius: 16px; font-size: 0.72rem; font-weight: 600;
+      letter-spacing: 0.02em;
+    }
+    .school-pill.elem { background: #fdf0e7; color: var(--terracotta); }
+    .school-pill.mid { background: #e3ecf4; color: var(--ocean-light); }
+    .school-pill.high-pen { background: #e3ecf4; color: var(--pvphs); }
+    .school-pill.high-pvh { background: var(--sage-light); color: var(--pvhs); }
+    .arrow { color: var(--sand-dark); font-size: 0.8rem; }
+
+    .daily-life {
+      background: var(--sand); border-radius: 10px; padding: 20px;
+    }
+    .daily-life h4 {
+      font-size: 0.8rem; font-weight: 600; text-transform: uppercase;
+      letter-spacing: 0.04em; color: var(--ocean); margin-bottom: 10px;
+    }
+    .daily-life-item {
+      font-size: 0.82rem; color: var(--text); line-height: 1.5;
+      padding: 6px 0; border-bottom: 1px solid var(--sand-dark);
+    }
+    .daily-life-item:last-child { border-bottom: none; }
+    .daily-life-item strong { color: var(--charcoal); }
+
+    /* COMPARISON CALLOUT */
+    .comparison {
+      background: var(--ocean); color: white; border-radius: 12px;
+      padding: 36px; margin: 48px 0;
+    }
+    .comparison h3 {
+      font-family: 'Playfair Display', serif; font-size: 1.3rem; margin-bottom: 16px;
+    }
+    .comparison p { font-size: 0.92rem; line-height: 1.7; color: rgba(255,255,255,0.9); }
+    .comparison .compare-grid {
+      display: grid; grid-template-columns: 1fr 1fr; gap: 24px; margin-top: 20px;
+    }
+    .compare-col h4 {
+      font-size: 0.85rem; font-weight: 600; text-transform: uppercase;
+      letter-spacing: 0.04em; margin-bottom: 8px; opacity: 0.7;
+    }
+    .compare-col p { font-size: 0.88rem; line-height: 1.6; }
+
+    /* CTA */
+    .ask-cta {
+      background: var(--charcoal);
+      border-radius: 12px; padding: 48px; color: white; text-align: center; margin: 48px 0;
+    }
+    .ask-cta h2 { font-family: 'Playfair Display', serif; font-size: 1.8rem; margin-bottom: 12px; }
+    .ask-cta p { font-size: 0.95rem; max-width: 500px; margin: 0 auto 24px; color: rgba(255,255,255,0.85); }
+    .ask-cta button {
+      padding: 14px 36px; background: var(--terracotta); color: white; border: none;
+      border-radius: 8px; font-family: 'Inter', sans-serif; font-weight: 600;
+      font-size: 0.95rem; cursor: pointer;
+    }
+
+    /* FOOTER */
+    footer {
+      background: var(--charcoal); color: rgba(255,255,255,0.7); padding: 40px 24px;
+      font-size: 0.82rem; line-height: 1.7;
+    }
+    .footer-inner { max-width: 1100px; margin: 0 auto; }
+    .dre { font-size: 0.72rem; color: rgba(255,255,255,0.4); margin-top: 12px; }
+
+    @media (max-width: 768px) {
+      .hero h1 { font-size: 2rem; }
+      .feeder-visual { grid-template-columns: 1fr; }
+      .neighborhood-card { grid-template-columns: 1fr; }
+      .comparison .compare-grid { grid-template-columns: 1fr; }
+      .nav-links { display: none; }
+    }
+  </style>
+</head>
+<body>
+
+  <header>
+    <div class="header-top">
+      <div class="brand">TheHillPV<span>.com</span></div>
+      <div class="nav-links">
+        <a href="#">Neighborhoods</a>
+        <a href="#">Schools</a>
+        <a href="#">Market</a>
+        <a href="#">This Week</a>
+        <a href="#">Ask Angel</a>
+      </div>
+    </div>
+    <div class="hero">
+      <div class="label">PVPUSD School Guide</div>
+      <h1>Your Neighborhood, Your Schools</h1>
+      <p class="subtitle">On the Hill, where you live determines where your kids go to school. Every school in PVPUSD is excellent — the real question is which neighborhood fits your family's daily life.</p>
+    </div>
+  </header>
+
+  <div class="content">
+
+    <p class="intro-quote">
+      Every parent who calls me starts with the same question: <strong>"Which school is the best?"</strong> And I always say the same thing — they're all good. Genuinely. PVPUSD is the #1 district in LA County. The real question is: <strong>what does your family's daily life look like?</strong> Do your kids walk to school or do you drive? Are you close to their friends? Is the after-school pickup 5 minutes or 25? That's what actually matters — and it all depends on where you live. <strong>— Angelique</strong>
+    </p>
+
+    <div class="insight-box">
+      <h3>The One Thing to Know</h3>
+      <p>On the Palos Verdes Peninsula, your home address determines your elementary school, which determines your middle school, which determines your high school. There are two high schools — <strong>Peninsula High (PVPHS, "Pen")</strong> and <strong>Palos Verdes High (PVHS, "PV High")</strong> — and both are outstanding. If you have a preference, <strong>pick your high school first, then work backwards through the feeder pattern to find your neighborhood.</strong></p>
+    </div>
+
+    <!-- FEEDER PATHS -->
+    <div class="section-title">Two Paths, Both Excellent</div>
+    <div class="section-subtitle">The Peninsula has two high school feeder systems. Here's how they work.</div>
+
+    <div class="feeder-visual">
+      <div class="feeder-path">
+        <h3>The "Pen" Path</h3>
+        <div class="hs-badge pen">PVPHS — Peninsula High</div>
+        <p class="feel">PVE and Rolling Hills Estates families. Slightly smaller feel, strong academics and performing arts reputation.</p>
+        <div class="school-step">
+          <div class="step-dot elem">E</div>
+          <div class="step-info">
+            <h4>Lunada Bay, Montemalaga, Cornerstone, Silver Spur, Dapplegray</h4>
+            <p>Five elementary schools feed into this path. Lunada Bay and Montemalaga are in PVE; the others are in Rolling Hills Estates.</p>
+          </div>
+        </div>
+        <div class="school-step">
+          <div class="step-dot mid">M</div>
+          <div class="step-info">
+            <h4>Malaga Cove Middle or Ridgecrest Intermediate</h4>
+            <p>PVE elementaries feed to Malaga Cove; RHE elementaries feed to Ridgecrest. Both feed to Pen.</p>
+          </div>
+        </div>
+        <div class="school-step">
+          <div class="step-dot high">H</div>
+          <div class="step-info">
+            <h4>Palos Verdes Peninsula High School</h4>
+            <p>Rolling Hills Estates campus. Known for robotics, debate, performing arts, and a tight-knit community feel. ~2,200 students.</p>
+          </div>
+        </div>
+      </div>
+
+      <div class="feeder-path">
+        <h3>The "PV High" Path</h3>
+        <div class="hs-badge pvh">PVHS — Palos Verdes High</div>
+        <p class="feel">RPV families primarily. Larger campus, strong athletics and AP programs, more geographic diversity.</p>
+        <div class="school-step">
+          <div class="step-dot elem">E</div>
+          <div class="step-info">
+            <h4>Mira Catalina, Vista Grande, Rancho Vista, Point Vicente, Soleado</h4>
+            <p>Five RPV elementary schools feed into this path. Spread across the city from Miraleste to the southern coast.</p>
+          </div>
+        </div>
+        <div class="school-step">
+          <div class="step-dot mid">M</div>
+          <div class="step-info">
+            <h4>PV Intermediate (PVI) or Miraleste Intermediate</h4>
+            <p>Southern RPV elementaries feed to PVI; eastern RPV feeds to Miraleste. Both feed to PV High.</p>
+          </div>
+        </div>
+        <div class="school-step">
+          <div class="step-dot high">H</div>
+          <div class="step-info">
+            <h4>Palos Verdes High School</h4>
+            <p>PVE campus (yes, the RPV-feeder high school is in PVE). Strong AP program, athletics, and a larger student body. ~2,400 students.</p>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- NEIGHBORHOOD CARDS -->
+    <div class="section-title">Neighborhood by Neighborhood</div>
+    <div class="section-subtitle">What your family's school path actually looks like — based on where you live.</div>
+
+    <!-- LUNADA BAY -->
+    <div class="neighborhood-card">
+      <div>
+        <h3>Lunada Bay</h3>
+        <div class="city-tag">Palos Verdes Estates</div>
+        <p class="voice">This is the neighborhood I send every young family to look at first. Your kids walk to Lunada Bay Elementary — literally walk, on sidewalks, past their friends' houses. By middle school they know every kid on the block. The school-to-neighborhood bond here is tighter than anywhere else on the Hill. It's the kind of place where the crossing guard knows your name.</p>
+        <div class="school-chain">
+          <span class="school-pill elem">Lunada Bay Elem</span>
+          <span class="arrow">&rarr;</span>
+          <span class="school-pill mid">Malaga Cove Middle</span>
+          <span class="arrow">&rarr;</span>
+          <span class="school-pill high-pen">PVPHS (Pen)</span>
+        </div>
+      </div>
+      <div class="daily-life">
+        <h4>Daily Life</h4>
+        <div class="daily-life-item"><strong>Morning drop-off:</strong> 5-min walk for most families</div>
+        <div class="daily-life-item"><strong>After school:</strong> Kids walk home or to the cove</div>
+        <div class="daily-life-item"><strong>Neighborhood feel:</strong> Everyone knows each other through school</div>
+        <div class="daily-life-item"><strong>Parent culture:</strong> Very active PTA, block parties, holiday traditions</div>
+        <div class="daily-life-item"><strong>The catch:</strong> Premium pricing. You're paying for walkability + the Bay</div>
+      </div>
+    </div>
+
+    <!-- MALAGA COVE / VALMONTE -->
+    <div class="neighborhood-card">
+      <div>
+        <h3>Malaga Cove & Valmonte</h3>
+        <div class="city-tag">Palos Verdes Estates</div>
+        <p class="voice">Montemalaga Elementary is small and it stays small — your kid's class might be 20-25 students, and they'll know all of them for years. Valmonte families are a short drive up, and Malaga Cove Middle is right in the neighborhood. This part of PVE has the Olmsted-planned feel — winding streets, big trees, the historic plaza. It's quieter than Lunada Bay but just as connected.</p>
+        <div class="school-chain">
+          <span class="school-pill elem">Montemalaga Elem</span>
+          <span class="arrow">&rarr;</span>
+          <span class="school-pill mid">Malaga Cove Middle</span>
+          <span class="arrow">&rarr;</span>
+          <span class="school-pill high-pen">PVPHS (Pen)</span>
+        </div>
+      </div>
+      <div class="daily-life">
+        <h4>Daily Life</h4>
+        <div class="daily-life-item"><strong>Morning drop-off:</strong> Short drive or walk depending on the street</div>
+        <div class="daily-life-item"><strong>After school:</strong> Malaga Cove Plaza for ice cream run</div>
+        <div class="daily-life-item"><strong>Neighborhood feel:</strong> Old PVE — established families, big lots</div>
+        <div class="daily-life-item"><strong>Parent culture:</strong> Close-knit; small school = you know every parent</div>
+        <div class="daily-life-item"><strong>The catch:</strong> Fewer kids per block than Lunada Bay; playdates require more driving</div>
+      </div>
+    </div>
+
+    <!-- ROLLING HILLS ESTATES -->
+    <div class="neighborhood-card">
+      <div>
+        <h3>Rolling Hills Estates</h3>
+        <div class="city-tag">Rolling Hills Estates — Peninsula Center Area</div>
+        <p class="voice">RHE is where a lot of families land when they want great schools at a more accessible price point than PVE. Cornerstone, Silver Spur, and Dapplegray are all solid — and they all feed to Ridgecrest, which feeds to Pen. The Peninsula Center area means you're close to everything: the farmers market, the shopping, the library. It's the practical choice that doesn't feel like a compromise.</p>
+        <div class="school-chain">
+          <span class="school-pill elem">Cornerstone / Silver Spur / Dapplegray</span>
+          <span class="arrow">&rarr;</span>
+          <span class="school-pill mid">Ridgecrest Intermediate</span>
+          <span class="arrow">&rarr;</span>
+          <span class="school-pill high-pen">PVPHS (Pen)</span>
+        </div>
+      </div>
+      <div class="daily-life">
+        <h4>Daily Life</h4>
+        <div class="daily-life-item"><strong>Morning drop-off:</strong> 5-10 min drive for most; some can walk</div>
+        <div class="daily-life-item"><strong>After school:</strong> Ernie Howlett Park, Peninsula Center shopping</div>
+        <div class="daily-life-item"><strong>Neighborhood feel:</strong> Family-first, active, community sports leagues</div>
+        <div class="daily-life-item"><strong>Parent culture:</strong> Strong booster clubs, youth sports focus</div>
+        <div class="daily-life-item"><strong>The catch:</strong> More suburban feel; less of the ocean-bluff romance of PVE/RPV</div>
+      </div>
+    </div>
+
+    <!-- WESTERN RPV -->
+    <div class="neighborhood-card">
+      <div>
+        <h3>Portuguese Bend & Point Vicente</h3>
+        <div class="city-tag">Rancho Palos Verdes — Western RPV</div>
+        <p class="voice">The views out here are unreal — Catalina on a clear day, the lighthouse, the open space. Point Vicente Elementary has an ocean view from the campus. Your kids grow up with more sky and more space than anywhere else on the Hill. The trade-off is distance — you're driving a bit more for everything. But families who choose this side of RPV chose it for a reason, and they never look back.</p>
+        <div class="school-chain">
+          <span class="school-pill elem">Point Vicente Elem</span>
+          <span class="arrow">&rarr;</span>
+          <span class="school-pill mid">Miraleste Intermediate</span>
+          <span class="arrow">&rarr;</span>
+          <span class="school-pill high-pvh">PVHS (PV High)</span>
+        </div>
+      </div>
+      <div class="daily-life">
+        <h4>Daily Life</h4>
+        <div class="daily-life-item"><strong>Morning drop-off:</strong> 5-15 min drive depending on where in the area</div>
+        <div class="daily-life-item"><strong>After school:</strong> Trails, PVPLC preserves, wide open space</div>
+        <div class="daily-life-item"><strong>Neighborhood feel:</strong> Rural California 30 min from LAX. Equestrian trails.</div>
+        <div class="daily-life-item"><strong>Parent culture:</strong> Outdoor families, conservation-minded</div>
+        <div class="daily-life-item"><strong>The catch:</strong> More isolated; fewer kids walking distance for spontaneous play</div>
+      </div>
+    </div>
+
+    <!-- CENTRAL/EASTERN RPV -->
+    <div class="neighborhood-card">
+      <div>
+        <h3>Miraleste & Central RPV</h3>
+        <div class="city-tag">Rancho Palos Verdes — Eastern RPV</div>
+        <p class="voice">Miraleste is RPV's most neighborhood-y neighborhood. Vista Grande, Rancho Vista, and Mira Catalina serve this area — good schools, steady families, and the most affordable entry point on the Peninsula. You're closer to San Pedro and the harbor, which means more dining options and a different energy than upper PV. Still PVPUSD. Still the Hill.</p>
+        <div class="school-chain">
+          <span class="school-pill elem">Vista Grande / Rancho Vista / Mira Catalina</span>
+          <span class="arrow">&rarr;</span>
+          <span class="school-pill mid">Miraleste or PVI</span>
+          <span class="arrow">&rarr;</span>
+          <span class="school-pill high-pvh">PVHS (PV High)</span>
+        </div>
+      </div>
+      <div class="daily-life">
+        <h4>Daily Life</h4>
+        <div class="daily-life-item"><strong>Morning drop-off:</strong> Short drive; some walking neighborhoods</div>
+        <div class="daily-life-item"><strong>After school:</strong> Parks, nearby San Pedro harbor area</div>
+        <div class="daily-life-item"><strong>Neighborhood feel:</strong> Diverse, established, good value</div>
+        <div class="daily-life-item"><strong>Parent culture:</strong> Grounded, less status-conscious than upper PV</div>
+        <div class="daily-life-item"><strong>The catch:</strong> Less "prestige" cachet; but the schools are the same district</div>
+      </div>
+    </div>
+
+    <!-- PEN vs PV HIGH -->
+    <div class="comparison">
+      <h3>Pen vs. PV High — The Honest Comparison</h3>
+      <p>Both are in PVPUSD. Both are excellent. The choice is feel, not quality.</p>
+      <div class="compare-grid">
+        <div class="compare-col">
+          <h4>PVPHS — "Pen"</h4>
+          <p>Rolling Hills Estates campus. ~2,200 students. Known for robotics, debate, performing arts, and a strong academic culture. Draws from PVE and RHE — tends to be a slightly more homogeneous student body. The campus has a "small town high school" energy. Friday night football at Pen is a community event.</p>
+        </div>
+        <div class="compare-col">
+          <h4>PVHS — "PV High"</h4>
+          <p>Palos Verdes Estates campus (despite being the RPV feeder). ~2,400 students. Strong AP program, athletics — especially water polo, tennis, and track. More geographic diversity in the student body. Bigger-school energy. The campus sits above the coast and the views from the athletic fields are genuinely stunning.</p>
+        </div>
+      </div>
+    </div>
+
+    <!-- PRIVATE SCHOOLS NOTE -->
+    <div class="insight-box">
+      <h3>What About Private Schools?</h3>
+      <p>Some families look at <strong>Chadwick School</strong> (K-12 in RPV, ~$45K/year) — it's excellent and progressive. <strong>Rolling Hills Prep</strong> and <strong>Peninsula Heritage</strong> are smaller options. But here's the thing: most families who move to the Hill for the schools end up in PVPUSD. The public schools are genuinely that good, and being in the district school means your kids' friends are their neighbors. That's the real value — not just the education, but the community that comes with it.</p>
+    </div>
+
+    <!-- ASK ANGEL CTA -->
+    <div class="ask-cta">
+      <h2>Still Deciding?</h2>
+      <p>Tell me about your family and I'll help you narrow down which neighborhoods make sense — based on your commute, your budget, and what matters most to your kids.</p>
+      <button>Ask Angel</button>
+    </div>
+
+  </div>
+
+  <footer>
+    <div class="footer-inner">
+      <p><strong>TheHillPV.com</strong> — Life above the Pacific.</p>
+      <p>Angelique Lyle · Accardo Real Estate Associates at Compass</p>
+      <p class="dre">CA DRE# 01475592 · Compass · 550 Silver Spur Road, Suite 110, Rancho Palos Verdes, CA 90275</p>
+    </div>
+  </footer>
+
+</body>
+</html>

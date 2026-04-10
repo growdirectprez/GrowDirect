@@ -1,0 +1,878 @@
+/*
+ * ═══════════════════════════════════════════════════════════════
+ *  ANGELIQUE LYLE — LP DESIGN OVERRIDE
+ *  Injected via Luxury Presence → Global Scripts → Head JavaScript
+ *  Paste into: LP Global Scripts > Head JavaScript (wrapped in style tags)
+ *
+ *  Design system: ownpalosverdes_v2.html prototype
+ *  Strategy: Override LP's Starter template classes with custom
+ *            design tokens and component styles.
+ * ═══════════════════════════════════════════════════════════════
+ */
+
+/* ── DESIGN TOKENS ─────────────────────────────────────────── */
+:root {
+  --al-black: #000000;
+  --al-near-black: #1A1A1A;
+  --al-gray-900: #222222;
+  --al-gray-800: #333333;
+  --al-gray-600: #666666;
+  --al-gray-400: #999999;
+  --al-gray-200: #E0E0E0;
+  --al-gray-100: #F2F2F2;
+  --al-off-white: #F7F7F7;
+  --al-white: #FFFFFF;
+  --al-heading: 'DM Serif Display', Georgia, serif;
+  --al-body: 'DM Sans', system-ui, sans-serif;
+}
+
+/* ── GLOBAL RESETS ─────────────────────────────────────────── */
+/* Override LP's default fonts with our design system */
+body,
+body *:not([class*="fa-"]):not([class*="icon"]):not(.material-icons) {
+  font-family: var(--al-body) !important;
+}
+
+h1, h2, h3, h4, h5, h6,
+.section-title,
+[class*="heading"],
+[class*="title"] {
+  font-family: var(--al-heading) !important;
+  font-weight: 400 !important;
+}
+
+html {
+  scroll-behavior: smooth;
+}
+
+body {
+  color: var(--al-near-black);
+  overflow-x: hidden;
+}
+
+/* ── TYPOGRAPHY SCALE ──────────────────────────────────────── */
+/* Eyebrow / Tag pattern — uppercase micro labels */
+.al-tag,
+.al-eyebrow {
+  font-size: 0.65rem !important;
+  letter-spacing: 0.2em !important;
+  text-transform: uppercase !important;
+  color: var(--al-gray-600) !important;
+  font-family: var(--al-body) !important;
+  font-weight: 500 !important;
+  display: flex !important;
+  align-items: center !important;
+  gap: 0.75rem !important;
+  margin-bottom: 1rem !important;
+}
+
+.al-tag::before,
+.al-eyebrow::before {
+  content: '' !important;
+  display: block !important;
+  width: 28px !important;
+  height: 1px !important;
+  background: var(--al-gray-600) !important;
+}
+
+/* Section headings — DM Serif Display, large, italic em */
+.al-section-heading {
+  font-family: var(--al-heading) !important;
+  font-size: clamp(2rem, 3.5vw, 2.8rem) !important;
+  font-weight: 400 !important;
+  line-height: 1.15 !important;
+  color: var(--al-black) !important;
+  margin-bottom: 1.5rem !important;
+}
+
+.al-section-heading em {
+  font-style: italic !important;
+}
+
+/* Body text */
+.al-body-text {
+  font-size: 0.92rem !important;
+  line-height: 1.85 !important;
+  color: var(--al-gray-800) !important;
+  font-weight: 300 !important;
+  margin-bottom: 1rem !important;
+}
+
+/* ── NAVIGATION OVERRIDE ───────────────────────────────────── */
+/* LP nav → fixed, blur backdrop, thin bottom border */
+header,
+nav,
+.site-header,
+[class*="navbar"],
+[class*="navigation"],
+[class*="header-wrapper"] {
+  position: fixed !important;
+  top: 0 !important;
+  left: 0 !important;
+  right: 0 !important;
+  z-index: 100 !important;
+  background: rgba(255, 255, 255, 0.95) !important;
+  backdrop-filter: blur(12px) !important;
+  -webkit-backdrop-filter: blur(12px) !important;
+  border-bottom: 1px solid var(--al-gray-200) !important;
+  box-shadow: none !important;
+  transition: box-shadow 0.3s ease !important;
+  height: 68px !important;
+  padding: 0 3rem !important;
+}
+
+/* Scrolled state — added via JS */
+header.al-scrolled,
+nav.al-scrolled,
+.site-header.al-scrolled {
+  box-shadow: 0 2px 12px rgba(0, 0, 0, 0.08) !important;
+}
+
+/* Nav logo text */
+.site-header a[class*="logo"],
+.navbar-brand,
+[class*="site-logo"] {
+  font-family: var(--al-heading) !important;
+  font-size: 1.1rem !important;
+  color: var(--al-black) !important;
+  letter-spacing: 0.02em !important;
+  text-decoration: none !important;
+}
+
+/* Nav links */
+.site-header a:not([class*="logo"]):not([class*="btn"]),
+nav a:not([class*="logo"]):not([class*="btn"]),
+[class*="nav-link"],
+[class*="menu-item"] a {
+  font-size: 0.72rem !important;
+  letter-spacing: 0.12em !important;
+  text-transform: uppercase !important;
+  color: var(--al-gray-600) !important;
+  text-decoration: none !important;
+  font-weight: 500 !important;
+  font-family: var(--al-body) !important;
+  transition: color 0.2s ease !important;
+}
+
+.site-header a:not([class*="logo"]):not([class*="btn"]):hover,
+nav a:not([class*="logo"]):not([class*="btn"]):hover,
+[class*="nav-link"]:hover,
+[class*="menu-item"] a:hover {
+  color: var(--al-black) !important;
+}
+
+/* CTA button in nav */
+header [class*="btn"],
+header [class*="cta"],
+nav [class*="btn"],
+nav [class*="cta"] {
+  font-size: 0.72rem !important;
+  letter-spacing: 0.1em !important;
+  text-transform: uppercase !important;
+  padding: 9px 20px !important;
+  border: 1px solid var(--al-black) !important;
+  color: var(--al-black) !important;
+  background: none !important;
+  font-family: var(--al-body) !important;
+  font-weight: 600 !important;
+  border-radius: 0 !important;
+  transition: background 0.2s, color 0.2s !important;
+}
+
+header [class*="btn"]:hover,
+header [class*="cta"]:hover,
+nav [class*="btn"]:hover,
+nav [class*="cta"]:hover {
+  background: var(--al-black) !important;
+  color: var(--al-white) !important;
+}
+
+/* ── BUTTON SYSTEM ─────────────────────────────────────────── */
+/* Primary — solid black */
+.al-btn-primary,
+.btn-primary {
+  font-size: 0.72rem !important;
+  letter-spacing: 0.1em !important;
+  text-transform: uppercase !important;
+  padding: 12px 24px !important;
+  background: var(--al-black) !important;
+  color: var(--al-white) !important;
+  border: none !important;
+  border-radius: 0 !important;
+  font-family: var(--al-body) !important;
+  font-weight: 600 !important;
+  cursor: pointer !important;
+  transition: background 0.2s, transform 0.15s !important;
+}
+
+.al-btn-primary:hover,
+.btn-primary:hover {
+  background: var(--al-gray-800) !important;
+  transform: translateY(-1px) !important;
+}
+
+/* Ghost — outline on dark bg */
+.al-btn-ghost,
+.btn-ghost {
+  font-size: 0.72rem !important;
+  letter-spacing: 0.1em !important;
+  text-transform: uppercase !important;
+  padding: 12px 24px !important;
+  border: 1px solid var(--al-gray-600) !important;
+  color: var(--al-white) !important;
+  background: none !important;
+  border-radius: 0 !important;
+  font-family: var(--al-body) !important;
+  font-weight: 600 !important;
+  cursor: pointer !important;
+  transition: border-color 0.2s, color 0.2s !important;
+}
+
+.al-btn-ghost:hover,
+.btn-ghost:hover {
+  border-color: var(--al-white) !important;
+  color: var(--al-white) !important;
+}
+
+/* Outline — on light bg */
+.al-btn-outline {
+  font-size: 0.72rem !important;
+  letter-spacing: 0.1em !important;
+  text-transform: uppercase !important;
+  padding: 10px 20px !important;
+  border: 1px solid var(--al-black) !important;
+  color: var(--al-black) !important;
+  background: none !important;
+  border-radius: 0 !important;
+  font-family: var(--al-body) !important;
+  font-weight: 600 !important;
+  text-decoration: none !important;
+  display: inline-block !important;
+  cursor: pointer !important;
+  transition: background 0.2s, color 0.2s !important;
+}
+
+.al-btn-outline:hover {
+  background: var(--al-black) !important;
+  color: var(--al-white) !important;
+}
+
+/* View-all link pattern — small uppercase with underline */
+.al-view-all {
+  font-size: 0.72rem !important;
+  letter-spacing: 0.1em !important;
+  text-transform: uppercase !important;
+  text-decoration: none !important;
+  border-bottom: 1px solid var(--al-gray-600) !important;
+  padding-bottom: 2px !important;
+  white-space: nowrap !important;
+  transition: opacity 0.2s !important;
+}
+
+.al-view-all:hover {
+  opacity: 0.7 !important;
+}
+
+/* ── HERO SECTION OVERRIDE ─────────────────────────────────── */
+/* Target LP's hero/banner section — convert to split grid */
+[class*="hero"],
+[class*="banner"],
+.site-hero,
+[class*="masthead"] {
+  min-height: 100vh !important;
+  position: relative !important;
+  overflow: hidden !important;
+}
+
+/* ── SECTION BACKGROUNDS ───────────────────────────────────── */
+/* Alternating section pattern from prototype */
+.al-section-dark {
+  background: var(--al-black) !important;
+  color: var(--al-white) !important;
+  padding: 7rem 3rem !important;
+}
+
+.al-section-dark .al-tag,
+.al-section-dark .al-eyebrow {
+  color: var(--al-gray-400) !important;
+}
+
+.al-section-dark .al-tag::before,
+.al-section-dark .al-eyebrow::before {
+  background: var(--al-gray-600) !important;
+}
+
+.al-section-dark .al-section-heading {
+  color: var(--al-white) !important;
+}
+
+.al-section-light {
+  background: var(--al-white) !important;
+  padding: 7rem 3rem !important;
+}
+
+.al-section-muted {
+  background: var(--al-off-white) !important;
+  padding: 7rem 3rem !important;
+}
+
+/* ── NEIGHBORHOOD CARDS (1px-gap grid) ─────────────────────── */
+.al-grid-1px {
+  display: grid !important;
+  gap: 1px !important;
+  max-width: 1100px !important;
+  margin: 0 auto !important;
+}
+
+.al-grid-1px.cols-3 {
+  grid-template-columns: repeat(3, 1fr) !important;
+}
+
+.al-grid-1px.cols-2 {
+  grid-template-columns: repeat(2, 1fr) !important;
+}
+
+/* Hood card pattern */
+.al-hood-card {
+  position: relative !important;
+  overflow: hidden !important;
+  aspect-ratio: 4/5 !important;
+  display: flex !important;
+  flex-direction: column !important;
+  justify-content: flex-end !important;
+  text-decoration: none !important;
+}
+
+.al-hood-card img {
+  position: absolute !important;
+  inset: 0 !important;
+  width: 100% !important;
+  height: 100% !important;
+  object-fit: cover !important;
+  transition: transform 0.6s ease, filter 0.4s !important;
+  filter: saturate(0.85) brightness(0.75) !important;
+}
+
+.al-hood-card:hover img {
+  transform: scale(1.04) !important;
+  filter: saturate(1) brightness(0.85) !important;
+}
+
+.al-hood-card-content {
+  position: relative !important;
+  z-index: 2 !important;
+  padding: 1.5rem !important;
+  background: linear-gradient(transparent, rgba(0, 0, 0, 0.85)) !important;
+}
+
+.al-hood-card-tag {
+  font-size: 0.6rem !important;
+  letter-spacing: 0.15em !important;
+  text-transform: uppercase !important;
+  color: var(--al-gray-400) !important;
+  margin-bottom: 0.4rem !important;
+}
+
+.al-hood-card-name {
+  font-family: var(--al-heading) !important;
+  font-size: 1.2rem !important;
+  color: var(--al-white) !important;
+  font-weight: 400 !important;
+  margin-bottom: 0.2rem !important;
+}
+
+.al-hood-card-price {
+  font-size: 0.72rem !important;
+  color: var(--al-gray-400) !important;
+  letter-spacing: 0.04em !important;
+}
+
+.al-hood-card-arrow {
+  position: absolute !important;
+  top: 1.25rem !important;
+  right: 1.25rem !important;
+  z-index: 2 !important;
+  width: 32px !important;
+  height: 32px !important;
+  border: 1px solid rgba(255, 255, 255, 0.2) !important;
+  display: flex !important;
+  align-items: center !important;
+  justify-content: center !important;
+  color: var(--al-white) !important;
+  font-size: 0.9rem !important;
+  opacity: 0 !important;
+  transform: translateY(4px) !important;
+  transition: opacity 0.3s, transform 0.3s !important;
+}
+
+.al-hood-card:hover .al-hood-card-arrow {
+  opacity: 1 !important;
+  transform: translateY(0) !important;
+}
+
+/* ── LISTING CARDS ─────────────────────────────────────────── */
+.al-listing-card {
+  background: var(--al-white) !important;
+  text-decoration: none !important;
+  display: flex !important;
+  flex-direction: column !important;
+  transition: box-shadow 0.25s !important;
+}
+
+.al-listing-card:hover {
+  box-shadow: 0 8px 32px rgba(0, 0, 0, 0.12) !important;
+}
+
+.al-listing-card .listing-img-wrap {
+  overflow: hidden !important;
+}
+
+.al-listing-card img {
+  width: 100% !important;
+  aspect-ratio: 4/3 !important;
+  object-fit: cover !important;
+  display: block !important;
+  transition: transform 0.5s !important;
+}
+
+.al-listing-card:hover img {
+  transform: scale(1.03) !important;
+}
+
+.al-listing-body {
+  padding: 1.25rem !important;
+  flex: 1 !important;
+}
+
+.al-listing-price {
+  font-family: var(--al-heading) !important;
+  font-size: 1.3rem !important;
+  color: var(--al-black) !important;
+  margin-bottom: 0.3rem !important;
+}
+
+.al-listing-addr {
+  font-size: 0.8rem !important;
+  color: var(--al-gray-800) !important;
+  margin-bottom: 0.75rem !important;
+}
+
+.al-listing-meta {
+  display: flex !important;
+  gap: 1rem !important;
+}
+
+.al-listing-meta span {
+  font-size: 0.7rem !important;
+  color: var(--al-gray-600) !important;
+  letter-spacing: 0.05em !important;
+}
+
+.al-listing-tag {
+  display: inline-block !important;
+  margin-top: 1rem !important;
+  font-size: 0.6rem !important;
+  letter-spacing: 0.12em !important;
+  text-transform: uppercase !important;
+  padding: 4px 10px !important;
+  background: var(--al-black) !important;
+  color: var(--al-white) !important;
+}
+
+/* ── LP LISTING/IDX OVERRIDES ──────────────────────────────── */
+/* Override LP's built-in listing card styling */
+[class*="listing-card"],
+[class*="property-card"],
+.property-item {
+  border-radius: 0 !important;
+  border: none !important;
+  box-shadow: none !important;
+}
+
+[class*="listing-card"]:hover,
+[class*="property-card"]:hover,
+.property-item:hover {
+  box-shadow: 0 8px 32px rgba(0, 0, 0, 0.12) !important;
+}
+
+[class*="listing-card"] [class*="price"],
+[class*="property-card"] [class*="price"] {
+  font-family: var(--al-heading) !important;
+  font-weight: 400 !important;
+  color: var(--al-black) !important;
+}
+
+[class*="listing-card"] [class*="address"],
+[class*="property-card"] [class*="address"] {
+  font-family: var(--al-body) !important;
+  font-size: 0.8rem !important;
+  color: var(--al-gray-800) !important;
+}
+
+/* ── HISTORY SEAM (scrolling ticker) ───────────────────────── */
+.al-history-seam {
+  background: var(--al-near-black) !important;
+  overflow: hidden !important;
+  display: flex !important;
+  align-items: center !important;
+  gap: 3rem !important;
+  padding: 0 3rem !important;
+  height: 72px !important;
+  white-space: nowrap !important;
+}
+
+.al-seam-label {
+  font-size: 0.62rem !important;
+  letter-spacing: 0.18em !important;
+  text-transform: uppercase !important;
+  color: var(--al-gray-600) !important;
+  flex-shrink: 0 !important;
+  font-weight: 600 !important;
+  display: flex !important;
+  align-items: center !important;
+  gap: 0.75rem !important;
+}
+
+.al-seam-label::after {
+  content: '' !important;
+  display: block !important;
+  width: 24px !important;
+  height: 1px !important;
+  background: var(--al-gray-600) !important;
+}
+
+.al-seam-scroll {
+  display: flex !important;
+  gap: 2rem !important;
+  animation: al-seam-scroll 28s linear infinite !important;
+}
+
+.al-seam-scroll span {
+  font-size: 0.7rem !important;
+  letter-spacing: 0.08em !important;
+  text-transform: uppercase !important;
+  color: var(--al-gray-600) !important;
+  opacity: 0.7 !important;
+}
+
+@keyframes al-seam-scroll {
+  from { transform: translateX(0); }
+  to { transform: translateX(-50%); }
+}
+
+/* ── TESTIMONIAL CARDS ─────────────────────────────────────── */
+.al-test-card {
+  background: var(--al-white) !important;
+  padding: 2rem 2rem 1.75rem !important;
+  position: relative !important;
+}
+
+.al-test-card::before {
+  content: '\201C' !important;
+  font-family: var(--al-heading) !important;
+  font-size: 5rem !important;
+  line-height: 1 !important;
+  color: var(--al-gray-200) !important;
+  position: absolute !important;
+  top: 0.5rem !important;
+  left: 1.5rem !important;
+}
+
+.al-test-quote {
+  font-family: var(--al-heading) !important;
+  font-size: 0.98rem !important;
+  font-style: italic !important;
+  line-height: 1.7 !important;
+  color: var(--al-black) !important;
+  padding-top: 1.5rem !important;
+  position: relative !important;
+  z-index: 1 !important;
+}
+
+.al-test-footer {
+  display: flex !important;
+  align-items: center !important;
+  justify-content: space-between !important;
+  margin-top: 1.25rem !important;
+}
+
+.al-test-name {
+  font-size: 0.7rem !important;
+  letter-spacing: 0.1em !important;
+  text-transform: uppercase !important;
+  color: var(--al-gray-800) !important;
+}
+
+.al-test-stars {
+  color: var(--al-black) !important;
+  font-size: 0.75rem !important;
+  letter-spacing: 0.1em !important;
+}
+
+/* ── FORM OVERRIDES ────────────────────────────────────────── */
+/* Override LP's form styling globally */
+input[type="text"],
+input[type="email"],
+input[type="tel"],
+input[type="number"],
+select,
+textarea {
+  background: var(--al-white) !important;
+  border: 1px solid var(--al-gray-200) !important;
+  border-radius: 0 !important;
+  padding: 12px 14px !important;
+  color: var(--al-black) !important;
+  font-family: var(--al-body) !important;
+  font-size: 0.85rem !important;
+  outline: none !important;
+  transition: border-color 0.2s !important;
+  width: 100% !important;
+}
+
+input:focus,
+select:focus,
+textarea:focus {
+  border-color: var(--al-black) !important;
+}
+
+input::placeholder,
+textarea::placeholder {
+  color: var(--al-gray-600) !important;
+}
+
+/* Dark form variant (welcome guide card) */
+.al-dark-form input,
+.al-dark-form select {
+  background: var(--al-gray-900) !important;
+  border: 1px solid var(--al-gray-800) !important;
+  color: var(--al-white) !important;
+}
+
+.al-dark-form input::placeholder {
+  color: var(--al-gray-600) !important;
+}
+
+.al-dark-form input:focus,
+.al-dark-form select:focus {
+  border-color: var(--al-gray-600) !important;
+}
+
+/* Submit buttons in forms */
+[type="submit"],
+button[class*="submit"],
+.form-submit {
+  background: var(--al-black) !important;
+  color: var(--al-white) !important;
+  border: none !important;
+  border-radius: 0 !important;
+  padding: 14px !important;
+  font-family: var(--al-body) !important;
+  font-size: 0.72rem !important;
+  letter-spacing: 0.12em !important;
+  text-transform: uppercase !important;
+  font-weight: 600 !important;
+  cursor: pointer !important;
+  transition: background 0.2s !important;
+  width: 100% !important;
+}
+
+[type="submit"]:hover,
+button[class*="submit"]:hover,
+.form-submit:hover {
+  background: var(--al-gray-800) !important;
+}
+
+/* ── CONTACT SECTION ───────────────────────────────────────── */
+.al-contact-icon {
+  width: 36px !important;
+  height: 36px !important;
+  border: 1px solid var(--al-gray-800) !important;
+  display: flex !important;
+  align-items: center !important;
+  justify-content: center !important;
+  color: var(--al-gray-400) !important;
+  font-size: 0.9rem !important;
+  flex-shrink: 0 !important;
+}
+
+.al-contact-label {
+  display: block !important;
+  font-size: 0.65rem !important;
+  letter-spacing: 0.12em !important;
+  text-transform: uppercase !important;
+  color: var(--al-white) !important;
+  margin-bottom: 2px !important;
+  font-weight: 600 !important;
+}
+
+.al-contact-value {
+  font-size: 0.83rem !important;
+  color: var(--al-gray-400) !important;
+  line-height: 1.6 !important;
+}
+
+/* ── FOOTER OVERRIDE ───────────────────────────────────────── */
+footer,
+[class*="footer"],
+.site-footer {
+  background: var(--al-near-black) !important;
+  color: var(--al-white) !important;
+  padding: 3rem !important;
+  border-radius: 0 !important;
+}
+
+footer a,
+[class*="footer"] a,
+.site-footer a {
+  color: var(--al-gray-600) !important;
+  text-decoration: none !important;
+  font-size: 0.78rem !important;
+  transition: color 0.2s !important;
+}
+
+footer a:hover,
+[class*="footer"] a:hover,
+.site-footer a:hover {
+  color: var(--al-white) !important;
+}
+
+/* ── MODAL SYSTEM ──────────────────────────────────────────── */
+.al-modal-overlay {
+  display: none !important;
+  position: fixed !important;
+  inset: 0 !important;
+  z-index: 500 !important;
+  background: rgba(0, 0, 0, 0.7) !important;
+  backdrop-filter: blur(4px) !important;
+  -webkit-backdrop-filter: blur(4px) !important;
+  align-items: center !important;
+  justify-content: center !important;
+}
+
+.al-modal-overlay.active {
+  display: flex !important;
+}
+
+.al-modal {
+  background: var(--al-white) !important;
+  max-width: 520px !important;
+  width: 90% !important;
+  padding: 3rem !important;
+  position: relative !important;
+  animation: al-modal-in 0.35s ease !important;
+}
+
+@keyframes al-modal-in {
+  from { opacity: 0; transform: translateY(20px); }
+  to { opacity: 1; transform: none; }
+}
+
+.al-modal-close {
+  position: absolute !important;
+  top: 1.25rem !important;
+  right: 1.25rem !important;
+  background: none !important;
+  border: none !important;
+  font-size: 1.2rem !important;
+  color: var(--al-gray-600) !important;
+  cursor: pointer !important;
+  line-height: 1 !important;
+  padding: 4px !important;
+}
+
+.al-modal-close:hover {
+  color: var(--al-black) !important;
+}
+
+.al-modal-title {
+  font-family: var(--al-heading) !important;
+  font-size: 1.6rem !important;
+  color: var(--al-black) !important;
+  margin-bottom: 0.5rem !important;
+}
+
+.al-modal-body {
+  font-size: 0.85rem !important;
+  color: var(--al-gray-800) !important;
+  line-height: 1.7 !important;
+  margin-bottom: 1.5rem !important;
+}
+
+/* ── SCROLL REVEALS ────────────────────────────────────────── */
+.al-reveal {
+  opacity: 0 !important;
+  transform: translateY(28px) !important;
+  transition: opacity 0.7s ease, transform 0.7s ease !important;
+}
+
+.al-reveal.al-visible {
+  opacity: 1 !important;
+  transform: none !important;
+}
+
+.al-reveal-delay-1 { transition-delay: 0.1s !important; }
+.al-reveal-delay-2 { transition-delay: 0.2s !important; }
+.al-reveal-delay-3 { transition-delay: 0.3s !important; }
+
+/* ── GLOBAL LP OVERRIDES ───────────────────────────────────── */
+/* Kill border-radius everywhere — our design is sharp/square */
+*,
+*::before,
+*::after {
+  border-radius: 0 !important;
+}
+
+/* Remove LP's box shadows */
+[class*="card"],
+[class*="section"],
+[class*="widget"] {
+  box-shadow: none !important;
+}
+
+/* Max-width container pattern */
+.al-container {
+  max-width: 1100px !important;
+  margin: 0 auto !important;
+}
+
+/* ── RESPONSIVE ────────────────────────────────────────────── */
+@media (max-width: 900px) {
+  .al-grid-1px.cols-3 {
+    grid-template-columns: repeat(2, 1fr) !important;
+  }
+
+  .al-grid-1px.cols-2 {
+    grid-template-columns: 1fr !important;
+  }
+
+  header,
+  nav,
+  .site-header,
+  [class*="navbar"] {
+    padding: 0 1.5rem !important;
+  }
+
+  .al-section-dark,
+  .al-section-light,
+  .al-section-muted {
+    padding: 4rem 1.5rem !important;
+  }
+
+  .al-section-heading {
+    font-size: clamp(1.8rem, 5vw, 2.4rem) !important;
+  }
+}
+
+@media (max-width: 600px) {
+  .al-grid-1px.cols-3 {
+    grid-template-columns: 1fr !important;
+  }
+
+  header,
+  nav,
+  .site-header,
+  [class*="navbar"] {
+    height: 56px !important;
+    padding: 0 1rem !important;
+  }
+}
