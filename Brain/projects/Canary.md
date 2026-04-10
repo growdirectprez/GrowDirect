@@ -1,0 +1,76 @@
+---
+type: project-moc
+status: beta
+tags: [canary, fraud-detection, saas]
+---
+
+# Canary
+
+Merchant fraud detection and analytics platform. Square integration, MCP architecture, AI-powered detection rules.
+
+## Status
+Beta / Early Release Candidate
+
+## Architecture (Atlas)
+
+### System Design
+- [[Canary/docs/atlas/orchestration/fig-o01-service-mesh|Service Mesh]]
+- [[Canary/docs/atlas/orchestration/fig-o02-mcp-tool-composition|MCP Tool Composition]]
+- [[Canary/docs/atlas/orchestration/fig-o03-agent-handoff|Agent Handoff]]
+- [[Canary/docs/atlas/infrastructure/fig-i01-docker-stack-topology|Docker Stack]]
+- [[Canary/docs/atlas/infrastructure/fig-i02-database-schema-architecture|Database Schema]]
+- [[Canary/docs/atlas/infrastructure/fig-i04-deploy-pipeline|Deploy Pipeline]]
+
+### Data Pipelines
+- [[Canary/docs/atlas/pipeline/fig-p00-tsp-orchestration|TSP Orchestration]]
+- [[Canary/docs/atlas/pipeline/fig-p01-sub1-hash-seal|Hash Seal]]
+- [[Canary/docs/atlas/pipeline/fig-p02-sub2-parse-route|Parse Route]]
+- [[Canary/docs/atlas/pipeline/fig-p03-sub3-merkle-batcher|Merkle Batcher]]
+- [[Canary/docs/atlas/pipeline/fig-p04-sub4-chirp-detection|Chirp Detection]]
+- [[Canary/docs/atlas/pipeline/fig-p05-valkey-stream-topology|Valkey Streams]]
+
+### Detection & Cases
+- [[Canary/docs/atlas/decision/fig-d01-chirp-rule-evaluation|Chirp Rule Evaluation]]
+- [[Canary/docs/atlas/decision/fig-d02-risk-score-classification|Risk Score Classification]]
+- [[Canary/docs/atlas/decision/fig-d03-fox-case-escalation|Fox Case Escalation]]
+- [[Canary/docs/atlas/decision/fig-d04-alert-severity-matrix|Alert Severity Matrix]]
+
+### Lifecycles
+- [[Canary/docs/atlas/lifecycle/fig-l01-transaction-lifecycle|Transaction Lifecycle]]
+- [[Canary/docs/atlas/lifecycle/fig-l02-alert-lifecycle|Alert Lifecycle]]
+- [[Canary/docs/atlas/lifecycle/fig-l03-case-lifecycle|Case Lifecycle]]
+- [[Canary/docs/atlas/lifecycle/fig-l04-merchant-data-sync|Merchant Data Sync]]
+
+### User Journeys
+- [[Canary/docs/atlas/journey/fig-j01-merchant-end-to-end|Merchant End-to-End]]
+- [[Canary/docs/atlas/journey/fig-j02-dashboard-info-architecture|Dashboard Info Architecture]]
+- [[Canary/docs/atlas/journey/fig-j03-alert-investigation|Alert Investigation]]
+
+### Protocol / Blockchain
+- [[Canary/docs/atlas/protocol/fig-r01-raas-architecture|RaaS Architecture]]
+- [[Canary/docs/atlas/protocol/fig-r02-ordinals-inscription-flow|Ordinals Inscription Flow]]
+- [[Canary/docs/atlas/protocol/fig-r03-sidechain-hybrid-architecture|Sidechain Hybrid]]
+
+## Team
+- [[Canary/docs/profiles/ops/ALX|ALX — COO / Chief of Staff]]
+- [[Canary/docs/profiles/ops/Eva|Eva — Technical Ops]]
+- [[Canary/docs/profiles/ops/Tom|Tom — Architecture]]
+- [[Canary/docs/profiles/ops/Jess|Jess — Documentation]]
+- [[Canary/docs/profiles/ops/Jeremy|Jeremy — DevOps]]
+- [[Canary/docs/profiles/ops/Jim|Jim — Customer Sentiment]]
+- [[Canary/docs/profiles/ops/Owl|Owl — Product AI]]
+- [[Canary/docs/profiles/ops/Art|Art — UX/Creative]]
+
+## Field Registry
+- [[Canary/docs/field-registry|Field Registry Index]]
+- [[Canary/docs/field-registry/extraction-sales-schema|Sales Schema]]
+- [[Canary/docs/field-registry/extraction-detection-rules|Detection Rules]]
+- [[Canary/docs/field-registry/extraction-app-fox-schema|Fox Schema]]
+- [[Canary/docs/field-registry/square-coverage-matrix|Square Coverage Matrix]]
+
+## Strategy
+- [[Canary/docs/Canary-Blue-Ocean-Strategy-Analysis|Blue Ocean Strategy Analysis]]
+
+## Sprint Prompts
+- [[Canary/devops/prompts/00_README|Prompt Library Index]]
+- [[Canary/devops/prompts/sprint2/00_README_Sprint2|Sprint 2 Index]]

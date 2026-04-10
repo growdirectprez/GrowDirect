@@ -1,0 +1,1263 @@
+<style>
+/*
+ * ═══════════════════════════════════════════════════════════════
+ *  ANGELIQUE LYLE — LP DESIGN OVERRIDE v3
+ *  Injected via Luxury Presence → Global Scripts → Head JavaScript
+ *  Paste into: LP Global Scripts > Head JavaScript (wrapped in style tags)
+ *
+ *  Design system: prototype-angeliquelyle.html (approved 2026-04-08)
+ *  Strategy: Override LP's Starter template classes to match prototype.
+ *
+ *  LP SECTION → PROTOTYPE MAPPING:
+ *    Opening          → Hero (dark left overlay, stats, eyebrow)
+ *    Agent & Teams    → About (photo + bio grid, signature block)
+ *    Neighborhoods    → Explore (3-col dark card grid → TheHillPV.com)
+ *    Form             → Connect (styled contact form)
+ *    Testimonials     → Client Stories (2x2 grid, quote marks)
+ *    Footer           → 4-column footer w/ Cormorant logo
+ *
+ *  JS-INJECTED (lp-body-inject.html):
+ *    .al-history-seam → Scrolling neighborhood ticker (after Opening)
+ *    Logo image       → Replaces LP's text logo
+ *    Cormorant font   → Footer branding font
+ *
+ *  DEPRECATED (doesn't fit LP model):
+ *    Newsletter       → Use LP's built-in footer subscribe
+ *    Custom form HTML → LP handles forms natively
+ *    Redirect logic   → LP CRM is primary; webhook mirrors to Angel
+ *
+ *  DOM audit: 2026-04-06 — LP BEM-like classes:
+ *    .header, .header__container, .navigation__link, .logo__name
+ *    .solid-section, .is-background-color-dark/light
+ *    .opening, .featured-agent, .featured-neighborhoods, .featured-testimonials
+ *    .section-intro-subtitle, .section-intro-title
+ *    .btn, .btn-blue, .btn--outline
+ *    .inp (form inputs)
+ *    .footer, .footer__top, .footer__contact
+ *    .contact-popup, .contact-popup-form
+ *    .sidemenu-wrapper
+ *    .slick-* (hero carousel), .wow / .fadeInUp (scroll animations)
+ * ═══════════════════════════════════════════════════════════════
+ */
+
+/* ── DESIGN TOKENS ─────────────────────────────────────────── */
+:root {
+  --al-black: #000000;
+  --al-near-black: #1A1A1A;
+  --al-gray-900: #222222;
+  --al-gray-800: #333333;
+  --al-gray-600: #666666;
+  --al-gray-400: #999999;
+  --al-gray-200: #E0E0E0;
+  --al-gray-100: #F2F2F2;
+  --al-off-white: #F7F7F7;
+  --al-white: #FFFFFF;
+
+  /* Typography */
+  --al-heading: 'DM Serif Display', Georgia, serif;
+  --al-body: 'DM Sans', system-ui, sans-serif;
+  --al-brand: 'Cormorant', Georgia, serif;
+}
+
+/* ── GLOBAL RESET ──────────────────────────────────────────── */
+/* Force our font stack everywhere LP renders text */
+body,
+body * {
+  font-family: var(--al-body) !important;
+}
+
+h1, h2, h3, h4, h5, h6,
+.section-intro-title,
+.opening__item-text,
+.featured-agent-title,
+.featured-testimonials-list blockquote,
+[class*="heading"] {
+  font-family: var(--al-heading) !important;
+}
+
+/* Kill LP's default border-radius and box-shadows */
+* {
+  border-radius: 0 !important;
+}
+
+/* ══════════════════════════════════════════════════════════════
+   NAV — LP .header
+   Prototype: fixed, white bg, blur, logo image left, links center, CTA right
+   ══════════════════════════════════════════════════════════════ */
+.header {
+  position: fixed !important;
+  top: 0 !important;
+  left: 0 !important;
+  right: 0 !important;
+  z-index: 100 !important;
+  height: 72px !important;
+  background: rgba(255, 255, 255, 0.95) !important;
+  backdrop-filter: blur(12px) !important;
+  -webkit-backdrop-filter: blur(12px) !important;
+  border-bottom: 1px solid var(--al-gray-200) !important;
+  transition: box-shadow 0.3s !important;
+  padding: 0 3rem !important;
+}
+
+.header.al-scrolled {
+  box-shadow: 0 2px 12px rgba(0, 0, 0, 0.08) !important;
+}
+
+.header__container {
+  max-width: 100% !important;
+  height: 100% !important;
+  display: flex !important;
+  align-items: center !important;
+  justify-content: space-between !important;
+  padding: 0 !important;
+}
+
+/* ── Nav Logo ─────────────────────────────────────────────── */
+/* JS injects an <img> into .logo — hide LP's text, show image */
+.logo__name {
+  font-size: 0 !important;
+  color: transparent !important;
+  overflow: hidden !important;
+}
+
+.logo {
+  display: flex !important;
+  align-items: center !important;
+}
+
+/* Injected logo image */
+.logo img.al-logo-img {
+  height: 40px !important;
+  display: block !important;
+}
+
+/* ── Nav Links ────────────────────────────────────────────── */
+.navigation__link {
+  font-size: 0.72rem !important;
+  letter-spacing: 0.12em !important;
+  text-transform: uppercase !important;
+  color: var(--al-gray-600) !important;
+  font-weight: 500 !important;
+  transition: color 0.2s !important;
+  text-decoration: none !important;
+}
+
+.navigation__link:hover,
+.navigation__link.active {
+  color: var(--al-black) !important;
+}
+
+/* ── Nav CTA Button ───────────────────────────────────────── */
+.header .btn,
+.header .btn--outline {
+  font-size: 0.72rem !important;
+  letter-spacing: 0.1em !important;
+  text-transform: uppercase !important;
+  padding: 9px 20px !important;
+  border: 1px solid var(--al-black) !important;
+  color: var(--al-black) !important;
+  background: none !important;
+  font-weight: 600 !important;
+  transition: background 0.2s, color 0.2s !important;
+}
+
+.header .btn:hover,
+.header .btn--outline:hover {
+  background: var(--al-black) !important;
+  color: var(--al-white) !important;
+}
+
+/* ══════════════════════════════════════════════════════════════
+   HERO — LP .opening
+   Prototype: Split layout — black left (text/stats) + image right
+   LP renders a carousel overlay. We darken it and overlay our typography.
+   The split layout is achieved by pushing opening content left and
+   letting the image fill right via CSS grid on the container.
+   ══════════════════════════════════════════════════════════════ */
+.opening {
+  position: relative !important;
+  min-height: 100vh !important;
+  overflow: hidden !important;
+}
+
+/* LP carousel slides — darken and desaturate */
+.opening .slick-list,
+.opening__slider {
+  position: absolute !important;
+  inset: 0 !important;
+  width: 100% !important;
+  height: 100% !important;
+}
+
+.opening__slider img,
+.opening .slick-slide img {
+  width: 100% !important;
+  height: 100% !important;
+  object-fit: cover !important;
+  filter: saturate(0.95) brightness(0.4) !important;
+}
+
+/* Content overlay — position bottom-left like prototype hero-left */
+.opening__content {
+  position: absolute !important;
+  inset: 0 !important;
+  display: flex !important;
+  flex-direction: column !important;
+  justify-content: flex-end !important;
+  padding: 5rem 4rem !important;
+  z-index: 2 !important;
+  max-width: 55% !important;
+}
+
+/* Eyebrow / subtitle above main heading */
+.opening .section-intro-subtitle,
+.opening__subtitle {
+  font-size: 0.65rem !important;
+  letter-spacing: 0.22em !important;
+  text-transform: uppercase !important;
+  color: var(--al-gray-400) !important;
+  font-family: var(--al-body) !important;
+  font-weight: 500 !important;
+  margin-bottom: 1.5rem !important;
+  display: flex !important;
+  align-items: center !important;
+  gap: 0.75rem !important;
+}
+
+.opening .section-intro-subtitle::before,
+.opening__subtitle::before {
+  content: '' !important;
+  display: block !important;
+  width: 32px !important;
+  height: 1px !important;
+  background: var(--al-gray-600) !important;
+}
+
+/* Main heading — large serif, white */
+.opening__item-text,
+.opening .section-intro-title {
+  font-family: var(--al-heading) !important;
+  font-size: clamp(2.8rem, 5vw, 4.2rem) !important;
+  font-weight: 400 !important;
+  line-height: 1.08 !important;
+  color: var(--al-white) !important;
+  margin-bottom: 2rem !important;
+}
+
+.opening__item-text em,
+.opening .section-intro-title em {
+  font-style: italic !important;
+}
+
+/* Sub-text under heading */
+.opening__description,
+.opening p:not(.section-intro-subtitle):not(.section-intro-title) {
+  font-size: 0.88rem !important;
+  line-height: 1.8 !important;
+  color: var(--al-gray-400) !important;
+  max-width: 380px !important;
+  margin-bottom: 2.5rem !important;
+  font-weight: 300 !important;
+}
+
+/* Hero buttons */
+.opening .btn-blue,
+.opening .btn.btn-blue {
+  background: var(--al-white) !important;
+  color: var(--al-black) !important;
+  border: none !important;
+  padding: 12px 24px !important;
+  font-size: 0.72rem !important;
+  letter-spacing: 0.1em !important;
+  text-transform: uppercase !important;
+  font-weight: 600 !important;
+}
+
+.opening .btn-blue:hover {
+  background: var(--al-gray-100) !important;
+  transform: translateY(-1px) !important;
+}
+
+.opening .btn--outline {
+  border: 1px solid var(--al-gray-600) !important;
+  color: var(--al-white) !important;
+  padding: 12px 24px !important;
+}
+
+.opening .btn--outline:hover {
+  border-color: var(--al-white) !important;
+  color: var(--al-white) !important;
+}
+
+/* Hide LP carousel arrows and dots — single hero image, not a slideshow */
+.opening .slick-arrow,
+.opening .slick-dots,
+.opening .slider-arrow {
+  display: none !important;
+}
+
+/* ══════════════════════════════════════════════════════════════
+   HISTORY SEAM — injected by JS after .opening
+   Scrolling neighborhood ticker bar
+   ══════════════════════════════════════════════════════════════ */
+.al-history-seam {
+  background: var(--al-near-black) !important;
+  overflow: hidden !important;
+  display: flex !important;
+  align-items: center !important;
+  gap: 3rem !important;
+  padding: 0 3rem !important;
+  height: 72px !important;
+  white-space: nowrap !important;
+}
+
+.al-seam-label {
+  font-size: 0.62rem !important;
+  letter-spacing: 0.18em !important;
+  text-transform: uppercase !important;
+  color: var(--al-gray-600) !important;
+  flex-shrink: 0 !important;
+  font-weight: 600 !important;
+  display: flex !important;
+  align-items: center !important;
+  gap: 0.75rem !important;
+}
+
+.al-seam-label::after {
+  content: '' !important;
+  display: block !important;
+  width: 24px !important;
+  height: 1px !important;
+  background: var(--al-gray-600) !important;
+}
+
+.al-seam-scroll {
+  display: flex !important;
+  gap: 2rem !important;
+  animation: al-seam-scroll 28s linear infinite !important;
+}
+
+.al-seam-scroll span {
+  font-size: 0.7rem !important;
+  letter-spacing: 0.08em !important;
+  text-transform: uppercase !important;
+  color: var(--al-gray-600) !important;
+  opacity: 0.7 !important;
+}
+
+@keyframes al-seam-scroll {
+  from { transform: translateX(0); }
+  to { transform: translateX(-50%); }
+}
+
+/* ══════════════════════════════════════════════════════════════
+   ABOUT — LP .featured-agent (Agent & Teams section)
+   Prototype: Photo left (380px, 3:4) + bio right with signature
+   ══════════════════════════════════════════════════════════════ */
+.featured-agent {
+  display: grid !important;
+  grid-template-columns: 380px 1fr !important;
+  gap: 6rem !important;
+  align-items: start !important;
+  max-width: 1100px !important;
+  margin: 0 auto !important;
+  padding: 7rem 3rem !important;
+  background: var(--al-white) !important;
+}
+
+/* Agent photo — left column */
+.featured-agent-img,
+.featured-agent .agent-photo,
+.featured-agent img {
+  width: 100% !important;
+  aspect-ratio: 3/4 !important;
+  object-fit: cover !important;
+  display: block !important;
+}
+
+/* Photo container — position relative for caption overlay */
+.featured-agent-img-wrap,
+.featured-agent > div:first-child,
+.featured-agent > figure {
+  position: relative !important;
+}
+
+/* Eyebrow tag — "Meet Angelique" */
+.featured-agent .section-intro-subtitle {
+  font-size: 0.65rem !important;
+  letter-spacing: 0.2em !important;
+  text-transform: uppercase !important;
+  color: var(--al-gray-600) !important;
+  font-family: var(--al-body) !important;
+  font-weight: 500 !important;
+  display: flex !important;
+  align-items: center !important;
+  gap: 0.75rem !important;
+  margin-bottom: 1rem !important;
+}
+
+.featured-agent .section-intro-subtitle::before {
+  content: '' !important;
+  display: block !important;
+  width: 28px !important;
+  height: 1px !important;
+  background: var(--al-gray-600) !important;
+}
+
+/* Section title */
+.featured-agent-title,
+.featured-agent .section-intro-title {
+  font-family: var(--al-heading) !important;
+  font-size: clamp(2rem, 3.5vw, 2.8rem) !important;
+  font-weight: 400 !important;
+  line-height: 1.15 !important;
+  color: var(--al-black) !important;
+  margin-bottom: 1.5rem !important;
+}
+
+.featured-agent-title em,
+.featured-agent .section-intro-title em {
+  font-style: italic !important;
+}
+
+/* Bio text */
+.featured-agent-text,
+.featured-agent p:not(.section-intro-subtitle):not(.section-intro-title) {
+  font-size: 0.92rem !important;
+  line-height: 1.85 !important;
+  color: var(--al-gray-800) !important;
+  font-weight: 300 !important;
+  margin-bottom: 1rem !important;
+}
+
+/* Agent credentials line (DRE, Compass) */
+.featured-agent-credential,
+.featured-agent small {
+  font-size: 0.7rem !important;
+  letter-spacing: 0.1em !important;
+  text-transform: uppercase !important;
+  color: var(--al-gray-600) !important;
+  margin-top: 2px !important;
+}
+
+/* CTA button in about section */
+.featured-agent .btn {
+  margin-top: 2rem !important;
+}
+
+/* ══════════════════════════════════════════════════════════════
+   EXPLORE — LP .featured-neighborhoods
+   Prototype: Dark bg, 3-col image cards with overlay text
+   ══════════════════════════════════════════════════════════════ */
+.featured-neighborhoods {
+  background: var(--al-black) !important;
+  padding: 7rem 3rem !important;
+  color: var(--al-white) !important;
+}
+
+/* Section header — flex row with title left, "View all" right */
+.featured-neighborhoods .section-intro {
+  display: flex !important;
+  align-items: flex-end !important;
+  justify-content: space-between !important;
+  margin-bottom: 3.5rem !important;
+  max-width: 1100px !important;
+  margin-left: auto !important;
+  margin-right: auto !important;
+}
+
+.featured-neighborhoods .section-intro-subtitle {
+  font-size: 0.65rem !important;
+  letter-spacing: 0.2em !important;
+  text-transform: uppercase !important;
+  color: var(--al-gray-400) !important;
+  display: flex !important;
+  align-items: center !important;
+  gap: 0.75rem !important;
+  margin-bottom: 1rem !important;
+}
+
+.featured-neighborhoods .section-intro-subtitle::before {
+  content: '' !important;
+  display: block !important;
+  width: 28px !important;
+  height: 1px !important;
+  background: var(--al-gray-600) !important;
+}
+
+.featured-neighborhoods .section-intro-title {
+  font-family: var(--al-heading) !important;
+  font-size: clamp(2rem, 3.5vw, 2.8rem) !important;
+  font-weight: 400 !important;
+  line-height: 1.15 !important;
+  color: var(--al-white) !important;
+  margin-bottom: 0 !important;
+}
+
+.featured-neighborhoods .section-intro-title em {
+  font-style: italic !important;
+}
+
+/* 3-column card grid */
+.featured-neighborhoods-list {
+  display: grid !important;
+  grid-template-columns: repeat(3, 1fr) !important;
+  gap: 1px !important;
+  background: var(--al-gray-800) !important;
+  max-width: 1100px !important;
+  margin: 0 auto !important;
+}
+
+/* Each neighborhood card */
+.featured-neighborhoods-list > * {
+  position: relative !important;
+  overflow: hidden !important;
+  aspect-ratio: 4/5 !important;
+  display: flex !important;
+  flex-direction: column !important;
+  justify-content: flex-end !important;
+  text-decoration: none !important;
+  background: var(--al-black) !important;
+}
+
+.featured-neighborhoods-list > * img {
+  position: absolute !important;
+  inset: 0 !important;
+  width: 100% !important;
+  height: 100% !important;
+  object-fit: cover !important;
+  transition: transform 0.6s ease, filter 0.4s !important;
+  filter: saturate(0.85) brightness(0.75) !important;
+}
+
+.featured-neighborhoods-list > *:hover img {
+  transform: scale(1.04) !important;
+  filter: saturate(1) brightness(0.85) !important;
+}
+
+/* Card text overlay at bottom */
+.featured-neighborhoods-list > * .featured-neighborhoods-item-content,
+.featured-neighborhoods-list > * [class*="content"],
+.featured-neighborhoods-list > * figcaption {
+  position: relative !important;
+  z-index: 2 !important;
+  padding: 1.5rem !important;
+  background: linear-gradient(transparent, rgba(0, 0, 0, 0.85)) !important;
+}
+
+.featured-neighborhoods-list > * h3,
+.featured-neighborhoods-list > * [class*="name"],
+.featured-neighborhoods-list > * [class*="title"] {
+  font-family: var(--al-heading) !important;
+  font-size: 1.2rem !important;
+  color: var(--al-white) !important;
+  margin-bottom: 0.2rem !important;
+  font-weight: 400 !important;
+}
+
+.featured-neighborhoods-list > * p,
+.featured-neighborhoods-list > * [class*="desc"],
+.featured-neighborhoods-list > * [class*="subtitle"] {
+  font-size: 0.75rem !important;
+  color: var(--al-gray-400) !important;
+  line-height: 1.5 !important;
+}
+
+/* ══════════════════════════════════════════════════════════════
+   CONNECT / FORM — LP .solid-section / contact form
+   Prototype: Dark bg with styled form. In LP, the form section
+   handles this natively — we just restyle it.
+   ══════════════════════════════════════════════════════════════ */
+
+/* Make the form section dark */
+.solid-section:has(.contact-popup-form),
+.solid-section:has([class*="form"]),
+.solid-section.is-background-color-dark {
+  background: var(--al-black) !important;
+  color: var(--al-white) !important;
+  padding: 7rem 3rem !important;
+}
+
+/* Section heading in form area */
+.solid-section .section-intro-subtitle {
+  font-size: 0.65rem !important;
+  letter-spacing: 0.2em !important;
+  text-transform: uppercase !important;
+  color: var(--al-gray-400) !important;
+  display: flex !important;
+  align-items: center !important;
+  gap: 0.75rem !important;
+  margin-bottom: 1rem !important;
+}
+
+.solid-section .section-intro-subtitle::before {
+  content: '' !important;
+  display: block !important;
+  width: 28px !important;
+  height: 1px !important;
+  background: var(--al-gray-600) !important;
+}
+
+.solid-section .section-intro-title {
+  font-family: var(--al-heading) !important;
+  font-size: clamp(2rem, 3.5vw, 2.8rem) !important;
+  font-weight: 400 !important;
+  line-height: 1.15 !important;
+  color: var(--al-white) !important;
+  margin-bottom: 1.5rem !important;
+}
+
+.solid-section .section-intro-title em {
+  font-style: italic !important;
+}
+
+/* ══════════════════════════════════════════════════════════════
+   TESTIMONIALS — LP .featured-testimonials
+   Prototype: 2x2 grid, off-white bg, quote marks, star ratings
+   ══════════════════════════════════════════════════════════════ */
+.featured-testimonials {
+  background: var(--al-off-white) !important;
+  padding: 7rem 3rem !important;
+}
+
+/* Section header */
+.featured-testimonials .section-intro {
+  max-width: 1100px !important;
+  margin: 0 auto 3rem !important;
+}
+
+.featured-testimonials .section-intro-subtitle {
+  font-size: 0.65rem !important;
+  letter-spacing: 0.2em !important;
+  text-transform: uppercase !important;
+  color: var(--al-gray-600) !important;
+  display: flex !important;
+  align-items: center !important;
+  gap: 0.75rem !important;
+  margin-bottom: 1rem !important;
+}
+
+.featured-testimonials .section-intro-subtitle::before {
+  content: '' !important;
+  display: block !important;
+  width: 28px !important;
+  height: 1px !important;
+  background: var(--al-gray-600) !important;
+}
+
+.featured-testimonials .section-intro-title {
+  font-family: var(--al-heading) !important;
+  font-size: clamp(2rem, 3.5vw, 2.8rem) !important;
+  font-weight: 400 !important;
+  line-height: 1.15 !important;
+  color: var(--al-black) !important;
+  margin-bottom: 0 !important;
+}
+
+.featured-testimonials .section-intro-title em {
+  font-style: italic !important;
+}
+
+/* 2-column testimonial grid */
+.featured-testimonials-list {
+  display: grid !important;
+  grid-template-columns: repeat(2, 1fr) !important;
+  gap: 1px !important;
+  background: var(--al-gray-200) !important;
+  max-width: 1100px !important;
+  margin: 0 auto !important;
+}
+
+/* Override Slick if LP uses a carousel — force grid layout */
+.featured-testimonials .slick-track {
+  display: grid !important;
+  grid-template-columns: repeat(2, 1fr) !important;
+  gap: 1px !important;
+  background: var(--al-gray-200) !important;
+  transform: none !important;
+  width: 100% !important;
+}
+
+.featured-testimonials .slick-slide {
+  width: 100% !important;
+  float: none !important;
+}
+
+/* Each testimonial card */
+.featured-testimonials-list > *,
+.featured-testimonials .slick-slide > * {
+  background: var(--al-white) !important;
+  padding: 2rem 2rem 1.75rem !important;
+  position: relative !important;
+}
+
+/* Opening quote mark */
+.featured-testimonials-list > *::before,
+.featured-testimonials .slick-slide > *::before {
+  content: '\201C' !important;
+  font-family: var(--al-heading) !important;
+  font-size: 5rem !important;
+  line-height: 1 !important;
+  color: var(--al-gray-200) !important;
+  position: absolute !important;
+  top: 0.5rem !important;
+  left: 1.5rem !important;
+}
+
+/* Quote text */
+.featured-testimonials blockquote,
+.featured-testimonials [class*="quote"],
+.featured-testimonials [class*="text"] {
+  font-family: var(--al-heading) !important;
+  font-size: 0.98rem !important;
+  font-style: italic !important;
+  line-height: 1.7 !important;
+  color: var(--al-black) !important;
+  padding-top: 1.5rem !important;
+  position: relative !important;
+  z-index: 1 !important;
+}
+
+/* Reviewer name */
+.featured-testimonials [class*="name"],
+.featured-testimonials [class*="author"] {
+  font-size: 0.7rem !important;
+  letter-spacing: 0.1em !important;
+  text-transform: uppercase !important;
+  color: var(--al-gray-800) !important;
+  font-family: var(--al-body) !important;
+  font-weight: 500 !important;
+  margin-top: 1.25rem !important;
+}
+
+/* Stars */
+.featured-testimonials [class*="star"],
+.featured-testimonials [class*="rating"] {
+  color: var(--al-black) !important;
+  font-size: 0.75rem !important;
+  letter-spacing: 0.1em !important;
+}
+
+/* Hide carousel controls */
+.featured-testimonials .slick-arrow,
+.featured-testimonials .slick-dots {
+  display: none !important;
+}
+
+/* ══════════════════════════════════════════════════════════════
+   BUTTON SYSTEM — LP .btn
+   ══════════════════════════════════════════════════════════════ */
+.btn {
+  font-size: 0.72rem !important;
+  letter-spacing: 0.1em !important;
+  text-transform: uppercase !important;
+  font-family: var(--al-body) !important;
+  font-weight: 600 !important;
+  border-radius: 0 !important;
+  transition: background 0.2s, color 0.2s, border-color 0.2s, transform 0.15s !important;
+  cursor: pointer !important;
+}
+
+/* LP blue button → solid black */
+.btn-blue,
+.btn.btn-blue {
+  padding: 12px 24px !important;
+  background: var(--al-black) !important;
+  color: var(--al-white) !important;
+  border: none !important;
+}
+
+.btn-blue:hover,
+.btn.btn-blue:hover {
+  background: var(--al-gray-800) !important;
+  transform: translateY(-1px) !important;
+}
+
+/* Outline button */
+.btn--outline {
+  padding: 10px 20px !important;
+  border: 1px solid var(--al-black) !important;
+  color: var(--al-black) !important;
+  background: none !important;
+}
+
+.btn--outline:hover {
+  background: var(--al-black) !important;
+  color: var(--al-white) !important;
+}
+
+/* ══════════════════════════════════════════════════════════════
+   FORM INPUTS — LP .inp
+   ══════════════════════════════════════════════════════════════ */
+.inp,
+.contact-popup-input {
+  background: var(--al-white) !important;
+  border: 1px solid var(--al-gray-200) !important;
+  border-radius: 0 !important;
+  padding: 12px 14px !important;
+  color: var(--al-black) !important;
+  font-family: var(--al-body) !important;
+  font-size: 0.85rem !important;
+  outline: none !important;
+  transition: border-color 0.2s !important;
+}
+
+.inp:focus,
+.contact-popup-input:focus {
+  border-color: var(--al-black) !important;
+}
+
+.inp::placeholder,
+.contact-popup-input::placeholder {
+  color: var(--al-gray-600) !important;
+}
+
+/* Submit buttons in LP forms */
+.contact-popup-submit,
+.footer__subscribe-submit,
+[type="submit"] {
+  background: var(--al-black) !important;
+  color: var(--al-white) !important;
+  border: none !important;
+  border-radius: 0 !important;
+  padding: 14px !important;
+  font-family: var(--al-body) !important;
+  font-size: 0.72rem !important;
+  letter-spacing: 0.12em !important;
+  text-transform: uppercase !important;
+  font-weight: 600 !important;
+  cursor: pointer !important;
+  transition: background 0.2s !important;
+}
+
+.contact-popup-submit:hover,
+.footer__subscribe-submit:hover,
+[type="submit"]:hover {
+  background: var(--al-gray-800) !important;
+}
+
+/* ══════════════════════════════════════════════════════════════
+   CONTACT POPUP — LP .contact-popup
+   ══════════════════════════════════════════════════════════════ */
+.contact-popup {
+  background: var(--al-white) !important;
+}
+
+.contact-popup__close {
+  color: var(--al-gray-600) !important;
+}
+
+.contact-popup__close:hover {
+  color: var(--al-black) !important;
+}
+
+/* TCR/TCPA checkbox */
+.lp-tcr-content {
+  font-size: 0.65rem !important;
+  color: var(--al-gray-600) !important;
+  line-height: 1.5 !important;
+}
+
+/* ══════════════════════════════════════════════════════════════
+   FOOTER — LP .footer
+   Prototype: near-black bg, 4-column grid, Cormorant italic logo
+   ══════════════════════════════════════════════════════════════ */
+.footer {
+  background: var(--al-near-black) !important;
+  color: var(--al-white) !important;
+  padding: 3rem !important;
+}
+
+.footer__top {
+  border-bottom: 1px solid var(--al-gray-800) !important;
+}
+
+/* Footer logo — Cormorant italic (injected by JS as text override) */
+.footer .logo__name {
+  font-family: var(--al-brand) !important;
+  font-size: 1.5rem !important;
+  font-weight: 300 !important;
+  font-style: italic !important;
+  color: var(--al-white) !important;
+  /* Re-show text in footer since we want Cormorant italic here */
+  /* JS handles this — sets font-size back */
+}
+
+.footer__contact h6 {
+  font-size: 0.62rem !important;
+  letter-spacing: 0.18em !important;
+  text-transform: uppercase !important;
+  color: var(--al-gray-400) !important;
+  font-family: var(--al-body) !important;
+  font-weight: 600 !important;
+}
+
+.footer__contact-details {
+  font-size: 0.78rem !important;
+  color: var(--al-gray-600) !important;
+  line-height: 1.8 !important;
+}
+
+.footer a {
+  color: var(--al-gray-600) !important;
+  text-decoration: none !important;
+  font-size: 0.78rem !important;
+  transition: color 0.2s !important;
+}
+
+.footer a:hover {
+  color: var(--al-white) !important;
+}
+
+/* Footer subscribe */
+.footer__subscribe-input {
+  background: var(--al-gray-900) !important;
+  border: 1px solid var(--al-gray-800) !important;
+  color: var(--al-white) !important;
+}
+
+.footer__subscribe-input::placeholder {
+  color: var(--al-gray-600) !important;
+}
+
+.footer__subscribe-submit {
+  border: 1px solid var(--al-gray-600) !important;
+  background: transparent !important;
+}
+
+.footer__subscribe-submit:hover {
+  background: var(--al-white) !important;
+  color: var(--al-black) !important;
+}
+
+/* Footer text / copyright */
+.footer__text,
+.copyright,
+.lp-disclaimer {
+  font-size: 0.7rem !important;
+  color: var(--al-gray-600) !important;
+  line-height: 1.6 !important;
+}
+
+/* Footer logo (light mode) */
+.footer__logo.light {
+  filter: brightness(10) !important;
+  opacity: 0.8 !important;
+}
+
+/* ══════════════════════════════════════════════════════════════
+   SOCIAL ICONS
+   ══════════════════════════════════════════════════════════════ */
+.lp-socials__link,
+.socials__item {
+  color: var(--al-gray-400) !important;
+  transition: color 0.2s !important;
+}
+
+.lp-socials__link:hover,
+.socials__item:hover {
+  color: var(--al-white) !important;
+}
+
+/* ══════════════════════════════════════════════════════════════
+   LP IDX / LISTING CARD OVERRIDES
+   ══════════════════════════════════════════════════════════════ */
+[class*="listing-card"],
+[class*="property-card"],
+.property-item {
+  border-radius: 0 !important;
+  border: none !important;
+  box-shadow: none !important;
+}
+
+[class*="listing-card"]:hover,
+[class*="property-card"]:hover,
+.property-item:hover {
+  box-shadow: 0 8px 32px rgba(0, 0, 0, 0.12) !important;
+}
+
+[class*="listing-card"] [class*="price"],
+[class*="property-card"] [class*="price"] {
+  font-family: var(--al-heading) !important;
+  font-weight: 400 !important;
+  color: var(--al-black) !important;
+}
+
+[class*="listing-card"] [class*="address"],
+[class*="property-card"] [class*="address"] {
+  font-family: var(--al-body) !important;
+  font-size: 0.8rem !important;
+  color: var(--al-gray-800) !important;
+}
+
+/* ══════════════════════════════════════════════════════════════
+   LP ANIMATION / CONTAINER OVERRIDES
+   ══════════════════════════════════════════════════════════════ */
+.wow {
+  animation-duration: 0.7s !important;
+}
+
+.container {
+  max-width: 1100px !important;
+  margin-left: auto !important;
+  margin-right: auto !important;
+}
+
+.container--mini {
+  max-width: 900px !important;
+}
+
+/* Remove LP box shadows globally */
+[class*="card"],
+[class*="section"],
+[class*="widget"] {
+  box-shadow: none !important;
+}
+
+/* ══════════════════════════════════════════════════════════════
+   CUSTOM COMPONENTS — al- prefix classes
+   For use in LP Custom HTML blocks or JS-injected content
+   ══════════════════════════════════════════════════════════════ */
+
+/* Eyebrow / Tag pattern */
+.al-tag,
+.al-eyebrow {
+  font-size: 0.65rem !important;
+  letter-spacing: 0.2em !important;
+  text-transform: uppercase !important;
+  color: var(--al-gray-600) !important;
+  font-family: var(--al-body) !important;
+  font-weight: 500 !important;
+  display: flex !important;
+  align-items: center !important;
+  gap: 0.75rem !important;
+  margin-bottom: 1rem !important;
+}
+
+.al-tag::before,
+.al-eyebrow::before {
+  content: '' !important;
+  display: block !important;
+  width: 28px !important;
+  height: 1px !important;
+  background: var(--al-gray-600) !important;
+}
+
+/* Section headings */
+.al-section-heading {
+  font-family: var(--al-heading) !important;
+  font-size: clamp(2rem, 3.5vw, 2.8rem) !important;
+  font-weight: 400 !important;
+  line-height: 1.15 !important;
+  color: var(--al-black) !important;
+  margin-bottom: 1.5rem !important;
+}
+
+.al-section-heading em {
+  font-style: italic !important;
+}
+
+/* Body text */
+.al-body-text {
+  font-size: 0.92rem !important;
+  line-height: 1.85 !important;
+  color: var(--al-gray-800) !important;
+  font-weight: 300 !important;
+  margin-bottom: 1rem !important;
+}
+
+/* Dark/light section modifiers */
+.al-section-dark {
+  background: var(--al-black) !important;
+  color: var(--al-white) !important;
+  padding: 7rem 3rem !important;
+}
+
+.al-section-dark .al-tag,
+.al-section-dark .al-eyebrow {
+  color: var(--al-gray-400) !important;
+}
+
+.al-section-dark .al-section-heading {
+  color: var(--al-white) !important;
+}
+
+.al-section-light {
+  background: var(--al-white) !important;
+  padding: 7rem 3rem !important;
+}
+
+.al-section-muted {
+  background: var(--al-off-white) !important;
+  padding: 7rem 3rem !important;
+}
+
+/* Scroll reveals */
+.al-reveal {
+  opacity: 0 !important;
+  transform: translateY(28px) !important;
+  transition: opacity 0.7s ease, transform 0.7s ease !important;
+}
+
+.al-reveal.al-visible {
+  opacity: 1 !important;
+  transform: none !important;
+}
+
+.al-reveal-delay-1 { transition-delay: 0.1s !important; }
+.al-reveal-delay-2 { transition-delay: 0.2s !important; }
+.al-reveal-delay-3 { transition-delay: 0.3s !important; }
+
+/* Max-width container */
+.al-container {
+  max-width: 1100px !important;
+  margin: 0 auto !important;
+}
+
+/* Modal system */
+.al-modal-overlay {
+  display: none !important;
+  position: fixed !important;
+  inset: 0 !important;
+  z-index: 500 !important;
+  background: rgba(0, 0, 0, 0.7) !important;
+  backdrop-filter: blur(4px) !important;
+  -webkit-backdrop-filter: blur(4px) !important;
+  align-items: center !important;
+  justify-content: center !important;
+}
+
+.al-modal-overlay.active {
+  display: flex !important;
+}
+
+.al-modal {
+  background: var(--al-white) !important;
+  max-width: 520px !important;
+  width: 90% !important;
+  padding: 3rem !important;
+  position: relative !important;
+  animation: al-modal-in 0.35s ease !important;
+}
+
+@keyframes al-modal-in {
+  from { opacity: 0; transform: translateY(20px); }
+  to { opacity: 1; transform: none; }
+}
+
+.al-modal-close {
+  position: absolute !important;
+  top: 1.25rem !important;
+  right: 1.25rem !important;
+  background: none !important;
+  border: none !important;
+  font-size: 1.2rem !important;
+  color: var(--al-gray-600) !important;
+  cursor: pointer !important;
+}
+
+.al-modal-title {
+  font-family: var(--al-heading) !important;
+  font-size: 1.6rem !important;
+  color: var(--al-black) !important;
+  margin-bottom: 0.5rem !important;
+}
+
+/* Toast notifications */
+.al-toast {
+  position: fixed !important;
+  bottom: 2rem !important;
+  right: 2rem !important;
+  z-index: 600 !important;
+  background: var(--al-black) !important;
+  color: var(--al-white) !important;
+  padding: 1rem 1.5rem !important;
+  font-size: 0.85rem !important;
+  max-width: 360px !important;
+  box-shadow: 0 8px 32px rgba(0, 0, 0, 0.3) !important;
+  transform: translateY(120%) !important;
+  opacity: 0 !important;
+  transition: transform 0.4s ease, opacity 0.4s ease !important;
+}
+
+.al-toast.show {
+  transform: translateY(0) !important;
+  opacity: 1 !important;
+}
+
+/* ══════════════════════════════════════════════════════════════
+   RESPONSIVE
+   ══════════════════════════════════════════════════════════════ */
+@media (max-width: 1024px) {
+  .featured-agent {
+    grid-template-columns: 1fr !important;
+    gap: 3rem !important;
+    padding: 5rem 2rem !important;
+  }
+
+  .featured-agent-img,
+  .featured-agent img {
+    max-width: 380px !important;
+    margin: 0 auto !important;
+  }
+
+  .featured-neighborhoods-list {
+    grid-template-columns: repeat(2, 1fr) !important;
+  }
+}
+
+@media (max-width: 900px) {
+  .header {
+    padding: 0 1.5rem !important;
+  }
+
+  .featured-neighborhoods,
+  .featured-testimonials {
+    padding: 4rem 1.5rem !important;
+  }
+
+  .section-intro-title {
+    font-size: clamp(1.8rem, 5vw, 2.4rem) !important;
+  }
+
+  .featured-testimonials-list,
+  .featured-testimonials .slick-track {
+    grid-template-columns: 1fr !important;
+  }
+}
+
+@media (max-width: 600px) {
+  .header {
+    height: 56px !important;
+    padding: 0 1rem !important;
+  }
+
+  .featured-neighborhoods-list {
+    grid-template-columns: 1fr !important;
+  }
+
+  .opening__content {
+    padding: 3rem 2rem !important;
+    max-width: 100% !important;
+  }
+
+  .opening__item-text,
+  .opening .section-intro-title {
+    font-size: clamp(2rem, 8vw, 3rem) !important;
+  }
+
+  .featured-agent {
+    padding: 3rem 1.5rem !important;
+  }
+
+  .footer {
+    padding: 2rem 1.5rem !important;
+  }
+
+  .al-history-seam {
+    height: 56px !important;
+    padding: 0 1.5rem !important;
+    gap: 2rem !important;
+  }
+}
+</style>

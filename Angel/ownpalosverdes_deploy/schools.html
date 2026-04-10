@@ -1,0 +1,1181 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="Complete guide to Palos Verdes schools: PVPUSD rankings, elementary middle and high schools, private schools, school zones and neighborhoods. Everything families need to know.">
+    <meta name="keywords" content="Palos Verdes schools, PVPUSD, best schools Palos Verdes, school ratings, elementary schools, middle schools, high schools, school zones">
+    <meta name="author" content="Angelique Lyle">
+    <title>The Complete Guide to Palos Verdes Schools 2026 | OwnPalosVerdes.com</title>
+    <style>
+        :root {
+            --sand: #F4EFE6;
+            --sand-mid: #E8DDD0;
+            --sand-dark: #C8B99A;
+            --ocean: #1C3A4A;
+            --ocean-mid: #2C5568;
+            --foam: #F9F7F4;
+            --drift: #8A9BA8;
+            --stone: #4A5A62;
+            --white: #FFFFFF;
+            --ink: #1A2428;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Outfit', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+            line-height: 1.7;
+            color: var(--ink);
+            background-color: var(--white);
+        }
+
+        h1, h2, h3, h4, h5, h6 {
+            font-family: 'Playfair Display', Georgia, serif;
+            color: var(--ocean);
+            margin-top: 1.5em;
+            margin-bottom: 0.75em;
+            line-height: 1.3;
+        }
+
+        h1 {
+            font-size: 3.5rem;
+            margin-top: 0;
+        }
+
+        h2 {
+            font-size: 2.5rem;
+            border-bottom: 3px solid var(--sand-dark);
+            padding-bottom: 0.5rem;
+        }
+
+        h3 {
+            font-size: 1.75rem;
+            color: var(--ocean-mid);
+        }
+
+        h4 {
+            font-size: 1.25rem;
+            color: var(--stone);
+        }
+
+        p {
+            margin-bottom: 1rem;
+            line-height: 1.8;
+        }
+
+        a {
+            color: var(--ocean);
+            text-decoration: none;
+            border-bottom: 2px solid var(--sand-dark);
+            transition: all 0.3s ease;
+        }
+
+        a:hover {
+            color: var(--ocean-mid);
+            background-color: var(--sand);
+        }
+
+        .container {
+            max-width: 1000px;
+            margin: 0 auto;
+            padding: 0 20px;
+        }
+
+        /* Hero Section */
+        .hero {
+            background: linear-gradient(135deg, var(--ocean) 0%, var(--ocean-mid) 100%);
+            color: var(--white);
+            padding: 80px 20px;
+            margin-bottom: 60px;
+            text-align: center;
+        }
+
+        .hero h1 {
+            color: var(--white);
+            margin-bottom: 1.5rem;
+            font-size: 3.5rem;
+        }
+
+        .hero .intro {
+            font-size: 1.1rem;
+            max-width: 700px;
+            margin: 0 auto 2rem;
+            line-height: 1.8;
+            font-style: italic;
+        }
+
+        .hero .author {
+            font-size: 1rem;
+            color: var(--sand);
+            font-weight: 500;
+        }
+
+        /* Main Content */
+        main {
+            margin-bottom: 60px;
+        }
+
+        section {
+            margin-bottom: 80px;
+        }
+
+        .section-intro {
+            background-color: var(--foam);
+            border-left: 5px solid var(--sand-dark);
+            padding: 25px;
+            margin-bottom: 40px;
+            border-radius: 4px;
+        }
+
+        /* School Cards */
+        .school-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+            gap: 30px;
+            margin-bottom: 40px;
+        }
+
+        .school-card {
+            background: var(--foam);
+            border: 1px solid var(--sand-mid);
+            border-radius: 6px;
+            padding: 30px;
+            transition: all 0.3s ease;
+            box-shadow: 0 2px 8px rgba(28, 58, 74, 0.1);
+        }
+
+        .school-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 8px 20px rgba(28, 58, 74, 0.15);
+            border-color: var(--sand-dark);
+        }
+
+        .school-card h4 {
+            color: var(--ocean);
+            margin-bottom: 0.5rem;
+        }
+
+        .school-card .type {
+            color: var(--drift);
+            font-size: 0.9rem;
+            font-weight: 500;
+            margin-bottom: 1rem;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+        }
+
+        .school-card ul {
+            margin-left: 1.5rem;
+            margin-bottom: 1rem;
+        }
+
+        .school-card li {
+            margin-bottom: 0.5rem;
+            color: var(--stone);
+        }
+
+        /* Stats Section */
+        .stats-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 20px;
+            margin: 30px 0;
+        }
+
+        .stat-box {
+            background-color: var(--ocean);
+            color: var(--white);
+            padding: 25px;
+            border-radius: 6px;
+            text-align: center;
+        }
+
+        .stat-box .number {
+            font-size: 2.5rem;
+            font-weight: bold;
+            color: var(--sand);
+            margin-bottom: 0.5rem;
+        }
+
+        .stat-box .label {
+            font-size: 0.95rem;
+            color: var(--sand-mid);
+        }
+
+        /* Feeder Pattern */
+        .feeder-container {
+            background-color: var(--foam);
+            padding: 40px;
+            border-radius: 6px;
+            margin-bottom: 40px;
+        }
+
+        .feeder-path {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 15px;
+            margin-bottom: 25px;
+            flex-wrap: wrap;
+            font-size: 0.95rem;
+        }
+
+        .feeder-item {
+            background-color: var(--ocean);
+            color: var(--white);
+            padding: 15px 20px;
+            border-radius: 4px;
+            font-weight: 500;
+            text-align: center;
+            flex: 0 1 auto;
+        }
+
+        .feeder-arrow {
+            color: var(--sand-dark);
+            font-size: 1.5rem;
+            font-weight: bold;
+        }
+
+        /* Neighborhood Section */
+        .neighborhood-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 25px;
+            margin-bottom: 40px;
+        }
+
+        .neighborhood-card {
+            background: linear-gradient(135deg, var(--foam) 0%, var(--sand) 100%);
+            border: 1px solid var(--sand-mid);
+            border-radius: 6px;
+            padding: 25px;
+            border-left: 5px solid var(--ocean);
+        }
+
+        .neighborhood-card h4 {
+            color: var(--ocean);
+            margin-bottom: 0.75rem;
+        }
+
+        .neighborhood-card .schools {
+            color: var(--stone);
+            font-size: 0.95rem;
+            line-height: 1.6;
+        }
+
+        /* Angelique Section */
+        .angelique-section {
+            background: linear-gradient(135deg, var(--sand) 0%, var(--foam) 100%);
+            border-left: 5px solid var(--ocean);
+            padding: 40px;
+            border-radius: 6px;
+            margin-bottom: 40px;
+        }
+
+        .angelique-section h3 {
+            margin-top: 0;
+        }
+
+        .angelique-signature {
+            margin-top: 2rem;
+            padding-top: 1rem;
+            border-top: 2px solid var(--sand-mid);
+            font-style: italic;
+            color: var(--drift);
+        }
+
+        /* CTA Section */
+        .cta-section {
+            background: linear-gradient(135deg, var(--ocean) 0%, var(--ocean-mid) 100%);
+            color: var(--white);
+            padding: 60px 40px;
+            border-radius: 6px;
+            margin-bottom: 40px;
+            text-align: center;
+        }
+
+        .cta-section h2 {
+            color: var(--white);
+            border-color: var(--sand);
+        }
+
+        .cta-section p {
+            font-size: 1.1rem;
+            margin-bottom: 2rem;
+        }
+
+        .cta-button {
+            display: inline-block;
+            background-color: var(--sand-dark);
+            color: var(--ocean);
+            padding: 15px 40px;
+            border-radius: 4px;
+            font-weight: 600;
+            text-decoration: none;
+            border: none;
+            cursor: pointer;
+            font-size: 1rem;
+            transition: all 0.3s ease;
+            border-bottom: none;
+        }
+
+        .cta-button:hover {
+            background-color: var(--sand);
+            transform: scale(1.05);
+        }
+
+        /* Sticky CTA Sidebar */
+        .sticky-cta {
+            position: fixed;
+            right: 20px;
+            bottom: 20px;
+            background-color: var(--ocean);
+            color: var(--white);
+            padding: 20px;
+            border-radius: 50px;
+            box-shadow: 0 8px 24px rgba(28, 58, 74, 0.3);
+            z-index: 1000;
+            max-width: 120px;
+            text-align: center;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+
+        .sticky-cta:hover {
+            background-color: var(--ocean-mid);
+            transform: scale(1.1);
+        }
+
+        .sticky-cta p {
+            margin: 0;
+            font-size: 0.85rem;
+            font-weight: 600;
+        }
+
+        /* FAQ Section */
+        .faq-section {
+            margin-bottom: 40px;
+        }
+
+        .faq-item {
+            background-color: var(--foam);
+            border: 1px solid var(--sand-mid);
+            border-radius: 6px;
+            margin-bottom: 20px;
+            overflow: hidden;
+        }
+
+        .faq-question {
+            background-color: var(--sand-mid);
+            padding: 20px;
+            cursor: pointer;
+            font-weight: 600;
+            color: var(--ocean);
+            user-select: none;
+            transition: background-color 0.3s ease;
+        }
+
+        .faq-question:hover {
+            background-color: var(--sand-dark);
+        }
+
+        .faq-answer {
+            padding: 20px;
+            color: var(--stone);
+            display: none;
+        }
+
+        .faq-answer.active {
+            display: block;
+        }
+
+        /* Table Styles */
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-bottom: 30px;
+            background-color: var(--white);
+            border: 1px solid var(--sand-mid);
+            border-radius: 4px;
+            overflow: hidden;
+        }
+
+        th {
+            background-color: var(--ocean);
+            color: var(--white);
+            padding: 15px;
+            text-align: left;
+            font-weight: 600;
+        }
+
+        td {
+            padding: 12px 15px;
+            border-bottom: 1px solid var(--sand-mid);
+        }
+
+        tr:hover {
+            background-color: var(--foam);
+        }
+
+        /* Responsive */
+        @media (max-width: 768px) {
+            h1 {
+                font-size: 2.5rem;
+            }
+
+            h2 {
+                font-size: 1.8rem;
+            }
+
+            h3 {
+                font-size: 1.4rem;
+            }
+
+            .hero {
+                padding: 50px 20px;
+            }
+
+            .hero h1 {
+                font-size: 2.5rem;
+            }
+
+            .feeder-path {
+                flex-direction: column;
+                gap: 10px;
+            }
+
+            .feeder-item {
+                width: 100%;
+            }
+
+            .sticky-cta {
+                right: 10px;
+                bottom: 10px;
+                padding: 15px;
+            }
+
+            .school-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .stats-grid {
+                grid-template-columns: repeat(2, 1fr);
+            }
+        }
+
+        /* Print Styles */
+        @media print {
+            .sticky-cta {
+                display: none;
+            }
+
+            body {
+                background-color: var(--white);
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Hero Section -->
+    <section class="hero">
+        <div class="container">
+            <h1>The Complete Guide to Palos Verdes Schools</h1>
+            <div class="intro">
+                "I moved here over 20 years ago with two kids and didn't know a soul. I had to navigate the entire school system from scratch while figuring out which neighborhood to call home. Here's everything I wish someone had told me about PVPUSD schools, neighborhoods, and raising a family in Palos Verdes."
+            </div>
+            <div class="author">Angelique Lyle, Compass Real Estate Agent & PV Relocation Specialist</div>
+        </div>
+    </section>
+
+    <main class="container">
+
+        <!-- PVPUSD Overview Section -->
+        <section id="district-overview">
+            <h2>Why Palos Verdes Schools Stand Out</h2>
+
+            <div class="section-intro">
+                <p>The Palos Verdes Peninsula Unified School District (PVPUSD) serves approximately 10,336 students across 18 public schools and consistently ranks among the best school districts in California. When relocating families ask me about schools first, it's because they know PVPUSD's reputation for academic excellence, college preparation, and strong community involvement.</p>
+            </div>
+
+            <h3>District Rankings & Performance</h3>
+
+            <div class="stats-grid">
+                <div class="stat-box">
+                    <div class="number">#45</div>
+                    <div class="label">California Districts (Top 5%)</div>
+                </div>
+                <div class="stat-box">
+                    <div class="number">#3</div>
+                    <div class="label">Best Districts in LA Area</div>
+                </div>
+                <div class="stat-box">
+                    <div class="number">98%</div>
+                    <div class="label">Graduation Rate</div>
+                </div>
+                <div class="stat-box">
+                    <div class="number">74%</div>
+                    <div class="label">Math Proficiency (vs. 34% state avg)</div>
+                </div>
+                <div class="stat-box">
+                    <div class="number">80%</div>
+                    <div class="label">Reading Proficiency (vs. 47% state avg)</div>
+                </div>
+                <div class="stat-box">
+                    <div class="number">23:1</div>
+                    <div class="label">Student-Teacher Ratio</div>
+                </div>
+            </div>
+
+            <h3>What Makes PVPUSD Special</h3>
+            <p>PVPUSD is more than just test scores. The district emphasizes:</p>
+            <ul style="margin-left: 1.5rem; margin-bottom: 2rem;">
+                <li><strong>Academic Excellence with Flexibility:</strong> Rigorous curricula balanced with student choice and personalization</li>
+                <li><strong>College Preparation from Day One:</strong> Advanced Placement, IB programs, and honors tracks begin in middle school</li>
+                <li><strong>Engaged Community:</strong> Parent involvement, school foundations, and active PTAs are hallmarks of PV schools</li>
+                <li><strong>Well-Resourced Schools:</strong> Strong bond measures and community support mean well-maintained facilities and current technology</li>
+                <li><strong>Safe, Tight-Knit Communities:</strong> Low crime rates and strong neighborhood cohesion create secure learning environments</li>
+                <li><strong>Exceptional College Placement:</strong> Graduates matriculate to UC schools, Ivy League universities, and top institutions nationwide</li>
+            </ul>
+
+        </section>
+
+        <!-- Elementary Schools Section -->
+        <section id="elementary-schools">
+            <h2>Elementary Schools (Grades K-5)</h2>
+
+            <div class="section-intro">
+                <p>PVPUSD operates nine elementary schools, each serving specific neighborhoods. The district uses a balanced enrollment model that attempts to distribute students across schools while respecting neighborhood assignments. Elementary years in PVPUSD focus on foundational academics, character development, and building lifelong learners.</p>
+            </div>
+
+            <div class="school-grid">
+                <div class="school-card">
+                    <h4>Lunada Bay Elementary</h4>
+                    <div class="type">K-5 | Palos Verdes Estates</div>
+                    <ul>
+                        <li><strong>Students:</strong> 336</li>
+                        <li><strong>Focus:</strong> Neighborhood school with strong community ties</li>
+                        <li><strong>Math Proficiency:</strong> 77%</li>
+                        <li><strong>Reading Proficiency:</strong> 82%</li>
+                        <li><strong>Best For:</strong> Families in Lunada Bay and nearby neighborhoods who want a traditional, well-established elementary school with deep roots in the community</li>
+                    </ul>
+                </div>
+
+                <div class="school-card">
+                    <h4>Montemalaga Elementary</h4>
+                    <div class="type">K-5 | Palos Verdes Estates</div>
+                    <ul>
+                        <li><strong>Students:</strong> 436</li>
+                        <li><strong>Math Proficiency:</strong> 82%</li>
+                        <li><strong>Reading Proficiency:</strong> 86%</li>
+                        <li><strong>Focus:</strong> High-achieving school known for strong academic programs</li>
+                        <li><strong>Best For:</strong> Families seeking consistently high test scores and rigorous academics at the elementary level</li>
+                    </ul>
+                </div>
+
+                <div class="school-card">
+                    <h4>Cornerstone at Pedregal</h4>
+                    <div class="type">K-5 | Rancho Palos Verdes</div>
+                    <ul>
+                        <li><strong>Students:</strong> 436</li>
+                        <li><strong>Focus:</strong> Ranked among PVPUSD's top elementary schools</li>
+                        <li><strong>Philosophy:</strong> Balanced, comprehensive approach to student development</li>
+                        <li><strong>Best For:</strong> Families in Rancho Palos Verdes looking for a top-performing neighborhood elementary</li>
+                    </ul>
+                </div>
+
+                <div class="school-card">
+                    <h4>Silver Spur Elementary</h4>
+                    <div class="type">K-5 | Rancho Palos Verdes</div>
+                    <ul>
+                        <li><strong>Mascot:</strong> Broncos</li>
+                        <li><strong>Focus:</strong> Ranked among PVPUSD's top elementary schools</li>
+                        <li><strong>Community:</strong> Strong family engagement and school spirit</li>
+                        <li><strong>Best For:</strong> Families seeking a well-ranked elementary with active parent participation</li>
+                    </ul>
+                </div>
+
+                <div class="school-card">
+                    <h4>Soleado Elementary</h4>
+                    <div class="type">K-5 | Rancho Palos Verdes</div>
+                    <ul>
+                        <li><strong>Students:</strong> 430</li>
+                        <li><strong>History:</strong> Originally opened in 1968 as a unique open-classroom school</li>
+                        <li><strong>Rank:</strong> Among PVPUSD's highest-performing elementary schools</li>
+                        <li><strong>Best For:</strong> Families looking for a school with innovative educational approaches and excellent academics</li>
+                    </ul>
+                </div>
+
+                <div class="school-card">
+                    <h4>Vista Grande Elementary</h4>
+                    <div class="type">K-5 | Rancho Palos Verdes</div>
+                    <ul>
+                        <li><strong>Location:</strong> Serves families in eastern Rancho Palos Verdes</li>
+                        <li><strong>Focus:</strong> Neighborhood elementary with strong community support</li>
+                        <li><strong>Philosophy:</strong> Balanced academic and social-emotional learning</li>
+                        <li><strong>Best For:</strong> Families in eastern RPV seeking a well-established neighborhood school</li>
+                    </ul>
+                </div>
+
+                <div class="school-card">
+                    <h4>Rancho Vista Elementary</h4>
+                    <div class="type">K-5 | Rancho Palos Verdes</div>
+                    <ul>
+                        <li><strong>Location:</strong> Serves central Rancho Palos Verdes neighborhoods</li>
+                        <li><strong>Focus:</strong> Comprehensive elementary program with enrichment opportunities</li>
+                        <li><strong>Community:</strong> Strong parent involvement and school foundation</li>
+                        <li><strong>Best For:</strong> Families seeking a balanced, well-supported elementary experience</li>
+                    </ul>
+                </div>
+
+                <div class="school-card">
+                    <h4>Mira Catalina Elementary</h4>
+                    <div class="type">K-5 | Rancho Palos Verdes</div>
+                    <ul>
+                        <li><strong>Students:</strong> 370</li>
+                        <li><strong>Math Proficiency:</strong> 82%</li>
+                        <li><strong>Reading Proficiency:</strong> 77%</li>
+                        <li><strong>Focus:</strong> Neighborhood school with solid academic performance</li>
+                        <li><strong>Best For:</strong> Families in central/western RPV looking for a smaller, community-oriented elementary</li>
+                    </ul>
+                </div>
+
+                <div class="school-card">
+                    <h4>Point Vicente Elementary</h4>
+                    <div class="type">K-5 | Rancho Palos Verdes</div>
+                    <ul>
+                        <li><strong>Location:</strong> Southernmost elementary in PVPUSD</li>
+                        <li><strong>Focus:</strong> Neighborhood school serving rolling hills communities</li>
+                        <li><strong>Community:</strong> Tight-knit school family</li>
+                        <li><strong>Best For:</strong> Families in the Point Vicente and southern neighborhoods seeking a close community feel</li>
+                    </ul>
+                </div>
+            </div>
+
+            <h3>Elementary School Features Across PVPUSD</h3>
+            <ul style="margin-left: 1.5rem; margin-bottom: 2rem;">
+                <li><strong>Transitional Kindergarten (TK):</strong> Available at multiple schools for students not yet meeting kindergarten age requirements</li>
+                <li><strong>Gifted Programs:</strong> Identified students receive differentiated instruction and enrichment</li>
+                <li><strong>Enrichment Activities:</strong> Art, music, physical education, and STEM programs built into the curriculum</li>
+                <li><strong>Family Engagement:</strong> PTAs, school foundations, and volunteer opportunities provide ways for families to connect</li>
+                <li><strong>Comprehensive Counseling:</strong> Elementary school counselors support academic and social-emotional needs</li>
+            </ul>
+
+        </section>
+
+        <!-- Middle Schools Section -->
+        <section id="middle-schools">
+            <h2>Middle Schools (Grades 6-8)</h2>
+
+            <div class="section-intro">
+                <p>PVPUSD operates three intermediate schools serving grades 6-8. Middle school is a critical transition year where students explore interests, build independence, and begin serious college preparation. All PVPUSD middle schools offer accelerated and advanced placement opportunities.</p>
+            </div>
+
+            <div class="school-grid">
+                <div class="school-card">
+                    <h4>Palos Verdes Intermediate School (PVIS)</h4>
+                    <div class="type">Grades 6-8 | Palos Verdes Estates</div>
+                    <ul>
+                        <li><strong>Grades Served:</strong> 6-8</li>
+                        <li><strong>Focus:</strong> Traditional intermediate school program with strong academics</li>
+                        <li><strong>Programs:</strong> Advanced/Honors courses, electives, extracurricular activities</li>
+                        <li><strong>Strengths:</strong> College preparation begins with honors track options</li>
+                        <li><strong>Best For:</strong> Families on the Palos Verdes Estates side of the peninsula seeking a well-established intermediate school</li>
+                    </ul>
+                </div>
+
+                <div class="school-card">
+                    <h4>Miraleste Intermediate School</h4>
+                    <div class="type">Grades 6-8 | Rancho Palos Verdes</div>
+                    <ul>
+                        <li><strong>Students:</strong> 746</li>
+                        <li><strong>Location:</strong> 2161 Via Olivera, Palos Verdes Estates, CA</li>
+                        <li><strong>Focus:</strong> Comprehensive middle school with diverse offerings</li>
+                        <li><strong>Programs:</strong> Honors tracks, elective courses, performing arts, athletics</li>
+                        <li><strong>Best For:</strong> Families in Rancho Palos Verdes seeking a full-service intermediate school</li>
+                    </ul>
+                </div>
+
+                <div class="school-card">
+                    <h4>Ridgecrest Intermediate School</h4>
+                    <div class="type">Grades 6-8 | Rancho Palos Verdes</div>
+                    <ul>
+                        <li><strong>Location:</strong> 29323 Palos Verdes Drive East, Rancho Palos Verdes</li>
+                        <li><strong>Focus:</strong> Academic rigor with strong community support</li>
+                        <li><strong>Programs:</strong> Advanced courses, arts, athletics, enrichment clubs</li>
+                        <li><strong>Strengths:</strong> Prepares students well for competitive high school programs</li>
+                        <li><strong>Best For:</strong> Families seeking a rigorous academic preparation for high school</li>
+                    </ul>
+                </div>
+            </div>
+
+            <h3>Middle School Opportunities</h3>
+            <p>All PVPUSD intermediate schools offer:</p>
+            <ul style="margin-left: 1.5rem; margin-bottom: 2rem;">
+                <li><strong>Honors & Advanced Courses:</strong> Accelerated math, English, science, and social studies</li>
+                <li><strong>Elective Choices:</strong> Students select from arts, technology, foreign languages, and career exploration courses</li>
+                <li><strong>Sports & Athletics:</strong> Competitive teams in basketball, soccer, volleyball, cross country, track, and more</li>
+                <li><strong>Club Activities:</strong> Academic clubs, leadership opportunities, and special interest groups</li>
+                <li><strong>College Exposure:</strong> Career exploration and introduction to college requirements and opportunities</li>
+                <li><strong>Counseling Support:</strong> Academic and social-emotional support as students navigate adolescence</li>
+            </ul>
+
+        </section>
+
+        <!-- High Schools Section -->
+        <section id="high-schools">
+            <h2>High Schools (Grades 9-12)</h2>
+
+            <div class="section-intro">
+                <p>PVPUSD operates two high schools that compete head-to-head for top students and are both among California's best. Palos Verdes Peninsula High School and Palos Verdes High School both offer rigorous college-prep curricula, extensive AP and honors courses, and strong college placement records. Both schools send their graduates to UC schools, Ivy League universities, and top institutions across the country.</p>
+            </div>
+
+            <div class="school-grid">
+                <div class="school-card">
+                    <h4>Palos Verdes Peninsula High School</h4>
+                    <div class="type">Grades 9-12 | Rolling Hills Estates</div>
+                    <ul>
+                        <li><strong>National Rank:</strong> #285 nationally, #34 in California</li>
+                        <li><strong>2026 Niche Grade:</strong> A+ (4.02/5.0)</li>
+                        <li><strong>Graduation Rate:</strong> 98%</li>
+                        <li><strong>Math Proficiency:</strong> 76% (vs. 34% CA avg)</li>
+                        <li><strong>Reading Proficiency:</strong> 82% (vs. 47% CA avg)</li>
+                        <li><strong>AP Participation:</strong> 79%</li>
+                        <li><strong>College Prep:</strong> Ranked #111 best college prep high schools in America</li>
+                        <li><strong>Best For:</strong> Ambitious students seeking top college preparation and rigorous academics</li>
+                    </ul>
+                </div>
+
+                <div class="school-card">
+                    <h4>Palos Verdes High School</h4>
+                    <div class="type">Grades 9-12 | Palos Verdes Estates</div>
+                    <ul>
+                        <li><strong>California Rank:</strong> #118 in California</li>
+                        <li><strong>National Rank:</strong> #421 best public high schools in America</li>
+                        <li><strong>Graduation Rate:</strong> 97%</li>
+                        <li><strong>Math Proficiency:</strong> 59% (vs. 34% CA avg)</li>
+                        <li><strong>Reading Proficiency:</strong> 75% (vs. 47% CA avg)</li>
+                        <li><strong>AP Participation:</strong> 67%</li>
+                        <li><strong>College Prep:</strong> Ranked #332 best college prep high schools in America</li>
+                        <li><strong>Best For:</strong> Students seeking a strong, community-oriented high school with solid college preparation</li>
+                    </ul>
+                </div>
+            </div>
+
+            <h3>What Both PVPUSD High Schools Offer</h3>
+            <ul style="margin-left: 1.5rem; margin-bottom: 2rem;">
+                <li><strong>Advanced Placement (AP) Courses:</strong> Extensive AP offerings across sciences, mathematics, humanities, and social sciences</li>
+                <li><strong>Honors & Accelerated Tracks:</strong> Students can challenge themselves with rigorous coursework</li>
+                <li><strong>College Counseling:</strong> Dedicated college counselors guide students through the application process starting junior year</li>
+                <li><strong>Competitive Athletics:</strong> Varsity and JV teams compete at high levels in football, basketball, soccer, volleyball, cross country, track, water polo, tennis, golf, and more</li>
+                <li><strong>Performing Arts:</strong> Band, orchestra, choir, and drama programs with opportunities for all skill levels</li>
+                <li><strong>Student Leadership:</strong> Student government, class officers, and extensive club offerings</li>
+                <li><strong>Career & Technical Education:</strong> Electives in digital media, design, entrepreneurship, and other career-focused areas</li>
+                <li><strong>Community Service:</strong> Service learning opportunities and volunteer programs</li>
+            </ul>
+
+            <h3>College Placement Results</h3>
+            <p>Both PVPUSD high schools consistently send graduates to:</p>
+            <ul style="margin-left: 1.5rem; margin-bottom: 2rem;">
+                <li>UC System schools (Berkeley, LA, San Diego, Santa Barbara, Irvine, Davis, etc.)</li>
+                <li>Ivy League universities (Harvard, Yale, Princeton, Penn, Cornell, Brown, Dartmouth, Columbia)</li>
+                <li>Other top-tier universities (Stanford, MIT, Northwestern, Johns Hopkins, Duke, USC, etc.)</li>
+                <li>Strong regional universities and liberal arts colleges</li>
+            </ul>
+
+            <h3>High School Feeder System</h3>
+            <p>In PVPUSD, elementary students do not necessarily feed to the same high school based on neighborhood. The district uses a choice/controlled choice model for some assignments. Both high schools draw from the entire district, creating competitive enrollment.</p>
+
+        </section>
+
+        <!-- Private Schools Section -->
+        <section id="private-schools">
+            <h2>Private Schools in Palos Verdes</h2>
+
+            <div class="section-intro">
+                <p>While Palos Verdes is best known for its excellent public schools, several prestigious private schools serve the area. These schools offer distinct educational philosophies, smaller class sizes, and specialized programs. Tuition varies significantly, and financial aid is typically available.</p>
+            </div>
+
+            <div class="school-grid">
+                <div class="school-card">
+                    <h4>Chadwick School</h4>
+                    <div class="type">K-12 Independent | Palos Verdes Peninsula</div>
+                    <ul>
+                        <li><strong>Grades:</strong> K-12</li>
+                        <li><strong>Tuition Range:</strong> $43,740-$51,240 (depends on grade)</li>
+                        <li><strong>New Student Fee:</strong> $1,750 (one-time)</li>
+                        <li><strong>Philosophy:</strong> College prep, character development, experiential learning</li>
+                        <li><strong>Focus:</strong> Progressive education emphasizing critical thinking and leadership</li>
+                        <li><strong>College Placement:</strong> Strong placement at top universities</li>
+                        <li><strong>Best For:</strong> Families seeking a rigorous, well-rounded K-12 independent school education with smaller classes</li>
+                    </ul>
+                </div>
+
+                <div class="school-card">
+                    <h4>Rolling Hills Preparatory School</h4>
+                    <div class="type">6-12 | San Pedro/Rolling Hills Area</div>
+                    <ul>
+                        <li><strong>Grades:</strong> 6-12</li>
+                        <li><strong>Tuition:</strong> $44,800 (day, subject to change)</li>
+                        <li><strong>Philosophy:</strong> College preparatory focus with personalized education</li>
+                        <li><strong>Programs:</strong> Honors and AP courses, arts, athletics, leadership</li>
+                        <li><strong>Community:</strong> Close-knit, family-oriented environment</li>
+                        <li><strong>Best For:</strong> Families wanting middle and high school in one independent school setting with individualized attention</li>
+                    </ul>
+                </div>
+
+                <div class="school-card">
+                    <h4>Marymount California University High School</h4>
+                    <div class="type">9-12 | Los Angeles</div>
+                    <ul>
+                        <li><strong>Grades:</strong> 9-12 (co-ed)</li>
+                        <li><strong>Philosophy:</strong> Catholic, college preparatory, focus on women's leadership</li>
+                        <li><strong>Programs:</strong> AP courses, STEM emphasis, arts and athletics</li>
+                        <li><strong>Values:</strong> Faith-based education with service and social justice emphasis</li>
+                        <li><strong>College Placement:</strong> Strong placement at highly selective universities</li>
+                        <li><strong>Best For:</strong> Families seeking a faith-based high school education with strong college prep and leadership development</li>
+                    </ul>
+                </div>
+            </div>
+
+        </section>
+
+        <!-- School Feeder Patterns Section -->
+        <section id="feeder-patterns">
+            <h2>Understanding School Feeder Patterns</h2>
+
+            <div class="section-intro">
+                <p>PVPUSD uses a combination of neighborhood assignments and controlled choice for student placement. Understanding feeder patterns helps families know where their child's education journey will take them.</p>
+            </div>
+
+            <h3>Elementary to Middle School Patterns</h3>
+            <p style="margin-bottom: 2rem;">Elementary schools feed students to specific intermediate schools based primarily on neighborhood and residential location:</p>
+
+            <div class="feeder-container">
+                <div class="feeder-path">
+                    <div class="feeder-item">Lunada Bay, Montemalaga Elementary</div>
+                    <div class="feeder-arrow">→</div>
+                    <div class="feeder-item">Palos Verdes Intermediate (PVIS)</div>
+                </div>
+                <div class="feeder-path">
+                    <div class="feeder-item">Cornerstone, Silver Spur, Soleado, Vista Grande, Rancho Vista, Mira Catalina, Point Vicente Elementary</div>
+                    <div class="feeder-arrow">→</div>
+                    <div class="feeder-item">Miraleste or Ridgecrest Intermediate</div>
+                </div>
+            </div>
+
+            <h3>Middle to High School Transition</h3>
+            <p style="margin-bottom: 2rem;">Students can apply to either high school through PVPUSD's choice process. High school assignment is NOT automatic based on middle school; families may request their preferred school, though enrollment is dependent on capacity.</p>
+
+            <div class="feeder-container">
+                <div class="feeder-path">
+                    <div class="feeder-item">PVIS, Miraleste, or Ridgecrest Intermediate</div>
+                    <div class="feeder-arrow">→</div>
+                    <div class="feeder-item">Palos Verdes Peninsula HS or Palos Verdes HS</div>
+                </div>
+            </div>
+
+            <p><strong>Important:</strong> Feeder patterns can change. When planning a move, verify current attendance boundaries with PVPUSD directly at <a href="https://www.pvpusd.net/">www.pvpusd.net</a>.</p>
+
+        </section>
+
+        <!-- Neighborhoods & Schools Section -->
+        <section id="neighborhoods">
+            <h2>Which Neighborhood = Which School?</h2>
+
+            <div class="section-intro">
+                <p>In Palos Verdes, your neighborhood often determines which elementary school your children will attend. This is one of the most important factors families consider when choosing where to buy. Use this guide to understand school zones, though you should always verify current boundaries with the district.</p>
+            </div>
+
+            <div class="neighborhood-grid">
+                <div class="neighborhood-card">
+                    <h4>Palos Verdes Estates</h4>
+                    <div class="schools">
+                        <strong>Elementary:</strong> Lunada Bay, Montemalaga, or (some areas) Cornerstone<br>
+                        <strong>Middle:</strong> Palos Verdes Intermediate (PVIS)<br>
+                        <strong>High:</strong> Palos Verdes HS or PVPHS (by choice)
+                    </div>
+                </div>
+
+                <div class="neighborhood-card">
+                    <h4>Rancho Palos Verdes - Eastern Areas</h4>
+                    <div class="schools">
+                        <strong>Elementary:</strong> Vista Grande or Rancho Vista<br>
+                        <strong>Middle:</strong> Ridgecrest Intermediate<br>
+                        <strong>High:</strong> Palos Verdes HS or PVPHS (by choice)
+                    </div>
+                </div>
+
+                <div class="neighborhood-card">
+                    <h4>Rancho Palos Verdes - Central/Western Areas</h4>
+                    <div class="schools">
+                        <strong>Elementary:</strong> Cornerstone, Silver Spur, Soleado, or Mira Catalina<br>
+                        <strong>Middle:</strong> Miraleste Intermediate<br>
+                        <strong>High:</strong> Palos Verdes HS or PVPHS (by choice)
+                    </div>
+                </div>
+
+                <div class="neighborhood-card">
+                    <h4>Rancho Palos Verdes - Southern Areas</h4>
+                    <div class="schools">
+                        <strong>Elementary:</strong> Point Vicente or Mira Catalina<br>
+                        <strong>Middle:</strong> Miraleste or Ridgecrest<br>
+                        <strong>High:</strong> Palos Verdes HS or PVPHS (by choice)
+                    </div>
+                </div>
+
+                <div class="neighborhood-card">
+                    <h4>Rolling Hills Estates</h4>
+                    <div class="schools">
+                        <strong>Elementary:</strong> Cornerstone or Silver Spur<br>
+                        <strong>Middle:</strong> Miraleste or Ridgecrest<br>
+                        <strong>High:</strong> PVPHS typically (though choice available)
+                    </div>
+                </div>
+
+                <div class="neighborhood-card">
+                    <h4>Rolling Hills</h4>
+                    <div class="schools">
+                        <strong>Elementary:</strong> Check with district (some areas are PVUSD)<br>
+                        <strong>Middle:</strong> Varies<br>
+                        <strong>High:</strong> Varies (some schools in other districts)
+                    </div>
+                </div>
+            </div>
+
+            <h3>Important Note on School Assignments</h3>
+            <p>While neighborhood assignments are the primary method, PVPUSD does offer limited choice and has implemented controlled choice policies. Additionally, families can request transfers for specific programs or circumstances. Always verify current boundaries with PVPUSD Enrollment at <a href="https://www.pvpusd.net/">www.pvpusd.net</a> before making a home purchase decision.</p>
+
+        </section>
+
+        <!-- Angelique's Personal Take -->
+        <section id="angelique-story">
+            <div class="angelique-section">
+                <h3 style="margin-top: 0;">My 20+ Years in Palos Verdes: Raising Kids Through PVPUSD</h3>
+
+                <p>When I moved to the Palos Verdes Peninsula over 20 years ago, I didn't have a single friend, didn't know the neighborhoods, and definitely didn't understand how to navigate PVPUSD. All I knew was that I wanted my kids in excellent schools, and I was determined to make the right choice.</p>
+
+                <p>I started by doing what every relocating parent does: researching test scores. But test scores don't tell the whole story. PVPUSD's high numbers are real, but what really matters is that these schools are full of engaged families, involved parents, and educators who genuinely care about your child's success.</p>
+
+                <p>Both of my kids went through PVPUSD from elementary through high school. I watched them grow, make lifelong friendships, and get prepared not just for college, but for life. The schools here do something special: they challenge students academically while still letting them be kids. There's room for athletics, arts, clubs, and just being part of a community.</p>
+
+                <p>The biggest surprise to me was how much the neighborhood shapes your whole experience. I wasn't just buying a house; I was buying into a school community, a parent network, and a way of life. The families who choose to live in the same neighborhoods as you become your friends. You run into them at school events, you carpool together, you build something real.</p>
+
+                <p>I'm proud that both my kids graduated from PVPUSD, both got into Big 10 four-year universities, and both are thriving. But more than that, I'm grateful they grew up in a place where education was valued, where schools were safe, and where there was a genuine commitment to helping kids succeed.</p>
+
+                <p>If you're thinking about moving to Palos Verdes for the schools—you should. But also think about the neighborhoods, the communities, and what kind of family experience you want. Because the schools here aren't just buildings and test scores. They're the heart of what makes these neighborhoods special.</p>
+
+                <div class="angelique-signature">
+                    — Angelique Lyle<br>
+                    Palos Verdes Relocation Specialist, Compass<br>
+                    20+ years, two kids, two Big 10 universities, zero regrets
+                </div>
+            </div>
+        </section>
+
+        <!-- FAQ Section -->
+        <section id="faq">
+            <h2>Frequently Asked Questions About Palos Verdes Schools</h2>
+
+            <div class="faq-section">
+                <div class="faq-item">
+                    <div class="faq-question">Are Palos Verdes schools really as good as everyone says?</div>
+                    <div class="faq-answer">
+                        Yes. PVPUSD is ranked #45 out of 1,907 districts in California and #3 in the Los Angeles area. With 74% math proficiency (vs. 34% state average) and 80% reading proficiency (vs. 47% state average), the numbers back up the reputation. But more importantly, these are schools where educators and families are genuinely invested in student success. The culture of academic achievement runs deep.
+                    </div>
+                </div>
+
+                <div class="faq-item">
+                    <div class="faq-question">What's the difference between Palos Verdes High School and Palos Verdes Peninsula High School?</div>
+                    <div class="faq-answer">
+                        Both are excellent, but they're different schools with different histories and communities. Palos Verdes Peninsula High School (in Rolling Hills Estates) is ranked higher nationally (#34 in CA, #285 nationally) with slightly higher test scores and a 98% graduation rate. Palos Verdes High School (in Palos Verdes Estates) is ranked #118 in CA and also offers excellent college prep with a 97% graduation rate. Both can get your student into great colleges. Consider location, school culture, sports offerings, and where your friends are going when making a choice.
+                    </div>
+                </div>
+
+                <div class="faq-item">
+                    <div class="faq-question">How much does school zone affect home values in Palos Verdes?</div>
+                    <div class="faq-answer">
+                        Significantly. Homes in top-performing school zones (especially those feeding to highly-ranked elementary schools and PVPHS) command a premium. Parents will choose neighborhoods specifically to get their kids into certain schools. When you're choosing a home, knowing your school assignment should be a key part of your decision—along with the home itself, neighborhood, and family lifestyle.
+                    </div>
+                </div>
+
+                <div class="faq-item">
+                    <div class="faq-question">Can I choose which high school my child attends, or is it based on neighborhood?</div>
+                    <div class="faq-answer">
+                        PVPUSD has a choice/controlled choice process for high school. Most middle school students can request either Palos Verdes High School or Palos Verdes Peninsula High School, though enrollment is capacity-dependent. Neighborhood does influence the likelihood of getting your choice, but don't assume you'll automatically attend one school based on where you live. Always check the district's current policies when planning a move.
+                    </div>
+                </div>
+
+                <div class="faq-item">
+                    <div class="faq-question">What makes PVPUSD elementary schools different from each other?</div>
+                    <div class="faq-answer">
+                        While all PVPUSD elementary schools are strong, some rank higher on standardized tests (Montemalaga, Soleado, and Cornerstone consistently rank among California's top elementary schools). Others may emphasize different approaches or serve tighter-knit neighborhoods. The quality of a school also depends on the specific cohort, principal's leadership, and parent involvement during any given year. If possible, visit schools, talk to current families, and ask about the school culture and programs that matter to you.
+                    </div>
+                </div>
+
+                <div class="faq-item">
+                    <div class="faq-question">Should I consider private schools over Palos Verdes public schools?</div>
+                    <div class="faq-answer">
+                        For most families, PVPUSD public schools offer exceptional education at no tuition cost. However, private schools like Chadwick offer different philosophies, smaller classes, and K-12 continuity that some families prefer. Private school tuition ranges from $44,000-$51,000+. Only you can decide if the private school difference is worth the cost for your family. Many successful Palos Verdes families choose excellent public schools and redirect the savings toward other opportunities.
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- CTA Section -->
+        <section class="cta-section">
+            <h2>Ready to Find Your Family's Perfect Palos Verdes Neighborhood?</h2>
+            <p>I've lived here 20+ years and helped dozens of families navigate school zones, neighborhoods, and the moving process. I know which areas work best for families with young children, where the school communities are strongest, and how to find your family a home that checks all the boxes.</p>
+            <p>Let me help you make the right move to Palos Verdes.</p>
+            <button class="cta-button" onclick="document.getElementById('contact-form').scrollIntoView({behavior: 'smooth'});">Start the Conversation</button>
+        </section>
+
+        <!-- Contact Form Placeholder -->
+        <section id="contact-form" style="background-color: var(--foam); padding: 40px; border-radius: 6px; margin-bottom: 60px;">
+            <h3 style="margin-top: 0;">Get Your Personalized Palos Verdes Relocation Plan</h3>
+            <p style="margin-bottom: 1.5rem;">Tell me about your family, what matters to you in schools and neighborhoods, and I'll help you understand your options. Whether you're moving from across the country or across California, I've got the experience and insights to make your transition smooth.</p>
+
+            <form style="max-width: 600px;">
+                <div style="margin-bottom: 1rem;">
+                    <label style="display: block; margin-bottom: 0.5rem; font-weight: 500;">Your Name</label>
+                    <input type="text" placeholder="First and Last Name" style="width: 100%; padding: 10px; border: 1px solid var(--sand-mid); border-radius: 4px; font-family: 'Outfit', sans-serif; font-size: 1rem;">
+                </div>
+                <div style="margin-bottom: 1rem;">
+                    <label style="display: block; margin-bottom: 0.5rem; font-weight: 500;">Email</label>
+                    <input type="email" placeholder="your@email.com" style="width: 100%; padding: 10px; border: 1px solid var(--sand-mid); border-radius: 4px; font-family: 'Outfit', sans-serif; font-size: 1rem;">
+                </div>
+                <div style="margin-bottom: 1rem;">
+                    <label style="display: block; margin-bottom: 0.5rem; font-weight: 500;">Phone</label>
+                    <input type="tel" placeholder="(555) 123-4567" style="width: 100%; padding: 10px; border: 1px solid var(--sand-mid); border-radius: 4px; font-family: 'Outfit', sans-serif; font-size: 1rem;">
+                </div>
+                <div style="margin-bottom: 1rem;">
+                    <label style="display: block; margin-bottom: 0.5rem; font-weight: 500;">Tell me about your family (kids' ages, schools they currently attend, what matters most to you)</label>
+                    <textarea placeholder="Share your story..." rows="5" style="width: 100%; padding: 10px; border: 1px solid var(--sand-mid); border-radius: 4px; font-family: 'Outfit', sans-serif; font-size: 1rem;"></textarea>
+                </div>
+                <button type="submit" class="cta-button" style="width: 100%;">Send Me Information</button>
+            </form>
+        </section>
+
+    </main>
+
+    <!-- Sticky CTA Button -->
+    <div class="sticky-cta" onclick="document.getElementById('contact-form').scrollIntoView({behavior: 'smooth'});">
+        <p>Let's find your school zone</p>
+    </div>
+
+    <!-- Schema Markup for FAQ -->
+    <script type="application/ld+json">
+    {
+      "@context": "https://schema.org",
+      "@type": "FAQPage",
+      "mainEntity": [
+        {
+          "@type": "Question",
+          "name": "Are Palos Verdes schools really as good as everyone says?",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "Yes. PVPUSD is ranked #45 out of 1,907 districts in California and #3 in the Los Angeles area. With 74% math proficiency (vs. 34% state average) and 80% reading proficiency (vs. 47% state average), the numbers back up the reputation. But more importantly, these are schools where educators and families are genuinely invested in student success."
+          }
+        },
+        {
+          "@type": "Question",
+          "name": "What's the difference between Palos Verdes High School and Palos Verdes Peninsula High School?",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "Both are excellent schools. Palos Verdes Peninsula High School (in Rolling Hills Estates) is ranked higher nationally (#34 in CA, #285 nationally) with slightly higher test scores and a 98% graduation rate. Palos Verdes High School (in Palos Verdes Estates) is ranked #118 in CA and also offers excellent college prep with a 97% graduation rate."
+          }
+        },
+        {
+          "@type": "Question",
+          "name": "How much does school zone affect home values in Palos Verdes?",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "Significantly. Homes in top-performing school zones command a premium. Parents will choose neighborhoods specifically to get their kids into certain schools. When choosing a home, knowing your school assignment should be a key part of your decision."
+          }
+        },
+        {
+          "@type": "Question",
+          "name": "Can I choose which high school my child attends?",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "PVPUSD has a choice/controlled choice process for high school. Most middle school students can request either Palos Verdes High School or Palos Verdes Peninsula High School, though enrollment is capacity-dependent. Always check the district's current policies when planning a move."
+          }
+        },
+        {
+          "@type": "Question",
+          "name": "What makes PVPUSD elementary schools different from each other?",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "While all PVPUSD elementary schools are strong, some rank higher on standardized tests (Montemalaga, Soleado, and Cornerstone consistently rank among California's top elementary schools). The quality also depends on the principal's leadership, parent involvement, and school culture."
+          }
+        },
+        {
+          "@type": "Question",
+          "name": "Should I consider private schools over Palos Verdes public schools?",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "For most families, PVPUSD public schools offer exceptional education at no tuition cost. However, private schools like Chadwick offer different philosophies, smaller classes, and K-12 continuity that some families prefer. Private school tuition ranges from $44,000-$51,000+."
+          }
+        }
+      ]
+    }
+    </script>
+
+    <!-- Organization Schema -->
+    <script type="application/ld+json">
+    {
+      "@context": "https://schema.org",
+      "@type": "LocalBusiness",
+      "name": "Angelique Lyle - Palos Verdes Real Estate",
+      "description": "Palos Verdes relocation specialist helping families find the perfect neighborhood for their school needs",
+      "url": "https://www.ownpalosverdes.com",
+      "telephone": "",
+      "address": {
+        "@type": "PostalAddress",
+        "streetAddress": "",
+        "addressLocality": "Palos Verdes",
+        "addressRegion": "CA",
+        "postalCode": "",
+        "addressCountry": "US"
+      },
+      "areaServed": ["Palos Verdes Estates", "Rancho Palos Verdes", "Rolling Hills Estates", "Rolling Hills"],
+      "knowsAbout": ["PVPUSD Schools", "School Zones", "Relocation Consulting", "Real Estate"]
+    }
+    </script>
+
+    <script>
+        // FAQ Toggle Functionality
+        document.querySelectorAll('.faq-question').forEach(question => {
+            question.addEventListener('click', function() {
+                const answer = this.nextElementSibling;
+                answer.classList.toggle('active');
+
+                // Close other answers
+                document.querySelectorAll('.faq-answer').forEach(a => {
+                    if (a !== answer) {
+                        a.classList.remove('active');
+                    }
+                });
+            });
+        });
+
+        // Smooth scroll links
+        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+            anchor.addEventListener('click', function (e) {
+                const href = this.getAttribute('href');
+                if (href !== '#' && document.querySelector(href)) {
+                    e.preventDefault();
+                    document.querySelector(href).scrollIntoView({
+                        behavior: 'smooth'
+                    });
+                }
+            });
+        });
+    </script>
+
+</body>
+</html>

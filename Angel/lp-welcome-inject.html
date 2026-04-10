@@ -1,0 +1,310 @@
+<!--
+  ANGELIQUE LYLE — LP Welcome Page Inject v2
+  Paste into: Welcome page → first section → Advanced code editor
+
+  Single-screen landing: bio pic + PV coastline bg + all CTAs
+  LP nav/menu and footer still render normally around this.
+  Other pages (testimonials, about, etc.) still linked from LP nav.
+-->
+<style>
+  /* Hide LP's default section padding/chrome for this section only */
+  .al-welcome-wrap .solid-section__inner {
+    max-width: 100% !important;
+    padding: 0 !important;
+  }
+
+  .al-land {
+    min-height: calc(100vh - 68px);
+    background: url('https://media-production.lp-cdn.com/cdn-cgi/image/format=auto,quality=85,fit=scale-down,width=1920/https://media-production.lp-cdn.com/media/ruzqfo5d9fxziagofncw') center/cover no-repeat;
+    position: relative;
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    align-items: center;
+    font-family: 'DM Sans', system-ui, sans-serif;
+  }
+
+  .al-land::before {
+    content: '';
+    position: absolute;
+    inset: 0;
+    background: linear-gradient(110deg, rgba(0,0,0,0.82) 0%, rgba(0,0,0,0.55) 50%, rgba(0,0,0,0.3) 100%);
+  }
+
+  /* ── LEFT: Bio + credibility ─── */
+  .al-l-left {
+    position: relative;
+    z-index: 2;
+    padding: 3rem 3rem 3rem 5rem;
+    color: #fff;
+    display: flex;
+    flex-direction: column;
+    gap: 1.5rem;
+  }
+
+  .al-l-photo-row {
+    display: flex;
+    align-items: flex-end;
+    gap: 1.5rem;
+  }
+
+  .al-l-photo {
+    width: 140px;
+    height: 175px;
+    object-fit: cover;
+    object-position: center top;
+    border: 2px solid rgba(255,255,255,0.2);
+    flex-shrink: 0;
+  }
+
+  .al-l-intro {
+    flex: 1;
+  }
+
+  .al-l-name {
+    font-family: 'DM Serif Display', Georgia, serif;
+    font-size: 1.8rem;
+    font-weight: 400;
+    line-height: 1.15;
+    margin-bottom: 0.25rem;
+  }
+
+  .al-l-title {
+    font-size: 0.68rem;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    color: rgba(255,255,255,0.5);
+    line-height: 1.5;
+  }
+
+  .al-l-headline {
+    font-family: 'DM Serif Display', Georgia, serif;
+    font-size: clamp(1.6rem, 3vw, 2.4rem);
+    font-weight: 400;
+    line-height: 1.15;
+  }
+  .al-l-headline em { font-style: italic; }
+
+  .al-l-bio {
+    font-size: 0.85rem;
+    line-height: 1.65;
+    color: rgba(255,255,255,0.6);
+    max-width: 440px;
+  }
+
+  .al-l-stats {
+    display: flex;
+    gap: 2rem;
+    padding-top: 1rem;
+    border-top: 1px solid rgba(255,255,255,0.1);
+  }
+  .al-l-stat-num {
+    font-family: 'DM Serif Display', Georgia, serif;
+    font-size: 1.2rem;
+  }
+  .al-l-stat-label {
+    font-size: 0.55rem;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    color: rgba(255,255,255,0.4);
+    margin-top: 0.15rem;
+  }
+
+  /* ── RIGHT: CTA panel ─── */
+  .al-l-right {
+    position: relative;
+    z-index: 2;
+    padding: 2.5rem;
+    display: flex;
+    flex-direction: column;
+    gap: 0.75rem;
+    max-width: 420px;
+    justify-self: center;
+  }
+
+  .al-l-cta {
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+    padding: 14px 20px;
+    background: rgba(255,255,255,0.07);
+    backdrop-filter: blur(8px);
+    -webkit-backdrop-filter: blur(8px);
+    border: 1px solid rgba(255,255,255,0.15);
+    color: #fff;
+    text-decoration: none;
+    transition: background 0.2s, border-color 0.2s;
+    cursor: pointer;
+    width: 100%;
+  }
+  .al-l-cta:hover {
+    background: rgba(255,255,255,0.14);
+    border-color: rgba(255,255,255,0.35);
+    color: #fff;
+  }
+
+  .al-l-cta-icon {
+    font-size: 1.3rem;
+    width: 36px;
+    text-align: center;
+    flex-shrink: 0;
+  }
+
+  .al-l-cta-text {
+    flex: 1;
+  }
+  .al-l-cta-label {
+    font-size: 0.82rem;
+    font-weight: 600;
+  }
+  .al-l-cta-desc {
+    font-size: 0.68rem;
+    color: rgba(255,255,255,0.5);
+    margin-top: 0.15rem;
+  }
+
+  .al-l-cta-arrow {
+    font-size: 0.85rem;
+    color: rgba(255,255,255,0.3);
+    flex-shrink: 0;
+  }
+
+  /* Primary CTA — white bg */
+  .al-l-cta--primary {
+    background: #fff;
+    color: #1a1a1a;
+    border-color: #fff;
+  }
+  .al-l-cta--primary:hover {
+    background: #f2f2f2;
+    color: #1a1a1a;
+  }
+  .al-l-cta--primary .al-l-cta-desc { color: #666; }
+  .al-l-cta--primary .al-l-cta-arrow { color: #999; }
+
+  .al-l-fine {
+    font-size: 0.6rem;
+    color: rgba(255,255,255,0.3);
+    text-align: center;
+    margin-top: 0.5rem;
+    line-height: 1.4;
+  }
+  .al-l-fine a { color: rgba(255,255,255,0.4); text-decoration: none; }
+
+  /* ── Responsive ─── */
+  @media (max-width: 960px) {
+    .al-land {
+      grid-template-columns: 1fr;
+      min-height: auto;
+    }
+    .al-l-left { padding: 3rem 2rem 2rem; }
+    .al-l-right {
+      padding: 0 2rem 3rem;
+      max-width: 100%;
+      justify-self: stretch;
+    }
+    .al-l-stats { flex-wrap: wrap; gap: 1.5rem; }
+    .al-l-photo { width: 100px; height: 130px; }
+  }
+</style>
+
+<div class="al-land">
+  <!-- LEFT: Bio + credibility -->
+  <div class="al-l-left">
+
+    <div class="al-l-photo-row">
+      <img class="al-l-photo" src="https://media-production.lp-cdn.com/cdn-cgi/image/format=auto,quality=85/https://media-production.lp-cdn.com/media/02ac46c4-b964-4f20-8bd4-0492050556ee" alt="Angelique Lyle">
+      <div class="al-l-intro">
+        <div class="al-l-name">Angelique Lyle</div>
+        <div class="al-l-title">Accardo Real Estate Associates &middot; Compass<br>CA DRE# 01475592</div>
+      </div>
+    </div>
+
+    <h1 class="al-l-headline">Life above the <em>Pacific</em><br>starts here.</h1>
+
+    <p class="al-l-bio">
+      20+ years guiding families home to the Palos Verdes Peninsula and South Bay beach cities. Relocation specialist, USC grad, and a mom who raised her kids right here on this Hill.
+    </p>
+
+    <div class="al-l-stats">
+      <div>
+        <div class="al-l-stat-num">$2.8M</div>
+        <div class="al-l-stat-label">PVE Median</div>
+      </div>
+      <div>
+        <div class="al-l-stat-num">Top 1.5%</div>
+        <div class="al-l-stat-label">Nationwide</div>
+      </div>
+      <div>
+        <div class="al-l-stat-num">20+</div>
+        <div class="al-l-stat-label">Years</div>
+      </div>
+      <div>
+        <div class="al-l-stat-num">5.0 &#9733;</div>
+        <div class="al-l-stat-label">Reviews</div>
+      </div>
+    </div>
+  </div>
+
+  <!-- RIGHT: All CTAs stacked -->
+  <div class="al-l-right">
+
+    <a href="#" class="al-l-cta al-l-cta--primary" onclick="alOpenModal('contact-modal'); return false;">
+      <div class="al-l-cta-icon">&#9993;</div>
+      <div class="al-l-cta-text">
+        <div class="al-l-cta-label">Connect with Angelique</div>
+        <div class="al-l-cta-desc">Send a message — I reply within the hour</div>
+      </div>
+      <div class="al-l-cta-arrow">&rarr;</div>
+    </a>
+
+    <a href="#" class="al-l-cta">
+      <div class="al-l-cta-icon">&#128197;</div>
+      <div class="al-l-cta-text">
+        <div class="al-l-cta-label">Schedule Time</div>
+        <div class="al-l-cta-desc">Book a 15-minute call at your convenience</div>
+      </div>
+      <div class="al-l-cta-arrow">&rarr;</div>
+    </a>
+
+    <a href="https://thehillpv.com/neighborhoods" class="al-l-cta" target="_blank">
+      <div class="al-l-cta-icon">&#127968;</div>
+      <div class="al-l-cta-text">
+        <div class="al-l-cta-label">Neighborhood Guide</div>
+        <div class="al-l-cta-desc">PVE, RPV, Rolling Hills, RHE + beach cities</div>
+      </div>
+      <div class="al-l-cta-arrow">&rarr;</div>
+    </a>
+
+    <a href="https://thehillpv.com/schools" class="al-l-cta" target="_blank">
+      <div class="al-l-cta-icon">&#127891;</div>
+      <div class="al-l-cta-text">
+        <div class="al-l-cta-label">School Guide</div>
+        <div class="al-l-cta-desc">PVPUSD feeder patterns, ratings, campus info</div>
+      </div>
+      <div class="al-l-cta-arrow">&rarr;</div>
+    </a>
+
+    <a href="#" class="al-l-cta">
+      <div class="al-l-cta-icon">&#128232;</div>
+      <div class="al-l-cta-text">
+        <div class="al-l-cta-label">Get My Newsletter</div>
+        <div class="al-l-cta-desc">Monthly market updates + new listings</div>
+      </div>
+      <div class="al-l-cta-arrow">&rarr;</div>
+    </a>
+
+    <a href="tel:3107518335" class="al-l-cta">
+      <div class="al-l-cta-icon">&#128222;</div>
+      <div class="al-l-cta-text">
+        <div class="al-l-cta-label">(310) 751-8335</div>
+        <div class="al-l-cta-desc">Call or text anytime</div>
+      </div>
+      <div class="al-l-cta-arrow">&rarr;</div>
+    </a>
+
+    <p class="al-l-fine">
+      No spam. No pressure. Just a real conversation.<br>
+      <a href="/testimonials">Read what clients say &rarr;</a>
+    </p>
+  </div>
+</div>

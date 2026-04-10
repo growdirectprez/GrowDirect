@@ -1,0 +1,624 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Compass MCP Architecture — Real Estate Agent AI Toolkit</title>
+<link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@300;400;500;600;700&family=DM+Serif+Display:ital@0;1&display=swap" rel="stylesheet">
+<style>
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+  :root {
+    --black: #000000;
+    --near-black: #1A1A1A;
+    --gray-800: #333333;
+    --gray-600: #666666;
+    --gray-400: #999999;
+    --gray-200: #E0E0E0;
+    --gray-100: #F2F2F2;
+    --off-white: #F7F7F7;
+    --white: #FFFFFF;
+    --heading: 'DM Serif Display', Georgia, serif;
+    --body: 'DM Sans', system-ui, sans-serif;
+  }
+  body { font-family: var(--body); background: var(--off-white); color: var(--near-black); line-height: 1.6; }
+
+  .header { background: var(--black); color: var(--white); padding: 3rem 2rem 2.5rem; text-align: center; }
+  .header h1 { font-family: var(--heading); font-size: 2rem; margin-bottom: 0.5rem; }
+  .header p { color: var(--gray-200); font-size: 0.95rem; max-width: 650px; margin: 0 auto; }
+  .badge { display: inline-block; background: var(--near-black); color: var(--white); font-size: 0.7rem;
+    font-weight: 600; letter-spacing: 0.08em; text-transform: uppercase; padding: 0.25rem 0.75rem;
+    border-radius: 2px; margin-bottom: 1rem; }
+
+  .container { max-width: 1000px; margin: 0 auto; padding: 2rem 1.5rem; }
+  .section-label { font-size: 0.7rem; letter-spacing: 0.12em; text-transform: uppercase;
+    color: var(--gray-600); font-weight: 600; margin-bottom: 0.5rem; }
+  h2 { font-family: var(--heading); font-size: 1.5rem; color: var(--black); margin-bottom: 0.75rem; }
+  h3 { font-family: var(--heading); font-size: 1.15rem; color: var(--black); margin-bottom: 0.5rem; }
+
+  /* Architecture diagram */
+  .arch-diagram {
+    background: var(--near-black); border-radius: 8px; padding: 2rem; margin: 1.5rem 0;
+    overflow-x: auto;
+  }
+  .arch-row {
+    display: flex; align-items: stretch; gap: 0.75rem; margin-bottom: 0.75rem;
+    justify-content: center; flex-wrap: wrap;
+  }
+  .arch-label {
+    writing-mode: vertical-rl; text-orientation: mixed; transform: rotate(180deg);
+    font-size: 0.65rem; letter-spacing: 0.1em; text-transform: uppercase;
+    color: var(--gray-400); padding: 0.5rem 0.25rem; min-width: 1.5rem; text-align: center;
+  }
+  .arch-layer {
+    flex: 1; min-width: 0; border-radius: 6px; padding: 0.75rem 1rem;
+  }
+  .arch-layer.user { background: rgba(233,229,220,0.15); border: 1px solid rgba(200,185,154,0.4); }
+  .arch-layer.mcp { background: rgba(51,51,51,0.4); border: 1px solid rgba(102,102,102,0.6); }
+  .arch-layer.agent { background: rgba(127,127,127,0.25); border: 1px solid rgba(127,127,127,0.5); }
+  .arch-layer.data { background: rgba(102,102,102,0.2); border: 1px solid rgba(102,102,102,0.4); }
+  .arch-layer .layer-title {
+    font-size: 0.7rem; letter-spacing: 0.08em; text-transform: uppercase;
+    color: var(--gray-200); margin-bottom: 0.5rem; font-weight: 600;
+  }
+  .arch-node {
+    display: inline-block; background: rgba(255,255,255,0.1); border-radius: 3px;
+    padding: 0.3rem 0.6rem; font-size: 0.75rem; color: var(--white); margin: 0.15rem;
+  }
+  .arch-node.highlight { background: var(--white); color: var(--black); font-weight: 600; }
+  .arch-arrow {
+    text-align: center; color: var(--gray-400); font-size: 1rem; padding: 0.25rem 0;
+  }
+
+  /* Service cards */
+  .service-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 1.25rem; margin: 1.5rem 0; }
+  @media (max-width: 700px) { .service-grid { grid-template-columns: 1fr; } }
+
+  .service-card {
+    background: var(--white); border-radius: 6px; padding: 1.25rem;
+    border-top: 3px solid var(--black);
+    position: relative;
+  }
+  .service-card.gold-top { border-top-color: var(--black); }
+  .service-card.teal-top { border-top-color: var(--black); }
+  .service-card.purple-top { border-top-color: var(--black); }
+  .service-card.green-top { border-top-color: var(--black); }
+
+  .service-card h4 { font-family: var(--heading); color: var(--black); margin-bottom: 0.35rem; }
+  .service-card .service-type {
+    font-size: 0.65rem; letter-spacing: 0.08em; text-transform: uppercase;
+    padding: 0.15rem 0.5rem; border-radius: 2px; display: inline-block;
+    margin-bottom: 0.5rem; font-weight: 600;
+  }
+  .type-mcp { background: var(--near-black); color: var(--white); }
+  .type-agent { background: var(--gray-600); color: var(--white); }
+  .type-data { background: var(--gray-600); color: var(--white); }
+  .type-skill { background: var(--gray-100); color: var(--black); }
+
+  .tool-list { list-style: none; padding: 0; }
+  .tool-list li {
+    font-size: 0.82rem; color: var(--gray-800); padding: 0.2rem 0;
+    padding-left: 1.2rem; position: relative;
+  }
+  .tool-list li::before {
+    content: "→"; position: absolute; left: 0; color: var(--gray-400);
+  }
+
+  /* Agent cards - special */
+  .agent-card {
+    background: var(--near-black); border-radius: 8px; padding: 1.5rem; margin-bottom: 1rem;
+    color: var(--white);
+  }
+  .agent-card h4 { color: var(--white); font-family: var(--heading); font-size: 1.1rem; margin-bottom: 0.25rem; }
+  .agent-card .role { color: var(--gray-200); font-size: 0.85rem; margin-bottom: 0.75rem; }
+  .agent-card .workflow {
+    display: flex; align-items: center; gap: 0.4rem; flex-wrap: wrap; margin-bottom: 0.5rem;
+  }
+  .agent-card .wf-step {
+    background: rgba(255,255,255,0.1); border: 1px solid rgba(200,200,200,0.3);
+    border-radius: 3px; padding: 0.3rem 0.6rem; font-size: 0.75rem;
+  }
+  .agent-card .wf-step.active { border-color: var(--white); color: var(--white); }
+  .agent-card .wf-arrow { color: var(--gray-400); }
+  .agent-card .detail { font-size: 0.82rem; color: var(--gray-200); line-height: 1.6; }
+  .agent-card .detail strong { color: var(--white); }
+
+  .callout {
+    background: var(--off-white); border-radius: 6px; padding: 1.25rem;
+    margin: 1.5rem 0; border-left: 4px solid var(--black);
+  }
+  .callout p { font-size: 0.88rem; color: var(--gray-800); }
+  .callout strong { color: var(--black); }
+
+  .card { background: var(--white); border-radius: 6px; padding: 1.5rem;
+    margin-bottom: 1.5rem;
+    border-left: 4px solid var(--gray-200); }
+  .card.ocean-border { border-left-color: var(--black); }
+
+  table { width: 100%; border-collapse: collapse; margin: 1rem 0; font-size: 0.85rem; }
+  th { background: var(--black); color: var(--white); padding: 0.6rem 0.75rem;
+    text-align: left; font-weight: 500; font-size: 0.75rem; letter-spacing: 0.05em;
+    text-transform: uppercase; }
+  td { padding: 0.6rem 0.75rem; border-bottom: 1px solid var(--gray-200); vertical-align: top; }
+  tr:nth-child(even) td { background: var(--off-white); }
+  code { background: var(--gray-100); padding: 0.1rem 0.35rem; border-radius: 3px; font-size: 0.82rem; }
+
+  .footer { text-align: center; padding: 2rem; color: var(--gray-600); font-size: 0.75rem;
+    border-top: 1px solid var(--gray-200); margin-top: 2rem; }
+</style>
+</head>
+<body>
+
+<div class="header">
+  <div class="badge">System Architecture</div>
+  <h1>The Compass Real Estate AI Toolkit</h1>
+  <p>What a purpose-built MCP service layer would look like for a Compass agent — connecting CRM, MLS, property data, and AI agents into one intelligent system.</p>
+</div>
+
+<div class="container">
+
+  <!-- ═══ ARCHITECTURE OVERVIEW ═══ -->
+  <div class="section-label">Architecture Overview</div>
+  <h2>Four-Layer System</h2>
+
+  <div class="arch-diagram">
+    <div class="arch-row">
+      <div class="arch-layer user" style="text-align:center;">
+        <div class="layer-title">👤 Agent Interface</div>
+        <div class="arch-node">Claude Chat / Cowork</div>
+        <div class="arch-node">Mobile App</div>
+        <div class="arch-node">Voice (Siri / Alexa)</div>
+        <div class="arch-node">Slack / SMS</div>
+      </div>
+    </div>
+    <div class="arch-arrow">▼ Natural language requests ▼</div>
+    <div class="arch-row">
+      <div class="arch-layer agent" style="text-align:center;">
+        <div class="layer-title">🤖 AI Agent Layer — Autonomous Workflows</div>
+        <div class="arch-node highlight">Transaction Coordinator Agent</div>
+        <div class="arch-node highlight">Prospecting Agent</div>
+        <div class="arch-node highlight">Content Engine Agent</div>
+        <div class="arch-node highlight">Market Analyst Agent</div>
+        <div class="arch-node highlight">Listing Launch Agent</div>
+      </div>
+    </div>
+    <div class="arch-arrow">▼ Tool calls ▼</div>
+    <div class="arch-row">
+      <div class="arch-layer mcp" style="text-align:center;">
+        <div class="layer-title">🔌 MCP Service Layer — Tools & Connectors</div>
+        <div class="arch-node">compass-crm</div>
+        <div class="arch-node">compass-listings</div>
+        <div class="arch-node">compass-marketing</div>
+        <div class="arch-node">mls-search</div>
+        <div class="arch-node">property-intel</div>
+        <div class="arch-node">school-data</div>
+        <div class="arch-node">doc-gen</div>
+        <div class="arch-node">email-sms</div>
+        <div class="arch-node">calendar</div>
+      </div>
+    </div>
+    <div class="arch-arrow">▼ API calls ▼</div>
+    <div class="arch-row">
+      <div class="arch-layer data" style="text-align:center;">
+        <div class="layer-title">📊 Data Sources & External APIs</div>
+        <div class="arch-node">Compass Platform</div>
+        <div class="arch-node">CRMLS / MLS</div>
+        <div class="arch-node">ATTOM Data</div>
+        <div class="arch-node">SmartZip</div>
+        <div class="arch-node">County Records</div>
+        <div class="arch-node">School APIs</div>
+        <div class="arch-node">Gmail / Outlook</div>
+        <div class="arch-node">DocuSign</div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ═══ MCP SERVICES ═══ -->
+  <div style="margin-top:3rem;">
+    <div class="section-label">MCP Service Layer</div>
+    <h2>Nine Core MCP Services</h2>
+    <p style="color:var(--gray-800); margin-bottom:1.25rem; font-size:0.9rem;">Each MCP server exposes a set of tools that Claude (or any AI agent) can call. Think of these as the building blocks — the agents above compose them into workflows.</p>
+
+    <div class="service-grid">
+      <div class="service-card">
+        <h4>compass-crm</h4>
+        <span class="service-type type-mcp">MCP Server</span>
+        <ul class="tool-list">
+          <li><code>search_contacts</code> — Find contacts by name, tag, or Collection</li>
+          <li><code>create_contact</code> — Add new lead with tags, source, notes</li>
+          <li><code>update_contact</code> — Edit tags, notes, status, pipeline stage</li>
+          <li><code>get_collections</code> — List all Collections</li>
+          <li><code>add_to_collection</code> — Drop a contact into a Collection</li>
+          <li><code>get_likely_to_sell</code> — Pull Likely to Sell scores for an address/area</li>
+          <li><code>log_activity</code> — Record a call, meeting, or note</li>
+          <li><code>get_pipeline</code> — View deal pipeline with stages + values</li>
+        </ul>
+      </div>
+
+      <div class="service-card gold-top">
+        <h4>compass-listings</h4>
+        <span class="service-type type-mcp">MCP Server</span>
+        <ul class="tool-list">
+          <li><code>search_listings</code> — Search Compass listings by area, price, features</li>
+          <li><code>get_listing</code> — Full listing detail (photos, description, history)</li>
+          <li><code>create_coming_soon</code> — Set up a Coming Soon / Private Exclusive</li>
+          <li><code>get_showing_requests</code> — View pending showing requests</li>
+          <li><code>run_cma</code> — Generate a Comparative Market Analysis</li>
+          <li><code>get_market_stats</code> — Area-level market data (DOM, prices, inventory)</li>
+        </ul>
+      </div>
+
+      <div class="service-card teal-top">
+        <h4>mls-search</h4>
+        <span class="service-type type-data">Data Connector</span>
+        <ul class="tool-list">
+          <li><code>search_mls</code> — Query CRMLS (SoCal MLS) with full filter set</li>
+          <li><code>get_property_history</code> — All historical sales, price changes, listings</li>
+          <li><code>get_comps</code> — Find comparable sales within radius + timeframe</li>
+          <li><code>get_tax_records</code> — County assessor data, lot size, year built</li>
+          <li><code>monitor_new_listings</code> — Real-time alerts for matching criteria</li>
+        </ul>
+      </div>
+
+      <div class="service-card purple-top">
+        <h4>property-intel</h4>
+        <span class="service-type type-data">Data Connector</span>
+        <ul class="tool-list">
+          <li><code>attom_property_detail</code> — ATTOM comprehensive property data</li>
+          <li><code>attom_avm</code> — Automated Valuation Model estimate</li>
+          <li><code>smartzip_score</code> — Predictive seller likelihood score</li>
+          <li><code>owner_lookup</code> — Current owner info from public records</li>
+          <li><code>permit_history</code> — Building permits pulled on the property</li>
+          <li><code>natural_hazard</code> — Fire zone, flood zone, earthquake fault data</li>
+        </ul>
+      </div>
+
+      <div class="service-card">
+        <h4>compass-marketing</h4>
+        <span class="service-type type-mcp">MCP Server</span>
+        <ul class="tool-list">
+          <li><code>create_campaign</code> — Build an email campaign from template</li>
+          <li><code>send_email</code> — Send to contact or segment</li>
+          <li><code>get_templates</code> — List Marketing Center templates</li>
+          <li><code>create_collection_share</code> — Generate a shareable Collections link</li>
+          <li><code>get_campaign_stats</code> — Opens, clicks, responses</li>
+        </ul>
+      </div>
+
+      <div class="service-card green-top">
+        <h4>school-data</h4>
+        <span class="service-type type-data">Data Connector</span>
+        <ul class="tool-list">
+          <li><code>get_schools_by_address</code> — Schools assigned to a property</li>
+          <li><code>get_school_ratings</code> — GreatSchools + Niche + state test scores</li>
+          <li><code>get_feeder_pattern</code> — Elementary → Middle → High school path</li>
+          <li><code>compare_schools</code> — Side-by-side comparison matrix</li>
+          <li><code>get_district_boundary</code> — PVPUSD and neighboring district maps</li>
+        </ul>
+      </div>
+
+      <div class="service-card gold-top">
+        <h4>doc-gen</h4>
+        <span class="service-type type-skill">Skill</span>
+        <ul class="tool-list">
+          <li><code>generate_listing_presentation</code> — Branded CMA + listing pitch deck</li>
+          <li><code>generate_buyer_guide</code> — Custom buyer guide for a specific family</li>
+          <li><code>generate_market_report</code> — Monthly neighborhood market report</li>
+          <li><code>generate_offer_letter</code> — Buyer offer cover letter</li>
+          <li><code>generate_disclosure_summary</code> — Plain-English disclosure digest</li>
+        </ul>
+      </div>
+
+      <div class="service-card teal-top">
+        <h4>email-sms</h4>
+        <span class="service-type type-mcp">MCP Server</span>
+        <ul class="tool-list">
+          <li><code>send_email</code> — Gmail/Outlook send with templates</li>
+          <li><code>send_sms</code> — Twilio text to contact</li>
+          <li><code>search_inbox</code> — Find emails from a contact or about a property</li>
+          <li><code>draft_reply</code> — Draft a response to an email thread</li>
+          <li><code>schedule_followup</code> — Set a timed follow-up message</li>
+        </ul>
+      </div>
+    </div>
+  </div>
+
+  <!-- ═══ AI AGENTS ═══ -->
+  <div style="margin-top:3rem;">
+    <div class="section-label">AI Agent Layer</div>
+    <h2>Five Autonomous Agents</h2>
+    <p style="color:var(--gray-800); margin-bottom:1.25rem; font-size:0.9rem;">These aren't just chatbots — they're autonomous workflows that compose multiple MCP tools to complete complex tasks end-to-end. Each one replaces or augments a team member.</p>
+
+    <div class="agent-card">
+      <h4>🏗️ Transaction Coordinator Agent</h4>
+      <div class="role">Replaces: $500–1,500/transaction TC hire</div>
+      <div class="workflow">
+        <span class="wf-step active">Offer accepted</span>
+        <span class="wf-arrow">→</span>
+        <span class="wf-step">Open escrow</span>
+        <span class="wf-arrow">→</span>
+        <span class="wf-step">Track contingencies</span>
+        <span class="wf-arrow">→</span>
+        <span class="wf-step">Manage deadlines</span>
+        <span class="wf-arrow">→</span>
+        <span class="wf-step">Coordinate close</span>
+      </div>
+      <div class="detail">
+        <strong>What it does:</strong> The moment an offer is accepted, this agent creates the transaction timeline, calculates every contingency deadline (inspection, appraisal, loan, closing), sends reminders to all parties (escrow, lender, inspector, buyer/seller), tracks document status, and flags anything at risk of going late. It reads incoming emails about the transaction and updates status automatically.<br><br>
+        <strong>Tools it uses:</strong> <code>compass-crm</code> (update deal stage), <code>email-sms</code> (send reminders, read updates), <code>calendar</code> (set deadlines), <code>doc-gen</code> (generate status reports)<br><br>
+        <strong>Angelique's role:</strong> Reviews the daily status digest, handles relationship calls, makes judgment decisions. The agent handles all the chasing, tracking, and deadline math.
+      </div>
+    </div>
+
+    <div class="agent-card">
+      <h4>🎯 Prospecting Agent</h4>
+      <div class="role">Replaces: ISA (Inside Sales Agent) — $3,000–5,000/mo</div>
+      <div class="workflow">
+        <span class="wf-step active">Identify targets</span>
+        <span class="wf-arrow">→</span>
+        <span class="wf-step">Enrich data</span>
+        <span class="wf-arrow">→</span>
+        <span class="wf-step">Score & prioritize</span>
+        <span class="wf-arrow">→</span>
+        <span class="wf-step">Draft outreach</span>
+        <span class="wf-arrow">→</span>
+        <span class="wf-step">Warm handoff</span>
+      </div>
+      <div class="detail">
+        <strong>What it does:</strong> Runs daily. Pulls new Likely to Sell scores from Compass, cross-references with SmartZip predictive data and ATTOM ownership length, scores each prospect, drafts personalized outreach (mentioning their specific neighborhood, school proximity, recent comps), and queues it for Angelique's review. Also monitors the "relocating mom" content leads from OwnPalosVerdes.com and prioritizes based on engagement.<br><br>
+        <strong>Tools it uses:</strong> <code>compass-crm</code> (Likely to Sell, contacts), <code>property-intel</code> (ATTOM, SmartZip), <code>mls-search</code> (comps for outreach), <code>school-data</code> (personalize for families), <code>email-sms</code> (draft + send)<br><br>
+        <strong>Angelique's role:</strong> Reviews the daily "hot list" (5–10 minutes), approves/edits outreach, makes the personal calls to top-scored leads.
+      </div>
+    </div>
+
+    <div class="agent-card">
+      <h4>✍️ Content Engine Agent</h4>
+      <div class="role">Replaces: Content writer + social manager — $2,000–4,000/mo</div>
+      <div class="workflow">
+        <span class="wf-step active">Monitor trends</span>
+        <span class="wf-arrow">→</span>
+        <span class="wf-step">Generate content</span>
+        <span class="wf-arrow">→</span>
+        <span class="wf-step">SEO optimize</span>
+        <span class="wf-arrow">→</span>
+        <span class="wf-step">Schedule & publish</span>
+        <span class="wf-arrow">→</span>
+        <span class="wf-step">Track performance</span>
+      </div>
+      <div class="detail">
+        <strong>What it does:</strong> Pulls real market data weekly (new listings, price changes, sold comps), generates blog posts, Instagram captions, email newsletter content, and market update videos scripts. All content uses real numbers, not fluff. Optimizes for the long-tail SEO keywords we identified. Schedules posts across platforms.<br><br>
+        <strong>Tools it uses:</strong> <code>mls-search</code> (real market data), <code>property-intel</code> (ATTOM trends), <code>school-data</code> (school content), <code>compass-marketing</code> (email campaigns), <code>doc-gen</code> (reports, guides)<br><br>
+        <strong>Angelique's role:</strong> Reviews weekly content batch (15 minutes), adds personal voice / anecdotes, approves for publish.
+      </div>
+    </div>
+
+    <div class="agent-card">
+      <h4>📊 Market Analyst Agent</h4>
+      <div class="role">Replaces: Manual CMA prep — 2–3 hours per listing appointment</div>
+      <div class="workflow">
+        <span class="wf-step active">Receive address</span>
+        <span class="wf-arrow">→</span>
+        <span class="wf-step">Pull all data</span>
+        <span class="wf-arrow">→</span>
+        <span class="wf-step">Analyze comps</span>
+        <span class="wf-arrow">→</span>
+        <span class="wf-step">Generate CMA</span>
+        <span class="wf-arrow">→</span>
+        <span class="wf-step">Branded presentation</span>
+      </div>
+      <div class="detail">
+        <strong>What it does:</strong> Give it an address and it does everything: pulls property details from ATTOM, finds 10–15 comparable sales from MLS, adjusts for square footage / lot size / condition / view, calculates a price range, generates a branded CMA presentation with Angelique's branding, includes neighborhood stats and school data. Ready for a listing appointment in under 5 minutes instead of 3 hours.<br><br>
+        <strong>Tools it uses:</strong> <code>mls-search</code> (comps, history), <code>property-intel</code> (ATTOM, AVM, tax), <code>compass-listings</code> (Compass CMA), <code>school-data</code>, <code>doc-gen</code> (branded CMA deck)<br><br>
+        <strong>Angelique's role:</strong> Reviews the CMA, adjusts based on her local knowledge (view premium, street appeal, etc.), presents to client.
+      </div>
+    </div>
+
+    <div class="agent-card">
+      <h4>🚀 Listing Launch Agent</h4>
+      <div class="role">Replaces: 4–6 hours of manual marketing setup per listing</div>
+      <div class="workflow">
+        <span class="wf-step active">New listing signed</span>
+        <span class="wf-arrow">→</span>
+        <span class="wf-step">Generate all assets</span>
+        <span class="wf-arrow">→</span>
+        <span class="wf-step">MLS entry</span>
+        <span class="wf-arrow">→</span>
+        <span class="wf-step">Marketing blast</span>
+        <span class="wf-arrow">→</span>
+        <span class="wf-step">Social campaign</span>
+      </div>
+      <div class="detail">
+        <strong>What it does:</strong> When a new listing is signed, this agent creates: the MLS description (pulling from property data + neighborhood + schools), social media posts for Instagram/Facebook, a "Just Listed" email to her sphere, a Coming Soon campaign in Compass, a single-property website, and open house collateral. All from the listing photos and property data — no manual copywriting.<br><br>
+        <strong>Tools it uses:</strong> <code>compass-listings</code> (create Coming Soon, MLS prep), <code>compass-marketing</code> (email blast), <code>property-intel</code> (property details), <code>school-data</code> (school proximity), <code>doc-gen</code> (flyers, brochures), <code>email-sms</code> (sphere notification)<br><br>
+        <strong>Angelique's role:</strong> Provides photos, reviews all copy, hits "go."
+      </div>
+    </div>
+  </div>
+
+  <!-- ═══ TC AGENT DEEP DIVE ═══ -->
+  <div style="margin-top:3rem;">
+    <div class="section-label">Deep Dive</div>
+    <h2>Transaction Coordinator Agent — Full Workflow</h2>
+    <p style="color:var(--gray-800); margin-bottom:1.25rem; font-size:0.9rem;">This is the agent you asked about. Here's exactly what it manages, how it tracks deadlines, and what Angelique's daily interaction looks like.</p>
+
+    <div class="card ocean-border">
+      <h3>What a TC Agent Manages Per Transaction</h3>
+      <table>
+        <tr><th>Phase</th><th>Tasks the Agent Handles</th><th>Deadline Logic</th></tr>
+        <tr>
+          <td><strong>Offer → Acceptance</strong></td>
+          <td>Track offer status, counter-offer timelines, multi-offer coordination, earnest money deposit tracking</td>
+          <td>Response deadlines from offer terms</td>
+        </tr>
+        <tr>
+          <td><strong>Opening Escrow</strong></td>
+          <td>Send executed contract to escrow, confirm receipt, track EMD delivery, distribute contact sheet to all parties</td>
+          <td>3 business days from acceptance (typical CA)</td>
+        </tr>
+        <tr>
+          <td><strong>Inspection Period</strong></td>
+          <td>Schedule inspections (general, termite, sewer, roof), track reports, manage repair requests, monitor contingency removal deadline</td>
+          <td>17 days default (CA RPA), or per contract</td>
+        </tr>
+        <tr>
+          <td><strong>Appraisal</strong></td>
+          <td>Confirm lender ordered appraisal, track completion, flag if value comes in low, coordinate response</td>
+          <td>17 days (loan contingency)</td>
+        </tr>
+        <tr>
+          <td><strong>Loan Approval</strong></td>
+          <td>Track loan milestones (application, processing, underwriting, conditions, clear-to-close), flag delays</td>
+          <td>21 days (loan contingency)</td>
+        </tr>
+        <tr>
+          <td><strong>Disclosures</strong></td>
+          <td>Track seller disclosures sent/received, TDS, SPQ, NHD report, HOA docs if applicable</td>
+          <td>7 days from acceptance (seller), 17 days (buyer review)</td>
+        </tr>
+        <tr>
+          <td><strong>Pre-Close</strong></td>
+          <td>Final walkthrough scheduling, confirm clear-to-close from lender, coordinate signing appointment, verify utilities transfer</td>
+          <td>5 days before close</td>
+        </tr>
+        <tr>
+          <td><strong>Closing</strong></td>
+          <td>Confirm recording, send "Congratulations" communication, trigger past-client nurture sequence in CRM, request review</td>
+          <td>Closing date from contract</td>
+        </tr>
+      </table>
+    </div>
+
+    <div class="card">
+      <h3>Angelique's Daily View from the TC Agent</h3>
+      <p style="font-size:0.9rem; color:var(--gray-800); margin-bottom:1rem;">Every morning at 7am, the TC Agent sends a digest:</p>
+      <div style="background:var(--near-black); border-radius:6px; padding:1.25rem; color:var(--white); font-size:0.85rem; line-height:1.8; font-family:monospace;">
+        <div style="color:var(--white); font-weight:600; margin-bottom:0.5rem;">📋 TRANSACTION DIGEST — Monday, April 6</div>
+        <div style="color:var(--gray-200);">Active Transactions: 4</div>
+        <br>
+        <div style="color:var(--white);">✅ ON TRACK</div>
+        <div>• 2715 Grand Summit Rd — Close 4/18 (12 days). Loan clear-to-close ✓</div>
+        <div>• 6445 Via Cielo — Inspection period, 9 days remaining. No issues.</div>
+        <br>
+        <div style="color:var(--white);">⚠️ ACTION NEEDED</div>
+        <div>• 1200 Via Coronel — Appraisal came in $45K low. Lender notified.</div>
+        <div>&nbsp;&nbsp;→ <span style="color:var(--white);">Call listing agent today to discuss price adjustment or seller credit.</span></div>
+        <br>
+        <div style="color:var(--white);">🔴 AT RISK</div>
+        <div>• 800 Paseo Del Mar — Loan contingency expires TOMORROW.</div>
+        <div>&nbsp;&nbsp;Underwriting still has 2 open conditions.</div>
+        <div>&nbsp;&nbsp;→ <span style="color:var(--white);">I've emailed the lender. Requesting extension draft ready for your approval.</span></div>
+        <br>
+        <div style="color:var(--gray-400);">Today's deadlines: Inspection report due on Via Cielo (5pm).</div>
+        <div style="color:var(--gray-400);">Tomorrow: Loan contingency removal on Paseo Del Mar.</div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ═══ BUILD vs BUY ═══ -->
+  <div style="margin-top:3rem;">
+    <div class="section-label">The Build Question</div>
+    <h2>What Exists vs. What We'd Build</h2>
+
+    <div class="card ocean-border">
+      <table>
+        <tr><th>Component</th><th>Status</th><th>Path to Build</th></tr>
+        <tr>
+          <td><strong>Compass CRM MCP</strong></td>
+          <td style="color:var(--black);">❌ Doesn't exist</td>
+          <td>Compass has no public API. Would need to use Zapier webhooks as a proxy, or browser automation (Claude in Chrome) to interact with Compass directly. This is the biggest gap.</td>
+        </tr>
+        <tr>
+          <td><strong>MLS Search</strong></td>
+          <td style="color:var(--black);">🟡 Partial</td>
+          <td>RETS/RESO Web API access requires MLS board membership + data license ($). Could proxy through Redfin/Zillow APIs for basic search, or use Compass's own search via browser automation.</td>
+        </tr>
+        <tr>
+          <td><strong>ATTOM Property Data</strong></td>
+          <td style="color:var(--black);">✅ API available</td>
+          <td>ATTOM has a REST API ($95+/mo). Straightforward to wrap as an MCP server. This is the easiest piece to build.</td>
+        </tr>
+        <tr>
+          <td><strong>School Data</strong></td>
+          <td style="color:var(--black);">✅ APIs available</td>
+          <td>GreatSchools API + Niche data + CA Department of Education public data. Could build a composite MCP server.</td>
+        </tr>
+        <tr>
+          <td><strong>Document Generation</strong></td>
+          <td style="color:var(--black);">✅ We have this now</td>
+          <td>We already built this — the PPTX, DOCX, HTML skills are the foundation. CMA decks, market reports, listing presentations.</td>
+        </tr>
+        <tr>
+          <td><strong>Email/SMS</strong></td>
+          <td style="color:var(--black);">✅ MCP available</td>
+          <td>Gmail MCP exists. Twilio for SMS is straightforward. Mailchimp API for sequences.</td>
+        </tr>
+        <tr>
+          <td><strong>Transaction Coordinator</strong></td>
+          <td style="color:var(--black);">🟡 Skill + automation</td>
+          <td>Build as a Claude skill + scheduled task. Reads email threads for transaction updates, maintains a deadline tracker, sends daily digests. The hardest part is parsing incoming emails accurately.</td>
+        </tr>
+        <tr>
+          <td><strong>Content Engine</strong></td>
+          <td style="color:var(--black);">✅ Mostly built</td>
+          <td>We already have the school guide, neighborhood content, and brand system. Add a scheduled task to pull fresh MLS data and generate weekly content batches.</td>
+        </tr>
+      </table>
+    </div>
+
+    <div class="callout">
+      <p><strong>The honest assessment:</strong> The biggest blocker is Compass itself — no public API means we can't programmatically create contacts, read Likely to Sell data, or manage Collections without either (a) Zapier as a proxy, (b) browser automation, or (c) Compass eventually building MCP support. Everything else — property data, school data, document generation, email — is buildable today.</p>
+    </div>
+  </div>
+
+  <!-- ═══ WHAT WE CAN BUILD NOW ═══ -->
+  <div style="margin-top:3rem;">
+    <div class="section-label">Actionable Now</div>
+    <h2>What We Can Build This Month</h2>
+
+    <div class="service-grid">
+      <div class="service-card green-top">
+        <h4>1. TC Agent (Lite Version)</h4>
+        <span class="service-type type-agent">Agent / Skill</span>
+        <p style="font-size:0.85rem; color:var(--gray-800); margin-top:0.5rem;">
+          A Claude skill that Angelique uses via Cowork. She inputs: property address, buyer/seller names, key dates (acceptance, close, contingency deadlines). The agent generates a full timeline, calculates all CA-standard deadlines, and creates a daily checklist. Pair with a scheduled task that sends morning digests.
+        </p>
+        <p style="font-size:0.8rem; color:var(--gray-600); margin-top:0.5rem;"><strong>Build time:</strong> 1–2 days</p>
+      </div>
+
+      <div class="service-card green-top">
+        <h4>2. Content Engine (Scheduled)</h4>
+        <span class="service-type type-skill">Scheduled Skill</span>
+        <p style="font-size:0.85rem; color:var(--gray-800); margin-top:0.5rem;">
+          A scheduled Cowork task that runs weekly: pulls Redfin/Zillow-visible market data for PV Peninsula, generates a blog post, 3 Instagram captions, and a newsletter draft. All in Angelique's brand voice. Saves to her workspace for review.
+        </p>
+        <p style="font-size:0.8rem; color:var(--gray-600); margin-top:0.5rem;"><strong>Build time:</strong> 1 day</p>
+      </div>
+
+      <div class="service-card green-top">
+        <h4>3. CMA Generator</h4>
+        <span class="service-type type-skill">Skill</span>
+        <p style="font-size:0.85rem; color:var(--gray-800); margin-top:0.5rem;">
+          Input an address → get a branded presentation with property details, comparable sales (from ATTOM API), school info, and neighborhood stats. Uses the PPTX skill we already have. Goes from "listing appointment prep" taking 3 hours to 5 minutes.
+        </p>
+        <p style="font-size:0.8rem; color:var(--gray-600); margin-top:0.5rem;"><strong>Build time:</strong> 2–3 days (includes ATTOM API setup)</p>
+      </div>
+
+      <div class="service-card green-top">
+        <h4>4. Lead Enrichment Pipeline</h4>
+        <span class="service-type type-mcp">Zapier + Skill</span>
+        <p style="font-size:0.85rem; color:var(--gray-800); margin-top:0.5rem;">
+          When a lead comes in from OwnPalosVerdes.com, a Zapier webhook triggers a Claude skill that enriches the lead: looks up their current city, employer (if available), likely school needs, and drafts a personalized follow-up email for Angelique to send.
+        </p>
+        <p style="font-size:0.8rem; color:var(--gray-600); margin-top:0.5rem;"><strong>Build time:</strong> 1 day</p>
+      </div>
+    </div>
+  </div>
+
+</div>
+
+<div class="footer">
+  Angelique Lyle · Accardo Real Estate Associates · Compass · CA DRE# 01475592<br>
+  Architecture designed by Alejandro · April 2026
+</div>
+
+</body>
+</html>

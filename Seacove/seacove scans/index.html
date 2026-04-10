@@ -1,0 +1,587 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Sea Cove Drive — Construction Photo Archive</title>
+<style>
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+  body { background: #1a1a1a; color: #e0e0e0; font-family: Georgia, serif; }
+
+  header {
+    padding: 3rem 2rem 2rem;
+    max-width: 900px;
+    margin: 0 auto;
+    border-bottom: 1px solid #333;
+  }
+  header h1 { font-size: 2rem; font-weight: 400; letter-spacing: 0.05em; color: #fff; }
+  header p { margin-top: 0.75rem; font-size: 1rem; color: #999; line-height: 1.6; }
+
+  nav {
+    max-width: 900px;
+    margin: 0 auto;
+    padding: 1.5rem 2rem;
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.5rem 1.5rem;
+    border-bottom: 1px solid #222;
+  }
+  nav a {
+    color: #aaa;
+    text-decoration: none;
+    font-size: 0.9rem;
+    padding: 0.25rem 0;
+    border-bottom: 1px solid transparent;
+    transition: all 0.2s;
+  }
+  nav a:hover { color: #fff; border-bottom-color: #666; }
+  nav a.active { color: #fff; border-bottom-color: #fff; }
+
+  section {
+    max-width: 900px;
+    margin: 0 auto;
+    padding: 2.5rem 2rem 1rem;
+  }
+  section h2 {
+    font-size: 1.3rem;
+    font-weight: 400;
+    color: #ccc;
+    margin-bottom: 0.5rem;
+    letter-spacing: 0.03em;
+  }
+  section .subtitle {
+    font-size: 0.85rem;
+    color: #777;
+    margin-bottom: 1.5rem;
+    line-height: 1.5;
+  }
+
+  .gallery {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 1rem;
+  }
+  .gallery.single { grid-template-columns: 1fr; }
+  .gallery.triple { grid-template-columns: 1fr 1fr 1fr; }
+
+  .card {
+    background: #222;
+    border-radius: 4px;
+    overflow: hidden;
+    cursor: pointer;
+    transition: transform 0.2s;
+  }
+  .card:hover { transform: scale(1.01); }
+  .card img {
+    width: 100%;
+    display: block;
+  }
+  .card .caption {
+    padding: 0.6rem 0.75rem;
+    font-size: 0.8rem;
+    color: #999;
+    line-height: 1.4;
+  }
+  .card .caption strong { color: #ccc; }
+
+  .divider {
+    max-width: 900px;
+    margin: 0 auto;
+    border-top: 1px solid #282828;
+  }
+
+  /* Lightbox */
+  .lightbox {
+    display: none;
+    position: fixed;
+    top: 0; left: 0; right: 0; bottom: 0;
+    background: rgba(0,0,0,0.95);
+    z-index: 1000;
+    justify-content: center;
+    align-items: center;
+    cursor: pointer;
+  }
+  .lightbox.open { display: flex; }
+  .lightbox img {
+    max-width: 92vw;
+    max-height: 92vh;
+    object-fit: contain;
+  }
+  .lightbox .close {
+    position: absolute;
+    top: 1.5rem; right: 2rem;
+    color: #666;
+    font-size: 1.5rem;
+    cursor: pointer;
+  }
+  .lightbox .close:hover { color: #fff; }
+  .lightbox .lb-caption {
+    position: absolute;
+    bottom: 1.5rem;
+    left: 50%;
+    transform: translateX(-50%);
+    color: #888;
+    font-size: 0.85rem;
+    text-align: center;
+    max-width: 600px;
+  }
+
+  footer {
+    max-width: 900px;
+    margin: 0 auto;
+    padding: 2rem;
+    border-top: 1px solid #222;
+    color: #555;
+    font-size: 0.8rem;
+    line-height: 1.6;
+  }
+
+  @media (max-width: 600px) {
+    .gallery { grid-template-columns: 1fr; }
+    .gallery.triple { grid-template-columns: 1fr 1fr; }
+    header h1 { font-size: 1.5rem; }
+  }
+</style>
+</head>
+<body>
+
+<header>
+  <h1>25 Sea Cove Drive</h1>
+  <p>Construction photographs, ~1950&ndash;1952. Tract 14649, Lot 69, Portuguese Bend, Rancho Palos Verdes. Scanned from original Kodak Safety Film negatives and contact sheets.</p>
+</header>
+
+<nav>
+  <a href="#today" class="active">The House Today</a>
+  <a href="#streetscapes">Streetscapes</a>
+  <a href="#construction">Construction</a>
+  <a href="#interiors">Interiors</a>
+  <a href="#family">Family</a>
+  <a href="#landscape">Landscape</a>
+  <a href="#beach">Beach &amp; Coastline</a>
+  <a href="#contact-sheets">Contact Sheets</a>
+  <a href="#color-negatives">Color Negatives</a>
+</nav>
+
+<!-- THE HOUSE TODAY -->
+<section id="today">
+  <h2>The House Today</h2>
+  <p class="subtitle">25 Sea Cove Drive as it stands. The original mid-century post-and-beam structure with pool addition. Exposed beam overhangs, sliding glass doors, chimney &mdash; all original to the ~1950 construction visible in the negatives below. PV hills behind.</p>
+  <div class="gallery">
+    <div class="card" onclick="openLB(this)">
+      <img src="../seacovewindowspics/image1.jpeg" alt="Pool and rear of house">
+      <div class="caption"><strong>1</strong> &mdash; Rear of house from pool. Sliding glass doors, pergola structure on left, pool with slide. The hills of Portuguese Bend behind.</div>
+    </div>
+    <div class="card" onclick="openLB(this)">
+      <img src="../seacovewindowspics/image2.jpeg" alt="Pool area and covered patio">
+      <div class="caption"><strong>2</strong> &mdash; Covered patio with exposed post-and-beam ceiling. Pool edge at left. The same beam structure visible in the 1950s framing photos.</div>
+    </div>
+    <div class="card" onclick="openLB(this)">
+      <img src="../seacovewindowspics/image3.jpeg" alt="Front corner with chimney">
+      <div class="caption"><strong>3</strong> &mdash; Front corner. Original chimney, exposed beam overhang, stepping stones and rock landscaping. PV hills and open land behind.</div>
+    </div>
+    <div class="card" onclick="openLB(this)">
+      <img src="../seacovewindowspics/image4.jpeg" alt="Rear glass wall and pool">
+      <div class="caption"><strong>4</strong> &mdash; Full rear glass wall. Sliding doors spanning the width of the house. Satellite dish, pool. Hillside community visible above.</div>
+    </div>
+    <div class="card" onclick="openLB(this)">
+      <img src="../seacovewindowspics/image5.jpeg" alt="Rear elevation with louvered vent">
+      <div class="caption"><strong>5</strong> &mdash; Rear elevation. Louvered vent between glass panels, flat roof with dark fascia, power lines, pool. Original proportions intact.</div>
+    </div>
+    <div class="card" onclick="openLB(this)">
+      <img src="../seacovewindowspics/image6.jpeg" alt="Pool slide and rear wing">
+      <div class="caption"><strong>6</strong> &mdash; Pool slide and rear wing. Pergola/cabana structure on left. The glass-walled living spaces open directly to the pool deck.</div>
+    </div>
+    <div class="card" onclick="openLB(this)">
+      <img src="../seacovewindowspics/image7.jpeg" alt="Covered patio looking toward pool">
+      <div class="caption"><strong>7</strong> &mdash; Under the covered patio looking toward pool and slide. Exposed beam rafters, steel posts. The post-and-beam structure from the 1950s framing negatives, 70 years later.</div>
+    </div>
+    <div class="card" onclick="openLB(this)">
+      <img src="../seacovewindowspics/image8.jpeg" alt="Front glass doors detail">
+      <div class="caption"><strong>8</strong> &mdash; Glass door detail. Floor-to-ceiling sliding panels with louvered shutters visible inside. Dark wood fascia, flat roof line.</div>
+    </div>
+  </div>
+</section>
+
+<div class="divider"></div>
+
+<!-- STREETSCAPES -->
+<section id="streetscapes">
+  <h2>Streetscapes</h2>
+  <p class="subtitle">The community taking shape. Dirt roads, power poles, scattered ranch houses on open land. These show Sea Cove Drive, Clipper Road, and the surrounding area during the first years of Tract 14649.</p>
+  <div class="gallery">
+    <div class="card" onclick="openLB(this)">
+      <img src="crops/SeaCove_3b.jpg" alt="Street view from foundation">
+      <div class="caption"><strong>3b</strong> &mdash; View from foundation across the street. Houses going up, power pole, dirt road, hills behind. The neighborhood's first year.</div>
+    </div>
+    <div class="card" onclick="openLB(this)">
+      <img src="crops/SeaCove_3g.jpg" alt="Street with dirt pile and house">
+      <div class="caption"><strong>3g</strong> &mdash; Same angle as 3b. Dirt pile in the street, house across the way, power pole, PV hills in background.</div>
+    </div>
+    <div class="card" onclick="openLB(this)">
+      <img src="crops/SeaCove_3c.jpg" alt="Workers on foundation">
+      <div class="caption"><strong>3c</strong> &mdash; Workers on the foundation slab. Houses and the street visible in background. Rebar and forms in foreground.</div>
+    </div>
+    <div class="card" onclick="openLB(this)">
+      <img src="crops/SeaCove_3d.jpg" alt="Looking down the street">
+      <div class="caption"><strong>3d</strong> &mdash; Looking down the street from the foundation. Power poles, plumbing risers, houses under construction. "KODAK SAFETY FILM" on edge.</div>
+    </div>
+    <div class="card" onclick="openLB(this)">
+      <img src="crops/SeaCove_3h.jpg" alt="Power poles down the road">
+      <div class="caption"><strong>3h</strong> &mdash; The best streetscape. Power poles receding down the road toward the coast. Open land, scattered houses, sky.</div>
+    </div>
+    <div class="card" onclick="openLB(this)">
+      <img src="crops/SeaCove_3f.jpg" alt="Plumbing risers and street">
+      <div class="caption"><strong>3f</strong> &mdash; Plumbing stub-outs in foreground. Houses across the street with power pole, hills rising behind.</div>
+    </div>
+    <div class="card" onclick="openLB(this)">
+      <img src="crops/SeaCove_3j.jpg" alt="Two women on the lot">
+      <div class="caption"><strong>3j</strong> &mdash; Two women standing on the lot. House across the street, power pole, open grassland, PV hills.</div>
+    </div>
+    <div class="card" onclick="openLB(this)">
+      <img src="crops/SeaCove_3l.jpg" alt="Between two houses">
+      <div class="caption"><strong>3l</strong> &mdash; View between two houses. Block wall, vegetation establishing, another house beyond. The street filling in.</div>
+    </div>
+    <div class="card" onclick="openLB(this)">
+      <img src="crops/SeaCove_3m.jpg" alt="House with foundation">
+      <div class="caption"><strong>3m</strong> &mdash; Neighboring house with new foundation in foreground. Hills and open land behind. Early landscaping.</div>
+    </div>
+    <div class="card" onclick="openLB(this)">
+      <img src="crops/SeaCove_3k.jpg" alt="Side of house with retaining wall">
+      <div class="caption"><strong>3k</strong> &mdash; Side of house under construction. Cinder block retaining wall going up, plumbing, hills behind.</div>
+    </div>
+    <div class="card" onclick="openLB(this)">
+      <img src="crops/SeaCove_8a.jpg" alt="House alone on grassland">
+      <div class="caption"><strong>8a</strong> &mdash; Looking at Clipper Road from Lot 69 (25 Sea Cove). 0 Clipper is upper left. Power lines in the distance mark the power easement through the lot at the end of the flood hazard zone.</div>
+    </div>
+    <div class="card" onclick="openLB(this)">
+      <img src="crops/SeaCove_8b.jpg" alt="Wide view with power pole">
+      <div class="caption"><strong>8b</strong> &mdash; Wide view. House with power pole, open grass field. Very early development &mdash; one of the first houses in the tract.</div>
+    </div>
+    <div class="card" onclick="openLB(this)">
+      <img src="crops/SeaCove_8c.jpg" alt="Widest community view">
+      <div class="caption"><strong>8c</strong> &mdash; The widest view. Power lines strung, scattered houses, open fields, hills. The whole community in its first year.</div>
+    </div>
+    <div class="card" onclick="openLB(this)">
+      <img src="crops/SeaCove_8d.jpg" alt="Power pole in open field">
+      <div class="caption"><strong>8d</strong> &mdash; Single power pole standing in an open field. Distant structures on the horizon. Infrastructure arriving before houses.</div>
+    </div>
+    <div class="card" onclick="openLB(this)">
+      <img src="crops/SeaCove_8e.jpg" alt="Ranch house on open land">
+      <div class="caption"><strong>8e</strong> &mdash; Ranch house on open land, hills behind. Could be one of the first completed homes, or possibly the pre-existing Arrowroot ranch house.</div>
+    </div>
+    <div class="card" onclick="openLB(this)">
+      <img src="seacove neg image 1.jpg" alt="Two people at construction site">
+      <div class="caption"><strong>Neg 1</strong> &mdash; Two people standing at a construction site. House behind, power pole, construction materials. Kodak Safety Film negative (inverted).</div>
+    </div>
+  </div>
+</section>
+
+<div class="divider"></div>
+
+<!-- CONSTRUCTION -->
+<section id="construction">
+  <h2>Construction</h2>
+  <p class="subtitle">Framing, foundations, plumbing, and finishes at 25 Sea Cove Drive. Mid-century post-and-beam construction on the Portuguese Bend hillside.</p>
+  <div class="gallery">
+    <div class="card" onclick="openLB(this)">
+      <img src="crops/SeaCove_3e.jpg" alt="Retaining wall and plumbing">
+      <div class="caption"><strong>3e</strong> &mdash; Cinder block retaining wall under construction. Plumbing lines, grading. The hillside lot being shaped.</div>
+    </div>
+    <div class="card" onclick="openLB(this)">
+      <img src="crops/SeaCove_4a.jpg" alt="Construction detail">
+      <div class="caption"><strong>4a</strong> &mdash; Construction detail.</div>
+    </div>
+    <div class="card" onclick="openLB(this)">
+      <img src="crops/SeaCove_4b.jpg" alt="Construction detail">
+      <div class="caption"><strong>4b</strong> &mdash; Construction detail.</div>
+    </div>
+    <div class="card" onclick="openLB(this)">
+      <img src="crops/SeaCove_4c.jpg" alt="Construction detail">
+      <div class="caption"><strong>4c</strong> &mdash; Construction detail.</div>
+    </div>
+    <div class="card" onclick="openLB(this)">
+      <img src="crops/SeaCove_4d.jpg" alt="Construction detail">
+      <div class="caption"><strong>4d</strong> &mdash; Construction detail.</div>
+    </div>
+    <div class="card" onclick="openLB(this)">
+      <img src="crops/SeaCove_4e.jpg" alt="Construction detail">
+      <div class="caption"><strong>4e</strong> &mdash; Construction detail.</div>
+    </div>
+    <div class="card" onclick="openLB(this)">
+      <img src="crops/SeaCove_4f.jpg" alt="Construction detail">
+      <div class="caption"><strong>4f</strong> &mdash; Construction detail.</div>
+    </div>
+    <div class="card" onclick="openLB(this)">
+      <img src="crops/SeaCove_4g.jpg" alt="Construction detail">
+      <div class="caption"><strong>4g</strong> &mdash; Construction detail.</div>
+    </div>
+    <div class="card" onclick="openLB(this)">
+      <img src="crops/SeaCove_5a.jpg" alt="Framing">
+      <div class="caption"><strong>5a</strong> &mdash; Framing.</div>
+    </div>
+    <div class="card" onclick="openLB(this)">
+      <img src="crops/SeaCove_5b.jpg" alt="Framing">
+      <div class="caption"><strong>5b</strong> &mdash; Framing.</div>
+    </div>
+    <div class="card" onclick="openLB(this)">
+      <img src="crops/SeaCove_5c.jpg" alt="Framing">
+      <div class="caption"><strong>5c</strong> &mdash; Framing.</div>
+    </div>
+    <div class="card" onclick="openLB(this)">
+      <img src="crops/SeaCove_5d.jpg" alt="Framing">
+      <div class="caption"><strong>5d</strong> &mdash; Framing.</div>
+    </div>
+    <div class="card" onclick="openLB(this)">
+      <img src="crops/SeaCove_5e.jpg" alt="Framing">
+      <div class="caption"><strong>5e</strong> &mdash; Framing.</div>
+    </div>
+    <div class="card" onclick="openLB(this)">
+      <img src="crops/SeaCove_5f.jpg" alt="Framing">
+      <div class="caption"><strong>5f</strong> &mdash; Framing.</div>
+    </div>
+    <div class="card" onclick="openLB(this)">
+      <img src="crops/SeaCove_5g.jpg" alt="Framing">
+      <div class="caption"><strong>5g</strong> &mdash; Framing.</div>
+    </div>
+    <div class="card" onclick="openLB(this)">
+      <img src="crops/SeaCove_5h.jpg" alt="Framing">
+      <div class="caption"><strong>5h</strong> &mdash; Framing.</div>
+    </div>
+    <div class="card" onclick="openLB(this)">
+      <img src="crops/SeaCove_5i.jpg" alt="Interior framing">
+      <div class="caption"><strong>5i</strong> &mdash; Interior framing.</div>
+    </div>
+    <div class="card" onclick="openLB(this)">
+      <img src="crops/SeaCove_5j.jpg" alt="Interior framing">
+      <div class="caption"><strong>5j</strong> &mdash; Interior framing.</div>
+    </div>
+    <div class="card" onclick="openLB(this)">
+      <img src="crops/SeaCove_5k.jpg" alt="Interior framing">
+      <div class="caption"><strong>5k</strong> &mdash; Interior framing.</div>
+    </div>
+    <div class="card" onclick="openLB(this)">
+      <img src="crops/SeaCove_5l.jpg" alt="Interior framing">
+      <div class="caption"><strong>5l</strong> &mdash; Interior framing.</div>
+    </div>
+    <div class="card" onclick="openLB(this)">
+      <img src="crops/SeaCove_7a.jpg" alt="Framing detail">
+      <div class="caption"><strong>7a</strong> &mdash; Framing detail.</div>
+    </div>
+    <div class="card" onclick="openLB(this)">
+      <img src="crops/SeaCove_7b.jpg" alt="Framing detail">
+      <div class="caption"><strong>7b</strong> &mdash; Framing detail.</div>
+    </div>
+    <div class="card" onclick="openLB(this)">
+      <img src="crops/SeaCove_7c.jpg" alt="Framing detail">
+      <div class="caption"><strong>7c</strong> &mdash; Framing detail.</div>
+    </div>
+    <div class="card" onclick="openLB(this)">
+      <img src="crops/SeaCove_7d.jpg" alt="Framing detail">
+      <div class="caption"><strong>7d</strong> &mdash; Framing detail.</div>
+    </div>
+    <div class="card" onclick="openLB(this)">
+      <img src="crops/SeaCove_7e.jpg" alt="Framing detail">
+      <div class="caption"><strong>7e</strong> &mdash; Framing detail.</div>
+    </div>
+    <div class="card" onclick="openLB(this)">
+      <img src="crops/SeaCove_7f.jpg" alt="Framing detail">
+      <div class="caption"><strong>7f</strong> &mdash; Framing detail.</div>
+    </div>
+  </div>
+</section>
+
+<div class="divider"></div>
+
+<!-- INTERIORS -->
+<section id="interiors">
+  <h2>Interiors</h2>
+  <p class="subtitle">The finished house. Mid-century modern living room, built-in bookshelves, post-and-beam ceiling, period furniture.</p>
+  <div class="gallery">
+    <div class="card" onclick="openLB(this)">
+      <img src="crops/SeaCove_3a.jpg" alt="Living room interior">
+      <div class="caption"><strong>3a</strong> &mdash; Living room. Built-in bookshelves, mid-century furniture, clerestory windows, shag carpet. The finished house.</div>
+    </div>
+    <div class="card" onclick="openLB(this)">
+      <img src="crops/SeaCove_3a-001.jpg" alt="Living room interior alternate">
+      <div class="caption"><strong>3a-001</strong> &mdash; Same room, different crop or exposure.</div>
+    </div>
+    <div class="card" onclick="openLB(this)">
+      <img src="crops/SeaCove_6a.jpg" alt="Interior detail">
+      <div class="caption"><strong>6a</strong> &mdash; Interior detail.</div>
+    </div>
+    <div class="card" onclick="openLB(this)">
+      <img src="crops/SeaCove_6b.jpg" alt="Interior detail">
+      <div class="caption"><strong>6b</strong> &mdash; Interior detail.</div>
+    </div>
+    <div class="card" onclick="openLB(this)">
+      <img src="crops/SeaCove_6c.jpg" alt="Interior detail">
+      <div class="caption"><strong>6c</strong> &mdash; Interior detail.</div>
+    </div>
+  </div>
+</section>
+
+<div class="divider"></div>
+
+<!-- FAMILY -->
+<section id="family">
+  <h2>Family</h2>
+  <p class="subtitle">The people who lived here. Family life at 25 Sea Cove Drive in the early 1950s.</p>
+  <div class="gallery">
+    <div class="card" onclick="openLB(this)">
+      <img src="crops/SeaCove_3i.jpg" alt="Mother and baby">
+      <div class="caption"><strong>3i</strong> &mdash; Mother feeding baby. Post-and-beam ceiling and deck railing visible behind.</div>
+    </div>
+    <div class="card" onclick="openLB(this)">
+      <img src="crops/SeaCove_10a.jpg" alt="Family photo">
+      <div class="caption"><strong>10a</strong> &mdash; Family photo.</div>
+    </div>
+    <div class="card" onclick="openLB(this)">
+      <img src="crops/SeaCove_10b.jpg" alt="Family photo">
+      <div class="caption"><strong>10b</strong> &mdash; Family photo.</div>
+    </div>
+    <div class="card" onclick="openLB(this)">
+      <img src="crops/SeaCove_10c.jpg" alt="Family photo">
+      <div class="caption"><strong>10c</strong> &mdash; Family photo.</div>
+    </div>
+    <div class="card" onclick="openLB(this)">
+      <img src="crops/SeaCove_10d.jpg" alt="Family photo">
+      <div class="caption"><strong>10d</strong> &mdash; Family photo.</div>
+    </div>
+    <div class="card" onclick="openLB(this)">
+      <img src="crops/SeaCove_10e.jpg" alt="Family photo">
+      <div class="caption"><strong>10e</strong> &mdash; Family photo.</div>
+    </div>
+    <div class="card" onclick="openLB(this)">
+      <img src="crops/SeaCove_10f.jpg" alt="Family photo">
+      <div class="caption"><strong>10f</strong> &mdash; Family photo.</div>
+    </div>
+  </div>
+</section>
+
+<div class="divider"></div>
+
+<!-- LANDSCAPE -->
+<section id="landscape">
+  <h2>Landscape &amp; Coastline</h2>
+  <p class="subtitle">The peninsula before development filled in. Open grassland, the PV hills, and the Pacific.</p>
+  <div class="gallery">
+    <!-- Sheet 8 landscape crops are in streetscapes above; Sheet 9 has beach/people shots -->
+  </div>
+  <p class="subtitle" style="margin-top:1rem; font-style: italic;">See Streetscapes section above for landscape views (8a&ndash;8e). The wide-angle shots of open fields and scattered houses double as landscape photographs.</p>
+</section>
+
+<div class="divider"></div>
+
+<!-- BEACH -->
+<section id="beach">
+  <h2>Beach &amp; Coastline</h2>
+  <p class="subtitle">Contact sheet 9 &mdash; people at the beach and on the rocks. Portuguese Bend coastline, tide pools, the cove.</p>
+  <div class="gallery single">
+    <div class="card" onclick="openLB(this)">
+      <img src="SeaCove_9.jpg" alt="Beach contact sheet">
+      <div class="caption"><strong>Sheet 9</strong> &mdash; Contact sheet. Beach outings, tide pools, rock scrambles, "COUNTY LINE / ZONING BOARD" sign visible in one frame. Portuguese Bend coastline.</div>
+    </div>
+  </div>
+</section>
+
+<div class="divider"></div>
+
+<!-- CONTACT SHEETS -->
+<section id="contact-sheets">
+  <h2>Contact Sheets</h2>
+  <p class="subtitle">The original scanned contact sheets. Each sheet is a roll of Kodak Safety Film, ~12 exposures. These are negative images &mdash; the crops above are the inverted positives.</p>
+  <div class="gallery">
+    <div class="card" onclick="openLB(this)">
+      <img src="SeaCove_1.jpg" alt="Contact sheet 1">
+      <div class="caption"><strong>Sheet 1</strong> &mdash; 2 frames. Site grading, early construction.</div>
+    </div>
+    <div class="card" onclick="openLB(this)">
+      <img src="SeaCove_2.jpg" alt="Contact sheet 2">
+      <div class="caption"><strong>Sheet 2</strong> &mdash; ~12 frames. Interior framing, post-and-beam construction.</div>
+    </div>
+    <div class="card" onclick="openLB(this)">
+      <img src="SeaCove_3.jpg" alt="Contact sheet 3">
+      <div class="caption"><strong>Sheet 3</strong> &mdash; ~12 frames. Streetscapes, construction, interiors, people. The richest sheet.</div>
+    </div>
+    <div class="card" onclick="openLB(this)">
+      <img src="SeaCove_4.jpg" alt="Contact sheet 4">
+      <div class="caption"><strong>Sheet 4</strong> &mdash; ~7 frames. Foundation and site work.</div>
+    </div>
+    <div class="card" onclick="openLB(this)">
+      <img src="SeaCove_5.jpg" alt="Contact sheet 5">
+      <div class="caption"><strong>Sheet 5</strong> &mdash; ~12 frames. Framing, a person sitting, structural details.</div>
+    </div>
+    <div class="card" onclick="openLB(this)">
+      <img src="SeaCove_6.jpg" alt="Contact sheet 6">
+      <div class="caption"><strong>Sheet 6</strong> &mdash; ~7 frames. Interior details, documents/blueprints, framing.</div>
+    </div>
+    <div class="card" onclick="openLB(this)">
+      <img src="SeaCove_7.jpg" alt="Contact sheet 7">
+      <div class="caption"><strong>Sheet 7</strong> &mdash; ~12 frames. Framing details. Many dark/underexposed frames. Landscape at bottom.</div>
+    </div>
+    <div class="card" onclick="openLB(this)">
+      <img src="SeaCove_8.jpg" alt="Contact sheet 8">
+      <div class="caption"><strong>Sheet 8</strong> &mdash; ~12 frames. Landscape views, houses on open land, the community from a distance.</div>
+    </div>
+    <div class="card" onclick="openLB(this)">
+      <img src="SeaCove_9.jpg" alt="Contact sheet 9">
+      <div class="caption"><strong>Sheet 9</strong> &mdash; ~12 frames. Beach, tide pools, people on rocks, "County Line / Zoning Board" sign.</div>
+    </div>
+    <div class="card" onclick="openLB(this)">
+      <img src="SeaCove_10.jpg" alt="Contact sheet 10">
+      <div class="caption"><strong>Sheet 10</strong> &mdash; ~12 frames. Family photos &mdash; children, pets, house exterior, garden.</div>
+    </div>
+  </div>
+</section>
+
+<div class="divider"></div>
+
+<!-- COLOR NEGATIVES -->
+<section id="color-negatives">
+  <h2>Color Negatives</h2>
+  <p class="subtitle">Unprocessed color negative strips. These have not been cropped or inverted &mdash; raw scans of the original Kodak color film.</p>
+  <div class="gallery">
+    <div class="card" onclick="openLB(this)">
+      <img src="25 seacove color proof 2.jpg" alt="Color proof sheet 2">
+      <div class="caption"><strong>Color Proof 2</strong> &mdash; Multiple strips of color negative film. Landscapes, houses, coastline, people.</div>
+    </div>
+    <div class="card" onclick="openLB(this)">
+      <img src="25 seacove color proof 3.jpg" alt="Color proof sheet 3">
+      <div class="caption"><strong>Color Proof 3</strong> &mdash; More color negative strips. Beach scenes, landscape, community views.</div>
+    </div>
+    <div class="card" onclick="openLB(this)">
+      <img src="1221 bloomwood.jpg" alt="1221 Bloomwood color negatives">
+      <div class="caption"><strong>1221 Bloomwood</strong> &mdash; Color negative strips labeled for a Bloomwood address. Possibly a related property or the family's previous home.</div>
+    </div>
+  </div>
+</section>
+
+<footer>
+  <p>25 Sea Cove Drive &mdash; Lot 69, Tract 14649 (M.B. 345-23-26) &mdash; APN 7573-009-012</p>
+  <p>West Portuguese Bend Community Association &mdash; Rancho Palos Verdes, California</p>
+  <p style="margin-top: 0.5rem;">Scanned from original negatives, July 2015. Source: Vawter family collection.</p>
+</footer>
+
+<!-- Lightbox -->
+<div class="lightbox" id="lb" onclick="closeLB()">
+  <span class="close">&times;</span>
+  <img id="lb-img" src="" alt="">
+  <div class="lb-caption" id="lb-cap"></div>
+</div>
+
+<script>
+function openLB(card) {
+  const img = card.querySelector('img');
+  const cap = card.querySelector('.caption');
+  document.getElementById('lb-img').src = img.src;
+  document.getElementById('lb-cap').textContent = cap ? cap.textContent : '';
+  document.getElementById('lb').classList.add('open');
+}
+function closeLB() {
+  document.getElementById('lb').classList.remove('open');
+}
+document.addEventListener('keydown', e => { if (e.key === 'Escape') closeLB(); });
+</script>
+
+</body>
+</html>

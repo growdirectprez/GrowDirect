@@ -1,0 +1,131 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Open House QR Sign — Angelique Lyle</title>
+<link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@300;400;500;600;700&family=DM+Serif+Display:ital@0;1&display=swap" rel="stylesheet">
+<style>
+  @media print {
+    body { margin: 0; padding: 0; }
+    .no-print { display: none !important; }
+  }
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+  :root {
+    --black: #000000; --near-black: #1A1A1A; --gray-800: #333333;
+    --gray-600: #666666; --gray-400: #999999; --gray-200: #E0E0E0;
+    --gray-100: #F2F2F2; --off-white: #F7F7F7; --white: #FFFFFF;
+    --heading: 'DM Serif Display', Georgia, serif;
+    --body: 'DM Sans', system-ui, sans-serif;
+  }
+  body {
+    font-family: var(--body); background: var(--off-white); margin: 0;
+    padding: 40px 20px; display: flex; flex-direction: column;
+    align-items: center; gap: 40px; -webkit-font-smoothing: antialiased;
+  }
+
+  /* Card */
+  .card {
+    width: 5.5in; background: var(--white); overflow: hidden;
+    text-align: center; border: 1px solid var(--gray-200);
+  }
+
+  .card-header {
+    background: var(--black); color: var(--white); padding: 32px 24px 24px;
+  }
+  .card-header .tag {
+    display: inline-block; font-size: 0.55rem; font-weight: 600;
+    letter-spacing: 0.2em; text-transform: uppercase; color: var(--gray-400);
+    margin-bottom: 8px;
+  }
+  .card-header h1 {
+    font-family: var(--heading); font-size: 2rem; font-weight: 400;
+    margin: 0 0 4px; letter-spacing: -0.01em;
+  }
+  .card-header .sub {
+    color: var(--gray-400); font-size: 0.8rem; font-weight: 300;
+  }
+
+  .card-body { padding: 28px 24px 32px; }
+  .qr-frame {
+    display: inline-block; padding: 8px;
+    border: 1.5px solid var(--gray-200); margin-bottom: 16px;
+  }
+  .qr-frame img { display: block; width: 220px; height: 220px; }
+  .scan-text {
+    font-size: 0.95rem; color: var(--black); font-weight: 500;
+    margin-bottom: 4px;
+  }
+  .scan-sub {
+    font-size: 0.75rem; color: var(--gray-400);
+  }
+
+  .card-footer {
+    border-top: 1px solid var(--gray-200); padding: 16px 24px;
+    display: flex; align-items: center; justify-content: center; gap: 16px;
+    background: var(--off-white);
+  }
+  .agent-info { text-align: left; }
+  .agent-name {
+    font-family: var(--heading); font-size: 0.9rem;
+    color: var(--black); margin-bottom: 1px;
+  }
+  .agent-detail { font-size: 0.6rem; color: var(--gray-400); letter-spacing: 0.02em; }
+  .contact-qr img { width: 56px; height: 56px; }
+
+  /* Print button */
+  .print-btn {
+    padding: 0.75rem 2rem; background: var(--black); color: var(--white);
+    border: none; font-family: var(--body); font-size: 0.85rem;
+    font-weight: 500; cursor: pointer; transition: background 0.15s;
+  }
+  .print-btn:active { background: var(--gray-800); }
+
+  .instructions {
+    max-width: 5.5in; text-align: center; font-size: 0.8rem;
+    color: var(--gray-600); line-height: 1.6;
+  }
+  .instructions strong { color: var(--black); }
+</style>
+</head>
+<body>
+
+<div class="card">
+  <div class="card-header">
+    <div class="tag">Open House</div>
+    <h1>Welcome</h1>
+    <div class="sub">Hosted by Angelique Lyle · Compass</div>
+  </div>
+  <div class="card-body">
+    <div class="qr-frame">
+      <img src="data:image/png;base64,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" alt="Scan to sign in">
+    </div>
+    <div class="scan-text">Scan to Sign In →</div>
+    <div class="scan-sub">Point your phone camera at the code — no app needed</div>
+  </div>
+  <div class="card-footer">
+    <div class="agent-info">
+      <div class="agent-name">Angelique Lyle</div>
+      <div class="agent-detail">Accardo Real Estate Associates · Compass</div>
+      <div class="agent-detail">CA DRE# 01475592</div>
+    </div>
+    <div class="contact-qr">
+      <img src="data:image/png;base64,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" alt="Save contact" title="Scan to save contact">
+    </div>
+  </div>
+</div>
+
+<div class="instructions no-print">
+  <strong>How to use this card:</strong><br>
+  Print and place on a small stand or frame near the front door.
+  The large QR code opens the sign-in form on the guest's phone.
+  The small QR code in the corner saves Angelique's contact to their phone.
+  Both work instantly — just point any phone camera at them.
+</div>
+
+<div class="no-print">
+  <button class="print-btn" onclick="window.print()">Print This Card →</button>
+</div>
+
+</body>
+</html>

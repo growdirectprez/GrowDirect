@@ -1,0 +1,943 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>This Week on the Hill — TheHillPV.com</title>
+  <meta name="description" content="What's happening on the Palos Verdes Peninsula and South Bay this week. Events, nature, dining, community.">
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/lucide/0.263.1/umd/lucide.min.js"></script>
+  <style>
+    @import url('https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,600;0,700;1,400&family=Inter:wght@300;400;500;600&display=swap');
+
+    :root {
+      --ocean: #3b6f8a;
+      --ocean-light: #5d94ad;
+      --sand: #f0ebe2;
+      --sand-dark: #ddd5c8;
+      --terracotta: #9e4a2a;
+      --terracotta-light: #c4724a;
+      --sage: #6e8f68;
+      --sage-light: #e6ede5;
+      --charcoal: #2a2622;
+      --warm-white: #f8f5f0;
+      --text: #3a3530;
+      --text-light: #7a7268;
+    }
+
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+
+    body {
+      font-family: 'Inter', -apple-system, sans-serif;
+      background: var(--warm-white);
+      color: var(--text);
+      line-height: 1.6;
+    }
+
+    /* ---- HEADER ---- */
+    header {
+      background: var(--sand);
+      color: var(--charcoal);
+      padding: 0;
+      position: relative;
+      overflow: hidden;
+      border-bottom: 3px solid var(--terracotta);
+    }
+    .header-top {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      max-width: 1100px;
+      margin: 0 auto;
+      padding: 16px 24px;
+      position: relative;
+      z-index: 1;
+    }
+    .brand {
+      font-family: 'Playfair Display', serif;
+      font-size: 1.4rem;
+      font-weight: 600;
+      letter-spacing: 0.02em;
+    }
+    .brand span { color: var(--terracotta); font-weight: 400; }
+    .nav-links { display: flex; gap: 24px; font-size: 0.85rem; font-weight: 500; letter-spacing: 0.03em; text-transform: uppercase; }
+    .nav-links a { color: var(--text-light); text-decoration: none; }
+    .nav-links a:hover { color: var(--terracotta); }
+
+    .header-hero {
+      max-width: 1100px;
+      margin: 0 auto;
+      padding: 48px 24px 56px;
+      position: relative;
+      z-index: 1;
+    }
+    .header-hero h1 {
+      font-family: 'Playfair Display', serif;
+      font-size: 2.8rem;
+      font-weight: 700;
+      line-height: 1.15;
+      margin-bottom: 12px;
+      color: var(--charcoal);
+    }
+    .header-hero .subtitle {
+      font-size: 1.05rem;
+      font-weight: 400;
+      color: var(--text-light);
+      max-width: 600px;
+    }
+    .header-hero .week-label {
+      display: inline-block;
+      background: var(--terracotta);
+      color: white;
+      padding: 6px 16px;
+      border-radius: 4px;
+      font-size: 0.8rem;
+      font-weight: 500;
+      letter-spacing: 0.05em;
+      text-transform: uppercase;
+      margin-bottom: 16px;
+    }
+
+    /* ---- INTRO ---- */
+    .intro {
+      max-width: 1100px;
+      margin: 0 auto;
+      padding: 40px 24px 16px;
+    }
+    .intro-text {
+      font-family: 'Playfair Display', serif;
+      font-size: 1.15rem;
+      font-style: italic;
+      color: var(--text-light);
+      max-width: 680px;
+      line-height: 1.7;
+      border-left: 3px solid var(--terracotta);
+      padding-left: 20px;
+    }
+    .intro-text strong { font-style: normal; color: var(--text); }
+
+    /* ---- CATEGORY FILTER ---- */
+    .filter-bar {
+      max-width: 1100px;
+      margin: 0 auto;
+      padding: 24px 24px 0;
+      display: flex;
+      gap: 8px;
+      flex-wrap: wrap;
+    }
+    .filter-btn {
+      padding: 6px 16px;
+      border-radius: 20px;
+      border: 1.5px solid var(--sand-dark);
+      background: white;
+      font-family: 'Inter', sans-serif;
+      font-size: 0.8rem;
+      font-weight: 500;
+      color: var(--text-light);
+      cursor: pointer;
+      transition: all 0.2s;
+    }
+    .filter-btn:hover { border-color: var(--ocean-light); color: var(--ocean); }
+    .filter-btn.active { background: var(--ocean); color: white; border-color: var(--ocean); }
+
+    /* ---- EVENTS GRID ---- */
+    .events { max-width: 1100px; margin: 0 auto; padding: 24px; }
+    .section-label {
+      font-family: 'Playfair Display', serif;
+      font-size: 1.5rem;
+      font-weight: 600;
+      color: var(--ocean);
+      margin: 32px 0 16px;
+      display: flex;
+      align-items: center;
+      gap: 10px;
+    }
+    .section-label .icon { font-size: 1.2rem; }
+
+    .event-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(320px, 1fr)); gap: 20px; margin-bottom: 16px; }
+
+    .event-card {
+      background: white;
+      border-radius: 12px;
+      padding: 24px;
+      border: 1px solid var(--sand-dark);
+      transition: all 0.25s;
+      position: relative;
+    }
+    .event-card:hover { box-shadow: 0 4px 20px rgba(0,0,0,0.08); transform: translateY(-2px); }
+
+    .event-card .date-badge {
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      background: var(--sand);
+      color: var(--ocean);
+      padding: 4px 12px;
+      border-radius: 6px;
+      font-size: 0.75rem;
+      font-weight: 600;
+      letter-spacing: 0.03em;
+      text-transform: uppercase;
+      margin-bottom: 12px;
+    }
+    .event-card .date-badge.featured { background: var(--terracotta); color: white; }
+    .event-card .date-badge.recurring { background: var(--sage-light); color: var(--sage); }
+
+    .event-card h3 {
+      font-family: 'Playfair Display', serif;
+      font-size: 1.15rem;
+      font-weight: 600;
+      margin-bottom: 8px;
+      line-height: 1.3;
+      color: var(--charcoal);
+    }
+    .event-card .meta {
+      font-size: 0.82rem;
+      color: var(--text-light);
+      margin-bottom: 10px;
+      display: flex;
+      flex-direction: column;
+      gap: 3px;
+    }
+    .event-card .meta span { display: flex; align-items: center; gap: 6px; }
+    .event-card .description {
+      font-size: 0.88rem;
+      color: var(--text);
+      line-height: 1.6;
+    }
+    .event-card .neighborhood-tag {
+      display: inline-block;
+      background: var(--sand);
+      color: var(--ocean);
+      padding: 2px 10px;
+      border-radius: 4px;
+      font-size: 0.7rem;
+      font-weight: 600;
+      text-transform: uppercase;
+      letter-spacing: 0.04em;
+      margin-top: 12px;
+    }
+
+    .event-card .card-footer {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-top: 12px;
+    }
+
+    .add-to-cal {
+      display: inline-flex;
+      align-items: center;
+      gap: 5px;
+      background: none;
+      border: 1.5px solid var(--sand-dark);
+      border-radius: 6px;
+      padding: 5px 12px;
+      font-family: 'Inter', sans-serif;
+      font-size: 0.72rem;
+      font-weight: 500;
+      color: var(--text-light);
+      cursor: pointer;
+      transition: all 0.2s;
+      letter-spacing: 0.02em;
+    }
+    .add-to-cal:hover {
+      border-color: var(--ocean-light);
+      color: var(--ocean);
+      background: var(--sand);
+    }
+    .add-to-cal svg { width: 13px; height: 13px; }
+
+    .nav-link {
+      display: inline-flex;
+      align-items: center;
+      gap: 5px;
+      background: none;
+      border: 1.5px solid var(--sand-dark);
+      border-radius: 6px;
+      padding: 5px 12px;
+      font-family: 'Inter', sans-serif;
+      font-size: 0.72rem;
+      font-weight: 500;
+      color: var(--text-light);
+      cursor: pointer;
+      transition: all 0.2s;
+      letter-spacing: 0.02em;
+      text-decoration: none;
+    }
+    .nav-link:hover {
+      border-color: var(--ocean-light);
+      color: var(--ocean);
+      background: var(--sand);
+    }
+    .nav-link svg { width: 13px; height: 13px; }
+
+    .card-actions {
+      display: flex;
+      gap: 6px;
+    }
+
+    /* ---- FEATURED ---- */
+    .featured-card {
+      grid-column: 1 / -1;
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 0;
+      padding: 0;
+      overflow: hidden;
+    }
+    .featured-card .featured-img {
+      background: linear-gradient(135deg, var(--sand-dark) 0%, var(--terracotta-light) 60%, var(--terracotta) 100%);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      min-height: 220px;
+      color: white;
+      font-family: 'Playfair Display', serif;
+      font-size: 3rem;
+    }
+    .featured-card .featured-content { padding: 28px; }
+
+    /* ---- NEWSLETTER CTA ---- */
+    .newsletter {
+      max-width: 1100px;
+      margin: 48px auto;
+      padding: 0 24px;
+    }
+    .newsletter-inner {
+      background: var(--charcoal);
+      border-radius: 12px;
+      padding: 48px;
+      color: white;
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 40px;
+      align-items: center;
+    }
+    .newsletter h2 {
+      font-family: 'Playfair Display', serif;
+      font-size: 1.8rem;
+      margin-bottom: 8px;
+    }
+    .newsletter p { font-size: 0.95rem; color: rgba(255,255,255,0.75); line-height: 1.6; }
+    .newsletter-form { display: flex; gap: 8px; }
+    .newsletter-form input {
+      flex: 1;
+      padding: 14px 18px;
+      border-radius: 8px;
+      border: none;
+      font-family: 'Inter', sans-serif;
+      font-size: 0.9rem;
+    }
+    .newsletter-form button {
+      padding: 14px 28px;
+      background: var(--terracotta);
+      color: white;
+      border: none;
+      border-radius: 8px;
+      font-family: 'Inter', sans-serif;
+      font-weight: 600;
+      font-size: 0.9rem;
+      cursor: pointer;
+      white-space: nowrap;
+    }
+    .newsletter-form button:hover { background: #b56d3f; }
+
+    /* ---- MARKET SIDEBAR ---- */
+    .market-pulse {
+      background: var(--sand);
+      border-radius: 12px;
+      padding: 28px;
+      margin-top: 20px;
+    }
+    .market-pulse h3 {
+      font-family: 'Playfair Display', serif;
+      font-size: 1.15rem;
+      color: var(--ocean);
+      margin-bottom: 16px;
+    }
+    .stat-row { display: flex; justify-content: space-between; padding: 10px 0; border-bottom: 1px solid var(--sand-dark); }
+    .stat-row:last-child { border-bottom: none; }
+    .stat-label { font-size: 0.82rem; color: var(--text-light); }
+    .stat-value { font-size: 0.9rem; font-weight: 600; color: var(--charcoal); }
+    .stat-change { font-size: 0.75rem; }
+    .stat-change.up { color: var(--sage); }
+    .stat-change.down { color: var(--terracotta); }
+
+    /* ---- FOOTER ---- */
+    footer {
+      background: var(--charcoal);
+      color: rgba(255,255,255,0.6);
+      padding: 40px 24px;
+      margin-top: 48px;
+      font-size: 0.82rem;
+      line-height: 1.7;
+    }
+    .footer-inner { max-width: 1100px; margin: 0 auto; display: grid; grid-template-columns: 2fr 1fr 1fr; gap: 40px; }
+    footer a { color: rgba(255,255,255,0.8); text-decoration: none; }
+    footer h4 { font-family: 'Playfair Display', serif; color: rgba(255,255,255,0.9); font-size: 1rem; margin-bottom: 12px; }
+    .dre { font-size: 0.72rem; color: rgba(255,255,255,0.3); margin-top: 16px; }
+
+    /* ---- RESPONSIVE ---- */
+    @media (max-width: 768px) {
+      .header-hero h1 { font-size: 2rem; }
+      .featured-card { grid-template-columns: 1fr; }
+      .newsletter-inner { grid-template-columns: 1fr; padding: 32px; }
+      .footer-inner { grid-template-columns: 1fr; }
+      .nav-links { display: none; }
+    }
+
+  </style>
+</head>
+<body>
+
+  <!-- HEADER -->
+  <header>
+    <div class="header-top">
+      <div class="brand">TheHillPV<span>.com</span></div>
+      <div class="nav-links">
+        <a href="#">Neighborhoods</a>
+        <a href="#">Schools</a>
+        <a href="#">Market</a>
+        <a href="#">This Week</a>
+        <a href="#">Ask Angel</a>
+      </div>
+    </div>
+    <div class="header-hero">
+      <div class="week-label">Week of April 6 — April 12, 2026</div>
+      <h1>This Week on the Hill</h1>
+      <p class="subtitle">What's happening on the Palos Verdes Peninsula and across the South Bay this week.</p>
+    </div>
+  </header>
+
+  <!-- INTRO -->
+  <div class="intro">
+    <p class="intro-text">
+      This week is a big one on the Peninsula. The <strong>Point Vicente Lighthouse turns 100</strong> on Saturday — a full-century celebration with tours, history, and ocean views that remind you why you live here. PVPLC has guided nature walks running all week, and the <strong>41st Annual Whale of a Day</strong> hits the Interpretive Center. If you're still exploring whether the Hill is right for your family, this is the week to come see it in its element. <strong>— Angelique</strong>
+    </p>
+  </div>
+
+  <!-- FILTER BAR -->
+  <div class="filter-bar">
+    <button class="filter-btn active">All</button>
+    <button class="filter-btn">Nature & Outdoors</button>
+    <button class="filter-btn">Arts & Culture</button>
+    <button class="filter-btn">Family</button>
+    <button class="filter-btn">Community</button>
+    <button class="filter-btn">Dining</button>
+    <button class="filter-btn">Recurring</button>
+  </div>
+
+  <!-- EVENTS -->
+  <div class="events">
+
+    <!-- FEATURED -->
+    <div class="section-label">Featured This Week</div>
+    <div class="event-grid">
+      <div class="event-card featured-card">
+        <div class="featured-img">🏠 100</div>
+        <div class="featured-content">
+          <div class="date-badge featured">Saturday, April 11</div>
+          <h3>Point Vicente Lighthouse 100th Anniversary Party</h3>
+          <div class="meta">
+            <span>10:00 AM — 4:00 PM</span>
+            <span>31550 Palos Verdes Dr W, Rancho Palos Verdes</span>
+          </div>
+          <p class="description">A full century of light. The lighthouse has guided ships past the Peninsula since 1926, and Saturday they're throwing the party it deserves — tours, live history, and those views from the bluff that never get old. Free admission.</p>
+          <div class="card-footer">
+            <span class="neighborhood-tag">Rancho Palos Verdes</span>
+            <div class="card-actions">
+              <a class="nav-link" href="https://maps.google.com/?daddr=31550+Palos+Verdes+Dr+W+Rancho+Palos+Verdes+CA" target="_blank" rel="noopener"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0118 0z"></path><circle cx="12" cy="10" r="3"></circle></svg> Directions</a>
+              <button class="add-to-cal" onclick="addToCal(this)" data-title="Point Vicente Lighthouse 100th Anniversary" data-date="20260411" data-time="1000" data-end="1600" data-location="31550 Palos Verdes Dr W, Rancho Palos Verdes" data-desc="100th anniversary celebration — tours, live history, ocean views. Free admission."><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="4" width="18" height="18" rx="2" ry="2"></rect><line x1="16" y1="2" x2="16" y2="6"></line><line x1="8" y1="2" x2="8" y2="6"></line><line x1="3" y1="10" x2="21" y2="10"></line></svg> Add to Calendar</button>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- NATURE & OUTDOORS -->
+    <div class="section-label">Nature & Outdoors</div>
+    <div class="event-grid">
+      <div class="event-card">
+        <div class="date-badge">Saturday, April 11</div>
+        <h3>41st Annual Whale of a Day</h3>
+        <div class="meta">
+          <span>10:00 AM</span>
+          <span>Point Vicente Interpretive Center, RPV</span>
+        </div>
+        <p class="description">The annual celebration of gray whale migration season at the bluffs. Activities, exhibits, and if timing is right, actual whale sightings from shore. A Peninsula tradition since 1985.</p>
+        <div class="card-footer">
+          <span class="neighborhood-tag">Point Vicente</span>
+          <div class="card-actions">
+            <a class="nav-link" href="https://maps.google.com/?daddr=Point+Vicente+Interpretive+Center+Rancho+Palos+Verdes+CA" target="_blank" rel="noopener"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0118 0z"></path><circle cx="12" cy="10" r="3"></circle></svg> Directions</a>
+            <button class="add-to-cal" onclick="addToCal(this)" data-title="41st Annual Whale of a Day" data-date="20260411" data-time="1000" data-location="Point Vicente Interpretive Center, RPV" data-desc="Annual celebration of gray whale migration. Activities, exhibits, whale sightings from shore."><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="4" width="18" height="18" rx="2" ry="2"></rect><line x1="16" y1="2" x2="16" y2="6"></line><line x1="8" y1="2" x2="8" y2="6"></line><line x1="3" y1="10" x2="21" y2="10"></line></svg> Add to Calendar</button>
+          </div>
+        </div>
+      </div>
+
+      <div class="event-card">
+        <div class="date-badge">Saturday, April 11</div>
+        <h3>Nature Walk — Linden H. Chandler Preserve</h3>
+        <div class="meta">
+          <span>9:00 AM</span>
+          <span>Linden H. Chandler Preserve, Rolling Hills Estates</span>
+        </div>
+        <p class="description">28 acres of native coastal sage scrub with blooming spring wildflowers. PVPLC docent-led walk through one of the quieter preserves on the Hill. Free.</p>
+        <div class="card-footer">
+          <span class="neighborhood-tag">Rolling Hills Estates</span>
+          <div class="card-actions">
+            <a class="nav-link" href="https://maps.google.com/?daddr=Linden+H+Chandler+Preserve+Rolling+Hills+Estates+CA" target="_blank" rel="noopener"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0118 0z"></path><circle cx="12" cy="10" r="3"></circle></svg> Directions</a>
+            <button class="add-to-cal" onclick="addToCal(this)" data-title="Nature Walk — Linden H. Chandler Preserve" data-date="20260411" data-time="0900" data-location="Linden H. Chandler Preserve, Rolling Hills Estates" data-desc="PVPLC docent-led walk through 28 acres of native coastal sage scrub. Free."><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="4" width="18" height="18" rx="2" ry="2"></rect><line x1="16" y1="2" x2="16" y2="6"></line><line x1="8" y1="2" x2="8" y2="6"></line><line x1="3" y1="10" x2="21" y2="10"></line></svg> Add to Calendar</button>
+          </div>
+        </div>
+      </div>
+
+      <div class="event-card">
+        <div class="date-badge">Saturday, April 11</div>
+        <h3>Bring Nature Home: Native Plant Sale</h3>
+        <div class="meta">
+          <span>10:30 AM</span>
+          <span>George F Canyon Nature Center, RHE</span>
+        </div>
+        <p class="description">California-native plants suited for Peninsula gardens. PVPLC staff help you pick the right species for your slope, sun, and soil. Drought-tolerant, pollinator-friendly.</p>
+        <div class="card-footer">
+          <span class="neighborhood-tag">Rolling Hills Estates</span>
+          <div class="card-actions">
+            <a class="nav-link" href="https://maps.google.com/?daddr=George+F+Canyon+Nature+Center+Rolling+Hills+Estates+CA" target="_blank" rel="noopener"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0118 0z"></path><circle cx="12" cy="10" r="3"></circle></svg> Directions</a>
+            <button class="add-to-cal" onclick="addToCal(this)" data-title="Bring Nature Home: Native Plant Sale" data-date="20260411" data-time="1030" data-location="George F Canyon Nature Center, RHE" data-desc="California-native plants for Peninsula gardens. PVPLC staff help you pick the right species."><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="4" width="18" height="18" rx="2" ry="2"></rect><line x1="16" y1="2" x2="16" y2="6"></line><line x1="8" y1="2" x2="8" y2="6"></line><line x1="3" y1="10" x2="21" y2="10"></line></svg> Add to Calendar</button>
+          </div>
+        </div>
+      </div>
+
+      <div class="event-card">
+        <div class="date-badge">Sunday, April 12</div>
+        <h3>Wild & Scenic Film Festival</h3>
+        <div class="meta">
+          <span>4:00 PM (doors 3:00 PM)</span>
+          <span>Redondo Union High School</span>
+        </div>
+        <p class="description">Environmental film festival with an Earth Day celebration. Short films about conservation, adventure, and our wild coast. Presented by PVPLC. Great family outing.</p>
+        <div class="card-footer">
+          <span class="neighborhood-tag">Redondo Beach</span>
+          <div class="card-actions">
+            <a class="nav-link" href="https://maps.google.com/?daddr=Redondo+Union+High+School+Redondo+Beach+CA" target="_blank" rel="noopener"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0118 0z"></path><circle cx="12" cy="10" r="3"></circle></svg> Directions</a>
+            <button class="add-to-cal" onclick="addToCal(this)" data-title="Wild & Scenic Film Festival" data-date="20260412" data-time="1600" data-location="Redondo Union High School, Redondo Beach" data-desc="Environmental film festival — short films about conservation, adventure, and the wild coast. Doors 3pm."><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="4" width="18" height="18" rx="2" ry="2"></rect><line x1="16" y1="2" x2="16" y2="6"></line><line x1="8" y1="2" x2="8" y2="6"></line><line x1="3" y1="10" x2="21" y2="10"></line></svg> Add to Calendar</button>
+          </div>
+        </div>
+      </div>
+
+      <div class="event-card">
+        <div class="date-badge">Through March — ongoing</div>
+        <h3>TROLLS: A Field Study by Thomas Dambo</h3>
+        <div class="meta">
+          <span>Garden hours</span>
+          <span>South Coast Botanic Garden, RPV</span>
+        </div>
+        <p class="description">12 large trolls crafted from reclaimed wood, hidden throughout the garden. The Danish artist's installation is back after its smash 2023 run. Kids absolutely love the treasure hunt.</p>
+        <div class="card-footer">
+          <span class="neighborhood-tag">South Coast Botanic Garden</span>
+          <div class="card-actions">
+            <a class="nav-link" href="https://maps.google.com/?daddr=South+Coast+Botanic+Garden+Rancho+Palos+Verdes+CA" target="_blank" rel="noopener"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0118 0z"></path><circle cx="12" cy="10" r="3"></circle></svg> Directions</a>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- ARTS & CULTURE -->
+    <div class="section-label">Arts & Culture</div>
+    <div class="event-grid">
+      <div class="event-card">
+        <div class="date-badge">Saturday, April 11</div>
+        <h3>Nature Club — Trees</h3>
+        <div class="meta">
+          <span>10:30 AM</span>
+          <span>White Point Nature Education Center, San Pedro</span>
+        </div>
+        <p class="description">PVPLC's nature education series for families. This month's theme: trees — identification, ecology, and why the Peninsula's Torrey pines matter.</p>
+        <div class="card-footer">
+          <span class="neighborhood-tag">San Pedro</span>
+          <div class="card-actions">
+            <a class="nav-link" href="https://maps.google.com/?daddr=White+Point+Nature+Education+Center+San+Pedro+CA" target="_blank" rel="noopener"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0118 0z"></path><circle cx="12" cy="10" r="3"></circle></svg> Directions</a>
+            <button class="add-to-cal" onclick="addToCal(this)" data-title="Nature Club — Trees" data-date="20260411" data-time="1030" data-location="White Point Nature Education Center, San Pedro" data-desc="PVPLC nature education for families. This month: tree identification and ecology."><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="4" width="18" height="18" rx="2" ry="2"></rect><line x1="16" y1="2" x2="16" y2="6"></line><line x1="8" y1="2" x2="8" y2="6"></line><line x1="3" y1="10" x2="21" y2="10"></line></svg> Add to Calendar</button>
+          </div>
+        </div>
+      </div>
+
+      <div class="event-card">
+        <div class="date-badge">Sunday, April 12</div>
+        <h3>Music Concert at Paseo Del Mar</h3>
+        <div class="meta">
+          <span>5:00 PM</span>
+          <span>415 Paseo Del Mar, Palos Verdes Estates</span>
+        </div>
+        <p class="description">An evening concert on one of the most beautiful streets on the Peninsula. Paseo Del Mar runs along the Lunada Bay bluffs — music and ocean sunsets.</p>
+        <div class="card-footer">
+          <span class="neighborhood-tag">Palos Verdes Estates</span>
+          <div class="card-actions">
+            <a class="nav-link" href="https://maps.google.com/?daddr=415+Paseo+Del+Mar+Palos+Verdes+Estates+CA" target="_blank" rel="noopener"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0118 0z"></path><circle cx="12" cy="10" r="3"></circle></svg> Directions</a>
+            <button class="add-to-cal" onclick="addToCal(this)" data-title="Music Concert at Paseo Del Mar" data-date="20260412" data-time="1700" data-location="415 Paseo Del Mar, Palos Verdes Estates" data-desc="Evening concert on the Lunada Bay bluffs. Music and ocean sunsets."><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="4" width="18" height="18" rx="2" ry="2"></rect><line x1="16" y1="2" x2="16" y2="6"></line><line x1="8" y1="2" x2="8" y2="6"></line><line x1="3" y1="10" x2="21" y2="10"></line></svg> Add to Calendar</button>
+          </div>
+        </div>
+      </div>
+
+      <div class="event-card">
+        <div class="date-badge">Through April 11</div>
+        <h3>SYMBIOSIS (of Sand and Sea) — Closing Reception</h3>
+        <div class="meta">
+          <span>5:00 — 9:00 PM</span>
+          <span>618 Cypress Ave #4644, Hermosa Beach</span>
+        </div>
+        <p class="description">Group exhibition exploring the interplay between sand and sea. Final reception April 11 — last chance to see this coastal-inspired collection.</p>
+        <div class="card-footer">
+          <span class="neighborhood-tag">Hermosa Beach</span>
+          <div class="card-actions">
+            <a class="nav-link" href="https://maps.google.com/?daddr=618+Cypress+Ave+Hermosa+Beach+CA" target="_blank" rel="noopener"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0118 0z"></path><circle cx="12" cy="10" r="3"></circle></svg> Directions</a>
+            <button class="add-to-cal" onclick="addToCal(this)" data-title="SYMBIOSIS (of Sand and Sea) — Closing Reception" data-date="20260411" data-time="1700" data-end="2100" data-location="618 Cypress Ave #4644, Hermosa Beach" data-desc="Group exhibition closing reception — coastal-inspired art. Last chance to see it."><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="4" width="18" height="18" rx="2" ry="2"></rect><line x1="16" y1="2" x2="16" y2="6"></line><line x1="8" y1="2" x2="8" y2="6"></line><line x1="3" y1="10" x2="21" y2="10"></line></svg> Add to Calendar</button>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- COMMUNITY & LEARNING -->
+    <div class="section-label">Community</div>
+    <div class="event-grid">
+      <div class="event-card">
+        <div class="date-badge">Wednesday, April 8</div>
+        <h3>Avoid Probate: Free Estate Planning Class</h3>
+        <div class="meta">
+          <span>2:00 PM</span>
+          <span>Peninsula Center Library, 701 Silver Spur Rd, RHE</span>
+        </div>
+        <p class="description">Free workshop on estate planning basics — trusts, wills, and avoiding probate. Especially relevant for homeowners with significant property equity. Walk-ins welcome.</p>
+        <div class="card-footer">
+          <span class="neighborhood-tag">Peninsula Center</span>
+          <div class="card-actions">
+            <a class="nav-link" href="https://maps.google.com/?daddr=701+Silver+Spur+Rd+Rolling+Hills+Estates+CA" target="_blank" rel="noopener"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0118 0z"></path><circle cx="12" cy="10" r="3"></circle></svg> Directions</a>
+            <button class="add-to-cal" onclick="addToCal(this)" data-title="Avoid Probate: Free Estate Planning Class" data-date="20260408" data-time="1400" data-location="Peninsula Center Library, 701 Silver Spur Rd, RHE" data-desc="Free workshop — trusts, wills, avoiding probate. Walk-ins welcome."><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="4" width="18" height="18" rx="2" ry="2"></rect><line x1="16" y1="2" x2="16" y2="6"></line><line x1="8" y1="2" x2="8" y2="6"></line><line x1="3" y1="10" x2="21" y2="10"></line></svg> Add to Calendar</button>
+          </div>
+        </div>
+      </div>
+
+      <div class="event-card">
+        <div class="date-badge">Wednesday, April 15</div>
+        <h3>PVPUSD Board Study Session — Measure SOS</h3>
+        <div class="meta">
+          <span>11:00 AM</span>
+          <span>Malaga Cove Administration Center</span>
+        </div>
+        <p class="description">Board study session on Measure SOS funding and implementation. If you have kids in PVPUSD or are considering the district for your family, this is where the decisions happen.</p>
+        <div class="card-footer">
+          <span class="neighborhood-tag">Malaga Cove</span>
+          <div class="card-actions">
+            <a class="nav-link" href="https://maps.google.com/?daddr=Malaga+Cove+Administration+Center+Palos+Verdes+Estates+CA" target="_blank" rel="noopener"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0118 0z"></path><circle cx="12" cy="10" r="3"></circle></svg> Directions</a>
+            <button class="add-to-cal" onclick="addToCal(this)" data-title="PVPUSD Board Study Session — Measure SOS" data-date="20260415" data-time="1100" data-location="Malaga Cove Administration Center, Palos Verdes Estates" data-desc="Board study session on Measure SOS funding and implementation."><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="4" width="18" height="18" rx="2" ry="2"></rect><line x1="16" y1="2" x2="16" y2="6"></line><line x1="8" y1="2" x2="8" y2="6"></line><line x1="3" y1="10" x2="21" y2="10"></line></svg> Add to Calendar</button>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- RECURRING WEEKLY -->
+    <div class="section-label">Every Week on the Hill</div>
+    <div class="event-grid">
+      <div class="event-card">
+        <div class="date-badge recurring">Every Sunday</div>
+        <h3>Palos Verdes Farmers Market</h3>
+        <div class="meta">
+          <span>8:00 AM — 1:00 PM</span>
+          <span>27118 Silver Spur Rd, Rolling Hills Estates</span>
+        </div>
+        <p class="description">~40 vendors, running since 1994. Stone fruit season is starting. The best Sunday morning on the Peninsula — grab coffee, fill a bag, run into half your neighbors. I've been going for 20 years.</p>
+        <div class="card-footer">
+          <span class="neighborhood-tag">Peninsula Center</span>
+          <div class="card-actions">
+            <a class="nav-link" href="https://maps.google.com/?daddr=27118+Silver+Spur+Rd+Rolling+Hills+Estates+CA" target="_blank" rel="noopener"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0118 0z"></path><circle cx="12" cy="10" r="3"></circle></svg> Directions</a>
+          </div>
+        </div>
+      </div>
+
+      <div class="event-card">
+        <div class="date-badge recurring">First Saturdays</div>
+        <h3>Peninsula Cars & Coffee</h3>
+        <div class="meta">
+          <span>7:00 — 9:00 AM</span>
+          <span>Promenade on the Peninsula, Rolling Hills Estates</span>
+        </div>
+        <p class="description">Vintage and exotic cars, early morning coffee, the community just showing up. Great way to start the weekend if you've got a car enthusiast in the family (or are one).</p>
+        <div class="card-footer">
+          <span class="neighborhood-tag">Rolling Hills Estates</span>
+          <div class="card-actions">
+            <a class="nav-link" href="https://maps.google.com/?daddr=Promenade+on+the+Peninsula+Rolling+Hills+Estates+CA" target="_blank" rel="noopener"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0118 0z"></path><circle cx="12" cy="10" r="3"></circle></svg> Directions</a>
+          </div>
+        </div>
+      </div>
+
+      <div class="event-card">
+        <div class="date-badge recurring">First Fridays</div>
+        <h3>First Fridays in Riviera Village</h3>
+        <div class="meta">
+          <span>5:00 — 8:00 PM</span>
+          <span>Riviera Village, Redondo Beach</span>
+        </div>
+        <p class="description">Art, live music, and open-late shops in the South Bay's charming walking district. Wine tasting, gallery openings, and that perfect Redondo golden-hour light.</p>
+        <div class="card-footer">
+          <span class="neighborhood-tag">Redondo Beach</span>
+          <div class="card-actions">
+            <a class="nav-link" href="https://maps.google.com/?daddr=Riviera+Village+Redondo+Beach+CA" target="_blank" rel="noopener"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0118 0z"></path><circle cx="12" cy="10" r="3"></circle></svg> Directions</a>
+          </div>
+        </div>
+      </div>
+
+      <div class="event-card">
+        <div class="date-badge recurring">Every Friday</div>
+        <h3>Live Jammin' at Sea Level</h3>
+        <div class="meta">
+          <span>5:00 — 8:00 PM</span>
+          <span>Sea Level Restaurant, Shade Hotel, Redondo Beach</span>
+        </div>
+        <p class="description">Live music and cocktails at the harbor. Low-key Friday evening spot — ocean views, good energy, no pretense.</p>
+        <div class="card-footer">
+          <span class="neighborhood-tag">Redondo Beach</span>
+          <div class="card-actions">
+            <a class="nav-link" href="https://maps.google.com/?daddr=Shade+Hotel+Redondo+Beach+CA" target="_blank" rel="noopener"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0118 0z"></path><circle cx="12" cy="10" r="3"></circle></svg> Directions</a>
+          </div>
+        </div>
+      </div>
+
+      <div class="event-card">
+        <div class="date-badge recurring">Second Saturdays</div>
+        <h3>Point Vicente Lighthouse Open House</h3>
+        <div class="meta">
+          <span>Check hours</span>
+          <span>Point Vicente Lighthouse, RPV</span>
+        </div>
+        <p class="description">Monthly public access to the lighthouse and grounds. The 100th anniversary celebration this Saturday will be extra special — but the second-Saturday open houses are a Peninsula staple year-round.</p>
+        <div class="card-footer">
+          <span class="neighborhood-tag">Rancho Palos Verdes</span>
+          <div class="card-actions">
+            <a class="nav-link" href="https://maps.google.com/?daddr=Point+Vicente+Lighthouse+Rancho+Palos+Verdes+CA" target="_blank" rel="noopener"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0118 0z"></path><circle cx="12" cy="10" r="3"></circle></svg> Directions</a>
+          </div>
+        </div>
+      </div>
+
+      <div class="event-card">
+        <div class="date-badge recurring">Second Sundays</div>
+        <h3>Second Sundays @ Two — Classical Music</h3>
+        <div class="meta">
+          <span>2:00 PM</span>
+          <span>Rolling Hills United Methodist Church</span>
+        </div>
+        <p class="description">Intimate classical music performances in a beautiful Rolling Hills setting. A Peninsula hidden gem that locals know about and newcomers discover with delight.</p>
+        <div class="card-footer">
+          <span class="neighborhood-tag">Rolling Hills</span>
+          <div class="card-actions">
+            <a class="nav-link" href="https://maps.google.com/?daddr=Rolling+Hills+United+Methodist+Church+Rolling+Hills+Estates+CA" target="_blank" rel="noopener"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0118 0z"></path><circle cx="12" cy="10" r="3"></circle></svg> Directions</a>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- LOCAL NEWS -->
+    <div class="section-label">What's Making News</div>
+    <div class="event-grid">
+      <div class="event-card">
+        <div class="date-badge">April 4</div>
+        <h3>Instagram 'Beach Takeover' Draws Hundreds to Hermosa</h3>
+        <div class="meta">
+          <span>Laura Garber, Easy Reader</span>
+        </div>
+        <p class="description">A viral Instagram post turned into a real-world flash mob on Hermosa Beach this weekend. The South Bay's social media moment of the week.</p>
+        <span class="neighborhood-tag">Hermosa Beach</span>
+      </div>
+
+      <div class="event-card">
+        <div class="date-badge">April 2</div>
+        <h3>Redondo Beach Experiencing "Renaissance" — State of the City</h3>
+        <div class="meta">
+          <span>Garth Meyer, Easy Reader</span>
+        </div>
+        <p class="description">Mayor's State of the City address highlights waterfront revitalization, new police/fire station proposals, and momentum across the city. Redondo is having a moment.</p>
+        <span class="neighborhood-tag">Redondo Beach</span>
+      </div>
+
+      <div class="event-card">
+        <div class="date-badge">April 2</div>
+        <h3>Dr. Kimberlie Linz Selected as MBUSD Superintendent</h3>
+        <div class="meta">
+          <span>Mark McDermott, Easy Reader</span>
+        </div>
+        <p class="description">New superintendent for Manhattan Beach Unified. Important context for families weighing MBUSD vs PVPUSD — two of the top districts in LA County.</p>
+        <span class="neighborhood-tag">Manhattan Beach</span>
+      </div>
+    </div>
+
+    <!-- MARKET PULSE -->
+    <div class="section-label">Market Pulse — Peninsula</div>
+    <div class="event-grid">
+      <div class="market-pulse" style="grid-column: 1 / -1;">
+        <h3>What I'm Seeing This Week</h3>
+        <p style="font-size: 0.9rem; color: var(--text); margin-bottom: 20px; font-family: 'Playfair Display', serif; font-style: italic;">
+          Spring inventory is building but still below historical averages for April on the Hill. Three new listings in RPV this week, one in PVE — all priced above $2M. Serious buyers are moving fast. If you're thinking about listing, the window is opening. — Angelique
+        </p>
+        <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 16px;">
+          <div>
+            <div class="stat-row"><span class="stat-label">Active Listings — Peninsula</span><span class="stat-value">47</span></div>
+            <div class="stat-row"><span class="stat-label">Median List Price</span><span class="stat-value">$2.4M</span></div>
+            <div class="stat-row"><span class="stat-label">Avg Days on Market</span><span class="stat-value">34 <span class="stat-change down">+3 vs last month</span></span></div>
+          </div>
+          <div>
+            <div class="stat-row"><span class="stat-label">New This Week</span><span class="stat-value">4</span></div>
+            <div class="stat-row"><span class="stat-label">Under Contract</span><span class="stat-value">11</span></div>
+            <div class="stat-row"><span class="stat-label">Closed Last 30 Days</span><span class="stat-value">18 <span class="stat-change up">+22% YoY</span></span></div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+  </div>
+
+  <!-- FROM THE ARCHIVES -->
+  <div class="events">
+    <div class="section-label">From the Archives</div>
+    <div class="event-grid">
+      <div class="event-card" style="grid-column: 1 / -1; background: var(--sand); border: none;">
+        <div style="display: grid; grid-template-columns: 1fr 2fr; gap: 32px; align-items: center;">
+          <div style="background: var(--sand-dark); border-radius: 8px; padding: 40px 24px; text-align: center;">
+            <div style="font-family: 'Playfair Display', serif; font-size: 3.5rem; font-weight: 700; color: var(--terracotta); line-height: 1;">1926</div>
+            <div style="font-size: 0.8rem; color: var(--text-light); margin-top: 8px; text-transform: uppercase; letter-spacing: 0.05em;">Malaga Cove Plaza</div>
+          </div>
+          <div>
+            <h3 style="font-family: 'Playfair Display', serif; font-size: 1.2rem; color: var(--charcoal); margin-bottom: 10px;">This Week, 100 Years Ago</h3>
+            <p style="font-size: 0.92rem; color: var(--text); line-height: 1.7; margin-bottom: 12px;">
+              In 1926, Malaga Cove Plaza was taking shape as the heart of Palos Verdes Estates — the only one of five planned business centers that was fully realized. Frank Vanderlip had hired the Olmsted Brothers to lay out the community, and architect Myron Hunt's Art Jury was enforcing the Mediterranean style that still defines every street: stucco walls, tile roofs, archways. The Neptune fountain — a 17th-century marble sculpture imported from Italy — would be dedicated four years later.
+            </p>
+            <p style="font-size: 0.82rem; color: var(--text-light); font-style: italic;">
+              Photo: Malaga Cove Plaza, 1926. The Etter residence (foreground) won the Art Jury's Most Notable Structure award in 1925. The Olmsted residence on Rosita Place is visible in the background. — Palos Verdes Library District Community Archives
+            </p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- NEWSLETTER -->
+  <div class="newsletter">
+    <div class="newsletter-inner">
+      <div>
+        <h2>Get This in Your Inbox</h2>
+        <p>Every Thursday morning — this week's events and what's moving in the market. That's it.</p>
+      </div>
+      <div>
+        <div class="newsletter-form">
+          <input type="email" placeholder="your@email.com">
+          <button>Subscribe</button>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- FOOTER -->
+  <footer>
+    <div class="footer-inner">
+      <div>
+        <h4>TheHillPV.com</h4>
+        <p>Life above the Pacific.</p>
+        <p style="margin-top: 12px;">Angelique Lyle · Accardo Real Estate Associates at Compass</p>
+        <p class="dre">CA DRE# 01475592 · Compass · 550 Silver Spur Road, Suite 110, Rancho Palos Verdes, CA 90275</p>
+      </div>
+      <div>
+        <h4>Explore</h4>
+        <p><a href="#">Neighborhoods</a></p>
+        <p><a href="#">School Guide</a></p>
+        <p><a href="#">Market Reports</a></p>
+        <p><a href="#">Events Calendar</a></p>
+        <p><a href="#">Ask Angel</a></p>
+      </div>
+      <div>
+        <h4>Connect</h4>
+        <p><a href="#">angelique.lyle@compass.com</a></p>
+        <p><a href="#">Instagram</a></p>
+        <p><a href="#">Facebook</a></p>
+      </div>
+    </div>
+  </footer>
+
+  <script>
+    // Filter bar interaction
+    document.querySelectorAll('.filter-btn').forEach(btn => {
+      btn.addEventListener('click', () => {
+        document.querySelectorAll('.filter-btn').forEach(b => b.classList.remove('active'));
+        btn.classList.add('active');
+      });
+    });
+
+    // Add to Calendar — generates .ics file with Angelique's IG tag
+    function addToCal(btn) {
+      const title = btn.dataset.title;
+      const date = btn.dataset.date;       // YYYYMMDD
+      const time = btn.dataset.time || '';  // HHMM (24h) or empty for all-day
+      const endTime = btn.dataset.end || '';
+      const location = btn.dataset.location || '';
+      const desc = btn.dataset.desc || '';
+
+      // Build description with IG tag
+      const fullDesc = desc
+        + '\\n\\n— via TheHillPV.com'
+        + '\\nFollow @angeliquelylehomes on Instagram'
+        + '\\nhttps://instagram.com/angeliquelylehomes';
+
+      // Format timestamps
+      let dtStart, dtEnd;
+      if (time) {
+        dtStart = date + 'T' + time + '00';
+        // Default 2h duration if no end time
+        if (endTime) {
+          dtEnd = date + 'T' + endTime + '00';
+        } else {
+          const h = parseInt(time.substring(0,2));
+          const endH = String(h + 2).padStart(2, '0');
+          dtEnd = date + 'T' + endH + time.substring(2) + '00';
+        }
+      } else {
+        // All-day event
+        dtStart = date;
+        const d = new Date(date.substring(0,4) + '-' + date.substring(4,6) + '-' + date.substring(6,8));
+        d.setDate(d.getDate() + 1);
+        dtEnd = d.toISOString().slice(0,10).replace(/-/g, '');
+      }
+
+      const ics = [
+        'BEGIN:VCALENDAR',
+        'VERSION:2.0',
+        'PRODID:-//TheHillPV//Events//EN',
+        'CALSCALE:GREGORIAN',
+        'BEGIN:VEVENT',
+        'DTSTART:' + dtStart,
+        'DTEND:' + dtEnd,
+        'SUMMARY:' + title,
+        'LOCATION:' + location,
+        'DESCRIPTION:' + fullDesc,
+        'URL:https://thehillpv.com/events',
+        'END:VEVENT',
+        'END:VCALENDAR'
+      ].join('\r\n');
+
+      const blob = new Blob([ics], { type: 'text/calendar;charset=utf-8' });
+      const url = URL.createObjectURL(blob);
+      const a = document.createElement('a');
+      a.href = url;
+      a.download = title.replace(/[^a-zA-Z0-9]/g, '-').substring(0, 40) + '.ics';
+      a.click();
+      URL.revokeObjectURL(url);
+
+      // Brief feedback
+      btn.innerHTML = '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="20 6 9 17 4 12"></polyline></svg> Saved';
+      btn.style.color = 'var(--sage)';
+      btn.style.borderColor = 'var(--sage)';
+      setTimeout(() => {
+        btn.innerHTML = '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="4" width="18" height="18" rx="2" ry="2"></rect><line x1="16" y1="2" x2="16" y2="6"></line><line x1="8" y1="2" x2="8" y2="6"></line><line x1="3" y1="10" x2="21" y2="10"></line></svg> Add to Calendar';
+        btn.style.color = '';
+        btn.style.borderColor = '';
+      }, 2000);
+    }
+  </script>
+</body>
+</html>

@@ -1,0 +1,217 @@
+ANGEL WEBHOOK SCAFFOLD — DIRECTORY STRUCTURE
+
+Angel/
+├── angel/                           # Python package (Flask app)
+│   ├── __init__.py                 # App factory (create_app)
+│   ├── config.py                   # Configuration classes (BaseConfig, Dev, Test, Prod)
+│   ├── models/
+│   │   ├── __init__.py             # Package init
+│   │   └── lead.py                 # Lead model (UUID PK, contact fields, JSONB payload)
+│   └── routes/
+│       ├── __init__.py             # Package init
+│       └── webhooks.py             # Webhook blueprint (POST /lp, HMAC verification)
+│
+├── tests/                          # pytest test suite
+│   ├── __init__.py                 # Package init
+│   └── test_webhooks.py            # Integration tests (8 test cases)
+│
+├── migrations/                     # Alembic migrations (reference)
+│   └── __init__.py
+│
+├── wsgi.py                         # WSGI entry point (app.run())
+├── conftest.py                     # pytest fixtures (app, client, db_session, sample_lead)
+├── .env.example                    # Environment variables template
+│
+├── CLAUDE.md                       # Original Angel builder instructions (Cove module note)
+├── WEBHOOK_SCAFFOLD.md             # Comprehensive architecture and integration guide
+└── SCAFFOLD_STRUCTURE.txt          # This file
+
+FILES BY LAYER
+==============
+
+Configuration Layer
+  angel/config.py                   • BaseConfig (shared settings)
+                                    • DevConfig (debug=true, no cookies secure)
+                                    • TestConfig (WTF_CSRF disabled, in-memory session)
+                                    • ProdConfig (secure cookies, httponly, samesite=lax)
+                                    • StagingConfig (inherits ProdConfig)
+
+  .env.example                      • Template for environment variables
+                                    • SECRET_KEY, DATABASE_URL, VALKEY_URL, LP_WEBHOOK_SECRET
+
+Model Layer
+  angel/models/lead.py              • Lead class (SQLAlchemy ORM)
+                                    • UUID primary key with uuid.uuid4 default
+                                    • created_at/updated_at datetime columns
+                                    • Fields: apn, first_name, last_name, email, phone
+                                    •         interest_type, message, page_url, referrer
+                                    •         raw_payload (JSONB), lp_lead_id, status
+                                    • Methods: full_name property, is_active property, advance()
+
+Route Layer
+  angel/routes/webhooks.py          • Flask Blueprint: angel_webhook_bp
+                                    • POST /api/webhooks/lp (receive LP form data)
+                                    •   - Signature verification via HMAC-SHA256
+                                    •   - Payload normalization
+                                    •   - Lead record creation
+                                    •   - Error handling (400, 401, 422, 500)
+                                    • GET /api/webhooks/health (health check)
+
+Application Layer
+  angel/__init__.py                 • create_app(config_name) factory
+                                    • db and session initialization
+                                    • Blueprint registration
+                                    • Table creation
+
+  wsgi.py                           • Entry point for Gunicorn/Flask dev server
+                                    • Reads FLASK_ENV and loads config
+
+Testing Layer
+  conftest.py                       • app fixture (test app with test database)
+                                    • client fixture (test client)
+                                    • db_session fixture
+                                    • sample_lead fixture (creates test lead)
+
+  tests/test_webhooks.py            • Health check test
+                                    • Valid lead submission (full info)
+                                    • Signature verification (valid/invalid/missing)
+                                    • Contact info validation
+                                    • Full name parsing
+                                    • Optional fields capture
+
+Documentation
+  WEBHOOK_SCAFFOLD.md               • Architecture overview
+                                    • Files and their purposes
+                                    • Webhook request/response format
+                                    • Security (HMAC-SHA256)
+                                    • Lead model schema
+                                    • Local development setup
+                                    • Testing instructions
+                                    • Integration with Cove
+                                    • Architecture diagram
+                                    • Differences: Scaffold vs Real Cove
+
+  CLAUDE.md                         • Original builder instructions
+                                    • Note: Angel is a Cove module
+                                    • References to real code locations
+
+TOTAL FILES CREATED: 14
+
+LOC BREAKDOWN
+=============
+angel/__init__.py                   68 lines (with docstrings)
+angel/config.py                     79 lines (4 config classes + map)
+angel/models/lead.py                96 lines (Lead class + helpers + LEAD_STAGES)
+angel/routes/webhooks.py            157 lines (signature verification + webhook handler)
+wsgi.py                             18 lines
+conftest.py                         54 lines (5 fixtures)
+tests/test_webhooks.py              216 lines (7 test methods)
+
+Total Python: ~688 lines (excluding blank lines and comments)
+
+KEY FEATURES
+============
+
+1. SECURITY
+   • HMAC-SHA256 signature verification (constant-time comparison)
+   • Environment-based secrets (no hardcoded keys)
+   • Flask-Session with Valkey backend (not filesystem)
+   • CSRF protection (enabled by default)
+
+2. DATA INTEGRITY
+   • UUID primary keys (canonical identifiers)
+   • created_at/updated_at timestamps (audit trail)
+   • Raw payload stored (JSONB for traceability)
+   • Nullable fields where appropriate
+
+3. PLATFORM COMPLIANCE
+   • SQLAlchemy 2.0 with Mapped[] syntax (not legacy Column())
+   • PostgreSQL 17 (no SQLite)
+   • Flask app factory pattern
+   • Config classes (BaseConfig → Dev/Test/Prod)
+   • pytest with fixtures and multiple layers
+   • Type hints on all functions
+   • Docstrings on all classes and functions
+
+4. OPERATIONS
+   • Proper HTTP status codes (200, 400, 401, 422, 500)
+   • Logging via Python logging module
+   • Health check endpoint
+   • Error handling and recovery
+
+5. TESTING
+   • 8 integration tests covering success and error paths
+   • Signature verification tests (valid, invalid, missing)
+   • Payload normalization tests
+   • Database fixture management
+   • Conftest fixtures follow pytest best practices
+
+DATABASE SCHEMA
+===============
+
+CREATE TABLE leads (
+  id VARCHAR(36) PRIMARY KEY DEFAULT uuid_generate_v4(),
+  apn VARCHAR(20) NOT NULL,
+  first_name VARCHAR(100),
+  last_name VARCHAR(100),
+  email VARCHAR(255),
+  phone VARCHAR(20),
+  interest_type VARCHAR(50),
+  message TEXT,
+  page_url VARCHAR(500),
+  referrer VARCHAR(500),
+  raw_payload JSONB,
+  lp_lead_id VARCHAR(100),
+  status VARCHAR(20) NOT NULL DEFAULT 'new',
+  created_at TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP,
+  updated_at TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP,
+
+  INDEX apn_idx (apn),
+  INDEX lp_lead_id_idx (lp_lead_id),
+  INDEX status_idx (status)
+);
+
+ENVIRONMENT VARIABLES
+=====================
+
+Required:
+  SECRET_KEY                        Flask session key
+  DATABASE_URL                      PostgreSQL connection string
+  VALKEY_URL                        Redis connection (Valkey)
+  LP_WEBHOOK_SECRET                 HMAC secret from Luxury Presence
+
+Optional:
+  FLASK_ENV                         dev | test | prod (default: dev)
+  TEST_DATABASE_URL                 For pytest (default: separate _test db)
+
+INTEGRATION WITH REAL COVE
+==========================
+
+This scaffold is identical to the real implementation in Cove:
+  • Cove/cove/models/lead.py (Lead model)
+  • Cove/cove/angel/webhook_routes.py (webhook blueprint)
+
+The real code is integrated into Cove's app factory and deployed as port 5002.
+This scaffold exists for reference and can be run locally for testing.
+
+KEY ARCHITECTURAL NOTE
+======================
+
+Angel is NOT a standalone Flask app. It is a module within Cove (HOA governance).
+
+This scaffold in Angel/ is for:
+  • Understanding the webhook structure
+  • Local development and testing
+  • Reference implementation
+  • Documentation of the pattern
+
+The actual deployed code is in Cove, where:
+  • Lead model is Cove/cove/models/lead.py
+  • Webhook blueprint is Cove/cove/angel/webhook_routes.py
+  • Both are registered in Cove/cove/__init__.py
+  • Database is 'cove' (shared with HOA data)
+  • Flask port is 5002 (Cove's port)
+  • Valkey DB is 1 (shared with Cove)
+
+See WEBHOOK_SCAFFOLD.md for full integration guide.
+

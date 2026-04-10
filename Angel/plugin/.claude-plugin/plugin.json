@@ -1,0 +1,17 @@
+{
+  "name": "angel-compass-toolkit",
+  "version": "0.1.0",
+  "description": "AI-powered real estate assistant for Compass agents. Expert knowledge of Compass platform tools, listing strategies, market intelligence, lead generation, and content creation — calibrated for the Palos Verdes Peninsula and South Bay markets.",
+  "author": {
+    "name": "GrowDirect"
+  },
+  "keywords": [
+    "real-estate",
+    "compass",
+    "listings",
+    "crm",
+    "lead-generation",
+    "palos-verdes",
+    "south-bay"
+  ]
+}

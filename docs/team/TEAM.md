@@ -27,6 +27,7 @@ ALX (COO)
 | COO / Lead Agent | ALX | [ALX.md](ALX.md) | Sole conversational interface. Roadmap, business ops, ideation, dispatch. |
 | Canary Builder | (headless) | — | Canary codebase. Picks up GRO issues, runs factory pipeline. |
 | Cove Builder | (headless) | — | Cove codebase. Picks up GRO issues, runs factory pipeline. |
+| Angel Builder | (headless) | — | Angel codebase. RE intelligence, lead gen, Compass tools. |
 
 ## Functional Roles (Factory Pipeline)
 
@@ -46,6 +47,7 @@ These roles are performed by builders as part of the factory process — they ar
 |-----|---------|--------|
 | Canary | Canary builder | Retail loss prevention for Square merchants |
 | Cove | Cove builder | HOA governance, Davis-Stirling compliance, secret ballot voting |
+| Angel | Angel builder | Real estate intelligence, Compass tools, APN-driven lead gen |
 
 ## Factory Process
 

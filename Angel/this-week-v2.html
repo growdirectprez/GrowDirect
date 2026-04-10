@@ -1,0 +1,1599 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>This Week on the Hill — TheHillPV.com</title>
+  <meta name="description" content="What's happening on the Palos Verdes Peninsula and South Bay this week.">
+  <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css" />
+  <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
+  <style>
+    @import url('https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,500;0,600;0,700;1,400;1,500&family=Inter:wght@300;400;500;600;700&display=swap');
+
+    :root {
+      --ocean: #3b6f8a;
+      --ocean-deep: #2a4f64;
+      --ocean-light: #5d94ad;
+      --sand: #f0ebe2;
+      --sand-dark: #ddd5c8;
+      --terracotta: #9e4a2a;
+      --terracotta-light: #c4724a;
+      --sage: #6e8f68;
+      --sage-light: #e6ede5;
+      --charcoal: #2a2622;
+      --warm-white: #f8f5f0;
+      --text: #3a3530;
+      --text-light: #7a7268;
+    }
+
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+    html { scroll-behavior: smooth; }
+
+    body {
+      font-family: 'Inter', -apple-system, sans-serif;
+      background: var(--warm-white);
+      color: var(--text);
+      line-height: 1.6;
+      overflow-x: hidden;
+    }
+
+    /* ============================================
+       STICKY NAV
+    ============================================ */
+    nav {
+      position: fixed;
+      top: 0;
+      left: 0;
+      right: 0;
+      z-index: 1000;
+      background: rgba(248,245,240,0.92);
+      backdrop-filter: blur(20px);
+      -webkit-backdrop-filter: blur(20px);
+      border-bottom: 1px solid rgba(221,213,200,0.6);
+      transition: all 0.3s;
+    }
+    nav.scrolled { box-shadow: 0 2px 20px rgba(0,0,0,0.08); }
+    .nav-inner {
+      max-width: 1200px;
+      margin: 0 auto;
+      padding: 14px 24px;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+    .nav-brand {
+      font-family: 'Playfair Display', serif;
+      font-size: 1.2rem;
+      font-weight: 600;
+      color: var(--charcoal);
+      text-decoration: none;
+    }
+    .nav-brand span { color: var(--terracotta); font-weight: 400; }
+    .nav-links { display: flex; gap: 28px; }
+    .nav-links a {
+      font-size: 0.78rem;
+      font-weight: 500;
+      color: var(--text-light);
+      text-decoration: none;
+      text-transform: uppercase;
+      letter-spacing: 0.06em;
+      transition: color 0.2s;
+    }
+    .nav-links a:hover { color: var(--terracotta); }
+
+    /* ============================================
+       HERO — FULL VIEWPORT
+    ============================================ */
+    .hero {
+      height: 100vh;
+      min-height: 600px;
+      position: relative;
+      display: flex;
+      align-items: flex-end;
+      overflow: hidden;
+    }
+    .hero-bg {
+      position: absolute;
+      inset: 0;
+      background:
+        linear-gradient(180deg, rgba(42,38,34,0) 0%, rgba(42,38,34,0.1) 30%, rgba(42,38,34,0.55) 65%, rgba(42,38,34,0.88) 100%),
+        url('media/humphrey-point-vicente.jpg') center 40%/cover no-repeat;
+    }
+    .hero-content {
+      position: relative;
+      z-index: 2;
+      max-width: 1200px;
+      margin: 0 auto;
+      padding: 0 32px 80px;
+      width: 100%;
+    }
+    .hero-week {
+      display: inline-block;
+      background: var(--terracotta);
+      color: white;
+      padding: 8px 20px;
+      font-size: 0.75rem;
+      font-weight: 600;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+      margin-bottom: 20px;
+    }
+    .hero h1 {
+      font-family: 'Playfair Display', serif;
+      font-size: clamp(3rem, 6vw, 5rem);
+      font-weight: 700;
+      color: white;
+      line-height: 1.05;
+      margin-bottom: 16px;
+      max-width: 700px;
+    }
+    .hero-sub {
+      font-size: 1.1rem;
+      color: rgba(255,255,255,0.75);
+      max-width: 500px;
+      font-weight: 300;
+      line-height: 1.6;
+    }
+    .hero-scroll {
+      position: absolute;
+      bottom: 24px;
+      left: 50%;
+      transform: translateX(-50%);
+      z-index: 2;
+      animation: float 2s ease-in-out infinite;
+    }
+    .hero-scroll svg { width: 28px; height: 28px; stroke: rgba(255,255,255,0.5); }
+    @keyframes float { 0%,100% { transform: translateX(-50%) translateY(0); } 50% { transform: translateX(-50%) translateY(8px); } }
+
+    /* ============================================
+       INTRO QUOTE
+    ============================================ */
+    .intro-section {
+      max-width: 800px;
+      margin: 0 auto;
+      padding: 80px 32px 60px;
+      text-align: center;
+    }
+    .intro-section blockquote {
+      font-family: 'Playfair Display', serif;
+      font-size: 1.4rem;
+      font-style: italic;
+      color: var(--text);
+      line-height: 1.7;
+      margin-bottom: 16px;
+    }
+    .intro-section cite {
+      font-family: 'Inter', sans-serif;
+      font-style: normal;
+      font-size: 0.85rem;
+      font-weight: 500;
+      color: var(--terracotta);
+      letter-spacing: 0.04em;
+    }
+    .divider {
+      width: 60px;
+      height: 2px;
+      background: var(--terracotta);
+      margin: 32px auto;
+    }
+
+    /* ============================================
+       FEATURED EVENT — CINEMATIC CARD
+    ============================================ */
+    .featured-section { padding: 0 24px 60px; }
+    .featured-event {
+      max-width: 1200px;
+      margin: 0 auto;
+      height: 480px;
+      border-radius: 16px;
+      overflow: hidden;
+      position: relative;
+      cursor: pointer;
+    }
+    .featured-event .fe-bg {
+      position: absolute;
+      inset: 0;
+      background:
+        linear-gradient(90deg, rgba(42,38,34,0.82) 0%, rgba(42,38,34,0.45) 50%, rgba(42,38,34,0.1) 100%),
+        url('media/humphrey-lost-horizon-lighthouse.jpg') center/cover no-repeat;
+      transition: transform 0.6s ease;
+    }
+    .featured-event:hover .fe-bg { transform: scale(1.03); }
+    .featured-event .fe-content {
+      position: relative;
+      z-index: 2;
+      padding: 48px;
+      display: flex;
+      flex-direction: column;
+      justify-content: flex-end;
+      height: 100%;
+      max-width: 560px;
+    }
+    .featured-event .fe-label {
+      font-size: 0.7rem;
+      font-weight: 600;
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+      color: var(--terracotta-light);
+      margin-bottom: 12px;
+    }
+    .featured-event h2 {
+      font-family: 'Playfair Display', serif;
+      font-size: 2.4rem;
+      font-weight: 700;
+      color: white;
+      line-height: 1.15;
+      margin-bottom: 12px;
+    }
+    .featured-event .fe-meta {
+      font-size: 0.9rem;
+      color: rgba(255,255,255,0.7);
+      margin-bottom: 16px;
+      display: flex;
+      gap: 20px;
+    }
+    .featured-event .fe-meta span { display: flex; align-items: center; gap: 6px; }
+    .featured-event .fe-desc {
+      font-size: 0.95rem;
+      color: rgba(255,255,255,0.8);
+      line-height: 1.7;
+      margin-bottom: 24px;
+    }
+    .featured-event .fe-actions { display: flex; gap: 10px; }
+    .btn-primary {
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      padding: 12px 24px;
+      background: var(--terracotta);
+      color: white;
+      border: none;
+      border-radius: 8px;
+      font-family: 'Inter', sans-serif;
+      font-size: 0.82rem;
+      font-weight: 600;
+      cursor: pointer;
+      text-decoration: none;
+      transition: background 0.2s;
+    }
+    .btn-primary:hover { background: #b56d3f; }
+    .btn-ghost {
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      padding: 12px 24px;
+      background: rgba(255,255,255,0.1);
+      color: white;
+      border: 1.5px solid rgba(255,255,255,0.3);
+      border-radius: 8px;
+      font-family: 'Inter', sans-serif;
+      font-size: 0.82rem;
+      font-weight: 500;
+      cursor: pointer;
+      text-decoration: none;
+      transition: all 0.2s;
+    }
+    .btn-ghost:hover { background: rgba(255,255,255,0.2); border-color: rgba(255,255,255,0.5); }
+
+    /* ============================================
+       MAP SECTION
+    ============================================ */
+    .map-section {
+      max-width: 1200px;
+      margin: 0 auto;
+      padding: 40px 24px 60px;
+    }
+    .section-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: flex-end;
+      margin-bottom: 24px;
+    }
+    .section-header h2 {
+      font-family: 'Playfair Display', serif;
+      font-size: 2rem;
+      font-weight: 600;
+      color: var(--charcoal);
+    }
+    .section-header .section-sub {
+      font-size: 0.85rem;
+      color: var(--text-light);
+      font-weight: 400;
+    }
+    #event-map {
+      width: 100%;
+      height: 420px;
+      border-radius: 16px;
+      border: 1px solid var(--sand-dark);
+      z-index: 1;
+    }
+
+    /* ============================================
+       EVENTS MOSAIC GRID
+    ============================================ */
+    .events-section {
+      max-width: 1200px;
+      margin: 0 auto;
+      padding: 40px 24px 60px;
+    }
+
+    .mosaic {
+      display: grid;
+      grid-template-columns: repeat(12, 1fr);
+      gap: 16px;
+      grid-auto-rows: minmax(120px, auto);
+    }
+
+    .m-card {
+      border-radius: 14px;
+      overflow: hidden;
+      position: relative;
+      cursor: pointer;
+      transition: transform 0.3s ease, box-shadow 0.3s ease;
+    }
+    .m-card:hover { transform: translateY(-4px); box-shadow: 0 12px 40px rgba(0,0,0,0.12); }
+
+    /* LARGE visual cards */
+    .m-card.lg {
+      grid-column: span 6;
+      grid-row: span 3;
+      min-height: 380px;
+    }
+    .m-card.lg .m-bg {
+      position: absolute;
+      inset: 0;
+      background-size: cover;
+      background-position: center;
+      transition: transform 0.5s ease;
+    }
+    .m-card.lg:hover .m-bg { transform: scale(1.04); }
+    .m-card.lg .m-overlay {
+      position: absolute;
+      inset: 0;
+      background: linear-gradient(0deg, rgba(42,38,34,0.85) 0%, rgba(42,38,34,0.2) 60%, rgba(42,38,34,0) 100%);
+    }
+    .m-card.lg .m-content {
+      position: relative;
+      z-index: 2;
+      display: flex;
+      flex-direction: column;
+      justify-content: flex-end;
+      height: 100%;
+      padding: 28px;
+    }
+    .m-card.lg .m-tag {
+      font-size: 0.65rem;
+      font-weight: 600;
+      text-transform: uppercase;
+      letter-spacing: 0.08em;
+      color: var(--terracotta-light);
+      margin-bottom: 8px;
+    }
+    .m-card.lg h3 {
+      font-family: 'Playfair Display', serif;
+      font-size: 1.5rem;
+      font-weight: 600;
+      color: white;
+      line-height: 1.2;
+      margin-bottom: 8px;
+    }
+    .m-card.lg .m-meta {
+      font-size: 0.8rem;
+      color: rgba(255,255,255,0.65);
+    }
+    .m-card.lg .m-actions {
+      display: flex;
+      gap: 8px;
+      margin-top: 14px;
+    }
+    .m-card.lg .m-btn {
+      padding: 8px 16px;
+      border-radius: 6px;
+      font-size: 0.72rem;
+      font-weight: 500;
+      font-family: 'Inter', sans-serif;
+      cursor: pointer;
+      display: inline-flex;
+      align-items: center;
+      gap: 5px;
+      transition: all 0.2s;
+      text-decoration: none;
+    }
+    .m-btn-fill { background: var(--terracotta); color: white; border: none; }
+    .m-btn-fill:hover { background: #b56d3f; }
+    .m-btn-outline { background: rgba(255,255,255,0.1); color: white; border: 1px solid rgba(255,255,255,0.3); }
+    .m-btn-outline:hover { background: rgba(255,255,255,0.2); }
+
+    /* MEDIUM text cards */
+    .m-card.md {
+      grid-column: span 4;
+      grid-row: span 2;
+      background: white;
+      border: 1px solid var(--sand-dark);
+      padding: 24px;
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+    }
+    .m-card.md .m-tag {
+      font-size: 0.65rem;
+      font-weight: 600;
+      text-transform: uppercase;
+      letter-spacing: 0.08em;
+      color: var(--ocean);
+      margin-bottom: 10px;
+    }
+    .m-card.md h3 {
+      font-family: 'Playfair Display', serif;
+      font-size: 1.15rem;
+      font-weight: 600;
+      color: var(--charcoal);
+      line-height: 1.3;
+      margin-bottom: 8px;
+    }
+    .m-card.md .m-meta {
+      font-size: 0.78rem;
+      color: var(--text-light);
+      margin-bottom: 8px;
+    }
+    .m-card.md .m-desc {
+      font-size: 0.85rem;
+      color: var(--text);
+      line-height: 1.6;
+      flex: 1;
+    }
+    .m-card.md .m-footer {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-top: 14px;
+      padding-top: 14px;
+      border-top: 1px solid var(--sand);
+    }
+    .m-card.md .m-hood {
+      font-size: 0.68rem;
+      font-weight: 600;
+      text-transform: uppercase;
+      letter-spacing: 0.05em;
+      color: var(--ocean);
+      background: var(--sand);
+      padding: 3px 10px;
+      border-radius: 4px;
+    }
+    .m-card.md .m-actions { display: flex; gap: 6px; }
+    .m-card.md .m-btn {
+      padding: 6px 12px;
+      border-radius: 5px;
+      font-size: 0.7rem;
+      font-weight: 500;
+      font-family: 'Inter', sans-serif;
+      cursor: pointer;
+      display: inline-flex;
+      align-items: center;
+      gap: 4px;
+      transition: all 0.2s;
+      text-decoration: none;
+      background: none;
+      border: 1.5px solid var(--sand-dark);
+      color: var(--text-light);
+    }
+    .m-card.md .m-btn:hover { border-color: var(--ocean-light); color: var(--ocean); background: var(--sand); }
+
+    /* SMALL accent cards */
+    .m-card.sm {
+      grid-column: span 3;
+      grid-row: span 2;
+      padding: 20px;
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+    }
+    .m-card.sm.bg-ocean { background: var(--ocean); color: white; }
+    .m-card.sm.bg-terra { background: var(--terracotta); color: white; }
+    .m-card.sm.bg-sage { background: var(--sage); color: white; }
+    .m-card.sm.bg-charcoal { background: var(--charcoal); color: white; }
+    .m-card.sm .m-tag {
+      font-size: 0.65rem;
+      font-weight: 600;
+      text-transform: uppercase;
+      letter-spacing: 0.08em;
+      opacity: 0.7;
+      margin-bottom: 6px;
+    }
+    .m-card.sm h3 {
+      font-family: 'Playfair Display', serif;
+      font-size: 1.05rem;
+      font-weight: 600;
+      line-height: 1.3;
+      margin-bottom: 6px;
+    }
+    .m-card.sm .m-meta {
+      font-size: 0.75rem;
+      opacity: 0.7;
+    }
+    .m-card.sm .m-icon {
+      font-size: 2rem;
+      margin-bottom: 8px;
+      opacity: 0.4;
+    }
+
+    /* ============================================
+       PHOTO BREAK — FULL WIDTH
+    ============================================ */
+    .photo-break {
+      width: 100%;
+      height: 300px;
+      position: relative;
+      overflow: hidden;
+      margin: 40px 0;
+    }
+    .photo-break .pb-img {
+      position: absolute;
+      inset: 0;
+      background-size: cover;
+      background-position: center;
+      background-attachment: fixed;
+    }
+    .photo-break .pb-overlay {
+      position: absolute;
+      inset: 0;
+      background: rgba(42,38,34,0.4);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+    .photo-break .pb-text {
+      text-align: center;
+      color: white;
+    }
+    .photo-break .pb-text h2 {
+      font-family: 'Playfair Display', serif;
+      font-size: 2.2rem;
+      font-weight: 600;
+      margin-bottom: 8px;
+    }
+    .photo-break .pb-text p {
+      font-size: 0.9rem;
+      opacity: 0.8;
+      font-weight: 300;
+    }
+
+    /* ============================================
+       EVERY WEEK — HORIZONTAL SCROLL
+    ============================================ */
+    .recurring-section {
+      max-width: 1200px;
+      margin: 0 auto;
+      padding: 40px 24px 60px;
+    }
+    .scroll-row {
+      display: flex;
+      gap: 16px;
+      overflow-x: auto;
+      scroll-snap-type: x mandatory;
+      -webkit-overflow-scrolling: touch;
+      padding-bottom: 8px;
+      scrollbar-width: thin;
+      scrollbar-color: var(--sand-dark) transparent;
+    }
+    .scroll-row::-webkit-scrollbar { height: 6px; }
+    .scroll-row::-webkit-scrollbar-thumb { background: var(--sand-dark); border-radius: 3px; }
+
+    .r-card {
+      flex: 0 0 280px;
+      scroll-snap-align: start;
+      border-radius: 14px;
+      overflow: hidden;
+      background: white;
+      border: 1px solid var(--sand-dark);
+      transition: all 0.3s;
+    }
+    .r-card:hover { transform: translateY(-3px); box-shadow: 0 8px 30px rgba(0,0,0,0.08); }
+    .r-card .r-img {
+      height: 160px;
+      background-size: cover;
+      background-position: center;
+      position: relative;
+    }
+    .r-card .r-badge {
+      position: absolute;
+      bottom: 10px;
+      left: 10px;
+      background: var(--sage);
+      color: white;
+      padding: 4px 12px;
+      border-radius: 4px;
+      font-size: 0.68rem;
+      font-weight: 600;
+      letter-spacing: 0.04em;
+      text-transform: uppercase;
+    }
+    .r-card .r-body { padding: 18px; }
+    .r-card h3 {
+      font-family: 'Playfair Display', serif;
+      font-size: 1.05rem;
+      font-weight: 600;
+      color: var(--charcoal);
+      margin-bottom: 6px;
+    }
+    .r-card .r-meta { font-size: 0.78rem; color: var(--text-light); margin-bottom: 8px; }
+    .r-card .r-desc { font-size: 0.82rem; color: var(--text); line-height: 1.5; }
+    .r-card .r-foot {
+      padding: 0 18px 16px;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+    .r-card .r-hood {
+      font-size: 0.65rem;
+      font-weight: 600;
+      text-transform: uppercase;
+      color: var(--ocean);
+      letter-spacing: 0.04em;
+    }
+    .r-card .r-dir {
+      font-size: 0.7rem;
+      color: var(--text-light);
+      text-decoration: none;
+      display: inline-flex;
+      align-items: center;
+      gap: 4px;
+      padding: 4px 10px;
+      border: 1.5px solid var(--sand-dark);
+      border-radius: 5px;
+      transition: all 0.2s;
+    }
+    .r-card .r-dir:hover { border-color: var(--ocean-light); color: var(--ocean); }
+
+    /* ============================================
+       NEWS TICKER
+    ============================================ */
+    .news-section {
+      background: var(--charcoal);
+      padding: 48px 24px;
+    }
+    .news-inner {
+      max-width: 1200px;
+      margin: 0 auto;
+    }
+    .news-header {
+      font-family: 'Playfair Display', serif;
+      font-size: 1.6rem;
+      color: white;
+      margin-bottom: 28px;
+    }
+    .news-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 20px;
+    }
+    .n-card {
+      background: rgba(255,255,255,0.06);
+      border: 1px solid rgba(255,255,255,0.1);
+      border-radius: 12px;
+      padding: 24px;
+      transition: all 0.3s;
+    }
+    .n-card:hover { background: rgba(255,255,255,0.1); transform: translateY(-2px); }
+    .n-card .n-date {
+      font-size: 0.7rem;
+      color: var(--terracotta-light);
+      font-weight: 600;
+      text-transform: uppercase;
+      letter-spacing: 0.06em;
+      margin-bottom: 10px;
+    }
+    .n-card h3 {
+      font-family: 'Playfair Display', serif;
+      font-size: 1.1rem;
+      color: white;
+      margin-bottom: 10px;
+      line-height: 1.3;
+    }
+    .n-card p {
+      font-size: 0.82rem;
+      color: rgba(255,255,255,0.6);
+      line-height: 1.6;
+    }
+    .n-card .n-hood {
+      display: inline-block;
+      margin-top: 12px;
+      font-size: 0.65rem;
+      font-weight: 600;
+      text-transform: uppercase;
+      color: var(--ocean-light);
+      letter-spacing: 0.05em;
+    }
+
+    /* ============================================
+       ARCHIVES — VINTAGE FEATURE
+    ============================================ */
+    .archive-section {
+      max-width: 1200px;
+      margin: 0 auto;
+      padding: 80px 24px;
+    }
+    .archive-card {
+      display: grid;
+      grid-template-columns: 1fr 1.5fr;
+      gap: 48px;
+      align-items: center;
+    }
+    .archive-visual {
+      background: var(--sand);
+      border-radius: 16px;
+      padding: 48px;
+      text-align: center;
+      position: relative;
+      overflow: hidden;
+    }
+    .archive-visual::before {
+      content: '';
+      position: absolute;
+      top: -20px; right: -20px;
+      width: 120px; height: 120px;
+      border: 2px solid var(--terracotta);
+      opacity: 0.15;
+      border-radius: 50%;
+    }
+    .archive-year {
+      font-family: 'Playfair Display', serif;
+      font-size: 6rem;
+      font-weight: 700;
+      color: var(--terracotta);
+      line-height: 1;
+      margin-bottom: 8px;
+    }
+    .archive-place {
+      font-size: 0.85rem;
+      text-transform: uppercase;
+      letter-spacing: 0.08em;
+      color: var(--text-light);
+    }
+    .archive-text h2 {
+      font-family: 'Playfair Display', serif;
+      font-size: 1.8rem;
+      color: var(--charcoal);
+      margin-bottom: 16px;
+    }
+    .archive-text p {
+      font-size: 0.95rem;
+      color: var(--text);
+      line-height: 1.8;
+      margin-bottom: 12px;
+    }
+    .archive-text .archive-caption {
+      font-size: 0.8rem;
+      color: var(--text-light);
+      font-style: italic;
+      line-height: 1.6;
+      margin-top: 16px;
+      padding-top: 16px;
+      border-top: 1px solid var(--sand-dark);
+    }
+
+    /* ============================================
+       MARKET PULSE
+    ============================================ */
+    .market-section {
+      background: var(--sand);
+      padding: 60px 24px;
+    }
+    .market-inner {
+      max-width: 1200px;
+      margin: 0 auto;
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 48px;
+      align-items: start;
+    }
+    .market-inner h2 {
+      font-family: 'Playfair Display', serif;
+      font-size: 1.8rem;
+      color: var(--charcoal);
+      margin-bottom: 12px;
+    }
+    .market-quote {
+      font-family: 'Playfair Display', serif;
+      font-size: 1.1rem;
+      font-style: italic;
+      color: var(--text);
+      line-height: 1.7;
+      border-left: 3px solid var(--terracotta);
+      padding-left: 20px;
+      margin-bottom: 12px;
+    }
+    .market-quote strong { font-style: normal; }
+    .market-stats {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 16px;
+    }
+    .stat-card {
+      background: white;
+      border-radius: 12px;
+      padding: 20px;
+    }
+    .stat-card .s-label {
+      font-size: 0.72rem;
+      color: var(--text-light);
+      text-transform: uppercase;
+      letter-spacing: 0.05em;
+      margin-bottom: 6px;
+    }
+    .stat-card .s-value {
+      font-family: 'Playfair Display', serif;
+      font-size: 1.8rem;
+      font-weight: 700;
+      color: var(--charcoal);
+    }
+    .stat-card .s-change {
+      font-size: 0.75rem;
+      font-weight: 600;
+      margin-top: 4px;
+    }
+    .s-change.up { color: var(--sage); }
+    .s-change.down { color: var(--terracotta); }
+
+    /* ============================================
+       NEWSLETTER CTA
+    ============================================ */
+    .newsletter-section {
+      padding: 80px 24px;
+      text-align: center;
+    }
+    .newsletter-section h2 {
+      font-family: 'Playfair Display', serif;
+      font-size: 2.2rem;
+      color: var(--charcoal);
+      margin-bottom: 12px;
+    }
+    .newsletter-section p {
+      font-size: 0.95rem;
+      color: var(--text-light);
+      margin-bottom: 28px;
+      max-width: 400px;
+      margin-left: auto;
+      margin-right: auto;
+    }
+    .nl-form {
+      display: flex;
+      gap: 8px;
+      max-width: 440px;
+      margin: 0 auto;
+    }
+    .nl-form input {
+      flex: 1;
+      padding: 16px 20px;
+      border: 1.5px solid var(--sand-dark);
+      border-radius: 10px;
+      font-family: 'Inter', sans-serif;
+      font-size: 0.9rem;
+      background: white;
+      outline: none;
+      transition: border-color 0.2s;
+    }
+    .nl-form input:focus { border-color: var(--ocean-light); }
+    .nl-form button {
+      padding: 16px 32px;
+      background: var(--terracotta);
+      color: white;
+      border: none;
+      border-radius: 10px;
+      font-family: 'Inter', sans-serif;
+      font-size: 0.9rem;
+      font-weight: 600;
+      cursor: pointer;
+      white-space: nowrap;
+      transition: background 0.2s;
+    }
+    .nl-form button:hover { background: #b56d3f; }
+
+    /* ============================================
+       FOOTER
+    ============================================ */
+    footer {
+      background: var(--charcoal);
+      color: rgba(255,255,255,0.6);
+      padding: 48px 24px;
+      font-size: 0.82rem;
+      line-height: 1.7;
+    }
+    .footer-inner {
+      max-width: 1200px;
+      margin: 0 auto;
+      display: grid;
+      grid-template-columns: 2fr 1fr 1fr;
+      gap: 40px;
+    }
+    footer h4 {
+      font-family: 'Playfair Display', serif;
+      color: rgba(255,255,255,0.9);
+      font-size: 1rem;
+      margin-bottom: 12px;
+    }
+    footer a { color: rgba(255,255,255,0.7); text-decoration: none; transition: color 0.2s; }
+    footer a:hover { color: var(--terracotta-light); }
+    .footer-tagline {
+      font-family: 'Playfair Display', serif;
+      font-style: italic;
+      font-size: 0.95rem;
+      color: rgba(255,255,255,0.5);
+      margin-bottom: 12px;
+    }
+    .dre { font-size: 0.72rem; color: rgba(255,255,255,0.25); margin-top: 16px; }
+
+    /* ============================================
+       RESPONSIVE
+    ============================================ */
+    @media (max-width: 900px) {
+      .mosaic { grid-template-columns: repeat(6, 1fr); }
+      .m-card.lg { grid-column: span 6; }
+      .m-card.md { grid-column: span 6; }
+      .m-card.sm { grid-column: span 3; }
+      .featured-event { height: 420px; }
+      .featured-event .fe-content { padding: 28px; }
+      .featured-event h2 { font-size: 1.8rem; }
+      .news-grid { grid-template-columns: 1fr; }
+      .archive-card { grid-template-columns: 1fr; }
+      .market-inner { grid-template-columns: 1fr; }
+      .footer-inner { grid-template-columns: 1fr; }
+    }
+    @media (max-width: 600px) {
+      .nav-links { display: none; }
+      .mosaic { grid-template-columns: 1fr; }
+      .m-card.lg, .m-card.md, .m-card.sm { grid-column: span 1; grid-row: span 1; }
+      .m-card.lg { min-height: 300px; }
+      .scroll-row { gap: 12px; }
+      .r-card { flex: 0 0 260px; }
+      .featured-event { height: 360px; }
+      .hero-content { padding: 0 20px 60px; }
+    }
+
+    /* ============================================
+       FADE-IN ANIMATION
+    ============================================ */
+    .reveal {
+      opacity: 0;
+      transform: translateY(30px);
+      transition: opacity 0.6s ease, transform 0.6s ease;
+    }
+    .reveal.visible {
+      opacity: 1;
+      transform: translateY(0);
+    }
+
+    /* Custom Leaflet popup */
+    .leaflet-popup-content-wrapper {
+      border-radius: 10px !important;
+      font-family: 'Inter', sans-serif !important;
+      box-shadow: 0 4px 20px rgba(0,0,0,0.15) !important;
+    }
+    .leaflet-popup-content {
+      margin: 14px 16px !important;
+      font-size: 0.85rem !important;
+      line-height: 1.5 !important;
+    }
+    .popup-title {
+      font-family: 'Playfair Display', serif;
+      font-size: 1rem;
+      font-weight: 600;
+      color: var(--charcoal);
+      margin-bottom: 4px;
+    }
+    .popup-meta { font-size: 0.75rem; color: var(--text-light); margin-bottom: 6px; }
+    .popup-desc { font-size: 0.8rem; color: var(--text); }
+    .popup-actions { margin-top: 10px; display: flex; gap: 6px; }
+    .popup-btn {
+      padding: 5px 12px;
+      border-radius: 4px;
+      font-size: 0.7rem;
+      font-weight: 500;
+      font-family: 'Inter', sans-serif;
+      cursor: pointer;
+      text-decoration: none;
+      display: inline-flex;
+      align-items: center;
+      gap: 4px;
+    }
+    .popup-btn.primary { background: var(--terracotta); color: white; border: none; }
+    .popup-btn.secondary { background: white; color: var(--text); border: 1px solid var(--sand-dark); }
+  </style>
+</head>
+<body>
+
+  <!-- NAV -->
+  <nav id="main-nav">
+    <div class="nav-inner">
+      <a href="#" class="nav-brand">TheHillPV<span>.com</span></a>
+      <div class="nav-links">
+        <a href="#map">Map</a>
+        <a href="#events">This Week</a>
+        <a href="#recurring">Every Week</a>
+        <a href="#market">Market</a>
+        <a href="#newsletter">Subscribe</a>
+      </div>
+    </div>
+  </nav>
+
+  <!-- HERO -->
+  <section class="hero">
+    <div class="hero-bg"></div>
+    <div class="hero-content">
+      <div class="hero-week">Week of April 6 — 12, 2026</div>
+      <h1>This Week on the Hill</h1>
+      <p class="hero-sub">The Lighthouse turns 100. The whales are still passing. The farmers market has stone fruit back. Here's your week.</p>
+    </div>
+    <div class="hero-scroll">
+      <svg viewBox="0 0 24 24" fill="none" stroke-width="2"><path d="M7 13l5 5 5-5M7 6l5 5 5-5"/></svg>
+    </div>
+  </section>
+
+  <!-- INTRO -->
+  <section class="intro-section reveal">
+    <blockquote>
+      This week is a big one on the Peninsula. The Point Vicente Lighthouse turns 100 on Saturday — a full-century celebration with tours, history, and ocean views that remind you why you live here. If you're still exploring whether the Hill is right for your family, this is the week to come see it in its element.
+    </blockquote>
+    <cite>— Angelique Lyle, Compass</cite>
+    <div class="divider"></div>
+  </section>
+
+  <!-- FEATURED -->
+  <section class="featured-section reveal">
+    <div class="featured-event" onclick="void(0)">
+      <div class="fe-bg"></div>
+      <div class="fe-content">
+        <div class="fe-label">Featured Event</div>
+        <h2>Point Vicente Lighthouse<br>100th Anniversary</h2>
+        <div class="fe-meta">
+          <span>Saturday, April 11</span>
+          <span>10 AM — 4 PM</span>
+        </div>
+        <p class="fe-desc">A full century of light. The lighthouse has guided ships past the Peninsula since 1926, and Saturday they're throwing the party it deserves — tours, live history, and those views from the bluff that never get old. Free admission.</p>
+        <div class="fe-actions">
+          <button class="btn-primary" onclick="addToCal(this)" data-title="Point Vicente Lighthouse 100th Anniversary" data-date="20260411" data-time="1000" data-end="1600" data-location="31550 Palos Verdes Dr W, Rancho Palos Verdes" data-desc="100th anniversary celebration. Tours, live history, ocean views. Free admission.">
+            <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="4" width="18" height="18" rx="2"/><line x1="16" y1="2" x2="16" y2="6"/><line x1="8" y1="2" x2="8" y2="6"/><line x1="3" y1="10" x2="21" y2="10"/></svg>
+            Add to Calendar
+          </button>
+          <a class="btn-ghost" href="https://maps.google.com/?daddr=31550+Palos+Verdes+Dr+W+Rancho+Palos+Verdes+CA" target="_blank">
+            <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0118 0z"/><circle cx="12" cy="10" r="3"/></svg>
+            Get Directions
+          </a>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- MAP -->
+  <section class="map-section reveal" id="map">
+    <div class="section-header">
+      <div>
+        <h2>Where It's Happening</h2>
+        <p class="section-sub">Click a pin for details, directions, and calendar links</p>
+      </div>
+    </div>
+    <div id="event-map"></div>
+  </section>
+
+  <!-- EVENTS MOSAIC -->
+  <section class="events-section" id="events">
+    <div class="section-header reveal">
+      <div>
+        <h2>This Week's Events</h2>
+        <p class="section-sub">April 6 — 12 on the Peninsula and across the South Bay</p>
+      </div>
+    </div>
+
+    <div class="mosaic">
+
+      <!-- LG: Whale of a Day -->
+      <div class="m-card lg reveal">
+        <div class="m-bg" style="background: url('media/humphrey-bluff-cove.jpg') center/cover no-repeat;"></div>
+        <div class="m-overlay"></div>
+        <div class="m-content">
+          <div class="m-tag">Nature & Outdoors</div>
+          <h3>41st Annual Whale of a Day</h3>
+          <div class="m-meta">Saturday, April 11 · 10 AM · Point Vicente Interpretive Center</div>
+          <div class="m-actions">
+            <button class="m-btn m-btn-fill" onclick="addToCal(this)" data-title="41st Annual Whale of a Day" data-date="20260411" data-time="1000" data-location="Point Vicente Interpretive Center, RPV" data-desc="Annual celebration of gray whale migration. Activities, exhibits, whale sightings from shore.">
+              <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="4" width="18" height="18" rx="2"/><line x1="16" y1="2" x2="16" y2="6"/><line x1="8" y1="2" x2="8" y2="6"/><line x1="3" y1="10" x2="21" y2="10"/></svg> Save
+            </button>
+            <a class="m-btn m-btn-outline" href="https://maps.google.com/?daddr=Point+Vicente+Interpretive+Center+Rancho+Palos+Verdes+CA" target="_blank">
+              <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0118 0z"/><circle cx="12" cy="10" r="3"/></svg> Directions
+            </a>
+          </div>
+        </div>
+      </div>
+
+      <!-- LG: Wild & Scenic Film Fest -->
+      <div class="m-card lg reveal">
+        <div class="m-bg" style="background: linear-gradient(135deg, #1a2a1a 0%, #3a5a3a 40%, #6e8f68 100%);"></div>
+        <div class="m-overlay"></div>
+        <div class="m-content">
+          <div class="m-tag">Arts & Culture</div>
+          <h3>Wild & Scenic Film Festival</h3>
+          <div class="m-meta">Sunday, April 12 · Doors 3 PM · Redondo Union High School</div>
+          <div class="m-actions">
+            <button class="m-btn m-btn-fill" onclick="addToCal(this)" data-title="Wild & Scenic Film Festival" data-date="20260412" data-time="1600" data-location="Redondo Union High School, Redondo Beach" data-desc="Environmental film festival. Short films about conservation, adventure, and the coast. Doors 3pm.">
+              <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="4" width="18" height="18" rx="2"/><line x1="16" y1="2" x2="16" y2="6"/><line x1="8" y1="2" x2="8" y2="6"/><line x1="3" y1="10" x2="21" y2="10"/></svg> Save
+            </button>
+            <a class="m-btn m-btn-outline" href="https://maps.google.com/?daddr=Redondo+Union+High+School+Redondo+Beach+CA" target="_blank">
+              <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0118 0z"/><circle cx="12" cy="10" r="3"/></svg> Directions
+            </a>
+          </div>
+        </div>
+      </div>
+
+      <!-- MD: Nature Walk -->
+      <div class="m-card md reveal">
+        <div class="m-tag">Nature & Outdoors</div>
+        <h3>Nature Walk — Chandler Preserve</h3>
+        <div class="m-meta">Saturday, April 11 · 9 AM</div>
+        <p class="m-desc">28 acres of native coastal sage scrub with spring wildflowers. PVPLC docent-led walk through one of the quieter preserves on the Hill. Free.</p>
+        <div class="m-footer">
+          <span class="m-hood">Rolling Hills Estates</span>
+          <div class="m-actions">
+            <a class="m-btn" href="https://maps.google.com/?daddr=Linden+H+Chandler+Preserve+Rolling+Hills+Estates+CA" target="_blank"><svg width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0118 0z"/><circle cx="12" cy="10" r="3"/></svg></a>
+            <button class="m-btn" onclick="addToCal(this)" data-title="Nature Walk — Chandler Preserve" data-date="20260411" data-time="0900" data-location="Linden H. Chandler Preserve, Rolling Hills Estates" data-desc="PVPLC docent-led walk through 28 acres of coastal sage scrub. Free."><svg width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="4" width="18" height="18" rx="2"/><line x1="16" y1="2" x2="16" y2="6"/><line x1="8" y1="2" x2="8" y2="6"/><line x1="3" y1="10" x2="21" y2="10"/></svg></button>
+          </div>
+        </div>
+      </div>
+
+      <!-- MD: Native Plant Sale -->
+      <div class="m-card md reveal">
+        <div class="m-tag">Nature & Outdoors</div>
+        <h3>Bring Nature Home: Native Plant Sale</h3>
+        <div class="m-meta">Saturday, April 11 · 10:30 AM</div>
+        <p class="m-desc">California-native plants for Peninsula gardens. PVPLC staff help you pick the right species for your slope, sun, and soil. Drought-tolerant, pollinator-friendly.</p>
+        <div class="m-footer">
+          <span class="m-hood">Rolling Hills Estates</span>
+          <div class="m-actions">
+            <a class="m-btn" href="https://maps.google.com/?daddr=George+F+Canyon+Nature+Center+Rolling+Hills+Estates+CA" target="_blank"><svg width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0118 0z"/><circle cx="12" cy="10" r="3"/></svg></a>
+            <button class="m-btn" onclick="addToCal(this)" data-title="Native Plant Sale" data-date="20260411" data-time="1030" data-location="George F Canyon Nature Center, RHE" data-desc="California-native plants. PVPLC staff help you choose the right species."><svg width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="4" width="18" height="18" rx="2"/><line x1="16" y1="2" x2="16" y2="6"/><line x1="8" y1="2" x2="8" y2="6"/><line x1="3" y1="10" x2="21" y2="10"/></svg></button>
+          </div>
+        </div>
+      </div>
+
+      <!-- MD: Music at Paseo Del Mar -->
+      <div class="m-card md reveal">
+        <div class="m-tag">Arts & Culture</div>
+        <h3>Music Concert at Paseo Del Mar</h3>
+        <div class="m-meta">Sunday, April 12 · 5 PM</div>
+        <p class="m-desc">An evening concert on one of the most beautiful streets on the Peninsula. Paseo Del Mar runs along the Lunada Bay bluffs — music and ocean sunsets.</p>
+        <div class="m-footer">
+          <span class="m-hood">Palos Verdes Estates</span>
+          <div class="m-actions">
+            <a class="m-btn" href="https://maps.google.com/?daddr=415+Paseo+Del+Mar+Palos+Verdes+Estates+CA" target="_blank"><svg width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0118 0z"/><circle cx="12" cy="10" r="3"/></svg></a>
+            <button class="m-btn" onclick="addToCal(this)" data-title="Music Concert at Paseo Del Mar" data-date="20260412" data-time="1700" data-location="415 Paseo Del Mar, Palos Verdes Estates" data-desc="Evening concert on the Lunada Bay bluffs."><svg width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="4" width="18" height="18" rx="2"/><line x1="16" y1="2" x2="16" y2="6"/><line x1="8" y1="2" x2="8" y2="6"/><line x1="3" y1="10" x2="21" y2="10"/></svg></button>
+          </div>
+        </div>
+      </div>
+
+      <!-- SM: TROLLS -->
+      <div class="m-card sm bg-sage reveal">
+        <div>
+          <div class="m-icon">🪵</div>
+          <div class="m-tag">Ongoing</div>
+          <h3>TROLLS: A Field Study</h3>
+        </div>
+        <div class="m-meta">South Coast Botanic Garden · Thomas Dambo · 12 giant trolls in reclaimed wood</div>
+      </div>
+
+      <!-- SM: SYMBIOSIS -->
+      <div class="m-card sm bg-ocean reveal">
+        <div>
+          <div class="m-icon">🌊</div>
+          <div class="m-tag">Closing Apr 11</div>
+          <h3>SYMBIOSIS (of Sand and Sea)</h3>
+        </div>
+        <div class="m-meta">Hermosa Beach · 5–9 PM · Final reception — last chance</div>
+      </div>
+
+      <!-- SM: Estate Planning -->
+      <div class="m-card sm bg-charcoal reveal">
+        <div>
+          <div class="m-tag">Community</div>
+          <h3>Avoid Probate: Estate Planning Class</h3>
+        </div>
+        <div class="m-meta">Wed Apr 8 · 2 PM · Peninsula Center Library · Free</div>
+      </div>
+
+      <!-- SM: PVPUSD Board -->
+      <div class="m-card sm bg-terra reveal">
+        <div>
+          <div class="m-tag">Schools</div>
+          <h3>PVPUSD Board: Measure SOS</h3>
+        </div>
+        <div class="m-meta">Wed Apr 15 · 11 AM · Malaga Cove Admin Center</div>
+      </div>
+
+      <!-- SM: Nature Club -->
+      <div class="m-card sm bg-sage reveal">
+        <div>
+          <div class="m-icon">🌿</div>
+          <div class="m-tag">Family</div>
+          <h3>Nature Club — Trees</h3>
+        </div>
+        <div class="m-meta">Sat Apr 11 · 10:30 AM · White Point Nature Center</div>
+      </div>
+
+    </div>
+  </section>
+
+  <!-- PHOTO BREAK -->
+  <div class="photo-break">
+    <div class="pb-img" style="background: url('media/humphrey-chandler-preserve.jpg') center/cover no-repeat;"></div>
+    <div class="pb-overlay">
+      <div class="pb-text">
+        <h2>Every Week on the Hill</h2>
+        <p>The things that make this place feel like home</p>
+      </div>
+    </div>
+  </div>
+
+  <!-- RECURRING EVENTS — HORIZONTAL SCROLL -->
+  <section class="recurring-section reveal" id="recurring">
+    <div class="section-header">
+      <div>
+        <h2>Every Week on the Hill</h2>
+        <p class="section-sub">The recurring events that define life on the Peninsula</p>
+      </div>
+    </div>
+    <div class="scroll-row">
+
+      <div class="r-card">
+        <div class="r-img" style="background: linear-gradient(135deg, #6e8f68 0%, #8aab82 50%, #c9d4a0 100%);">
+          <div class="r-badge">Every Sunday</div>
+        </div>
+        <div class="r-body">
+          <h3>Palos Verdes Farmers Market</h3>
+          <div class="r-meta">8 AM — 1 PM · Silver Spur Rd, RHE</div>
+          <p class="r-desc">~40 vendors, running since 1994. Stone fruit season is starting. The best Sunday morning on the Peninsula.</p>
+        </div>
+        <div class="r-foot">
+          <span class="r-hood">Peninsula Center</span>
+          <a class="r-dir" href="https://maps.google.com/?daddr=27118+Silver+Spur+Rd+Rolling+Hills+Estates+CA" target="_blank"><svg width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0118 0z"/><circle cx="12" cy="10" r="3"/></svg> Go</a>
+        </div>
+      </div>
+
+      <div class="r-card">
+        <div class="r-img" style="background: linear-gradient(135deg, #5a3d2a 0%, #8a6540 50%, #c4a070 100%);">
+          <div class="r-badge">First Saturdays</div>
+        </div>
+        <div class="r-body">
+          <h3>Peninsula Cars & Coffee</h3>
+          <div class="r-meta">7 — 9 AM · Promenade on the Peninsula</div>
+          <p class="r-desc">Vintage and exotic cars, early morning coffee. Great way to start the weekend if you've got a car enthusiast in the family.</p>
+        </div>
+        <div class="r-foot">
+          <span class="r-hood">Rolling Hills Estates</span>
+          <a class="r-dir" href="https://maps.google.com/?daddr=Promenade+on+the+Peninsula+Rolling+Hills+Estates+CA" target="_blank"><svg width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0118 0z"/><circle cx="12" cy="10" r="3"/></svg> Go</a>
+        </div>
+      </div>
+
+      <div class="r-card">
+        <div class="r-img" style="background: linear-gradient(135deg, #c4724a 0%, #d4926a 50%, #f0d0a0 100%);">
+          <div class="r-badge">First Fridays</div>
+        </div>
+        <div class="r-body">
+          <h3>First Fridays in Riviera Village</h3>
+          <div class="r-meta">5 — 8 PM · Riviera Village, Redondo</div>
+          <p class="r-desc">Art, live music, open-late shops. Wine tasting, gallery openings, and that perfect golden-hour light.</p>
+        </div>
+        <div class="r-foot">
+          <span class="r-hood">Redondo Beach</span>
+          <a class="r-dir" href="https://maps.google.com/?daddr=Riviera+Village+Redondo+Beach+CA" target="_blank"><svg width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0118 0z"/><circle cx="12" cy="10" r="3"/></svg> Go</a>
+        </div>
+      </div>
+
+      <div class="r-card">
+        <div class="r-img" style="background: linear-gradient(135deg, #3b6f8a 0%, #5d94ad 50%, #8ab8d0 100%);">
+          <div class="r-badge">Every Friday</div>
+        </div>
+        <div class="r-body">
+          <h3>Live Jammin' at Sea Level</h3>
+          <div class="r-meta">5 — 8 PM · Shade Hotel, Redondo</div>
+          <p class="r-desc">Live music and cocktails at the harbor. Ocean views, good energy, no pretense.</p>
+        </div>
+        <div class="r-foot">
+          <span class="r-hood">Redondo Beach</span>
+          <a class="r-dir" href="https://maps.google.com/?daddr=Shade+Hotel+Redondo+Beach+CA" target="_blank"><svg width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0118 0z"/><circle cx="12" cy="10" r="3"/></svg> Go</a>
+        </div>
+      </div>
+
+      <div class="r-card">
+        <div class="r-img" style="background: url('media/humphrey-lost-horizon-lighthouse.jpg') center/cover no-repeat;">
+          <div class="r-badge">Second Saturdays</div>
+        </div>
+        <div class="r-body">
+          <h3>Point Vicente Lighthouse Open House</h3>
+          <div class="r-meta">Monthly · Point Vicente, RPV</div>
+          <p class="r-desc">Monthly public access to the lighthouse and grounds. A Peninsula staple year-round.</p>
+        </div>
+        <div class="r-foot">
+          <span class="r-hood">Rancho Palos Verdes</span>
+          <a class="r-dir" href="https://maps.google.com/?daddr=Point+Vicente+Lighthouse+Rancho+Palos+Verdes+CA" target="_blank"><svg width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0118 0z"/><circle cx="12" cy="10" r="3"/></svg> Go</a>
+        </div>
+      </div>
+
+      <div class="r-card">
+        <div class="r-img" style="background: linear-gradient(135deg, #2a4f64 0%, #4a7090 50%, #7aa0c0 100%);">
+          <div class="r-badge">Second Sundays</div>
+        </div>
+        <div class="r-body">
+          <h3>Second Sundays @ Two — Classical Music</h3>
+          <div class="r-meta">2 PM · Rolling Hills Methodist</div>
+          <p class="r-desc">Intimate classical performances. A Peninsula hidden gem.</p>
+        </div>
+        <div class="r-foot">
+          <span class="r-hood">Rolling Hills</span>
+          <a class="r-dir" href="https://maps.google.com/?daddr=Rolling+Hills+United+Methodist+Church+CA" target="_blank"><svg width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0118 0z"/><circle cx="12" cy="10" r="3"/></svg> Go</a>
+        </div>
+      </div>
+
+    </div>
+  </section>
+
+  <!-- NEWS -->
+  <section class="news-section reveal">
+    <div class="news-inner">
+      <h2 class="news-header">What's Making News</h2>
+      <div class="news-grid">
+        <div class="n-card">
+          <div class="n-date">April 4</div>
+          <h3>Instagram 'Beach Takeover' Draws Hundreds to Hermosa</h3>
+          <p>A viral post turned into a real-world flash mob on Hermosa Beach. The South Bay's social media moment of the week.</p>
+          <span class="n-hood">Hermosa Beach</span>
+        </div>
+        <div class="n-card">
+          <div class="n-date">April 2</div>
+          <h3>Redondo Beach Experiencing "Renaissance"</h3>
+          <p>Mayor's State of the City highlights waterfront revitalization, new police/fire station proposals. Redondo is having a moment.</p>
+          <span class="n-hood">Redondo Beach</span>
+        </div>
+        <div class="n-card">
+          <div class="n-date">April 2</div>
+          <h3>Dr. Kimberlie Linz Selected as MBUSD Superintendent</h3>
+          <p>New superintendent for Manhattan Beach Unified. Important context for families weighing MBUSD vs PVPUSD.</p>
+          <span class="n-hood">Manhattan Beach</span>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ARCHIVES -->
+  <section class="archive-section reveal">
+    <div class="section-header" style="max-width: 1200px; margin: 0 auto 32px; padding: 0;">
+      <div>
+        <h2>From the Archives</h2>
+        <p class="section-sub">The Peninsula, then and now</p>
+      </div>
+    </div>
+
+    <!-- Neptune Fountain -->
+    <div class="archive-card" style="margin-bottom: 64px;">
+      <div class="archive-visual" style="padding: 0; overflow: hidden;">
+        <img src="media/neptune-fountain-vintage.jpg" alt="Hand-tinted vintage postcard of Neptune Fountain at Malaga Cove Plaza, Palos Verdes Estates, circa 1930" style="width: 100%; height: 100%; object-fit: cover; border-radius: 16px; display: block;">
+      </div>
+      <div class="archive-text">
+        <h2>The Heart of the Hill, 1930</h2>
+        <p>The Neptune Fountain at Malaga Cove Plaza — a 17th-century Italian marble sculpture imported by collector Arnoldo Adolfo di Segni and dedicated on February 16, 1930. Behind it, the early homes of Palos Verdes Estates climb the hillside, built to the Mediterranean standards enforced by Myron Hunt's Art Jury. The Olmsted Brothers designed the streets. Frank Vanderlip funded the vision.</p>
+        <p>Ninety-six years later, the fountain still runs. The Art Jury still reviews every exterior change. The Mediterranean style Vanderlip insisted on still defines every street, roof, and archway on the Hill.</p>
+        <p class="archive-caption">Hand-tinted postcard, ca. 1930. Neptune Fountain, Malaga Cove Plaza, Palos Verdes Estates. — Palos Verdes Library District Community Archives</p>
+      </div>
+    </div>
+
+    <!-- Lighthouse 1937 -->
+    <div class="archive-card" style="direction: rtl;">
+      <div style="direction: ltr;">
+        <div class="archive-visual" style="padding: 0; overflow: hidden;">
+          <img src="media/lighthouse-1937.jpg" alt="Bird's eye view of Point Vicente Lighthouse with bean fields in foreground, 1937" style="width: 100%; height: 100%; object-fit: cover; border-radius: 16px; display: block;">
+        </div>
+      </div>
+      <div class="archive-text" style="direction: ltr;">
+        <h2>The Lighthouse and the Bean Fields, 1937</h2>
+        <p>Point Vicente Lighthouse, eleven years after it first lit in 1926. Looking northwest — the lighthouse tower rises beyond the keeper's quarters, radio antenna masts, and utility poles. In the foreground: bean fields. The Peninsula was still agricultural land. No Terranea. No subdivisions. Just beans, a lighthouse, and the Pacific.</p>
+        <p>This Saturday, the lighthouse turns 100. The bean fields are long gone, but the light still works.</p>
+        <p class="archive-caption">Photograph, 1937. Point Vicente Lighthouse looking northwest. Security Pacific National Bank Collection / Los Angeles Public Library. — Palos Verdes Library District Community Archives</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- MARKET -->
+  <section class="market-section" id="market">
+    <div class="market-inner reveal">
+      <div>
+        <h2>Market Pulse</h2>
+        <p class="market-quote">
+          Spring inventory is building but still below historical averages for April on the Hill. Three new listings in RPV this week, one in PVE — all priced above $2M. Serious buyers are moving fast. If you're thinking about listing, the window is opening. <strong>— Angelique</strong>
+        </p>
+      </div>
+      <div class="market-stats">
+        <div class="stat-card">
+          <div class="s-label">Active Listings</div>
+          <div class="s-value">47</div>
+          <div class="s-change">Peninsula</div>
+        </div>
+        <div class="stat-card">
+          <div class="s-label">Median List Price</div>
+          <div class="s-value">$2.4M</div>
+          <div class="s-change">Peninsula</div>
+        </div>
+        <div class="stat-card">
+          <div class="s-label">Avg Days on Market</div>
+          <div class="s-value">34</div>
+          <div class="s-change down">+3 vs last month</div>
+        </div>
+        <div class="stat-card">
+          <div class="s-label">Closed Last 30 Days</div>
+          <div class="s-value">18</div>
+          <div class="s-change up">+22% YoY</div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- NEWSLETTER -->
+  <section class="newsletter-section reveal" id="newsletter">
+    <h2>Get This in Your Inbox</h2>
+    <p>Every Thursday morning — this week's events and what's moving in the market. That's it.</p>
+    <div class="nl-form">
+      <input type="email" placeholder="your@email.com">
+      <button>Subscribe</button>
+    </div>
+  </section>
+
+  <!-- FOOTER -->
+  <footer>
+    <div class="footer-inner">
+      <div>
+        <h4>TheHillPV.com</h4>
+        <p class="footer-tagline">Life above the Pacific.</p>
+        <p style="font-size: 0.72rem; color: rgba(255,255,255,0.3); margin-top: 8px;">Paintings by <a href="https://www.rickhumphrey.com" target="_blank" style="color: rgba(255,255,255,0.4);">Richard Humphrey</a>, plein air artist of the Palos Verdes Peninsula</p>
+        <p>Angelique Lyle · Accardo Real Estate Associates at Compass</p>
+        <p class="dre">CA DRE# 01475592 · Compass · 550 Silver Spur Road, Suite 110, Rancho Palos Verdes, CA 90275</p>
+      </div>
+      <div>
+        <h4>Explore</h4>
+        <p><a href="#">Neighborhoods</a></p>
+        <p><a href="#">School Guide</a></p>
+        <p><a href="#">Market Reports</a></p>
+        <p><a href="#">Events Calendar</a></p>
+      </div>
+      <div>
+        <h4>Connect</h4>
+        <p><a href="mailto:angelique.lyle@compass.com">angelique.lyle@compass.com</a></p>
+        <p><a href="https://instagram.com/angeliquelylehomes" target="_blank">@angeliquelylehomes</a></p>
+      </div>
+    </div>
+  </footer>
+
+  <!-- SCRIPTS -->
+  <script>
+    // ===== NAV SCROLL =====
+    const nav = document.getElementById('main-nav');
+    window.addEventListener('scroll', () => {
+      nav.classList.toggle('scrolled', window.scrollY > 50);
+    });
+
+    // ===== REVEAL ON SCROLL =====
+    const observer = new IntersectionObserver((entries) => {
+      entries.forEach(e => {
+        if (e.isIntersecting) {
+          e.target.classList.add('visible');
+          observer.unobserve(e.target);
+        }
+      });
+    }, { threshold: 0.12 });
+    document.querySelectorAll('.reveal').forEach(el => observer.observe(el));
+
+    // ===== LEAFLET MAP =====
+    const map = L.map('event-map', {
+      scrollWheelZoom: false,
+      zoomControl: true,
+    }).setView([33.765, -118.38], 12);
+
+    L.tileLayer('https://{s}.basemaps.cartocdn.com/light_all/{z}/{x}/{y}{r}.png', {
+      attribution: '&copy; <a href="https://www.openstreetmap.org/copyright">OSM</a> &copy; <a href="https://carto.com/attributions">CARTO</a>',
+      subdomains: 'abcd',
+      maxZoom: 19
+    }).addTo(map);
+
+    // Custom marker icon
+    function makeIcon(color) {
+      return L.divIcon({
+        className: 'custom-pin',
+        html: `<svg width="28" height="36" viewBox="0 0 28 36" fill="none"><path d="M14 0C6.268 0 0 6.268 0 14c0 10.5 14 22 14 22s14-11.5 14-22C28 6.268 21.732 0 14 0z" fill="${color}"/><circle cx="14" cy="13" r="5" fill="white" opacity="0.9"/></svg>`,
+        iconSize: [28, 36],
+        iconAnchor: [14, 36],
+        popupAnchor: [0, -38]
+      });
+    }
+
+    const events = [
+      { lat: 33.7424, lng: -118.4111, title: "Lighthouse 100th Anniversary", meta: "Sat Apr 11 · 10AM–4PM", desc: "Tours, live history, ocean views. Free.", color: "#9e4a2a", addr: "31550 Palos Verdes Dr W, RPV", date: "20260411", time: "1000", end: "1600" },
+      { lat: 33.7434, lng: -118.4065, title: "Whale of a Day", meta: "Sat Apr 11 · 10AM", desc: "41st annual gray whale celebration at the bluffs.", color: "#3b6f8a", addr: "Point Vicente Interpretive Center", date: "20260411", time: "1000" },
+      { lat: 33.7835, lng: -118.3657, title: "Nature Walk — Chandler Preserve", meta: "Sat Apr 11 · 9AM", desc: "PVPLC docent-led walk. 28 acres of coastal sage scrub.", color: "#6e8f68", addr: "Linden H Chandler Preserve, RHE", date: "20260411", time: "0900" },
+      { lat: 33.7752, lng: -118.3612, title: "Native Plant Sale", meta: "Sat Apr 11 · 10:30AM", desc: "California-native plants for Peninsula gardens.", color: "#6e8f68", addr: "George F Canyon Nature Center, RHE", date: "20260411", time: "1030" },
+      { lat: 33.8522, lng: -118.3894, title: "Wild & Scenic Film Festival", meta: "Sun Apr 12 · 4PM", desc: "Environmental film festival. Doors 3pm.", color: "#3b6f8a", addr: "Redondo Union High School", date: "20260412", time: "1600" },
+      { lat: 33.7950, lng: -118.4317, title: "Music at Paseo Del Mar", meta: "Sun Apr 12 · 5PM", desc: "Concert on the Lunada Bay bluffs. Music + sunset.", color: "#9e4a2a", addr: "415 Paseo Del Mar, PVE", date: "20260412", time: "1700" },
+      { lat: 33.7912, lng: -118.3507, title: "TROLLS by Thomas Dambo", meta: "Ongoing · Garden hours", desc: "12 giant trolls in reclaimed wood at the Botanic Garden.", color: "#6e8f68", addr: "South Coast Botanic Garden, RPV" },
+      { lat: 33.7467, lng: -118.3182, title: "Nature Club — Trees", meta: "Sat Apr 11 · 10:30AM", desc: "PVPLC nature education for families.", color: "#6e8f68", addr: "White Point Nature Center, San Pedro", date: "20260411", time: "1030" },
+      { lat: 33.8622, lng: -118.3992, title: "SYMBIOSIS Closing Reception", meta: "Sat Apr 11 · 5–9PM", desc: "Group exhibition — sand and sea. Last chance.", color: "#3b6f8a", addr: "618 Cypress Ave, Hermosa", date: "20260411", time: "1700", end: "2100" },
+      { lat: 33.7805, lng: -118.3705, title: "Estate Planning Class", meta: "Wed Apr 8 · 2PM", desc: "Free workshop. Trusts, wills, avoiding probate.", color: "#2a2622", addr: "Peninsula Center Library, 701 Silver Spur Rd", date: "20260408", time: "1400" },
+      { lat: 33.7970, lng: -118.4240, title: "PVPUSD Board — Measure SOS", meta: "Wed Apr 15 · 11AM", desc: "Board study session on Measure SOS funding.", color: "#9e4a2a", addr: "Malaga Cove Admin Center", date: "20260415", time: "1100" },
+      { lat: 33.7815, lng: -118.3710, title: "PV Farmers Market", meta: "Every Sunday · 8AM–1PM", desc: "~40 vendors since 1994. Stone fruit is back.", color: "#6e8f68", addr: "27118 Silver Spur Rd, RHE" },
+    ];
+
+    events.forEach(ev => {
+      const calBtn = ev.date
+        ? `<button class="popup-btn primary" onclick="addToCal(this)" data-title="${ev.title}" data-date="${ev.date}" data-time="${ev.time || ''}" data-end="${ev.end || ''}" data-location="${ev.addr}" data-desc="${ev.desc}">Save</button>`
+        : '';
+      const popup = `
+        <div class="popup-title">${ev.title}</div>
+        <div class="popup-meta">${ev.meta}</div>
+        <div class="popup-desc">${ev.desc}</div>
+        <div class="popup-actions">
+          ${calBtn}
+          <a class="popup-btn secondary" href="https://maps.google.com/?daddr=${encodeURIComponent(ev.addr)}" target="_blank">Directions</a>
+        </div>
+      `;
+      L.marker([ev.lat, ev.lng], { icon: makeIcon(ev.color) })
+        .addTo(map)
+        .bindPopup(popup, { maxWidth: 260 });
+    });
+
+    // ===== ADD TO CALENDAR =====
+    function addToCal(btn) {
+      const title = btn.dataset.title;
+      const date = btn.dataset.date;
+      const time = btn.dataset.time || '';
+      const endTime = btn.dataset.end || '';
+      const location = btn.dataset.location || '';
+      const desc = btn.dataset.desc || '';
+
+      const fullDesc = desc
+        + '\\n\\n— via TheHillPV.com'
+        + '\\nFollow @angeliquelylehomes on Instagram'
+        + '\\nhttps://instagram.com/angeliquelylehomes';
+
+      let dtStart, dtEnd;
+      if (time) {
+        dtStart = date + 'T' + time + '00';
+        if (endTime) {
+          dtEnd = date + 'T' + endTime + '00';
+        } else {
+          const h = parseInt(time.substring(0,2));
+          dtEnd = date + 'T' + String(h + 2).padStart(2,'0') + time.substring(2) + '00';
+        }
+      } else {
+        dtStart = date;
+        const d = new Date(date.substring(0,4)+'-'+date.substring(4,6)+'-'+date.substring(6,8));
+        d.setDate(d.getDate()+1);
+        dtEnd = d.toISOString().slice(0,10).replace(/-/g,'');
+      }
+
+      const ics = [
+        'BEGIN:VCALENDAR','VERSION:2.0','PRODID:-//TheHillPV//Events//EN','CALSCALE:GREGORIAN',
+        'BEGIN:VEVENT',
+        'DTSTART:'+dtStart, 'DTEND:'+dtEnd,
+        'SUMMARY:'+title, 'LOCATION:'+location, 'DESCRIPTION:'+fullDesc,
+        'URL:https://thehillpv.com/events',
+        'END:VEVENT','END:VCALENDAR'
+      ].join('\r\n');
+
+      const blob = new Blob([ics], { type: 'text/calendar;charset=utf-8' });
+      const a = document.createElement('a');
+      a.href = URL.createObjectURL(blob);
+      a.download = title.replace(/[^a-zA-Z0-9]/g,'-').substring(0,40)+'.ics';
+      a.click();
+      URL.revokeObjectURL(a.href);
+
+      const orig = btn.innerHTML;
+      btn.innerHTML = '✓ Saved';
+      btn.style.opacity = '0.7';
+      setTimeout(() => { btn.innerHTML = orig; btn.style.opacity = ''; }, 2000);
+    }
+  </script>
+</body>
+</html>

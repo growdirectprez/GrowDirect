@@ -1,0 +1,336 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Brand System — Angelique Lyle · Compass</title>
+<link href="https://fonts.googleapis.com/css2?family=DM+Sans:ital,wght@0,300;0,400;0,500;0,600;0,700&family=DM+Serif+Display:ital@0;1&display=swap" rel="stylesheet">
+<style>
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+  :root {
+    /* ── NEW BRAND PALETTE: Compass-aligned ── */
+    --black: #000000;
+    --near-black: #1A1A1A;
+    --gray-900: #222222;
+    --gray-800: #333333;
+    --gray-600: #666666;
+    --gray-400: #999999;
+    --gray-300: #BBBBBB;
+    --gray-200: #E0E0E0;
+    --gray-100: #F2F2F2;
+    --off-white: #F7F7F7;
+    --white: #FFFFFF;
+
+    /* One subtle accent — coastal mist, used VERY sparingly */
+    --coastal: #D6DFE2;
+
+    /* Typography */
+    --heading: 'DM Serif Display', Georgia, serif;
+    --body: 'DM Sans', system-ui, sans-serif;
+  }
+
+  body {
+    font-family: var(--body); background: var(--white); color: var(--near-black);
+    line-height: 1.6; -webkit-font-smoothing: antialiased;
+  }
+
+  .container { max-width: 800px; margin: 0 auto; padding: 2rem 1.5rem; }
+
+  /* Header */
+  .header {
+    background: var(--black); color: var(--white); padding: 4rem 2rem; text-align: center;
+  }
+  .header .tag {
+    display: inline-block; font-size: 0.6rem; font-weight: 600;
+    letter-spacing: 0.2em; text-transform: uppercase; color: var(--gray-400);
+    margin-bottom: 1rem;
+  }
+  .header h1 {
+    font-family: var(--heading); font-size: 2.5rem; font-weight: 400;
+    margin-bottom: 0.5rem; letter-spacing: -0.01em;
+  }
+  .header p { color: var(--gray-400); font-size: 0.9rem; }
+
+  /* Section */
+  h2 {
+    font-family: var(--heading); font-size: 1.5rem; font-weight: 400;
+    color: var(--black); margin-bottom: 0.75rem; letter-spacing: -0.01em;
+  }
+  .section-label {
+    font-size: 0.6rem; letter-spacing: 0.2em; text-transform: uppercase;
+    color: var(--gray-400); font-weight: 600; margin-bottom: 0.4rem;
+  }
+  p.body { font-size: 0.9rem; color: var(--gray-600); line-height: 1.7; }
+
+  /* Color swatches */
+  .swatch-grid {
+    display: grid; grid-template-columns: repeat(auto-fill, minmax(100px, 1fr));
+    gap: 1rem; margin: 1.5rem 0;
+  }
+  .swatch {
+    text-align: center;
+  }
+  .swatch-color {
+    width: 100%; aspect-ratio: 1; border-radius: 4px; margin-bottom: 0.4rem;
+    border: 1px solid var(--gray-200);
+  }
+  .swatch-name { font-size: 0.75rem; font-weight: 600; color: var(--near-black); }
+  .swatch-hex { font-size: 0.65rem; color: var(--gray-400); }
+
+  /* Typography samples */
+  .type-sample {
+    padding: 2rem 0; border-bottom: 1px solid var(--gray-100);
+  }
+  .type-sample:last-child { border-bottom: none; }
+  .type-sample .meta {
+    font-size: 0.65rem; letter-spacing: 0.1em; text-transform: uppercase;
+    color: var(--gray-400); margin-bottom: 0.5rem;
+  }
+
+  /* Button styles */
+  .btn-row { display: flex; gap: 1rem; flex-wrap: wrap; margin: 1.5rem 0; }
+  .btn {
+    display: inline-flex; align-items: center; gap: 0.5rem; padding: 0.75rem 1.5rem;
+    border-radius: 4px; font-family: var(--body); font-size: 0.85rem; font-weight: 500;
+    text-decoration: none; cursor: pointer; border: 1.5px solid transparent;
+    transition: all 0.2s;
+  }
+  .btn-black { background: var(--black); color: var(--white); }
+  .btn-white { background: var(--white); color: var(--black); border-color: var(--black); }
+  .btn-outline { background: transparent; color: var(--black); border-color: var(--gray-200); }
+
+  /* Card styles */
+  .card-row { display: grid; grid-template-columns: 1fr 1fr; gap: 1.5rem; margin: 1.5rem 0; }
+  .card {
+    background: var(--white); border: 1px solid var(--gray-200); border-radius: 4px;
+    padding: 1.5rem;
+  }
+  .card.dark { background: var(--black); color: var(--white); border-color: var(--black); }
+  .card h3 {
+    font-family: var(--heading); font-size: 1.1rem; font-weight: 400;
+    margin-bottom: 0.35rem;
+  }
+  .card.dark h3 { color: var(--white); }
+  .card p { font-size: 0.82rem; color: var(--gray-600); }
+  .card.dark p { color: var(--gray-400); }
+
+  /* Divider */
+  .divider {
+    height: 1px; background: var(--gray-200); margin: 3rem 0;
+  }
+
+  /* Do / Don't */
+  .rules { display: grid; grid-template-columns: 1fr 1fr; gap: 1.5rem; margin: 1.5rem 0; }
+  .rule-card {
+    padding: 1.25rem; border-radius: 4px;
+  }
+  .rule-card.do { background: var(--off-white); }
+  .rule-card.dont { background: #FFF5F5; }
+  .rule-card h4 { font-size: 0.85rem; font-weight: 600; margin-bottom: 0.5rem; }
+  .rule-card.do h4 { color: var(--black); }
+  .rule-card.dont h4 { color: #CC0000; }
+  .rule-card ul {
+    list-style: none; padding: 0; font-size: 0.82rem; color: var(--gray-600);
+  }
+  .rule-card ul li { padding: 0.2rem 0; }
+
+  /* Photo treatment */
+  .photo-demo {
+    background: var(--black); border-radius: 4px; overflow: hidden;
+    padding: 2rem; text-align: center; margin: 1.5rem 0;
+  }
+  .photo-demo .overlay-text {
+    font-family: var(--heading); font-size: 2rem; color: var(--white);
+    margin-bottom: 0.25rem;
+  }
+  .photo-demo .overlay-sub {
+    font-size: 0.8rem; color: var(--gray-400); letter-spacing: 0.1em;
+    text-transform: uppercase;
+  }
+
+  @media (max-width: 600px) {
+    .card-row, .rules { grid-template-columns: 1fr; }
+  }
+
+  .footer {
+    text-align: center; padding: 2rem; font-size: 0.7rem; color: var(--gray-400);
+    border-top: 1px solid var(--gray-100);
+  }
+</style>
+</head>
+<body>
+
+<div class="header">
+  <div class="tag">Brand System · V2</div>
+  <h1>Angelique Lyle</h1>
+  <p>Life Above the Pacific · Compass</p>
+</div>
+
+<div class="container">
+
+  <!-- PALETTE -->
+  <div style="margin-top: 2rem;">
+    <div class="section-label">Palette</div>
+    <h2>Black, White, and Space</h2>
+    <p class="body">Aligned with Compass branding. Black and white do the work. Photography brings the color. No decorative accents — let the homes and the coastline speak.</p>
+
+    <div class="swatch-grid">
+      <div class="swatch">
+        <div class="swatch-color" style="background:#000000;"></div>
+        <div class="swatch-name">Black</div>
+        <div class="swatch-hex">#000000</div>
+      </div>
+      <div class="swatch">
+        <div class="swatch-color" style="background:#1A1A1A;"></div>
+        <div class="swatch-name">Near Black</div>
+        <div class="swatch-hex">#1A1A1A</div>
+      </div>
+      <div class="swatch">
+        <div class="swatch-color" style="background:#333333;"></div>
+        <div class="swatch-name">Dark Gray</div>
+        <div class="swatch-hex">#333333</div>
+      </div>
+      <div class="swatch">
+        <div class="swatch-color" style="background:#666666;"></div>
+        <div class="swatch-name">Mid Gray</div>
+        <div class="swatch-hex">#666666</div>
+      </div>
+      <div class="swatch">
+        <div class="swatch-color" style="background:#999999;"></div>
+        <div class="swatch-name">Soft Gray</div>
+        <div class="swatch-hex">#999999</div>
+      </div>
+      <div class="swatch">
+        <div class="swatch-color" style="background:#E0E0E0;"></div>
+        <div class="swatch-name">Light Gray</div>
+        <div class="swatch-hex">#E0E0E0</div>
+      </div>
+      <div class="swatch">
+        <div class="swatch-color" style="background:#F2F2F2;"></div>
+        <div class="swatch-name">Off White</div>
+        <div class="swatch-hex">#F2F2F2</div>
+      </div>
+      <div class="swatch">
+        <div class="swatch-color" style="background:#FFFFFF; border-color:#E0E0E0;"></div>
+        <div class="swatch-name">White</div>
+        <div class="swatch-hex">#FFFFFF</div>
+      </div>
+    </div>
+  </div>
+
+  <div class="divider"></div>
+
+  <!-- TYPOGRAPHY -->
+  <div>
+    <div class="section-label">Typography</div>
+    <h2>Two Fonts. Clean Hierarchy.</h2>
+
+    <div class="type-sample">
+      <div class="meta">Heading · DM Serif Display · 400</div>
+      <div style="font-family:var(--heading); font-size:2.5rem; color:var(--black); letter-spacing:-0.01em;">Life Above the Pacific</div>
+    </div>
+    <div class="type-sample">
+      <div class="meta">Subheading · DM Sans · 600</div>
+      <div style="font-family:var(--body); font-size:1.1rem; font-weight:600; color:var(--black); letter-spacing:0.01em;">Angelique Lyle · Palos Verdes Peninsula</div>
+    </div>
+    <div class="type-sample">
+      <div class="meta">Body · DM Sans · 400</div>
+      <div style="font-family:var(--body); font-size:0.95rem; color:var(--gray-600); line-height:1.7;">Top 1.5% of agents nationally. 20+ years guiding families home to the Peninsula and South Bay beach cities. USC grad, relocation specialist, and a mom who raised her kids right here on this Hill.</div>
+    </div>
+    <div class="type-sample">
+      <div class="meta">Label · DM Sans · 600 · Uppercase · 0.2em tracking</div>
+      <div style="font-family:var(--body); font-size:0.65rem; font-weight:600; letter-spacing:0.2em; text-transform:uppercase; color:var(--gray-400);">Open House · Sunday 1–4PM</div>
+    </div>
+  </div>
+
+  <div class="divider"></div>
+
+  <!-- BUTTONS -->
+  <div>
+    <div class="section-label">Buttons</div>
+    <h2>Flat. Minimal. Arrow Forward.</h2>
+    <p class="body">Match Compass's button style: clean rectangles, slight radius, arrow icon on CTAs.</p>
+    <div class="btn-row">
+      <a class="btn btn-black">Learn More →</a>
+      <a class="btn btn-white">Contact Angelique →</a>
+      <a class="btn btn-outline">View Listings</a>
+    </div>
+  </div>
+
+  <div class="divider"></div>
+
+  <!-- CARDS -->
+  <div>
+    <div class="section-label">Cards</div>
+    <h2>Light and Dark</h2>
+    <p class="body">Alternate between black and white sections. Let full-bleed photography do the color work between them.</p>
+    <div class="card-row">
+      <div class="card">
+        <h3>Rancho Palos Verdes</h3>
+        <p>Ocean-view estates, equestrian trails, and top-rated PVPUSD schools. The crown jewel of the Hill.</p>
+      </div>
+      <div class="card dark">
+        <h3>Palos Verdes Estates</h3>
+        <p>Lunada Bay, Malaga Cove, and the charm of a gated community with no traffic lights.</p>
+      </div>
+    </div>
+  </div>
+
+  <div class="divider"></div>
+
+  <!-- PHOTO TREATMENT -->
+  <div>
+    <div class="section-label">Photo Treatment</div>
+    <h2>Photography Brings the Color</h2>
+    <p class="body">Full-bleed lifestyle photography. Coastal light, interior warmth. The black-and-white system frames the photos — never competes with them.</p>
+    <div class="photo-demo">
+      <div class="overlay-text">2715 Grand Summit Road</div>
+      <div class="overlay-sub">Torrance · $1,499,000 · 4 Bed · 3 Bath</div>
+    </div>
+  </div>
+
+  <div class="divider"></div>
+
+  <!-- DO / DON'T -->
+  <div>
+    <div class="section-label">Design Rules</div>
+    <h2>Do This. Not That.</h2>
+    <div class="rules">
+      <div class="rule-card do">
+        <h4>✓ Do</h4>
+        <ul>
+          <li>→ Black backgrounds with white text</li>
+          <li>→ White backgrounds with black text</li>
+          <li>→ Full-bleed photography</li>
+          <li>→ Lots of whitespace / breathing room</li>
+          <li>→ Flat buttons with arrows</li>
+          <li>→ Bold, confident headlines</li>
+          <li>→ Let the homes be the hero</li>
+          <li>→ DRE# and Compass always visible</li>
+        </ul>
+      </div>
+      <div class="rule-card dont">
+        <h4>✕ Don't</h4>
+        <ul>
+          <li>→ No gold, sand, or ocean blue accents</li>
+          <li>→ No decorative borders or ornaments</li>
+          <li>→ No gradients or shadows on cards</li>
+          <li>→ No script fonts or calligraphy</li>
+          <li>→ No busy backgrounds or patterns</li>
+          <li>→ No colored buttons (black or white only)</li>
+          <li>→ No "luxury brokerage" visual clichés</li>
+          <li>→ Nothing that looks like Sotheby's</li>
+        </ul>
+      </div>
+    </div>
+  </div>
+
+</div>
+
+<div class="footer">
+  Angelique Lyle · CA DRE# 01475592 · Compass<br>
+  Accardo Real Estate Associates · 550 Silver Spur Road, Suite 110, RPV 90275
+</div>
+
+</body>
+</html>
