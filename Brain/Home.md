@@ -4,43 +4,62 @@ type: home
 
 # GrowDirect — Second Brain
 
-Welcome to the GrowDirect knowledge base. This vault spans all projects and acts as the central nervous system for ALX and the team.
+Knowledge base for GrowDirect — a solo-founder operation building SaaS tools with AI assistance. Brain is the bridge between Claude Code sessions (which build) and Cowork sessions (which strategize). Start with the project MOC for whatever you're working on.
 
 ## Projects
 
-| Project | Status | What it is |
-|---------|--------|------------|
-| [[Brain/projects/Canary\|Canary]] | Beta | Merchant fraud detection & analytics (Square) |
-| [[Brain/projects/Cove\|Cove]] | Development | Community governance platform (WPBCA) |
-| [[Brain/projects/Seacove\|25 Seacove]] | Active | Property architecture & permits |
+| Project | Status | What it is | Start here |
+|---------|--------|------------|------------|
+| [[Brain/projects/Canary\|Canary]] | Near-beta | Loss prevention analytics for Square merchants | [[Brain/wiki/canary-architecture\|Architecture]] |
+| [[Brain/projects/Cove\|Cove]] | Early dev | HOA governance platform for WPBCA (81 lots, Abalone Cove, RPV) | [[Brain/wiki/cove-legal-framework\|Legal Framework]] |
+| [[Brain/projects/Angel\|Angel]] | Active | Real estate intelligence + content engine for Compass agents (TheHillPV.com) | [[Brain/wiki/south-bay-wiki-architecture\|Wiki Architecture]] |
+| [[Brain/projects/Seacove\|25 Seacove]] | Standalone | SketchUp model-building pipeline for 25 Seacove Drive | [[Brain/projects/Seacove\|Blueprints]] |
 
-## How this vault works
+## Vault Structure
 
-This follows the **Karpathy LLM Wiki** pattern:
+| Path | What's there |
+|------|-------------|
+| `Brain/projects/` | **Project MOCs** — start here for any project |
+| `Brain/wiki/` | Synthesized knowledge articles (16 articles, 353 indexed topics) |
+| `Brain/playbooks/` | Repeatable workflows (neighborhood content hub pilot) |
+| `Brain/raw/inbox/` | Unprocessed intake notes — content engine feeds here |
+| `Brain/raw/processed/` | Processed intake notes by project |
+| `Brain/templates/` | Note templates (wiki, raw-intake, decision, meeting) |
+| `Brain/decisions/` | Cross-project architecture decision records |
 
-1. **Raw material** goes into `Brain/raw/` — clips, research, meeting notes, anything
-2. **Wiki articles** get compiled in `Brain/wiki/` — ALX or Claude synthesizes raw material into maintained articles
-3. **Project MOCs** in `Brain/projects/` link to docs that already exist in `Canary/docs/` and `Cove/docs/`
-4. **Decisions** go in `Brain/decisions/` — cross-project ADRs
-5. **Daily journal** in `Brain/journal/` — daily notes with focus, decisions, and action items
+## Content Engine
 
-## Quick capture
+Brain intake is managed by `content-engine/engine.py`:
 
-New notes default to `Brain/inbox/`. Process them by tagging, linking, and moving to the right folder.
+```bash
+# Check if Brain already covers a topic before creating new docs
+python3 content-engine/engine.py registry check "<topic>"
 
-## Existing knowledge (already in this vault)
+# Ingest a file into Brain raw/inbox
+python3 content-engine/engine.py ingest <file> -p <project>
 
-Because the entire GrowDirect folder is the vault, all existing docs are searchable:
+# Rebuild the topic registry
+python3 content-engine/engine.py registry build
+```
 
-- **Canary Atlas** — 50+ architecture diagrams in `Canary/docs/atlas/`
-- **Canary Team** — Agent profiles in `Canary/docs/profiles/ops/`
-- **Canary Field Registry** — Schema docs in `Canary/docs/field-registry/`
-- **Cove Legal** — legal briefs, founding docs, litigation in `Cove/docs/legal/`
-- **Cove Archive** — original PDFs, transcriptions, property records in `Cove/docs/archive/`
-- **Cove Site** — member-facing content for abalonecove.org in `Cove/docs/site/`
-- **Cove Narrative** — [[Cove/docs/site/narrative|The Story of Abalone Cove]]
-- **Sprint Prompts** — Build prompts in `Canary/devops/prompts/`
+The registry (`Brain/REGISTRY.json`) indexes all wiki articles and their topics. Always check it before creating new documents.
 
-## Recommended Obsidian plugins
+## Key Knowledge by Project
 
-See [[Brain/Setup Guide]] for first-time setup instructions.
+### Cove — 10 wiki articles
+Legal framework, Lot H discovery, 0 Clipper threat, community history, property geology, governance operations, city position cross-reference, PV Corp declaration scheme, platform development. Plus the [[Cove/docs/site/narrative|Story of Abalone Cove]] narrative.
+
+### Canary — 4 wiki articles
+Architecture (16 services, MCP layer), detection engine (29 Chirp rules), data model (60+ models), sales strategy. Plus 50+ Atlas diagrams in `Canary/docs/atlas/`.
+
+### Angel — 1 wiki article + playbook
+South Bay wiki architecture. Neighborhood content hub playbook in `Brain/playbooks/`. Content pools in `Angel/knowledge/content-pools/`.
+
+## Platform Governance
+
+- [[Brain/wiki/growdirect-workflow|GrowDirect Workflow]] — Operating manual: two agent systems, knowledge layers, session lifecycle, working style
+- [[Brain/wiki/document-management|Document Management Strategy]] — The 7 document types, where they live, lifecycle rules
+
+## Setup
+
+See [[Brain/Setup Guide]] for first-time Obsidian setup.
