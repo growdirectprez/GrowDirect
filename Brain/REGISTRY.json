@@ -1,0 +1,3794 @@
+{
+  "generated": "2026-04-11T14:57:02.623671+00:00",
+  "article_count": 21,
+  "topic_count": 380,
+  "articles": [
+    {
+      "path": "Brain/wiki/canary-architecture.md",
+      "title": "Canary Architecture",
+      "summary": "Canary is a loss prevention analytics platform for Square merchants built on Flask 3, PostgreSQL 17, and Valkey 8. It uses a service-oriented architecture with 16 canonical services composed through a",
+      "tags": [
+        "canary",
+        "architecture",
+        "mcp",
+        "services"
+      ],
+      "keywords": [
+        "architecture",
+        "atlas",
+        "canary",
+        "data",
+        "database",
+        "design",
+        "flow",
+        "mcp",
+        "related",
+        "services",
+        "sources",
+        "summary",
+        "system"
+      ],
+      "type": "wiki"
+    },
+    {
+      "path": "Brain/wiki/canary-data-model.md",
+      "title": "Canary Data Model",
+      "summary": "Canary uses PostgreSQL 17 with four schemas that separate concerns: `app` for core platform entities, `sales` for the Square CRDM (canonical relational data model), `fox` for case management with cryp",
+      "tags": [
+        "canary",
+        "database",
+        "models",
+        "postgresql",
+        "schemas"
+      ],
+      "keywords": [
+        "analytics",
+        "canary",
+        "case",
+        "core",
+        "crdm",
+        "data",
+        "database",
+        "immutability",
+        "management",
+        "metrics",
+        "model",
+        "models",
+        "patterns",
+        "platform",
+        "postgresql",
+        "related",
+        "sales",
+        "schema:",
+        "schemas",
+        "sources",
+        "square",
+        "summary"
+      ],
+      "type": "wiki"
+    },
+    {
+      "path": "Brain/wiki/canary-detection.md",
+      "title": "Canary Detection Engine",
+      "summary": "Chirp is Canary's real-time loss prevention rule engine. It evaluates Square merchant transactions against 29 detection rules across 8 categories and 3 execution tiers. Rules fire based on configurabl",
+      "tags": [
+        "canary",
+        "chirp",
+        "detection",
+        "alerts",
+        "loss-prevention",
+        "rules"
+      ],
+      "keywords": [
+        "alert",
+        "alerts",
+        "architecture",
+        "canary",
+        "catalog",
+        "categories",
+        "chirp",
+        "detection",
+        "distribution",
+        "engine",
+        "loss-prevention",
+        "pipeline",
+        "related",
+        "rule",
+        "rules",
+        "severity",
+        "sources",
+        "summary",
+        "system",
+        "three",
+        "threshold",
+        "tier"
+      ],
+      "type": "wiki"
+    },
+    {
+      "path": "Brain/wiki/canary-sales-strategy.md",
+      "title": "Canary Sales Strategy",
+      "summary": "Canary's go-to-market is built around 8 \"gold list\" detection rules that produce undeniable, merchant-friendly alerts. The strategy is to sell outcomes (\"here's the $200 your cashier walked out with\")",
+      "tags": [
+        "canary",
+        "sales",
+        "strategy",
+        "detection-rules",
+        "merchants",
+        "go-to-market"
+      ],
+      "keywords": [
+        "adoption",
+        "alert",
+        "canary",
+        "design",
+        "detection-rules",
+        "first",
+        "go-to-market",
+        "gold",
+        "hunting",
+        "ladder",
+        "list",
+        "merchants",
+        "mobile",
+        "noise",
+        "over",
+        "related",
+        "rules",
+        "sales",
+        "sell",
+        "signal",
+        "sources",
+        "strategy",
+        "summary",
+        "that",
+        "themselves",
+        "validation"
+      ],
+      "type": "wiki"
+    },
+    {
+      "path": "Brain/wiki/claim-lot-h-scope-correction.md",
+      "title": "Claim: Lot H Declaration Contains Only Racial Exclusionary Language",
+      "summary": "**Status:** CONFIRMED — verified against source transcription (1950-Lot-H-Declaration-Verbatim.md)",
+      "tags": [
+        "cove",
+        "legal",
+        "lot-h",
+        "correction"
+      ],
+      "keywords": [
+        "about",
+        "affected",
+        "arose",
+        "broader",
+        "changes",
+        "claim",
+        "claim:",
+        "confusion",
+        "contains",
+        "corp's",
+        "correction",
+        "cove",
+        "declaration",
+        "documents",
+        "exclusionary",
+        "found",
+        "history",
+        "language",
+        "legal",
+        "lot",
+        "lot-h",
+        "only",
+        "questions",
+        "racial",
+        "remaining",
+        "scheme",
+        "scope",
+        "status",
+        "this",
+        "what"
+      ],
+      "type": "wiki"
+    },
+    {
+      "path": "Brain/wiki/cove-0-clipper.md",
+      "title": "0 Clipper Road",
+      "summary": "The immediate threat to the WPBCA community. A 1.6-acre vacant parcel proposed for 16 units of housing, rezoned from RS-4 to RM-22 in April 2024 as part of RPV's Housing Element compliance.",
+      "tags": [
+        "cove",
+        "legal",
+        "0-clipper",
+        "development",
+        "litigation"
+      ],
+      "keywords": [
+        "0-clipper",
+        "2026",
+        "active",
+        "analysis",
+        "april",
+        "briefs",
+        "builder",
+        "cc&r",
+        "city",
+        "clipper",
+        "counter",
+        "cove",
+        "current",
+        "defense",
+        "development",
+        "documents",
+        "geological",
+        "hazards",
+        "legal",
+        "litigation",
+        "owner",
+        "property",
+        "proposal",
+        "proposed",
+        "records",
+        "related",
+        "remedy",
+        "research",
+        "road",
+        "sources",
+        "status",
+        "templates",
+        "transcriptions",
+        "update"
+      ],
+      "type": "wiki"
+    },
+    {
+      "path": "Brain/wiki/cove-city-positions.md",
+      "title": "City Positions Cross-Reference",
+      "summary": "This article tracks what the City of Rancho Palos Verdes has formally stated about key issues across different documents, meetings, and legal filings. The purpose is to find inconsistencies, contradic",
+      "tags": [
+        "cove",
+        "litigation",
+        "city-positions",
+        "cross-reference",
+        "0-clipper",
+        "rpv"
+      ],
+      "keywords": [
+        "0-clipper",
+        "additional",
+        "applicability",
+        "builder",
+        "builder's",
+        "cc&rs",
+        "ceqa",
+        "city",
+        "city-positions",
+        "clipper",
+        "coastal",
+        "code",
+        "commission",
+        "compliance",
+        "conflict",
+        "correspondence",
+        "council",
+        "cove",
+        "cross",
+        "cross-reference",
+        "density",
+        "development",
+        "element",
+        "entries",
+        "environmental",
+        "fact",
+        "filings",
+        "general",
+        "geological",
+        "hazards",
+        "housing",
+        "interest",
+        "landslide",
+        "letters",
+        "litigation",
+        "local",
+        "mootness",
+        "municipal",
+        "ordinance",
+        "plan",
+        "planning",
+        "political",
+        "positions",
+        "presentations",
+        "private",
+        "public",
+        "records",
+        "reference",
+        "reform",
+        "related",
+        "remedy",
+        "reports",
+        "restrictions",
+        "rezoning",
+        "rpv",
+        "sheets",
+        "sources",
+        "staff",
+        "state",
+        "supersession",
+        "timeline",
+        "topic"
+      ],
+      "type": "wiki"
+    },
+    {
+      "path": "Brain/wiki/cove-community-history.md",
+      "title": "Community History",
+      "summary": "The WPBCA community at Abalone Cove sits on land shaped by five distinct eras — each leaving legal, cultural, and physical traces still visible today.",
+      "tags": [
+        "cove",
+        "history",
+        "wpbca",
+        "abalone-cove",
+        "vanderlip",
+        "tongva"
+      ],
+      "keywords": [
+        "1882",
+        "1906",
+        "1913",
+        "1925",
+        "1929",
+        "1942",
+        "1952",
+        "1972",
+        "1973",
+        "abalone-cove",
+        "american",
+        "analysis",
+        "city",
+        "club",
+        "community",
+        "conservancy",
+        "corp",
+        "cove",
+        "farming",
+        "history",
+        "incorporation",
+        "japanese",
+        "origins",
+        "parks",
+        "people",
+        "rancho",
+        "related",
+        "shore",
+        "sources",
+        "summaries",
+        "tongva",
+        "transcriptions",
+        "updates",
+        "vanderlip",
+        "wpbca",
+        "~5100"
+      ],
+      "type": "wiki"
+    },
+    {
+      "path": "Brain/wiki/cove-governance.md",
+      "title": "Governance & Operations",
+      "summary": "WPBCA operates as a 501(c)(4) mutual benefit corporation (HOA) governing 81 lots. The Cove project proposes creating a parallel 501(c)(3) to support broader community and legal objectives.",
+      "tags": [
+        "cove",
+        "governance",
+        "wpbca",
+        "501c3",
+        "organization"
+      ],
+      "keywords": [
+        "501c3",
+        "action",
+        "analysis",
+        "cove",
+        "current",
+        "decades",
+        "documents",
+        "foundation",
+        "governance",
+        "governing",
+        "operations",
+        "organization",
+        "plan",
+        "problem:",
+        "proposed:",
+        "related",
+        "sources",
+        "strategy",
+        "structure:",
+        "underinvestment",
+        "wpbca"
+      ],
+      "type": "wiki"
+    },
+    {
+      "path": "Brain/wiki/cove-legal-framework.md",
+      "title": "Cove Legal Framework",
+      "summary": "The WPBCA community is protected by a chain of six recorded instruments filed between April 1949 and November 1952 by Palos Verdes Corporation (Delaware). These documents form three layers of protecti",
+      "tags": [
+        "cove",
+        "legal",
+        "ccrs",
+        "wpbca",
+        "lot-h"
+      ],
+      "keywords": [
+        "1949",
+        "1950",
+        "1952",
+        "2009",
+        "2012",
+        "assessment",
+        "authority",
+        "cc&r",
+        "ccrs",
+        "chain",
+        "cove",
+        "distribution",
+        "enforcement",
+        "enhancement",
+        "founding",
+        "framework",
+        "housing",
+        "instruments",
+        "layer",
+        "legal",
+        "lot-h",
+        "modernization",
+        "preemption",
+        "related",
+        "risk",
+        "sources",
+        "transcriptions",
+        "wpbca"
+      ],
+      "type": "wiki"
+    },
+    {
+      "path": "Brain/wiki/cove-lot-h-discovery.md",
+      "title": "Lot H Discovery",
+      "summary": "> **CORRECTION (April 10, 2026):** Prior research overstated the scope of the Lot H Declaration. The 1950 Lot H Declaration contains **only racial exclusionary language** — no architectural restrictio",
+      "tags": [
+        "cove",
+        "legal",
+        "lot-h",
+        "ccrs",
+        "enforcement"
+      ],
+      "keywords": [
+        "analysis",
+        "briefs",
+        "caught",
+        "ccrs",
+        "clipper",
+        "confusion",
+        "cove",
+        "declaration?",
+        "discovery",
+        "document",
+        "duration",
+        "enforcement",
+        "implications",
+        "legal",
+        "lot",
+        "lot-h",
+        "means",
+        "nobody",
+        "peninsula",
+        "property",
+        "records",
+        "related",
+        "renewal",
+        "research",
+        "sources",
+        "status",
+        "strategy",
+        "templates",
+        "this",
+        "transcriptions",
+        "what",
+        "wide"
+      ],
+      "type": "wiki"
+    },
+    {
+      "path": "Brain/wiki/cove-platform.md",
+      "title": "Cove Platform Development",
+      "summary": "Cove is a Flask-based community governance platform being built to serve WPBCA and eventually other HOAs. Server-rendered (Jinja2), PostgreSQL, Valkey for sessions/cache.",
+      "tags": [
+        "cove",
+        "platform",
+        "development",
+        "flask",
+        "architecture"
+      ],
+      "keywords": [
+        "architecture",
+        "cove",
+        "current",
+        "development",
+        "flask",
+        "foundation",
+        "modules",
+        "platform",
+        "priority:",
+        "rebuild",
+        "related",
+        "sdds",
+        "stack",
+        "tech"
+      ],
+      "type": "wiki"
+    },
+    {
+      "path": "Brain/wiki/cove-property-geology.md",
+      "title": "Property & Geology",
+      "summary": "The WPBCA community and the 0 Clipper parcel sit within one of the most active landslide complexes on the California coast. The geological evidence is devastating for the rezoning.",
+      "tags": [
+        "cove",
+        "geology",
+        "landslide",
+        "property",
+        "parcels"
+      ],
+      "keywords": [
+        "14649",
+        "assessor",
+        "caused",
+        "city",
+        "community",
+        "complex",
+        "cove",
+        "critical",
+        "finding:",
+        "formation",
+        "geological",
+        "geology",
+        "impact",
+        "knows",
+        "landslide",
+        "layout",
+        "maps",
+        "parcel",
+        "parcels",
+        "plumbing",
+        "property",
+        "records",
+        "related",
+        "slide",
+        "slides",
+        "sources",
+        "summaries",
+        "tract",
+        "transcriptions",
+        "what"
+      ],
+      "type": "wiki"
+    },
+    {
+      "path": "Brain/wiki/cove-pv-declaration-scheme.md",
+      "title": "PV Corp Declaration Scheme & the Olmsted Legacy",
+      "summary": "**Wiki:** [[Brain/Home|Home]]",
+      "tags": [
+        "cove",
+        "legal",
+        "history",
+        "pv-corp",
+        "olmsted",
+        "art-jury",
+        "declarations"
+      ],
+      "keywords": [
+        "abalone",
+        "area",
+        "art-jury",
+        "bend",
+        "blog",
+        "connection",
+        "corp",
+        "cove",
+        "declaration",
+        "declarations",
+        "east",
+        "historical",
+        "history",
+        "legacy",
+        "legal",
+        "olmsted",
+        "peninsula",
+        "portuguese",
+        "post",
+        "potential",
+        "pv-corp",
+        "related",
+        "scheme",
+        "significance",
+        "system",
+        "west",
+        "wide"
+      ],
+      "type": "wiki"
+    },
+    {
+      "path": "Brain/wiki/document-management.md",
+      "title": "Document Management Strategy",
+      "summary": "Every file in GrowDirect is one of seven types. Each type has one home, one lifecycle, and one relationship to Brain. If a file doesn't fit a type, it's a session artifact and gets deleted.",
+      "tags": [
+        "platform",
+        "governance",
+        "documents",
+        "brain",
+        "content-engine"
+      ],
+      "keywords": [
+        "already",
+        "analysis",
+        "archives",
+        "articles",
+        "artifacts",
+        "brain",
+        "check",
+        "content-engine",
+        "cover",
+        "current",
+        "date",
+        "delete",
+        "design",
+        "document",
+        "documents",
+        "done",
+        "enforce",
+        "file",
+        "first",
+        "flat",
+        "forward",
+        "going",
+        "governance",
+        "happen",
+        "home",
+        "ingest",
+        "intake",
+        "knowledge",
+        "live",
+        "location",
+        "maintenance",
+        "management",
+        "migration",
+        "minimum",
+        "must",
+        "needs",
+        "next",
+        "operational",
+        "pipeline",
+        "plan",
+        "platform",
+        "prefix",
+        "registry",
+        "research",
+        "rule",
+        "rules",
+        "session",
+        "sessions",
+        "seven",
+        "shallow",
+        "source",
+        "state",
+        "stays",
+        "strategy",
+        "target",
+        "temporal",
+        "things",
+        "this",
+        "transcriptions",
+        "type",
+        "types",
+        "what",
+        "where",
+        "with"
+      ],
+      "type": "wiki"
+    },
+    {
+      "path": "Brain/wiki/growdirect-workflow.md",
+      "title": "GrowDirect Workflow",
+      "summary": "GrowDirect is a solo-founder operation (Lyle) building four SaaS products with two AI agent systems. Neither system has full context on its own. This article is the operating manual — how sessions wor",
+      "tags": [
+        "platform",
+        "workflow",
+        "operations",
+        "agents",
+        "knowledge"
+      ],
+      "keywords": [
+        "agent",
+        "agents",
+        "anti",
+        "brain",
+        "bridge",
+        "claude",
+        "code",
+        "cowork",
+        "cross",
+        "desktop",
+        "during",
+        "growdirect",
+        "handoff",
+        "handoffs",
+        "knowledge",
+        "layers",
+        "lifecycle",
+        "linear",
+        "needs",
+        "operations",
+        "patterns",
+        "platform",
+        "playbooks",
+        "related",
+        "session",
+        "shutdown",
+        "sources",
+        "startup",
+        "style",
+        "systems",
+        "terminal",
+        "what",
+        "work",
+        "workflow",
+        "working"
+      ],
+      "type": "wiki"
+    },
+    {
+      "path": "Brain/wiki/south-bay-wiki-architecture.md",
+      "title": "South Bay Wiki — Content Architecture",
+      "summary": "**Wiki:** [[Brain/projects/Angel|Angel]]",
+      "tags": [
+        "angel",
+        "content-strategy",
+        "south-bay",
+        "palos-verdes",
+        "angelique"
+      ],
+      "keywords": [
+        "2026",
+        "angel",
+        "angelique",
+        "angelique's",
+        "architecture",
+        "bay",
+        "building",
+        "built",
+        "calendar",
+        "concept",
+        "content",
+        "content-strategy",
+        "covered",
+        "crawl",
+        "decisions",
+        "distribution",
+        "engine",
+        "freshness",
+        "geography",
+        "guide",
+        "implementation",
+        "lifestyle",
+        "lives",
+        "management",
+        "model",
+        "next",
+        "palos-verdes",
+        "peninsula",
+        "pipeline",
+        "related",
+        "running",
+        "scope",
+        "sourcing",
+        "south",
+        "south-bay",
+        "spine",
+        "status",
+        "steps",
+        "strategy",
+        "technical",
+        "tier",
+        "voice",
+        "we're",
+        "what",
+        "where",
+        "wiki"
+      ],
+      "type": "wiki"
+    },
+    {
+      "path": "Brain/projects/Angel.md",
+      "title": "Angel",
+      "summary": "status: active",
+      "tags": [],
+      "keywords": [
+        "angel"
+      ],
+      "type": "project-moc"
+    },
+    {
+      "path": "Brain/projects/Canary.md",
+      "title": "Canary",
+      "summary": "status: beta",
+      "tags": [],
+      "keywords": [
+        "canary"
+      ],
+      "type": "project-moc"
+    },
+    {
+      "path": "Brain/projects/Cove.md",
+      "title": "Cove",
+      "summary": "status: development",
+      "tags": [],
+      "keywords": [
+        "cove"
+      ],
+      "type": "project-moc"
+    },
+    {
+      "path": "Brain/projects/Seacove.md",
+      "title": "Seacove",
+      "summary": "status: active",
+      "tags": [],
+      "keywords": [
+        "seacove"
+      ],
+      "type": "project-moc"
+    }
+  ],
+  "topics": {
+    "0-clipper": [
+      {
+        "path": "Brain/wiki/cove-0-clipper.md",
+        "title": "0 Clipper Road"
+      },
+      {
+        "path": "Brain/wiki/cove-city-positions.md",
+        "title": "City Positions Cross-Reference"
+      }
+    ],
+    "14649": [
+      {
+        "path": "Brain/wiki/cove-property-geology.md",
+        "title": "Property & Geology"
+      }
+    ],
+    "1882": [
+      {
+        "path": "Brain/wiki/cove-community-history.md",
+        "title": "Community History"
+      }
+    ],
+    "1906": [
+      {
+        "path": "Brain/wiki/cove-community-history.md",
+        "title": "Community History"
+      }
+    ],
+    "1913": [
+      {
+        "path": "Brain/wiki/cove-community-history.md",
+        "title": "Community History"
+      }
+    ],
+    "1925": [
+      {
+        "path": "Brain/wiki/cove-community-history.md",
+        "title": "Community History"
+      }
+    ],
+    "1929": [
+      {
+        "path": "Brain/wiki/cove-community-history.md",
+        "title": "Community History"
+      }
+    ],
+    "1942": [
+      {
+        "path": "Brain/wiki/cove-community-history.md",
+        "title": "Community History"
+      }
+    ],
+    "1949": [
+      {
+        "path": "Brain/wiki/cove-legal-framework.md",
+        "title": "Cove Legal Framework"
+      }
+    ],
+    "1950": [
+      {
+        "path": "Brain/wiki/cove-legal-framework.md",
+        "title": "Cove Legal Framework"
+      }
+    ],
+    "1952": [
+      {
+        "path": "Brain/wiki/cove-community-history.md",
+        "title": "Community History"
+      },
+      {
+        "path": "Brain/wiki/cove-legal-framework.md",
+        "title": "Cove Legal Framework"
+      }
+    ],
+    "1972": [
+      {
+        "path": "Brain/wiki/cove-community-history.md",
+        "title": "Community History"
+      }
+    ],
+    "1973": [
+      {
+        "path": "Brain/wiki/cove-community-history.md",
+        "title": "Community History"
+      }
+    ],
+    "2009": [
+      {
+        "path": "Brain/wiki/cove-legal-framework.md",
+        "title": "Cove Legal Framework"
+      }
+    ],
+    "2012": [
+      {
+        "path": "Brain/wiki/cove-legal-framework.md",
+        "title": "Cove Legal Framework"
+      }
+    ],
+    "2026": [
+      {
+        "path": "Brain/wiki/cove-0-clipper.md",
+        "title": "0 Clipper Road"
+      },
+      {
+        "path": "Brain/wiki/south-bay-wiki-architecture.md",
+        "title": "South Bay Wiki — Content Architecture"
+      }
+    ],
+    "501c3": [
+      {
+        "path": "Brain/wiki/cove-governance.md",
+        "title": "Governance & Operations"
+      }
+    ],
+    "abalone": [
+      {
+        "path": "Brain/wiki/cove-pv-declaration-scheme.md",
+        "title": "PV Corp Declaration Scheme & the Olmsted Legacy"
+      }
+    ],
+    "abalone-cove": [
+      {
+        "path": "Brain/wiki/cove-community-history.md",
+        "title": "Community History"
+      }
+    ],
+    "about": [
+      {
+        "path": "Brain/wiki/claim-lot-h-scope-correction.md",
+        "title": "Claim: Lot H Declaration Contains Only Racial Exclusionary Language"
+      }
+    ],
+    "action": [
+      {
+        "path": "Brain/wiki/cove-governance.md",
+        "title": "Governance & Operations"
+      }
+    ],
+    "active": [
+      {
+        "path": "Brain/wiki/cove-0-clipper.md",
+        "title": "0 Clipper Road"
+      }
+    ],
+    "additional": [
+      {
+        "path": "Brain/wiki/cove-city-positions.md",
+        "title": "City Positions Cross-Reference"
+      }
+    ],
+    "adoption": [
+      {
+        "path": "Brain/wiki/canary-sales-strategy.md",
+        "title": "Canary Sales Strategy"
+      }
+    ],
+    "affected": [
+      {
+        "path": "Brain/wiki/claim-lot-h-scope-correction.md",
+        "title": "Claim: Lot H Declaration Contains Only Racial Exclusionary Language"
+      }
+    ],
+    "agent": [
+      {
+        "path": "Brain/wiki/growdirect-workflow.md",
+        "title": "GrowDirect Workflow"
+      }
+    ],
+    "agents": [
+      {
+        "path": "Brain/wiki/growdirect-workflow.md",
+        "title": "GrowDirect Workflow"
+      }
+    ],
+    "alert": [
+      {
+        "path": "Brain/wiki/canary-detection.md",
+        "title": "Canary Detection Engine"
+      },
+      {
+        "path": "Brain/wiki/canary-sales-strategy.md",
+        "title": "Canary Sales Strategy"
+      }
+    ],
+    "alerts": [
+      {
+        "path": "Brain/wiki/canary-detection.md",
+        "title": "Canary Detection Engine"
+      }
+    ],
+    "already": [
+      {
+        "path": "Brain/wiki/document-management.md",
+        "title": "Document Management Strategy"
+      }
+    ],
+    "american": [
+      {
+        "path": "Brain/wiki/cove-community-history.md",
+        "title": "Community History"
+      }
+    ],
+    "analysis": [
+      {
+        "path": "Brain/wiki/cove-0-clipper.md",
+        "title": "0 Clipper Road"
+      },
+      {
+        "path": "Brain/wiki/cove-community-history.md",
+        "title": "Community History"
+      },
+      {
+        "path": "Brain/wiki/cove-governance.md",
+        "title": "Governance & Operations"
+      },
+      {
+        "path": "Brain/wiki/cove-lot-h-discovery.md",
+        "title": "Lot H Discovery"
+      },
+      {
+        "path": "Brain/wiki/document-management.md",
+        "title": "Document Management Strategy"
+      }
+    ],
+    "analytics": [
+      {
+        "path": "Brain/wiki/canary-data-model.md",
+        "title": "Canary Data Model"
+      }
+    ],
+    "angel": [
+      {
+        "path": "Brain/wiki/south-bay-wiki-architecture.md",
+        "title": "South Bay Wiki — Content Architecture"
+      },
+      {
+        "path": "Brain/projects/Angel.md",
+        "title": "Angel"
+      }
+    ],
+    "angelique": [
+      {
+        "path": "Brain/wiki/south-bay-wiki-architecture.md",
+        "title": "South Bay Wiki — Content Architecture"
+      }
+    ],
+    "angelique's": [
+      {
+        "path": "Brain/wiki/south-bay-wiki-architecture.md",
+        "title": "South Bay Wiki — Content Architecture"
+      }
+    ],
+    "anti": [
+      {
+        "path": "Brain/wiki/growdirect-workflow.md",
+        "title": "GrowDirect Workflow"
+      }
+    ],
+    "applicability": [
+      {
+        "path": "Brain/wiki/cove-city-positions.md",
+        "title": "City Positions Cross-Reference"
+      }
+    ],
+    "april": [
+      {
+        "path": "Brain/wiki/cove-0-clipper.md",
+        "title": "0 Clipper Road"
+      }
+    ],
+    "architecture": [
+      {
+        "path": "Brain/wiki/canary-architecture.md",
+        "title": "Canary Architecture"
+      },
+      {
+        "path": "Brain/wiki/canary-detection.md",
+        "title": "Canary Detection Engine"
+      },
+      {
+        "path": "Brain/wiki/cove-platform.md",
+        "title": "Cove Platform Development"
+      },
+      {
+        "path": "Brain/wiki/south-bay-wiki-architecture.md",
+        "title": "South Bay Wiki — Content Architecture"
+      }
+    ],
+    "archives": [
+      {
+        "path": "Brain/wiki/document-management.md",
+        "title": "Document Management Strategy"
+      }
+    ],
+    "area": [
+      {
+        "path": "Brain/wiki/cove-pv-declaration-scheme.md",
+        "title": "PV Corp Declaration Scheme & the Olmsted Legacy"
+      }
+    ],
+    "arose": [
+      {
+        "path": "Brain/wiki/claim-lot-h-scope-correction.md",
+        "title": "Claim: Lot H Declaration Contains Only Racial Exclusionary Language"
+      }
+    ],
+    "art-jury": [
+      {
+        "path": "Brain/wiki/cove-pv-declaration-scheme.md",
+        "title": "PV Corp Declaration Scheme & the Olmsted Legacy"
+      }
+    ],
+    "articles": [
+      {
+        "path": "Brain/wiki/document-management.md",
+        "title": "Document Management Strategy"
+      }
+    ],
+    "artifacts": [
+      {
+        "path": "Brain/wiki/document-management.md",
+        "title": "Document Management Strategy"
+      }
+    ],
+    "assessment": [
+      {
+        "path": "Brain/wiki/cove-legal-framework.md",
+        "title": "Cove Legal Framework"
+      }
+    ],
+    "assessor": [
+      {
+        "path": "Brain/wiki/cove-property-geology.md",
+        "title": "Property & Geology"
+      }
+    ],
+    "atlas": [
+      {
+        "path": "Brain/wiki/canary-architecture.md",
+        "title": "Canary Architecture"
+      }
+    ],
+    "authority": [
+      {
+        "path": "Brain/wiki/cove-legal-framework.md",
+        "title": "Cove Legal Framework"
+      }
+    ],
+    "bay": [
+      {
+        "path": "Brain/wiki/south-bay-wiki-architecture.md",
+        "title": "South Bay Wiki — Content Architecture"
+      }
+    ],
+    "bend": [
+      {
+        "path": "Brain/wiki/cove-pv-declaration-scheme.md",
+        "title": "PV Corp Declaration Scheme & the Olmsted Legacy"
+      }
+    ],
+    "blog": [
+      {
+        "path": "Brain/wiki/cove-pv-declaration-scheme.md",
+        "title": "PV Corp Declaration Scheme & the Olmsted Legacy"
+      }
+    ],
+    "brain": [
+      {
+        "path": "Brain/wiki/document-management.md",
+        "title": "Document Management Strategy"
+      },
+      {
+        "path": "Brain/wiki/growdirect-workflow.md",
+        "title": "GrowDirect Workflow"
+      }
+    ],
+    "bridge": [
+      {
+        "path": "Brain/wiki/growdirect-workflow.md",
+        "title": "GrowDirect Workflow"
+      }
+    ],
+    "briefs": [
+      {
+        "path": "Brain/wiki/cove-0-clipper.md",
+        "title": "0 Clipper Road"
+      },
+      {
+        "path": "Brain/wiki/cove-lot-h-discovery.md",
+        "title": "Lot H Discovery"
+      }
+    ],
+    "broader": [
+      {
+        "path": "Brain/wiki/claim-lot-h-scope-correction.md",
+        "title": "Claim: Lot H Declaration Contains Only Racial Exclusionary Language"
+      }
+    ],
+    "builder": [
+      {
+        "path": "Brain/wiki/cove-0-clipper.md",
+        "title": "0 Clipper Road"
+      },
+      {
+        "path": "Brain/wiki/cove-city-positions.md",
+        "title": "City Positions Cross-Reference"
+      }
+    ],
+    "builder's": [
+      {
+        "path": "Brain/wiki/cove-city-positions.md",
+        "title": "City Positions Cross-Reference"
+      }
+    ],
+    "building": [
+      {
+        "path": "Brain/wiki/south-bay-wiki-architecture.md",
+        "title": "South Bay Wiki — Content Architecture"
+      }
+    ],
+    "built": [
+      {
+        "path": "Brain/wiki/south-bay-wiki-architecture.md",
+        "title": "South Bay Wiki — Content Architecture"
+      }
+    ],
+    "calendar": [
+      {
+        "path": "Brain/wiki/south-bay-wiki-architecture.md",
+        "title": "South Bay Wiki — Content Architecture"
+      }
+    ],
+    "canary": [
+      {
+        "path": "Brain/wiki/canary-architecture.md",
+        "title": "Canary Architecture"
+      },
+      {
+        "path": "Brain/wiki/canary-data-model.md",
+        "title": "Canary Data Model"
+      },
+      {
+        "path": "Brain/wiki/canary-detection.md",
+        "title": "Canary Detection Engine"
+      },
+      {
+        "path": "Brain/wiki/canary-sales-strategy.md",
+        "title": "Canary Sales Strategy"
+      },
+      {
+        "path": "Brain/projects/Canary.md",
+        "title": "Canary"
+      }
+    ],
+    "case": [
+      {
+        "path": "Brain/wiki/canary-data-model.md",
+        "title": "Canary Data Model"
+      }
+    ],
+    "catalog": [
+      {
+        "path": "Brain/wiki/canary-detection.md",
+        "title": "Canary Detection Engine"
+      }
+    ],
+    "categories": [
+      {
+        "path": "Brain/wiki/canary-detection.md",
+        "title": "Canary Detection Engine"
+      }
+    ],
+    "caught": [
+      {
+        "path": "Brain/wiki/cove-lot-h-discovery.md",
+        "title": "Lot H Discovery"
+      }
+    ],
+    "caused": [
+      {
+        "path": "Brain/wiki/cove-property-geology.md",
+        "title": "Property & Geology"
+      }
+    ],
+    "cc&r": [
+      {
+        "path": "Brain/wiki/cove-0-clipper.md",
+        "title": "0 Clipper Road"
+      },
+      {
+        "path": "Brain/wiki/cove-legal-framework.md",
+        "title": "Cove Legal Framework"
+      }
+    ],
+    "cc&rs": [
+      {
+        "path": "Brain/wiki/cove-city-positions.md",
+        "title": "City Positions Cross-Reference"
+      }
+    ],
+    "ccrs": [
+      {
+        "path": "Brain/wiki/cove-legal-framework.md",
+        "title": "Cove Legal Framework"
+      },
+      {
+        "path": "Brain/wiki/cove-lot-h-discovery.md",
+        "title": "Lot H Discovery"
+      }
+    ],
+    "ceqa": [
+      {
+        "path": "Brain/wiki/cove-city-positions.md",
+        "title": "City Positions Cross-Reference"
+      }
+    ],
+    "chain": [
+      {
+        "path": "Brain/wiki/cove-legal-framework.md",
+        "title": "Cove Legal Framework"
+      }
+    ],
+    "changes": [
+      {
+        "path": "Brain/wiki/claim-lot-h-scope-correction.md",
+        "title": "Claim: Lot H Declaration Contains Only Racial Exclusionary Language"
+      }
+    ],
+    "check": [
+      {
+        "path": "Brain/wiki/document-management.md",
+        "title": "Document Management Strategy"
+      }
+    ],
+    "chirp": [
+      {
+        "path": "Brain/wiki/canary-detection.md",
+        "title": "Canary Detection Engine"
+      }
+    ],
+    "city": [
+      {
+        "path": "Brain/wiki/cove-0-clipper.md",
+        "title": "0 Clipper Road"
+      },
+      {
+        "path": "Brain/wiki/cove-city-positions.md",
+        "title": "City Positions Cross-Reference"
+      },
+      {
+        "path": "Brain/wiki/cove-community-history.md",
+        "title": "Community History"
+      },
+      {
+        "path": "Brain/wiki/cove-property-geology.md",
+        "title": "Property & Geology"
+      }
+    ],
+    "city-positions": [
+      {
+        "path": "Brain/wiki/cove-city-positions.md",
+        "title": "City Positions Cross-Reference"
+      }
+    ],
+    "claim": [
+      {
+        "path": "Brain/wiki/claim-lot-h-scope-correction.md",
+        "title": "Claim: Lot H Declaration Contains Only Racial Exclusionary Language"
+      }
+    ],
+    "claim:": [
+      {
+        "path": "Brain/wiki/claim-lot-h-scope-correction.md",
+        "title": "Claim: Lot H Declaration Contains Only Racial Exclusionary Language"
+      }
+    ],
+    "claude": [
+      {
+        "path": "Brain/wiki/growdirect-workflow.md",
+        "title": "GrowDirect Workflow"
+      }
+    ],
+    "clipper": [
+      {
+        "path": "Brain/wiki/cove-0-clipper.md",
+        "title": "0 Clipper Road"
+      },
+      {
+        "path": "Brain/wiki/cove-city-positions.md",
+        "title": "City Positions Cross-Reference"
+      },
+      {
+        "path": "Brain/wiki/cove-lot-h-discovery.md",
+        "title": "Lot H Discovery"
+      }
+    ],
+    "club": [
+      {
+        "path": "Brain/wiki/cove-community-history.md",
+        "title": "Community History"
+      }
+    ],
+    "coastal": [
+      {
+        "path": "Brain/wiki/cove-city-positions.md",
+        "title": "City Positions Cross-Reference"
+      }
+    ],
+    "code": [
+      {
+        "path": "Brain/wiki/cove-city-positions.md",
+        "title": "City Positions Cross-Reference"
+      },
+      {
+        "path": "Brain/wiki/growdirect-workflow.md",
+        "title": "GrowDirect Workflow"
+      }
+    ],
+    "commission": [
+      {
+        "path": "Brain/wiki/cove-city-positions.md",
+        "title": "City Positions Cross-Reference"
+      }
+    ],
+    "community": [
+      {
+        "path": "Brain/wiki/cove-community-history.md",
+        "title": "Community History"
+      },
+      {
+        "path": "Brain/wiki/cove-property-geology.md",
+        "title": "Property & Geology"
+      }
+    ],
+    "complex": [
+      {
+        "path": "Brain/wiki/cove-property-geology.md",
+        "title": "Property & Geology"
+      }
+    ],
+    "compliance": [
+      {
+        "path": "Brain/wiki/cove-city-positions.md",
+        "title": "City Positions Cross-Reference"
+      }
+    ],
+    "concept": [
+      {
+        "path": "Brain/wiki/south-bay-wiki-architecture.md",
+        "title": "South Bay Wiki — Content Architecture"
+      }
+    ],
+    "conflict": [
+      {
+        "path": "Brain/wiki/cove-city-positions.md",
+        "title": "City Positions Cross-Reference"
+      }
+    ],
+    "confusion": [
+      {
+        "path": "Brain/wiki/claim-lot-h-scope-correction.md",
+        "title": "Claim: Lot H Declaration Contains Only Racial Exclusionary Language"
+      },
+      {
+        "path": "Brain/wiki/cove-lot-h-discovery.md",
+        "title": "Lot H Discovery"
+      }
+    ],
+    "connection": [
+      {
+        "path": "Brain/wiki/cove-pv-declaration-scheme.md",
+        "title": "PV Corp Declaration Scheme & the Olmsted Legacy"
+      }
+    ],
+    "conservancy": [
+      {
+        "path": "Brain/wiki/cove-community-history.md",
+        "title": "Community History"
+      }
+    ],
+    "contains": [
+      {
+        "path": "Brain/wiki/claim-lot-h-scope-correction.md",
+        "title": "Claim: Lot H Declaration Contains Only Racial Exclusionary Language"
+      }
+    ],
+    "content": [
+      {
+        "path": "Brain/wiki/south-bay-wiki-architecture.md",
+        "title": "South Bay Wiki — Content Architecture"
+      }
+    ],
+    "content-engine": [
+      {
+        "path": "Brain/wiki/document-management.md",
+        "title": "Document Management Strategy"
+      }
+    ],
+    "content-strategy": [
+      {
+        "path": "Brain/wiki/south-bay-wiki-architecture.md",
+        "title": "South Bay Wiki — Content Architecture"
+      }
+    ],
+    "core": [
+      {
+        "path": "Brain/wiki/canary-data-model.md",
+        "title": "Canary Data Model"
+      }
+    ],
+    "corp": [
+      {
+        "path": "Brain/wiki/cove-community-history.md",
+        "title": "Community History"
+      },
+      {
+        "path": "Brain/wiki/cove-pv-declaration-scheme.md",
+        "title": "PV Corp Declaration Scheme & the Olmsted Legacy"
+      }
+    ],
+    "corp's": [
+      {
+        "path": "Brain/wiki/claim-lot-h-scope-correction.md",
+        "title": "Claim: Lot H Declaration Contains Only Racial Exclusionary Language"
+      }
+    ],
+    "correction": [
+      {
+        "path": "Brain/wiki/claim-lot-h-scope-correction.md",
+        "title": "Claim: Lot H Declaration Contains Only Racial Exclusionary Language"
+      }
+    ],
+    "correspondence": [
+      {
+        "path": "Brain/wiki/cove-city-positions.md",
+        "title": "City Positions Cross-Reference"
+      }
+    ],
+    "council": [
+      {
+        "path": "Brain/wiki/cove-city-positions.md",
+        "title": "City Positions Cross-Reference"
+      }
+    ],
+    "counter": [
+      {
+        "path": "Brain/wiki/cove-0-clipper.md",
+        "title": "0 Clipper Road"
+      }
+    ],
+    "cove": [
+      {
+        "path": "Brain/wiki/claim-lot-h-scope-correction.md",
+        "title": "Claim: Lot H Declaration Contains Only Racial Exclusionary Language"
+      },
+      {
+        "path": "Brain/wiki/cove-0-clipper.md",
+        "title": "0 Clipper Road"
+      },
+      {
+        "path": "Brain/wiki/cove-city-positions.md",
+        "title": "City Positions Cross-Reference"
+      },
+      {
+        "path": "Brain/wiki/cove-community-history.md",
+        "title": "Community History"
+      },
+      {
+        "path": "Brain/wiki/cove-governance.md",
+        "title": "Governance & Operations"
+      },
+      {
+        "path": "Brain/wiki/cove-legal-framework.md",
+        "title": "Cove Legal Framework"
+      },
+      {
+        "path": "Brain/wiki/cove-lot-h-discovery.md",
+        "title": "Lot H Discovery"
+      },
+      {
+        "path": "Brain/wiki/cove-platform.md",
+        "title": "Cove Platform Development"
+      },
+      {
+        "path": "Brain/wiki/cove-property-geology.md",
+        "title": "Property & Geology"
+      },
+      {
+        "path": "Brain/wiki/cove-pv-declaration-scheme.md",
+        "title": "PV Corp Declaration Scheme & the Olmsted Legacy"
+      },
+      {
+        "path": "Brain/projects/Cove.md",
+        "title": "Cove"
+      }
+    ],
+    "cover": [
+      {
+        "path": "Brain/wiki/document-management.md",
+        "title": "Document Management Strategy"
+      }
+    ],
+    "covered": [
+      {
+        "path": "Brain/wiki/south-bay-wiki-architecture.md",
+        "title": "South Bay Wiki — Content Architecture"
+      }
+    ],
+    "cowork": [
+      {
+        "path": "Brain/wiki/growdirect-workflow.md",
+        "title": "GrowDirect Workflow"
+      }
+    ],
+    "crawl": [
+      {
+        "path": "Brain/wiki/south-bay-wiki-architecture.md",
+        "title": "South Bay Wiki — Content Architecture"
+      }
+    ],
+    "crdm": [
+      {
+        "path": "Brain/wiki/canary-data-model.md",
+        "title": "Canary Data Model"
+      }
+    ],
+    "critical": [
+      {
+        "path": "Brain/wiki/cove-property-geology.md",
+        "title": "Property & Geology"
+      }
+    ],
+    "cross": [
+      {
+        "path": "Brain/wiki/cove-city-positions.md",
+        "title": "City Positions Cross-Reference"
+      },
+      {
+        "path": "Brain/wiki/growdirect-workflow.md",
+        "title": "GrowDirect Workflow"
+      }
+    ],
+    "cross-reference": [
+      {
+        "path": "Brain/wiki/cove-city-positions.md",
+        "title": "City Positions Cross-Reference"
+      }
+    ],
+    "current": [
+      {
+        "path": "Brain/wiki/cove-0-clipper.md",
+        "title": "0 Clipper Road"
+      },
+      {
+        "path": "Brain/wiki/cove-governance.md",
+        "title": "Governance & Operations"
+      },
+      {
+        "path": "Brain/wiki/cove-platform.md",
+        "title": "Cove Platform Development"
+      },
+      {
+        "path": "Brain/wiki/document-management.md",
+        "title": "Document Management Strategy"
+      }
+    ],
+    "data": [
+      {
+        "path": "Brain/wiki/canary-architecture.md",
+        "title": "Canary Architecture"
+      },
+      {
+        "path": "Brain/wiki/canary-data-model.md",
+        "title": "Canary Data Model"
+      }
+    ],
+    "database": [
+      {
+        "path": "Brain/wiki/canary-architecture.md",
+        "title": "Canary Architecture"
+      },
+      {
+        "path": "Brain/wiki/canary-data-model.md",
+        "title": "Canary Data Model"
+      }
+    ],
+    "date": [
+      {
+        "path": "Brain/wiki/document-management.md",
+        "title": "Document Management Strategy"
+      }
+    ],
+    "decades": [
+      {
+        "path": "Brain/wiki/cove-governance.md",
+        "title": "Governance & Operations"
+      }
+    ],
+    "decisions": [
+      {
+        "path": "Brain/wiki/south-bay-wiki-architecture.md",
+        "title": "South Bay Wiki — Content Architecture"
+      }
+    ],
+    "declaration": [
+      {
+        "path": "Brain/wiki/claim-lot-h-scope-correction.md",
+        "title": "Claim: Lot H Declaration Contains Only Racial Exclusionary Language"
+      },
+      {
+        "path": "Brain/wiki/cove-pv-declaration-scheme.md",
+        "title": "PV Corp Declaration Scheme & the Olmsted Legacy"
+      }
+    ],
+    "declaration?": [
+      {
+        "path": "Brain/wiki/cove-lot-h-discovery.md",
+        "title": "Lot H Discovery"
+      }
+    ],
+    "declarations": [
+      {
+        "path": "Brain/wiki/cove-pv-declaration-scheme.md",
+        "title": "PV Corp Declaration Scheme & the Olmsted Legacy"
+      }
+    ],
+    "defense": [
+      {
+        "path": "Brain/wiki/cove-0-clipper.md",
+        "title": "0 Clipper Road"
+      }
+    ],
+    "delete": [
+      {
+        "path": "Brain/wiki/document-management.md",
+        "title": "Document Management Strategy"
+      }
+    ],
+    "density": [
+      {
+        "path": "Brain/wiki/cove-city-positions.md",
+        "title": "City Positions Cross-Reference"
+      }
+    ],
+    "design": [
+      {
+        "path": "Brain/wiki/canary-architecture.md",
+        "title": "Canary Architecture"
+      },
+      {
+        "path": "Brain/wiki/canary-sales-strategy.md",
+        "title": "Canary Sales Strategy"
+      },
+      {
+        "path": "Brain/wiki/document-management.md",
+        "title": "Document Management Strategy"
+      }
+    ],
+    "desktop": [
+      {
+        "path": "Brain/wiki/growdirect-workflow.md",
+        "title": "GrowDirect Workflow"
+      }
+    ],
+    "detection": [
+      {
+        "path": "Brain/wiki/canary-detection.md",
+        "title": "Canary Detection Engine"
+      }
+    ],
+    "detection-rules": [
+      {
+        "path": "Brain/wiki/canary-sales-strategy.md",
+        "title": "Canary Sales Strategy"
+      }
+    ],
+    "development": [
+      {
+        "path": "Brain/wiki/cove-0-clipper.md",
+        "title": "0 Clipper Road"
+      },
+      {
+        "path": "Brain/wiki/cove-city-positions.md",
+        "title": "City Positions Cross-Reference"
+      },
+      {
+        "path": "Brain/wiki/cove-platform.md",
+        "title": "Cove Platform Development"
+      }
+    ],
+    "discovery": [
+      {
+        "path": "Brain/wiki/cove-lot-h-discovery.md",
+        "title": "Lot H Discovery"
+      }
+    ],
+    "distribution": [
+      {
+        "path": "Brain/wiki/canary-detection.md",
+        "title": "Canary Detection Engine"
+      },
+      {
+        "path": "Brain/wiki/cove-legal-framework.md",
+        "title": "Cove Legal Framework"
+      },
+      {
+        "path": "Brain/wiki/south-bay-wiki-architecture.md",
+        "title": "South Bay Wiki — Content Architecture"
+      }
+    ],
+    "document": [
+      {
+        "path": "Brain/wiki/cove-lot-h-discovery.md",
+        "title": "Lot H Discovery"
+      },
+      {
+        "path": "Brain/wiki/document-management.md",
+        "title": "Document Management Strategy"
+      }
+    ],
+    "documents": [
+      {
+        "path": "Brain/wiki/claim-lot-h-scope-correction.md",
+        "title": "Claim: Lot H Declaration Contains Only Racial Exclusionary Language"
+      },
+      {
+        "path": "Brain/wiki/cove-0-clipper.md",
+        "title": "0 Clipper Road"
+      },
+      {
+        "path": "Brain/wiki/cove-governance.md",
+        "title": "Governance & Operations"
+      },
+      {
+        "path": "Brain/wiki/document-management.md",
+        "title": "Document Management Strategy"
+      }
+    ],
+    "done": [
+      {
+        "path": "Brain/wiki/document-management.md",
+        "title": "Document Management Strategy"
+      }
+    ],
+    "duration": [
+      {
+        "path": "Brain/wiki/cove-lot-h-discovery.md",
+        "title": "Lot H Discovery"
+      }
+    ],
+    "during": [
+      {
+        "path": "Brain/wiki/growdirect-workflow.md",
+        "title": "GrowDirect Workflow"
+      }
+    ],
+    "east": [
+      {
+        "path": "Brain/wiki/cove-pv-declaration-scheme.md",
+        "title": "PV Corp Declaration Scheme & the Olmsted Legacy"
+      }
+    ],
+    "element": [
+      {
+        "path": "Brain/wiki/cove-city-positions.md",
+        "title": "City Positions Cross-Reference"
+      }
+    ],
+    "enforce": [
+      {
+        "path": "Brain/wiki/document-management.md",
+        "title": "Document Management Strategy"
+      }
+    ],
+    "enforcement": [
+      {
+        "path": "Brain/wiki/cove-legal-framework.md",
+        "title": "Cove Legal Framework"
+      },
+      {
+        "path": "Brain/wiki/cove-lot-h-discovery.md",
+        "title": "Lot H Discovery"
+      }
+    ],
+    "engine": [
+      {
+        "path": "Brain/wiki/canary-detection.md",
+        "title": "Canary Detection Engine"
+      },
+      {
+        "path": "Brain/wiki/south-bay-wiki-architecture.md",
+        "title": "South Bay Wiki — Content Architecture"
+      }
+    ],
+    "enhancement": [
+      {
+        "path": "Brain/wiki/cove-legal-framework.md",
+        "title": "Cove Legal Framework"
+      }
+    ],
+    "entries": [
+      {
+        "path": "Brain/wiki/cove-city-positions.md",
+        "title": "City Positions Cross-Reference"
+      }
+    ],
+    "environmental": [
+      {
+        "path": "Brain/wiki/cove-city-positions.md",
+        "title": "City Positions Cross-Reference"
+      }
+    ],
+    "exclusionary": [
+      {
+        "path": "Brain/wiki/claim-lot-h-scope-correction.md",
+        "title": "Claim: Lot H Declaration Contains Only Racial Exclusionary Language"
+      }
+    ],
+    "fact": [
+      {
+        "path": "Brain/wiki/cove-city-positions.md",
+        "title": "City Positions Cross-Reference"
+      }
+    ],
+    "farming": [
+      {
+        "path": "Brain/wiki/cove-community-history.md",
+        "title": "Community History"
+      }
+    ],
+    "file": [
+      {
+        "path": "Brain/wiki/document-management.md",
+        "title": "Document Management Strategy"
+      }
+    ],
+    "filings": [
+      {
+        "path": "Brain/wiki/cove-city-positions.md",
+        "title": "City Positions Cross-Reference"
+      }
+    ],
+    "finding:": [
+      {
+        "path": "Brain/wiki/cove-property-geology.md",
+        "title": "Property & Geology"
+      }
+    ],
+    "first": [
+      {
+        "path": "Brain/wiki/canary-sales-strategy.md",
+        "title": "Canary Sales Strategy"
+      },
+      {
+        "path": "Brain/wiki/document-management.md",
+        "title": "Document Management Strategy"
+      }
+    ],
+    "flask": [
+      {
+        "path": "Brain/wiki/cove-platform.md",
+        "title": "Cove Platform Development"
+      }
+    ],
+    "flat": [
+      {
+        "path": "Brain/wiki/document-management.md",
+        "title": "Document Management Strategy"
+      }
+    ],
+    "flow": [
+      {
+        "path": "Brain/wiki/canary-architecture.md",
+        "title": "Canary Architecture"
+      }
+    ],
+    "formation": [
+      {
+        "path": "Brain/wiki/cove-property-geology.md",
+        "title": "Property & Geology"
+      }
+    ],
+    "forward": [
+      {
+        "path": "Brain/wiki/document-management.md",
+        "title": "Document Management Strategy"
+      }
+    ],
+    "found": [
+      {
+        "path": "Brain/wiki/claim-lot-h-scope-correction.md",
+        "title": "Claim: Lot H Declaration Contains Only Racial Exclusionary Language"
+      }
+    ],
+    "foundation": [
+      {
+        "path": "Brain/wiki/cove-governance.md",
+        "title": "Governance & Operations"
+      },
+      {
+        "path": "Brain/wiki/cove-platform.md",
+        "title": "Cove Platform Development"
+      }
+    ],
+    "founding": [
+      {
+        "path": "Brain/wiki/cove-legal-framework.md",
+        "title": "Cove Legal Framework"
+      }
+    ],
+    "framework": [
+      {
+        "path": "Brain/wiki/cove-legal-framework.md",
+        "title": "Cove Legal Framework"
+      }
+    ],
+    "freshness": [
+      {
+        "path": "Brain/wiki/south-bay-wiki-architecture.md",
+        "title": "South Bay Wiki — Content Architecture"
+      }
+    ],
+    "general": [
+      {
+        "path": "Brain/wiki/cove-city-positions.md",
+        "title": "City Positions Cross-Reference"
+      }
+    ],
+    "geography": [
+      {
+        "path": "Brain/wiki/south-bay-wiki-architecture.md",
+        "title": "South Bay Wiki — Content Architecture"
+      }
+    ],
+    "geological": [
+      {
+        "path": "Brain/wiki/cove-0-clipper.md",
+        "title": "0 Clipper Road"
+      },
+      {
+        "path": "Brain/wiki/cove-city-positions.md",
+        "title": "City Positions Cross-Reference"
+      },
+      {
+        "path": "Brain/wiki/cove-property-geology.md",
+        "title": "Property & Geology"
+      }
+    ],
+    "geology": [
+      {
+        "path": "Brain/wiki/cove-property-geology.md",
+        "title": "Property & Geology"
+      }
+    ],
+    "go-to-market": [
+      {
+        "path": "Brain/wiki/canary-sales-strategy.md",
+        "title": "Canary Sales Strategy"
+      }
+    ],
+    "going": [
+      {
+        "path": "Brain/wiki/document-management.md",
+        "title": "Document Management Strategy"
+      }
+    ],
+    "gold": [
+      {
+        "path": "Brain/wiki/canary-sales-strategy.md",
+        "title": "Canary Sales Strategy"
+      }
+    ],
+    "governance": [
+      {
+        "path": "Brain/wiki/cove-governance.md",
+        "title": "Governance & Operations"
+      },
+      {
+        "path": "Brain/wiki/document-management.md",
+        "title": "Document Management Strategy"
+      }
+    ],
+    "governing": [
+      {
+        "path": "Brain/wiki/cove-governance.md",
+        "title": "Governance & Operations"
+      }
+    ],
+    "growdirect": [
+      {
+        "path": "Brain/wiki/growdirect-workflow.md",
+        "title": "GrowDirect Workflow"
+      }
+    ],
+    "guide": [
+      {
+        "path": "Brain/wiki/south-bay-wiki-architecture.md",
+        "title": "South Bay Wiki — Content Architecture"
+      }
+    ],
+    "handoff": [
+      {
+        "path": "Brain/wiki/growdirect-workflow.md",
+        "title": "GrowDirect Workflow"
+      }
+    ],
+    "handoffs": [
+      {
+        "path": "Brain/wiki/growdirect-workflow.md",
+        "title": "GrowDirect Workflow"
+      }
+    ],
+    "happen": [
+      {
+        "path": "Brain/wiki/document-management.md",
+        "title": "Document Management Strategy"
+      }
+    ],
+    "hazards": [
+      {
+        "path": "Brain/wiki/cove-0-clipper.md",
+        "title": "0 Clipper Road"
+      },
+      {
+        "path": "Brain/wiki/cove-city-positions.md",
+        "title": "City Positions Cross-Reference"
+      }
+    ],
+    "historical": [
+      {
+        "path": "Brain/wiki/cove-pv-declaration-scheme.md",
+        "title": "PV Corp Declaration Scheme & the Olmsted Legacy"
+      }
+    ],
+    "history": [
+      {
+        "path": "Brain/wiki/claim-lot-h-scope-correction.md",
+        "title": "Claim: Lot H Declaration Contains Only Racial Exclusionary Language"
+      },
+      {
+        "path": "Brain/wiki/cove-community-history.md",
+        "title": "Community History"
+      },
+      {
+        "path": "Brain/wiki/cove-pv-declaration-scheme.md",
+        "title": "PV Corp Declaration Scheme & the Olmsted Legacy"
+      }
+    ],
+    "home": [
+      {
+        "path": "Brain/wiki/document-management.md",
+        "title": "Document Management Strategy"
+      }
+    ],
+    "housing": [
+      {
+        "path": "Brain/wiki/cove-city-positions.md",
+        "title": "City Positions Cross-Reference"
+      },
+      {
+        "path": "Brain/wiki/cove-legal-framework.md",
+        "title": "Cove Legal Framework"
+      }
+    ],
+    "hunting": [
+      {
+        "path": "Brain/wiki/canary-sales-strategy.md",
+        "title": "Canary Sales Strategy"
+      }
+    ],
+    "immutability": [
+      {
+        "path": "Brain/wiki/canary-data-model.md",
+        "title": "Canary Data Model"
+      }
+    ],
+    "impact": [
+      {
+        "path": "Brain/wiki/cove-property-geology.md",
+        "title": "Property & Geology"
+      }
+    ],
+    "implementation": [
+      {
+        "path": "Brain/wiki/south-bay-wiki-architecture.md",
+        "title": "South Bay Wiki — Content Architecture"
+      }
+    ],
+    "implications": [
+      {
+        "path": "Brain/wiki/cove-lot-h-discovery.md",
+        "title": "Lot H Discovery"
+      }
+    ],
+    "incorporation": [
+      {
+        "path": "Brain/wiki/cove-community-history.md",
+        "title": "Community History"
+      }
+    ],
+    "ingest": [
+      {
+        "path": "Brain/wiki/document-management.md",
+        "title": "Document Management Strategy"
+      }
+    ],
+    "instruments": [
+      {
+        "path": "Brain/wiki/cove-legal-framework.md",
+        "title": "Cove Legal Framework"
+      }
+    ],
+    "intake": [
+      {
+        "path": "Brain/wiki/document-management.md",
+        "title": "Document Management Strategy"
+      }
+    ],
+    "interest": [
+      {
+        "path": "Brain/wiki/cove-city-positions.md",
+        "title": "City Positions Cross-Reference"
+      }
+    ],
+    "japanese": [
+      {
+        "path": "Brain/wiki/cove-community-history.md",
+        "title": "Community History"
+      }
+    ],
+    "knowledge": [
+      {
+        "path": "Brain/wiki/document-management.md",
+        "title": "Document Management Strategy"
+      },
+      {
+        "path": "Brain/wiki/growdirect-workflow.md",
+        "title": "GrowDirect Workflow"
+      }
+    ],
+    "knows": [
+      {
+        "path": "Brain/wiki/cove-property-geology.md",
+        "title": "Property & Geology"
+      }
+    ],
+    "ladder": [
+      {
+        "path": "Brain/wiki/canary-sales-strategy.md",
+        "title": "Canary Sales Strategy"
+      }
+    ],
+    "landslide": [
+      {
+        "path": "Brain/wiki/cove-city-positions.md",
+        "title": "City Positions Cross-Reference"
+      },
+      {
+        "path": "Brain/wiki/cove-property-geology.md",
+        "title": "Property & Geology"
+      }
+    ],
+    "language": [
+      {
+        "path": "Brain/wiki/claim-lot-h-scope-correction.md",
+        "title": "Claim: Lot H Declaration Contains Only Racial Exclusionary Language"
+      }
+    ],
+    "layer": [
+      {
+        "path": "Brain/wiki/cove-legal-framework.md",
+        "title": "Cove Legal Framework"
+      }
+    ],
+    "layers": [
+      {
+        "path": "Brain/wiki/growdirect-workflow.md",
+        "title": "GrowDirect Workflow"
+      }
+    ],
+    "layout": [
+      {
+        "path": "Brain/wiki/cove-property-geology.md",
+        "title": "Property & Geology"
+      }
+    ],
+    "legacy": [
+      {
+        "path": "Brain/wiki/cove-pv-declaration-scheme.md",
+        "title": "PV Corp Declaration Scheme & the Olmsted Legacy"
+      }
+    ],
+    "legal": [
+      {
+        "path": "Brain/wiki/claim-lot-h-scope-correction.md",
+        "title": "Claim: Lot H Declaration Contains Only Racial Exclusionary Language"
+      },
+      {
+        "path": "Brain/wiki/cove-0-clipper.md",
+        "title": "0 Clipper Road"
+      },
+      {
+        "path": "Brain/wiki/cove-legal-framework.md",
+        "title": "Cove Legal Framework"
+      },
+      {
+        "path": "Brain/wiki/cove-lot-h-discovery.md",
+        "title": "Lot H Discovery"
+      },
+      {
+        "path": "Brain/wiki/cove-pv-declaration-scheme.md",
+        "title": "PV Corp Declaration Scheme & the Olmsted Legacy"
+      }
+    ],
+    "letters": [
+      {
+        "path": "Brain/wiki/cove-city-positions.md",
+        "title": "City Positions Cross-Reference"
+      }
+    ],
+    "lifecycle": [
+      {
+        "path": "Brain/wiki/growdirect-workflow.md",
+        "title": "GrowDirect Workflow"
+      }
+    ],
+    "lifestyle": [
+      {
+        "path": "Brain/wiki/south-bay-wiki-architecture.md",
+        "title": "South Bay Wiki — Content Architecture"
+      }
+    ],
+    "linear": [
+      {
+        "path": "Brain/wiki/growdirect-workflow.md",
+        "title": "GrowDirect Workflow"
+      }
+    ],
+    "list": [
+      {
+        "path": "Brain/wiki/canary-sales-strategy.md",
+        "title": "Canary Sales Strategy"
+      }
+    ],
+    "litigation": [
+      {
+        "path": "Brain/wiki/cove-0-clipper.md",
+        "title": "0 Clipper Road"
+      },
+      {
+        "path": "Brain/wiki/cove-city-positions.md",
+        "title": "City Positions Cross-Reference"
+      }
+    ],
+    "live": [
+      {
+        "path": "Brain/wiki/document-management.md",
+        "title": "Document Management Strategy"
+      }
+    ],
+    "lives": [
+      {
+        "path": "Brain/wiki/south-bay-wiki-architecture.md",
+        "title": "South Bay Wiki — Content Architecture"
+      }
+    ],
+    "local": [
+      {
+        "path": "Brain/wiki/cove-city-positions.md",
+        "title": "City Positions Cross-Reference"
+      }
+    ],
+    "location": [
+      {
+        "path": "Brain/wiki/document-management.md",
+        "title": "Document Management Strategy"
+      }
+    ],
+    "loss-prevention": [
+      {
+        "path": "Brain/wiki/canary-detection.md",
+        "title": "Canary Detection Engine"
+      }
+    ],
+    "lot": [
+      {
+        "path": "Brain/wiki/claim-lot-h-scope-correction.md",
+        "title": "Claim: Lot H Declaration Contains Only Racial Exclusionary Language"
+      },
+      {
+        "path": "Brain/wiki/cove-lot-h-discovery.md",
+        "title": "Lot H Discovery"
+      }
+    ],
+    "lot-h": [
+      {
+        "path": "Brain/wiki/claim-lot-h-scope-correction.md",
+        "title": "Claim: Lot H Declaration Contains Only Racial Exclusionary Language"
+      },
+      {
+        "path": "Brain/wiki/cove-legal-framework.md",
+        "title": "Cove Legal Framework"
+      },
+      {
+        "path": "Brain/wiki/cove-lot-h-discovery.md",
+        "title": "Lot H Discovery"
+      }
+    ],
+    "maintenance": [
+      {
+        "path": "Brain/wiki/document-management.md",
+        "title": "Document Management Strategy"
+      }
+    ],
+    "management": [
+      {
+        "path": "Brain/wiki/canary-data-model.md",
+        "title": "Canary Data Model"
+      },
+      {
+        "path": "Brain/wiki/document-management.md",
+        "title": "Document Management Strategy"
+      },
+      {
+        "path": "Brain/wiki/south-bay-wiki-architecture.md",
+        "title": "South Bay Wiki — Content Architecture"
+      }
+    ],
+    "maps": [
+      {
+        "path": "Brain/wiki/cove-property-geology.md",
+        "title": "Property & Geology"
+      }
+    ],
+    "mcp": [
+      {
+        "path": "Brain/wiki/canary-architecture.md",
+        "title": "Canary Architecture"
+      }
+    ],
+    "means": [
+      {
+        "path": "Brain/wiki/cove-lot-h-discovery.md",
+        "title": "Lot H Discovery"
+      }
+    ],
+    "merchants": [
+      {
+        "path": "Brain/wiki/canary-sales-strategy.md",
+        "title": "Canary Sales Strategy"
+      }
+    ],
+    "metrics": [
+      {
+        "path": "Brain/wiki/canary-data-model.md",
+        "title": "Canary Data Model"
+      }
+    ],
+    "migration": [
+      {
+        "path": "Brain/wiki/document-management.md",
+        "title": "Document Management Strategy"
+      }
+    ],
+    "minimum": [
+      {
+        "path": "Brain/wiki/document-management.md",
+        "title": "Document Management Strategy"
+      }
+    ],
+    "mobile": [
+      {
+        "path": "Brain/wiki/canary-sales-strategy.md",
+        "title": "Canary Sales Strategy"
+      }
+    ],
+    "model": [
+      {
+        "path": "Brain/wiki/canary-data-model.md",
+        "title": "Canary Data Model"
+      },
+      {
+        "path": "Brain/wiki/south-bay-wiki-architecture.md",
+        "title": "South Bay Wiki — Content Architecture"
+      }
+    ],
+    "models": [
+      {
+        "path": "Brain/wiki/canary-data-model.md",
+        "title": "Canary Data Model"
+      }
+    ],
+    "modernization": [
+      {
+        "path": "Brain/wiki/cove-legal-framework.md",
+        "title": "Cove Legal Framework"
+      }
+    ],
+    "modules": [
+      {
+        "path": "Brain/wiki/cove-platform.md",
+        "title": "Cove Platform Development"
+      }
+    ],
+    "mootness": [
+      {
+        "path": "Brain/wiki/cove-city-positions.md",
+        "title": "City Positions Cross-Reference"
+      }
+    ],
+    "municipal": [
+      {
+        "path": "Brain/wiki/cove-city-positions.md",
+        "title": "City Positions Cross-Reference"
+      }
+    ],
+    "must": [
+      {
+        "path": "Brain/wiki/document-management.md",
+        "title": "Document Management Strategy"
+      }
+    ],
+    "needs": [
+      {
+        "path": "Brain/wiki/document-management.md",
+        "title": "Document Management Strategy"
+      },
+      {
+        "path": "Brain/wiki/growdirect-workflow.md",
+        "title": "GrowDirect Workflow"
+      }
+    ],
+    "next": [
+      {
+        "path": "Brain/wiki/document-management.md",
+        "title": "Document Management Strategy"
+      },
+      {
+        "path": "Brain/wiki/south-bay-wiki-architecture.md",
+        "title": "South Bay Wiki — Content Architecture"
+      }
+    ],
+    "nobody": [
+      {
+        "path": "Brain/wiki/cove-lot-h-discovery.md",
+        "title": "Lot H Discovery"
+      }
+    ],
+    "noise": [
+      {
+        "path": "Brain/wiki/canary-sales-strategy.md",
+        "title": "Canary Sales Strategy"
+      }
+    ],
+    "olmsted": [
+      {
+        "path": "Brain/wiki/cove-pv-declaration-scheme.md",
+        "title": "PV Corp Declaration Scheme & the Olmsted Legacy"
+      }
+    ],
+    "only": [
+      {
+        "path": "Brain/wiki/claim-lot-h-scope-correction.md",
+        "title": "Claim: Lot H Declaration Contains Only Racial Exclusionary Language"
+      }
+    ],
+    "operational": [
+      {
+        "path": "Brain/wiki/document-management.md",
+        "title": "Document Management Strategy"
+      }
+    ],
+    "operations": [
+      {
+        "path": "Brain/wiki/cove-governance.md",
+        "title": "Governance & Operations"
+      },
+      {
+        "path": "Brain/wiki/growdirect-workflow.md",
+        "title": "GrowDirect Workflow"
+      }
+    ],
+    "ordinance": [
+      {
+        "path": "Brain/wiki/cove-city-positions.md",
+        "title": "City Positions Cross-Reference"
+      }
+    ],
+    "organization": [
+      {
+        "path": "Brain/wiki/cove-governance.md",
+        "title": "Governance & Operations"
+      }
+    ],
+    "origins": [
+      {
+        "path": "Brain/wiki/cove-community-history.md",
+        "title": "Community History"
+      }
+    ],
+    "over": [
+      {
+        "path": "Brain/wiki/canary-sales-strategy.md",
+        "title": "Canary Sales Strategy"
+      }
+    ],
+    "owner": [
+      {
+        "path": "Brain/wiki/cove-0-clipper.md",
+        "title": "0 Clipper Road"
+      }
+    ],
+    "palos-verdes": [
+      {
+        "path": "Brain/wiki/south-bay-wiki-architecture.md",
+        "title": "South Bay Wiki — Content Architecture"
+      }
+    ],
+    "parcel": [
+      {
+        "path": "Brain/wiki/cove-property-geology.md",
+        "title": "Property & Geology"
+      }
+    ],
+    "parcels": [
+      {
+        "path": "Brain/wiki/cove-property-geology.md",
+        "title": "Property & Geology"
+      }
+    ],
+    "parks": [
+      {
+        "path": "Brain/wiki/cove-community-history.md",
+        "title": "Community History"
+      }
+    ],
+    "patterns": [
+      {
+        "path": "Brain/wiki/canary-data-model.md",
+        "title": "Canary Data Model"
+      },
+      {
+        "path": "Brain/wiki/growdirect-workflow.md",
+        "title": "GrowDirect Workflow"
+      }
+    ],
+    "peninsula": [
+      {
+        "path": "Brain/wiki/cove-lot-h-discovery.md",
+        "title": "Lot H Discovery"
+      },
+      {
+        "path": "Brain/wiki/cove-pv-declaration-scheme.md",
+        "title": "PV Corp Declaration Scheme & the Olmsted Legacy"
+      },
+      {
+        "path": "Brain/wiki/south-bay-wiki-architecture.md",
+        "title": "South Bay Wiki — Content Architecture"
+      }
+    ],
+    "people": [
+      {
+        "path": "Brain/wiki/cove-community-history.md",
+        "title": "Community History"
+      }
+    ],
+    "pipeline": [
+      {
+        "path": "Brain/wiki/canary-detection.md",
+        "title": "Canary Detection Engine"
+      },
+      {
+        "path": "Brain/wiki/document-management.md",
+        "title": "Document Management Strategy"
+      },
+      {
+        "path": "Brain/wiki/south-bay-wiki-architecture.md",
+        "title": "South Bay Wiki — Content Architecture"
+      }
+    ],
+    "plan": [
+      {
+        "path": "Brain/wiki/cove-city-positions.md",
+        "title": "City Positions Cross-Reference"
+      },
+      {
+        "path": "Brain/wiki/cove-governance.md",
+        "title": "Governance & Operations"
+      },
+      {
+        "path": "Brain/wiki/document-management.md",
+        "title": "Document Management Strategy"
+      }
+    ],
+    "planning": [
+      {
+        "path": "Brain/wiki/cove-city-positions.md",
+        "title": "City Positions Cross-Reference"
+      }
+    ],
+    "platform": [
+      {
+        "path": "Brain/wiki/canary-data-model.md",
+        "title": "Canary Data Model"
+      },
+      {
+        "path": "Brain/wiki/cove-platform.md",
+        "title": "Cove Platform Development"
+      },
+      {
+        "path": "Brain/wiki/document-management.md",
+        "title": "Document Management Strategy"
+      },
+      {
+        "path": "Brain/wiki/growdirect-workflow.md",
+        "title": "GrowDirect Workflow"
+      }
+    ],
+    "playbooks": [
+      {
+        "path": "Brain/wiki/growdirect-workflow.md",
+        "title": "GrowDirect Workflow"
+      }
+    ],
+    "plumbing": [
+      {
+        "path": "Brain/wiki/cove-property-geology.md",
+        "title": "Property & Geology"
+      }
+    ],
+    "political": [
+      {
+        "path": "Brain/wiki/cove-city-positions.md",
+        "title": "City Positions Cross-Reference"
+      }
+    ],
+    "portuguese": [
+      {
+        "path": "Brain/wiki/cove-pv-declaration-scheme.md",
+        "title": "PV Corp Declaration Scheme & the Olmsted Legacy"
+      }
+    ],
+    "positions": [
+      {
+        "path": "Brain/wiki/cove-city-positions.md",
+        "title": "City Positions Cross-Reference"
+      }
+    ],
+    "post": [
+      {
+        "path": "Brain/wiki/cove-pv-declaration-scheme.md",
+        "title": "PV Corp Declaration Scheme & the Olmsted Legacy"
+      }
+    ],
+    "postgresql": [
+      {
+        "path": "Brain/wiki/canary-data-model.md",
+        "title": "Canary Data Model"
+      }
+    ],
+    "potential": [
+      {
+        "path": "Brain/wiki/cove-pv-declaration-scheme.md",
+        "title": "PV Corp Declaration Scheme & the Olmsted Legacy"
+      }
+    ],
+    "preemption": [
+      {
+        "path": "Brain/wiki/cove-legal-framework.md",
+        "title": "Cove Legal Framework"
+      }
+    ],
+    "prefix": [
+      {
+        "path": "Brain/wiki/document-management.md",
+        "title": "Document Management Strategy"
+      }
+    ],
+    "presentations": [
+      {
+        "path": "Brain/wiki/cove-city-positions.md",
+        "title": "City Positions Cross-Reference"
+      }
+    ],
+    "priority:": [
+      {
+        "path": "Brain/wiki/cove-platform.md",
+        "title": "Cove Platform Development"
+      }
+    ],
+    "private": [
+      {
+        "path": "Brain/wiki/cove-city-positions.md",
+        "title": "City Positions Cross-Reference"
+      }
+    ],
+    "problem:": [
+      {
+        "path": "Brain/wiki/cove-governance.md",
+        "title": "Governance & Operations"
+      }
+    ],
+    "property": [
+      {
+        "path": "Brain/wiki/cove-0-clipper.md",
+        "title": "0 Clipper Road"
+      },
+      {
+        "path": "Brain/wiki/cove-lot-h-discovery.md",
+        "title": "Lot H Discovery"
+      },
+      {
+        "path": "Brain/wiki/cove-property-geology.md",
+        "title": "Property & Geology"
+      }
+    ],
+    "proposal": [
+      {
+        "path": "Brain/wiki/cove-0-clipper.md",
+        "title": "0 Clipper Road"
+      }
+    ],
+    "proposed": [
+      {
+        "path": "Brain/wiki/cove-0-clipper.md",
+        "title": "0 Clipper Road"
+      }
+    ],
+    "proposed:": [
+      {
+        "path": "Brain/wiki/cove-governance.md",
+        "title": "Governance & Operations"
+      }
+    ],
+    "public": [
+      {
+        "path": "Brain/wiki/cove-city-positions.md",
+        "title": "City Positions Cross-Reference"
+      }
+    ],
+    "pv-corp": [
+      {
+        "path": "Brain/wiki/cove-pv-declaration-scheme.md",
+        "title": "PV Corp Declaration Scheme & the Olmsted Legacy"
+      }
+    ],
+    "questions": [
+      {
+        "path": "Brain/wiki/claim-lot-h-scope-correction.md",
+        "title": "Claim: Lot H Declaration Contains Only Racial Exclusionary Language"
+      }
+    ],
+    "racial": [
+      {
+        "path": "Brain/wiki/claim-lot-h-scope-correction.md",
+        "title": "Claim: Lot H Declaration Contains Only Racial Exclusionary Language"
+      }
+    ],
+    "rancho": [
+      {
+        "path": "Brain/wiki/cove-community-history.md",
+        "title": "Community History"
+      }
+    ],
+    "rebuild": [
+      {
+        "path": "Brain/wiki/cove-platform.md",
+        "title": "Cove Platform Development"
+      }
+    ],
+    "records": [
+      {
+        "path": "Brain/wiki/cove-0-clipper.md",
+        "title": "0 Clipper Road"
+      },
+      {
+        "path": "Brain/wiki/cove-city-positions.md",
+        "title": "City Positions Cross-Reference"
+      },
+      {
+        "path": "Brain/wiki/cove-lot-h-discovery.md",
+        "title": "Lot H Discovery"
+      },
+      {
+        "path": "Brain/wiki/cove-property-geology.md",
+        "title": "Property & Geology"
+      }
+    ],
+    "reference": [
+      {
+        "path": "Brain/wiki/cove-city-positions.md",
+        "title": "City Positions Cross-Reference"
+      }
+    ],
+    "reform": [
+      {
+        "path": "Brain/wiki/cove-city-positions.md",
+        "title": "City Positions Cross-Reference"
+      }
+    ],
+    "registry": [
+      {
+        "path": "Brain/wiki/document-management.md",
+        "title": "Document Management Strategy"
+      }
+    ],
+    "related": [
+      {
+        "path": "Brain/wiki/canary-architecture.md",
+        "title": "Canary Architecture"
+      },
+      {
+        "path": "Brain/wiki/canary-data-model.md",
+        "title": "Canary Data Model"
+      },
+      {
+        "path": "Brain/wiki/canary-detection.md",
+        "title": "Canary Detection Engine"
+      },
+      {
+        "path": "Brain/wiki/canary-sales-strategy.md",
+        "title": "Canary Sales Strategy"
+      },
+      {
+        "path": "Brain/wiki/cove-0-clipper.md",
+        "title": "0 Clipper Road"
+      },
+      {
+        "path": "Brain/wiki/cove-city-positions.md",
+        "title": "City Positions Cross-Reference"
+      },
+      {
+        "path": "Brain/wiki/cove-community-history.md",
+        "title": "Community History"
+      },
+      {
+        "path": "Brain/wiki/cove-governance.md",
+        "title": "Governance & Operations"
+      },
+      {
+        "path": "Brain/wiki/cove-legal-framework.md",
+        "title": "Cove Legal Framework"
+      },
+      {
+        "path": "Brain/wiki/cove-lot-h-discovery.md",
+        "title": "Lot H Discovery"
+      },
+      {
+        "path": "Brain/wiki/cove-platform.md",
+        "title": "Cove Platform Development"
+      },
+      {
+        "path": "Brain/wiki/cove-property-geology.md",
+        "title": "Property & Geology"
+      },
+      {
+        "path": "Brain/wiki/cove-pv-declaration-scheme.md",
+        "title": "PV Corp Declaration Scheme & the Olmsted Legacy"
+      },
+      {
+        "path": "Brain/wiki/growdirect-workflow.md",
+        "title": "GrowDirect Workflow"
+      },
+      {
+        "path": "Brain/wiki/south-bay-wiki-architecture.md",
+        "title": "South Bay Wiki — Content Architecture"
+      }
+    ],
+    "remaining": [
+      {
+        "path": "Brain/wiki/claim-lot-h-scope-correction.md",
+        "title": "Claim: Lot H Declaration Contains Only Racial Exclusionary Language"
+      }
+    ],
+    "remedy": [
+      {
+        "path": "Brain/wiki/cove-0-clipper.md",
+        "title": "0 Clipper Road"
+      },
+      {
+        "path": "Brain/wiki/cove-city-positions.md",
+        "title": "City Positions Cross-Reference"
+      }
+    ],
+    "renewal": [
+      {
+        "path": "Brain/wiki/cove-lot-h-discovery.md",
+        "title": "Lot H Discovery"
+      }
+    ],
+    "reports": [
+      {
+        "path": "Brain/wiki/cove-city-positions.md",
+        "title": "City Positions Cross-Reference"
+      }
+    ],
+    "research": [
+      {
+        "path": "Brain/wiki/cove-0-clipper.md",
+        "title": "0 Clipper Road"
+      },
+      {
+        "path": "Brain/wiki/cove-lot-h-discovery.md",
+        "title": "Lot H Discovery"
+      },
+      {
+        "path": "Brain/wiki/document-management.md",
+        "title": "Document Management Strategy"
+      }
+    ],
+    "restrictions": [
+      {
+        "path": "Brain/wiki/cove-city-positions.md",
+        "title": "City Positions Cross-Reference"
+      }
+    ],
+    "rezoning": [
+      {
+        "path": "Brain/wiki/cove-city-positions.md",
+        "title": "City Positions Cross-Reference"
+      }
+    ],
+    "risk": [
+      {
+        "path": "Brain/wiki/cove-legal-framework.md",
+        "title": "Cove Legal Framework"
+      }
+    ],
+    "road": [
+      {
+        "path": "Brain/wiki/cove-0-clipper.md",
+        "title": "0 Clipper Road"
+      }
+    ],
+    "rpv": [
+      {
+        "path": "Brain/wiki/cove-city-positions.md",
+        "title": "City Positions Cross-Reference"
+      }
+    ],
+    "rule": [
+      {
+        "path": "Brain/wiki/canary-detection.md",
+        "title": "Canary Detection Engine"
+      },
+      {
+        "path": "Brain/wiki/document-management.md",
+        "title": "Document Management Strategy"
+      }
+    ],
+    "rules": [
+      {
+        "path": "Brain/wiki/canary-detection.md",
+        "title": "Canary Detection Engine"
+      },
+      {
+        "path": "Brain/wiki/canary-sales-strategy.md",
+        "title": "Canary Sales Strategy"
+      },
+      {
+        "path": "Brain/wiki/document-management.md",
+        "title": "Document Management Strategy"
+      }
+    ],
+    "running": [
+      {
+        "path": "Brain/wiki/south-bay-wiki-architecture.md",
+        "title": "South Bay Wiki — Content Architecture"
+      }
+    ],
+    "sales": [
+      {
+        "path": "Brain/wiki/canary-data-model.md",
+        "title": "Canary Data Model"
+      },
+      {
+        "path": "Brain/wiki/canary-sales-strategy.md",
+        "title": "Canary Sales Strategy"
+      }
+    ],
+    "schema:": [
+      {
+        "path": "Brain/wiki/canary-data-model.md",
+        "title": "Canary Data Model"
+      }
+    ],
+    "schemas": [
+      {
+        "path": "Brain/wiki/canary-data-model.md",
+        "title": "Canary Data Model"
+      }
+    ],
+    "scheme": [
+      {
+        "path": "Brain/wiki/claim-lot-h-scope-correction.md",
+        "title": "Claim: Lot H Declaration Contains Only Racial Exclusionary Language"
+      },
+      {
+        "path": "Brain/wiki/cove-pv-declaration-scheme.md",
+        "title": "PV Corp Declaration Scheme & the Olmsted Legacy"
+      }
+    ],
+    "scope": [
+      {
+        "path": "Brain/wiki/claim-lot-h-scope-correction.md",
+        "title": "Claim: Lot H Declaration Contains Only Racial Exclusionary Language"
+      },
+      {
+        "path": "Brain/wiki/south-bay-wiki-architecture.md",
+        "title": "South Bay Wiki — Content Architecture"
+      }
+    ],
+    "sdds": [
+      {
+        "path": "Brain/wiki/cove-platform.md",
+        "title": "Cove Platform Development"
+      }
+    ],
+    "seacove": [
+      {
+        "path": "Brain/projects/Seacove.md",
+        "title": "Seacove"
+      }
+    ],
+    "sell": [
+      {
+        "path": "Brain/wiki/canary-sales-strategy.md",
+        "title": "Canary Sales Strategy"
+      }
+    ],
+    "services": [
+      {
+        "path": "Brain/wiki/canary-architecture.md",
+        "title": "Canary Architecture"
+      }
+    ],
+    "session": [
+      {
+        "path": "Brain/wiki/document-management.md",
+        "title": "Document Management Strategy"
+      },
+      {
+        "path": "Brain/wiki/growdirect-workflow.md",
+        "title": "GrowDirect Workflow"
+      }
+    ],
+    "sessions": [
+      {
+        "path": "Brain/wiki/document-management.md",
+        "title": "Document Management Strategy"
+      }
+    ],
+    "seven": [
+      {
+        "path": "Brain/wiki/document-management.md",
+        "title": "Document Management Strategy"
+      }
+    ],
+    "severity": [
+      {
+        "path": "Brain/wiki/canary-detection.md",
+        "title": "Canary Detection Engine"
+      }
+    ],
+    "shallow": [
+      {
+        "path": "Brain/wiki/document-management.md",
+        "title": "Document Management Strategy"
+      }
+    ],
+    "sheets": [
+      {
+        "path": "Brain/wiki/cove-city-positions.md",
+        "title": "City Positions Cross-Reference"
+      }
+    ],
+    "shore": [
+      {
+        "path": "Brain/wiki/cove-community-history.md",
+        "title": "Community History"
+      }
+    ],
+    "shutdown": [
+      {
+        "path": "Brain/wiki/growdirect-workflow.md",
+        "title": "GrowDirect Workflow"
+      }
+    ],
+    "signal": [
+      {
+        "path": "Brain/wiki/canary-sales-strategy.md",
+        "title": "Canary Sales Strategy"
+      }
+    ],
+    "significance": [
+      {
+        "path": "Brain/wiki/cove-pv-declaration-scheme.md",
+        "title": "PV Corp Declaration Scheme & the Olmsted Legacy"
+      }
+    ],
+    "slide": [
+      {
+        "path": "Brain/wiki/cove-property-geology.md",
+        "title": "Property & Geology"
+      }
+    ],
+    "slides": [
+      {
+        "path": "Brain/wiki/cove-property-geology.md",
+        "title": "Property & Geology"
+      }
+    ],
+    "source": [
+      {
+        "path": "Brain/wiki/document-management.md",
+        "title": "Document Management Strategy"
+      }
+    ],
+    "sources": [
+      {
+        "path": "Brain/wiki/canary-architecture.md",
+        "title": "Canary Architecture"
+      },
+      {
+        "path": "Brain/wiki/canary-data-model.md",
+        "title": "Canary Data Model"
+      },
+      {
+        "path": "Brain/wiki/canary-detection.md",
+        "title": "Canary Detection Engine"
+      },
+      {
+        "path": "Brain/wiki/canary-sales-strategy.md",
+        "title": "Canary Sales Strategy"
+      },
+      {
+        "path": "Brain/wiki/cove-0-clipper.md",
+        "title": "0 Clipper Road"
+      },
+      {
+        "path": "Brain/wiki/cove-city-positions.md",
+        "title": "City Positions Cross-Reference"
+      },
+      {
+        "path": "Brain/wiki/cove-community-history.md",
+        "title": "Community History"
+      },
+      {
+        "path": "Brain/wiki/cove-governance.md",
+        "title": "Governance & Operations"
+      },
+      {
+        "path": "Brain/wiki/cove-legal-framework.md",
+        "title": "Cove Legal Framework"
+      },
+      {
+        "path": "Brain/wiki/cove-lot-h-discovery.md",
+        "title": "Lot H Discovery"
+      },
+      {
+        "path": "Brain/wiki/cove-property-geology.md",
+        "title": "Property & Geology"
+      },
+      {
+        "path": "Brain/wiki/growdirect-workflow.md",
+        "title": "GrowDirect Workflow"
+      }
+    ],
+    "sourcing": [
+      {
+        "path": "Brain/wiki/south-bay-wiki-architecture.md",
+        "title": "South Bay Wiki — Content Architecture"
+      }
+    ],
+    "south": [
+      {
+        "path": "Brain/wiki/south-bay-wiki-architecture.md",
+        "title": "South Bay Wiki — Content Architecture"
+      }
+    ],
+    "south-bay": [
+      {
+        "path": "Brain/wiki/south-bay-wiki-architecture.md",
+        "title": "South Bay Wiki — Content Architecture"
+      }
+    ],
+    "spine": [
+      {
+        "path": "Brain/wiki/south-bay-wiki-architecture.md",
+        "title": "South Bay Wiki — Content Architecture"
+      }
+    ],
+    "square": [
+      {
+        "path": "Brain/wiki/canary-data-model.md",
+        "title": "Canary Data Model"
+      }
+    ],
+    "stack": [
+      {
+        "path": "Brain/wiki/cove-platform.md",
+        "title": "Cove Platform Development"
+      }
+    ],
+    "staff": [
+      {
+        "path": "Brain/wiki/cove-city-positions.md",
+        "title": "City Positions Cross-Reference"
+      }
+    ],
+    "startup": [
+      {
+        "path": "Brain/wiki/growdirect-workflow.md",
+        "title": "GrowDirect Workflow"
+      }
+    ],
+    "state": [
+      {
+        "path": "Brain/wiki/cove-city-positions.md",
+        "title": "City Positions Cross-Reference"
+      },
+      {
+        "path": "Brain/wiki/document-management.md",
+        "title": "Document Management Strategy"
+      }
+    ],
+    "status": [
+      {
+        "path": "Brain/wiki/claim-lot-h-scope-correction.md",
+        "title": "Claim: Lot H Declaration Contains Only Racial Exclusionary Language"
+      },
+      {
+        "path": "Brain/wiki/cove-0-clipper.md",
+        "title": "0 Clipper Road"
+      },
+      {
+        "path": "Brain/wiki/cove-lot-h-discovery.md",
+        "title": "Lot H Discovery"
+      },
+      {
+        "path": "Brain/wiki/south-bay-wiki-architecture.md",
+        "title": "South Bay Wiki — Content Architecture"
+      }
+    ],
+    "stays": [
+      {
+        "path": "Brain/wiki/document-management.md",
+        "title": "Document Management Strategy"
+      }
+    ],
+    "steps": [
+      {
+        "path": "Brain/wiki/south-bay-wiki-architecture.md",
+        "title": "South Bay Wiki — Content Architecture"
+      }
+    ],
+    "strategy": [
+      {
+        "path": "Brain/wiki/canary-sales-strategy.md",
+        "title": "Canary Sales Strategy"
+      },
+      {
+        "path": "Brain/wiki/cove-governance.md",
+        "title": "Governance & Operations"
+      },
+      {
+        "path": "Brain/wiki/cove-lot-h-discovery.md",
+        "title": "Lot H Discovery"
+      },
+      {
+        "path": "Brain/wiki/document-management.md",
+        "title": "Document Management Strategy"
+      },
+      {
+        "path": "Brain/wiki/south-bay-wiki-architecture.md",
+        "title": "South Bay Wiki — Content Architecture"
+      }
+    ],
+    "structure:": [
+      {
+        "path": "Brain/wiki/cove-governance.md",
+        "title": "Governance & Operations"
+      }
+    ],
+    "style": [
+      {
+        "path": "Brain/wiki/growdirect-workflow.md",
+        "title": "GrowDirect Workflow"
+      }
+    ],
+    "summaries": [
+      {
+        "path": "Brain/wiki/cove-community-history.md",
+        "title": "Community History"
+      },
+      {
+        "path": "Brain/wiki/cove-property-geology.md",
+        "title": "Property & Geology"
+      }
+    ],
+    "summary": [
+      {
+        "path": "Brain/wiki/canary-architecture.md",
+        "title": "Canary Architecture"
+      },
+      {
+        "path": "Brain/wiki/canary-data-model.md",
+        "title": "Canary Data Model"
+      },
+      {
+        "path": "Brain/wiki/canary-detection.md",
+        "title": "Canary Detection Engine"
+      },
+      {
+        "path": "Brain/wiki/canary-sales-strategy.md",
+        "title": "Canary Sales Strategy"
+      }
+    ],
+    "supersession": [
+      {
+        "path": "Brain/wiki/cove-city-positions.md",
+        "title": "City Positions Cross-Reference"
+      }
+    ],
+    "system": [
+      {
+        "path": "Brain/wiki/canary-architecture.md",
+        "title": "Canary Architecture"
+      },
+      {
+        "path": "Brain/wiki/canary-detection.md",
+        "title": "Canary Detection Engine"
+      },
+      {
+        "path": "Brain/wiki/cove-pv-declaration-scheme.md",
+        "title": "PV Corp Declaration Scheme & the Olmsted Legacy"
+      }
+    ],
+    "systems": [
+      {
+        "path": "Brain/wiki/growdirect-workflow.md",
+        "title": "GrowDirect Workflow"
+      }
+    ],
+    "target": [
+      {
+        "path": "Brain/wiki/document-management.md",
+        "title": "Document Management Strategy"
+      }
+    ],
+    "tech": [
+      {
+        "path": "Brain/wiki/cove-platform.md",
+        "title": "Cove Platform Development"
+      }
+    ],
+    "technical": [
+      {
+        "path": "Brain/wiki/south-bay-wiki-architecture.md",
+        "title": "South Bay Wiki — Content Architecture"
+      }
+    ],
+    "templates": [
+      {
+        "path": "Brain/wiki/cove-0-clipper.md",
+        "title": "0 Clipper Road"
+      },
+      {
+        "path": "Brain/wiki/cove-lot-h-discovery.md",
+        "title": "Lot H Discovery"
+      }
+    ],
+    "temporal": [
+      {
+        "path": "Brain/wiki/document-management.md",
+        "title": "Document Management Strategy"
+      }
+    ],
+    "terminal": [
+      {
+        "path": "Brain/wiki/growdirect-workflow.md",
+        "title": "GrowDirect Workflow"
+      }
+    ],
+    "that": [
+      {
+        "path": "Brain/wiki/canary-sales-strategy.md",
+        "title": "Canary Sales Strategy"
+      }
+    ],
+    "themselves": [
+      {
+        "path": "Brain/wiki/canary-sales-strategy.md",
+        "title": "Canary Sales Strategy"
+      }
+    ],
+    "things": [
+      {
+        "path": "Brain/wiki/document-management.md",
+        "title": "Document Management Strategy"
+      }
+    ],
+    "this": [
+      {
+        "path": "Brain/wiki/claim-lot-h-scope-correction.md",
+        "title": "Claim: Lot H Declaration Contains Only Racial Exclusionary Language"
+      },
+      {
+        "path": "Brain/wiki/cove-lot-h-discovery.md",
+        "title": "Lot H Discovery"
+      },
+      {
+        "path": "Brain/wiki/document-management.md",
+        "title": "Document Management Strategy"
+      }
+    ],
+    "three": [
+      {
+        "path": "Brain/wiki/canary-detection.md",
+        "title": "Canary Detection Engine"
+      }
+    ],
+    "threshold": [
+      {
+        "path": "Brain/wiki/canary-detection.md",
+        "title": "Canary Detection Engine"
+      }
+    ],
+    "tier": [
+      {
+        "path": "Brain/wiki/canary-detection.md",
+        "title": "Canary Detection Engine"
+      },
+      {
+        "path": "Brain/wiki/south-bay-wiki-architecture.md",
+        "title": "South Bay Wiki — Content Architecture"
+      }
+    ],
+    "timeline": [
+      {
+        "path": "Brain/wiki/cove-city-positions.md",
+        "title": "City Positions Cross-Reference"
+      }
+    ],
+    "tongva": [
+      {
+        "path": "Brain/wiki/cove-community-history.md",
+        "title": "Community History"
+      }
+    ],
+    "topic": [
+      {
+        "path": "Brain/wiki/cove-city-positions.md",
+        "title": "City Positions Cross-Reference"
+      }
+    ],
+    "tract": [
+      {
+        "path": "Brain/wiki/cove-property-geology.md",
+        "title": "Property & Geology"
+      }
+    ],
+    "transcriptions": [
+      {
+        "path": "Brain/wiki/cove-0-clipper.md",
+        "title": "0 Clipper Road"
+      },
+      {
+        "path": "Brain/wiki/cove-community-history.md",
+        "title": "Community History"
+      },
+      {
+        "path": "Brain/wiki/cove-legal-framework.md",
+        "title": "Cove Legal Framework"
+      },
+      {
+        "path": "Brain/wiki/cove-lot-h-discovery.md",
+        "title": "Lot H Discovery"
+      },
+      {
+        "path": "Brain/wiki/cove-property-geology.md",
+        "title": "Property & Geology"
+      },
+      {
+        "path": "Brain/wiki/document-management.md",
+        "title": "Document Management Strategy"
+      }
+    ],
+    "type": [
+      {
+        "path": "Brain/wiki/document-management.md",
+        "title": "Document Management Strategy"
+      }
+    ],
+    "types": [
+      {
+        "path": "Brain/wiki/document-management.md",
+        "title": "Document Management Strategy"
+      }
+    ],
+    "underinvestment": [
+      {
+        "path": "Brain/wiki/cove-governance.md",
+        "title": "Governance & Operations"
+      }
+    ],
+    "update": [
+      {
+        "path": "Brain/wiki/cove-0-clipper.md",
+        "title": "0 Clipper Road"
+      }
+    ],
+    "updates": [
+      {
+        "path": "Brain/wiki/cove-community-history.md",
+        "title": "Community History"
+      }
+    ],
+    "validation": [
+      {
+        "path": "Brain/wiki/canary-sales-strategy.md",
+        "title": "Canary Sales Strategy"
+      }
+    ],
+    "vanderlip": [
+      {
+        "path": "Brain/wiki/cove-community-history.md",
+        "title": "Community History"
+      }
+    ],
+    "voice": [
+      {
+        "path": "Brain/wiki/south-bay-wiki-architecture.md",
+        "title": "South Bay Wiki — Content Architecture"
+      }
+    ],
+    "we're": [
+      {
+        "path": "Brain/wiki/south-bay-wiki-architecture.md",
+        "title": "South Bay Wiki — Content Architecture"
+      }
+    ],
+    "west": [
+      {
+        "path": "Brain/wiki/cove-pv-declaration-scheme.md",
+        "title": "PV Corp Declaration Scheme & the Olmsted Legacy"
+      }
+    ],
+    "what": [
+      {
+        "path": "Brain/wiki/claim-lot-h-scope-correction.md",
+        "title": "Claim: Lot H Declaration Contains Only Racial Exclusionary Language"
+      },
+      {
+        "path": "Brain/wiki/cove-lot-h-discovery.md",
+        "title": "Lot H Discovery"
+      },
+      {
+        "path": "Brain/wiki/cove-property-geology.md",
+        "title": "Property & Geology"
+      },
+      {
+        "path": "Brain/wiki/document-management.md",
+        "title": "Document Management Strategy"
+      },
+      {
+        "path": "Brain/wiki/growdirect-workflow.md",
+        "title": "GrowDirect Workflow"
+      },
+      {
+        "path": "Brain/wiki/south-bay-wiki-architecture.md",
+        "title": "South Bay Wiki — Content Architecture"
+      }
+    ],
+    "where": [
+      {
+        "path": "Brain/wiki/document-management.md",
+        "title": "Document Management Strategy"
+      },
+      {
+        "path": "Brain/wiki/south-bay-wiki-architecture.md",
+        "title": "South Bay Wiki — Content Architecture"
+      }
+    ],
+    "wide": [
+      {
+        "path": "Brain/wiki/cove-lot-h-discovery.md",
+        "title": "Lot H Discovery"
+      },
+      {
+        "path": "Brain/wiki/cove-pv-declaration-scheme.md",
+        "title": "PV Corp Declaration Scheme & the Olmsted Legacy"
+      }
+    ],
+    "wiki": [
+      {
+        "path": "Brain/wiki/south-bay-wiki-architecture.md",
+        "title": "South Bay Wiki — Content Architecture"
+      }
+    ],
+    "with": [
+      {
+        "path": "Brain/wiki/document-management.md",
+        "title": "Document Management Strategy"
+      }
+    ],
+    "work": [
+      {
+        "path": "Brain/wiki/growdirect-workflow.md",
+        "title": "GrowDirect Workflow"
+      }
+    ],
+    "workflow": [
+      {
+        "path": "Brain/wiki/growdirect-workflow.md",
+        "title": "GrowDirect Workflow"
+      }
+    ],
+    "working": [
+      {
+        "path": "Brain/wiki/growdirect-workflow.md",
+        "title": "GrowDirect Workflow"
+      }
+    ],
+    "wpbca": [
+      {
+        "path": "Brain/wiki/cove-community-history.md",
+        "title": "Community History"
+      },
+      {
+        "path": "Brain/wiki/cove-governance.md",
+        "title": "Governance & Operations"
+      },
+      {
+        "path": "Brain/wiki/cove-legal-framework.md",
+        "title": "Cove Legal Framework"
+      }
+    ],
+    "~5100": [
+      {
+        "path": "Brain/wiki/cove-community-history.md",
+        "title": "Community History"
+      }
+    ]
+  }
+}
