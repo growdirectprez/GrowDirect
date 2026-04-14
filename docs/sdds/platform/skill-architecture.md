@@ -1,15 +1,40 @@
-# GrowDirect Skill Taxonomy
+# GrowDirect Skill Architecture
 
-> GRO-378 — Skill architecture: top-down knowledge pipeline from DOA to app domain
->
-> Created: 2026-03-30
+> **Type:** Platform Service
+> **Status:** Active — 38 skills deployed, 19 planned, eval framework designed
+> **Date:** 2026-03-30 (ops upgrade 2026-04-13)
+> **Linear:** GRO-378
+
+**Wiki:** [[Brain/wiki/document-management|Document Management]]
+
+---
+
+## Purpose
+
+Defines the skill taxonomy, evaluation strategy, and pipeline integration for
+all Claude Code skills across the GrowDirect platform. Skills are the operational
+knowledge layer — they extract domain rules from source material (bylaws, SDDs,
+API docs) and wire them into the factory pipeline so agents make correct decisions
+during build sessions.
+
+---
+
+## Dependencies
+
+| Dependency | Type | Required |
+|------------|------|----------|
+| `.claude/skills/` directory | Skill file storage | Yes |
+| `factory-manifest.json` | Stage-to-skill mapping | Yes |
+| Memory Bus MCP (port 8003) | Session memory for skill outputs | Optional |
+| Linear MCP | Issue routing for factory stages | For factory pipeline skills |
+| Obsidian MCP | Brain knowledge access | For domain skills |
+| Source material (bylaws, SDDs, API docs) | Knowledge extraction input | Per skill |
+
+---
 
 ## Architecture Overview
 
 Four layers, each with domain-specific skills extracted from operational source material.
-Skills follow George Nurijanian's 7-step pipeline: load source → extract operational
-knowledge → wire to build environment → scaffold → design evals → run evals → validate
-against source.
 
 ```
 ┌─────────────────────────────────────────────────────┐
@@ -27,12 +52,26 @@ against source.
 
 ---
 
-## Layer 1: GrowDirect Corp (DOA)
+## Data Flow & PII Map
 
-Source material: `CLAUDE.md`, `factory-manifest.json`, agent topology docs,
-Docker conventions, port allocation, volume mounting rules.
+Skills themselves contain no PII. However, skills may access PII during execution:
 
-### Existing Skills (11)
+| Skill Category | PII Access | Classification |
+|---------------|-----------|---------------|
+| Factory pipeline skills (Layer 1) | None — infrastructure checks | N/A |
+| Cove governance skills (Layer 2a) | Member data via DB queries | **internal** (gated by app auth) |
+| Canary LP skills (Layer 2b) | Transaction data via DB queries | **sensitive** (merchant PII) |
+| Memory Bus skills (Layer 3) | Session decisions, architectural notes | internal |
+
+Skills do not store PII. They read from app databases during execution and
+write structured outputs to memory bus or Linear. PII handling is governed by
+the app-level SDDs, not the skill layer.
+
+---
+
+## Skill Inventory
+
+### Layer 1: GrowDirect Corp (DOA) — 11 Existing
 
 | Skill | File | Purpose | Eval Type |
 |-------|------|---------|-----------|
@@ -48,28 +87,11 @@ Docker conventions, port allocation, volume mounting rules.
 | Factory Linear | `factory-linear.md` | Linear MCP integration at stage boundaries | Binary |
 | Factory New App | `factory-newapp.md` | Scaffold new app from proven patterns | Pattern |
 
-### Planned Skills
-
-| Skill | Source Material | Eval Type | Priority |
-|-------|----------------|-----------|----------|
-| Platform Preflight (formalized) | `factory-preflight.md` + infra standards | 100% binary | **Session 1** |
-| Factory Dispatch | Agent topology, Linear routing rules | Pattern + binary | Session 3 |
-| Weekly Rollup | Cross-project status patterns | LLM-as-judge | Future |
-| Issue Triage | CLAUDE.md hard rules, scope control | Pattern | Future |
-| Architecture Decision (ADR) | Tech stack standards, prior ADRs | Pattern + LLM | Future |
-
----
-
-## Layer 2a: Cove (HOA Governance)
-
-Source material: WPBCA Bylaws (77 pages, 2012), Davis-Stirling Act (Civil Code §4000+),
-AB 502, AB 2159, AB 2460, AB 130, SB 900, `wpbca-bylaws-config.json`, archive corpus.
-
-### Existing Skills (8)
+### Layer 2a: Cove (HOA Governance) — 8 Existing
 
 | Skill | File | Purpose | Eval Type |
 |-------|------|---------|-----------|
-| Cove Preflight | `cove-preflight.md` | Delegates to factory + adds Davis-Stirling context | Binary |
+| Cove Preflight | `cove-preflight.md` | Factory + Davis-Stirling context | Binary |
 | Cove Blueprint | `cove-blueprint.md` | Plan writing with compliance checks | Pattern |
 | Cove TDD | `cove-tdd.md` | Test-first with governance rules | Binary |
 | Cove Assembly | `cove-assembly.md` | Implementation + blueprint registration, RLS | Binary |
@@ -78,28 +100,11 @@ AB 502, AB 2159, AB 2460, AB 130, SB 900, `wpbca-bylaws-config.json`, archive co
 | Cove Ship | `cove-ship.md` | Ship with Davis-Stirling documentation | Binary |
 | Cove Close | `cove-close.md` | Session close + compliance notes | Pattern |
 
-### Planned Skills
-
-| Skill | Source Material | Eval Type | Priority |
-|-------|----------------|-----------|----------|
-| Quorum Calculator | Bylaws §5.9, §6.6, §8.12, AB 2460, `wpbca-bylaws-config.json` | 85% regex + 15% LLM | **Session 2** |
-| Governance Compliance Check | Davis-Stirling Act, Bylaws full text | LLM-as-judge | Future |
-| Election Builder | Bylaws §5.9, §8.12, §8.14, Civil Code §5100-5145 | Pattern + LLM | Future |
-| Archive Intake | Chain of custody rules, document classification | Pattern | Future |
-| Parcel Resolver | Bylaws §5.2, APN database, combined lot rules | Binary | Future |
-
----
-
-## Layer 2b: Canary (Loss Prevention)
-
-Source material: LP Dashboard Pattern Catalog (52 patterns), Chirp rule definitions
-(29 rules), Square API docs, PCI-DSS requirements, SDDs (16 documents).
-
-### Existing Skills (14)
+### Layer 2b: Canary (Loss Prevention) — 14 Existing
 
 | Skill | File | Purpose | Eval Type |
 |-------|------|---------|-----------|
-| Canary Preflight | `canary-preflight.md` | Delegates to factory + stack health, env, tunnel | Binary |
+| Canary Preflight | `canary-preflight.md` | Factory + stack health, env, tunnel | Binary |
 | Canary Blueprint | `canary-blueprint.md` | Plan writing with data integrity guardrails | Pattern |
 | Canary TDD | `canary-tdd.md` | Test-first with retail-aware philosophy | Binary |
 | Canary Assembly | `canary-assembly.md` | Implementation with data integrity checks | Binary |
@@ -114,41 +119,39 @@ Source material: LP Dashboard Pattern Catalog (52 patterns), Chirp rule definiti
 | Canary Scenario | `canary-scenario.md` | Scenario testing | Pattern |
 | Canary UAT | `canary-uat.md` | User acceptance testing | Pattern |
 
-### Planned Skills
-
-| Skill | Source Material | Eval Type | Priority |
-|-------|----------------|-----------|----------|
-| Rule Tuning | Chirp rule definitions, threshold config | Binary + LLM | Future |
-| Merchant Onboarding | Square OAuth flow, data pipeline docs | Binary | Future |
-| Evidence Package | Fox case workflow, hash-chain export | Binary | Future |
-| Weekly Money Report | Owl the_one_thing, narrative patterns | LLM-as-judge | Future |
-| Detection Pattern Design | LP Pattern Catalog, Chirp rules | Pattern + LLM | Future |
-
----
-
-## Layer 3: Shared Memory (ALX)
-
-Source material: Memory bus service (`services/memory-bus/`), ALX session patterns,
-cross-app knowledge base.
-
-### Existing Skills (5)
+### Layer 3: Shared Memory (ALX) — 5 Existing
 
 | Skill | File | Purpose | Eval Type |
 |-------|------|---------|-----------|
 | GitNexus | `gitnexus.md` | Code intelligence queries | Binary |
-| Session Synthesis | `session-synthesis.md` | Chat transcript → structured doc | Pattern |
+| Session Synthesis | `session-synthesis.md` | Chat transcript to structured doc | Pattern |
 | File Guardian | `file-guardian.md` | Protected file modification gate | Binary |
 | Jeffe Review | `jeffe-review.md` | CEO-level plan review | LLM-as-judge |
 | Founder Probe | `founder-probe.md` | Biographical depth via follow-up probes | LLM-as-judge |
 
-### Planned Skills
+### Planned Skills (19 total)
 
-| Skill | Source Material | Eval Type | Priority |
-|-------|----------------|-----------|----------|
-| Context Assembly | Memory bus `context_assemble` tool, session patterns | Pattern | Session 3 |
-| Knowledge Gap Detection | Task requirements vs. available memories | LLM-as-judge | Future |
-| Post-Mortem Capture | Factory close patterns, lesson extraction | Pattern | **Session 3** |
-| Prior Art Search | Memory bus `memory_recall`, GitNexus queries | Binary | Future |
+| Layer | Skill | Source Material | Priority |
+|-------|-------|----------------|----------|
+| Corp | Platform Preflight (formalized) | factory-preflight + infra standards | Session 1 |
+| Corp | Factory Dispatch | Agent topology, Linear routing | Session 3 |
+| Corp | Weekly Rollup | Cross-project status | Future |
+| Corp | Issue Triage | CLAUDE.md hard rules | Future |
+| Corp | Architecture Decision (ADR) | Tech stack standards | Future |
+| Cove | Quorum Calculator | Bylaws, AB 2460 | Session 2 |
+| Cove | Governance Compliance Check | Davis-Stirling Act | Future |
+| Cove | Election Builder | Bylaws, Civil Code 5100-5145 | Future |
+| Cove | Archive Intake | Chain of custody rules | Future |
+| Cove | Parcel Resolver | Bylaws 5.2, APN database | Future |
+| Canary | Rule Tuning | Chirp rule definitions | Future |
+| Canary | Merchant Onboarding | Square OAuth flow | Future |
+| Canary | Evidence Package | Fox case workflow | Future |
+| Canary | Weekly Money Report | Owl narrative patterns | Future |
+| Canary | Detection Pattern Design | LP Pattern Catalog | Future |
+| Shared | Context Assembly | Memory bus tools | Session 3 |
+| Shared | Knowledge Gap Detection | Task vs memories | Future |
+| Shared | Post-Mortem Capture | Factory close patterns | Session 3 |
+| Shared | Prior Art Search | Memory bus + GitNexus | Future |
 
 ---
 
@@ -160,89 +163,155 @@ Every skill gets an eval suite before deployment. Target: 90%+ pass rate.
 
 | Type | Method | When to Use |
 |------|--------|-------------|
-| **Binary** | Pass/fail assertions (subprocess exit codes, file existence, regex match) | Infrastructure checks, build gates, data validation |
-| **Pattern** | Regex matching on output (required sections, correct formats, expected values) | Structured output skills (blueprints, reports, taxonomies) |
-| **LLM-as-judge** | Claude evaluates output against domain criteria | Compliance reasoning, narrative quality, domain expertise |
+| **Binary** | Pass/fail assertions (exit codes, file existence, regex) | Infrastructure, build gates, data validation |
+| **Pattern** | Regex matching on output (sections, formats, values) | Structured output skills |
+| **LLM-as-judge** | Claude evaluates against domain criteria | Compliance reasoning, narrative quality |
 
 ### Ratio Guideline
 
-- Infrastructure/build skills: 100% binary
-- Structured output skills: ~85% pattern + ~15% LLM-as-judge
-- Domain reasoning skills: ~50% pattern + ~50% LLM-as-judge
+- Infrastructure/build: 100% binary
+- Structured output: ~85% pattern + ~15% LLM-as-judge
+- Domain reasoning: ~50% pattern + ~50% LLM-as-judge
 
 ### Eval File Convention
 
 ```
-evals/
-  skills/
-    test_platform_preflight.py     # Layer 1 eval
-    test_quorum_calculator.py      # Layer 2a eval
-    test_post_mortem_capture.py    # Layer 3 eval
-    conftest.py                    # Shared fixtures
+evals/skills/
+  test_platform_preflight.py
+  test_quorum_calculator.py
+  conftest.py
 ```
 
-Each eval file contains:
-- `test_*` functions with binary pass/fail assertions
-- Optional `eval_*` functions for LLM-as-judge checks
-- Docstring citing source material for each test
-
 ---
 
-## Pipeline Per Skill
+## Pipeline Integration
 
-Adapted from George Nurijanian's 7-step process:
-
-1. **Load source material** — bylaws PDF, CLAUDE.md, SDDs, archive docs
-2. **Extract operational knowledge** — rules, thresholds, decision criteria, worked examples
-3. **Wire to build environment** — memory bus `memory_recall` + Linear documents as query layer
-4. **Scaffold the skill** — `skill-creator` tool with frontmatter, modes, templates
-5. **Design evals** — binary pass/fail + regex pattern matching + LLM-as-judge
-6. **Run evals, fix, iterate** — unattended optimization loop
-7. **Validate against source** — cross-check outputs against original domain material
-
-Key insight: **"The extraction step determines the ceiling."** Skills built from
-operational source material (bylaws text, LP patterns, Chirp rules) will always
-outperform skills built from CLAUDE.md summaries.
-
----
-
-## Manifest Integration
-
-`factory-manifest.json` declares which skills are required per stage. Current state
-maps stages to skill files. Target state adds:
+`factory-manifest.json` maps stages to skills. Current state includes skill
+reference and eval path for preflight stage. Target: all stages get eval
+entries.
 
 ```json
 {
-  "stages": {
-    "preflight": {
-      "skill": "factory-preflight",
-      "eval": "evals/skills/test_platform_preflight.py",
-      "eval_threshold": 1.0
-    }
+  "preflight": {
+    "skill": "factory-preflight",
+    "eval": "evals/skills/test_platform_preflight.py",
+    "eval_threshold": 1.0
   }
 }
 ```
 
-Each stage entry gains:
-- `skill` — skill file reference
-- `eval` — eval suite path
-- `eval_threshold` — minimum pass rate (0.0–1.0)
+---
+
+## Skill Pipeline (Per Skill)
+
+Adapted from George Nurijanian's 7-step process:
+
+1. **Load source material** — bylaws, CLAUDE.md, SDDs, archive docs
+2. **Extract operational knowledge** — rules, thresholds, decision criteria
+3. **Wire to build environment** — memory bus + Linear as query layer
+4. **Scaffold the skill** — `skill-creator` tool with frontmatter, modes, templates
+5. **Design evals** — binary + regex + LLM-as-judge
+6. **Run evals, fix, iterate** — unattended optimization loop
+7. **Validate against source** — cross-check against original domain material
 
 ---
 
-## Memory Tagging
+## Operations
 
-All memory writes tagged by layer:
+### Startup Sequence
 
-| Layer | Tag | Example |
-|-------|-----|---------|
-| Corp | `corp` | Platform standards decisions, factory process changes |
-| Cove | `cove` | Governance compliance findings, bylaws interpretations |
-| Canary | `canary` | LP pattern discoveries, Chirp rule tuning results |
-| Shared | `shared` | Cross-app patterns, agent topology decisions |
+Skills are loaded by Claude Code at session start. No separate startup process.
+The factory pipeline reads `factory-manifest.json` to determine which skill
+applies to each stage.
 
-Memory bus `memory_store` already supports the `layer` parameter. Skills use it
-at close to tag their outputs correctly.
+### Health Checks
+
+- All 38 skill files exist in `.claude/skills/`
+- `factory-manifest.json` references valid skill files
+- Eval suites pass at threshold (currently only preflight has eval)
+
+### Failure Modes
+
+| Failure | Behavior | Recovery |
+|---------|----------|----------|
+| Skill file missing | Factory stage falls back to unguided behavior | Restore from git |
+| Eval threshold not met | Skill flagged as degraded, still usable | Fix skill, re-run evals |
+| Memory Bus unavailable | Skills that write to memory silently skip | Memory bus restart |
+| Source material outdated | Skills produce stale guidance | Re-extract from updated sources |
+
+### Monitoring
+
+| Metric | Alert Threshold |
+|--------|----------------|
+| Skill count mismatch (files vs manifest) | Any discrepancy |
+| Eval pass rate per skill | Below 90% |
+| Skills without evals | More than 50% of deployed skills |
+
+### Configuration
+
+| Setting | Location | Purpose |
+|---------|----------|---------|
+| Skill files | `.claude/skills/*.md` | Skill definitions |
+| Stage mapping | `factory-manifest.json` | Which skill runs at which stage |
+| Eval suites | `evals/skills/` | Test files per skill |
+| Memory tags | Per skill (`corp`, `cove`, `canary`, `shared`) | Layer-based memory tagging |
+
+---
+
+## Deployment
+
+Skills are git-tracked files, not running services. Deployment is a git push.
+No Docker containers, no AWS services.
+
+### Multi-Tenant Isolation
+
+Skills are app-scoped by layer (Corp, Cove, Canary, Shared). A Cove skill
+cannot access Canary data and vice versa — isolation is enforced by the app's
+auth layer, not the skill itself.
+
+### Domain Guardrails
+
+Each app layer has domain-specific constraints that its skills enforce:
+
+| Layer | Guardrail |
+|-------|-----------|
+| Cove | Davis-Stirling compliance checks on every governance feature |
+| Canary | Data integrity checks on every transaction pipeline change |
+| Corp | Platform standards (UUID PKs, Mapped[] syntax, no Column()) |
+| Shared | Cross-app knowledge must be tagged by source layer |
+
+---
+
+## Code Review Findings
+
+### P1 — Before GA
+
+| # | Finding | Recommended Fix | Linear |
+|---|---------|----------------|--------|
+| 1 | Only 1 of 38 skills has an eval suite (preflight) — 97% coverage gap | Prioritize evals for high-impact skills: Cove Preflight, Canary Verify, Factory TDD | — |
+| 2 | No runtime validation that skill files match manifest entries | Add preflight check: every manifest skill reference resolves to a file | — |
+| 3 | Planned skills (19) have no timeline beyond "Session N" or "Future" | Prioritize top 5 planned skills in Linear with concrete session targets | — |
+| 4 | Memory tagging (`corp`, `cove`, `canary`, `shared`) is documented but not validated | Add memory bus tag validation to factory close stage | — |
+
+### P2 — Post-Launch
+
+| # | Finding | Recommended Fix | Linear |
+|---|---------|----------------|--------|
+| 1 | 4 utility skills (remember-quote, rooster, project-timelog, cove-archive) exist outside the taxonomy | Classify: keep as utility, promote to layer, or archive | — |
+| 2 | No skill versioning — changes to skills overwrite in-place with no rollback beyond git | Acceptable for current scale; add version frontmatter if skill count exceeds 60 | — |
+| 3 | Eval framework designed but `evals/skills/` directory may not exist yet | Create directory with conftest.py scaffold | — |
+
+---
+
+## Production Readiness Checklist
+
+- [ ] All deployed skills have eval suites (target: 90%+ coverage)
+- [ ] factory-manifest.json references valid skill files
+- [ ] Eval threshold enforced at stage boundaries
+- [ ] Memory bus tags validated per layer
+- [ ] Planned skills prioritized in Linear
+- [ ] Domain guardrails documented per app layer
+- [ ] Skill files backed up via git (standard)
 
 ---
 
@@ -256,5 +325,8 @@ at close to tag their outputs correctly.
 | Shared (ALX) | 5 | 4 | 9 |
 | **Total** | **38** | **19** | **57** |
 
-*Note: 4 additional utility skills (remember-quote, rooster, project-timelog, cove-archive)
-exist but are not part of the factory pipeline.*
+*Note: 4 additional utility skills exist but are not part of the factory pipeline.*
+
+---
+
+*GrowDirect Skill Architecture — GrowDirect Inc.*

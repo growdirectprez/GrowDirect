@@ -1,131 +1,86 @@
 # QA Agent
 
-> **Status:** Complete — written from code
+> **Status:** Ops-upgraded — code-reviewed for production readiness
+> **Type:** MCP Server (Canary)
 > **Namespace:** canary
-> **Last updated:** 2026-03-30
+> **Last updated:** 2026-04-13
 > **Code location:** `Canary/canary/services/qa_agent/`
 > **Linear:** GRO-326
 
----
-
-## 1. Overview
-
-The QA Agent is a Claude-powered interactive test assistant embedded in the Canary Ops Console. It gives the operator a conversational interface to interrogate live Canary system state, fire sandbox scenarios, and diagnose detection pipeline behavior — all without leaving the browser.
-
-The agent is scoped to the Square Sandbox environment. It has no write access to production data. Its primary purpose is to accelerate QA and debug cycles during development and pre-release validation.
-
-**Core capabilities:**
-
-- Query live Canary system state (alerts, cases, transactions, rules, streams) via 30+ MCP tools.
-- Fire named test scenarios against the Square Sandbox and poll the full detection pipeline for results.
-- Surface rule thresholds, TSP ingestion health, and Owl search behavior in plain language.
-- Maintain merchant context automatically from browser page state — operators do not need to re-supply IDs.
-- Emit deep links back into the Canary app for any referenced entity (alert, case, search query, setting).
-
-The agent does not maintain persistent state between browser sessions. All conversation history lives in the browser and is forwarded with each request. There is no database schema for this service.
+**Wiki:** [[Brain/wiki/canary-architecture|Canary Architecture]]
 
 ---
 
-## 2. Architecture
+## Purpose
 
-### Component Diagram
-
-```
-Browser (ops/qa page)
-    │  POST /ops/qa/chat  (JSON, full message history)
-    │  10 req/min rate limit (Flask-Limiter)
-    ▼
-Flask Blueprint (ops_console_bp)
-    │  calls chat(messages)
-    ▼
-canary/services/qa_agent/agent.py  ← Flask-side proxy
-    │  POST http://qa-agent:8002/chat  (120 s timeout)
-    ▼
-qa-agent container (uvicorn ASGI, port 8002)
-    │  canary/services/qa_agent/server.py
-    │  in-memory rate limiting (50/session, 200/day)
-    │  builds Anthropic client
-    │  passes SYSTEM_PROMPT + tool_definitions + messages
-    ▼
-Anthropic API (claude-sonnet-4-20250514, max_tokens=4096)
-    │  tool_use response block
-    ▼
-canary/services/qa_agent/tools.py  ← tool dispatch (in-process)
-    ├── MCP registry tools (Atlas, Alerts, Analytics, Chirp,
-    │   Fox, Identity, Owl, TSP) — lazy-loaded, cached
-    └── QA-only tools (fire_scenario, poll_scenario,
-        list_scenarios, get_thresholds)
-    │  result (JSON, truncated at 8000 chars)
-    ▼
-Anthropic API (tool_result → next message turn)
-    │  up to 10 tool dispatch iterations
-    ▼
-Final text response → Flask → Browser
-```
-
-The sidecar runs its own ASGI process (uvicorn) independent of the Gunicorn Flask workers. Flask has no Anthropic SDK dependency — it only speaks HTTP to the sidecar. This boundary makes the underlying dispatch engine swappable without touching Flask code.
-
-### Request / Data Flow
-
-1. **Browser** accumulates the full conversation as a `messages` array (OpenAI-compatible format: `[{role, content}]`). On each user turn it POSTs the full array to `POST /ops/qa/chat`.
-
-2. **Flask blueprint** (`ops_console_bp`) validates that at least one message exists, then calls `agent.chat(messages)`. Flask-Limiter enforces 10 requests per minute per IP at this layer.
-
-3. **`agent.py` proxy** forwards the messages array to the sidecar at `http://qa-agent:8002/chat` (configurable via `QA_AGENT_URL`). The HTTP call has a 120-second timeout. Connection errors and timeouts are caught and returned as structured error responses with the same `{text, tool_calls, model}` shape as a successful response — the browser never sees a non-200.
-
-4. **Sidecar `server.py`** checks in-memory rate limits (per-session and daily), retrieves `ANTHROPIC_API_KEY` from environment, then enters the tool dispatch loop.
-
-5. **Tool dispatch loop** (max 10 iterations):
-   - Calls `client.messages.create()` with the full message history, system prompt, and tool definitions.
-   - If the response contains a `tool_use` block, `execute_tool(name, input)` is called in-process for each tool.
-   - Tool results are appended as a `user` role message with `tool_result` content blocks.
-   - If no `tool_use` block is present, the loop exits and the final text content is collected.
-   - If 10 iterations are exhausted without a pure-text response, a max-depth error is returned.
-
-6. **Tool execution** (`tools.py`) routes to the appropriate MCP registry tool or QA-only handler. MCP tool results are unwrapped from the `{tool, ok, result, timestamp}` envelope. Results longer than 8000 characters are truncated before being sent back to the Anthropic API to control token consumption.
-
-7. **Response** is returned as `{text, tool_calls, model, usage}` where `usage` carries `session_remaining` and `daily_remaining` counts. The browser renders the text and may use `tool_calls` to display which tools were invoked.
-
-### Key Design Decisions
-
-**Sidecar over in-process SDK.** The Claude Agent SDK at time of implementation (GRO-326) requires a TTY / Claude Code binary and does not support headless Docker containers. Rather than block the feature, the sidecar wraps the Anthropic Python SDK directly in a minimal ASGI process. The architecture isolates all SDK concerns in one container; when the SDK gains headless support the swap is a one-file change in `server.py`.
-
-**Minimal ASGI, no framework.** The sidecar uses a hand-written ASGI `app` function under uvicorn with only two routes (`POST /chat`, `GET /health`). No Flask, no FastAPI. This minimizes the dependency surface of the sidecar image and keeps its startup time fast.
-
-**In-process tool execution.** MCP tools execute inside the sidecar process by importing the same Python registries used by the Canary Flask app. This means no HTTP round-trips for tool calls — they are synchronous function calls. The tradeoff is that the sidecar image must include the full Canary codebase (same Dockerfile base), which it does via `Dockerfile.qa-agent`.
-
-**Stateless message history.** The browser owns the conversation. Every request carries the full history. This means the sidecar holds no per-session conversation state — it is fully stateless between requests. The only in-process state is the rate-limit counters, which reset on container restart.
-
-**Schema normalization at tool load time.** `get_tool_definitions()` normalizes MCP `inputSchema` (camelCase) to Claude API `input_schema` (snake_case) and unwraps double-nested schemas that some `to_mcp()` implementations produce. This runs once at startup (lazy, cached) so per-request overhead is zero.
-
-**Dual tool surface.** The tool catalog is split into two groups: MCP registry tools (loaded dynamically from eight service registries) and QA-only tools (`fire_scenario`, `poll_scenario`, `list_scenarios`, `get_thresholds`) that have no MCP equivalent. The QA-only tools live directly in `tools.py` with their own handlers. Both groups are merged into the single `tool_definitions` list passed to the Anthropic API.
+The QA Agent is a Claude-powered interactive test assistant running as a sidecar container for the Canary Ops Console. It provides a conversational interface to interrogate live Canary system state via 62 in-process MCP tools, fire Square Sandbox test scenarios, and diagnose detection pipeline behavior. The agent is scoped to the Square Sandbox environment and holds no persistent state -- all conversation history lives in the browser.
 
 ---
 
-## 3. Data Model
+## Dependencies
 
-N/A. The QA Agent is a stateless tool proxy. It persists no data of its own. All data it surfaces belongs to other Canary services (Chirp rules, Fox cases, TSP stream health, etc.) and is read from their respective stores via MCP tools at query time.
-
-Rate-limit counters (`_session_counts`, `_daily_count`) are module-level Python dicts in the sidecar process. They reset on every container restart and are never written to any database or cache.
+| Dependency | Type | Required |
+|---|---|---|
+| `growdirect_postgres` (canary DB) | Database | Yes -- QA-only tools query DetectionRule, live_fire_poll |
+| Anthropic API (`claude-sonnet-4-20250514`) | External API | Yes -- all chat requests |
+| Anthropic Python SDK (`anthropic`) | Python package | Yes -- lazy-imported at request time |
+| `uvicorn` | Python package | Yes -- ASGI server for sidecar |
+| `requests` | Python package | Yes -- Flask proxy to sidecar |
+| Canary Flask app (port 5001) | Upstream service | Yes -- proxies chat requests |
+| Canary MCP registries (8 services) | In-process | Yes -- Atlas, Alerts, Analytics, Chirp, Fox, Identity, Owl, TSP |
+| `canary.services.scenario_fire` | In-process | Yes -- fire_scenario, SCENARIO_REGISTRY |
+| `canary.services.health_check.chirp_lab` | In-process | Yes -- live_fire_poll |
+| Docker network `growdirect` | Infrastructure | Yes -- Flask-to-sidecar routing |
+| Flask-Limiter (`canary.extensions.limiter`) | In-process (Flask side) | Yes -- 10/min rate limit |
 
 ---
 
-## 4. Interfaces
+## Data Flow & PII Map
 
-### HTTP: Flask Routes (public-facing)
+### What enters
 
-Both routes are registered on `ops_console_bp` under the `/ops` prefix via the main app factory.
+- **User messages** via `POST /ops/qa/chat` -- JSON array of `{role, content}` messages. Content may include a merchant UUID prefix injected by the browser (`[Page: ... | Merchant: <uuid>]`).
+- **Session ID** (optional) -- string identifier for per-session rate limiting. Currently not propagated from Flask; all requests share the `"default"` bucket.
 
-**GET `/ops/qa`**
+### What's stored
 
-Renders the QA Agent chat UI (`templates/ops/qa.html`). No authentication beyond the existing `ops_console_bp` access control. Returns HTML.
+Nothing persistent. The QA Agent stores no data of its own. Rate-limit counters (`_session_counts`, `_daily_count`) are module-level Python dicts in the sidecar process. They reset on every container restart.
 
-**POST `/ops/qa/chat`**
+### What exits
 
-Rate limit: 10 requests/minute (Flask-Limiter, per-IP).
+- **To Anthropic API:** Full conversation history (system prompt + messages + tool results). Tool results may include merchant names, employee names, location names, transaction amounts, alert details, and detection rule configurations read from the Canary database. These are sent to the Anthropic API as context for Claude's response.
+- **To browser:** Final text response, list of tool calls invoked (name + input params), model identifier, and rate-limit usage counters.
+- **To Canary database (write path):** `fire_scenario` creates real payments in the Square Sandbox via the Square API. These payments flow through the TSP pipeline and may create transactions, alerts, and cases in the `canary` database.
 
-Request body (JSON):
+### PII classification
 
+| Field | Classification | Notes |
+|---|---|---|
+| Merchant UUID | internal | Extracted from browser context, passed to MCP tools |
+| Merchant name | internal | Returned by Identity tools, forwarded to Anthropic API |
+| Employee names | internal | Returned by Identity tools |
+| Location names | public | Returned by Identity tools |
+| Transaction amounts | internal | Returned by TSP/Alert tools |
+| Alert details (rule IDs, severities) | internal | Returned by Alert/Chirp tools |
+| Detection rule thresholds | internal | Returned by Chirp/QA tools |
+| Conversation history | internal | Sent in full to Anthropic API on every turn |
+| ANTHROPIC_API_KEY | restricted | Read from environment, never logged or returned |
+
+**Note:** All data is Square Sandbox data in development. In production, if the sandbox-only guard were bypassed, real merchant data would flow through the Anthropic API. The `ops_guard` before_request check on the Flask blueprint enforces `SQUARE_ENVIRONMENT == "sandbox"`.
+
+---
+
+## API Contract
+
+### HTTP: Flask Routes (public-facing, behind ops_guard)
+
+Both routes are registered on `ops_console_bp` under the `/ops` prefix. The `ops_guard` before_request handler enforces: (1) `SQUARE_ENVIRONMENT == "sandbox"`, (2) authenticated session via `load_session_user()`, (3) admin role via `has_any_role("admin")`.
+
+**GET `/ops/qa`** -- Renders the QA Agent chat UI. Returns HTML.
+
+**POST `/ops/qa/chat`** -- Rate limit: 10 req/min per IP (Flask-Limiter).
+
+Request:
 ```json
 {
   "messages": [
@@ -134,10 +89,7 @@ Request body (JSON):
 }
 ```
 
-The `messages` array follows the Anthropic Messages API format. The browser accumulates the full conversation and re-sends it on every turn. Page context and merchant UUID are injected as a prefix on the first content string of each user message by the frontend.
-
-Response body (JSON, always HTTP 200 unless server error):
-
+Response (always HTTP 200 unless server error):
 ```json
 {
   "text": "Three high-priority alerts fired today...",
@@ -152,262 +104,421 @@ Response body (JSON, always HTTP 200 unless server error):
 }
 ```
 
-On sidecar connection failure or timeout, `text` carries a human-readable error description and `tool_calls` is an empty array. HTTP status remains 200 so the browser can display the error inline.
+### HTTP: Sidecar Routes (internal only, Docker network)
 
-Error response (HTTP 400 — empty messages array):
+Container `canary_localhost_qa_agent`, port 8002. Not exposed through nginx.
 
-```json
-{"text": "No message provided.", "tool_calls": [], "model": null}
-```
+**GET `/health`** -- Docker healthcheck. Returns `{service, status, daily_usage, daily_limit}`.
 
-### HTTP: Sidecar Routes (internal only, not exposed through nginx)
-
-The sidecar container (`canary_localhost_qa_agent`) binds port 8002. On localhost it is accessible for debugging; in production it should only be reachable on the Docker internal `growdirect` network.
-
-**GET `/health`**
-
-Returns service status and daily usage counters. Used by Docker healthcheck.
-
-```json
-{
-  "service": "canary-qa-agent",
-  "status": "healthy",
-  "daily_usage": 14,
-  "daily_limit": 200
-}
-```
-
-**POST `/chat`**
-
-Internal endpoint. Flask `agent.py` is the only caller.
-
-Request body (JSON):
-
-```json
-{
-  "messages": [...],
-  "session_id": "optional-string"
-}
-```
-
-`session_id` is used to track per-session message counts against `MAX_MESSAGES_PER_SESSION`. If omitted, `"default"` is used — all sessionless callers share one bucket.
-
-Response body: same shape as the Flask `/ops/qa/chat` response (see above), including `usage`.
-
-### Tool Catalog
-
-The sidecar exposes the following named tools to the Anthropic API. All MCP registry tools use the prefix `mcp__canary__` in the system prompt but are referenced without prefix in the API call.
-
-**MCP Registry Tools (dynamically loaded from 8 service registries):**
-
-| Registry | Sample tools |
-|---|---|
-| Atlas | `atlas_figure`, `atlas_search`, `atlas_validate`, `atlas_index` |
-| Alerts | `list_alerts`, `get_alert`, `lifecycle_summary`, `rank_alerts` |
-| Analytics | `get_dashboard`, `get_trends`, `get_top_risks`, `score_metrics` |
-| Chirp | `get_rules`, `get_rule`, `get_config_summary`, `validate_thresholds` |
-| Fox | `list_cases`, `get_case`, `get_timeline`, `verify_chain` |
-| Identity | `get_merchant`, `list_employees`, `list_locations` |
-| Owl | `search`, `ask`, `knowledge_search`, `score_payment` |
-| TSP | `get_stream_health`, `get_ingestion_stats`, `get_dead_letters` |
-
-**QA-Only Tools (defined directly in `tools.py`):**
-
-| Tool | Description |
-|---|---|
-| `fire_scenario` | Fire a named test scenario in Square Sandbox. Creates a real payment and triggers the detection pipeline. Required param: `scenario` (string). |
-| `poll_scenario` | Poll pipeline status for a fired scenario payment. Returns ingestion, transaction, and alert status. Required param: `payment_id` (string). |
-| `list_scenarios` | List all available test scenarios with descriptions and the rule IDs each scenario tests. No parameters. |
-| `get_thresholds` | Read current detection rule thresholds (defaults, overrides, effective values) for all rules exercised by scenarios. No parameters. |
+**POST `/chat`** -- Internal endpoint called by Flask `agent.py` only. Same request/response shape as `/ops/qa/chat`.
 
 ---
 
-## 5. Service Layer
+## MCP Tool Registry
 
-### `agent.py` — Flask-side proxy
+62 tools total: 58 from 8 MCP service registries + 4 QA-only tools. All execute in-process inside the sidecar (no HTTP round-trips).
 
-**`chat(messages: list[dict]) -> dict`**
+### Atlas (6 tools)
 
-The only public function. Forwards the message list to the sidecar via `requests.post`. Handles three failure modes:
+| Tool | Auth | PII Access | Rate Limit | Description |
+|------|:---:|:---:|:---:|-------------|
+| `atlas_figure` | None | None | Sidecar | Load atlas figure by ID |
+| `atlas_search` | None | None | Sidecar | Search atlas figures by keyword |
+| `atlas_validate` | None | None | Sidecar | Validate figure syntax and completeness |
+| `atlas_index` | None | None | Sidecar | Return atlas index in summary/full/embedding format |
+| `atlas_render` | None | None | Sidecar | Render figure to SVG/PNG |
+| `atlas_drift` | None | None | Sidecar | Drift detection vs live codebase |
 
-- `ConnectionError` — sidecar is down. Returns `{"text": "QA agent sidecar is not running...", "tool_calls": [], "model": None}`.
-- `Timeout` (120 s) — returns `{"text": "QA agent timed out...", "tool_calls": [], "model": DEFAULT_MODEL}`.
-- Any other exception — logs at ERROR with traceback, returns `{"text": "QA agent error: <msg>", "tool_calls": [], "model": DEFAULT_MODEL}`.
+### Alerts (6 tools)
 
-The function never raises. Flask callers do not need try/except around it.
+| Tool | Auth | PII Access | Rate Limit | Description |
+|------|:---:|:---:|:---:|-------------|
+| `lifecycle_summary` | None | None | Sidecar | Compute alert lifecycle counts (active, stale, resolved, etc.) |
+| `calculate_impact` | None | None | Sidecar | Estimate dollar impact of an alert |
+| `rank_alerts` | None | None | Sidecar | Rank alerts by severity + dollar impact |
+| `get_impact_summary` | None | None | Sidecar | Total dollar impact across alerts |
+| `list_alerts` | None | merchant_id | Sidecar | List alerts for a merchant with filters |
+| `get_alert` | None | merchant_id, alert_id | Sidecar | Get single alert with status history |
 
-**`SYSTEM_PROMPT`**
+### Analytics (7 tools)
 
-Module-level constant (~600 characters). Establishes agent persona, tool-first directive, tool category listing, merchant context extraction rules, response length guidelines, and entity deep-link format. Shared with `server.py` via import.
+| Tool | Auth | PII Access | Rate Limit | Description |
+|------|:---:|:---:|:---:|-------------|
+| `get_dashboard` | None | merchant_id | Sidecar | Period dashboard with health score and KPI bands |
+| `get_trends` | None | merchant_id | Sidecar | Trend data for a single metric across periods |
+| `get_top_risks` | None | merchant_id, employee/location names | Sidecar | Top risk employees and locations |
+| `get_drilldown` | None | merchant_id, entity names | Sidecar | Detailed metrics for employee or location |
+| `score_metrics` | None | None | Sidecar | Score KPI actuals against baselines (pure function) |
+| `detect_velocity` | None | None | Sidecar | Statistical anomaly detection (pure function) |
+| `get_period_metrics` | None | merchant_id | Sidecar | Raw KPI actuals for a fiscal period |
 
-### `server.py` — Sidecar ASGI application
+### Chirp (10 tools)
 
-**`handle_chat(data: dict) -> dict`** (async)
+| Tool | Auth | PII Access | Rate Limit | Description |
+|------|:---:|:---:|:---:|-------------|
+| `get_rules` | None | None | Sidecar | List detection rules with optional filters |
+| `get_rule` | None | None | Sidecar | Look up single rule by ID |
+| `evaluate_stateless` | None | None | Sidecar | Evaluate Tier 1 rules against parsed payload (pure) |
+| `apply_sensitivity` | None | None | Sidecar | Compute adjusted thresholds for sensitivity level |
+| `get_templates` | None | None | Sidecar | List configuration templates |
+| `apply_template` | None | None | Sidecar | Apply config template, return adjusted thresholds |
+| `validate_thresholds` | None | None | Sidecar | Validate proposed thresholds against rule def |
+| `get_config_summary` | None | None | Sidecar | Summarize merchant rule config vs defaults |
+| `estimate_sensitivity` | None | None | Sidecar | Classify current thresholds by sensitivity level |
+| `get_merchant_thresholds` | None | merchant_id | Sidecar | Get merchant-specific thresholds (Valkey/DB/defaults) |
 
-Main dispatch coroutine. Flow:
+### Fox (8 tools)
 
-1. Extract `messages` and `session_id` from `data`.
-2. Check session count (`_session_counts[session_id]`) against `MAX_MESSAGES_PER_SESSION` (50).
-3. Check global daily count (`_daily_count`) against `MAX_MESSAGES_PER_DAY` (200).
-4. Retrieve `ANTHROPIC_API_KEY` from environment; return error if missing.
-5. Import `Anthropic` client (runtime import to allow the module to load without the SDK installed).
-6. Load tool definitions via `get_tool_definitions()`.
-7. Enter tool dispatch loop (max 10 iterations):
-   - Call `client.messages.create()` synchronously (blocking I/O inside the async function — acceptable because uvicorn runs the coroutine in a single-worker event loop and the Anthropic call is the only meaningful I/O).
-   - If any content block has `type == "tool_use"`: call `execute_tool(block.name, block.input)` for each, append assistant turn and tool_result user turn to `messages`, continue loop.
-   - If no `tool_use` blocks: collect all `text` blocks, break.
-8. Increment rate-limit counters.
-9. Return `{text, tool_calls, model, usage}`.
+| Tool | Auth | PII Access | Rate Limit | Description |
+|------|:---:|:---:|:---:|-------------|
+| `create_case` | None | merchant_id | Sidecar | Create a new investigation case |
+| `get_case` | None | merchant_id, case details | Sidecar | Get case with full details |
+| `list_cases` | None | merchant_id | Sidecar | List cases with filters |
+| `update_case_status` | None | merchant_id | Sidecar | Change case status |
+| `add_subject` | None | merchant_id, employee names | Sidecar | Add subject to a case |
+| `get_timeline` | None | merchant_id | Sidecar | Get case event timeline |
+| `verify_chain` | None | None | Sidecar | Verify evidence chain hash integrity |
+| `link_alert` | None | merchant_id | Sidecar | Link an alert to a case |
 
-**`app(scope, receive, send)`** (async ASGI callable)
+### Identity (6 tools)
 
-Minimal router. Handles `GET /health` (returns JSON status) and `POST /chat` (reads body, calls `handle_chat`, returns JSON). Returns 404 for all other paths. No middleware, no auth — relies on network isolation.
+| Tool | Auth | PII Access | Rate Limit | Description |
+|------|:---:|:---:|:---:|-------------|
+| `get_merchant` | None | merchant name | Sidecar | Get merchant details |
+| `get_settings` | None | merchant_id | Sidecar | Get merchant settings |
+| `list_employees` | None | employee names | Sidecar | List employees for a merchant |
+| `get_employee` | None | employee name | Sidecar | Get single employee details |
+| `list_locations` | None | location names | Sidecar | List locations for a merchant |
+| `get_location` | None | location name | Sidecar | Get single location details |
 
-**Rate limit constants:**
+### Owl (8 tools)
 
-| Constant | Value |
-|---|---|
-| `MAX_MESSAGES_PER_SESSION` | 50 |
-| `MAX_MESSAGES_PER_DAY` | 200 |
+| Tool | Auth | PII Access | Rate Limit | Description |
+|------|:---:|:---:|:---:|-------------|
+| `the_one_thing` | None | merchant_id | Sidecar | Get the single most important insight |
+| `ask` | None | merchant_id | Sidecar | Natural language question about merchant data |
+| `heartbeat` | None | None | Sidecar | Owl service health check |
+| `check_heartbeat` | None | None | Sidecar | Detailed Ollama/model health check |
+| `score_payment` | None | transaction data | Sidecar | Score a payment for risk |
+| `search` | None | merchant_id, transaction data | Sidecar | Search transactions/alerts/cases |
+| `dashboard` | None | merchant_id | Sidecar | Owl dashboard summary |
+| `knowledge_search` | None | None | Sidecar | Search knowledge base |
 
-Counters are in-memory dicts (`_session_counts`, `_daily_count`) at module scope. They reset on sidecar restart.
+### TSP (7 tools)
 
-### `tools.py` — Tool registry and dispatch
+| Tool | Auth | PII Access | Rate Limit | Description |
+|------|:---:|:---:|:---:|-------------|
+| `get_stream_health` | None | None | Sidecar | Valkey stream health metrics |
+| `get_dead_letters` | None | transaction data | Sidecar | List dead-letter events |
+| `replay_event` | None | transaction data | Sidecar | Replay a dead-letter event |
+| `get_ingestion_stats` | None | None | Sidecar | Pipeline ingestion statistics |
+| `get_receipt` | None | transaction data | Sidecar | Get parsed receipt for a payment |
+| `verify_merkle` | None | None | Sidecar | Verify Merkle proof for a transaction |
+| `process_dead_letters` | None | transaction data | Sidecar | Batch process dead-letter events |
 
-**`_load_registries()`** (private)
+### QA-Only Tools (4 tools)
 
-Lazy-loads all eight MCP service registries via `importlib.import_module`. Populates two module-level caches: `_registries` (dict of `tool_name → mcp_tool_object`) and `_tool_defs` (list of raw MCP tool definitions). Called once; subsequent calls are no-ops. Import failures per registry are logged as warnings and do not abort startup — the tool set degrades gracefully if a service registry fails to load.
+| Tool | Auth | PII Access | Rate Limit | Description |
+|------|:---:|:---:|:---:|-------------|
+| `fire_scenario` | None | Creates sandbox payments | Sidecar | Fire named test scenario in Square Sandbox |
+| `poll_scenario` | None | transaction/alert data | Sidecar | Poll pipeline status for a fired scenario |
+| `list_scenarios` | None | None | Sidecar | List available test scenarios |
+| `get_thresholds` | None | None | Sidecar | Read detection rule thresholds from DB |
 
-**`get_tool_definitions() -> list[dict]`**
+**Auth column:** "None" means the tool has no per-tool authentication. All tools rely on the blueprint-level `ops_guard` (session auth + admin role + sandbox-only) and sidecar network isolation. The tools themselves perform no authorization checks.
 
-Returns the full merged tool catalog in Anthropic Messages API format. Performs two normalizations on registry tools:
-
-1. `inputSchema` (camelCase, MCP convention) → `input_schema` (snake_case, Anthropic convention).
-2. Double-nested schema unwrapping: some `to_mcp()` implementations nest the full schema dict under the `properties` key. This function detects that pattern and unwraps it.
-
-Appends the four QA-only tool definitions (already in correct format) after the registry tools.
-
-**`execute_tool(name: str, tool_input: dict) -> Any`**
-
-Two-stage dispatch:
-
-1. Check `_registries` (MCP tools). If found, call `t.invoke(tool_input, {})`, unwrap the `{tool, ok, result, timestamp}` envelope, return `result`.
-2. Check `_QA_HANDLERS` dict. If found, call the handler function.
-3. If neither matches, return `{"error": "Unknown tool: <name>"}`.
-
-All invocation paths catch exceptions and return `{"error": "Tool <name> failed: <msg>"}` rather than propagating.
-
-**`build_canary_mcp_server()`**
-
-Alternative integration path for future Claude Agent SDK support. Uses `claude_agent_sdk.tool` and `create_sdk_mcp_server` to wrap every MCP registry tool and QA-only tool as an SDK custom tool. Each SDK tool delegates to `execute_tool()` and truncates results at 8000 characters. The returned server object is intended to be passed to `ClaudeAgentOptions.mcp_servers`. Currently not used in the live dispatch path (which uses `handle_chat` directly) but is tested and ready for the SDK migration.
-
-**QA-only tool handlers:**
-
-| Handler | Delegates to |
-|---|---|
-| `_handle_fire_scenario` | `canary.services.scenario_fire.fire_scenario` |
-| `_handle_poll_scenario` | `canary.services.health_check.chirp_lab.live_fire_poll` (DB session) |
-| `_handle_list_scenarios` | `canary.services.scenario_fire.SCENARIO_REGISTRY` |
-| `_handle_get_thresholds` | `canary.models.detection_rules.DetectionRule` (DB query) |
+**Rate Limit column:** "Sidecar" means the tool is rate-limited only by the sidecar's global limits (50/session, 200/day) and the Flask-side 10/min per IP. There are no per-tool rate limits.
 
 ---
 
-## 6. Configuration
+## Cross-App Data Access
 
-All configuration is injected via environment variables. The sidecar reads from `.env` via `env_file` in `docker-compose.localhost.yml`.
+The QA Agent sidecar imports the full Canary Python codebase. All 8 MCP service registries execute in-process, giving the agent read access to the entire `canary` database across all three schemas (`app`, `sales`, `metrics`).
+
+| Schema | Access | What the agent can read |
+|---|---|---|
+| `app` | Read + Write (via `fire_scenario`) | Merchants, employees, locations, alerts, cases, detection rules, rule configs |
+| `sales` | Read | Transactions, receipts, Merkle proofs, dead letters |
+| `metrics` | Read | KPI snapshots, risk scores, heatmap data, period metrics |
+
+**Write access:** The only write path is `fire_scenario`, which calls the Square API to create sandbox payments. These payments are then ingested by the TSP pipeline and create rows in `sales.transactions`, `app.alerts`, and potentially `app.fox_cases`. The agent itself does not perform direct database writes -- the writes happen through the normal TSP pipeline triggered by Square webhook callbacks.
+
+Additionally, `create_case`, `update_case_status`, `add_subject`, `link_alert`, and `replay_event` are write-capable Fox and TSP tools available to the agent. These can create/modify cases and replay dead-letter events.
+
+**Tenant isolation:** None. The QA Agent has access to all merchants in the database. The system prompt instructs Claude to use the merchant UUID from browser context, but there is no enforcement at the tool layer. Any tool can be called with any merchant_id.
+
+**Cross-app boundary:** The agent accesses only Canary data. It has no access to Cove, Angel, or platform databases. The `CANARY_MEMORY_DB_URL` is passed to the container but is not used by any tool handler.
+
+---
+
+## Tool Dispatch Security
+
+### How are tool calls authenticated?
+
+Tool calls are not individually authenticated. The dispatch path is:
+
+1. Browser sends messages to Flask (`POST /ops/qa/chat`).
+2. Flask `ops_guard` before_request checks: sandbox-only + session auth + admin role.
+3. Flask proxies to sidecar over Docker internal network.
+4. Sidecar passes messages to Anthropic API, receives tool_use responses.
+5. Sidecar calls `execute_tool(name, input)` in-process -- no auth check.
+6. Tool executes using the sidecar's database connection (same creds as the Flask app).
+
+The trust boundary is at step 2 (Flask ops_guard). Once a request reaches the sidecar, all 62 tools are callable without further authentication.
+
+### Can a tool escalate privileges?
+
+Yes, within the Canary domain. The agent can:
+- **Create cases** via `create_case` -- writes to Fox case tables.
+- **Modify case status** via `update_case_status` -- changes case lifecycle state.
+- **Add subjects** via `add_subject` -- associates employees with cases.
+- **Link alerts** via `link_alert` -- associates alerts with cases.
+- **Replay dead letters** via `replay_event` -- re-injects events into the TSP pipeline.
+- **Fire scenarios** via `fire_scenario` -- creates real Square Sandbox payments.
+
+These are all within the Canary domain and gated by the sandbox-only guard. Claude decides which tools to call based on the conversation; the operator does not directly select tools.
+
+### What happens if the sidecar is compromised?
+
+A compromised sidecar has:
+- Full read access to the `canary` database (all schemas).
+- Write access to Square Sandbox (via `fire_scenario`).
+- Write access to Fox cases (via case management tools).
+- Write access to TSP dead letters (via `replay_event`).
+- Access to `ANTHROPIC_API_KEY` (could make arbitrary Anthropic API calls).
+- No access to production Square environment (sandbox-only config).
+- No access to Cove, Angel, or platform databases.
+
+The sidecar does not have network access to the internet (Docker network isolation), but it does have access to the Anthropic API endpoint (required for operation).
+
+---
+
+## Operations
+
+### Startup sequence
+
+1. Shared infrastructure must be running (`growdirect_postgres`, `growdirect_valkey`).
+2. Flask container starts and becomes healthy (healthcheck on port 5001).
+3. QA Agent sidecar starts (`python -m canary.services.qa_agent.server`), binds port 8002.
+4. On first chat request, MCP registries are lazy-loaded and cached.
+
+### Health checks
+
+| Endpoint | Interval | What it checks |
+|---|---|---|
+| `GET /health` (sidecar, port 8002) | 10s (compose), 30s (Dockerfile) | Returns JSON with service name, status, daily usage |
+| Flask healthcheck (port 5001) | 10s | urllib request to `/health` |
+
+### Failure modes
+
+| Failure | Impact | Recovery |
+|---|---|---|
+| Sidecar container down | Chat returns "QA agent sidecar is not running" | Auto-restart (unless-stopped policy) |
+| Anthropic API key missing | Chat returns "ANTHROPIC_API_KEY not configured" | Add key to `.env`, restart container |
+| Anthropic API error | Chat returns "Claude API error: ..." with partial tool_calls | Retry request |
+| MCP registry load failure | Affected tools absent from catalog; other tools work | Restart sidecar |
+| Database unavailable | QA-only tools (poll_scenario, get_thresholds) fail; pure-function tools still work | Restore database |
+| Anthropic API timeout (>120s) | Chat returns "QA agent timed out" | Simplify question |
+| Tool dispatch loop exhaustion (10 iterations) | Chat returns "Agent reached maximum tool depth" | Simplify question |
+| Daily rate limit (200) reached | Chat returns "Daily limit reached" | Wait for container restart or next day |
+
+### Monitoring
+
+| Metric | Normal range | Alert threshold |
+|---|---|---|
+| Daily message count | 0-50 | >150 (approaching 200 limit) |
+| Sidecar response time | 2-30s | >60s |
+| Tool dispatch iterations per request | 1-3 | >7 (approaching 10 max) |
+| MCP registry tool count at startup | 58 | <50 (registry load failures) |
+
+### Configuration
 
 | Variable | Default | Description |
 |---|---|---|
-| `QA_AGENT_URL` | `http://qa-agent:8002` | URL of the sidecar. Read by `agent.py`. Override to point at a local uvicorn process for development outside Docker. |
-| `ANTHROPIC_API_KEY` | (required, no default) | Anthropic API key. Read by `server.py` at request time. Missing key returns a descriptive error to the caller rather than raising. |
-| `QA_AGENT_PORT` | `8002` | Port the sidecar uvicorn process binds. Read by `server.py` `__main__` block. |
-| `DEFAULT_MODEL` | `claude-sonnet-4-20250514` | Model used for all Anthropic API calls. Defined as a module constant in `agent.py`; not currently overridable via environment (change the constant to make it configurable). |
-
-The sidecar container also receives `CANARY_DB_URL` and `CANARY_MEMORY_DB_URL` because the QA-only tool handlers (`_handle_poll_scenario`, `_handle_get_thresholds`) call `get_session()` to query the Canary database directly.
-
----
-
-## 7. Security & Compliance
-
-**Session context isolation.** Merchant context (`merchant_id`) is extracted from the user message prefix injected by the browser. The agent is instructed in the system prompt to pass this UUID to all tools that accept `merchant_id`. Tools in the MCP registries enforce their own authorization checks — the QA Agent does not bypass them. Operators can only query data that the underlying MCP tools allow.
-
-**Square Sandbox only.** The system prompt explicitly states "Environment: Square Sandbox — no real merchant data at risk." The sidecar connects to the same database as the Flask app; in the localhost compose configuration this is the `canary` database populated from Square Sandbox. No firewall rule enforces this constraint — it is a configuration-level guarantee.
-
-**Network isolation.** The sidecar (`canary_localhost_qa_agent`) is on the `growdirect` Docker network and is not exposed through nginx. Port 8002 is bound on localhost for developer debugging but is not in the nginx upstream config. Internal requests from Flask arrive over the Docker network; external callers cannot reach the sidecar directly in production.
-
-**Rate limiting.** Two layers:
-- Flask-Limiter: 10 requests/minute per IP on `POST /ops/qa/chat`. Applied before the proxy call; protects Flask and the sidecar from burst traffic.
-- Sidecar in-memory limits: 50 messages per session, 200 messages per day. Applied inside `handle_chat` before the Anthropic API call. Limits Anthropic API spend. Counters reset on container restart — they provide cost guardrails, not hard security controls.
-
-**API key handling.** `ANTHROPIC_API_KEY` is read from environment inside `handle_chat` at runtime, not at import time. This means a missing or rotated key produces a clean error response rather than a startup failure. The key is never logged or returned in any response body.
-
-**No CSRF protection.** `POST /ops/qa/chat` has `WTF_CSRF_ENABLED` set to True in production config (platform standard), but the endpoint uses JSON bodies not form submissions. Flask-WTF CSRF protection applies to form POSTs; JSON endpoints in this codebase rely on the `10/minute` rate limit and session-level auth rather than CSRF tokens. If this endpoint is expanded to accept form data, CSRF protection must be added explicitly.
+| `QA_AGENT_URL` | `http://qa-agent:8002` | Sidecar URL (read by `agent.py`) |
+| `ANTHROPIC_API_KEY` | (required) | Anthropic API key (read at request time) |
+| `QA_AGENT_PORT` | `8002` | Sidecar bind port |
+| `DEFAULT_MODEL` | `claude-sonnet-4-20250514` | Model for Anthropic API calls (module constant, not env-overridable) |
+| `CANARY_DB_URL` | (required) | PostgreSQL connection for QA-only tool handlers |
+| `CANARY_MEMORY_DB_URL` | (passed but unused) | Memory bus DB connection |
+| `MAX_MESSAGES_PER_SESSION` | `50` | In-memory per-session limit (code constant) |
+| `MAX_MESSAGES_PER_DAY` | `200` | In-memory daily limit (code constant) |
 
 ---
 
-## 8. Error Handling
+## Deployment
 
-The QA Agent has three error layers. Each layer catches failures and converts them to the standard `{text, tool_calls, model}` response shape rather than propagating exceptions to the browser.
+### Docker service definition
 
-**Layer 1 — Flask proxy (`agent.py`)**
+```yaml
+# From Canary/devops/docker-compose.localhost.yml
+qa-agent:
+  image: canary-qa-agent
+  build:
+    context: ..
+    dockerfile: Dockerfile.qa-agent
+  container_name: canary_localhost_qa_agent
+  ports:
+    - "8002:8002"      # localhost debug access
+  env_file:
+    - ../.env
+  environment:
+    QA_AGENT_PORT: "8002"
+    CANARY_ENV: standalone
+    CANARY_AUTH_MODE: stub
+    CANARY_DB_BACKEND: postgresql
+    CANARY_DB_URL: postgresql://growdirect:growdirect_dev@growdirect_postgres:5432/canary
+    CANARY_MEMORY_DB_URL: postgresql://growdirect:growdirect_dev@growdirect_postgres:5432/growdirect_memory
+  depends_on:
+    flask:
+      condition: service_healthy
+  healthcheck:
+    test: ["CMD", "python", "-c", "import urllib.request; urllib.request.urlopen('http://localhost:8002/health')"]
+    interval: 10s
+    timeout: 5s
+    retries: 5
+    start_period: 15s
+  restart: unless-stopped
+  networks:
+    - growdirect
+```
 
-| Condition | Response |
-|---|---|
-| Sidecar `ConnectionError` | `"QA agent sidecar is not running. Check Docker services."` |
-| Sidecar `Timeout` (>120 s) | `"QA agent timed out. Try a simpler question."` |
-| Any other exception | Logged at ERROR with traceback. `"QA agent error: <str(e)>"` |
+The sidecar uses `Dockerfile.qa-agent` -- a two-stage build (builder + production) based on `python:3.12-slim`. It copies the full Canary codebase because MCP registries import models and services. Runs as non-root user `canary`.
 
-HTTP status returned to browser is always 200 for proxy errors. Flask returns 400 if `messages` is empty before the proxy call is attempted, and 500 if the Flask route handler itself throws (logged at ERROR).
+### AWS target
 
-**Layer 2 — Sidecar rate limiter (`server.py`)**
+| Component | AWS Service | Notes |
+|---|---|---|
+| Sidecar container | ECS/Fargate | Single task, no autoscaling needed (low traffic internal tool) |
+| Anthropic API key | Secrets Manager | Currently in `.env` -- must migrate |
+| Database connection | RDS (shared `canary` instance) | Same credentials as Flask app |
+| Networking | VPC private subnet | Sidecar should not be reachable from internet |
 
-| Condition | Response |
-|---|---|
-| Session limit (50) reached | `"Session limit reached (50 messages). Reload the page to start a new session."` |
-| Daily limit (200) reached | `"Daily limit reached (200 messages). Try again tomorrow."` |
-| `ANTHROPIC_API_KEY` missing | `"ANTHROPIC_API_KEY not configured."` |
-| `anthropic` package import fails | `"Anthropic SDK not available: <ImportError>"` |
-| Anthropic API call exception | `"Claude API error: <str(e)>"`. Logged at ERROR. |
-| Tool dispatch loop hits 10 iterations | `"Agent reached maximum tool depth. Try a simpler question."` |
-| Invalid JSON body | HTTP 400 with `{"text": "Invalid JSON.", "tool_calls": [], "model": null}` |
+### CI/CD requirements
 
-**Layer 3 — Tool dispatch (`tools.py`)**
-
-| Condition | Response |
-|---|---|
-| MCP registry tool raises | `{"error": "Tool <name> failed: <str(e)>"}`. Logged at ERROR. |
-| QA-only handler raises | `{"error": "Tool <name> failed: <str(e)>"}`. Logged at ERROR. |
-| Tool name not found in either registry | `{"error": "Unknown tool: <name>"}` |
-| Registry module fails to import at load time | Warning logged. That registry's tools are absent from the catalog. |
-
-Tool errors are returned as JSON objects to the Anthropic API as `tool_result` content. Claude receives the error description and can decide to try an alternative tool or explain the failure to the user.
-
-Result truncation: any tool result string exceeding 8000 characters is truncated with `"... (truncated)"` appended before being sent back to the Anthropic API. This prevents single large tool results from consuming the context window and inflating API cost.
+- Sidecar image rebuild on any change to `Canary/canary/` (shares full codebase).
+- Unit tests: `python3 -m pytest Canary/tests/unit/test_qa_agent_tools.py -v`.
+- No integration tests against Anthropic API (mocked in tests).
+- Healthcheck validation after deploy.
 
 ---
 
-## 9. Testing
+## Code Review Findings
 
-Tests live in `Canary/tests/unit/test_qa_agent_tools.py`. Linear: GRO-326.
+### F1: No per-tool authorization -- any tool callable with any merchant_id
 
-**Test classes:**
+**Severity:** P1 (before GA)
 
-| Class | What it covers |
+MCP tools execute in-process with no per-call authorization. The `ops_guard` at the Flask blueprint level enforces admin role and sandbox-only, but once a request reaches the sidecar, any of the 62 tools can be called with any `merchant_id`. In a multi-tenant production scenario, this means an admin user could query data for merchants they should not have access to.
+
+**Current mitigation:** Sandbox-only guard prevents production data exposure. The tool set is only accessible to admin-role users in the Ops Console.
+
+**Recommended fix:** Add a merchant_id allowlist or tenant-scoping middleware in the sidecar's `execute_tool` path. For sandbox/dev this is low risk; for production multi-tenant, tool calls must validate the requesting user's merchant scope.
+
+### F2: Session ID not propagated -- per-session rate limit is shared across all users
+
+**Severity:** P1 (before GA)
+
+`agent.py` does not extract a session or user identifier from the Flask session and forward it to the sidecar. All requests arrive with `session_id = "default"`, so the 50-message per-session limit applies to all users collectively. One heavy user consumes the session budget for everyone.
+
+**Recommended fix:** Extract `session['user_id']` or a browser-generated session token in `qa_agent_chat()` and include it in the JSON body forwarded to the sidecar.
+
+### F3: In-memory rate limits reset on container restart
+
+**Severity:** P2 (post-launch)
+
+`_session_counts` and `_daily_count` are process-local. Container restarts (intentional or crash-loop) reset all counters. The 200/day limit is a soft cost guardrail, not a hard one.
+
+**Recommended fix:** Move rate-limit counters to Valkey with TTL-keyed structure (`qa:session:<id>` with 1-hour TTL, `qa:daily` with 24-hour TTL).
+
+### F4: Sidecar port 8002 exposed to host in compose
+
+**Severity:** P2 (post-launch)
+
+The compose file maps port 8002 to localhost (`"8002:8002"`). This is intentional for dev debugging but must be removed in production compose. The sidecar should only be reachable on the Docker internal network.
+
+**Recommended fix:** Remove port mapping in production compose. Use `expose: - "8002"` instead of `ports:`.
+
+### F5: Blocking I/O in async handler
+
+**Severity:** P2 (post-launch)
+
+`handle_chat` is `async` but calls `client.messages.create()` synchronously. With a single uvicorn worker, concurrent requests queue behind the in-flight Anthropic API call (which can take 10-120 seconds). For a low-traffic internal tool this is acceptable.
+
+**Recommended fix:** Migrate to `anthropic.AsyncAnthropic` or use `asyncio.to_thread()` to offload the blocking call. Alternatively, run multiple uvicorn workers if concurrency becomes an issue.
+
+### F6: ANTHROPIC_API_KEY in .env file
+
+**Severity:** P0 (blocks prod)
+
+The Anthropic API key is stored in the `.env` file and loaded via `env_file` in Docker Compose. In production, secrets must be in AWS Secrets Manager.
+
+**Recommended fix:** Use `boto3` to retrieve `ANTHROPIC_API_KEY` from Secrets Manager at startup. Add a fallback to environment variable for local development.
+
+### F7: No audit logging for tool calls
+
+**Severity:** P1 (before GA)
+
+Tool invocations are logged at INFO level (`QA Agent -> MCP: tool_name(input)`) but there is no structured audit trail. In production, there should be a record of which user called which tools with which inputs and what data was returned.
+
+**Recommended fix:** Add structured JSON audit logging for each tool dispatch: `{timestamp, user_id, session_id, tool_name, input_params, result_size, duration_ms}`. Write to a dedicated audit log or database table.
+
+### F8: Write-capable tools accessible without explicit confirmation
+
+**Severity:** P1 (before GA)
+
+Fox tools (`create_case`, `update_case_status`, `add_subject`, `link_alert`) and TSP tools (`replay_event`) can modify database state. Claude decides when to call these based on conversation context. There is no human-in-the-loop confirmation before write operations execute.
+
+**Recommended fix:** Add a `requires_confirmation` flag to write-capable tools. The sidecar should return a confirmation prompt to the browser before executing these tools, or restrict them to a read-only tool set for non-admin users.
+
+### F9: No CSRF protection on JSON endpoint
+
+**Severity:** P2 (post-launch)
+
+`POST /ops/qa/chat` accepts JSON bodies. Flask-WTF CSRF protection applies to form POSTs, not JSON. The endpoint relies on session auth + rate limiting. A CSRF attack would require the attacker to forge a JSON POST with valid session cookies.
+
+**Recommended fix:** Add `X-Requested-With` header validation or a custom CSRF token in the JSON body for defense-in-depth.
+
+### F10: Conversation history sent to Anthropic API contains Canary data
+
+**Severity:** P1 (before GA)
+
+Every turn sends the full conversation history (including previous tool results) to the Anthropic API. Tool results may contain merchant names, employee names, transaction amounts, and alert details. For sandbox data this is acceptable. For production data, this constitutes sending internal business data to a third-party API.
+
+**Recommended fix:** Document in the data processing agreement with Anthropic. Consider truncating or redacting tool results in the message history before re-sending (currently only truncated at 8000 chars for token cost, not for PII). Alternatively, scope the QA Agent to sandbox-only permanently and build a separate, PII-aware assistant for production.
+
+---
+
+## Production Readiness Checklist
+
+- [ ] **PII encrypted at rest** -- N/A for QA Agent itself (stateless), but data it reads from other services is not encrypted at the field level. Covered by service-level SDDs.
+- [x] **Secrets in AWS Secrets Manager (not .env)** -- NOT MET. `ANTHROPIC_API_KEY` is in `.env`. See F6.
+- [x] **Health check endpoint responds** -- MET. `GET /health` on port 8002.
+- [ ] **Audit logging for sensitive operations** -- NOT MET. Tool calls logged at INFO but no structured audit trail. See F7.
+- [ ] **Data retention policy implemented** -- N/A (stateless service, no persistent data).
+- [x] **Rate limiting on public endpoints** -- MET. Flask-Limiter 10/min on `/ops/qa/chat` + sidecar 50/session + 200/day.
+- [x] **Error responses don't leak internals** -- MET. All errors return `{text, tool_calls, model}` shape. Exception messages are included in `text` but these are Anthropic SDK errors, not stack traces.
+- [ ] **Per-tool authorization** -- NOT MET. See F1.
+- [ ] **Session-scoped rate limiting** -- NOT MET. See F2.
+- [x] **Sandbox-only guard** -- MET. `ops_guard` checks `SQUARE_ENVIRONMENT == "sandbox"`.
+- [x] **Network isolation** -- MET in Docker. Port 8002 exposed to localhost for debug; must be removed for production. See F4.
+- [ ] **Write operation confirmation** -- NOT MET. See F8.
+
+---
+
+## Testing
+
+Tests: `Canary/tests/unit/test_qa_agent_tools.py`
+
+| Class | Coverage |
 |---|---|
-| `TestDynamicToolLoading` | Registry loads 10+ tools; Atlas and Alert tools present by name; every tool definition has `name`, `description`, and a schema key. |
-| `TestMCPDispatch` | `execute_tool` dispatches to Atlas tools; unknown tool name returns `{error: "Unknown tool: ..."}`. |
-| `TestQAOnlyTools` | `list_scenarios` returns a non-empty list with `name` key on each entry. |
-| `TestAgentProxy` | `chat()` returns `{text, tool_calls, model}` even when sidecar is unreachable; connection error produces human-readable message; `SYSTEM_PROMPT` exists and mentions "tool"; proxy call reaches sidecar URL with `messages` payload. |
-| `TestSidecarServer` | `handle_chat` is callable; empty messages returns "No message" text; missing API key returns "ANTHROPIC_API_KEY" text; rate limit constants are 50/200; `build_canary_mcp_server` returns a non-None object. |
+| `TestDynamicToolLoading` | Registry loads 10+ tools; Atlas and Alert tools present; all defs have name, description, schema |
+| `TestMCPDispatch` | `execute_tool` dispatches to Atlas; unknown tool returns error |
+| `TestQAOnlyTools` | `list_scenarios` returns non-empty list with name keys |
+| `TestAgentProxy` | `chat()` returns correct shape on success and sidecar-down; SYSTEM_PROMPT exists |
+| `TestSidecarServer` | `handle_chat` handles empty messages, missing API key, rate limits; `build_canary_mcp_server` returns non-None |
 
-**Test strategy:**
-
-- Unit tests only — no integration tests that call the Anthropic API. Sidecar connectivity is mocked with `unittest.mock.patch`.
-- `TestAgentProxy.test_chat_returns_dict_with_required_keys` and `test_chat_handles_sidecar_down` use an invalid port (`http://localhost:99999`) to force a real `ConnectionError` without mocking the network layer.
-- `TestSidecarServer.test_handle_chat_empty_messages` and `test_handle_chat_no_api_key` call `asyncio.run(handle_chat(...))` directly — no HTTP client needed.
-- MCP dispatch tests (`TestMCPDispatch.test_atlas_figure_dispatches_to_mcp`) call the live Atlas registry. They pass as long as the Atlas service and its database are available; they are not marked as integration tests. If Atlas tools are unavailable in CI, the `"error" not in result` assertion may need a marker.
-
-**Running tests:**
+**Gaps:** No integration tests against Anthropic API. MCP dispatch tests call live Atlas registry (may fail in CI without database). No tests for write-capable tools (create_case, fire_scenario). No tests for rate-limit counter behavior across multiple requests.
 
 ```bash
 cd ~/GrowDirect/Canary
@@ -416,55 +527,10 @@ python3 -m pytest tests/unit/test_qa_agent_tools.py -v
 
 ---
 
-## 10. Dependencies
+## Known Issues & Reconciliation
 
-### Upstream
+**Namespace placement.** The QA Agent lives at `Canary/canary/services/qa_agent/` and runs as a Canary sidecar. It is accessed through the Canary Ops Console and requires Canary MCP registries in-process. There is no separate ALX container.
 
-| Dependency | What it provides |
-|---|---|
-| Anthropic Python SDK (`anthropic`) | `client.messages.create()` — the core LLM API call in `server.py`. Lazy-imported at request time. |
-| `requests` | HTTP client in `agent.py` for Flask → sidecar proxy call. |
-| `uvicorn` | ASGI server that runs `server.py` in the sidecar container. |
-| `ANTHROPIC_API_KEY` | Must be present in sidecar environment. Sourced from `.env` via `env_file`. |
+**`build_canary_mcp_server` not in live path.** `tools.py` implements `build_canary_mcp_server()` for future Claude Agent SDK headless support. The live sidecar uses `handle_chat` with direct `execute_tool` dispatch. The SDK builder is tested but not exercised end-to-end.
 
-### Downstream
-
-| Consumer | How it uses the QA Agent |
-|---|---|
-| `canary/blueprints/ops_console.py` | `qa_agent_page()` renders the UI; `qa_agent_chat()` proxies POST requests to `agent.chat()`. |
-| Browser (ops/qa.html) | Sends messages, renders `text` and `tool_calls` from responses. |
-
-### Shared Infrastructure
-
-| Infrastructure | Role |
-|---|---|
-| `growdirect_postgres` (canary DB) | QA-only tools `poll_scenario` and `get_thresholds` query this database directly via `get_session()`. |
-| Canary MCP registries (Atlas, Alerts, Analytics, Chirp, Fox, Identity, Owl, TSP) | Loaded in-process by the sidecar. The sidecar image must include the full Canary Python package. |
-| `canary.services.scenario_fire` | `fire_scenario` function and `SCENARIO_REGISTRY` used by QA-only tool handlers. |
-| `canary.services.health_check.chirp_lab` | `live_fire_poll` used by `poll_scenario` handler. |
-| Docker network `growdirect` | Both Flask and the sidecar must be on this network for `http://qa-agent:8002` routing to work. |
-| Flask-Limiter (`canary.extensions.limiter`) | Provides the `10/minute` rate limit on the Flask-side route. |
-
----
-
-## 11. Known Issues & Reconciliation
-
-**Placement in Canary tree vs. ALX namespace.**
-
-The QA Agent lives at `Canary/canary/services/qa_agent/` but its namespace in the SDD registry is `alx`. This is correct and intentional. The QA Agent is an ALX-scoped capability (platform-level test tooling) that happens to be implemented inside the Canary app tree because it runs as a Canary sidecar, requires the Canary MCP registries in-process, and is accessed through the Canary Ops Console. There is no separate ALX app container. When a standalone ALX container exists, the QA Agent could be extracted; until then, co-location in the Canary tree is the right call.
-
-**Sidecar blocking I/O in async handler.**
-
-`handle_chat` is an `async` coroutine but calls `client.messages.create()` synchronously (the Anthropic SDK does not expose an async client in the version used here). The sidecar runs a single uvicorn worker, so one in-flight request blocks the event loop. Concurrent requests will queue behind it. For a low-traffic internal tool this is acceptable; if concurrent use becomes common, migrate to `anthropic.AsyncAnthropic` or run multiple uvicorn workers.
-
-**In-memory rate limits reset on restart.**
-
-`_session_counts` and `_daily_count` are process-local. A container restart resets all counters. This means the daily limit is a soft guardrail, not a hard one. If cost control is a priority, move these counters to Valkey with a TTL-keyed structure.
-
-**Session ID not propagated from Flask.**
-
-`agent.py` does not extract a session identifier from the Flask session and forward it to the sidecar. All requests arrive at the sidecar with no `session_id`, so they all share the `"default"` bucket. The 50-message-per-session limit currently applies to all users collectively, not per user. To fix: extract `session['user_id']` or a browser-generated session token in `qa_agent_chat()` and include it in the JSON body forwarded to the sidecar.
-
-**`build_canary_mcp_server` not in live path.**
-
-`tools.py` implements `build_canary_mcp_server()` for the Claude Agent SDK integration path but the live sidecar uses `handle_chat` with direct `execute_tool` dispatch. The SDK builder is tested (unit test asserts non-None return) but not exercised end-to-end. It is forward infrastructure for when the Agent SDK supports headless containers.
+**CANARY_MEMORY_DB_URL passed but unused.** The sidecar container receives this environment variable but no tool handler uses it. It can be removed from the compose configuration.

@@ -1,255 +1,561 @@
-# Architecture
+# Canary Architecture
 
-## Platform Overview
-
-Canary LP is a 7-layer distributed system for AI-powered loss prevention, built on 11 bounded service domains exposed through 12 MCP servers (84 tools total). The platform processes Square webhook events in real time, evaluates transactions against 26 detection rules, and surfaces actionable insights to merchants through an AI-powered assistant.
-
-**7-Layer Stack:**
-
-| Layer | Name | Components |
-|-------|------|------------|
-| 0 | Infrastructure | Docker Compose (local), ECS Fargate (cloud target) |
-| 1 | Data | PostgreSQL 17 (4 databases), Valkey 8 (streams + cache), PgBouncer |
-| 2 | Domain Services | 12 MCP servers, one per bounded context |
-| 3 | Agent Mesh | Owl, ALX, Chirp, Fox, Inscription, Condor (6 agents) |
-| 4 | Orchestration | Mastra (TypeScript) agent workflows |
-| 5 | Gateway | Kong (self-hosted) / AWS API Gateway |
-| 6 | Frontend | Next.js App Router + RSC + PWA (target), Flask/Jinja2 (current) |
-| 7 | Protocol | elJeffe / RaaS: Bitcoin L1 inscription + Avalanche L2 naming |
-
-**11 Service Domains:**
-
-| # | Domain | Purpose | MCP Tools |
-|---|--------|---------|-----------|
-| 1 | Identity | Merchants, users, roles, Square OAuth, tenant context | 6 |
-| 2 | Webhook Pipeline (TSP) | Webhook intake, HMAC validation, stream processing, parsing | 6 |
-| 3 | Chirp | Stateless detection rules, threshold config, sensitivity presets | 10 |
-| 4 | Alert | Alert lifecycle, history, impact scoring, notifications | 6 |
-| 5 | Owl | AI chat, personalities, MCP tools, merchant memory, reports | 8 |
-| 6 | Fox | Case management, evidence locker, hash-chained timeline | 8 |
-| 7 | Analytics | Dashboard metrics, heatmaps, velocity baselines, scorecards | 7 |
-| 8 | ALX | Institutional memory (pgvector semantic search, 954+ memories) | 7 |
-| 9 | RaaS | Namespace resolution, merchant onboarding, source registration | 7 |
-| 10 | Ops | Health check runner, simulator, ops console, Chirp Lab | 8 |
-| 11 | UI/BFF | Desktop + mobile rendering, feature flags, config | 4 |
-| 12 | Condor | Industry benchmarks, SDK currency, tooling landscape, regulatory | 7 |
-
-**MCP as Universal Integration Protocol:** Every domain exposes `GET /manifest`, `GET /tools`, `POST /tools/<name>`, and `GET /health`. The shared base kit (`canary/mcp/`) stamps these endpoints via `create_mcp_blueprint()`. Handler signature: `(params: Dict, context: Dict) -> Dict`. Auth: JWT on tool invocation; manifest/tools/health are public.
-
-**Decomposition Strategy:**
-
-| Phase | Status | Scope |
-|-------|--------|-------|
-| 0 | Done | Shared MCP base kit (`canary/mcp/`) |
-| 1 | Done | Owl + ALX migrated to shared base; dashboard helpers to service layer |
-| 2 | Done (Mar 2026) | 5 MCP servers: analytics, fox, chirp, alert, identity (37 tools) |
-| 3 | Done (Mar 2026) | 5 MCP servers: tsp, ops, bff, raas, condor (32 tools) |
-| 4 | Next | Container extraction: standalone agents, API gateway, Mastra, Next.js |
-
-**Bounded Context Rules:** Every file maps to exactly one domain. No orphans, no shared ownership. Domains communicate via sync function calls (today) and MCP tool invocation over HTTP (target). Inter-domain data flows follow strict contracts documented in the domain map.
-
-**Knowledge Flow:** Institutional knowledge flows one-way from ALX memory store (954+ pgvector-embedded memories) through the Owl institutional adapter into merchant-facing responses. SDDs, process architecture, detection patterns, and 30 years of retail LP ontology are embedded and searchable. Owl reads from ALX but never writes to it.
-
-**Source SDDs:** SDD-057 (Service Domain Map), SDD-059 (Modern Architecture Blueprint).
+**Wiki:** [[Brain/wiki/canary-architecture|Canary Architecture]]
+**Type:** Platform Service (Canary index SDD)
+**Last reviewed:** 2026-04-13
+**Source SDDs:** SDD-045, SDD-047, SDD-048, SDD-049, SDD-050, SDD-051, SDD-052, SDD-053, SDD-054, SDD-057, SDD-059, SDD-060, SDD-062
 
 ---
 
-## Infrastructure
+## Purpose
 
-Canary runs on a single PostgreSQL 17 instance with four databases, Valkey 8 for caching and streams, and Docker Compose for local development. Cloudflare Tunnel provides external access with zero inbound ports.
+Canary LP is a 7-layer distributed system for AI-powered loss prevention, built on 11 bounded service domains exposed through 12 MCP servers (84 tools total). The platform processes Square webhook events in real time, evaluates transactions against 26 detection rules, and surfaces actionable insights to merchants through an AI-powered assistant.
 
-**Database Architecture:**
+This is the **Canary index SDD** -- it documents the platform topology, startup order, service dependencies, cross-boundary data flows, and links to all domain-specific SDDs. Individual domain behavior is documented in its own SDD.
 
-| Database | Schema | Tables | Access Pattern | Write Pattern |
-|----------|--------|--------|---------------|---------------|
-| `canary_app` | app | ~40 | Read/write | CRUD with soft delete + audit trail |
-| `canary_sales` | sales | ~19 | Write-once, read-many | IMMUTABLE (PostgreSQL trigger-enforced) |
-| `canary_metrics` | metrics | ~20 | Write-periodically, read-often | Aggregation (fully re-derivable) |
-| `growdirect_memory` | memory | ~2 | Read/write | pgvector embeddings (768-dim, HNSW cosine), via MCP server (GRO-172) |
+---
 
-**Session Factory:** `get_db_session(db_name)` routes to the correct database by string key (`app`, `sales`, `metrics`, `memory`). Sessions are request-scoped in the Flask context, committed on success, rolled back on exception. `init_engines(app)` initializes the engine pool from Flask config. All databases share one PostgreSQL instance.
+## Dependencies
 
-**Valkey Cache Layer (8 databases):**
+### Shared Infrastructure (external -- started separately)
 
-| Namespace | Key Pattern | TTL | Purpose |
-|-----------|------------|-----|---------|
-| Thresholds | `chirp:thresholds:{merchant_id}:{rule_id}` | 300s | Chirp threshold cache |
-| Velocity | `chirp:velocity:{merchant_id}:{rule_id}:{window}` | varies | Tier 2 windowed counters |
-| Rate limits | `ratelimit:{scope}:{identifier}` | 60s | API rate limiting |
-| Sessions | `session:{session_id}` | 3600s | Flask session data |
-| Health check | `hc:session:{session_id}` | 7200s | HC session state |
-| Notifications | `notif:cap:{merchant_id}:{window}` | varies | Notification rate caps |
+These services run from `~/GrowDirect/devops/docker-compose.yml` on the `growdirect` network:
 
-Cache invalidation: threshold cache invalidated on config write/delete; session cache on logout/timeout; all caches `FLUSHDB` on container restart (acceptable: all re-derivable).
+| Service | Container | Port | Purpose |
+|---------|-----------|------|---------|
+| PostgreSQL 17 | `growdirect_postgres` | 5432 | All databases (canary, canary_test, growdirect_memory) |
+| Valkey 8 | `growdirect_valkey` | 6379 | Sessions, cache, rate limiting, TSP streams |
+| pgAdmin | `growdirect_pgadmin` | 5050 | DB administration UI |
+| Ollama | `growdirect_ollama` | 11434 | LLM inference (qwen3:14b) + embeddings (qwen3-embedding:8b) |
+| Memory Bus | `growdirect_memory_bus` | 8003 | Platform session memory MCP (FastMCP, pgvector) |
 
-**Python Version:** 3.12 — aligned across Dockerfile, CI, and CLAUDE.md. All type hints use `Mapped[]` syntax (SQLAlchemy 2.0).
+### Canary Application Stack
 
-**Docker Compose Dev Stack:** Single compose file `devops/docker-compose.localhost.yml`. Flask (Python 3.12 + Gunicorn, 1 worker, 4 threads, port 5001), PostgreSQL 17, Valkey 8, pgAdmin. Source is volume-mounted (`DEV_RELOAD=true`): file saves are live, Gunicorn auto-reloads Python. Rebuild only for new pip packages, Dockerfile, or compose changes. Entry: `./devops/scripts/dev.sh up`.
+These services run from `Canary/devops/docker-compose.localhost.yml` (dev) or `docker-compose.qa.yml` (QA):
 
-**Alembic Migration Framework (3 chains):**
+| Service | Container | Port | Image | Purpose |
+|---------|-----------|------|-------|---------|
+| Flask | `canary_flask` | 5001 | `canary-flask` | Monolith: 29 blueprints, 12 MCP servers, all business logic |
+| nginx | `canary_localhost_nginx` | 80, 443 | `nginx:1.25-alpine` | TLS termination (mkcert), reverse proxy |
+| TSP Sub1 (Seal) | `canary_localhost_tsp_sub1` | -- | `canary-flask` | Valkey stream consumer: hash-seal incoming events |
+| TSP Sub2 (Parse) | `canary_localhost_tsp_sub2` | -- | `canary-flask` | Valkey stream consumer: parse + route + feed detection stream |
+| TSP Sub3 (Merkle) | `canary_localhost_tsp_sub3` | -- | `canary-flask` | Valkey stream consumer: Merkle tree construction |
+| TSP Sub4 (Detect) | `canary_localhost_tsp_sub4` | -- | `canary-flask` | Valkey stream consumer: Chirp rule evaluation |
+| Owl MCP | `canary_localhost_owl_mcp` | 8001 | `canary-owl-mcp` | Standalone AI/chat MCP server (proof of concept extraction) |
+| QA Agent | `canary_localhost_qa_agent` | 8002 | `canary-qa-agent` | Claude Agent SDK sidecar for ops QA (uvicorn) |
+| nginx-wait | `canary_localhost_infra_check` | -- | `busybox` | Sentinel: waits for shared infra before Flask starts |
 
-| Chain | Config | Tables |
-|-------|--------|--------|
-| `canary_app` | `canary/migrations/alembic.ini` | 17+ migrations applied |
-| `canary_sales` | `canary/migrations/sales/alembic.ini` | Immutable event stream tables |
-| `canary_metrics` | `canary/migrations/metrics/alembic.ini` | Star schema tables |
+### Enterprise Stack (QA / future production)
 
-Migration naming: `NNN_groXXX_feature_name.py`. Revision IDs chain sequentially. PostgreSQL transactional DDL means failed migrations roll back entirely. `alembic_version` column widened to `varchar(128)`.
+`Canary/devops/docker-compose.canary.yml` defines the full enterprise stack (self-contained, does not use growdirect shared infra):
 
-**Cloudflare Tunnel:** Outbound-only encrypted tunnels to Cloudflare edge. No inbound ports on DSR-250 router. Dev: `dev.growdirect.app` (Mac Mini, local config). QA: `qa.growdirect.app` (iMac, token-based Docker service). Cloudflare handles TLS termination, DDoS protection, and WAF.
+| Service | Port | Profile | Purpose |
+|---------|------|---------|---------|
+| PostgreSQL 17 | 5432 | core | Dedicated Canary instance |
+| Valkey 8 | 6379 | core | Dedicated cache/broker |
+| PgBouncer | 6432 | core | Connection pooling (transaction mode, max 200 clients) |
+| Flask | 5001 | core | Business logic (4 workers in enterprise mode) |
+| Apache Superset 6 | 8088 | core | Analytics dashboards |
+| Apache Airflow 3 | 8793 | core | ETL orchestration, Chirp sweeps |
+| Keycloak 26 | 8080 | qa | OIDC identity provider |
+| Hasura v2 CE | 8081 | qa | GraphQL/REST auto-generated API |
+| Directus 11 | 8055 | qa | Internal admin panel |
+| nginx | 80 | qa | Reverse proxy |
 
-**Deploy Pipeline (dev -> QA -> prod):**
+### External APIs
+
+| API | Auth Method | Purpose |
+|-----|------------|---------|
+| Square Connect API | OAuth 2.0 (AES-256-GCM encrypted tokens) | Merchant data, transactions, webhooks |
+| Square Webhooks | HMAC-SHA256 signature validation | Real-time event push |
+
+---
+
+## Startup Order and Dependency Graph
+
+### Dev Stack (localhost)
+
+```
+1. growdirect_postgres  (healthcheck: pg_isready)
+2. growdirect_valkey    (healthcheck: valkey-cli ping)
+   ├── growdirect_pgadmin    (depends: postgres healthy)
+   ├── growdirect_ollama     (independent)
+   └── growdirect_memory_bus (depends: postgres healthy)
+3. canary_localhost_infra_check  (nginx-wait: nc -z postgres 5432 && nc -z valkey 6379)
+4. canary_flask  (depends: nginx-wait, healthcheck: HTTP GET /health)
+   Boot phases inside Flask (wsgi.py):
+     Phase 1: SQLAlchemy session factory init (consolidated schema)
+     Phase 2: Security extensions (CSRF, Talisman, Rate Limiter, Flask-Session)
+     Phase 3: Blueprint registration (29 blueprints, resilient -- each try/except)
+     Phase 4: TSP consumer group init, detection rule seeding, audit chain verification
+     Phase 5: Boot summary log
+5. canary_localhost_nginx  (depends: flask healthy)
+6. canary_localhost_tsp_sub{1,2,3,4}  (depends: flask healthy)
+7. canary_localhost_owl_mcp  (depends: flask healthy)
+8. canary_localhost_qa_agent (depends: flask healthy)
+```
+
+### Enterprise Stack
+
+```
+1. canary_postgres      (healthcheck: pg_isready)
+2. canary_valkey         (healthcheck: valkey-cli ping)
+3. canary_pgbouncer      (depends: postgres healthy)
+4. canary_flask          (depends: postgres healthy + valkey healthy)
+5. canary_airflow_scheduler (depends: postgres healthy)
+   canary_airflow_web      (depends: postgres healthy)
+   canary_superset          (depends: postgres healthy + valkey healthy)
+6. [qa profile] keycloak → hasura → directus → nginx
+```
+
+### Failure Cascade
+
+| If this goes down... | ...these break |
+|---------------------|---------------|
+| PostgreSQL | Everything (Flask degrades to health-only mode, TSP consumers stall, Owl MCP returns errors) |
+| Valkey | Sessions lost, rate limiting fails open, TSP stream processing halts, Chirp threshold cache stale |
+| Ollama | Owl AI chat returns errors, ALX embeddings fail, analytics AI features unavailable |
+| Flask | All HTTP endpoints down; TSP consumers continue processing independently but cannot write alerts without Flask health |
+| nginx | External HTTPS access lost; direct Flask :5001 still reachable |
+| Any TSP consumer | That processing stage stalls; upstream/downstream consumers continue; dead letter stream catches failures |
+
+---
+
+## Data Flow & PII Map
+
+### Database Architecture
+
+| Database | Schema | Tables | Write Pattern |
+|----------|--------|--------|---------------|
+| `canary` | `app` | ~40 | CRUD with soft delete + audit trail |
+| `canary` | `sales` | ~19 | IMMUTABLE (PostgreSQL trigger-enforced, no UPDATE/DELETE) |
+| `canary` | `metrics` | ~20 | Aggregation (fully re-derivable from sales) |
+| `growdirect_memory` | `memory` | ~2 | pgvector embeddings (1024-dim HNSW cosine) |
+
+Session factory: single engine, three schemas. `DatabaseSessionFactory` in `canary/db/session_factory.py` uses `scoped_session` with RLS context bridge -- sets `current_merchant_id` via `set_current_merchant(:mid)` at transaction start.
+
+### PII Classification (Platform-Level Cross-Boundary Flows)
+
+| Data Category | Fields | Classification | Storage | Encryption | Crosses Boundary To |
+|--------------|--------|----------------|---------|------------|-------------------|
+| OAuth tokens | `access_token`, `refresh_token` | **restricted** | `app.merchant_sources` | AES-256-GCM (`crypto.py`) | Square API (HTTP), Owl MCP |
+| Merchant identity | `business_name`, `merchant_id` | internal | `app.merchants` | plaintext | All services, UI, analytics |
+| Square merchant ID | `square_merchant_id` | internal | `app.merchant_sources` | plaintext | TSP pipeline, webhooks |
+| Transaction data | `customer_id`, `tender_id`, amounts | internal | `sales.*` (immutable) | plaintext | Chirp (detection), Owl (analysis), Fox (cases) |
+| Employee data | `employee_id`, `first_name`, `last_name` | **sensitive** | `app.employees` | plaintext | Chirp alerts, Fox cases, analytics |
+| Location data | `address`, `name` | internal | `app.locations` | plaintext | UI, analytics |
+| Alert content | `description`, linked txn/employee IDs | internal | `app.alerts` | plaintext | Notifications (email stub), Fox cases |
+| Case evidence | screenshots, notes, txn references | internal | `app.fox_cases` + evidence locker | plaintext | Owl analysis |
+| Session data | `session_id`, `merchant_id` | internal | Valkey DB 0 | plaintext in Valkey | Flask request context |
+| AI chat history | merchant questions, Owl responses | internal | Valkey (ephemeral) + ALX memory | plaintext | Ollama inference |
+| Webhook payloads | raw Square event JSON (may contain customer PII) | **sensitive** | `sales.raw_webhooks` | plaintext | TSP Sub1-4 |
+| Detection results | rule match details, severity scores | internal | `app.alerts`, `metrics.*` | plaintext | UI, notifications |
+| Notification log | channel, status, recipient metadata | internal | `app.notification_log` | plaintext | Email (stub), SMS (stub) |
+
+### Data Flow Diagram
+
+```
+Square Webhooks (HMAC-SHA256 validated)
+  │
+  ▼
+Flask /webhooks/square (TSP publisher)
+  │
+  ├──▶ Valkey stream canary:events
+  │     │
+  │     ├──▶ Sub1 (Seal): hash + write to sales.raw_webhooks
+  │     ├──▶ Sub2 (Parse): parse JSON → sales.transactions + emit canary:detection
+  │     ├──▶ Sub3 (Merkle): build Merkle tree for integrity chain
+  │     └──▶ Sub4 (Detect): Chirp rule evaluation → app.alerts → notifications
+  │
+  ├──▶ Owl MCP (:8001) → Ollama (qwen3:14b) → AI chat responses
+  │     └──▶ ALX Memory (pgvector) → institutional knowledge retrieval
+  │
+  └──▶ Flask UI (Jinja2) → Browser
+        ├── Dashboard (analytics from metrics.*)
+        ├── Chirps (alert feed from app.alerts)
+        ├── Fox (cases from app.fox_cases)
+        └── Owl (AI chat, SSE streaming)
+```
+
+---
+
+## API Contract
+
+### MCP Server Registry (12 servers, 84 tools)
+
+All MCP servers use `create_mcp_blueprint()` which stamps four endpoints per domain:
+
+- `GET /{prefix}/manifest` -- server manifest (JWT required, 100/hr)
+- `GET /{prefix}/tools` -- list available tools (JWT required, 100/hr)
+- `POST /{prefix}/tools/<name>` -- invoke a tool (JWT required, 1000/hr)
+- `GET /{prefix}/health` -- service health (public, no auth)
+
+Response envelope: `{"tool": name, "ok": true/false, "result"|"error": ..., "timestamp": ISO}`
+
+| # | Domain | Prefix | Tools | SDD | Description |
+|---|--------|--------|-------|-----|-------------|
+| 1 | Identity | `/identity` | 6 | [identity.md](identity.md) | Merchants, users, roles, Square OAuth, tenant context |
+| 2 | TSP | `/tsp` | 6 | [tsp.md](tsp.md) | Webhook intake, stream processing, parsing |
+| 3 | Chirp | `/chirp` | 10 | [chirp.md](chirp.md) | Detection rules, threshold config, sensitivity presets |
+| 4 | Alert | `/alert` | 6 | [alert.md](alert.md) | Alert lifecycle, history, impact scoring, notifications |
+| 5 | Owl | `/owl` | 8 | [owl.md](owl.md) | AI chat, personalities, MCP tools, merchant memory |
+| 6 | Fox | `/fox` | 8 | [fox.md](fox.md) | Case management, evidence locker, hash-chained timeline |
+| 7 | Analytics | `/analytics` | 7 | [analytics.md](analytics.md) | Dashboard metrics, heatmaps, velocity baselines |
+| 8 | ALX | `/alx` | 7 | [alx.md](alx.md) | Institutional memory (pgvector, 954+ memories) |
+| 9 | RaaS | `/raas` | 7 | [raas.md](raas.md) | Namespace resolution, merchant onboarding |
+| 10 | Ops | `/ops` | 8 | [ops.md](ops.md) | Health check runner, simulator, Chirp Lab |
+| 11 | BFF | `/bff` | 4 | [ui-bff.md](ui-bff.md) | Desktop + mobile rendering, feature flags |
+| 12 | Condor | `/condor` | 7 | -- | Industry benchmarks, regulatory intelligence |
+
+Additional MCP servers (non-domain, standalone):
+- **Atlas** (`/atlas`) -- diagram service (GRO-323)
+- **Owl MCP** (`:8001`) -- standalone extraction of Owl, same tools as monolith `/owl/*`
+- **QA Agent** (`:8002`) -- Claude Agent SDK sidecar, proxied via `/ops/qa/chat`
+
+### Blueprint Registry (29 blueprints in wsgi.py)
+
+| Blueprint | Prefix | Auth | CSRF Exempt | Description |
+|-----------|--------|------|:-----------:|-------------|
+| `health_bp` | `/health` | None | Yes | Health checks |
+| `auth_bp` | `/auth` | Session | No | Keycloak auth |
+| `webhooks_tsp_bp` | `/webhooks` | HMAC | Yes | Square webhook receiver |
+| `fox_bp` | `/api/fox` | JWT | Yes | Fox case CRUD |
+| `alerts_bp` | `/api/alerts` | JWT | Yes | Alert CRUD |
+| `chirp_bp` | `/api/chirp` | JWT | Yes | Chirp config CRUD |
+| `square_oauth_bp` | `/oauth` | Session | Yes | Square OAuth flow |
+| `merchants_bp` | `/api/merchants` | JWT | Yes | Merchant CRUD |
+| `locations_bp` | `/api/locations` | JWT | Yes | Location CRUD |
+| `employees_bp` | `/api/employees` | JWT | Yes | Employee CRUD |
+| `analytics_bp` | `/api/analytics` | JWT | Yes | Analytics queries |
+| `receipt_tsp_bp` | `/api/receipt` | JWT | Yes | Receipt proof |
+| `square_explorer_bp` | -- | JWT | Yes | Square Capability Explorer |
+| `views_bp` | -- | Session | No | Desktop UI (Jinja2) |
+| `devops_monitor_bp` | `/devops` | JWT | Yes | DevOps pipeline monitor |
+| `ops_console_bp` | `/ops` | JWT | Yes | Operations console |
+| `charts_bp` | `/api/charts` | JWT | Yes | Dashboard chart APIs |
+| 12 MCP blueprints | `/{domain}` | JWT | Yes | See MCP registry above |
+
+---
+
+## Operations
+
+### Startup Sequence
+
+See "Startup Order and Dependency Graph" above. Key details:
+
+1. **Shared infra must be running first.** `cd ~/GrowDirect/devops && docker compose up -d`
+2. **Flask boot is resilient.** Each blueprint loads independently via try/except. A missing import degrades one domain, not the whole app. Flask can run in "health-only mode" if the database is unreachable.
+3. **TSP consumer groups** are initialized during Flask boot (Phase 4). If Valkey is unreachable, consumers will not receive events until groups are manually created.
+4. **Detection rules** are seeded on first boot (Phase 4b, idempotent).
+5. **Audit hash chain** is verified on startup (Phase 4c). A tampered chain logs `CRITICAL` but does not block startup (`raise_on_tamper=False`).
+
+### Health Checks
+
+| Service | Endpoint | Method | Interval | Timeout |
+|---------|----------|--------|----------|---------|
+| Flask | `http://localhost:5001/health` | HTTP GET | 10s | 5s |
+| nginx | `http://localhost/nginx-health` | wget | 10s | 3s |
+| TSP Sub{1-4} | `devops/scripts/tsp_healthcheck.py` | CMD | 15s | 5s |
+| Owl MCP | `http://localhost:8001/health` | HTTP GET | 10s | 5s |
+| QA Agent | `http://localhost:8002/health` | HTTP GET | 10s | 5s |
+| PostgreSQL | `pg_isready` | CMD-SHELL | 5s (shared) / 10s (enterprise) | 5s |
+| Valkey | `valkey-cli ping` | CMD | 5s (shared) / 10s (enterprise) | 5s |
+
+### Failure Modes
+
+| Failure | Detection | Behavior | Recovery |
+|---------|-----------|----------|----------|
+| PostgreSQL down | Flask health returns 503 | Flask enters health-only mode; CRUD endpoints return 500 | Auto-reconnect via `pool_pre_ping=True` |
+| Valkey down | Rate limiting fails open | Sessions lost (users re-auth); TSP streams stall; threshold cache stale but usable (300s TTL) | Consumers retry on reconnect |
+| Ollama down | Owl health returns unhealthy | AI chat returns error; embeddings fail; detection rules continue (no AI dependency) | Restart Ollama container |
+| TSP consumer crash | Docker healthcheck fails | Container restarts (unless-stopped); unprocessed messages remain in stream | Consumer resumes from last ACK |
+| Blueprint import failure | Logged at startup | Single domain degraded; all other domains continue | Fix import, restart Flask |
+| Audit chain tampered | `CRITICAL` log on startup | Continues running (fail-open) | Investigate chain, rebuild if needed |
+
+### Configuration (Environment Variables)
+
+| Variable | Required | Default | Purpose |
+|----------|:--------:|---------|---------|
+| `SECRET_KEY` | Prod: Yes | `dev-fallback-not-for-production` | Flask session signing |
+| `CANARY_ENV` | No | `development` | Environment: development/testing/production |
+| `CANARY_DB_URL` | Yes | -- | PostgreSQL connection string |
+| `VALKEY_URL` | Yes | -- | Valkey connection string (DB 0 for Canary) |
+| `CANARY_ENCRYPTION_KEY` | Prod: Yes | -- | AES-256-GCM key (base64-encoded 32 bytes) |
+| `CANARY_HOST` | No | -- | Hostname for Talisman force_https decision |
+| `SQUARE_APPLICATION_ID` | Yes | -- | Square OAuth app ID |
+| `SQUARE_APPLICATION_SECRET` | Yes | -- | Square OAuth secret |
+| `SQUARE_WEBHOOK_SIGNATURE_KEY` | Yes | -- | HMAC-SHA256 webhook validation key |
+| `OWL_URL` | No | `http://growdirect_ollama:11434` | Ollama inference endpoint |
+| `OWL_MODEL` | No | `qwen3:14b` | Ollama model for AI chat |
+| `CANARY_MEMORY_DB_URL` | No | -- | Memory bus PostgreSQL connection |
+| `VALKEY_STREAM` | No | `canary:events` | TSP primary stream |
+| `VALKEY_STREAM_DB` | No | `4` | Valkey DB for TSP streams |
+| `QA_AGENT_URL` | No | `http://qa-agent:8002` | QA Agent sidecar endpoint |
+| `CANARY_DEV_JWT_SECRET` | Dev only | -- | JWT signing secret for dev/test |
+
+---
+
+## Deployment
+
+### Docker Service Topology (Dev)
+
+Compose file: `Canary/devops/docker-compose.localhost.yml`
+Stack name: `canary`
+Network: `growdirect` (external)
+Dev overlay: `docker-compose.dev.yml` (mounts source for hot reload)
+
+8 services total (+ 1 sentinel). All application containers share the `canary-flask` image except Owl MCP (`canary-owl-mcp`) and QA Agent (`canary-qa-agent`).
+
+**Boot command:** `./devops/scripts/dev.sh up` (wraps docker compose with dev overlay)
+
+### Docker Service Topology (QA)
+
+Compose file: `Canary/devops/docker-compose.qa.yml`
+Stack name: `canary-qa`
+Network: `growdirect` (external)
+
+6 services: app + 4 TSP consumers + test runner (profile). No nginx (direct access). No Owl MCP or QA Agent in QA yet. Test runner available via `--profile test`.
+
+### AWS Target Architecture
+
+| Component | Current | AWS Target |
+|-----------|---------|-----------|
+| Flask | Docker on Mac Mini | ECS Fargate (1 vCPU, 512MB) |
+| TSP consumers | Docker on Mac Mini | ECS Fargate (4 tasks) |
+| PostgreSQL | growdirect_postgres | RDS PostgreSQL 17 (db.t4g.micro) |
+| Valkey | growdirect_valkey | ElastiCache Valkey (cache.t4g.micro) |
+| Ollama | growdirect_ollama (Docker) | Mac Studio (local) or Bedrock fallback |
+| Secrets | `.env` files | AWS Secrets Manager |
+| TLS | Cloudflare Tunnel / mkcert | ALB + ACM |
+| DNS | Cloudflare | Route 53 + Cloudflare CDN |
+
+Infrastructure phases: Phase 1 (local lab, ~$10/mo), Phase 2 (hybrid: RDS + local inference, ~$100-150/mo), Phase 3 (full AWS: ECS Fargate + Bedrock, ~$205/mo).
+
+### CI/CD
 
 | Script | Purpose |
 |--------|---------|
 | `canary_deploy.sh --full` | Pull, build, migrate, test, deploy (local Mac Mini) |
 | `remote_deploy.sh` | SSH push to QA iMac, same sequence |
 
-Test gates enforce: unit tests block merge, integration tests block QA push, smoke tests run after every rebuild. Docker garbage collection after every rebuild.
+Test gates: unit tests block merge, integration tests block QA push, smoke tests run after every rebuild.
 
-**Ollama (native, not containerized):** qwen3:14b (9.3GB Q4_K_M) for chat/analysis, nomic-embed-text for embeddings. Runs on host at port 11434.
+---
 
-**Crypto Module (`canary/utils/crypto.py`, GRO-248):**
-- AES-256-GCM encryption at rest for OAuth tokens and secrets.
-- Key: `CANARY_ENCRYPTION_KEY` env var (base64-encoded 32 bytes).
-- Prefix scheme: `"GCM:"` (current), `"UNENCRYPTED:"` (testing stubs), no prefix (legacy Fernet).
-- Hard fail in production: missing key or missing `cryptography` package raises `RuntimeError`. Plaintext fallback only when `CANARY_ENV=testing`.
-- Transparent Fernet-to-GCM migration on next token store.
+## Multi-Tenant Isolation
 
-**Notification Dispatcher (`canary/services/notification_dispatcher.py`, GRO-254):**
-- Routes alert notifications to channels: in-app (live), email (stub), SMS (stub).
-- Called from `rule_engine._write_alerts()` after alert flush.
-- Per-rule toggle: `MerchantRuleConfig.notify_enabled` — if `False`, notification suppressed before any filter.
-- Filters (applied in order): severity threshold (`notif_severity_threshold`), quiet hours (`notif_quiet_start`/`notif_quiet_end`, wraps midnight), daily limit (`notif_daily_limit`, default 50).
-- Email/SMS stubs log `STATUS_SUPPRESSED` with reason until providers (SendGrid/SES, Twilio) are wired.
-- Every dispatch attempt (sent or suppressed) logged to `NotificationLog` with channel, status, severity, and failure reason.
+### Current State
 
-**Source SDDs:** SDD-045 (DB Session Factory), SDD-047 (Valkey Cache), SDD-049 (Docker Compose), SDD-050 (Alembic Migrations), SDD-051 (Cloudflare Tunnel), SDD-052 (Deploy Pipeline).
+| Layer | Mechanism | Enforcement |
+|-------|-----------|-------------|
+| Application | `TenantMixin.merchant_id` (String(36), indexed) | 18 models require merchant_id; Flask `g.merchant_id` set from session |
+| Database (RLS) | `set_current_merchant(:mid)` called at transaction start | `session_factory.py` event listener on engine `begin` |
+| Valkey cache | Key prefix includes `{merchant_id}` | e.g. `chirp:thresholds:{merchant_id}:{rule_id}` |
+| Session | `session["merchant_id"]` set after OAuth | Valkey DB 0, 1-hour TTL |
+| MCP tools | `context["merchant_id"]` injected from JWT | `create_mcp_blueprint` injects from `g.merchant_id` |
+
+### Gaps
+
+- RLS policies exist in the database but application code does not enforce them consistently -- some queries bypass `g.merchant_id` filter.
+- TSP consumers process events for all merchants in a single consumer group -- no per-tenant stream isolation.
+- Valkey streams (`canary:events`) are shared across all tenants -- a high-volume merchant could starve others.
+- No tenant-aware rate limiting -- all merchants share the same IP-based rate limits.
+
+---
+
+## Blast Radius
+
+This section documents what breaks when each layer of the Canary platform fails.
+
+| Component | Services Affected | Data at Risk | User Impact | Recovery Time |
+|-----------|-------------------|-------------|-------------|---------------|
+| PostgreSQL | Everything | All stored data | Complete outage | Minutes (restart) to hours (corruption) |
+| Valkey | Sessions, TSP, cache, rate limiting | In-flight stream messages | Auth broken, detection delayed | Seconds (restart), messages re-derivable |
+| Flask monolith | All HTTP, all MCP, UI | None (stateless) | Complete UI + API outage | Seconds (container restart) |
+| Single TSP consumer | One processing stage | Messages queue in stream | Detection delayed for that stage | Seconds (auto-restart) |
+| Ollama | Owl AI, ALX embeddings | None | AI features unavailable, detection rules continue | Minutes (model reload) |
+| nginx | External HTTPS access | None | External users cannot connect | Seconds (restart), :5001 still works |
+| Memory Bus | ALX memory recall, session memory | None (separate DB) | AI responses lack institutional context | Seconds (restart) |
+
+---
+
+## 7-Layer Stack
+
+| Layer | Name | Components |
+|-------|------|------------|
+| 0 | Infrastructure | Docker Compose (local), ECS Fargate (cloud target) |
+| 1 | Data | PostgreSQL 17 (1 instance, 3 schemas + memory DB), Valkey 8 (streams + cache), PgBouncer |
+| 2 | Domain Services | 12 MCP servers, one per bounded context |
+| 3 | Agent Mesh | Owl, ALX, Chirp, Fox, Inscription, Condor (6 agents) |
+| 4 | Orchestration | Mastra (TypeScript) agent workflows (target) |
+| 5 | Gateway | Kong (self-hosted) / AWS API Gateway (target) |
+| 6 | Frontend | Flask/Jinja2 (current), Next.js App Router + RSC + PWA (target) |
+| 7 | Protocol | elJeffe / RaaS: Bitcoin L1 inscription + Avalanche L2 naming |
+
+## 11 Service Domains
+
+| # | Domain | Purpose | MCP Tools | SDD |
+|---|--------|---------|-----------|-----|
+| 1 | Identity | Merchants, users, roles, Square OAuth, tenant context | 6 | [identity.md](identity.md), [identity-square.md](identity-square.md) |
+| 2 | Webhook Pipeline (TSP) | Webhook intake, HMAC validation, stream processing, parsing | 6 | [tsp.md](tsp.md), [webhook-pipeline.md](webhook-pipeline.md) |
+| 3 | Chirp | Stateless detection rules, threshold config, sensitivity presets | 10 | [chirp.md](chirp.md) |
+| 4 | Alert | Alert lifecycle, history, impact scoring, notifications | 6 | [alert.md](alert.md) |
+| 5 | Owl | AI chat, personalities, MCP tools, merchant memory, reports | 8 | [owl.md](owl.md) |
+| 6 | Fox | Case management, evidence locker, hash-chained timeline | 8 | [fox.md](fox.md) |
+| 7 | Analytics | Dashboard metrics, heatmaps, velocity baselines, scorecards | 7 | [analytics.md](analytics.md), [metrics-analytics.md](metrics-analytics.md) |
+| 8 | ALX | Institutional memory (pgvector semantic search, 954+ memories) | 7 | [alx.md](alx.md) |
+| 9 | RaaS | Namespace resolution, merchant onboarding, source registration | 7 | [raas.md](raas.md) |
+| 10 | Ops | Health check runner, simulator, ops console, Chirp Lab | 8 | [ops.md](ops.md) |
+| 11 | UI/BFF | Desktop + mobile rendering, feature flags, config | 4 | [ui-bff.md](ui-bff.md) |
+
+Additional SDDs:
+- [data-model.md](data-model.md) -- Cross-schema data model reference (PII map anchor)
+- [external-identities.md](external-identities.md) -- Entity resolution, PII abstraction
+- [goose.md](goose.md) -- Treasury/payment layer, Bitcoin/L402
+- [multi-pos-architecture-proof.md](multi-pos-architecture-proof.md) -- Multi-source adapter pattern
+- [qa-agent.md](qa-agent.md) -- QA orchestration, 30+ MCP tools
 
 ---
 
 ## Patterns
 
-Canary enforces consistent patterns across all models, blueprints, and tests through shared base classes, mixins, and a three-layer test strategy.
+### Base Classes (SQLAlchemy 2.0 `Mapped[]` syntax)
 
-**Base Classes (SQLAlchemy 2.0 `Mapped[]` syntax throughout):**
+| Base | Schema | Purpose |
+|------|--------|---------|
+| `AppBase` | `app` | Operational models (merchants, alerts, cases) |
+| `SalesBase` | `sales` | Transaction log (immutable event stream) |
+| `MetricsBase` | `metrics` | Analytics star schema (re-derivable) |
 
-| Base | Database | Purpose |
-|------|----------|---------|
-| `AppBase` | canary_app | Operational models (merchants, alerts, cases) |
-| `SalesBase` | canary_sales | Transaction log (immutable event stream) |
-| `MetricsBase` | canary_metrics | Analytics star schema (re-derivable) |
-
-No legacy `declarative_base`. All models use SQLAlchemy 2.0 `Mapped[]` column syntax.
-
-**GSLM Mixins (Get/Save/List/Merge):**
+### GSLM Mixins
 
 | Mixin | Columns | Used By | Purpose |
 |-------|---------|---------|---------|
 | `TenantMixin` | `merchant_id` (String(36), indexed) | 18 models | Multi-tenant isolation key |
-| `AuditMixin` | `created_at`, `updated_at`, `created_by`, `modified_by` | 29 models | Standard audit timestamps and attribution |
-| `SoftDeleteMixin` | `db_status` (draft/active/archived), `db_effective_from`, `db_effective_to` | 9 models | Soft delete with effective dating (GSLM pattern) |
-| `ImmutableMixin` | (trigger-enforced) | All canary_sales tables | PostgreSQL `BEFORE UPDATE OR DELETE` trigger blocks mutations |
+| `AuditMixin` | `created_at`, `updated_at`, `created_by`, `modified_by` | 29 models | Audit timestamps and attribution |
+| `SoftDeleteMixin` | `db_status`, `db_effective_from`, `db_effective_to` | 9 models | Soft delete with effective dating |
+| `ImmutableMixin` | (trigger-enforced) | All sales tables | PostgreSQL `BEFORE UPDATE OR DELETE` trigger |
 
-**Data Mutation Patterns:**
+### Data Mutation Patterns
 
 | Pattern | Scope | Enforcement |
 |---------|-------|-------------|
-| WRITE-ONCE IMMUTABLE | canary_sales (all 19 tables) | PostgreSQL BEFORE trigger raises IMMUTABILITY VIOLATION |
-| APPEND-ONLY | Alert, AlertHistory, AuditLog, NotificationLog | Application convention (future: trigger) |
-| SOFT DELETE (GSLM) | 9 app models (Merchant, Location, Employee, etc.) | SoftDeleteMixin columns |
+| WRITE-ONCE IMMUTABLE | `sales.*` (all 19 tables) | PostgreSQL BEFORE trigger |
+| APPEND-ONLY | Alert, AlertHistory, AuditLog, NotificationLog | Application convention |
+| SOFT DELETE (GSLM) | 9 app models | SoftDeleteMixin columns |
 | OPERATIONAL | All other app models | Standard CRUD with audit trail |
 
-Corrections to immutable data use compensating INSERTs, not updates. `generate_uuid()` returns `str(uuid.uuid4())` as default for all PK columns.
+### Security Extensions
 
-**Blueprint Route Registry:** All MCP servers use the shared base kit `create_mcp_blueprint()` factory, which stamps four endpoints: `GET /manifest`, `GET /tools`, `POST /tools/<name>` (JWT-required), `GET /health`. Response envelope: `{"tool": name, "ok": true/false, "result"|"error": ..., "timestamp": ISO}`.
+| Extension | Purpose | Config |
+|-----------|---------|--------|
+| CSRFProtect | CSRF tokens on POST/PUT/DELETE | API/webhook/MCP blueprints exempt (JWT/HMAC auth) |
+| Flask-Limiter | Rate limiting | 2000/day, 500/hour default; MCP tools 1000/hour |
+| Flask-Talisman | Security headers | HSTS, CSP, X-Frame-Options; force_https off for localhost |
+| Flask-Session | Server-side sessions | Valkey DB 0, 1-hour TTL |
 
-**Flask Extensions (`canary/extensions.py`):**
+### Encryption
 
-| Extension | Instance | Purpose |
-|-----------|----------|---------|
-| Flask-WTF CSRFProtect | `csrf` | CSRF token generation/validation on POST/PUT/DELETE |
-| Flask-Limiter | `limiter` | Rate limiting per-IP and per-merchant |
-| Flask-Talisman | `talisman` | Security headers (HSTS, CSP, X-Frame-Options) |
+| Scope | Algorithm | Key Source | Migration |
+|-------|-----------|-----------|-----------|
+| OAuth tokens | AES-256-GCM | `CANARY_ENCRYPTION_KEY` (.env) | Transparent Fernet-to-GCM on next store |
+| Session data | None | -- | Plaintext in Valkey |
+| Employee PII | None | -- | Plaintext in PostgreSQL |
+| Webhook payloads | None | -- | Plaintext in sales schema |
 
-API endpoints (JWT-authenticated) are CSRF-exempt (token-based auth is CSRF-safe). Webhook endpoints are CSRF-exempt (HMAC-verified). Talisman runs with `force_https=False` because Cloudflare handles TLS.
+### Test Strategy
 
-**Test Strategy (3 layers):**
-
-| Layer | Location | Runner | Count | Gate |
-|-------|----------|--------|-------|------|
-| Unit | `tests/unit/` | `pytest tests/unit/` | 1,425+ | CI blocks merge |
-| Integration | `tests/integration/` | `pytest tests/integration/ -m postgres` | ~50 | Must pass before QA push |
-| Smoke | `tests/smoke/` | `pytest tests/smoke/` | ~10 | Must pass after every rebuild |
-
-**Unit tests** (Layer 1): test business logic in isolation. Mock all I/O (DB, HTTP, Valkey). ~30 seconds runtime. If a test needs PostgreSQL, it goes to Layer 2.
-
-**Integration tests** (Layer 2): verify ORM mappings, migrations, triggers (immutability), cross-table queries against real PostgreSQL. Transaction rollback per test, no pollution. ~2 minutes runtime.
-
-**Smoke tests** (Layer 3): verify deployed stack is functional. Hit `/health`, key endpoints, check response codes. ~10 seconds runtime.
-
-**Test conventions:** No `@pytest.mark.skip` on empty files (dead tests get deleted). Tests organized by layer, not sprint. Every feature gets a unit test. Commit after each green phase.
-
-**Source SDDs:** SDD-048 (Flask Extensions/CSRF), SDD-053 (Test Strategy), SDD-054 (Base Mixins & Model Patterns).
+| Layer | Location | Gate | Runtime |
+|-------|----------|------|---------|
+| Unit | `tests/unit/` | CI blocks merge | ~30s |
+| Integration | `tests/integration/` | Before QA push | ~2min |
+| Smoke | `tests/smoke/` | After every rebuild | ~10s |
 
 ---
 
 ## Target State
 
-The target-state architecture extracts domains from the Flask monolith into standalone agent containers, adds an API gateway, replaces Jinja2 with Next.js, and introduces Mastra for multi-step agent orchestration. The same MCP tool contracts stay — transport changes from in-process calls to HTTP.
+The target-state architecture extracts domains from the Flask monolith into standalone agent containers, adds an API gateway, replaces Jinja2 with Next.js, and introduces Mastra for multi-step agent orchestration. The same MCP tool contracts stay -- transport changes from in-process calls to HTTP.
 
-**API Gateway (Phase 2: Kong self-hosted, Phase 3: AWS API Gateway):**
+### API Gateway (Phase 2: Kong, Phase 3: AWS API Gateway)
 
-The gateway externalizes cross-cutting concerns into a single auditable choke point:
-- TLS termination (Cloudflare Phase 1, ALB Phase 2+)
-- JWT validation before forwarding to domain services
-- HMAC-SHA256 verification for Square webhooks
-- Rate limiting per merchant tier (Open 100/min, Strict 10/min, Standard 60/min, Burst 300/min, Internal 1000/min)
-- Product tier multipliers: Health Check 1x, Sentinel 2x, Full RaaS 5x
-- Path-based routing: `/owl/*` -> canary-owl:8001, `/api/chirp/*` -> canary-chirp:8003, etc.
-- CORS enforcement (no wildcards in production)
-- SSE proxy for streaming AI responses, WebSocket upgrade (Phase 2+)
-- Request/response logging with correlation IDs
+Externalizes cross-cutting concerns: TLS termination, JWT validation, HMAC webhook verification, rate limiting per merchant tier (Open 100/min, Standard 60/min, Burst 300/min, Internal 1000/min), path-based routing, CORS enforcement, SSE proxy, and request/response logging with correlation IDs.
 
-Auth evolution: Flask middleware (now) -> Keycloak OIDC (self-hosted) -> AWS Cognito (cloud). All produce identical JWT payloads: `{sub, merchant_id, organization_id, roles, iss, exp}`. Service-to-service auth uses short-lived JWTs (5-min expiry, daily rotation).
+Auth evolution: Flask middleware (now) -> Keycloak OIDC (self-hosted) -> AWS Cognito. All produce identical JWT payloads: `{sub, merchant_id, organization_id, roles, iss, exp}`.
 
-**Next.js App Router Frontend:**
+### Container Extraction (Phase 4)
 
-Mobile-first PWA with React Server Components (RSC). App Router structure: `(auth)/` for OAuth, `(merchant)/` for the main shell with chirps (alert feed), owl (The One Thing + chat), vault (Fox cases), dashboard (analytics), and settings (thresholds). Server Actions invoke MCP tools directly. Client Components handle streaming AI chat via `useChat()` from Vercel AI SDK.
+Each agent becomes an independent container: MCP server + MCP client + event bus consumer + service logic + PgBouncer sidecar. AI agents (Owl, ALX, Condor) co-locate with Ollama on Mac Studio (192GB unified memory). Deterministic agents (Chirp, Fox, Alert) stay with the database. Agent discovery via Valkey hash (`canary:registry:<agent>`), 30-second heartbeat.
 
-Real-time capabilities: SSE replaces pull-to-refresh for alert push, token-by-token streaming from Ollama through Owl agent to browser. PWA service worker caches alert feed for offline viewing, push notifications for critical/high alerts. Design tokens port from current CSS custom properties (`--color-*`, `--bg-*`, `--text-*`) to Tailwind CSS with custom theme.
+### Process Ontology Alignment
 
-**Mastra Orchestration:**
-
-Mastra (TypeScript) connects to all 12 MCP servers via `MCPClient` and defines multi-step workflows:
-
-| Workflow | Steps | Key Agents |
-|----------|-------|------------|
-| Health Check Pipeline | profile select -> OAuth/demo -> ingest -> chirp sweep -> heartbeat -> report -> merchant action -> persist memory | identity, tsp, chirp, owl, alx |
-| Alert Lifecycle | alert created -> owl evaluate -> surface to merchant -> merchant action -> execute -> log outcome | chirp, owl, alert, alx |
-| Case Investigation | case opened -> gather evidence -> owl analysis -> present findings -> escalate/close | fox, alert, analytics, owl |
-
-Human-in-the-loop: Mastra pauses workflows at merchant decision points and resumes via Server Actions. Workflow state persists across page reloads.
-
-**Process Ontology Alignment:**
-
-Canary's detection rules and scoring methods implement a 30-year retail operations process ontology, not an ad hoc feature set:
+Canary's detection rules implement a 30-year retail operations process ontology:
 
 | Source | Year | Canary Mapping |
 |--------|------|----------------|
-| Staples Level 2 (Tom Hoover / PwC) | 1996 | 26 processes, A/R/M/E accountability -> Chirp rule categories |
-| Tesco Operating Model v1.24 | 2007 | ~100 processes, 13 value chain categories -> KPI framework |
-| Beck & Peacock "New Loss Prevention" | 2009 | Operational failure taxonomy (Fig 7.1) -> detection philosophy |
+| Staples Level 2 (Hoover/PwC) | 1996 | 26 processes -> Chirp rule categories |
+| Tesco Operating Model v1.24 | 2007 | ~100 processes -> KPI framework |
+| Beck & Peacock "New Loss Prevention" | 2009 | Operational failure taxonomy -> detection philosophy |
 | Speights, Downs & Raz | 2017 | Statistical methods -> velocity z-scores, baseline modeling |
 
-Lineage: STPL (1996) -> Tesco (2007) -> Beck & Peacock (2009) -> Speights (2017) -> Canary Data Model / Secure EBR (2004-2020) -> elJeffe Protocol -> Canary LP (2025-present).
-
-The 6-layer scoring stack maps directly: per-transaction scoring (Sales Audit), per-alert impact (Performance Monitoring), per-period heatmap (Performance Levers), time-series velocity (XPLOSS/Poisson), aggregate health (Heartbeat/CDSS), entity risk (SRA Scorecards). SRA (Shrink Risk Assessment) unifies refund amount + cash variance + discount total as the full operational failure surface, not just theft.
-
-**Container Extraction (Phase 4):**
-
-Each agent becomes an independent container: MCP server (my tools) + MCP client (consume others) + event bus consumer + service logic (pure Python) + PgBouncer sidecar. AI agents (Owl, ALX, Condor) co-locate with Ollama on the Mac Studio (192GB unified memory). Deterministic agents (Chirp, Fox, Alert) stay on the Mac Mini with the database. Agent discovery via Valkey hash (`canary:registry:<agent>`), 30-second heartbeat interval.
-
-Infrastructure phases: Phase 1 (local lab, ~$10/mo electricity), Phase 2 (hybrid cloud: RDS + local inference, ~$100-150/mo), Phase 3 (full AWS: ECS Fargate + Bedrock fallback, ~$205/mo without GPU).
+The 6-layer scoring stack: per-transaction (Sales Audit), per-alert (Performance Monitoring), per-period heatmap (Performance Levers), time-series velocity (XPLOSS/Poisson), aggregate health (Heartbeat/CDSS), entity risk (SRA Scorecards).
 
 **Source SDDs:** SDD-059 (Modern Architecture Blueprint), SDD-060 (Process Ontology Alignment), SDD-062 (API Gateway).
+
+---
+
+## Code Review Findings
+
+### P0 -- Blocks Production
+
+| # | Finding | Detail | Recommended Fix |
+|---|---------|--------|-----------------|
+| P0-1 | Employee PII stored plaintext | `first_name`, `last_name` in `app.employees` have no encryption. These fields flow to alerts, cases, and analytics. | Extend `crypto.py` AES-256-GCM to employee PII fields. Encrypt at write, decrypt at read. |
+| P0-2 | Webhook payloads stored with raw customer data | `sales.raw_webhooks` preserves full Square JSON including customer IDs, tender details. Immutable table means redaction requires compensating INSERT. | Add a redaction step in TSP Sub1 (Seal) -- strip customer PII before persisting raw payload. Store hash of original for integrity. |
+| P0-3 | Encryption key in `.env` file | `CANARY_ENCRYPTION_KEY` stored in plaintext `.env`, loaded via `os.getenv()`. Key compromise exposes all OAuth tokens. | Migrate to AWS Secrets Manager. Load at startup via `boto3`. Rotate key quarterly. |
+| P0-4 | `SECRET_KEY` falls back to insecure default | `wsgi.py` lines 49-55: non-production environments get `dev-fallback-not-for-production`. If `CANARY_ENV` is misconfigured, production runs with a known key. | Remove fallback entirely. Fail hard if `SECRET_KEY` is not set, regardless of environment. |
+| P0-5 | QA compose embeds encryption key in plaintext | `docker-compose.qa.yml` line 67: `CANARY_ENCRYPTION_KEY: BHDJWBeEEtNrcqqONlNbyVdLjec4vP0SymY-X5sPQic=` is a hardcoded secret in a committed file. | Remove from compose. Use `.env` file (gitignored) or Docker secrets. |
+
+### P1 -- Before GA
+
+| # | Finding | Detail | Recommended Fix |
+|---|---------|--------|-----------------|
+| P1-1 | No data retention policy | No automated purge for any table. `sales.*` is immutable and append-only -- will grow indefinitely. | Implement retention: raw webhooks >12mo archived, sessions >30d purged, audit logs >24mo cold storage. |
+| P1-2 | Session data unencrypted in Valkey | `session["merchant_id"]` and session state stored as plaintext Redis keys. No AUTH required on dev Valkey. | Enable Valkey AUTH + TLS in production. Consider session payload encryption. |
+| P1-3 | No audit logging for MCP tool invocations | `create_mcp_blueprint` dispatches tool calls without logging who called what with what params. | Add audit log entry for every `POST /tools/<name>` with caller identity, tool name, params hash, result status. |
+| P1-4 | Error responses may leak internals | `wsgi.py` error handlers render templates but Flask's default 500 handler can leak tracebacks in non-debug mode if templates are missing. | Ensure all error templates exist. Add catch-all JSON error handler for API routes. Strip stack traces in production. |
+| P1-5 | RLS context fails open | `session_factory.py` `_set_rls_context`: if `g.merchant_id` is None, no RLS filter is applied -- queries see all tenants. | Add explicit `set_current_merchant('none')` when merchant_id is absent, or fail the query if tenant context is required. |
+| P1-6 | No key rotation procedure | `crypto.py` supports Fernet-to-GCM migration but no GCM-to-GCM rotation. Key compromise requires manual re-encryption of all tokens. | Document rotation procedure. Build CLI command to re-encrypt all tokens with a new key. |
+| P1-7 | Notification email/SMS stubs | `notification_dispatcher.py` logs `STATUS_SUPPRESSED` for email and SMS. No actual delivery channel is wired. | Wire SendGrid or SES for email before GA. SMS can remain stub with clear user documentation. |
+
+### P2 -- Post-Launch
+
+| # | Finding | Detail | Recommended Fix |
+|---|---------|--------|-----------------|
+| P2-1 | No structured monitoring | No Prometheus metrics, no Grafana dashboards, no alerting rules. Health checks exist but are not scraped. | Add Prometheus client to Flask. Export request latency, error rates, TSP throughput, queue depth. |
+| P2-2 | Single Flask worker in dev | `--workers 1 --threads 4` is fine for dev but production needs multiple workers. Enterprise compose has `${FLASK_WORKERS:-4}`. | Ensure production deployment uses enterprise compose with 4+ workers. |
+| P2-3 | No request correlation IDs | No `X-Request-ID` or trace ID propagated across Flask -> TSP consumers -> Owl MCP. Debugging cross-service issues requires log timestamp correlation. | Add middleware to generate/propagate correlation ID in all log entries. |
+| P2-4 | Audit chain verification is fail-open | `wsgi.py` line 480: `raise_on_tamper=False`. A tampered audit chain only produces a CRITICAL log, does not block startup. | Consider fail-closed in production: if audit chain is tampered, refuse to serve write endpoints. |
+| P2-5 | TSP consumers share one Valkey DB for all tenants | `canary:events` stream processes all merchants in one consumer group. High-volume merchants can delay processing for others. | Add per-tenant stream partitioning or priority-based routing in Phase 4 container extraction. |
+
+---
+
+## Production Readiness Checklist
+
+- [ ] PII encrypted at rest (P0-1: employee names, P0-2: webhook payloads)
+- [ ] Secrets in AWS Secrets Manager, not .env (P0-3, P0-5)
+- [x] Health check endpoint responds (`/health` on Flask, Owl MCP, QA Agent, TSP consumers)
+- [ ] Audit logging for sensitive operations (P1-3: MCP tool invocations not logged)
+- [ ] Data retention policy implemented (P1-1: no automated purge)
+- [x] Rate limiting on public endpoints (Flask-Limiter: 2000/day, 500/hour; MCP: 1000/hour)
+- [ ] Error responses don't leak internals (P1-4: template fallback risk)
+- [x] CSRF protection active (CSRFProtect on all session-auth routes)
+- [x] TLS termination (Cloudflare Tunnel / nginx with mkcert)
+- [x] OAuth tokens encrypted (AES-256-GCM via `crypto.py`)
+- [x] Immutable sales data (PostgreSQL BEFORE trigger enforced)
+- [x] Multi-tenant isolation at DB layer (RLS via `set_current_merchant`)
+- [ ] Multi-tenant isolation fail-safe (P1-5: RLS fails open when merchant_id is None)
+- [ ] Key rotation procedure documented (P1-6)
+- [ ] Session encryption in Valkey (P1-2)
+- [ ] Monitoring and alerting (P2-1)
+- [ ] Request correlation IDs (P2-3)

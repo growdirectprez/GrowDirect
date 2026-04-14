@@ -1,361 +1,301 @@
 # Angel Web Strategy
 
-> **Status:** Proposed — design spec, not yet built
+> **Type:** App Service
+> **Status:** Active — TheHillPV.com skeleton live, 7 neighborhood pages, schools page, SEO routes
 > **Namespace:** angel
-> **Date:** 2026-04-06
+> **Date:** 2026-04-06 (ops upgrade 2026-04-13)
 > **Author:** ALX (COO) / Jeffe (CEO)
-> **Dependencies:** Angel Agent, Angel data platform
+> **Dependencies:** Angel data platform, Angel Agent sidecar, Cove Flask
+
+**Wiki:** [[Brain/wiki/south-bay-wiki-architecture|South Bay Wiki Architecture]] · [[Brain/projects/Angel|Angel MOC]]
 
 ---
 
-## 1. Overview
+## Purpose
 
-Angel's web strategy uses three domains with distinct roles that funnel
-traffic toward a single outcome: a phone conversation between the visitor
-and Angelique Lyle.
-
-| Domain | Role | Platform | Owner |
-|--------|------|----------|-------|
-| **AngeliqueLyle.com** | Flagship luxury presence | Luxury Presence (LP) | Angelique |
-| **TheHillPV.com** | Silent SEO content engine | GrowDirect Flask stack | GrowDirect |
-| **OwnPalosVerdes.com** | Secondary SEO (reclamation) | TBD — needs spam cleanup | Angelique |
-
-The Angel chatbot widget is the connective tissue — embedded on all three
-sites, it provides the same proprietary data experience regardless of entry
-point and captures leads into a single pipeline.
+Angel's web strategy uses three domains with distinct roles that funnel traffic
+toward a single outcome: a phone conversation between the visitor and Angelique
+Lyle. TheHillPV.com is the data-driven content engine built on Flask.
+AngeliqueLyle.com is the luxury flagship on Luxury Presence. OwnPalosVerdes.com
+is a recovery project.
 
 ---
 
-## 2. AngeliqueLyle.com — Flagship Refresh
+## Dependencies
 
-### Current State
-
-- Hosted on **Luxury Presence** (LP) — a managed platform powering 50K+ agent sites
-- LP handles IDX integration, responsive design, hosting, SSL
-- Content is outdated — existing brand materials are disjointed (Abalone Shore,
-  various themes that don't cohese)
-- Domain is Angelique's primary professional identity
-
-### Strategy: Refresh, Don't Rebuild
-
-Rebuilding on our stack would mean losing LP's IDX feed, managed hosting, and
-the 50K-agent network effects. Instead, we refresh the content and integrate
-Angel where LP allows.
-
-**Phase 1 — Content refresh (no code required):**
-- Update bio, headshot, and brand messaging to new Angel brand identity
-- Rewrite neighborhood pages with data-backed market insights
-- Add testimonials and transaction highlights
-- Update property descriptions with Angelique's authentic voice
-- Remove all "Abalone Shore" branding and disjointed legacy material
-
-**Phase 2 — Chat widget integration (needs LP investigation):**
-
-LP integration options (in order of preference):
-1. **Custom script injection** — if LP allows `<script>` tags in custom HTML
-   sections, embed the Angel chat widget directly. This is the cleanest path.
-2. **LP API / webhook** — LP may offer an API for adding custom features.
-   Requires API key or partner relationship.
-3. **Subdomain redirect** — `chat.angeliquelyle.com` points to our stack,
-   linked from LP site via buttons/CTAs. Visitor leaves LP momentarily to
-   interact with Angel, then returns.
-4. **Bridge CTA** — LP site includes prominent "Ask Angel" buttons that
-   link to TheHillPV.com chat. LP handles the brochure; our stack handles
-   the conversation.
-
-**Phase 3 — Content syndication (future):**
-
-If LP supports custom page content via API or embed, Angel can generate
-and publish data-driven content (market reports, neighborhood guides) to
-AngeliqueLyle.com automatically. This would give the LP site the depth of
-a custom site without rebuilding it.
-
-### What LP Keeps Owning
-
-- IDX listing search (MLS-compliant, already integrated)
-- Responsive templates and design system
-- SSL, hosting, CDN
-- SEO baseline (domain authority, sitemap, meta tags)
-- Mobile responsiveness
-
-### What Angel Adds
-
-- Conversational AI (chat widget, if injection is possible)
-- Data-backed content (market reports written from Angel's dataset)
-- Brand consistency (new Angel identity applied to LP's template)
-- Lead capture that feeds into Angel's pipeline (not just LP's default form)
+| Dependency | Type | Required |
+|------------|------|----------|
+| Cove Flask (port 5002) | Host app — Angel web blueprints registered here | Yes |
+| PostgreSQL (`cove` database) | Content queries (listings, entities, events, snapshots) | Yes |
+| Angel Agent sidecar (port 8004) | Chat proxy for `/angel/chat` endpoints | For chat features |
+| Cloudflare | DNS + CDN for TheHillPV.com | For production |
+| Luxury Presence | AngeliqueLyle.com hosting (external) | External — not our infra |
 
 ---
 
-## 3. TheHillPV.com — Silent SEO Engine
+## Data Flow & PII Map
 
-### Purpose
+### What Enters
 
-TheHillPV.com is a data-driven local content site that builds SEO authority
-for Palos Verdes real estate search terms. It is NOT obviously an agent
-marketing site — it reads like an independent local guide. Angelique's
-association is subtle (author bylines, "About" page) until the visitor
-engages with Angel and is routed to her.
+| Source | Data | PII Content |
+|--------|------|------------|
+| Visitor HTTP request | URL, IP address, User-Agent, referrer | IP address (P1 — logged in access logs) |
+| Angel chat widget (JS) | Visitor messages, conversation context | Phone number if lead captured (sensitive) |
+| LP webhook (planned) | Lead contact info from AngeliqueLyle.com forms | Name, email, phone (sensitive) |
 
-"The Hill" is PV locals' own name for the peninsula. The domain speaks to
-insiders and curious outsiders alike.
+### What's Stored
 
-### Platform
+| Field | Location | Classification | Encryption |
+|-------|----------|---------------|------------|
+| Visitor IP address | Web server access logs | **sensitive** | **Plaintext in logs (P1)** |
+| Lead phone (via chat) | `leads` table (planned) | **sensitive** | **Not yet implemented (P0)** |
+| Neighborhood content | `local_entities`, `community_events` | public | N/A |
+| Voice overlay text | `voice_overlays.py` (hardcoded) | public | N/A |
 
-Blueprint on Cove Flask app (port 5002). Full control over content, SEO, analytics,
-and chat integration through Angel blueprints registered in Cove.
+### What Exits
 
-```
-TheHillPV.com
-├── / (home) — "Life Above the Pacific" — editorial landing
-├── /neighborhoods/{slug} — RPV, PVE, RHE, RH, Lunada Bay, etc.
-├── /schools — PVPUSD guide, feeder patterns, ratings
-├── /market — Monthly market report (auto-generated from data)
-├── /market/{area}/{month} — Granular market snapshots
-├── /streets/{slug} — Notable streets / micro-neighborhoods
-├── /guides/{slug} — Relocation guide, first-time buyer, downsizer
-├── /blog/{slug} — Editorial content in Angelique's voice
-├── /ask — Full-page Angel chat experience
-└── /api/chat — Angel Agent endpoint (proxied to sidecar)
-```
+| Destination | Data | Notes |
+|-------------|------|-------|
+| Visitor browser | Rendered HTML pages with market data, neighborhood info | Public — no PII |
+| Angel Agent sidecar | Chat messages proxied to `/chat` endpoint | May contain visitor PII |
+| Search engine crawlers | Sitemap.xml, robots.txt, structured data | Public |
 
-### Content Strategy
+---
 
-Content is generated from Angel's proprietary dataset, not scraped or
-generic. Every page has data that no competitor can replicate because it
-comes from our APN-level database.
+## API Contract
 
-**Neighborhood pages** (`/neighborhoods/lunada-bay`):
-- Boundaries and character description (from knowledge base)
-- Current active listings count and median price (from Angel listings)
-- Recent sales with price-per-sqft trends (from Angel listings, Closed)
-- School assignments (from GreatSchools + knowledge)
-- Walk score, commute estimates (future integration)
-- Angel chat widget pre-loaded with neighborhood context
+### Web Routes (angel_web_bp, prefix: `/angel/web`)
 
-**Market reports** (`/market/rpv/2026-03`):
-- Auto-generated monthly from Angel market_snapshots table
-- Active inventory, closings, median prices, DOM, inventory months
-- MoM and YoY comparisons
-- Price-per-sqft by area
-- "What this means" summary (LLM-generated, editorially reviewed)
+| Route | Method | Auth | Purpose |
+|-------|--------|------|---------|
+| `/angel/web/` | GET | None | TheHillPV.com home page |
+| `/angel/web/neighborhoods/` | GET | None | Neighborhood index |
+| `/angel/web/neighborhoods/<slug>` | GET | None | Individual neighborhood page with DB data |
+| `/angel/web/schools` | GET | None | PVPUSD school guide |
+| `/angel/web/ask` | GET | None | Full-page Angel chat experience |
 
-**School guide** (`/schools`):
-- PVPUSD overview with all campuses
-- Feeder pattern visualization
-- Ratings from GreatSchools
-- Enrollment and demographic trends (public data)
-- "Schools by neighborhood" cross-reference
+### Chat Routes (angel_chat_bp)
 
-**Street profiles** (`/streets/via-del-monte`):
-- Micro-neighborhood character from knowledge base
-- Historical transaction data for properties on the street
-- Average home values and recent sales
+| Route | Method | Auth | Purpose |
+|-------|--------|------|---------|
+| `/angel/chat` | POST | None | Proxy to Angel Agent sidecar |
+| `/angel/chat/health` | GET | None | Check sidecar reachability |
 
-### SEO Architecture
+### SEO Routes (registered at app level)
+
+| Route | Method | Purpose |
+|-------|--------|---------|
+| `/sitemap.xml` | GET | Auto-generated sitemap from route registry |
+| `/robots.txt` | GET | Crawler directives with sitemap reference |
+
+---
+
+## Three-Domain Strategy
+
+### TheHillPV.com — Silent SEO Engine (Flask)
+
+**Built and live.** Blueprint on Cove Flask (port 5002). Serves data-driven
+neighborhood pages, school guide, and chat experience.
+
+**Current routes:**
+- Home, 7 neighborhood pages (Lunada Bay, Malaga Cove, Valmonte, Miraleste, RPV, Rolling Hills, Rolling Hills Estates)
+- Schools page with PVPUSD data
+- Ask page (full-page chat)
+- Sitemap.xml and robots.txt
+
+**Content sources:** `local_entities` table (restaurants, businesses, schools),
+`community_events` table (RSS-sourced), `voice_overlays.py` (Angelique's voice text),
+`seed_content.py` (PVPUSD school data).
+
+**Planned routes (not yet built):**
+- `/market/{area}/{month}` — auto-generated market reports from `market_snapshots`
+- `/streets/{slug}` — street-level profiles from listing data
+- `/guides/{slug}` — relocation guides
+- `/blog/{slug}` — editorial content
+
+### AngeliqueLyle.com — Flagship (Luxury Presence)
+
+External platform. Content refresh needed. Angel widget integration TBD
+(requires LP script injection investigation).
+
+### OwnPalosVerdes.com — Reclamation
+
+Domain compromised with spam content. Recovery plan: cleanup, reconsideration
+request, evaluate after 90 days.
+
+---
+
+## SEO Architecture
 
 **Target keyword clusters:**
 - "Palos Verdes homes for sale" / "Rancho Palos Verdes real estate"
 - "PV peninsula neighborhoods" / "Lunada Bay homes"
 - "PVPUSD schools ranking" / "Palos Verdes schools"
 - "Palos Verdes market report" / "RPV home prices"
-- "{Street name} Palos Verdes" — long-tail, low competition
-- "Moving to Palos Verdes" / "Palos Verdes relocation guide"
 
-**Technical SEO:**
+**Technical SEO (implemented):**
 - Server-rendered HTML (Flask + Jinja2, not SPA) — fully crawlable
-- Schema.org structured data on every page (RealEstateListing, Place, School)
 - Sitemap.xml auto-generated from content routes
+- robots.txt with sitemap reference
+- Minimal JS (Alpine.js only for interactivity), Tailwind CSS
+
+**Technical SEO (planned):**
+- Schema.org structured data (RealEstateListing, Place, School)
 - Meta descriptions auto-generated from data summaries
 - Canonical URLs, proper heading hierarchy
-- Page speed: minimal JS (Alpine.js only for interactivity), Tailwind CSS
-- Mobile-first responsive design
 
-**Content velocity:**
-- Market reports: auto-generated monthly (12/year × 5 areas = 60 pages/year)
-- Neighborhood pages: manually curated, updated quarterly with fresh data
-- Blog posts: 2–4/month, written with Angel Voice skill, editorially reviewed
-- Street profiles: batch-generated from data, ~50 notable streets
+---
 
-### Analytics and Lead Attribution
+## Lead Flow
 
 ```
-Visitor lands on TheHillPV.com
-    │  (organic search, social, referral)
+Visitor lands on any domain
     │
-    ├── Reads content (page views, time on page, scroll depth)
+    ├── Reads content (page views, time on page)
     │
     ├── Engages with Angel chatbot
-    │   ├── Asks about a property → parcel_lookup tool
+    │   ├── Asks about property → parcel_lookup tool
     │   ├── Asks about market → market_stats tool
     │   └── Ready to act → capture_lead tool
     │       │
     │       ▼
     │   Lead captured: phone, interest, property context
     │       │
-    │       ├── SMS to Angelique
-    │       ├── Lead → Angel DB (with source: "thehillpv", page: "/neighborhoods/rpv")
-    │       └── Async: Compass CRM sync
+    │       ├── SMS to Angelique (planned)
+    │       ├── Lead → Angel DB (with source attribution)
+    │       └── Async: Compass CRM sync (planned)
     │
     └── Clicks CTA → AngeliqueLyle.com (tracked referral)
 ```
 
-**Attribution fields on every lead:**
+**Attribution fields (planned):**
 - `source_domain` — thehillpv.com, angeliquelyle.com, ownpalosverdes.com
-- `source_page` — the specific URL they were on when they engaged
-- `source_referrer` — how they found the site (organic, social, direct, email)
-- `conversation_turns` — how deep the chat went before capture
+- `source_page` — specific URL when visitor engaged
+- `source_referrer` — organic, social, direct, email
+- `conversation_turns` — chat depth before capture
 
 ---
 
-## 4. OwnPalosVerdes.com — Reclamation
+## Operations
 
-### Current State
+### Startup Sequence
 
-The domain has been compromised with spam content ("Best Chicken Road Game
-Accessories," "Ideal Casinos That Accept Mastercard Deposits"). The SEO
-authority is likely damaged. The domain may be flagged by Google.
+No separate startup — web routes are part of Cove Flask app factory.
+Angel blueprints registered in `cove/__init__.py`.
 
-### Recovery Plan
+### Health Checks
 
-**Phase 1 — Cleanup (immediate):**
-1. Remove all spam content
-2. Audit for malware, unauthorized redirects, injected scripts
-3. Change all credentials (hosting, DNS, CMS admin)
-4. Submit Google Search Console reconsideration request if penalized
-5. Set up basic holding page with Angelique's branding
+- `GET /health` — Cove-level health (DB + Valkey)
+- `GET /angel/chat/health` — Angel Agent sidecar reachability
+- `GET /sitemap.xml` — confirms route registry is functional
 
-**Phase 2 — Repurpose (after authority recovers):**
+### Failure Modes
 
-If Google penalty is lifted and domain authority recovers:
-- Use as a secondary content site (mirrors select content from TheHillPV)
-- Target "Own Palos Verdes" keyword cluster (buyer-intent)
-- NOT obviously tied to Angelique — positioned as community resource
-- Angel widget embedded for lead capture
-- Redirect strategy: any residual traffic from old spam pages → 301 to
-  relevant TheHillPV content
+| Failure | Behavior | Recovery |
+|---------|----------|----------|
+| DB down | Neighborhood pages fail (500), home page may fail | Restart PostgreSQL |
+| Sidecar down | Chat returns 503; all other pages unaffected | Restart angel-agent container |
+| Empty DB tables | Pages render with empty data sections (no crash) | Run seed commands: `flask crawl seed-content` |
+| Missing voice overlay | Page renders without voice section (graceful) | Add overlay to `voice_overlays.py` |
 
-If domain authority is irreparably damaged:
-- Park the domain (prevent competitor acquisition)
-- Redirect all traffic to TheHillPV.com via 301
-- Do not invest further content effort
+### Monitoring
 
-**Phase 3 — Evaluation (90 days after cleanup):**
-- Check Google Search Console for impressions recovery
-- Monitor organic traffic trend
-- Decision: invest in content or permanent redirect
+| Metric | Alert Threshold |
+|--------|----------------|
+| Page response time | > 2 seconds (server-rendered, should be < 500ms) |
+| 5xx error rate | > 1% of requests |
+| Sitemap generation | Fails to return valid XML |
+| Chat proxy latency | > 30 seconds per request |
+
+### Configuration
+
+| Env Var | Purpose | Default |
+|---------|---------|---------|
+| `ANGEL_AGENT_URL` | Sidecar URL for chat proxy | `http://localhost:8004` |
+| `SERVER_NAME` | Flask server name for url_for `_external=True` | Not set (uses request host) |
 
 ---
 
-## 5. Lead Flow — All Sites
+## Deployment
 
-Regardless of which domain a visitor enters through, the lead flow converges:
+### Docker
 
-```
-                    AngeliqueLyle.com (LP)
-                         │
-                    Angel Widget (if embedded)
-                    or CTA → TheHillPV
-                         │
-TheHillPV.com ──────────►│◄──────────── OwnPalosVerdes.com
-    │                    │                    │
-    ▼                    ▼                    ▼
-   Cove Flask (port 5002, hosts Angel blueprints)
-            │
-            ▼
-    Angel Agent Sidecar (port 8004)
-            │
-       Lead captured
-       (phone, interest, property, source)
-            │
-   ┌────────┼────────┐
-   ▼        ▼        ▼
-  SMS    Cove DB   Compass CRM
-  to     (leads    (async sync)
-Angelique table)
+Angel web routes are part of the `cove-flask` container:
+
+```yaml
+cove_flask:
+  image: cove-flask
+  ports:
+    - "5002:5000"
+  # Angel templates in cove/angel/templates/
+  # Angel static in cove/static/images/angel/
 ```
 
-### Lead Stages
+### AWS Target
 
-1. **Identified** — APN-based signal (transfer, expiration, equity), no visitor interaction yet
-2. **Engaged** — Visitor started Angel conversation (3+ turns)
-3. **Captured** — Phone number collected via Angel widget
-4. **Contacted** — Angelique has called/texted back
-5. **Showing** — Property tour scheduled
-6. **Offer** — Offer submitted
-7. **Escrow** — Under contract
-8. **Closed** — Transaction closed
-9. **Archived** — Not pursuing, with reason
+| Component | AWS Service |
+|-----------|------------|
+| Cove Flask + Angel web | ECS Fargate |
+| CDN | Cloudflare (DNS + CDN + SSL for TheHillPV.com) |
+| Static assets | S3 + CloudFront (optional, Cloudflare may handle) |
 
----
-
-## 6. Infrastructure
-
-### TheHillPV.com Stack
-
-| Component | Detail |
-|-----------|--------|
-| App | Cove Flask 3+ on port 5002 (Angel blueprints registered here) |
-| Agent | Angel Agent sidecar on port 8004 |
-| Database | `cove` on shared PostgreSQL (Angel tables alongside Cove) |
-| Cache | Valkey DB 1 (sessions, page cache, rate limits) (shared with Cove) |
-| CSS | Tailwind 3.x with PostCSS build |
-| JS | Alpine.js 3.x (minimal interactivity) |
-| Maps | Leaflet.js (neighborhood boundaries, property pins) |
-| Hosting | Docker container on GrowDirect infrastructure |
-| DNS | Cloudflare (DNS + CDN + SSL) |
-
-### Domain DNS
+### DNS Configuration (Planned)
 
 | Domain | Points To | Purpose |
 |--------|----------|---------|
-| thehillpv.com | GrowDirect infra (Cloudflare → Docker) | Primary SEO engine |
-| angeliquelyle.com | Luxury Presence | Flagship (managed by LP) |
-| ownpalosverdes.com | TBD — cleanup first | Secondary SEO or redirect |
-| chat.angeliquelyle.com | GrowDirect infra (optional) | Angel widget API subdomain |
+| thehillpv.com | Cloudflare → ALB → ECS | Primary SEO engine |
+| angeliquelyle.com | Luxury Presence | Flagship |
+| ownpalosverdes.com | TBD | Secondary/redirect |
+| chat.angeliquelyle.com | Cloudflare → ALB → ECS (optional) | Angel widget API subdomain |
 
 ---
 
-## 7. Competitive Positioning
+## Code Review Findings
 
-### What Angelique Has That Others Don't
+### P0 — Blocks Production
 
-Every agent on the Hill has a website. Most are templated IDX sites from
-KVCore, Chime, Sierra, or Luxury Presence. They all show the same MLS data
-through the same IDX feeds.
+| # | Finding | Recommended Fix | Linear |
+|---|---------|----------------|--------|
+| 1 | No rate limiting on any public-facing routes — web pages, chat proxy, sitemap | Add Flask-Limiter: page routes 60/min, chat 20/min, sitemap 5/min | — |
+| 2 | Chat proxy at `/angel/chat` has no input validation beyond checking `messages` is a list — could forward malicious payloads to sidecar | Validate message structure, enforce max message count and length | — |
+| 3 | No CSRF protection on chat POST endpoint (it's a JSON API, not a form, but should have origin checking) | Add origin/referer validation or API key for chat endpoint | — |
 
-Angel's web strategy is different because:
+### P1 — Before GA
 
-1. **Proprietary dataset** — 5,514 parcels + 2,368 listings + ATTOM enrichment,
-   not just the IDX feed
-2. **Conversational interface** — Angel answers questions in natural language,
-   not just search filters
-3. **Content depth** — street-level profiles, school feeder patterns, market
-   snapshots by micro-neighborhood
-4. **Silent lead capture** — visitor gets value (answers, data, insights) before
-   being asked for contact info
-5. **Unified pipeline** — every interaction, regardless of entry point, feeds the
-   same lead funnel to Compass CRM
+| # | Finding | Recommended Fix | Linear |
+|---|---------|----------------|--------|
+| 1 | Visitor IP addresses logged in plaintext by web server | Hash or mask IPs in production access logs | — |
+| 2 | No visitor analytics tracking implemented — no way to measure SEO success | Integrate Google Analytics 4 or Plausible Analytics | — |
+| 3 | Neighborhood data (7 items) hardcoded as Python dict in `web_routes.py` — won't scale | Migrate to DB table or JSON config file when adding more neighborhoods | — |
+| 4 | Voice overlay content hardcoded in `voice_overlays.py` — 100+ lines of content in code | Migrate to DB-backed CMS or JSON content files | — |
+| 5 | Error responses from chat proxy could expose sidecar URL (`ANGEL_AGENT_URL`) in logs | Ensure error responses return generic messages, not internal URLs | — |
+| 6 | Schema.org structured data not yet implemented | Add JSON-LD structured data to neighborhood and listing pages | — |
 
-### Marketing Tool Landscape
+### P2 — Post-Launch
 
-Angel replaces or complements several tools agents typically pay for:
+| # | Finding | Recommended Fix | Linear |
+|---|---------|----------------|--------|
+| 1 | No page caching — every request hits DB | Add Valkey page cache with 5-minute TTL for neighborhood pages | — |
+| 2 | No image optimization pipeline — hero images served as-is | Implement responsive images with srcset, WebP format | — |
+| 3 | `register_seo_routes()` registers routes at app level, bypassing blueprint prefix — works but unconventional | Consider using a separate SEO blueprint at root prefix | — |
+| 4 | No A/B testing or CTA optimization framework | Implement after baseline traffic is established | — |
 
-| Tool | What It Does | Angel Equivalent |
-|------|-------------|-----------------|
-| Ylopo | Paid lead generation (PPC → IDX → lead) | Organic SEO + Angel chat → lead |
-| Adwerx | Retargeting ads | Future: retarget TheHillPV visitors |
-| Curaytor | Done-for-you content marketing | Angel Voice skill + auto-generated content |
-| Lofty/Sierra/kvCORE | All-in-one CRM + website + leads | Angel data + TheHillPV + Compass CRM |
-| Luxury Presence | Premium agent website | Keep for flagship; TheHillPV supplements |
+---
 
-### LP Custom Webhook Integration
+## Production Readiness Checklist
 
-Luxury Presence sites can integrate with external systems via custom webhooks.
-Angel leverages this to sync lead profiles from AngeliqueLyle.com into the
-unified pipeline. When LP widget or forms capture contact info, the data is
-POSTed to Angel's `/webhook/lp` endpoint, merged with any Angel chat context,
-and routed to Compass CRM alongside TheHillPV.com leads.
+- [ ] Rate limiting on all public endpoints (pages, chat, sitemap)
+- [ ] Chat proxy input validation (message structure, length limits)
+- [ ] Origin/referer checking on chat POST endpoint
+- [ ] IP address hashing/masking in production logs
+- [ ] Analytics integration (GA4 or Plausible)
+- [ ] Schema.org structured data on content pages
+- [ ] Secrets in AWS Secrets Manager (not .env)
+- [ ] Health check endpoints respond correctly
+- [ ] Error responses don't leak internal URLs or stack traces
+- [ ] Page cache implemented for data-driven content
+- [ ] Cloudflare DNS configured for TheHillPV.com
+- [ ] SSL certificate active (via Cloudflare)
 
 ---
 
