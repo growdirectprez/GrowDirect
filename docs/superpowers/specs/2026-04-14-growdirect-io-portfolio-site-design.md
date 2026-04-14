@@ -106,7 +106,7 @@ Links to Square blog one-pager when GRO-497 ships. Until then, just the text.
 
 ### Section 6 — Contact
 
-Email address displayed directly (jeff@growdirect.io). Link to `/contact.html` page: *"Have something to build?"*
+Email address displayed directly (gclyle@growdirect.io). Link to `/contact.html` page: *"Have something to build?"*
 
 ### Section 7 — Footer
 
