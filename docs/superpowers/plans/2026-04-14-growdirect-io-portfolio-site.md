@@ -820,10 +820,10 @@ git commit -m "feat: add complete site stylesheet with pillar theming and respon
           if (successMsg) successMsg.classList.add('visible');
           trackEvent('contact_form_submit');
         } else {
-          window.location.href = 'mailto:jeff@growdirect.io?subject=Contact%20from%20growdirect.io';
+          window.location.href = 'mailto:gclyle@growdirect.io?subject=Contact%20from%20growdirect.io';
         }
       }).catch(function () {
-        window.location.href = 'mailto:jeff@growdirect.io?subject=Contact%20from%20growdirect.io';
+        window.location.href = 'mailto:gclyle@growdirect.io?subject=Contact%20from%20growdirect.io';
       });
     });
   }
@@ -980,7 +980,7 @@ This is the most complex page — hero, two lead service cards, third pillar car
 
     <!-- Contact CTA -->
     <section class="contact-cta">
-      <a href="mailto:jeff@growdirect.io" class="contact-cta__email">jeff@growdirect.io</a>
+      <a href="mailto:gclyle@growdirect.io" class="contact-cta__email">gclyle@growdirect.io</a>
       <a href="/contact.html" class="contact-cta__link" data-track="cta" data-label="homepage-contact">Have something to build? →</a>
     </section>
 
@@ -989,7 +989,7 @@ This is the most complex page — hero, two lead service cards, third pillar car
   <!-- Footer -->
   <footer class="site-footer">
     <div class="container">
-      <p>© 2026 GrowDirect. <a href="mailto:jeff@growdirect.io">jeff@growdirect.io</a></p>
+      <p>© 2026 GrowDirect. <a href="mailto:gclyle@growdirect.io">gclyle@growdirect.io</a></p>
       <p>This site uses Google Analytics to measure traffic. No advertising. No remarketing.</p>
     </div>
   </footer>
@@ -1154,7 +1154,7 @@ git commit -m "feat: add homepage with service cards, capabilities, about, and c
 
   <footer class="site-footer">
     <div class="container">
-      <p>© 2026 GrowDirect. <a href="mailto:jeff@growdirect.io">jeff@growdirect.io</a></p>
+      <p>© 2026 GrowDirect. <a href="mailto:gclyle@growdirect.io">gclyle@growdirect.io</a></p>
       <p>This site uses Google Analytics to measure traffic. No advertising. No remarketing.</p>
     </div>
   </footer>
@@ -1302,7 +1302,7 @@ git commit -m "feat: add POS Platform pillar page (Canary gold accent)"
 
   <footer class="site-footer">
     <div class="container">
-      <p>© 2026 GrowDirect. <a href="mailto:jeff@growdirect.io">jeff@growdirect.io</a></p>
+      <p>© 2026 GrowDirect. <a href="mailto:gclyle@growdirect.io">gclyle@growdirect.io</a></p>
       <p>This site uses Google Analytics to measure traffic. No advertising. No remarketing.</p>
     </div>
   </footer>
@@ -1456,7 +1456,7 @@ git commit -m "feat: add RE Toolkit pillar page (Angel teal accent)"
 
   <footer class="site-footer">
     <div class="container">
-      <p>© 2026 GrowDirect. <a href="mailto:jeff@growdirect.io">jeff@growdirect.io</a></p>
+      <p>© 2026 GrowDirect. <a href="mailto:gclyle@growdirect.io">gclyle@growdirect.io</a></p>
       <p>This site uses Google Analytics to measure traffic. No advertising. No remarketing.</p>
     </div>
   </footer>
@@ -1566,7 +1566,7 @@ git commit -m "feat: add Membership Framework pillar page (Cove blue accent)"
       </div>
 
       <div class="contact-direct">
-        <p>Prefer email? <a href="mailto:jeff@growdirect.io">jeff@growdirect.io</a></p>
+        <p>Prefer email? <a href="mailto:gclyle@growdirect.io">gclyle@growdirect.io</a></p>
       </div>
     </div>
 
@@ -1574,7 +1574,7 @@ git commit -m "feat: add Membership Framework pillar page (Cove blue accent)"
 
   <footer class="site-footer">
     <div class="container">
-      <p>© 2026 GrowDirect. <a href="mailto:jeff@growdirect.io">jeff@growdirect.io</a></p>
+      <p>© 2026 GrowDirect. <a href="mailto:gclyle@growdirect.io">gclyle@growdirect.io</a></p>
       <p>This site uses Google Analytics to measure traffic. No advertising. No remarketing.</p>
     </div>
   </footer>
@@ -1651,7 +1651,7 @@ git commit -m "feat: add contact page with Formspree form and direct email"
 
   <footer class="site-footer">
     <div class="container">
-      <p>© 2026 GrowDirect. <a href="mailto:jeff@growdirect.io">jeff@growdirect.io</a></p>
+      <p>© 2026 GrowDirect. <a href="mailto:gclyle@growdirect.io">gclyle@growdirect.io</a></p>
       <p>This site uses Google Analytics to measure traffic. No advertising. No remarketing.</p>
     </div>
   </footer>
