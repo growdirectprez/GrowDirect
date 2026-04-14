@@ -883,12 +883,12 @@ This is the most complex page — hero, two lead service cards, third pillar car
   <link rel="stylesheet" href="/assets/css/style.css">
 
   <!-- GA4 -->
-  <script async src="https://www.googletagmanager.com/gtag/js?id=G-XXXXXXXXXX"></script>
+  <script async src="https://www.googletagmanager.com/gtag/js?id=G-ELPTR2ZLP3"></script>
   <script>
     window.dataLayer = window.dataLayer || [];
     function gtag(){dataLayer.push(arguments);}
     gtag('js', new Date());
-    gtag('config', 'G-XXXXXXXXXX');
+    gtag('config', 'G-ELPTR2ZLP3');
   </script>
 </head>
 <body>
@@ -1053,12 +1053,12 @@ git commit -m "feat: add homepage with service cards, capabilities, about, and c
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&family=Space+Grotesk:wght@500;600;700&display=swap" rel="stylesheet">
   <link rel="stylesheet" href="/assets/css/style.css">
 
-  <script async src="https://www.googletagmanager.com/gtag/js?id=G-XXXXXXXXXX"></script>
+  <script async src="https://www.googletagmanager.com/gtag/js?id=G-ELPTR2ZLP3"></script>
   <script>
     window.dataLayer = window.dataLayer || [];
     function gtag(){dataLayer.push(arguments);}
     gtag('js', new Date());
-    gtag('config', 'G-XXXXXXXXXX');
+    gtag('config', 'G-ELPTR2ZLP3');
   </script>
 </head>
 <body class="pillar-pos">
@@ -1208,12 +1208,12 @@ git commit -m "feat: add POS Platform pillar page (Canary gold accent)"
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&family=Space+Grotesk:wght@500;600;700&display=swap" rel="stylesheet">
   <link rel="stylesheet" href="/assets/css/style.css">
 
-  <script async src="https://www.googletagmanager.com/gtag/js?id=G-XXXXXXXXXX"></script>
+  <script async src="https://www.googletagmanager.com/gtag/js?id=G-ELPTR2ZLP3"></script>
   <script>
     window.dataLayer = window.dataLayer || [];
     function gtag(){dataLayer.push(arguments);}
     gtag('js', new Date());
-    gtag('config', 'G-XXXXXXXXXX');
+    gtag('config', 'G-ELPTR2ZLP3');
   </script>
 </head>
 <body class="pillar-re">
@@ -1356,12 +1356,12 @@ git commit -m "feat: add RE Toolkit pillar page (Angel teal accent)"
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&family=Space+Grotesk:wght@500;600;700&display=swap" rel="stylesheet">
   <link rel="stylesheet" href="/assets/css/style.css">
 
-  <script async src="https://www.googletagmanager.com/gtag/js?id=G-XXXXXXXXXX"></script>
+  <script async src="https://www.googletagmanager.com/gtag/js?id=G-ELPTR2ZLP3"></script>
   <script>
     window.dataLayer = window.dataLayer || [];
     function gtag(){dataLayer.push(arguments);}
     gtag('js', new Date());
-    gtag('config', 'G-XXXXXXXXXX');
+    gtag('config', 'G-ELPTR2ZLP3');
   </script>
 </head>
 <body class="pillar-membership">
@@ -1514,12 +1514,12 @@ git commit -m "feat: add Membership Framework pillar page (Cove blue accent)"
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&family=Space+Grotesk:wght@500;600;700&display=swap" rel="stylesheet">
   <link rel="stylesheet" href="/assets/css/style.css">
 
-  <script async src="https://www.googletagmanager.com/gtag/js?id=G-XXXXXXXXXX"></script>
+  <script async src="https://www.googletagmanager.com/gtag/js?id=G-ELPTR2ZLP3"></script>
   <script>
     window.dataLayer = window.dataLayer || [];
     function gtag(){dataLayer.push(arguments);}
     gtag('js', new Date());
-    gtag('config', 'G-XXXXXXXXXX');
+    gtag('config', 'G-ELPTR2ZLP3');
   </script>
 </head>
 <body>
@@ -1612,12 +1612,12 @@ git commit -m "feat: add contact page with Formspree form and direct email"
   <link rel="icon" type="image/svg+xml" href="/favicon.svg">
 
   <!-- GA4 -->
-  <script async src="https://www.googletagmanager.com/gtag/js?id=G-XXXXXXXXXX"></script>
+  <script async src="https://www.googletagmanager.com/gtag/js?id=G-ELPTR2ZLP3"></script>
   <script>
     window.dataLayer = window.dataLayer || [];
     function gtag(){dataLayer.push(arguments);}
     gtag('js', new Date());
-    gtag('config', 'G-XXXXXXXXXX');
+    gtag('config', 'G-ELPTR2ZLP3');
   </script>
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -1754,7 +1754,7 @@ git commit -m "docs: update README for portfolio site"
 
 - [ ] **Step 1: Replace GA4 placeholder**
 
-Search all HTML files for `G-XXXXXXXXXX` and replace with the real GA4 Measurement ID (create property at analytics.google.com first).
+Search all HTML files for `G-ELPTR2ZLP3` and replace with the real GA4 Measurement ID (create property at analytics.google.com first).
 
 - [ ] **Step 2: Replace Formspree placeholder**
 

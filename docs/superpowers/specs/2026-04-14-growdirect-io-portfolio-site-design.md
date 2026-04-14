@@ -263,7 +263,7 @@ Breakpoints:
 
 ## Analytics
 
-GA4 property (Measurement ID: `G-XXXXXXXXXX` — create property in GA4 admin before launch, replace placeholder). Tag on all pages.
+GA4 property (Measurement ID: `G-ELPTR2ZLP3` — create property in GA4 admin before launch, replace placeholder). Tag on all pages.
 
 Events to track:
 - `page_view` (automatic)
