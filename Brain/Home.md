@@ -13,14 +13,14 @@ Knowledge base for GrowDirect — a solo-founder operation building SaaS tools w
 | [[Brain/projects/Canary\|Canary]] | Near-beta | Loss prevention analytics for Square merchants | [[Brain/wiki/canary-architecture\|Architecture]] |
 | [[Brain/projects/Cove\|Cove]] | Early dev | HOA governance platform for WPBCA (81 lots, Abalone Cove, RPV) | [[Brain/wiki/cove-legal-framework\|Legal Framework]] |
 | [[Brain/projects/Angel\|Angel]] | Active | Real estate intelligence + content engine for Compass agents (TheHillPV.com) | [[Brain/wiki/south-bay-wiki-architecture\|Wiki Architecture]] |
-| [[Brain/projects/Seacove\|25 Seacove]] | Standalone | SketchUp model-building pipeline for 25 Seacove Drive | [[Brain/projects/Seacove\|Blueprints]] |
+| [[Brain/projects/Seacove\|25 Seacove]] | Standalone | SketchUp model-building pipeline for 25 Seacove Drive | [[Brain/wiki/seacove-project\|Project Overview]] |
 
 ## Vault Structure
 
 | Path | What's there |
 |------|-------------|
 | `Brain/projects/` | **Project MOCs** — start here for any project |
-| `Brain/wiki/` | Synthesized knowledge articles (16 articles, 353 indexed topics) |
+| `Brain/wiki/` | Synthesized knowledge articles (49 articles across all projects) |
 | `Brain/playbooks/` | Repeatable workflows (neighborhood content hub pilot) |
 | `Brain/raw/inbox/` | Unprocessed intake notes — content engine feeds here |
 | `Brain/raw/processed/` | Processed intake notes by project |
@@ -47,13 +47,37 @@ The registry (`Brain/REGISTRY.json`) indexes all wiki articles and their topics.
 ## Key Knowledge by Project
 
 ### Cove — 10 wiki articles
-Legal framework, Lot H discovery, 0 Clipper threat, community history, property geology, governance operations, city position cross-reference, PV Corp declaration scheme, platform development. Plus the [[Cove/docs/site/narrative|Story of Abalone Cove]] narrative.
+Legal framework, Lot H discovery, 0 Clipper threat, community history, property geology, governance operations, city position cross-reference, PV Corp declaration scheme, platform development. Plus the [[Cove/docs/site/narrative|Story of Abalone Cove]] narrative and mapping/engineering playbooks in `Cove/docs/archive/wiki/`.
 
 ### Canary — 4 wiki articles
 Architecture (16 services, MCP layer), detection engine (29 Chirp rules), data model (60+ models), sales strategy. Plus 50+ Atlas diagrams in `Canary/docs/atlas/`.
 
-### Angel — 1 wiki article + playbook
-South Bay wiki architecture. Neighborhood content hub playbook in `Brain/playbooks/`. Content pools in `Angel/knowledge/content-pools/`.
+### Angel — 32 wiki articles
+Architecture, data platform, content engine, market intelligence, Ninja Selling, brand & team, voice training, buyer/listing processes, transaction timeline, Compass Concierge, content archive index, weekly CRMLS pull, South Bay wiki architecture. Plus 19 neighborhood content profiles covering PVE, RPV, Rolling Hills, and South Bay.
+
+### Seacove — 1 wiki article
+[[Brain/wiki/seacove-project|Project overview]] — property history, ARC pipeline, permit context.
+
+## System Design Documents (SDDs)
+
+The spec layer between Brain knowledge and code. Agents should read relevant SDDs at session start to frame their work.
+
+### Canary (20 SDDs)
+[[docs/sdds/canary/architecture|Architecture]] · [[docs/sdds/canary/data-model|Data Model]] · [[docs/sdds/canary/tsp|TSP Pipeline]] · [[docs/sdds/canary/chirp|Chirp Detection]] · [[docs/sdds/canary/fox|Fox Cases]] · [[docs/sdds/canary/owl|Owl Analytics]] · [[docs/sdds/canary/alert|Alerts]] · [[docs/sdds/canary/identity|Identity]] · [[docs/sdds/canary/identity-square|Identity-Square]] · [[docs/sdds/canary/external-identities|External Identities]] · [[docs/sdds/canary/webhook-pipeline|Webhook Pipeline]] · [[docs/sdds/canary/goose|Goose]] · [[docs/sdds/canary/raas|RaaS]] · [[docs/sdds/canary/ops|Ops]] · [[docs/sdds/canary/alx|ALX Agent]] · [[docs/sdds/canary/qa-agent|QA Agent]] · [[docs/sdds/canary/ui-bff|UI/BFF]] · [[docs/sdds/canary/analytics|Analytics]] · [[docs/sdds/canary/metrics-analytics|Metrics]] · [[docs/sdds/canary/multi-pos-architecture-proof|Multi-POS Proof]]
+
+### Cove (15 SDDs)
+[[docs/sdds/cove/architecture|Architecture]] · [[docs/sdds/cove/member-auth|Member Auth]] · [[docs/sdds/cove/governance-engine|Governance Engine]] · [[docs/sdds/cove/secret-ballot-elections|Elections]] · [[docs/sdds/cove/treasury|Treasury]] · [[docs/sdds/cove/vault|Vault]] · [[docs/sdds/cove/parcel-map-engine|Parcel Maps]] · [[docs/sdds/cove/meetings|Meetings]] · [[docs/sdds/cove/archive-system|Archive]] · [[docs/sdds/cove/board|Board]] · [[docs/sdds/cove/notifications|Notifications]] · [[docs/sdds/cove/knowledge|Knowledge]] · [[docs/sdds/cove/agent|Agent]] · [[docs/sdds/cove/sitemap-redesign|Sitemap Redesign]] · [[docs/sdds/cove/sitemap-redesign-issues|Sitemap Issues]]
+
+### Angel (7 SDDs)
+[[docs/sdds/angel/angel-overview|Overview]] · [[docs/sdds/angel/data-platform|Data Platform]] · [[docs/sdds/angel/angel-agent|Agent]] · [[docs/sdds/angel/web-strategy|Web Strategy]] · [[docs/sdds/angel/brand-and-launch|Brand & Launch]] · [[docs/sdds/angel/execution-plan|Execution Plan]] · [[docs/sdds/angel/lp-integration|LP Integration]]
+
+### Platform (4 SDDs)
+[[docs/sdds/platform/shared-infrastructure|Shared Infrastructure]] · [[docs/sdds/platform/memory-bus|Memory Bus]] · [[docs/sdds/platform/factory-pipeline|Factory Pipeline]] · [[docs/sdds/platform/skill-architecture|Skill Architecture]]
+
+### Other (3 SDDs)
+[[docs/sdds/alx/mcp-service-layer|MCP Service Layer]] · [[docs/sdds/alx/test-lab|Test Lab]] · [[docs/sdds/arc/seacove-site-plan|Seacove Site Plan]]
+
+---
 
 ## Platform Governance
 

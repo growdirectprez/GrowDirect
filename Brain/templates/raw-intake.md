@@ -1,5 +1,5 @@
 ---
-date: {{date}}
+date: <% tp.date.now("YYYY-MM-DD") %>
 type: raw
 source: 
 tags: []
@@ -7,7 +7,10 @@ project:
 status: unprocessed
 ---
 
-# {{title}}
+
+**Wiki:** [[Brain/Home|Home]]
+
+# <% tp.file.title %>
 
 ## Source
 <!-- URL, person, document, meeting, etc. -->
@@ -23,4 +26,3 @@ status: unprocessed
 
 ## Links to existing knowledge
 <!-- What wiki articles or project docs does this connect to? -->
-

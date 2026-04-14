@@ -25,12 +25,29 @@ These articles synthesize the full archive into navigable knowledge:
 | [[Brain/wiki/cove-community-history|Community History]] | Tongva to Vanderlip to Shore Club to today |
 | [[Brain/wiki/cove-property-geology|Property & Geology]] | Landslide complex, parcel maps, geological hazards |
 | [[Brain/wiki/cove-governance|Governance & Operations]] | WPBCA structure, 501(c)(3) strategy, 90-day action plan |
+| [[Brain/wiki/cove-city-positions|City Positions Cross-Reference]] | What the city says vs what we say, by topic — catch contradictions |
+| [[Brain/wiki/cove-pv-declaration-scheme|PV Corp Declaration Scheme]] | Olmsted legacy, Declaration 100/101, Art Jury, the coverage gap |
+| [[Brain/wiki/claim-lot-h-scope-correction|Lot H Scope Correction]] | CORRECTION: Lot H Declaration only had racial language, not building restrictions |
 | [[Brain/wiki/cove-platform|Platform Development]] | Tech stack, architecture, modules, SDDs |
 
 ---
 
 ## The Story
 - [[Cove/docs/site/narrative|The Story of Abalone Cove]] — the full member-facing narrative
+
+---
+
+## Mapping & Engineering Operations
+
+Project-specific playbooks and references in `Cove/docs/archive/wiki/`:
+
+- `SOURCE-REGISTER.md` — Master index of all source documents for Clipper lot research
+- `11-mapping-engineering/survey-monuments.md` — Survey monument reference
+- `11-mapping-engineering/coordinate-reference.md` — Coordinate transforms (DXF to WGS84)
+- `11-mapping-engineering/PLAYBOOK-FIELDBOOK-TO-ANCHOR.md` — Field book to anchor point workflow
+- `PLAYBOOK-DEED-TO-LAYER.md` — Deed description to polygon layer workflow
+- `11-mapping-engineering/adjacency-map.md` — Parcel adjacency relationships
+- `11-mapping-engineering/snap-rules.md` — Polygon snapping rules
 
 ---
 
