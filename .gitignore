@@ -27,3 +27,22 @@ migrate_off_icloud.sh
 # Stray binaries (should be filed in app archives)
 *.pdf
 *.png
+
+# Personal files (financial, tax, private documents)
+/private/
+2025_Tax_Prep_Workbook.xlsx
+2025_Tax_Strategy_Brief.docx
+.~lock.*
+
+# Large media (not for git — use separately)
+Angel/angel_photos/
+Angel/Angel_Photos/
+Angel/Compass Content - Angelique Lyle/
+Angel/Lightning v2 - Residential*/
+Angel/Top Producer - Residential*/
+Angel/media/
+
+# Obsidian plugins (local only)
+.obsidian/plugins/
+.obsidian/community-plugins.json
+.obsidianignore
