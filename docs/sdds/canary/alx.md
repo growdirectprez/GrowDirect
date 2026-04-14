@@ -1,201 +1,388 @@
-# ALX
+# ALX — Knowledge Store
 
-## Overview
+**Type:** App Service (Canary) / Platform Service (Memory Bus)
+**Wiki:** [[Brain/wiki/canary-architecture|Canary Architecture]]
+**Last reviewed:** 2026-04-13
 
-The ALX domain owns institutional memory for the Canary LP platform. It is a pgvector-powered knowledge store that persists decisions, architectural patterns, findings, and operational context across agent sessions. ALX is what makes the agent more than a stateless assistant — it remembers what was decided, why, and what remains unresolved.
+## Purpose
 
-**Core architecture:** PostgreSQL-only with pgvector embeddings. Two-tier search: semantic first (pgvector cosine similarity on 768-dim nomic-embed-text vectors), full-text fallback (PostgreSQL `to_tsvector/plainto_tsquery`), then ILIKE as a last resort. Embedding is inline on write — `memory_store()` generates and persists the vector immediately via Ollama `/api/embed`. No batch lag. Separate database (`growdirect_memory`) from the three main schemas, served by memory bus MCP server on port 8003 (GRO-172).
+ALX owns institutional memory for the GrowDirect platform. It is a pgvector-powered knowledge store that persists decisions, architectural patterns, findings, and operational context across agent sessions. ALX is what makes the agent more than a stateless assistant — it remembers what was decided, why, and what remains unresolved.
 
-**Memory types:** `decision`, `finding`, `context`, `architecture`, `work_product`, `team_profile`, `context_block`, `foundation`, `session_summary`, `procedure`. Context blocks (SDD-058) are pre-assembled domain-coherent chunks stored as `memory_type = 'context_block'` with structured metadata for targeted retrieval.
+As of GRO-172, the core memory operations live in a standalone Memory Bus MCP server (`services/memory-bus/`) running on port 8003. The Canary-side ALX module (`Canary/canary/services/alx/`) is now a stub pointing to the platform service. Owl's institutional knowledge adapter (`Canary/canary/services/owl/institutional.py`) reads from the Memory Bus via HTTP.
 
-**Five narratives classification:** Every memory maps to one of five narratives — founder (team lineage, consulting history), retail_process (LP methodology), retail_systems (POS/EHR/IoT), platform (Canary retail offer, heartbeat, RaaS), tech_stack (agentic development, SDD factory).
+## Dependencies
 
-**Blueprints:**
+| Dependency | Type | Required | Notes |
+|------------|------|:--------:|-------|
+| PostgreSQL 17 (`growdirect_memory` database) | Database | Yes | pgvector extension, HNSW index |
+| Ollama (`growdirect_ollama:11434`) | Embedding service | No | Best-effort; memories store without vectors if unavailable |
+| Valkey | None | -- | ALX does not use Valkey |
+| growdirect-mcp SDK | Python package | Yes | Auth module (`validate_api_key`, `AuthError`) |
+| Canary Flask app | Consumer | No | Owl reads via HTTP; ALX does not depend on Canary running |
 
-| Blueprint | Prefix | Purpose |
-|-----------|--------|---------|
-| `alx_api` | `/alx` | MCP tool server (7 tools), health check |
+**Startup order:** PostgreSQL must be healthy before Memory Bus starts. Ollama should be available but is not blocking.
 
-**MCP tools (canary-alx server, 7 tools):** `memory_store`, `memory_recall`, `memory_search`, `session_start`, `session_close`, `context_assemble`, `domain_context`. Three categories: memory (store/recall/search), session (start/close), context (assemble/domain_context).
+## Data Flow & PII Map
 
-**Code entry points:**
-- `canary/services/alx/memory.py` — core service: store, recall, semantic search, session lifecycle, context block retrieval, domain context assembly
-- `canary/services/alx/tools.py` — MCP tool definitions, MCPRegistry, handlers
-- `canary/blueprints/alx_api.py` — Flask blueprint via `create_mcp_blueprint` factory
-- `devops/scripts/embed_memories_batch.py` — batch re-embedding script
-- `devops/scripts/seed_context_blocks.py` — seed 33 domain context blocks from SDDs + OpenAPI spec
+### What enters
 
-**Inbound contracts:**
-- Any agent calls MCP tools via `POST /alx/tools/<name>` (X-API-Key or JWT auth).
-- Owl reads institutional knowledge via `memory_semantic_search()` through `build_institutional_context()` (SDD-061).
+| Source | Format | Transport |
+|--------|--------|-----------|
+| Agent sessions (Claude Code, Cursor) | MCP tool calls via FastMCP | stdio bridge -> HTTP POST to port 8003 |
+| Owl institutional knowledge adapter | HTTP POST | `httpx` call to `growdirect_memory_bus:8003` |
+| Seed scripts (`seed_clean.py`) | Direct SQL INSERT | SQLAlchemy engine against `growdirect_memory` |
 
-**Outbound contracts:**
-- Owl prompt injection — institutional knowledge flows one-way into Owl's prompt assembly as Window 0 (~2000 token budget).
-- Ollama `/api/embed` — nomic-embed-text for embedding generation on every `memory_store()` call.
+### What is stored
 
-## API Contracts
+**Database:** `growdirect_memory` (separate from `canary` which holds `app`, `sales`, `metrics` schemas)
 
-### MCP Endpoints (`/alx`)
+**Table: `alx_memories`**
 
-Standard MCP protocol endpoints stamped by `create_mcp_blueprint`: `/alx/manifest`, `/alx/tools`, `/alx/tools/<name>`, `/alx/health`. Rate limiting is exempted for all ALX endpoints (internal agent-to-agent use).
+| Column | Type | PII Classification | Notes |
+|--------|------|--------------------|-------|
+| id | UUID PK | public | Auto-generated `uuid4` |
+| session_id | TEXT (FK) | internal | References `alx_sessions.session_id` |
+| memory_type | TEXT | public | Constrained: decision, finding, context, architecture, session_summary, procedure, context_block, work_product, team_profile, foundation |
+| content | TEXT | **sensitive** | May contain team member names, architectural decisions with internal details, session summaries with project-specific context |
+| metadata | JSONB | internal | Tags, source agent, GRO issue references, block_type, domain, sdd_refs |
+| embedding | vector(1024) | internal | qwen3-embedding:8b via Ollama, Matryoshka truncation from native 4096d |
+| layer | TEXT | public | Constrained: corp, canary, cove, shared |
+| created_at | TIMESTAMPTZ | public | Auto-set |
+| updated_at | TIMESTAMPTZ | public | Auto-set |
 
-| Path | Method | Auth | Description |
-|------|--------|------|-------------|
-| `/alx/manifest` | GET | Public | MCP server manifest (name: `canary-alx`, version: `0.1.0`) |
-| `/alx/tools` | GET | Public | List all 7 tools in MCP format |
-| `/alx/tools/<name>` | POST | JWT / X-API-Key | Invoke tool. Body: `{"params": {...}, "context": {...}}` |
-| `/alx/health` | GET | Public | Health check: database connectivity + tool count |
+**Table: `alx_sessions`**
 
-### MCP Tool Contracts
+| Column | Type | PII Classification | Notes |
+|--------|------|--------------------|-------|
+| id | UUID PK | public | Auto-generated |
+| session_id | TEXT UNIQUE | internal | Format: `alx-{uuid4_hex[:12]}` |
+| started_at | TIMESTAMPTZ | public | |
+| closed_at | TIMESTAMPTZ | public | Set on close |
+| status | TEXT | public | Constrained: active, closed, abandoned |
+| gro_issues | JSONB | internal | Array of GRO issue numbers |
+| summary | TEXT | **sensitive** | Session summary text — may contain internal project details |
+| decisions | JSONB | **sensitive** | Array of decision strings |
+| unresolved | JSONB | internal | Array of unresolved items |
+| created_at | TIMESTAMPTZ | public | |
+| updated_at | TIMESTAMPTZ | public | |
+
+### What exits
+
+| Destination | Data | Transport |
+|-------------|------|-----------|
+| Agent sessions | Recall results, context blocks, session context | MCP tool response (JSON) |
+| Owl prompt assembly | Institutional knowledge (Window 0, ~2000 token budget) | HTTP response via `build_institutional_context()` |
+| No external APIs | ALX never sends data outside the Docker network | -- |
+
+### PII Summary
+
+ALX stores **no end-user PII** (no customer emails, phones, payment data). Its sensitive data consists of:
+- Internal team member names in `team_profile` memories
+- Architectural decisions and session summaries containing internal business context
+- GRO issue references that map to Linear tickets
+
+**Risk level:** Low-Medium. The data is organizational knowledge, not customer data. However, `content` and `summary` fields could contain references to internal strategies, team evaluations, or confidential business decisions.
+
+## API Contract
+
+### MCP Server (FastMCP on port 8003)
+
+The Memory Bus runs as a standalone FastMCP server, not a Flask blueprint. Transport: streamable-HTTP.
+
+**Auth:** Every tool accepts an `api_key` parameter. The `validate_api_key()` function from `growdirect_mcp.auth` checks against `MCP_API_KEY` env var. Auth can be disabled with `MCP_AUTH_DISABLED=1` for trusted networks.
 
 | Tool | Category | Required Params | Optional Params | Returns |
 |------|----------|----------------|-----------------|---------|
-| `memory_store` | memory | `content` | `memory_type`, `session_id`, `gro_issue`, `metadata` | `{memory_id, session_id, memory_type, stored, embedded}` |
-| `memory_recall` | memory | `query` | `limit` (default 10), `memory_type` | `{query, matches[], count, source}` |
-| `memory_search` | memory | (none) | `session_id`, `memory_type`, `since`, `limit` (default 20) | `{matches[], count, filters}` |
-| `session_start` | session | (none) | `gro_issues[]` | `{session_id, status, gro_issues, context, started_at}` |
-| `session_close` | session | `session_id`, `summary` | `decisions[]`, `unresolved[]` | `{session_id, status, summary_stored, decisions_count, unresolved_count, closed_at}` |
-| `context_assemble` | context | (none) | `topic`, `gro_issue`, `limit` (default 15) | `{context, memory_count, topic, gro_issue, sources[]}` |
-| `domain_context` | context | `domain` | `topic`, `token_budget` (default 4000) | `{context, domain, topic, blocks_used[], token_estimate}` |
+| `session_start` | session | -- | `gro_issues[]`, `api_key` | `{session_id, status, started_at, gro_issues, startup_context}` |
+| `session_close` | session | `session_id`, `summary` | `decisions[]`, `unresolved[]`, `api_key` | `{session_id, status, closed_at, summary}` |
+| `memory_store` | memory | `content` | `memory_type`, `session_id`, `metadata`, `layer`, `api_key` | `{memory_id, memory_type, layer, has_embedding, created_at}` |
+| `memory_recall` | memory | `query` | `limit` (10), `memory_type`, `layer`, `api_key` | `{query, matches[], count, source}` |
+| `memory_search` | memory | -- | `session_id`, `memory_type`, `since`, `layer`, `limit` (20), `api_key` | `{memories[], count, filters}` |
+| `context_assemble` | context | -- | `topic`, `gro_issue`, `limit` (15), `api_key` | `{context, memory_count, topic, gro_issue, sources[]}` |
+| `domain_context` | context | `domain` | `topic`, `token_budget` (4000), `api_key` | `{context, domain, topic, blocks_used[], token_estimate}` |
 
-### Response Envelope
+### Recall search tiers
 
-All tool invocations return: `{"tool": "<name>", "ok": true, "result": {...}, "timestamp": "ISO8601"}`. On failure: `ok: false`, `error: "..."`, HTTP 500.
-
-### Health Response
-
-`{"service": "canary-alx", "healthy": <bool>, "database": "connected"|"unavailable", "tools": 7}`. Health is true if Tier 1 (database) is reachable. HTTP 503 if database is down.
+1. **Tier 1 (pgvector):** Embeds query via Ollama, cosine similarity search with HNSW index. No explicit threshold — returns top-N results.
+2. **Tier 2 (full-text):** PostgreSQL `to_tsvector/plainto_tsquery` with `ts_rank` ordering.
+3. **Tier 3 (ILIKE):** `content ILIKE '%query%'` ordered by `created_at DESC`.
 
 ### MCP Stdio Bridge (SDD-065)
 
-IDE agents (Claude Code, Cursor) connect via `streamable_server.py` which translates MCP stdio calls into authenticated HTTP requests. The bridge runs in a dedicated `.venv-mcp/` virtualenv (Python 3.11 + `mcp`, `requests`, `python-dotenv`). Auth uses `X-API-Key` header loaded from `.env` — survives the stub-to-Keycloak transition. IDE config in `.mcp.json`: `{"command": ".venv-mcp/bin/python3", "args": ["canary/mcp/streamable_server.py", "--server", "alx", "--api-key-env", "CANARY_MCP_API_KEY"]}`.
+IDE agents connect via `Canary/canary/mcp/streamable_server.py` which translates MCP stdio calls into authenticated HTTP requests. The bridge runs in a dedicated `.venv-mcp/` virtualenv. Note: the streamable server `SERVER_PREFIXES` map does **not** include an `alx` entry — ALX is accessed directly via the Memory Bus on port 8003, not through the Canary Flask proxy.
 
-## Data Model
+### Institutional Knowledge Adapter (Owl, SDD-061)
 
-All ALX tables live in the `growdirect_memory` database (separate from `canary` which holds the `app`, `sales`, and `metrics` schemas). Tables use raw SQL via `sqlalchemy.text()` — no ORM models, no `Mapped[]` declarations. Dedicated engine with `pool_size=5`, `max_overflow=2`, `pool_pre_ping=True`, `pool_recycle=300`. Note: as of GRO-172, the memory bus is served by a standalone MCP server on port 8003.
+`Canary/canary/services/owl/institutional.py` calls the Memory Bus directly:
 
-### alx_memories
+- `build_institutional_context(personality, user_message, token_budget=2000)` — formats memories for Owl Window 0
+- `knowledge_search(query, personality, limit)` — structured results for MCP tool exposure
+- Adapter uses `httpx.post()` to `http://growdirect_memory_bus:8003/mcp/v1/tools/memory_recall`
+- **Best-effort:** Returns empty string if Memory Bus is unreachable
 
-Primary knowledge store. Each row is one memory with optional pgvector embedding.
+### Response Envelope
 
-| Column | Type | Notes |
-|--------|------|-------|
-| id | UUID PK | `uuid4` generated on insert |
-| session_id | VARCHAR | FK to `alx_sessions.session_id` |
-| memory_type | VARCHAR | decision, finding, context, architecture, work_product, team_profile, context_block, foundation, session_summary, procedure |
-| content | TEXT | Full text content |
-| metadata | JSONB | Tags, source agent, GRO issue, block_type, domain, sdd_refs |
-| embedding | vector(768) | nomic-embed-text via Ollama `/api/embed` |
-| created_at | TIMESTAMP | Auto-set, used for ordering |
+All tool invocations return JSON (serialized via `json.dumps(result, default=str)`). On auth failure, returns `{"error": "..."}`. No HTTP status code differentiation — errors are in-band.
 
-**Vector index:** HNSW with cosine distance operator (`<=>`). The `<=>` operator returns cosine distance (0 = identical, 2 = opposite); similarity is computed as `1 - distance`.
+### Health Check
 
-**Embedding pipeline:** Inline on write via `_get_embedding()` which calls Ollama `/api/embed` with 4000-char truncation. Returns 768-dim float vector serialized as a bracket-delimited string for SQL insertion. Batch re-embedding via `devops/scripts/embed_memories_batch.py`.
+No dedicated health endpoint on the FastMCP server. The Docker healthcheck uses: `curl -so /dev/null -w '%{http_code}' http://localhost:8003/mcp | grep -q '406'` (expects a 406 from the MCP protocol endpoint to confirm the server is responding).
 
-**Semantic search SQL pattern:**
-```sql
-SELECT id, content, memory_type, metadata, created_at,
-       1 - (embedding <=> CAST(:qvec AS vector)) AS similarity
-FROM alx_memories
-WHERE embedding IS NOT NULL
-  AND (embedding <=> CAST(:qvec AS vector)) < :threshold
-  [AND memory_type = :mtype]
-ORDER BY embedding <=> CAST(:qvec AS vector)
-LIMIT :lim
+The `MemoryStore.healthy()` method checks database connectivity via `SELECT 1`.
+
+## Operations
+
+### Startup Sequence
+
+1. PostgreSQL container healthy (healthcheck passes)
+2. Memory Bus container starts: `python3 -m memory_bus.server`
+3. `Config.__init__()` reads `DATABASE_URL`, `OLLAMA_URL`, `EMBEDDING_MODEL`, `PORT`, `MCP_API_KEY` from environment
+4. `MemoryStore.__init__()` creates SQLAlchemy engine with `pool_size=5`, `max_overflow=10`, `pool_pre_ping=True`
+5. FastMCP server binds to `0.0.0.0:8003` with streamable-HTTP transport
+6. Docker healthcheck confirms MCP endpoint responds (406 = alive)
+
+### Failure Modes
+
+| Failure | Impact | Behavior |
+|---------|--------|----------|
+| PostgreSQL down | **All operations fail** | `MemoryStore.healthy()` returns false. Tool calls return errors. Agent sessions proceed without memory. |
+| Ollama down | Embeddings unavailable | `get_embedding()` returns `None`, memories store without vectors. Recall falls back to full-text/ILIKE. Partial degradation — search quality degrades but system remains functional. |
+| Memory Bus container down | No memory operations | Agents proceed without institutional context. Owl's `build_institutional_context()` returns empty string. |
+| HNSW index corrupted | Vector search fails | Full-text and ILIKE fallback tiers still function. `REINDEX` required. |
+| Embedding model changed | Existing vectors incompatible | Batch re-embed all memories. Old vectors produce poor similarity scores against new queries. |
+
+### Monitoring
+
+| Metric | Alert Threshold | Source |
+|--------|----------------|--------|
+| Container health | Unhealthy 2+ checks | Docker healthcheck |
+| `alx_memories` row count | Baseline tracking (currently 900+) | `SELECT count(*) FROM alx_memories` |
+| Embedding coverage | < 80% of memories have non-NULL embedding | `SELECT count(*) FILTER (WHERE embedding IS NOT NULL) * 100.0 / count(*) FROM alx_memories` |
+| Session orphans | Active sessions older than 24h | `SELECT * FROM alx_sessions WHERE status = 'active' AND started_at < now() - interval '24 hours'` |
+
+### Configuration
+
+| Env Var | Default | Description |
+|---------|---------|-------------|
+| `DATABASE_URL` | (required) | PostgreSQL connection string to `growdirect_memory` |
+| `OLLAMA_URL` | `http://growdirect_ollama:11434` | Ollama embedding endpoint |
+| `EMBEDDING_MODEL` | `qwen3-embedding:8b` | Model for 1024-dim vectors (Matryoshka from 4096d native) |
+| `PORT` | `8003` | FastMCP server port |
+| `MCP_API_KEY` | (empty) | API key for tool auth; empty = auth fails unless `MCP_AUTH_DISABLED=1` |
+| `MCP_AUTH_DISABLED` | (unset) | Set to `1` to bypass API key validation |
+
+### Seeding
+
+`services/memory-bus/scripts/seed_clean.py` populates baseline knowledge from:
+- `docs/sdds/**/*.md` as `context_block` memories
+- `docs/team/*.md` as `team_profile` memories
+- `docs/decisions/*.md` as `decision` memories
+- `docs/research/lp-dashboard-pattern-catalog.md` as `foundation` memory
+- `Cove/cove/governance/wpbca-bylaws-config.json` as `foundation` memory
+
+Run: `docker exec growdirect_memory_bus python3 scripts/seed_clean.py --drop-first`
+
+## Deployment
+
+### Docker Service Definition
+
+```yaml
+# In devops/docker-compose.yml
+memory-bus:
+  image: growdirect-memory-bus
+  container_name: growdirect_memory_bus
+  build:
+    context: ../services/memory-bus
+    dockerfile: Dockerfile
+  environment:
+    DATABASE_URL: postgresql://growdirect:growdirect_dev@growdirect_postgres:5432/growdirect_memory
+    OLLAMA_URL: http://growdirect_ollama:11434
+    EMBEDDING_MODEL: qwen3-embedding:8b
+    PORT: "8003"
+    MCP_API_KEY: ${MCP_API_KEY:-growdirect-memory-dev-key}
+  ports:
+    - "127.0.0.1:8003:8003"
+  depends_on:
+    postgres:
+      condition: service_healthy
+  healthcheck:
+    test: ["CMD-SHELL", "curl -so /dev/null -w '%{http_code}' http://localhost:8003/mcp | grep -q '406' || exit 1"]
+    interval: 10s
+    start_period: 15s
+    retries: 5
+  restart: unless-stopped
 ```
 
-Note: `CAST(:qvec AS vector)` is used instead of `::vector` because SQLAlchemy interprets `::` as a parameter binding delimiter.
+### AWS Target
 
-**Default threshold:** 0.62 cosine distance (nomic-embed-text produces distances ~0.45-0.60 for relevant SDD content).
+| Component | AWS Service | Notes |
+|-----------|-------------|-------|
+| Memory Bus container | ECS/Fargate | Single task, no scaling needed |
+| `growdirect_memory` database | RDS PostgreSQL 17 with pgvector | Shared RDS instance, separate database |
+| Ollama | ECS/Fargate or SageMaker endpoint | For embedding generation |
+| `MCP_API_KEY` | Secrets Manager | Not `.env` |
+| `DATABASE_URL` | Secrets Manager | Connection string with IAM auth |
 
-### alx_sessions
+### CI/CD Requirements
 
-Session lifecycle tracking. One row per agent session.
+- Alembic migrations run before container deploy: `cd services/memory-bus && alembic upgrade head`
+- Seed script runs after migrations on fresh environments
+- No Tailwind/npm build step — pure Python service
 
-| Column | Type | Notes |
-|--------|------|-------|
-| id | SERIAL PK | Auto-increment |
-| session_id | VARCHAR UNIQUE | Format: `alx-YYYYMMDD-HHMMSS-{6 hex chars}` |
-| status | VARCHAR | `active` or `closed` |
-| gro_issues | JSONB | Array of GRO issue numbers |
-| summary | TEXT | Written on close |
-| decisions | JSONB | Array of decision strings |
-| unresolved | JSONB | Array of unresolved items |
-| closed_at | TIMESTAMP | Set on close |
-| created_at | TIMESTAMP | Auto-set |
+### Migrations
 
-### Context Block Metadata (SDD-058)
+Managed by Alembic in `services/memory-bus/migrations/`:
 
-Context blocks are stored as regular `alx_memories` rows with `memory_type = 'context_block'` and structured JSONB metadata: `block_type` (domain_overview | workflow | data_model | api_contract), `domain` (primary), `domains[]` (all involved, for workflows), `sdd_refs[]`, `api_paths[]`, `code_entry_points[]`, `mcp_server`, `mcp_tools[]`, `tables[]`, `database`, `token_estimate`. 33 blocks total: 11 domain overview (~1200 tokens each), 7 workflow (~2000 tokens), 4 data model (~1500 tokens), 11 API contract (~1200 tokens).
+| Revision | Description |
+|----------|-------------|
+| `001_baseline` | Initial schema: `alx_sessions`, `alx_memories`, `seed_embeddings` |
+| `002_drop_seed_embeddings` | Drops legacy `seed_embeddings` table |
+| `003_hnsw_index` | HNSW index on `alx_memories.embedding` for vector search |
+| `004_session_fk` | Backfills orphan sessions, adds FK from `alx_memories.session_id` to `alx_sessions.session_id` |
 
-## Workflows
+## Code Review Findings
 
-### Session Lifecycle
+### P0 — Blocks Production
 
-The session lifecycle provides continuity across agent conversations. Each session records what was done, what was decided, and what remains open.
+**P0-1: SQL injection via ILIKE in startup context assembly**
 
-**Start:** `session_start(gro_issues=[])` creates a new session record (status=active) and assembles startup context. Context assembly pulls: last 3 session summaries (truncated to 200 chars each), last 5 decisions, and up to 5 memories per specified GRO issue. Returns structured markdown under `## ALX Session Context`.
+`MemoryStore._assemble_startup_context()` interpolates GRO issue strings directly into an ILIKE pattern without escaping SQL wildcards or special characters:
 
-**Active phase:** During the session, `memory_store()` persists decisions, findings, and context. Each write generates an inline embedding via Ollama and stores both text + vector. If Ollama is unreachable, the memory stores without embedding (best-effort).
+```python
+params = {"pattern": f"%{gro}%"}
+```
 
-**Close:** `session_close(session_id, summary, decisions[], unresolved[])` updates the session record to `closed`, then stores the summary as a `session_summary` memory. The next `session_start` will recall this summary as recent context.
+While parameterized queries prevent classic SQL injection, the `gro` value is user-controlled (passed via `session_start(gro_issues=[...])`) and could contain ILIKE metacharacters (`%`, `_`) that alter query behavior. More critically, the `gro_issues` parameter comes from MCP tool input with no validation — a malicious agent could pass arbitrary strings.
 
-Session ID format: `alx-YYYYMMDD-HHMMSS-{6 hex chars}` (e.g., `alx-20260314-153022-a7c3f1`).
+**Recommended fix:** Validate `gro_issues` entries against a pattern (e.g., `^GRO-\d+$`). Escape ILIKE metacharacters in the pattern string.
 
-### Memory Store (Write Path)
+**P0-2: SQL injection via ILIKE in memory_recall Tier 3**
 
-1. MCP client calls `POST /alx/tools/memory_store` with content and optional metadata.
-2. Tool handler validates content is non-empty, extracts session_id from params or context.
-3. `memory_store()` generates embedding via `_get_embedding()` (Ollama `/api/embed`, 4000-char truncation, 768-dim vector).
-4. INSERT into `alx_memories` with id, session_id, memory_type, content, metadata, embedding.
-5. Returns `{memory_id, stored: true, embedded: true/false}`.
+`MemoryStore.memory_recall()` Tier 3 fallback uses the raw query string in an ILIKE pattern:
 
-Embedding failure is non-blocking — the memory stores with `embedding = NULL` and can be batch-embedded later.
+```python
+{"pattern": f"%{query}%"}
+```
 
-### Memory Recall (Read Path)
+The `query` parameter comes directly from MCP tool input. While parameterized, ILIKE metacharacters are not escaped. A query containing `%` or `_` will match unintended content.
 
-1. MCP client calls `POST /alx/tools/memory_recall` with natural language query.
-2. **Tier 1 (semantic):** `memory_semantic_search()` embeds the query via Ollama, runs pgvector cosine similarity search with threshold 0.62. Returns ranked results with similarity scores.
-3. **Tier 2 (full-text):** If semantic search fails or returns empty, falls through to PostgreSQL `to_tsvector('english', content) @@ plainto_tsquery('english', :query)` with `ts_rank` ordering.
-4. **Tier 3 (ILIKE):** If full-text returns zero results (common for short or unusual queries), falls back to `content ILIKE '%query%'` ordered by `created_at DESC`.
-5. Returns `{query, matches[], count, source: "pgvector"|"postgresql"|"error"}`.
+**Recommended fix:** Escape ILIKE metacharacters before interpolation. Consider whether Tier 3 ILIKE fallback should exist in production at all — it bypasses the semantic and full-text search quality gates.
 
-### Context Assembly
+**P0-3: Auth bypass via MCP_AUTH_DISABLED environment variable**
 
-`context_assemble(topic, gro_issue)` builds a system prompt block from multiple memory sources:
-1. If gro_issue specified: `memory_recall(gro_issue, limit=15)` for issue-specific memories.
-2. If topic specified (and different from gro_issue): `memory_recall(topic, limit=15)`.
-3. Always: `memory_search(type="decision", limit=5)` for recent decisions.
-4. Always: `memory_search(type="session_summary", limit=1)` for last session.
-5. Deduplicate by `memory_id`.
-6. Format as structured markdown: `## ALX Memory Context` with sections for Last Session, Recent Decisions, Related Context.
+`validate_api_key()` in `growdirect_mcp/auth.py` checks `MCP_AUTH_DISABLED=1` to skip all authentication. The Docker Compose file does not set this variable, but it is trivially exploitable if someone sets it in the environment. There is no alternative auth mechanism — no JWT validation on the MCP server, no mTLS, no network policy.
 
-### Domain Context Retrieval (SDD-058)
+**Recommended fix:** Remove `MCP_AUTH_DISABLED` for production. Implement network-level isolation (Docker network policies or AWS security groups) so only authorized containers can reach port 8003. Add JWT validation as an alternative to API key auth.
 
-`domain_context(domain, topic, token_budget)` assembles a complete context window for one of 11 service domains. Budget: ~4000 tokens (~16,000 chars).
+**P0-4: Default API key in Docker Compose**
 
-Assembly order with budget management:
-1. **Domain Overview** (~1200 tokens) — always included. Retrieves via `recall_context_blocks(domain, "domain_overview")`.
-2. **API Contract** (~1200 tokens) — always included.
-3. **Workflow** (~2000 tokens) — included if topic specified. Best-match selected by keyword overlap scoring. Truncated if over budget.
-4. **Data Model** — included if space permits (>400 chars remaining). Truncated to fit.
+```yaml
+MCP_API_KEY: ${MCP_API_KEY:-growdirect-memory-dev-key}
+```
 
-Valid domains: identity, tsp, chirp, alert, owl, fox, analytics, alx, raas, ops, ui_bff.
+The fallback `growdirect-memory-dev-key` is committed to the repo. In production, if the env var is not set, the service runs with a known, committed API key.
 
-Context block retrieval queries `alx_memories WHERE memory_type = 'context_block'` with domain matching via direct metadata match (`metadata->>'domain' = :domain`) or JSONB array containment (`metadata->'domains' @> :domain_jsonb`) for workflow blocks that span multiple domains.
+**Recommended fix:** Remove the default. Production deployments must fail to start if `MCP_API_KEY` is not set. Move to AWS Secrets Manager.
 
-### Institutional Knowledge Flow (SDD-061)
+### P1 — Before GA
 
-ALX memory feeds Owl's prompt assembly via a one-way read path. Owl never writes to ALX.
+**P1-1: No audit logging for memory operations**
 
-1. Owl chat or health-check calls `build_institutional_context(personality, query, token_budget=2000)`.
-2. Adapter looks up JPT lens affinity: jpt_detection gets LP patterns (chirp, alert, fox), jpt_operations gets process/ops (tsp, ops, analytics, raas), jpt_analytics gets all domains including foundation materials.
-3. `memory_semantic_search(query, limit=8)` returns ranked results from pgvector.
-4. Results filtered by personality-allowed `memory_type` values, formatted under 2000-token budget.
-5. Injected into Owl system prompt as Window 0 (before merchant-specific Windows 1-3).
+`memory_store()`, `session_start()`, and `session_close()` have no audit trail. There is no record of who stored what, who queried what, or which agent session performed which operations. The `api_key` parameter is validated but not logged (not even the key identity, just pass/fail).
 
-This is strictly best-effort. If ALX is unreachable, `build_institutional_context()` returns empty string and Owl continues without institutional context.
+**Recommended fix:** Add structured audit logging (caller identity, operation, timestamp, memory_id) to a separate audit table or structured log stream.
 
-### Error Handling
+**P1-2: No data retention policy**
 
-All database operations wrap in try/except with `session.rollback()` on failure. `memory_recall()` returns `{source: "error", error: str(e)}` on query failure. `memory_store()` raises on DB failure (caller handles). `memory_search()` returns `{matches: [], count: 0, error: str(e)}`. Session start/close raise exceptions on DB failure. Health endpoint returns 503 when database is unreachable, 200 otherwise. Embedding failure is silent — memory stores without vector, search falls back to full-text.
+Memories accumulate indefinitely. There is no TTL, no archival, no purge mechanism. The `seed_clean.py --drop-first` flag is a nuclear option that deletes everything.
+
+**Recommended fix:** Implement tiered retention: session summaries auto-archive after 90 days, context blocks refreshed on re-seed, decisions preserved indefinitely. Add `archived_at` column and periodic cleanup job.
+
+**P1-3: No rate limiting on MCP tool calls**
+
+The FastMCP server has no rate limiting. Any client with a valid API key can flood the server with store/recall operations.
+
+**Recommended fix:** Add rate limiting per API key at the FastMCP middleware level, or implement connection-level limits in the Docker/AWS network configuration.
+
+**P1-4: Error responses may leak internal details**
+
+Auth errors return descriptive messages like `"MCP_API_KEY not configured"` and `"Invalid API key"`. Store errors return raw exception strings. This reveals internal configuration details.
+
+**Recommended fix:** Return generic error codes in production. Log detailed errors server-side only.
+
+**P1-5: No TLS on Memory Bus port**
+
+The Memory Bus listens on plain HTTP (port 8003). Within the Docker network this is acceptable for development, but in AWS the traffic between containers should be encrypted.
+
+**Recommended fix:** Enable TLS on the FastMCP server in production, or use AWS App Mesh / service mesh for mTLS between services.
+
+**P1-6: Embedding model version not tracked per memory**
+
+Memories store embeddings generated by whatever model is configured at write time. If the model changes (e.g., from `nomic-embed-text` to `qwen3-embedding:8b`, which already happened), old embeddings become incompatible with new query embeddings. There is no column tracking which model generated each embedding.
+
+**Recommended fix:** Add `embedding_model` column to `alx_memories`. Use it to filter or flag stale embeddings when the model changes.
+
+**P1-7: `memory_store()` accepts `session_id="unattached"` as default**
+
+In `server.py`, when `session_id` is not provided, it defaults to `"unattached"`:
+
+```python
+session_id=session_id or "unattached"
+```
+
+If no `"unattached"` session exists in `alx_sessions`, the FK constraint (migration 004) will cause the insert to fail. The error handling returns the error in-band but the UX is confusing.
+
+**Recommended fix:** Auto-create an `"unattached"` session on first use, or require `session_id` to be non-optional.
+
+### P2 — Post-Launch
+
+**P2-1: No key rotation procedure documented**
+
+API key rotation requires updating the `MCP_API_KEY` env var in Docker Compose and restarting the container. No documented procedure, no graceful transition with two keys active simultaneously.
+
+**Recommended fix:** Document rotation procedure. Support multiple valid API keys during transition window.
+
+**P2-2: HNSW index parameters not tuned**
+
+The HNSW index uses default `ef_construction` and `m` parameters. For the current dataset (~900 memories), defaults are fine. At scale (10K+ memories), tuning these parameters affects recall quality and search latency.
+
+**Recommended fix:** Benchmark and tune HNSW parameters when memory count exceeds 5K.
+
+**P2-3: Embedding truncation at 6000 chars**
+
+`Config.max_text_length = 6000` truncates content before embedding. Long SDDs or session summaries lose tail content. The truncation is silent — no metadata records how much was truncated.
+
+**Recommended fix:** Record `original_length` and `truncated_length` in metadata. Consider chunking long documents into multiple memories.
+
+**P2-4: `_pick_best_workflow()` uses naive keyword overlap**
+
+Workflow selection in `domain_context()` scores by counting how many topic words appear in the content. This is a word-presence check, not semantic similarity. For single-word topics or ambiguous terms, it may pick the wrong workflow block.
+
+**Recommended fix:** Use embedding similarity for workflow selection when topic is provided, falling back to keyword overlap only when embedding is unavailable.
+
+**P2-5: Institutional knowledge adapter URL is hardcoded**
+
+`institutional.py` hardcodes `http://growdirect_memory_bus:8003/mcp/v1/tools/memory_recall`. This assumes a Docker network hostname that will not resolve in all deployment topologies (e.g., AWS ECS with service discovery).
+
+**Recommended fix:** Make the Memory Bus URL configurable via environment variable.
+
+**P2-6: Session ID format diverged between SDD and code**
+
+The original SDD documented session ID format as `alx-YYYYMMDD-HHMMSS-{6 hex chars}`. The actual code uses `alx-{uuid4_hex[:12]}`, which produces a 12-character hex string without date components. The format is functional but differs from the documented contract.
+
+**Recommended fix:** Update documentation to match code (already done in this SDD), or update code to match the more informative date-based format.
+
+## Production Readiness Checklist
+
+- [ ] PII encrypted at rest — `content` and `summary` fields contain organizational knowledge with internal details; currently plaintext. Low risk (no customer PII) but should be encrypted for compliance.
+- [ ] Secrets in AWS Secrets Manager (not .env) — `MCP_API_KEY` and `DATABASE_URL` currently in Docker Compose env vars with committed defaults.
+- [ ] Health check endpoint responds — Docker healthcheck works (406 from MCP protocol). No dedicated `/health` endpoint on the FastMCP server.
+- [ ] Audit logging for sensitive operations — No audit trail for memory store/recall/session operations.
+- [ ] Data retention policy implemented — No retention, no archival, no purge.
+- [ ] Rate limiting on public endpoints — No rate limiting on MCP tool calls.
+- [ ] Error responses don't leak internals — Auth errors reveal configuration state; store errors may leak exception details.
+- [ ] ILIKE metacharacter escaping — Tier 3 recall and startup context assembly vulnerable to ILIKE pattern manipulation.
+- [ ] Auth bypass removed — `MCP_AUTH_DISABLED` env var allows complete auth bypass.
+- [ ] Default API key removed — `growdirect-memory-dev-key` committed to repo as fallback.
+- [ ] Embedding model tracking — No per-memory record of which model generated the embedding.
+- [ ] TLS in production — Plain HTTP on port 8003 within Docker network.

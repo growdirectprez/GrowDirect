@@ -1,32 +1,81 @@
 # UI/BFF (Backend for Frontend)
 
-## Overview
+**Wiki:** [[Brain/wiki/canary-architecture|Canary Architecture]]
+**Service type:** App Service (Canary)
+**Last reviewed:** 2026-04-13
 
-The UI/BFF domain owns page rendering, feature flags, app configuration, and the aggregation layer between Canary's backend services and the merchant-facing interface. It reads from all other domains but owns no business data — it is a thin orchestration layer that assembles cross-domain data into renderable payloads.
+## Purpose
 
-**Design principle:** The BFF is a data aggregation boundary, not a business logic layer. It fetches from Alert (chirps, stats), Fox (cases), Owl (insights, chat), Analytics (dashboard), Identity (merchant profile), and Chirp (rule metadata) — then shapes the combined payload for the UI. Business decisions happen upstream; the BFF decides what to show and how to show it.
+The UI/BFF domain owns page rendering, feature flags, app configuration, and the aggregation layer between Canary's backend services and the merchant-facing interface. It reads from all other domains but owns no business data -- it is a thin orchestration layer that assembles cross-domain data into renderable payloads.
 
-**Rendering:** Flask blueprint `views_bp` in `canary/blueprints/views_wired.py` serves all browser routes. Desktop uses a sidebar layout (`base.html` + `canary.css`); mobile uses a three-panel tab layout (`mobile/base_mobile.html` + `mobile-panels.css`). Desktop routes redirect to mobile equivalents — mobile is the primary merchant interface. All browser routes are gated behind `load_session_user()` session authentication.
+**Design principle:** The BFF is a data aggregation boundary, not a business logic layer. It fetches from Alert (chirps, stats), Fox (cases), Owl (insights, chat), Analytics (dashboard), Identity (merchant profile), and Chirp (rule metadata) -- then shapes the combined payload for the UI. Business decisions happen upstream; the BFF decides what to show and how to show it.
 
-**MCP server:** `canary-bff` at `/bff/*` with 4 tools that wrap view helpers into structured JSON. Blueprint in `canary/blueprints/bff_mcp.py`, tool handlers in `canary/services/bff/tools.py`. The MCP interface provides the same data as the browser routes in a machine-readable format for programmatic consumers and the Next.js + Capacitor native app (`frontend/`).
+## Dependencies
 
-**Native distribution:** The `frontend/` directory contains a Next.js + Capacitor app consuming the Flask API on port 5001. Capacitor enables native iOS/Android distribution via App Store. Auth is JWT Bearer token. Both the server-rendered (Jinja2) and client-rendered (Next.js) paths consume the same BFF aggregation layer.
+| Dependency | Type | Required | Notes |
+|-----------|------|----------|-------|
+| PostgreSQL (`canary` DB) | Database | Yes | `app` and `sales` schemas for read queries |
+| Valkey (DB 0) | Cache/Session | Yes | Server-side session storage via Flask-Session |
+| Alert service | Internal | Yes | `_get_chirps()`, `_get_stats()` -- alert feed + counts |
+| Fox service | Internal | Yes | `_get_cases()` -- case lists by status |
+| Owl service | Internal | Yes | `get_the_one_thing()` -- AI priority insight |
+| Analytics service | Internal | Yes | `_get_dashboard_data()` -- dashboard metrics |
+| Identity service | Internal | Yes | Merchant resolution via `_resolve_merchant()` |
+| Chirp service | Internal | Yes | Rule metadata via `_build_rule_map()` |
+| Square OAuth | External | Yes | Session creation -- BFF has no login flow of its own |
 
-**Owned tables (app schema):** `feature_flags`, `merchant_feature_flags`, `app_config`, `card_profiles`, `blocked_entities`.
+## Data Flow & PII Map
 
-**Services:**
+### What enters
 
-- `config_service.py` — Runtime config editor with three-layer resolution (DB > ENV > default). Secret masking (`is_secret=True` values hidden in UI). Config health dashboard showing set/default/missing status for all registered ENV vars.
-- `feature_flags.py` — Feature flag resolution with three-layer chain: merchant override (`merchant_feature_flags`) > global DB default (`feature_flags`) > ENV var fallback. Categories: billing, security, analytics, ui, integration. Per-merchant overrides are rows in `merchant_feature_flags`; deleting the row reverts to global.
-- `bff/tools.py` — 4 MCP tool handlers wrapping `_get_chirps()`, `_get_stats()`, `_get_cases()`, and `get_the_one_thing()` from views_wired into JSON payloads.
+| Source | Data | Format |
+|--------|------|--------|
+| Flask session (Valkey) | `user_id`, `merchant_id`, `roles`, `display_name`, `merchant_ids` | Server-side session dict |
+| Alert service | Alert feed with `employee_id`, `employee_name`, `amount_cents`, `rule_id` | Python dicts from ORM |
+| Fox service | Case data with `case_number`, employee references | Python dicts |
+| Owl service | "The One Thing" AI-generated insight text | String |
+| Analytics/Dashboard | Revenue, txn counts, employee-level transaction breakdowns | Python dicts |
+| Browser | Form submissions (settings, case status, rule edits), CSRF tokens | POST body |
 
-**Domain boundaries:** Inbound from browser (HTTP) and MCP clients (JWT). Outbound reads to Alert (chirps, stats), Fox (cases), Owl (The One Thing, chat), Analytics (dashboard), Identity (merchant lookup), Chirp (rule metadata). Writes only to its own 5 tables.
+### What's stored (owned tables, `app` schema)
 
-## API Contracts
+| Table | PII Fields | Encryption | Classification |
+|-------|-----------|------------|----------------|
+| `feature_flags` | None | N/A | public |
+| `merchant_feature_flags` | `merchant_id` (FK) | Plaintext | internal |
+| `app_config` | None (secrets masked via `is_secret`) | Plaintext | internal |
+| `card_profiles` | `card_fingerprint`, `card_last4`, `card_brand` | Plaintext | internal |
+| `blocked_entities` | `entity_id` (card fingerprint, employee ID, or device ID) | Plaintext | internal |
+
+### What exits (rendered in HTML or returned as JSON)
+
+| Destination | Data | PII Exposure |
+|------------|------|-------------|
+| Browser HTML | Employee names (masked by PII toggle), card last4, transaction amounts, display_name | internal |
+| Browser HTML | `merchant_id` in `<body data-merchant-id>` attribute | internal |
+| Browser HTML | `merchant_ids` in `<body data-merchant-ids>` attribute | internal |
+| MCP JSON responses | Same aggregated data as HTML, structured as JSON | internal |
+| CSRF meta tag | CSRF token in `<meta name="csrf-token">` | public (per-session) |
+| Error JSON responses | Exception messages via `str(e)` in some routes | potential leak |
+
+### PII classification
+
+| Field | Classification | Notes |
+|-------|---------------|-------|
+| `display_name` | internal | Rendered in sidebar, top bar; from session |
+| `employee_name` | internal | Masked by PII toggle (`show_employee_names` setting) |
+| `card_last4` | internal | PCI-safe (last 4 only); rendered in transaction detail |
+| `card_fingerprint` | internal | Square PCI-safe hash; used as entity ID |
+| `merchant_id` | internal | Internal UUID; exposed in HTML data attributes |
+| `email` | sensitive | Stored in `users` table; rendered on team settings page |
+| `user_id` | internal | Session-stored UUID; never rendered in HTML |
+| Config secrets | restricted | Masked in config health UI (`is_secret=True` hides value) |
+
+## API Contract
 
 ### MCP Server (`canary-bff` at `/bff/*`)
 
-4 tools registered in `canary/services/bff/tools.py`. All follow `(params: Dict, context: Dict) -> Dict` contract. Merchant ID resolved from JWT context or `merchant_id` param.
+4 tools registered in `canary/services/bff/tools.py`. All follow `(params: Dict, context: Dict) -> Dict` contract. Auth: JWT Bearer token via `@jwt_required` (or `X-API-Key` for agent-to-agent). Merchant ID resolved from JWT context or `merchant_id` param.
 
 | Tool | Category | Input | Output |
 |------|----------|-------|--------|
@@ -37,9 +86,11 @@ The UI/BFF domain owns page rendering, feature flags, app configuration, and the
 
 **Severity cap logic:** Critical/high/warning alerts always shown. Medium/low/info capped at 4 unless `show_all=true`. Cap applied by `_apply_cap()` helper. Counts computed from full alert set before cap.
 
+**Rate limiting:** MCP endpoints are rate-limited at 100/hour for manifest/tools-list, 1000/hour for tool invocations (via Flask-Limiter).
+
 ### REST Page Routes (`views_bp` at `/` and `/m/*`)
 
-All routes require session auth via `load_session_user()`. Unauthenticated requests redirect to `/auth/login-page?next={path}`.
+All routes require session auth via `load_session_user()`. Unauthenticated requests redirect to `/auth/login-page?next={path}`. CSRF protection enabled via Flask-WTF `CSRFProtect` (POST/PUT/DELETE).
 
 | Route | Method | Purpose |
 |-------|--------|---------|
@@ -89,7 +140,7 @@ Next.js app at port 3000 consumes Flask API at port 5001 via `apiGet()`/`apiPost
 
 All tables in `app` schema. Models use SQLAlchemy 2.0 `Mapped[]` syntax.
 
-### `feature_flags` — Global feature flag catalog
+### `feature_flags` -- Global feature flag catalog
 
 Not tenant-scoped. Each flag defined once, overridden per merchant.
 
@@ -105,7 +156,7 @@ Not tenant-scoped. Each flag defined once, overridden per merchant.
 
 Indexes: `flag_key`, `category`.
 
-### `merchant_feature_flags` — Per-merchant overrides
+### `merchant_feature_flags` -- Per-merchant overrides
 
 Tenant-scoped via TenantMixin (`merchant_id`). Row exists = override active. Delete row to revert to global.
 
@@ -121,7 +172,7 @@ Indexes: unique composite `(merchant_id, flag_key)`.
 
 **Resolution chain:** `is_flag_enabled(merchant_id, flag_key)` checks: (1) `merchant_feature_flags` row for merchant+key, (2) `feature_flags.is_enabled` global default, (3) ENV var fallback via `_ENV_FALLBACKS` dict.
 
-### `app_config` — Runtime configuration key/value store
+### `app_config` -- Runtime configuration key/value store
 
 Not tenant-scoped. System-wide config overrides.
 
@@ -137,7 +188,7 @@ Not tenant-scoped. System-wide config overrides.
 
 **Resolution chain:** `get_config_value(key, default)` checks: (1) `app_config.config_value` in DB, (2) `os.environ.get(key)`, (3) registry default from `CONFIG_REGISTRY`, (4) caller default.
 
-### `card_profiles` — Card entity profiles
+### `card_profiles` -- Card entity profiles
 
 Tenant-scoped. Indexed by `card_fingerprint` (Square PCI-safe hash).
 
@@ -157,7 +208,7 @@ Tenant-scoped. Indexed by `card_fingerprint` (Square PCI-safe hash).
 
 Indexes: `(merchant_id, card_fingerprint)`, `(merchant_id, risk_score)`.
 
-### `blocked_entities` — Merchant-configured entity blocks
+### `blocked_entities` -- Merchant-configured entity blocks
 
 Tenant-scoped. Soft-delete via SoftDeleteMixin. Used by Chirp to suppress false positives.
 
@@ -183,8 +234,7 @@ Two base templates. Do NOT create new base templates.
 
 | Template | Layout | Stylesheet | Navigation |
 |----------|--------|------------|------------|
-| `templates/base.html` | Desktop sidebar | `canary.css` | Collapsible sidebar (`partials/sidebar.html`) |
-| `templates/mobile/base_mobile.html` | Mobile 3-panel | `canary.css` + `mobile-panels.css` | Bottom tab bar (Chirps / Owl / Vault) |
+| `templates/app/base_app.html` | Responsive shell (phone/tablet/desktop) | `canary.css` + `mobile-panels.css` + `responsive-shell.css` | Sidebar (desktop/tablet) + bottom tab bar (phone) |
 
 Desktop is sidebar-driven with CSS media query responsive collapse. Mobile is tab-driven: three panels rendered in a single page load, switched by JavaScript (no reload). Active panel set by `.active` CSS class; URL param `?tab=` auto-switches on load.
 
@@ -240,11 +290,11 @@ All in `views_wired.py`. No ORM imports at module level (lazy imports inside eac
 | `canary/services/feature_flags.py` | Feature flag resolution service |
 | `canary/models/app/feature_flags.py` | FeatureFlag, MerchantFeatureFlag, AppConfig models |
 | `canary/models/app/card_profiles.py` | CardProfile, BlockedEntity models |
-| `templates/base.html` | Desktop base template (sidebar layout) |
-| `templates/mobile/base_mobile.html` | Mobile base template (3-panel tabs) |
-| `templates/mobile/home.html` | Three-panel mobile home (Chirps/Owl/Vault) |
-| `static/css/canary.css` | Design tokens + desktop styles |
-| `static/css/mobile-panels.css` | Mobile panel/tab styles |
+| `templates/app/base_app.html` | Responsive base template (sidebar + tab bar) |
+| `templates/app/chirps.html` | Three-panel home (Chirps/Owl/Vault) |
+| `static/css/canary.css` | Design tokens + styles |
+| `static/css/mobile-panels.css` | Panel/tab styles |
+| `static/css/responsive-shell.css` | Responsive breakpoints |
 | `frontend/` | Next.js + Capacitor replatform (target state) |
 
 ## Settings Page Features
@@ -276,6 +326,232 @@ All in `views_wired.py`. No ORM imports at module level (lazy imports inside eac
 - Stored in `MerchantSettings.lookback_days` (NULL = all available history)
 - Affects connect page initial sync range and welcome page display
 - Default: 30 days (backward-compatible with previous hardcoded value)
+
+## Operations
+
+### Startup sequence
+
+The BFF has no independent startup -- it is part of the Canary Flask application (`wsgi.py`). Boot order:
+
+1. `wsgi.py` creates Flask app, loads config from env-specific `Config` class
+2. `_init_database()` -- SQLAlchemy session factory, schema verification
+3. `_init_security()` -- CSRF, Talisman (CSP/security headers), Flask-Session (Valkey), Flask-Limiter
+4. `_register_blueprints()` -- registers `views_bp` (CSRF-protected) and `bff_mcp_bp` (CSRF-exempt, JWT-protected)
+5. Context processors inject `csrf_token()`, `csp_nonce()`, theme CSS, and display labels into all templates
+
+### Health checks
+
+- **App-level:** `GET /health` returns basic status (database connectivity, blueprint count)
+- **BFF MCP-level:** `GET /bff/health` returns `{service: "canary-bff", healthy: true, tools: 4}`
+- **Docker HEALTHCHECK:** Every 30s, `urllib.request.urlopen('http://localhost:5001/health')` -- fails container if app is down
+
+### Failure modes
+
+| Failure | Impact | Behavior |
+|---------|--------|----------|
+| Valkey down | Sessions lost | New requests get no session, redirect to login. Existing in-flight requests fail. |
+| PostgreSQL down | All data queries fail | View helpers return empty lists or "ERR" strings. Pages render with empty state. No crash. |
+| Alert/Fox/Owl service error | Partial data | Individual `try/except` blocks return empty results. Page renders with missing sections. |
+| CSRF token mismatch | POST rejected | Flask-WTF returns 400. User must reload page. |
+| Security extensions fail to init | Degraded | App continues without CSRF, Talisman, rate limiting. Logged as warning. |
+
+### Monitoring
+
+| Metric | Alert threshold | Source |
+|--------|----------------|--------|
+| 5xx error rate | >5% of requests in 5 min | Application logs |
+| `/health` response time | >2s | Docker healthcheck |
+| Session creation failures | Any | `canary.jwt_auth` logger |
+| CSRF rejection rate | >10% of POSTs | Flask-WTF logs |
+
+### Configuration
+
+**Session settings (wsgi.py):**
+
+| Setting | Value | Notes |
+|---------|-------|-------|
+| `SESSION_TYPE` | `redis` | Valkey-compatible |
+| `SESSION_KEY_PREFIX` | `canary:session:` | Namespace isolation |
+| `SESSION_COOKIE_HTTPONLY` | `True` | Prevents JS access to session cookie |
+| `SESSION_COOKIE_SAMESITE` | `Lax` | CSRF protection for cross-origin |
+| `SESSION_COOKIE_SECURE` | `False` (dev) / `True` (prod) | HTTPS-only in production |
+| `PERMANENT_SESSION_LIFETIME` | 7 days | Session expiry |
+
+**Security headers (Talisman):**
+
+| Header | Value |
+|--------|-------|
+| Content-Security-Policy | `default-src 'self'; script-src 'self' 'unsafe-inline' cdn.jsdelivr.net` with nonce |
+| X-Frame-Options | `DENY` |
+| X-Content-Type-Options | `nosniff` |
+| X-XSS-Protection | `1; mode=block` |
+| Strict-Transport-Security | Enabled in production |
+| HTTPS forced | Yes (except localhost dev) |
+
+**Feature flags:** Three-layer resolution chain documented in Data Models section. ENV fallbacks: `BILLING_ENABLED`, `AUDIT_LOGGING_ENABLED`, `API_KEYS_ENABLED`.
+
+## Deployment
+
+### Docker service definition
+
+Part of the Canary Docker Compose stack. No separate container -- BFF routes are served by the same Gunicorn process as all Canary Flask routes.
+
+```dockerfile
+# Multi-stage build: python:3.12-slim
+# Non-root user: canary
+# Port: 5001
+# Workers: 1 (--threads 4)
+# Healthcheck: every 30s against /health
+CMD ["gunicorn", "--bind", "0.0.0.0:5001", "--workers", "1", "--threads", "4", "--timeout", "120", "wsgi:app"]
+```
+
+### AWS target
+
+| Component | AWS Service | Notes |
+|-----------|------------|-------|
+| Application | ECS Fargate | Single task definition for all Canary routes |
+| Database | RDS PostgreSQL 17 | Shared `canary` database |
+| Sessions | ElastiCache (Valkey) | DB 0 for sessions and cache |
+| Secrets | AWS Secrets Manager | Replace `.env` file |
+| CDN | CloudFront | Static assets (`/static/`) |
+| Load balancer | ALB | TLS termination, health check target `/health` |
+
+### CI/CD requirements
+
+- Build: Docker multi-stage build
+- Test gate: `pytest tests/unit/ tests/integration/` must pass
+- Static analysis: No `str(e)` in user-facing JSON responses
+- Deploy: ECS rolling update (min 1 healthy task)
+
+## Code Review Findings
+
+### F-1: Exception messages leaked in JSON error responses (P1)
+
+**Severity:** P1 (before GA)
+
+**Description:** Multiple routes in `views_wired.py` return `str(e)` directly in JSON error payloads (lines 3516, 3541, 4534). The BFF MCP tool handlers in `tools.py` also return `str(e)` on failure (lines 134, 185, 234). These exception strings can expose internal implementation details -- database table names, query structure, file paths, or dependency names -- to the client.
+
+**Affected code:**
+- `views_wired.py` Owl drill route: `return jsonify({"ok": False, "error": str(e)}), 500`
+- `views_wired.py` drill entry route: `return jsonify({"ok": False, "error": str(e)}), 500`
+- `tools.py` all 4 MCP handlers: `return {"ok": False, "error": str(e)}`
+
+**Recommended fix:** Replace `str(e)` with generic error messages in production. Log the full exception server-side. Pattern: `return {"ok": False, "error": "Internal server error"}` with `logger.error("...", exc_info=True)`.
+
+**Linear issue:** TBD
+
+### F-2: `merchant_id` exposed in HTML data attributes (P2)
+
+**Severity:** P2 (post-launch)
+
+**Description:** `base_app.html` line 35 renders `data-merchant-id="{{ g.merchant_id }}"` and `data-merchant-ids="{{ g.merchant_ids|join(',') }}"` directly into the HTML body tag. These are internal UUIDs. While not secret (they are in session and visible to authenticated users), exposing them in the DOM makes them accessible to any injected script and any browser extension.
+
+**Recommended fix:** Consider whether client-side JavaScript actually needs the full merchant UUID. If needed, a short-lived opaque token or server-side resolution is safer. Alternatively, accept as low risk since pages are behind authentication.
+
+**Linear issue:** TBD
+
+### F-3: CSP allows `'unsafe-inline'` for scripts (P1)
+
+**Severity:** P1 (before GA)
+
+**Description:** The Content-Security-Policy includes `'unsafe-inline'` in `script-src`. While Talisman also adds nonce-based script allowlisting (`content_security_policy_nonce_in=["script-src"]`), the `'unsafe-inline'` directive weakens CSP because browsers that support nonces still allow inline scripts when `'unsafe-inline'` is present alongside a nonce in the CSP. Modern browsers should use nonce-only. However, if inline scripts exist without nonces, removing `'unsafe-inline'` may break functionality.
+
+**Recommended fix:** Audit all inline `<script>` blocks in templates. Add `nonce="{{ csp_nonce() }}"` to any that lack it. Then remove `'unsafe-inline'` from the CSP `script-src` directive. The templates already use `nonce="{{ csp_nonce() }}"` for CDN scripts (Chart.js) but inline event handlers and script blocks in chirps.html, settings.html, and other templates may not have nonces.
+
+**Linear issue:** TBD
+
+### F-4: No audit logging for config or feature flag changes (P1)
+
+**Severity:** P1 (before GA)
+
+**Description:** `config_service.py` `update_config()` and `feature_flags.py` `set_global_flag()`/`set_merchant_flag()`/`remove_merchant_override()` log changes via Python logger but do not write to the audit log table. In production, admin actions that change system behavior (enabling billing, toggling security features, changing runtime config) must produce a queryable audit trail.
+
+**Recommended fix:** Add audit log entries to all write operations in `config_service.py` and `feature_flags.py`. Include: who changed it (`g.user_id`), what changed (key, old value, new value), when (timestamp).
+
+**Linear issue:** TBD
+
+### F-5: No rate limiting on browser view routes (P1)
+
+**Severity:** P1 (before GA)
+
+**Description:** The global Flask-Limiter defaults apply (2000/day, 500/hour), but there are no per-route limits on browser view routes. The `views_bp` blueprint does not apply any route-specific limits. Data-heavy routes like `/m/chirps` (which runs multiple DB queries per request) and `/m/home` (which aggregates across 5+ services) could be abused for resource exhaustion.
+
+**Recommended fix:** Add route-specific limits to data-heavy views. Suggested: `/m/chirps` and `/m/home` at 60/minute, `/m/refresh` at 30/minute, `/m/owl/chat` at 20/minute. MCP endpoints already have limits (100/hour manifest, 1000/hour tools).
+
+**Linear issue:** TBD
+
+### F-6: JWT auth for MCP is dev-mode only (P0)
+
+**Severity:** P0 (blocks prod)
+
+**Description:** The `jwt_required` decorator in `jwt_auth.py` has no production JWT validation. Line 326: `if canary_env == 'production': abort(401)` -- production requests are unconditionally rejected. The dev-mode path compares the Bearer token to a static secret (`CANARY_DEV_JWT_SECRET`). This means: (a) MCP tools cannot work in production, and (b) dev-mode auth is a shared static secret, not per-user tokens.
+
+**Recommended fix:** Implement proper JWT validation for production using a signing key (RS256 or HS256 with rotatable secret). Options: integrate with an identity provider (Keycloak is already in the config registry) or implement JWT signing in the auth service and validation in `jwt_required`. This blocks the Next.js + Capacitor native app from shipping.
+
+**Linear issue:** TBD
+
+### F-7: No data retention policy for owned tables (P1)
+
+**Severity:** P1 (before GA)
+
+**Description:** `card_profiles` and `blocked_entities` have no automated cleanup. `blocked_entities` uses soft-delete (SoftDeleteMixin) but soft-deleted rows are never purged. Over time, these tables will grow unbounded, particularly `card_profiles` which gets a row per unique card per merchant.
+
+**Recommended fix:** Define retention windows: `card_profiles` rows not seen in 12+ months eligible for purge, `blocked_entities` soft-deleted rows purged after 90 days. Implement as a scheduled task or Alembic-managed stored procedure.
+
+**Linear issue:** TBD
+
+### F-8: Security extensions can silently fail (P1)
+
+**Severity:** P1 (before GA)
+
+**Description:** In `wsgi.py` line 451-453, if `_init_security()` throws an exception, the app continues running without CSRF protection, security headers, or rate limiting. The failure is logged as a warning but there is no health check flag or startup abort. In production, running without CSRF or CSP is a security vulnerability.
+
+**Recommended fix:** In production mode (`CANARY_ENV=production`), security extension initialization failure should abort startup. Dev mode can continue with a warning. Add a health check field: `security_extensions_active: bool`.
+
+**Linear issue:** TBD
+
+### F-9: `views_wired.py` is 4500+ lines (P2)
+
+**Severity:** P2 (post-launch)
+
+**Description:** The single file `views_wired.py` contains all browser routes, all view helpers, all admin routes, and all settings handlers. At 4500+ lines it is difficult to review, test in isolation, and reason about. Data helpers (`_get_chirps`, `_get_stats`, etc.) are interleaved with route handlers.
+
+**Recommended fix:** Extract view helpers into `canary/services/bff/` as dedicated modules. Extract admin routes into a separate blueprint. Extract settings routes. Keep `views_wired.py` as the route registration file that delegates to service functions.
+
+**Linear issue:** TBD
+
+### F-10: Session validation fails open on DB error (P2)
+
+**Severity:** P2 (post-launch)
+
+**Description:** In `jwt_auth.py` `load_session_user()` line 425-427, if the DB query to validate the user fails (connection error, timeout), the function falls through to the non-error path and allows the request to proceed with the session data. The comment says "fail open" -- but this means a deactivated user could continue using the app during a DB outage.
+
+**Recommended fix:** In production, fail closed: if user validation query fails, clear the session and redirect to login. This prevents deactivated users from operating during infrastructure issues.
+
+**Linear issue:** TBD
+
+## Production Readiness Checklist
+
+- [x] Session cookies: HttpOnly, SameSite=Lax, Secure in prod
+- [x] CSRF protection on all POST routes (Flask-WTF CSRFProtect)
+- [x] CSP headers via Talisman (with nonce for scripts)
+- [x] X-Frame-Options: DENY
+- [x] Health check endpoint responds (`/health`, `/bff/health`)
+- [x] PII masking toggle for employee names (GRO-242)
+- [x] Config secrets masked in admin UI (`is_secret=True`)
+- [x] No-cache headers on HTML responses
+- [x] Rate limiting initialized (global defaults)
+- [x] Server-side sessions (Valkey, not client-side cookies)
+- [x] Non-root Docker user (`canary`)
+- [ ] Error responses don't leak internals (F-1: `str(e)` in JSON)
+- [ ] CSP tightened: remove `'unsafe-inline'` from script-src (F-3)
+- [ ] Audit logging for config/flag changes (F-4)
+- [ ] Per-route rate limits on heavy views (F-5)
+- [ ] Production JWT validation for MCP tools (F-6)
+- [ ] Data retention policy for card_profiles, blocked_entities (F-7)
+- [ ] Security init failure aborts prod startup (F-8)
+- [ ] Secrets in AWS Secrets Manager (not .env)
+- [ ] Session validation fails closed in production (F-10)
 
 ---
 *Canary LP | GrowDirect Inc. | Confidential*

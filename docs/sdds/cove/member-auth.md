@@ -1,331 +1,102 @@
-# Member Auth & Privacy
+# Member Auth
 
-> **Status:** Complete — written from code
-> **Namespace:** cove
-> **Last updated:** 2026-03-30
-> **Code location:** `Cove/cove/auth/`, `Cove/cove/member/`
-
----
-
-## 1. Overview
-
-Member Auth & Privacy governs how Cove authenticates HOA members, manages their
-sessions, and enforces the privacy rules that control what personal information
-appears in the member directory.
-
-The system is built around two constraints that are unique to HOA governance:
-
-1. **Lot-based email identity.** Every property in the association has a
-   permanent email address (`{lot#}{street}@abalonecove.org`, e.g.,
-   `25SeaCove@abalonecove.org`). This address belongs to the lot, not the
-   owner. When ownership transfers, the lot email stays; Cloudflare Email
-   Routing updates the forwarding destination. A member authenticates using
-   either their lot email or their personal email, but the lot email is the
-   canonical identity.
-
-2. **Privacy defaults that match community norms.** Lot email and address are
-   always visible — they are property records, not personal data. A member's
-   personal contact information (phone, personal email) is hidden by default
-   and requires explicit opt-in. Board members can override all privacy
-   preferences to perform governance work.
-
-Authentication uses magic links as the primary path (no password to remember or
-lose) with a werkzeug password hash as a dev/fallback path. Sessions are stored
-in Valkey DB 1 via Flask-Session. All new members must accept the Cove privacy
-policy before accessing any protected route.
+> **Type:** App Service (Cove)
+> **Status:** Production-grade operational contract
+> **Last updated:** 2026-04-13
+> **Code location:** `Cove/cove/auth/`, `Cove/cove/member/`, `Cove/cove/models/member.py`
+> **Wiki:** [[Brain/wiki/cove-governance|Cove Governance]]
 
 ---
 
-## 2. Architecture
+## Purpose
 
-### Component Diagram
-
-```
-Browser
-  │
-  ├─ GET/POST /auth/login ──────────────── auth_bp (cove/auth/routes.py)
-  │    ├─ LoginForm (WTForms)
-  │    ├─ generate_magic_link_token()      cove/auth/services.py
-  │    └─ send_magic_link_email()          cove/auth/email.py
-  │
-  ├─ GET /auth/verify/<token> ─────────── auth_bp
-  │    └─ verify_magic_link_token()        cove/auth/services.py
-  │
-  ├─ GET /auth/logout ─────────────────── auth_bp
-  │
-  ├─ GET/POST /member/onboarding ─────── member_bp (cove/member/routes.py)
-  │    └─ complete_onboarding()            cove/member/services.py
-  │
-  ├─ GET/POST /member/accept-privacy ─── member_bp
-  │    └─ privacy_consent_at stamp
-  │
-  ├─ GET/POST /member/profile ────────── member_bp
-  │    ├─ update_profile()                 cove/member/profile_services.py
-  │    └─ update_directory_preferences()   cove/member/services.py
-  │
-  └─ GET /member/directory[/<apn>] ───── member_bp
-       ├─ search_directory()               cove/member/services.py
-       └─ get_parcel_profile_data()        cove/member/services.py
-
-Extensions (cove/extensions.py)
-  ├─ db         — SQLAlchemy 2.0 (PostgreSQL 17)
-  ├─ login_manager  — Flask-Login, login_view="auth.login"
-  ├─ mail       — Flask-Mail (MailHog dev / Cloudflare prod)
-  ├─ csrf       — Flask-WTF CSRFProtect
-  ├─ sess       — Flask-Session → Valkey DB 1
-  ├─ talisman   — Flask-Talisman (CSP, HSTS, X-Frame)
-  └─ limiter    — Flask-Limiter (rate limit on /auth/login, /auth/verify)
-
-Data layer
-  ├─ Member (members)
-  ├─ Role (roles)
-  ├─ MemberRole (member_roles) — temporal
-  └─ DirectoryPreference (directory_preferences)
-```
-
-### Request / Data Flow
-
-**Magic link login:**
-
-```
-1. User submits email (or short lot ID, e.g. "25seacove") to POST /auth/login
-2. Route normalises input: if no "@", appends "dr@abalonecove.org"
-3. Lookup: SELECT FROM members WHERE lot_email = ? OR personal_email = ?
-4. If member not found: flash generic message (no user enumeration)
-5. If found and no password in form:
-   a. Generate UUID nonce, persist to member.magic_link_nonce
-   b. Call generate_magic_link_token(member.id, nonce)
-      → URLSafeTimedSerializer.dumps({member_id, nonce}, salt="magic-link")
-   c. Call send_magic_link_email(member, token)
-      → Raises ValueError if member.personal_email is None
-   d. Flash "Check your email..." and redirect to GET /auth/login
-6. User clicks /auth/verify/<token>
-7. verify_magic_link_token(token) → loads with salt="magic-link", max_age=MAGIC_LINK_EXPIRY
-   → Returns {member_id, nonce} or None on SignatureExpired / BadSignature
-8. Lookup member by member_id; compare member.magic_link_nonce == payload["nonce"]
-   → Nonce mismatch = link already used
-9. Rotate: set member.magic_link_nonce = None, set last_login_at, commit
-10. login_user(member, remember=True)
-11. Redirect: /member/onboarding if not member.onboarded, else /member/dashboard
-```
-
-**Password login (fallback):**
-
-```
-1. User submits email + password to POST /auth/login
-2. Same member lookup (lot_email or personal_email)
-3. check_password_hash(member.password_hash, password)
-4. On success: set last_login_at, login_user(member, remember=True)
-5. Redirect to ?next= param (safe redirect check) or dashboard/onboarding
-6. On failure: flash "Invalid email or password."
-```
-
-**Privacy consent gate (before_request hook in cove/__init__.py):**
-
-```
-Every request from an authenticated, onboarded member:
-  IF member.privacy_consent_at IS NULL
-  AND endpoint is not in {auth.*, public.*, static, agent.*, member.accept_privacy}
-  → Redirect to /member/accept-privacy
-
-POST /member/accept-privacy:
-  form.accepted == True → member.privacy_consent_at = utcnow(), commit
-  form.accepted == False → flash error, stay on page
-```
-
-**Onboarding flow (first login only):**
-
-```
-login_user() → member.onboarded is False → redirect /member/onboarding
-  OnboardingForm: display_name, personal_email, phone, show_email, show_phone
-  complete_onboarding():
-    - Sets member.name, personal_email, phone
-    - Sets member.onboarded = True
-    - Assigns "member" role if not already present (MemberRole with term_start=now)
-    - Calls update_directory_preferences(show_name=True, show_address=True,
-        show_email=form value, show_phone=form value)
-    - Commits
-```
-
-### Key Design Decisions
-
-**Lot email as canonical identity, not personal email.**
-The lot email (`25SeaCove@abalonecove.org`) is the permanent identifier for the
-lot. It is always shown in the directory because it is a property-level address,
-not personal information. It is the login username. When a property sells, the
-lot email continues to exist; only the Cloudflare Email Routing target changes.
-Personal email is the forwarding destination and is treated as PII — hidden by
-default.
-
-**Magic link over OTP or TOTP.**
-HOA members are not sophisticated software users. A link in email requires no
-app, no code entry, and no password management. The one-time nonce stored on
-the Member row ensures links cannot be replayed. The 15-minute expiry is short
-enough to prevent abuse of stolen emails but long enough to account for mail
-delivery delay.
-
-**Nonce rotation on use.**
-`magic_link_nonce` is set to a new UUID when a link is generated and set to
-`NULL` when the link is verified. A second click on the same link will find
-`member.magic_link_nonce != payload["nonce"]` (NULL vs. the nonce in the token)
-and reject the request. Generating a new magic link also invalidates all
-previous links because the nonce changes.
-
-**No user enumeration.**
-When a magic link request is made for an unknown email, the response is
-identical to a successful request: "If that email is registered, you'll receive
-a login link shortly." This prevents probing for which emails are registered.
-
-**Board view overrides all privacy preferences.**
-`current_user.is_board` is tested at every directory access point. Board members
-see all contact information regardless of `DirectoryPreference` settings. This
-is intentional — board members need full contact access for governance work
-(quorum notices, violation letters, emergency communication).
-
-**Lot-short login.**
-Members may enter just their lot ID (`25seacove`) without an email address. The
-login route appends `dr@abalonecove.org` to construct the full lot email. This
-matches the WPBCA address pattern (all lots on Sea Cove Dr, Packet Rd,
-Barkentine Ln, Clipper Ln, Peppertree Ln — the `dr` suffix is a convenience
-default for the most common street). Members on other streets must use their
-full lot email.
+Member Auth is the authentication, session management, and privacy consent
+layer for Cove. It authenticates HOA members via lot-based email identity using
+magic links (primary) or password hash (dev/fallback), stores sessions in
+Valkey, enforces privacy consent before access, and controls PII visibility
+through directory preference toggles. This is the PII entry point for all of
+Cove — every member's personal data flows through this service first.
 
 ---
 
-## 3. Data Model
+## Dependencies
 
-All models are in `Cove/cove/models/member.py`. Primary keys use `String(36)`
-(UUID stored as string) — a holdover from the initial schema. New tables use
-native `Mapped[uuid.UUID]`. Do not propagate the String(36) pattern.
-
-### Member
-
-Table: `members`
-
-```python
-class Member(UserMixin, db.Model):
-    id: Mapped[str]                      # String(36), PK, uuid4
-    organization_id: Mapped[str]         # FK → organizations.id
-    apn: Mapped[str | None]              # FK → parcels.apn, nullable
-    name: Mapped[str]                    # Display name (255)
-    lot_email: Mapped[str]               # Unique. "25SeaCove@abalonecove.org"
-    personal_email: Mapped[str | None]   # Forwarding target. PII.
-    phone: Mapped[str | None]            # PII. Opt-in for directory.
-    unit_identifier: Mapped[str]         # "25 Sea Cove Dr" (100)
-    voting_weight: Mapped[int]           # Default 1. Combined lot = 1 vote still.
-    delivery_preference: Mapped[str]     # "electronic" | "paper" | "both"
-    membership_status: Mapped[str]       # "active" | "suspended" | "inactive"
-    assessment_status: Mapped[str]       # "current" | "delinquent"
-    password_hash: Mapped[str | None]    # werkzeug hash. Dev / fallback only.
-    magic_link_nonce: Mapped[str | None] # UUID. Rotated on each login. NULL after use.
-    is_active: Mapped[bool]              # Flask-Login. Default True.
-    onboarded: Mapped[bool]              # False until first login flow complete.
-    privacy_consent_at: Mapped[datetime | None]  # NULL until policy accepted.
-    created_at: Mapped[datetime]
-    updated_at: Mapped[datetime]
-    last_login_at: Mapped[datetime | None]
-
-    # Relationships
-    parcel: Mapped["Parcel"]                          # back_populates="member"
-    roles: Mapped[list["MemberRole"]]                 # lazy="joined"
-    directory_preferences: Mapped["DirectoryPreference"]  # uselist=False
-
-    # Computed properties (not columns)
-    @property is_admin   # role.name == "admin" AND mr.is_current
-    @property is_board   # role.name in ("board", "admin") AND mr.is_current
-    @property is_inspector  # role.name == "inspector" AND mr.is_current
-    @property is_arc     # role.can_access_arc AND mr.is_current
-```
-
-Flask-Login integration: `get_id()` returns `self.id`. User loader:
-`db.session.get(Member, user_id)`.
-
-### Role
-
-Table: `roles`
-
-```python
-class Role(db.Model):
-    id: Mapped[str]               # String(36), PK, uuid4
-    organization_id: Mapped[str]  # FK → organizations.id
-    name: Mapped[str]             # "admin" | "board" | "member" | "inspector" | "arc_committee"
-    description: Mapped[str | None]
-    can_vote: Mapped[bool]              # Default True
-    can_create_proposals: Mapped[bool]  # Default False
-    can_manage_members: Mapped[bool]    # Default False
-    can_manage_treasury: Mapped[bool]   # Default False
-    can_access_envelopes: Mapped[bool]  # Inspector only. Default False.
-    can_access_arc: Mapped[bool]        # ARC committee. Default False.
-    created_at: Mapped[datetime]
-```
-
-Role names in use at WPBCA: `admin`, `board`, `member`, `inspector`,
-`arc_committee`. Roles are organization-scoped — the same `roles` table serves
-all orgs in a multi-tenant deployment.
-
-### MemberRole
-
-Table: `member_roles` — temporal join between Member and Role.
-
-```python
-class MemberRole(db.Model):
-    id: Mapped[str]               # String(36), PK, uuid4
-    member_id: Mapped[str]        # FK → members.id
-    role_id: Mapped[str]          # FK → roles.id
-    term_start: Mapped[datetime]  # When the role becomes active
-    term_end: Mapped[datetime | None]  # NULL = indefinite (e.g. regular member)
-    assigned_by: Mapped[str | None]   # FK → members.id, nullable
-    created_at: Mapped[datetime]
-
-    @property is_current  # term_start <= utcnow() <= term_end (or open-ended)
-```
-
-Board director terms have `term_end` set to the end of their elected term.
-The base "member" role assigned at onboarding has `term_end = NULL` (indefinite).
-`is_current` is evaluated in Python — not a database-level flag — so role checks
-always reflect the current wall clock.
-
-### DirectoryPreference
-
-Table: `directory_preferences` — one row per member, created at onboarding.
-
-```python
-class DirectoryPreference(db.Model):
-    id: Mapped[str]              # String(36), PK, uuid4
-    member_id: Mapped[str]       # FK → members.id, UNIQUE
-    show_name: Mapped[bool]      # Default False (set True at onboarding)
-    show_address: Mapped[bool]   # Default False (set True at onboarding)
-    show_email: Mapped[bool]     # Default False. Personal email opt-in.
-    show_phone: Mapped[bool]     # Default False. Phone opt-in.
-    updated_at: Mapped[datetime]
-```
-
-Note: the table defaults `show_name` and `show_address` to `False`, but
-`complete_onboarding()` and `update_directory_preferences()` always write
-`show_name=True, show_address=True` as the starting state. Lot email is never
-gated by this table — it is always visible.
+| Dependency | Type | Required at | Purpose |
+|------------|------|-------------|---------|
+| PostgreSQL 17 (`growdirect_postgres:5432`, database `cove`) | Datastore | Runtime | Member, Role, MemberRole, DirectoryPreference tables |
+| Valkey 8 (`growdirect_valkey:6379/1`) | Session store | Runtime | Server-side session storage, rate limiter backing store |
+| Flask-Login | Library | Runtime | `@login_required`, `login_user()`, `current_user` proxy |
+| itsdangerous | Library | Runtime | `URLSafeTimedSerializer` — magic link token signing |
+| werkzeug | Library | Runtime | `check_password_hash` / `generate_password_hash` |
+| Flask-Mail | Library | Runtime | SMTP delivery of magic link emails |
+| Flask-WTF / WTForms | Library | Runtime | Form definitions, CSRF protection |
+| Flask-Session | Library | Runtime | Server-side session via Valkey |
+| Flask-Limiter | Library | Runtime | Rate limiting (Valkey-backed in dev/prod, memory in tests) |
+| Flask-Talisman | Library | Runtime | CSP, HSTS, X-Frame-Options, X-Content-Type-Options |
+| MailHog | Service | Dev only | SMTP trap (web `:8026`, SMTP `:1026`) |
+| Cloudflare Email Routing | Service | Prod only | Lot email forwarding to personal inbox |
 
 ---
 
-## 4. Interfaces
+## Data Flow & PII Map
+
+### What enters
+
+| Source | Data | How |
+|--------|------|-----|
+| Login form (`POST /auth/login`) | Email address or short lot ID, optional password | Form POST (CSRF-protected) |
+| Onboarding form (`POST /member/onboarding`) | Display name, personal email, phone, directory prefs | Form POST |
+| Profile form (`POST /member/profile`) | Name, bio, personal email, phone, avatar file, share toggles | Form POST + file upload |
+| Privacy consent form (`POST /member/accept-privacy`) | Boolean acceptance | Form POST |
+| Magic link callback (`GET /auth/verify/<token>`) | Signed token in URL path | GET request |
+
+### What's stored
+
+| Table | Field | PII Classification | Encryption | Notes |
+|-------|-------|--------------------|------------|-------|
+| `members` | `lot_email` | **internal** | Plaintext | Property-level address, always visible. Not personal data under HOA norms. |
+| `members` | `personal_email` | **sensitive** | **Plaintext** | Forwarding target. Hidden by default. PII. |
+| `members` | `phone` | **sensitive** | **Plaintext** | Opt-in for directory. PII. |
+| `members` | `name` | **internal** | Plaintext | Display name. Visible to all authenticated members. |
+| `members` | `password_hash` | **sensitive** | Hashed (werkzeug/pbkdf2) | Dev/fallback only. One-way hash, not reversible. |
+| `members` | `magic_link_nonce` | **internal** | Plaintext | UUID. Rotated on each login. NULL after use. Short-lived. |
+| `members` | `privacy_consent_at` | **internal** | Plaintext | Timestamp of policy acceptance. |
+| `members` | `last_login_at` | **internal** | Plaintext | Audit field. |
+| `members` | `membership_status` | **internal** | Plaintext | active/suspended/inactive. |
+| `members` | `assessment_status` | **internal** | Plaintext | current/delinquent. Financial status. |
+| `directory_preferences` | `show_email`, `show_phone` | **internal** | Plaintext | Controls PII visibility in directory. |
+| Valkey DB 1 | Session data | **sensitive** | **Plaintext** | Contains session ID referencing member identity. |
+
+### What exits
+
+| Destination | Data | How |
+|-------------|------|-----|
+| Member's personal email inbox | Magic link URL containing signed token | SMTP via Flask-Mail |
+| Browser cookie | Session ID (opaque key, no PII) | `Set-Cookie` with Secure/HttpOnly/SameSite flags (prod) |
+| Directory views | Name, lot email, address (always); personal email, phone (opt-in or board view) | HTML response |
+| Downstream services (Governance, Vault, etc.) | `current_user` proxy (Member object in request context) | In-process; no network boundary |
+
+---
+
+## API Contract
 
 ### Auth Blueprint (`/auth`)
 
-| Method | Path | Rate limit | Description |
-|--------|------|------------|-------------|
-| GET | `/auth/login` | 5/min | Render login form |
-| POST | `/auth/login` | 5/min | Magic link dispatch or password auth |
-| GET | `/auth/verify/<token>` | 5/min | Consume magic link token, start session |
-| GET | `/auth/logout` | — | Destroy session, redirect to landing |
+| Method | Path | Auth | Rate Limit | Description |
+|--------|------|------|------------|-------------|
+| GET | `/auth/login` | None | 10/min per IP (shared) | Render login form |
+| POST | `/auth/login` | None | 5/min POST per IP + 3/15min per email | Magic link dispatch or password auth |
+| GET | `/auth/verify/<token>` | None | 10/min per IP (shared) | Consume magic link token, start session |
+| POST | `/auth/logout` | `@login_required` | 10/min per IP (shared) | Destroy session, redirect to landing |
 
 **POST /auth/login — magic link path**
 
-Request body (form-encoded):
+Request body (form-encoded, CSRF token required):
 ```
 email=<lot_email or personal_email or short_lot_id>
 ```
-Response: redirect to `GET /auth/login` with flash message. Never reveals
-whether the email exists.
+Response: 302 redirect to `GET /auth/login` with flash message. Response is
+identical whether the email exists or not (no user enumeration).
 
 **POST /auth/login — password fallback path**
 
@@ -334,444 +105,608 @@ Request body:
 email=<email>
 password=<password>
 ```
-Response: redirect to `/member/dashboard` or `/member/onboarding` on success.
-Flash error on failure.
+Response: 302 to `/member/dashboard` or `/member/onboarding` on success.
+Flash error on failure. Timing-equalized via dummy hash comparison.
 
 **GET /auth/verify/`<token>`**
 
-URL-safe signed token (itsdangerous). On success: session started, redirect to
+URL-safe signed token (itsdangerous). On success: session created, 302 to
 onboarding or dashboard. On failure: renders `auth/verify.html` with
-`success=False`.
+`success=False` and flash error.
 
-### Member Blueprint (`/member`)
+### Member Blueprint (`/member`) — auth-adjacent routes
 
-All routes require `@login_required`. Unauthenticated requests are redirected
-to `/auth/login?next=<original_url>`.
+All routes require `@login_required`.
 
 | Method | Path | Description |
 |--------|------|-------------|
-| GET | `/member/dashboard` | Member dashboard with notifications and parcel profile |
-| GET | `/member/directory` | Full directory listing; `?q=` for search |
-| GET | `/member/directory/<apn>` | APN-centric profile page |
-| GET/POST | `/member/profile` | Edit profile, contact info, directory preferences |
-| GET | `/member/uploads/avatars/<filename>` | Serve uploaded avatar (login required) |
+| GET/POST | `/member/onboarding` | First-login setup (name, personal email, phone, prefs) |
 | GET/POST | `/member/accept-privacy` | Privacy policy acceptance gate |
-| GET/POST | `/member/onboarding` | First-login setup flow |
-| GET | `/member/notifications` | All notifications |
-| POST | `/member/notifications/<id>/read` | Mark one read |
-| POST | `/member/notifications/read-all` | Mark all read |
+| GET/POST | `/member/profile` | Edit profile, contact info, directory preferences |
+| GET | `/member/directory` | Directory listing; `?q=` for search |
+| GET | `/member/directory/<apn>` | APN-centric profile page |
 
-### Forms
+### Decorators (`cove/auth/decorators.py`)
 
-**LoginForm** (`cove/auth/forms.py`)
-- `email`: StringField, DataRequired. Accepts lot email, personal email, or
-  short lot ID.
-- `password`: PasswordField, Optional. Presence triggers password auth path.
-- Inherits CSRFProtect from CoveForm.
+| Decorator | Checks | Used by |
+|-----------|--------|---------|
+| `@board_required` | `current_user.is_board` | Board admin routes |
+| `@board_or_admin_required` | `is_board or is_admin` | Board management |
+| `@admin_required` | `current_user.is_admin` | Admin-only operations |
+| `@arc_required` | `current_user.is_arc` | Research Workbench (map, archive, parcels) |
+| `@inspector_required` | `current_user.is_inspector` | Ballot envelope access (Davis-Stirling) |
 
-**OnboardingForm** (`cove/member/forms.py`)
-- `display_name`: StringField, Optional, max 255
-- `personal_email`: StringField, Optional, Email validator, max 255
-- `phone`: StringField, Optional, max 20
-- `show_email`: BooleanField, default False
-- `show_phone`: BooleanField, default False
-
-**ProfileForm** (`cove/member/forms.py`)
-- `display_name`, `bio` (max 1000), `personal_email`, `phone`
-- `avatar`: FileField, allowed: jpg, jpeg, png, gif; max 2 MB
-- `share_avatar`, `share_bio`: BooleanField (parcel profile visibility)
-- `show_phone`, `show_email`: BooleanField (directory preference visibility)
-
-**PrivacyAcceptForm** (`cove/member/forms.py`)
-- `accepted`: BooleanField, manually checked in route (not WTForms DataRequired)
-- `submit`: SubmitField
+All decorators must be placed AFTER `@login_required` so `current_user` is available.
 
 ---
 
-## 5. Service Layer
+## Operations
 
-### cove/auth/services.py
+### Magic Link Flow (step by step)
 
-**`generate_magic_link_token(member_id: str, nonce: str) -> str`**
+```
+1. Member submits email/lot ID to POST /auth/login
+2. Route normalizes input: bare "25seacove" → "25seacovedr@abalonecove.org"
+3. SELECT from members WHERE lot_email = ? OR personal_email = ?
+4. If not found → flash generic message, redirect (no user enumeration)
+5. Generate UUID nonce → store in member.magic_link_nonce → commit
+6. generate_magic_link_token(member.id, nonce)
+   → URLSafeTimedSerializer.dumps({member_id, nonce}, salt="magic-link", key=SECRET_KEY)
+7. send_magic_link_email(member, token)
+   → Flask-Mail Message to member.personal_email (raises ValueError if NULL)
+8. Flash "Check your email..." → redirect to GET /auth/login
 
-Creates a URL-safe signed token using `itsdangerous.URLSafeTimedSerializer`.
-Payload: `{"member_id": str, "nonce": str}`. Signed with `SECRET_KEY`,
-salted with `"magic-link"`. Returns the token string for embedding in the
-verification URL.
+--- User clicks link in email ---
 
-**`verify_magic_link_token(token: str, max_age: int | None = None) -> dict | None`**
+9. GET /auth/verify/<token>
+10. verify_magic_link_token(token)
+    → URLSafeTimedSerializer.loads(token, salt="magic-link", max_age=900)
+    → Returns {member_id, nonce} or None on SignatureExpired/BadSignature
+11. Lookup member by member_id
+12. Compare member.magic_link_nonce == payload["nonce"]
+    → NULL (already used) or mismatched nonce → reject
+13. Rotate: member.magic_link_nonce = None, member.last_login_at = now() → commit
+14. login_user(member, remember=True)
+15. Redirect: /member/onboarding if not onboarded, else /member/dashboard
+```
 
-Loads and validates the token. Defaults `max_age` to `MAGIC_LINK_EXPIRY`
-config (default 900s). Returns `{"member_id": str, "nonce": str}` on success.
-Returns `None` on `SignatureExpired` or `BadSignature`. Never raises.
+### Timing Oracle Protections
 
-### cove/auth/email.py
+- **Password path:** When member is not found or has no `password_hash`, the
+  route calls `check_password_hash(DUMMY_HASH, password)` so response time
+  is constant whether the member exists or not. `DUMMY_HASH` is computed once
+  at module load via `generate_password_hash("dummy-timing-equalization")`.
+- **Magic link path:** The flash message is identical for found and not-found
+  members. No timing-significant code path difference — both branches redirect
+  immediately.
 
-**`send_magic_link_email(member: Member, token: str) -> None`**
+### Session Backend (Valkey)
 
-Constructs the verification URL with `url_for("auth.verify", token=token, _external=True)`.
-Sends a Flask-Mail `Message` to `member.personal_email`.
-Raises `ValueError` if `member.personal_email` is `None` — the route catches
-this and flashes an error asking the member to use their password instead.
-Sends both plain-text and HTML bodies. HTML uses inline styles; no external
-CSS dependencies.
+- **Backend:** Flask-Session with `SESSION_TYPE="redis"` pointing to Valkey 8 on DB 1.
+- **Cookie contents:** Opaque session ID only. No PII in the cookie.
+- **Session duration:** `REMEMBER_COOKIE_DURATION` defaults to Flask-Login's 365 days
+  unless overridden. `SESSION_DURATION_DAYS` config (default 7) exists but is
+  **not wired** to `REMEMBER_COOKIE_DURATION` or `PERMANENT_SESSION_LIFETIME`
+  in current code — see Finding CR-AUTH-05.
+- **Cookie flags (prod):** `Secure=True`, `HttpOnly=True`, `SameSite=Lax`.
+  Remember-cookie mirrors these flags. `SESSION_COOKIE_SECURE=False` in DevConfig.
+- **Initialization:** `create_app()` creates a `redis.from_url(VALKEY_URL)` client.
+  If the `redis` package is not installed, falls back to cookie sessions with a
+  warning log.
 
-### cove/member/services.py
-
-**`complete_onboarding(member, display_name, personal_email, phone, show_email, show_phone) -> Member`**
-
-Called from `POST /member/onboarding`. Sets `member.name`, `personal_email`,
-`phone`. Sets `member.onboarded = True`. Assigns the "member" role via
-`MemberRole` if not already present (looks up `Role` by `name="member"` within
-the member's organization). Calls `update_directory_preferences()` with
-`show_name=True, show_address=True` and the caller-supplied email/phone flags.
-Commits.
-
-**`update_directory_preferences(member_id, show_name, show_address, show_email, show_phone) -> DirectoryPreference`**
-
-Upsert on `directory_preferences`. Creates a new row if none exists.
-Always commits.
-
-**`get_directory_listings(org_id: str, board_view: bool = False) -> list[dict]`**
-
-Returns all parcels where `is_association_member=True`, ordered by street then
-numeric address. Each entry is built by `_parcel_to_entry()`. Includes parcels
-with no registered Cove account (`has_account=False`). Used for full directory
-render when no search query is present.
-
-**`search_directory(org_id: str, query: str, board_view: bool = False) -> list[dict]`**
-
-If query is empty, delegates to `get_directory_listings()`. Otherwise searches
-`parcels` by `owner_name`, `street`, `address`, or `apn` using `ilike`. Returns
-same dict structure. Searching is always against the parcel table so unregistered
-lots are still findable.
-
-**`get_parcel_profile_data(apn: str, board_view: bool = False) -> dict | None`**
-
-Builds the full data dict for the `/member/directory/<apn>` profile page.
-Returns `None` if the parcel does not exist. Applies share toggles
-(`share_household`, `share_pets`, `share_bio`) unless `board_view=True`.
-Redacts `email` and `phone` from contacts who are minors. Returns:
-`parcel`, `member`, `profile`, `display_name`, `bio`, `avatar_url`,
-`contacts`, `pets`, `show_email`, `show_phone`, `voting_weight`, `roles`.
-
-**`_parcel_to_entry(parcel, board_view) -> dict`**
-
-Internal. Constructs a flat directory entry from a Parcel + optional Member +
-optional ParcelProfile. Privacy logic:
-- `lot_email`: always populated from `parcel.lot_email`
-- `address`: always populated
-- `phone`: populated only if `board_view` or `prefs.show_phone`
-- `personal_email`: populated only if `board_view` or `prefs.show_email`
-- `avatar_url`, `bio`, `pets`: from `get_profile_for_directory()` which
-  applies `share_avatar`, `share_bio`, `share_pets` toggles
-
-### cove/member/profile_services.py
-
-**`get_or_create_profile(apn: str) -> ParcelProfile`**
-
-Returns the `ParcelProfile` for the given APN, creating an empty one if none
-exists. Commits on creation.
-
-**`update_profile(apn: str, **kwargs) -> ParcelProfile`**
-
-Sets any combination of allowed fields:
-`display_name`, `avatar_url`, `bio`, `pets`,
-`share_bio`, `share_household`, `share_pets`, `share_avatar`.
-Rejects unknown keys via `_ALLOWED_FIELDS` guard. Commits.
-
-**`get_profile_for_directory(apn: str) -> dict`**
-
-Returns only what the owner chose to share:
-`display_name` (always), `avatar_url` (if `share_avatar`), `bio` (if
-`share_bio`), `pets` (if `share_pets`). Returns a dict of all-`None` values
-if no profile exists.
-
----
-
-## 6. Configuration
-
-All values are read from environment variables (or `.env`). Set in
-`Cove/cove/config.py`.
-
-| Key | Default | Description |
-|-----|---------|-------------|
-| `SECRET_KEY` | required | Signs magic link tokens and CSRF tokens |
-| `MAGIC_LINK_EXPIRY` | `900` | Token max age in seconds (15 minutes) |
-| `SESSION_DURATION_DAYS` | `7` | Flask-Login "remember me" duration |
-| `SESSION_TYPE` | `"redis"` | Flask-Session backend. `"null"` in TestConfig. |
-| `VALKEY_URL` | `redis://growdirect_valkey:6379/1` | Valkey DB 1 for sessions |
-| `MAIL_SERVER` | `"localhost"` | SMTP host (MailHog in dev) |
-| `MAIL_PORT` | `1025` | SMTP port (MailHog: 1025 / 1026) |
-| `MAIL_USE_TLS` | `false` | TLS for SMTP (true in prod via Cloudflare) |
-| `MAIL_DEFAULT_SENDER` | `"cove@abalonecove.org"` | From address |
-| `DOMAIN` | `"abalonecove.org"` | Used for lot email construction |
-| `UPLOAD_FOLDER` | `<project_root>/uploads` | Avatar storage path |
-| `MAX_AVATAR_SIZE` | `2097152` (2 MB) | Avatar upload limit |
-
-**Environment-specific overrides:**
-
-`DevConfig`: `DEBUG=True`, `SESSION_COOKIE_SECURE=False`
-
-`TestConfig`: `WTF_CSRF_ENABLED=False`, `SESSION_TYPE="null"` (no Valkey
-dependency in tests), `SQLALCHEMY_ENGINE_OPTIONS={}` (no pool options).
-
-`ProdConfig`: `SESSION_COOKIE_SECURE=True`, `SESSION_COOKIE_HTTPONLY=True`,
-`SESSION_COOKIE_SAMESITE="Lax"`, `REMEMBER_COOKIE_SECURE=True`,
-`REMEMBER_COOKIE_HTTPONLY=True`.
-
-**Rate limiting:**
-`RATELIMIT_STORAGE_URI` is set from `VALKEY_URL` in the app factory.
-`/auth/login` and `/auth/verify/<token>` are decorated with
-`@limiter.limit("5/minute")`.
-
----
-
-## 7. Security & Compliance
-
-### Lot-Based Email Identity and PII Boundary
-
-The lot email (`25SeaCove@abalonecove.org`) is treated as property-level
-information, not personal data. It is always visible in the directory, included
-in public-facing parcel records, and used as the login username. This is
-intentional and consistent with HOA governance practice — the email address
-corresponds to the property, not the resident.
-
-Personal email (`member.personal_email`) is PII. It is:
-- Hidden from the directory by default (`show_email=False`)
-- Only revealed when the member explicitly opts in, or to board members
-- Never sent in magic link emails to lot emails (magic links go to
-  `personal_email` only, which is why onboarding must collect it first)
-
-### Magic Link Security Properties
-
-- **One-time use.** The nonce on the Member row is `NULL`ed after first use.
-  Subsequent clicks on the same link fail the nonce check.
-- **Short-lived.** 15-minute expiry enforced by `itsdangerous` timestamp
-  in the token itself.
-- **One active link.** Generating a new magic link overwrites `magic_link_nonce`,
-  invalidating all previous links for that member.
-- **No user enumeration.** The login route returns the same flash message
-  whether the email is found or not.
-- **Signed token.** `URLSafeTimedSerializer` uses `SECRET_KEY` + `"magic-link"`
-  salt. Tampering produces `BadSignature`.
-
-### Open Redirect Prevention
-
-`_is_safe_redirect(target)` in `auth/routes.py` checks that `scheme == ""`
-and `netloc == ""`. Only relative paths are accepted for the `?next=` redirect
-after login.
-
-### CSRF Protection
-
-All forms inherit from `CoveForm` which wraps `FlaskForm`. `csrf` extension
-(Flask-WTF `CSRFProtect`) is applied globally at the app factory. CSRF is
-disabled only in `TestConfig` (`WTF_CSRF_ENABLED=False`).
-
-### Session Security
-
-- Sessions stored server-side in Valkey DB 1 (not in the cookie). The cookie
-  contains only a session ID.
-- In production: `SESSION_COOKIE_SECURE=True`, `HTTPONLY=True`,
-  `SAMESITE="Lax"`. Remember-cookie has the same flags.
-- Logout calls `flask_login.logout_user()` which invalidates the server-side
-  session.
-
-### HTTP Security Headers (Flask-Talisman)
-
-The `talisman` extension enforces:
-- Content-Security-Policy: `default-src 'self'` with narrow allowlists for
-  inline scripts (Alpine.js), Google Fonts, and OpenStreetMap tiles.
-- `X-Frame-Options: DENY` (clickjacking prevention)
-- `X-Content-Type-Options: nosniff`
-- HSTS: enabled only when `SESSION_COOKIE_SECURE=True` (prod/staging)
-
-### Privacy Policy Gate
-
-`_check_privacy_consent()` runs on every request from an authenticated,
-onboarded member. If `privacy_consent_at` is NULL, all non-exempt routes
-redirect to `/member/accept-privacy`. Exempt endpoints: `auth.*`, `public.*`,
-`static`, `agent.*`, `member.accept_privacy`. This is a blocking gate — the
-member cannot access any platform functionality until they accept.
-
-### Board Access Override
-
-`current_user.is_board` bypasses all `DirectoryPreference` and
-`ParcelProfile` share toggles in `services.py` and `profile_services.py`.
-This is explicit — board members need full contact access for governance work.
-The override is enforced in the service layer, not in templates, so it cannot
-be bypassed by direct route calls.
-
-### Inspector Separation (Davis-Stirling)
-
-The `inspector_required` decorator aborts 403 for any non-inspector accessing
-ballot envelope routes. The `Role.can_access_envelopes` flag is the data-layer
-guard. `BallotEnvelope` additionally uses PostgreSQL Row-Level Security. These
-are complementary controls — both must be in place.
-
----
-
-## 8. Error Handling
+### What Happens When Valkey is Down
 
 | Scenario | Behavior |
 |----------|----------|
-| Magic link expired (> 15 min) | `verify_magic_link_token` returns `None`. Flash "expired or invalid". Render `auth/verify.html` with `success=False`. |
-| Magic link already used (nonce rotated) | `member.magic_link_nonce != payload["nonce"]`. Flash "already been used". Same template. |
-| Magic link tampered | `BadSignature` caught by `verify_magic_link_token`. Returns `None`. Same template. |
-| Email not found at login | Flash generic message (no enumeration). Redirect to GET /auth/login. |
-| Magic link to member with no personal_email | `send_magic_link_email` raises `ValueError`. Route catches, flashes "No personal email on file. Please enter your password." |
-| Wrong password | Flash "Invalid email or password." Stay on login form. |
-| Unauthenticated access to protected route | Flask-Login redirects to `/auth/login?next=<url>`. |
-| Authenticated but missing privacy consent | `before_request` redirects to `/member/accept-privacy`. |
-| Privacy form submitted with `accepted=False` | Flash "You must accept..." Stay on accept-privacy page. |
-| Directory profile for unknown APN | `get_parcel_profile_data` returns `None`. Route calls `abort(404)`. |
-| Avatar file too large | Flash "Avatar image must be under 2 MB." Re-render profile form. |
-| Avatar file wrong type | Flash "Avatar must be a PNG, JPG, GIF, or WebP image." Re-render. |
-| Non-board member accessing board route | `board_required` / `board_or_admin_required` decorator calls `abort(403)`. |
-| Non-inspector accessing envelope route | `inspector_required` calls `abort(403)`. |
+| Valkey unreachable at startup | `redis.from_url()` succeeds (lazy connect). First request that touches session will fail with `ConnectionError`. |
+| Valkey goes down mid-operation | Flask-Session raises `ConnectionError` on session read/write. Unhandled — results in 500 error. |
+| Rate limiter with Valkey down | Flask-Limiter falls back to allowing all requests (no rate limiting) unless `RATELIMIT_STORAGE_URI` is explicitly set to `memory://`. |
+| Recovery | Valkey restart restores service. Existing sessions are lost (members must re-authenticate). |
+
+**Failure mode:** Valkey down = authentication broken. No graceful degradation.
+The `/health` endpoint does not check Valkey connectivity — it always returns
+`{"status": "ok"}`.
+
+### Nonce Rotation Logic
+
+- On magic link generation: `member.magic_link_nonce = str(uuid.uuid4())` → committed.
+- On magic link use: `member.magic_link_nonce = None` → committed.
+- Effect: Only one magic link is valid at a time. Generating a new link invalidates
+  all previous links. Using a link invalidates itself. Replay is impossible.
+
+### Privacy Consent Gate
+
+`_check_privacy_consent()` runs as a `before_request` hook on every request:
+1. Skip if unauthenticated.
+2. Skip if endpoint starts with: `auth.`, `public.`, `static`, `agent.`,
+   `angel_web.`, `angel_chat.`.
+3. Skip if endpoint is `member.accept_privacy`.
+4. If `current_user.privacy_consent_at is None` AND `current_user.onboarded` →
+   redirect to `/member/accept-privacy`.
+
+This is a blocking gate — no platform functionality until the member accepts.
+
+### HTTP Security Headers (Flask-Talisman)
+
+| Header | Value | Notes |
+|--------|-------|-------|
+| Content-Security-Policy | `default-src 'self'; script-src 'self'` (with nonce); `style-src 'self' 'unsafe-inline' fonts.googleapis.com`; `img-src 'self' data: *.tile.openstreetmap.org server.arcgisonline.com`; `font-src 'self' fonts.gstatic.com`; `connect-src 'self'` | Nonce injection for script-src |
+| X-Frame-Options | `DENY` | Clickjacking prevention |
+| X-Content-Type-Options | `nosniff` | MIME sniffing prevention |
+| Strict-Transport-Security | Enabled when `SESSION_COOKIE_SECURE=True` | Prod/staging only |
+
+### Startup Sequence
+
+1. `create_app(config_name)` reads config.
+2. Initialize extensions: `db`, `login_manager`, `mail`, `csrf`, `sess` (if not null), `talisman`, `limiter`.
+3. Register 17 blueprints.
+4. Register `user_loader` callback.
+5. Register `_check_privacy_consent` before_request hook.
+6. Register error handlers (429, standard errors).
+7. `/health` endpoint registered (returns `{"status": "ok"}`).
+
+### Health Check
+
+```
+GET /health → {"status": "ok"}, 200
+```
+**Limitation:** Does not verify PostgreSQL or Valkey connectivity. Always returns
+200. Not suitable for production load balancer health checks — see Finding CR-AUTH-08.
 
 ---
 
-## 9. Testing
+## Deployment
 
-Test files:
+### Docker Service
+
+Auth runs inside the `cove_flask` container — no separate deployment unit.
+
+```yaml
+# Cove/devops/docker-compose.yml
+cove_flask:
+  image: cove-flask
+  build: ..
+  ports: ["5002:5000"]
+  networks: [growdirect]
+  environment:
+    - DATABASE_URL=postgresql://growdirect:growdirect_dev@growdirect_postgres:5432/cove
+    - VALKEY_URL=redis://growdirect_valkey:6379/1
+    - SECRET_KEY=${SECRET_KEY}
+    - FLASK_ENV=dev
+```
+
+### AWS Target
+
+| Component | AWS Service | Notes |
+|-----------|------------|-------|
+| Flask app | ECS Fargate | Part of Cove task definition |
+| PostgreSQL | RDS PostgreSQL 17 | `cove` database |
+| Valkey | ElastiCache (Redis-compatible) | DB 1, single node or cluster |
+| Secrets | AWS Secrets Manager | `SECRET_KEY`, database credentials, mail credentials |
+| Email (prod) | Cloudflare Email Routing | Lot email → personal email forwarding |
+| Email (transactional) | SES or Cloudflare Workers | Magic link delivery |
+
+### CI/CD Requirements
+
+- Run `pytest Cove/tests/` — auth tests must pass.
+- Verify rate limiter storage URI points to ElastiCache, not localhost.
+- Verify `SESSION_COOKIE_SECURE=True` in prod config.
+- Verify `SECRET_KEY` is sourced from Secrets Manager, not `.env`.
+
+---
+
+## Configuration
+
+| Key | Default | Env-specific | Description |
+|-----|---------|-------------|-------------|
+| `SECRET_KEY` | **required** | All | Signs magic link tokens, CSRF tokens, session cookies |
+| `MAGIC_LINK_EXPIRY` | `900` | All | Token max age in seconds (15 minutes) |
+| `SESSION_DURATION_DAYS` | `7` | All | **Not wired** — config exists but is not consumed (see CR-AUTH-05) |
+| `SESSION_TYPE` | `"redis"` | `"null"` in TestConfig | Flask-Session backend |
+| `VALKEY_URL` | `redis://localhost:6379/1` | All | Valkey connection string |
+| `SESSION_COOKIE_SECURE` | `False` (dev), `True` (prod) | Per-env | HTTPS-only cookies |
+| `SESSION_COOKIE_HTTPONLY` | `True` | All | Prevent JS access to session cookie |
+| `SESSION_COOKIE_SAMESITE` | `"Lax"` | All | CSRF protection via SameSite |
+| `REMEMBER_COOKIE_HTTPONLY` | `True` | All | Prevent JS access to remember cookie |
+| `REMEMBER_COOKIE_SECURE` | `True` (prod only) | ProdConfig | HTTPS-only remember cookie |
+| `MAIL_SERVER` | `"localhost"` | All | SMTP host |
+| `MAIL_PORT` | `1025` | All | SMTP port (MailHog dev / Cloudflare prod) |
+| `MAIL_USE_TLS` | `false` | All | TLS for SMTP |
+| `MAIL_DEFAULT_SENDER` | `"cove@abalonecove.org"` | All | From address on magic link emails |
+| `DOMAIN` | `"abalonecove.org"` | All | Lot email domain |
+| `RATELIMIT_STORAGE_URI` | From `VALKEY_URL` | `"memory://"` in TestConfig | Rate limiter backing store |
+
+---
+
+## Data Model
+
+All models in `Cove/cove/models/member.py`. Primary keys use `String(36)` (UUID
+stored as string) — historical holdover. Do not propagate to new tables.
+
+### Member (`members`)
+
+```
+id                  String(36)  PK, uuid4
+organization_id     String(36)  FK → organizations.id
+apn                 String(20)  FK → parcels.apn, nullable
+name                String(255) Display name
+lot_email           String(255) Unique. "25SeaCove@abalonecove.org"
+personal_email      String(255) Nullable. PII. Forwarding target.
+phone               String(20)  Nullable. PII.
+unit_identifier     String(100) "25 Sea Cove Dr"
+voting_weight       Integer     Default 1
+delivery_preference String(20)  "electronic" | "paper" | "both"
+membership_status   String(20)  "active" | "suspended" | "inactive"
+assessment_status   String(20)  "current" | "delinquent"
+password_hash       String(255) Nullable. werkzeug hash. Dev/fallback only.
+magic_link_nonce    String(36)  Nullable. UUID. Rotated on each login.
+is_active           Boolean     Default True. Flask-Login gate.
+onboarded           Boolean     Default False. First-login flow gate.
+privacy_consent_at  DateTime    Nullable. NULL until policy accepted.
+created_at          DateTime
+updated_at          DateTime
+last_login_at       DateTime    Nullable.
+```
+
+Flask-Login integration: `get_id()` returns `self.id`. `UserMixin` provides
+`is_authenticated`, `is_active`.
+
+Computed properties (not columns): `is_admin`, `is_board`, `is_inspector`,
+`is_arc` — all check `MemberRole.is_current` against `Role.name`/permissions.
+
+### Role (`roles`)
+
+```
+id                   String(36)  PK
+organization_id      String(36)  FK → organizations.id
+name                 String(50)  "admin" | "board" | "member" | "inspector" | "arc_committee"
+can_vote             Boolean     Default True
+can_create_proposals Boolean     Default False
+can_manage_members   Boolean     Default False
+can_manage_treasury  Boolean     Default False
+can_access_envelopes Boolean     Default False (inspector only)
+can_access_arc       Boolean     Default False
+```
+
+### MemberRole (`member_roles`)
+
+Temporal join. `term_start` and `term_end` (nullable = indefinite) determine
+`is_current` at evaluation time (Python, not DB flag).
+
+### DirectoryPreference (`directory_preferences`)
+
+One row per member. `show_name`, `show_address`, `show_email`, `show_phone` —
+all default `False` in schema, but service layer writes `show_name=True`,
+`show_address=True` at onboarding.
+
+---
+
+## Code Review Findings
+
+### CR-AUTH-01: Personal email and phone stored plaintext
+
+**Severity:** P0 — blocks production
+
+`members.personal_email` and `members.phone` are stored as plaintext
+`String(255)` / `String(20)`. These are PII fields. A database breach exposes
+every member's personal contact information. Canary's `crypto.py` demonstrates
+AES-256-GCM field-level encryption — the same pattern should be applied here.
+
+**Affected code:** `Cove/cove/models/member.py` lines 33-34.
+
+**Recommended fix:** Implement field-level AES-256-GCM encryption for
+`personal_email` and `phone` using the Canary `crypto.py` pattern. Key stored
+in AWS Secrets Manager. Encrypt on write, decrypt on read. Index on ciphertext
+not possible — lookup by personal_email requires an exact-match encrypted index
+or application-level scanning.
+
+**Linear issue:** TBD (GRO-xxx)
+
+---
+
+### CR-AUTH-02: No session regeneration after login (session fixation)
+
+**Severity:** P0 — blocks production
+
+Neither the magic link path nor the password path regenerates the session ID
+after successful authentication. `login_user(member, remember=True)` is called
+but the Flask session ID remains the same as the pre-authentication session.
+An attacker who obtains a pre-auth session ID (via network sniffing in dev, XSS,
+or session prediction) can hijack the authenticated session.
+
+**Affected code:** `Cove/cove/auth/routes.py` lines 61-69 (password path),
+lines 119-127 (magic link path).
+
+**Recommended fix:** Call `session.clear()` followed by
+`session.regenerate()` (or equivalent Flask-Session API) immediately before
+`login_user()`. If Flask-Session does not expose `regenerate()`, manually clear
+the session and set a new session ID.
+
+**Linear issue:** TBD (GRO-xxx)
+
+---
+
+### CR-AUTH-03: SECRET_KEY in .env file
+
+**Severity:** P0 — blocks production
+
+`SECRET_KEY` is read from `os.environ["SECRET_KEY"]` which is populated from
+`.env` in development. The `.env` file is not in `.gitignore` (or may be).
+`SECRET_KEY` signs magic link tokens, CSRF tokens, and session cookies. If
+compromised, an attacker can forge magic link tokens for any member, bypass
+CSRF protection, and hijack any session.
+
+**Affected code:** `Cove/cove/config.py` line 10.
+
+**Recommended fix:** In production, source `SECRET_KEY` from AWS Secrets Manager
+via `boto3` at startup. Remove from `.env` in prod environments. Ensure `.env`
+is in `.gitignore`.
+
+**Linear issue:** TBD (GRO-xxx)
+
+---
+
+### CR-AUTH-04: No audit logging for authentication events
+
+**Severity:** P1 — before GA
+
+Successful logins, failed logins, magic link generation, magic link verification,
+logout events, and privacy consent acceptance are not logged to the `audit_log`
+table. There is no trail for investigating unauthorized access, brute force
+attempts, or account takeover.
+
+**Affected code:** `Cove/cove/auth/routes.py` — all route handlers.
+
+**Recommended fix:** Write audit log entries for: `login_success`,
+`login_failure`, `magic_link_sent`, `magic_link_verified`, `magic_link_expired`,
+`magic_link_replay`, `logout`, `privacy_consent_accepted`. Include IP address
+(hashed — see CR-AUTH-09), user agent, and member_id (if known). Use Cove's
+existing `audit_log` table.
+
+**Linear issue:** TBD (GRO-xxx)
+
+---
+
+### CR-AUTH-05: SESSION_DURATION_DAYS config not wired
+
+**Severity:** P1 — before GA
+
+`BaseConfig.SESSION_DURATION_DAYS` (default 7) exists in config but is never
+consumed. Neither `REMEMBER_COOKIE_DURATION` nor `PERMANENT_SESSION_LIFETIME`
+is set from this value. Flask-Login's default `REMEMBER_COOKIE_DURATION` is
+365 days. This means the "remember me" cookie persists for a full year, not 7
+days as the config name implies.
+
+**Affected code:** `Cove/cove/config.py` line 30.
+
+**Recommended fix:** In `BaseConfig`, add:
+```python
+from datetime import timedelta
+REMEMBER_COOKIE_DURATION = timedelta(days=SESSION_DURATION_DAYS)
+PERMANENT_SESSION_LIFETIME = timedelta(days=SESSION_DURATION_DAYS)
+```
+
+**Linear issue:** TBD (GRO-xxx)
+
+---
+
+### CR-AUTH-06: No data retention policy
+
+**Severity:** P1 — before GA
+
+There is no automated purge for: expired sessions in Valkey, old magic link
+nonces (though these are NULLed on use), `last_login_at` history, or inactive
+member records. Session data accumulates in Valkey indefinitely unless Valkey
+eviction policy handles it.
+
+**Affected code:** No code exists — this is a missing feature.
+
+**Recommended fix:** Implement retention: Valkey TTL on session keys (match
+`SESSION_DURATION_DAYS`), periodic cleanup of `membership_status="inactive"`
+members older than a policy threshold, and document the retention schedule.
+
+**Linear issue:** TBD (GRO-xxx)
+
+---
+
+### CR-AUTH-07: Rate limiter fails open when Valkey is down
+
+**Severity:** P1 — before GA
+
+Flask-Limiter with Valkey storage falls back to allowing all requests if
+Valkey is unreachable. This means auth endpoints lose rate limiting during
+Valkey outages, enabling brute force attacks on the password path.
+
+**Affected code:** `Cove/cove/__init__.py` lines 57-62 (limiter storage init).
+
+**Recommended fix:** Configure Flask-Limiter with
+`RATELIMIT_IN_MEMORY_FALLBACK_ENABLED=True` and
+`RATELIMIT_IN_MEMORY_FALLBACK="50/minute"` so rate limiting degrades to
+in-memory rather than being disabled entirely.
+
+**Linear issue:** TBD (GRO-xxx)
+
+---
+
+### CR-AUTH-08: Health check does not verify dependencies
+
+**Severity:** P1 — before GA
+
+`GET /health` returns `{"status": "ok"}` unconditionally. It does not check
+PostgreSQL connectivity or Valkey availability. A load balancer using this
+endpoint will continue routing traffic to a node that cannot authenticate
+users or retrieve sessions.
+
+**Affected code:** `Cove/cove/__init__.py` lines 171-173.
+
+**Recommended fix:** Health check should attempt `db.session.execute(text("SELECT 1"))`
+and a Valkey `PING`. Return 503 if either fails. Consider a `/health/ready`
+(deep check) vs `/health/live` (process alive) split.
+
+**Linear issue:** TBD (GRO-xxx)
+
+---
+
+### CR-AUTH-09: IP addresses not hashed in future audit logging
+
+**Severity:** P1 — before GA
+
+When audit logging is implemented (CR-AUTH-04), IP addresses should be hashed
+or masked to avoid storing PII. `Flask-Limiter` uses `get_remote_address` as
+the key function, which accesses the raw IP. Rate limiter storage in Valkey
+contains plaintext IP addresses as keys.
+
+**Affected code:** `Cove/cove/extensions.py` line 18.
+
+**Recommended fix:** For audit logging, hash IPs with a keyed hash
+(HMAC-SHA256 with a daily rotating salt) so the same IP produces the same hash
+within a day (for correlation) but cannot be reversed. For rate limiting, the
+raw IP in Valkey is acceptable since Valkey is an ephemeral store with TTLs.
+
+**Linear issue:** TBD (GRO-xxx)
+
+---
+
+### CR-AUTH-10: Logout is POST-only but no CSRF validation visible
+
+**Severity:** P2 — post-launch
+
+The logout route (`POST /auth/logout`) correctly requires POST (not GET),
+preventing CSRF logout via image tags. CSRF protection is global via
+Flask-WTF's `CSRFProtect`. However, the logout form in templates should be
+verified to include the CSRF token. If the form uses a bare `<form>` without
+`{{ form.hidden_tag() }}` or `{{ csrf_token() }}`, the CSRF check will reject
+the request, effectively breaking logout.
+
+**Affected code:** Logout template (verify `templates/` for CSRF token
+inclusion).
+
+**Recommended fix:** Verify that the logout form in the navigation template
+includes `<input type="hidden" name="csrf_token" value="{{ csrf_token() }}">`.
+
+**Linear issue:** TBD (GRO-xxx)
+
+---
+
+### CR-AUTH-11: Short lot login hardcodes "dr" street suffix
+
+**Severity:** P2 — post-launch
+
+The short lot ID feature appends `dr@abalonecove.org` to bare input. This
+only works for Sea Cove Drive members. Members on Packet Rd, Barkentine Ln,
+Clipper Ln, or Peppertree Ln must type their full lot email. Not a security
+issue but a UX gap that will cause support tickets.
+
+**Affected code:** `Cove/cove/auth/routes.py` line 45.
+
+**Recommended fix:** Either remove the shortcut (require full lot email
+always) or implement a lookup table that tries multiple street suffixes. Low
+priority — only affects 5-10 of 81 lots.
+
+**Linear issue:** TBD (GRO-xxx)
+
+---
+
+### CR-AUTH-12: Valkey session data unencrypted
+
+**Severity:** P2 — post-launch
+
+Session data in Valkey DB 1 is stored without encryption or AUTH. Anyone with
+network access to Valkey can read session contents. In the Docker dev
+environment, Valkey is exposed without a password.
+
+**Affected code:** `Cove/cove/config.py` line 16 (VALKEY_URL has no password),
+`Cove/cove/__init__.py` line 24 (redis.from_url with no TLS).
+
+**Recommended fix:** In production, enable Valkey AUTH via password in the
+connection URL (`redis://:password@host:6379/1`). Enable TLS for Valkey
+connections (`rediss://` scheme). Configure `SESSION_KEY_PREFIX` to namespace
+Cove sessions.
+
+**Linear issue:** TBD (GRO-xxx)
+
+---
+
+### CR-AUTH-13: String(36) primary keys — UUID migration needed
+
+**Severity:** P2 — post-launch
+
+All four models (`Member`, `Role`, `MemberRole`, `DirectoryPreference`) use
+`String(36)` for UUIDs instead of the platform standard `Mapped[uuid.UUID]`
+with native PostgreSQL UUID type. This wastes storage, prevents native UUID
+indexing, and diverges from platform standards.
+
+**Affected code:** `Cove/cove/models/member.py` — all model classes.
+
+**Recommended fix:** Schema migration to native UUID columns. Requires
+coordinated migration across all FK references. Non-blocking but should be
+done before the table grows large.
+
+**Linear issue:** TBD (GRO-xxx)
+
+---
+
+## Production Readiness Checklist
+
+- [ ] **PII encrypted at rest** — `personal_email` and `phone` stored plaintext (CR-AUTH-01)
+- [ ] **Secrets in AWS Secrets Manager** — `SECRET_KEY` in `.env` (CR-AUTH-03)
+- [x] **Health check endpoint responds** — `/health` returns 200 (but does not check deps — CR-AUTH-08)
+- [ ] **Audit logging for sensitive operations** — No auth event logging (CR-AUTH-04)
+- [ ] **Data retention policy implemented** — No retention policy (CR-AUTH-06)
+- [x] **Rate limiting on public endpoints** — `/auth/login` and `/auth/verify` rate-limited (but fails open — CR-AUTH-07)
+- [x] **Error responses don't leak internals** — Generic flash messages, no stack traces in prod
+- [x] **CSRF protection on all forms** — Global via Flask-WTF CSRFProtect
+- [x] **HTTP security headers** — Flask-Talisman configured (CSP, HSTS, X-Frame, X-Content-Type)
+- [x] **Open redirect prevention** — `_is_safe_redirect()` rejects absolute URLs
+- [x] **No user enumeration** — Identical responses for found/not-found emails
+- [x] **Timing oracle protection** — Dummy hash on password path
+- [x] **One-time magic link use** — Nonce rotation prevents replay
+- [ ] **Session fixation prevention** — No session regeneration after login (CR-AUTH-02)
+- [ ] **Session duration enforced** — `SESSION_DURATION_DAYS` not wired (CR-AUTH-05)
+- [ ] **Dependency health in health check** — `/health` does not check Postgres or Valkey (CR-AUTH-08)
+
+---
+
+## Testing
+
+### Test Files
+
 - `Cove/tests/integration/test_auth_routes.py`
 - `Cove/tests/integration/test_member_routes.py`
 - `Cove/tests/integration/test_directory_profile.py`
 - `Cove/tests/unit/test_access_tiers.py`
 - `Cove/tests/smoke/test_auth_redirects.py`
 
-### Smoke Tests (`test_auth_redirects.py`)
+### Coverage Summary
 
-Parametrized over `PROTECTED_ROUTES`:
-- Every protected route (`/member/dashboard`, `/vote/`, `/vault/`, `/meetings/`,
-  `/map/`, `/treasury/`, `/archive/`, `/board/`) returns a 3xx redirect for
-  unauthenticated requests.
-- Redirect location contains `"login"` or `"auth"`.
+| Area | Covered | Gap |
+|------|---------|-----|
+| Login form renders | Yes | — |
+| Bad credentials rejected | Yes | — |
+| Logout redirects | Yes | — |
+| Bad token renders error | Yes | — |
+| Protected routes redirect to login | Yes (parametrized smoke) | — |
+| Dashboard/profile/directory for auth user | Yes | — |
+| Magic link generation + verification | **Partial** | No test for nonce rotation rejection |
+| Rate limiting | **No** | No test for rate limit enforcement |
+| Privacy consent gate | **No** | No test for redirect to accept-privacy |
+| Session fixation | **No** | No test for session ID change on login |
+| Timing oracle | **No** | No test for constant-time response |
 
-### Integration Tests — Auth Routes (`test_auth_routes.py`)
+### Test Configuration
 
-- `GET /auth/login` returns 200 and renders form
-- `POST /auth/login` with bogus credentials stays on login or shows error
-- `GET /auth/logout` redirects to `/` (landing)
-- `GET /auth/verify/<bad_token>` renders verify template with error, no 500
-
-### Integration Tests — Member Routes (`test_member_routes.py`)
-
-- Dashboard returns 200 for `authenticated_client`
-- Dashboard redirects unauthenticated to login
-- Profile page returns 200 for authenticated user
-- Directory returns 200 for authenticated user
-- Notifications page returns 200 for authenticated user
-
-### Unit Tests — Access Tiers (`test_access_tiers.py`)
-
-- `AccessTier` enum values
-- Document defaults to `AccessTier.MEMBER`
-- `Role.can_access_arc` defaults to `False`
-- `Member.is_arc` is `True` with active ARC role, `False` without
-
-### Test Configuration Notes
-
-`TestConfig` sets `WTF_CSRF_ENABLED=False` and `SESSION_TYPE="null"`. No Valkey
-connection required in tests. The `authenticated_client` fixture in
-`conftest.py` creates a test member and establishes a login session using the
-test client. Tests use `cove_test` database (`TEST_DATABASE_URL` env var or
-default `localhost:5432/cove_test`).
+`TestConfig`: `WTF_CSRF_ENABLED=False`, `SESSION_TYPE="null"` (no Valkey needed),
+`RATELIMIT_STORAGE_URI="memory://"`. Uses `cove_test` database.
 
 ---
 
-## 10. Dependencies
+## Known Issues & Tech Debt
 
-### Upstream
-
-| Dependency | Version | Use |
-|------------|---------|-----|
-| Flask-Login | — | Session management, `@login_required`, `current_user` |
-| itsdangerous | — | Magic link token signing (`URLSafeTimedSerializer`) |
-| werkzeug | — | `check_password_hash`, `generate_password_hash` (seed / admin) |
-| Flask-Mail | — | SMTP delivery of magic link emails |
-| Flask-WTF / WTForms | — | Form definitions, CSRF protection |
-| Flask-Session | — | Server-side session storage |
-| Flask-Limiter | — | Rate limiting on auth endpoints |
-| Flask-Talisman | — | HTTP security headers, CSP |
-| redis (Python) | — | Valkey client used by Flask-Session |
-| SQLAlchemy 2.0 | — | ORM, `Mapped[]` syntax |
-| PostgreSQL 17 | — | Primary data store (`cove` database) |
-| Valkey 8 | DB 1 | Session store |
-| MailHog | dev | SMTP trap (web UI port 8026, SMTP port 1026) |
-| Cloudflare Email Routing | prod | Lot email forwarding to personal inbox |
-
-### Downstream
-
-**Governance (`cove/governance/`):** Voting eligibility is derived from
-`Member.membership_status == "active"` and `Member.voting_weight > 0`.
-The governance service queries members to determine quorum counts and ballot
-issuance. It does not call auth services directly — it reads the Member model.
-
-**Parcels (`cove/parcels/`):** The `Parcel ↔ Member` relationship is 1:1 via
-`parcels.apn = members.apn`. Parcel routes display the member's role and
-contact info in the parcel detail view (board view only). `ParcelProfile`
-(in `cove/models/parcel_profile.py`) is managed by `profile_services.py` and
-is keyed on `apn`, not `member_id` — surviving ownership transfers.
-
-**Board (`cove/board/`):** Board management routes use `board_required` /
-`admin_required` decorators from `cove/auth/decorators.py`. The board invite
-flow creates pre-populated Member rows and assigns roles — it depends on
-`complete_onboarding()` not running for board-imported members until they
-first log in.
-
-**Vault, Meetings, Treasury, Archive:** All protected by `@login_required`.
-Some use `board_required` for admin actions. No direct calls into auth
-services — only the decorator layer.
-
-**Notifications (`cove/notifications/`):** Notification services use
-`member_id` from `current_user.id`. The `before_request` hook runs before
-the notification count context processor so unauthenticated users never hit
-notification queries.
-
-### Shared Infrastructure
-
-- `growdirect_postgres:5432` — `cove` database
-- `growdirect_valkey:6379/1` — Valkey DB 1, session store
-- Cove MailHog (`cove_localhost_mailhog`) — dev SMTP, web UI at `:8026`
-
----
-
-## 11. Known Issues & Reconciliation
-
-**Short lot login covers Sea Cove Dr only.** The `dr@abalonecove.org` suffix
-appended to bare lot IDs only works for members on Sea Cove Drive. Members on
-Packet Road, Barkentine Lane, Clipper Lane, or Peppertree Lane must enter their
-full lot email. This is a convenience shortcut for the most common address
-pattern in the WPBCA test deployment, not a generalizable feature.
-
-**`String(36)` primary keys.** All four models in `cove/models/member.py`
-(`Member`, `Role`, `MemberRole`, `DirectoryPreference`) use `String(36)` for
-UUIDs rather than the platform standard `Mapped[uuid.UUID]`. This is a
-historical holdover. A migration to native UUID columns would be schema-breaking
-and is tracked separately. Do not propagate `String(36)` to any new models.
-
-**`datetime.utcnow()` in model defaults.** Several `mapped_column` defaults use
-`datetime.utcnow` (naive UTC). The platform standard is `datetime.now(timezone.utc)`
-(timezone-aware). This is consistent within the existing codebase but is a
-known divergence. Awareness timestamps should be normalized when the Member
-model is next migrated.
-
-**`complete_onboarding()` uses `datetime.utcnow()` directly.** The `term_start`
-written to `MemberRole` in `complete_onboarding()` calls `datetime.utcnow()`,
-inconsistent with the route layer's use of `datetime.now(timezone.utc)`. Not a
-functional bug but produces mixed-aware/naive timestamps in the same table if
-roles are assigned through different paths.
-
-**Privacy consent gate exempts `agent.*`.** The AI agent transparency routes
-are exempt from the privacy consent redirect. This is intentional (agent
-endpoints serve as a public/semi-public accountability log) but should be
-reviewed if the agent endpoint ever surfaces member-specific data.
-
-**DirectoryPreference `show_name` / `show_address` schema defaults are False.**
-The column defaults on the table are `False` for all four fields. The service
-layer always writes `show_name=True, show_address=True` during onboarding and
-profile updates, so live data reflects the intended defaults. The mismatch
-between table default and service intent is a minor tech debt — a future
-migration should change the column defaults to match.
+| Issue | Impact | Status |
+|-------|--------|--------|
+| `String(36)` PKs instead of native UUID | Storage waste, no native UUID indexing | Tracked (CR-AUTH-13) |
+| `datetime.utcnow()` in model defaults | Naive UTC timestamps, should be timezone-aware | Known divergence |
+| `complete_onboarding()` uses `datetime.utcnow()` for `term_start` | Mixed aware/naive timestamps in `member_roles` | Known divergence |
+| `DirectoryPreference` column defaults are False but service writes True | Schema/service mismatch at onboarding | Minor tech debt |
+| Privacy consent gate exempts `agent.*` | Safe now but review if agent surfaces member data | Intentional |
+| Short lot login covers Sea Cove Dr only | Other streets need full lot email | UX gap (CR-AUTH-11) |

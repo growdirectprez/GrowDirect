@@ -1,121 +1,165 @@
-# SDD: Meetings
+# Meetings Module
 
 **Status:** Active
-**Last updated:** 2026-03-29
+**Type:** App Service
+**Last updated:** 2026-04-13
+**Blueprint:** `meetings_bp` at `/meetings`
+**Wiki:** [[Brain/wiki/cove-governance|Cove Governance]]
 
-## Overview
+---
 
-Meeting scheduling, editing, calendar export, and ARC (Architectural Review Committee) application submission. Board creates and edits meetings; members submit ARC applications tied to their parcel; board reviews via `ARCReview` records. All operations write to `audit_log`.
+## Purpose
 
-Blueprint: `meetings_bp` at `/meetings`. Services in `cove/meetings/services.py`.
+Meeting scheduling, editing, calendar export (iCal + Google Calendar), and ARC (Architectural Review Committee) application lifecycle including submission, board review, and fee tracking. Board creates/edits meetings; members submit ARC applications tied to their parcel; board reviews and records decisions.
 
-## Routes
+---
+
+## Dependencies
+
+| Dependency | Role | Required |
+|------------|------|----------|
+| PostgreSQL (`cove` database) | Meetings, ARC applications, ARC reviews | Yes |
+| Filesystem (`UPLOAD_FOLDER/meetings/`) | Meeting attachment storage | Yes |
+| `cove.services.file_security.validate_file_path` | Path traversal prevention on attachment downloads | Yes |
+| `cove.models.audit.AuditLog` | Audit trail for meeting and ARC operations | Yes |
+| `cove.notifications.services.notify_member` | ARC decision notifications to applicant | No (fails silently) |
+
+---
+
+## Data Flow & PII Map
+
+### What enters
+- Meeting creation: title, type, date, time, location, description, video_call_url, attachment (board only)
+- ARC applications: arc_type, description, parcel reference (member)
+- ARC reviews: decision, conditions, meeting reference (board)
+
+### What's stored
+
+| Table | Field | Classification | Encryption |
+|-------|-------|---------------|------------|
+| `meetings` | `title`, `description`, `location` | internal | Plaintext |
+| `meetings` | `video_call_url` | internal | Plaintext |
+| `meetings` | `attachment_path` | internal | Plaintext |
+| `meetings` | `embedding` | internal | Vector(1024) |
+| `arc_applications` | `applicant_id` (FK), `apn` | internal | Plaintext |
+| `arc_applications` | `description` (property work details) | internal | Plaintext |
+| `arc_reviews` | `conditions` | internal | Plaintext |
+
+### What exits
+- iCalendar (.ics) files (meeting title, time, location, description)
+- Google Calendar URLs (same data, URL-encoded)
+- Meeting attachment downloads
+- ARC decision notifications (via notification service)
+
+**PII note:** Meeting data is organizational, not personal. ARC applications link to a member but the content describes property work, not personal data. Low PII risk.
+
+---
+
+## API Contract
 
 | Method | Path | Auth | Description |
 |--------|------|------|-------------|
-| GET | `/meetings/` | login | List upcoming and past meetings (split by date) |
-| GET/POST | `/meetings/create` | login + board | Schedule a new meeting; validates type against `MEETING_TYPES` |
-| GET/POST | `/meetings/<meeting_id>/edit` | login + board | Edit an existing meeting (rejects if cancelled) |
-| GET | `/meetings/<meeting_id>` | login | Meeting detail: title, type, date, time, location, status, Google Calendar link |
-| GET | `/meetings/<meeting_id>/calendar.ics` | login | Download iCalendar (.ics) file for a meeting |
-| GET | `/meetings/<meeting_id>/attachment` | login | Download the meeting notice/agenda attachment via `send_file` |
-| POST | `/meetings/<meeting_id>/cancel` | login + board | Cancel a scheduled meeting (sets `status="cancelled"`) |
-| GET/POST | `/meetings/arc/apply` | login | Submit ARC application; pre-fills `apn` from current member |
-| GET | `/meetings/arc/<application_id>` | login | View ARC application status and fee; non-board members can only see their own |
+| GET | `/meetings/` | `login_required` | List upcoming and past meetings |
+| GET/POST | `/meetings/create` | `login_required` + board | Schedule new meeting |
+| GET/POST | `/meetings/<id>/edit` | `login_required` + board | Edit existing meeting |
+| GET | `/meetings/<id>` | `login_required` | Meeting detail |
+| GET | `/meetings/<id>/calendar.ics` | `login_required` | Download iCalendar file |
+| GET | `/meetings/<id>/attachment` | `login_required` | Download meeting attachment |
+| POST | `/meetings/<id>/cancel` | `login_required` + board | Cancel a meeting |
+| GET/POST | `/meetings/arc/apply` | `login_required` | Submit ARC application |
+| GET | `/meetings/arc/<app_id>` | `login_required` | View ARC application status |
+| GET | `/meetings/arc/pending` | `login_required` + board | Pending ARC applications |
+| GET/POST | `/meetings/arc/<app_id>/review` | `login_required` + board | Record ARC review decision |
+| POST | `/meetings/arc/<app_id>/fee` | `login_required` + board | Mark ARC fee as paid |
 
-Board check is `current_user.is_board or current_user.is_admin`; non-board gets 403 via `abort(403)`.
+### Access Control
 
-## Forms
+Board check: `current_user.is_board or current_user.is_admin`. Non-board gets 403 on create/edit/cancel/review routes. ARC status: members see only their own; board sees all.
 
-**`cove/meetings/forms.py`**
-
-### `MeetingForm` (extends `CoveFileForm`)
-
-| Field | Type | Validators | Notes |
-|-------|------|------------|-------|
-| `title` | `StringField` | DataRequired, Length(max=500) | |
-| `meeting_type` | `SelectField` | DataRequired | Choices: annual_member, special_member, regular_board, special_board, arc_review, committee |
-| `meeting_date` | `DateField` | DataRequired | Format `%Y-%m-%d` |
-| `time` | `StringField` | DataRequired, Length(max=10) | Pattern `HH:MM` |
-| `location` | `StringField` | DataRequired, Length(max=500) | |
-| `description` | `TextAreaField` | Optional, Length(max=5000) | |
-| `video_call_url` | `URLField` | Optional, URL, Length(max=1000) | e.g. Zoom link |
-| `attachment` | (file field via CoveFileForm) | | Meeting notice/agenda attachment |
-
-### `AgendaItemForm` (extends `CoveForm`)
-
-| Field | Type | Validators | Notes |
-|-------|------|------------|-------|
-| `agenda` | `TextAreaField` | Optional, Length(max=10000) | Full agenda text |
-
-### `MinutesForm` (extends `CoveForm`)
-
-| Field | Type | Validators | Notes |
-|-------|------|------------|-------|
-| `minutes` | `TextAreaField` | DataRequired, Length(max=50000) | Meeting minutes text |
-
-### `ARCApplicationForm` (extends `CoveFileForm`)
-
-| Field | Type | Validators | Notes |
-|-------|------|------------|-------|
-| `arc_type` | `SelectField` | DataRequired | Choices: new_build ($75), addition ($75), landscaping ($15), facade ($15) |
-| `description` | `TextAreaField` | DataRequired, Length(20-5000) | Description of proposed work |
-| `parcel_id` | `StringField` | DataRequired | Pre-filled from member's parcel |
-
-## Models
-
-### `Meeting` (`meetings`)
-
-Columns: `id`, `organization_id`, `type` (see constants), `title`, `description`, `date` (Date), `time` (string e.g. `"19:00"`), `location`, `agenda`, `minutes`, `notice_required_days` (default 4), `notice_sent_at`, `status` (`scheduled|noticed|held|cancelled`), `created_by`, `video_call_url`, `attachment_path`, `attachment_filename`, `embedding` (`Vector(1024)`).
-
-No relationships defined on the model — queried by `organization_id`.
-
-### `ARCApplication` (`arc_applications`)
-
-Columns: `id`, `organization_id`, `applicant_id` -> `members.id`, `parcel_id` -> `parcels.id`, `type` (`new_build|addition|landscaping|facade`), `description`, `plans_document_id` -> `documents.id` (nullable), `fee_amount` (float), `fee_paid` (bool), `status` (`submitted|complete|under_review|approved|denied|appealed`), `submitted_at`, `reviewed_at`, `appeal_deadline` (Date, 30 days after review).
-
-### `ARCReview` (`arc_reviews`)
-
-Columns: `id`, `application_id` -> `arc_applications.id`, `meeting_id` -> `meetings.id` (nullable), `decision` (`approved|denied|conditional`), `conditions`, `reviewed_at`.
-
-No routes currently create or display `ARCReview` records — model is present but review creation is not yet wired.
+---
 
 ## Services (`cove/meetings/services.py`)
 
-| Function | What it does |
-|----------|--------------|
-| `create_meeting(org_id, created_by, title, meeting_type, meeting_date, time, location, description, video_call_url, attachment_file)` | Validates type, inserts `Meeting`, writes audit log, commits |
-| `update_meeting(meeting, actor_id, title, meeting_type, meeting_date, time, location, description, video_call_url, attachment_file)` | Updates meeting fields, handles attachment replacement, writes audit log |
-| `list_meetings(org_id, upcoming_only, meeting_type)` | SELECT with optional date filter (`>= today`, status != cancelled) and type filter; ordered by date desc |
-| `get_meeting(meeting_id)` | `db.session.get(Meeting, meeting_id)` |
-| `cancel_meeting(meeting_id, actor_id)` | Sets `status="cancelled"`, writes audit log, commits; raises `ValueError` if already cancelled |
-| `generate_ics(meeting)` | Generates iCalendar (.ics) content string for a meeting |
-| `google_calendar_url(meeting)` | Generates a Google Calendar event creation URL for a meeting |
-| `submit_arc_application(org_id, applicant_id, parcel_id, arc_type, description, plans_document_id)` | Validates type, looks up fee from `ARC_FEES`, inserts `ARCApplication`, writes audit log, commits |
-| `get_arc_application(application_id)` | `db.session.get(ARCApplication, application_id)` |
-| `list_arc_applications(org_id, status)` | SELECT with optional status filter; ordered by `submitted_at` desc |
+### Meeting Operations
+
+| Function | Description |
+|----------|-------------|
+| `create_meeting(...)` | Validates type, auto-sets notice period from Davis-Stirling, saves attachment, audits |
+| `update_meeting(...)` | Updates fields, replaces attachment if new one uploaded, audits |
+| `list_meetings(org_id, upcoming_only, meeting_type)` | Filtered query, ordered by date desc |
+| `cancel_meeting(meeting_id, actor_id)` | Sets status=cancelled, audits |
+| `generate_ics(meeting)` | RFC 5545 iCalendar string |
+| `google_calendar_url(meeting)` | Google Calendar event creation URL |
+| `search_meetings_semantic(org_id, query, limit)` | Cosine distance search via pgvector |
+
+### ARC Operations
+
+| Function | Description |
+|----------|-------------|
+| `submit_arc_application(...)` | Validates type, looks up fee, creates application, audits |
+| `record_arc_review(...)` | Validates decision, creates ARCReview, updates application status, notifies applicant |
+| `mark_fee_paid(application_id)` | Sets `fee_paid=True` |
+| `list_arc_applications(org_id, status)` | Filtered query |
 
 ### Constants
 
-```python
-MEETING_TYPES = ["annual_member", "special_member", "regular_board",
-                 "special_board", "arc_review", "committee"]
+- `MEETING_TYPES`: annual_member, special_member, regular_board, special_board, arc_review, committee
+- `ARC_FEES`: new_build=$75, addition=$75, landscaping=$15, facade=$15
+- `NOTICE_DAYS_BY_TYPE`: Davis-Stirling notice requirements per meeting type (2-10 days)
 
-ARC_TYPES     = ["new_build", "addition", "landscaping", "facade"]
+---
 
-ARC_FEES      = {"new_build": 75.00, "addition": 75.00,
-                 "landscaping": 15.00, "facade": 15.00}
-```
+## Operations
 
-## Templates
+### Startup
+No module-specific startup. Upload directory `meetings/` created on first attachment save.
 
-| Template | Description |
-|----------|-------------|
-| `meetings/index.html` | Two sections: upcoming (sorted ascending) and past; links to detail |
-| `meetings/create.html` | `MeetingForm` — title, type select, date, time, location, description, video call URL, attachment |
-| `meetings/edit.html` | `MeetingForm` pre-filled with existing meeting data; same fields as create |
-| `meetings/detail.html` | Shows all meeting fields; Google Calendar link; board sees cancel and edit buttons |
-| `meetings/arc_apply.html` | `ARCApplicationForm` — type select, description, parcel_id; shows fee schedule |
-| `meetings/arc_status.html` | Shows application status, type, fee amount, submitted_at; board sees all apps |
+### Failure Modes
 
-All extend `base.html`. Forms use `{{ form.hidden_tag() }}` for CSRF.
+| Failure | Impact | Recovery |
+|---------|--------|----------|
+| DB down | All routes 500 | Automatic reconnect |
+| Filesystem full | Attachment upload fails | Manual cleanup |
+| Notification service fails | ARC decision notification silently drops | Retry manually or check audit log |
+
+### Monitoring
+- Alert on: meeting creation failures, ARC review notification failures
+- Normal: <20 meetings/year, <10 ARC applications/year
+
+---
+
+## Deployment
+
+Standard Cove deployment. Meeting attachments stored in `UPLOAD_FOLDER/meetings/` subdirectory, mounted as Docker volume.
+
+- **AWS**: Attachment files on EFS alongside vault uploads
+- **Backup**: Meeting attachments are governance records -- must be included in backups
+
+---
+
+## Code Review Findings
+
+| # | Severity | Finding | Recommended Fix |
+|---|----------|---------|----------------|
+| 1 | **P1** | Meeting attachment validation uses `ALLOWED_EXTENSIONS` constant but no MIME type verification | Verify MIME type matches extension on upload |
+| 2 | **P1** | No audit trail for ARC fee payment marking | Add audit entry for `arc.fee_paid` |
+| 3 | **P1** | ARC application `appeal_deadline` (30 days post-review) exists in model but is never set in code | Set `appeal_deadline` in `record_arc_review` |
+| 4 | **P1** | No notification sent when meetings are created or cancelled -- only ARC decisions trigger notifications | Add `meeting_invite` and `meeting_cancelled` notification types |
+| 5 | **P2** | ICS generation uses naive datetimes (no timezone) -- may cause calendar offset issues | Use timezone-aware datetimes with `America/Los_Angeles` |
+| 6 | **P2** | No pagination on meeting list | Add pagination for past meetings |
+| 7 | **P2** | `ARCReview` has no `reviewed_by` field -- reviewer identity tracked only in audit log | Add `reviewed_by` FK to `arc_reviews` table |
+
+---
+
+## Production Readiness Checklist
+
+- [x] No sensitive PII in this module (meeting data is organizational)
+- [ ] Secrets in AWS Secrets Manager
+- [x] Health check endpoint responds (via app-level `/health`)
+- [x] Audit logging for meeting CRUD and ARC submission (partial -- fee payment not audited)
+- [ ] Data retention policy for meeting records
+- [x] Rate limiting (via app-level limiter)
+- [x] Error responses don't leak internals
+- [ ] ICS timezone handling corrected
+- [ ] ARC appeal deadline computed and stored
+- [ ] Meeting lifecycle notifications wired

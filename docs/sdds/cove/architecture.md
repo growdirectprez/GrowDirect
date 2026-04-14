@@ -1,105 +1,123 @@
-# SDD: Architecture
+# Cove Architecture — INDEX SDD
 
 **Status:** Active
-**Last updated:** 2026-03-29
+**Type:** Platform Service (Cove)
+**Last updated:** 2026-04-13
+**Wiki:** [[Brain/wiki/cove-governance|Cove Governance]]
 
 ---
 
-## 1. App Factory (`cove/__init__.py`)
+## Purpose
 
-`wsgi.py` calls `create_app()` which executes these steps in order:
-
-1. **Resolve config** -- reads `config_name` argument or falls back to `FLASK_ENV` env var (default `"prod"`). Looks up the config class from `config_by_name` dict.
-2. **Create Flask instance** -- `template_folder` and `static_folder` are set to the project root's `templates/` and `static/` directories (resolved via `pathlib`), not the package-relative defaults.
-3. **Load config** -- `app.config.from_object(config_by_name[config_name])`.
-4. **Initialize Valkey session** -- if `SESSION_TYPE` is `"redis"`, creates a Redis connection from `VALKEY_URL` and assigns it to `SESSION_REDIS`. Falls back to `"null"` (cookie sessions) if the `redis` package is missing.
-5. **Initialize extensions** -- `db`, `login_manager`, `mail`, `csrf` are always initialized. `sess` (Flask-Session) is initialized only when session type is not `"null"`.
-6. **Create upload directory** -- `os.makedirs(UPLOAD_FOLDER, exist_ok=True)`.
-7. **Register 13 blueprints** -- imported inside the function to avoid circular imports.
-8. **Register user loader** -- `login_manager.user_loader` calls `db.session.get(Member, user_id)`.
-9. **Register `before_request` hook** -- privacy consent check (see section 7).
-10. **Register context processor** -- injects `notification_count` into all templates (see section 7).
-11. **Register `/health` route** -- returns `{"status": "ok"}, 200`.
-12. **Return app**.
+Cove is the HOA governance platform for the West Portuguese Bend Community Association (WPBCA). This SDD describes the app factory, extensions, config, blueprint registration, and request lifecycle that form the platform foundation. It serves as the **index SDD** for all Cove services.
 
 ---
 
-## 2. Extensions (`cove/extensions.py`)
+## Cove SDD Index
 
-Seven extension instances are created at module level and initialized in the app factory via `init_app()`:
-
-| Instance | Class | Configuration |
-|----------|-------|---------------|
-| `db` | `SQLAlchemy()` | Database URI from `SQLALCHEMY_DATABASE_URI`. Pool pre-ping enabled, 300s recycle. |
-| `login_manager` | `LoginManager()` | `login_view = "auth.login"`, `login_message = "Please log in to access this page."` |
-| `mail` | `Mail()` | MailHog in dev (SMTP port 1025), Cloudflare Email Routing in prod. Configured via `MAIL_SERVER`, `MAIL_PORT`, `MAIL_USE_TLS`, `MAIL_DEFAULT_SENDER`. |
-| `csrf` | `CSRFProtect()` | Enabled globally. Disabled only in `TestConfig` (`WTF_CSRF_ENABLED = False`). |
-| `sess` | `Session()` | Flask-Session backed by Valkey (DB 1). Skipped when `SESSION_TYPE = "null"` (test config). |
-| `talisman` | `Talisman()` | Flask-Talisman for CSP, X-Frame-Options, HSTS security headers. |
-| `limiter` | `Limiter()` | Flask-Limiter for rate limiting, backed by Valkey storage. |
-
-Import pattern: `from cove.extensions import db, login_manager, mail, csrf, sess`.
-
----
-
-## 3. Config Classes (`cove/config.py`)
-
-All classes inherit from `BaseConfig`. Selected by `FLASK_ENV` env var via the `config_by_name` dict, which accepts aliases (`"dev"/"development"`, `"test"/"testing"`, `"staging"`, `"prod"/"production"`).
-
-### BaseConfig
-
-| Setting | Value |
-|---------|-------|
-| `SECRET_KEY` | `os.environ["SECRET_KEY"]` (required) |
-| `SQLALCHEMY_DATABASE_URI` | `os.environ["DATABASE_URL"]` (required) |
-| `SQLALCHEMY_TRACK_MODIFICATIONS` | `False` |
-| `SQLALCHEMY_ENGINE_OPTIONS` | `pool_pre_ping=True`, `pool_recycle=300` |
-| `SESSION_TYPE` | `"redis"` (Valkey-compatible) |
-| `VALKEY_URL` | `os.environ.get("VALKEY_URL", "redis://localhost:6379/1")` |
-| `WTF_CSRF_ENABLED` | `True` |
-| `MAX_CONTENT_LENGTH` | 50 MB |
-| `MAIL_SERVER` | `localhost` (overridden in env) |
-| `MAIL_PORT` | `1025` (MailHog default) |
-| `MAIL_DEFAULT_SENDER` | `cove@abalonecove.org` |
-| `MAGIC_LINK_EXPIRY` | 900 seconds (15 min) |
-| `SESSION_DURATION_DAYS` | 7 |
-| `DOMAIN` | `abalonecove.org` |
-| `UPLOAD_FOLDER` | `../uploads` relative to `cove/` package |
-| `ALLOWED_UPLOAD_EXTENSIONS` | `pdf, doc, docx, xls, xlsx, png, jpg, jpeg, gif` |
-| `MAX_AVATAR_SIZE` | 2 MB |
-| `MAX_MEETING_ATTACHMENT_SIZE` | 10 MB |
-| `MAX_DOCUMENT_SIZE` | 25 MB |
-
-### DevConfig
-
-- `DEBUG = True`
-- `SESSION_COOKIE_SECURE = False`
-
-### TestConfig
-
-- `TESTING = True`
-- `SQLALCHEMY_DATABASE_URI` overridden to `TEST_DATABASE_URL` env var or `postgresql://growdirect:growdirect_dev@localhost:5432/cove_test`
-- `WTF_CSRF_ENABLED = False`
-- `SESSION_TYPE = "null"` (no Valkey needed in tests)
-- `SQLALCHEMY_ENGINE_OPTIONS = {}` (pool options disabled)
-
-### StagingConfig
-
-- `SESSION_COOKIE_SECURE = True`
-
-### ProdConfig
-
-- `SESSION_COOKIE_SECURE = True`
-- `SESSION_COOKIE_HTTPONLY = True`
-- `SESSION_COOKIE_SAMESITE = "Lax"`
-- `REMEMBER_COOKIE_SECURE = True`
-- `REMEMBER_COOKIE_HTTPONLY = True`
+| SDD | Type | What it covers |
+|-----|------|---------------|
+| [architecture.md](architecture.md) | Platform Service | **This file.** App factory, extensions, config, blueprint registration |
+| [member-auth.md](member-auth.md) | App Service | Magic link + password auth, session management, onboarding |
+| [governance-engine.md](governance-engine.md) | App Service | Proposal lifecycle, voting, ballot tallying, bylaws config |
+| [secret-ballot-elections.md](secret-ballot-elections.md) | App Service | Election orchestration, ballot secrecy, RLS |
+| [parcel-map-engine.md](parcel-map-engine.md) | App Service | Parcel identity, GeoJSON layers, Leaflet rendering |
+| [vault.md](vault.md) | App Service | Document storage, versioning, access tiers |
+| [treasury.md](treasury.md) | App Service | Assessments, budgets, payment records |
+| [meetings.md](meetings.md) | App Service | Meeting scheduling, ARC applications |
+| [board.md](board.md) | App Service | Board-only operations, bulletins, roster |
+| [notifications.md](notifications.md) | App Service | Notification delivery, email routing |
+| [knowledge.md](knowledge.md) | MCP Server | pgvector legal document search |
+| [archive-system.md](archive-system.md) | App Service | Document viewer, path traversal prevention |
+| [agent.md](agent.md) | App Service | AI Q&A assistant, transparency log |
+| [sitemap-redesign.md](sitemap-redesign.md) | App Service | Role-gated navigation |
 
 ---
 
-## 4. Blueprint Registration
+## Dependencies
 
-14 blueprints registered in `create_app()`, in this order:
+| Dependency | Role | Required |
+|------------|------|----------|
+| PostgreSQL 17 (`growdirect_postgres:5432/cove`) | Primary data store | Yes |
+| Valkey 8 (`growdirect_valkey:6379/1`) | Sessions, rate limiter backend | Yes |
+| Ollama (`growdirect_ollama:11434`) | Embeddings (qwen3-embedding:8b) | No (graceful degradation) |
+| MailHog (dev) / Cloudflare Email Routing (prod) | Email delivery | No (notifications degrade) |
+| Anthropic API | Agent Q&A | No (agent returns unconfigured message) |
+
+---
+
+## Data Flow & PII Map
+
+### What enters
+- Member registration: name, personal_email, lot_email, phone (from board invite)
+- Document uploads: files to disk, metadata to DB
+- Governance actions: proposals, ballots, votes
+- Meeting data: scheduling, ARC applications with parcel references
+
+### What's stored
+
+| Table | PII Fields | Classification | Encryption |
+|-------|-----------|---------------|------------|
+| `members` | `name`, `personal_email`, `phone` | sensitive | **Plaintext (P0)** |
+| `members` | `lot_email` | internal | Plaintext |
+| `members` | `password_hash` | restricted | Werkzeug hash |
+| `members` | `magic_link_nonce` | restricted | Signed token |
+| `ballot_envelopes` | `member_id` + `ballot_id` link | restricted | RLS-gated (DB-side only) |
+| `parcel_contacts` | `name`, `email`, `phone` | sensitive | **Plaintext (P0)** |
+| `notifications` | `member_id`, email content | internal | Plaintext |
+| `audit_log` | `actor_id`, IP (if logged) | internal | Plaintext |
+
+### What exits
+- Rendered HTML to authenticated browsers
+- Email notifications via SMTP (lot_email forwarding to personal_email)
+- iCalendar exports (meeting data)
+- Agent API responses (JSON, no PII)
+- MCP tool responses (knowledge chunks, no member PII)
+
+---
+
+## App Factory (`cove/__init__.py`)
+
+`create_app()` executes these steps in order:
+
+1. **Resolve config** -- reads `config_name` or `FLASK_ENV` (default `"prod"`)
+2. **Create Flask instance** -- template/static folders set to project root
+3. **Load config** -- `app.config.from_object(config_by_name[config_name])`
+4. **Initialize Valkey session** -- Redis connection from `VALKEY_URL`, falls back to cookie sessions
+5. **Initialize extensions** -- `db`, `login_manager`, `mail`, `csrf`, `sess`, `talisman`, `limiter`
+6. **Initialize Talisman** -- CSP headers, X-Frame-Options DENY, HSTS
+7. **Initialize rate limiter** -- Flask-Limiter backed by Valkey
+8. **Create upload directory** -- `os.makedirs(UPLOAD_FOLDER, exist_ok=True)`
+9. **Register ARC gate** -- `before_request` on map, archive, parcels blueprints for ARC role check
+10. **Register 17 blueprints** -- imported inside function to avoid circular imports
+11. **Register user loader** -- `login_manager.user_loader` calls `db.session.get(Member, user_id)`
+12. **Register privacy consent hook** -- redirects onboarded members without consent
+13. **Register context processor** -- injects `notification_count` into all templates
+14. **Register CLI commands** -- Angel crawl, market, CRMLS commands
+15. **Register SEO routes** -- Angel web routes at app root
+16. **Register `/health` route** -- returns `{"status": "ok"}, 200`
+17. **Register 429 handler** -- rate limit error page
+18. **Register `/vault/*` redirect** -- 301 to `/documents/*` (GRO-395)
+
+---
+
+## Extensions (`cove/extensions.py`)
+
+| Instance | Class | Purpose |
+|----------|-------|---------|
+| `db` | `SQLAlchemy()` | ORM, pool pre-ping, 300s recycle |
+| `login_manager` | `LoginManager()` | `login_view = "auth.login"` |
+| `mail` | `Mail()` | MailHog dev, Cloudflare prod |
+| `csrf` | `CSRFProtect()` | Global CSRF; disabled in `TestConfig` |
+| `sess` | `Session()` | Valkey DB 1; skipped when `SESSION_TYPE = "null"` |
+| `talisman` | `Talisman()` | CSP, HSTS, X-Frame-Options |
+| `limiter` | `Limiter()` | Rate limiting, Valkey storage |
+
+---
+
+## Blueprint Registration
+
+17 blueprints registered in `create_app()`:
 
 | # | Blueprint | URL Prefix | Module Path |
 |---|-----------|------------|-------------|
@@ -108,7 +126,7 @@ All classes inherit from `BaseConfig`. Selected by `FLASK_ENV` env var via the `
 | 3 | `member_bp` | `/member` | `cove.member.routes` |
 | 4 | `governance_bp` | `/vote` | `cove.governance.routes` |
 | 5 | `proceeding_bp` | `/proceedings` | `cove.governance.proceeding_routes` |
-| 6 | `vault_bp` | `/vault` | `cove.vault.routes` |
+| 6 | `vault_bp` | `/documents` | `cove.vault.routes` |
 | 7 | `board_bp` | `/board` | `cove.board.routes` |
 | 8 | `treasury_bp` | `/treasury` | `cove.treasury.routes` |
 | 9 | `parcels_bp` | `/parcels` | `cove.parcels.routes` |
@@ -117,196 +135,179 @@ All classes inherit from `BaseConfig`. Selected by `FLASK_ENV` env var via the `
 | 12 | `agent_bp` | `/agent` | `cove.agent.routes` |
 | 13 | `archive_bp` | `/archive` | `cove.archive.routes` |
 | 14 | `map_bp` | `/map` | `cove.map.routes` |
+| 15 | `research_bp` | `/research` | `cove.research.routes` |
+| 16 | `community_bp` | `/community` | `cove.community` |
+| 17 | `angel_web_bp` | `/angel/web` | `cove.angel.web_routes` |
 
-All blueprint imports are inside `create_app()` to avoid circular imports with extensions.
-
----
-
-## 5. Models
-
-16 model files imported in `cove/models/__init__.py` for Alembic autogenerate detection. 28 model classes total.
-
-| File | Models |
-|------|--------|
-| `organization.py` | `Organization` |
-| `parcel.py` | `Parcel` |
-| `member.py` | `Member`, `Role`, `MemberRole`, `DirectoryPreference` |
-| `governance.py` | `Proposal`, `Ballot`, `BallotEnvelope` |
-| `election.py` | `Election`, `Candidate`, `ElectionChoice` |
-| `treasury.py` | `Assessment`, `LedgerEntry`, `Budget`, `ParcelPayment` |
-| `vault.py` | `Document`, `DocumentVersion` |
-| `meetings.py` | `Meeting`, `ARCApplication`, `ARCReview` |
-| `audit.py` | `AuditLog` |
-| `proceeding.py` | `Proceeding`, `ProceedingEntry` |
-| `research_parcel.py` | `ResearchParcel` |
-| `parcel_profile.py` | `ParcelProfile` |
-| `parcel_tag.py` | `ParcelTag`, `ParcelTagAssignment` |
-| `notification.py` | `Notification` |
-| `knowledge.py` | `KnowledgeChunk` |
-
-Import pattern in `cove/models/__init__.py`: every model is explicitly imported with `# noqa: F401` so Alembic's `autogenerate` detects all tables.
-
-Model conventions: UUID primary keys (stored as `String(36)`), `Mapped[]` type annotations, `back_populates` (not `backref`), `created_at` and `updated_at` timestamps.
+Angel chat blueprint (`angel_chat_bp`) also registered at `/angel`.
 
 ---
 
-## 6. Request Lifecycle
+## Config Classes (`cove/config.py`)
+
+All inherit from `BaseConfig`. Selected via `config_by_name` dict.
+
+### BaseConfig
+
+| Setting | Value |
+|---------|-------|
+| `SECRET_KEY` | `os.environ["SECRET_KEY"]` (required) |
+| `SQLALCHEMY_DATABASE_URI` | `os.environ["DATABASE_URL"]` (required) |
+| `SESSION_TYPE` | `"redis"` (Valkey-compatible) |
+| `VALKEY_URL` | env or `redis://localhost:6379/1` |
+| `MAX_CONTENT_LENGTH` | 50 MB |
+| `MAGIC_LINK_EXPIRY` | 900 seconds (15 min) |
+| `SESSION_DURATION_DAYS` | 7 |
+| `DOMAIN` | `abalonecove.org` |
+| `UPLOAD_FOLDER` | `../uploads` relative to `cove/` |
+
+### ProdConfig
+
+`SESSION_COOKIE_SECURE`, `SESSION_COOKIE_HTTPONLY`, `SESSION_COOKIE_SAMESITE = "Lax"`, `REMEMBER_COOKIE_SECURE`, `REMEMBER_COOKIE_HTTPONLY`.
+
+### TestConfig
+
+`TESTING = True`, `WTF_CSRF_ENABLED = False`, `SESSION_TYPE = "null"`, separate test DB.
+
+---
+
+## Models
+
+28 model classes across 16 files, all imported in `cove/models/__init__.py` for Alembic detection.
+
+Conventions: UUID primary keys as `String(36)`, `Mapped[]` annotations, `back_populates`, `created_at`/`updated_at` timestamps.
+
+---
+
+## Multi-Tenant Isolation
+
+All queries are scoped by `organization_id` (FK to `organizations.id`). Routes verify `entity.organization_id == current_user.organization_id` before returning data. No cross-org data access is possible through the app layer.
+
+---
+
+## Startup Order and Dependency Graph
 
 ```
-Client -> Gunicorn (5000 inside container, 5002 on host)
-       -> Flask WSGI app
-       -> before_request hooks
-       -> @login_required check (Flask-Login)
-       -> Blueprint route handler
-       -> Service layer (business logic)
-       -> SQLAlchemy ORM -> PostgreSQL (growdirect_postgres:5432/cove)
-       -> Jinja2 template render (extends templates/base.html)
-       -> HTML response
+1. growdirect_postgres  (shared infra)
+2. growdirect_valkey    (shared infra)
+3. growdirect_ollama    (shared infra, optional)
+4. cove_flask           (depends on 1, 2)
+5. cove_localhost_mailhog (dev only, independent)
 ```
 
-### before_request Hooks
+### Blast Radius
 
-**Privacy consent check** (`_check_privacy_consent`):
-- Skips unauthenticated users.
-- Skips exempt endpoints: `auth.*`, `public.*`, `static`, `agent.*`, and `member.accept_privacy`.
-- For authenticated, onboarded members whose `privacy_consent_at` is `None`, redirects to `/member/accept-privacy`.
-
-### Context Processors
-
-**`inject_notification_count`**:
-- For authenticated users, calls `cove.notifications.services.unread_count(current_user.id)` and injects `notification_count` into all template contexts.
-- Returns `0` for unauthenticated users or on any exception.
-
-### User Loader
-
-Registered on `login_manager`: calls `db.session.get(Member, user_id)` to load the current user from session.
+| If this fails | Impact |
+|--------------|--------|
+| PostgreSQL | Complete outage — all routes return 500 |
+| Valkey | Session creation fails, rate limiting disabled, fallback to cookie sessions |
+| Ollama | Embedding generation returns None, semantic search unavailable |
+| Mail | Notification emails silently fail, in-app notifications still work |
+| Anthropic API | Agent Q&A returns "not configured", all other routes unaffected |
 
 ---
 
-## 7. Infrastructure
+## Operations
 
-Cove runs on the shared GrowDirect Docker Compose stack. It does NOT run its own PostgreSQL or Valkey. Start shared infrastructure first, then start Cove.
+### Startup Sequence
 
 ```bash
-# 1. Start shared services
-cd ~/GrowDirect/devops && docker compose up -d
-
-# 2. Start Cove
-cd ~/GrowDirect/Cove/devops && docker compose up -d
+cd ~/GrowDirect/devops && docker compose up -d      # shared infra
+cd ~/GrowDirect/Cove/devops && docker compose up -d  # cove_flask + mailhog
 ```
-
-### Shared Services (from `~/GrowDirect/devops/docker-compose.yml`)
-
-| Service | Container | Port |
-|---------|-----------|------|
-| PostgreSQL 17 | `growdirect_postgres` | 5432 |
-| Valkey 8 | `growdirect_valkey` | 6379 |
-| pgAdmin | `growdirect_pgadmin` | 5050 |
-| Ollama | `growdirect_ollama` | 11434 |
-
-### Cove Services (from `~/GrowDirect/Cove/devops/docker-compose.yml`)
-
-| Service | Container | Ports (host:container) |
-|---------|-----------|------------------------|
-| Flask (Gunicorn) | `cove_flask` | 5002:5000 |
-| MailHog | `cove_localhost_mailhog` | 1026:1025 (SMTP), 8026:8025 (Web UI) |
-
-Both containers join the `growdirect` external Docker network.
-
-### Connection Strings
-
-```
-DATABASE_URL=postgresql://growdirect:growdirect_dev@growdirect_postgres:5432/cove
-VALKEY_URL=redis://growdirect_valkey:6379/1
-OLLAMA_URL=http://growdirect_ollama:11434
-```
-
-### Gunicorn Configuration
-
-`gunicorn --bind 0.0.0.0:5000 --workers 1 --threads 4 --timeout 120 --reload wsgi:app`
-
-### Volume Mounts (dev)
-
-`cove/`, `templates/`, `static/`, `wsgi.py`, `migrations/` are mounted into the container. Gunicorn `--reload` picks up file changes without container restart.
 
 ### Health Check
 
-Container health check hits `http://localhost:5000/health` every 10 seconds with a 20-second start period and 5 retries.
+`GET /health` returns `{"status": "ok"}, 200`. Docker healthcheck: every 10s, 20s start period, 5 retries.
+
+### Failure Modes
+
+- **DB connection lost**: Pool pre-ping detects, reconnects on next request. Extended outage = 500s.
+- **Valkey down**: Falls back to cookie sessions if `redis` import fails at startup. If Valkey dies at runtime, session operations fail.
+- **Gunicorn worker crash**: Auto-restarts (1 worker, 4 threads, 120s timeout).
+
+### Configuration (env vars)
+
+| Variable | Required | Default |
+|----------|----------|---------|
+| `SECRET_KEY` | Yes | (none) |
+| `DATABASE_URL` | Yes | (none) |
+| `FLASK_ENV` | No | `prod` |
+| `VALKEY_URL` | No | `redis://localhost:6379/1` |
+| `OLLAMA_URL` | No | `http://localhost:11434` |
+| `ANTHROPIC_API_KEY` | No | (none) |
+| `MAIL_SERVER` | No | `localhost` |
+| `MAIL_PORT` | No | `1025` |
 
 ---
 
-## 8. Frontend Build
+## Deployment
 
-PostCSS build pipeline via npm. No CDN dependencies.
+### Docker Service Definition
 
-### Pipeline (`postcss.config.js`)
+```yaml
+# Cove/devops/docker-compose.yml
+name: cove
+services:
+  flask:
+    build: ..
+    image: cove-flask
+    container_name: cove_flask
+    ports: ["5002:5000"]
+    command: gunicorn --bind 0.0.0.0:5000 --workers 1 --threads 4 --timeout 120 --reload wsgi:app
+    networks: [growdirect]
+    volumes:
+      - ../cove:/app/cove
+      - ../templates:/app/templates
+      - ../static:/app/static
+      - ../wsgi.py:/app/wsgi.py
+      - ../migrations:/app/migrations
+```
 
-Three plugins in order:
-1. `postcss-import` -- resolves `@import` directives
-2. `tailwindcss` -- processes Tailwind utility classes
-3. `autoprefixer` -- adds vendor prefixes
+### AWS Target
 
-### Tailwind Configuration (`tailwind.config.js`)
+- **Compute**: ECS/Fargate (single task, 0.5 vCPU, 1GB memory)
+- **Database**: RDS PostgreSQL 17 with pgvector extension
+- **Cache**: ElastiCache Valkey
+- **Secrets**: AWS Secrets Manager for `SECRET_KEY`, `DATABASE_URL`, `ANTHROPIC_API_KEY`
+- **Storage**: EFS for upload volume
+- **Domain**: abalonecove.org via Cloudflare (DNS + email routing)
 
-Content scanning paths:
-- `./cove/**/templates/**/*.html`
-- `./templates/**/*.html`
+### CI/CD Requirements
 
-Custom color palette: `cove-50` through `cove-900` (blue tones, from `#f0f7ff` to `#0a3f6f`).
-
-### CSS Build
-
-- Source: `static/css/main.css`
-- Output: `static/css/dist/main.css`
-- Dev watch: `npm run dev` (PostCSS watch mode)
-- Production build: `npm run build` (`NODE_ENV=production`)
-
-### JavaScript
-
-- Alpine.js 3.14+ via npm -- interactive UI components (modals, toggles, dropdowns)
-- Leaflet.js 1.9+ via npm -- parcel map on `/parcels` routes only (not loaded globally)
-
-### npm Packages (`package.json`)
-
-**devDependencies:** `tailwindcss ^3.4`, `postcss ^8.4`, `postcss-cli ^11.0`, `postcss-import ^16.0`, `autoprefixer ^10.4`
-
-**dependencies:** `alpinejs ^3.14`, `leaflet ^1.9`
+- Run `pytest` against `cove_test` database
+- Build Docker image, push to ECR
+- Deploy via ECS service update
+- Run Alembic migrations before traffic cutover
 
 ---
 
-## 9. Dependencies (`requirements.txt`)
+## Code Review Findings
 
-### Core
+| # | Severity | Finding | Recommended Fix |
+|---|----------|---------|----------------|
+| 1 | **P0** | Member PII (name, personal_email, phone) stored plaintext in `members` table | Field-level AES-256-GCM encryption using Canary's `crypto.py` pattern |
+| 2 | **P0** | Parcel contact PII (name, email, phone) stored plaintext in `parcel_contacts` | Same field-level encryption |
+| 3 | **P0** | `SECRET_KEY` and `DATABASE_URL` in `.env` files, not secrets manager | AWS Secrets Manager + `boto3` retrieval at startup |
+| 4 | **P1** | RLS for `ballot_envelopes` is DB-side only -- app code does not enforce separation | Application-level enforcement + integration tests |
+| 5 | **P1** | No data retention policy -- old sessions, audit logs, notifications accumulate indefinitely | Automated purge: sessions >30d, audit logs >24mo |
+| 6 | **P1** | No rate limiting on agent `/api/ask` endpoint (Anthropic API cost exposure) | Add Flask-Limiter decorator (e.g., 10/min per user) |
+| 7 | **P1** | Notification email addresses (lot_email) visible in SMTP logs | Ensure SMTP transport uses TLS in production |
+| 8 | **P2** | `String(36)` UUID primary keys across all models -- not native UUID type | Migrate to `Mapped[uuid.UUID]` on new tables, backfill on major version |
+| 9 | **P2** | Session keys unencrypted in Valkey | Enable Valkey AUTH + TLS in production |
+| 10 | **P2** | No key rotation procedure documented | Document rotation for SECRET_KEY, DB credentials, API keys |
 
-| Package | Version | Purpose |
-|---------|---------|---------|
-| `flask` | 3.1.x | Web framework |
-| `sqlalchemy` | 2.0.x | ORM |
-| `flask-sqlalchemy` | 3.1.x | Flask-SQLAlchemy integration |
-| `flask-login` | 0.6.x | Session-based authentication |
-| `flask-mail` | 0.10.x | Email sending (magic links, notifications) |
-| `flask-wtf` | 1.2.x | WTForms integration, CSRF protection |
-| `flask-session` | >=0.5 | Server-side sessions (Valkey backend) |
-| `psycopg2-binary` | 2.9.x | PostgreSQL driver |
-| `alembic` | 1.14.x | Database migrations |
-| `gunicorn` | 23.x | WSGI server |
+---
 
-### Utilities
+## Production Readiness Checklist
 
-| Package | Version | Purpose |
-|---------|---------|---------|
-| `python-dotenv` | 1.0.x | `.env` file loading |
-| `itsdangerous` | 2.2.x | Magic link token signing |
-| `werkzeug` | 3.1.x | Password hashing, HTTP utilities |
-| `redis` | >=5.0 | Valkey client (Redis-compatible) |
-| `mistune` | 3.1.x | Markdown rendering (archive module) |
-| `pgvector` | >=0.3 | Vector similarity search |
-| `httpx` | >=0.27 | HTTP client (agent module, Ollama calls) |
-| `anthropic` | >=0.40 | Claude API (agent module) |
-
-### Testing
-
-| Package | Version | Purpose |
-|---------|---------|---------|
-| `pytest` | 8.x | Test runner |
-| `pytest-flask` | 1.3.x | Flask test fixtures |
+- [ ] PII encrypted at rest (members.personal_email, members.phone, parcel_contacts.*)
+- [ ] Secrets in AWS Secrets Manager (not .env)
+- [ ] Health check endpoint responds (`/health` -- done)
+- [ ] Audit logging for sensitive operations (partial -- governance and vault audited, board contacts not audited)
+- [ ] Data retention policy implemented
+- [ ] Rate limiting on public endpoints (limiter initialized, needs per-route decoration)
+- [ ] Error responses don't leak internals (Talisman CSP active, need custom 500 page)
+- [ ] Ballot envelope RLS enforced at application layer
+- [ ] SMTP TLS enforced in production
+- [ ] Valkey AUTH + TLS in production

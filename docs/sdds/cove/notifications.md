@@ -1,105 +1,163 @@
-# SDD: Notifications Module
+# Notifications Module
 
 **Status:** Active
-**Last updated:** 2026-03-29
+**Type:** App Service
+**Last updated:** 2026-04-13
 **Module:** `cove/notifications/`
+**Wiki:** [[Brain/wiki/cove-governance|Cove Governance]]
 
 ---
 
-## Overview
+## Purpose
 
-In-app notification system with optional email delivery. Supports per-member and broadcast notifications with read/unread tracking. Notifications are surfaced in the member dashboard (latest 5), a dedicated notifications page (latest 50), and as an unread count badge via context processor injected into every template.
-
----
-
-## Model
-
-**Notification** (`notifications` table) -- `cove/models/notification.py`
-
-| Column | Type | Description |
-|--------|------|-------------|
-| `id` | `String(36)`, PK | UUID, auto-generated |
-| `organization_id` | `String(36)`, FK → `organizations.id` | Owning organization |
-| `member_id` | `String(36)`, FK → `members.id` | Recipient member |
-| `type` | `String(30)` | Notification type: `meeting_invite`, `vote_notice`, `bulletin`, `arc_update`, `election_notice` |
-| `title` | `String(500)` | Notification title (required) |
-| `body` | `Text`, nullable | Extended message body |
-| `link` | `String(500)`, nullable | Relative URL for the notification target |
-| `email_sent` | `Boolean`, default `False` | Whether email delivery was attempted |
-| `read_at` | `DateTime`, nullable | Timestamp when member read the notification (`None` = unread) |
-| `created_by` | `String(36)`, FK → `members.id`, nullable | Member who triggered the notification |
-| `created_at` | `DateTime` | Creation timestamp |
+In-app notification system with optional email delivery. Supports per-member and broadcast notifications with read/unread tracking, public bulletin visibility, and pinning. Notifications are surfaced in the member dashboard, a dedicated notifications page, and as an unread count badge injected into every template via context processor.
 
 ---
 
-## Services
+## Dependencies
 
-**`cove/notifications/services.py`**
-
-| Function | Signature | Description |
-|----------|-----------|-------------|
-| `notify_member` | `(org_id, member_id, notification_type, title, body=None, link=None, created_by=None, send_email=True)` | Create a notification for one member. Optionally sends email to `personal_email` via lot email forwarding. Returns the `Notification` instance. Calls `db.session.flush()` (not commit). |
-| `notify_all_members` | `(org_id, notification_type, title, body=None, link=None, created_by=None, send_email=True)` | Send notification to all active members in the org. Respects `delivery_preference` (electronic/both) for email. Calls `db.session.commit()`. |
-| `get_notifications` | `(member_id, unread_only=False, limit=50)` | Fetch notifications for a member, newest first. Optional filter for unread only. |
-| `unread_count` | `(member_id)` | Count of unread notifications for a member. Returns `int`. |
-| `mark_read` | `(notification_id, member_id)` | Mark a single notification as read. Validates ownership. Returns `bool`. Commits. |
-| `mark_all_read` | `(member_id)` | Mark all unread notifications as read. Returns count updated. Commits. |
-
-### Email Delivery
-
-`_send_notification_email(member, notification)` (private):
-- Sends to `member.lot_email` (which forwards to `personal_email` via Cloudflare Email Routing)
-- Subject: `[Cove] {title}`
-- Body: notification body + link (absolute URL with `abalonecove.org` domain)
-- Sender: `MAIL_DEFAULT_SENDER` config or `cove@abalonecove.org`
-- Failures are logged as warnings, not raised -- email delivery is best-effort
+| Dependency | Role | Required |
+|------------|------|----------|
+| PostgreSQL (`cove` database) | Notification records | Yes |
+| Flask-Mail (`cove.extensions.mail`) | Email delivery | No (fails silently) |
+| Cloudflare Email Routing (prod) / MailHog (dev) | SMTP transport | No |
+| `cove.models.member.Member` | Recipient lookup, delivery preference check | Yes |
 
 ---
 
-## Context Processor
+## Data Flow & PII Map
 
-Defined in `cove/__init__.py` (app factory):
+### What enters
+- Notification creation: org_id, member_id, type, title, body, link, created_by
+- Broadcast: same, repeated per active member with delivery preference check
 
-```python
-@app.context_processor
-def inject_notification_count():
-    # Returns {"notification_count": N} for authenticated users
-    # Returns {"notification_count": 0} for anonymous/errors
-```
+### What's stored
 
-This makes `notification_count` available in every Jinja2 template for rendering the unread badge in the navigation bar.
+| Table | Field | Classification | Encryption |
+|-------|-------|---------------|------------|
+| `notifications` | `member_id` (FK) | internal | Plaintext (UUID ref) |
+| `notifications` | `title` | internal | Plaintext |
+| `notifications` | `body` | internal | Plaintext (may contain governance details) |
+| `notifications` | `link` | internal | Plaintext (relative URL) |
+| `notifications` | `created_by` (FK) | internal | Plaintext (UUID ref) |
+
+### What exits
+- In-app notification display (authenticated member only)
+- **Email delivery**: subject line `[Cove] {title}`, body text + absolute URL link
+  - Sent to `member.lot_email` (forwards to `personal_email` via Cloudflare)
+  - Sender: `cove@abalonecove.org`
+  - **PII in transit**: lot_email address visible in SMTP headers
+
+### PII Classification
+
+| Data | Classification | Notes |
+|------|---------------|-------|
+| `lot_email` in email headers | sensitive | Lot email is semi-public within org but reveals member association |
+| `personal_email` (forwarding target) | sensitive | Never in notification records; only in Cloudflare routing config |
+| Notification body content | internal | May reference governance actions, no direct PII |
 
 ---
 
-## Routes (in Member Blueprint)
+## API Contract
 
 Notification routes live in `cove/member/routes.py`, not in the notifications module itself.
 
 | Method | Path | Auth | Description |
 |--------|------|------|-------------|
-| GET | `/member/notifications` | Required | List all notifications (limit 50) |
-| POST | `/member/notifications/<notification_id>/read` | Required | Mark one notification as read, redirect back |
-| POST | `/member/notifications/read-all` | Required | Mark all notifications as read, redirect to notifications |
+| GET | `/member/notifications` | `login_required` | List all notifications (limit 50) |
+| POST | `/member/notifications/<id>/read` | `login_required` | Mark one notification as read |
+| POST | `/member/notifications/read-all` | `login_required` | Mark all as read |
 
-The member dashboard (`GET /member/dashboard`) also queries the latest 5 notifications via `get_notifications(current_user.id, unread_only=False, limit=5)`.
+The member dashboard (`GET /member/dashboard`) displays the latest 5 notifications.
 
----
+### Context Processor
 
-## Integration Points
-
-Modules that create notifications:
-
-| Module | Function Used | Notification Type | Trigger |
-|--------|--------------|-------------------|---------|
-| Board (`cove/board/routes.py`) | `notify_all_members` | `bulletin` | Board member sends a bulletin to all active members |
-
-Additional notification types are defined in the model (`meeting_invite`, `vote_notice`, `arc_update`, `election_notice`) but are not yet wired to creation triggers in the current codebase.
+`inject_notification_count()` in `cove/__init__.py` -- makes `notification_count` available in every Jinja2 template. Returns 0 on any error.
 
 ---
 
-## Design Notes
+## Services (`cove/notifications/services.py`)
 
-- **Flush vs. Commit**: `notify_member` calls `flush()` so it can be composed inside larger transactions. `notify_all_members` calls `commit()` since it is typically a terminal operation.
-- **Delivery preference**: Broadcast notifications respect `member.delivery_preference` -- email is only sent if the member has opted for `electronic` or `both`.
-- **No deletion**: Notifications are never deleted. `read_at` is the only state transition.
-- **Ownership validation**: `mark_read` verifies `notification.member_id == member_id` before updating, preventing cross-member access.
+| Function | Description |
+|----------|-------------|
+| `notify_member(...)` | Create notification for one member; optionally send email to `personal_email` via lot email; calls `flush()` (composable in transactions) |
+| `notify_all_members(...)` | Broadcast to all active members; respects `delivery_preference`; calls `commit()` |
+| `get_notifications(member_id, unread_only, limit)` | Fetch notifications newest first |
+| `unread_count(member_id)` | Count unread notifications |
+| `mark_read(notification_id, member_id)` | Mark single notification read; validates ownership |
+| `mark_all_read(member_id)` | Mark all unread as read |
+| `get_public_bulletins(org_id, limit)` | Deduplicated public bulletins for landing page |
+| `get_pinned_bulletins(org_id)` | Pinned public notifications |
+
+### Email Delivery
+
+`_send_notification_email(member, notification)`:
+- Sends to `member.lot_email` (which forwards via Cloudflare Email Routing)
+- Best-effort: failures logged as warnings, not raised
+- Uses Flask-Mail `Message` with `MAIL_DEFAULT_SENDER` config
+
+### Integration Points
+
+| Module | Function | Type | Trigger |
+|--------|----------|------|---------|
+| Board | `notify_all_members` | `bulletin` | Board sends bulletin |
+| Meetings | `notify_member` | `arc_decision` | ARC review decision recorded |
+
+Additional types defined but not yet wired: `meeting_invite`, `vote_notice`, `arc_update`, `election_notice`.
+
+---
+
+## Operations
+
+### Startup
+No module-specific startup.
+
+### Failure Modes
+
+| Failure | Impact | Recovery |
+|---------|--------|----------|
+| DB down | Notification creation fails, badge returns 0 | Automatic reconnect |
+| SMTP down | Email delivery fails silently; in-app notifications still created | Emails lost permanently (no retry queue) |
+| Context processor exception | Badge returns 0; app continues normally | Self-healing |
+
+### Monitoring
+- Alert on: SMTP delivery failure rate, notification table growth rate
+- Normal: <100 notifications/month for 81-member HOA
+
+---
+
+## Deployment
+
+Standard Cove deployment. Email routing:
+- **Dev**: MailHog at `cove_localhost_mailhog` (SMTP 1026, Web 8026)
+- **Prod**: Cloudflare Email Routing (lot_email -> personal_email forwarding)
+- **SMTP config**: `MAIL_SERVER`, `MAIL_PORT`, `MAIL_USE_TLS`, `MAIL_DEFAULT_SENDER`
+
+---
+
+## Code Review Findings
+
+| # | Severity | Finding | Recommended Fix |
+|---|----------|---------|----------------|
+| 1 | **P1** | No email retry mechanism -- failed emails are permanently lost | Add retry queue (Valkey-backed) or at minimum a `delivery_failed` flag |
+| 2 | **P1** | SMTP transport in production must use TLS -- not enforced in config | Set `MAIL_USE_TLS=True` in ProdConfig; verify Cloudflare SMTP supports it |
+| 3 | **P1** | Notification body content could contain sensitive governance details sent via email | Add content classification; strip sensitive details from email body |
+| 4 | **P1** | Broadcast creates N notification rows for N members -- no deduplication model | Acceptable for 81 members; add broadcast_id FK if scaling beyond ~500 |
+| 5 | **P2** | Notifications are never deleted -- table grows indefinitely | Implement retention policy: archive read notifications >90 days |
+| 6 | **P2** | `get_public_bulletins` deduplication is in-memory with O(N) scan | Acceptable for current scale; add DB-level deduplication if bulletin volume grows |
+| 7 | **P2** | Only `bulletin` and `arc_decision` types are wired -- 4 other types remain unwired | Wire `meeting_invite`, `vote_notice`, `arc_update`, `election_notice` |
+
+---
+
+## Production Readiness Checklist
+
+- [x] No directly stored PII (references member_id FK only)
+- [ ] SMTP TLS enforced in production
+- [ ] Secrets in AWS Secrets Manager
+- [x] Health check endpoint responds (via app-level `/health`)
+- [x] Ownership validation on mark_read (prevents cross-member access)
+- [ ] Email delivery retry mechanism
+- [ ] Data retention policy for old notifications
+- [x] Rate limiting (via app-level limiter)
+- [x] Error responses don't leak internals
+- [ ] All notification types wired to triggers

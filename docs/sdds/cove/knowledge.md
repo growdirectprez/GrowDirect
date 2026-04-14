@@ -1,165 +1,210 @@
-# SDD: Knowledge Module
+# Knowledge Module
 
 **Status:** Active
-**Last updated:** 2026-03-29
+**Type:** MCP Server
+**Last updated:** 2026-04-13
+**Server:** `cove.mcp.server` (stdio transport)
 **Model:** `cove/models/knowledge.py`
-**Service:** `cove/services/embedding.py`
-**Seed script:** `seed_knowledge.py`
+**Wiki:** [[Brain/wiki/cove-governance|Cove Governance]]
 
 ---
 
-## Overview
+## Purpose
 
-Granular legal document knowledge base with pgvector embeddings for semantic search. Stores verbatim text chunks from the Cove archive (CC&Rs, bylaws, litigation filings, title reports, city records, historical corporate documents) with full provenance metadata. Designed for precise retrieval of exact legal language, not summarization.
-
----
-
-## Model
-
-**KnowledgeChunk** (`knowledge_chunks` table) -- `cove/models/knowledge.py`
-
-| Column | Type | Description |
-|--------|------|-------------|
-| `id` | `String(36)`, PK | UUID, auto-generated |
-| `content` | `Text` | Verbatim chunk text (target ~1500 chars) |
-| `heading` | `String(500)`, nullable | Section heading hierarchy (e.g., `"Section 5 > Voting Rights"`) |
-| `source_file` | `String(500)` | Relative path to the source `.md` file |
-| `category` | `String(100)` | Document category (see category list below) |
-| `subcategory` | `String(100)`, nullable | Subcategory (primarily for `city_record`: ceqa, builder_remedy, etc.) |
-| `doc_date` | `String(20)`, nullable | Date extracted from filename (e.g., `"2012"`, `"2024-08"`, `"1949"`) |
-| `chunk_index` | `Integer` | Zero-based position of this chunk within the source document |
-| `chunk_total` | `Integer` | Total number of chunks from the source document |
-| `extra` | `JSONB`, nullable | Flexible provenance metadata (see below) |
-| `embedding` | `Vector(1024)`, nullable | pgvector embedding (qwen3-embedding:8b, cosine distance) |
-| `created_at` | `DateTime` | Creation timestamp |
-| `updated_at` | `DateTime` | Last update timestamp (auto-updated) |
-
-### Extra JSONB Fields
-
-The `extra` column stores provenance data extracted during chunking:
-
-| Key | Type | Description |
-|-----|------|-------------|
-| `verbatim` | `bool` | `true` if source filename contains "Verbatim" |
-| `apn_refs` | `list[str]` | APN references found in chunk text (pattern: `NNNN-NNN-NNN`) |
-| `instrument_refs` | `list[str]` | Recording instrument/document numbers |
-| `legal_citations` | `list[str]` | Civil Code, Corp. Code, Gov. Code section references |
+Standalone MCP server exposing Cove's pgvector knowledge base for semantic search over WPBCA legal documents. Stores verbatim text chunks from the archive (CC&Rs, bylaws, litigation filings, title reports, city records, historical corporate documents) with full provenance metadata. Designed for precise retrieval of exact legal language, not summarization.
 
 ---
 
-## Categories
+## Dependencies
 
-| Category | Source Path | Description |
-|----------|------------|-------------|
-| `founding` | `docs/archive/founding/` | CC&Rs, declarations, easements (1949-1952) |
-| `governance` | `docs/archive/governance/` | Bylaws, restated declarations |
-| `litigation` | `docs/archive/litigation/` | Complaints, demurrers, petitions, summons |
-| `property` | `docs/archive/property/` | Title reports, easements, assessor maps, EIR geology |
-| `analysis` | `docs/archive/analysis/` | Legal briefs, risk assessments, research |
-| `city_record` | `docs/archive/originals/city-records/` | City records with subcategories (ceqa, builder_remedy, general_plan, hcd, coastal_commission, council_staff_report, public_correspondence) |
-| `shore_club` | `docs/archive/shore-club/` | Historical Abalone Shore Club corporate records (1929-1972) |
-| `transcription` | `docs/archive/originals/transcriptions/` | Verbatim legal document transcriptions |
-| `security` | `docs/security/` | Security policies and procedures |
-| `narrative` | `docs/archive/*.md` (top-level) | Timeline, chain-of-title, narrative, INDEX, stubs |
-| `template` | `docs/archive/originals/templates/` | CPRA requests, recorder requests, search templates |
+| Dependency | Role | Required |
+|------------|------|----------|
+| PostgreSQL (`cove` database) | `knowledge_chunks` table with pgvector | Yes |
+| Ollama (`growdirect_ollama:11434`) | Embedding generation (qwen3-embedding:8b, 1024d) | Yes (for search and ingest) |
+| MCP SDK (`mcp` Python package) | Server framework, stdio transport | Yes |
+| `Cove/docs/archive/` (filesystem) | Source documents for seed script | For seeding only |
 
 ---
 
-## Embedding Service
+## Data Flow & PII Map
 
-**`cove/services/embedding.py`**
+### What enters
+- Seed script: reads `.md` files from `docs/archive/`, chunks text, generates embeddings, inserts to DB
+- MCP ingest tools: accept document content + metadata, chunk and embed
+- MCP search tools: accept query strings, generate query embedding
 
-| Function | Signature | Description |
-|----------|-----------|-------------|
-| `generate_embedding` | `(text: str) -> list[float] \| None` | Generate a 1024-dim vector via Ollama HTTP API. Returns `None` if Ollama is unreachable. |
+### What's stored
 
-Configuration:
-- **Service:** Ollama at `OLLAMA_URL` (default: `http://localhost:11434`, Docker: `http://growdirect_ollama:11434`)
-- **Model:** `qwen3-embedding:8b` -- 1024 dimensions (Matryoshka truncated from native 4096d)
-- **API endpoint:** `POST /api/embed`
-- **Text truncation:** Input capped at 6000 chars to stay within model context window
-- **Timeout:** 15 seconds
-- **Failure mode:** Returns `None` gracefully, logs at DEBUG level. Callers must handle `None`.
+| Table | Field | Classification | Encryption |
+|-------|-------|---------------|------------|
+| `knowledge_chunks` | `content` | internal | Plaintext (legal document text) |
+| `knowledge_chunks` | `heading` | internal | Plaintext |
+| `knowledge_chunks` | `source_file` | internal | Plaintext (file path) |
+| `knowledge_chunks` | `extra` (JSONB) | internal | Plaintext (APN refs, citations) |
+| `knowledge_chunks` | `embedding` | internal | Vector(1024) |
 
-### Similarity Search Pattern
+### What exits
+- Search results: chunk content, heading, source_file, category, provenance metadata
+- Statistics: chunk counts, category breakdowns
+- Resources: bylaws config JSON, category list, community context
 
-Cosine distance via pgvector `<=>` operator:
-
-```sql
-SELECT id, content, heading, source_file
-FROM knowledge_chunks
-ORDER BY embedding <=> :query_vector
-LIMIT 10;
-```
+**PII note:** Knowledge chunks contain legal document text. Some chunks may reference property owners by name in historical documents (litigation, title reports). These are public record references, not collected PII, but should be treated as internal.
 
 ---
 
-## Seed Script
+## MCP Tool Registry
 
-**`seed_knowledge.py`** -- standalone CLI script (runs inside Docker container or from host via `docker exec`).
+| Tool | Auth Required | PII Access | Rate Limit | Description |
+|------|:---:|:---:|:---:|-------------|
+| `knowledge_search` | No (stdio trusted) | None | None | Semantic search with category/date filters |
+| `knowledge_get_chunk` | No | None | None | Retrieve chunk by ID with optional neighbors |
+| `knowledge_list_sources` | No | None | None | List source documents grouped by category |
+| `knowledge_stats` | No | None | None | Knowledge base statistics |
+| `knowledge_find_by_apn` | No | None | None | Find chunks referencing an APN |
+| `knowledge_find_by_citation` | No | None | None | Find chunks referencing a legal citation |
+| `knowledge_ingest_document` | Write key (SSE) | None | None | Ingest and chunk a new document |
+| `knowledge_add_chunk` | Write key (SSE) | None | None | Add a single chunk directly |
+| `knowledge_delete_source` | Write key (SSE) | None | None | Delete all chunks from a source |
+| `knowledge_reindex` | Write key (SSE) | None | None | Re-generate embeddings |
 
-### Usage
+### MCP Resources
+
+| URI | Description |
+|-----|-------------|
+| `cove://bylaws/config` | Current bylaws config JSON |
+| `cove://categories` | Knowledge categories with descriptions |
+| `cove://legislative/updates` | Recent California HOA legislation |
+| `cove://community/context` | WPBCA summary: parcels, members, board |
+
+---
+
+## Cross-App Data Access
+
+The Knowledge MCP server accesses only the `knowledge_chunks` table and bylaws config in the `cove` database. It has **read/write access to knowledge_chunks** and **read-only access to bylaws config**. It does not access member data, governance data, or any other application tables.
+
+No cross-app data access exists. The server is scoped to Cove's knowledge base only.
+
+---
+
+## Tool Dispatch Security
+
+- **Stdio transport**: Trusted -- runs as a subprocess of the calling agent. No network authentication.
+- **SSE transport** (future): `MCP_API_KEY` for read tools, `MCP_WRITE_KEY` for write tools (ingest, delete, reindex). Keys from environment variables.
+- **Privilege escalation**: Write tools can modify/delete knowledge chunks but cannot access other tables. SQL injection prevented by parameterized queries.
+- **Compromise scenario**: If the MCP server is compromised, an attacker could modify legal document chunks (data integrity risk) but cannot access member PII or governance data.
+
+---
+
+## API Contract
+
+Server: `cove-knowledge` via stdio.
 
 ```bash
-# Inside container
-python3 seed_knowledge.py [--dry-run] [--no-embed] [--verbose]
+# Run directly
+python -m cove.mcp.server
 
-# From host
-docker exec cove_flask python3 seed_knowledge.py --dry-run
+# Via Docker
+docker exec -i cove_knowledge_mcp python -m cove.mcp.server
 ```
-
-### File Discovery
-
-- Scans `docs/archive/` and `docs/security/` recursively for `.md` files (excludes `README.md`)
-- Files sorted by path for deterministic ordering
-
-### Chunking Strategy
-
-1. **Split on `##` headings** -- major document sections
-2. **Split on `###` sub-headings** -- within sections
-3. **Split on `####` sub-sub-headings** -- within sub-sections
-4. **Split on paragraph boundaries** (double newline) -- within sub-sub-sections
-5. **Last resort: split on sentence boundaries** -- never splits mid-sentence
-
-Constraints:
-- **Target chunk size:** ~1500 chars (`MAX_CHUNK_CHARS`)
-- **Minimum viable chunk:** 50 chars (`MIN_CHUNK_CHARS`) -- smaller fragments are discarded
-- **Never splits mid-paragraph** -- legal language must stay intact
-
-### Provenance Extraction
-
-During chunking, the script extracts structured metadata into the `extra` JSONB column:
-- **APN references:** Regex `\b\d{4}-\d{3}-\d{3}\b`
-- **Recording instrument numbers:** Regex for "Instrument No." / "Document No." patterns
-- **Legal citations:** Civil Code, Corp. Code, Gov. Code section references
-
-### Embedding Generation
-
-- Each chunk is embedded with a provenance prefix: `[category] heading:\ncontent`
-- Uses Ollama HTTP API (same model as the embedding service)
-- Text truncated to 6000 chars before embedding
-- Timeout: 30 seconds per chunk (longer than service default due to batch processing)
-
-### Database Operations
-
-- **Truncate-and-reload**: Full rebuild on each run (`TRUNCATE TABLE knowledge_chunks`)
-- Uses raw psycopg2 (not SQLAlchemy) for bulk insert performance
-- Commits after each file for progress safety
-- Connection string from `DATABASE_URL` env var
-
-### Archive Scale
-
-- **Source directories:** `docs/archive/`, `docs/security/`
-- **Archive files:** ~148 files
-- **Total chunks:** ~4567 chunks
-- Spans founding documents (1949) through current litigation (2024-2026)
 
 ---
 
-## Design Notes
+## Embedding Service (`cove/services/embedding.py`)
 
-- **Verbatim preservation**: Chunks maintain exact legal language. The `verbatim` flag in `extra` marks chunks from verbatim transcriptions that should never be paraphrased.
-- **Heading hierarchy**: Nested headings are joined with ` > ` separator (e.g., `"Section 5 > Voting Rights > Quorum"`) for context in search results.
-- **Category detection is path-based**: The `detect_category()` function maps file paths to categories using directory structure, not content analysis.
-- **Dual embedding functions**: `seed_knowledge.py` has its own `generate_embedding()` that mirrors `cove/services/embedding.py` but with a longer timeout (30s vs 15s) for batch processing. Both use the same Ollama model and truncation strategy.
-- **No incremental updates**: The seed script always truncates and rebuilds. There is no mechanism for adding individual documents without re-seeding the entire knowledge base.
+| Config | Value |
+|--------|-------|
+| Model | `qwen3-embedding:8b` (1024 dimensions) |
+| API | `POST /api/embed` to Ollama |
+| Truncation | 6000 chars max input |
+| Timeout | 15s (service), 30s (seed script) |
+| Failure | Returns `None` gracefully |
+
+Similarity: cosine distance via `<=>` operator.
+
+---
+
+## Seed Script (`seed_knowledge.py`)
+
+- **Strategy**: Truncate-and-reload on each run
+- **Chunking**: Split on `##`/`###`/`####` headings, then paragraphs, then sentences. Target ~1500 chars, minimum 50 chars.
+- **Provenance**: Extracts APN references, instrument numbers, legal citations into `extra` JSONB
+- **Scale**: ~148 source files, ~4567 chunks, spanning 1929-2026
+- **Performance**: Uses raw psycopg2 for bulk insert; commits per file
+
+---
+
+## Operations
+
+### Startup
+
+```bash
+# Start as MCP server (stdio)
+python -m cove.mcp.server
+
+# Seed knowledge base
+docker exec cove_flask python3 seed_knowledge.py [--dry-run] [--no-embed] [--verbose]
+```
+
+### Health Checks
+No built-in health check (stdio transport). Health inferred from successful tool calls.
+
+### Failure Modes
+
+| Failure | Impact | Recovery |
+|---------|--------|----------|
+| PostgreSQL down | All tools return error JSON | Server stays alive, reconnects on next call |
+| Ollama down | Search returns no results (null embeddings); ingest stores chunks without embeddings | Reindex after Ollama recovery |
+| Seed script interrupted | Partially seeded knowledge base (committed per file) | Re-run seed script (truncates and rebuilds) |
+
+### Configuration
+
+| Variable | Required | Default |
+|----------|----------|---------|
+| `DATABASE_URL` | Yes | (none) |
+| `OLLAMA_URL` | No | `http://localhost:11434` |
+| `MCP_API_KEY` | No (stdio) | (empty) |
+| `MCP_WRITE_KEY` | No (stdio) | (empty) |
+
+---
+
+## Deployment
+
+### Docker Service Definition
+
+Knowledge MCP server can run as:
+1. **Subprocess**: Started by the calling agent directly (current dev pattern)
+2. **Dedicated container**: `cove_knowledge_mcp` with stdio piped from agent container
+
+### AWS Target
+
+- **Compute**: Sidecar container in ECS task (shares network with Flask)
+- **Database**: Same RDS instance as Cove app
+- **Secrets**: `DATABASE_URL`, `OLLAMA_URL` via Secrets Manager
+
+---
+
+## Code Review Findings
+
+| # | Severity | Finding | Recommended Fix |
+|---|----------|---------|----------------|
+| 1 | **P0** | Write tools (ingest, delete, reindex) have no authentication on stdio transport -- any MCP client can modify the knowledge base | Implement tool-level auth check even for stdio; require `MCP_WRITE_KEY` |
+| 2 | **P1** | Seed script truncates entire table on each run -- no incremental update mechanism | Add incremental mode: hash source files, only re-seed changed files |
+| 3 | **P1** | Dual embedding functions (service + seed script) with different timeouts could produce inconsistent embeddings if model changes | Consolidate to single embedding function with configurable timeout |
+| 4 | **P1** | No input validation on `knowledge_ingest_document` content length -- unbounded text could cause OOM | Add content length limit (e.g., 1MB per document) |
+| 5 | **P2** | Handler dispatch uses lambda wrappers with `asyncio.to_thread` for sync functions -- consider native async handlers | Refactor to native async for better performance |
+| 6 | **P2** | No observability -- tool call metrics, latency, error rates not tracked | Add structured logging per tool call |
+| 7 | **P2** | Resource URIs use custom `cove://` scheme -- standard MCP practice but not discoverable by generic clients | Document resource URIs in server metadata |
+
+---
+
+## Production Readiness Checklist
+
+- [x] No member PII in knowledge chunks (legal document text only)
+- [ ] Write tool authentication enforced
+- [ ] Secrets in AWS Secrets Manager
+- [ ] Health check mechanism for MCP server
+- [ ] Input validation on ingest tools (content length limits)
+- [ ] Incremental seed capability (avoid full truncate)
+- [x] Error responses don't leak internals (JSON error format)
+- [ ] Tool call observability (metrics, logging)
+- [ ] Embedding function consolidated (single source of truth)

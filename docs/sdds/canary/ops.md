@@ -1,36 +1,77 @@
 # Ops
 
-## Overview
+**Service Type:** App Service (Canary)
+**Wiki:** [[Brain/wiki/canary-architecture|Canary Architecture]]
 
-The Ops domain owns internal tooling for health check orchestration, synthetic data generation, pipeline monitoring, and configuration management. None of this is merchant-facing. All testing tools are sandbox-gated (`SQUARE_ENVIRONMENT == "sandbox"`). The domain has no persistent ORM models of its own — session state lives in Valkey with TTLs, and all DB writes go to tables owned by other domains (canary_sales transactions, canary_app alerts/owl_sessions).
+## Purpose
 
-**Health Check Pipeline** is the primary feature: an 8-stage state machine that runs a full merchant assessment. Stages progress forward-only: `created` -> `oauth` -> `ingest` -> `load` -> `analyze` -> `present` -> `act` -> `completed`. Any stage failure transitions to `aborted`. State is persisted to Valkey (`hc:session:{uuid}`, 1-hour TTL) and polled by the ops UI. The orchestrator runs in a daemon thread — `start_session()` returns immediately, the UI polls `get_session_state()`.
+The Ops domain owns internal tooling for health check orchestration, synthetic data generation, pipeline monitoring, configuration management, and feature flags. It is the self-monitoring nervous system of Canary -- the service that validates every other service works end-to-end. None of its UI is merchant-facing. All testing tools are sandbox-gated (`SQUARE_ENVIRONMENT == "sandbox"`).
 
-**Architecture split:** `runner.py` handles threading, Valkey persistence, and the public API. `session.py` contains the state machine (SessionStage enum, HealthCheckSession dataclass, HealthCheckOrchestrator). This separation keeps infrastructure concerns out of business logic.
+## Dependencies
 
-**Three data generators** at different scales, each with prefixed IDs for deterministic cleanup:
+| Dependency | Type | Required | What Fails Without It |
+|------------|------|----------|----------------------|
+| PostgreSQL (canary) | Database | Yes | Config service, feature flags, all data generators, pipeline monitor |
+| Valkey (DB 0) | Cache | No (degrades) | Health check polling visibility lost; pipeline still runs |
+| Valkey (DB 3) | Cache | No | Dedup cache size unavailable in pipeline monitor |
+| Valkey (DB 4) | Stream | No | Stream state unavailable in pipeline monitor |
+| Chirp Rule Engine | Service | Yes (for analyze) | Health check ANALYZE stage fails |
+| Owl Report Generator | Service | No (degrades) | Health report falls back to deterministic template |
+| Ollama (qwen3:14b) | External | No (degrades) | Report generation uses fallback path |
+| Square SDK | External | No (sandbox only) | Live fire and scenario fire unavailable |
+| Data Factory | Service | Yes (for demo HC) | Demo health check INGEST stage fails |
+| InitialDataSync | Service | Yes (for live HC) | Live health check INGEST stage fails |
 
-- `MerchantSimulator` (`sim-` prefix) — Full-quarter (14 weeks) pipeline pump. Builds Square-format webhook payloads, runs them through real production parsers (`parse_payment`, `parse_order_line_items`, `parse_order_tenders`). Models employee pools, shift patterns, day-of-week volume curves, and 6 progressive anomaly patterns. Background execution via Valkey state tracking (`sim:session:{uuid}`, 2-hour TTL).
-- `DataFactory` (`hc-` prefix) — Single-day transaction generator. Direct ORM inserts (no parser pipeline). Three profiles: cafe (40-60 txns), retail (15-30), restaurant (20-40). Four embedded suspicious patterns (rapid refund, after-hours, high-value refund, round-dollar). Used by Health Check demo mode.
-- `ChirpLab` (`lab-` prefix) — Single-transaction firing range. Two modes: local fire (ORM insert + Chirp evaluation) and live fire (real Square Payments API in sandbox, polls for webhook roundtrip). Includes scoreboard for all 26 Chirp rules.
+## Data Flow & PII Map
 
-**Heartbeat scoring** is a pure function: severity-weighted deductions from a 100-point baseline (critical=25, high=15, medium=8, low=3, info=0). Band classification: healthy (90-100), normal (70-89), warning (40-69), alert (0-39). HeartbeatResult is a frozen dataclass — immutable, no DB, no side effects.
+### What Enters
 
-**Report generation** uses three professional assessment lenses (Loss Prevention, Operations, Analytics). LLM path via Ollama qwen3:14b (120s timeout, JSON mode, think=false). Deterministic fallback when LLM is offline. Post-validation patches hallucinated scores (+/-15 tolerance regex) and finding trends against delta engine output. Legacy field migration (jim->lp, tom->ops, phd->analytics).
+| Source | Data | Format |
+|--------|------|--------|
+| Ops UI (admin) | Health check start request | JSON `{merchant_id, mode, profile}` |
+| Ops UI (admin) | Live fire payment params | JSON `{amount_cents, tip_amount_cents, nonce, note}` |
+| Ops UI (admin) | Scenario fire request | JSON `{scenario}` |
+| Ops UI (admin) | Config update | JSON `{config_key, config_value}` |
+| Ops UI (admin) | Feature flag toggle | JSON `{flag_key, is_enabled}` |
+| Pipeline tables (read) | Table row counts from 3 schemas | SQL COUNT(*) queries |
+| Valkey streams | Stream lengths, consumer groups | Valkey XLEN/XINFO commands |
 
-**DevOps Pipeline Monitor** provides real-time TSP pipeline visibility across 4 stages (ingestion, sealed, parsed, batched). Reads table counts from all three databases via SQL-injection-safe allowlist (`_ALLOWED_TABLES` frozenset). Monitors Valkey streams (lengths, consumer groups, pending messages). Event tracing follows a single event across stages using event_id as correlation key.
+### What's Stored
 
-**Config Service** provides centralized configuration with a 3-level resolution chain: AppConfig DB value > ENV var > CONFIG_REGISTRY default. 35 registered env vars across 6 categories (database, auth, general, square, cms, monitoring). Secrets are masked in the health dashboard and blocked from update via the editor.
+| Location | Data | Classification | Encryption | TTL |
+|----------|------|---------------|------------|-----|
+| Valkey `hc:session:{uuid}` | Session state JSON (merchant_id, stage, heartbeat, report, error) | internal | None | 3600s |
+| Valkey `sim:session:{uuid}` | Simulator result JSON (merchant_id, config, heartbeat) | internal | None | 7200s |
+| `app.app_config` | Runtime config key/value pairs | internal | None (secrets masked in UI) | Persistent |
+| `app.feature_flags` | Global flag definitions | internal | None | Persistent |
+| `app.merchant_feature_flags` | Per-merchant flag overrides | internal | None | Persistent |
 
-**Feature Flags** support per-merchant overrides with 3-tier resolution: merchant override > global DB flag > ENV var fallback. Three ENV-backed flags: billing_enabled (false), audit_logging_enabled (true), api_keys_enabled (false). Graceful degradation — DB failure falls through to ENV-only flags.
+### What Exits
 
-**Health blueprint** provides `/health` (liveness, always 200, no deps) and `/readiness` (stub, planned dependency checks for DB/Valkey/Keycloak).
+| Destination | Data | Classification |
+|------------|------|---------------|
+| Ops UI (admin browser) | Session state, heartbeat scores, report JSON | internal |
+| Ops UI (admin browser) | Config health status (env var names, non-secret values) | internal |
+| Ops UI (admin browser) | Feature flag states per merchant | internal |
+| Ops UI (admin browser) | Pipeline table counts, Valkey stream state | internal |
+| Ops UI (admin browser) | IP addresses from ingestion_log | sensitive |
+| canary_sales tables | Synthetic transactions (via DataFactory, Simulator, ChirpLab) | internal |
+| canary_app tables | Alerts (via ChirpRuleEngine), Owl sessions/findings | internal |
+| Square Sandbox API | Payment creation requests (live fire, scenario fire) | internal |
 
-**MCP server:** `canary-ops` with 8 tools at `/ops-mcp/*`. Blueprints: `ops_console` (/ops), `devops_monitor` (/devops), `ops_mcp` (/ops-mcp).
+### PII Classification
 
-**Domain boundaries:** Inbound from UI/BFF (ops console page routes). Outbound to Chirp (chirp_lab fires rule evaluations), Owl (generate_health_report for narrative), and Webhook Pipeline (simulator generates synthetic transactions through parsers).
+| Field | Location | Classification | Notes |
+|-------|----------|---------------|-------|
+| `merchant_id` | All session state, config, flags | internal | Internal UUID, not PII itself |
+| `access_token` | HealthCheckSession (in-memory) | restricted | Square OAuth token; never serialized to Valkey |
+| `ip_address` | Pipeline monitor ingestion_log query | sensitive | Returned in API response, displayed in UI |
+| `user_agent` | Pipeline monitor event trace query | sensitive | Returned in API response |
+| Config secrets (passwords, keys) | ENV vars, app_config | restricted | Masked to `********` in UI; `is_secret=True` blocks updates |
+| `SQUARE_APPLICATION_SECRET` | CONFIG_REGISTRY | restricted | ENV var; masked in health dashboard |
+| `SQUARE_WEBHOOK_SIGNATURE_KEY` | CONFIG_REGISTRY | restricted | ENV var; masked in health dashboard |
 
-## API Contracts
+## API Contract
 
 ### Ops Console (`ops_console.py` -> `/ops/*`)
 
@@ -40,45 +81,44 @@ All routes require sandbox environment AND admin role. Session-based auth (not J
 |-------|--------|------|---------|
 | `/` | GET | Session+admin | Test lab page (single-page ops console) |
 | `/test-lab` | GET | Session+admin | Legacy redirect to `/ops/` (301) |
-| `/api/scenario/fire` | POST | Session+admin | Fire a named scenario via Square SDK. Input: `{scenario}`. Returns steps + poll_ids. |
-| `/api/scenario/poll/<payment_id>` | GET | Session+admin | Poll webhook->pipeline status for a scenario payment. Checks ingestion_log, transactions, alerts. |
-| `/api/scenario/verify-owl` | POST | Session+admin | Run Owl verification queries for completed scenario. Input: `{scenario, merchant_id?}`. Returns `{all_passed, results[]}`. |
-| `/api/chirp-lab/live-fire/status` | GET | Session+admin | Check Square sandbox credentials configured. |
-| `/api/chirp-lab/live-fire` | POST | Session+admin | Create real Square sandbox payment. Input: `{amount_cents, tip_amount_cents, nonce, note}`. Returns Square payment ID. |
-| `/api/chirp-lab/live-fire/poll/<payment_id>` | GET | Session+admin | Poll pipeline for live-fired payment results. Returns `{webhook_received, transaction_stored, alerts, pipeline_complete}`. |
+| `/atlas` | GET | Session+admin | Atlas diagram browser |
+| `/atlas/figure` | GET | Session+admin | Single Atlas figure detail |
+| `/qa` | GET | Session+admin | QA Agent interactive page |
+| `/qa/chat` | POST | Session+admin | QA Agent chat endpoint (rate limited: 10/min) |
+| `/api/scenario/fire` | POST | Session+admin | Fire a named scenario via Square SDK |
+| `/api/scenario/batch` | POST | Session+admin | Fire multiple scenarios sequentially |
+| `/api/scenario/poll/<payment_id>` | GET | Session+admin | Poll webhook->pipeline status for a scenario payment |
+| `/api/scenario/verify-owl` | POST | Session+admin | Run Owl verification queries for completed scenario |
+| `/api/scenario/thresholds` | GET | Session+admin | Return current thresholds for scenario-referenced rules |
+| `/api/scenario/threshold` | POST | Session+admin | Update a single rule's threshold |
+| `/api/sandbox/team-members` | GET | Session+admin | Return Square sandbox team members |
+| `/api/sandbox/locations` | GET | Session+admin | Return Square sandbox locations |
+| `/api/sandbox/seed` | POST | Session+admin | Run the sandbox seeder |
+| `/api/chirp-lab/live-fire/status` | GET | Session+admin | Check Square sandbox credentials configured |
+| `/api/chirp-lab/live-fire` | POST | Session+admin | Create real Square sandbox payment |
+| `/api/chirp-lab/live-fire/poll/<payment_id>` | GET | Session+admin | Poll pipeline for live-fired payment results |
 
 ### DevOps Monitor (`devops_monitor.py` -> `/devops/*`)
 
-Sandbox-gated via `before_request` hook. Returns 403 in production.
+Sandbox-gated via `before_request` hook. Also accepts `X-API-Key` header matching `CANARY_MCP_API_KEY` as auth fallback.
 
 | Route | Method | Auth | Purpose |
 |-------|--------|------|---------|
 | `/monitor` | GET | Sandbox guard | Legacy redirect to /ops/ (301) |
-| `/monitor/api/pipeline-state` | GET | Sandbox guard | Full pipeline snapshot: table counts (3 DBs), Valkey stream state, last 10 events per stage |
-| `/monitor/api/recent-events` | GET | Sandbox guard | Recent events by stage. Params: `stage` (ingestion/sealed/parsed/batched), `limit` (1-50, default 20) |
-| `/monitor/api/event/<event_id>` | GET | Sandbox guard | Cross-stage event trace (ingestion_log, evidence_records, event_inscriptions) |
+| `/monitor/api/pipeline-state` | GET | Sandbox guard + session/API key | Full pipeline snapshot: table counts (3 schemas), Valkey stream state, last 10 events per stage |
+| `/monitor/api/recent-events` | GET | Sandbox guard + session/API key | Recent events by stage. Params: `stage` (ingestion/sealed/parsed/batched), `limit` (1-50, default 20) |
+| `/monitor/api/event/<event_id>` | GET | Sandbox guard + session/API key | Cross-stage event trace (ingestion_log, evidence_records, event_inscriptions) |
 
 ### Health Blueprint (`health.py`)
 
 | Route | Method | Auth | Purpose |
 |-------|--------|------|---------|
 | `/health` | GET | None | Container liveness. Always 200. Version from `CANARY_VERSION` env (default 0.5.0). Rate-limit exempt. |
-| `/readiness` | GET | None | Dependency readiness (stub — returns hardcoded OK). |
+| `/readiness` | GET | None | Dependency readiness check: PostgreSQL (canary) + Valkey ping. Returns 503 if any dependency is down. |
 
 ### MCP Server (`canary-ops` at `/ops-mcp/*`)
 
-8 tools covering health check orchestration, simulation, Chirp Lab, scenario runner, factory reset, and feature flags:
-
-| Tool | Category | DB? | Input | Output |
-|------|----------|-----|-------|--------|
-| `start_health_check` | health_check | Yes | `merchant_id`, `mode?`, `profile?` | Session state dict with `session_id` |
-| `poll_health_check` | health_check | No | `session_id` | Current session state from Valkey |
-| `start_simulation` | simulation | Yes | `merchant_id?`, `profile?`, `weeks?`, `anomaly_density?` | Simulation session state with `session_id` |
-| `poll_simulation` | simulation | No | `session_id` | Current simulation state from Valkey |
-| `fire_chirp` | chirp_lab | Yes | `merchant_id`, transaction params | Alert summaries + rule fire counts |
-| `run_scenario` | scenario | Yes | `scenario` name | Steps + poll IDs for pipeline tracking |
-| `factory_reset` | ops | Yes | `merchant_id` | Cleanup counts by table |
-| `get_feature_flags` | config | Yes | `merchant_id?` | All flags with resolution source |
+**Status: Ghost entry.** The streamable_server.py registers `"ops": "/ops-mcp"` but notes it as a TODO with no corresponding blueprint. The 8 MCP tools documented in the original SDD are not currently wired. This is a code review finding (P2-OPS-08).
 
 ### Internal Service APIs (no HTTP endpoints)
 
@@ -86,7 +126,7 @@ Sandbox-gated via `before_request` hook. Returns 403 in production.
 
 | Function | Signature | Purpose |
 |----------|-----------|---------|
-| `start_session` | `(merchant_id, profile="cafe", mode="demo") -> dict` | Creates session, stores initial Valkey state, launches daemon thread |
+| `start_session` | `(merchant_id, profile="cafe", mode="demo", lookback_days=None) -> dict` | Creates session, stores initial Valkey state, launches daemon thread |
 | `get_session_state` | `(session_id) -> Optional[dict]` | Reads session JSON from Valkey for polling |
 | `list_sessions` | `() -> list` | Up to 50 most recent sessions from Valkey sorted set |
 
@@ -112,7 +152,15 @@ Sandbox-gated via `before_request` hook. Returns 403 in production.
 
 ## Data Model
 
-The Ops domain owns no persistent tables. All session state is in-memory (Valkey with TTLs). DB writes go to tables owned by other domains.
+The Ops domain owns three persistent tables and uses Valkey for ephemeral session state. DB writes to other domains' tables happen through the data generators.
+
+### Owned Tables
+
+| Table | Schema | Purpose |
+|-------|--------|---------|
+| `app.app_config` | app | Runtime configuration key/value store (35 registered env vars) |
+| `app.feature_flags` | app | Global feature flag catalog |
+| `app.merchant_feature_flags` | app | Per-merchant feature flag overrides |
 
 ### Valkey State (Health Check)
 
@@ -140,7 +188,8 @@ The Ops domain owns no persistent tables. All session state is in-memory (Valkey
 | `stage` | SessionStage | Current pipeline stage |
 | `started_at` | datetime | UTC timestamp |
 | `completed_at` | Optional[datetime] | Set on COMPLETED or ABORTED |
-| `access_token` | Optional[str] | Square OAuth token (live mode) |
+| `access_token` | Optional[str] | Square OAuth token (live mode only, never serialized to Valkey) |
+| `events_published` | int | Count of events published to TSP stream (live mode) |
 | `transaction_ids` | List[str] | Generated/synced transaction IDs |
 | `alert_dicts` | List[Dict] | Alert output from Chirp evaluation |
 | `heartbeat` | Optional[HeartbeatResult] | Scoring result |
@@ -182,8 +231,6 @@ The Ops domain owns no persistent tables. All session state is in-memory (Valkey
 | canary_app | `alerts`, `alert_history` | All (via ChirpRuleEngine) | N/A |
 | canary_app | `owl_sessions`, `owl_findings` | Health Check ACT stage | N/A |
 | canary_app | `owl_merchant_memory` | Health Check ACT stage | N/A |
-| canary_app | `app_config` | Config Service | N/A |
-| canary_app | `feature_flags`, `merchant_feature_flags` | Feature Flags | N/A |
 
 ### Tables Read (Pipeline Monitor)
 
@@ -197,7 +244,7 @@ All monitor reads use `_safe_count()` with an `_ALLOWED_TABLES` frozenset to pre
 
 ## Workflows
 
-### Health Check Pipeline (8-Stage State Machine)
+### Health Check Pipeline (7-Stage State Machine + Terminal States)
 
 ```
 start_session(merchant_id, profile, mode)
@@ -210,11 +257,14 @@ start_session(merchant_id, profile, mode)
       |
       |-- [CREATED] Initial state
       |-- [OAUTH] Live: verify Square token. Demo: skip.
-      |-- [INGEST] Live: InitialDataSync (30-day lookback).
+      |-- [INGEST] Live: InitialDataSync (publish to TSP stream).
       |           Demo: DataFactory.generate_merchant_day().
-      |-- [LOAD] Confirm data in canary_sales CDM format.
-      |-- [ANALYZE] ChirpRuleEngine.evaluate_readonly() on all txns.
+      |-- [LOAD] Live: poll sales.transactions until count stabilizes
+      |          (2min timeout, 2s poll, 3 stable ticks = done).
+      |          Demo: transaction_ids already set from INGEST.
+      |-- [ANALYZE] ChirpRuleEngine._evaluate_with_thresholds() on all txns.
       |            write_alerts_to_session() -> canary_app.
+      |            Pre-loads thresholds once (avoids per-txn DB query).
       |-- [PRESENT] compute_heartbeat(alert_dicts) -> HeartbeatResult.
       |            Load merchant memory + previous findings for delta.
       |-- [ACT] assemble_context() -> generate_health_report().
@@ -255,8 +305,6 @@ SimulatorConfig -> MerchantSimulator.simulate()
   Stage 5: compute_heartbeat(all_alert_dicts) -> SimulatorResult
 ```
 
-Volume curves by profile: cafe base=50, retail=22, restaurant=30. Day-of-week multipliers (Mon lowest 0.70-0.80, Sat highest 1.20-1.30). Business hours: cafe 6-18, retail 10-20, restaurant 11-22.
-
 ### Report Generation Pipeline
 
 ```
@@ -283,8 +331,6 @@ generate_health_report(context, alerts, score, band, breakdown, findings_data)
         Deterministic, correct, less nuanced. source="fallback"
 ```
 
-Report has 8 required fields: executive_summary, findings[], lp_assessment, ops_assessment, analytics_assessment, top_priority, positive_notes, outlook. Each finding has: category, severity, title, detail, trend, recommendation.
-
 ### Config Resolution Chain
 
 ```
@@ -307,6 +353,67 @@ is_flag_enabled("billing_enabled", merchant_id="M123")
 
 DB failures at any tier fall through to the next. `get_all_flags()` returns ENV-only flags (3 entries, source="env") when DB is unreachable.
 
+## Operations
+
+### Startup Sequence
+
+1. Flask app factory registers three blueprints:
+   - `ops_console_bp` at `/ops`
+   - `devops_monitor_bp` at `/devops`
+   - `health_bp` at `/health`
+2. No background workers or cron jobs at startup.
+3. Health check daemon threads are created on-demand when `start_session()` is called.
+4. Config service reads CONFIG_REGISTRY (in-memory list of 35 env var definitions) -- no DB queries at startup.
+
+### Health Checks
+
+| Endpoint | Type | Dependencies Checked |
+|----------|------|---------------------|
+| `GET /health` | Liveness | None -- always returns 200 if Flask is up |
+| `GET /readiness` | Readiness | PostgreSQL (`SELECT 1`), Valkey (`PING`) |
+
+### Failure Modes
+
+| Failure | Impact | Behavior |
+|---------|--------|----------|
+| Valkey down | Health check sessions cannot be polled | Pipeline still runs to completion; polling returns None; list_sessions returns empty |
+| PostgreSQL down | Config service, feature flags degrade | `get_config_value` falls through to ENV/registry; `is_flag_enabled` falls through to ENV; `get_all_flags` returns 3 ENV-only entries |
+| Ollama down | Health report generation degrades | `_fallback_report()` generates deterministic band-specific templates |
+| Square API down | Live fire and scenario fire fail | RuntimeError raised; ops console shows error; no pipeline data generated |
+| Health check thread crash | Session stuck in non-terminal stage | Error state written to Valkey with ABORTED; session TTLs out after 1 hour |
+| DB session leak in HC thread | Connection pool exhaustion | Mitigated: finally block closes both sales and app sessions |
+
+### Monitoring
+
+| Metric | Source | Alert Threshold |
+|--------|--------|----------------|
+| Health check session stuck >10 min | Valkey `hc:session:*` stage_log timestamps | Warning |
+| `/health` non-200 | Container orchestrator | Critical -- container restart |
+| `/readiness` 503 | Load balancer | Critical -- remove from rotation |
+| Pipeline monitor table count = -1 | `_safe_count()` return value | Warning -- table missing or schema issue |
+| Config vars with status="missing" | `get_config_summary()` | P1 if secret, P2 otherwise |
+
+### Configuration
+
+**35 registered env vars** across 6 categories:
+
+| Category | Count | Secrets |
+|----------|-------|---------|
+| database | 4 | POSTGRES_PASSWORD, CANARY_DB_URL |
+| auth | 5 | FLASK_SECRET_KEY, KEYCLOAK_ADMIN_PASSWORD |
+| general | 7 | None |
+| square | 10 | SQUARE_APPLICATION_SECRET, SQUARE_ACCESS_TOKEN, SQUARE_WEBHOOK_SIGNATURE_KEY |
+| cms | 4 | DIRECTUS_SECRET, DIRECTUS_ADMIN_PASSWORD |
+| monitoring | 5 | SUPERSET_SECRET_KEY, AIRFLOW_FERNET_KEY, AIRFLOW_WEBSERVER_SECRET, AIRFLOW_ADMIN_PASSWORD |
+
+**Feature flags (3 ENV-backed):**
+
+| Flag Key | ENV Var | Default | Purpose |
+|----------|---------|---------|---------|
+| `billing_enabled` | `BILLING_ENABLED` | false | Enable billing features |
+| `audit_logging_enabled` | `AUDIT_LOGGING_ENABLED` | true | Enable audit logging |
+| `api_keys_enabled` | `API_KEYS_ENABLED` | false | Enable API key management |
+
 ### Key Constants
 
 | Constant | Value | Used By |
@@ -322,5 +429,109 @@ DB failures at any tier fall through to the next. `get_all_flags()` returns ENV-
 | Narrative cap | 2000 chars | extract_narrative_summary() |
 | Severity deductions | critical=25, high=15, medium=8, low=3, info=0 | compute_heartbeat() |
 | Band thresholds | 90=healthy, 70=normal, 40=warning, 0=alert | HeartbeatResult |
-| Live mode lookback | Configurable via `MerchantSettings.lookback_days` (GRO-258). Default 30 days. NULL = all available history. Settings UI has 7d/30d/90d/All selector. Was hardcoded 30 days. | InitialDataSync |
+| Live mode lookback | Configurable via `MerchantSettings.lookback_days` (GRO-258). Default 30 days. NULL = all available history. | InitialDataSync |
+| Live mode TSP poll | 2s interval, 3 stable ticks, 120s timeout, 30s zero-patience | LOAD stage |
+| QA chat rate limit | 10/minute | `/qa/chat` endpoint |
 | `CANARY_VERSION` | 0.5.0 | /health response |
+
+## Deployment
+
+### Docker Service Definition
+
+Ops runs inside the Canary Flask container -- no separate service. Blueprints are registered in the app factory.
+
+```
+canary-flask:
+  ports: 5001
+  healthcheck: GET /health (liveness)
+  depends_on: growdirect_postgres, growdirect_valkey
+```
+
+### AWS Target
+
+| Component | AWS Service | Notes |
+|-----------|-------------|-------|
+| Canary Flask (includes Ops) | ECS Fargate | Single task definition with /health liveness |
+| PostgreSQL | RDS PostgreSQL 17 | Single instance, 3 schemas |
+| Valkey | ElastiCache (Valkey mode) | Session state, stream processing |
+| Secrets | AWS Secrets Manager | All 12 secret env vars from CONFIG_REGISTRY |
+
+### CI/CD Requirements
+
+- Health check endpoint must respond 200 before deployment completes.
+- Readiness check must pass (DB + Valkey) for traffic routing.
+- Sandbox guard (`SQUARE_ENVIRONMENT != "sandbox"`) must block all ops console and devops monitor routes in production.
+
+## Code Review Findings
+
+### P0 — Blocks Production
+
+**P0-OPS-01: IP addresses and user agents exposed in pipeline monitor API responses.**
+The devops monitor's `_query_ingestion_log()` and `_trace_event()` functions query `ip_address` and `user_agent` from `sales.ingestion_log` and return them directly in JSON API responses. In production, this would expose client IP addresses to any authenticated admin user. IP addresses are PII under GDPR/CCPA.
+**Recommended fix:** Remove `ip_address` and `user_agent` from pipeline monitor query results, or hash/mask them. These fields exist for security forensics (webhook source verification), not for the ops dashboard.
+
+**P0-OPS-02: Config value logged in plaintext on update.**
+`config_service.py` line 230: `logger.info(f"Config '{config_key}' updated to '{config_value}'")`. If a non-secret config is later reclassified as sensitive, or if the value contains embedded credentials, this log line exposes the value. The `is_secret` guard only prevents DB writes, not log exposure of the value being written.
+**Recommended fix:** Log the key and "updated" status only, never the value. For audit trail, record old/new value hashes.
+
+**P0-OPS-03: No authorization on feature flag mutation endpoints.**
+`set_global_flag()`, `set_merchant_flag()`, and `remove_merchant_override()` are pure service functions with no auth checks. Any code path that calls them can toggle flags for any merchant. While the ops console blueprint has admin guards, the MCP server (once wired) and any future internal callers have no authorization enforcement at the service layer.
+**Recommended fix:** Add a `caller_role` or `actor_id` parameter to flag mutation functions. Enforce admin-only at the service layer, not just the blueprint layer.
+
+### P1 — Before GA
+
+**P1-OPS-04: No audit logging for config or feature flag changes.**
+Config updates and feature flag toggles modify runtime behavior for all merchants (or specific merchants). No audit trail exists beyond application logs. There is no record of who changed what flag, when, or from what previous value.
+**Recommended fix:** Write audit log entries to a dedicated `app.audit_log` table for all config and flag mutations. Include: actor, timestamp, key, old_value, new_value, merchant_id (for flag overrides).
+
+**P1-OPS-05: Server-side poll_ids cache is an in-process module-level dict.**
+`ops_console.py` line 204: `_last_fire_poll_ids: dict = {}` stores scenario fire poll_ids at module scope. With Gunicorn's multi-worker deployment, each worker has its own copy. A fire request handled by worker A will not have its poll_ids available if the verify request lands on worker B.
+**Recommended fix:** Store poll_ids in Valkey (keyed by scenario name + short TTL) instead of a module-level dict.
+
+**P1-OPS-06: Readiness endpoint does not check Ollama.**
+The `/readiness` endpoint checks PostgreSQL and Valkey but not Ollama. Since the health check pipeline's ACT stage depends on Ollama for report generation (with fallback), the readiness probe should indicate when Ollama is unavailable so operators know report quality will be degraded.
+**Recommended fix:** Add Ollama health check to `/readiness` as a non-blocking dependency (report degraded status but don't fail readiness).
+
+**P1-OPS-07: No rate limiting on devops monitor API endpoints.**
+The pipeline monitor's `/monitor/api/pipeline-state` runs COUNT(*) queries across 3 schemas (17 tables). A rapid poll loop could create significant DB load. The endpoint has no rate limiting.
+**Recommended fix:** Apply Flask-Limiter to devops monitor API routes (e.g., 30/minute for pipeline-state).
+
+### P2 — Post-Launch
+
+**P2-OPS-08: MCP server `canary-ops` is a ghost entry.**
+The streamable_server.py registers `"ops": "/ops-mcp"` with a TODO comment noting no corresponding blueprint exists. The 8 MCP tools documented in the original SDD are not wired to any implementation.
+**Recommended fix:** Either implement the ops MCP blueprint or remove the ghost registry entry.
+
+**P2-OPS-09: Health check session data has no retention policy.**
+Valkey sessions TTL out (1 hour for HC, 2 hours for sim), but the Owl sessions, findings, and merchant memory written during the ACT stage persist indefinitely in PostgreSQL. Demo-mode health check runs create real rows in `owl_sessions`, `owl_findings`, and `owl_merchant_memory` that accumulate without cleanup.
+**Recommended fix:** Add a retention sweep for demo-mode Owl artifacts (flag demo sessions with a source field, purge after 30 days).
+
+**P2-OPS-10: Valkey state not encrypted in transit.**
+Health check session state (including heartbeat scores, report JSON, and merchant_id) is stored in Valkey without TLS. In a production AWS deployment, ElastiCache should be configured with in-transit encryption.
+**Recommended fix:** Enable TLS on ElastiCache Valkey; configure Valkey clients with `ssl=True`.
+
+**P2-OPS-11: DevOps monitor creates a new DB session per helper call.**
+Each internal helper (`_query_ingestion_log`, `_query_evidence_records`, etc.) calls `_get_session()` independently, creating and closing its own DB session. The `pipeline_state` endpoint calls `_get_table_counts()` (1 session) + `_get_recent_events_all()` (4 sessions) + potentially more. This is 5+ DB sessions per single API call.
+**Recommended fix:** Pass a single session through the call chain or use a request-scoped session.
+
+**P2-OPS-12: Config service sessions not consistently closed on error paths.**
+`update_config()` calls `session.rollback()` in the except block but doesn't close the session. `get_config_value()` gets a session but never closes it. These are minor leaks that the connection pool handles, but they should be explicit.
+**Recommended fix:** Use context managers or try/finally blocks for all session handling in config_service.py and feature_flags.py.
+
+## Production Readiness Checklist
+
+- [x] PII classified per field (see PII Classification table)
+- [ ] PII encrypted at rest — IP addresses in ingestion_log stored plaintext (P0-OPS-01)
+- [ ] Secrets in AWS Secrets Manager (not .env) — 12 secret env vars still in .env files
+- [x] Health check endpoint responds (`/health` liveness, `/readiness` dependency check)
+- [ ] Audit logging for sensitive operations — no audit trail for config/flag changes (P1-OPS-04)
+- [ ] Data retention policy implemented — demo Owl artifacts accumulate indefinitely (P2-OPS-09)
+- [ ] Rate limiting on internal API endpoints — devops monitor unthrottled (P1-OPS-07)
+- [x] Error responses don't leak internals — generic error messages in ops console API
+- [x] SQL injection prevention — `_ALLOWED_TABLES` frozenset on all pipeline monitor queries
+- [x] Sandbox gating enforced — `before_request` hooks block production access on ops console and devops monitor
+- [x] Auth required on all non-health endpoints — session+admin on ops console, session/API-key on devops monitor
+- [x] Graceful degradation documented — Valkey, PostgreSQL, Ollama, Square API all have fallback paths
+- [ ] Config values never logged in plaintext — current code logs values on update (P0-OPS-02)
+- [ ] Feature flag mutations authorized at service layer — no auth in service functions (P0-OPS-03)
+- [x] Access token excluded from serialization — `access_token` never written to Valkey

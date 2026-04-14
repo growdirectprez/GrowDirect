@@ -1,4 +1,10 @@
-# 25 Seacove Site Plan — Service Design Document
+# 25 Seacove Site Plan
+
+> **Type:** Reference Document (standalone, no PII, no running service)
+> **Status:** Active — survey data transcribed, ~40% of values need verification
+> **Date:** 2026-04-06 (ops upgrade 2026-04-13)
+
+**Wiki:** [[Brain/projects/Seacove|Seacove MOC]]
 
 **Source:** IWS Surveying Boundary/Topographic Survey, Sheet 1 of 1
 **Survey Date:** June 20, 2018
@@ -11,10 +17,12 @@
 **Assessor's I.D.:** T575-009-012
 **Legal Description:** Tract #14649, Lot 69
 
-**Purpose:** This SDD is the machine-readable transcription of the IWS survey.
+## Purpose
+
+Machine-readable transcription of the IWS survey for 25 Sea Cove Drive.
 Code reads this document and generates a SketchUp model + LayOut drawing that
 reproduces the survey exactly. If the generated output matches the original
-PDF, the data is correct.
+PDF, the data is correct. No PII, no running service, no external integrations.
 
 ---
 
@@ -330,3 +338,53 @@ These items should be resolved by:
 - Requesting a digital DWG/DXF file from IWS (if available)
 - Field measurement for features still existing
 - Cross-referencing with the Tract Map (Map Book 345, Pages 23-26)
+
+---
+
+## Dependencies
+
+| Dependency | Type | Required |
+|------------|------|----------|
+| SketchUp Pro | 3D model generation | Yes (local install) |
+| LayOut | 2D construction document generation | Yes (part of SketchUp Pro) |
+| IWS Survey PDF | Source document | Yes (on file) |
+| Tract Map (Map Book 345, pp 23-26) | Boundary verification | For VERIFY items |
+
+---
+
+## Data Flow & PII Map
+
+No PII. This document contains only property survey data (elevations, bearings,
+improvement locations). Owner name appears as the survey client identifier
+(public record — recorded with LA County).
+
+---
+
+## Operations
+
+This is a standalone reference document consumed by SketchUp model-building
+scripts. No running service, no health checks, no deployment.
+
+**File location:** `docs/sdds/arc/seacove-site-plan.md`
+**SketchUp models:** `Seacove/` directory (separate from platform infra)
+
+---
+
+## Code Review Findings
+
+### P2 — Post-Launch
+
+| # | Finding | Recommended Fix | Linear |
+|---|---------|----------------|--------|
+| 1 | ~40% of elevation values marked VERIFY — model accuracy limited until resolved | Schedule IWS office visit or request DWG file | — |
+| 2 | All boundary bearings/distances unverified — model cannot reproduce closed polygon | Critical for any permit-ready drawings; resolution required | — |
+
+---
+
+## Production Readiness Checklist
+
+N/A — reference document for SketchUp pipeline. Not a deployed service.
+
+---
+
+*25 Seacove Site Plan — GrowDirect Inc.*

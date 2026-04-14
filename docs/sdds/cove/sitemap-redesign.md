@@ -1,9 +1,12 @@
 # SDD: Cove Sitemap Redesign
 
-**Service:** Cove — HOA Governance Platform
-**Scope:** Information architecture overhaul, route consolidation, role gating
-**Decision:** [2026-04-01-cove-sitemap-redesign](/docs/decisions/2026-04-01-cove-sitemap-redesign.md)
-**Status:** Pre-build — ready for factory pipeline
+> **Type:** App Service
+> **Status:** Pre-build — CSS refresh (Phase 1) complete, remaining phases in backlog
+> **Scope:** Information architecture overhaul, route consolidation, role gating
+> **Decision:** [2026-04-01-cove-sitemap-redesign](/docs/decisions/2026-04-01-cove-sitemap-redesign.md)
+> **Date:** 2026-04-01 (ops upgrade 2026-04-13)
+
+**Wiki:** [[Brain/wiki/cove-governance|Cove Governance]]
 
 ---
 
@@ -565,6 +568,250 @@ Old URLs that need redirects to maintain bookmarks or external links.
 - Map/archive/parcels templates (gated to ARC role, not relocated)
 - Auth templates
 - Meeting detail + ARC apply templates (still member-accessible in meetings_bp)
+
+---
+
+## Purpose
+
+Restructure Cove's information architecture from 9 member-facing navigation
+sections into 4, merge duplicated document stores, separate research tooling
+behind a role gate, and make the public landing page a transparent bulletin
+board. The member experience becomes: show up, see what's happening, vote, leave.
+
+---
+
+## Dependencies
+
+| Dependency | Type | Required |
+|------------|------|----------|
+| Cove Flask (port 5002) | Host app | Yes |
+| PostgreSQL (`cove` database) | All data storage | Yes |
+| Valkey DB 1 | Sessions | Yes |
+| Existing blueprints (14) | Routes being reorganized | Yes |
+| Leaflet.js | Community map-directory | Yes (already installed) |
+
+---
+
+## Data Flow & PII Map
+
+### PII in New Features
+
+| Field | Location | Classification | Encryption |
+|-------|----------|---------------|------------|
+| Board request — requester name | `board_requests.requester_name` | **internal** | Plaintext |
+| Board request — requester email | `board_requests.requester_email` | **sensitive** | **Plaintext (P0)** |
+| Board request — escrow company | `board_requests.escrow_company` | internal | Plaintext |
+| Community GeoJSON — resident name | API response | **internal** (respects DirectoryPreference) | N/A (not stored separately) |
+| Community GeoJSON — lot email | API response | **internal** (respects DirectoryPreference) | N/A |
+
+### Privacy Controls
+
+The community map-directory GeoJSON and lot data endpoints MUST respect
+`DirectoryPreference` visibility settings. If `show_name=False`, name is excluded.
+Same for `share_bio`, `share_avatar`. This matches existing directory behavior.
+
+---
+
+## Operations
+
+### Startup Sequence
+
+No separate startup — all changes are within the Cove Flask app.
+Blueprint registration order in `cove/__init__.py` determines route precedence.
+
+### Health Checks
+
+- `GET /health` — existing Cove health check covers all blueprints
+- Community GeoJSON: `GET /community/api/geojson` returns valid FeatureCollection
+- Role gates: 403 on `/research/*` for non-ARC users
+
+### Failure Modes
+
+| Failure | Behavior | Recovery |
+|---------|----------|----------|
+| Null geometry parcels | Appear in directory panel only, not on map | Leaflet client skips null-geometry features |
+| Missing DirectoryPreference | Names shown by default (existing behavior) | Create preference records during member onboarding |
+| Board request form CSRF fail | Form submission rejected, user sees error | Standard Flask-WTF CSRF handling |
+| Old URL bookmarks | 301 redirects serve correct new path | Redirect map covers all old paths |
+
+### Monitoring
+
+| Metric | Alert Threshold |
+|--------|----------------|
+| 301 redirect volume | If high 30+ days after launch, update external links |
+| Community GeoJSON response time | > 2 seconds |
+| Board request submission rate | N/A (informational) |
+
+### Configuration
+
+No new env vars. All configuration uses existing Cove settings.
+
+---
+
+## Deployment
+
+No separate deployment — part of Cove Flask container. Each phase ships
+as a standard Cove deployment (Docker image rebuild + restart).
+
+### Migration Requirements
+
+- Phase 3: Alembic migration adding `public`, `pinned`, `updated_at` to `notifications`
+- Phase 4: Alembic migration creating `board_requests` table
+
+---
+
+## Code Review Findings
+
+### P0 — Blocks Production
+
+| # | Finding | Recommended Fix | Linear |
+|---|---------|----------------|--------|
+| 1 | `BoardRequest.requester_email` stored plaintext — PII from anonymous visitors | Field-level encryption for requester_email | — |
+| 2 | Public contact form (`POST /contact`) has no rate limiting — DoS vector | Flask-Limiter: 5 submissions per IP per hour | — |
+
+### P1 — Before GA
+
+| # | Finding | Recommended Fix | Linear |
+|---|---------|----------------|--------|
+| 1 | Community GeoJSON endpoint returns all 81 parcels in a single response — no pagination | Acceptable for 81 lots; add pagination if lot count exceeds 200 | — |
+| 2 | Role-dependent redirects (302) cannot be cached — repeated redirect overhead | Acceptable trade-off for correct role enforcement; monitor redirect volume | — |
+| 3 | `@arc_required` decorator exists in `decorators.py` but SDD originally referenced `is_admin` — now correctly uses `is_arc` | Verify all Research routes use `@arc_required`, not `@admin_required` | — |
+| 4 | Board request inbox (`GET /board/requests`) has no pagination | Add pagination when request volume exceeds 50 per month | — |
+| 5 | `community_bp` GeoJSON route queries all parcels + all members in a loop (N+1 potential) | Use joined query: `Parcel` LEFT JOIN `Member` in single SQL | — |
+
+### P2 — Post-Launch
+
+| # | Finding | Recommended Fix | Linear |
+|---|---------|----------------|--------|
+| 1 | SVG tract map tracing (post-v1) — lot boundaries from assessor PDF not yet traced | Trace from `docs/maps/LACA-Parcel-Maps-Tract-14649.pdf` when map-directory ships | — |
+| 2 | No automated test coverage for 301 redirect map | Add pytest fixtures that verify all old URLs redirect to correct new paths | — |
+| 3 | Board sub-navigation component not yet styled | Apply consistent nav tab styling during Phase 7 | — |
+
+---
+
+## Production Readiness Checklist
+
+- [ ] PII encrypted at rest (board request requester_email)
+- [ ] Rate limiting on public contact form
+- [ ] Community GeoJSON respects DirectoryPreference privacy settings
+- [ ] Null geometry parcels handled gracefully in Leaflet client
+- [ ] All 301 redirects verified (vault, directory, treasury, archive, parcels)
+- [ ] Role-dependent 302 redirects tested for all roles (member, board, ARC)
+- [ ] `@arc_required` decorator on all Research workbench routes
+- [ ] Board request CSRF protection working on public and member forms
+- [ ] All existing pytest tests pass after route prefix changes
+- [ ] No dead links in any template after navigation simplification
+
+---
+
+## GRO Issue Specifications
+
+Issues listed in dependency order. Each is a single factory pipeline run.
+Full acceptance criteria and implementation details for each phase.
+
+### GRO-390: CSS Refresh — Complete
+
+**Phase 1** | **Priority:** P1 | **Status:** Complete
+
+Tailwind config updated, `cove.css` rewritten, compiled. Files changed:
+`tailwind.config.js`, `static/css/cove.css`, `static/css/dist/main.css`.
+Added `cream`, `ink`, `shore`, `rust` color scales. Sharp edges (no rounded-lg),
+cream/ink warm neutrals.
+
+### GRO-391: Navigation Simplification
+
+**Phase 2** | **Priority:** P1 | **Depends on:** GRO-390
+
+Update `templates/components/nav.html` to 4 member items (Home, Vote, Documents,
+Community) + conditional board and research sections. Use temporary URLs pointing
+to existing routes until new blueprints land.
+
+**Acceptance:** Member sees 4 nav items. Board member sees 4 + Board. Admin
+sees 4 + Board + Research. Mobile nav works.
+
+### GRO-401: BoardRequest Model (Stubbed)
+
+**Phase 4** | **Priority:** P2
+
+Separate model for board requests. See Linear for full spec.
+
+### GRO-402: Notification Bulletin Support (Stubbed)
+
+**Phase 3** | **Priority:** P2
+
+Add `public`, `pinned`, `updated_at` to Notification. Open decision on
+bulletin creation flow. See Linear for full spec.
+
+### GRO-393: Public Bulletin Landing Page
+
+**Phase 3** | **Priority:** P2 | **Depends on:** GRO-402, GRO-390
+
+Replace `GET /` redirect-to-login with public bulletin page showing board
+announcements, pinned items, and login prompt.
+
+### GRO-394: Contact Widget + Home Simplification
+
+**Phase 4** | **Priority:** P2 | **Depends on:** GRO-401, GRO-393
+
+BoardRequest model + migration. Public and member request forms. Board request
+inbox. Rewrite member dashboard to bulletin format.
+
+### GRO-395: Documents Consolidation
+
+**Phase 5** | **Priority:** P2 | **Depends on:** GRO-391
+
+Rename vault_bp prefix `/vault` to `/documents`. Add category filters. Gate
+uploads to board. Add 301 redirects.
+
+### GRO-396: Community Map-Directory
+
+**Phase 6** | **Priority:** P2 | **Depends on:** GRO-391, GRO-390
+
+New `community_bp`. Fixed map view with privacy-aware GeoJSON. Slide-out
+directory panel. Lot profile cards and pages.
+
+### GRO-397: Board Dashboard Expansion
+
+**Phase 7** | **Priority:** P3 | **Depends on:** GRO-394, GRO-395
+
+Relocate treasury, meeting management, ARC review behind `/board` prefix.
+Add sub-navigation. Add request inbox. Add public/pinned toggles to bulletin.
+
+### GRO-399: Research Workbench Gate
+
+**Phase 8** | **Priority:** P3 | **Depends on:** GRO-391
+
+Gate existing map, archive, parcels blueprints with `@arc_required`. New
+`research_bp` landing page. Final cleanup pass.
+
+### GRO-398: Home Page Simplification
+
+**Phase 9** | **Priority:** P3 | **Depends on:** GRO-393, GRO-394
+
+Rewrite member dashboard to bulletin format. Remove card grid. Add action
+items and request history.
+
+### GRO-400: Cleanup and Redirect Verification
+
+**Phase 10** | **Priority:** P4 | **Depends on:** All previous
+
+Remove orphaned templates, verify all redirects, run full test suite,
+delete unused CSS files.
+
+### Dependency Graph
+
+```
+GRO-390: CSS Refresh (DONE) ──────────────────────┐
+GRO-391: Nav Simplification ──────────────────────┤
+GRO-402: Bulletin fields (stub) ──┐               │
+                                  ├→ GRO-393 ─────┤
+GRO-401: BoardRequest (stub) ────┤                │
+                                  └→ GRO-394 ─────┤ (includes GRO-398)
+GRO-395: Documents ───────────────────────────────┤
+GRO-396: Community Map-Directory ─────────────────┤
+GRO-397: Board Dashboard ────────────────────────┤
+GRO-399: Research Gate ──────────────────────────┤ (includes GRO-400)
+```
 
 ---
 
