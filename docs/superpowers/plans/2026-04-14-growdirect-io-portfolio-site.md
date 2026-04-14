@@ -1486,7 +1486,7 @@ git commit -m "feat: add Membership Framework pillar page (Cove blue accent)"
 **Files:**
 - Create: `contact.html`
 
-**Note:** The Formspree endpoint URL (`https://formspree.io/f/YOUR_FORM_ID`) must be replaced with a real Formspree form ID before launch. Create one at formspree.io — free tier, no account needed for basic usage.
+**Note:** The Formspree endpoint URL (`https://formspree.io/f/xbdqlakw`) must be replaced with a real Formspree form ID before launch. Create one at formspree.io — free tier, no account needed for basic usage.
 
 - [ ] **Step 1: Create contact.html**
 
@@ -1545,7 +1545,7 @@ git commit -m "feat: add Membership Framework pillar page (Cove blue accent)"
       <h1>Get in touch</h1>
       <p>Have something to build? Tell me about it.</p>
 
-      <form id="contact-form" class="contact-form" action="https://formspree.io/f/YOUR_FORM_ID" method="POST">
+      <form id="contact-form" class="contact-form" action="https://formspree.io/f/xbdqlakw" method="POST">
         <div>
           <label for="name">Name</label>
           <input type="text" id="name" name="name" required>
