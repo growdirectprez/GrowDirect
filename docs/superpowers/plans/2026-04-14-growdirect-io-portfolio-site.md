@@ -803,6 +803,24 @@ git commit -m "feat: add complete site stylesheet with pillar theming and respon
     });
   });
 
+  // --- Contact page: read ?from= param, set source + contextual headline ---
+  var fromParam = new URLSearchParams(window.location.search).get('from');
+  var sourceField = document.getElementById('source');
+  var headline = document.getElementById('contact-headline');
+  var subhead = document.getElementById('contact-subhead');
+  if (fromParam && sourceField) {
+    sourceField.value = fromParam;
+    var copy = {
+      'pos-platform':  { h: "Let's talk about your merchants",   p: 'POS analytics, loss prevention, Square integrations — tell me what you need.' },
+      're-toolkit':    { h: 'Want something like this for your agents?', p: 'Neighborhood content, MLS data, lead capture — built for real estate.' },
+      'membership':    { h: 'Have a membership organization that needs this?', p: 'Governance, GIS, elections, document management — tell me about your org.' }
+    };
+    if (copy[fromParam]) {
+      if (headline) headline.textContent = copy[fromParam].h;
+      if (subhead) subhead.textContent = copy[fromParam].p;
+    }
+  }
+
   // --- Formspree AJAX form submission ---
   var form = document.getElementById('contact-form');
   var successMsg = document.querySelector('.contact-form__success');
@@ -818,7 +836,7 @@ git commit -m "feat: add complete site stylesheet with pillar theming and respon
         if (response.ok) {
           form.reset();
           if (successMsg) successMsg.classList.add('visible');
-          trackEvent('contact_form_submit');
+          trackEvent('contact_form_submit', { source: (sourceField && sourceField.value) || 'direct' });
         } else {
           window.location.href = 'mailto:gclyle@growdirect.io?subject=Contact%20from%20growdirect.io';
         }
@@ -1147,7 +1165,7 @@ git commit -m "feat: add homepage with service cards, capabilities, about, and c
     </section>
 
     <section class="pillar-cta">
-      <a href="/contact.html" data-track="cta" data-label="pos-platform">Let's talk about your merchants →</a>
+      <a href="/contact.html?from=pos-platform" data-track="cta" data-label="pos-platform">Let's talk about your merchants →</a>
     </section>
 
   </main>
@@ -1295,7 +1313,7 @@ git commit -m "feat: add POS Platform pillar page (Canary gold accent)"
     </section>
 
     <section class="pillar-cta">
-      <a href="/contact.html" data-track="cta" data-label="re-toolkit">Want something like this for your agents? →</a>
+      <a href="/contact.html?from=re-toolkit" data-track="cta" data-label="re-toolkit">Want something like this for your agents? →</a>
     </section>
 
   </main>
@@ -1449,7 +1467,7 @@ git commit -m "feat: add RE Toolkit pillar page (Angel teal accent)"
     </section>
 
     <section class="pillar-cta">
-      <a href="/contact.html" data-track="cta" data-label="membership">Have a membership organization that needs this? →</a>
+      <a href="/contact.html?from=membership" data-track="cta" data-label="membership">Have a membership organization that needs this? →</a>
     </section>
 
   </main>
@@ -1542,10 +1560,11 @@ git commit -m "feat: add Membership Framework pillar page (Cove blue accent)"
   <main>
 
     <div class="contact-page">
-      <h1>Get in touch</h1>
-      <p>Have something to build? Tell me about it.</p>
+      <h1 id="contact-headline">Get in touch</h1>
+      <p id="contact-subhead">Have something to build? Tell me about it.</p>
 
       <form id="contact-form" class="contact-form" action="https://formspree.io/f/xbdqlakw" method="POST">
+        <input type="hidden" id="source" name="_source" value="direct">
         <div>
           <label for="name">Name</label>
           <input type="text" id="name" name="name" required>
