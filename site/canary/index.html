@@ -995,8 +995,6 @@ nav {
   <ul class="nav-links">
     <li><a href="#how">How It Works</a></li>
     <li><a href="#detection">Detection</a></li>
-    <li><a href="#evidence">Evidence</a></li>
-    <li><a href="#architecture">Architecture</a></li>
     <li><a href="#pricing">Pricing</a></li>
   </ul>
   <a href="https://qa.growdirect.app/connect" class="nav-badge" style="text-decoration:none;color:#FBBF24;">Connect</a>
@@ -1009,11 +1007,10 @@ nav {
     <div class="hero-eyebrow">Loss Prevention for Square</div>
     <h1>Your store has a <em>Canary.</em></h1>
     <div class="hero-body">
-      Real-time fraud detection, evidentiary case management, and immutable audit trails — built exclusively for Square merchants. Enterprise-grade loss prevention at a price that makes sense for one location.
+      Real-time fraud detection, case management, and immutable audit trails for Square merchants. One location or twenty — enterprise-grade loss prevention at a price that makes sense.
     </div>
     <div class="hero-actions" style="align-items:center;">
       <img src="/img/canary-icon-512.png" alt="Canary" style="width:48px;height:48px;border-radius:10px;">
-      <a class="btn-primary" href="#pricing">View Plans</a>
       <a class="btn-secondary" href="#how">How It Works</a>
     </div>
     <div class="hero-proof">
@@ -1107,6 +1104,10 @@ nav {
       <div class="how-time">SMS alert: Under 30 seconds</div>
     </div>
   </div>
+
+  <div style="text-align:center;margin-top:48px;">
+    <a class="btn-primary" href="#pricing">View Plans</a>
+  </div>
 </div>
 
 <div class="divider"></div>
@@ -1185,80 +1186,6 @@ nav {
 
 <div class="divider"></div>
 
-<!-- EVIDENCE -->
-<div class="section" id="evidence">
-  <div class="section-label">Case Management</div>
-  <div class="section-title">Fox Case Management</div>
-  <div class="section-intro">When an alert needs investigation, Fox organizes the evidence. Structured case workflows with full audit trails, linked transactions, and exportable documentation.</div>
-
-  <div class="evidence-grid">
-    <div class="evidence-card">
-      <h3>Immutable Evidence Locker</h3>
-      <p>Every piece of evidence is INSERT-only at the database level — enforced by triggers, not convention. Each record is SHA-256 hashed on upload. Every access logged with actor, timestamp, and IP. No record can be modified or deleted once written, by any actor, including administrators.</p>
-      <div class="evidence-detail">Enforcement: 22 database triggers · SHA-256 hash chain</div>
-    </div>
-    <div class="evidence-card">
-      <h3>Structured Case Timeline</h3>
-      <p>Append-only chronological record of every action taken on a case. Cannot be edited or deleted. From initial Chirp alert to final resolution, the complete investigative history is preserved exactly as it happened.</p>
-      <div class="evidence-detail">Chain of custody: Every transition logged</div>
-    </div>
-    <div class="evidence-card">
-      <h3>Alert-to-Case Escalation</h3>
-      <p>When Chirp detects a cluster of related alerts — same employee, same pattern, escalating severity — Fox can automatically create a case pre-populated with all triggering transactions, detection rules, and evidence links.</p>
-      <div class="evidence-detail">Automated pre-population from Chirp alerts</div>
-    </div>
-    <div class="evidence-card">
-      <h3>Documented Resolution</h3>
-      <p>Every case closure requires a structured resolution: verbal warning, written warning, suspension, termination, ban, police report filed, insurance claim, or no action. Closure requires a documented resolution note — no case can be silently closed.</p>
-      <div class="evidence-detail">8 resolution types · Mandatory documentation</div>
-    </div>
-  </div>
-</div>
-
-<div class="divider"></div>
-
-<!-- ARCHITECTURE -->
-<div class="section" id="architecture">
-  <div class="section-label">Technical Architecture</div>
-  <div class="section-title">Built for Trust. Built to Last.</div>
-  <div class="section-intro">Python 3.12, Flask, PostgreSQL 17 with row-level security. No shortcuts. No SQLite. Production infrastructure from day one.</div>
-
-  <div class="arch-grid">
-    <div class="arch-cell">
-      <div class="arch-label">Backend</div>
-      <div class="arch-value">Python 3.12 / Flask 3</div>
-      <div class="arch-detail">REST API, webhook ingestion, detection engine</div>
-    </div>
-    <div class="arch-cell">
-      <div class="arch-label">Database</div>
-      <div class="arch-value">PostgreSQL 17</div>
-      <div class="arch-detail">4 schemas, 60+ models, RLS, INSERT-only</div>
-    </div>
-    <div class="arch-cell">
-      <div class="arch-label">Integration</div>
-      <div class="arch-value">Square Python SDK</div>
-      <div class="arch-detail">OAuth 2.0, Payments API, Webhooks</div>
-    </div>
-    <div class="arch-cell">
-      <div class="arch-label">Security</div>
-      <div class="arch-value">AES-256 + HMAC-SHA256</div>
-      <div class="arch-detail">Encrypted credentials, webhook verification</div>
-    </div>
-    <div class="arch-cell">
-      <div class="arch-label">Auth</div>
-      <div class="arch-value">Multi-Tenant RBAC</div>
-      <div class="arch-detail">5 roles, API-layer enforcement</div>
-    </div>
-    <div class="arch-cell">
-      <div class="arch-label">Infrastructure</div>
-      <div class="arch-value">Docker / Gunicorn / Valkey</div>
-      <div class="arch-detail">Sessions, cache, task queue</div>
-    </div>
-  </div>
-</div>
-
-<div class="divider"></div>
-
 <!-- PRICING -->
 <div class="section" id="pricing">
   <div class="section-label">Pricing</div>
@@ -1328,153 +1255,20 @@ nav {
 })();
 </script>
 
-<div class="divider"></div>
-
-<!-- GATE SECTION -->
-<div class="gate-section" id="gate-section">
-  <div class="gate-inner">
-    <div class="gate-text">
-      <h2>Technical Deep Dive</h2>
-      <p>Full platform documentation, detection rule catalog, data model reference, architecture diagrams, and protocol specifications — for partners, investors, and technical evaluators.</p>
-      <ul class="gate-contents">
-        <li><span>&#x2794;</span> Complete Chirp Rule Catalog — all 37 rules with thresholds</li>
-        <li><span>&#x2794;</span> CRDM — Canonical Retail Data Model specification</li>
-        <li><span>&#x2794;</span> Platform Architecture — three-database model, capture pipeline</li>
-        <li><span>&#x2794;</span> Technical Architecture Roadshow — full platform walkthrough</li>
-        <li><span>&#x2794;</span> Factory Process — how we build</li>
-        <li><span>&#x2794;</span> elJeffe Protocol — closed-loop Bitcoin economics</li>
-        <li><span>&#x2794;</span> Magazine Article — Canary product story</li>
-        <li><span>&#x2794;</span> Fox Case Management — evidentiary case spec</li>
-        <li><span>&#x2794;</span> API Reference — endpoints and integration guide</li>
-      </ul>
-    </div>
-    <div class="gate-form-wrap">
-      <div class="gate-form-label">Partner / Investor Access</div>
-      <input type="password" class="gate-input" id="gate-pw" placeholder="ACCESS CODE" autocomplete="off"/>
-      <button class="gate-btn" onclick="unlockGate()">Enter</button>
-      <div class="gate-error" id="gate-err">Invalid access code</div>
-      <div class="gate-note">Request access at lyle@growdirect.io</div>
-    </div>
+<!-- ARCHITECTURE SLIDE -->
+<div class="section" style="text-align:center;padding-bottom:48px;">
+  <div class="section-label">Under the Hood</div>
+  <div class="section-title">Production Infrastructure</div>
+  <div class="section-intro" style="max-width:600px;margin:0 auto 32px;">Python 3.12, PostgreSQL 17, 99-table canonical data model, real-time webhook ingestion, and immutable evidence storage. Built by 30 years of retail LP experience.</div>
+  <div style="display:flex;flex-wrap:wrap;justify-content:center;gap:12px;margin-bottom:40px;">
+    <span style="padding:6px 16px;border:1px solid rgba(255,255,255,0.12);border-radius:6px;font-size:13px;color:rgba(248,247,244,0.6);">Python 3.12</span>
+    <span style="padding:6px 16px;border:1px solid rgba(255,255,255,0.12);border-radius:6px;font-size:13px;color:rgba(248,247,244,0.6);">Flask</span>
+    <span style="padding:6px 16px;border:1px solid rgba(255,255,255,0.12);border-radius:6px;font-size:13px;color:rgba(248,247,244,0.6);">PostgreSQL 17</span>
+    <span style="padding:6px 16px;border:1px solid rgba(255,255,255,0.12);border-radius:6px;font-size:13px;color:rgba(248,247,244,0.6);">Square SDK</span>
+    <span style="padding:6px 16px;border:1px solid rgba(255,255,255,0.12);border-radius:6px;font-size:13px;color:rgba(248,247,244,0.6);">Docker</span>
+    <span style="padding:6px 16px;border:1px solid rgba(255,255,255,0.12);border-radius:6px;font-size:13px;color:rgba(248,247,244,0.6);">Valkey</span>
   </div>
-</div>
-
-<!-- GATED CONTENT -->
-<div id="gated-content">
-  <div class="gated-header">
-    <div class="section-label" style="margin:0">Technical Documentation</div>
-    <div class="gated-badge">Authorized Access</div>
-  </div>
-
-  <div class="gated-section-title">Platform Documentation</div>
-  <div class="doc-grid">
-    <a href="../docs/canary-crdm-mapping.html" class="doc-card" style="text-decoration:none;color:inherit">
-      <div class="doc-type">Architecture</div>
-      <h3>CRDM — Canonical Retail Data Model</h3>
-      <p>99 tables across 3 PostgreSQL schemas. Third-generation normalized retail transaction schema covering transactions, detection, metrics, and Bitcoin settlement.</p>
-    </a>
-    <a href="../docs/canary-platform-architecture.html" class="doc-card" style="text-decoration:none;color:inherit">
-      <div class="doc-type">Architecture</div>
-      <h3>Platform Architecture</h3>
-      <p>Three-database model, capture pipeline, gLog inscription flow, immutability tiers, POS-agnostic design, and security architecture.</p>
-    </a>
-    <a href="../docs/canary-technical-roadshow.html" class="doc-card" style="text-decoration:none;color:inherit">
-      <div class="doc-type">Architecture</div>
-      <h3>Technical Roadshow</h3>
-      <p>Complete platform architecture walkthrough. Six-node pipeline, Triple Subscriber, detection engine, Bitcoin inscription, L402 validation.</p>
-    </a>
-    <a href="../docs/canary-factory-process.html" class="doc-card" style="text-decoration:none;color:inherit">
-      <div class="doc-type">Process</div>
-      <h3>Factory Process — How We Build</h3>
-      <p>GrowDirect's six-stage development methodology. Blueprinting, TDD, assembly, QA, packaging, and shipping — the factory that produces production-grade software.</p>
-    </a>
-    <a href="../docs/canary-eljeffe-protocol.html" class="doc-card" style="text-decoration:none;color:inherit">
-      <div class="doc-type">Protocol</div>
-      <h3>elJeffe — Closed-Loop Bitcoin Economics</h3>
-      <p>Self-reinforcing economic engine on Bitcoin. Treasury, Ordinal minting, L402 smart contract licensing, perpetual royalty revenue. The protocol that writes itself.</p>
-    </a>
-    <a href="../docs/canary-magazine-article.html" class="doc-card" style="text-decoration:none;color:inherit">
-      <div class="doc-type">Article</div>
-      <h3>Magazine Article</h3>
-      <p>The Canary product story — loss prevention reimagined for independent Square merchants. Origin, approach, and market position.</p>
-    </a>
-    <a href="../docs/canary-api-reference.html" class="doc-card" style="text-decoration:none;color:inherit">
-      <div class="doc-type">Reference</div>
-      <h3>API Reference</h3>
-      <p>Canary REST API endpoints, authentication, webhook payloads, and integration guide for programmatic access to alerts, cases, and merchant data.</p>
-    </a>
-  </div>
-
-  <div class="gated-section-title">Complete Detection Rule Catalog</div>
-  <div class="gated-rules">
-    <table>
-      <thead>
-        <tr>
-          <th>Rule</th>
-          <th>Category</th>
-          <th>Trigger</th>
-          <th>Default Severity</th>
-          <th>Tier</th>
-        </tr>
-      </thead>
-      <tbody>
-        <!-- Payment (11 rules) -->
-        <tr><td class="rule-name">Rapid Refund</td><td>Payment</td><td>Refund within 15 min of sale</td><td><span class="sev-badge high">High</span></td><td>DB Query</td></tr>
-        <tr><td class="rule-name">Excessive Refund Rate</td><td>Payment</td><td>Refund rate &gt;15% of shift txns</td><td><span class="sev-badge high">High</span></td><td>Valkey</td></tr>
-        <tr><td class="rule-name">Round Amount Pattern</td><td>Payment</td><td>5+ round-dollar txns/hour</td><td><span class="sev-badge medium">Medium</span></td><td>Valkey</td></tr>
-        <tr><td class="rule-name">After-Hours Transaction</td><td>Payment</td><td>Outside business hours</td><td><span class="sev-badge medium">Medium</span></td><td>Stateless</td></tr>
-        <tr><td class="rule-name">Card Velocity</td><td>Payment</td><td>Same card 5+ times/hour</td><td><span class="sev-badge high">High</span></td><td>Valkey</td></tr>
-        <tr><td class="rule-name">Split Tender Pattern</td><td>Payment</td><td>3+ split-tender txns/hour</td><td><span class="sev-badge medium">Medium</span></td><td>Valkey</td></tr>
-        <tr><td class="rule-name">High Value Refund</td><td>Payment</td><td>Single refund &gt;$100</td><td><span class="sev-badge high">High</span></td><td>Stateless</td></tr>
-        <tr><td class="rule-name">Manual Entry Spike</td><td>Payment</td><td>5+ keyed-in cards/shift</td><td><span class="sev-badge medium">Medium</span></td><td>Valkey</td></tr>
-        <tr><td class="rule-name">Square Delay Hold</td><td>Payment</td><td>Square flagged delay hold</td><td><span class="sev-badge critical">Critical</span></td><td>Stateless</td></tr>
-        <tr><td class="rule-name">Partial Authorization</td><td>Payment</td><td>Bank approved less than requested</td><td><span class="sev-badge high">High</span></td><td>Stateless</td></tr>
-        <tr><td class="rule-name">No Sale Detected</td><td>Payment</td><td>Cash drawer, no transaction</td><td><span class="sev-badge high">High</span></td><td>Stateless</td></tr>
-        <!-- Cash Drawer (4 rules) -->
-        <tr><td class="rule-name">No-Sale Abuse</td><td>Cash Drawer</td><td>5+ no-sale opens/shift</td><td><span class="sev-badge high">High</span></td><td>Valkey</td></tr>
-        <tr><td class="rule-name">Cash Variance</td><td>Cash Drawer</td><td>Shift variance &gt;$20</td><td><span class="sev-badge high">High</span></td><td>DB Query</td></tr>
-        <tr><td class="rule-name">Paid-Out Anomaly</td><td>Cash Drawer</td><td>Paid-out &gt;$50 no override</td><td><span class="sev-badge medium">Medium</span></td><td>DB Query</td></tr>
-        <tr><td class="rule-name">After-Hours Drawer</td><td>Cash Drawer</td><td>Drawer opened after hours</td><td><span class="sev-badge critical">Critical</span></td><td>DB Query</td></tr>
-        <!-- Order (4 rules) -->
-        <tr><td class="rule-name">Excessive Discount Rate</td><td>Order</td><td>Average discount &gt;50%</td><td><span class="sev-badge high">High</span></td><td>DB Query</td></tr>
-        <tr><td class="rule-name">Line Item Void Rate</td><td>Order</td><td>Void rate &gt;10%</td><td><span class="sev-badge high">High</span></td><td>DB Query</td></tr>
-        <tr><td class="rule-name">Sweethearting</td><td>Order</td><td>Discount no approval &gt;$20</td><td><span class="sev-badge high">High</span></td><td>DB Query</td></tr>
-        <tr><td class="rule-name">Untendered Order</td><td>Order</td><td>Order with no payment 24hr+</td><td><span class="sev-badge critical">Critical</span></td><td>DB Query</td></tr>
-        <!-- Timecard (3 rules) -->
-        <tr><td class="rule-name">Off-Clock Transaction</td><td>Timecard</td><td>No open timecard</td><td><span class="sev-badge critical">Critical</span></td><td>DB Query</td></tr>
-        <tr><td class="rule-name">Break Transaction</td><td>Timecard</td><td>During declared break</td><td><span class="sev-badge high">High</span></td><td>DB Query</td></tr>
-        <tr><td class="rule-name">Wrong Location</td><td>Timecard</td><td>Clocked in at different location</td><td><span class="sev-badge high">High</span></td><td>DB Query</td></tr>
-        <!-- Void (2 rules) -->
-        <tr><td class="rule-name">High Void Rate</td><td>Void</td><td>5+ voids/shift</td><td><span class="sev-badge high">High</span></td><td>Valkey</td></tr>
-        <tr><td class="rule-name">Post-Void Alert</td><td>Void</td><td>Full refund of completed sale</td><td><span class="sev-badge critical">Critical</span></td><td>Valkey</td></tr>
-        <!-- Gift Card (2 rules) -->
-        <tr><td class="rule-name">Gift Card Load Velocity</td><td>Gift Card</td><td>3+ loads/hour</td><td><span class="sev-badge high">High</span></td><td>Valkey</td></tr>
-        <tr><td class="rule-name">Gift Card Drain</td><td>Gift Card</td><td>Full redeem after load</td><td><span class="sev-badge critical">Critical</span></td><td>DB Query</td></tr>
-        <!-- Loyalty (4 rules) -->
-        <tr><td class="rule-name">Rapid Point Accumulation</td><td>Loyalty</td><td>5+ point events/hour</td><td><span class="sev-badge medium">Medium</span></td><td>Valkey</td></tr>
-        <tr><td class="rule-name">Bulk Redemption</td><td>Loyalty</td><td>5000+ points single event</td><td><span class="sev-badge high">High</span></td><td>DB Query</td></tr>
-        <tr><td class="rule-name">Cross-Location Velocity</td><td>Loyalty</td><td>3+ locations in 2 hours</td><td><span class="sev-badge high">High</span></td><td>Valkey</td></tr>
-        <tr><td class="rule-name">Enrollment Fraud</td><td>Loyalty</td><td>10+ enrollments/day/employee</td><td><span class="sev-badge medium">Medium</span></td><td>Valkey</td></tr>
-        <!-- Composite (1 rule) -->
-        <tr><td class="rule-name">SRA Threshold Breach</td><td>Composite</td><td>Shrink risk &gt;3% of sales</td><td><span class="sev-badge high">High</span></td><td>DB Query</td></tr>
-        <!-- Dispute (3 rules) -->
-        <tr><td class="rule-name">Dispute Created</td><td>Dispute</td><td>New dispute filed</td><td><span class="sev-badge high">High</span></td><td>Stateless</td></tr>
-        <tr><td class="rule-name">Dispute Lost</td><td>Dispute</td><td>Dispute lost — chargeback</td><td><span class="sev-badge critical">Critical</span></td><td>Stateless</td></tr>
-        <tr><td class="rule-name">Dispute Velocity</td><td>Dispute</td><td>3+ disputes in 30 days</td><td><span class="sev-badge high">High</span></td><td>Valkey</td></tr>
-        <!-- Invoice (3 rules) -->
-        <tr><td class="rule-name">Invoice Overdue</td><td>Invoice</td><td>Past due, still unpaid</td><td><span class="sev-badge medium">Medium</span></td><td>Stateless</td></tr>
-        <tr><td class="rule-name">Invoice Charge Failed</td><td>Invoice</td><td>Scheduled charge failed</td><td><span class="sev-badge high">High</span></td><td>Stateless</td></tr>
-        <tr><td class="rule-name">High Value Invoice Unpaid</td><td>Invoice</td><td>Unpaid invoice &gt;$500</td><td><span class="sev-badge high">High</span></td><td>Stateless</td></tr>
-      </tbody>
-    </table>
-  </div>
-</div>
-
-<!-- CTA -->
-<div style="max-width:1100px;margin:0 auto;padding:64px clamp(24px,5vw,64px);text-align:center;">
-  <div style="font-family:'Space Mono',monospace;font-size:11px;color:var(--canary);letter-spacing:0.15em;text-transform:uppercase;margin-bottom:16px;">Get Started</div>
-  <div style="font-family:'Space Grotesk',sans-serif;font-size:clamp(1.4rem,3vw,2rem);font-weight:700;line-height:1.3;margin-bottom:12px;">Interested in Canary for your stores?</div>
-  <div style="color:var(--text2);font-size:1rem;max-width:520px;margin:0 auto 32px;line-height:1.7;">Connect your Square account and start receiving alerts. Free credits at signup — no credit card required.</div>
-  <a href="/contact.html?from=canary" data-track="cta" data-label="canary-cta" style="display:inline-block;background:linear-gradient(135deg,#F7931A,#FBBF24);color:#000;font-family:'Space Mono',monospace;font-size:11px;font-weight:700;letter-spacing:0.12em;text-transform:uppercase;padding:14px 36px;border-radius:6px;transition:opacity 0.2s;">Let's Talk &rarr;</a>
+  <a href="/contact.html?from=canary-tech" style="display:inline-block;padding:12px 28px;border:1px solid #FBBF24;border-radius:8px;color:#FBBF24;font-weight:600;font-size:14px;text-decoration:none;">Want the technical details? Let's talk</a>
 </div>
 
 <!-- FOOTER -->
@@ -1482,31 +1276,11 @@ nav {
   <div class="footer-left">&copy; 2026 GrowDirect DAO LLC · Canary Loss Prevention Platform</div>
   <div class="footer-right">
     <a href="../">GrowDirect</a>
-    <a href="#gate-section">Documentation</a>
     <a href="/contact.html?from=canary">Contact</a>
   </div>
 </div>
 
 <script>
-const GATE_CODE = 'canary2026';
-
-function unlockGate() {
-  const val = document.getElementById('gate-pw').value.trim().toLowerCase();
-  if (val === GATE_CODE) {
-    document.getElementById('gated-content').style.display = 'block';
-    document.querySelector('.gate-section').style.display = 'none';
-    document.getElementById('gated-content').scrollIntoView({ behavior: 'smooth', block: 'start' });
-  } else {
-    document.getElementById('gate-err').style.display = 'block';
-    document.getElementById('gate-pw').value = '';
-    document.getElementById('gate-pw').focus();
-  }
-}
-
-document.getElementById('gate-pw').addEventListener('keydown', function(e) {
-  if (e.key === 'Enter') unlockGate();
-});
-
 document.querySelectorAll('a[href^="#"]').forEach(a => {
   a.addEventListener('click', e => {
     e.preventDefault();
