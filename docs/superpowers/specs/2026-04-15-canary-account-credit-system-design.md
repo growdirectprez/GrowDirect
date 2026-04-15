@@ -510,8 +510,10 @@ This spec is the Phase 0 implementation plan.
   payloads. Forged webhooks = unauthorized credit minting.
 - **wallet_transactions is INSERT-ONLY.** No UPDATEs, no DELETEs. This is the
   financial audit trail.
-- **Encrypt at rest:** `strike_invoice_id`, `bolt11` in `strike_invoices` table
-  via `canary/utils/crypto.py` (AES-256-GCM). Wallet balances are internal
-  accounting, not PII — plaintext OK.
+- **Encrypt at rest:** `bolt11`, `payment_hash`, `preimage` in `strike_invoices`
+  table via `canary/utils/crypto.py` (AES-256-GCM). `strike_invoice_id` is
+  stored plaintext — it's Strike's public reference ID, not a secret.
+  `wallet_transactions.strike_invoice_id` is also plaintext (dedup key).
+  Wallet balances are internal accounting, not PII — plaintext OK.
 - **Rate limiting:** `/goose/wallet/topup` — 10/minute per merchant.
   `/goose/webhook/strike` — 100/minute global. Use existing Flask-Limiter.
