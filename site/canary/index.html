@@ -961,7 +961,7 @@ nav {
   .how-grid,
   .evidence-grid,
   .pricing-grid,
-  .doc-grid { grid-template-columns: 1fr; }
+  .doc-grid { grid-template-columns: 1fr !important; }
   .gate-inner { grid-template-columns: 1fr; gap: 40px; }
   .arch-grid { grid-template-columns: 1fr; }
   .site-footer { flex-direction: column; gap: 12px; text-align: center; }
@@ -974,7 +974,7 @@ nav {
 <nav>
   <div class="nav-left">
     <div class="nav-logo">Canary</div>
-    <div class="nav-parent">by <a href="growdirect-hub.html">GrowDirect</a></div>
+    <div class="nav-parent">by <a href="../">GrowDirect</a></div>
   </div>
   <ul class="nav-links">
     <li><a href="#how">How It Works</a></li>
@@ -1002,7 +1002,7 @@ nav {
     <div class="hero-proof">
       <div class="hero-proof-item">
         <span class="proof-dot"></span>
-        <span class="proof-text">29 detection rules live</span>
+        <span class="proof-text">37 detection rules live</span>
       </div>
       <div class="hero-proof-item">
         <span class="proof-dot"></span>
@@ -1080,7 +1080,7 @@ nav {
     <div class="how-card">
       <div class="how-num">2</div>
       <h3>Detect Patterns</h3>
-      <p>Chirp — our detection engine — evaluates every transaction in real time as it arrives via Square webhooks. 29 rules across 8 categories analyze refund patterns, employee behavior, timing anomalies, and velocity spikes.</p>
+      <p>Chirp — our detection engine — evaluates every transaction in real time as it arrives via Square webhooks. 37 rules across 10 categories analyze refund patterns, employee behavior, timing anomalies, and velocity spikes.</p>
       <div class="how-time">Detection: Real-time, T+0ms</div>
     </div>
     <div class="how-card">
@@ -1097,12 +1097,12 @@ nav {
 <!-- DETECTION -->
 <div class="section" id="detection">
   <div class="section-label">Detection Engine</div>
-  <div class="section-title">Chirp: 29 Rules. 8 Categories. 3 Tiers.</div>
-  <div class="section-intro">Every rule is based on real-world loss prevention patterns from 30+ years of retail operations experience. Not theoretical. Not machine learning guessing at fraud. These are the rules that catch real theft.</div>
+  <div class="section-title">Chirp: 37 Rules. 10 Categories. 3 Tiers.</div>
+  <div class="section-intro">Every rule is based on real-world loss prevention patterns from 30+ years of retail operations experience. 10 categories cover payments, cash drawer, orders, timecards, voids, gift cards, loyalty, disputes, invoices, and composite risk scoring. Not theoretical. Not machine learning guessing at fraud. These are the rules that catch real theft.</div>
 
   <div class="rules-header">
     <div></div>
-    <div class="rules-count">Showing 8 of 29 rules — full catalog available in technical docs</div>
+    <div class="rules-count">Showing all 37 rules across 10 categories</div>
   </div>
 
   <table class="rules-table">
@@ -1115,54 +1115,53 @@ nav {
       </tr>
     </thead>
     <tbody>
-      <tr>
-        <td class="rule-name">Post-Void</td>
-        <td>Voided transaction within 5 min of completion</td>
-        <td><span class="sev-badge critical">Critical</span></td>
-        <td>Fraud Pattern</td>
-      </tr>
-      <tr>
-        <td class="rule-name">Off-Clock Activity</td>
-        <td>Employee processes transaction outside scheduled shift</td>
-        <td><span class="sev-badge critical">Critical</span></td>
-        <td>Employee</td>
-      </tr>
-      <tr>
-        <td class="rule-name">High Refund Velocity</td>
-        <td>&gt; 3 refunds in a single day by one employee</td>
-        <td><span class="sev-badge high">High</span></td>
-        <td>Refund</td>
-      </tr>
-      <tr>
-        <td class="rule-name">Large Refund Amount</td>
-        <td>Single refund exceeds $100 (configurable)</td>
-        <td><span class="sev-badge high">High</span></td>
-        <td>Refund</td>
-      </tr>
-      <tr>
-        <td class="rule-name">After-Hours Activity</td>
-        <td>Any POS activity between 10 PM and 6 AM local time</td>
-        <td><span class="sev-badge medium">Medium</span></td>
-        <td>Timing</td>
-      </tr>
-      <tr>
-        <td class="rule-name">Rapid Refund Sequence</td>
-        <td>Multiple refunds within a 30-minute window</td>
-        <td><span class="sev-badge medium">Medium</span></td>
-        <td>Velocity</td>
-      </tr>
-      <tr>
-        <td class="rule-name">Excessive Discount</td>
-        <td>Discount exceeds 40% of transaction value</td>
-        <td><span class="sev-badge high">High</span></td>
-        <td>Pricing</td>
-      </tr>
-      <tr>
-        <td class="rule-name">Manual Entry Spike</td>
-        <td>&gt; 10 manual card entries in one hour</td>
-        <td><span class="sev-badge high">High</span></td>
-        <td>Card Handling</td>
-      </tr>
+      <!-- Payment (11 rules) -->
+      <tr><td class="rule-name">Rapid Refund</td><td>Refund within 15 min of sale</td><td><span class="sev-badge high">High</span></td><td>Payment</td></tr>
+      <tr><td class="rule-name">Excessive Refund Rate</td><td>Refund rate &gt;15% of shift transactions</td><td><span class="sev-badge high">High</span></td><td>Payment</td></tr>
+      <tr><td class="rule-name">Round Amount Pattern</td><td>5+ round-dollar transactions per hour</td><td><span class="sev-badge medium">Medium</span></td><td>Payment</td></tr>
+      <tr><td class="rule-name">After-Hours Transaction</td><td>Transaction outside business hours</td><td><span class="sev-badge medium">Medium</span></td><td>Payment</td></tr>
+      <tr><td class="rule-name">Card Velocity</td><td>Same card 5+ times per hour</td><td><span class="sev-badge high">High</span></td><td>Payment</td></tr>
+      <tr><td class="rule-name">Split Tender Pattern</td><td>3+ split-tender transactions per hour</td><td><span class="sev-badge medium">Medium</span></td><td>Payment</td></tr>
+      <tr><td class="rule-name">High Value Refund</td><td>Single refund &gt;$100</td><td><span class="sev-badge high">High</span></td><td>Payment</td></tr>
+      <tr><td class="rule-name">Manual Entry Spike</td><td>5+ keyed-in cards per shift</td><td><span class="sev-badge medium">Medium</span></td><td>Payment</td></tr>
+      <tr><td class="rule-name">Square Delay Hold</td><td>Square flagged delay hold</td><td><span class="sev-badge critical">Critical</span></td><td>Payment</td></tr>
+      <tr><td class="rule-name">Partial Authorization</td><td>Bank approved less than requested</td><td><span class="sev-badge high">High</span></td><td>Payment</td></tr>
+      <tr><td class="rule-name">No Sale Detected</td><td>Cash drawer opened, no transaction</td><td><span class="sev-badge high">High</span></td><td>Payment</td></tr>
+      <!-- Cash Drawer (4 rules) -->
+      <tr><td class="rule-name">No-Sale Abuse</td><td>5+ no-sale drawer opens per shift</td><td><span class="sev-badge high">High</span></td><td>Cash Drawer</td></tr>
+      <tr><td class="rule-name">Cash Variance</td><td>Shift variance &gt;$20</td><td><span class="sev-badge high">High</span></td><td>Cash Drawer</td></tr>
+      <tr><td class="rule-name">Paid-Out Anomaly</td><td>Paid-out &gt;$50 without override</td><td><span class="sev-badge medium">Medium</span></td><td>Cash Drawer</td></tr>
+      <tr><td class="rule-name">After-Hours Drawer</td><td>Drawer opened after hours</td><td><span class="sev-badge critical">Critical</span></td><td>Cash Drawer</td></tr>
+      <!-- Order (4 rules) -->
+      <tr><td class="rule-name">Excessive Discount Rate</td><td>Average discount &gt;50%</td><td><span class="sev-badge high">High</span></td><td>Order</td></tr>
+      <tr><td class="rule-name">Line Item Void Rate</td><td>Void rate &gt;10%</td><td><span class="sev-badge high">High</span></td><td>Order</td></tr>
+      <tr><td class="rule-name">Sweethearting</td><td>Discount without approval &gt;$20</td><td><span class="sev-badge high">High</span></td><td>Order</td></tr>
+      <tr><td class="rule-name">Untendered Order</td><td>Order with no payment for 24+ hours</td><td><span class="sev-badge critical">Critical</span></td><td>Order</td></tr>
+      <!-- Timecard (3 rules) -->
+      <tr><td class="rule-name">Off-Clock Transaction</td><td>Transaction with no open timecard</td><td><span class="sev-badge critical">Critical</span></td><td>Timecard</td></tr>
+      <tr><td class="rule-name">Break Transaction</td><td>Transaction during declared break</td><td><span class="sev-badge high">High</span></td><td>Timecard</td></tr>
+      <tr><td class="rule-name">Wrong Location</td><td>Clocked in at different location</td><td><span class="sev-badge high">High</span></td><td>Timecard</td></tr>
+      <!-- Void (2 rules) -->
+      <tr><td class="rule-name">High Void Rate</td><td>5+ voids per shift</td><td><span class="sev-badge high">High</span></td><td>Void</td></tr>
+      <tr><td class="rule-name">Post-Void Alert</td><td>Full refund of completed sale</td><td><span class="sev-badge critical">Critical</span></td><td>Void</td></tr>
+      <!-- Gift Card (2 rules) -->
+      <tr><td class="rule-name">Gift Card Load Velocity</td><td>3+ gift card loads per hour</td><td><span class="sev-badge high">High</span></td><td>Gift Card</td></tr>
+      <tr><td class="rule-name">Gift Card Drain</td><td>Full redeem immediately after load</td><td><span class="sev-badge critical">Critical</span></td><td>Gift Card</td></tr>
+      <!-- Loyalty (4 rules) -->
+      <tr><td class="rule-name">Rapid Point Accumulation</td><td>5+ point events per hour</td><td><span class="sev-badge medium">Medium</span></td><td>Loyalty</td></tr>
+      <tr><td class="rule-name">Bulk Redemption</td><td>5000+ points in single event</td><td><span class="sev-badge high">High</span></td><td>Loyalty</td></tr>
+      <tr><td class="rule-name">Cross-Location Velocity</td><td>3+ locations in 2 hours</td><td><span class="sev-badge high">High</span></td><td>Loyalty</td></tr>
+      <tr><td class="rule-name">Enrollment Fraud</td><td>10+ enrollments per day per employee</td><td><span class="sev-badge medium">Medium</span></td><td>Loyalty</td></tr>
+      <!-- Composite (1 rule) -->
+      <tr><td class="rule-name">SRA Threshold Breach</td><td>Shrink risk &gt;3% of sales</td><td><span class="sev-badge high">High</span></td><td>Composite</td></tr>
+      <!-- Dispute (3 rules) -->
+      <tr><td class="rule-name">Dispute Created</td><td>New dispute filed</td><td><span class="sev-badge high">High</span></td><td>Dispute</td></tr>
+      <tr><td class="rule-name">Dispute Lost</td><td>Dispute lost — chargeback</td><td><span class="sev-badge critical">Critical</span></td><td>Dispute</td></tr>
+      <tr><td class="rule-name">Dispute Velocity</td><td>3+ disputes in 30 days</td><td><span class="sev-badge high">High</span></td><td>Dispute</td></tr>
+      <!-- Invoice (3 rules) -->
+      <tr><td class="rule-name">Invoice Overdue</td><td>Past due, still unpaid</td><td><span class="sev-badge medium">Medium</span></td><td>Invoice</td></tr>
+      <tr><td class="rule-name">Invoice Charge Failed</td><td>Scheduled charge failed</td><td><span class="sev-badge high">High</span></td><td>Invoice</td></tr>
+      <tr><td class="rule-name">High Value Invoice Unpaid</td><td>Unpaid invoice &gt;$500</td><td><span class="sev-badge high">High</span></td><td>Invoice</td></tr>
     </tbody>
   </table>
 </div>
@@ -1246,44 +1245,48 @@ nav {
 <!-- PRICING -->
 <div class="section" id="pricing">
   <div class="section-label">Pricing</div>
-  <div class="section-title">Enterprise LP. Small Business Price.</div>
-  <div class="section-intro">The tools that enterprise retailers pay $50K+/year for, at a price that works for a single location. No contracts. No setup fees. Cancel anytime.</div>
+  <div class="section-title">Start Free. Pay As You Grow.</div>
+  <div class="section-intro">Connect your Square account and start receiving alerts immediately. GrowDirect funds your account with free credits at signup — no credit card required. Premium features draw from your credit balance. Top up anytime.</div>
 
-  <div class="pricing-grid">
+  <div class="pricing-grid" style="grid-template-columns: repeat(4, 1fr);">
     <div class="price-card">
-      <div class="price-tier">Starter</div>
-      <div class="price-amount">$49</div>
-      <div class="price-period">per location / month</div>
-      <ul class="price-features">
-        <li>Chirp detection engine — all 29 rules</li>
-        <li>Real-time SMS alerts (HIGH + CRITICAL)</li>
-        <li>Dashboard with alert management</li>
-        <li>1 location</li>
-        <li>Email support</li>
+      <div style="font-size:32px;margin-bottom:16px;">&#x1F527;</div>
+      <div class="price-tier">Free Onboarding</div>
+      <ul class="price-features" style="margin-top:20px;">
+        <li>Connect Square in 2 clicks</li>
+        <li>Credits funded at signup</li>
+        <li>No credit card required</li>
+        <li>First alerts within minutes</li>
       </ul>
     </div>
-    <div class="price-card featured">
-      <div class="price-tier">Professional</div>
-      <div class="price-amount">$99</div>
-      <div class="price-period">per location / month</div>
-      <ul class="price-features">
-        <li>Everything in Starter</li>
-        <li>Fox case management + evidence locker</li>
-        <li>Custom detection thresholds</li>
-        <li>Up to 5 locations</li>
-        <li>Priority support</li>
+    <div class="price-card" style="border-color: rgba(251,191,36,0.4);">
+      <div style="font-size:32px;margin-bottom:16px;">&#x1F6E1;</div>
+      <div class="price-tier">Gold List — Always Free</div>
+      <ul class="price-features" style="margin-top:20px;">
+        <li>Post-Void alerts</li>
+        <li>Off-Clock Transaction alerts</li>
+        <li>Untendered Order alerts</li>
+        <li>Core protection at zero cost</li>
       </ul>
     </div>
     <div class="price-card">
-      <div class="price-tier">Enterprise</div>
-      <div class="price-amount">$199</div>
-      <div class="price-period">per location / month</div>
-      <ul class="price-features">
-        <li>Everything in Professional</li>
-        <li>Owl analytics + benchmarking</li>
-        <li>Bitcoin evidence notarization</li>
-        <li>Unlimited locations</li>
-        <li>Dedicated account manager</li>
+      <div style="font-size:32px;margin-bottom:16px;">&#x26A1;</div>
+      <div class="price-tier">Usage-Based</div>
+      <ul class="price-features" style="margin-top:20px;">
+        <li>Fox case management draws credits</li>
+        <li>Owl analysis draws credits</li>
+        <li>Deep features on demand</li>
+        <li>Pay only for what you use</li>
+      </ul>
+    </div>
+    <div class="price-card">
+      <div style="font-size:32px;margin-bottom:16px;">&#x1F4B3;</div>
+      <div class="price-tier">Easy Refills</div>
+      <ul class="price-features" style="margin-top:20px;">
+        <li>Add credits anytime</li>
+        <li>Lightning-compatible wallets</li>
+        <li>Cash App, Strike, and more</li>
+        <li>Instant balance updates</li>
       </ul>
     </div>
   </div>
@@ -1298,12 +1301,15 @@ nav {
       <h2>Technical Deep Dive</h2>
       <p>Full platform documentation, detection rule catalog, data model reference, architecture diagrams, and protocol specifications — for partners, investors, and technical evaluators.</p>
       <ul class="gate-contents">
-        <li><span>&#x2794;</span> Complete Chirp Rule Catalog — all 29 rules with thresholds</li>
+        <li><span>&#x2794;</span> Complete Chirp Rule Catalog — all 37 rules with thresholds</li>
         <li><span>&#x2794;</span> CRDM — Canonical Retail Data Model specification</li>
         <li><span>&#x2794;</span> Platform Architecture — three-database model, capture pipeline</li>
         <li><span>&#x2794;</span> Technical Architecture Roadshow — full platform walkthrough</li>
         <li><span>&#x2794;</span> Factory Process — how we build</li>
         <li><span>&#x2794;</span> elJeffe Protocol — closed-loop Bitcoin economics</li>
+        <li><span>&#x2794;</span> Magazine Article — Canary product story</li>
+        <li><span>&#x2794;</span> Fox Case Management — evidentiary case spec</li>
+        <li><span>&#x2794;</span> API Reference — endpoints and integration guide</li>
       </ul>
     </div>
     <div class="gate-form-wrap">
@@ -1325,30 +1331,45 @@ nav {
 
   <div class="gated-section-title">Platform Documentation</div>
   <div class="doc-grid">
-    <a href="Canary Technical Library/Canary Data Model.html" class="doc-card" style="text-decoration:none;color:inherit">
+    <a href="../docs/canary-data-model.html" class="doc-card" style="text-decoration:none;color:inherit">
       <div class="doc-type">Architecture</div>
       <h3>CRDM — Canonical Retail Data Model</h3>
       <p>How Square webhook payloads become structured, queryable, evidence-grade transaction records. Three generations of enterprise LP data architecture.</p>
     </a>
-    <a href="Canary Technical Library/Canary Platform Architecture.html" class="doc-card" style="text-decoration:none;color:inherit">
+    <a href="../docs/canary-platform-architecture.html" class="doc-card" style="text-decoration:none;color:inherit">
       <div class="doc-type">Architecture</div>
       <h3>Platform Architecture</h3>
       <p>Three-database model, capture pipeline, gLog inscription flow, immutability tiers, POS-agnostic design, and security architecture.</p>
     </a>
-    <a href="Canary Technical Library/Canary Technical Roadshow.html" class="doc-card" style="text-decoration:none;color:inherit">
+    <a href="../docs/canary-technical-roadshow.html" class="doc-card" style="text-decoration:none;color:inherit">
       <div class="doc-type">Architecture</div>
       <h3>Technical Roadshow</h3>
       <p>Complete platform architecture walkthrough. Six-node pipeline, Triple Subscriber, detection engine, Bitcoin inscription, L402 validation.</p>
     </a>
-    <a href="Canary Technical Library/Canary Factory Process.html" class="doc-card" style="text-decoration:none;color:inherit">
+    <a href="../docs/canary-factory-process.html" class="doc-card" style="text-decoration:none;color:inherit">
       <div class="doc-type">Process</div>
       <h3>Factory Process — How We Build</h3>
       <p>GrowDirect's six-stage development methodology. Blueprinting, TDD, assembly, QA, packaging, and shipping — the factory that produces production-grade software.</p>
     </a>
-    <a href="Canary Technical Library/Canary elJeffe Protocol.html" class="doc-card" style="text-decoration:none;color:inherit">
+    <a href="../docs/canary-eljeffe-protocol.html" class="doc-card" style="text-decoration:none;color:inherit">
       <div class="doc-type">Protocol</div>
       <h3>elJeffe — Closed-Loop Bitcoin Economics</h3>
       <p>Self-reinforcing economic engine on Bitcoin. Treasury, Ordinal minting, L402 smart contract licensing, perpetual royalty revenue. The protocol that writes itself.</p>
+    </a>
+    <a href="../docs/canary-magazine-article.html" class="doc-card" style="text-decoration:none;color:inherit">
+      <div class="doc-type">Article</div>
+      <h3>Magazine Article</h3>
+      <p>The Canary product story — loss prevention reimagined for independent Square merchants. Origin, approach, and market position.</p>
+    </a>
+    <a href="../docs/canary-fox-spec.html" class="doc-card" style="text-decoration:none;color:inherit">
+      <div class="doc-type">Specification</div>
+      <h3>Fox Case Management</h3>
+      <p>Evidentiary case management system. Immutable evidence locker, structured timelines, alert-to-case escalation, and documented resolution workflows.</p>
+    </a>
+    <a href="../docs/canary-api-reference.html" class="doc-card" style="text-decoration:none;color:inherit">
+      <div class="doc-type">Reference</div>
+      <h3>API Reference</h3>
+      <p>Canary REST API endpoints, authentication, webhook payloads, and integration guide for programmatic access to alerts, cases, and merchant data.</p>
     </a>
   </div>
 
@@ -1365,18 +1386,53 @@ nav {
         </tr>
       </thead>
       <tbody>
-        <tr><td class="rule-name">Post-Void</td><td>Fraud</td><td>Voided within 5 min</td><td><span class="sev-badge critical">Critical</span></td><td>Stateless</td></tr>
-        <tr><td class="rule-name">Off-Clock Activity</td><td>Employee</td><td>Outside shift</td><td><span class="sev-badge critical">Critical</span></td><td>DB Query</td></tr>
-        <tr><td class="rule-name">After-Hours Activity</td><td>Timing</td><td>10 PM – 6 AM</td><td><span class="sev-badge medium">Medium</span></td><td>Stateless</td></tr>
-        <tr><td class="rule-name">High Refund Velocity</td><td>Refund</td><td>&gt; 3/day</td><td><span class="sev-badge high">High</span></td><td>Valkey</td></tr>
-        <tr><td class="rule-name">Large Refund</td><td>Refund</td><td>&gt; $100</td><td><span class="sev-badge high">High</span></td><td>Stateless</td></tr>
-        <tr><td class="rule-name">Rapid Refund Sequence</td><td>Velocity</td><td>Multiple &lt; 30 min</td><td><span class="sev-badge medium">Medium</span></td><td>Valkey</td></tr>
-        <tr><td class="rule-name">Excessive Discount</td><td>Pricing</td><td>&gt; 40%</td><td><span class="sev-badge high">High</span></td><td>Stateless</td></tr>
-        <tr><td class="rule-name">No-Sale Abuse</td><td>Register</td><td>&gt; 5/shift</td><td><span class="sev-badge high">High</span></td><td>Valkey</td></tr>
-        <tr><td class="rule-name">Manual Entry Spike</td><td>Card</td><td>&gt; 10/hour</td><td><span class="sev-badge high">High</span></td><td>Valkey</td></tr>
-        <tr><td class="rule-name">Untendered Order</td><td>Register</td><td>Completed, no payment</td><td><span class="sev-badge critical">Critical</span></td><td>Stateless</td></tr>
-        <tr><td class="rule-name">Refund-to-Different-Card</td><td>Fraud</td><td>Card fingerprint mismatch</td><td><span class="sev-badge critical">Critical</span></td><td>DB Query</td></tr>
-        <tr><td class="rule-name">Split Transaction</td><td>Evasion</td><td>Sequential small txns</td><td><span class="sev-badge medium">Medium</span></td><td>Valkey</td></tr>
+        <!-- Payment (11 rules) -->
+        <tr><td class="rule-name">Rapid Refund</td><td>Payment</td><td>Refund within 15 min of sale</td><td><span class="sev-badge high">High</span></td><td>DB Query</td></tr>
+        <tr><td class="rule-name">Excessive Refund Rate</td><td>Payment</td><td>Refund rate &gt;15% of shift txns</td><td><span class="sev-badge high">High</span></td><td>Valkey</td></tr>
+        <tr><td class="rule-name">Round Amount Pattern</td><td>Payment</td><td>5+ round-dollar txns/hour</td><td><span class="sev-badge medium">Medium</span></td><td>Valkey</td></tr>
+        <tr><td class="rule-name">After-Hours Transaction</td><td>Payment</td><td>Outside business hours</td><td><span class="sev-badge medium">Medium</span></td><td>Stateless</td></tr>
+        <tr><td class="rule-name">Card Velocity</td><td>Payment</td><td>Same card 5+ times/hour</td><td><span class="sev-badge high">High</span></td><td>Valkey</td></tr>
+        <tr><td class="rule-name">Split Tender Pattern</td><td>Payment</td><td>3+ split-tender txns/hour</td><td><span class="sev-badge medium">Medium</span></td><td>Valkey</td></tr>
+        <tr><td class="rule-name">High Value Refund</td><td>Payment</td><td>Single refund &gt;$100</td><td><span class="sev-badge high">High</span></td><td>Stateless</td></tr>
+        <tr><td class="rule-name">Manual Entry Spike</td><td>Payment</td><td>5+ keyed-in cards/shift</td><td><span class="sev-badge medium">Medium</span></td><td>Valkey</td></tr>
+        <tr><td class="rule-name">Square Delay Hold</td><td>Payment</td><td>Square flagged delay hold</td><td><span class="sev-badge critical">Critical</span></td><td>Stateless</td></tr>
+        <tr><td class="rule-name">Partial Authorization</td><td>Payment</td><td>Bank approved less than requested</td><td><span class="sev-badge high">High</span></td><td>Stateless</td></tr>
+        <tr><td class="rule-name">No Sale Detected</td><td>Payment</td><td>Cash drawer, no transaction</td><td><span class="sev-badge high">High</span></td><td>Stateless</td></tr>
+        <!-- Cash Drawer (4 rules) -->
+        <tr><td class="rule-name">No-Sale Abuse</td><td>Cash Drawer</td><td>5+ no-sale opens/shift</td><td><span class="sev-badge high">High</span></td><td>Valkey</td></tr>
+        <tr><td class="rule-name">Cash Variance</td><td>Cash Drawer</td><td>Shift variance &gt;$20</td><td><span class="sev-badge high">High</span></td><td>DB Query</td></tr>
+        <tr><td class="rule-name">Paid-Out Anomaly</td><td>Cash Drawer</td><td>Paid-out &gt;$50 no override</td><td><span class="sev-badge medium">Medium</span></td><td>DB Query</td></tr>
+        <tr><td class="rule-name">After-Hours Drawer</td><td>Cash Drawer</td><td>Drawer opened after hours</td><td><span class="sev-badge critical">Critical</span></td><td>DB Query</td></tr>
+        <!-- Order (4 rules) -->
+        <tr><td class="rule-name">Excessive Discount Rate</td><td>Order</td><td>Average discount &gt;50%</td><td><span class="sev-badge high">High</span></td><td>DB Query</td></tr>
+        <tr><td class="rule-name">Line Item Void Rate</td><td>Order</td><td>Void rate &gt;10%</td><td><span class="sev-badge high">High</span></td><td>DB Query</td></tr>
+        <tr><td class="rule-name">Sweethearting</td><td>Order</td><td>Discount no approval &gt;$20</td><td><span class="sev-badge high">High</span></td><td>DB Query</td></tr>
+        <tr><td class="rule-name">Untendered Order</td><td>Order</td><td>Order with no payment 24hr+</td><td><span class="sev-badge critical">Critical</span></td><td>DB Query</td></tr>
+        <!-- Timecard (3 rules) -->
+        <tr><td class="rule-name">Off-Clock Transaction</td><td>Timecard</td><td>No open timecard</td><td><span class="sev-badge critical">Critical</span></td><td>DB Query</td></tr>
+        <tr><td class="rule-name">Break Transaction</td><td>Timecard</td><td>During declared break</td><td><span class="sev-badge high">High</span></td><td>DB Query</td></tr>
+        <tr><td class="rule-name">Wrong Location</td><td>Timecard</td><td>Clocked in at different location</td><td><span class="sev-badge high">High</span></td><td>DB Query</td></tr>
+        <!-- Void (2 rules) -->
+        <tr><td class="rule-name">High Void Rate</td><td>Void</td><td>5+ voids/shift</td><td><span class="sev-badge high">High</span></td><td>Valkey</td></tr>
+        <tr><td class="rule-name">Post-Void Alert</td><td>Void</td><td>Full refund of completed sale</td><td><span class="sev-badge critical">Critical</span></td><td>Valkey</td></tr>
+        <!-- Gift Card (2 rules) -->
+        <tr><td class="rule-name">Gift Card Load Velocity</td><td>Gift Card</td><td>3+ loads/hour</td><td><span class="sev-badge high">High</span></td><td>Valkey</td></tr>
+        <tr><td class="rule-name">Gift Card Drain</td><td>Gift Card</td><td>Full redeem after load</td><td><span class="sev-badge critical">Critical</span></td><td>DB Query</td></tr>
+        <!-- Loyalty (4 rules) -->
+        <tr><td class="rule-name">Rapid Point Accumulation</td><td>Loyalty</td><td>5+ point events/hour</td><td><span class="sev-badge medium">Medium</span></td><td>Valkey</td></tr>
+        <tr><td class="rule-name">Bulk Redemption</td><td>Loyalty</td><td>5000+ points single event</td><td><span class="sev-badge high">High</span></td><td>DB Query</td></tr>
+        <tr><td class="rule-name">Cross-Location Velocity</td><td>Loyalty</td><td>3+ locations in 2 hours</td><td><span class="sev-badge high">High</span></td><td>Valkey</td></tr>
+        <tr><td class="rule-name">Enrollment Fraud</td><td>Loyalty</td><td>10+ enrollments/day/employee</td><td><span class="sev-badge medium">Medium</span></td><td>Valkey</td></tr>
+        <!-- Composite (1 rule) -->
+        <tr><td class="rule-name">SRA Threshold Breach</td><td>Composite</td><td>Shrink risk &gt;3% of sales</td><td><span class="sev-badge high">High</span></td><td>DB Query</td></tr>
+        <!-- Dispute (3 rules) -->
+        <tr><td class="rule-name">Dispute Created</td><td>Dispute</td><td>New dispute filed</td><td><span class="sev-badge high">High</span></td><td>Stateless</td></tr>
+        <tr><td class="rule-name">Dispute Lost</td><td>Dispute</td><td>Dispute lost — chargeback</td><td><span class="sev-badge critical">Critical</span></td><td>Stateless</td></tr>
+        <tr><td class="rule-name">Dispute Velocity</td><td>Dispute</td><td>3+ disputes in 30 days</td><td><span class="sev-badge high">High</span></td><td>Valkey</td></tr>
+        <!-- Invoice (3 rules) -->
+        <tr><td class="rule-name">Invoice Overdue</td><td>Invoice</td><td>Past due, still unpaid</td><td><span class="sev-badge medium">Medium</span></td><td>Stateless</td></tr>
+        <tr><td class="rule-name">Invoice Charge Failed</td><td>Invoice</td><td>Scheduled charge failed</td><td><span class="sev-badge high">High</span></td><td>Stateless</td></tr>
+        <tr><td class="rule-name">High Value Invoice Unpaid</td><td>Invoice</td><td>Unpaid invoice &gt;$500</td><td><span class="sev-badge high">High</span></td><td>Stateless</td></tr>
       </tbody>
     </table>
   </div>
@@ -1386,7 +1442,7 @@ nav {
 <div class="site-footer">
   <div class="footer-left">&copy; 2026 GrowDirect DAO LLC · Canary Loss Prevention Platform</div>
   <div class="footer-right">
-    <a href="growdirect-hub.html">GrowDirect</a>
+    <a href="../">GrowDirect</a>
     <a href="#gate-section">Documentation</a>
     <a href="mailto:lyle@growdirect.io">Contact</a>
   </div>
