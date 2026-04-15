@@ -4,6 +4,22 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Canary — Loss Prevention for Square Merchants</title>
+<meta property="og:title" content="Canary — Loss Prevention for Square Merchants">
+<meta property="og:description" content="AI-powered detection engine with 37 rules across 10 categories. Real-time alerts for Square merchants.">
+<meta property="og:type" content="website">
+<meta property="og:url" content="https://growdirect.io/canary/">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="Canary — Loss Prevention for Square Merchants">
+<meta name="twitter:description" content="AI-powered detection engine with 37 rules across 10 categories. Real-time alerts for Square merchants.">
+<!-- GA4 -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-ELPTR2ZLP3"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+  gtag('config', 'G-ELPTR2ZLP3');
+</script>
+<link rel="icon" type="image/svg+xml" href="/favicon.svg">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Space+Grotesk:wght@300;400;500;600;700&family=Inter:wght@300;400;500;600;700&family=Space+Mono:wght@400;700&family=DM+Serif+Display:ital@0;1&display=swap" rel="stylesheet">
@@ -983,7 +999,7 @@ nav {
     <li><a href="#architecture">Architecture</a></li>
     <li><a href="#pricing">Pricing</a></li>
   </ul>
-  <div class="nav-badge">Square Marketplace</div>
+  <a href="https://qa.growdirect.app/connect" class="nav-badge" style="text-decoration:none;color:#FBBF24;">Connect</a>
 </nav>
 
 <!-- HERO -->
@@ -995,7 +1011,8 @@ nav {
     <div class="hero-body">
       Real-time fraud detection, evidentiary case management, and immutable audit trails — built exclusively for Square merchants. Enterprise-grade loss prevention at a price that makes sense for one location.
     </div>
-    <div class="hero-actions">
+    <div class="hero-actions" style="align-items:center;">
+      <img src="/img/canary-icon-512.png" alt="Canary" style="width:48px;height:48px;border-radius:10px;">
       <a class="btn-primary" href="#pricing">View Plans</a>
       <a class="btn-secondary" href="#how">How It Works</a>
     </div>
@@ -1086,7 +1103,7 @@ nav {
     <div class="how-card">
       <div class="how-num">3</div>
       <h3>Act on Evidence</h3>
-      <p>Every alert links to the triggering transaction, the detection rule, the employee, and the severity grade. When you need to investigate, Fox provides structured case management with an immutable evidence chain that holds up in court.</p>
+      <p>Every alert links to the triggering transaction, the detection rule, the employee, and the severity grade. When you need to investigate, Fox provides structured case management with a complete evidence chain and documented resolution workflows.</p>
       <div class="how-time">SMS alert: Under 30 seconds</div>
     </div>
   </div>
@@ -1171,8 +1188,8 @@ nav {
 <!-- EVIDENCE -->
 <div class="section" id="evidence">
   <div class="section-label">Case Management</div>
-  <div class="section-title">Fox: Evidence That Holds Up</div>
-  <div class="section-intro">This platform analyzes people's livelihoods. Every accusation must be supported by verifiable facts. Fox is built to evidentiary standards — suitable for HR proceedings, civil litigation, and law enforcement referral.</div>
+  <div class="section-title">Fox Case Management</div>
+  <div class="section-intro">When an alert needs investigation, Fox organizes the evidence. Structured case workflows with full audit trails, linked transactions, and exportable documentation.</div>
 
   <div class="evidence-grid">
     <div class="evidence-card">
@@ -1248,49 +1265,68 @@ nav {
   <div class="section-title">Start Free. Pay As You Grow.</div>
   <div class="section-intro">Connect your Square account and start receiving alerts immediately. GrowDirect funds your account with free credits at signup — no credit card required. Premium features draw from your credit balance. Top up anytime.</div>
 
-  <div class="pricing-grid" style="grid-template-columns: repeat(4, 1fr);">
-    <div class="price-card">
-      <div style="font-size:32px;margin-bottom:16px;">&#x1F527;</div>
-      <div class="price-tier">Free Onboarding</div>
-      <ul class="price-features" style="margin-top:20px;">
-        <li>Connect Square in 2 clicks</li>
-        <li>Credits funded at signup</li>
-        <li>No credit card required</li>
-        <li>First alerts within minutes</li>
-      </ul>
+  <div style="display:grid;grid-template-columns:1fr 1fr;gap:48px;max-width:900px;margin:0 auto;align-items:start;">
+
+    <div>
+      <div class="price-card" style="border-color:rgba(251,191,36,0.4);margin-bottom:20px;">
+        <div class="price-tier">Gold List — Always Free</div>
+        <ul class="price-features" style="margin-top:16px;">
+          <li>Post-Void alerts</li>
+          <li>Off-Clock Transaction alerts</li>
+          <li>Untendered Order alerts</li>
+          <li>Core protection at zero cost</li>
+        </ul>
+      </div>
+      <div class="price-card">
+        <div class="price-tier">Usage-Based Premium</div>
+        <ul class="price-features" style="margin-top:16px;">
+          <li>Fox case management draws credits</li>
+          <li>Owl analysis draws credits</li>
+          <li>Lightning-compatible refills</li>
+          <li>Pay only for what you use</li>
+        </ul>
+      </div>
     </div>
-    <div class="price-card" style="border-color: rgba(251,191,36,0.4);">
-      <div style="font-size:32px;margin-bottom:16px;">&#x1F6E1;</div>
-      <div class="price-tier">Gold List — Always Free</div>
-      <ul class="price-features" style="margin-top:20px;">
-        <li>Post-Void alerts</li>
-        <li>Off-Clock Transaction alerts</li>
-        <li>Untendered Order alerts</li>
-        <li>Core protection at zero cost</li>
-      </ul>
+
+    <div class="price-card" style="border-color:rgba(251,191,36,0.3);">
+      <div class="price-tier" style="margin-bottom:20px;">Get Started</div>
+      <form id="pricing-form" action="https://formspree.io/f/xbdqlakw" method="POST">
+        <input type="hidden" name="_source" value="canary-pricing">
+        <div style="margin-bottom:14px;">
+          <input type="text" name="name" placeholder="Name" required style="width:100%;padding:10px 14px;background:#0D1117;border:1px solid rgba(255,255,255,0.15);border-radius:6px;color:#F8F7F4;font-family:inherit;font-size:0.9rem;">
+        </div>
+        <div style="margin-bottom:14px;">
+          <input type="email" name="email" placeholder="Email" required style="width:100%;padding:10px 14px;background:#0D1117;border:1px solid rgba(255,255,255,0.15);border-radius:6px;color:#F8F7F4;font-family:inherit;font-size:0.9rem;">
+        </div>
+        <div style="margin-bottom:14px;">
+          <input type="text" name="business" placeholder="Business name (optional)" style="width:100%;padding:10px 14px;background:#0D1117;border:1px solid rgba(255,255,255,0.15);border-radius:6px;color:#F8F7F4;font-family:inherit;font-size:0.9rem;">
+        </div>
+        <button type="submit" style="width:100%;padding:12px;background:#FBBF24;color:#0D1117;border:none;border-radius:6px;font-weight:700;font-size:0.95rem;cursor:pointer;letter-spacing:0.5px;">Connect Your Square Account</button>
+      </form>
+      <div id="pricing-thanks" style="display:none;text-align:center;padding:20px 0;color:#FBBF24;font-weight:600;">Thanks — we'll be in touch shortly.</div>
+      <div style="text-align:center;margin-top:12px;font-size:0.8rem;color:rgba(248,247,244,0.5);">Free credits funded at signup. No credit card required.</div>
     </div>
-    <div class="price-card">
-      <div style="font-size:32px;margin-bottom:16px;">&#x26A1;</div>
-      <div class="price-tier">Usage-Based</div>
-      <ul class="price-features" style="margin-top:20px;">
-        <li>Fox case management draws credits</li>
-        <li>Owl analysis draws credits</li>
-        <li>Deep features on demand</li>
-        <li>Pay only for what you use</li>
-      </ul>
-    </div>
-    <div class="price-card">
-      <div style="font-size:32px;margin-bottom:16px;">&#x1F4B3;</div>
-      <div class="price-tier">Easy Refills</div>
-      <ul class="price-features" style="margin-top:20px;">
-        <li>Add credits anytime</li>
-        <li>Lightning-compatible wallets</li>
-        <li>Cash App, Strike, and more</li>
-        <li>Instant balance updates</li>
-      </ul>
-    </div>
+
   </div>
 </div>
+
+<script>
+(function() {
+  const form = document.getElementById('pricing-form');
+  if (!form) return;
+  form.addEventListener('submit', async function(e) {
+    e.preventDefault();
+    try {
+      const res = await fetch(form.action, { method:'POST', body: new FormData(form), headers:{'Accept':'application/json'} });
+      if (res.ok) {
+        form.style.display = 'none';
+        document.getElementById('pricing-thanks').style.display = 'block';
+        if (typeof gtag === 'function') gtag('event', 'pricing_form_submit', { source: 'canary-pricing' });
+      }
+    } catch(err) {}
+  });
+})();
+</script>
 
 <div class="divider"></div>
 
@@ -1331,10 +1367,10 @@ nav {
 
   <div class="gated-section-title">Platform Documentation</div>
   <div class="doc-grid">
-    <a href="../docs/canary-data-model.html" class="doc-card" style="text-decoration:none;color:inherit">
+    <a href="../docs/canary-crdm-mapping.html" class="doc-card" style="text-decoration:none;color:inherit">
       <div class="doc-type">Architecture</div>
       <h3>CRDM — Canonical Retail Data Model</h3>
-      <p>How Square webhook payloads become structured, queryable, evidence-grade transaction records. Three generations of enterprise LP data architecture.</p>
+      <p>99 tables across 3 PostgreSQL schemas. Third-generation normalized retail transaction schema covering transactions, detection, metrics, and Bitcoin settlement.</p>
     </a>
     <a href="../docs/canary-platform-architecture.html" class="doc-card" style="text-decoration:none;color:inherit">
       <div class="doc-type">Architecture</div>
@@ -1360,11 +1396,6 @@ nav {
       <div class="doc-type">Article</div>
       <h3>Magazine Article</h3>
       <p>The Canary product story — loss prevention reimagined for independent Square merchants. Origin, approach, and market position.</p>
-    </a>
-    <a href="../docs/canary-fox-spec.html" class="doc-card" style="text-decoration:none;color:inherit">
-      <div class="doc-type">Specification</div>
-      <h3>Fox Case Management</h3>
-      <p>Evidentiary case management system. Immutable evidence locker, structured timelines, alert-to-case escalation, and documented resolution workflows.</p>
     </a>
     <a href="../docs/canary-api-reference.html" class="doc-card" style="text-decoration:none;color:inherit">
       <div class="doc-type">Reference</div>
@@ -1438,13 +1469,21 @@ nav {
   </div>
 </div>
 
+<!-- CTA -->
+<div style="max-width:1100px;margin:0 auto;padding:64px clamp(24px,5vw,64px);text-align:center;">
+  <div style="font-family:'Space Mono',monospace;font-size:11px;color:var(--canary);letter-spacing:0.15em;text-transform:uppercase;margin-bottom:16px;">Get Started</div>
+  <div style="font-family:'Space Grotesk',sans-serif;font-size:clamp(1.4rem,3vw,2rem);font-weight:700;line-height:1.3;margin-bottom:12px;">Interested in Canary for your stores?</div>
+  <div style="color:var(--text2);font-size:1rem;max-width:520px;margin:0 auto 32px;line-height:1.7;">Connect your Square account and start receiving alerts. Free credits at signup — no credit card required.</div>
+  <a href="/contact.html?from=canary" data-track="cta" data-label="canary-cta" style="display:inline-block;background:linear-gradient(135deg,#F7931A,#FBBF24);color:#000;font-family:'Space Mono',monospace;font-size:11px;font-weight:700;letter-spacing:0.12em;text-transform:uppercase;padding:14px 36px;border-radius:6px;transition:opacity 0.2s;">Let's Talk &rarr;</a>
+</div>
+
 <!-- FOOTER -->
 <div class="site-footer">
   <div class="footer-left">&copy; 2026 GrowDirect DAO LLC · Canary Loss Prevention Platform</div>
   <div class="footer-right">
     <a href="../">GrowDirect</a>
     <a href="#gate-section">Documentation</a>
-    <a href="mailto:lyle@growdirect.io">Contact</a>
+    <a href="/contact.html?from=canary">Contact</a>
   </div>
 </div>
 
@@ -1476,6 +1515,7 @@ document.querySelectorAll('a[href^="#"]').forEach(a => {
   });
 });
 </script>
+<script src="/js/main.js"></script>
 
 </body>
 </html>

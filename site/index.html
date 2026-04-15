@@ -4,6 +4,22 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>GrowDirect — Immutable Commerce Infrastructure</title>
+<meta property="og:title" content="GrowDirect — Immutable Commerce Infrastructure">
+<meta property="og:description" content="Full-stack platform development. Loss prevention, real estate intelligence, and membership governance.">
+<meta property="og:type" content="website">
+<meta property="og:url" content="https://growdirect.io/">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="GrowDirect — Immutable Commerce Infrastructure">
+<meta name="twitter:description" content="Full-stack platform development. Loss prevention, real estate intelligence, and membership governance.">
+<!-- GA4 -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-ELPTR2ZLP3"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+  gtag('config', 'G-ELPTR2ZLP3');
+</script>
+<link rel="icon" type="image/svg+xml" href="/favicon.svg">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=DM+Serif+Display:ital@0;1&family=Space+Grotesk:wght@300;400;500;600;700&family=Inter:wght@300;400;500;600;700&family=Space+Mono:wght@400;700&display=swap" rel="stylesheet">
@@ -1102,8 +1118,8 @@ footer {
 </head>
 <body>
 
-<!-- NAV -->
-<nav>
+<!-- NAV — hidden until gate unlocked -->
+<nav id="site-nav" style="display:none;">
   <div class="nav-logo">GROWDIRECT</div>
   <ul class="nav-links">
     <li><a href="#thesis">Thesis</a></li>
@@ -1112,8 +1128,27 @@ footer {
     <li><a href="#portfolio">Portfolio</a></li>
     <li><a href="canary/">Canary</a></li>
   </ul>
-  <a class="nav-cta" href="#gate-section">Investor Access</a>
 </nav>
+
+<!-- GATE — shown on load -->
+<div class="gate-banner" id="gate-section" style="min-height:80vh;display:flex;align-items:center;justify-content:center;">
+  <div class="gate-inner" style="max-width:600px;text-align:center;">
+    <div class="gate-text">
+      <h2>GrowDirect Portal</h2>
+      <p>Platform thesis, architecture, protocol documentation, and confidential materials for qualified investors and strategic partners.</p>
+    </div>
+    <div class="gate-form-wrap" style="margin-top:32px;">
+      <div class="gate-form-label">Authorized Access Only</div>
+      <input type="password" class="gate-input" id="gate-pw" placeholder="ACCESS CODE" autocomplete="off"/>
+      <button class="gate-btn" onclick="unlockGate()">Enter</button>
+      <div class="gate-error" id="gate-err">Invalid access code</div>
+      <div class="gate-disclaimer">This material is confidential. Distribution requires written authorization from GrowDirect DAO LLC.</div>
+    </div>
+  </div>
+</div>
+
+<!-- ALL CONTENT — hidden until gate unlocked -->
+<div id="gated-content">
 
 <!-- HERO -->
 <div class="hero">
@@ -1478,40 +1513,9 @@ footer {
   </div>
 </div>
 
-<!-- GATE SECTION -->
-<div class="gate-banner" id="gate-section">
-  <div class="gate-inner">
-    <div class="gate-text">
-      <h2>Investor Briefing</h2>
-      <p>The full thesis, protocol architecture, closed-loop economy model, patent filings, and competitive analysis. For qualified investors and strategic partners.</p>
-      <ul class="gate-contents">
-        <li><span>01</span> The Complete Thesis — Manifesto v1.2</li>
-        <li><span>02</span> elJeffe Protocol — Closed Loop Economy</li>
-        <li><span>03</span> CRDM — Canonical Retail Data Model</li>
-        <li><span>04</span> JSONB Forensic Analysis</li>
-        <li><span>05</span> Magazine Feature — "The Flock That Fights Fraud"</li>
-        <li><span>06</span> Fox — Case Management Specification</li>
-        <li><span>07</span> CRDM Schema Mapping</li>
-        <li><span>08</span> elJeffe API Reference</li>
-      </ul>
-    </div>
-    <div class="gate-form-wrap">
-      <div class="gate-form-label">Authorized Access Only</div>
-      <input type="password" class="gate-input" id="gate-pw" placeholder="ACCESS CODE" autocomplete="off"/>
-      <button class="gate-btn" onclick="unlockGate()">Enter</button>
-      <div class="gate-error" id="gate-err">Invalid access code</div>
-      <div class="gate-disclaimer">This material is confidential. Distribution requires written authorization from GrowDirect DAO LLC.</div>
-    </div>
-  </div>
-</div>
-
-<!-- GATED CONTENT -->
-<div id="gated-content">
-  <div class="gated-header">
-    <div class="section-label" style="margin:0">Investor Materials</div>
-    <div class="gated-badge">Confidential · Authorized Access</div>
-  </div>
-
+<!-- INVESTOR MATERIALS -->
+<div class="section">
+  <div class="section-label">Investor Materials</div>
   <div class="doc-grid">
     <div class="doc-card full-width" onclick="window.open('investor/','_blank')">
       <div class="doc-type">Thesis</div>
@@ -1523,30 +1527,15 @@ footer {
       <h3>elJeffe — The Closed Loop</h3>
       <p>Interactive orbital diagram of the elJeffe protocol. Treasury, Mint, Smart Contract, Royalty Revenue — the four nodes of the perpetual economy. Animated SVG visualization.</p>
     </div>
-    <div class="doc-card" onclick="window.open('docs/canary-data-model.html','_blank')">
-      <div class="doc-type">Technical</div>
+    <div class="doc-card" onclick="window.open('docs/canary-crdm-mapping.html','_blank')">
+      <div class="doc-type">Architecture</div>
       <h3>CRDM — Canonical Retail Data Model</h3>
-      <p>Square data normalization schema. How raw webhook payloads become structured, queryable, evidence-grade transaction records across 4 PostgreSQL schemas.</p>
-    </div>
-    <div class="doc-card" onclick="window.open('docs/canary-jsonb-forensic.html','_blank')">
-      <div class="doc-type">Technical</div>
-      <h3>JSONB Forensic Analysis</h3>
-      <p>Deep-dive into the JSONB field extraction that powers Chirp detection. Color-coded severity mapping across all Square webhook payload fields.</p>
+      <p>99 tables across 3 PostgreSQL schemas. Third-generation normalized retail transaction schema covering transactions, detection, metrics, and Bitcoin settlement.</p>
     </div>
     <div class="doc-card" onclick="window.open('docs/canary-magazine-article.html','_blank')">
       <div class="doc-type">Media</div>
       <h3>"The Flock That Fights Fraud"</h3>
       <p>Long-form magazine article on Canary's approach to democratizing loss prevention. The story of how enterprise LP expertise became accessible software.</p>
-    </div>
-    <div class="doc-card" onclick="window.open('docs/canary-fox-spec.html','_blank')">
-      <div class="doc-type">Technical</div>
-      <h3>Fox — Case Management Specification</h3>
-      <p>Structured incident reporting built to evidentiary standards. Evidence locker with INSERT-only enforcement, case timeline, resolution tracking, and documented outcomes.</p>
-    </div>
-    <div class="doc-card" onclick="window.open('docs/canary-crdm-mapping.html','_blank')">
-      <div class="doc-type">Architecture</div>
-      <h3>CRDM Schema Mapping</h3>
-      <p>How Square webhook payloads map to the Canonical Retail Data Model. Field extraction, schema normalization, and evidence-grade storage across 60+ database models.</p>
     </div>
     <div class="doc-card" onclick="window.open('docs/canary-api-reference.html','_blank')">
       <div class="doc-type">API</div>
@@ -1556,11 +1545,13 @@ footer {
   </div>
 </div>
 
+</div><!-- /gated-content -->
+
 <!-- CLOSING -->
 <div class="closing">
   <div class="closing-bg"></div>
   <div class="closing-logo">GROWDIRECT</div>
-  <div class="closing-sub">Immutable commerce infrastructure for every merchant.</div>
+  <div class="closing-sub">Immutable commerce infrastructure for any business.</div>
   <div class="closing-meta">GrowDirect DAO LLC · Wyoming · Patent Pending 63/991,596</div>
 </div>
 
@@ -1570,8 +1561,7 @@ footer {
   <div class="footer-right">
     <a href="canary/">Canary</a>
     <a href="#portfolio">Portfolio</a>
-    <a href="#gate-section">Investors</a>
-    <a href="mailto:lyle@growdirect.io">Contact</a>
+    <a href="/contact.html">Contact</a>
   </div>
 </footer>
 
@@ -1582,8 +1572,9 @@ function unlockGate() {
   const val = document.getElementById('gate-pw').value.trim().toLowerCase();
   if (val === GATE_CODE) {
     document.getElementById('gated-content').style.display = 'block';
+    document.getElementById('site-nav').style.display = '';
     document.getElementById('gate-section').style.display = 'none';
-    document.getElementById('gated-content').scrollIntoView({ behavior: 'smooth', block: 'start' });
+    window.scrollTo({ top: 0, behavior: 'smooth' });
   } else {
     document.getElementById('gate-err').style.display = 'block';
     document.getElementById('gate-pw').value = '';
@@ -1604,6 +1595,7 @@ document.querySelectorAll('a[href^="#"]').forEach(a => {
   });
 });
 </script>
+<script src="/js/main.js"></script>
 
 </body>
 </html>
