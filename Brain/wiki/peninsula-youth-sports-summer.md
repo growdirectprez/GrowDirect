@@ -106,3 +106,17 @@ Beyond the major organized sports (covered in the lifestyle guide), the Hill has
 - "The Saturday Morning Hub" — Ernie Howlett Park on Saturdays is where Little League, soccer, and equestrian converge
 - Rec vs. travel commitment gap: AYSO + PVBA rec = 4–6 hrs/week; one travel sport = 20+ hrs/week + $5K–$15K/year
 - City rec programs at Hesse Park (RPV), Farnham Martin Park (PVE), and Ernie Howlett (RHE) provide lower-barrier entry
+
+
+
+## Baseball Camps & Private Instruction
+
+### Spring Training Baseball Camp (Dan Spring)
+- **Website:** stbaseball.com
+- **Location:** Palos Verdes / South Bay
+- **Founded by:** Dan Spring — Brown University captain, All-Ivy League, drafted by the Detroit Tigers (pitched professionally 2003–2004). Relocated to Hermosa Beach, started volunteering at PV Little League, grew organically into a full program
+- **Programs:** 60+ private lessons/week, 11 weeks of summer camp, clinics year-round, Fall League (100+ players)
+- **Ages:** Up to 12
+- **Scale:** ~15,000 players and families served over 15+ years
+- **Philosophy:** "Relentlessly positive sports culture" — emphasizes effort, attitude, hustle, sportsmanship. No tryouts, no club team model, no negativity-based coaching. Prioritizes enjoyment alongside skill development
+- **Sources:** Voyage LA interview, stbaseball.com, PV Magazine Little League article
