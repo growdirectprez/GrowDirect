@@ -81,8 +81,11 @@ The Blue Ocean analysis identified the core strategic moves. Here's how they map
 
 **Hero:**
 - Animated canary bird (gold, with glow)
-- Headline that captures the metaphor without explaining it. Not "Your margins are shrinking." Something that makes you want to scroll.
-- One-line subhead connecting to what the canary does
+- Headline candidates (pick one during implementation):
+  - "The Canary in the Data Mine"
+  - "Something in your data is trying to tell you something."
+  - "Every transaction tells a story. Most of them go unread."
+- One-line subhead: "Canary reads every transaction your Square system records — and tells you what it finds."
 - Two CTAs: "See What Canary Finds" (scrolls to proof) and "Partner With Us" (scrolls to partner section)
 - Trust line: "Built on Square APIs · Read-only · Your data stays yours"
 
@@ -164,7 +167,7 @@ Two paths:
 
 **Path B — Team / Service Partner**
 - "You work in retail technology, data, consulting, or loss prevention. You see what's happening in this space and you want in. Whether you're an individual contributor or a firm — if you want to build in this category, let's talk."
-- CTA: Contact form (same form, different pre-filled source) or Calendly booking link
+- CTA: Contact form (same form, different pre-filled source) + Calendly booking link (external link, not embed — keeps page lightweight). Calendly URL TBD; fallback to form-only if not set up.
 - Hidden `_source: team-partner` field.
 
 **Both paths converge on the same form** — differentiated by copy and a hidden field, like the growdirect.io `?from=` pattern.
@@ -197,8 +200,11 @@ The page lives at `Canary/static/landing/index.html` within the Canary Flask app
 - AJAX submission with success state, mailto fallback on error
 
 ### Analytics
-- GA4 tag (same property as growdirect.io: `G-ELPTR2ZLP3`, or separate property)
-- Custom events: `partner_form_submit` (with source), `section_scroll` (track how deep people read), `calendly_click`
+- GA4 tag: same property as growdirect.io (`G-ELPTR2ZLP3`) — keeps all GrowDirect traffic in one view, filterable by hostname
+- Custom events:
+  - `partner_form_submit` — with `source` param (merchant-partner / team-partner)
+  - `section_scroll` — fires once per section via Intersection Observer (50% threshold) on Layers 2-6. Tracks how deep people read.
+  - `calendly_click` — fires when team partner Calendly link is clicked
 
 ### Static Assets
 - Single HTML file with embedded CSS (like the sample — no build step)
@@ -226,6 +232,38 @@ The page lives at `Canary/static/landing/index.html` within the Canary Flask app
 4. **No LP jargon in the first 3 layers.** "Loss prevention," "shrink," "asset protection" — these words appear only in Layer 4+ where the audience is self-selected as domain-aware.
 
 5. **The canary metaphor does the heavy lifting.** Don't over-explain it. The bird in the hero. "The canary in the data mine" as a section title or motif. Let people make the connection. The ones who get it are the ones you want.
+
+---
+
+## Responsive & Mobile
+
+- **Breakpoints:** 768px (tablet), 480px (mobile). Single-column below 768px.
+- **Weekly report mock:** Full-width card on mobile, max-width 480px centered on desktop.
+- **Partner section:** Two-path layout stacks vertically on mobile (merchant first, then team).
+- **Nav:** Collapses to hamburger below 768px. "Partner With Us" stays visible as a CTA button even in collapsed state.
+- **Canary bird animation:** Scales down to ~80px on mobile. Reduce glow intensity to avoid performance issues on low-end devices.
+- **Architecture cards (Layer 4):** Stack single-column on mobile.
+- **Touch targets:** All CTAs and form inputs minimum 44px hit area.
+
+---
+
+## Canary Bird Animation
+
+- **Source:** Inline SVG (no external image files). Gold fill (#FBBF24) with soft radial glow (CSS box-shadow or SVG filter).
+- **Animation:** Gentle vertical bob — CSS `@keyframes` with `translateY(-4px)` over 3s, `ease-in-out`, infinite. No JavaScript animation libraries.
+- **Reduced motion:** Wrap in `@media (prefers-reduced-motion: no-preference)`. Static bird with glow is the fallback.
+- **Size:** ~120px wide in the hero on desktop. SVG scales naturally.
+- **Reference:** The existing sample at `Canary/static/landing/index.html` has a working canary SVG with animation. Use that as the starting point and refine.
+
+---
+
+## Accessibility
+
+- **Color contrast:** Gold (#FBBF24) on near-black (#0D1117) passes WCAG AA for large text (18px+). For body text, use white (#E6EDF3) on the dark background; reserve gold for headings, accents, and the bird.
+- **Semantic HTML:** Use `<nav>`, `<main>`, `<section>`, `<footer>`. Each layer is a `<section>` with an `aria-label`.
+- **Focus management:** Visible focus rings on all interactive elements. Skip-to-content link.
+- **Form labels:** All form inputs have associated `<label>` elements.
+- **Font loading:** `font-display: swap` on Google Fonts import to prevent invisible text during load.
 
 ---
 
