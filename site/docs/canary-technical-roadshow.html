@@ -1,0 +1,555 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Canary Technical Roadshow — Canary Technical Library</title>
+<link rel="stylesheet" href="canary docs.css">
+</head>
+<body>
+
+<nav class="doc-nav">
+  <div class="doc-nav-left">
+    <a href="../canary.growdirect.io.html" class="doc-nav-back">← Canary</a>
+    <span class="doc-nav-sep">/</span>
+    <span class="doc-nav-title">Technical Roadshow</span>
+  </div>
+  <div class="doc-nav-right">
+    <ul class="doc-nav-links">
+      <li><a href="Canary Data Model.html">Data Model</a></li>
+      <li><a href="Canary Platform Architecture.html">Architecture</a></li>
+      <li><a href="Canary Technical Roadshow.html" class="active">Roadshow</a></li>
+      <li><a href="Canary Factory Process.html">Factory</a></li>
+      <li><a href="Canary elJeffe Protocol.html">elJeffe</a></li>
+    </ul>
+    <span class="doc-badge">Technical Library</span>
+  </div>
+</nav>
+
+<header class="doc-header">
+  <div class="doc-eyebrow">Canary Technical Library</div>
+  <h1>Technical Architecture Roadshow</h1>
+  <p class="doc-subtitle">The complete webhook-to-inscription pipeline that powers real-time detection and permanent proof.</p>
+  <div class="doc-meta">
+    <span class="doc-meta-item">Version <span>1.0</span></span>
+    <span class="doc-meta-item">Confidential</span>
+    <span class="doc-meta-item">Patent Pending — <span>63/991,596</span></span>
+  </div>
+</header>
+
+<div class="doc-content">
+
+<!-- SECTION 01: THE PIPELINE -->
+<h2>Six Nodes. One Truth.</h2>
+
+<p>The complete webhook-to-inscription pipeline that powers real-time detection and permanent proof.</p>
+
+<div class="card-grid">
+  <div class="card">
+    <h4>SOURCE</h4>
+    <p>Square POS Webhooks</p>
+  </div>
+  <div class="card">
+    <h4>GATEWAY</h4>
+    <p>HMAC · SHA-256 ULID</p>
+  </div>
+  <div class="card">
+    <h4>QUEUE</h4>
+    <p>Valkey Streams 3 Consumer Groups</p>
+  </div>
+  <div class="card">
+    <h4>SUB 1: SEAL</h4>
+    <p>Evidence Store Chain Hash</p>
+  </div>
+  <div class="card">
+    <h4>SUB 2: PARSE</h4>
+    <p>CRDM Writer Detection Trigger</p>
+  </div>
+  <div class="card">
+    <h4>SUB 3: INSCRIBE</h4>
+    <p>Merkle Batch Bitcoin Ordinal</p>
+  </div>
+</div>
+
+<div class="stat-grid">
+  <div class="stat-cell">
+    <div class="stat-num">T+0ms</div>
+    <div class="stat-label">Received</div>
+  </div>
+  <div class="stat-cell">
+    <div class="stat-num">T+5ms</div>
+    <div class="stat-label">Queued</div>
+  </div>
+  <div class="stat-cell">
+    <div class="stat-num">T+15ms</div>
+    <div class="stat-label">Sealed+Parsed</div>
+  </div>
+  <div class="stat-cell">
+    <div class="stat-num">T+~10min</div>
+    <div class="stat-label">Inscribed</div>
+  </div>
+</div>
+
+<div class="callout">
+  <p><strong>Performance Guarantee:</strong> Receipt (T+0) through gateway validation (T+5ms) is synchronous. Queue fan-out to three subscribers completes in &lt;15ms. Merkle batch inscribes to Bitcoin approximately every 10 minutes or after 100 events, whichever comes first.</p>
+</div>
+
+<!-- SECTION 02: TRIPLE SUBSCRIBER PATTERN -->
+<h2>Three Paths. Zero Dependencies.</h2>
+
+<p>Each subscriber has its own consumer group, independent failure handling, and distinct purpose in the detection chain.</p>
+
+<div class="card-grid">
+  <div class="card">
+    <h4>Sub 1: Hash & Seal</h4>
+    <p><strong>Purpose:</strong> INSERT-only evidence store with chain hash linking. Every record cryptographically proves the previous one was untouched.</p>
+    <p style="margin-top: 1rem; font-size: 0.85rem;"><code>canary_sales.evidence_records</code></p>
+    <p style="margin-top: 0.5rem; color: var(--text2); font-size: 0.85rem;">The forensic foundation</p>
+  </div>
+
+  <div class="card">
+    <h4>Sub 2: Parse & Route</h4>
+    <p><strong>Purpose:</strong> Structured CRDM writer. Routes 10+ event types to relational tables. Emits detection notifications in real time.</p>
+    <p style="margin-top: 1rem; font-size: 0.85rem;">Mutable, replayable from Sub 1</p>
+    <p style="margin-top: 0.5rem; color: var(--text2); font-size: 0.85rem;">The operational intelligence layer</p>
+  </div>
+
+  <div class="card">
+    <h4>Sub 3: Merkle & Inscribe</h4>
+    <p><strong>Purpose:</strong> Batches events by count (100) or time (10 min). Builds Merkle tree. Inscribes root to Bitcoin Ordinal.</p>
+    <p style="margin-top: 1rem; font-size: 0.85rem;">Two-phase: Sealed + Inscribed</p>
+    <p style="margin-top: 0.5rem; color: var(--text2); font-size: 0.85rem;">The permanence layer</p>
+  </div>
+</div>
+
+<div class="callout">
+  <p><strong>Fault Tolerance:</strong> If Sub 2 (Parse) fails, Sub 1 (Seal) still captures the raw event. Sub 3 (Inscribe) batches independently. Dead letter queue retries failed messages up to 5 times. At-least-once delivery guaranteed. Each subscriber fails independently.</p>
+</div>
+
+<!-- SECTION 03: EVIDENCE ARCHITECTURE -->
+<h2>Write Once. Prove Forever.</h2>
+
+<p>The evidence_records table is the permanent, tamper-evident ledger of every transaction.</p>
+
+<p style="text-align: center; margin: 2rem 0; color: var(--text2); font-style: italic;">Record 1 → Record 2 → Record 3 → Record 4 → Record 5</p>
+
+<p style="text-align: center; margin: 2rem 0; color: var(--text2);">Each record's chain_hash proves the integrity of the entire chain up to that point.</p>
+
+<div class="code-block">evidence_records
+├── event_id        ULID (time-sortable)
+├── merchant_id     TEXT
+├── event_hash      SHA-256(raw payload)
+├── chain_hash      SHA-256(prev_chain + current_hash)
+├── raw_payload     Verbatim JSON (never transformed)
+├── sealed_at       TIMESTAMPTZ
+└── CONSTRAINT      INSERT only — NO UPDATE, NO DELETE</div>
+
+<p style="text-align: center; margin: 2rem 0; font-size: 15px; font-style: italic; color: var(--text2);">"The record cannot be changed because the next record proves what the previous one contained."</p>
+
+<div class="callout">
+  <p><strong>Schema Guarantee:</strong> PostgreSQL enforces INSERT-only via role-level permissions. No UPDATE or DELETE allowed at the database level. Audit triggers log every access attempt. Hash chain verification runs hourly to detect tampering within minutes.</p>
+</div>
+
+<!-- SECTION 04: DETECTION ENGINE -->
+<h2>22 Rules. 8 Categories. Real-Time.</h2>
+
+<p>All Chirp detection rules organized by risk domain. Each rule is independently configurable by the merchant.</p>
+
+<table class="doc-table">
+  <thead>
+    <tr>
+      <th>Category</th>
+      <th>Rule</th>
+      <th>Severity</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td rowspan="8"><strong>Payment Alerts</strong></td>
+      <td>C-001: Quick refund after sale</td>
+      <td><span class="sev high">HIGH</span></td>
+    </tr>
+    <tr>
+      <td>C-002: Excessive refund rate</td>
+      <td><span class="sev high">HIGH</span></td>
+    </tr>
+    <tr>
+      <td>C-003: Round-dollar pattern</td>
+      <td><span class="sev medium">MEDIUM</span></td>
+    </tr>
+    <tr>
+      <td>C-004: After-hours transaction</td>
+      <td><span class="sev medium">MEDIUM</span></td>
+    </tr>
+    <tr>
+      <td>C-005: Card velocity spike</td>
+      <td><span class="sev high">HIGH</span></td>
+    </tr>
+    <tr>
+      <td>C-006: Split tender pattern</td>
+      <td><span class="sev medium">MEDIUM</span></td>
+    </tr>
+    <tr>
+      <td>C-007: High-value refund</td>
+      <td><span class="sev high">HIGH</span></td>
+    </tr>
+    <tr>
+      <td>C-008: Manual entry spike</td>
+      <td><span class="sev medium">MEDIUM</span></td>
+    </tr>
+    <tr>
+      <td rowspan="4"><strong>Cash Drawer</strong></td>
+      <td>C-101: No-sale drawer opens</td>
+      <td><span class="sev high">HIGH</span></td>
+    </tr>
+    <tr>
+      <td>C-102: Drawer came up short</td>
+      <td><span class="sev high">HIGH</span></td>
+    </tr>
+    <tr>
+      <td>C-103: Unusual paid-out</td>
+      <td><span class="sev medium">MEDIUM</span></td>
+    </tr>
+    <tr>
+      <td>C-104: After-hours drawer open</td>
+      <td><span class="sev critical">CRITICAL</span></td>
+    </tr>
+    <tr>
+      <td rowspan="3"><strong>Order & Line-Item</strong></td>
+      <td>C-201: Heavy discounting</td>
+      <td><span class="sev high">HIGH</span></td>
+    </tr>
+    <tr>
+      <td>C-202: Voided line items</td>
+      <td><span class="sev high">HIGH</span></td>
+    </tr>
+    <tr>
+      <td>C-203: Discount without approval</td>
+      <td><span class="sev high">HIGH</span></td>
+    </tr>
+    <tr>
+      <td rowspan="3"><strong>Timecard</strong></td>
+      <td>C-301: Sale while off the clock</td>
+      <td><span class="sev critical">CRITICAL</span></td>
+    </tr>
+    <tr>
+      <td>C-302: Sale during break</td>
+      <td><span class="sev high">HIGH</span></td>
+    </tr>
+    <tr>
+      <td>C-303: Wrong location</td>
+      <td><span class="sev high">HIGH</span></td>
+    </tr>
+    <tr>
+      <td rowspan="2"><strong>Void & Refund</strong></td>
+      <td>C-501: High void rate</td>
+      <td><span class="sev high">HIGH</span></td>
+    </tr>
+    <tr>
+      <td>C-502: Post-void detected</td>
+      <td><span class="sev critical">CRITICAL</span></td>
+    </tr>
+    <tr>
+      <td rowspan="2"><strong>Gift Card</strong></td>
+      <td>C-601: Load velocity spike</td>
+      <td><span class="sev high">HIGH</span></td>
+    </tr>
+    <tr>
+      <td>C-602: Load-and-drain pattern</td>
+      <td><span class="sev critical">CRITICAL</span></td>
+    </tr>
+    <tr>
+      <td rowspan="4"><strong>Loyalty</strong></td>
+      <td>C-801: Rapid point accumulation</td>
+      <td><span class="sev medium">MEDIUM</span></td>
+    </tr>
+    <tr>
+      <td>C-802: Bulk redemption</td>
+      <td><span class="sev high">HIGH</span></td>
+    </tr>
+    <tr>
+      <td>C-803: Cross-location velocity</td>
+      <td><span class="sev high">HIGH</span></td>
+    </tr>
+    <tr>
+      <td>C-804: Enrollment fraud</td>
+      <td><span class="sev medium">MEDIUM</span></td>
+    </tr>
+  </tbody>
+</table>
+
+<div class="callout">
+  <p><strong>Real-Time Pipeline:</strong> Sub 2 writes parsed events → Valkey pub/sub emits <code>canary:detection</code> → Detection engine evaluates all active rules → Alert generated → WebSocket push to dashboard. Detection latency p95: &lt;500ms.</p>
+</div>
+
+<!-- SECTION 05: INSCRIPTION ENGINE -->
+<h2>From Bytes to Bitcoin.</h2>
+
+<p>Every sealed transaction batch is cryptographically committed to the Bitcoin blockchain via Ordinals protocol.</p>
+
+<div class="stat-grid">
+  <div class="stat-cell">
+    <div class="stat-num">8</div>
+    <div class="stat-label">Leaf Nodes</div>
+  </div>
+  <div class="stat-cell">
+    <div class="stat-num">4</div>
+    <div class="stat-label">Layer 2 Hashes</div>
+  </div>
+  <div class="stat-cell">
+    <div class="stat-num">2</div>
+    <div class="stat-label">Layer 3 Hashes</div>
+  </div>
+  <div class="stat-cell">
+    <div class="stat-num">1</div>
+    <div class="stat-label">Root (₿)</div>
+  </div>
+</div>
+
+<div class="card-grid">
+  <div class="card">
+    <h4>T+15ms — Sealed</h4>
+    <p>Evidence stored, chain linked, batch queued. Forensic-grade guarantee. The event is cryptographically bound to all previous events in the chain.</p>
+  </div>
+  <div class="card">
+    <h4>T+~10min — Inscribed</h4>
+    <p>Merkle root committed to Bitcoin. Inscription_id assigned. Immutable forever. The batch is now part of the global ledger.</p>
+  </div>
+</div>
+
+<div class="callout">
+  <p><strong>Batch Triggers:</strong> COUNT ≥ 100 events OR TIME ≥ 10 minutes — whichever comes first. Every event can be independently verified via its Merkle proof path without trusting GrowDirect.</p>
+</div>
+
+<!-- SECTION 06: VALIDATION LAYER (L402) -->
+<h2>Perpetual Revenue. Every Verification Pays.</h2>
+
+<p>L402 creates a micropayment gate for every verification request. The merchant never pays twice for the same proof.</p>
+
+<div class="stat-grid">
+  <div class="stat-cell">
+    <div class="stat-num">1</div>
+    <div class="stat-label">REQUEST /validate/{event_hash}</div>
+  </div>
+  <div class="stat-cell">
+    <div class="stat-num">2</div>
+    <div class="stat-label">402 Payment Required + Lightning Invoice</div>
+  </div>
+  <div class="stat-cell">
+    <div class="stat-num">3</div>
+    <div class="stat-label">PAY 50 sats via Lightning Network</div>
+  </div>
+  <div class="stat-cell">
+    <div class="stat-num">4</div>
+    <div class="stat-label">PROOF Full verification + Merkle proof</div>
+  </div>
+</div>
+
+<div class="callout" style="border-left-color: var(--canary);">
+  <p><strong>Revenue Model:</strong> Every event ever notarized generates validation revenue on every future verification request. Not a one-time fee — a perpetual royalty on the Bitcoin time chain. 50 sats per validation. 99.9% availability. &lt;500ms proof delivery. 100% revenue tracking via on-chain settlement.</p>
+</div>
+
+<div class="card-grid">
+  <div class="card">
+    <h4>Invoice Generation</h4>
+    <div class="stat-num" style="font-size: 20px; margin-bottom: 6px;">&lt;100ms</div>
+  </div>
+  <div class="card">
+    <h4>Payment Verification</h4>
+    <div class="stat-num" style="font-size: 20px; margin-bottom: 6px;">&lt;200ms</div>
+  </div>
+  <div class="card">
+    <h4>Proof Generation</h4>
+    <div class="stat-num" style="font-size: 20px; margin-bottom: 6px;">&lt;300ms</div>
+  </div>
+  <div class="card">
+    <h4>Total Latency (p95)</h4>
+    <div class="stat-num" style="font-size: 20px; margin-bottom: 6px;">&lt;500ms</div>
+  </div>
+</div>
+
+<!-- SECTION 07: BILATERAL VERIFICATION -->
+<h2>Trust Nothing. Verify Everything.</h2>
+
+<p>A five-step verification procedure that proves event integrity across all layers without requiring trust in Canary.</p>
+
+<div class="card-grid" style="grid-template-columns: 1fr;">
+  <div class="card">
+    <h4>✓ Evidence Retrieval</h4>
+    <p>Locate record in evidence_records. Verify ULID, merchant_id, sealed_at timestamp.</p>
+  </div>
+  <div class="card">
+    <h4>✓ Hash Recomputation</h4>
+    <p>SHA-256(stored raw_payload) must match stored event_hash. No field substitution.</p>
+  </div>
+  <div class="card">
+    <h4>✓ Source Comparison</h4>
+    <p>Stored event_hash must match original from Square network via HMAC signature verification.</p>
+  </div>
+  <div class="card">
+    <h4>✓ Chain Integrity</h4>
+    <p>Chain_hash must equal SHA-256(previous_chain_hash + current_event_hash). Verify unbroken back to genesis.</p>
+  </div>
+  <div class="card">
+    <h4>✓ Bitcoin Inscription</h4>
+    <p>Merkle proof validated against on-chain inscription_root on Bitcoin blockheight B+N.</p>
+  </div>
+</div>
+
+<div class="card-grid">
+  <div class="card">
+    <h4 style="color: var(--green);">VERIFIED</h4>
+    <p>Event integrity confirmed across all layers. SHA-256 chain holds. Merkle proof validates on Bitcoin. This transaction happened, exactly as recorded, at exactly this time.</p>
+  </div>
+  <div class="card">
+    <h4 style="color: var(--red);">TAMPER DETECTED</h4>
+    <p>Event integrity compromised. Either the payload was modified, the chain link is broken, or the on-chain inscription doesn't match. This transaction has been altered.</p>
+  </div>
+</div>
+
+<p style="text-align: center; margin: 2rem 0; font-size: 15px; font-style: italic; color: var(--text2);">"The merchant doesn't have to trust us. The math is the proof."</p>
+
+<!-- SECTION 08: THE STACK -->
+<h2>What Powers It.</h2>
+
+<p>Modern, battle-tested technologies serving millions of retail transactions annually.</p>
+
+<div class="stat-grid">
+  <div class="stat-cell">
+    <div class="stat-label">Runtime</div>
+    <p style="margin-top: 8px; font-size: 13px; color: var(--text2);">Node.js + Python (Flask)</p>
+  </div>
+  <div class="stat-cell">
+    <div class="stat-label">Database</div>
+    <p style="margin-top: 8px; font-size: 13px; color: var(--text2);">PostgreSQL (ACID, RLS, partitioned)</p>
+  </div>
+  <div class="stat-cell">
+    <div class="stat-label">Queue</div>
+    <p style="margin-top: 8px; font-size: 13px; color: var(--text2);">Valkey Streams (Redis-compatible, AOF persistent)</p>
+  </div>
+  <div class="stat-cell">
+    <div class="stat-label">Cache</div>
+    <p style="margin-top: 8px; font-size: 13px; color: var(--text2);">Valkey (in-memory, &lt;100μs latency)</p>
+  </div>
+  <div class="stat-cell">
+    <div class="stat-label">Bitcoin</div>
+    <p style="margin-top: 8px; font-size: 13px; color: var(--text2);">Ordinals + Lightning (L402)</p>
+  </div>
+  <div class="stat-cell">
+    <div class="stat-label">Orchestration</div>
+    <p style="margin-top: 8px; font-size: 13px; color: var(--text2);">Kubernetes-ready (stateless)</p>
+  </div>
+  <div class="stat-cell">
+    <div class="stat-label">Monitoring</div>
+    <p style="margin-top: 8px; font-size: 13px; color: var(--text2);">Prometheus metrics (every component)</p>
+  </div>
+  <div class="stat-cell">
+    <div class="stat-label">Frontend</div>
+    <p style="margin-top: 8px; font-size: 13px; color: var(--text2);">React + HTMX (hybrid)</p>
+  </div>
+  <div class="stat-cell">
+    <div class="stat-label">Auth</div>
+    <p style="margin-top: 8px; font-size: 13px; color: var(--text2);">Square OAuth 2.0 + LNURL</p>
+  </div>
+</div>
+
+<div class="card-grid">
+  <div class="card">
+    <h4>Webhook Receipt</h4>
+    <div class="stat-num" style="font-size: 20px; margin-bottom: 6px;">&lt;5ms</div>
+  </div>
+  <div class="card">
+    <h4>Queue Fan-out</h4>
+    <div class="stat-num" style="font-size: 20px; margin-bottom: 6px;">&lt;10ms</div>
+  </div>
+  <div class="card">
+    <h4>Detection Latency</h4>
+    <div class="stat-num" style="font-size: 20px; margin-bottom: 6px;">&lt;500ms</div>
+  </div>
+  <div class="card">
+    <h4>Inscription Batch</h4>
+    <div class="stat-num" style="font-size: 20px; margin-bottom: 6px;">~10 min</div>
+  </div>
+  <div class="card">
+    <h4>Throughput</h4>
+    <div class="stat-num" style="font-size: 20px; margin-bottom: 6px;">10K evt/s</div>
+  </div>
+  <div class="card">
+    <h4>Availability</h4>
+    <div class="stat-num" style="font-size: 20px; margin-bottom: 6px;">99.9%</div>
+  </div>
+</div>
+
+<div class="callout">
+  <p><strong>Architecture Philosophy:</strong> Local-first for everything that can run locally. Cloud APIs behind explicit spend-cap approval. No unmetered connections. Every component emits Prometheus metrics. Stateless design allows infinite horizontal scaling.</p>
+</div>
+
+<!-- SECTION 09: MERCHANT EXPERIENCE -->
+<h2>One Page. Full Control.</h2>
+
+<p>Merchants configure which Chirps they want to monitor. Simple toggles, real-time feedback, zero technical jargon.</p>
+
+<p style="margin: 2rem 0; color: var(--text2);">Turn on the things you want Canary to watch for. (3 of 22 active)</p>
+
+<table class="doc-table">
+  <thead>
+    <tr>
+      <th>Rule</th>
+      <th>Status</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td>Drawer came up short</td>
+      <td><span class="sev high">HIGH — ACTIVE</span></td>
+    </tr>
+    <tr>
+      <td>Quick refund after sale</td>
+      <td><span class="sev high">HIGH — ACTIVE</span></td>
+    </tr>
+    <tr>
+      <td>Sale while off the clock</td>
+      <td><span class="sev critical">CRITICAL — ACTIVE</span></td>
+    </tr>
+  </tbody>
+</table>
+
+<div class="stat-grid">
+  <div class="stat-cell">
+    <div class="stat-num">1</div>
+    <div class="stat-label">Connect (30 sec)</div>
+    <p style="margin-top: 8px; font-size: 12px; color: var(--text2);">Square OAuth</p>
+  </div>
+  <div class="stat-cell">
+    <div class="stat-num">2</div>
+    <div class="stat-label">Backfill (1–5 min)</div>
+    <p style="margin-top: 8px; font-size: 12px; color: var(--text2);">7 days of history</p>
+  </div>
+  <div class="stat-cell">
+    <div class="stat-num">3</div>
+    <div class="stat-label">Configure (3 min)</div>
+    <p style="margin-top: 8px; font-size: 12px; color: var(--text2);">Choose your Chirps</p>
+  </div>
+  <div class="stat-cell">
+    <div class="stat-num">4</div>
+    <div class="stat-label">Monitor (Instant)</div>
+    <p style="margin-top: 8px; font-size: 12px; color: var(--text2);">First real alert</p>
+  </div>
+</div>
+
+<div class="callout">
+  <p><strong>Total Onboarding Time: Under 10 minutes from handshake to first insight.</strong></p>
+</div>
+
+</div>
+
+<footer class="doc-footer">
+  <div class="doc-footer-left">GrowDirect · Canary LP · Confidential</div>
+  <div class="doc-footer-nav">
+    <a href="Canary Platform Architecture.html">← Architecture</a>
+    <a href="Canary Factory Process.html">Factory →</a>
+  </div>
+</footer>
+
+</body>
+</html>

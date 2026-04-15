@@ -1,0 +1,1998 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Canary Retail Data Model (CRDM) v2.0 - Technical Architecture</title>
+    <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;600;700&family=Inter:wght@300;400;500;600&display=swap" rel="stylesheet">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Inter', sans-serif;
+            background: linear-gradient(135deg, #0D1117 0%, #161B22 50%, #0D1117 100%);
+            color: #E6EDF3;
+            line-height: 1.6;
+            min-height: 100vh;
+        }
+
+        /* Typography */
+        h1, h2, h3, h4, h5, h6 {
+            font-family: 'Space Grotesk', sans-serif;
+            font-weight: 700;
+            color: #FBBF24;
+            margin-bottom: 0.5em;
+            letter-spacing: -0.02em;
+        }
+
+        h1 { font-size: 3.5rem; line-height: 1.1; }
+        h2 { font-size: 2.2rem; margin-top: 2em; border-bottom: 3px solid #F59E0B; padding-bottom: 0.3em; }
+        h3 { font-size: 1.5rem; color: #F59E0B; }
+        h4 { font-size: 1.1rem; color: #FBBF24; }
+
+        p {
+            margin-bottom: 1em;
+            color: #C9D1D9;
+            font-size: 0.95rem;
+        }
+
+        a {
+            color: #58A6FF;
+            text-decoration: none;
+            transition: color 0.3s;
+        }
+
+        a:hover {
+            color: #FBBF24;
+        }
+
+        /* Layout */
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 20px;
+        }
+
+        header {
+            background: linear-gradient(180deg, #161B22 0%, #0D1117 100%);
+            padding: 80px 0;
+            text-align: center;
+            border-bottom: 2px solid #F59E0B;
+            position: relative;
+            overflow: hidden;
+        }
+
+        header::before {
+            content: '';
+            position: absolute;
+            top: -50%;
+            right: -10%;
+            width: 400px;
+            height: 400px;
+            background: radial-gradient(circle, rgba(245, 158, 11, 0.1) 0%, transparent 70%);
+            border-radius: 50%;
+            pointer-events: none;
+        }
+
+        .logo-bird {
+            width: 80px;
+            height: 80px;
+            margin: 0 auto 20px;
+            display: block;
+        }
+
+        .tagline {
+            font-family: 'Space Grotesk', sans-serif;
+            font-size: 1.3rem;
+            color: #F59E0B;
+            margin-top: 20px;
+            font-weight: 600;
+            letter-spacing: 0.05em;
+        }
+
+        .quote {
+            background: rgba(245, 158, 11, 0.1);
+            border-left: 4px solid #FBBF24;
+            padding: 20px;
+            margin: 30px 0;
+            border-radius: 4px;
+            font-style: italic;
+            color: #F59E0B;
+            font-size: 1.1rem;
+            line-height: 1.8;
+        }
+
+        main {
+            padding: 60px 0;
+        }
+
+        section {
+            margin-bottom: 80px;
+            background: rgba(22, 27, 34, 0.5);
+            border: 1px solid #30363D;
+            border-radius: 8px;
+            padding: 40px;
+            backdrop-filter: blur(10px);
+        }
+
+        section:hover {
+            border-color: #F59E0B;
+            background: rgba(22, 27, 34, 0.8);
+            transition: all 0.3s;
+        }
+
+        /* Three-DB Architecture Diagram */
+        .database-diagram {
+            display: grid;
+            grid-template-columns: 1fr 1fr 1fr;
+            gap: 20px;
+            margin: 40px 0;
+        }
+
+        .db-box {
+            background: linear-gradient(135deg, #161B22 0%, #1C2128 100%);
+            border: 2px solid #30363D;
+            border-radius: 8px;
+            padding: 25px;
+            text-align: center;
+            transition: all 0.3s;
+        }
+
+        .db-box:hover {
+            border-color: #FBBF24;
+            box-shadow: 0 0 20px rgba(251, 191, 36, 0.2);
+            transform: translateY(-5px);
+        }
+
+        .db-icon {
+            font-size: 2.5rem;
+            margin-bottom: 15px;
+        }
+
+        .db-box h4 {
+            margin-bottom: 10px;
+        }
+
+        .db-features {
+            text-align: left;
+            font-size: 0.9rem;
+            color: #8B949E;
+            list-style: none;
+        }
+
+        .db-features li {
+            padding: 5px 0;
+            padding-left: 20px;
+            position: relative;
+        }
+
+        .db-features li::before {
+            content: '✓';
+            position: absolute;
+            left: 0;
+            color: #F59E0B;
+            font-weight: bold;
+        }
+
+        /* Data Sources Table */
+        .table-wrapper {
+            overflow-x: auto;
+            margin: 30px 0;
+        }
+
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            background: rgba(22, 27, 34, 0.3);
+        }
+
+        th {
+            background: rgba(245, 158, 11, 0.15);
+            border-bottom: 2px solid #F59E0B;
+            padding: 15px;
+            text-align: left;
+            font-family: 'Space Grotesk', sans-serif;
+            color: #FBBF24;
+            font-weight: 600;
+        }
+
+        td {
+            padding: 12px 15px;
+            border-bottom: 1px solid #30363D;
+            color: #C9D1D9;
+        }
+
+        tr:hover {
+            background: rgba(245, 158, 11, 0.05);
+        }
+
+        .status-badge {
+            display: inline-block;
+            padding: 4px 10px;
+            border-radius: 20px;
+            font-size: 0.85rem;
+            font-weight: 600;
+            text-align: center;
+        }
+
+        .status-ready { background: rgba(26, 127, 55, 0.3); color: #3FB950; }
+        .status-new { background: rgba(88, 166, 255, 0.3); color: #58A6FF; }
+        .status-warning { background: rgba(245, 158, 11, 0.3); color: #F59E0B; }
+        .status-missing { background: rgba(248, 81, 73, 0.3); color: #F85149; }
+
+        /* Chirp Rules */
+        .chirp-category {
+            margin: 30px 0;
+            background: rgba(30, 30, 50, 0.4);
+            border-left: 4px solid #F59E0B;
+            border-radius: 4px;
+            padding: 20px;
+        }
+
+        .chirp-rule {
+            background: rgba(20, 20, 40, 0.3);
+            border: 1px solid #30363D;
+            border-radius: 6px;
+            padding: 15px;
+            margin: 10px 0;
+            cursor: pointer;
+            transition: all 0.3s;
+        }
+
+        .chirp-rule:hover {
+            border-color: #FBBF24;
+            background: rgba(20, 20, 40, 0.6);
+        }
+
+        .chirp-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            font-weight: 600;
+            color: #FBBF24;
+        }
+
+        .chirp-id {
+            background: rgba(245, 158, 11, 0.2);
+            padding: 2px 8px;
+            border-radius: 3px;
+            font-family: 'Space Grotesk', sans-serif;
+            font-size: 0.85rem;
+        }
+
+        .chirp-details {
+            display: none;
+            margin-top: 15px;
+            padding-top: 15px;
+            border-top: 1px solid #30363D;
+        }
+
+        .chirp-rule.expanded .chirp-details {
+            display: block;
+        }
+
+        .chirp-detail-row {
+            display: grid;
+            grid-template-columns: 150px 1fr;
+            gap: 20px;
+            margin-bottom: 10px;
+            font-size: 0.9rem;
+        }
+
+        .chirp-detail-label {
+            color: #F59E0B;
+            font-weight: 600;
+        }
+
+        .chirp-detail-value {
+            color: #8B949E;
+        }
+
+        /* Table Inventory */
+        .table-inventory {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
+            gap: 15px;
+            margin: 30px 0;
+        }
+
+        .table-card {
+            background: linear-gradient(135deg, #161B22 0%, #1C2128 100%);
+            border: 1px solid #30363D;
+            border-radius: 6px;
+            padding: 15px;
+            transition: all 0.3s;
+        }
+
+        .table-card:hover {
+            border-color: #FBBF24;
+            box-shadow: 0 4px 15px rgba(251, 191, 36, 0.15);
+        }
+
+        .table-name {
+            font-family: 'Space Grotesk', sans-serif;
+            font-weight: 600;
+            color: #FBBF24;
+            margin-bottom: 8px;
+            font-size: 0.95rem;
+        }
+
+        .table-badge {
+            display: inline-block;
+            padding: 3px 8px;
+            border-radius: 3px;
+            font-size: 0.75rem;
+            font-weight: 600;
+            margin-bottom: 10px;
+        }
+
+        .badge-existing { background: #1a7f37; color: #3fb950; }
+        .badge-new { background: #0969da; color: #58a6ff; }
+        .badge-planned { background: #bf8700; color: #fbbf24; }
+
+        .table-description {
+            font-size: 0.85rem;
+            color: #8B949E;
+            line-height: 1.5;
+        }
+
+        /* Design Patterns */
+        .pattern-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 25px;
+            margin: 30px 0;
+        }
+
+        .pattern-card {
+            background: linear-gradient(135deg, #0D1117 0%, #161B22 100%);
+            border: 2px solid #30363D;
+            border-radius: 8px;
+            padding: 25px;
+            transition: all 0.3s;
+        }
+
+        .pattern-card:hover {
+            border-color: #F59E0B;
+            box-shadow: 0 8px 25px rgba(245, 158, 11, 0.1);
+            transform: translateY(-3px);
+        }
+
+        .pattern-title {
+            font-family: 'Space Grotesk', sans-serif;
+            color: #FBBF24;
+            font-size: 1.2rem;
+            margin-bottom: 15px;
+            font-weight: 700;
+        }
+
+        .pattern-description {
+            font-size: 0.9rem;
+            color: #8B949E;
+            margin-bottom: 15px;
+            line-height: 1.6;
+        }
+
+        .pattern-code {
+            background: #0D1117;
+            border: 1px solid #21262D;
+            border-radius: 4px;
+            padding: 12px;
+            font-family: 'Courier New', monospace;
+            font-size: 0.8rem;
+            color: #79C0FF;
+            overflow-x: auto;
+            line-height: 1.4;
+        }
+
+        /* Coverage Scorecard */
+        .scorecard {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 30px;
+            margin: 30px 0;
+        }
+
+        .score-item {
+            background: rgba(30, 30, 50, 0.3);
+            border: 1px solid #30363D;
+            border-radius: 6px;
+            padding: 20px;
+        }
+
+        .score-label {
+            color: #F59E0B;
+            font-weight: 600;
+            margin-bottom: 10px;
+            font-size: 0.95rem;
+        }
+
+        .score-percentage {
+            font-family: 'Space Grotesk', sans-serif;
+            font-size: 2rem;
+            color: #FBBF24;
+            margin-bottom: 10px;
+        }
+
+        .progress-bar {
+            width: 100%;
+            height: 8px;
+            background: #30363D;
+            border-radius: 4px;
+            overflow: hidden;
+        }
+
+        .progress-fill {
+            height: 100%;
+            background: linear-gradient(90deg, #F59E0B 0%, #FBBF24 100%);
+            transition: width 0.5s ease;
+            border-radius: 4px;
+        }
+
+        /* Data Flow Diagram */
+        .flow-diagram {
+            background: rgba(30, 30, 50, 0.3);
+            border: 2px solid #30363D;
+            border-radius: 8px;
+            padding: 30px;
+            margin: 30px 0;
+        }
+
+        .flow-step {
+            background: linear-gradient(135deg, #161B22 0%, #1C2128 100%);
+            border: 2px solid #F59E0B;
+            border-radius: 6px;
+            padding: 15px;
+            margin: 15px 0;
+            padding-left: 50px;
+            position: relative;
+            color: #C9D1D9;
+        }
+
+        .flow-step::before {
+            content: attr(data-step);
+            position: absolute;
+            left: 15px;
+            top: 50%;
+            transform: translateY(-50%);
+            background: #F59E0B;
+            color: #0D1117;
+            width: 24px;
+            height: 24px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: 700;
+            font-family: 'Space Grotesk', sans-serif;
+        }
+
+        .flow-arrow {
+            text-align: center;
+            color: #F59E0B;
+            font-size: 1.5rem;
+            margin: 10px 0;
+        }
+
+        /* POS Agnostic */
+        .pos-flow {
+            display: grid;
+            grid-template-columns: 1fr 1fr 1fr 1fr;
+            gap: 15px;
+            align-items: center;
+            margin: 30px 0;
+        }
+
+        .pos-box {
+            background: linear-gradient(135deg, #161B22 0%, #1C2128 100%);
+            border: 2px solid #30363D;
+            border-radius: 6px;
+            padding: 20px;
+            text-align: center;
+            transition: all 0.3s;
+        }
+
+        .pos-box:hover {
+            border-color: #FBBF24;
+            box-shadow: 0 0 15px rgba(251, 191, 36, 0.2);
+        }
+
+        .pos-box.active {
+            border-color: #3fb950;
+            background: linear-gradient(135deg, #0d3817 0%, #1c4620 100%);
+        }
+
+        .pos-box.future {
+            border-color: #8B949E;
+            opacity: 0.6;
+        }
+
+        .pos-arrow {
+            font-size: 1.5rem;
+            color: #F59E0B;
+            text-align: center;
+        }
+
+        /* Footer */
+        footer {
+            background: linear-gradient(180deg, #0D1117 0%, #161B22 100%);
+            border-top: 2px solid #F59E0B;
+            padding: 40px 0;
+            text-align: center;
+            color: #8B949E;
+            font-size: 0.9rem;
+            margin-top: 80px;
+        }
+
+        footer p {
+            margin: 5px 0;
+            color: #6E7681;
+        }
+
+        /* Responsive */
+        @media (max-width: 768px) {
+            h1 { font-size: 2rem; }
+            h2 { font-size: 1.5rem; }
+
+            .database-diagram {
+                grid-template-columns: 1fr;
+            }
+
+            .scorecard {
+                grid-template-columns: 1fr;
+            }
+
+            .pos-flow {
+                grid-template-columns: 1fr 1fr;
+            }
+
+            .pos-arrow {
+                grid-column: 1 / -1;
+                margin: 10px 0;
+            }
+
+            section {
+                padding: 25px;
+            }
+        }
+
+        /* Utility Classes */
+        .mt-4 { margin-top: 2rem; }
+        .mb-4 { margin-bottom: 2rem; }
+        .text-center { text-align: center; }
+        .text-muted { color: #8B949E; }
+        .font-mono { font-family: 'Courier New', monospace; }
+
+        /* Expandable Sections */
+        .expandable {
+            cursor: pointer;
+            user-select: none;
+        }
+
+        .expand-arrow {
+            display: inline-block;
+            transition: transform 0.3s;
+            margin-right: 10px;
+            color: #F59E0B;
+        }
+
+        .chirp-rule.expanded .expand-arrow {
+            transform: rotate(90deg);
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <div class="container">
+            <svg class="logo-bird" viewBox="0 0 100 100" xmlns="http://www.w3.org/2000/svg">
+                <!-- Canary Bird SVG -->
+                <defs>
+                    <linearGradient id="birdGrad" x1="0%" y1="0%" x2="100%" y2="100%">
+                        <stop offset="0%" style="stop-color:#FBBF24;stop-opacity:1" />
+                        <stop offset="100%" style="stop-color:#F59E0B;stop-opacity:1" />
+                    </linearGradient>
+                </defs>
+                <!-- Body -->
+                <ellipse cx="50" cy="55" rx="22" ry="25" fill="url(#birdGrad)"/>
+                <!-- Head -->
+                <circle cx="65" cy="38" r="16" fill="url(#birdGrad)"/>
+                <!-- Eye -->
+                <circle cx="71" cy="35" r="3" fill="#0D1117"/>
+                <!-- Beak -->
+                <polygon points="77,38 88,37 77,42" fill="#F59E0B"/>
+                <!-- Crest -->
+                <path d="M 63 18 Q 68 10 70 5" stroke="url(#birdGrad)" stroke-width="3" fill="none" stroke-linecap="round"/>
+                <!-- Wing -->
+                <ellipse cx="45" cy="55" rx="15" ry="22" fill="#F59E0B" opacity="0.8"/>
+                <!-- Tail -->
+                <path d="M 28 55 Q 10 50 5 60 Q 10 70 28 65" stroke="url(#birdGrad)" stroke-width="4" fill="none" stroke-linecap="round"/>
+                <!-- Legs -->
+                <line x1="52" y1="80" x2="50" y2="92" stroke="#F59E0B" stroke-width="2" stroke-linecap="round"/>
+                <line x1="60" y1="80" x2="62" y2="92" stroke="#F59E0B" stroke-width="2" stroke-linecap="round"/>
+            </svg>
+            <h1>Canary Retail Data Model</h1>
+            <p class="tagline">Enterprise Bones, SMB Skin</p>
+            <div class="quote">
+                "It all starts with the CRDM. Everything else is just window dressing." — Geoffrey C. Lyle, Founder
+            </div>
+        </div>
+    </header>
+
+    <main class="container">
+        <!-- SECTION 1: PROVENANCE -->
+        <section>
+            <h2>Three Generations of the Same Pattern</h2>
+            <p>The Canary Retail Data Model (CRDM) represents the third evolution of a unified data architecture for retail loss prevention — refined across three decades of enterprise implementations and hundreds of billions of processed transactions.</p>
+
+            <h3 style="margin-top: 2em;">Generation 1: Till Data Store (TDS)</h3>
+            <p>Built for a major UK department store chain in the 1990s. TDS captured point-of-sale transactions at the granular level: tender types, cashier actions, item-level lineage, and exception events. This was the foundation — proving that centralized transaction normalization could support pattern detection at scale.</p>
+
+            <h3 style="margin-top: 2em;">Generation 2: SMART System</h3>
+            <p>Deployed across thousands of retail locations internationally (2004–2016). The SMART system extended TDS principles with real-time transaction ingestion (RTI) — the ancestor of today's webhook listeners. It added multi-tenant isolation, role-based case management, and the first standardized "Chirp" alert taxonomy. Processed transactions across major international retailers.</p>
+
+            <h3 style="margin-top: 2em;">Generation 3: CRDM for Square SMB</h3>
+            <p>Canary's CRDM adapts enterprise patterns to the Square ecosystem. Instead of large proprietary till systems, we ingest POS data via Square's OAuth webhooks. Instead of a single retailer, we serve thousands of SMB merchants. The architectural DNA remains: normalized transaction schema, multi-source correlation, pattern rules, immutable audit trails.</p>
+
+            <div class="quote" style="margin-top: 2em;">
+                <strong>The Constant:</strong> "Hundreds of billions of rows processed" — same detection logic, three different deployment eras. CRDM is proven technology at scale.
+            </div>
+        </section>
+
+        <!-- SECTION 2: THREE-DATABASE ARCHITECTURE -->
+        <section>
+            <h2>Three-Database Architecture</h2>
+            <p>Canary separates data by access pattern and consistency requirement. Each database serves a specific role in the loss prevention pipeline.</p>
+
+            <div class="database-diagram">
+                <div class="db-box">
+                    <div class="db-icon">🔐</div>
+                    <h4>canary_app</h4>
+                    <p style="font-size: 0.85rem; color: #F59E0B; margin-bottom: 15px;">PostgreSQL</p>
+                    <ul class="db-features">
+                        <li>ACID compliance</li>
+                        <li>Row-Level Security (RLS)</li>
+                        <li>Normalized schema</li>
+                        <li>Real-time queries</li>
+                        <li>Case management</li>
+                        <li>User/auth state</li>
+                    </ul>
+                </div>
+
+                <div class="db-box">
+                    <div class="db-icon">📊</div>
+                    <h4>canary_sales</h4>
+                    <p style="font-size: 0.85rem; color: #F59E0B; margin-bottom: 15px;">PostgreSQL</p>
+                    <ul class="db-features">
+                        <li>Append-only ledger</li>
+                        <li>JSONB payload storage</li>
+                        <li>Monthly partitioned</li>
+                        <li>Hash-chain audit</li>
+                        <li>Schema drift detection</li>
+                        <li>Webhook archive</li>
+                    </ul>
+                </div>
+
+                <div class="db-box">
+                    <div class="db-icon">⚡</div>
+                    <h4>canary_metrics</h4>
+                    <p style="font-size: 0.85rem; color: #F59E0B; margin-bottom: 15px;">PostgreSQL</p>
+                    <ul class="db-features">
+                        <li>Star schema</li>
+                        <li>Pre-aggregated facts</li>
+                        <li>Materialized views</li>
+                        <li>Merchant dashboards</li>
+                        <li>Compliance reports</li>
+                        <li>Time-series analytics</li>
+                    </ul>
+                </div>
+            </div>
+
+            <h3 style="margin-top: 2em;">Data Flow Between Databases</h3>
+            <p><strong>Webhook → canary_sales (JSONB):</strong> All incoming Square webhook payloads are archived in append-only tables. No UPDATE, no DELETE. Evidence integrity is maintained.</p>
+            <p><strong>canary_sales → canary_app (normalized):</strong> Extraction and parsing happens in Python. Fields are exploded from JSONB into normalized columns in canary_app tables. This separation allows schema evolution without breaking extraction logic.</p>
+            <p><strong>canary_app → canary_metrics (aggregated):</strong> Nightly batch jobs materialize views into the metrics database. Merchant dashboards query pre-computed facts, not raw transactions. Fast response times, controlled costs.</p>
+        </section>
+
+        <!-- SECTION 3: SEVEN CANONICAL DATA SOURCES -->
+        <section>
+            <h2>Seven Canonical Data Sources</h2>
+            <p>Every transaction in Canary originates from one of seven canonical data sources. These map directly to Square API families and are the foundation of pattern detection.</p>
+
+            <h3 style="margin-top: 2em;">1. Transaction Header (Payments API)</h3>
+            <p>Core payment metadata: order total, tender breakdown, timestamp, Square location, risk flags. Currently 18/28 fields extracted (64% coverage). 8 transaction types supported.</p>
+            <div class="table-wrapper">
+                <table>
+                    <thead>
+                        <tr>
+                            <th>Field Name</th>
+                            <th>Origin</th>
+                            <th>Square Source</th>
+                            <th>Status</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td>transaction_id</td>
+                            <td>payment.id</td>
+                            <td>Payments API</td>
+                            <td><span class="status-badge status-ready">✅ Existing</span></td>
+                        </tr>
+                        <tr>
+                            <td>merchant_id</td>
+                            <td>location_id</td>
+                            <td>Payments API</td>
+                            <td><span class="status-badge status-ready">✅ Existing</span></td>
+                        </tr>
+                        <tr>
+                            <td>created_at</td>
+                            <td>created_at</td>
+                            <td>Payments API</td>
+                            <td><span class="status-badge status-ready">✅ Existing</span></td>
+                        </tr>
+                        <tr>
+                            <td>gross_amount</td>
+                            <td>amount_money.amount</td>
+                            <td>Payments API</td>
+                            <td><span class="status-badge status-ready">✅ Existing</span></td>
+                        </tr>
+                        <tr>
+                            <td>discount_amount</td>
+                            <td>order.discount_amounts</td>
+                            <td>Orders API</td>
+                            <td><span class="status-badge status-new">🆕 New</span></td>
+                        </tr>
+                        <tr>
+                            <td>tax_amount</td>
+                            <td>order.total_tax_amount</td>
+                            <td>Orders API</td>
+                            <td><span class="status-badge status-new">🆕 New</span></td>
+                        </tr>
+                        <tr>
+                            <td>net_amount</td>
+                            <td>calculated</td>
+                            <td>Derived</td>
+                            <td><span class="status-badge status-ready">✅ Existing</span></td>
+                        </tr>
+                        <tr>
+                            <td>device_id</td>
+                            <td>device_details.device_id</td>
+                            <td>Payments API</td>
+                            <td><span class="status-badge status-new">🆕 New</span></td>
+                        </tr>
+                        <tr>
+                            <td>refund_status</td>
+                            <td>refunded_money.amount</td>
+                            <td>Payments API</td>
+                            <td><span class="status-badge status-ready">✅ Existing</span></td>
+                        </tr>
+                        <tr>
+                            <td>void_status</td>
+                            <td>status enum</td>
+                            <td>Payments API</td>
+                            <td><span class="status-badge status-new">🆕 New</span></td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+
+            <h3 style="margin-top: 2em;">2. Tender (Payment Details)</h3>
+            <p>Payment method: card, cash, gift card, mobile wallet. Card fingerprints for fraud velocity tracking. 10/13 fields extracted (77%).</p>
+
+            <h3 style="margin-top: 2em;">3. Line Items (Orders API)</h3>
+            <p>Item-level detail: SKU, category, quantity, unit price, discounts applied, voids. 14/21 fields extracted (67%).</p>
+
+            <h3 style="margin-top: 2em;">4. Employee (Employees API)</h3>
+            <p>Cashier/staff member: ID, role, location assignment, hire date, pay rate. 9/10+ fields extracted (90%+).</p>
+
+            <h3 style="margin-top: 2em;">5. Product (Catalog API)</h3>
+            <p>SKU, category, margin, wholesale cost, inventory count. 7/11 fields extracted (64%).</p>
+
+            <h3 style="margin-top: 2em;">6. Store (Locations API)</h3>
+            <p>Store metadata: address, hours, staff count, timezone, Square subscription tier. 12/17 fields extracted (71%).</p>
+
+            <h3 style="margin-top: 2em;">7. Customer (Customers API)</h3>
+            <p>Customer profile: loyalty history, transaction frequency, refund claims. 3/7 fields extracted (43%) — lowest priority in MVP.</p>
+
+            <div style="background: rgba(26, 127, 55, 0.15); border: 1px solid #3fb950; border-radius: 6px; padding: 20px; margin-top: 2em;">
+                <h4 style="color: #3fb950;">Coverage Milestone</h4>
+                <p style="color: #C9D1D9;">February 2026: MVP scope expansion added 6 new data sources (Cash Drawer, Orders detail, Timecards, Voids, Inventory, Gift Cards). Total raw coverage: 68% → <strong>85% LP-weighted</strong>.</p>
+            </div>
+        </section>
+
+        <!-- SECTION 4: 22 CHIRP RULES -->
+        <section>
+            <h2>22 Chirp Detection Rules</h2>
+            <p>Chirp is the fraud detection engine. These 22 rules (ID: CHR-001 through CHR-022) correlate patterns across the seven data sources to identify loss risk. Click to expand each rule.</p>
+
+            <h3 style="margin-top: 2em;">Payment & Refund Patterns</h3>
+            <div class="chirp-category">
+                <div class="chirp-rule expandable" onclick="toggleChirp(this)">
+                    <div class="chirp-header">
+                        <span><span class="expand-arrow">→</span>High Refund Frequency</span>
+                        <span class="chirp-id">CHR-001</span>
+                    </div>
+                    <div class="chirp-details">
+                        <div class="chirp-detail-row">
+                            <div class="chirp-detail-label">Signal:</div>
+                            <div class="chirp-detail-value">Refunds exceed 8% of daily sales volume</div>
+                        </div>
+                        <div class="chirp-detail-row">
+                            <div class="chirp-detail-label">Threshold:</div>
+                            <div class="chirp-detail-value">refund_amount > 0.08 × daily_sales</div>
+                        </div>
+                        <div class="chirp-detail-row">
+                            <div class="chirp-detail-label">Source Tables:</div>
+                            <div class="chirp-detail-value">transactions, refunds, daily_metrics</div>
+                        </div>
+                        <div class="chirp-detail-row">
+                            <div class="chirp-detail-label">Severity:</div>
+                            <div class="chirp-detail-value">HIGH</div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="chirp-rule expandable" onclick="toggleChirp(this)">
+                    <div class="chirp-header">
+                        <span><span class="expand-arrow">→</span>Rapid Refund Reversal</span>
+                        <span class="chirp-id">CHR-002</span>
+                    </div>
+                    <div class="chirp-details">
+                        <div class="chirp-detail-row">
+                            <div class="chirp-detail-label">Signal:</div>
+                            <div class="chirp-detail-value">Payment refunded within 60 seconds</div>
+                        </div>
+                        <div class="chirp-detail-row">
+                            <div class="chirp-detail-label">Threshold:</div>
+                            <div class="chirp-detail-value">refund_timestamp - payment_timestamp < 60s</div>
+                        </div>
+                        <div class="chirp-detail-row">
+                            <div class="chirp-detail-label">Source Tables:</div>
+                            <div class="chirp-detail-value">transactions, refunds</div>
+                        </div>
+                        <div class="chirp-detail-row">
+                            <div class="chirp-detail-label">Severity:</div>
+                            <div class="chirp-detail-value">MEDIUM</div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="chirp-rule expandable" onclick="toggleChirp(this)">
+                    <div class="chirp-header">
+                        <span><span class="expand-arrow">→</span>Partial Refund Pattern</span>
+                        <span class="chirp-id">CHR-003</span>
+                    </div>
+                    <div class="chirp-details">
+                        <div class="chirp-detail-row">
+                            <div class="chirp-detail-label">Signal:</div>
+                            <div class="chirp-detail-value">Multiple refunds on same order (>2)</div>
+                        </div>
+                        <div class="chirp-detail-row">
+                            <div class="chirp-detail-label">Threshold:</div>
+                            <div class="chirp-detail-value">COUNT(refunds) > 2 per order_id</div>
+                        </div>
+                        <div class="chirp-detail-row">
+                            <div class="chirp-detail-label">Source Tables:</div>
+                            <div class="chirp-detail-value">orders, refunds</div>
+                        </div>
+                        <div class="chirp-detail-row">
+                            <div class="chirp-detail-label">Severity:</div>
+                            <div class="chirp-detail-value">MEDIUM</div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <h3 style="margin-top: 2em;">Card Risk & Velocity</h3>
+            <div class="chirp-category">
+                <div class="chirp-rule expandable" onclick="toggleChirp(this)">
+                    <div class="chirp-header">
+                        <span><span class="expand-arrow">→</span>Card Fingerprint Nomad</span>
+                        <span class="chirp-id">CHR-004</span>
+                    </div>
+                    <div class="chirp-details">
+                        <div class="chirp-detail-row">
+                            <div class="chirp-detail-label">Signal:</div>
+                            <div class="chirp-detail-value">Same card used across >3 merchant locations in 1 hour</div>
+                        </div>
+                        <div class="chirp-detail-row">
+                            <div class="chirp-detail-label">Threshold:</div>
+                            <div class="chirp-detail-value">COUNT(DISTINCT merchant_id) > 3 in 60-min window</div>
+                        </div>
+                        <div class="chirp-detail-row">
+                            <div class="chirp-detail-label">Source Tables:</div>
+                            <div class="chirp-detail-value">card_profiles, transactions</div>
+                        </div>
+                        <div class="chirp-detail-row">
+                            <div class="chirp-detail-label">Severity:</div>
+                            <div class="chirp-detail-value">CRITICAL</div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="chirp-rule expandable" onclick="toggleChirp(this)">
+                    <div class="chirp-header">
+                        <span><span class="expand-arrow">→</span>High Card Velocity</span>
+                        <span class="chirp-id">CHR-005</span>
+                    </div>
+                    <div class="chirp-details">
+                        <div class="chirp-detail-row">
+                            <div class="chirp-detail-label">Signal:</div>
+                            <div class="chirp-detail-value">Same card used >10 times in 1 hour (prepaid abuse)</div>
+                        </div>
+                        <div class="chirp-detail-row">
+                            <div class="chirp-detail-label">Threshold:</div>
+                            <div class="chirp-detail-value">COUNT(*) > 10 per card_fingerprint in 60-min</div>
+                        </div>
+                        <div class="chirp-detail-row">
+                            <div class="chirp-detail-label">Source Tables:</div>
+                            <div class="chirp-detail-value">card_profiles, transactions</div>
+                        </div>
+                        <div class="chirp-detail-row">
+                            <div class="chirp-detail-label">Severity:</div>
+                            <div class="chirp-detail-value">HIGH</div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="chirp-rule expandable" onclick="toggleChirp(this)">
+                    <div class="chirp-header">
+                        <span><span class="expand-arrow">→</span>CVV/AVS Mismatch</span>
+                        <span class="chirp-id">CHR-006</span>
+                    </div>
+                    <div class="chirp-details">
+                        <div class="chirp-detail-row">
+                            <div class="chirp-detail-label">Signal:</div>
+                            <div class="chirp-detail-value">CVV or AVS validation failed but transaction approved</div>
+                        </div>
+                        <div class="chirp-detail-row">
+                            <div class="chirp-detail-label">Threshold:</div>
+                            <div class="chirp-detail-value">cvv_result != MATCH OR avs_result != MATCH</div>
+                        </div>
+                        <div class="chirp-detail-row">
+                            <div class="chirp-detail-label">Source Tables:</div>
+                            <div class="chirp-detail-value">transactions, risk_signals</div>
+                        </div>
+                        <div class="chirp-detail-row">
+                            <div class="chirp-detail-label">Severity:</div>
+                            <div class="chirp-detail-value">MEDIUM</div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <h3 style="margin-top: 2em;">Cash Drawer & Transaction Integrity</h3>
+            <div class="chirp-category">
+                <div class="chirp-rule expandable" onclick="toggleChirp(this)">
+                    <div class="chirp-header">
+                        <span><span class="expand-arrow">→</span>High No-Sale Frequency</span>
+                        <span class="chirp-id">CHR-007</span>
+                    </div>
+                    <div class="chirp-details">
+                        <div class="chirp-detail-row">
+                            <div class="chirp-detail-label">Signal:</div>
+                            <div class="chirp-detail-value">No-sale drawer opens exceed 5% of shift openings</div>
+                        </div>
+                        <div class="chirp-detail-row">
+                            <div class="chirp-detail-label">Threshold:</div>
+                            <div class="chirp-detail-value">COUNT(no_sales) > 0.05 × total_openings</div>
+                        </div>
+                        <div class="chirp-detail-row">
+                            <div class="chirp-detail-label">Source Tables:</div>
+                            <div class="chirp-detail-value">cash_drawer_shifts, cash_drawer_events</div>
+                        </div>
+                        <div class="chirp-detail-row">
+                            <div class="chirp-detail-label">Severity:</div>
+                            <div class="chirp-detail-value">HIGH</div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="chirp-rule expandable" onclick="toggleChirp(this)">
+                    <div class="chirp-header">
+                        <span><span class="expand-arrow">→</span>Cash Variance Threshold</span>
+                        <span class="chirp-id">CHR-008</span>
+                    </div>
+                    <div class="chirp-details">
+                        <div class="chirp-detail-row">
+                            <div class="chirp-detail-label">Signal:</div>
+                            <div class="chirp-detail-value">Drawer balance variance >2.5% of expected</div>
+                        </div>
+                        <div class="chirp-detail-row">
+                            <div class="chirp-detail-label">Threshold:</div>
+                            <div class="chirp-detail-value">ABS(actual_balance - expected_balance) > 0.025 × expected</div>
+                        </div>
+                        <div class="chirp-detail-row">
+                            <div class="chirp-detail-label">Source Tables:</div>
+                            <div class="chirp-detail-value">cash_drawer_shifts</div>
+                        </div>
+                        <div class="chirp-detail-row">
+                            <div class="chirp-detail-label">Severity:</div>
+                            <div class="chirp-detail-value">MEDIUM</div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="chirp-rule expandable" onclick="toggleChirp(this)">
+                    <div class="chirp-header">
+                        <span><span class="expand-arrow">→</span>Post-Void Detection</span>
+                        <span class="chirp-id">CHR-009</span>
+                    </div>
+                    <div class="chirp-details">
+                        <div class="chirp-detail-row">
+                            <div class="chirp-detail-label">Signal:</div>
+                            <div class="chirp-detail-value">Transaction voided >5 minutes after creation</div>
+                        </div>
+                        <div class="chirp-detail-row">
+                            <div class="chirp-detail-label">Threshold:</div>
+                            <div class="chirp-detail-value">void_timestamp - created_timestamp > 300s</div>
+                        </div>
+                        <div class="chirp-detail-row">
+                            <div class="chirp-detail-label">Source Tables:</div>
+                            <div class="chirp-detail-value">transactions, transaction_line_items</div>
+                        </div>
+                        <div class="chirp-detail-row">
+                            <div class="chirp-detail-label">Severity:</div>
+                            <div class="chirp-detail-value">MEDIUM</div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <h3 style="margin-top: 2em;">Employee & Time-Based Patterns</h3>
+            <div class="chirp-category">
+                <div class="chirp-rule expandable" onclick="toggleChirp(this)">
+                    <div class="chirp-header">
+                        <span><span class="expand-arrow">→</span>Off-Clock Transaction</span>
+                        <span class="chirp-id">CHR-010</span>
+                    </div>
+                    <div class="chirp-details">
+                        <div class="chirp-detail-row">
+                            <div class="chirp-detail-label">Signal:</div>
+                            <div class="chirp-detail-value">Transaction recorded outside employee's scheduled shift</div>
+                        </div>
+                        <div class="chirp-detail-row">
+                            <div class="chirp-detail-label">Threshold:</div>
+                            <div class="chirp-detail-value">transaction_timestamp NOT BETWEEN shift_start AND shift_end</div>
+                        </div>
+                        <div class="chirp-detail-row">
+                            <div class="chirp-detail-label">Source Tables:</div>
+                            <div class="chirp-detail-value">transactions, employee_timecards</div>
+                        </div>
+                        <div class="chirp-detail-row">
+                            <div class="chirp-detail-label">Severity:</div>
+                            <div class="chirp-detail-value">CRITICAL</div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="chirp-rule expandable" onclick="toggleChirp(this)">
+                    <div class="chirp-header">
+                        <span><span class="expand-arrow">→</span>Excessive Discount Rate</span>
+                        <span class="chirp-id">CHR-011</span>
+                    </div>
+                    <div class="chirp-details">
+                        <div class="chirp-detail-row">
+                            <div class="chirp-detail-label">Signal:</div>
+                            <div class="chirp-detail-value">Discounts applied by single cashier exceed 10% of sales</div>
+                        </div>
+                        <div class="chirp-detail-row">
+                            <div class="chirp-detail-label">Threshold:</div>
+                            <div class="chirp-detail-value">SUM(discount_amount) > 0.10 × SUM(gross_amount)</div>
+                        </div>
+                        <div class="chirp-detail-row">
+                            <div class="chirp-detail-label">Source Tables:</div>
+                            <div class="chirp-detail-value">transactions, transaction_line_items</div>
+                        </div>
+                        <div class="chirp-detail-row">
+                            <div class="chirp-detail-label">Severity:</div>
+                            <div class="chirp-detail-value">HIGH</div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="chirp-rule expandable" onclick="toggleChirp(this)">
+                    <div class="chirp-header">
+                        <span><span class="expand-arrow">→</span>Ghost Terminal Activity</span>
+                        <span class="chirp-id">CHR-012</span>
+                    </div>
+                    <div class="chirp-details">
+                        <div class="chirp-detail-row">
+                            <div class="chirp-detail-label">Signal:</div>
+                            <div class="chirp-detail-value">Device records high transaction volume but no physical store visit</div>
+                        </div>
+                        <div class="chirp-detail-row">
+                            <div class="chirp-detail-label">Threshold:</div>
+                            <div class="chirp-detail-value">device_transaction_count > 50 in 1 hour + no check-in log</div>
+                        </div>
+                        <div class="chirp-detail-row">
+                            <div class="chirp-detail-label">Source Tables:</div>
+                            <div class="chirp-detail-value">transactions, device_profiles</div>
+                        </div>
+                        <div class="chirp-detail-row">
+                            <div class="chirp-detail-label">Severity:</div>
+                            <div class="chirp-detail-value">CRITICAL</div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <h3 style="margin-top: 2em;">Inventory & Gift Card Fraud</h3>
+            <div class="chirp-category">
+                <div class="chirp-rule expandable" onclick="toggleChirp(this)">
+                    <div class="chirp-header">
+                        <span><span class="expand-arrow">→</span>Shrinkage Spike</span>
+                        <span class="chirp-id">CHR-013</span>
+                    </div>
+                    <div class="chirp-details">
+                        <div class="chirp-detail-row">
+                            <div class="chirp-detail-label">Signal:</div>
+                            <div class="chirp-detail-value">Inventory variance >5% in single period</div>
+                        </div>
+                        <div class="chirp-detail-row">
+                            <div class="chirp-detail-label">Threshold:</div>
+                            <div class="chirp-detail-value">ABS(expected_inventory - actual) > 0.05 × expected</div>
+                        </div>
+                        <div class="chirp-detail-row">
+                            <div class="chirp-detail-label">Source Tables:</div>
+                            <div class="chirp-detail-value">inventory_adjustments, products</div>
+                        </div>
+                        <div class="chirp-detail-row">
+                            <div class="chirp-detail-label">Severity:</div>
+                            <div class="chirp-detail-value">HIGH</div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="chirp-rule expandable" onclick="toggleChirp(this)">
+                    <div class="chirp-header">
+                        <span><span class="expand-arrow">→</span>Gift Card Load Velocity</span>
+                        <span class="chirp-id">CHR-014</span>
+                    </div>
+                    <div class="chirp-details">
+                        <div class="chirp-detail-row">
+                            <div class="chirp-detail-label">Signal:</div>
+                            <div class="chirp-detail-value">Gift card loads exceed redeems by >10x daily</div>
+                        </div>
+                        <div class="chirp-detail-row">
+                            <div class="chirp-detail-label">Threshold:</div>
+                            <div class="chirp-detail-value">load_volume > 10 × redemption_volume</div>
+                        </div>
+                        <div class="chirp-detail-row">
+                            <div class="chirp-detail-label">Source Tables:</div>
+                            <div class="chirp-detail-value">gift_card_activities</div>
+                        </div>
+                        <div class="chirp-detail-row">
+                            <div class="chirp-detail-label">Severity:</div>
+                            <div class="chirp-detail-value">MEDIUM</div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="chirp-rule expandable" onclick="toggleChirp(this)">
+                    <div class="chirp-header">
+                        <span><span class="expand-arrow">→</span>Gift Card Rapid Redemption</span>
+                        <span class="chirp-id">CHR-015</span>
+                    </div>
+                    <div class="chirp-details">
+                        <div class="chirp-detail-row">
+                            <div class="chirp-detail-label">Signal:</div>
+                            <div class="chirp-detail-value">Gift card redeemed within 5 minutes of load</div>
+                        </div>
+                        <div class="chirp-detail-row">
+                            <div class="chirp-detail-label">Threshold:</div>
+                            <div class="chirp-detail-value">redemption_timestamp - load_timestamp < 300s</div>
+                        </div>
+                        <div class="chirp-detail-row">
+                            <div class="chirp-detail-label">Source Tables:</div>
+                            <div class="chirp-detail-value">gift_card_activities</div>
+                        </div>
+                        <div class="chirp-detail-row">
+                            <div class="chirp-detail-label">Severity:</div>
+                            <div class="chirp-detail-value">HIGH</div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <h3 style="margin-top: 2em;">Multi-Source Correlation</h3>
+            <div class="chirp-category">
+                <div class="chirp-rule expandable" onclick="toggleChirp(this)">
+                    <div class="chirp-header">
+                        <span><span class="expand-arrow">→</span>Tender Type Mismatch</span>
+                        <span class="chirp-id">CHR-016</span>
+                    </div>
+                    <div class="chirp-details">
+                        <div class="chirp-detail-row">
+                            <div class="chirp-detail-label">Signal:</div>
+                            <div class="chirp-detail-value">Transaction header shows cash but tender table shows card</div>
+                        </div>
+                        <div class="chirp-detail-row">
+                            <div class="chirp-detail-label">Threshold:</div>
+                            <div class="chirp-detail-value">payment_method != tender_type</div>
+                        </div>
+                        <div class="chirp-detail-row">
+                            <div class="chirp-detail-label">Source Tables:</div>
+                            <div class="chirp-detail-value">transactions, transaction_tenders</div>
+                        </div>
+                        <div class="chirp-detail-row">
+                            <div class="chirp-detail-label">Severity:</div>
+                            <div class="chirp-detail-value">MEDIUM</div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="chirp-rule expandable" onclick="toggleChirp(this)">
+                    <div class="chirp-header">
+                        <span><span class="expand-arrow">→</span>Line Item Sum Mismatch</span>
+                        <span class="chirp-id">CHR-017</span>
+                    </div>
+                    <div class="chirp-details">
+                        <div class="chirp-detail-row">
+                            <div class="chirp-detail-label">Signal:</div>
+                            <div class="chirp-detail-value">Sum of line items does not match transaction total</div>
+                        </div>
+                        <div class="chirp-detail-row">
+                            <div class="chirp-detail-label">Threshold:</div>
+                            <div class="chirp-detail-value">ABS(SUM(line_items) - transaction_total) > 1 cent</div>
+                        </div>
+                        <div class="chirp-detail-row">
+                            <div class="chirp-detail-label">Source Tables:</div>
+                            <div class="chirp-detail-value">transactions, transaction_line_items</div>
+                        </div>
+                        <div class="chirp-detail-row">
+                            <div class="chirp-detail-label">Severity:</div>
+                            <div class="chirp-detail-value">HIGH</div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="chirp-rule expandable" onclick="toggleChirp(this)">
+                    <div class="chirp-header">
+                        <span><span class="expand-arrow">→</span>Employee Location Mismatch</span>
+                        <span class="chirp-id">CHR-018</span>
+                    </div>
+                    <div class="chirp-details">
+                        <div class="chirp-detail-row">
+                            <div class="chirp-detail-label">Signal:</div>
+                            <div class="chirp-detail-value">Transaction at location where employee has no assignment</div>
+                        </div>
+                        <div class="chirp-detail-row">
+                            <div class="chirp-detail-label">Threshold:</div>
+                            <div class="chirp-detail-value">transaction_location NOT IN employee_assigned_locations</div>
+                        </div>
+                        <div class="chirp-detail-row">
+                            <div class="chirp-detail-label">Source Tables:</div>
+                            <div class="chirp-detail-value">transactions, employees, employee_timecards</div>
+                        </div>
+                        <div class="chirp-detail-row">
+                            <div class="chirp-detail-label">Severity:</div>
+                            <div class="chirp-detail-value">CRITICAL</div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="chirp-rule expandable" onclick="toggleChirp(this)">
+                    <div class="chirp-header">
+                        <span><span class="expand-arrow">→</span>Duplicate Transaction Detection</span>
+                        <span class="chirp-id">CHR-019</span>
+                    </div>
+                    <div class="chirp-details">
+                        <div class="chirp-detail-row">
+                            <div class="chirp-detail-label">Signal:</div>
+                            <div class="chirp-detail-value">Identical amount, card, time within 10-minute window</div>
+                        </div>
+                        <div class="chirp-detail-row">
+                            <div class="chirp-detail-label">Threshold:</div>
+                            <div class="chirp-detail-value">amount = previous AND card_id = previous AND time_diff < 600s</div>
+                        </div>
+                        <div class="chirp-detail-row">
+                            <div class="chirp-detail-label">Source Tables:</div>
+                            <div class="chirp-detail-value">transactions, card_profiles</div>
+                        </div>
+                        <div class="chirp-detail-row">
+                            <div class="chirp-detail-label">Severity:</div>
+                            <div class="chirp-detail-value">MEDIUM</div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="chirp-rule expandable" onclick="toggleChirp(this)">
+                    <div class="chirp-header">
+                        <span><span class="expand-arrow">→</span>Margin Threshold Alert</span>
+                        <span class="chirp-id">CHR-020</span>
+                    </div>
+                    <div class="chirp-details">
+                        <div class="chirp-detail-row">
+                            <div class="chirp-detail-label">Signal:</div>
+                            <div class="chirp-detail-value">Sold-at price below item's cost basis</div>
+                        </div>
+                        <div class="chirp-detail-row">
+                            <div class="chirp-detail-label">Threshold:</div>
+                            <div class="chirp-detail-value">line_item_price < product_cost_basis</div>
+                        </div>
+                        <div class="chirp-detail-row">
+                            <div class="chirp-detail-label">Source Tables:</div>
+                            <div class="chirp-detail-value">transaction_line_items, products</div>
+                        </div>
+                        <div class="chirp-detail-row">
+                            <div class="chirp-detail-label">Severity:</div>
+                            <div class="chirp-detail-value">HIGH</div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="chirp-rule expandable" onclick="toggleChirp(this)">
+                    <div class="chirp-header">
+                        <span><span class="expand-arrow">→</span>High-Void Employee Pattern</span>
+                        <span class="chirp-id">CHR-021</span>
+                    </div>
+                    <div class="chirp-details">
+                        <div class="chirp-detail-row">
+                            <div class="chirp-detail-label">Signal:</div>
+                            <div class="chirp-detail-value">Single employee voids >20% of their transactions</div>
+                        </div>
+                        <div class="chirp-detail-row">
+                            <div class="chirp-detail-label">Threshold:</div>
+                            <div class="chirp-detail-value">COUNT(voids) > 0.20 × COUNT(total_transactions)</div>
+                        </div>
+                        <div class="chirp-detail-row">
+                            <div class="chirp-detail-label">Source Tables:</div>
+                            <div class="chirp-detail-value">transactions, employees</div>
+                        </div>
+                        <div class="chirp-detail-row">
+                            <div class="chirp-detail-label">Severity:</div>
+                            <div class="chirp-detail-value">HIGH</div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="chirp-rule expandable" onclick="toggleChirp(this)">
+                    <div class="chirp-header">
+                        <span><span class="expand-arrow">→</span>Suspicious Break Pattern</span>
+                        <span class="chirp-id">CHR-022</span>
+                    </div>
+                    <div class="chirp-details">
+                        <div class="chirp-detail-row">
+                            <div class="chirp-detail-label">Signal:</div>
+                            <div class="chirp-detail-value">High-value refund during employee break time</div>
+                        </div>
+                        <div class="chirp-detail-row">
+                            <div class="chirp-detail-label">Threshold:</div>
+                            <div class="chirp-detail-value">refund_timestamp IN break_window AND refund_amount > $100</div>
+                        </div>
+                        <div class="chirp-detail-row">
+                            <div class="chirp-detail-label">Source Tables:</div>
+                            <div class="chirp-detail-value">transactions, refunds, employee_timecards</div>
+                        </div>
+                        <div class="chirp-detail-row">
+                            <div class="chirp-detail-label">Severity:</div>
+                            <div class="chirp-detail-value">MEDIUM</div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- SECTION 5: 35-TABLE INVENTORY -->
+        <section>
+            <h2>35-Table Inventory</h2>
+            <p>The CRDM spans three databases with 35 tables. Current status: 27 existing, 8 new (Sprint 2).</p>
+
+            <h3 style="margin-top: 2em;">canary_app Schema (Normalized, ACID)</h3>
+            <div class="table-inventory">
+                <div class="table-card">
+                    <div class="table-name">merchants</div>
+                    <div class="table-badge badge-existing">✅ Existing</div>
+                    <div class="table-description">Square merchant account metadata, subscription tier, location count</div>
+                </div>
+                <div class="table-card">
+                    <div class="table-name">locations</div>
+                    <div class="table-badge badge-existing">✅ Existing</div>
+                    <div class="table-description">Store addresses, hours, employee count, timezone</div>
+                </div>
+                <div class="table-card">
+                    <div class="table-name">users</div>
+                    <div class="table-badge badge-existing">✅ Existing</div>
+                    <div class="table-description">Canary platform users, roles, MFA, audit trail</div>
+                </div>
+                <div class="table-card">
+                    <div class="table-name">employees</div>
+                    <div class="table-badge badge-existing">✅ Existing</div>
+                    <div class="table-description">Cashier/staff master data, hire date, roles, locations</div>
+                </div>
+                <div class="table-card">
+                    <div class="table-name">products</div>
+                    <div class="table-badge badge-existing">✅ Existing</div>
+                    <div class="table-description">SKU catalog, categories, cost basis, margin</div>
+                </div>
+                <div class="table-card">
+                    <div class="table-name">cards</div>
+                    <div class="table-badge badge-existing">✅ Existing</div>
+                    <div class="table-description">Card bin data, issuer, risk flags, velocity counters</div>
+                </div>
+                <div class="table-card">
+                    <div class="table-name">devices</div>
+                    <div class="table-badge badge-existing">✅ Existing</div>
+                    <div class="table-description">Square reader/terminal device registry, firmware</div>
+                </div>
+                <div class="table-card">
+                    <div class="table-name">cases</div>
+                    <div class="table-badge badge-existing">✅ Existing</div>
+                    <div class="table-description">Fox case management — incidents, evidence, dispositions</div>
+                </div>
+                <div class="table-card">
+                    <div class="table-name">audit_logs</div>
+                    <div class="table-badge badge-existing">✅ Existing</div>
+                    <div class="table-description">Immutable audit trail of all system actions, hash-chained</div>
+                </div>
+                <div class="table-card">
+                    <div class="table-name">alert_config</div>
+                    <div class="table-badge badge-existing">✅ Existing</div>
+                    <div class="table-description">Merchant-specific alert thresholds, suppression rules</div>
+                </div>
+                <div class="table-card">
+                    <div class="table-name">employee_timecards</div>
+                    <div class="table-badge badge-new">🆕 New</div>
+                    <div class="table-description">Scheduled shifts, check-in/check-out, break times, location</div>
+                </div>
+                <div class="table-card">
+                    <div class="table-name">cash_drawer_shifts</div>
+                    <div class="table-badge badge-new">🆕 New</div>
+                    <div class="table-description">Drawer opening/closing, expected balance, variance, assignee</div>
+                </div>
+                <div class="table-card">
+                    <div class="table-name">cash_drawer_events</div>
+                    <div class="table-badge badge-new">🆕 New</div>
+                    <div class="table-description">Paid in/paid out, no-sales, drawer opening events</div>
+                </div>
+                <div class="table-card">
+                    <div class="table-name">inventory_adjustments</div>
+                    <div class="table-badge badge-new">🆕 New</div>
+                    <div class="table-description">Stock counts, cycle counts, damage/loss, reasons</div>
+                </div>
+                <div class="table-card">
+                    <div class="table-name">gift_card_activities</div>
+                    <div class="table-badge badge-new">🆕 New</div>
+                    <div class="table-description">Load, reload, redemption, balance queries, velocity</div>
+                </div>
+            </div>
+
+            <h3 style="margin-top: 2em;">canary_sales Schema (Append-Only, JSONB)</h3>
+            <div class="table-inventory">
+                <div class="table-card">
+                    <div class="table-name">webhook_events</div>
+                    <div class="table-badge badge-existing">✅ Existing</div>
+                    <div class="table-description">Raw Square webhook payload (JSONB), monthly partitioned</div>
+                </div>
+                <div class="table-card">
+                    <div class="table-name">transactions</div>
+                    <div class="table-badge badge-existing">✅ Existing</div>
+                    <div class="table-description">Payment header: amount, timestamp, device, risk signals</div>
+                </div>
+                <div class="table-card">
+                    <div class="table-name">refunds</div>
+                    <div class="table-badge badge-existing">✅ Existing</div>
+                    <div class="table-description">Refund events, amounts, reasons, delta from original</div>
+                </div>
+                <div class="table-card">
+                    <div class="table-name">transaction_line_items</div>
+                    <div class="table-badge badge-new">🆕 New</div>
+                    <div class="table-description">Line-level detail: SKU, qty, price, discounts, voids</div>
+                </div>
+                <div class="table-card">
+                    <div class="table-name">transaction_tenders</div>
+                    <div class="table-badge badge-new">🆕 New</div>
+                    <div class="table-description">Tender breakdown: cash, card (BIN/fingerprint), gift card</div>
+                </div>
+                <div class="table-card">
+                    <div class="table-name">card_profiles</div>
+                    <div class="table-badge badge-existing">✅ Existing</div>
+                    <div class="table-description">Card fingerprint, issuer, velocity counter, nomad flag</div>
+                </div>
+                <div class="table-card">
+                    <div class="table-name">risk_signals</div>
+                    <div class="table-badge badge-existing">✅ Existing</div>
+                    <div class="table-description">CVV/AVS result, 3DS flag, issuer decline code, risk level</div>
+                </div>
+                <div class="table-card">
+                    <div class="table-name">schema_drift_log</div>
+                    <div class="table-badge badge-existing">✅ Existing</div>
+                    <div class="table-description">Detected new fields in webhook payload, timestamp first seen</div>
+                </div>
+            </div>
+
+            <h3 style="margin-top: 2em;">canary_metrics Schema (Star, Aggregated)</h3>
+            <div class="table-inventory">
+                <div class="table-card">
+                    <div class="table-name">daily_sales_fact</div>
+                    <div class="table-badge badge-existing">✅ Existing</div>
+                    <div class="table-description">Gross/net/refund amounts, transaction count, item count</div>
+                </div>
+                <div class="table-card">
+                    <div class="table-name">hourly_transaction_fact</div>
+                    <div class="table-badge badge-existing">✅ Existing</div>
+                    <div class="table-description">Transaction volume, card velocity, high-value alerts by hour</div>
+                </div>
+                <div class="table-card">
+                    <div class="table-name">employee_performance_fact</div>
+                    <div class="table-badge badge-existing">✅ Existing</div>
+                    <div class="table-description">Cashier metrics: sales, refund rate, void rate, avg item count</div>
+                </div>
+                <div class="table-card">
+                    <div class="table-name">refund_summary_fact</div>
+                    <div class="table-badge badge-existing">✅ Existing</div>
+                    <div class="table-description">Daily refund volume, count, average amount, top reasons</div>
+                </div>
+                <div class="table-card">
+                    <div class="table-name">chirp_alert_fact</div>
+                    <div class="table-badge badge-existing">✅ Existing</div>
+                    <div class="table-description">Alerts fired by rule, severity, merchant, resolution status</div>
+                </div>
+                <div class="table-card">
+                    <div class="table-name">case_status_fact</div>
+                    <div class="table-badge badge-existing">✅ Existing</div>
+                    <div class="table-description">Open cases, age, severity, assigned to, status transitions</div>
+                </div>
+                <div class="table-card">
+                    <div class="table-name">cash_drawer_summary_fact</div>
+                    <div class="table-badge badge-new">🆕 New</div>
+                    <div class="table-description">Daily variance, no-sale count, paid in/out, drawer health</div>
+                </div>
+                <div class="table-card">
+                    <div class="table-name">inventory_variance_fact</div>
+                    <div class="table-badge badge-new">🆕 New</div>
+                    <div class="table-description">Shrinkage %, top loss categories, cycle count discrepancies</div>
+                </div>
+            </div>
+        </section>
+
+        <!-- SECTION 6: SIX DESIGN PATTERNS -->
+        <section>
+            <h2>Six Design Patterns</h2>
+            <p>CRDM architecture relies on six proven patterns for scalability, security, and maintainability.</p>
+
+            <div class="pattern-grid">
+                <div class="pattern-card">
+                    <div class="pattern-title">1. Multi-Tenant RLS</div>
+                    <div class="pattern-description">Row-Level Security policies ensure merchants see only their data. Implemented at PostgreSQL layer, not application layer.</div>
+                    <div class="pattern-code">
+CREATE POLICY merchant_isolation ON transactions
+  USING (merchant_id = current_setting('app.merchant_id')::uuid);
+                    </div>
+                </div>
+
+                <div class="pattern-card">
+                    <div class="pattern-title">2. Standard Entity Fields</div>
+                    <div class="pattern-description">Every table includes: id (UUID), created_at, updated_at, db_status (active/soft-delete), db_effective_from/to (SCD Type 2).</div>
+                    <div class="pattern-code">
+id uuid PRIMARY KEY,
+created_at timestamp DEFAULT now(),
+updated_at timestamp DEFAULT now(),
+db_status varchar(20) DEFAULT 'active',
+db_effective_from date DEFAULT CURRENT_DATE,
+db_effective_to date DEFAULT '9999-12-31'
+                    </div>
+                </div>
+
+                <div class="pattern-card">
+                    <div class="pattern-title">3. JSONB + Extracted Columns</div>
+                    <div class="pattern-description">Raw payload stored as JSONB in canary_sales (immutable). Parsed fields extracted into canary_app columns (queryable, indexed). Schema drift captured in separate log.</div>
+                    <div class="pattern-code">
+-- canary_sales (immutable)
+webhook_payload jsonb
+
+-- canary_app (queryable)
+device_id uuid,
+risk_level varchar(20),
+cvv_result varchar(20)
+-- generated from webhook_payload
+                    </div>
+                </div>
+
+                <div class="pattern-card">
+                    <div class="pattern-title">4. Hash Chain (Audit Integrity)</div>
+                    <div class="pattern-description">Every audit log entry includes SHA-256 hash of previous entry. Creates tamper-proof chain of custody for evidence tables.</div>
+                    <div class="pattern-code">
+INSERT INTO audit_logs
+  (action, entity_id, user_id, previous_hash, current_hash)
+VALUES
+  ('UPDATE case_1', 'case_1', 'usr_123',
+   '5a3f2b...', SHA256(concat(action, user_id, ...)))
+                    </div>
+                </div>
+
+                <div class="pattern-card">
+                    <div class="pattern-title">5. Monthly Partitioning</div>
+                    <div class="pattern-description">Large fact tables (webhook_events, transactions, refunds) partitioned by YEAR-MONTH. Enables parallel query, efficient archival, compliance holds.</div>
+                    <div class="pattern-code">
+CREATE TABLE webhook_events_2026_02
+  PARTITION OF webhook_events
+  FOR VALUES FROM ('2026-02-01')
+  TO ('2026-03-01')
+                    </div>
+                </div>
+
+                <div class="pattern-card">
+                    <div class="pattern-title">6. Merchant-First Indexing</div>
+                    <div class="pattern-description">Every query includes merchant_id in WHERE clause. Indexes are designed as (merchant_id, timestamp, entity_id) for maximum cardinality and cache hit ratio.</div>
+                    <div class="pattern-code">
+CREATE INDEX idx_transactions_merchant_time
+  ON transactions (merchant_id, created_at DESC,
+                   device_id, employee_id)
+  WHERE db_status = 'active'
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- SECTION 7: COVERAGE SCORECARD -->
+        <section>
+            <h2>Coverage Scorecard</h2>
+            <p>Canary's loss prevention effectiveness is measured against the CRDM baseline. February 2026 status reflects scope expansion to 6 new data sources.</p>
+
+            <div class="scorecard">
+                <div class="score-item">
+                    <div class="score-label">Raw Field Coverage</div>
+                    <div class="score-percentage">68%</div>
+                    <div class="progress-bar">
+                        <div class="progress-fill" style="width: 68%;"></div>
+                    </div>
+                    <p style="font-size: 0.85rem; color: #8B949E; margin-top: 10px;">89/131 fields extracted from Square APIs</p>
+                </div>
+
+                <div class="score-item">
+                    <div class="score-label">LP-Weighted Coverage</div>
+                    <div class="score-percentage">85%</div>
+                    <div class="progress-bar">
+                        <div class="progress-fill" style="width: 85%;"></div>
+                    </div>
+                    <p style="font-size: 0.85rem; color: #8B949E; margin-top: 10px;">Prioritizes high-impact fraud patterns: payments, refunds, employees, cash drawer</p>
+                </div>
+
+                <div class="score-item">
+                    <div class="score-label">Detection Rule Coverage</div>
+                    <div class="score-percentage">100%</div>
+                    <div class="progress-bar">
+                        <div class="progress-fill" style="width: 100%;"></div>
+                    </div>
+                    <p style="font-size: 0.85rem; color: #8B949E; margin-top: 10px;">22/22 Chirp rules implemented, 14 new rules from scope expansion</p>
+                </div>
+
+                <div class="score-item">
+                    <div class="score-label">Table Inventory</div>
+                    <div class="score-percentage">77%</div>
+                    <div class="progress-bar">
+                        <div class="progress-fill" style="width: 77%;"></div>
+                    </div>
+                    <p style="font-size: 0.85rem; color: #8B949E; margin-top: 10px;">27 existing, 8 new (Sprint 2), 35 total CRDM tables</p>
+                </div>
+            </div>
+
+            <h3 style="margin-top: 2em;">Coverage by Data Source</h3>
+            <div class="table-wrapper">
+                <table>
+                    <thead>
+                        <tr>
+                            <th>Data Source</th>
+                            <th>Fields Extracted</th>
+                            <th>Coverage %</th>
+                            <th>Status</th>
+                            <th>Next Phase</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td>Transaction Header</td>
+                            <td>18 / 28</td>
+                            <td>64%</td>
+                            <td><span class="status-badge status-ready">✅ Live</span></td>
+                            <td>Add 10 new fields (Sprint 2)</td>
+                        </tr>
+                        <tr>
+                            <td>Tender</td>
+                            <td>10 / 13</td>
+                            <td>77%</td>
+                            <td><span class="status-badge status-ready">✅ Live</span></td>
+                            <td>3D Secure flag, issuer routing (Sprint 2)</td>
+                        </tr>
+                        <tr>
+                            <td>Line Items</td>
+                            <td>14 / 21</td>
+                            <td>67%</td>
+                            <td><span class="status-badge status-new">🆕 Sprint 2</span></td>
+                            <td>Discount reason, void reason (Sprint 2)</td>
+                        </tr>
+                        <tr>
+                            <td>Employee</td>
+                            <td>9 / 10</td>
+                            <td>90%</td>
+                            <td><span class="status-badge status-ready">✅ Live</span></td>
+                            <td>Complete (Sprint 2)</td>
+                        </tr>
+                        <tr>
+                            <td>Product</td>
+                            <td>7 / 11</td>
+                            <td>64%</td>
+                            <td><span class="status-badge status-ready">✅ Live</span></td>
+                            <td>Margin, supplier, margin alert (Sprint 2)</td>
+                        </tr>
+                        <tr>
+                            <td>Store</td>
+                            <td>12 / 17</td>
+                            <td>71%</td>
+                            <td><span class="status-badge status-ready">✅ Live</span></td>
+                            <td>Manager contact, loss tolerance (Sprint 2)</td>
+                        </tr>
+                        <tr>
+                            <td>Customer</td>
+                            <td>3 / 7</td>
+                            <td>43%</td>
+                            <td><span class="status-badge status-warning">⚠️ Low Priority</span></td>
+                            <td>Post-MVP (Phase 2)</td>
+                        </tr>
+                        <tr>
+                            <td>Cash Drawer</td>
+                            <td>—</td>
+                            <td>—</td>
+                            <td><span class="status-badge status-new">🆕 Sprint 2</span></td>
+                            <td>New Square API integration</td>
+                        </tr>
+                        <tr>
+                            <td>Timecards</td>
+                            <td>—</td>
+                            <td>—</td>
+                            <td><span class="status-badge status-new">🆕 Sprint 2</span></td>
+                            <td>New Square API integration</td>
+                        </tr>
+                        <tr>
+                            <td>Inventory</td>
+                            <td>—</td>
+                            <td>—</td>
+                            <td><span class="status-badge status-new">🆕 Sprint 3</span></td>
+                            <td>New Square API integration</td>
+                        </tr>
+                        <tr>
+                            <td>Gift Cards</td>
+                            <td>—</td>
+                            <td>—</td>
+                            <td><span class="status-badge status-new">🆕 Sprint 3</span></td>
+                            <td>New Square API integration</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        </section>
+
+        <!-- SECTION 8: DATA FLOW (TRANSACTION TO CASE) -->
+        <section>
+            <h2>Transaction to Case Data Flow</h2>
+            <p>A transaction's journey through Canary: from Square webhook to loss prevention case. 14 steps, multiple databases, immutable audit trail.</p>
+
+            <div class="flow-diagram">
+                <div class="flow-step" data-step="1">
+                    <strong>Square Webhook Received</strong> — Payment event from Square with full payload (JSONB). Timestamp synchronized with Square's event_created_at.
+                </div>
+
+                <div class="flow-arrow">↓</div>
+
+                <div class="flow-step" data-step="2">
+                    <strong>HMAC Signature Verification</strong> — canary_sales webhook_signature verified against Canary's registered Square app secret. Unsigned events rejected.
+                </div>
+
+                <div class="flow-arrow">↓</div>
+
+                <div class="flow-step" data-step="3">
+                    <strong>Raw Payload Archived</strong> — Webhook event inserted into canary_sales.webhook_events (append-only, JSONB). Entry hash recorded for chain-of-custody.
+                </div>
+
+                <div class="flow-arrow">↓</div>
+
+                <div class="flow-step" data-step="4">
+                    <strong>Schema Drift Detection</strong> — Python fingerprinter scans JSONB against known Square API schema. New fields logged to schema_drift_log for monitoring.
+                </div>
+
+                <div class="flow-arrow">↓</div>
+
+                <div class="flow-step" data-step="5">
+                    <strong>Field Extraction & Parsing</strong> — Python parser (square_client.py parse_payment_to_transaction v2) extracts 22+ fields from JSONB into normalized columns.
+                </div>
+
+                <div class="flow-arrow">↓</div>
+
+                <div class="flow-step" data-step="6">
+                    <strong>Merchant RLS Context Set</strong> — Session-level app.merchant_id variable set to transaction's merchant_id for all downstream queries.
+                </div>
+
+                <div class="flow-arrow">↓</div>
+
+                <div class="flow-step" data-step="7">
+                    <strong>Transaction Record Inserted</strong> — Normalized transaction inserted into canary_sales.transactions + canary_app.transactions. Device fingerprint created/updated.
+                </div>
+
+                <div class="flow-arrow">↓</div>
+
+                <div class="flow-step" data-step="8">
+                    <strong>Risk Signal Evaluation</strong> — CVV/AVS/3DS flags evaluated and stored in canary_sales.risk_signals. Card velocity counters incremented.
+                </div>
+
+                <div class="flow-arrow">↓</div>
+
+                <div class="flow-step" data-step="9">
+                    <strong>Chirp Rules Evaluated (Real-Time)</strong> — All 22 Chirp rules execute in parallel. Matched rules generate alert events with HIGH/MEDIUM/CRITICAL severity.
+                </div>
+
+                <div class="flow-arrow">↓</div>
+
+                <div class="flow-step" data-step="10">
+                    <strong>Alerts Stored & Notification Triggered</strong> — Matched alerts inserted into cases.chirp_alerts. Merchant notified via webhook (async, Fire-and-Forget).
+                </div>
+
+                <div class="flow-arrow">↓</div>
+
+                <div class="flow-step" data-step="11">
+                    <strong>Metrics Updated</strong> — Nightly batch job aggregates daily_sales_fact, employee_performance_fact, chirp_alert_fact in canary_metrics.
+                </div>
+
+                <div class="flow-arrow">↓</div>
+
+                <div class="flow-step" data-step="12">
+                    <strong>Case Auto-Created (if Alert Critical)</strong> — CRITICAL alerts auto-escalate to Fox case management. Case status set to 'open', assigned to store manager.
+                </div>
+
+                <div class="flow-arrow">↓</div>
+
+                <div class="flow-step" data-step="13">
+                    <strong>Evidence Chain Established</strong> — Fox case linked to transaction record. Evidence table (INSERT-only) records investigator actions, notes, hash-chain verified.
+                </div>
+
+                <div class="flow-arrow">↓</div>
+
+                <div class="flow-step" data-step="14">
+                    <strong>Case Resolution & Audit Log Close</strong> — Case disposition recorded (fraud/error/verified). Audit entry hash-chained. Data locked for compliance hold if needed.
+                </div>
+            </div>
+        </section>
+
+        <!-- SECTION 9: POS-AGNOSTIC ARCHITECTURE -->
+        <section>
+            <h2>POS-Agnostic Architecture</h2>
+            <p>Canary's canonical data model decouples from any single POS system. Today: Square. Tomorrow: Clover, Toast, Shopify. The abstraction layer exists before diversification.</p>
+
+            <div class="pos-flow">
+                <div class="pos-box active">
+                    <h4>Square</h4>
+                    <p style="font-size: 0.85rem; color: #F59E0B;">Payments API</p>
+                    <p style="font-size: 0.8rem; color: #8B949E;">OAuth webhooks</p>
+                </div>
+
+                <div class="pos-arrow">→</div>
+
+                <div class="pos-box">
+                    <h4>CRDM Parser</h4>
+                    <p style="font-size: 0.85rem; color: #F59E0B;">Vendor-Specific</p>
+                    <p style="font-size: 0.8rem; color: #8B949E;">square_client.py</p>
+                </div>
+
+                <div class="pos-arrow">→</div>
+
+                <div class="pos-box">
+                    <h4>Canonical Schema</h4>
+                    <p style="font-size: 0.85rem; color: #F59E0B;">CRDM Tables</p>
+                    <p style="font-size: 0.8rem; color: #8B949E;">35 tables, 7 sources</p>
+                </div>
+
+                <div class="pos-arrow">→</div>
+
+                <div class="pos-box">
+                    <h4>Chirp Engine</h4>
+                    <p style="font-size: 0.85rem; color: #F59E0B;">POS-Agnostic</p>
+                    <p style="font-size: 0.8rem; color: #8B949E;">22 rules, all sources</p>
+                </div>
+            </div>
+
+            <h3 style="margin-top: 2em;">Future Integrations (Planned)</h3>
+            <div class="pos-flow">
+                <div class="pos-box future">
+                    <h4>Clover</h4>
+                    <p style="font-size: 0.85rem; color: #8B949E;">REST API</p>
+                    <p style="font-size: 0.8rem; color: #6E7681;">clover_client.py</p>
+                </div>
+
+                <div class="pos-arrow" style="color: #8B949E;">→</div>
+
+                <div class="pos-box future">
+                    <h4>Toast</h4>
+                    <p style="font-size: 0.85rem; color: #8B949E;">gRPC</p>
+                    <p style="font-size: 0.8rem; color: #6E7681;">toast_client.py</p>
+                </div>
+
+                <div class="pos-arrow" style="color: #8B949E;">→</div>
+
+                <div class="pos-box future">
+                    <h4>Shopify</h4>
+                    <p style="font-size: 0.85rem; color: #8B949E;">GraphQL</p>
+                    <p style="font-size: 0.8rem; color: #6E7681;">shopify_client.py</p>
+                </div>
+
+                <div class="pos-arrow" style="color: #8B949E;">→</div>
+
+                <div class="pos-box future">
+                    <h4>Custom</h4>
+                    <p style="font-size: 0.85rem; color: #8B949E;">EDI / CSV</p>
+                    <p style="font-size: 0.8rem; color: #6E7681;">custom_client.py</p>
+                </div>
+            </div>
+
+            <p style="margin-top: 2em; background: rgba(245, 158, 11, 0.1); border-left: 4px solid #F59E0B; padding: 20px; border-radius: 4px;">
+                <strong style="color: #F59E0B;">Design Principle:</strong> Each vendor-specific client implements the same interface: <code style="background: #0D1117; padding: 2px 6px; border-radius: 3px; color: #79C0FF;">parse_payment_to_transaction(webhook_payload) → CRDM transaction row</code>. The Chirp rules, case management, and metrics operate on the canonical schema. No rule rewrites needed for new POS systems.
+            </p>
+        </section>
+
+        <!-- SECTION 10: WHAT'S NEXT -->
+        <section>
+            <h2>What's Next: CRDM Sprint 2 (Feb 24–Mar 10, 2026)</h2>
+            <p>The CRDM roadmap is locked. Sprint 2 focuses on depth: implementing the 8 new tables, 20+ new Chirp rules, and POS-agnostic architecture foundation.</p>
+
+            <h3 style="margin-top: 2em;">Priority 1: Schema Implementation (Architecture + Development)</h3>
+            <ul style="color: #C9D1D9; line-height: 2; margin-left: 20px;">
+                <li>✓ DDL for 8 new tables (cash_drawer_*, timecards, inventory, gift_card)</li>
+                <li>✓ RLS policies, indexes, partitioning strategy</li>
+                <li>✓ Schema diff automation (Git-tracked SQL)</li>
+            </ul>
+
+            <h3 style="margin-top: 2em;">Priority 2: Webhook Handlers (Development Team)</h3>
+            <ul style="color: #C9D1D9; line-height: 2; margin-left: 20px;">
+                <li>✓ Cash Drawer API integration (no-sales, paid in/out)</li>
+                <li>✓ Timecards API integration (shift times, location)</li>
+                <li>✓ OAuth scope bundling (4 new scopes)</li>
+            </ul>
+
+            <h3 style="margin-top: 2em;">Priority 3: Chirp Rules (Development + QA)</h3>
+            <ul style="color: #C9D1D9; line-height: 2; margin-left: 20px;">
+                <li>✓ 20+ new Chirp rules (CHR-007 through CHR-022)</li>
+                <li>✓ Rule versioning and rollout controls</li>
+                <li>✓ QA test scenarios (full test plan)</li>
+            </ul>
+
+            <h3 style="margin-top: 2em;">Priority 4: POS Abstraction (Architecture + Development)</h3>
+            <ul style="color: #C9D1D9; line-height: 2; margin-left: 20px;">
+                <li>✓ Canonical transaction interface spec</li>
+                <li>✓ square_client.py refactor (v2)</li>
+                <li>✓ Future: Clover integration spike</li>
+            </ul>
+
+            <div style="background: rgba(26, 127, 55, 0.15); border: 1px solid #3fb950; border-radius: 6px; padding: 20px; margin-top: 2em;">
+                <h4 style="color: #3fb950;">Alpha Gate Checklist (7 items)</h4>
+                <p style="color: #C9D1D9; margin: 10px 0;">Before alpha is ready, all 7 must pass:</p>
+                <ol style="color: #C9D1D9; margin-left: 20px; line-height: 2;">
+                    <li>✅ Smoke tests pass (120+ tests)</li>
+                    <li>✅ Docker compose QA stack works</li>
+                    <li>✅ PRDs complete (E0–E3)</li>
+                    <li>⏳ CRDM schemas deployed (Sprint 2)</li>
+                    <li>⏳ Webhook handlers live (Sprint 2)</li>
+                    <li>⏳ Chirp rules passing QA (QA sign-off, Sprint 2)</li>
+                    <li>⏳ E2E test coverage >85% (The Rooster, Sprint 2)</li>
+                </ol>
+            </div>
+        </section>
+    </main>
+
+    <footer>
+        <div class="container">
+            <p><strong>Canary LP | Confidential | GrowDirect DAO LLC</strong></p>
+            <p>CRDM v2.0 — Technical Architecture Document</p>
+            <p>February 2026 — Build committed, scope locked, execution underway</p>
+        </div>
+    </footer>
+
+    <script>
+        function toggleChirp(element) {
+            element.classList.toggle('expanded');
+        }
+    </script>
+</body>
+</html>
