@@ -22,19 +22,15 @@ This is the Canary-specific version of what growdirect.io does for the GrowDirec
 
 ## Positioning: The Canary in the Data Mine
 
-The page is built on the manifesto's core metaphor, not the Blue Ocean's "Profit Guardian" label. "Profit Guardian" is a category name for the market — useful for positioning but too clinical for a page that needs to recruit believers.
+"The Canary in the Data Mine" is the brand concept. It's catchy, the bird logo is distinctive, and the metaphor is immediately understood. That's where the cleverness ends. Everything else on the page is plain, direct, and specific about what the platform does and who built it.
 
-The narrative is:
+The page conveys three things:
 
-> The canary goes into the mine before the miners do. It detects what humans can't see, smell, or feel — the invisible gas that kills silently. When the canary sings, you act. When it stops singing, you run.
->
-> Your transaction data is a mine. Shrink, fraud, and operational loss are the gas — invisible, odorless, accumulating. Every POS system in production today records what happened in a mutable log that can be edited, disputed, or silently forgotten. The record is only as trustworthy as the institution that holds it.
->
-> Canary goes into that mine. It reads every transaction. It detects patterns that no human review would catch. And when it finds something, it tells you — in plain language, with evidence that can't be altered.
->
-> This platform was built by someone who spent 30 years inside the mine — enterprise retail systems, IBM 4690, national chains — and saw what happens when the data is wrong and the record can't be trusted. Canary exists because of what the old systems couldn't do.
+1. **What Canary does.** It connects to a Square merchant's account, reads their transaction data in real time, and identifies patterns that indicate money is being lost — voids, refunds, discount abuse, off-hours activity. It sends a weekly report with a dollar figure and plain-language explanation. That's the product.
 
-This is the emotional and intellectual spine of the page. Everything hangs off it.
+2. **Why it's credible.** 30 years of enterprise retail systems — IBM 4690, national chains, high-volume production environments. Big 5 consulting process and support capability, applied to the SMB market. Not a startup guessing at retail.
+
+3. **What we're looking for.** A merchant partner willing to connect real data and help build the product. Or a team/service partner who wants to work in this space.
 
 ---
 
@@ -77,17 +73,14 @@ The Blue Ocean analysis identified the core strategic moves. Here's how they map
 
 ### Layer 1 — The Hook (above the fold)
 
-**Nav:** Canary bird logo + wordmark | How It Works | The Story | Partner With Us
+**Nav:** Canary bird logo + wordmark | How It Works | Background | Partner With Us
 
 **Hero:**
 - Animated canary bird (gold, with glow)
-- Headline candidates (pick one during implementation):
-  - "The Canary in the Data Mine"
-  - "Something in your data is trying to tell you something."
-  - "Every transaction tells a story. Most of them go unread."
-- One-line subhead: "Canary reads every transaction your Square system records — and tells you what it finds."
-- Two CTAs: "See What Canary Finds" (scrolls to proof) and "Partner With Us" (scrolls to partner section)
-- Trust line: "Built on Square APIs · Read-only · Your data stays yours"
+- Headline: "The Canary in the Data Mine"
+- Subhead: "Transaction monitoring for Square merchants. Connect your account. Get a weekly report showing exactly where you're losing money."
+- Two CTAs: "See How It Works" (scrolls to proof) and "Partner With Us" (scrolls to partner section)
+- Trust line: "Built on Square APIs · Read-only access · Your data stays yours"
 
 ### Layer 2 — The Proof (what the canary finds)
 
@@ -99,28 +92,23 @@ The Blue Ocean analysis identified the core strategic moves. Here's how they map
 - One recommended action
 - The report sells itself. No feature list needed around it.
 
-**"Patterns you'd never spot"** — 3-4 real detection scenarios described in merchant language (not LP language):
-- A sale that disappears 3 minutes after the customer leaves
-- A $300 payment processed at 2 AM when you close at 10
-- One employee's discount rate is 5x everyone else's
-- Refunds filed faster than a real customer interaction allows
+**What Canary flags** — 3-4 concrete examples in plain language:
+- A voided sale 3 minutes after the customer left
+- A $300 payment processed at 2 AM — you close at 10
+- One employee's discount rate is 5x the store average
+- Refunds filed faster than a real return takes
 
-No category labels, no severity tiers, no rule names. Just "here's what we'd find in your data."
+No category labels, no rule names. Specific things the system catches.
 
-### Layer 3 — The Story (why this exists)
+### Layer 3 — The Credentials (who built this)
 
-This is where the page earns depth. The people still reading past the proof are the ones worth talking to.
+Short, factual. No narrative arc, no origin story. State the background, state the capability.
 
-**"Why we built this"** — The canary in the data mine narrative, told in 3 beats:
+- **Enterprise retail background** — 30 years. IBM 4690 POS systems, national chains, high-volume production environments. Transaction processing at scale.
+- **Big 5 process capability** — Enterprise-grade methodology and support practices, applied to the SMB market through automation.
+- **Data integrity commitment** — "If we flag something, we have the evidence. Every finding is backed by immutable, timestamped records."
 
-1. **The mine** — Every POS system records what happened in a log that can be edited. The record is only as trustworthy as the institution that holds it. Square merchants are flying blind in a mine full of gas they can't smell.
-
-2. **The incident** — A loss prevention system accused an employee of fraud. The employee was innocent. The data was wrong. The data couldn't be cross-examined because the institution controlled the record. (The LaneHawk story, told without naming LaneHawk — the point is the principle, not the brand.)
-
-3. **The canary** — 30 years of watching this problem. Enterprise retail systems, national chains, billions of transactions. Waiting for the tools that would make the solution possible. Not a startup guessing at retail. This is the thing that was always going to get built.
-
-**Data Integrity Principle callout:**
-> "We treat data integrity with the utmost seriousness. This is people's lives and jobs we are analyzing. If we accuse someone, we have to be sure and have the facts."
+This section exists so the reader understands this isn't someone's weekend project. Three short blocks, no storytelling.
 
 ### Layer 4 — The Platform (what's actually been built)
 
@@ -137,37 +125,32 @@ For the reader who wants to understand the engine. Technical but accessible.
 
 ### Layer 5 — The Vision (the deep reveal)
 
-This is the manifesto layer. Only the most engaged readers reach it. It rewards them.
+For the reader who scrolls this far. Technical substance, no pitch language.
 
-**"The deeper problem"** — The tLog thesis in accessible language:
-- IBM invented the transaction log in 1986. Every POS system since inherits the same flaw: the record is mutable. Someone controls the server. Someone can change the log.
-- This isn't a hypothetical risk. It's the mechanism behind every disputed LP accusation, every contested insurance claim, every employment dispute where "the system says" is the only evidence.
-- AI makes it worse. Synthetic documents, fabricated receipts, generated audit trails. The mutable record can't survive a world where anyone can generate a convincing counterfeit.
+**The tLog problem:**
+- IBM created the transaction log in 1986. Every POS system since uses the same model: a mutable record on a server someone controls. The log can be edited. It happens.
+- Canary's evidence store is different. INSERT-only. Hash-chained. Merkle roots anchored to Bitcoin. Records can't be altered after the fact.
 
-**"The gLog"** — What Canary is actually building underneath:
-- Every event hashed on receipt. Hash chains link every record to the one before it. Merkle roots anchored to Bitcoin. The record exists. The record cannot be argued with.
-- Not "blockchain for blockchain's sake." The direct successor to the IBM tLog, built because the old foundation was broken and the tools to fix it finally exist.
-- From one receipt to one billion receipts: same architecture, different scaling.
+**The gLog:**
+- Canary is building the successor to the tLog — an immutable transaction record that works from one receipt to one billion.
+- Not blockchain for its own sake. A direct fix for a specific problem in how retail transactions have been recorded for 40 years.
 
-**Open source commitment:**
-> Transparency is the brand. Expertise and execution are the moat. The code will be public. Anyone can inspect how Canary detects, how it stores evidence, and how it protects data.
+**Open source:**
+- The detection logic, evidence storage, and data handling will be public. Transparency is the standard. Execution is the differentiator.
 
 ### Layer 6 — The Partnership (the ask)
 
-Green accent transition. Different energy — from "here's what we built" to "here's what we're building next, and there's a seat."
-
-**"Come build this with me"**
+Green accent transition. Shift from capability showcase to contact.
 
 Two paths:
 
 **Path A — Merchant Partner**
-- "You run a Square operation. 1 location or 50. You know something's off in the numbers but you can't see it. Connect your account. Let the canary into the mine. You get the platform before anyone else, you help shape what it becomes, and you see exactly where your money is going."
+- Copy states what we need: a Square merchant willing to connect their account, work with real data, and help refine the product. Any size operation. Read-only access. No commitment beyond trying it.
 - CTA: Contact form — name, email, business name, number of locations, message. Hidden `_source: merchant-partner` field. Formspree submission.
-- Tone: collaborative, low-pressure, "let's work together"
 
 **Path B — Team / Service Partner**
-- "You work in retail technology, data, consulting, or loss prevention. You see what's happening in this space and you want in. Whether you're an individual contributor or a firm — if you want to build in this category, let's talk."
-- CTA: Contact form (same form, different pre-filled source) + Calendly booking link (external link, not embed — keeps page lightweight). Calendly URL TBD; fallback to form-only if not set up.
+- Copy states what we're building: enterprise-level retail tooling delivered to the SMB market. Looking for people or firms who want to work in this space — development, consulting, or service delivery.
+- CTA: Contact form (same form, different pre-filled source) + Calendly booking link (external link, not embed). Calendly URL TBD; fallback to form-only if not set up.
 - Hidden `_source: team-partner` field.
 
 **Both paths converge on the same form** — differentiated by copy and a hidden field, like the growdirect.io `?from=` pattern.
@@ -223,15 +206,15 @@ The page lives at `Canary/static/landing/index.html` within the Canary Flask app
 
 ## Content Principles
 
-1. **Written, not copywritten.** The manifesto's voice is direct, specific, and unafraid of substance. The page should read like it was written by the person who built the thing — because it was. No "unlock the power of" or "revolutionary platform."
+1. **State facts.** Say what the system does. Say what background built it. Say what you're looking for. No inspirational copy, no storytelling arcs, no "imagine if" framing.
 
-2. **Show the work.** The weekly report mock, the detection scenarios, the architecture description — these are proof that something real has been built. Not a pitch deck. A portfolio piece with a pulse.
+2. **Show the product.** The weekly report mock is the centerpiece. The detection examples are concrete. The architecture section lists what's built. Everything is evidence, not promise.
 
-3. **Reward depth.** The surface layer is accessible to anyone. Each scroll deeper reveals more substance. The people who read the tLog-to-gLog section are exactly the people you want to hear from.
+3. **The brand does the personality.** "The Canary in the Data Mine" is the catchy part. The bird logo is the visual hook. Everything else is straight.
 
-4. **No LP jargon in the first 3 layers.** "Loss prevention," "shrink," "asset protection" — these words appear only in Layer 4+ where the audience is self-selected as domain-aware.
+4. **No LP jargon in the first 3 layers.** "Loss prevention," "shrink," "asset protection" appear only in Layer 4+ where the audience knows the domain.
 
-5. **The canary metaphor does the heavy lifting.** Don't over-explain it. The bird in the hero. "The canary in the data mine" as a section title or motif. Let people make the connection. The ones who get it are the ones you want.
+5. **Credibility = enterprise background + working software.** Real-world enterprise-level tooling, process, and delivery experience. That's the differentiator. Not a story about why it was built — just proof that someone serious built it.
 
 ---
 
@@ -275,4 +258,4 @@ The page lives at `Canary/static/landing/index.html` within the Canary Flask app
 - Not a pitch deck converted to HTML
 - Not competing on feature counts or rule lists
 
-It's the digital equivalent of sitting down with someone and saying: "Let me tell you what I've been building and why. And let me show you what it finds when you point it at real data. If that interests you, let's talk."
+It shows what the platform does, states the background behind it, and provides a way to get in touch.
