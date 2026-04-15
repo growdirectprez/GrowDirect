@@ -8,19 +8,20 @@ info:
     on Bitcoin. Immutable. Ordered by block height. Replayable from any
     inscription point. The permanent successor to the IBM 4690 tLog.
     Built by elJeffe. Stored on Bitcoin. Forever.
+    Note: This is an architecture specification. These endpoints describe the target API design and are not yet live.
   version: 1.0.0
   contact:
     name: GrowDirect
-    url: https://jeffe.io
+    url: https://growdirect.io
   license:
     name: Proprietary
-    url: https://jeffe.io/terms
+    url: https://growdirect.io/legal/terms.html
 
 security:
   - L402: []
 
 servers:
-  - url: https://jeffe.io
+  - url: https://api.growdirect.io
     description: Production — elJeffe API
 
 paths:

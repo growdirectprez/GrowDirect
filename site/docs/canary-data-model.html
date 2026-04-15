@@ -4,27 +4,16 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Canary Data Model — Canary Technical Library</title>
-<link rel="stylesheet" href="canary docs.css">
+<link rel="stylesheet" href="../css/canary-docs.css">
+<link rel="stylesheet" href="../css/shared.css">
 </head>
 <body>
 
-<nav class="doc-nav">
-  <div class="doc-nav-left">
-    <a href="../canary.growdirect.io.html" class="doc-nav-back">← Canary</a>
-    <span class="doc-nav-sep">/</span>
-    <span class="doc-nav-title">Canary Data Model</span>
-  </div>
-  <div class="doc-nav-right">
-    <ul class="doc-nav-links">
-      <li><a href="Canary Data Model.html" class="active">Data Model</a></li>
-      <li><a href="Canary Platform Architecture.html">Architecture</a></li>
-      <li><a href="Canary Technical Roadshow.html">Roadshow</a></li>
-      <li><a href="Canary Factory Process.html">Factory</a></li>
-      <li><a href="Canary elJeffe Protocol.html">elJeffe</a></li>
-    </ul>
-    <span class="doc-badge">Technical Library</span>
-  </div>
-</nav>
+<div class="doc-nav">
+  <a href="../canary/">← Canary</a>
+  <a href="../">GrowDirect</a>
+  <span class="doc-nav-title">Canary Data Model</span>
+</div>
 
 <header class="doc-header">
   <div class="doc-eyebrow">Canary Technical Library</div>
@@ -199,7 +188,7 @@
 <p>Every audit log entry includes the SHA-256 hash of the previous entry. Tamper with one record, the chain breaks downstream. The same principle that secures Bitcoin secures the Canary audit trail.</p>
 
 <h2>Chirp Detection Registry</h2>
-<p>The CRDM powers the Chirp detection engine — 22 rules that watch for loss patterns across the seven canonical data sources:</p>
+<p>The CRDM powers the Chirp detection engine — 37 rules across 10 categories that watch for loss patterns across the seven canonical data sources:</p>
 
 <table class="doc-table">
   <thead>
@@ -236,7 +225,7 @@
   </tbody>
 </table>
 
-<p>Every Chirp rule traces to specific CRDM fields. When a new POS integration maps to the canonical schema, all 22 detection rules work automatically.</p>
+<p>Every Chirp rule traces to specific CRDM fields. When a new POS integration maps to the canonical schema, all 37 detection rules work automatically.</p>
 
 <h2>Why It Matters</h2>
 <p>The data model is the soil. The detection engine, analytics, and Bitcoin inscription all grow from it.</p>
@@ -255,7 +244,7 @@
 <footer class="doc-footer">
   <div class="doc-footer-left">GrowDirect · Canary LP · Confidential</div>
   <div class="doc-footer-nav">
-    <a href="Canary Platform Architecture.html">Architecture →</a>
+    <a href="canary-platform-architecture.html">Architecture →</a>
   </div>
 </footer>
 

@@ -4,27 +4,16 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Canary elJeffe Protocol — Canary Technical Library</title>
-<link rel="stylesheet" href="canary docs.css">
+<link rel="stylesheet" href="../css/canary-docs.css">
+<link rel="stylesheet" href="../css/shared.css">
 </head>
 <body>
 
-<nav class="doc-nav">
-  <div class="doc-nav-left">
-    <a href="../canary.growdirect.io.html" class="doc-nav-back">← Canary</a>
-    <span class="doc-nav-sep">/</span>
-    <span class="doc-nav-title">elJeffe Protocol</span>
-  </div>
-  <div class="doc-nav-right">
-    <ul class="doc-nav-links">
-      <li><a href="Canary Data Model.html">Data Model</a></li>
-      <li><a href="Canary Platform Architecture.html">Architecture</a></li>
-      <li><a href="Canary Technical Roadshow.html">Roadshow</a></li>
-      <li><a href="Canary Factory Process.html">Factory</a></li>
-      <li><a href="Canary elJeffe Protocol.html" class="active">elJeffe</a></li>
-    </ul>
-    <span class="doc-badge">Technical Library</span>
-  </div>
-</nav>
+<div class="doc-nav">
+  <a href="../canary/">← Canary</a>
+  <a href="../">GrowDirect</a>
+  <span class="doc-nav-title">elJeffe Protocol</span>
+</div>
 
 <header class="doc-header">
   <div class="doc-eyebrow">Canary Technical Library</div>
@@ -45,23 +34,47 @@
 
 <p>The loop has four nodes. Each feeds the next. The cycle never stops.</p>
 
+<div style="background:rgba(34,197,94,0.1);border-left:3px solid #22C55E;padding:12px 16px;margin:16px 0;font-size:0.9rem;color:#8B919A;">
+  <strong>LIVE — Built and Running:</strong> Evidence records with INSERT-only enforcement, SHA-256 hash chain linking, Merkle batching schema, three-schema architecture.
+</div>
+
+<div style="background:rgba(59,130,246,0.1);border-left:3px solid #3B82F6;padding:12px 16px;margin:16px 0;font-size:0.9rem;color:#8B919A;">
+  <strong>ROADMAP — Designed, Not Yet Implemented:</strong> Genesis Pool minting, merchant self-minting and treasury systems, L402 validation gate, perpetual royalty revenue, Avalanche private subnet. See the <a href="canary-technical-roadshow.html" style="color:#3B82F6;">Technical Roadshow</a> for current implementation status.
+</div>
+
 <h2>The Four Nodes</h2>
 
 <h3>Node 1: Treasury</h3>
 
 <p>GrowDirect holds a BTC treasury — earned through mining, not purchased. The treasury controls all keys. It funds the inscription of the Genesis Pool and provides operational runway for the business. Every sat that enters the treasury through royalty revenue compounds the loop's capacity.</p>
 
+<div style="background:rgba(59,130,246,0.1);border-left:3px solid #3B82F6;padding:12px 16px;margin:16px 0;font-size:0.9rem;color:#8B919A;">
+  <strong>Status:</strong> Roadmap — architecture designed, implementation planned. See the <a href="canary-technical-roadshow.html" style="color:#3B82F6;">Technical Roadshow</a> for current implementation status.
+</div>
+
 <h3>Node 2: Mint Ordinals</h3>
 
 <p>The treasury deploys BTC to inscribe the Genesis Pool — 10 million ordinal inscriptions on the Bitcoin timechain. Each inscription is a permanent, immutable record. Once written, it cannot be altered, removed, or replicated. The block space is consumed forever. First mover owns the provenance layer.</p>
+
+<div style="background:rgba(59,130,246,0.1);border-left:3px solid #3B82F6;padding:12px 16px;margin:16px 0;font-size:0.9rem;color:#8B919A;">
+  <strong>Status:</strong> Roadmap — architecture designed, implementation planned. See the <a href="canary-technical-roadshow.html" style="color:#3B82F6;">Technical Roadshow</a> for current implementation status.
+</div>
 
 <h3>Node 3: Smart Contract (L402 Gate)</h3>
 
 <p>A smart contract layer enforces licensing automatically via L402 — the Lightning-native paywall protocol. Every validation call against the canonical registry costs sats. No PDF contracts. No lawyers. No invoicing. Lightning executes the license in real time, at the speed of the transaction.</p>
 
+<div style="background:rgba(59,130,246,0.1);border-left:3px solid #3B82F6;padding:12px 16px;margin:16px 0;font-size:0.9rem;color:#8B919A;">
+  <strong>Status:</strong> Roadmap — architecture designed, implementation planned. See the <a href="canary-technical-roadshow.html" style="color:#3B82F6;">Technical Roadshow</a> for current implementation status.
+</div>
+
 <h3>Node 4: Royalty Revenue</h3>
 
 <p>Sats flow back to the treasury with every validation. The revenue is perpetual — it continues for as long as the registry exists on the timechain, which is forever. The treasury grows. The capacity to mint increases. The loop compounds.</p>
+
+<div style="background:rgba(59,130,246,0.1);border-left:3px solid #3B82F6;padding:12px 16px;margin:16px 0;font-size:0.9rem;color:#8B919A;">
+  <strong>Status:</strong> Roadmap — architecture designed, implementation planned. See the <a href="canary-technical-roadshow.html" style="color:#3B82F6;">Technical Roadshow</a> for current implementation status.
+</div>
 
 <h2>The Merchant Expansion</h2>
 
@@ -122,7 +135,7 @@
 <footer class="doc-footer">
   <div class="doc-footer-left">GrowDirect · Canary LP · Confidential</div>
   <div class="doc-footer-nav">
-    <a href="Canary Factory Process.html">← Factory</a>
+    <a href="canary-factory-process.html">← Factory</a>
   </div>
 </footer>
 </body>
