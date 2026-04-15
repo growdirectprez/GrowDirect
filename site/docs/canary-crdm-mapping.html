@@ -5,6 +5,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Canary Retail Data Model (CRDM) v2.0 - Technical Architecture</title>
     <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;600;700&family=Inter:wght@300;400;500;600&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="../css/shared.css">
     <style>
         * {
             margin: 0;
@@ -586,6 +587,13 @@
     </style>
 </head>
 <body>
+
+<div class="doc-nav">
+  <a href="../canary/">← Canary</a>
+  <a href="../">GrowDirect</a>
+  <span class="doc-nav-title">CRDM Mapping</span>
+</div>
+
     <header>
         <div class="container">
             <svg class="logo-bird" viewBox="0 0 100 100" xmlns="http://www.w3.org/2000/svg">
@@ -805,8 +813,8 @@
 
         <!-- SECTION 4: 22 CHIRP RULES -->
         <section>
-            <h2>22 Chirp Detection Rules</h2>
-            <p>Chirp is the fraud detection engine. These 22 rules (ID: CHR-001 through CHR-022) correlate patterns across the seven data sources to identify loss risk. Click to expand each rule.</p>
+            <h2>37 Chirp Detection Rules</h2>
+            <p>Chirp is the fraud detection engine. These 37 rules across 10 categories (ID: CHR-001 through CHR-037) correlate patterns across the seven data sources to identify loss risk. Click to expand each rule.</p>
 
             <h3 style="margin-top: 2em;">Payment & Refund Patterns</h3>
             <div class="chirp-category">
@@ -1659,7 +1667,7 @@ CREATE INDEX idx_transactions_merchant_time
                     <div class="progress-bar">
                         <div class="progress-fill" style="width: 100%;"></div>
                     </div>
-                    <p style="font-size: 0.85rem; color: #8B949E; margin-top: 10px;">22/22 Chirp rules implemented, 14 new rules from scope expansion</p>
+                    <p style="font-size: 0.85rem; color: #8B949E; margin-top: 10px;">37/37 Chirp rules implemented across 10 categories</p>
                 </div>
 
                 <div class="score-item">
@@ -1822,7 +1830,7 @@ CREATE INDEX idx_transactions_merchant_time
                 <div class="flow-arrow">↓</div>
 
                 <div class="flow-step" data-step="9">
-                    <strong>Chirp Rules Evaluated (Real-Time)</strong> — All 22 Chirp rules execute in parallel. Matched rules generate alert events with HIGH/MEDIUM/CRITICAL severity.
+                    <strong>Chirp Rules Evaluated (Real-Time)</strong> — All 37 Chirp rules execute in parallel. Matched rules generate alert events with HIGH/MEDIUM/CRITICAL severity.
                 </div>
 
                 <div class="flow-arrow">↓</div>
@@ -1890,7 +1898,7 @@ CREATE INDEX idx_transactions_merchant_time
                 <div class="pos-box">
                     <h4>Chirp Engine</h4>
                     <p style="font-size: 0.85rem; color: #F59E0B;">POS-Agnostic</p>
-                    <p style="font-size: 0.8rem; color: #8B949E;">22 rules, all sources</p>
+                    <p style="font-size: 0.8rem; color: #8B949E;">37 rules, all sources</p>
                 </div>
             </div>
 
