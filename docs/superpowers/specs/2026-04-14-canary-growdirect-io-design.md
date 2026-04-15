@@ -149,7 +149,7 @@ Two paths:
 - CTA: Contact form — name, email, business name, number of locations, message. Hidden `_source: merchant-partner` field. Formspree submission.
 
 **Path B — Team / Service Partner**
-- Copy states what we're building: enterprise-level retail tooling delivered to the SMB market. Looking for people or firms who want to work in this space — development, consulting, or service delivery.
+- Copy states what we're building: enterprise-level retail tooling delivered to the SMB market — multi-location support, a canonical retail data model (CRDM) for back-office integrations, and detection at scale. Looking for people or firms who want to work in this space.
 - CTA: Contact form (same form, different pre-filled source) + Calendly booking link (external link, not embed). Calendly URL TBD; fallback to form-only if not set up.
 - Hidden `_source: team-partner` field.
 
