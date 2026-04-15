@@ -1,0 +1,221 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>GrowDirect — Knowledge Architecture</title>
+<style>
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+  body { font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif; background: #0f1117; color: #e0e0e0; padding: 32px; }
+  h1 { font-size: 24px; font-weight: 600; margin-bottom: 4px; color: #fff; }
+  .subtitle { font-size: 14px; color: #888; margin-bottom: 32px; }
+
+  .grid { display: grid; grid-template-columns: 1fr 1fr; gap: 24px; max-width: 1100px; margin: 0 auto; }
+  .full-width { grid-column: 1 / -1; }
+
+  .card { background: #1a1d27; border: 1px solid #2a2d3a; border-radius: 12px; padding: 20px; }
+  .card h2 { font-size: 16px; font-weight: 600; margin-bottom: 12px; display: flex; align-items: center; gap: 8px; }
+  .card p { font-size: 13px; line-height: 1.6; color: #aaa; }
+  .card .tag { display: inline-block; font-size: 11px; padding: 2px 8px; border-radius: 4px; font-weight: 500; }
+
+  .env-claude-code { border-left: 3px solid #f59e0b; }
+  .env-cowork { border-left: 3px solid #8b5cf6; }
+  .env-shared { border-left: 3px solid #10b981; }
+  .env-gap { border-left: 3px solid #ef4444; }
+
+  .tag-code { background: #f59e0b22; color: #f59e0b; }
+  .tag-cowork { background: #8b5cf622; color: #8b5cf6; }
+  .tag-both { background: #10b98122; color: #10b981; }
+  .tag-gap { background: #ef444422; color: #ef4444; }
+  .tag-deferred { background: #6b728022; color: #9ca3af; }
+
+  .status { display: flex; align-items: center; gap: 6px; margin-top: 8px; font-size: 12px; }
+  .dot { width: 8px; height: 8px; border-radius: 50%; }
+  .dot-green { background: #10b981; }
+  .dot-yellow { background: #f59e0b; }
+  .dot-red { background: #ef4444; }
+  .dot-gray { background: #6b7280; }
+
+  .flow-section { margin-top: 24px; }
+  .flow-section h3 { font-size: 14px; font-weight: 600; margin-bottom: 12px; color: #ccc; }
+  .flow { display: flex; align-items: center; gap: 8px; margin-bottom: 8px; font-size: 13px; flex-wrap: wrap; }
+  .flow-box { background: #252836; border: 1px solid #3a3d4a; border-radius: 6px; padding: 4px 10px; font-size: 12px; white-space: nowrap; }
+  .flow-arrow { color: #555; font-size: 16px; }
+
+  .tools-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 8px; margin-top: 12px; }
+  .tool-item { font-size: 12px; color: #999; padding: 4px 0; }
+  .tool-item strong { color: #ccc; }
+
+  .layer-table { width: 100%; border-collapse: collapse; margin-top: 12px; }
+  .layer-table th { text-align: left; font-size: 12px; color: #888; padding: 8px 12px; border-bottom: 1px solid #2a2d3a; }
+  .layer-table td { font-size: 13px; padding: 8px 12px; border-bottom: 1px solid #1f2230; }
+  .layer-table tr:last-child td { border-bottom: none; }
+  .check { color: #10b981; }
+  .cross { color: #ef4444; }
+  .warn { color: #f59e0b; }
+</style>
+</head>
+<body>
+
+<div style="max-width: 1100px; margin: 0 auto;">
+  <h1>GrowDirect Knowledge Architecture</h1>
+  <p class="subtitle">How knowledge flows between Claude Code, Cowork, and the five storage layers &middot; April 2026</p>
+
+  <!-- Layer Overview -->
+  <div class="card full-width" style="margin-bottom: 24px;">
+    <h2>Five Knowledge Layers</h2>
+    <table class="layer-table">
+      <tr>
+        <th>Layer</th>
+        <th>What</th>
+        <th>Claude Code</th>
+        <th>Cowork</th>
+        <th>Status</th>
+      </tr>
+      <tr>
+        <td><strong>CLAUDE.md</strong></td>
+        <td>Agent rules, standards, hard constraints</td>
+        <td class="check">&#10003; auto-loaded</td>
+        <td class="check">&#10003; auto-loaded</td>
+        <td><span class="dot dot-green" style="display:inline-block"></span> Active</td>
+      </tr>
+      <tr>
+        <td><strong>Brain</strong> (Obsidian)</td>
+        <td>Curated wiki articles, project MOCs, 353 topics</td>
+        <td class="check">&#10003; file read</td>
+        <td class="check">&#10003; file read</td>
+        <td><span class="dot dot-green" style="display:inline-block"></span> Active (16 articles)</td>
+      </tr>
+      <tr>
+        <td><strong>Memory Bus</strong></td>
+        <td>Session decisions, findings, architecture (vector-indexed)</td>
+        <td class="check">&#10003; MCP :8003</td>
+        <td class="cross">&#10007; not connected</td>
+        <td><span class="dot dot-yellow" style="display:inline-block"></span> Running, Code-only</td>
+      </tr>
+      <tr>
+        <td><strong>Knowledge Chunks</strong></td>
+        <td>WPBCA legal docs, chunked + embedded for semantic search</td>
+        <td class="check">&#10003; Cove MCP</td>
+        <td class="cross">&#10007; not connected</td>
+        <td><span class="dot dot-yellow" style="display:inline-block"></span> Running, Code-only</td>
+      </tr>
+      <tr>
+        <td><strong>GitNexus</strong></td>
+        <td>Canary code graph (7959 symbols, 300 flows)</td>
+        <td class="warn">&#9888; index only</td>
+        <td class="cross">&#10007;</td>
+        <td><span class="dot dot-gray" style="display:inline-block"></span> MCP deferred</td>
+      </tr>
+    </table>
+  </div>
+
+  <div class="grid">
+
+    <!-- Claude Code Environment -->
+    <div class="card env-claude-code">
+      <h2><span class="tag tag-code">Claude Code</span> Terminal Environment</h2>
+      <p>Development, factory pipeline, code generation. Runs from ~/GrowDirect/ with project-specific CLAUDE.md context.</p>
+      <div class="tools-grid">
+        <div class="tool-item"><strong>Skills:</strong> 50 factory skills (.claude/skills/)</div>
+        <div class="tool-item"><strong>Memory Bus:</strong> MCP port 8003 (6 tools)</div>
+        <div class="tool-item"><strong>Cove Knowledge:</strong> MCP stdio (legal search)</div>
+        <div class="tool-item"><strong>GitNexus:</strong> Index exists, MCP deferred</div>
+        <div class="tool-item"><strong>Linear:</strong> GRO issues</div>
+        <div class="tool-item"><strong>Brain:</strong> File reads</div>
+      </div>
+    </div>
+
+    <!-- Cowork Environment -->
+    <div class="card env-cowork">
+      <h2><span class="tag tag-cowork">Cowork</span> Desktop Environment</h2>
+      <p>Strategy, content, documents, research. Plugin skills for non-code work. Reads CLAUDE.md and Brain.</p>
+      <div class="tools-grid">
+        <div class="tool-item"><strong>Plugins:</strong> legal, engineering, marketing, rpv-permit, enterprise-search</div>
+        <div class="tool-item"><strong>Built-in:</strong> docx, pptx, xlsx, pdf</div>
+        <div class="tool-item"><strong>Linear:</strong> GRO issues (MCP)</div>
+        <div class="tool-item"><strong>Gmail:</strong> Email (MCP)</div>
+        <div class="tool-item"><strong>Canva:</strong> Design (MCP)</div>
+        <div class="tool-item"><strong>Figma:</strong> UI design (MCP)</div>
+        <div class="tool-item"><strong>Chrome:</strong> Web automation</div>
+        <div class="tool-item"><strong>Brain:</strong> File reads</div>
+      </div>
+    </div>
+
+    <!-- Brain (shared) -->
+    <div class="card env-shared full-width">
+      <h2><span class="tag tag-both">Brain</span> The Bridge Layer</h2>
+      <p>Obsidian vault with curated knowledge. The only layer both environments can read. Content engine manages intake and prevents duplicates.</p>
+      <div class="flow-section">
+        <h3>Knowledge Flows</h3>
+        <div class="flow">
+          <span class="flow-box" style="border-color: #f59e0b;">Claude Code session</span>
+          <span class="flow-arrow">&rarr;</span>
+          <span class="flow-box">Memory Bus (auto)</span>
+          <span class="flow-arrow">&rarr;</span>
+          <span class="flow-box" style="border-color: #10b981;">content-engine ingest (manual)</span>
+          <span class="flow-arrow">&rarr;</span>
+          <span class="flow-box" style="border-color: #10b981;">Brain wiki article</span>
+          <span class="flow-arrow">&rarr;</span>
+          <span class="flow-box" style="border-color: #8b5cf6;">Cowork session reads it</span>
+        </div>
+        <div class="flow">
+          <span class="flow-box" style="border-color: #8b5cf6;">Cowork session</span>
+          <span class="flow-arrow">&rarr;</span>
+          <span class="flow-box" style="border-color: #10b981;">content-engine ingest (manual)</span>
+          <span class="flow-arrow">&rarr;</span>
+          <span class="flow-box" style="border-color: #10b981;">Brain wiki article</span>
+          <span class="flow-arrow">&rarr;</span>
+          <span class="flow-box" style="border-color: #f59e0b;">Claude Code reads it</span>
+        </div>
+      </div>
+    </div>
+
+    <!-- Gaps -->
+    <div class="card env-gap full-width">
+      <h2><span class="tag tag-gap">Gaps</span> What needs fixing</h2>
+      <div style="display: grid; grid-template-columns: 1fr 1fr 1fr; gap: 16px; margin-top: 8px;">
+        <div>
+          <p style="color: #ef4444; font-weight: 600; font-size: 13px;">Memory Bus → Brain sync</p>
+          <p style="font-size: 12px; margin-top: 4px;">Memory Bus captures session learnings automatically, but distilling them into Brain wiki articles is manual. A content-engine command to extract key memories would close this gap.</p>
+        </div>
+        <div>
+          <p style="color: #ef4444; font-weight: 600; font-size: 13px;">pgvector half-wired in Cove</p>
+          <p style="font-size: 12px; margin-top: 4px;">Proposals, Documents, and Meetings have Vector(1024) columns but embeddings are never generated on create. Only knowledge_chunks actually works. Need SQLAlchemy event listeners or service-layer hooks.</p>
+        </div>
+        <div>
+          <p style="color: #ef4444; font-weight: 600; font-size: 13px;">GitNexus MCP deferred</p>
+          <p style="font-size: 12px; margin-top: 4px;">Index has 7959 symbols but no MCP server to expose tools. CLAUDE.md documents tools that don't resolve. Need to either wire the MCP or strip the instructions.</p>
+        </div>
+      </div>
+    </div>
+
+    <!-- Projects -->
+    <div class="card" style="border-left: 3px solid #3b82f6;">
+      <h2>Projects &amp; Their Knowledge</h2>
+      <div style="font-size: 13px; line-height: 2;">
+        <div><strong>Canary</strong> — 4 Brain wiki articles, Memory Bus (canary layer), GitNexus index, 14 Claude Code skills</div>
+        <div><strong>Cove</strong> — 8 Brain wiki articles, Knowledge Chunks MCP, Memory Bus (cove layer), 10 Claude Code skills</div>
+        <div><strong>Angel</strong> — 1 Brain wiki article, knowledge/ repo, 5 Claude Code skills, shares Cove's data</div>
+        <div><strong>Seacove</strong> — Brain MOC, rpv-permit-architect Cowork plugin, standalone</div>
+      </div>
+    </div>
+
+    <!-- Content Engine -->
+    <div class="card" style="border-left: 3px solid #6366f1;">
+      <h2>Content Engine (CLI)</h2>
+      <p>Manages knowledge flow into Brain. Prevents duplicate docs.</p>
+      <div style="font-size: 12px; margin-top: 12px; line-height: 2; color: #aaa;">
+        <code style="color: #a78bfa;">registry check "&lt;topic&gt;"</code> — search before creating<br>
+        <code style="color: #a78bfa;">registry build</code> — rebuild topic index<br>
+        <code style="color: #a78bfa;">ingest &lt;file&gt; -p &lt;project&gt;</code> — create raw-intake note<br>
+        <code style="color: #a78bfa;">triage &lt;dir&gt; --batch 20</code> — batch classify files<br>
+        <code style="color: #a78bfa;">scan / dupes / clean / flatten</code> — filesystem ops
+      </div>
+    </div>
+
+  </div>
+</div>
+
+</body>
+</html>

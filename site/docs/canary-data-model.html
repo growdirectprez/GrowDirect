@@ -1,0 +1,263 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Canary Data Model — Canary Technical Library</title>
+<link rel="stylesheet" href="canary docs.css">
+</head>
+<body>
+
+<nav class="doc-nav">
+  <div class="doc-nav-left">
+    <a href="../canary.growdirect.io.html" class="doc-nav-back">← Canary</a>
+    <span class="doc-nav-sep">/</span>
+    <span class="doc-nav-title">Canary Data Model</span>
+  </div>
+  <div class="doc-nav-right">
+    <ul class="doc-nav-links">
+      <li><a href="Canary Data Model.html" class="active">Data Model</a></li>
+      <li><a href="Canary Platform Architecture.html">Architecture</a></li>
+      <li><a href="Canary Technical Roadshow.html">Roadshow</a></li>
+      <li><a href="Canary Factory Process.html">Factory</a></li>
+      <li><a href="Canary elJeffe Protocol.html">elJeffe</a></li>
+    </ul>
+    <span class="doc-badge">Technical Library</span>
+  </div>
+</nav>
+
+<header class="doc-header">
+  <div class="doc-eyebrow">Canary Technical Library</div>
+  <h1>The CRDM — Canary Retail Data Model</h1>
+  <p class="doc-subtitle">Our soil is our data model, built at enterprise scale, time-tested, hundreds of billions of rows processed, billions saved.</p>
+  <div class="doc-meta">
+    <span class="doc-meta-item">Version <span>3.1</span></span>
+    <span class="doc-meta-item">Confidential</span>
+    <span class="doc-meta-item">Patent Pending — <span>63/991,596</span></span>
+  </div>
+</header>
+
+<div class="doc-content">
+
+<h2>The CRDM — Canary Retail Data Model</h2>
+<p>The CRDM is not invented. It descends from a proven enterprise loss prevention data architecture that processed hundreds of billions of rows across the world's largest retailers. Three generations of the same canonical schema pattern, refined across decades of real-world deployment.</p>
+
+<h3>Provenance</h3>
+<table class="doc-table">
+  <thead>
+    <tr>
+      <th>Generation</th>
+      <th>System</th>
+      <th>Deployed At</th>
+      <th>Era</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td><strong>TDS (Till Data Store)</strong></td>
+      <td>Bidirectional data store for register configuration, items, price files, and enterprise-to-store metadata</td>
+      <td>Tesco worldwide</td>
+      <td>2000s</td>
+    </tr>
+    <tr>
+      <td><strong>SMART System</strong></td>
+      <td>Canonical abstraction layer for aggressive retail acquisition and consolidation across international markets</td>
+      <td>Walmart International (Central/South America)</td>
+      <td>2010s</td>
+    </tr>
+    <tr>
+      <td><strong>CRDM</strong></td>
+      <td>Third-generation canonical schema targeting Square SMB merchants</td>
+      <td>Canary LP</td>
+      <td>2026</td>
+    </tr>
+  </tbody>
+</table>
+
+<p>The orchestration layer that fed TDS was RTI (Real Time Integrator) — a lightweight Windows service agent for real-time data movement deployed across Tesco worldwide, Ross Stores, and Delta Airlines. RTI is the direct ancestor of Canary's webhook listeners and polling workers.</p>
+
+<h2>Seven Canonical Data Sources</h2>
+<p>These are the seven data domains that feed any retail LP platform. They were defined in an enterprise LP data specification that the founder reviewed and signed off on. Every new POS integration must map to these same seven sources.</p>
+
+<table class="doc-table">
+  <thead>
+    <tr>
+      <th>#</th>
+      <th>Source</th>
+      <th>What It Is</th>
+      <th>Key LP Signals</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td>1</td>
+      <td><strong>Transaction Header</strong></td>
+      <td>One record per POS transaction. The backbone.</td>
+      <td>Voids, cancels, transaction velocity</td>
+    </tr>
+    <tr>
+      <td>2</td>
+      <td><strong>Tender / Payment</strong></td>
+      <td>How the customer paid — cash, card, crypto, gift card</td>
+      <td>Split tenders, unusual payment mixes</td>
+    </tr>
+    <tr>
+      <td>3</td>
+      <td><strong>Line Items</strong></td>
+      <td>Every item in every basket</td>
+      <td>Sweethearting, selective scanning, quantity manipulation</td>
+    </tr>
+    <tr>
+      <td>4</td>
+      <td><strong>Employee & Timecards</strong></td>
+      <td>Who was on the clock, what they touched</td>
+      <td>After-hours activity, refund velocity by employee</td>
+    </tr>
+    <tr>
+      <td>5</td>
+      <td><strong>Product / Article</strong></td>
+      <td>Item master — what's in the store</td>
+      <td>Inventory ghosts, high-shrinkage items</td>
+    </tr>
+    <tr>
+      <td>6</td>
+      <td><strong>Store / Location</strong></td>
+      <td>Where transactions happen</td>
+      <td>Cross-location patterns, geographic fraud clusters</td>
+    </tr>
+    <tr>
+      <td>7</td>
+      <td><strong>Customer</strong></td>
+      <td>Who's buying — loyalty, returns history</td>
+      <td>Return fraud rings, organized retail crime</td>
+    </tr>
+  </tbody>
+</table>
+
+<h3>Coverage Analysis</h3>
+<p>The CRDM maps every enterprise ancestor field to a Canary column with explicit gap analysis. Current Square API coverage:</p>
+
+<table class="doc-table">
+  <thead>
+    <tr>
+      <th>Source</th>
+      <th>Fields Mapped</th>
+      <th>Coverage</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td>Transaction Header</td>
+      <td>18 of 28</td>
+      <td>64%</td>
+    </tr>
+    <tr>
+      <td>Tender / Payment</td>
+      <td>10 of 13</td>
+      <td>77%</td>
+    </tr>
+    <tr>
+      <td>Line Items</td>
+      <td>14 of 21</td>
+      <td>67%</td>
+    </tr>
+    <tr>
+      <td>Employee + Timecards</td>
+      <td>9 of 10 + 4 new</td>
+      <td>90%+</td>
+    </tr>
+    <tr>
+      <td>Product / Article</td>
+      <td>7 of 11</td>
+      <td>64%</td>
+    </tr>
+    <tr>
+      <td>Store / Location</td>
+      <td>12 of 17</td>
+      <td>71%</td>
+    </tr>
+    <tr>
+      <td>Customer</td>
+      <td>3 of 7</td>
+      <td>43%</td>
+    </tr>
+  </tbody>
+</table>
+
+<p>The gap analysis guides the roadmap: each missing field is a specific API call or webhook expansion.</p>
+
+<h2>The Evidence Chain</h2>
+<p>The CRDM enforces three tiers of data integrity:</p>
+
+<h3>Tier 1: Financial Ledger (Append-Only)</h3>
+<p>Transactions, refund links, cash drawer events, gift card activities. No UPDATE. No DELETE. Financial data is a ledger — you don't erase entries.</p>
+
+<h3>Tier 2: Evidentiary (Insert-Only)</h3>
+<p>Case evidence, evidence access logs, case timelines. Enforced by database triggers. If the platform accuses someone, the evidence chain must be unbroken.</p>
+
+<h3>Tier 3: Audit Trail (Hash-Chained)</h3>
+<p>Every audit log entry includes the SHA-256 hash of the previous entry. Tamper with one record, the chain breaks downstream. The same principle that secures Bitcoin secures the Canary audit trail.</p>
+
+<h2>Chirp Detection Registry</h2>
+<p>The CRDM powers the Chirp detection engine — 22 rules that watch for loss patterns across the seven canonical data sources:</p>
+
+<table class="doc-table">
+  <thead>
+    <tr>
+      <th>Category</th>
+      <th>Example Chirps</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td><strong>Refund anomalies</strong></td>
+      <td>Excessive refunds, refund-without-sale, refund velocity spikes</td>
+    </tr>
+    <tr>
+      <td><strong>Void patterns</strong></td>
+      <td>Post-sale voids, void-after-cash, high void ratios</td>
+    </tr>
+    <tr>
+      <td><strong>Cash handling</strong></td>
+      <td>Cash drawer opened without sale, excessive no-sales</td>
+    </tr>
+    <tr>
+      <td><strong>Employee behavior</strong></td>
+      <td>After-hours transactions, discount abuse, timecard anomalies</td>
+    </tr>
+    <tr>
+      <td><strong>Inventory</strong></td>
+      <td>Ghost items, receiving discrepancies, high-shrinkage SKUs</td>
+    </tr>
+    <tr>
+      <td><strong>Payment</strong></td>
+      <td>Split tender manipulation, gift card laundering</td>
+    </tr>
+  </tbody>
+</table>
+
+<p>Every Chirp rule traces to specific CRDM fields. When a new POS integration maps to the canonical schema, all 22 detection rules work automatically.</p>
+
+<h2>Why It Matters</h2>
+<p>The data model is the soil. The detection engine, analytics, and Bitcoin inscription all grow from it.</p>
+
+<ul>
+  <li><strong>Enterprise lineage</strong> means the schema handles edge cases that SMB tools have never seen</li>
+  <li><strong>POS-agnostic design</strong> means adding a new POS integration is a parser, not a rewrite</li>
+  <li><strong>Immutability tiers</strong> mean the evidence chain is as strong as the architecture allows</li>
+  <li><strong>Bitcoin anchoring</strong> means the gLog inscription pipeline reads directly from the CRDM evidence store</li>
+</ul>
+
+<p>The founder built this schema once for the largest retailers on earth. This is the third generation — refined, battle-tested, and now Bitcoin-native.</p>
+
+</div>
+
+<footer class="doc-footer">
+  <div class="doc-footer-left">GrowDirect · Canary LP · Confidential</div>
+  <div class="doc-footer-nav">
+    <a href="Canary Platform Architecture.html">Architecture →</a>
+  </div>
+</footer>
+
+</body>
+</html>
