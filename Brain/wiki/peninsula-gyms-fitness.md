@@ -80,3 +80,11 @@ Closest locations to the Hill:
 
 - The Deep Valley Dr corridor (Equinox, Coreology, nearby Club Pilates) is the fitness hub for Hill residents
 - CrossFit — no dedicated PV location; closest gyms in Redondo Beach and Torrance
+
+
+
+### Vive LA Yoga — San Pedro / South Shores
+- **Address:** 1422 W 25th St, San Pedro 90732
+- **Phone:** (310) 619-7512
+- **What it is:** Eco-chic yoga studio — Power Vinyasa, Yin + Meditation, Sculpt. 35+ classes/week, small class sizes (max 20, sculpt max 15)
+- **Sources:** Yelp, ClassPass, vivelayoga.com
