@@ -89,6 +89,10 @@ body::after {
 
 .doc-nav a:hover { color: var(--canary); }
 
+.doc-nav.scrolled {
+  box-shadow: 0 1px 0 var(--border-light);
+}
+
 .doc-nav .doc-nav-title {
   color: var(--text2);
   margin-left: auto;
@@ -231,4 +235,34 @@ body::after {
   color: var(--red);
   font-size: 11px;
   font-family: 'Space Mono', monospace;
+}
+
+/* ─── RESPONSIVE ─── */
+
+/* Mobile: < 768px */
+@media (max-width: 767px) {
+  .section {
+    padding: 48px clamp(16px, 4vw, 24px);
+  }
+
+  .section-title {
+    font-size: 1.5rem;
+  }
+
+  .doc-nav {
+    gap: 12px;
+    padding: 0 16px;
+    font-size: 10px;
+  }
+
+  .site-footer {
+    flex-direction: column;
+    gap: 12px;
+    text-align: center;
+    padding: 24px 16px;
+  }
+
+  .footer-right {
+    justify-content: center;
+  }
 }

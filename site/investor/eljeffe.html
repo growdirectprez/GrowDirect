@@ -4,6 +4,22 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>The Closed Loop — elJeffe</title>
+<meta property="og:title" content="elJeffe Protocol — Orbital Diagram">
+<meta property="og:description" content="Interactive visualization of the elJeffe closed-loop protocol.">
+<meta property="og:type" content="website">
+<meta property="og:url" content="https://growdirect.io/investor/eljeffe.html">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="elJeffe Protocol — Orbital Diagram">
+<meta name="twitter:description" content="Interactive visualization of the elJeffe closed-loop protocol.">
+<!-- GA4 -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-ELPTR2ZLP3"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+  gtag('config', 'G-ELPTR2ZLP3');
+</script>
+<link rel="icon" type="image/svg+xml" href="/favicon.svg">
 <style>
   @import url('https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,500;1,400;1,500&family=Space+Mono:wght@400;700&family=Figtree:wght@300;400&display=swap');
 
@@ -1472,5 +1488,6 @@ updateBlockHeight();
 // Poll every 60 seconds (avg Bitcoin block = 10 min, but we want to catch it)
 setInterval(updateBlockHeight, 60_000);
 </script>
+<script src="../js/main.js"></script>
 </body>
 </html>
