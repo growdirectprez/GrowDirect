@@ -293,6 +293,13 @@ These details came out of the brainstorm and should be woven into the spine:
   think they know PV don't know this story. The site becomes where the full
   timeline lives for the first time, and invites readers who know other pieces
   to fill in gaps.
+- **The core discovery moment:** "Wait — this isn't just any HOA. This is the
+  HOA the Vanderlips created for their own estate." Finding the Vanderlip name
+  on the HOA documents, connecting it to the Fed, to Olmsted, to the peninsula
+  purchase. And then the contradiction: the city won't fix the beach path
+  (CC&Rs won't let them modify the parking lot), but right next door they'll
+  rezone for 16 units. The restrictions are an obstacle when the city doesn't
+  want to spend money, and invisible when a developer wants to build.
 - **Don't get long-winded.** Keep it LA Times Sunday Home section. Clean prose,
   tight paragraphs. Let the facts breathe. The author's personal story is
   connective tissue, not the centerpiece.
