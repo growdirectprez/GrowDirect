@@ -29,11 +29,14 @@ revenue to survive.
 sprawling. The author doesn't over-narrate — they present facts and let the
 reader sit with them.
 
-**Tone:** LA Times Sunday Home section. Clean prose, tight paragraphs, the kind
-of feature that opens with "here's something you didn't know about LA" and
-then shows you why it matters. Not advocacy. Not anger. The facts are the
-argument. The conclusion is simply: this has been tried before, and this is
-going to fail too.
+**Tone:** Charles C. Mann's *1491* — an investigative journalist who took a
+subject everyone thought they knew, followed the evidence, and showed the
+established narrative was wrong. Not argumentative. Not academic. A smart
+person surprised by what they found, sharing it like a conversation. The
+reader discovers it alongside the author. LA Times Sunday Home section
+execution — clean prose, tight paragraphs, opens with "here's something
+you didn't know about LA." The facts are the argument. The conclusion is
+simply: this has been tried before, and this is going to fail too.
 
 ---
 
