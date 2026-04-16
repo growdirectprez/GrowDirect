@@ -96,6 +96,10 @@ latest speculator left holding the bag on land that has defeated every
 owner for a century. The city didn't allow the Hartmans to go beyond
 what was in the 1980 subdivision — and then that subdivision somehow
 never came up during the planning commission or the lawsuit. Why not?
+The Hartmans wanted more — tried to zone it commercial, wanted to park
+cars on it. The city wouldn't let them. Same city now rezones RM-22 for
+the next buyer. City held the line against a resident (Hartman, 28 Sea
+Cove) but rolled over for a speculator from Vernon.
 
 ### 10. The Rezoning (~500 words)
 Three ordinances in 63 days. HCD says Site 16 can be removed. City keeps it.
