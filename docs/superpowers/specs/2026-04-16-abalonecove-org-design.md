@@ -112,7 +112,8 @@ D&O insurance it can't afford. The state tells HOAs they can't restrict
 development (SB9, AB 670) while courts say CC&Rs still have teeth
 (Carlsbad, April 2026). The city ignores the same CC&Rs when a developer
 wants to build. The governance structure designed to protect this land
-is toothless — by economics, by liability, by design.
+is toothless — by economics, by liability, by design. But they
+wrote your gardener a $250 ticket for using a leaf blower.
 
 ### 13. Why? (~300 words)
 No call to action. Just the question. The record is right there.
