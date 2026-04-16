@@ -263,10 +263,14 @@ These details came out of the brainstorm and should be woven into the spine:
 
 - **The house:** Architect's blueprints found in the garage — what drew the
   author to the house. Don't reveal the address.
-- **The previous owner:** Thomas Hartman (28 Sea Cove) was on the board. Now
-  the author is on the board. And the author found the documents. The continuity
-  of stewardship — and the irony that Hartman sold the 0 Clipper parcel to
-  Clipper Development LLC.
+- **The previous owner of the house:** Was on the WPBCA board in the 1950s
+  AND was the Shore Club director. The documents in the garage aren't random —
+  they're the institutional archive of someone at the center of both the HOA
+  and the Shore Club during the founding era. This is the provenance that
+  makes the documentary record credible. Current board member finds
+  founding-era documents from a prior board member/Shore Club director.
+- **Hartman (separate):** Thomas Hartman (28 Sea Cove, inside WPBCA) sold the
+  0 Clipper parcel to Clipper Development LLC. A different thread.
 - **Davis-Stirling + technology:** The AI journey started with a practical
   question — wondering about electronic voting and what technology could do
   for HOA governance (Sterling Davis-Stirling Act). That question led to
