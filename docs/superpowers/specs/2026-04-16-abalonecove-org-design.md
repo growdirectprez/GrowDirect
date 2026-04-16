@@ -123,6 +123,7 @@ this piece of paradise."
 | `/evidence` | Evidence room — organized by topic, links to primary sources |
 | `/map` | Interactive map (Leaflet) — parcels, declarations, geological zones |
 | `/about` | The foundation, the AI methodology, contact |
+| `/sign` | Petition signatures, newsletter signup, visitor counter |
 | `/timeline` | Visual chronological timeline (1913-2026) |
 
 ### Evidence Room Structure
@@ -229,6 +230,44 @@ Parallel to content work:
 - Apply for 501(c)(3) status (Form 1023-EZ if eligible)
 - Mission statement aligned with site: preservation, education, public record access
 - Timeline: 2-4 months
+
+---
+
+## Community Engagement (Static — No Backend)
+
+### `/sign` Page
+
+Branded with the Abalone Cove letterhead (abalone shell logo, Georgia serif).
+Three components, all embedded services — no server infrastructure:
+
+**1. Petition / Signature Collection**
+- Google Form embedded on page (or linked from a branded button)
+- Fields: name, address (proves residency), email, optional comment
+- Responses flow to a Google Sheet — the Sheet IS the petition database
+- Sheet can be made public (read-only) so visitors see the signature count
+- The form itself is styled to match the site (Google Forms allows CSS overrides
+  via iframe, or use a Tally.so form for better visual control)
+
+**2. Newsletter Signup**
+- Buttondown (free tier, 100 subscribers) or Mailchimp free tier
+- Simple `<form>` embed: email field + submit button
+- Styled to match the letterhead aesthetic
+- Newsletter content: updates on the investigation, new documents found,
+  city council actions, Coastal Commission developments
+
+**3. Visitor Counter**
+- GoatCounter (free, open source, privacy-friendly)
+- One `<script>` tag — displays live visitor count
+- Optional: public stats page at goatcounter.com showing traffic over time
+- Alternative: just use GA4 (already planned) and don't show a public count
+
+**Page layout:**
+- Abalone Cove letterhead at top (the shell logo + wordmark)
+- Brief statement: "If you care about this coastline, add your name."
+- Petition form (prominent)
+- Newsletter signup (below petition)
+- Visitor count (footer or sidebar — subtle)
+- No pressure language. The story already made the case.
 
 ---
 
