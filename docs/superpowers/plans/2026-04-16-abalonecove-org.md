@@ -29,6 +29,7 @@
 │   ├── clipper-0-contested.geojson
 │   └── lot106-tract-32977-wong.geojson
 ├── timeline/index.html                 # Visual chronological timeline
+├── sign/index.html                     # Petition, newsletter signup, counter
 ├── about/index.html                    # Foundation, methodology, contact
 ├── images/                             # Hero images, document scans, logos
 │   ├── abalone-shell-logo.png          # From existing letterhead
@@ -297,7 +298,57 @@ git add map/ && git commit -m "feat: interactive map with existing GeoJSON layer
 
 ---
 
-### Task 5: Build timeline and about pages
+### Task 5: Build sign page (petition + newsletter + counter)
+
+**Files:**
+- Create: `~/abalonecove/sign/index.html`
+
+- [ ] **Step 1: Set up Google Form for petition**
+
+Create a Google Form with fields:
+- Name (required)
+- Street address (required — proves residency)
+- Email (required)
+- Comment (optional)
+
+Link the form to a new Google Sheet ("Abalone Cove Petition").
+Make the Sheet's response count publicly visible (or embed a count).
+
+- [ ] **Step 2: Set up newsletter service**
+
+Create a Buttondown account (free tier, 100 subscribers).
+Get the embed form HTML. Alternative: Mailchimp free tier.
+
+- [ ] **Step 3: Set up GoatCounter**
+
+Sign up at goatcounter.com. Get the `<script>` tag.
+Add to all pages (not just /sign) for site-wide analytics.
+
+- [ ] **Step 4: Build the sign page**
+
+Same header/footer as other pages. Abalone Cove letterhead prominent.
+
+Layout:
+- Letterhead (abalone shell logo + wordmark)
+- Brief statement: "If you care about this coastline, add your name."
+- Embedded petition form (Google Form iframe or Tally.so)
+- Newsletter signup form (Buttondown embed)
+- Visitor count in footer (GoatCounter widget)
+- No pressure language — the article already made the case
+
+- [ ] **Step 5: Add GoatCounter script to all pages**
+
+Add the `<script>` tag to index.html, evidence/, map/, timeline/, about/.
+
+- [ ] **Step 6: Commit**
+
+```bash
+git add sign/ && git commit -m "feat: sign page — petition, newsletter, visitor counter"
+```
+
+---
+
+### Task 6: Build timeline and about pages (was Task 5)
 
 **Files:**
 - Create: `~/abalonecove/timeline/index.html`
@@ -363,7 +414,7 @@ git add timeline/ about/ sitemap.xml && git commit -m "feat: timeline and about 
 
 ---
 
-### Task 6: SEO and structured data
+### Task 7: SEO and structured data (was Task 6)
 
 **Files:**
 - Modify: `~/abalonecove/index.html`
@@ -419,7 +470,7 @@ git push
 This chunk is a **Cowork session**, not a code task. It produces the actual
 article content.
 
-### Task 7: Spine baseline session
+### Task 8: Spine baseline session (was Task 7)
 
 **Files:**
 - Read: All `Cove/docs/archive/report/section-*.md` (10 files)
@@ -498,7 +549,7 @@ git push
 
 ## Chunk 3: Evidence Room Population and Polish
 
-### Task 8: Populate evidence room with primary sources
+### Task 9: Populate evidence room with primary sources (was Task 8)
 
 **Files:**
 - Create: `~/abalonecove/docs/declarations/*.pdf`
@@ -534,7 +585,7 @@ git push
 
 ---
 
-### Task 9: Article polish and inline evidence links
+### Task 10: Article polish and inline evidence links (was Task 9)
 
 **Files:**
 - Modify: `~/abalonecove/index.html`
@@ -570,7 +621,7 @@ git push
 
 ---
 
-### Task 10: Launch checklist
+### Task 11: Launch checklist (was Task 10)
 
 - [ ] **Step 1: Verify GitHub Pages is serving abalonecove.org**
 - [ ] **Step 2: Verify HTTPS working via Cloudflare**
@@ -585,13 +636,14 @@ git push
 
 ## Execution Notes
 
-- **Chunk 1 (Tasks 1-6)** can be done in a single Claude Code session.
-  This is all site infrastructure — no content writing.
-- **Chunk 2 (Task 7)** is a Cowork session with the user. The personal
+- **Chunk 1 (Tasks 1-7)** can be done in a single Claude Code session.
+  This is all site infrastructure — no content writing. Includes the
+  sign page (petition form, newsletter embed, visitor counter).
+- **Chunk 2 (Task 8)** is a Cowork session with the user. The personal
   narrative sections require the user's input and approval. The rewrite
   of existing report content into editorial voice requires iterative
   review. This is the longest phase.
-- **Chunk 3 (Tasks 8-10)** is a finishing session. Evidence assembly,
+- **Chunk 3 (Tasks 9-11)** is a finishing session. Evidence assembly,
   inline linking, polish, and launch.
 - **501(c)(3) formation** is a parallel track, not blocking the site launch.
   The about page can say "Foundation forming" until paperwork is complete.
