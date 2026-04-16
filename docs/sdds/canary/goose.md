@@ -1,29 +1,157 @@
-# Goose — Treasury & Payment Layer
+# Goose — Credit System & L402 Gate
 
 **Wiki:** [[Brain/wiki/canary-architecture|Canary Architecture]]
-**Service Type:** App Service (Canary)
-**Implementation Status:** Pre-implementation (design only, zero source code exists)
+**Architecture:** [[docs/sdds/canary/architecture|Canary Architecture SDD]]
+**Service Type:** App Service (Canary blueprint)
+**Implementation Status:** Phase 0 complete (GRO-117, 2026-04-15)
+**Linear:** [GRO-117](https://linear.app/growdirect/issue/GRO-117)
 
 ---
 
 ## Purpose
 
-The Goose is Canary's monetization and treasury layer. It gates intelligence endpoints with L402 Lightning payments, converts USD subscriptions to Bitcoin via the Strike API, and pools sats into the GrowDirect treasury. GrowDirect operates on a Bitcoin standard — USD is the interface, BTC is the unit of account.
+Goose is Canary's monetization layer. It manages prepaid sat-denominated merchant wallets, meters per-operation gas charges, and gates intelligence endpoints with L402 macaroon tokens. GrowDirect operates on a Bitcoin standard — USD is the interface, BTC is the unit of account.
 
-Every intelligence artifact Canary produces has a price. The Owl's weekly health check, the Vault's accumulated memories, the drill path's transaction data — all gated by L402 macaroon tokens. Merchants pay in USD (they don't need to know it's Lightning underneath). Agents pay in sats directly. The Goose collects, converts, and stacks.
+The design shifted during implementation from a subscription model (pay monthly, get access) to a prepaid credit model (treasury funds a wallet, gas meter charges per operation). This gives finer-grained billing — a TSP ingestion costs 1 sat, an Owl deep query costs 250 sats, and gold list alerts are free.
+
+L402 Lightning payment is the planned external funding channel. Phase 0 builds the credit system and gas meter; Strike integration is wired but requires API credentials to activate.
+
+---
+
+## What Shipped (Phase 0)
+
+- 5 database tables (`app` schema)
+- 8 services
+- 11 API routes (blueprint: `goose_api` on `/goose` prefix)
+- 58 tests (10 test files)
+- 1 Alembic migration (`goose_a00001`)
+- 6 config vars
+- `pymacaroons>=0.13.0` dependency
 
 ---
 
 ## Dependencies
 
-| Dependency | Type | Required For |
-|------------|------|-------------|
-| PostgreSQL 17 (`canary` DB, `app` schema) | Infrastructure | `goose_payments`, `goose_treasury_moves` tables |
-| Valkey 8 (DB 0) | Infrastructure | Macaroon nonce cache, rate limiting state |
-| Strike API | External | USD-to-BTC conversion, Lightning invoice creation, balance queries |
-| `canary/utils/crypto.py` | Internal | AES-256-GCM encryption for macaroon root keys |
-| Identity domain (GRO-267) | Internal | `merchant_id` for macaroon tenant scoping |
-| `pymacaroons` or equivalent | Package (not yet installed) | Macaroon minting, verification, caveat extraction |
+| Dependency | Type | Status |
+|------------|------|--------|
+| PostgreSQL 17 (`canary` DB, `app` schema) | Infrastructure | Active |
+| Valkey 8 (DB 0) | Infrastructure | Active |
+| Strike API | External | **Not wired — needs API credentials** |
+| `canary/utils/crypto.py` | Internal | Active (AES-256-GCM for bolt11, payment_hash, preimage) |
+| Identity domain (GRO-267) | Internal | Active (`merchant_id` FK) |
+| `pymacaroons>=0.13.0` | Package | Installed |
+
+---
+
+## Data Model (app schema, 5 tables)
+
+### merchant_wallets
+
+One wallet per merchant. Custodial sat balance with status derived from thresholds.
+
+| Column | Type | Notes |
+|--------|------|-------|
+| `id` | UUID PK | |
+| `merchant_id` | VARCHAR(36), unique | FK to merchants |
+| `balance_sats` | BIGINT | Current balance |
+| `lifetime_funded_sats` | BIGINT | Total credits ever received |
+| `lifetime_spent_sats` | BIGINT | Total debits ever charged |
+| `status` | VARCHAR(20) | `active` / `warning` / `depleted` / `suspended` |
+| `funded_by` | VARCHAR(20) | `treasury` / `self` / `mixed` (one-way transitions) |
+| `warning_threshold_sats` | BIGINT | Default 20,000 |
+| `hard_floor_sats` | BIGINT | Default 0 |
+| `created_at`, `updated_at` | TIMESTAMP | |
+| `created_by`, `modified_by` | VARCHAR | Audit |
+
+Status is derived from balance: `active` (> warning_threshold), `warning` (> hard_floor), `depleted` (<= hard_floor). `suspended` requires a scheduled job (not yet implemented).
+
+### wallet_transactions
+
+INSERT-ONLY financial ledger. Immutability enforced via SQLAlchemy `before_update` and `before_delete` event listeners + CHECK constraint.
+
+| Column | Type | Notes |
+|--------|------|-------|
+| `id` | UUID PK | |
+| `wallet_id` | UUID FK | References merchant_wallets |
+| `merchant_id` | VARCHAR(36) | Denormalized for fast per-merchant queries |
+| `tx_type` | VARCHAR(10) | `credit` / `debit` |
+| `source` | VARCHAR(50) | `treasury_fund` / `strike_payment` / `promo_credit` / `refund_credit` / `gas_fee` |
+| `operation_type` | VARCHAR(100) | Gas schedule operation_key (debits only) |
+| `amount_sats` | BIGINT | Always positive (CHECK constraint) |
+| `balance_after_sats` | BIGINT | Wallet balance after this transaction |
+| `reference_id` | VARCHAR(255) | E.g., chirp alert ID, TSP transaction ID |
+| `reference_type` | VARCHAR(100) | E.g., `chirp_alert`, `tsp_transaction`, `fox_case` |
+| `strike_invoice_id` | VARCHAR(255) | For `strike_payment` credits only |
+| `note` | TEXT | Free-form audit text |
+| `created_at`, `updated_at` | TIMESTAMP | Set once at insert — immutable |
+
+### gas_schedule
+
+Per-operation pricing. 11 operations seeded. Tier-specific overrides via JSONB.
+
+| Column | Type | Notes |
+|--------|------|-------|
+| `id` | UUID PK | |
+| `operation_key` | VARCHAR(100), unique | E.g., `tsp.transaction.ingested`, `owl.query.deep` |
+| `category` | VARCHAR(50) | `transaction` / `detection` / `compute` |
+| `description` | TEXT | Human-readable |
+| `cost_sats` | BIGINT | Base cost (0 = free) |
+| `is_active` | BOOLEAN | Default true |
+| `tier_overrides` | JSONB | Optional `{tier_name: cost_sats}` |
+| `created_at`, `updated_at` | TIMESTAMP | |
+
+**Seeded operations:**
+
+| Operation Key | Category | Cost (sats) |
+|---------------|----------|-------------|
+| `tsp.transaction.ingested` | transaction | 1 |
+| `tsp.transaction.batch` | transaction | 10 |
+| `chirp.alert.fired` | detection | 5 |
+| `chirp.gold_list.fired` | detection | 0 (free) |
+| `fox.case.created` | compute | 100 |
+| `fox.evidence.attached` | compute | 50 |
+| `owl.query.basic` | compute | 25 |
+| `owl.query.deep` | compute | 250 |
+| `owl.health_check` | compute | 500 |
+| `vault.recall` | compute | 10 |
+| `receipt.proof` | compute | 50 |
+
+### macaroon_tokens
+
+L402 bearer token metadata. Raw macaroon bytes never stored — only SHA-256 hash.
+
+| Column | Type | Notes |
+|--------|------|-------|
+| `id` | UUID PK | |
+| `merchant_id` | VARCHAR FK | Indexed with status |
+| `macaroon_hash` | VARCHAR(255) | SHA-256 hex digest |
+| `caveats` | JSONB | Snapshot at mint: merchant_id, tier, expires_at, endpoints |
+| `status` | VARCHAR(20) | `active` / `revoked` / `expired` / `replaced` |
+| `minted_at` | TIMESTAMP | |
+| `expires_at` | TIMESTAMP | |
+| `revoked_at` | TIMESTAMP | Null if not revoked |
+| `replaced_by` | UUID FK (self) | Token rotation chain |
+| `created_at`, `updated_at` | TIMESTAMP | |
+
+### strike_invoices
+
+Lightning invoice records. Sensitive fields encrypted at rest.
+
+| Column | Type | Notes |
+|--------|------|-------|
+| `id` | UUID PK | |
+| `merchant_id` | VARCHAR FK | |
+| `wallet_id` | UUID FK | References merchant_wallets |
+| `strike_invoice_id` | VARCHAR(255), unique | Strike-issued ID, webhook idempotency key |
+| `amount_usd` | NUMERIC(12,2) | |
+| `amount_sats` | BIGINT | |
+| `conversion_rate` | NUMERIC(18,8) | BTC/USD at creation time |
+| `bolt11_enc` | TEXT | **Encrypted** (AES-256-GCM) |
+| `payment_hash_enc` | VARCHAR(255) | **Encrypted** |
+| `preimage_enc` | VARCHAR(255) | **Encrypted**, populated only on settlement |
+| `state` | VARCHAR(20) | `pending` / `paid` / `expired` / `canceled` |
+| `paid_at` | TIMESTAMP | Null until settled |
+| `expires_at`, `created_at`, `updated_at` | TIMESTAMP | |
 
 ---
 
@@ -34,81 +162,162 @@ Every intelligence artifact Canary produces has a price. The Owl's weekly health
 | Source | Data | Format |
 |--------|------|--------|
 | Identity domain (OAuth callback) | `merchant_id` | UUID from `merchants` table |
-| Strike webhook (`invoice.updated`) | Payment confirmation, `payment_hash` | JSON webhook payload |
+| Strike webhook (`invoice.updated`) | Payment confirmation | JSON webhook payload |
 | Client HTTP request | `Authorization: L402 <macaroon>:<preimage>` or `l402_token` cookie | Header / cookie |
-| Admin/agent | Manual macaroon mint request | MCP tool call |
+| Admin routes | Fund, revoke, gas schedule updates | JSON via JWT-authenticated requests |
 
-### What's Stored
+### PII Classification
 
-| Table | Field | PII Classification | Encryption Status |
-|-------|-------|-------------------|-------------------|
-| `goose_payments` | `merchant_id` | **internal** — FK to merchants, tenant identifier | Plaintext (FK reference) |
-| `goose_payments` | `strike_invoice_id` | **sensitive** — links to external payment record | **PLAINTEXT** (no encryption) |
-| `goose_payments` | `amount_usd` | **internal** — billing amount | Plaintext |
-| `goose_payments` | `amount_sats` | **internal** — BTC denomination | Plaintext |
-| `goose_payments` | `conversion_rate` | **internal** — USD/BTC rate at time of payment | Plaintext |
-| `goose_payments` | `payment_hash` | **sensitive** — Lightning payment proof, cryptographic preimage hash | **PLAINTEXT** (no encryption) |
-| `goose_payments` | `macaroon_hash` | **sensitive** — hash of the access token | **PLAINTEXT** (no encryption) |
-| `goose_payments` | `tier` | **internal** — subscription level | Plaintext |
-| `goose_payments` | `expires_at` | **internal** — token expiry window | Plaintext |
-| `goose_payments` | `state` | **internal** — unpaid/paid/expired | Plaintext |
-| `goose_treasury_moves` | `amount_sats` | **internal** — transfer amount | Plaintext |
-| `goose_treasury_moves` | `txid` | **sensitive** — Bitcoin on-chain transaction ID, links to cold storage wallet | **PLAINTEXT** (no encryption) |
-| `goose_treasury_moves` | `destination` | **restricted** — identifies cold storage wallet endpoint | **PLAINTEXT** (no encryption) |
-
-### Macaroon Caveats (In-Token PII)
-
-Macaroons carry embedded identity and access control data. They are cryptographically signed but not encrypted — anyone holding the token can read the caveats.
-
-| Caveat | PII Classification | Notes |
-|--------|-------------------|-------|
-| `merchant_id` | **internal** | Tenant identifier, UUID |
-| `tier` | **internal** | Feature gating level |
-| `expires_at` | **internal** | Subscription window |
-| `endpoints` | **internal** | Route restriction list |
-| `max_requests` | **internal** | Usage meter |
-| `max_rows` | **internal** | Data streaming cap (GRO-307) |
+| Table | Field | Classification | Encryption |
+|-------|-------|---------------|------------|
+| `strike_invoices` | `bolt11_enc` | **sensitive** | AES-256-GCM |
+| `strike_invoices` | `payment_hash_enc` | **sensitive** | AES-256-GCM |
+| `strike_invoices` | `preimage_enc` | **sensitive** | AES-256-GCM |
+| `strike_invoices` | `strike_invoice_id` | **sensitive** | Plaintext (idempotency key, needed for webhook lookup) |
+| `macaroon_tokens` | `macaroon_hash` | internal | Plaintext (hash, not the token) |
+| All tables | `merchant_id` | internal | Plaintext (FK reference) |
+| `wallet_transactions` | `amount_sats`, `balance_after_sats` | internal | Plaintext |
 
 ### What Exits
 
 | Destination | Data | Format |
 |-------------|------|--------|
 | Client browser | `l402_token` HttpOnly cookie | Signed macaroon |
-| Client/agent | `402 Payment Required` + Lightning invoice | HTTP response + `WWW-Authenticate` header |
-| Strike API | Invoice creation requests, balance queries | HTTPS API calls |
-| Cold storage (Trezor/multisig) | Bitcoin withdrawal transactions | On-chain BTC |
-| `app.goose_payments` | INSERT-ONLY payment records | SQLAlchemy writes |
+| Client/agent | `402 Payment Required` + cost info | JSON response |
+| Strike API | Invoice creation, balance queries | HTTPS API calls |
+| `app.*` tables | INSERT-ONLY records | SQLAlchemy writes |
+
+---
+
+## Services (8)
+
+### WalletService (`canary/services/goose/wallet_service.py`)
+
+Manages merchant sat balances with FOR UPDATE row locking (TOCTOU prevention).
+
+| Method | Purpose |
+|--------|---------|
+| `get_wallet(merchant_id)` | Fetch wallet or None |
+| `check_balance(wallet_id, required_sats)` | Balance check |
+| `credit(wallet_id, merchant_id, amount_sats, source, ...)` | Add sats, update status/funded_by |
+| `debit(wallet_id, merchant_id, amount_sats, operation_type, ...)` | Charge sats, allows negative balance (grace) |
+
+### GasMeter (`canary/services/goose/gas_meter.py`)
+
+Per-operation billing. Looks up cost from gas_schedule, charges wallet.
+
+| Method | Purpose |
+|--------|---------|
+| `get_cost(operation_key, tier)` | Returns cost in sats (0 if inactive/missing/free) |
+| `charge(merchant_id, operation_key, reference_id, reference_type, tier)` | Lookup + balance check + debit. Returns `ChargeResult` |
+
+Free operations (cost=0) skip debit entirely. Tier overrides take precedence over base cost.
+
+### MacaroonService (`canary/services/goose/macaroon_service.py`)
+
+L402 token lifecycle. Raises `ValueError` if `GOOSE_MACAROON_ROOT_KEY` is empty.
+
+| Method | Purpose |
+|--------|---------|
+| `mint(merchant_id, tier, ttl_days, endpoints)` | Create macaroon with first-party caveats, store hash in DB |
+| `verify(macaroon_bytes)` | HMAC signature + expiry + revocation check. Returns `VerifyResult` |
+| `revoke(token_id)` | Set status=revoked, populate revoked_at |
+
+### StrikeClient (`canary/services/goose/strike_client.py`)
+
+Strike API wrapper. All methods raise `StrikeClientError` on non-2xx.
+
+| Method | Purpose |
+|--------|---------|
+| `create_invoice(amount_usd, description)` | POST /invoices |
+| `get_invoice(invoice_id)` | GET /invoices/{id} |
+| `get_quote(amount_usd)` | POST /rates/tick (USD->BTC rate) |
+| `get_balance()` | GET /balances |
+| `verify_webhook(body, signature)` | HMAC-SHA256 timing-safe verification |
+
+### GooseOnboardingService (`canary/services/goose/onboarding.py`)
+
+Provisions wallet + macaroon at OAuth. Idempotent — returns existing wallet if found.
+
+| Method | Purpose |
+|--------|---------|
+| `provision_merchant(merchant_id, tier)` | Create wallet -> mint macaroon -> fund via treasury. Returns `ProvisionResult` |
+
+Default initial funding: 100,000 sats (via `GOOSE_INITIAL_FUNDING_SATS`).
+
+### TreasuryService (`canary/services/goose/treasury.py`)
+
+Admin-facing funding and reporting.
+
+| Method | Purpose |
+|--------|---------|
+| `fund_merchant(merchant_id, amount_sats, note)` | Credit wallet from treasury. Warns if total > 10M sats |
+| `get_treasury_summary()` | Aggregate stats: total_funded, total_self_funded, merchant count, reserve floor |
+
+### seed.py (`canary/services/goose/seed.py`)
+
+`seed_gas_schedule(session)` — idempotent seeder for 11 gas operations.
+
+### l402_middleware.py (`canary/services/goose/l402_middleware.py`)
+
+`@l402_required(operation_key)` decorator.
+
+Flow: extract token (cookie or header) -> verify macaroon -> charge gas -> set `g.l402_merchant_id` and `g.l402_tier` -> pass through.
+
+On failure: returns 402 with `{error, reason, cost_sats}`.
 
 ---
 
 ## API Contract
 
-### Blueprint: `goose_api` (planned, not yet created)
+### Blueprint: `goose_api` (prefix: `/goose`)
 
 | Route | Method | Auth | Purpose |
 |-------|--------|------|---------|
-| `/goose/subscribe` | POST | Session (logged-in merchant) | Create Strike invoice for subscription tier |
-| `/goose/status/<invoice_id>` | GET | Session | Check payment status |
-| `/goose/webhook/strike` | POST | Strike HMAC signature | Handle `invoice.updated` events, mint macaroon |
-| `/goose/qr/<invoice_id>` | GET | Public | QR code page for Lightning invoice payment |
+| `/goose/health` | GET | None | Service health + Strike config status |
+| `/goose/wallet` | GET | JWT | Wallet details + last 20 transactions |
+| `/goose/wallet/topup` | POST | JWT (10/min) | Create Strike invoice for wallet credit |
+| `/goose/wallet/topup/<invoice_id>` | GET | JWT | Check invoice status |
+| `/goose/gas-schedule` | GET | JWT | List active gas operations and costs |
+| `/goose/webhook/strike` | POST | HMAC (100/min) | Handle Strike invoice.updated events |
+| `/goose/admin/fund` | POST | JWT + admin | Fund merchant wallet from treasury |
+| `/goose/admin/gas-schedule` | PUT | JWT + admin | Update operation costs |
+| `/goose/admin/treasury` | GET | JWT + admin | Treasury summary stats |
+| `/goose/admin/wallets` | GET | JWT + admin | List all merchant wallets |
+| `/goose/admin/revoke/<macaroon_id>` | POST | JWT + admin | Revoke a macaroon token |
 
-### L402 Middleware: `@l402_required` (planned decorator)
+CSRF exempt. Onboarding gate passthrough configured.
 
-Any endpoint decorated with `@l402_required` will:
-1. Check for `Authorization: L402` header or `l402_token` cookie
-2. Verify macaroon signature and caveats (merchant_id, tier, expiry, endpoints)
-3. Return `402 Payment Required` with Lightning invoice if token is missing/invalid/expired
-4. Pass through if token is valid
+---
 
-### MCP Tools (canary-goose server, planned)
+## L402 Protocol — Current State and Gaps
 
-| Tool | Category | Auth Required | PII Access | Description |
-|------|----------|:---:|:---:|-------------|
-| `goose_create_invoice` | billing | Admin | merchant_id | Create Strike invoice for subscription |
-| `goose_check_payment` | billing | Admin | payment_hash, strike_invoice_id | Check payment status by invoice ID |
-| `goose_verify_macaroon` | auth | Admin | merchant_id (from caveats) | Verify and decode an L402 macaroon |
-| `goose_treasury_balance` | treasury | Admin | amount_sats, wallet addresses | Current Strike balance + cold storage total |
-| `goose_mint_token` | auth | Admin | merchant_id, tier | Manually mint a macaroon (admin/testing) |
+### What Works
+
+- Macaroon minting with first-party caveats (merchant_id, tier, expires_at, endpoints)
+- Macaroon HMAC verification + expiry check + revocation check
+- `@l402_required` decorator extracts token, verifies, charges gas
+- Admin revocation via `/goose/admin/revoke/<id>`
+- Macaroon provisioned automatically at merchant onboarding
+
+### What Does Not Work Yet
+
+| Gap | Impact | Blocked By |
+|-----|--------|------------|
+| **No endpoint uses `@l402_required` for hard gating** | 9 endpoints now use `@gas_metered` for soft-gate metering (Owl: 5, Fox: 2, Receipt: 2). L402 hard gating with `@l402_required` remains deferred to Phase 1 (requires Strike credentials). | Strike API credentials for L402 402 responses |
+| **402 response has no Lightning invoice** | Middleware returns `{error, reason, cost_sats}` — not `WWW-Authenticate: L402 macaroon="...", invoice="lnbc..."` per L402 spec | Strike API credentials |
+| **Strike webhook not testable** | Handler code exists, HMAC verification exists, but no real webhooks arrive | Strike API credentials |
+| **Top-up flow incomplete** | Route exists, creates Strike invoice, stores encrypted bolt11 — but no real invoice is generated | Strike API credentials |
+| **No macaroon renewal** | Onboarding mints one token. When it expires, no self-service re-mint. Admin can revoke but not re-issue via API. | Needs renewal endpoint or auto-renewal on topup |
+| **`receipt_tsp.py` ungated** | Explicit comment: "Sprint 7+ wraps this with L402 Lightning payment verification" | Goose Phase 0 completion (done), but gating decision pending |
+
+### Cross-SDD L402 References (need updating)
+
+| SDD | Reference | Issue |
+|-----|-----------|-------|
+| `external-identities.md` (line 402) | References `goose_payments` table | Table doesn't exist — now `wallet_transactions` + `strike_invoices` |
+| `platform-overview.md` (line 42) | Describes Goose as "Phase 2" | Phase 0 is now complete |
+| `architecture.md` (line 414) | Link only — accurate | No change needed |
 
 ---
 
@@ -117,66 +326,39 @@ Any endpoint decorated with `@l402_required` will:
 GrowDirect's treasury operates in BTC. USD is the interface, not the unit of account.
 
 ```
-USD in (merchant subscription)
+USD in (merchant self-service top-up via Strike)
   -> Strike converts to sats at market rate
-  -> 1 sat mints the L402 macaroon (access token)
-  -> remainder sits in Strike hot wallet (operating balance)
-  -> weekly batch: Strike -> cold storage (Trezor/multisig)
-  -> cold storage IS the treasury
+  -> sats credited to merchant_wallets.balance_sats
+  -> gas meter charges per operation (1-500 sats each)
+  -> gold list alerts are free (0 sats)
+
+Treasury funding (admin):
+  -> TreasuryService.fund_merchant credits wallet from GrowDirect reserves
+  -> initial onboarding grant: 100,000 sats (~$10)
+  -> tracked as source="treasury_fund" in wallet_transactions
 ```
 
 Key design decisions:
 - Revenue denominated in an appreciating asset
 - No bank dependency for international merchants (8 Square countries)
-- Lightning settlement is instant and final — no chargebacks, no payment disputes
+- Per-operation pricing aligns cost with value delivered
+- Gold list (top detection rules) are free — the hook
 - Agent-to-agent micropayments don't work with USD rails
-- The payment record IS the access control token (macaroon)
 
 ---
 
-## L402 Protocol
+## Macaroon Caveats (Access Control)
 
-HTTP 402 Payment Required — the status code reserved since 1997, realized by Lightning.
-
-```
-Client -> GET /vault/summary
-Server -> 402 Payment Required
-         WWW-Authenticate: L402 macaroon="...", invoice="lnbc..."
-
-Client pays the Lightning invoice (Cash App, Strike, any LN wallet)
-
-Client -> GET /vault/summary
-         Authorization: L402 <macaroon>:<preimage>
-Server -> 200 OK (content served)
-```
-
-For web/PWA access, the macaroon is stored in an HttpOnly cookie after first payment. For agent/MCP access, the macaroon is passed in the Authorization header.
-
-### Macaroon Caveats (Access Control)
-
-Macaroons replace ACLs, API keys, and OAuth scopes with a single cryptographic token.
+First-party caveats. Caveats can only restrict, never expand.
 
 | Caveat | Purpose | Example |
 |--------|---------|---------|
 | `merchant_id` | Tenant scoping | `merchant_id = 940759eb-...` |
-| `tier` | Feature gating | `tier = standard` or `tier = premium` |
-| `expires_at` | Subscription window | `expires_at = 2026-04-22T00:00:00Z` |
-| `endpoints` | Route restriction | `endpoints = /api/*,/owl/*,/vault/*` |
-| `max_requests` | Usage metering | `max_requests = 10000` |
-| `max_rows` | Data streaming cap | `max_rows = 100000` (GRO-307) |
+| `tier` | Feature gating | `tier = free` |
+| `expires_at` | Token lifetime | `expires_at = 2026-05-15T00:00:00Z` |
+| `endpoints` | Route restriction | `endpoints = /api/*,/owl/*` |
 
-Caveats can only restrict, never expand. A downstream proxy can add caveats to narrow access without knowing the root key — this is how agent delegation works.
-
-### Gated Endpoints
-
-| Endpoint | Gate | Pricing Model |
-|----------|------|---------------|
-| `/vault/summary` | L402 subscription | Monthly — included in tier |
-| `/health-check` | L402 subscription | Monthly — included in tier |
-| `/owl/search` (MCP) | L402 per-call | Per query — sat micropayment |
-| `/vault/recall` (MCP) | L402 per-call | Per recall — sat micropayment |
-| `/api/ej/<txn_uuid>` | L402 per-call | Per receipt — sat micropayment |
-| Streaming endpoints (GRO-307) | L402 metered | Per-row or per-KB — caveat-based |
+Macaroons are signed (HMAC) but not encrypted. Anyone holding the token can read caveats. Accepted risk for Phase 0/1.
 
 ---
 
@@ -184,32 +366,18 @@ Caveats can only restrict, never expand. A downstream proxy can add caveats to n
 
 ```
 Strike Hot Wallet (operating)
-  +-- Receives: all subscription + micropayment sats
-  +-- Holds: 1-2 weeks operating balance
-  +-- Withdraws: weekly batch to cold storage
+  +-- Receives: merchant top-up payments (Lightning)
+  +-- Not yet active (needs Strike API credentials)
 
-Cold Storage (treasury)
-  +-- Trezor hardware wallet (primary)
-  +-- 2-of-3 multisig (Jeffe + ALX + escrow)
-  +-- Holds: long-term BTC treasury
+Merchant Wallets (app.merchant_wallets)
+  +-- Prepaid credit balance in sats
+  +-- Funded by: treasury grants or self-service top-up
+  +-- Debited by: gas meter per operation
 
 Emergency Reserve
-  +-- Strike balance floor: always keep $500 equivalent
-      for refund processing and operational costs
+  +-- Configurable floor: GOOSE_EMERGENCY_RESERVE_USD (default $500)
+  +-- TreasuryService logs warning if total funding exceeds 10M sats
 ```
-
-Self-custodied. GrowDirect holds its own keys. Strike is a payment processor, not a custodian.
-
----
-
-## Data Model (app schema)
-
-| Table | Purpose | Key Columns | Mutability |
-|-------|---------|-------------|------------|
-| `goose_payments` | Tracks every payment event | `id` (UUID PK), `merchant_id` (FK), `strike_invoice_id`, `amount_usd`, `amount_sats`, `conversion_rate`, `state` (unpaid/paid/expired), `payment_hash`, `macaroon_hash`, `tier`, `expires_at`, `created_at` | **INSERT-ONLY** |
-| `goose_treasury_moves` | Tracks sats movement to cold storage | `id` (UUID PK), `amount_sats`, `source` (strike), `destination` (cold_storage), `txid` (Bitcoin txid), `status`, `created_at` | **INSERT-ONLY** |
-
-Payment records are immutable. State transitions create new records, never UPDATE existing ones. This is the financial audit trail.
 
 ---
 
@@ -217,14 +385,14 @@ Payment records are immutable. State transitions create new records, never UPDAT
 
 | Domain | Relationship |
 |--------|-------------|
-| **Identity (GRO-267)** | Merchant identity -> macaroon `merchant_id` caveat. External identities are POS-agnostic; Goose is payment-agnostic |
-| **Vault (GRO-305)** | Vault summary is the first gated endpoint. The weekly intelligence report is the product the merchant pays for |
-| **Owl** | Owl search and health check are gated. Per-query micropayments for MCP consumers |
-| **MCP Memory Bus (GRO-172)** | Every MCP endpoint is monetized by the Goose. The memory bus is the distribution channel; the Goose is the toll booth |
-| **Streaming (GRO-307)** | Large data streams are metered via macaroon `max_rows` caveat |
-| **RaaS** | The RaaS namespace (`raas:{merchant_id}`) IS the billing identity. Macaroon `merchant_id` caveat maps to the RaaS namespace. When a subscription lapses, the namespace stays but gated endpoints return 402. Re-subscribe = re-mint macaroon = instant access restoration |
-| **Chirp** | Alert delivery is free (the hook). Analysis and context is the paid product |
-| **Receipt/TSP** | `receipt_tsp.py` is designed for L402 gating (Sprint 7+, per-receipt micropayment). Currently ungated pending Strike API approval |
+| **Identity (GRO-267)** | `merchant_id` FK on all Goose tables. Onboarding provisions wallet at OAuth. |
+| **Vault** | `vault.recall` gas operation (10 sats). Endpoint gating deferred. |
+| **Owl** | `owl.query.basic` (25), `owl.query.deep` (250), `owl.health_check` (500). Endpoint gating deferred. |
+| **Chirp** | `chirp.alert.fired` (5 sats), `chirp.gold_list.fired` (0 sats — free). Alert delivery is free; analysis is paid. |
+| **Fox** | `fox.case.created` (100), `fox.evidence.attached` (50). |
+| **TSP** | `tsp.transaction.ingested` (1), `tsp.transaction.batch` (10). |
+| **Receipt/TSP** | `receipt.proof` (50 sats). L402 gating deferred to Sprint 7+. |
+| **RaaS** | RaaS namespace maps to merchant_id. Lapsed wallet doesn't delete namespace — gated endpoints return 402. |
 
 ---
 
@@ -232,105 +400,95 @@ Payment records are immutable. State transitions create new records, never UPDAT
 
 ### Startup Sequence
 
-No Goose-specific startup exists yet. When implemented:
+1. Validate `GOOSE_MACAROON_ROOT_KEY` is set (MacaroonService raises ValueError if empty)
+2. Register `goose_api` blueprint on `/goose` prefix
+3. Gas schedule seeded on first boot (idempotent)
+4. Strike client initialized (degrades gracefully if no API key)
 
-1. Validate `STRIKE_API_KEY` is configured (fail-fast if missing)
-2. Validate `GOOSE_MACAROON_ROOT_KEY` is configured (fail-fast if missing)
-3. Register `goose_api` blueprint on `/goose` prefix
-4. Initialize Strike client with API key
-5. Verify Strike API connectivity (GET account info)
-6. Register `@l402_required` middleware in Flask app
+### Health Check
 
-### Health Checks
-
-| Check | Method | Expected |
-|-------|--------|----------|
-| Goose service alive | `GET /goose/health` | `200 {"status": "healthy"}` |
-| Strike API reachable | Strike API GET call | 200 response within 5s |
-| Macaroon root key loaded | Startup validation | Key present in config |
-| Database writable | INSERT test row to `goose_payments` | Row created |
+`GET /goose/health` returns `{status: "healthy", service: "goose", strike_configured: bool}`
 
 ### Failure Modes
 
 | Failure | Impact | Behavior |
 |---------|--------|----------|
-| Strike API down | Cannot create invoices, cannot check payment status | Return 503 on subscription endpoints; existing macaroons continue to work (offline verification) |
-| Macaroon root key missing | Cannot mint or verify any tokens | App refuses to start (fail-fast) |
-| Database unavailable | Cannot record payments | Return 503; do NOT mint macaroons without recording the payment first |
-| Expired macaroon presented | Client loses access | Return 402 with new invoice; client re-pays to get fresh token |
-| Invalid macaroon signature | Tampered or wrong root key | Return 401 Unauthorized; log the attempt |
-| Strike webhook fails | Payment confirmed but macaroon not minted | Retry via webhook redelivery; payment recorded but access delayed |
+| Strike API down / not configured | Cannot create invoices or top up | Top-up returns error; existing wallets and macaroons continue to work |
+| Macaroon root key missing | Cannot mint or verify tokens | MacaroonService refuses to initialize (ValueError) |
+| Database unavailable | Cannot record transactions | 500 error; no silent failures |
+| Wallet depleted | Merchant can't use gated endpoints | Gas meter returns `insufficient=True`; `@l402_required` returns 402 |
+| Expired macaroon | Token rejected | `@l402_required` returns 402 |
+| Invalid macaroon signature | Tampered or wrong root key | Verify returns `valid=False` |
 
-### Monitoring
+### Configuration
 
-| Metric | Alert Threshold | Notes |
-|--------|----------------|-------|
-| `goose.invoices.created` | None (informational) | Track subscription volume |
-| `goose.invoices.paid` | < 1 per day after launch | Indicates payment flow broken |
-| `goose.macaroons.minted` | Should track with invoices.paid | Divergence = mint failure |
-| `goose.macaroons.rejected` | > 10/hour | Potential token stuffing attack |
-| `goose.strike.api_errors` | > 5 in 10 minutes | Strike API degradation |
-| `goose.treasury.balance_usd` | < $500 | Emergency reserve breach |
-| `goose.treasury.moves` | None (informational) | Track cold storage transfers |
-
-### Configuration (Planned Env Vars)
-
-| Variable | Purpose | Current Status |
-|----------|---------|---------------|
-| `STRIKE_API_KEY` | Strike API authentication | **Not configured** |
-| `STRIKE_API_URL` | Strike API base URL (sandbox vs production) | **Not configured** |
-| `GOOSE_MACAROON_ROOT_KEY` | Root key for macaroon minting/verification | **Not configured** |
-| `GOOSE_WEBHOOK_SECRET` | HMAC secret for Strike webhook signature validation | **Not configured** |
-| `GOOSE_SUBSCRIPTION_PRICE_USD` | Default subscription price (e.g., 29.99) | **Not configured** |
-| `GOOSE_COLD_STORAGE_ADDRESS` | Bitcoin address for treasury withdrawals | **Not configured** |
-| `GOOSE_EMERGENCY_RESERVE_USD` | Minimum Strike balance floor (default $500) | **Not configured** |
+| Variable | Purpose | Default |
+|----------|---------|---------|
+| `STRIKE_API_KEY` | Strike API authentication | `""` (empty) |
+| `STRIKE_API_URL` | Strike API base URL | `https://api.strike.me/v1` |
+| `GOOSE_MACAROON_ROOT_KEY` | Root key for macaroon crypto | `""` (**must be set**) |
+| `GOOSE_WEBHOOK_SECRET` | HMAC secret for Strike webhooks | `""` (empty) |
+| `GOOSE_INITIAL_FUNDING_SATS` | Initial onboarding credit | `100000` |
+| `GOOSE_EMERGENCY_RESERVE_USD` | Treasury reserve floor | `500` |
 
 ---
 
 ## Deployment
 
-### Docker Service Definition
-
-Goose runs inside the existing Canary Flask container — no separate service. It registers as a blueprint (`goose_api`) on the `/goose` prefix.
-
-```yaml
-# No separate Docker service — Goose is a Canary blueprint
-# Added to canary-web via blueprint registration in canary/__init__.py
-```
+Goose runs inside the Canary Flask container — no separate service. Blueprint registered on `/goose` prefix.
 
 ### AWS Target
 
 | Component | AWS Service | Notes |
 |-----------|------------|-------|
 | Application | ECS/Fargate (Canary task) | Blueprint within Canary container |
-| Database | RDS PostgreSQL 17 | `goose_payments`, `goose_treasury_moves` in `app` schema |
-| Secrets | AWS Secrets Manager | `STRIKE_API_KEY`, `GOOSE_MACAROON_ROOT_KEY`, `GOOSE_WEBHOOK_SECRET`, `GOOSE_COLD_STORAGE_ADDRESS` |
-| Cache | ElastiCache (Valkey) | Macaroon nonce cache, rate limiting |
+| Database | RDS PostgreSQL 17 | 5 tables in `app` schema |
+| Secrets | AWS Secrets Manager | `STRIKE_API_KEY`, `GOOSE_MACAROON_ROOT_KEY`, `GOOSE_WEBHOOK_SECRET` |
+| Cache | ElastiCache (Valkey) | Session + rate limiting |
 
-### CI/CD Requirements
+### CI/CD
 
-- Strike API key must be available in CI for integration tests (sandbox key)
-- Macaroon root key must be generated and stored in Secrets Manager before first deploy
-- Strike webhook URL must be registered after deploy (callback URL = `https://<domain>/goose/webhook/strike`)
+- `pymacaroons>=0.13.0` in requirements
+- Migration `goose_a00001` is idempotent (IF NOT EXISTS)
+- Strike webhook URL registered post-deploy: `https://<domain>/goose/webhook/strike`
 
 ---
 
-## Inbound Contracts
+## Code Review Findings
 
-| Source | Data | Trigger |
-|--------|------|---------|
-| Identity domain | `merchant_id` during OAuth callback | Goose creates initial trial macaroon |
-| Any HTTP request | `Authorization: L402` header or `l402_token` cookie | Goose middleware verifies |
-| Strike webhook | `invoice.updated` event | Goose mints macaroon and sets cookie |
+### Resolved (Phase 0)
 
-## Outbound Contracts
+| # | Finding | Resolution |
+|---|---------|------------|
+| C1 | TOCTOU on wallet mutations | FOR UPDATE row locking on credit/debit |
+| C2 | Empty macaroon root key accepted | ValueError on empty key in MacaroonService.__init__ |
+| C3 | INSERT-ONLY not enforced | SQLAlchemy event listeners + CHECK constraint |
+| P0-1 | No implementation | 5 models, 8 services, 11 routes, 58 tests |
+| P0-2 | No database tables | Migration `goose_a00001` |
+| P0-3 | No secrets management | Config vars defined, AWS Secrets Manager for prod |
+| P0-5 | No webhook HMAC validation | StrikeClient.verify_webhook with timing-safe compare |
+| P0-6 | Sensitive fields plaintext | bolt11, payment_hash, preimage encrypted via AES-256-GCM |
+| P1-2 | No rate limiting | 10/min on topup, 100/min on webhook |
+| P1-5 | No webhook idempotency | strike_invoice_id dedup check, skip if already paid |
+| P2-5 | No macaroon revocation | Revocation via hash lookup + admin endpoint |
 
-| Destination | Data | Trigger |
-|-------------|------|---------|
-| Client browser | `l402_token` HttpOnly cookie | Payment confirmation |
-| Client/agent | `402 Payment Required` + Lightning invoice | Unauthenticated request to gated endpoint |
-| `app.goose_payments` | INSERT-ONLY payment record | Every payment event |
-| Strike API | Invoice creation, quote generation, balance queries | Subscription flow, treasury management |
+### Open
+
+| # | Priority | Finding | Notes |
+|---|----------|---------|-------|
+| P0-4 | P0 | Macaroon root key rotation undefined | Rotation invalidates all tokens. Need dual-key verification + batch re-mint strategy. |
+| P1-1 | P1 | No structured audit logging | wallet_transactions provides financial audit, but no structured log events for macaroon mint/reject, webhook processing. |
+| P1-3 | P1 | No data retention policy | INSERT-ONLY tables grow indefinitely. Need 7-year retention + anonymization plan. |
+| P1-4 | P1 | Macaroon caveats readable by token holder | Accepted risk for Phase 0/1. Consider encrypted payloads for Phase 2+. |
+| P1-6 | P1 | Error response leak prevention | Not yet audited — payment error responses may expose internal details. |
+| P2-1 | P2 | No key rotation runbook | Strike API key, webhook secret, macaroon root key — no documented procedures. |
+| P2-2 | P2 | No monitoring dashboards | No metrics for invoice volume, gas charges, treasury balance. |
+| P2-3 | P2 | No cold storage automation | Manual treasury management only. |
+| P2-4 | P2 | receipt_tsp.py L402 gating deferred | Serves event verification proofs without payment (Sprint 7+). |
+| L402-1 | **P1** | **No endpoint uses `@l402_required` (hard gate)** | 9 routes use `@gas_metered` (soft gate). L402 hard gating deferred to Phase 1 (Strike credentials). |
+| L402-2 | **P1** | **402 response missing Lightning invoice** | Returns JSON `{error, reason, cost_sats}` — not `WWW-Authenticate: L402` header with invoice. Blocked by Strike credentials. |
+| L402-3 | **P1** | **No macaroon renewal flow** | Token expires, no self-service re-mint. Admin revoke exists but no re-issue. |
+| L402-4 | **P2** | **Cross-SDD references stale** | `external-identities.md` references `goose_payments` (doesn't exist). `platform-overview.md` lists Goose as Phase 2. |
 
 ---
 
@@ -338,70 +496,35 @@ Goose runs inside the existing Canary Flask container — no separate service. I
 
 | Phase | What | Status |
 |-------|------|--------|
-| Phase 0 | Strike closed-circle test — gate one endpoint, pay from Cash App | Blueprint ready (design) |
-| Phase 1 | Production L402 on all gated endpoints, subscription tiers | Planned |
+| Phase 0 | Credit system, gas meter, L402 middleware, macaroon lifecycle, Strike client | **Complete** (GRO-117) |
+| Phase 0.5 | Gas metering on 9 intelligence routes (Owl, Fox, receipt) via `@gas_metered` soft gate | **Complete** |
+| Phase 1 | Strike API credentials, live Lightning invoices, production L402 responses | Planned |
 | Phase 2 | MCP per-call micropayments, agent-to-agent commerce | Planned |
 | Phase 3 | BTCPay Server self-hosted (remove Strike dependency) | Future |
-| Phase 4 | Treasury automation — scheduled cold storage withdrawals | Future |
+| Phase 4 | Treasury automation — threshold-based cold storage sweeps | Future |
 | Phase 5 | LNURL-Auth — passwordless merchant login via Lightning wallet | Future |
-
----
-
-## Code Review Findings
-
-### Summary
-
-**The entire Goose service is unimplemented.** The SDD describes a complete design with blueprints, services, models, and middleware, but the codebase contains zero Goose-specific source code. No blueprint file (`goose_api.py`), no service modules (`strike_client.py`, `macaroon_service.py`, `l402_middleware.py`), no model file (`goose_payments`), no database migration, no env vars, and no tests exist. The only code reference to L402/Goose is a comment in `receipt_tsp.py` noting that L402 gating is deferred to Sprint 7+.
-
-### P0 — Blocks Production
-
-| # | Finding | Description | Recommended Fix |
-|---|---------|-------------|-----------------|
-| P0-1 | **No implementation exists** | The SDD describes `canary/blueprints/goose_api.py`, `canary/services/goose/strike_client.py`, `canary/services/goose/macaroon_service.py`, `canary/services/goose/l402_middleware.py`, and `canary/services/goose/models.py` — none of these files exist in the codebase. Zero lines of Goose code have been written. | Implement Phase 0 (gate one endpoint with Strike sandbox). Create the service directory, models, Strike client, macaroon service, L402 middleware, and blueprint. Follow the Microservice Delivery Pattern from Canary CLAUDE.md. |
-| P0-2 | **No database tables** | `goose_payments` and `goose_treasury_moves` tables are designed but no Alembic migration exists. | Create Alembic migration for both tables in `app` schema using `Mapped[]` syntax, UUID PKs, INSERT-ONLY constraint enforcement. |
-| P0-3 | **No secrets management for payment keys** | `STRIKE_API_KEY`, `GOOSE_MACAROON_ROOT_KEY`, `GOOSE_WEBHOOK_SECRET` are not in `.env`, not in AWS Secrets Manager, not referenced anywhere in config. These are high-value cryptographic secrets controlling real money and access tokens. | Add to `.env.example` with placeholder values. Implement AWS Secrets Manager retrieval for production. Macaroon root key compromise = full token forgery. |
-| P0-4 | **Macaroon root key storage undefined** | The macaroon root key is the most sensitive secret in the system — it can forge any access token for any merchant. No storage, rotation, or access control plan exists. | Store in AWS Secrets Manager with restricted IAM policy. Document rotation procedure. Root key rotation invalidates all outstanding macaroons — requires re-mint strategy. |
-| P0-5 | **No Strike webhook signature validation** | The SDD specifies a Strike webhook handler but no HMAC signature validation exists (because no code exists). Without webhook authentication, an attacker can forge payment confirmations and mint unauthorized macaroons. | Implement HMAC-SHA256 signature verification on `/goose/webhook/strike` using `GOOSE_WEBHOOK_SECRET`. Reject unsigned or mis-signed payloads. |
-| P0-6 | **Payment-sensitive fields stored plaintext** | The data model stores `strike_invoice_id`, `payment_hash`, `macaroon_hash`, `txid`, and `destination` (cold storage address) as plaintext strings. `payment_hash` is a cryptographic proof of payment. `txid` links to on-chain Bitcoin transactions. `destination` reveals the cold storage wallet address. | Encrypt `strike_invoice_id`, `payment_hash`, `txid`, and `destination` at rest using AES-256-GCM via `canary/utils/crypto.py`. `macaroon_hash` can remain plaintext (it's a hash, not the token itself). |
-
-### P1 — Before GA
-
-| # | Finding | Description | Recommended Fix |
-|---|---------|-------------|-----------------|
-| P1-1 | **No audit logging for payment operations** | No audit trail for invoice creation, payment confirmation, macaroon minting, treasury moves, or macaroon verification failures. Financial operations require immutable audit logs for compliance. | Add structured audit log entries for all Goose operations: invoice_created, payment_confirmed, macaroon_minted, macaroon_rejected, treasury_move_initiated, treasury_move_confirmed. |
-| P1-2 | **No rate limiting on webhook or payment endpoints** | `/goose/webhook/strike` and `/goose/subscribe` have no rate limiting. Webhook endpoint is a DDoS target. Subscribe endpoint could be used for invoice spam. | Flask-Limiter on `/goose/webhook/strike` (100/minute), `/goose/subscribe` (10/minute per merchant). |
-| P1-3 | **No data retention policy for payment records** | `goose_payments` is INSERT-ONLY with no retention policy. Financial records accumulate indefinitely. Some jurisdictions require retention (7 years for tax), others require deletion (GDPR). | Define retention policy: financial records retained 7 years (tax compliance), then anonymized (merchant_id removed, amounts aggregated). Treasury moves retained permanently (on-chain records are permanent anyway). |
-| P1-4 | **Macaroon caveats readable by token holder** | Macaroons are signed but not encrypted. Anyone holding the token can read `merchant_id`, `tier`, `endpoints`, etc. While these are classified as "internal" not "sensitive," token theft exposes tenant identity and access scope. | Document this as an accepted risk for Phase 1. For Phase 2+, consider encrypting the macaroon payload (third-party caveats with an encryption service) or using opaque token IDs that resolve server-side. |
-| P1-5 | **No idempotency on Strike webhook handler** | If Strike redelivers a webhook (network retry), a naive handler would mint duplicate macaroons or create duplicate payment records. | Use `strike_invoice_id` as idempotency key. Check `goose_payments` for existing record before INSERT. Return 200 OK on duplicate webhook to acknowledge receipt without re-processing. |
-| P1-6 | **No error responses leak prevention** | No implementation exists to validate, but the design should mandate that error responses on payment endpoints never leak internal details (Strike API errors, database errors, key configuration issues). | All Goose error responses must return generic messages. Log full errors server-side. Never expose Strike API responses to clients. |
-
-### P2 — Post-Launch
-
-| # | Finding | Description | Recommended Fix |
-|---|---------|-------------|-----------------|
-| P2-1 | **No key rotation procedure** | Macaroon root key rotation invalidates all outstanding tokens. No documented procedure for rotating Strike API key, webhook secret, or macaroon root key. | Document rotation runbook: (1) generate new root key, (2) deploy with dual-key verification (old + new), (3) re-mint all active macaroons in batch, (4) remove old key after TTL. |
-| P2-2 | **No monitoring dashboards** | No Grafana/CloudWatch dashboards for payment volume, conversion rates, treasury balance, macaroon mint/reject rates. | Build treasury dashboard: invoice volume, payment success rate, BTC balance, cold storage transfer history, macaroon rejection rate. |
-| P2-3 | **No cold storage automation** | Weekly batch transfers to cold storage are manual. No automated threshold-based sweeps. | Phase 4 automation: when Strike balance exceeds $X, auto-initiate transfer to cold storage address. Requires 2-of-3 multisig approval flow. |
-| P2-4 | **`receipt_tsp.py` L402 gating deferred** | `receipt_tsp.py` has comments noting L402 gating is deferred to Sprint 7+ pending Strike API spend approval. This endpoint serves event verification proofs without payment. | Implement L402 gating on receipt endpoint once Goose Phase 0 is complete. Per-receipt micropayment model. |
-| P2-5 | **No macaroon revocation mechanism** | If a merchant's macaroon is compromised, there is no way to revoke it before expiry. | Implement revocation list in Valkey (SET of revoked macaroon hashes). Check on every `@l402_required` verification. TTL matches max macaroon lifetime. |
 
 ---
 
 ## Production Readiness Checklist
 
-- [ ] PII encrypted at rest — `strike_invoice_id`, `payment_hash`, `txid`, `destination` need AES-256-GCM (P0-6)
-- [ ] Secrets in AWS Secrets Manager — `STRIKE_API_KEY`, `GOOSE_MACAROON_ROOT_KEY`, `GOOSE_WEBHOOK_SECRET`, `GOOSE_COLD_STORAGE_ADDRESS` (P0-3, P0-4)
-- [ ] Health check endpoint responds — `/goose/health` returning service + Strike API status (not yet implemented)
-- [ ] Audit logging for sensitive operations — invoice creation, payment confirmation, macaroon mint/reject, treasury moves (P1-1)
-- [ ] Data retention policy implemented — 7-year financial record retention, then anonymization (P1-3)
-- [ ] Rate limiting on public endpoints — webhook and subscribe endpoints (P1-2)
-- [ ] Error responses don't leak internals — generic error messages on all payment endpoints (P1-6)
-- [ ] Webhook signature validation — HMAC-SHA256 on Strike webhook payloads (P0-5)
-- [ ] Idempotency on webhook handler — `strike_invoice_id` dedup check (P1-5)
-- [ ] Macaroon root key rotation procedure documented (P2-1)
-- [ ] Database migration created and tested — `goose_payments`, `goose_treasury_moves` (P0-2)
-- [ ] Blueprint created and registered — `goose_api.py` on `/goose` prefix (P0-1)
-- [ ] L402 middleware implemented and tested — `@l402_required` decorator (P0-1)
-- [ ] Strike client with error handling — circuit breaker, retry, timeout (P0-1)
-- [ ] Macaroon service with caveat validation — mint, verify, extract (P0-1)
-- [ ] Integration tests proving end-to-end payment flow — invoice -> payment -> macaroon -> gated access (P0-1)
+- [x] Models created with UUID PKs, `Mapped[]` syntax, `created_at`/`updated_at`
+- [x] INSERT-ONLY enforcement on wallet_transactions (event listeners + CHECK)
+- [x] FOR UPDATE concurrency control on wallet mutations
+- [x] PII encrypted at rest — bolt11, payment_hash, preimage (AES-256-GCM)
+- [x] Webhook HMAC verification (timing-safe)
+- [x] Webhook idempotency (strike_invoice_id dedup)
+- [x] Rate limiting on public endpoints (topup: 10/min, webhook: 100/min)
+- [x] Macaroon revocation mechanism (hash lookup + admin endpoint)
+- [x] Health check endpoint (`/goose/health`)
+- [x] Migration idempotent (IF NOT EXISTS)
+- [x] 58 tests passing (models, services, middleware, E2E)
+- [ ] At least one endpoint decorated with `@l402_required` (L402-1)
+- [ ] 402 response includes Lightning invoice per L402 spec (L402-2)
+- [ ] Macaroon renewal flow (L402-3)
+- [ ] Secrets in AWS Secrets Manager (P0-4, production deploy)
+- [ ] Root key rotation procedure documented (P0-4)
+- [ ] Structured audit logging (P1-1)
+- [ ] Data retention policy (P1-3)
+- [ ] Error response audit (P1-6)
+- [ ] Cross-SDD references updated (L402-4)
