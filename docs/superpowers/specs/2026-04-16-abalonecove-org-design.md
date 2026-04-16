@@ -52,8 +52,10 @@ USC, 1988. Kenneth Starr, PVE, Declaration 1. The name stuck. Time in
 Olmsted cities. Coming home to the hill.
 
 ### 3. Vanderlip (~500 words)
-Jekyll Island. The Fed. The peninsula purchase (1913). Olmsted Brothers.
-Declaration 100, 101, the Art Jury. The grand plan.
+1882 Superior Court decision — Bixby owns the Rancho. Vanderlip buys from
+Bixby syndicate 1913. Jekyll Island. The Fed. Olmsted Brothers hired — but
+the Olmsted map was an artist's rendering of the contracts, the dream, never
+fully realized. Declaration 100, 101, the Art Jury. The grand plan.
 
 ### 4. The Lawyer Brothers and the Depression (~500 words)
 **[GAP — needs research]**
@@ -63,12 +65,17 @@ Vanderlip Sr. dies 1937. The interregnum.
 
 ### 5. The Parceling of the Hill (~400 words)
 Post-war. PV Corp subdivides. The three sister HOAs. Portuguese Bend Club
-vs. the neighborhoods. Arrowroot lots — no HOA. PV Corp → PV Properties →
-Great Lakes Carbon. The 1949-1952 declarations. Let people do their own
-research from here.
+vs. the neighborhoods. Arrowroot lots — no HOA. Lot H — the declaration on
+the NEGATIVE SPACE (everything not in a named tract). The mapping exercise
+that revealed this pattern. PV Corp → PV Properties → Great Lakes Carbon.
+The 1949-1952 declarations. Let people do their own research from here.
 
 ### 6. The Slide (~400 words)
-1956. 900 acres. Plumbing as catalyst. 2.14 inches per week today.
+1956. 900 acres. Plumbing as catalyst. Wayfarers Chapel — had to be
+disassembled after they started watering the grapes, triggering movement.
+If watering grapes destabilized a chapel, what does 16 units of plumbing
+do? Jim York's house — why was he allowed to build? Catalina Gardens —
+why is it there? 2.14 inches per week today.
 
 ### 7. Condos vs. the Beach (~400 words)
 1972. Karl Rodi proposes 138-170 units. Dick Karshner organizes the vote.
@@ -286,6 +293,36 @@ These details came out of the brainstorm and should be woven into the spine:
 - **Don't get long-winded.** Keep it LA Times Sunday Home section. Clean prose,
   tight paragraphs. Let the facts breathe. The author's personal story is
   connective tissue, not the centerpiece.
+
+### Deep narrative threads (for spine baseline session)
+
+These threads tie the sections together and are the real discoveries:
+
+- **1882 Superior Court decision** — Bixby ownership of Rancho de los Palos
+  Verdes, established by court ruling. This is the legal genesis. Vanderlip
+  buys from Bixby syndicate in 1913. The chain of title starts here.
+- **Lot H and the negative space** — The Vanderlips put declarations on parcels
+  they were selling (specific tracts). Lot H was the declaration on the
+  NEGATIVE SPACE — everything not covered by named tracts. This is the key
+  insight that the mapping exercise revealed.
+- **The mapping exercise** — Realizing the negative space pattern is what drove
+  the GIS/AI mapping work. You have to MAP the declarations spatially to
+  understand coverage. That's what AI + GIS made possible for one person.
+- **The sister HOA tracts** — Three HOAs carved from the same PV Corp land,
+  each with their own declaration chain. How they relate, where the boundaries
+  are, which lots fell through the cracks.
+- **The Olmsted map was the dream, not the reality** — The Olmsted plan was an
+  artist's rendering of what the contracts described. It was the vision, never
+  fully realized. And 0 Clipper/RM-22 is the same kind of pipe dream —
+  beautiful density numbers on paper, impossible on an active landslide.
+- **Jim York's house** — Why did he get to build there? What was the exception
+  or the history that allowed it? Raises the question of precedent.
+- **Catalina Gardens** — Why is it there? Same question. What allowed this
+  development in this area?
+- **Wayfarers Chapel** — Lloyd Wright's chapel had to be disassembled after
+  they started watering the grapes, which triggered slide movement. Same
+  thesis as the plumbing-as-catalyst finding: water + this geology = disaster.
+  If watering grapes destabilized a chapel, what does 16 units of plumbing do?
 
 ---
 
