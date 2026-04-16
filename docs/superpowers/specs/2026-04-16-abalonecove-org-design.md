@@ -429,6 +429,38 @@ These threads tie the sections together and are the real discoveries:
   But the developer has a $2.1M loan (Hankey Capital, Nov 2025). Someone
   intends to build.
 
+- **How AI found Declaration 100/101** — Nobody ever mentioned these
+  documents. AI found the original record/map references on engineering
+  diagrams from the 1930s — the county surveying PV Drive South for the
+  first time. AI pointed out the map document reference, which led to
+  pulling the two declarations. They never mattered because the land was
+  always private. But when Filiorum dissolves and the speculation ends,
+  these restrictions may still apply to the nooks and crannies left behind.
+- **Same typewriter, same letterhead, same signatures** — Declarations
+  100/101 were written on the same typewriter, by the same legal assistant,
+  on the same letterhead, signed by the same people who signed everything
+  else. They defined a Palos Verdes Community Association and an Art Jury
+  (not ARC — Art Jury, same body that governs PVE today).
+- **0 Clipper is just outside the Dec 101 boundary** — visible in the
+  original Olmsted drawings. The lot line is in the artist's rendering.
+- **H.E. Benedict** — called out on the Olmsted drawing as "property of
+  H.E. Benedict" — a separate parcel. He was a Filiorum shareholder and
+  early Vanderlip partner, involved in early parceling with the Lawyer
+  Brothers. The Wayfarers Chapel was built on Benedict's property. Frank
+  Lloyd Wright connection (Lloyd Wright, the son, designed the chapel).
+  Benedict shows up everywhere.
+- **Vanderlip signed both sides** — PV Corp president AND HOA president at
+  the same time. They signed both sides of the same document. The corporation
+  that created the restrictions and the association that enforces them were
+  the same people.
+- **Images to include:** 1882 plat maps from court decision, Vanderlip
+  blueprints, parcel maps for Tract 14649 and sister tracts, Tract 23434,
+  1935 engineering road map, survey points, recorded subdivisions,
+  rededication of Coast Road → Sea Cove Drive, PV Drive South rerouting,
+  Olmsted drawings showing the lot lines and Benedict property.
+- **Butterfly illustration** — blue butterfly on aged paper. Section break
+  image or cover. Available in images.
+
 ---
 
 ## Open Questions
