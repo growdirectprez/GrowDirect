@@ -401,6 +401,20 @@ These threads tie the sections together and are the real discoveries:
   they started watering the grapes, which triggered slide movement. Same
   thesis as the plumbing-as-catalyst finding: water + this geology = disaster.
   If watering grapes destabilized a chapel, what does 16 units of plumbing do?
+- **Parcel 106 and the fire station** — The story of how the landslide
+  reshaped the property map. Parcel 106 is the remainder strip wrapping
+  Tract 14649. Fire Station 53 was carved out of it (APN 7573-006-900).
+  The easements moved because the ground moved. The whole area got parceled
+  out the way it did BECAUSE of the landslide — and now someone wants to
+  build 16 units in the middle of it.
+- **Land bank, not development** — The parcel's value is as a land bank,
+  not for building. Every owner held it speculatively. Nobody built because
+  you can't build. The land became valuable only for holding.
+- **The one loophole** — The Vanderlips invented the declaration system,
+  the Art Jury, the CC&Rs, the covenant structure. But they didn't
+  anticipate a state government that would override all of it with housing
+  element mandates. SB9 is the one California development loophole the
+  Vanderlips didn't invent.
 - **100 years vacant** — "There is a reason a 1.58-acre lot has sat vacant
   for 100 years of California development, owned by the man who invented it."
   Vanderlip could have built anything. Left it vacant. Every owner after him
