@@ -391,6 +391,19 @@ These threads tie the sections together and are the real discoveries:
   they started watering the grapes, which triggered slide movement. Same
   thesis as the plumbing-as-catalyst finding: water + this geology = disaster.
   If watering grapes destabilized a chapel, what does 16 units of plumbing do?
+- **100 years vacant** — "There is a reason a 1.58-acre lot has sat vacant
+  for 100 years of California development, owned by the man who invented it."
+  Vanderlip could have built anything. Left it vacant. Every owner after him
+  left it vacant. That's not an accident — that's the land telling you something.
+- **Infill is the point** — Housing element compliance was designed for infill
+  corridors: Jefferson Blvd in West LA, La Cienega, Pleasanton in the East
+  Bay. Not condos on the beach on an active landslide.
+- **The consulting firm** — City hired a consultant for the April 2025 planning
+  commission. Said this was "just about numbers" and nobody would ever need
+  permits here. Who is this firm? Where do they pop up around the South Bay?
+  Research needed. If no one needs permits, the rezoning is compliance theater.
+  But the developer has a $2.1M loan (Hankey Capital, Nov 2025). Someone
+  intends to build.
 
 ---
 
