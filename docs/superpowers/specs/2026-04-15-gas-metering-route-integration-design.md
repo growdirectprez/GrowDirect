@@ -32,7 +32,7 @@ This is metering, not gating. L402 enforcement is Phase 1 (blocked by Strike API
 
 ## New File
 
-### `canary/services/goose/gas_metered.py` (~30 lines)
+### `canary/services/goose/gas_metered.py` (~40 lines)
 
 Decorator: `@gas_metered(operation_key: str)`
 
@@ -40,14 +40,19 @@ Flow:
 1. Get `merchant_id` from JWT context (`g.merchant_id`)
 2. If no `merchant_id` (unauthenticated request that somehow passed JWT): skip, pass through
 3. Look up wallet via `WalletService.get_wallet(merchant_id)`
-4. If no wallet: auto-provision via `GooseOnboardingService.provision_merchant(merchant_id)` — creates wallet with 100k sats, then proceed to charge
-5. Call `GasMeter.charge(merchant_id, operation_key, reference_id=request_id, reference_type="http_request")`
-6. Log the charge result (charged, cost_sats, wallet status, balance_after)
-7. If wallet goes negative: log warning, pass through (soft gate)
-8. Set `g.gas_charge = charge_result` on request context
-9. Call the wrapped route handler
+4. If no wallet: auto-provision wallet and fund it (see Wallet Provisioning section below)
+5. Look up cost via `GasMeter.get_cost(operation_key, tier=None)`
+6. If cost is 0 or operation not found: skip charge, pass through
+7. Call `WalletService.debit(wallet_id, merchant_id, cost, operation_type=operation_key, reference_id=str(uuid4()), reference_type="http_request")` — this bypasses GasMeter.charge() because charge() blocks on insufficient balance. WalletService.debit() allows negative balances by design.
+8. Log: operation_key, cost_sats, balance_after (from the returned WalletTransaction.balance_after_sats), wallet status
+9. If wallet status is "depleted" or "warning": log warning, pass through (soft gate)
+10. Set `g.gas_cost = cost` and `g.gas_wallet_status = wallet.status` on request context
+11. Commit the session
+12. Call the wrapped route handler
 
-The decorator creates its own DB session, commits the charge, then lets the route handler run with the app's normal session. Same session pattern as the existing `@l402_required`.
+**Session management:** Uses the same Flask scoped session (`get_session()`), not a separate session. Commits the charge before yielding to the route handler. Same pattern as `@l402_required` in `l402_middleware.py`.
+
+**Why bypass GasMeter.charge():** `GasMeter.charge()` checks `WalletService.check_balance()` and returns `charged=False, insufficient=True` when balance is insufficient. This is correct for hard gating but blocks our soft-gate requirement. The decorator uses `GasMeter.get_cost()` for price lookup, then calls `WalletService.debit()` directly to allow negative balances.
 
 ## Route Changes
 
@@ -61,7 +66,7 @@ The decorator creates its own DB session, commits the charge, then lets the rout
 | `/owl/action` | POST | `@jwt_required` | `owl.query.deep` (250 sats) |
 | `/owl/health-check` | POST | `@jwt_required` | `owl.health_check` (500 sats) |
 
-Decorator stack: `@jwt_required` then `@gas_metered(...)`.
+Decorator stack: `@jwt_required` then `@gas_metered(...)`. Note: `owl_api.py` uses `@jwt_required` without parentheses. `fox_wired.py` uses `@jwt_required()` with parentheses. Match whatever each file already uses.
 
 No changes to Owl MCP routes (`/owl/manifest`, `/owl/tools`, `/owl/health`) — those are infrastructure.
 
@@ -89,14 +94,19 @@ Changes:
 
 `/receipt/health` stays public (health check).
 
+**Merchant scoping:** Adding `@jwt_required` means `g.merchant_id` is available. The `_build_receipt()` query currently looks up by `event_hash` or `event_id` without filtering by merchant. Add a `merchant_id` filter to the query so merchants can only look up their own receipts. Cross-merchant lookups return 404.
+
 ## Wallet Provisioning
 
-Merchants who onboarded before Goose don't have wallets. The decorator auto-provisions on first metered request:
+Merchants who onboarded before Goose don't have wallets. The decorator auto-provisions on first metered request.
 
-- Calls `GooseOnboardingService.provision_merchant(merchant_id)`
-- Creates wallet with 100k sats (from `GOOSE_INITIAL_FUNDING_SATS`)
-- Idempotent — safe to call multiple times
-- Merchant never notices, no friction
+**Do NOT use `GooseOnboardingService.provision_merchant()`** — that method also mints a macaroon token as a side effect, creating orphaned macaroon records we don't need. Instead, the decorator provisions directly:
+
+1. Create wallet via `WalletService` (or direct model insert): `MerchantWallet(merchant_id=merchant_id, balance_sats=0, status="active")`
+2. Fund via `TreasuryService.fund_merchant(merchant_id, initial_funding_sats)` where `initial_funding_sats` comes from `GOOSE_INITIAL_FUNDING_SATS` (default 100k)
+3. Commit
+
+This is idempotent — check for existing wallet before creating. Merchant never notices, no friction. No macaroon minted.
 
 ## Soft Gate Behavior
 
@@ -136,18 +146,20 @@ No new dashboards or UI needed — the existing Goose admin routes already expos
 
 Unit tests for `@gas_metered` decorator:
 
-1. Metered request with existing wallet — charges correct amount
-2. Metered request with no wallet — auto-provisions, then charges
-3. Metered request with depleted wallet — charges into negative, passes through
-4. Metered request with no JWT context — skips, passes through
-5. Metered request with unknown operation_key — skips (0 cost), passes through
-6. DB error during charge — logs error, passes through
-7. Verify `g.gas_charge` is set on request context after charge
+1. Metered request with existing wallet — charges correct amount, verify wallet_transaction row created
+2. Metered request with no wallet — auto-provisions (wallet + treasury fund, no macaroon), then charges
+3. Metered request with depleted wallet — debits into negative balance, passes through, logs warning
+4. Metered request with no JWT context (`g.merchant_id` missing) — skips, passes through
+5. Metered request with unknown operation_key — skips (0 cost from `get_cost()`), passes through
+6. DB error during charge — logs error, passes through (never blocks on billing failure)
+7. Verify `g.gas_cost` and `g.gas_wallet_status` set on request context after charge
+8. Auto-provision does NOT mint a macaroon — verify no `MacaroonToken` rows created
 
-Integration test:
+Integration tests:
 
-8. Full flow: JWT auth -> hit Owl endpoint -> verify wallet_transaction created with correct operation_key and cost
-9. Receipt endpoint: previously public, now returns 401 without JWT
+9. Full flow: JWT auth -> hit Owl endpoint -> verify wallet_transaction created with correct operation_key and cost_sats
+10. Receipt endpoint: returns 401 without JWT (previously public)
+11. Receipt endpoint: with JWT, can only look up own merchant's receipts (merchant scoping)
 
 ## Files Changed
 
@@ -156,9 +168,9 @@ Integration test:
 | `canary/services/goose/gas_metered.py` | **New** — decorator implementation |
 | `canary/blueprints/owl_api.py` | Add `@gas_metered` to 5 routes |
 | `canary/blueprints/fox_wired.py` | Add `@gas_metered` to 2 routes |
-| `canary/blueprints/receipt_tsp.py` | Add `@jwt_required` + `@gas_metered` to 2 routes |
-| `tests/unit/test_gas_metered.py` | **New** — 7 unit tests |
-| `tests/integration/test_gas_metered_routes.py` | **New** — 2 integration tests |
+| `canary/blueprints/receipt_tsp.py` | Add `@jwt_required` + `@gas_metered` to 2 routes, add merchant_id scoping to `_build_receipt()` query |
+| `tests/unit/test_gas_metered.py` | **New** — 8 unit tests |
+| `tests/integration/test_gas_metered_routes.py` | **New** — 3 integration tests |
 
 ## Future (Not This Spec)
 
