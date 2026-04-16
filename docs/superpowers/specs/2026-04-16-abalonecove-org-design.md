@@ -161,7 +161,7 @@ Same as OwnPV — another flavor of the existing pipeline:
 | Static site generator | Same as OwnPV | Templates, build pipeline |
 | Hosting | GitHub Pages | abalonecove.org via Cloudflare DNS |
 | Map | Leaflet.js | Existing Cove map module layers/overlays |
-| CSS | Tailwind | New palette appropriate for the brand (abalone shell tones) |
+| CSS | Inline CSS with custom properties | No build step; abalone shell palette |
 | Typography | Georgia / serif stack | Matches the letterhead aesthetic |
 
 ### Brand Identity
