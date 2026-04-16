@@ -48,6 +48,61 @@
 
 ---
 
+## Chunk 0: Wiki Consolidation (Pre-Requisite)
+
+Before building the site, consolidate Brain wiki articles so the source
+material is current. This session surfaced many narrative threads that
+aren't yet in the wiki.
+
+### Task 0: Brain wiki consolidation pass
+
+- [ ] **Step 1: Audit current wiki articles against this session's discoveries**
+
+Check each `Brain/wiki/cove-*.md` article for:
+- Declaration 100/101 Art Jury and red tile district (cove-pv-declaration-scheme)
+- Lot H as negative space declaration (cove-lot-h-discovery, cove-legal-framework)
+- Olmsted map as artist's rendering / dream, not built reality (cove-community-history)
+- Beach path contradiction (city uses CC&Rs as obstacle vs. ignores them for developer)
+- Wayfarers Chapel destabilization from watering grapes (cove-property-geology)
+- Jim York house and Catalina Gardens questions (cove-property-geology or new)
+- Vanderlip HOA discovery moment (cove-community-history)
+- Davis-Stirling + electronic voting as AI journey origin (cove-governance)
+- Previous homeowner as 1950s board member + Shore Club director (cove-community-history)
+- Hartman/Wong subdivision not raised during planning commission (cove-0-clipper)
+- 1882 Superior Court partition as legal genesis (cove-community-history)
+- The Lawyer Brothers and Depression-era legal vehicles (cove-community-history — GAP)
+- Filiorum Corporation detailed timeline (cove-pv-declaration-scheme)
+
+- [ ] **Step 2: Check pgvector knowledge chunks for unmigrated research**
+
+Query `knowledge_chunks` table in the cove database for content that
+never made it into wiki articles. Look for chunks related to:
+- Declaration 100, 101, Filiorum
+- Shore Club, Abalone Shore Club
+- Vanderlip, PV Corporation
+- Geological reports, landslide
+- Coastal Specific Plan, SB9
+
+- [ ] **Step 3: Update wiki articles with new material**
+
+Update each article using `mcp__obsidian__*` tools. Add new sections or
+expand existing ones. Don't rewrite what's already good — add what's missing.
+
+- [ ] **Step 4: Verify narrative continuity across wiki articles**
+
+Read through all updated articles in sequence. Does the story flow from
+one article to the next? Are there contradictions? Cross-link where needed.
+
+- [ ] **Step 5: Commit wiki changes**
+
+```bash
+cd ~/GrowDirect
+git add Brain/wiki/cove-*.md
+git commit -m "wiki: consolidate cove articles with session discoveries"
+```
+
+---
+
 ## Chunk 1: Repository Setup and Site Shell
 
 ### Task 1: Create repo and deploy empty site
