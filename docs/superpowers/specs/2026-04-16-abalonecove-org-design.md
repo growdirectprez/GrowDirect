@@ -104,7 +104,15 @@ legal description comparison. What one person can do now.
 
 ### 12. The Absurdity (~400 words)
 FEMA declarations. Flashing signs. The fire station driveway. 2+ inches
-per week. Sixteen units.
+per week. Sixteen units. And the HOA — the enforcement mechanism the
+Vanderlips built in 1949 — can't function. $20/month dues can't fund
+legal action. Board members who try to enforce get personally named in
+lawsuits. Neighbors sue each other and the board can't intervene without
+D&O insurance it can't afford. The state tells HOAs they can't restrict
+development (SB9, AB 670) while courts say CC&Rs still have teeth
+(Carlsbad, April 2026). The city ignores the same CC&Rs when a developer
+wants to build. The governance structure designed to protect this land
+is toothless — by economics, by liability, by design.
 
 ### 13. Why? (~300 words)
 No call to action. Just the question. The record is right there.
@@ -370,6 +378,14 @@ These threads tie the sections together and are the real discoveries:
   or the history that allowed it? Raises the question of precedent.
 - **Catalina Gardens** — Why is it there? Same question. What allowed this
   development in this area?
+- **HOA enforcement paralysis** — The governance structure the Vanderlips
+  built is toothless in 2026. $20/month dues can't fund legal action. Board
+  members get personally named when they try to enforce. Neighbors sue each
+  other and the board can't intervene without D&O coverage the HOA can't
+  afford. Meanwhile: state says HOAs can't restrict (SB9, AB 670), courts
+  say CC&Rs still apply (Carlsbad April 2026 ruling), city ignores CC&Rs
+  when it suits a developer. CalMatters article (April 2026) confirms HOA
+  authority is "largely unregulated by state enforcement agencies."
 - **Wayfarers Chapel** — Lloyd Wright's chapel had to be disassembled after
   they started watering the grapes, which triggered slide movement. Same
   thesis as the plumbing-as-catalyst finding: water + this geology = disaster.
