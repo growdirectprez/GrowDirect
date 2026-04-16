@@ -130,15 +130,19 @@ primary document.
 
 Companion to the narrative. Not the homepage. Features:
 
-- Parcel boundaries (Tract 14649, Tract 43725)
+- Parcel boundaries (Tract 14649, Tract 32977/43725 — Wong subdivision area)
 - Declaration coverage zones (which declarations apply where)
-- Geological hazard overlay (APBL boundary, active slide zone)
+- Geological hazard overlay (existing `landslide-complex` + `landslide-moratorium` layers; APBL boundary may need new GeoJSON work)
 - Coastal zone boundary
 - Shore Club / Shoreline Park footprint
 - 0 Clipper parcel highlighted
 - Clickable parcels → deed chain, HOA membership, zoning
 
 Built on existing Cove map module work (Leaflet, GeoJSON layers, manifests).
+Note: porting from Flask-served dynamic app to static GitHub Pages requires
+extracting client-side JS and GeoJSON loading from the Flask wrapper. Some
+layers (Shore Club footprint, APBL boundary) may need new GeoJSON work.
+Declaration layers partially exist (101 parcels 1-7, Declaration One, One-A).
 
 ---
 
@@ -150,7 +154,7 @@ Same as OwnPV — another flavor of the existing pipeline:
 |-----------|------|-------|
 | Content source | Brain wiki (`Brain/wiki/cove-*`) | Existing articles rewritten for editorial voice |
 | Narrative source | Documentary record sections | `Cove/docs/archive/report/section-*.md` — spine already exists |
-| Content engine | `content-engine/` | Rewrites archival content into Sunday magazine voice |
+| Content engine | `content-engine/` | Scans/triages content; voice rewriting done in Cowork sessions |
 | Static site generator | Same as OwnPV | Templates, build pipeline |
 | Hosting | GitHub Pages | abalonecove.org via Cloudflare DNS |
 | Map | Leaflet.js | Existing Cove map module layers/overlays |
@@ -249,7 +253,32 @@ Parallel to content work:
 | Letterhead template | Existing (abalone shell logo) | Brand identity |
 | OwnPV site architecture | Existing repo | Template for static site build |
 | Content engine | `content-engine/` | Editorial content production |
-| Primary source PDFs | `Cove/docs/archive/report/sources/` | Evidence room documents |
+| Primary source PDFs | To be assembled (not yet in repo) | Evidence room documents |
+
+---
+
+## Narrative Details (for spine baseline session)
+
+These details came out of the brainstorm and should be woven into the spine:
+
+- **The house:** Architect's blueprints found in the garage — what drew the
+  author to the house. Don't reveal the address.
+- **The previous owner:** Thomas Hartman (28 Sea Cove) was on the board. Now
+  the author is on the board. And the author found the documents. The continuity
+  of stewardship — and the irony that Hartman sold the 0 Clipper parcel to
+  Clipper Development LLC.
+- **Davis-Stirling + technology:** The AI journey started with a practical
+  question — wondering about electronic voting and what technology could do
+  for HOA governance (Sterling Davis-Stirling Act). That question led to
+  exploring AI tools, which led to the document research, which uncovered the
+  whole history.
+- **"Here's something you didn't know about LA"** — the hook. Even people who
+  think they know PV don't know this story. The site becomes where the full
+  timeline lives for the first time, and invites readers who know other pieces
+  to fill in gaps.
+- **Don't get long-winded.** Keep it LA Times Sunday Home section. Clean prose,
+  tight paragraphs. Let the facts breathe. The author's personal story is
+  connective tissue, not the centerpiece.
 
 ---
 
