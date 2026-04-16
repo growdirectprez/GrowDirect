@@ -132,8 +132,9 @@ The hero uses a gradient overlay on a background image. Current: `rgba(28,58,74,
 - Section dividers — thin (1-2px) horizontal rules between major content blocks
 - Pull-quote left borders (3-4px vertical accent)
 - Decorative underlines or keylines
-- **Decorative only. Never as text color.** Copper at 2.9:1 contrast fails AA at every level. Eyebrow label *text* uses `--stone` (#3D3D3D); a copper underline or rule can sit below it for warmth.
-- **Never as a button color, link color, or any interactive element.**
+- **On light backgrounds (#F7F5F2 foam, #EDE8E0 sand): decorative only, never as text.** Copper at 2.9:1 on foam fails AA at every level. Eyebrow label *text* on light backgrounds uses `--stone`; a copper underline or rule can sit below for warmth.
+- **On dark backgrounds (#1A1A1A ink): copper IS allowed as text.** Copper on ink = 5.4:1, passing AA. Use for eyebrow labels, feature numbers, section tags, italic accents, and decorative numerals on dark sections. This is the primary way copper adds editorial warmth to the site.
+- **Never as a button color, link color, or any interactive element** (regardless of background).
 
 ## Error State Rules
 
