@@ -89,10 +89,13 @@ RPV incorporates 1973 to stop developers. Coastal Act 1976. Coastal Specific
 Plan 1978. SB4. Layer after layer built to prevent exactly this.
 
 ### 9. The Wong Subdivision (~300 words)
-1980. Proper density already established. Chain of title to Clipper
-Development LLC. The city didn't allow the Hartmans to go beyond what was
-in the 1980 subdivision — and then that subdivision somehow never came up
-during the planning commission hearings or the lawsuit. Why not?
+1980. Proper density already established. Chain of title: Wong → Hartman
+(held 16 years, couldn't build, sold) → Clipper Development LLC. Clipper
+isn't a savvy developer who found a deal nobody else saw — they're the
+latest speculator left holding the bag on land that has defeated every
+owner for a century. The city didn't allow the Hartmans to go beyond
+what was in the 1980 subdivision — and then that subdivision somehow
+never came up during the planning commission or the lawsuit. Why not?
 
 ### 10. The Rezoning (~500 words)
 Three ordinances in 63 days. HCD says Site 16 can be removed. City keeps it.
