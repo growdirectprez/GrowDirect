@@ -108,6 +108,8 @@ per week. Sixteen units.
 
 ### 13. Why? (~300 words)
 No call to action. Just the question. The record is right there.
+Last line: "And so we created a 501(c)(3) to prevent them from paving
+this piece of paradise."
 
 ---
 
