@@ -5,6 +5,9 @@ status: active
 created: 2026-03-18
 updated: 2026-03-19
 ---
+
+**Wiki:** [[Brain/wiki/canary-architecture|Canary Architecture]]
+
 # GrowDirect Manifesto
 
 **Version:** 1.2

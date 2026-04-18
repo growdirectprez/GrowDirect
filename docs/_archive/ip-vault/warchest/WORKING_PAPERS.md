@@ -7,6 +7,8 @@ updated: 2026-03-19
 ---
 # GrowDirect Working Papers — Master Index
 
+**Wiki:** [[Brain/wiki/canary-architecture|Canary Architecture]]
+
 > *"Content orchestration has to be tight from the top or it will go haywire."*
 
 ---

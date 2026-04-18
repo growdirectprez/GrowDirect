@@ -7,6 +7,8 @@ updated: 2026-03-19
 ---
 # PRD — .jeffe Namespace Registration v1.0
 
+**Wiki:** [[Brain/wiki/canary-architecture|Canary Architecture]]
+
 **Version:** 1.4.0
 **Date:** March 4, 2026
 **Change Log:** v1.1.0 — GUID permanence, revocation cost model, cross-PRD interface contract. v1.2.0 — No alias reservation, GUID-only pre-minting, anti-speculation gate. v1.3.0 — Customer offboarding flow, DAO multi-sig key strategy, lifecycle expansion. v1.4.0 — Legal questions positioned with GrowDirect thesis, "exit not transfer" model for Q-11, Syd action items.

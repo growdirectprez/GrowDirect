@@ -5,6 +5,9 @@ status: active
 created: 2026-03-19
 updated: 2026-03-19
 ---
+
+**Wiki:** [[Brain/wiki/canary-architecture|Canary Architecture]]
+
 # Canary LP — The Factory Process
 **Document Type:** Program Management Standard Operating Procedure
 **Version:** 1.0

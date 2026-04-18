@@ -24,7 +24,7 @@ All three signed by Kelvin C. Vanderlip (President) and John H. Robertson (Assis
 
 ### Enhancement Layer (1950)
 
-**Lot "H" Declaration** (January 25, 1950, Book 32160, Page 26) — the catch-all. Covers ALL undeveloped PV Corp land in the Portuguese Bend area except for 11 named tracts. Single-family only. Auto-renews every 10 years from January 1, 1975. Currently in Renewal 6 (through January 1, 2035). No termination agreement has ever been recorded. See [[Brain/wiki/cove-lot-h-discovery|Lot H Discovery]].
+**Lot "H" Declaration** (January 25, 1950, Book 32160, Page 26) — **CORRECTED: contains only racial exclusionary language (now void under Cal. Civ. Code § 12955), NOT architectural or building restrictions.** Covers all undeveloped PV Corp land in Portuguese Bend except 11 named tracts. Auto-renews every 10 years from January 1, 1975 (currently Renewal 6, through 2035). However, since its only substantive restriction is the voided racial covenant, **it provides no enforceable building controls over parcels outside Tract 14649.** The architectural controls in the 2009 Restated Declaration trace back to Declaration No. One (1949), not this instrument. See [[Brain/wiki/cove-lot-h-discovery|Lot H Discovery]] for full analysis of the correction.
 
 **Declaration One-A** (October 30, 1950, Book 34817, Page 254) — oceanfront protections. Adds a 40-foot bluff setback, 4-foot height limit oceanward of the bluff edge, 20-foot Sea Cove Drive setback, vegetation restrictions, and fence approval requirements. Applies only to Lots 1-5.
 
@@ -67,14 +67,28 @@ This is a case of first impression — no California court has ever ruled on whe
 
 Five major vulnerabilities identified in [[Cove/docs/admin/research/risk/legal-risk-assessment|Legal Risk Assessment]]:
 
-1. **Lot H doesn't cover APN 7573-006-024** — Likelihood: Low, Severity: Critical. Mitigation: title search.
+1. **Lot H contains no enforceable building restrictions** — Likelihood: CONFIRMED (April 2026). The 1950 Lot H Declaration's only substantive content was a racial covenant, now void. Declaration No. One's architectural controls apply only to Tract 14649. This fundamentally changes the CC&R defense theory. Remaining question: did PV Corp record any OTHER instrument covering APN 7573-006-024?
 2. **Restrictions were released** — Likelihood: Medium, Severity: Critical. Mitigation: complete chain of title.
 3. **Restrictions expired or abandoned** — Likelihood: Low (auto-renewal language is strong).
 4. **Changed circumstances** — Likelihood: Medium (5 and 7 Clipper have R-4 condos).
 5. **WPBCA lacks standing for Lot H** — Likelihood: Medium. Mitigation: individual lot owner plaintiffs as backup.
 
 ## Related
-- [[Brain/wiki/cove-lot-h-discovery|Lot H Discovery]] — the key finding
+- [[Brain/wiki/cove-lrpmp|LRPMP]] — RDA property inventory, Horan Agreement, federal LWCF and Ecological Reserve encumbrances, Landslide Moratorium- [[Brain/wiki/cove-rpv-redevelopment-conveyance|RPV Redevelopment Conveyance (2014)]] — 11 governmental-use properties transferred to city, including Abalone Cove Shoreline Park parcels adjacent to 0 Clipper- [[Brain/wiki/cove-lot-h-discovery|Lot H Discovery]] — the key finding
 - [[Brain/wiki/cove-0-clipper|0 Clipper Road]] — the threat
 - [[Brain/wiki/cove-governance|Governance & Operations]]
+- [[Brain/wiki/cove-community-history|Community History]]
 - [[Cove/docs/site/narrative|The Story of Abalone Cove]]
+
+## Sources — Founding Instruments (Transcriptions)
+- [[Cove/docs/archive/originals/transcriptions/1949-WPBCA-Declaration-No-One-Verbatim|1949 Declaration No. One (Verbatim)]]
+- [[Cove/docs/archive/originals/transcriptions/1949-WPBCA-Declaration|1949 Declaration No. One (Clean)]]
+- [[Cove/docs/archive/originals/transcriptions/1949-Declaration-of-Easements-Verbatim|1949 Declaration of Easements (Verbatim)]]
+- [[Cove/docs/archive/originals/transcriptions/1949-Declaration-of-Easements|1949 Declaration of Easements (Clean)]]
+- [[Cove/docs/archive/originals/transcriptions/1949-Modification-of-Protective-Restrictions-Verbatim|1949 Modification of Protective Restrictions]]
+- [[Cove/docs/archive/originals/transcriptions/1950-Lot-H-Declaration-Verbatim|1950 Lot H Declaration]]
+- [[Cove/docs/archive/originals/transcriptions/1950-Declaration-One-A-Verbatim|1950 Declaration One-A]]
+- [[Cove/docs/archive/originals/transcriptions/1952-PVCorp-Grant-Deed-Lot1-Verbatim|1952 PV Corp Grant Deed (Verbatim)]]
+- [[Cove/docs/archive/originals/transcriptions/1952-PVCorp-Grant-Deed-Lot1|1952 PV Corp Grant Deed (Clean)]]
+- [[Cove/docs/archive/originals/transcriptions/2009-Restated-Declaration-Text|2009 Restated Declaration]]
+- [[Cove/docs/archive/originals/transcriptions/bylaws-full|2012 Bylaws (Full Text)]]

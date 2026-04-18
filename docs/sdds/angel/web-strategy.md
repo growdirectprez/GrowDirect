@@ -7,7 +7,8 @@
 > **Author:** ALX (COO) / Jeffe (CEO)
 > **Dependencies:** Angel data platform, Angel Agent sidecar, Cove Flask
 
-**Wiki:** [[Brain/wiki/south-bay-wiki-architecture|South Bay Wiki Architecture]] · [[Brain/projects/Angel|Angel MOC]]
+**Wiki:** [[Brain/wiki/south-bay-wiki-architecture|South Bay Wiki Architecture]] · [[Brain/wiki/angel-content-engine|Angel Content Engine]] · [[Brain/wiki/angel-ninja-selling|Angel Ninja Selling]] · [[Brain/projects/Angel|Angel MOC]]
+**Parent:** [[docs/sdds/angel/angel-overview|Angel Overview]]
 
 ---
 

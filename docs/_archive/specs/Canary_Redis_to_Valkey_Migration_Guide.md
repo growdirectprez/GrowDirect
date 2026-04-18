@@ -8,6 +8,8 @@ updated: 2026-03-19
 # CANARY LP / GROWDIRECT
 ## Technical Migration Guide: Redis 7.2 → Valkey 8.0
 
+**Wiki:** [[Brain/wiki/canary-architecture|Canary Architecture]]
+
 **DATE:** February 21, 2026
 **PREPARED FOR:** Jeremy (Developer Quant)
 **SCOPE:** Redis → Valkey drop-in replacement

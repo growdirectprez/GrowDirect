@@ -1,5 +1,7 @@
 # Platform Security Hardening — Implementation Plan
 
+**Wiki:** [[Brain/wiki/canary-architecture|Canary Architecture]]
+
 > **For agentic workers:** REQUIRED: Use superpowers:subagent-driven-development (if subagents available) or superpowers:executing-plans to implement this plan. Steps use checkbox (`- [ ]`) syntax for tracking.
 
 **Goal:** Address 30 security audit findings across shared infrastructure, Canary, and Cove — prioritized by blast radius and exploitability.

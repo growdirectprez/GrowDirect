@@ -1,6 +1,7 @@
 # UI/BFF (Backend for Frontend)
 
 **Wiki:** [[Brain/wiki/canary-architecture|Canary Architecture]]
+**Architecture:** [[docs/sdds/canary/architecture|Canary Architecture SDD]]
 **Service type:** App Service (Canary)
 **Last reviewed:** 2026-04-13
 

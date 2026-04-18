@@ -8,6 +8,8 @@ updated: 2026-03-19
 # B-068-A: Partition Architecture Specification
 ## Per-Merchant Composite Partition Design for canary_sales
 
+**Wiki:** [[Brain/wiki/canary-architecture|Canary Architecture]]
+
 **Version:** 1.0
 **Date:** February 28, 2026
 **Author:** Tom (Systems Architect)

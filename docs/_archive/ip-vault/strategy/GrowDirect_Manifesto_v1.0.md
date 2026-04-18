@@ -5,6 +5,9 @@ status: superseded\nsuperseded_by: "[[GrowDirect_Manifesto_v1.1]]"
 created: 2026-03-19
 updated: 2026-03-19
 ---
+
+**Wiki:** [[Brain/wiki/canary-architecture|Canary Architecture]]
+
 # GrowDirect Manifesto
 *The master source. The doctrine. The spine everything else maps to.*
 

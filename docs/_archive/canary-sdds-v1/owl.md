@@ -1,4 +1,6 @@
-# Owl Intelligence Brain
+# Owl Intelligence
+
+**Wiki:** [[Brain/wiki/canary-architecture|Canary Architecture]] Brain
 
 > **Status:** Complete — written from code
 > **Namespace:** canary

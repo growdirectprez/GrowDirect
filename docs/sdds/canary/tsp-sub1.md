@@ -1,7 +1,10 @@
 # TSP Sub 1 -- Hash & Seal Evidence Writer
 
+**Wiki:** [[Brain/wiki/canary-architecture|Canary Architecture]]
+**Architecture:** [[docs/sdds/canary/architecture|Canary Architecture SDD]]
+
 > **Type:** App Service (Canary) -- Stream Consumer
-> **Parent SDD:** [tsp.md](tsp.md)
+> **Parent SDD:** [[docs/sdds/canary/tsp|TSP Pipeline Overview]]
 > **Status:** Production Readiness Review -- 2026-04-13
 > **Code location:** `Canary/canary/services/tsp/consumers/sub1_seal.py`
 > **Patent:** FIG. 1 Node 3, FIG. 2 T+15ms Sub 1 lane

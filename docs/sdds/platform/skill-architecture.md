@@ -5,7 +5,8 @@
 > **Date:** 2026-03-30 (ops upgrade 2026-04-13)
 > **Linear:** GRO-378
 
-**Wiki:** [[Brain/wiki/document-management|Document Management]]
+**Wiki:** [[Brain/wiki/document-management|Document Management]] · [[Brain/wiki/growdirect-workflow|GrowDirect Workflow]]
+**Related:** [[docs/sdds/platform/factory-pipeline|Factory Pipeline]] · [[docs/sdds/platform/memory-bus|Memory Bus]]
 
 ---
 

@@ -7,6 +7,8 @@ updated: 2026-03-19
 ---
 # Canary Lightning Network Strategy — Executive Summary v2.0
 
+**Wiki:** [[Brain/wiki/canary-architecture|Canary Architecture]]
+
 **Author:** Syd, Legal Counsel & PR  
 **Date:** February 16, 2026  
 **Version:** 2.0 (Strategic Positioning Corrected)  

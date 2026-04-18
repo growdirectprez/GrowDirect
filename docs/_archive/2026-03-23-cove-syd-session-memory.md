@@ -1,5 +1,7 @@
 # Cove — Session Memory (Syd)
 
+**Wiki:** [[Brain/wiki/cove-governance|Cove Governance]]
+
 Last updated: 2026-03-23
 
 ## Project

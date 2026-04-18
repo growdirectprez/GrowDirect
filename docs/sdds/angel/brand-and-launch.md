@@ -7,7 +7,8 @@
 > **Author:** ALX (COO) / Jeffe (CEO)
 > **Audience:** Internal (GrowDirect) + Angelique Lyle pitch
 
-**Wiki:** [[Brain/wiki/south-bay-wiki-architecture|South Bay Wiki Architecture]] · [[Brain/projects/Angel|Angel MOC]]
+**Wiki:** [[Brain/wiki/south-bay-wiki-architecture|South Bay Wiki Architecture]] · [[Brain/wiki/angel-brand-and-team|Angel Brand & Team]] · [[Brain/wiki/angel-voice-training|Angel Voice Training]] · [[Brain/projects/Angel|Angel MOC]]
+**Parent:** [[docs/sdds/angel/angel-overview|Angel Overview]]
 
 ---
 

@@ -7,6 +7,8 @@ updated: 2026-03-19
 ---
 # ADR-001: Multi-Tenant Partition Architecture — Organization → Merchant
 
+**Wiki:** [[Brain/wiki/canary-architecture|Canary Architecture]]
+
 **Status:** Accepted (Jeffe, 2026-03-04)
 **Date:** 2026-03-04
 **Deciders:** Jeffe (CEO), Tom (Systems Architect), Syd (Legal — FCRA)

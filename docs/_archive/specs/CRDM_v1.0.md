@@ -7,6 +7,8 @@ updated: 2026-03-19
 ---
 # CRDM — Canary Retail Data Model
 
+**Wiki:** [[Brain/wiki/canary-architecture|Canary Architecture]]
+
 **It's transactional. Everything else is window dressing.**
 
 **Version:** 1.0

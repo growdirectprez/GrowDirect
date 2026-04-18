@@ -6,6 +6,7 @@
 > **Code location:** `Canary/canary/utils/crypto.py`, `Canary/canary/models/app/oauth.py`, `Canary/canary/services/square_oauth.py`, `Canary/canary/blueprints/square_oauth_wired.py`, `Canary/canary/services/identity/external_id_resolver.py`, `Canary/canary/services/parsers/`
 > **Linear:** GRO-53, GRO-130, GRO-159, GRO-174, GRO-237, GRO-248, GRO-267, GRO-266, GRO-288, GRO-299, GRO-386
 > **Wiki:** [[Brain/wiki/canary-architecture|Canary Architecture]]
+> **Architecture:** [[docs/sdds/canary/architecture|Canary Architecture SDD]]
 
 ---
 

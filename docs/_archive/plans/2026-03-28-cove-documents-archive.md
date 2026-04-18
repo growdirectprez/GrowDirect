@@ -1,5 +1,7 @@
 # Cove Documents & Archive Redesign Implementation Plan
 
+**Wiki:** [[Brain/wiki/cove-governance|Cove Governance]]
+
 > **For agentic workers:** REQUIRED: Use superpowers:subagent-driven-development (if subagents available) or superpowers:executing-plans to implement this plan. Steps use checkbox (`- [ ]`) syntax for tracking.
 
 **Goal:** Add three-tier document access (member/arc/board) to the Vault, gate the Archive to ARC/board/admin, and add a promote-from-archive flow.

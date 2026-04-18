@@ -1,5 +1,8 @@
 # Fox — Case Management & Evidence Locker
 
+**Wiki:** [[Brain/wiki/canary-architecture|Canary Architecture]]
+**Architecture:** [[docs/sdds/canary/architecture|Canary Architecture SDD]]
+
 ## Purpose
 
 Fox is Canary's case management and evidence locker domain -- "The Vault" in the mobile UX. It bridges automated anomaly detection (Chirp alerts) and human investigation workflows. When a merchant decides an alert warrants investigation, Fox creates a case, links originating alerts, tracks subjects of interest, stores evidence with cryptographic chain-of-custody integrity, and maintains an append-only audit timeline. Fox handles sensitive investigation data including employee identifiers, investigation narratives, and uploaded evidentiary files.

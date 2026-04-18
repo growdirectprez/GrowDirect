@@ -5,9 +5,10 @@
 > **Namespace:** cove
 > **Last updated:** 2026-04-13
 > **Code location:** `Cove/cove/models/governance.py`, `Cove/cove/governance/services.py`, `Cove/cove/governance/election_services.py`, `Cove/migrations/versions/c3a1f9b2d4e7_enable_rls_on_ballot_envelopes.py`
-> **Parent SDD:** [`secret-ballot-elections.md`](secret-ballot-elections.md) -- election orchestration, lifecycle, API contract
+> **Parent SDD:** [[docs/sdds/cove/secret-ballot-elections|Secret Ballot Elections]] -- election orchestration, lifecycle, API contract
 
 **Wiki:** [[Brain/wiki/cove-governance|Cove Governance]]
+**Architecture:** [[docs/sdds/cove/architecture|Cove Architecture]]
 
 ---
 
@@ -21,7 +22,7 @@ This SDD documents the most sensitive data handling in the Cove platform: the tw
 4. The chain hash integrity model
 5. The inspector role and its scoped access
 
-This is the security-critical companion to [secret-ballot-elections.md](secret-ballot-elections.md). Any code change touching `ballots`, `ballot_envelopes`, `election_choices`, or RLS policies must be reviewed against this document.
+This is the security-critical companion to [[docs/sdds/cove/secret-ballot-elections|Secret Ballot Elections]]. Any code change touching `ballots`, `ballot_envelopes`, `election_choices`, or RLS policies must be reviewed against this document.
 
 ---
 

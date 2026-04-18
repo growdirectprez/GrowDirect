@@ -31,6 +31,9 @@ Residential property at 25 Seacove Drive, Rancho Palos Verdes. Part of WPBCA Tra
 - `ARC/25 Seacove Blueprints/25 Seacove-A1.pdf`
 - `ARC/25 Seacove Blueprints/25 Seacove-A2.pdf`
 
+## System Design Documents
+- [[docs/sdds/arc/seacove-site-plan|Seacove Site Plan]] — Property survey, boundary verification, elevation data
+
 ## Wiki
 - [[Brain/wiki/seacove-project|Project Overview]] — property history, ARC pipeline, permit context
 

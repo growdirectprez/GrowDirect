@@ -1,15 +1,15 @@
 ---
 date: 2026-04-10
 type: wiki
-status: |-
-  draft
-  last-compiled: 2026-04-10
+status: draft
 tags:
   - angel
   - content-strategy
   - south-bay
   - palos-verdes
   - angelique
+sources: []
+last-compiled: 2026-04-10
 ---
 
 # South Bay Wiki — Content Architecture

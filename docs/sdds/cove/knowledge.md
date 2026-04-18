@@ -5,7 +5,8 @@
 **Last updated:** 2026-04-13
 **Server:** `cove.mcp.server` (stdio transport)
 **Model:** `cove/models/knowledge.py`
-**Wiki:** [[Brain/wiki/cove-governance|Cove Governance]]
+**Wiki:** [[Brain/wiki/cove-governance|Cove Governance]] | [[Brain/wiki/cove-legal-framework|Cove Legal Framework]]
+**Architecture:** [[docs/sdds/cove/architecture|Cove Architecture]]
 
 ---
 

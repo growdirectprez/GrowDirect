@@ -1,7 +1,10 @@
 # TSP Sub 3 -- Merkle Batcher & Ordinal Minter
 
+**Wiki:** [[Brain/wiki/canary-architecture|Canary Architecture]]
+**Architecture:** [[docs/sdds/canary/architecture|Canary Architecture SDD]]
+
 > **Type:** App Service (Canary) -- Stream Consumer
-> **Parent SDD:** [tsp.md](tsp.md)
+> **Parent SDD:** [[docs/sdds/canary/tsp|TSP Pipeline Overview]]
 > **Status:** Production Readiness Review -- 2026-04-13
 > **Code location:** `Canary/canary/services/tsp/consumers/sub3_merkle.py`, `Canary/canary/services/tsp/merkle.py`
 > **Patent:** FIG. 1 Nodes 5/6

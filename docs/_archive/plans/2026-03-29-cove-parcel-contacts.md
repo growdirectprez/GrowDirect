@@ -1,5 +1,7 @@
 # Parcel Contacts & Profile Tiles Implementation Plan
 
+**Wiki:** [[Brain/wiki/cove-governance|Cove Governance]]
+
 > **For agentic workers:** REQUIRED: Use superpowers:subagent-driven-development (if subagents available) or superpowers:executing-plans to implement this plan. Steps use checkbox (`- [ ]`) syntax for tracking.
 
 **Goal:** Add structured contact records per parcel with board-managed CRUD, and redesign the directory detail view as an APN-centric tile page.

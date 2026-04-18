@@ -9,7 +9,8 @@
 > **Timeline:** April 7 - June 12, 2026 (10 weeks)
 > **ADR:** `docs/decisions/2026-04-06-angel-as-cove-module.md`
 
-**Wiki:** [[Brain/wiki/south-bay-wiki-architecture|South Bay Wiki Architecture]] · [[Brain/projects/Angel|Angel MOC]]
+**Wiki:** [[Brain/wiki/south-bay-wiki-architecture|South Bay Wiki Architecture]] · [[Brain/wiki/angel-architecture|Angel Architecture]] · [[Brain/projects/Angel|Angel MOC]]
+**Parent:** [[docs/sdds/angel/angel-overview|Angel Overview]]
 
 ---
 
@@ -151,12 +152,12 @@ GRO-465 (DONE) → GRO-466 (DONE) + GRO-467 + GRO-469 (DONE)
 
 | SDD | Issues |
 |-----|--------|
-| `data-platform.md` | GRO-457, GRO-458, GRO-459 |
-| `angel-agent.md` | GRO-461, GRO-462, GRO-463, GRO-464 |
-| `web-strategy.md` | GRO-465, GRO-466, GRO-467, GRO-468, GRO-469, GRO-470, GRO-471, GRO-472, GRO-474, GRO-475 |
-| `brand-and-launch.md` | GRO-460, GRO-470 |
-| `lp-integration.md` | GRO-474, GRO-475 |
-| `angel-overview.md` | All (master reference) |
+| [[docs/sdds/angel/data-platform|Data Platform]] | GRO-457, GRO-458, GRO-459 |
+| [[docs/sdds/angel/angel-agent|Angel Agent]] | GRO-461, GRO-462, GRO-463, GRO-464 |
+| [[docs/sdds/angel/web-strategy|Web Strategy]] | GRO-465, GRO-466, GRO-467, GRO-468, GRO-469, GRO-470, GRO-471, GRO-472, GRO-474, GRO-475 |
+| [[docs/sdds/angel/brand-and-launch|Brand & Launch]] | GRO-460, GRO-470 |
+| [[docs/sdds/angel/lp-integration|LP Integration]] | GRO-474, GRO-475 |
+| [[docs/sdds/angel/angel-overview|Angel Overview]] | All (master reference) |
 
 ---
 

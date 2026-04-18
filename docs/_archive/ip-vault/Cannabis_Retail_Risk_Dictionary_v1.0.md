@@ -5,6 +5,9 @@ status: active
 created: 2026-03-19
 updated: 2026-03-19
 ---
+
+**Wiki:** [[Brain/wiki/canary-architecture|Canary Architecture]]
+
 # Cannabis Retail Risk Dictionary & Integration Spec
 **Version:** 1.0
 **Date:** February 17, 2026

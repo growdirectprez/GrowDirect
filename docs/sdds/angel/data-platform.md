@@ -7,7 +7,8 @@
 > **Author:** ALX (COO) / Jeffe (CEO)
 > **Dependencies:** Cove parcel model, shared PostgreSQL, Valkey
 
-**Wiki:** [[Brain/wiki/south-bay-wiki-architecture|South Bay Wiki Architecture]] · [[Brain/projects/Angel|Angel MOC]]
+**Wiki:** [[Brain/wiki/south-bay-wiki-architecture|South Bay Wiki Architecture]] · [[Brain/wiki/angel-data-platform|Angel Data Platform]] · [[Brain/wiki/angel-market-intelligence|Angel Market Intelligence]] · [[Brain/projects/Angel|Angel MOC]]
+**Parent:** [[docs/sdds/angel/angel-overview|Angel Overview]]
 
 ---
 

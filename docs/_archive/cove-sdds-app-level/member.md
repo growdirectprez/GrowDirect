@@ -4,6 +4,8 @@
 **Last updated:** 2026-03-29
 **Blueprint:** `member_bp`, registered at `/member`
 
+**Wiki:** [[Brain/wiki/cove-governance|Cove Governance]]
+
 ---
 
 ## Overview

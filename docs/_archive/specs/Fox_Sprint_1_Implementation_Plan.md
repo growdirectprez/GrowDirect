@@ -7,6 +7,8 @@ updated: 2026-03-19
 ---
 # Fox Sprint 1 Implementation Plan
 
+**Wiki:** [[Brain/wiki/canary-architecture|Canary Architecture]]
+
 **Sprint:** Fox Sprint 1 - Core Case Management
 **Target:** Q2 2026
 **Goal:** A store manager can create a case in 60 seconds after an incident

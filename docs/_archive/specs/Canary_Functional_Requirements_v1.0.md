@@ -7,6 +7,8 @@ updated: 2026-03-19
 ---
 # Canary LP — Functional Requirements
 
+**Wiki:** [[Brain/wiki/canary-architecture|Canary Architecture]]
+
 **Version:** 1.0
 **Date:** February 21, 2026
 **Author:** Eva (Program Manager)

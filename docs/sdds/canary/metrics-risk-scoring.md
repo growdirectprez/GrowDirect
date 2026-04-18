@@ -1,12 +1,15 @@
 # Metrics & Analytics — Risk Scoring & Analytics Dashboard
 
+**Wiki:** [[Brain/wiki/canary-architecture|Canary Architecture]], [[Brain/wiki/canary-data-model|Canary Data Model]]
+**Architecture:** [[docs/sdds/canary/architecture|Canary Architecture SDD]]
+
 > **Type:** App Service (Canary)
 > **Status:** Operational — code review complete
 > **Last updated:** 2026-04-13
 > **Code location:** `Canary/canary/services/employee_risk_scoring.py`, `Canary/canary/services/dashboard.py`, `Canary/canary/services/dashboard_queries.py`, `Canary/canary/services/dashboard_tiles.py`, `Canary/canary/blueprints/analytics.py`, `Canary/canary/blueprints/analytics_mcp.py`, `Canary/canary/models/metrics/risk.py`
 > **Split from:** Original `metrics-analytics.md` (7000 words, two deployable concerns)
 
-**Companion SDD:** [metrics-analytics.md](metrics-analytics.md) — Star schema ETL pipeline, dimension loading, fact tables, period aggregation
+**Companion SDD:** [[docs/sdds/canary/metrics-analytics|Metrics Analytics ETL]] — Star schema ETL pipeline, dimension loading, fact tables, period aggregation
 
 ---
 

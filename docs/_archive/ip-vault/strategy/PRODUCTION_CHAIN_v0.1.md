@@ -6,6 +6,9 @@ created: 2026-03-19
 updated: 2026-03-19
 ---
 # GrowDirect Production Chain — v0.1
+
+**Wiki:** [[Brain/wiki/canary-architecture|Canary Architecture]]
+
 *The map of how the thesis becomes the output.*
 
 **Date:** February 27, 2026

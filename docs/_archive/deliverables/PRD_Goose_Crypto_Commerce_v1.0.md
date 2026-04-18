@@ -7,6 +7,8 @@ updated: 2026-03-19
 ---
 # PRD: Goose Crypto Commerce Module v1.0
 
+**Wiki:** [[Brain/wiki/canary-architecture|Canary Architecture]]
+
 **Issue:** GRO-117
 **Author:** ALX (Chief of Staff)
 **Reviewed by:** Jeffe (CEO), Syd (Legal), Tom (Architecture), Art (UX)

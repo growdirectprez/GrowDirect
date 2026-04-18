@@ -5,7 +5,8 @@
 > **Namespace:** angel
 > **Date:** 2026-04-13 (ops upgrade from 2026-04-06 design spec)
 > **Dependencies:** Cove Flask (port 5002), PostgreSQL (`cove` DB), Twilio, Luxury Presence, Compass CRM
-> **Wiki:** [[Brain/wiki/south-bay-wiki-architecture|South Bay Wiki Architecture]] -- [[Brain/projects/Angel|Angel MOC]]
+> **Wiki:** [[Brain/wiki/south-bay-wiki-architecture|South Bay Wiki Architecture]] · [[Brain/wiki/angel-architecture|Angel Architecture]] · [[Brain/projects/Angel|Angel MOC]]
+> **Parent:** [[docs/sdds/angel/angel-overview|Angel Overview]]
 
 ---
 

@@ -59,7 +59,18 @@ Four causes of action: General Plan violation, Coastal Act violation, Political 
 
 **Petitioners' response:** Supersession doctrine (681 replaced 680U replaced 678U; only 681 is operative). Specific statute § 65860 (90 days from zoning amendment) applies over general statute § 65009.
 
-This litigation attacks the government process. The CC&R strategy ([[Brain/wiki/cove-lot-h-discovery|Lot H Discovery]]) attacks the developer's right to build. Complementary legal theories.
+This litigation attacks the government process.
+
+## CC&R Defense — Status Update (April 2026)
+
+The CC&R strategy has been significantly weakened by closer examination of the source documents. See [[Brain/wiki/claim-lot-h-scope-correction|Lot H Scope Correction]] for the full analysis. In summary:
+
+- The **1950 Lot H Declaration** contains only a voided racial covenant — no building restrictions
+- **Declaration No. One** (1949) has the architectural controls but only covers Tract 14649 (the 81 WPBCA lots), not this parcel
+- **Declarations 100 and 101** protect the Filiorum properties east of Tract 14649 in Abalone Cove (with the full Red Tile District / Art Jury protections under the Palos Verdes Community Association) — but do NOT apply to 0 Clipper
+- The parcel's deed history has a **27-year gap** from PV Corp to Wong (1979). The fire station parcel map and various subdivisions of Parcel 106 over time are documented, but no deed restrictions for the 0 Clipper lot itself have been found
+
+**The strongest remaining arguments are geological, environmental, and procedural** — not CC&R-based. The litigation (24TRCP00352) attacking the government's rezoning process, the landslide hazard evidence, the Coastal Act issues, and the FPPC complaint all stand independently.
 
 ## Counter-Proposal
 
@@ -72,7 +83,43 @@ The **Abalone Shore Community Campus** — an alternative public-benefit use:
 See [[Cove/docs/admin/research/briefs/counter-proposal|Counter-Proposal]] and [[Cove/docs/admin/research/briefs/501c3-strategy|501(c)(3) Strategy]].
 
 ## Related
-- [[Brain/wiki/cove-legal-framework|Cove Legal Framework]]
+- [[Brain/wiki/cove-lrpmp|LRPMP]] — APN 7573-007-900 (Parcel 106 remnant adjacent to 0 Clipper) has CC&Rs acknowledged by city staff in state-approved document; same open creek/drainage feature- [[Brain/wiki/cove-legal-framework|Cove Legal Framework]]
 - [[Brain/wiki/cove-lot-h-discovery|Lot H Discovery]]
 - [[Brain/wiki/cove-property-geology|Property & Geology]]
 - [[Brain/wiki/cove-community-history|Community History]]
+
+## Sources — Litigation Documents (Transcriptions)
+- [[Cove/docs/archive/originals/transcriptions/2024-06-04-Comment-to-City-Council-Re-0-Clipper-Rezoning-Verbatim|2024-06 Comment to City Council re Rezoning]]
+- [[Cove/docs/archive/originals/transcriptions/2024-08-06-Easement-Status-Agreement-DRAFT-Verbatim|2024-08 Easement Status Agreement (Draft)]]
+- [[Cove/docs/archive/originals/transcriptions/2024-08-07-FPPC-Complaint-Cruikshank-Verbatim|2024-08 FPPC Complaint — Cruikshank]]
+- [[Cove/docs/archive/originals/transcriptions/2024-09-11-Civil-Case-Cover-Sheet-Verbatim|2024-09 Civil Case Cover Sheet]]
+- [[Cove/docs/archive/originals/transcriptions/2024-09-11-Notice-of-Case-Assignment-Verbatim|2024-09 Notice of Case Assignment]]
+- [[Cove/docs/archive/originals/transcriptions/2024-09-11-Summons-on-Petition-Verbatim|2024-09 Summons on Petition]]
+- [[Cove/docs/archive/originals/transcriptions/2024-11-27-City-Demurrer-Verbatim|2024-11 City Demurrer]]
+- [[Cove/docs/archive/originals/transcriptions/2024-12-18-Opposition-to-Demurrer-Verbatim|2024-12 Opposition to Demurrer]]
+- [[Cove/docs/archive/originals/transcriptions/2026-03-25-CTC-Title-Report-0-Clipper-Verbatim|2026-03 CTC Title Report — 0 Clipper]]
+
+## Sources — Analysis
+- [[Cove/docs/archive/originals/analysis/session-2026-03-25-clipper-research|2026-03 Clipper Research Session]]
+- [[Cove/docs/archive/originals/analysis/campus-proposal|Campus Proposal]]
+- [[Cove/docs/archive/originals/analysis/cove-501c3-strategy|501(c)(3) Strategy]]
+- [[Cove/docs/archive/originals/analysis/research-lot-h-negative-image|Lot H Negative Image Research]]
+
+## Sources — Property Records
+- [[Cove/docs/archive/property/2026-ctc-title-report-0-clipper|CTC Title Report Summary]]
+- [[Cove/docs/archive/property/2024-easement-status-agreement-draft|Easement Status Agreement Draft]]
+- [[Cove/docs/archive/originals/property/2026-03-27-CTC-Property-Profile-0-Clipper-APN-7573-006-024|CTC Property Profile — 0 Clipper]]
+
+## Sources — City Records (0 Clipper / Builder Remedy)
+- [[Cove/docs/archive/originals/city-records/builder-remedy/2024-12-17-staff-report-clipper-road-sb330-preliminary-application|SB330 Preliminary Application — Clipper (Dec 2024)]]
+- [[Cove/docs/archive/originals/city-records/builder-remedy/2024-07-02-staff-report-housing-element-and-builders-remedy-analysis|Builder's Remedy Analysis (Jul 2024)]]
+- [[Cove/docs/archive/originals/city-records/builder-remedy/2025-02-18-staff-report-builder-remedy|Builder's Remedy Staff Report (Feb 2025)]]
+- [[Cove/docs/archive/originals/city-records/litigation/2025-02-24-sb9-appeal-letter|SB9 Appeal Letter (Feb 2025)]]
+
+## Sources — Research Templates
+- [[Cove/docs/archive/originals/templates/cpra-request-site-16-zoning|CPRA Request — Site 16 Zoning]]
+
+## Sources — Legal Briefs
+- [[Cove/docs/admin/research/briefs/legal-brief-0-clipper|Legal Brief — 0 Clipper (Confirmed)]]
+- [[Cove/docs/admin/research/briefs/0-clipper-situation-brief|Situation Brief — 0 Clipper (Confirmed)]]
+- [[Cove/docs/admin/research/briefs/counter-proposal|Counter-Proposal — Community Campus]]

@@ -1,5 +1,8 @@
 # Transaction Stream Processor (TSP) -- Pipeline Overview
 
+**Wiki:** [[Brain/wiki/canary-architecture|Canary Architecture]]
+**Architecture:** [[docs/sdds/canary/architecture|Canary Architecture SDD]]
+
 > **Type:** App Service (Canary) -- Pipeline Coordinator
 > **Status:** Production Readiness Review -- 2026-04-13
 > **Code location:** `Canary/canary/services/tsp/`, `Canary/canary/blueprints/webhooks_tsp.py`, `Canary/canary/blueprints/receipt_tsp.py`
@@ -15,10 +18,10 @@ The Transaction Stream Processor is Canary's core data ingestion pipeline. It re
 
 | Consumer | SDD | Docker Service | Stream | Function |
 |----------|-----|----------------|--------|----------|
-| Sub 1 -- Hash & Seal | [tsp-sub1.md](tsp-sub1.md) | `tsp-sub1` | `canary:events` | Write-once evidence sealing with chain hashes |
-| Sub 2 -- Parse & Route | [tsp-sub2.md](tsp-sub2.md) | `tsp-sub2` | `canary:events` | CRDM record parsing, detection stream publishing |
-| Sub 3 -- Merkle Batcher | [tsp-sub3.md](tsp-sub3.md) | `tsp-sub3` | `canary:events` | Merkle tree batching for Bitcoin inscription |
-| Sub 4 -- Chirp Detection | [tsp-sub4.md](tsp-sub4.md) | `tsp-sub4` | `canary:detection` | Rule engine evaluation, alert generation |
+| Sub 1 -- Hash & Seal | [[docs/sdds/canary/tsp-sub1|TSP Sub 1]] | `tsp-sub1` | `canary:events` | Write-once evidence sealing with chain hashes |
+| Sub 2 -- Parse & Route | [[docs/sdds/canary/tsp-sub2|TSP Sub 2]] | `tsp-sub2` | `canary:events` | CRDM record parsing, detection stream publishing |
+| Sub 3 -- Merkle Batcher | [[docs/sdds/canary/tsp-sub3|TSP Sub 3]] | `tsp-sub3` | `canary:events` | Merkle tree batching for Bitcoin inscription |
+| Sub 4 -- Chirp Detection | [[docs/sdds/canary/tsp-sub4|TSP Sub 4]] | `tsp-sub4` | `canary:detection` | Rule engine evaluation, alert generation |
 
 ---
 

@@ -1,6 +1,7 @@
 # Identity
 
 **Wiki:** [[Brain/wiki/canary-architecture|Canary Architecture]]
+**Architecture:** [[docs/sdds/canary/architecture|Canary Architecture SDD]]
 **Service Type:** Type 1 — App Service (Canary)
 **Last Code Review:** 2026-04-13
 

@@ -2,6 +2,7 @@
 
 **Type:** App Service (Canary)
 **Wiki:** [[Brain/wiki/canary-architecture|Canary Architecture]]
+**Architecture:** [[docs/sdds/canary/architecture|Canary Architecture SDD]]
 **Linear:** GRO-144, GRO-146, GRO-147, GRO-139, GRO-174, GRO-176, GRO-236, GRO-277
 
 ## Purpose

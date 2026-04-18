@@ -1,153 +1,143 @@
 # DISPATCH: Survey Anchor Point Rebuild — DXF Registration + Monument Positioning
 
-**Created:** 2026-04-11 (Claude Code session — Tasks 1-2 complete, Task 3 in progress)
+**Created:** 2026-04-11 (Claude Code session — Tasks 1-5 complete, Task 8 added)
+**Updated:** 2026-04-11 (end of session — key pivot)
 **Linear:** GRO-493 (parent)
 **Spec:** `Cove/docs/plans/2026-04-11-survey-anchor-rebuild-design.md`
 **Plan:** `Cove/docs/plans/2026-04-11-survey-anchor-rebuild-plan.md`
-**Branch:** create new from main
+**Branch:** main (committed directly)
 
 ---
 
-## What's Done
+## KEY PIVOT — Use Assessor Boundaries, Not Deed Walks
 
-### Task 1: Field Book Transcriptions (COMPLETE)
+**The session proved that deed-walk polygons don't work for visual display.**
+The Lot 106 deed walk has a 10 ft closure error and produces a polygon that
+doesn't align with roads on the map. The cadastral landbase (EPSG:2229) is
+225 ft offset from the OSM base tiles.
 
-8 WPBCA intersection field book pages transcribed to structured markdown:
-- `docs/archive/transcriptions/survey-field-books/RDFB-0117-002.md` (1952)
-- `docs/archive/transcriptions/survey-field-books/RDFB-0117-020.md` (1964)
-- `docs/archive/transcriptions/survey-field-books/RDFB-0117-021.md` (1964)
-- `docs/archive/transcriptions/survey-field-books/RDFB-0117-159.md` (1972)
-- `docs/archive/transcriptions/survey-field-books/RDFB-0117-171.md` (1972)
-- `docs/archive/transcriptions/survey-field-books/PWFB-0117-159A.md` (1987)
-- `docs/archive/transcriptions/survey-field-books/PWFB-0117-159B.md` (1998)
-- `docs/archive/transcriptions/survey-field-books/PWFB-0117-381.md` (2012)
+**What DOES align with the map:** the assessor parcel polygons (the blue outlines).
+These are the boundaries users see and trust.
 
-Key findings from transcriptions:
-- P.I. #11 bearing **163°59'45"** confirmed across 3 surveys (1952-1964-1972)
-- PVD South curve: **R=1996.65, Δ=16°00'20-24"** consistent across all surveys
-- Clipper Road curve: **R=500.00, Δ=13°09'45"**
-- Sea Cove Drive curve: **R=350.10, Δ=29°27'27.5"**
-- B.C. monument: 63 years of documentation (1949-2012)
-- Station discrepancy: B.C. at 159+22.28 (1952) vs 159+23.87 (2012) — 1.59 ft
+**New approach for Lot 106 visualization:**
+Instead of walking the deed description, use the assessor parcels that were
+carved from Lot 106. Each subdivision transaction created new APNs. Group them
+by transaction to show the Lot 106 subdivision history:
 
-### Task 2: Coordinate System Ties (PARTIALLY COMPLETE)
+```
+Lot 106 (original, ~48 acres)
+  ├── Tract 14649 (1949) — 81 lots: 7573-009-*, 7573-010-*, etc.
+  ├── Tract 23434 (1957) — Arrowroot/Barkentine: 7573-005-*
+  ├── Tract 32977 (1980) → Tract 43725 (1986) — Wong reversion: 7573-006-008 thru 015
+  ├── Fire Station (7573-006-900) — county parcel
+  ├── Remainder strips (7573-006-017, 018) — PV Corp never-conveyed
+  └── Coastal parcels (7573-007-*) — Sea Cove lots 1-3, easement parcels
+```
 
-Read CEFB 2291 Zone 7 tie pages (155-156) and Wayfarer's Chapel control pages
-(131-141). Finding: **Zone 7 ties don't have inline coordinates** — they reference
-external SPH control monuments (D-7, C-8, G-6) whose published coordinates are
-in other databases. The full Zone 7 transform chain requires looking up those
-SPH coordinates externally.
-
-**Pivot:** Instead of the Zone 7 path, use the **25 Sea Cove site survey** as the
-anchor bridge. The IWS 2018 boundary survey and the 2007 easement DXF both have
-monument positions on Sea Cove Drive that can be matched to satellite imagery.
-
-### Also Done (from earlier in the same session)
-
-- Lot 106 full boundary walked (15 legs, 0.69% closure, 1.53 acres)
-- Coates→Brown sub-parcel walked (exact closure, 0.11 acres) + database ingestion
-- 11 archive file renames (Word→Wong, Niblock→Brown, LACA corrections)
-- All committed and merged to main
+Each group becomes a toggleable layer showing boundaries FROM THE ASSESSOR DATA
+(which snaps to the map). The deed walk / survey data goes in the provenance
+metadata, not the polygon geometry.
 
 ---
 
-## What Needs Doing
+## What's Done (this session)
 
-### Task 3: Register DXF to WGS84
+### Task 1: Field Book Transcriptions (COMPLETE — prior session)
+8 WPBCA intersection field book pages transcribed.
 
-**Source:** `Brain/raw/inbox/07094EAS.dxf` — 2007 easement survey CAD drawing (Denn Engineers, RCE 30826)
+### Task 2: Coordinate System Ties (PARTIALLY COMPLETE — prior session)
+Zone 7 ties require external SPH lookup. Pivot to DXF bridge.
 
-**Coordinate system:** Local feet (origin 0,0, range X: 0-2038, Y: -155 to 1496)
+### Task 3: Register DXF to WGS84 (COMPLETE)
+- 07094EAS.dxf → WGS84 via Helmert (4 tie points, RMS 0.7 ft)
+- Script: `scripts/layers/register_dxf_2007_easement.py`
+- Output: `2007-easement-dxf-registered.geojson`
 
-**Approach:** Match 2+ lot corner vertices between the DXF local coordinates and
-the assessor GIS WGS84 coordinates to compute a Helmert transform.
+### Task 4: Monument Catalog (COMPLETE — but needs re-anchoring)
+- 15 anchor points in `anchor-points.geojson`
+- 8 assessor-GIS + 6 cadastral-landbase + 1 field-survey
+- **Problem:** cadastral-landbase points are 225 ft offset from base map
+- **Fix needed:** drop cadastral positions, use assessor parcel vertices as
+  monument positions (or accept they're reference-only, not map-visible)
 
-**DXF lot corner vertices extracted (PROP_LINES layer):**
+### Task 5: Re-Anchor Lot 106 (NEEDS REDO — see pivot above)
+- Deed walk produces a polygon that doesn't match the map
+- The polygon is visible but offset from roads
+- **Next session should use assessor parcels instead**
 
-| DXF (local ft) | Description | Match to |
-|-----------------|-------------|----------|
-| (1024.56, 649.30) | Lot corner | Assessor GIS vertex for lot on Sea Cove |
-| (1042.91, 561.19) | Lot corner | " |
-| (900.45, 531.23) | Lot corner | " |
-| (1065.33, 453.51) | Lot corner | " |
-| (1101.37, 368.30) | Lot corner (near ocean) | " |
-| (1380.30, 412.85) | Lot corner | " |
-| (1308.64, 848.33) | Lot corner | " |
-| (1084.85, 741.31) | Lot corner | " |
+### Task 6: Playbook + Wiki (COMPLETE)
+- `PLAYBOOK-FIELDBOOK-TO-ANCHOR.md`
+- `survey-monuments.md`
+- `coordinate-reference.md` updated
 
-**DXF text annotations give bearings and APNs:**
-- APNs: 7573-007-020, 021, 030, 031, 034, 035, 036
-- Bearings: N 22°55'21" W, N 67°04'28" E, N 16°46'49" W, etc.
-- Sea Cove Drive curve: L=500.00', R=350.500' (matches field book R=350.10)
-
-**Steps:**
-1. Load assessor GIS parcels for APNs 7573-007-020 through 036
-2. Match lot corners between DXF and GIS (by APN + bearing + distance)
-3. Compute Helmert transform: DXF local → WGS84
-4. Validate: RMS residual < 5 ft
-5. Apply transform to all DXF vertices
-
-**Also available:**
-- `Cove/docs/archive/originals/property/2018-06-20-IWS-Boundary-Survey-25-SeaCove.pdf`
-  — IWS 2018 boundary survey showing RCE 28458 monuments on Sea Cove Drive
-  — Basis of bearings: S 40°23'00" E radial to Sea Cove Dr centerline per Tract 14649
-- Existing `cove/map/data/layers/lot-69-25-seacove-surveyed.geojson` — may already
-  have georeferenced coordinates from this survey
-- `cove/map/data/layers/2007-easement-survey-lots1-3.geojson` — existing layer from
-  the same DXF (check if already registered)
-
-### Task 4: Build Monument Catalog + Anchor Points GeoJSON
-
-Using the registered DXF coordinates + field book transcriptions:
-
-1. Walk from Sea Cove Drive (DXF) along the field book distances to PVD South
-   intersection monuments (B.C., P.I. #11, E.C., P.O.S.T.)
-2. Convert each monument to WGS84 using the DXF→WGS84 transform + field book
-   distance chain
-3. Build enriched `anchor-points.geojson` with:
-   - Survey-sourced pins (red, `source_class: field-survey`)
-   - Existing assessor pins (gray, `source_class: assessor-gis`)
-   - Full provenance chains per monument
-4. Quantify the systematic offset between the two sources
-
-### Task 5: Re-Anchor Lot 106 Polygon
-
-Using the new survey-sourced anchor points:
-1. Identify POB anchor (NW corner Lot 74 → should correspond to a monument
-   near the Clipper/PVD South intersection)
-2. Re-georeference both Lot 106 layers with 2+ survey tie points
-3. Visual verify on map: POB on pin, leg 01 correct direction
-
-### Task 6: Write Playbook + Wiki
-
-- `docs/archive/wiki/PLAYBOOK-FIELDBOOK-TO-ANCHOR.md`
-- `docs/archive/wiki/11-mapping-engineering/survey-monuments.md`
-- Update `coordinate-reference.md` with transform parameters
-
-### Task 7: Final Verification
-
-- All layers render correctly on map
-- Anchor points visible as independent layer
-- Offset between sources quantified
-- Commit + merge
+### New Documents Ingested
+- `CEFB2190.pdf` — 222 pages, Sea Cove Dr field book (1959). UNPROCESSED.
+- `RS220-057-2.pdf` — Record of Survey (2008). Transcribed.
+- `IM009157.dgn` + `.zip` — LA County Cadastral Landbase GDB. Extracted.
+- `AM1-001.pdf`, `AM1-012.pdf` — Assessor maps.
+- `TR1063-091-2.pdf`, `TR0950-014-2.pdf` — Tract maps (dupes of archive).
 
 ---
 
-## Files to Read First
+## What Needs Doing (next session)
 
-1. This dispatch
-2. `Cove/docs/plans/2026-04-11-survey-anchor-rebuild-design.md` (full spec)
-3. `Cove/docs/plans/2026-04-11-survey-anchor-rebuild-plan.md` (implementation plan)
-4. `Cove/docs/archive/transcriptions/survey-field-books/RDFB-0117-002.md` (key transcription)
-5. `Cove/docs/archive/wiki/11-mapping-engineering/coordinate-reference.md`
-6. `Cove/docs/archive/wiki/11-mapping-engineering/snap-rules.md`
+### Task 8: Build Lot 106 Subdivision History Layers (NEW — replaces Task 5)
 
-## Key Files
+Use the assessor parcel polygons grouped by subdivision transaction:
 
-| File | What |
-|------|------|
-| `Brain/raw/inbox/07094EAS.dxf` | 2007 easement survey CAD — the anchor bridge |
-| `Brain/raw/inbox/RDFB0117-2.pdf` | 1952 intersection survey — key field drawing |
-| `cove/map/data/layers/anchor-points.geojson` | Current anchor points (assessor-derived, offset) |
-| `cove/map/data/layers/lot-69-25-seacove-surveyed.geojson` | Existing lot 69 layer (check if registered) |
-| `scripts/layers/metes_to_geojson.py` | Walk + georeference library |
+1. **Query RPV parcels GeoJSON** for all APNs in the Lot 106 area:
+   - 7573-005-* (Tract 23434)
+   - 7573-006-* (remainder strips, fire station, Wong reversion)
+   - 7573-007-* (Sea Cove lots 1-3, easement parcels)
+   - 7573-008-* (Sea Cove lots, east side)
+   - 7573-009-* (Clipper/Barkentine lots)
+   - 7573-010-* (Packet Road lots)
+
+2. **Group by transaction:**
+   - Tract 14649 (1949) — WPBCA subdivision
+   - Tract 23434 (1957) — Arrowroot/Barkentine
+   - Tract 32977→43725 (1980/1986) — Wong subdivision/reversion
+   - County parcels (fire station, road R/W)
+   - Remainder strips (PV Corp)
+
+3. **Build one GeoJSON per group** using the assessor polygon data directly —
+   no deed walks, no Helmert transforms. These snap to the base map.
+
+4. **Add to manifest** as toggleable layers under "Remainder Strips & Chain of Title"
+
+5. **Compute the Lot 106 outer boundary** as the union of all sub-parcels.
+   This gives the de facto Lot 106 boundary from assessor data.
+
+### Task 9: Fix Anchor Points Layer
+
+The "Historical Anchor Points" name is confusing. Options:
+- Rename to "Survey Control Points"
+- Split into two layers: "Assessor Reference Points" + "Survey Monuments"
+- Or remove the cadastral-sourced points (they don't add value if they
+  don't align with the map)
+
+### Task 10: Rename in Manifest
+
+Update `manifest.json`:
+- "Historical Anchor Points" → "Survey Control Points" (or remove)
+- Add new subdivision history layers
+
+---
+
+## Files to Read First (next session)
+
+1. This dispatch (updated)
+2. `Cove/gis-downloads/rpv-parcels.geojson` — 21,120 RPV parcels with assessor polygons
+3. `Cove/cove/map/data/layers/manifest.json` — current layer configuration
+4. `Cove/cove/map/templates/map/index.html` — map rendering code
+
+## Key Commits
+
+- `ae516e8` — feat(map): survey anchor rebuild (DXF, monuments, Lot 106)
+- `4dab978` — fix(map): re-anchor to assessor parcel frame
+
+## What the User Wants to See
+
+**The subdivision history of Lot 106 — each transaction that carved a piece off,
+shown as actual assessor boundaries that snap to the map.** Not deed walks.
+Not survey monuments floating in space. Actual parcel boundaries.

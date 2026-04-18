@@ -5,6 +5,9 @@ status: active
 created: 2026-03-19
 updated: 2026-03-19
 ---
+
+**Wiki:** [[Brain/wiki/canary-architecture|Canary Architecture]]
+
 # Bitcoin-Native Infrastructure for Retail Loss Prevention
 ## A Technical and Theoretical Foundation for the Canary Platform
 

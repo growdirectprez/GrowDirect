@@ -8,6 +8,8 @@ updated: 2026-03-19
 # Fox Case Management System — Data Model v2.0
 **GSLM-Enhanced Edition**
 
+**Wiki:** [[Brain/wiki/canary-architecture|Canary Architecture]]
+
 **Version:** 2.0
 **Date:** February 17, 2026
 **Author:** Tom (Systems Architect) + Jeremy (Developer Quant)

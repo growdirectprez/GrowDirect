@@ -1,5 +1,7 @@
 # ADR: Angel as Cove Module
 
+**Wiki:** [[Brain/wiki/canary-architecture|Canary Architecture]]
+
 > **Date:** 2026-04-06
 > **Status:** Accepted
 > **Decision makers:** Jeffe (CEO), ALX (COO)

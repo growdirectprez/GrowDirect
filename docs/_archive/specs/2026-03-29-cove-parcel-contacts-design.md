@@ -4,6 +4,8 @@
 **Status:** Reviewed
 **Author:** Cove builder + Jeffe (product)
 
+**Wiki:** [[Brain/wiki/cove-governance|Cove Governance]]
+
 ---
 
 ## Problem

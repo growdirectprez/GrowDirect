@@ -5,6 +5,9 @@ status: active
 created: 2026-03-19
 updated: 2026-03-19
 ---
+
+**Wiki:** [[Brain/wiki/canary-architecture|Canary Architecture]]
+
 # Canary / GrowDirect — Project Reference Library
 **Version:** 1.0
 **Created:** February 17, 2026

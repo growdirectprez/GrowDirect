@@ -5,6 +5,9 @@ status: active
 created: 2026-03-19
 updated: 2026-03-19
 ---
+
+**Wiki:** [[Brain/wiki/canary-architecture|Canary Architecture]]
+
 # Chirp UDQ + Lightning Metering — Branch Strategy
 
 **Version:** 1.1 (PaaS Extension)

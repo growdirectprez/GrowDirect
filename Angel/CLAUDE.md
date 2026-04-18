@@ -1,5 +1,6 @@
 > **Platform parent:** Read `~/GrowDirect/CLAUDE.md` first. This file adds Angel-specific domain context on top of GrowDirect platform standards.
 > **Cove parent:** Read `~/GrowDirect/Cove/CLAUDE.md` second. Angel is a Cove module — models, blueprints, and migrations live in the Cove repo.
+> **Brain context:** Read `Brain/projects/Angel.md` for the project MOC. Wiki: [[Brain/wiki/south-bay-wiki-architecture|South Bay Wiki Architecture]]
 > **ADR:** `~/GrowDirect/docs/decisions/2026-04-06-angel-as-cove-module.md`
 > **Team profiles:** `~/GrowDirect/docs/team/`
 

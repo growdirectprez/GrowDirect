@@ -5,6 +5,9 @@ status: active
 created: 2026-03-19
 updated: 2026-03-19
 ---
+
+**Wiki:** [[Brain/wiki/canary-architecture|Canary Architecture]]
+
 # Competitive Intelligence — Oracle Retail / OCI Engineering Conversation
 *Classification: MAXIMUM CONFIDENTIAL — Internal eyes only*
 *Recorded by: ALX | February 26, 2026*

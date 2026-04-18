@@ -4,6 +4,8 @@
 **Status:** Approved
 **Issue:** [GRO-172](https://linear.app/growdirect/issue/GRO-172)
 
+**Wiki:** [[Brain/wiki/canary-architecture|Canary Architecture]]
+
 ## Problem
 
 ALX ops memory (2,000+ organizational memories) lives inside the Canary codebase at `canary/services/alx/memory.py` and connects to `canary_memory`. This creates two problems:

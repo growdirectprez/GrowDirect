@@ -1,5 +1,7 @@
 # Factory Hardening — Implementation Plan
 
+**Wiki:** [[Brain/wiki/canary-architecture|Canary Architecture]]
+
 > **For agentic workers:** REQUIRED: Use superpowers:subagent-driven-development (if subagents available) or superpowers:executing-plans to implement this plan. Steps use checkbox (`- [ ]`) syntax for tracking.
 
 **Goal:** Harden the factory process with a machine-readable manifest, preflight health checks, research stage, Linear integration skill, and flat skill directory — eliminating 3-level nesting and implicit pipeline discovery.

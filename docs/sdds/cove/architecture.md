@@ -3,7 +3,7 @@
 **Status:** Active
 **Type:** Platform Service (Cove)
 **Last updated:** 2026-04-13
-**Wiki:** [[Brain/wiki/cove-governance|Cove Governance]]
+**Wiki:** [[Brain/wiki/cove-governance|Cove Governance]] | [[Brain/wiki/cove-platform|Cove Platform]]
 
 ---
 
@@ -17,20 +17,20 @@ Cove is the HOA governance platform for the West Portuguese Bend Community Assoc
 
 | SDD | Type | What it covers |
 |-----|------|---------------|
-| [architecture.md](architecture.md) | Platform Service | **This file.** App factory, extensions, config, blueprint registration |
-| [member-auth.md](member-auth.md) | App Service | Magic link + password auth, session management, onboarding |
-| [governance-engine.md](governance-engine.md) | App Service | Proposal lifecycle, voting, ballot tallying, bylaws config |
-| [secret-ballot-elections.md](secret-ballot-elections.md) | App Service | Election orchestration, ballot secrecy, RLS |
-| [parcel-map-engine.md](parcel-map-engine.md) | App Service | Parcel identity, GeoJSON layers, Leaflet rendering |
-| [vault.md](vault.md) | App Service | Document storage, versioning, access tiers |
-| [treasury.md](treasury.md) | App Service | Assessments, budgets, payment records |
-| [meetings.md](meetings.md) | App Service | Meeting scheduling, ARC applications |
-| [board.md](board.md) | App Service | Board-only operations, bulletins, roster |
-| [notifications.md](notifications.md) | App Service | Notification delivery, email routing |
-| [knowledge.md](knowledge.md) | MCP Server | pgvector legal document search |
-| [archive-system.md](archive-system.md) | App Service | Document viewer, path traversal prevention |
-| [agent.md](agent.md) | App Service | AI Q&A assistant, transparency log |
-| [sitemap-redesign.md](sitemap-redesign.md) | App Service | Role-gated navigation |
+| [[docs/sdds/cove/architecture|architecture]] | Platform Service | **This file.** App factory, extensions, config, blueprint registration |
+| [[docs/sdds/cove/member-auth|member-auth]] | App Service | Magic link + password auth, session management, onboarding |
+| [[docs/sdds/cove/governance-engine|governance-engine]] | App Service | Proposal lifecycle, voting, ballot tallying, bylaws config |
+| [[docs/sdds/cove/secret-ballot-elections|secret-ballot-elections]] | App Service | Election orchestration, ballot secrecy, RLS |
+| [[docs/sdds/cove/parcel-map-engine|parcel-map-engine]] | App Service | Parcel identity, GeoJSON layers, Leaflet rendering |
+| [[docs/sdds/cove/vault|vault]] | App Service | Document storage, versioning, access tiers |
+| [[docs/sdds/cove/treasury|treasury]] | App Service | Assessments, budgets, payment records |
+| [[docs/sdds/cove/meetings|meetings]] | App Service | Meeting scheduling, ARC applications |
+| [[docs/sdds/cove/board|board]] | App Service | Board-only operations, bulletins, roster |
+| [[docs/sdds/cove/notifications|notifications]] | App Service | Notification delivery, email routing |
+| [[docs/sdds/cove/knowledge|knowledge]] | MCP Server | pgvector legal document search |
+| [[docs/sdds/cove/archive-system|archive-system]] | App Service | Document viewer, path traversal prevention |
+| [[docs/sdds/cove/agent|agent]] | App Service | AI Q&A assistant, transparency log |
+| [[docs/sdds/cove/sitemap-redesign|sitemap-redesign]] | App Service | Role-gated navigation |
 
 ---
 

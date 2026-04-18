@@ -7,7 +7,7 @@
 > **Author:** ALX (COO) / Jeffe (CEO)
 > **Client:** Angelique Lyle, Compass, Palos Verdes Peninsula
 
-**Wiki:** [[Brain/wiki/south-bay-wiki-architecture|South Bay Wiki Architecture]] · [[Brain/projects/Angel|Angel MOC]]
+**Wiki:** [[Brain/wiki/south-bay-wiki-architecture|South Bay Wiki Architecture]] · [[Brain/wiki/angel-architecture|Angel Architecture]] · [[Brain/wiki/angel-data-platform|Angel Data Platform]] · [[Brain/projects/Angel|Angel MOC]]
 
 ---
 
@@ -42,12 +42,12 @@ app, shared database, shared Docker network).
 
 | Document | Type | What It Covers |
 |----------|------|---------------|
-| [data-platform.md](data-platform.md) | App Service | Database schema, CRMLS ingestion, APN enrichment, market analysis |
-| [angel-agent.md](angel-agent.md) | App Service | Chatbot architecture, MCP tools, system prompt, widget, sidecar deployment |
-| [web-strategy.md](web-strategy.md) | App Service | Three-domain strategy, SEO, Flask content engine, LP integration, lead flow |
-| [brand-and-launch.md](brand-and-launch.md) | Reference | Brand concept, voice definition, pitch to Angelique, budget |
-| [execution-plan.md](execution-plan.md) | Planning | Timeline, phases, Linear issues, dependency graph |
-| [lp-integration.md](lp-integration.md) | External Integration | LP webhook receiver, lead sync, agent profile API |
+| [[docs/sdds/angel/data-platform|Data Platform]] | App Service | Database schema, CRMLS ingestion, APN enrichment, market analysis |
+| [[docs/sdds/angel/angel-agent|Angel Agent]] | App Service | Chatbot architecture, MCP tools, system prompt, widget, sidecar deployment |
+| [[docs/sdds/angel/web-strategy|Web Strategy]] | App Service | Three-domain strategy, SEO, Flask content engine, LP integration, lead flow |
+| [[docs/sdds/angel/brand-and-launch|Brand & Launch]] | Reference | Brand concept, voice definition, pitch to Angelique, budget |
+| [[docs/sdds/angel/execution-plan|Execution Plan]] | Planning | Timeline, phases, Linear issues, dependency graph |
+| [[docs/sdds/angel/lp-integration|LP Integration]] | External Integration | LP webhook receiver, lead sync, agent profile API |
 
 ---
 

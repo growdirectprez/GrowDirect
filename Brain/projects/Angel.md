@@ -1,91 +1,119 @@
 ---
 type: project-moc
 status: active
-tags: [angel, real-estate, lead-generation, content-strategy, south-bay, compass]
+tags: [angel, real-estate, compass]
 ---
 
 # Angel
 
-AI-powered real estate intelligence and lead generation platform for Compass agents. First deployment: Angelique Lyle, Palos Verdes Peninsula. Three components: data platform (CRMLS + county parcels via Cove), Angel Agent chatbot sidecar, and TheHillPV.com content engine. Angel is a Cove module — code lives in `Cove/cove/angel/`, knowledge lives in `Angel/knowledge/`.
+Real estate intelligence + lead gen for Compass agents. First deployment: Angelique Lyle, Palos Verdes Peninsula. Angel is a Cove module.
 
-## Status
-Active as of April 2026. Content engine sprint shipped 2026-04-10. Foundation + Agent MVP phase. 16 Linear issues across Phase 0–2. SDDs at `docs/sdds/angel/`.
+**The thesis:** Compete on data depth (APN-level records) + qualitative knowledge (this wiki) + conversational AI. Flywheel: data → content → SEO → traffic → chat → leads → transactions → more data.
 
-**What's live (localhost:5002):**
-- 7 neighborhood hub pages with voice overlays, DB-backed entities/events, Schema.org markup
-- PVPUSD school guide with feeder patterns, ratings, district stats
-- RSS crawl pipeline (8 Tier 1 sources, daily via `flask crawl run`)
-- SEO foundation: sitemap.xml, robots.txt, OG/Twitter meta, canonical URLs
-- 43 entities + 14 events + 6 schools seeded in DB
+**Linear:** [Angel project](https://linear.app/growdirect/project/angel-real-estate-intelligence-platform-e2489e69f160) — check here for status, priorities, and issue details.
 
 ---
 
-## Wiki
+## Where Things Live
 
-| Article | What it covers |
-|---------|---------------|
-| [[Brain/wiki/south-bay-wiki-architecture|South Bay Wiki Architecture]] | Content spine, two-tier geography, voice definition, CMS strategy, seed data |
+| What | Where |
+|------|-------|
+| Angel blueprints + web routes | `Cove/cove/angel/` |
+| Agent sidecar (server, tools, areas) | `Cove/cove/services/angel_agent/` |
+| Models (Listing, MarketSnapshot, etc.) | `Cove/cove/models/` |
+| Tests | `Cove/tests/angel_agent/` |
+| Sidecar Dockerfile | `Cove/Dockerfile.angel-agent` |
+| Voice profiles, market knowledge | `Angel/knowledge/` |
+| CRMLS CSV exports | `Angel/Top Producer - Residential*/` |
+| Content pools (crawled + synthesized) | `Angel/knowledge/content-pools/` |
 
 ---
 
-## Content Engine — Implementation Status (2026-04-10)
+## Architecture Decisions
 
-| Component | Status | Code |
-|-----------|--------|------|
-| RSS crawl pipeline | ✅ Running (10 items from first crawl) | `cove/angel/crawl.py`, `cli.py` |
-| Neighborhood hub template | ✅ Live for all 7 neighborhoods | `templates/angel/neighborhood.html` |
-| Voice overlays | ✅ All 7 neighborhoods written | `cove/angel/voice_overlays.py` |
-| Seed data (entities/events) | ✅ 43 entities, 14 events seeded | `cove/angel/seed_content.py` |
-| PVPUSD school guide | ✅ Full feeder patterns + ratings | `templates/angel/schools.html` |
-| SEO (sitemap, robots, OG, schema) | ✅ At app root, Schema.org JSON-LD | `web_routes.py` + templates |
-| GA4 + Search Console | ⏳ Waiting for domain routing | Placeholder in `base.html` |
-| Valkey task queue for crawl | ⏳ Phase 2 — using CLI + external cron | — |
-| CMS for voice overlays | ⏳ Future — Python dicts for now | — |
+These are settled — don't revisit without a reason.
 
-### Data Model (3 tables, migration `a7b8c9d0e1f2`)
+- **Cove module, not standalone** — shared DB, shared APN key, native JOINs (`docs/decisions/2026-04-06-angel-as-cove-module.md`)
+- **Sidecar pattern for AI** — raw ASGI on port 8004, Flask proxies via `chat_routes.py`, no Anthropic SDK in Flask
+- **APN is the universal key** — dashed format canonical (`XXXX-XXX-XXX`), Parcel is the property record, Listing is the transaction record
+- **LP stays as flagship** — AngeliqueLyle.com on Luxury Presence, TheHillPV.com is our Flask content engine
+- **Voice overlays as Python dicts** — moves to DB when we outgrow 7 neighborhoods
+- **Fair Housing in system prompt** — Federal FHA + California FEHA, non-negotiable
 
-| Table | Purpose | Records |
-|-------|---------|---------|
-| `local_sources` | RSS feed registry (8 Tier 1 feeds) | 8 |
-| `community_events` | Events from crawl + seed | 24 (14 seeded + 10 crawled) |
-| `local_entities` | Restaurants, businesses, schools | 49 (43 seeded + 6 schools) |
+---
 
-### CLI Commands
+## How Data Flows
 
-```bash
-flask crawl seed-sources        # Insert 8 Tier 1 RSS sources
-flask crawl run                 # Poll all active RSS feeds
-flask crawl seed-content        # Seed all neighborhood entities/events
-flask crawl seed-content -n lunada-bay  # Seed one neighborhood
-flask crawl seed-schools        # Seed PVPUSD school data
+```
+CRMLS (weekly CSV) → scripts/import_crmls.py → listings table (upsert by MLS#)
+                                               → flask market snapshot (recompute)
+
+Parcel data → parcels table (APN PK) ←→ listings table (APN FK)
+                                      ←→ market_snapshots (area aggregations)
+
+RSS feeds (daily) → flask crawl run → community_events table
+
+Angel Agent sidecar → reads parcels + listings + market_snapshots via tools
+                    → Anthropic API for LLM inference
+                    → Flask proxy on /api/chat
 ```
 
+**Known gap:** Many CRMLS listings reference APNs without a `parcels` row. The original full-peninsula GIS pull was lost during schema consolidation. Backfill needed — either re-pull from LA County GIS or create Parcel rows from CRMLS data.
+
 ---
 
-## The Concept
+## CRMLS Import — Operational Knowledge
 
-Angelique handed us a two-page printed neighborhood guide (schools, neighborhoods, dining, coffee, shopping, golf, desserts). We're turning it into a living content platform:
+This matters for every data session. Top Producer limits exports to 500 records.
 
-- **Tier 1 — PV Peninsula (hyperlocal):** Neighborhoods, schools, events, parks/trails, community orgs
-- **Tier 2 — South Bay (lifestyle):** Dining top lists, coffee, shopping districts, treats
+**Weekly cadence:** Jeffe exports → CSV to `Angel/Top Producer*/` → `scripts/import_crmls.py` upserts → `flask market snapshot` recomputes.
 
-Written in Angelique's voice — warm authority, insider knowledge, opinionated but generous. Not real estate brochure copy.
+**Sparse fields to watch:** agent names (MISSING in most exports), zip codes (MISSING in some), school assignments (empty), DOM (MISSING — calculate from dates), lot size (MISSING in some).
+
+**Expansion planned:** Current exports are PV-only. Beach Cities (90266, 90254, 90277, 90278) + Torrance (90501-90505) need a one-time historical bulk export, then fold into weekly cadence.
+
+See [[Brain/wiki/angel-weekly-crmls-pull|Weekly CRMLS Pull]] for full export definitions and field mappings.
+
+---
+
+## Wiki — Domain Knowledge
+
+DB holds facts (APN, price, DOM). Wiki holds intelligence (neighborhood character, school insights, market narratives, community context). Use `mcp__obsidian__obsidian_simple_search` to find relevant articles.
+
+### How Angel Works
+- [[Brain/wiki/angel-architecture|Architecture]] — system layers, sidecar, infrastructure
+- [[Brain/wiki/angel-data-platform|Data Platform]] — schema, ingestion, APN bridge, data quality rules
+- [[Brain/wiki/angel-content-engine|Content Engine]] — voice system, crawl pipeline, content ops
+
+### Domain Knowledge for Agent + Content
+- [[Brain/wiki/angel-market-intelligence|Market Intelligence]] — trend analysis, area rankings, seasonal patterns
+- [[Brain/wiki/angel-ninja-selling|Ninja Selling]] — sales methodology mapped to Angel tools
+- [[Brain/wiki/angel-voice-training|Voice Training]] — Angelique's voice, profile, testimonials
+- [[Brain/wiki/angel-buyer-process|Buyer Process]] — 9-step journey, Compass tools
+- [[Brain/wiki/angel-listing-process|Listing Process]] — pricing strategy, marketing timeline
+- [[Brain/wiki/angel-transaction-timeline|Transaction Timeline]] — escrow roadmaps, checklists
+- [[Brain/wiki/angel-compass-concierge|Compass Concierge]] — pre-sale renovation financing
+- [[Brain/wiki/angel-brand-and-team|Brand & Team]] — AREA roster, credentials, marketing
+
+### Neighborhood Profiles (19 articles)
+
+Each covers: character, price positioning, DOM, schools, lifestyle, key selling angles. Named `angel-{neighborhood}-raw` in `Brain/wiki/`.
+
+PVE: Valmonte, Malaga Cove, Montemalaga
+RPV: PV Dr North/East/South, Eastview, Silver Spur, Los Verdes, Country Club, La Cresta, Peninsula Center, West PV, The Crest, Mira Catalina, South Shores
+Other: Rolling Hills, Rolling Hills Estates, Riviera Village
+
+### Planned Articles
+Peninsula Golf, Equestrian, Arts — cross-cutting lifestyle articles. See [[Brain/wiki/angel-peninsula-golf-guide|Golf]], [[Brain/wiki/angel-peninsula-equestrian-guide|Equestrian]].
+
+---
 
 ## Key People
 
-- **Angelique Lyle** — Compass agent, 310.751.8335, angelique@compasshomes.com. The voice and brand.
-- **Alejandro** — Building the content system and platform.
+- **Angelique Lyle** — Compass, DRE# 01475592, 310.751.8335. The voice and brand.
+- **Jeffe** — CEO. Runs CRMLS exports, manages Angelique relationship.
+- **ALX** — COO. Builds platform and content system.
 
-## Architecture
-
-- **Cove module:** Models, blueprints, migrations, templates all live in `Cove/`
-- **Knowledge repo:** Voice profiles, market knowledge, school guide in `Angel/knowledge/`
-- **Agent sidecar:** Claude-powered chatbot on port 8004 (added to Cove compose)
-- **TheHillPV.com:** Flask content engine served from `angel_web_bp` in Cove
-- **APN bridge:** Same database as Cove — native JOINs between governance and real estate data
-
-## Source Material
-
-- Angel/knowledge/ — Agentic profile, compass platform, listing playbook, market knowledge, school guide, CRM pipeline, brand system
-- Brain/raw/processed/angel/ — Transcribed screenshots of Angelique's printed neighborhood guide
-- Angel/Top Producer - Residential*/ — CRMLS listing CSV exports
+## Related
+- [[Brain/projects/Cove]] — Parent platform
+- [[Brain/wiki/south-bay-wiki-architecture]] — Content geography and voice

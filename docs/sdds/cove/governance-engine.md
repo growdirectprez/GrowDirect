@@ -5,9 +5,10 @@
 > **Namespace:** cove
 > **Last updated:** 2026-04-13
 > **Code location:** `Cove/cove/governance/`, `Cove/cove/models/governance.py`
-> **Split companion:** [`governance-voting.md`](governance-voting.md) — ballot mechanics, tallying, secrecy enforcement
+> **Split companion:** [[docs/sdds/cove/governance-voting|Governance Voting]] — ballot mechanics, tallying, secrecy enforcement
 
 **Wiki:** [[Brain/wiki/cove-governance|Cove Governance]]
+**Architecture:** [[docs/sdds/cove/architecture|Cove Architecture]]
 
 ---
 
@@ -15,7 +16,7 @@
 
 The Governance Engine manages HOA proposal lifecycle for the West Portuguese Bend Community Association (81 lots, Rancho Palos Verdes). It enforces Davis-Stirling compliance across six statutory proposal types (resolution, bylaw amendment, CC&R amendment, election, operating rule, special assessment) plus director removal. The engine drives proposals through a `draft > noticed > open > closed > certified > petitioned` state machine, enforcing notice periods, quorum thresholds, and passage ratios loaded from `wpbca-bylaws-config.json`.
 
-This SDD covers proposal lifecycle and proceedings tracking. Voting mechanics, ballot secrecy, tallying, and quorum calculation are in [`governance-voting.md`](governance-voting.md).
+This SDD covers proposal lifecycle and proceedings tracking. Voting mechanics, ballot secrecy, tallying, and quorum calculation are in [[docs/sdds/cove/governance-voting|Governance Voting]].
 
 ---
 

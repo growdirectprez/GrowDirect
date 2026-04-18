@@ -1,6 +1,7 @@
 # RaaS — Resolution as a Service
 
 **Wiki:** [[Brain/wiki/canary-architecture|Canary Architecture]]
+**Architecture:** [[docs/sdds/canary/architecture|Canary Architecture SDD]]
 **Service type:** App Service (Canary)
 **Last reviewed:** 2026-04-13
 

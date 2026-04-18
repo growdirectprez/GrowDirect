@@ -2,6 +2,8 @@
 
 **GRO-365** | 2026-03-26
 
+**Wiki:** [[Brain/wiki/canary-architecture|Canary Architecture]]
+
 ## Problem
 
 When Cove was created, the agent copied Canary's structure and built a standalone app from scratch. No GrowDirect platform standards existed, so six weeks of sessions compounded drift. Auth, config, models, skills, CSS, Docker — all rebuilt from zero instead of following the patterns ALX learned building Canary.

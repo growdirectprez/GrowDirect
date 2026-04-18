@@ -1,5 +1,7 @@
 # ADR: Cove Sitemap Redesign — Simplification and Role Separation
 
+**Wiki:** [[Brain/wiki/cove-governance|Cove Governance]]
+
 **Date:** 2026-04-01
 **Status:** Accepted
 **Author:** Jeffe (CEO) + ALX (COO)

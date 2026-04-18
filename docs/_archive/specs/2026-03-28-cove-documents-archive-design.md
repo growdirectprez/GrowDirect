@@ -4,6 +4,8 @@
 **Status:** Draft
 **App:** Cove (HOA governance)
 
+**Wiki:** [[Brain/wiki/cove-governance|Cove Governance]]
+
 ---
 
 ## Problem

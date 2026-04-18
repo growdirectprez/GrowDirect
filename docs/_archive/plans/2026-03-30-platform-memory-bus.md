@@ -1,5 +1,7 @@
 # Platform Memory Bus — Implementation Plan
 
+**Wiki:** [[Brain/wiki/canary-architecture|Canary Architecture]]
+
 > **For agentic workers:** REQUIRED: Use superpowers:subagent-driven-development (if subagents available) or superpowers:executing-plans to implement this plan. Steps use checkbox (`- [ ]`) syntax for tracking.
 
 **Goal:** Extract ALX ops memory from Canary into a standalone MCP server using the official Python SDK, making organizational knowledge accessible to all GrowDirect apps.

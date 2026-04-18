@@ -11,6 +11,13 @@ Merchant fraud detection and analytics platform. Square integration, MCP archite
 ## Status
 Beta / Early Release Candidate
 
+## Wiki Articles
+- [[Brain/wiki/canary-platform-overview|Platform Overview]] — What Canary is, Square integration, modules, security, roadmap
+- [[Brain/wiki/canary-architecture|Architecture Overview]] — 16 services, MCP layer, data flow, 4 schemas
+- [[Brain/wiki/canary-detection|Detection Engine]] — 29 Chirp rules, 3 tiers, threshold system, alert pipeline
+- [[Brain/wiki/canary-data-model|Data Model]] — 60+ models across app, sales, fox, metrics schemas
+- [[Brain/wiki/canary-sales-strategy|Sales Strategy]] — Gold list rules, adoption ladder, signal-over-noise philosophy
+
 ## Architecture (Atlas)
 
 ### System Design
@@ -67,6 +74,44 @@ Beta / Early Release Candidate
 - [[Canary/docs/field-registry/extraction-detection-rules|Detection Rules]]
 - [[Canary/docs/field-registry/extraction-app-fox-schema|Fox Schema]]
 - [[Canary/docs/field-registry/square-coverage-matrix|Square Coverage Matrix]]
+
+## System Design Documents (SDDs)
+
+### Core
+- [[docs/sdds/canary/platform-overview|Platform Overview]] — Product context, Square positioning, modules, roadmap, compliance
+- [[docs/sdds/canary/architecture|Architecture]] — Platform overview, service mesh, deployment
+- [[docs/sdds/canary/data-model|Data Model]] — 60+ models, PII map, cross-schema reference
+- [[docs/sdds/canary/identity|Identity]] — JWT, sessions, RBAC
+- [[docs/sdds/canary/identity-square|Identity-Square]] — Square OAuth, AES-256-GCM token storage
+- [[docs/sdds/canary/external-identities|External Identities]] — Entity resolution, PII abstraction
+- [[docs/sdds/canary/ops|Ops]] — Health checks, feature flags, config service
+- [[docs/sdds/canary/ui-bff|UI/BFF]] — Frontend, session auth, feature flags
+
+### TSP Pipeline
+- [[docs/sdds/canary/tsp|TSP Pipeline]] — 10-step transaction pipeline, 4 stream consumers
+- [[docs/sdds/canary/tsp-sub1|TSP Sub1 — Hash-Seal]] — Evidence hashing and sealing
+- [[docs/sdds/canary/tsp-sub2|TSP Sub2 — Parse-Route]] — Transaction parsing and routing
+- [[docs/sdds/canary/tsp-sub3|TSP Sub3 — Merkle]] — Merkle tree batching
+- [[docs/sdds/canary/tsp-sub4|TSP Sub4 — Chirp]] — Detection rule execution
+- [[docs/sdds/canary/webhook-pipeline|Webhook Pipeline]] — Square webhook ingestion, HMAC validation
+
+### Detection & Cases
+- [[docs/sdds/canary/chirp|Chirp Detection]] — 29 detection rules, 3 tiers
+- [[docs/sdds/canary/alert|Alerts]] — Alert lifecycle, notification routing
+- [[docs/sdds/canary/fox|Fox Cases]] — Case management, evidence chain
+- [[docs/sdds/canary/owl|Owl Analytics]] — AI analysis, Ollama, MCP server
+
+### Analytics & Metrics
+- [[docs/sdds/canary/analytics|Analytics]] — KPI dashboard, risk scoring
+- [[docs/sdds/canary/metrics-analytics|Metrics]] — Star schema, ETL, risk snapshots
+- [[docs/sdds/canary/metrics-risk-scoring|Risk Scoring]] — Employee risk scoring engine
+
+### Protocol & Agent
+- [[docs/sdds/canary/goose|Goose]] — Treasury/payment layer, Bitcoin/L402
+- [[docs/sdds/canary/raas|RaaS]] — Namespace resolution, onboarding
+- [[docs/sdds/canary/alx|ALX Agent]] — Knowledge store, pgvector
+- [[docs/sdds/canary/qa-agent|QA Agent]] — QA orchestration, 30+ MCP tools
+- [[docs/sdds/canary/multi-pos-architecture-proof|Multi-POS Proof]] — Multi-source adapter pattern
 
 ## Strategy
 - [[Canary/docs/Canary-Blue-Ocean-Strategy-Analysis|Blue Ocean Strategy Analysis]]

@@ -46,3 +46,9 @@ Angel/media/
 .obsidian/plugins/
 .obsidian/community-plugins.json
 .obsidianignore
+
+
+
+
+# Ignore Smart Environment folder
+.smart-env

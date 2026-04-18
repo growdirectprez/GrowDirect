@@ -2,6 +2,7 @@
 
 **Service Type:** MCP Server (Canary)
 **Wiki:** [[Brain/wiki/canary-architecture|Canary Architecture]]
+**Architecture:** [[docs/sdds/canary/architecture|Canary Architecture SDD]]
 
 ---
 

@@ -5,9 +5,10 @@
 > **Namespace:** cove
 > **Last updated:** 2026-04-13
 > **Code location:** `Cove/cove/governance/election_services.py`, `Cove/cove/governance/election_routes.py`, `Cove/cove/governance/election_forms.py`, `Cove/cove/models/election.py`, `Cove/cove/models/governance.py`, `Cove/cove/governance/quorum.py`
-> **Split companion:** [`ballot-security.md`](ballot-security.md) — two-envelope system, RLS policies, ballot anonymity, chain hash
+> **Split companion:** [[docs/sdds/cove/ballot-security|Ballot Security]] — two-envelope system, RLS policies, ballot anonymity, chain hash
 
 **Wiki:** [[Brain/wiki/cove-governance|Cove Governance]]
+**Architecture:** [[docs/sdds/cove/architecture|Cove Architecture]]
 
 ---
 
@@ -17,7 +18,7 @@ The Secret Ballot Elections service manages board director elections for HOA org
 
 Elections are a specialized form of governance proposal. Every election is backed by a `Proposal` record with `type='election'`, extended by an `Election` record that carries election-specific data (seats, term, nomination window, acclamation flags, reconvene linkage). Candidate management, vote casting, and results tallying all operate on this two-record foundation.
 
-The defining constraint of the entire system is secret ballot separation. See [ballot-security.md](ballot-security.md) for the two-envelope architecture, PostgreSQL RLS policies, and chain hash integrity model.
+The defining constraint of the entire system is secret ballot separation. See [[docs/sdds/cove/ballot-security|Ballot Security]] for the two-envelope architecture, PostgreSQL RLS policies, and chain hash integrity model.
 
 ### Legislative Basis
 
@@ -40,7 +41,7 @@ The defining constraint of the entire system is secret ballot separation. See [b
 |-----------|-----------------|
 | `growdirect_postgres` (cove DB) | All persistence (proposals, elections, candidates, ballots, envelopes, audit_log) |
 | `growdirect_valkey` DB 1 | Flask-Login session store (sessions gate ballot access) |
-| PostgreSQL RLS | `ballot_envelopes` inspector-only SELECT (see [ballot-security.md](ballot-security.md)) |
+| PostgreSQL RLS | `ballot_envelopes` inspector-only SELECT (see [[docs/sdds/cove/ballot-security|Ballot Security]]) |
 | `growdirect_ollama` | `Proposal.embedding` for semantic search on election descriptions (optional, degrades gracefully) |
 | `cove/governance/services.py` | `create_proposal()`, `get_eligible_voter_count()`, `has_voted()`, `_audit()` |
 | `cove/models/governance.py` | `Proposal`, `Ballot`, `BallotEnvelope` shared with governance engine |
@@ -290,7 +291,7 @@ election_choices (N) --- (1) ballots --- (1) ballot_envelopes
                                            members (outer envelope, RLS)
 ```
 
-For the `Ballot`, `BallotEnvelope`, and `Proposal` table definitions, see [ballot-security.md](ballot-security.md).
+For the `Ballot`, `BallotEnvelope`, and `Proposal` table definitions, see [[docs/sdds/cove/ballot-security|Ballot Security]].
 
 ---
 
@@ -323,7 +324,7 @@ For the `Ballot`, `BallotEnvelope`, and `Proposal` table definitions, see [ballo
 
 ### Casting a Ballot (Authenticated Member)
 
-See [ballot-security.md -- Vote Casting Transaction](ballot-security.md#vote-casting-transaction) for the full 12-step atomic sequence.
+See [[docs/sdds/cove/ballot-security#Vote Casting Transaction|Ballot Security -- Vote Casting Transaction]] for the full 12-step atomic sequence.
 
 Summary: Voter selects candidates, re-authenticates with password, system creates anonymous `Ballot` + `ElectionChoice` rows, atomically increments `Candidate.vote_count`, creates sealed `BallotEnvelope`, writes audit record (who voted, never which candidates).
 
