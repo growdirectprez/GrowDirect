@@ -1,0 +1,1250 @@
+# Abalone Cove Timeline Enrichment — Implementation Plan
+
+> **For agentic workers:** REQUIRED: Use superpowers:subagent-driven-development (if subagents available) or superpowers:executing-plans to implement this plan. Steps use checkbox (`- [ ]`) syntax for tracking.
+
+**Goal:** Rewrite the abalonecove.org timeline page to merge chain-of-title depth into every entry, with expand/collapse details, era groupings, and closed-loop links to the evidence room.
+
+**Architecture:** Single static HTML file rewrite. No JavaScript, no build tools. Uses native `<details>` elements for expand/collapse. All document links use relative paths to evidence room files (PDFs direct, transcriptions through viewer.html). External civic links marked with CSS arrow.
+
+**Tech Stack:** HTML5, CSS (embedded), `<details>`/`<summary>` elements
+
+**Spec:** `docs/superpowers/specs/2026-04-17-abalonecove-timeline-enrichment-design.md`
+
+**Target file:** `~/abalonecove/timeline/index.html`
+
+**Important context:**
+- The site is at `~/abalonecove/` — a separate repo from GrowDirect
+- Pure static HTML, GitHub Pages. No Jekyll, no SSG, no framework
+- Design tokens: `--shell-teal: #2a7a7a`, `--shell-sage: #6b8f7a`, `--shell-cream: #f5f0e8`, `--shell-dark: #1a1a2e`, `--shell-warm: #c4a87a`, `--shell-mist: #e8ede9`
+- Typography: Georgia serif, 18px base, 1.7 line-height
+- Layout: 680px max-width, 1.5rem padding
+- Sticky header with hamburger nav (CSS checkbox hack, no JS)
+- `aria-current="page"` uses `border-bottom: 1px solid var(--shell-teal)` style
+- PDF links: use `-ocr.pdf` versions when they exist
+- Transcription links: route through `../docs/viewer.html?doc=<path>&original=<pdf-path>`
+- The viewer requires a web server (`fetch` + `marked.js`). From `file://`, PDF links work but viewer links show raw markdown. This is a known limitation.
+
+---
+
+## Chunk 1: Page Shell & CSS
+
+### Task 1: Write the complete page shell
+
+**Files:**
+- Rewrite: `~/abalonecove/timeline/index.html`
+
+This task writes the full HTML document: `<head>`, all CSS (existing + new), header, intro, empty `<div class="timeline">` placeholder, and footer. The timeline entries come in later tasks.
+
+- [ ] **Step 1: Write the page shell**
+
+Replace the entire contents of `~/abalonecove/timeline/index.html` with this structure:
+
+```html
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Timeline — Abalone Cove</title>
+  <meta name="description" content="The regulatory record of Abalone Cove — land use restrictions, geological events, and civic decisions from 1882 to present.">
+  <style>
+    /* ── Design Tokens ── */
+    :root {
+      --shell-teal: #2a7a7a;
+      --shell-sage: #6b8f7a;
+      --shell-cream: #f5f0e8;
+      --shell-dark: #1a1a2e;
+      --shell-warm: #c4a87a;
+      --shell-mist: #e8ede9;
+    }
+
+    /* ── Reset ── */
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    /* ── Body ── */
+    body {
+      font-family: Georgia, "Times New Roman", serif;
+      font-size: 18px;
+      line-height: 1.7;
+      color: var(--shell-dark);
+      background: var(--shell-cream);
+      -webkit-font-smoothing: antialiased;
+    }
+
+    /* ── Header / Nav ── */
+    .site-header {
+      position: sticky;
+      top: 0;
+      background: var(--shell-cream);
+      border-bottom: 1px solid var(--shell-warm);
+      z-index: 900;
+      padding: 0 1.5rem;
+    }
+
+    .header-inner {
+      max-width: 960px;
+      margin: 0 auto;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      height: 56px;
+    }
+
+    .wordmark {
+      font-family: Georgia, "Times New Roman", serif;
+      font-size: 1.25rem;
+      font-weight: normal;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+      color: var(--shell-dark);
+      text-decoration: none;
+    }
+
+    .nav-links {
+      list-style: none;
+      display: flex;
+      gap: 1.75rem;
+    }
+
+    .nav-links a {
+      font-size: 0.85rem;
+      letter-spacing: 0.04em;
+      text-transform: uppercase;
+      color: var(--shell-dark);
+      text-decoration: none;
+      opacity: 0.7;
+      transition: opacity 0.2s;
+    }
+
+    .nav-links a:hover { opacity: 1; }
+    .nav-links a[aria-current="page"] { opacity: 1; border-bottom: 1px solid var(--shell-teal); }
+
+    .nav-toggle { display: none; }
+    .nav-toggle-label { display: none; cursor: pointer; }
+
+    .nav-toggle-label span,
+    .nav-toggle-label span::before,
+    .nav-toggle-label span::after {
+      display: block;
+      background: var(--shell-dark);
+      height: 2px;
+      width: 24px;
+      border-radius: 2px;
+      position: relative;
+      transition: transform 0.3s, opacity 0.2s;
+    }
+
+    .nav-toggle-label span::before,
+    .nav-toggle-label span::after {
+      content: "";
+      position: absolute;
+    }
+
+    .nav-toggle-label span::before { top: -7px; }
+    .nav-toggle-label span::after { top: 7px; }
+
+    .nav-toggle:checked + .nav-toggle-label span { background: transparent; }
+    .nav-toggle:checked + .nav-toggle-label span::before { top: 0; transform: rotate(45deg); background: var(--shell-dark); }
+    .nav-toggle:checked + .nav-toggle-label span::after { top: 0; transform: rotate(-45deg); background: var(--shell-dark); }
+
+    /* ── Page ── */
+    .page {
+      max-width: 680px;
+      margin: 0 auto;
+      padding: 3rem 1.5rem 4rem;
+    }
+
+    .page-header {
+      margin-bottom: 2rem;
+      text-align: center;
+    }
+
+    .page-header h1 {
+      font-size: 2.25rem;
+      line-height: 1.25;
+      font-weight: normal;
+      margin-bottom: 0.75rem;
+      color: var(--shell-dark);
+    }
+
+    .page-subtitle {
+      font-size: 0.95rem;
+      color: var(--shell-sage);
+      font-style: italic;
+    }
+
+    .page-intro {
+      font-size: 0.95rem;
+      color: var(--shell-dark);
+      opacity: 0.8;
+      max-width: 560px;
+      margin: 1rem auto 0;
+      text-align: center;
+      line-height: 1.6;
+    }
+
+    /* ── Timeline ── */
+    .timeline {
+      position: relative;
+      margin-top: 2.5rem;
+    }
+
+    /* Vertical line */
+    .timeline::before {
+      content: "";
+      position: absolute;
+      left: 5.5rem;
+      top: 0.5rem;
+      bottom: 0.5rem;
+      width: 2px;
+      background: var(--shell-warm);
+    }
+
+    .timeline-entry {
+      display: flex;
+      gap: 0;
+      margin-bottom: 2rem;
+      position: relative;
+      align-items: flex-start;
+    }
+
+    .timeline-year {
+      flex: 0 0 5.5rem;
+      text-align: right;
+      padding-right: 1.25rem;
+      padding-top: 0.1rem;
+      font-size: 0.9rem;
+      font-weight: bold;
+      color: var(--shell-teal);
+      position: relative;
+      line-height: 1.4;
+    }
+
+    /* Dot on the line */
+    .timeline-year::after {
+      content: "";
+      position: absolute;
+      right: -0.35rem;
+      top: 0.35rem;
+      width: 10px;
+      height: 10px;
+      border-radius: 50%;
+      background: var(--shell-teal);
+    }
+
+    .timeline-body {
+      flex: 1;
+      padding-left: 1.25rem;
+    }
+
+    .timeline-title {
+      font-size: 1rem;
+      font-weight: bold;
+      color: var(--shell-dark);
+      line-height: 1.4;
+    }
+
+    .timeline-desc {
+      font-size: 0.9rem;
+      font-weight: normal;
+      color: var(--shell-dark);
+      opacity: 0.72;
+      margin-top: 0.1rem;
+      line-height: 1.5;
+    }
+
+    /* ── Era Dividers ── */
+    .timeline-era {
+      font-size: 0.85rem;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+      color: var(--shell-sage);
+      text-align: center;
+      margin: 3rem 0 2rem;
+      padding: 0.5rem 1.5rem;
+      border-top: 1px solid var(--shell-warm);
+      border-bottom: 1px solid var(--shell-warm);
+      font-weight: normal;
+      background: var(--shell-cream);
+      position: relative;
+      z-index: 1;
+    }
+
+    /* ── Details Expand ── */
+    .timeline-detail {
+      margin-top: 0.5rem;
+      font-size: 0.85rem;
+      line-height: 1.6;
+    }
+
+    .timeline-detail summary {
+      cursor: pointer;
+      color: var(--shell-teal);
+      font-size: 0.8rem;
+      letter-spacing: 0.03em;
+      text-transform: uppercase;
+    }
+
+    .timeline-detail summary::-webkit-details-marker {
+      color: var(--shell-warm);
+    }
+
+    .timeline-detail p {
+      margin: 0.5rem 0;
+      color: var(--shell-dark);
+      opacity: 0.85;
+    }
+
+    .timeline-detail ul {
+      list-style: none;
+      margin: 0.5rem 0 0;
+      padding: 0;
+    }
+
+    .timeline-detail li {
+      margin: 0.25rem 0;
+    }
+
+    .timeline-detail a {
+      color: var(--shell-teal);
+      text-decoration: underline;
+      text-decoration-color: var(--shell-warm);
+      text-underline-offset: 2px;
+    }
+
+    /* External link indicator — scoped to timeline details only */
+    .timeline-detail a[href^="http"]::after {
+      content: " \2197";
+      font-size: 0.75em;
+      opacity: 0.5;
+    }
+
+    /* ── Footer ── */
+    .site-footer {
+      border-top: 1px solid var(--shell-warm);
+      padding: 2.5rem 1.5rem;
+      text-align: center;
+      background: var(--shell-mist);
+    }
+
+    .footer-inner {
+      max-width: 680px;
+      margin: 0 auto;
+    }
+
+    .footer-org {
+      font-size: 0.9rem;
+      color: var(--shell-dark);
+      margin-bottom: 0.5rem;
+    }
+
+    .footer-cta {
+      font-size: 0.85rem;
+      color: var(--shell-sage);
+      font-style: italic;
+    }
+
+    /* ── Mobile ── */
+    @media (max-width: 768px) {
+      body { font-size: 16px; }
+      .page-header h1 { font-size: 1.75rem; }
+
+      .nav-toggle-label { display: flex; align-items: center; }
+
+      .nav-links {
+        display: none;
+        position: absolute;
+        top: 56px;
+        left: 0;
+        right: 0;
+        background: var(--shell-cream);
+        border-bottom: 1px solid var(--shell-warm);
+        flex-direction: column;
+        padding: 1rem 1.5rem;
+        gap: 0.75rem;
+      }
+
+      .nav-toggle:checked ~ .nav-links { display: flex; }
+
+      .timeline::before { left: 4.25rem; }
+
+      .timeline-year {
+        flex: 0 0 4.25rem;
+        font-size: 0.8rem;
+      }
+
+      .timeline-year::after {
+        right: -0.3rem;
+      }
+    }
+
+    /* ── Print ── */
+    @media print {
+      .timeline-detail { display: none; }
+      .site-header { position: static; }
+    }
+  </style>
+</head>
+<body>
+
+<header class="site-header">
+  <div class="header-inner">
+    <a href="/" class="wordmark"><img src="/images/shell-blended-32.png" alt="" width="28" height="28" style="vertical-align: middle; margin-right: 0.4rem;">Abalone Cove</a>
+    <input type="checkbox" id="nav-toggle" class="nav-toggle" aria-label="Toggle navigation">
+    <label for="nav-toggle" class="nav-toggle-label"><span></span></label>
+    <ul class="nav-links">
+      <li><a href="/evidence/">Evidence</a></li>
+      <li><a href="/map/">Map</a></li>
+      <li><a href="/timeline/" aria-current="page">Timeline</a></li>
+      <li><a href="/sign/">Sign</a></li>
+      <li><a href="/about/">About</a></li>
+    </ul>
+  </div>
+</header>
+
+<main class="page">
+  <div class="page-header">
+    <h1>Timeline</h1>
+    <p class="page-subtitle">The regulatory record of Abalone Cove, 1882&ndash;2026</p>
+    <p class="page-intro">A chronological record of the land itself &mdash; the restrictions placed on it, the geological forces acting on it, and the civic decisions that shaped it. Every document cited here is linked to its source.</p>
+  </div>
+
+  <div class="timeline">
+    <!-- TIMELINE ENTRIES GO HERE (Tasks 2-5) -->
+  </div>
+</main>
+
+<footer class="site-footer">
+  <div class="footer-inner">
+    <p class="footer-org">Abalone Cove Foundation &middot; abalonecove.org</p>
+    <p class="footer-cta">If you have documents or stories, get in touch.</p>
+  </div>
+</footer>
+
+</body>
+</html>
+```
+
+- [ ] **Step 2: Verify the shell renders**
+
+Open `~/abalonecove/timeline/index.html` in a browser. Confirm:
+- Header with nav renders, Timeline link is highlighted
+- Title, subtitle, and intro paragraph display centered
+- Empty timeline area shows (just the vertical line)
+- Footer renders
+- Mobile: hamburger menu works
+
+- [ ] **Step 3: Commit the shell**
+
+```bash
+cd ~/abalonecove
+git add timeline/index.html
+git commit -m "timeline: page shell with enrichment CSS
+
+Era dividers, details expand/collapse, external link indicator,
+print styles. Content entries follow in subsequent commits."
+```
+
+---
+
+## Chunk 2: Era 1 — Rancho Era (1882–1925)
+
+### Task 2: Add Rancho Era entries
+
+**Files:**
+- Modify: `~/abalonecove/timeline/index.html` — insert entries inside `<div class="timeline">`
+
+Insert the following HTML where the `<!-- TIMELINE ENTRIES GO HERE -->` comment is. Replace that comment with the era divider and entries below.
+
+- [ ] **Step 1: Add the Rancho Era entries**
+
+Insert inside `<div class="timeline">`:
+
+```html
+    <h2 class="timeline-era">Rancho Era</h2>
+
+    <!-- 1882 — Bixby Partition — TIER 1 -->
+    <div class="timeline-entry">
+      <div class="timeline-year">1882</div>
+      <div class="timeline-body">
+        <div class="timeline-title">Bixby Partition</div>
+        <div class="timeline-desc">Superior Court awards Lot &ldquo;H&rdquo; of Rancho de los Palos Verdes to Jotham Bixby</div>
+        <details class="timeline-detail">
+          <summary>Record</summary>
+          <p>Case No. 2373, District Court, 17th Judicial District. Jotham Bixby receives Lot &ldquo;H&rdquo; &mdash; the legal parcel that will define every restriction and subdivision that follows. This is the origin point of the chain of title.</p>
+          <ul>
+            <li><a href="../docs/viewer.html?doc=/docs/tract-maps/1880-rancho-los-palos-verdes-patent-plat-book-2-pp-543-546.md">Rancho patent plat (transcription)</a></li>
+          </ul>
+        </details>
+      </div>
+    </div>
+
+    <!-- 1913 — Vanderlip Purchase — TIER 2 -->
+    <div class="timeline-entry">
+      <div class="timeline-year">1913</div>
+      <div class="timeline-body">
+        <div class="timeline-title">Vanderlip Purchase</div>
+        <div class="timeline-desc">Frank Vanderlip Sr. acquires the entire peninsula with a banking syndicate &mdash; approximately 16,000 acres</div>
+        <details class="timeline-detail">
+          <summary>Context</summary>
+          <p>Vanderlip, president of National City Bank of New York, buys the rancho as a real estate venture. He will spend the next two decades planning a planned community on the peninsula.</p>
+        </details>
+      </div>
+    </div>
+
+    <!-- 1923 — Olmsted Master Plan — TIER 2 -->
+    <div class="timeline-entry">
+      <div class="timeline-year">1923</div>
+      <div class="timeline-body">
+        <div class="timeline-title">Olmsted Master Plan</div>
+        <div class="timeline-desc">Olmsted Brothers hired to plan the peninsula &mdash; Frederick Law Olmsted Jr. builds a house on site to oversee the work</div>
+        <details class="timeline-detail">
+          <summary>Context</summary>
+          <p>Olmsted Jr. designs the community layout, road network, and open space system. Jacques Greber contributes the Villa Narcissa grounds at Portuguese Point. The Library of Congress holds 385 plans for the Palos Verdes project.</p>
+          <ul>
+            <li><a href="https://www.loc.gov/collections/olmsted-associates-records/">Olmsted Associates Records (Library of Congress)</a></li>
+          </ul>
+        </details>
+      </div>
+    </div>
+
+    <!-- 1925 — PV Corporation — TIER 2 -->
+    <div class="timeline-entry">
+      <div class="timeline-year">1925</div>
+      <div class="timeline-body">
+        <div class="timeline-title">Palos Verdes Corporation</div>
+        <div class="timeline-desc">Vanderlip syndicate reorganizes as Palos Verdes Corporation, a Delaware corporation &mdash; holds title to all land including Lot &ldquo;H&rdquo;</div>
+        <details class="timeline-detail">
+          <summary>Context</summary>
+          <p>PV Corp becomes the entity that will sign every founding declaration between 1929 and 1952. Kelvin C. Vanderlip (Frank Sr.&rsquo;s son) serves as president. The corporation&rsquo;s Delaware status and eventual dissolution are central to whether the restrictions can ever be released.</p>
+        </details>
+      </div>
+    </div>
+```
+
+- [ ] **Step 2: Verify in browser**
+
+Open `timeline/index.html`. Confirm:
+- "Rancho Era" divider renders centered with borders
+- 4 entries display with year, title, description
+- `<details>` elements expand/collapse on click
+- Bixby Partition links to the viewer (won't load from file:// but the link is present)
+- Olmsted links to LOC with external arrow indicator
+- PV Corp entry has no links (correct — no document held)
+
+- [ ] **Step 3: Commit**
+
+```bash
+cd ~/abalonecove
+git add timeline/index.html
+git commit -m "timeline: Rancho Era entries (1882-1925)
+
+Bixby Partition (Tier 1), Vanderlip Purchase, Olmsted Master Plan,
+PV Corporation (Tier 2). Evidence room and LOC links verified."
+```
+
+---
+
+## Chunk 3: Era 2 — Declarations & Development (1929–1954)
+
+### Task 3: Add Declarations & Development entries
+
+**Files:**
+- Modify: `~/abalonecove/timeline/index.html` — append after the last Rancho Era entry
+
+This is the densest era — 15 entries covering the founding declarations, Shore Club, Filiorum, grant deeds, and corporate succession.
+
+- [ ] **Step 1: Add the Declarations & Development entries**
+
+Append after the last `</div>` of the PV Corporation entry:
+
+```html
+    <h2 class="timeline-era">Declarations &amp; Development</h2>
+
+    <!-- 1929 — Declaration 100 — TIER 2 -->
+    <div class="timeline-entry">
+      <div class="timeline-year">1929</div>
+      <div class="timeline-body">
+        <div class="timeline-title">Declaration 100</div>
+        <div class="timeline-desc">Art Jury and red tile district established for Portuguese Bend &mdash; same architectural review system as Palos Verdes Estates</div>
+        <details class="timeline-detail">
+          <summary>Record</summary>
+          <p>Book 9436, LA County Recorder. Establishes basic protective restrictions and an Art Jury (architectural review board) for the Portuguese Bend area. This is the PV Corporation&rsquo;s first layer of covenant protection for the south coast.</p>
+          <ul>
+            <li><a href="../docs/declarations/1929-declaration-100-basic-protective-restrictions-book-9436.html">Declaration 100 (full text)</a></li>
+          </ul>
+        </details>
+      </div>
+    </div>
+
+    <!-- 1929 — Declaration 101 — TIER 2 -->
+    <div class="timeline-entry">
+      <div class="timeline-year">1929</div>
+      <div class="timeline-body">
+        <div class="timeline-title">Declaration 101</div>
+        <div class="timeline-desc">Seven parcels (~1,131 acres) placed under local protective restrictions with architectural controls</div>
+        <details class="timeline-detail">
+          <summary>Record</summary>
+          <p>Book 9482, LA County Recorder. Applies local protective restrictions to seven named parcels in the Portuguese Bend area. These parcels include the land that will later become Shoreline Park &mdash; a connection not referenced when the city acquired those parcels in 2014.</p>
+          <ul>
+            <li><a href="../docs/declarations/1929-declaration-101-local-protective-restrictions-book-9482.html">Declaration 101 (full text)</a></li>
+          </ul>
+        </details>
+      </div>
+    </div>
+
+    <!-- 1929 — Shore Club — TIER 2 -->
+    <div class="timeline-entry">
+      <div class="timeline-year">1929</div>
+      <div class="timeline-body">
+        <div class="timeline-title">Shore Club</div>
+        <div class="timeline-desc">Abalone Shore Club incorporated &mdash; social and beach club for the Portuguese Bend community</div>
+        <details class="timeline-detail">
+          <summary>Context</summary>
+          <p>The Shore Club will become the focal point of the 1972 condos-vs-park debate. Its corporate archives document the community&rsquo;s relationship to the shoreline from the beginning.</p>
+          <ul>
+            <li><a href="../docs/viewer.html?doc=/docs/shore-club/Abalone-Shore-Club-Corporate-Archives-Verbatim.md">Shore Club corporate archives (transcription)</a></li>
+          </ul>
+        </details>
+      </div>
+    </div>
+
+    <!-- 1930 — Filiorum Grant — TIER 2 -->
+    <div class="timeline-entry">
+      <div class="timeline-year">1930</div>
+      <div class="timeline-body">
+        <div class="timeline-title">Filiorum Grant</div>
+        <div class="timeline-desc">PV Corporation conveys coastal parcels to Filiorum Corporation &mdash; the deed incorporates Declarations 100 and 101 by reference</div>
+        <details class="timeline-detail">
+          <summary>Record</summary>
+          <p>Book 10226, LA County Recorder. Grant deed from PV Corp to Filiorum Corporation, a family holding entity. Page six of this deed explicitly incorporates the restrictions of Declarations 100 and 101, binding the coastal parcels to the same architectural controls.</p>
+          <ul>
+            <li><a href="../docs/viewer.html?doc=/docs/declarations/1930-pvcorp-to-filiorum-grant-deed-book-10226.md">Filiorum grant deed (transcription)</a></li>
+            <li><a href="../images/filiorum-deed-grant.jpeg">Grant deed image &mdash; PV Corp to Filiorum</a></li>
+            <li><a href="../images/filiorum-deed-restrictions.jpeg">Deed page six &mdash; Declaration 100/101 incorporation</a></li>
+          </ul>
+        </details>
+      </div>
+    </div>
+
+    <!-- 1937 — Vanderlip Sr. Dies — TIER 3 -->
+    <div class="timeline-entry">
+      <div class="timeline-year">1937</div>
+      <div class="timeline-body">
+        <div class="timeline-title">Vanderlip Sr. Dies</div>
+        <div class="timeline-desc">Frank Vanderlip Sr. passes; sons Kelvin and Frank Jr. will carry forward the development plan</div>
+      </div>
+    </div>
+
+    <!-- 1949 — Declaration No. One — TIER 1 -->
+    <div class="timeline-entry">
+      <div class="timeline-year">1949</div>
+      <div class="timeline-body">
+        <div class="timeline-title">Declaration No. One</div>
+        <div class="timeline-desc">Tract 14649 established &mdash; WPBCA created, 81 lots, single-family residential only</div>
+        <details class="timeline-detail">
+          <summary>Record</summary>
+          <p>Book 29980, Page 159, LA County Recorder. Signed by Kelvin C. Vanderlip (President) and John H. Robertson (Asst. Secretary) for Palos Verdes Corporation.</p>
+          <p>Creates the community&rsquo;s governing framework: single-family residential use, Architectural Review Committee, maintenance assessments, enforcement and reversion of title. Article VIII provides mechanism to annex Lot &ldquo;H&rdquo; land into WPBCA. Duration: until January 1, 1974, then auto-renews in 10-year periods.</p>
+          <ul>
+            <li><a href="../docs/originals/declarations/1949-WPBCA-Declaration-ocr.pdf">Original document (PDF)</a></li>
+            <li><a href="../docs/viewer.html?doc=/docs/declarations/1949-WPBCA-Declaration-No-One-Verbatim.md&original=/docs/originals/declarations/1949-WPBCA-Declaration-ocr.pdf">Verbatim transcription</a></li>
+          </ul>
+        </details>
+      </div>
+    </div>
+
+    <!-- 1949 — Declaration of Easements — TIER 1 -->
+    <div class="timeline-entry">
+      <div class="timeline-year">1949</div>
+      <div class="timeline-body">
+        <div class="timeline-title">Declaration of Easements</div>
+        <div class="timeline-desc">Ocean access, utility, road, and drainage easements defined for Tract 14649 &mdash; including bridle trail and walkway to the Pacific</div>
+        <details class="timeline-detail">
+          <summary>Record</summary>
+          <p>Book 30051, Pages 385&ndash;393, LA County Recorder. Signed by Kelvin C. Vanderlip and John H. Robertson.</p>
+          <p>Defines metes and bounds of all easements within and around Tract 14649. Establishes two ocean access easements to the Pacific. Reserves utility, road, and drainage rights. Adds the physical infrastructure layer to Declaration No. One.</p>
+          <ul>
+            <li><a href="../docs/originals/declarations/1949-Declaration-of-Easements-ocr.pdf">Original document (PDF)</a></li>
+            <li><a href="../docs/viewer.html?doc=/docs/declarations/1949-Declaration-of-Easements-Verbatim.md&original=/docs/originals/declarations/1949-Declaration-of-Easements-ocr.pdf">Verbatim transcription</a></li>
+          </ul>
+        </details>
+      </div>
+    </div>
+
+    <!-- 1949 — Modification — TIER 2 -->
+    <div class="timeline-entry">
+      <div class="timeline-year">1949</div>
+      <div class="timeline-body">
+        <div class="timeline-title">Modification of Protective Restrictions</div>
+        <div class="timeline-desc">Amends Declaration No. One &mdash; adjusts minimum ground area requirements for one-story dwellings</div>
+        <details class="timeline-detail">
+          <summary>Record</summary>
+          <p>Book 30174, Page 59, LA County Recorder. Increases allowable size reduction from 10% to 20% for one-story dwellings, except Lots 1&ndash;15 which permit no reduction.</p>
+          <ul>
+            <li><a href="../docs/originals/declarations/1949-1950-Amendments-ocr.pdf">Amendments document (PDF)</a></li>
+            <li><a href="../docs/viewer.html?doc=/docs/declarations/1949-Modification-of-Protective-Restrictions-Verbatim.md&original=/docs/originals/declarations/1949-1950-Amendments-ocr.pdf">Verbatim transcription</a></li>
+          </ul>
+        </details>
+      </div>
+    </div>
+
+    <!-- 1950 — Lot H Declaration — TIER 1 -->
+    <div class="timeline-entry">
+      <div class="timeline-year">1950</div>
+      <div class="timeline-body">
+        <div class="timeline-title">Lot &ldquo;H&rdquo; Declaration</div>
+        <div class="timeline-desc">The catch-all &mdash; all remaining PV Corp land not already in a named tract placed under single-family restrictions</div>
+        <details class="timeline-detail">
+          <summary>Record</summary>
+          <p>Book 32160, Page 26, LA County Recorder. Signed by Kelvin C. Vanderlip and John H. Robertson.</p>
+          <p>Covers everything PV Corporation owned that was not already in a named tract &mdash; the negative space. Same single-family restrictions as Declaration No. One, same ARC requirements, same enforcement and reversion of title. Duration: until January 1, 1975, then auto-renews in 10-year periods. Currently in force through January 1, 2035.</p>
+          <p>APN 7573-006-024 (0 Clipper Road) is not in Tract 14649. It is not in any excepted tract. It was PV Corp land in 1950. It falls under this declaration.</p>
+          <ul>
+            <li><a href="../docs/originals/declarations/1949-1950-Amendments-ocr.pdf">Lot H Declaration (PDF, bundled with amendments)</a></li>
+            <li><a href="../docs/viewer.html?doc=/docs/declarations/1950-Lot-H-Declaration-Verbatim.md&original=/docs/originals/declarations/1949-1950-Amendments-ocr.pdf">Verbatim transcription</a></li>
+          </ul>
+        </details>
+      </div>
+    </div>
+
+    <!-- 1950 — Declaration One-A — TIER 2 -->
+    <div class="timeline-entry">
+      <div class="timeline-year">1950</div>
+      <div class="timeline-body">
+        <div class="timeline-title">Declaration One-A</div>
+        <div class="timeline-desc">Additional restrictions for Lots 1&ndash;5 (oceanfront, Sea Cove Drive) &mdash; bluff setbacks and height limits</div>
+        <details class="timeline-detail">
+          <summary>Record</summary>
+          <p>Book 34817, Page 254, LA County Recorder. Adds 20-foot setback from Sea Cove Drive, 40-foot setback from bluff edge, 4-foot height limit within bluff setback, and ARC approval for all fences on Lots 1&ndash;5.</p>
+          <ul>
+            <li><a href="../docs/viewer.html?doc=/docs/declarations/1950-Declaration-One-A-Verbatim.md">Verbatim transcription</a></li>
+          </ul>
+        </details>
+      </div>
+    </div>
+
+    <!-- 1952 — Grant Deeds — TIER 2 -->
+    <div class="timeline-entry">
+      <div class="timeline-year">1952</div>
+      <div class="timeline-body">
+        <div class="timeline-title">Grant Deeds</div>
+        <div class="timeline-desc">PV Corporation begins selling individual lots &mdash; every buyer takes title subject to all declarations</div>
+        <details class="timeline-detail">
+          <summary>Record</summary>
+          <p>Book 40601, Page 303 (Lot 1 template), LA County Recorder. Each grant deed references Declaration No. One &mdash; the buyer accepts all restrictions. This pattern repeats 81 times, carrying the covenants forward to every lot in Tract 14649.</p>
+          <ul>
+            <li><a href="../docs/originals/declarations/1952-PVCorp-Grant-Deed-Lot1-ocr.pdf">Grant deed &mdash; Lot 1 template (PDF)</a></li>
+            <li><a href="../docs/viewer.html?doc=/docs/declarations/1952-PVCorp-Grant-Deed-Lot1-Verbatim.md&original=/docs/originals/declarations/1952-PVCorp-Grant-Deed-Lot1-ocr.pdf">Verbatim transcription</a></li>
+          </ul>
+        </details>
+      </div>
+    </div>
+
+    <!-- 1953 — Great Lakes Carbon — TIER 2 -->
+    <div class="timeline-entry">
+      <div class="timeline-year">1953</div>
+      <div class="timeline-body">
+        <div class="timeline-title">Great Lakes Carbon</div>
+        <div class="timeline-desc">Frank Vanderlip Jr. sells all PV Corp stock for approximately $9 million &mdash; family retains 500 acres in Portuguese Bend</div>
+        <details class="timeline-detail">
+          <summary>Context</summary>
+          <p>Great Lakes Carbon Corporation acquires PV Corp as a subsidiary. The Vanderlip family exits the corporate structure but retains significant Portuguese Bend acreage. PV Corp&rsquo;s restriction authority transfers with the stock sale.</p>
+        </details>
+      </div>
+    </div>
+
+    <!-- 1954 — PV Corp Dissolved — TIER 3 -->
+    <div class="timeline-entry">
+      <div class="timeline-year">1954</div>
+      <div class="timeline-body">
+        <div class="timeline-title">PV Corp Dissolved</div>
+        <div class="timeline-desc">Delaware dissolution &mdash; no entity remains to release the Lot &ldquo;H&rdquo; restrictions</div>
+      </div>
+    </div>
+```
+
+- [ ] **Step 2: Verify in browser**
+
+Confirm:
+- "Declarations & Development" era divider displays
+- All 13 entries render with correct years
+- Tier 1 entries (Declaration No. One, Easements, Lot H) expand with full content and working links
+- Tier 2 entries expand with context and links where applicable
+- Tier 3 entries (Vanderlip Sr. Dies, PV Corp Dissolved) have no expand
+- PDF links point to `-ocr.pdf` versions
+- Viewer links use `?doc=` and `?original=` params
+
+- [ ] **Step 3: Spot-check file existence**
+
+```bash
+cd ~/abalonecove
+ls docs/originals/declarations/1949-WPBCA-Declaration-ocr.pdf
+ls docs/originals/declarations/1949-Declaration-of-Easements-ocr.pdf
+ls docs/originals/declarations/1949-1950-Amendments-ocr.pdf
+ls docs/originals/declarations/1952-PVCorp-Grant-Deed-Lot1-ocr.pdf
+ls docs/declarations/1929-declaration-100-basic-protective-restrictions-book-9436.html
+ls docs/declarations/1929-declaration-101-local-protective-restrictions-book-9482.html
+ls images/filiorum-deed-grant.jpeg
+ls images/filiorum-deed-restrictions.jpeg
+```
+
+All must exist. If any is missing, fix the link before committing.
+
+- [ ] **Step 4: Commit**
+
+```bash
+cd ~/abalonecove
+git add timeline/index.html
+git commit -m "timeline: Declarations & Development era (1929-1954)
+
+13 entries: Declaration 100/101, Shore Club, Filiorum, Declaration
+No. One (Tier 1), Easements (Tier 1), Modification, Lot H (Tier 1),
+One-A, Grant Deeds, Great Lakes Carbon, PV Corp dissolved.
+All evidence room links verified against file inventory."
+```
+
+---
+
+## Chunk 4: Era 3 — Geology & Regulation (1956–1986)
+
+### Task 4: Add Geology & Regulation entries
+
+**Files:**
+- Modify: `~/abalonecove/timeline/index.html` — append after PV Corp Dissolved entry
+
+- [ ] **Step 1: Add the Geology & Regulation entries**
+
+Append after the PV Corp Dissolved entry:
+
+```html
+    <h2 class="timeline-era">Geology &amp; Regulation</h2>
+
+    <!-- 1956 — The Landslide — TIER 2 -->
+    <div class="timeline-entry">
+      <div class="timeline-year">1956</div>
+      <div class="timeline-body">
+        <div class="timeline-title">The Landslide</div>
+        <div class="timeline-desc">Ancient Portuguese Bend Landslide reactivates &mdash; 900 acres begin moving toward the ocean</div>
+        <details class="timeline-detail">
+          <summary>Context</summary>
+          <p>Road construction on Crenshaw Boulevard cuts into the ancient slide plane, reactivating the Portuguese Bend Landslide Complex. The slide will eventually destroy over 100 homes and reshape the regulatory landscape of the entire south coast.</p>
+          <ul>
+            <li><a href="../docs/viewer.html?doc=/docs/geological/1935-county-surveyor-CSB1082-2-pv-drive-south.md">County Surveyor CSB 1082-2 &mdash; PV Drive South boundaries (transcription)</a></li>
+          </ul>
+        </details>
+      </div>
+    </div>
+
+    <!-- 1972 — Condos vs. Park — TIER 2 -->
+    <div class="timeline-entry">
+      <div class="timeline-year">1972</div>
+      <div class="timeline-body">
+        <div class="timeline-title">Condos vs. Park</div>
+        <div class="timeline-desc">Shore Club votes for a shoreline park over 138&ndash;170 condominiums &mdash; the community chooses open space</div>
+        <details class="timeline-detail">
+          <summary>Context</summary>
+          <p>Dick Karshner proposes a condominium development on Shore Club land. Karl Rodi leads the opposition. The membership votes to pursue a public park instead. This decision directly leads to the creation of Abalone Cove Shoreline Park and, indirectly, to the incorporation of Rancho Palos Verdes.</p>
+          <ul>
+            <li><a href="../docs/viewer.html?doc=/docs/shore-club/1971-1972-Shore-Club-Board-Docs-Verbatim.md">Shore Club board documents (transcription)</a></li>
+            <li><a href="../docs/viewer.html?doc=/docs/shore-club/1972-Karshner-Proposal-Verbatim.md">Karshner condominium proposal (transcription)</a></li>
+            <li><a href="../docs/viewer.html?doc=/docs/shore-club/1972-Abalone-Cove-Fact-Sheet-Verbatim.md">Abalone Cove fact sheet (transcription)</a></li>
+            <li><a href="../docs/viewer.html?doc=/docs/shore-club/WPBCA-Letter-Condos-vs-Park-Verbatim.md">WPBCA letter on condos vs. park (transcription)</a></li>
+          </ul>
+        </details>
+      </div>
+    </div>
+
+    <!-- 1973 — RPV Incorporates — TIER 2 -->
+    <div class="timeline-entry">
+      <div class="timeline-year">1973</div>
+      <div class="timeline-body">
+        <div class="timeline-title">RPV Incorporates</div>
+        <div class="timeline-desc">City of Rancho Palos Verdes forms &mdash; residents incorporate to gain local control over development</div>
+        <details class="timeline-detail">
+          <summary>Context</summary>
+          <p>The condo fight and broader development pressure drive incorporation. RPV becomes the regulatory authority for the south coast, including Abalone Cove and the Portuguese Bend area. The new city inherits responsibility for land use decisions on active landslide terrain.</p>
+        </details>
+      </div>
+    </div>
+
+    <!-- 1974 — Abalone Cove Slide — TIER 2 -->
+    <div class="timeline-entry">
+      <div class="timeline-year">1974</div>
+      <div class="timeline-body">
+        <div class="timeline-title">Abalone Cove Slide</div>
+        <div class="timeline-desc">Second major landslide begins in the Abalone Cove area</div>
+        <details class="timeline-detail">
+          <summary>Context</summary>
+          <p>A separate landslide activates in the Abalone Cove area, distinct from the 1956 Portuguese Bend slide. Together, the two slides form the Portuguese Bend Landslide Complex &mdash; the largest active landslide in Los Angeles County.</p>
+        </details>
+      </div>
+    </div>
+
+    <!-- 1976 — Coastal Act — TIER 2 -->
+    <div class="timeline-entry">
+      <div class="timeline-year">1976</div>
+      <div class="timeline-body">
+        <div class="timeline-title">California Coastal Act</div>
+        <div class="timeline-desc">Creates permanent California Coastal Commission &mdash; development in the coastal zone requires a permit</div>
+        <details class="timeline-detail">
+          <summary>Context</summary>
+          <p>Establishes state authority over development within the coastal zone. The Abalone Cove area falls within this zone. Any new construction requires a Coastal Development Permit in addition to city approvals &mdash; a second regulatory layer independent of local government.</p>
+          <ul>
+            <li><a href="https://www.coastal.ca.gov/coastact.pdf">California Coastal Act (full text)</a></li>
+          </ul>
+        </details>
+      </div>
+    </div>
+
+    <!-- 1978 — Coastal Specific Plan — TIER 2 -->
+    <div class="timeline-entry">
+      <div class="timeline-year">1978</div>
+      <div class="timeline-body">
+        <div class="timeline-title">Coastal Specific Plan</div>
+        <div class="timeline-desc">Resolution 78-61 adopted &mdash; Subregion 4 policies govern Abalone Cove land use</div>
+        <details class="timeline-detail">
+          <summary>Context</summary>
+          <p>RPV adopts the Coastal Specific Plan to comply with the Coastal Act. Subregion 4 covers the Abalone Cove area and sets density, setback, and environmental review requirements for all development in the coastal zone.</p>
+        </details>
+      </div>
+    </div>
+
+    <!-- 1980 — Wong Subdivision — TIER 1 -->
+    <div class="timeline-entry">
+      <div class="timeline-year">1980</div>
+      <div class="timeline-body">
+        <div class="timeline-title">Wong Subdivision</div>
+        <div class="timeline-desc">Tract 32977 &mdash; the only approved subdivision of the 0 Clipper parcel: four single-family lots plus open space</div>
+        <details class="timeline-detail">
+          <summary>Record</summary>
+          <p>Map Book 950, Pages 14&ndash;15, LA County Recorder. The Wong family subdivides a portion of Lot &ldquo;H&rdquo; into Tract 32977: four single-family residential lots with dedicated open space. This is the only density ever approved for this parcel through the proper subdivision process.</p>
+          <ul>
+            <li><a href="../docs/originals/tract-maps/1980-06-17-Tract-32977-Lot-H-Subdivision-MB950-PG14-15.pdf">Tract 32977 map (PDF)</a></li>
+            <li><a href="../docs/viewer.html?doc=/docs/tract-maps/1980-06-17-Tract-32977-Lot-H-Subdivision-MB950-PG14-15.md">Tract map notes (transcription)</a></li>
+          </ul>
+        </details>
+      </div>
+    </div>
+
+    <!-- 1986 — Reversion — TIER 1 -->
+    <div class="timeline-entry">
+      <div class="timeline-year">1986</div>
+      <div class="timeline-body">
+        <div class="timeline-title">Reversion to Acreage</div>
+        <div class="timeline-desc">Tract 43725 &mdash; the Wong subdivision reverts to a single unsubdivided parcel</div>
+        <details class="timeline-detail">
+          <summary>Record</summary>
+          <p>Map Book 1063, Pages 91&ndash;92, LA County Recorder. The subdivision is reversed &mdash; the four lots and open space parcel are merged back into a single unsubdivided parcel. The land returns to its pre-1980 status as unsubdivided Lot &ldquo;H&rdquo; acreage.</p>
+          <ul>
+            <li><a href="../docs/originals/tract-maps/1986-02-26-Tract-43725-Reversion-To-Acreage-MB1063-PG91-92.pdf">Reversion to acreage map (PDF)</a></li>
+            <li><a href="../docs/viewer.html?doc=/docs/tract-maps/1986-02-26-Tract-43725-Reversion-To-Acreage-MB1063-PG91-92.md">Tract map notes (transcription)</a></li>
+          </ul>
+        </details>
+      </div>
+    </div>
+```
+
+- [ ] **Step 2: Verify in browser**
+
+Confirm:
+- "Geology & Regulation" era divider displays
+- 8 entries render correctly
+- Condos vs. Park expands with 4 Shore Club document links
+- Coastal Act shows external LOC arrow
+- Wong and Reversion entries link to tract map PDFs
+- Coastal Specific Plan has no link (correct — no document held)
+
+- [ ] **Step 3: Spot-check file existence**
+
+```bash
+cd ~/abalonecove
+ls docs/originals/tract-maps/1980-06-17-Tract-32977-Lot-H-Subdivision-MB950-PG14-15.pdf
+ls docs/originals/tract-maps/1986-02-26-Tract-43725-Reversion-To-Acreage-MB1063-PG91-92.pdf
+ls docs/shore-club/1971-1972-Shore-Club-Board-Docs-Verbatim.md
+ls docs/shore-club/1972-Karshner-Proposal-Verbatim.md
+ls docs/shore-club/1972-Abalone-Cove-Fact-Sheet-Verbatim.md
+ls docs/shore-club/WPBCA-Letter-Condos-vs-Park-Verbatim.md
+ls docs/geological/1935-county-surveyor-CSB1082-2-pv-drive-south.md
+```
+
+- [ ] **Step 4: Commit**
+
+```bash
+cd ~/abalonecove
+git add timeline/index.html
+git commit -m "timeline: Geology & Regulation era (1956-1986)
+
+8 entries: Landslide, Condos vs Park (4 Shore Club docs),
+RPV incorporation, Abalone Cove slide, Coastal Act, Coastal
+Specific Plan, Wong Subdivision (Tier 1), Reversion (Tier 1).
+All evidence room links verified."
+```
+
+---
+
+## Chunk 5: Era 4 — Modern Era (2009–2026)
+
+### Task 5: Add Modern Era entries
+
+**Files:**
+- Modify: `~/abalonecove/timeline/index.html` — append after Reversion entry
+
+- [ ] **Step 1: Add the Modern Era entries**
+
+Append after the Reversion entry:
+
+```html
+    <h2 class="timeline-era">Modern Era</h2>
+
+    <!-- 2009 — Restated Declaration — TIER 1 -->
+    <div class="timeline-entry">
+      <div class="timeline-year">2009</div>
+      <div class="timeline-body">
+        <div class="timeline-title">Restated Declaration</div>
+        <div class="timeline-desc">WPBCA restates Declaration No. One in full &mdash; one change: removes the voided racial covenant</div>
+        <details class="timeline-detail">
+          <summary>Record</summary>
+          <p>Document 20090802242, LA County Recorder. Certified by Lowell R. Wedemeyer (President) and Anthony DeClue (Asst. Secretary).</p>
+          <p>Restates Declaration No. One as required by Civil Code 1352.5. Lists all 81 APNs of Tract 14649. Incorporates the 1949 Modification. Does not include APN 7573-006-024 (0 Clipper Road) &mdash; that parcel is Lot &ldquo;H,&rdquo; governed by the separate Lot H Declaration. Does not modify or restate the Lot H Declaration, Declaration One-A, or the Declaration of Easements.</p>
+          <ul>
+            <li><a href="../docs/originals/declarations/2009-Restated-Declaration.pdf">Restated Declaration (PDF)</a></li>
+            <li><a href="../docs/viewer.html?doc=/docs/declarations/2009-Restated-Declaration-Text.md&original=/docs/originals/declarations/2009-Restated-Declaration.pdf">Full text (transcription)</a></li>
+          </ul>
+        </details>
+      </div>
+    </div>
+
+    <!-- 2014 — Redevelopment Conveyance — TIER 2 -->
+    <div class="timeline-entry">
+      <div class="timeline-year">2014</div>
+      <div class="timeline-body">
+        <div class="timeline-title">Redevelopment Conveyance</div>
+        <div class="timeline-desc">Five Shoreline Park parcels conveyed to the City of RPV &mdash; Declarations 100 and 101 never referenced in the transfer</div>
+        <details class="timeline-detail">
+          <summary>Context</summary>
+          <p>The five parcels conveyed to RPV in the 2014 redevelopment dissolution are subdivisions of Declaration 101 Parcels 1 and 5. Five match points verified: same Lot H, same Case 2373, same Mean High Tide Line, same road right-of-way, same PV Corp &rarr; Filiorum deed chain. The conveyance documents do not mention Declarations 100 or 101.</p>
+        </details>
+      </div>
+    </div>
+
+    <!-- 2021 — Clipper Development — TIER 2 -->
+    <div class="timeline-entry">
+      <div class="timeline-year">2021</div>
+      <div class="timeline-body">
+        <div class="timeline-title">Clipper Development</div>
+        <div class="timeline-desc">Clipper Development LLC (Ali Vahdani, Vernon, CA) acquires the 0 Clipper parcel for $2.2 million with a Hankey Capital loan</div>
+        <details class="timeline-detail">
+          <summary>Context</summary>
+          <p>The most recent speculator to acquire this parcel. The purchase is financed by Hankey Capital. Within three years, the city will rezone the parcel from RS-4 (single-family, 4 units/acre) to RM-22 (multi-family, 22 units/acre).</p>
+          <ul>
+            <li><a href="../docs/originals/property/2026-03-25-CTC-Title-Report-0-Clipper-APN-7573-006-024.pdf">Title report &mdash; APN 7573-006-024 (PDF)</a></li>
+          </ul>
+        </details>
+      </div>
+    </div>
+
+    <!-- 2024 — Rezoning — TIER 1 -->
+    <div class="timeline-entry">
+      <div class="timeline-year">2024</div>
+      <div class="timeline-body">
+        <div class="timeline-title">Rezoning</div>
+        <div class="timeline-desc">City rezones 0 Clipper from RS-4 to RM-22 &mdash; three ordinances in 63 days</div>
+        <details class="timeline-detail">
+          <summary>Record</summary>
+          <p>Ordinances 678U (April 16), 680U (June 4), and 681 (June 18). The city rezones the parcel from single-family residential (4 units/acre) to multi-family residential (22 units/acre) &mdash; a 5.5x density increase on an active landslide, in the coastal zone, on land subject to the Lot &ldquo;H&rdquo; Declaration.</p>
+          <ul>
+            <li><a href="../docs/viewer.html?doc=/docs/litigation/2024-06-04-Comment-to-City-Council-Re-0-Clipper-Rezoning-Verbatim.md">Public comment to City Council (transcription)</a></li>
+          </ul>
+        </details>
+      </div>
+    </div>
+
+    <!-- 2024 — FPPC Complaint — TIER 2 -->
+    <div class="timeline-entry">
+      <div class="timeline-year">2024</div>
+      <div class="timeline-body">
+        <div class="timeline-title">FPPC Complaint</div>
+        <div class="timeline-desc">Fair Political Practices Commission complaint filed against Mayor Cruikshank</div>
+        <details class="timeline-detail">
+          <summary>Record</summary>
+          <p>Filed August 7, 2024. Alleges conflict of interest in the rezoning vote.</p>
+          <ul>
+            <li><a href="../docs/originals/litigation/2024-08-07-FPPC-Complaint-Cruikshank.pdf">FPPC complaint (PDF)</a></li>
+            <li><a href="../docs/viewer.html?doc=/docs/litigation/2024-08-07-FPPC-Complaint-Cruikshank-Verbatim.md&original=/docs/originals/litigation/2024-08-07-FPPC-Complaint-Cruikshank.pdf">Verbatim transcription</a></li>
+          </ul>
+        </details>
+      </div>
+    </div>
+
+    <!-- 2024 — Petition Filed — TIER 2 -->
+    <div class="timeline-entry">
+      <div class="timeline-year">2024</div>
+      <div class="timeline-body">
+        <div class="timeline-title">Petition Filed</div>
+        <div class="timeline-desc">Writ of Mandate filed &mdash; Case No. 24TRCP00352</div>
+        <details class="timeline-detail">
+          <summary>Record</summary>
+          <p>Verified Petition for Writ of Mandate filed September 11, 2024, challenging the rezoning. The city demurs; petitioners oppose.</p>
+          <ul>
+            <li><a href="../docs/originals/litigation/2024-11-27-City-Demurrer.pdf">City demurrer (PDF)</a></li>
+            <li><a href="../docs/viewer.html?doc=/docs/litigation/2024-11-27-City-Demurrer-Verbatim.md&original=/docs/originals/litigation/2024-11-27-City-Demurrer.pdf">Demurrer transcription</a></li>
+            <li><a href="../docs/originals/litigation/2024-12-18-Opposition-to-Demurrer.pdf">Opposition to demurrer (PDF)</a></li>
+            <li><a href="../docs/viewer.html?doc=/docs/litigation/2024-12-18-Opposition-to-Demurrer-Verbatim.md&original=/docs/originals/litigation/2024-12-18-Opposition-to-Demurrer.pdf">Opposition transcription</a></li>
+          </ul>
+        </details>
+      </div>
+    </div>
+
+    <!-- 2024 — Emergency Declaration — TIER 3 -->
+    <div class="timeline-entry">
+      <div class="timeline-year">2024</div>
+      <div class="timeline-body">
+        <div class="timeline-title">Emergency Declaration</div>
+        <div class="timeline-desc">Governor declares state of emergency for the Portuguese Bend Landslide Complex</div>
+      </div>
+    </div>
+
+    <!-- 2025 — HCD Confirms — TIER 2 -->
+    <div class="timeline-entry">
+      <div class="timeline-year">2025</div>
+      <div class="timeline-body">
+        <div class="timeline-title">HCD Confirms</div>
+        <div class="timeline-desc">California Department of Housing confirms Site 16 can be removed &mdash; city remains RHNA-compliant without it</div>
+        <details class="timeline-detail">
+          <summary>Context</summary>
+          <p>The state housing agency confirms that RPV does not need Site 16 (0 Clipper Road) in its housing element to meet Regional Housing Needs Assessment requirements. The city can remove the site and still comply with state law.</p>
+        </details>
+      </div>
+    </div>
+
+    <!-- 2025 — City Keeps Site 16 — TIER 2 -->
+    <div class="timeline-entry">
+      <div class="timeline-year">2025</div>
+      <div class="timeline-body">
+        <div class="timeline-title">City Keeps Site 16</div>
+        <div class="timeline-desc">City Council votes to retain 0 Clipper Road in the housing element anyway</div>
+        <details class="timeline-detail">
+          <summary>Context</summary>
+          <p>Despite HCD confirmation that the site is not needed for RHNA compliance, the City Council votes to keep Site 16 in the housing element. The rezoning remains in effect.</p>
+        </details>
+      </div>
+    </div>
+
+    <!-- 2026 — Ground Movement — TIER 3 -->
+    <div class="timeline-entry">
+      <div class="timeline-year">2026</div>
+      <div class="timeline-body">
+        <div class="timeline-title">Ground Movement</div>
+        <div class="timeline-desc">2.14 inches per week &mdash; the Portuguese Bend Landslide Complex remains active</div>
+      </div>
+    </div>
+```
+
+- [ ] **Step 2: Verify in browser**
+
+Confirm:
+- "Modern Era" divider displays
+- 10 entries render correctly
+- Restated Declaration expands with PDF and viewer links
+- Rezoning entry mentions all three ordinance numbers
+- FPPC and Petition entries each have PDF + transcription links
+- HCD Confirms and City Keeps Site 16 have context but no links (correct)
+- Emergency Declaration and Ground Movement are one-liners with no expand (Tier 3)
+- External link arrows only appear on external URLs
+
+- [ ] **Step 3: Full page scroll test**
+
+Scroll through the entire page. Confirm:
+- 4 era dividers display in order
+- Vertical line runs continuously behind dividers
+- All entries are in chronological order within each era
+- Total entry count: approximately 35 entries across all eras
+- No `href="#"` anywhere on the page
+
+- [ ] **Step 4: Spot-check remaining file existence**
+
+```bash
+cd ~/abalonecove
+ls docs/originals/declarations/2009-Restated-Declaration.pdf
+ls docs/originals/property/2026-03-25-CTC-Title-Report-0-Clipper-APN-7573-006-024.pdf
+ls docs/originals/litigation/2024-08-07-FPPC-Complaint-Cruikshank.pdf
+ls docs/originals/litigation/2024-11-27-City-Demurrer.pdf
+ls docs/originals/litigation/2024-12-18-Opposition-to-Demurrer.pdf
+```
+
+- [ ] **Step 5: Final link audit**
+
+```bash
+cd ~/abalonecove
+# Extract all href values from the timeline page and check each file exists
+grep -oP 'href="\.\./([^"?]+)' timeline/index.html | sed 's/href="\.\.\/\|"//g' | sort -u | while read f; do
+  if [ ! -f "$f" ]; then echo "MISSING: $f"; fi
+done
+```
+
+Expected: no output (all files exist). If any are missing, fix the link before committing.
+
+- [ ] **Step 6: Commit**
+
+```bash
+cd ~/abalonecove
+git add timeline/index.html
+git commit -m "timeline: Modern Era entries (2009-2026)
+
+10 entries: Restated Declaration (Tier 1), 2014 Conveyance,
+Clipper Development, Rezoning (Tier 1), FPPC complaint,
+Petition, Emergency Declaration, HCD, City keeps Site 16,
+Ground Movement. All evidence room links verified.
+
+Timeline enrichment complete — 35 entries across 4 eras,
+chain-of-title depth merged, closed-loop evidence links."
+```
+
+---
+
+## Chunk 6: Final Verification
+
+### Task 6: End-to-end verification
+
+- [ ] **Step 1: file:// test**
+
+Open `~/abalonecove/timeline/index.html` directly from Finder (double-click). Confirm:
+- Page renders with all styling
+- All `<details>` elements expand/collapse
+- Click a PDF link — it should open the PDF
+- Click a viewer link — it will fail with a CORS/fetch error (known limitation, expected)
+
+- [ ] **Step 2: Web server test**
+
+```bash
+cd ~/abalonecove
+python3 -m http.server 8080
+```
+
+Open `http://localhost:8080/timeline/` in a browser. Confirm:
+- All PDF links open correctly
+- All viewer links load the document viewer with rendered markdown
+- Navigation links work (Evidence, Map, etc.)
+- External links (LOC, Coastal Act) open in the same tab with arrow indicator
+
+- [ ] **Step 3: Mobile test**
+
+Resize browser to mobile width (375px). Confirm:
+- Hamburger menu works
+- Timeline year column narrows
+- `<details>` elements expand properly at narrow width
+- No horizontal overflow
+
+- [ ] **Step 4: No stubs audit**
+
+```bash
+cd ~/abalonecove
+grep -n 'href="#"' timeline/index.html
+```
+
+Expected: no output. If any `href="#"` exists, it's a bug — fix it.
+
+- [ ] **Step 5: Stop the test server**
+
+Kill the `python3 -m http.server` process.
