@@ -8,6 +8,8 @@ updated: 2026-03-19
 # Architecture Decision Record: Presentation Layer Architecture
 ## ADR-PLA-001 — Swappable Theme, Locale, and Vocabulary Packs
 
+**Wiki:** [[Brain/wiki/canary-architecture|Canary Architecture]]
+
 **Status:** APPROVED (Jeffe directive, February 25, 2026)
 **Author:** ALX
 **Decision Maker:** Jeffe

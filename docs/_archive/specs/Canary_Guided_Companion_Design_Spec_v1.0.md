@@ -7,6 +7,8 @@ updated: 2026-03-19
 ---
 # Guided Operations Companion — Design Specification v1.0
 
+**Wiki:** [[Brain/wiki/canary-architecture|Canary Architecture]]
+
 **Date:** February 22, 2026
 **Source:** Jeffe Grok Session (82 messages) + Eva synthesis
 **Author:** Art (UX/Creative Director), Eva (Program Manager)

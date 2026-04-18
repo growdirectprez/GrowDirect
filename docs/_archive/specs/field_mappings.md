@@ -7,6 +7,8 @@ updated: 2026-03-19
 ---
 # Field Mappings: Square Webhook to CRDM
 
+**Wiki:** [[Brain/wiki/canary-architecture|Canary Architecture]]
+
 Square webhook events are parsed by the TSP pipeline and mapped to CRDM tables.
 This document covers all 6 event types tested by the data pump suite.
 

@@ -4,7 +4,10 @@
 > **Type:** Platform Service
 > **Namespace:** platform
 > **Last updated:** 2026-04-13
-> **Dev stack:** See `docs/sdds/platform/shared-infrastructure.md`
+> **Dev stack:** See [[docs/sdds/platform/shared-infrastructure|Shared Infrastructure]]
+
+**Wiki:** [[Brain/wiki/growdirect-workflow|GrowDirect Workflow]]
+**Related:** [[docs/sdds/platform/shared-infrastructure|Shared Infrastructure]] · [[docs/sdds/platform/memory-bus|Memory Bus]]
 > **Deployment status:** Planning. No AWS resources provisioned yet.
 
 ---
@@ -242,7 +245,7 @@ Key modules:
 
 ## Code Review Findings (Production-Specific)
 
-These findings are specific to the AWS deployment target. Dev-stack findings are in `shared-infrastructure.md`.
+These findings are specific to the AWS deployment target. Dev-stack findings are in [[docs/sdds/platform/shared-infrastructure|Shared Infrastructure]].
 
 ### P0 — Blocks Production
 

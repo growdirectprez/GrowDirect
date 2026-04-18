@@ -15,6 +15,9 @@ In Development. Foundation rebuild in progress (GRO-346).
 
 ## Wiki — Start Here
 
+| [[Brain/wiki/cove-baughey-1947|Baughey 1947]] | PV Corp's own historian: Dominguez (1784) → Sepulveda → Bixby → Vanderlip chain of title. Primary source. |
+| [[Brain/wiki/cove-lrpmp|LRPMP]] | Full RDA property inventory, Horan Agreement, federal/state encumbrances, easement index, landslide data |
+| [[Brain/wiki/cove-rpv-redevelopment-conveyance|RPV Redevelopment Conveyance]] | 2014 transfer of 11 govt-use properties (incl. Shoreline Park) from Successor Agency to city via LRPMP |
 These articles synthesize the full archive into navigable knowledge:
 
 | Article | What it covers |
@@ -52,6 +55,12 @@ Project-specific playbooks and references in `Cove/docs/archive/wiki/`:
 ---
 
 ## Source Archive
+
+### PV Corp Declarations (1929) — County Recorder Originals
+- [[Cove/docs/archive/originals/transcriptions/1929-Declaration-100-Basic-Protective-Restrictions-Verbatim|Declaration No. 100 — Basic Protective Restrictions (Verbatim)]] — Book 9436, Pg 155. Constitutional framework (~20% legible)
+- [[Cove/docs/archive/originals/transcriptions/1929-Declaration-101-Local-Protective-Restrictions-Verbatim|Declaration No. 101 — Local Protective Restrictions (Verbatim)]] — Book 9482, Pg 37. Seven parcels, restrictions (~75% legible)
+- Photos: `Cove/docs/archive/originals/property/county-recorder-declarations/` (38 JPEGs)
+- Verified survey: `Cove/scripts/survey/data/1929-declaration-101-seven-parcels.yaml`
 
 ### Founding Documents (1949-1952)
 - [[Cove/docs/admin/research/founding/1949-declaration-of-easements|1949 Declaration of Easements]]
@@ -96,19 +105,33 @@ Project-specific playbooks and references in `Cove/docs/archive/wiki/`:
 
 ---
 
-## System Design Documents
-- [[docs/sdds/cove/architecture|Architecture]]
-- [[docs/sdds/cove/member-auth|Member Auth]]
-- [[docs/sdds/cove/governance-engine|Governance Engine]]
-- [[docs/sdds/cove/secret-ballot-elections|Secret Ballot Elections]]
-- [[docs/sdds/cove/treasury|Treasury]]
-- [[docs/sdds/cove/vault|Vault]]
-- [[docs/sdds/cove/parcel-map-engine|Parcel Map Engine]]
-- [[docs/sdds/cove/meetings|Meetings]]
-- [[docs/sdds/cove/archive-system|Archive System]]
-- [[docs/sdds/cove/board|Board]]
-- [[docs/sdds/cove/notifications|Notifications]]
-- [[docs/sdds/cove/knowledge|Knowledge]]
+## System Design Documents (18 SDDs)
+
+### Core
+- [[docs/sdds/cove/architecture|Architecture]] — Platform overview, modules, deployment
+- [[docs/sdds/cove/member-auth|Member Auth]] — Magic link login, Flask-Login, session management
+- [[docs/sdds/cove/sitemap-redesign|Sitemap Redesign]] — Role-gated navigation
+- [[docs/sdds/cove/sitemap-redesign-issues|Sitemap Issues]] — Issue specifications
+
+### Governance & Elections
+- [[docs/sdds/cove/governance-engine|Governance Engine]] — Proposal lifecycle, Davis-Stirling
+- [[docs/sdds/cove/governance-voting|Governance Voting]] — Vote casting, tallying, quorum
+- [[docs/sdds/cove/secret-ballot-elections|Secret Ballot Elections]] — Election orchestration, envelope scheme
+- [[docs/sdds/cove/ballot-security|Ballot Security]] — RLS policies, cryptographic proofs
+
+### Modules
+- [[docs/sdds/cove/treasury|Treasury]] — Assessments, payments, ledger
+- [[docs/sdds/cove/vault|Vault]] — Document storage, access tiers
+- [[docs/sdds/cove/parcel-map-engine|Parcel Map Engine]] — 5,514 APNs, GeoJSON, Leaflet
+- [[docs/sdds/cove/map-rendering|Map Rendering]] — Tract maps, rendering pipeline
+- [[docs/sdds/cove/meetings|Meetings]] — Meeting management, ARC reviews
+- [[docs/sdds/cove/board|Board]] — Board-only operations, bulletins
+- [[docs/sdds/cove/notifications|Notifications]] — Delivery routing, email
+- [[docs/sdds/cove/archive-system|Archive System]] — Document viewer, knowledge chunks
+
+### AI & Knowledge
+- [[docs/sdds/cove/knowledge|Knowledge]] — pgvector legal search, MCP server
+- [[docs/sdds/cove/agent|Agent]] — AI Q&A assistant
 
 ## Plans & Specs
 - [[Cove/docs/plans/2026-03-24-foundation-rebuild|Foundation Rebuild Plan]]

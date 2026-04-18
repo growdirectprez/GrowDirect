@@ -7,6 +7,8 @@ updated: 2026-03-19
 ---
 # Canary Coding Standards v1.0
 
+**Wiki:** [[Brain/wiki/canary-architecture|Canary Architecture]]
+
 **Date:** February 22, 2026
 **Author:** Eva (Program Manager), informed by auto_scan.py findings
 **Status:** ACTIVE — all new code must comply

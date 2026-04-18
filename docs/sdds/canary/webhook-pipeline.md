@@ -2,6 +2,7 @@
 
 **Type:** External Integration (Type 4)
 **Wiki:** [[Brain/wiki/canary-architecture|Canary Architecture]]
+**Architecture:** [[docs/sdds/canary/architecture|Canary Architecture SDD]]
 **Last reviewed:** 2026-04-13 (code review + ops upgrade)
 
 ## Purpose

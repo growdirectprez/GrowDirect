@@ -57,3 +57,10 @@ A separate public benefit nonprofit ("Cove Foundation" or "Abalone Shore Heritag
 - [[Brain/wiki/cove-legal-framework|Cove Legal Framework]]
 - [[Brain/wiki/cove-0-clipper|0 Clipper Road]] — counter-proposal details
 - [[Brain/wiki/cove-platform|Cove Platform Development]]
+
+## Sources — Governing Documents
+- [[Cove/docs/archive/originals/transcriptions/bylaws-full|Bylaws Full Text]]
+- [[Cove/docs/archive/originals/transcriptions/2009-Restated-Declaration-Text|2009 Restated Declaration]]
+
+## Sources — Strategy & Analysis
+- [[Cove/docs/archive/originals/analysis/cove-501c3-strategy|501(c)(3) Strategy]]

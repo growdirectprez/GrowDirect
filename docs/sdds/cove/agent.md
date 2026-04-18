@@ -5,6 +5,7 @@
 **Last updated:** 2026-04-13
 **Blueprint:** `agent_bp` at `/agent`
 **Wiki:** [[Brain/wiki/cove-governance|Cove Governance]]
+**Architecture:** [[docs/sdds/cove/architecture|Cove Architecture]]
 
 ---
 

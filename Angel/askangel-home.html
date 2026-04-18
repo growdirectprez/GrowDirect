@@ -1,0 +1,339 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>AskAngel — Your Palos Verdes Insider</title>
+<meta name="description" content="Local knowledge from someone who actually lives here. Neighborhoods, schools, dining, and real estate on the Palos Verdes Peninsula and South Bay.">
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,600;1,400&family=Inter:wght@300;400;500;600&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --ink: #1a1a1a;
+    --warm: #f8f6f3;
+    --stone: #e8e4df;
+    --sage: #7a8b6f;
+    --ocean: #3d6b7e;
+    --sand: #c4a882;
+    --mist: #f0eeeb;
+  }
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+  body { font-family: 'Inter', sans-serif; color: var(--ink); background: var(--warm); line-height: 1.6; }
+
+  /* NAV */
+  nav { display: flex; justify-content: space-between; align-items: center; padding: 1.5rem 3rem; max-width: 1200px; margin: 0 auto; }
+  nav .logo { font-family: 'Playfair Display', serif; font-size: 1.5rem; font-weight: 600; letter-spacing: -0.02em; }
+  nav .logo span { color: var(--ocean); }
+  nav ul { list-style: none; display: flex; gap: 2rem; }
+  nav ul a { text-decoration: none; color: var(--ink); font-size: 0.85rem; font-weight: 500; letter-spacing: 0.05em; text-transform: uppercase; opacity: 0.7; transition: opacity 0.2s; }
+  nav ul a:hover { opacity: 1; }
+
+  /* HERO */
+  .hero { max-width: 1200px; margin: 2rem auto 0; padding: 0 3rem; }
+  .hero h1 { font-family: 'Playfair Display', serif; font-size: 3.2rem; font-weight: 400; line-height: 1.15; max-width: 700px; letter-spacing: -0.02em; }
+  .hero h1 em { font-style: italic; color: var(--ocean); }
+  .hero p.sub { font-size: 1.1rem; color: #555; max-width: 550px; margin-top: 1.2rem; font-weight: 300; }
+  .hero .cta-row { margin-top: 2rem; display: flex; gap: 1rem; align-items: center; }
+  .btn { display: inline-block; padding: 0.8rem 2rem; font-size: 0.85rem; font-weight: 500; letter-spacing: 0.05em; text-transform: uppercase; text-decoration: none; border-radius: 2px; transition: all 0.2s; }
+  .btn-primary { background: var(--ocean); color: white; }
+  .btn-primary:hover { background: #2d5563; }
+  .btn-ghost { color: var(--ocean); border: 1px solid var(--ocean); }
+  .btn-ghost:hover { background: var(--ocean); color: white; }
+
+  /* SECTION HEADERS */
+  section { max-width: 1200px; margin: 0 auto; padding: 4rem 3rem; }
+  h2.section-title { font-family: 'Playfair Display', serif; font-size: 2rem; font-weight: 400; margin-bottom: 0.4rem; }
+  p.section-sub { color: #777; font-size: 0.9rem; margin-bottom: 2.5rem; }
+
+  /* NEIGHBORHOOD CARDS */
+  .hood-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(280px, 1fr)); gap: 1.5rem; }
+  .hood-card { background: white; border-radius: 4px; overflow: hidden; transition: transform 0.2s, box-shadow 0.2s; cursor: pointer; }
+  .hood-card:hover { transform: translateY(-3px); box-shadow: 0 8px 24px rgba(0,0,0,0.08); }
+  .hood-img { height: 180px; background: var(--stone); position: relative; overflow: hidden; }
+  .hood-img .overlay { position: absolute; bottom: 0; left: 0; right: 0; padding: 1rem; background: linear-gradient(transparent, rgba(0,0,0,0.6)); color: white; }
+  .hood-img .overlay h3 { font-family: 'Playfair Display', serif; font-size: 1.3rem; font-weight: 400; }
+  .hood-img .overlay .city { font-size: 0.75rem; opacity: 0.8; text-transform: uppercase; letter-spacing: 0.08em; }
+  .hood-body { padding: 1.2rem; }
+  .hood-body p { font-size: 0.88rem; color: #555; line-height: 1.55; }
+  .hood-stats { display: flex; gap: 1.5rem; margin-top: 1rem; padding-top: 1rem; border-top: 1px solid var(--mist); }
+  .hood-stats .stat { font-size: 0.75rem; color: #888; }
+  .hood-stats .stat strong { display: block; color: var(--ink); font-size: 0.95rem; font-weight: 600; }
+
+  /* LIFESTYLE GRID */
+  .life-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(350px, 1fr)); gap: 1.5rem; }
+  .life-card { background: white; border-radius: 4px; padding: 1.5rem; display: flex; gap: 1rem; align-items: flex-start; }
+  .life-icon { width: 40px; height: 40px; border-radius: 50%; background: var(--mist); display: flex; align-items: center; justify-content: center; flex-shrink: 0; font-size: 1.1rem; }
+  .life-card h3 { font-family: 'Playfair Display', serif; font-size: 1.1rem; font-weight: 400; margin-bottom: 0.3rem; }
+  .life-card p { font-size: 0.85rem; color: #666; line-height: 1.5; }
+  .life-card .tag { display: inline-block; margin-top: 0.5rem; font-size: 0.7rem; text-transform: uppercase; letter-spacing: 0.08em; color: var(--ocean); font-weight: 500; }
+
+  /* ABOUT STRIP */
+  .about-strip { background: white; }
+  .about-inner { display: grid; grid-template-columns: 1fr 1.4fr; gap: 3rem; align-items: center; }
+  .about-inner .photo { width: 100%; aspect-ratio: 3/4; background: var(--stone); border-radius: 4px; display: flex; align-items: center; justify-content: center; color: #aaa; font-size: 0.8rem; }
+  .about-inner h2 { font-family: 'Playfair Display', serif; font-size: 2rem; font-weight: 400; margin-bottom: 1rem; }
+  .about-inner p { font-size: 0.95rem; color: #555; line-height: 1.7; margin-bottom: 1rem; }
+  .about-inner .credentials { font-size: 0.8rem; color: #888; margin-top: 1.5rem; }
+
+  /* ASK SECTION */
+  .ask-section { background: var(--ocean); color: white; text-align: center; }
+  .ask-section h2 { font-family: 'Playfair Display', serif; font-size: 2.2rem; font-weight: 400; color: white; }
+  .ask-section p { max-width: 500px; margin: 1rem auto 2rem; opacity: 0.85; font-weight: 300; }
+  .ask-input-row { max-width: 500px; margin: 0 auto; display: flex; gap: 0.5rem; }
+  .ask-input-row input { flex: 1; padding: 0.9rem 1.2rem; border: none; border-radius: 2px; font-size: 0.95rem; font-family: 'Inter', sans-serif; }
+  .ask-input-row button { padding: 0.9rem 1.5rem; background: var(--sand); color: white; border: none; border-radius: 2px; font-size: 0.85rem; font-weight: 500; letter-spacing: 0.05em; text-transform: uppercase; cursor: pointer; transition: background 0.2s; }
+  .ask-input-row button:hover { background: #b39872; }
+  .ask-examples { margin-top: 1.5rem; font-size: 0.8rem; opacity: 0.6; }
+
+  /* FOOTER */
+  footer { max-width: 1200px; margin: 0 auto; padding: 3rem; display: flex; justify-content: space-between; align-items: center; font-size: 0.8rem; color: #999; }
+  footer .logo { font-family: 'Playfair Display', serif; font-size: 1.1rem; color: var(--ink); font-weight: 600; }
+  footer a { color: #999; text-decoration: none; }
+  footer .legal { font-size: 0.7rem; max-width: 400px; line-height: 1.5; }
+
+  /* RESPONSIVE */
+  @media (max-width: 768px) {
+    nav { padding: 1rem 1.5rem; }
+    nav ul { gap: 1rem; }
+    section { padding: 3rem 1.5rem; }
+    .hero h1 { font-size: 2.2rem; }
+    .about-inner { grid-template-columns: 1fr; }
+    .ask-input-row { flex-direction: column; }
+    footer { flex-direction: column; gap: 1rem; text-align: center; }
+  }
+</style>
+</head>
+<body>
+
+<nav>
+  <div class="logo">Ask<span>Angel</span></div>
+  <ul>
+    <li><a href="#neighborhoods">Neighborhoods</a></li>
+    <li><a href="#life">Life Here</a></li>
+    <li><a href="#schools">Schools</a></li>
+    <li><a href="#about">About</a></li>
+    <li><a href="#ask">Ask</a></li>
+  </ul>
+</nav>
+
+<div class="hero">
+  <h1>Local knowledge from someone who <em>actually lives here</em></h1>
+  <p class="sub">Your insider guide to neighborhoods, schools, dining, and real estate on the Palos Verdes Peninsula and South Bay.</p>
+  <div class="cta-row">
+    <a href="#neighborhoods" class="btn btn-primary">Explore Neighborhoods</a>
+    <a href="#ask" class="btn btn-ghost">Ask a Question</a>
+  </div>
+</div>
+
+<section id="neighborhoods">
+  <h2 class="section-title">Neighborhoods</h2>
+  <p class="section-sub">Every neighborhood on the Hill has its own personality. Here's what it's actually like to live in each one.</p>
+
+  <div class="hood-grid">
+
+    <div class="hood-card">
+      <div class="hood-img" style="background: linear-gradient(135deg, #8ba888, #5a7a5a);">
+        <div class="overlay">
+          <div class="city">Palos Verdes Estates</div>
+          <h3>Malaga Cove</h3>
+        </div>
+      </div>
+      <div class="hood-body">
+        <p>The heart of PVE. Spanish arches, the Neptune Fountain, Saturday mornings at Yellow Vase. If you want to walk to the library, grab coffee, and run into three neighbors — this is it. The architecture has rules for a reason, and the result is a neighborhood that actually looks like a neighborhood.</p>
+        <div class="hood-stats">
+          <div class="stat"><strong>$3.06M</strong>Median</div>
+          <div class="stat"><strong>PVE</strong>City</div>
+          <div class="stat"><strong>Walk</strong>Lifestyle</div>
+        </div>
+      </div>
+    </div>
+
+    <div class="hood-card">
+      <div class="hood-img" style="background: linear-gradient(135deg, #7a9ba8, #4a7080);">
+        <div class="overlay">
+          <div class="city">Palos Verdes Estates</div>
+          <h3>Lunada Bay</h3>
+        </div>
+      </div>
+      <div class="hood-body">
+        <p>The blufftop neighborhood. Ocean views from streets you didn't know existed. Quiet mornings, big skies, and a community that shows up for each other. Lunada Bay Plaza has your basics — market, restaurants, the creamery. But you're really here for the space and the light.</p>
+        <div class="hood-stats">
+          <div class="stat"><strong>$2.38M</strong>Median</div>
+          <div class="stat"><strong>PVE</strong>City</div>
+          <div class="stat"><strong>Coastal</strong>Lifestyle</div>
+        </div>
+      </div>
+    </div>
+
+    <div class="hood-card">
+      <div class="hood-img" style="background: linear-gradient(135deg, #a89a7a, #807050);">
+        <div class="overlay">
+          <div class="city">Palos Verdes Estates</div>
+          <h3>Valmonte</h3>
+        </div>
+      </div>
+      <div class="hood-body">
+        <p>The eucalyptus streets. Flat lots, mature trees, families who've been here for generations alongside new ones who found it on accident. Cape Cod meets California ranch. The most walkable neighborhood on the Hill for kids — flat streets, no through traffic, everyone knows everyone.</p>
+        <div class="hood-stats">
+          <div class="stat"><strong>$1.28M</strong>Median</div>
+          <div class="stat"><strong>PVE</strong>City</div>
+          <div class="stat"><strong>Family</strong>Lifestyle</div>
+        </div>
+      </div>
+    </div>
+
+    <div class="hood-card">
+      <div class="hood-img" style="background: linear-gradient(135deg, #8a8a9a, #5a5a70);">
+        <div class="overlay">
+          <div class="city">Rancho Palos Verdes</div>
+          <h3>Miraleste</h3>
+        </div>
+      </div>
+      <div class="hood-body">
+        <p>Harbor views, city lights, and a different energy than the west side. Miraleste is where you get the panorama — Catalina to downtown LA. Larger lots, more variety in home styles. Less village, more estate. If you want space and views without the RPV premium, look here first.</p>
+        <div class="hood-stats">
+          <div class="stat"><strong>$2.24M</strong>Median</div>
+          <div class="stat"><strong>RPV</strong>City</div>
+          <div class="stat"><strong>Views</strong>Lifestyle</div>
+        </div>
+      </div>
+    </div>
+
+    <div class="hood-card">
+      <div class="hood-img" style="background: linear-gradient(135deg, #9aaa8a, #708060);">
+        <div class="overlay">
+          <div class="city">Rancho Palos Verdes</div>
+          <h3>Silver Spur</h3>
+        </div>
+      </div>
+      <div class="hood-body">
+        <p>The practical choice that surprises people. Good schools, easy access to the freeway, a real mix of home styles from ranch to Mediterranean. Silver Spur is where families who want to live on the Hill without the PVE price tag land — and then never leave.</p>
+        <div class="hood-stats">
+          <div class="stat"><strong>$1.35M</strong>Median</div>
+          <div class="stat"><strong>RPV</strong>City</div>
+          <div class="stat"><strong>Value</strong>Lifestyle</div>
+        </div>
+      </div>
+    </div>
+
+    <div class="hood-card">
+      <div class="hood-img" style="background: linear-gradient(135deg, #7aaa7a, #4a804a);">
+        <div class="overlay">
+          <div class="city">Rolling Hills Estates</div>
+          <h3>Rolling Hills Estates</h3>
+        </div>
+      </div>
+      <div class="hood-body">
+        <p>Horses and hiking trails five minutes from the freeway. Larger lots, genuine green space, corrals in backyards. RHE is the South Bay's best-kept secret for people who want land without going to Santa Clarita. The equestrian trails connect everything.</p>
+        <div class="hood-stats">
+          <div class="stat"><strong>$2.30M</strong>Median</div>
+          <div class="stat"><strong>RHE</strong>City</div>
+          <div class="stat"><strong>Equestrian</strong>Lifestyle</div>
+        </div>
+      </div>
+    </div>
+
+  </div>
+</section>
+
+<section id="life" style="background: white;">
+  <h2 class="section-title">Life on the Hill</h2>
+  <p class="section-sub">The stuff you can't find on Zillow — where to eat, what to do, and why people stay.</p>
+
+  <div class="life-grid">
+
+    <div class="life-card">
+      <div class="life-icon">🍽</div>
+      <div>
+        <h3>Dining</h3>
+        <p>Nelson's at Terranea for sunset drinks. Red Onion for the margarita that's been the same for 61 years. MB Post when you want to impress someone. Fishing with Dynamite for oysters. The South Bay punches way above its weight.</p>
+        <span class="tag">20+ picks →</span>
+      </div>
+    </div>
+
+    <div class="life-card">
+      <div class="life-icon">☕</div>
+      <div>
+        <h3>Coffee</h3>
+        <p>Yellow Vase for the full Saturday morning experience — flowers, pastries, ocean view. Reverent in Rolling Hills if you care about the actual coffee. miss.coffee for the creative lattes. Each one has its crowd.</p>
+        <span class="tag">10 spots →</span>
+      </div>
+    </div>
+
+    <div class="life-card">
+      <div class="life-icon">🏫</div>
+      <div>
+        <h3>Schools</h3>
+        <p>PVPUSD is why half the families moved here. PV High and Peninsula High are both A-rated. The feeder patterns matter — your elementary school determines your friend group through graduation. I can walk you through it.</p>
+        <span class="tag">Full guide →</span>
+      </div>
+    </div>
+
+    <div class="life-card">
+      <div class="life-icon">🥾</div>
+      <div>
+        <h3>Trails & Parks</h3>
+        <p>Portuguese Bend Reserve has 10+ trails and you'll never see all of them. Abalone Cove tidepools are the best classroom your kids will ever have. Point Vicente for whale watching. Founders Park for the view you show visitors.</p>
+        <span class="tag">6 destinations →</span>
+      </div>
+    </div>
+
+    <div class="life-card">
+      <div class="life-icon">🛍</div>
+      <div>
+        <h3>Shopping</h3>
+        <p>Malaga Cove Plaza is the most photographed spot on the Hill — and the Ranch Market is actually good. Riviera Village in Redondo for the afternoon browse. Manhattan Beach downtown when you want to spend money and not feel bad about it.</p>
+        <span class="tag">6 districts →</span>
+      </div>
+    </div>
+
+    <div class="life-card">
+      <div class="life-icon">📅</div>
+      <div>
+        <h3>Events</h3>
+        <p>PV Street Fair in June is the one weekend everyone comes out. Whale of a Day at Point Vicente in April. PVPLC guided walks every second Saturday — free, and the naturalists know everything. Picnics in the Park on summer Wednesdays.</p>
+        <span class="tag">Monthly calendar →</span>
+      </div>
+    </div>
+
+  </div>
+</section>
+
+<section id="about" class="about-strip">
+  <div class="about-inner">
+    <div class="photo">Angelique Lyle</div>
+    <div>
+      <h2>Hi, I'm Angelique</h2>
+      <p>I've been selling real estate on the Palos Verdes Peninsula for 20 years. I raised my kids here. I know which streets flood in February, which schools have the best art programs, and which restaurants you can actually get into on a Friday night.</p>
+      <p>AskAngel is my way of sharing what I know — not as a sales pitch, but as a guide. Whether you're relocating from across the country, thinking about your first home on the Hill, or just curious about what that new construction on Hawthorne is, I'm here.</p>
+      <p>If you have a question, ask it. That's literally what this is for.</p>
+      <div class="credentials">
+        Compass · Accardo Real Estate Associates · CA DRE# 01475592<br>
+        310.751.8335 · angelique@compasshomes.com
+      </div>
+    </div>
+  </div>
+</section>
+
+<section id="ask" class="ask-section">
+  <h2>Ask Angel anything</h2>
+  <p>Schools, neighborhoods, market trends, where to get the best gelato — if it's about the Hill or the South Bay, I probably know.</p>
+  <div class="ask-input-row">
+    <input type="text" placeholder="What's it like to live in Lunada Bay?">
+    <button>Ask</button>
+  </div>
+  <div class="ask-examples">Try: "Best elementary school near Malaga Cove" · "Is Silver Spur a good value?" · "Where should I eat in Manhattan Beach?"</div>
+</section>
+
+<footer>
+  <div>
+    <div class="logo">Ask<span style="color: var(--ocean);">Angel</span></div>
+  </div>
+  <div class="legal">
+    Angelique Lyle · Compass · Accardo Real Estate Associates<br>
+    CA DRE# 01475592 · 310.751.8335<br>
+    © 2026 AskAngel. Not intended to solicit currently listed properties.
+  </div>
+</footer>
+
+</body>
+</html>

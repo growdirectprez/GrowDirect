@@ -5,6 +5,7 @@
 **Last updated:** 2026-04-13
 **Module:** `cove/notifications/`
 **Wiki:** [[Brain/wiki/cove-governance|Cove Governance]]
+**Architecture:** [[docs/sdds/cove/architecture|Cove Architecture]]
 
 ---
 

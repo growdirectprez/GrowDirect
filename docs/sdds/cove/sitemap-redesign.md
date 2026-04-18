@@ -3,10 +3,11 @@
 > **Type:** App Service
 > **Status:** Pre-build — CSS refresh (Phase 1) complete, remaining phases in backlog
 > **Scope:** Information architecture overhaul, route consolidation, role gating
-> **Decision:** [2026-04-01-cove-sitemap-redesign](/docs/decisions/2026-04-01-cove-sitemap-redesign.md)
+> **Decision:** [[docs/decisions/2026-04-01-cove-sitemap-redesign|Cove Sitemap Redesign Decision]]
 > **Date:** 2026-04-01 (ops upgrade 2026-04-13)
 
 **Wiki:** [[Brain/wiki/cove-governance|Cove Governance]]
+**Architecture:** [[docs/sdds/cove/architecture|Cove Architecture]]
 
 ---
 

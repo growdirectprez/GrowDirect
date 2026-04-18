@@ -4,6 +4,8 @@
 **Last updated:** 2026-03-29
 **Blueprints:** `governance_bp` at `/vote`, `election_bp` at `/vote/election`, `proceeding_bp` at `/proceedings`
 
+**Wiki:** [[Brain/wiki/cove-governance|Cove Governance]]
+
 ---
 
 ## Overview

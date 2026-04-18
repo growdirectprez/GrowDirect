@@ -10,6 +10,9 @@
 > **Migrations:** `services/memory-bus/migrations/` (Alembic, 4 revisions)
 > **Docker service:** `growdirect_memory_bus` (port 8003)
 
+**Wiki:** [[Brain/wiki/growdirect-workflow|GrowDirect Workflow]] · [[Brain/wiki/document-management|Document Management]]
+**Related:** [[docs/sdds/platform/shared-infrastructure|Shared Infrastructure]] · [[docs/sdds/alx/mcp-service-layer|MCP Service Layer]]
+
 ---
 
 ## Purpose

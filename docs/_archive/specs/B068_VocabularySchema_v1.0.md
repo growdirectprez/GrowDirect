@@ -7,6 +7,8 @@ updated: 2026-03-19
 ---
 # B-068-D: Merchant Vocabulary DB Schema
 
+**Wiki:** [[Brain/wiki/canary-architecture|Canary Architecture]]
+
 **One row per merchant per token. No global vocabulary state. Ever.**
 
 **Version:** 1.0

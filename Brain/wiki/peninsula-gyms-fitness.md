@@ -62,13 +62,21 @@ Closest locations to the Hill:
 - **Rolling Hills Plaza:** 2685 Pacific Coast Hwy, Torrance 90505
 - **Torrance Del Amo Super-Sport:** 21501 Hawthorne Blvd, Torrance 90503
 
+### YogaSix Rolling Hills
+- **Address:** 2919 Rolling Hills Rd, Unit 14, Torrance 90505
+- **Phone:** (424) 265-5115
+- **Hours:** Mon–Thu 6am–7:45pm, Fri 6am–6:30pm, Sat 7:30am–12:15pm, Sun 7:30am–1:30pm
+- **What it is:** Boutique yoga franchise (Xponential Fitness) — six class formats: Y6 101, Restore, Slow Flow, Hot, Power, Sculpt & Flow
+- **Membership:** 4x/month, 8x/month, unlimited, or drop-in
+- **Sources:** yogasix.com, Yelp (34 photos, 95 reviews)
+- **See also:** [[card-yogasix-rolling-hills]]
+
 ### CorePower Yoga
 - **Torrance location** — closest to the Hill
 - Hot yoga, yoga sculpt, vegan power yoga. National chain
 
 ### Other Nearby
 - LA Fitness (Torrance)
-- YogaSix Rolling Hills
 - Body & Brain Yoga (Rolling Hills)
 - Orangetheory Fitness (Redondo Beach, Torrance)
 - Beach bootcamp programs at Torrance Beach and RAT Beach — various operators
@@ -80,8 +88,6 @@ Closest locations to the Hill:
 
 - The Deep Valley Dr corridor (Equinox, Coreology, nearby Club Pilates) is the fitness hub for Hill residents
 - CrossFit — no dedicated PV location; closest gyms in Redondo Beach and Torrance
-
-
 
 ### Vive LA Yoga — San Pedro / South Shores
 - **Address:** 1422 W 25th St, San Pedro 90732

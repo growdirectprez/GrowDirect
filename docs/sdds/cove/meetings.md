@@ -5,6 +5,7 @@
 **Last updated:** 2026-04-13
 **Blueprint:** `meetings_bp` at `/meetings`
 **Wiki:** [[Brain/wiki/cove-governance|Cove Governance]]
+**Architecture:** [[docs/sdds/cove/architecture|Cove Architecture]]
 
 ---
 

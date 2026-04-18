@@ -7,6 +7,9 @@ updated: 2026-03-19
 ---
 # GrowDirect Unified Data Model Specification
 ## Enterprise Retail Intelligence Platform
+
+**Wiki:** [[Brain/wiki/canary-architecture|Canary Architecture]]
+
 **Version:** 1.0
 **Date:** February 17, 2026
 **Authors:** Tom (Systems Architect), Jeremy (Developer Quant)

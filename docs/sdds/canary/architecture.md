@@ -194,17 +194,17 @@ Response envelope: `{"tool": name, "ok": true/false, "result"|"error": ..., "tim
 
 | # | Domain | Prefix | Tools | SDD | Description |
 |---|--------|--------|-------|-----|-------------|
-| 1 | Identity | `/identity` | 6 | [identity.md](identity.md) | Merchants, users, roles, Square OAuth, tenant context |
-| 2 | TSP | `/tsp` | 6 | [tsp.md](tsp.md) | Webhook intake, stream processing, parsing |
-| 3 | Chirp | `/chirp` | 10 | [chirp.md](chirp.md) | Detection rules, threshold config, sensitivity presets |
-| 4 | Alert | `/alert` | 6 | [alert.md](alert.md) | Alert lifecycle, history, impact scoring, notifications |
-| 5 | Owl | `/owl` | 8 | [owl.md](owl.md) | AI chat, personalities, MCP tools, merchant memory |
-| 6 | Fox | `/fox` | 8 | [fox.md](fox.md) | Case management, evidence locker, hash-chained timeline |
-| 7 | Analytics | `/analytics` | 7 | [analytics.md](analytics.md) | Dashboard metrics, heatmaps, velocity baselines |
-| 8 | ALX | `/alx` | 7 | [alx.md](alx.md) | Institutional memory (pgvector, 954+ memories) |
-| 9 | RaaS | `/raas` | 7 | [raas.md](raas.md) | Namespace resolution, merchant onboarding |
-| 10 | Ops | `/ops` | 8 | [ops.md](ops.md) | Health check runner, simulator, Chirp Lab |
-| 11 | BFF | `/bff` | 4 | [ui-bff.md](ui-bff.md) | Desktop + mobile rendering, feature flags |
+| 1 | Identity | `/identity` | 6 | [[docs/sdds/canary/identity|Identity]] | Merchants, users, roles, Square OAuth, tenant context |
+| 2 | TSP | `/tsp` | 6 | [[docs/sdds/canary/tsp|TSP]] | Webhook intake, stream processing, parsing |
+| 3 | Chirp | `/chirp` | 10 | [[docs/sdds/canary/chirp|Chirp]] | Detection rules, threshold config, sensitivity presets |
+| 4 | Alert | `/alert` | 6 | [[docs/sdds/canary/alert|Alert]] | Alert lifecycle, history, impact scoring, notifications |
+| 5 | Owl | `/owl` | 8 | [[docs/sdds/canary/owl|Owl]] | AI chat, personalities, MCP tools, merchant memory |
+| 6 | Fox | `/fox` | 8 | [[docs/sdds/canary/fox|Fox]] | Case management, evidence locker, hash-chained timeline |
+| 7 | Analytics | `/analytics` | 7 | [[docs/sdds/canary/analytics|Analytics]] | Dashboard metrics, heatmaps, velocity baselines |
+| 8 | ALX | `/alx` | 7 | [[docs/sdds/canary/alx|ALX]] | Institutional memory (pgvector, 954+ memories) |
+| 9 | RaaS | `/raas` | 7 | [[docs/sdds/canary/raas|RaaS]] | Namespace resolution, merchant onboarding |
+| 10 | Ops | `/ops` | 8 | [[docs/sdds/canary/ops|Ops]] | Health check runner, simulator, Chirp Lab |
+| 11 | BFF | `/bff` | 4 | [[docs/sdds/canary/ui-bff|UI/BFF]] | Desktop + mobile rendering, feature flags |
 | 12 | Condor | `/condor` | 7 | -- | Industry benchmarks, regulatory intelligence |
 
 Additional MCP servers (non-domain, standalone):
@@ -396,24 +396,24 @@ This section documents what breaks when each layer of the Canary platform fails.
 
 | # | Domain | Purpose | MCP Tools | SDD |
 |---|--------|---------|-----------|-----|
-| 1 | Identity | Merchants, users, roles, Square OAuth, tenant context | 6 | [identity.md](identity.md), [identity-square.md](identity-square.md) |
-| 2 | Webhook Pipeline (TSP) | Webhook intake, HMAC validation, stream processing, parsing | 6 | [tsp.md](tsp.md), [webhook-pipeline.md](webhook-pipeline.md) |
-| 3 | Chirp | Stateless detection rules, threshold config, sensitivity presets | 10 | [chirp.md](chirp.md) |
-| 4 | Alert | Alert lifecycle, history, impact scoring, notifications | 6 | [alert.md](alert.md) |
-| 5 | Owl | AI chat, personalities, MCP tools, merchant memory, reports | 8 | [owl.md](owl.md) |
-| 6 | Fox | Case management, evidence locker, hash-chained timeline | 8 | [fox.md](fox.md) |
-| 7 | Analytics | Dashboard metrics, heatmaps, velocity baselines, scorecards | 7 | [analytics.md](analytics.md), [metrics-analytics.md](metrics-analytics.md) |
-| 8 | ALX | Institutional memory (pgvector semantic search, 954+ memories) | 7 | [alx.md](alx.md) |
-| 9 | RaaS | Namespace resolution, merchant onboarding, source registration | 7 | [raas.md](raas.md) |
-| 10 | Ops | Health check runner, simulator, ops console, Chirp Lab | 8 | [ops.md](ops.md) |
-| 11 | UI/BFF | Desktop + mobile rendering, feature flags, config | 4 | [ui-bff.md](ui-bff.md) |
+| 1 | Identity | Merchants, users, roles, Square OAuth, tenant context | 6 | [[docs/sdds/canary/identity|Identity]], [[docs/sdds/canary/identity-square|Identity Square]] |
+| 2 | Webhook Pipeline (TSP) | Webhook intake, HMAC validation, stream processing, parsing | 6 | [[docs/sdds/canary/tsp|TSP]], [[docs/sdds/canary/webhook-pipeline|Webhook Pipeline]] |
+| 3 | Chirp | Stateless detection rules, threshold config, sensitivity presets | 10 | [[docs/sdds/canary/chirp|Chirp]] |
+| 4 | Alert | Alert lifecycle, history, impact scoring, notifications | 6 | [[docs/sdds/canary/alert|Alert]] |
+| 5 | Owl | AI chat, personalities, MCP tools, merchant memory, reports | 8 | [[docs/sdds/canary/owl|Owl]] |
+| 6 | Fox | Case management, evidence locker, hash-chained timeline | 8 | [[docs/sdds/canary/fox|Fox]] |
+| 7 | Analytics | Dashboard metrics, heatmaps, velocity baselines, scorecards | 7 | [[docs/sdds/canary/analytics|Analytics]], [[docs/sdds/canary/metrics-analytics|Metrics Analytics]] |
+| 8 | ALX | Institutional memory (pgvector semantic search, 954+ memories) | 7 | [[docs/sdds/canary/alx|ALX]] |
+| 9 | RaaS | Namespace resolution, merchant onboarding, source registration | 7 | [[docs/sdds/canary/raas|RaaS]] |
+| 10 | Ops | Health check runner, simulator, ops console, Chirp Lab | 8 | [[docs/sdds/canary/ops|Ops]] |
+| 11 | UI/BFF | Desktop + mobile rendering, feature flags, config | 4 | [[docs/sdds/canary/ui-bff|UI/BFF]] |
 
 Additional SDDs:
-- [data-model.md](data-model.md) -- Cross-schema data model reference (PII map anchor)
-- [external-identities.md](external-identities.md) -- Entity resolution, PII abstraction
-- [goose.md](goose.md) -- Treasury/payment layer, Bitcoin/L402
-- [multi-pos-architecture-proof.md](multi-pos-architecture-proof.md) -- Multi-source adapter pattern
-- [qa-agent.md](qa-agent.md) -- QA orchestration, 30+ MCP tools
+- [[docs/sdds/canary/data-model|Data Model]] -- Cross-schema data model reference (PII map anchor)
+- [[docs/sdds/canary/external-identities|External Identities]] -- Entity resolution, PII abstraction
+- [[docs/sdds/canary/goose|Goose]] -- Treasury/payment layer, Bitcoin/L402
+- [[docs/sdds/canary/multi-pos-architecture-proof|Multi-POS Architecture Proof]] -- Multi-source adapter pattern
+- [[docs/sdds/canary/qa-agent|QA Agent]] -- QA orchestration, 30+ MCP tools
 
 ---
 

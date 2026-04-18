@@ -6,6 +6,9 @@ created: 2026-03-16
 updated: 2026-03-19
 ---
 # WORM Exposure Sprint Deliverables
+
+**Wiki:** [[Brain/wiki/canary-architecture|Canary Architecture]]
+
 **Prepared for**: GrowDirect/Canary LP
 **Sprint**: Exposure Sprint
 **Date**: March 16, 2026

@@ -7,6 +7,8 @@ updated: 2026-03-19
 ---
 # Canary Technology Blueprint — The Ingredients List
 
+**Wiki:** [[Brain/wiki/canary-architecture|Canary Architecture]]
+
 **Version:** 1.1 (Version Corrections Applied)
 **Date:** February 21, 2026 (original) | **Updated:** February 22, 2026
 **Author:** Eva (Program Manager)

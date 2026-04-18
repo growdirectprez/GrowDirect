@@ -1,5 +1,7 @@
 # Jeffe Quotes — CEO, GrowDirect
 
+**Wiki:** [[Brain/wiki/canary-architecture|Canary Architecture]]
+
 > Curated quotes for press releases, investor materials, marketing, and internal alignment.
 
 ---

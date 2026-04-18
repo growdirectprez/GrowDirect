@@ -7,6 +7,8 @@ updated: 2026-03-19
 ---
 # FOR IMMEDIATE RELEASE
 
+**Wiki:** [[Brain/wiki/canary-architecture|Canary Architecture]]
+
 ## Industry Veteran Brings 30 Years of Enterprise Retail Technology to Small Business Market
 
 **Former Big Four Consultant and SaaS Pioneer Launches Platform to Democratize Data Analytics for Independent Retailers**

@@ -1,7 +1,8 @@
 # Chirp Detection Engine
 
 **Type:** App Service (Canary)
-**Wiki:** [[Brain/wiki/canary-architecture|Canary Architecture]]
+**Wiki:** [[Brain/wiki/canary-architecture|Canary Architecture]], [[Brain/wiki/canary-detection|Canary Detection]]
+**Architecture:** [[docs/sdds/canary/architecture|Canary Architecture SDD]]
 **Linear:** GRO-85, GRO-128, GRO-132, GRO-174, GRO-247, GRO-278, GRO-279, GRO-289
 
 ## Purpose

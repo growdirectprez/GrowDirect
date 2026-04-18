@@ -7,6 +7,8 @@ updated: 2026-03-19
 ---
 # PRD — Receipt-as-a-Service (RaaS) API v1.0
 
+**Wiki:** [[Brain/wiki/canary-architecture|Canary Architecture]]
+
 **Version:** 1.2.0
 **Date:** March 4, 2026
 **Change Log:** v1.1.0 — Jeffe decisions: Phase 1 API-key-only auth, resolution resilience + graceful degradation, dynamic call pricing, API versioning strategy. v1.2.0 — Legal questions positioned with GrowDirect thesis, L402 precedent research, Syd action items.

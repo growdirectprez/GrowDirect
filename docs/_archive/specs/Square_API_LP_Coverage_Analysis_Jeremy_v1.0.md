@@ -7,6 +7,8 @@ updated: 2026-03-19
 ---
 # Square API — Full LP Data Coverage Analysis
 
+**Wiki:** [[Brain/wiki/canary-architecture|Canary Architecture]]
+
 **Version:** 1.0
 **Date:** February 20, 2026
 **Prepared by:** Jeremy (Developer Quant)

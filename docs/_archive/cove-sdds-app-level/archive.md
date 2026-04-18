@@ -3,6 +3,8 @@
 **Status:** Active
 **Last updated:** 2026-03-29
 
+**Wiki:** [[Brain/wiki/cove-governance|Cove Governance]]
+
 ## Overview
 
 Filesystem-based document archive for community history. Markdown files in `docs/archive/` are rendered on request using `mistune`. No owned database tables — only the `request_original` route writes to DB (audit log). The `/archive/catalog` route merges archive entries with live vault documents.

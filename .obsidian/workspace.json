@@ -4,21 +4,21 @@
     "type": "split",
     "children": [
       {
-        "id": "c83b11bab16bfbc8",
+        "id": "3442ed689cccf310",
         "type": "tabs",
         "children": [
           {
-            "id": "d0ebf714c90a38f3",
+            "id": "64811554beeed1e5",
             "type": "leaf",
             "state": {
               "type": "markdown",
               "state": {
-                "file": "docs/council/dao-council-viva-treasury-engine-2026-03-31.md",
+                "file": "docs/superpowers/specs/2026-04-14-canary-growdirect-io-design.md",
                 "mode": "source",
                 "source": false
               },
               "icon": "lucide-file",
-              "title": "dao-council-viva-treasury-engine-2026-03-31"
+              "title": "2026-04-14-canary-growdirect-io-design"
             }
           }
         ]
@@ -94,7 +94,7 @@
             "state": {
               "type": "backlink",
               "state": {
-                "file": "docs/council/dao-council-viva-treasury-engine-2026-03-31.md",
+                "file": "Brain/Brain Health Dashboard.md",
                 "collapseAll": false,
                 "extraContext": false,
                 "sortOrder": "alphabetical",
@@ -104,7 +104,7 @@
                 "unlinkedCollapsed": true
               },
               "icon": "links-coming-in",
-              "title": "Backlinks for dao-council-viva-treasury-engine-2026-03-31"
+              "title": "Backlinks for Brain Health Dashboard"
             }
           },
           {
@@ -113,12 +113,12 @@
             "state": {
               "type": "outgoing-link",
               "state": {
-                "file": "docs/council/dao-council-viva-treasury-engine-2026-03-31.md",
+                "file": "Cove/node_modules/nanoid/README.md",
                 "linksCollapsed": false,
                 "unlinkedCollapsed": true
               },
               "icon": "links-going-out",
-              "title": "Outgoing links from dao-council-viva-treasury-engine-2026-03-31"
+              "title": "Outgoing links from README"
             }
           },
           {
@@ -156,16 +156,17 @@
             "state": {
               "type": "outline",
               "state": {
-                "file": "docs/council/dao-council-viva-treasury-engine-2026-03-31.md",
+                "file": "docs/superpowers/specs/2026-04-14-canary-growdirect-io-design.md",
                 "followCursor": false,
                 "showSearch": false,
                 "searchQuery": ""
               },
               "icon": "lucide-list",
-              "title": "Outline of dao-council-viva-treasury-engine-2026-03-31"
+              "title": "Outline of 2026-04-14-canary-growdirect-io-design"
             }
           }
-        ]
+        ],
+        "currentTab": 4
       }
     ],
     "direction": "horizontal",
@@ -174,6 +175,7 @@
   },
   "left-ribbon": {
     "hiddenItems": {
+      "templater-obsidian:Templater": false,
       "switcher:Open quick switcher": false,
       "graph:Open graph view": false,
       "canvas:Create new canvas": false,
@@ -183,53 +185,53 @@
       "bases:Create new base": false
     }
   },
-  "active": "d0ebf714c90a38f3",
+  "active": "64811554beeed1e5",
   "lastOpenFiles": [
-    "Cove/docs/vault/maps",
-    "Cove/docs/vault/governance",
-    "Cove/docs/vault/founding-documents",
-    "Cove/docs/vault",
-    "Cove/docs/admin/research/risk/legal-risk-assessment.md",
-    "Cove/docs/admin/research/risk/pv-corp-delaware-search-2026-03-25.md",
-    "Cove/docs/admin/research/risk",
-    "Cove/docs/admin/research/litigation/0-clipper-enforcement/title-claim-summary.md",
-    "Cove/docs/admin/research/litigation/0-clipper-enforcement/deed-restriction-chain.md",
-    "Cove/docs/admin/research/litigation/0-clipper-enforcement/07-tongva-tribal-notification.md",
-    "Cove/docs/admin/research/litigation/0-clipper-enforcement/06-rpv-community-development.md",
-    "Cove/docs/admin/research/litigation/0-clipper-enforcement/01-usfws-complaint.md",
-    "Cove/docs/admin/research/litigation/0-clipper-enforcement/05-coastal-commission-complaint.md",
-    "Cove/docs/admin/research/litigation/0-clipper-enforcement/03-shpo-complaint.md",
-    "Cove/docs/admin/research/litigation/0-clipper-enforcement/04-cdfw-complaint.md",
-    "Cove/docs/admin/research/litigation/0-clipper-enforcement/02-nahc-complaint.md",
-    "Cove/docs/admin/research/litigation/0-clipper-enforcement/00-SEND-CHECKLIST.md",
-    "Cove/docs/admin/research/litigation/2024-08-fppc-complaint.md",
-    "Cove/docs/admin/research/litigation/2024-12-opposition-to-demurrer.md",
-    "Cove/docs/admin/research/litigation/2024-09-petition-filed.md",
-    "Cove/docs/admin/research/litigation/2024-09-summons.md",
-    "Cove/docs/admin/research/litigation/2024-11-city-demurrer.md",
-    "Cove/docs/admin/research/litigation/2024-09-case-assignment.md",
-    "Cove/docs/admin/research/litigation/0-clipper-enforcement",
-    "Cove/docs/admin/research/litigation",
-    "Cove/docs/admin/research/governance/2012-bylaws.md",
-    "Cove/docs/admin/research/governance/2009-restated-declaration.md",
-    "Cove/docs/admin/research/governance",
-    "Cove/docs/admin/research/founding/1965-pv-news-protective-declaration-article.md",
-    "Cove/docs/admin/research/founding/1957-pv-news-pvha-bylaws-and-zoning.md",
-    "Cove/docs/admin/research/founding/1953-pv-news-rolling-hills-history.md",
-    "Cove/docs/admin/research/founding/1952-grant-deed-lot-1.md",
-    "Cove/docs/admin/research/founding/1951-our-city-column-declaration-overview.md",
-    "Cove/docs/admin/research/founding",
-    "Cove/docs/admin/research/briefs",
-    "Cove/docs/admin/research",
-    "Seacove/seacove scans/crops/SeaCove_8e.jpg",
-    "Seacove/seacove scans/crops/SeaCove_8d.jpg",
-    "Seacove/seacove scans/crops/SeaCove_8c.jpg",
-    "Seacove/seacove scans/crops/SeaCove_8b.jpg",
-    "Seacove/seacove scans/crops/SeaCove_8a.jpg",
-    "Seacove/seacove scans/crops/SeaCove_7f.jpg",
-    "Seacove/seacove scans/crops/SeaCove_7e.jpg",
-    "Seacove/seacove scans/crops/SeaCove_7d.jpg",
-    "Seacove/seacove scans/crops/SeaCove_7c.jpg",
-    "Seacove/seacove scans/crops/SeaCove_7b.jpg"
+    "Cove/docs/archive/originals/property/county-recorder-declarations/Screenshot 2026-04-18 at 6.03.08 AM.png",
+    "Cove/docs/archive/originals/property/county-recorder-declarations/Screenshot 2026-04-18 at 4.53.48 AM.png",
+    "Cove/docs/archive/originals/property/county-recorder-declarations/dec100-book-9436-full.pdf",
+    "Cove/docs/archive/originals/property/county-recorder-declarations/dec100-page-177.jpeg",
+    "Cove/docs/archive/originals/property/county-recorder-declarations/dec100-page-176.jpeg",
+    "Cove/docs/archive/originals/property/county-recorder-declarations/dec100-page-175.jpeg",
+    "Cove/docs/archive/originals/property/county-recorder-declarations/dec100-page-174.jpeg",
+    "Cove/docs/archive/originals/property/county-recorder-declarations/dec100-page-173.jpeg",
+    "Cove/docs/archive/originals/property/county-recorder-declarations/dec100-page-172.jpeg",
+    "Cove/docs/archive/originals/property/county-recorder-declarations/dec100-page-171.jpeg",
+    "Cove/docs/archive/originals/property/county-recorder-declarations/dec100-page-170.jpeg",
+    "Cove/docs/archive/originals/property/county-recorder-declarations/dec100-page-169.jpeg",
+    "Brain/wiki/cove-baughey-1947.md",
+    "Cove/docs/archive/originals/transcriptions/1947-baughey-rancho-palos-verdes-1784-1947.md",
+    "docs/superpowers/plans/2026-04-17-abalonecove-timeline-enrichment.md",
+    "docs/superpowers/specs/2026-04-17-abalonecove-timeline-enrichment-design.md",
+    "Cove/cove/map/data/layers/lrpmp-governmental-parcels.geojson",
+    "Brain/wiki/cove-lrpmp.md",
+    "Cove/docs/archive/property/2015-ob-2015-04-lrpmp-amendment-alt.pdf",
+    "Cove/docs/archive/property/2015-ob-2015-04-lrpmp-amendment.pdf",
+    "Cove/docs/archive/property/2014-dof-lrpmp-approval-letter.pdf",
+    "Cove/docs/archive/property/2013-rpv-lrpmp.pdf",
+    "Brain/raw/inbox/Rancho_Palos_Verdes_LRPMP_Letter.pdf",
+    "Brain/raw/inbox/Rancho_Palos_Verdes_LRPMP.pdf",
+    "Brain/raw/inbox/Rancho_Palos_Verdes_OB_2015-04.pdf",
+    "Brain/raw/inbox/OB 2015-04 Approve Amendment to LRPMP.pdf",
+    "Cove/docs/archive/originals/transcriptions/1929-Declaration-100-Basic-Protective-Restrictions-Verbatim.md",
+    "Cove/docs/archive/originals/transcriptions/1929-Declaration-101-Local-Protective-Restrictions-Verbatim.md",
+    "Brain/wiki/abalonecove-org.md",
+    "Brain/wiki/cove-rpv-redevelopment-conveyance.md",
+    "Brain/wiki/angel-client-reviews.md",
+    "docs/superpowers/specs/2026-04-16-abalonecove-org-bibliography.md",
+    "docs/superpowers/plans/2026-04-16-abalonecove-org.md",
+    "docs/superpowers/plans/2026-04-16-ownpv-color-scheme-plan.md",
+    "docs/superpowers/specs/2026-04-16-abalonecove-org-design.md",
+    "docs/superpowers/specs/2026-04-16-ownpv-color-scheme-redesign.md",
+    "docs/superpowers/plans/2026-04-15-gas-metering-route-integration.md",
+    "docs/superpowers/specs/2026-04-15-gas-metering-route-integration-design.md",
+    "Brain/wiki/card-yogasix-rolling-hills.md",
+    "Brain/templates/card.md",
+    "Brain/wiki/card-pvhs-drama.md",
+    "Brain/wiki/card-pv-surf-camp.md",
+    "Brain/wiki/card-coreology.md",
+    "Brain/wiki/card-coach-ken-taylor.md",
+    "Brain/wiki/card-dan-spring-training.md",
+    "Brain/wiki/card-golden-scoop-gelato.md"
   ]
 }

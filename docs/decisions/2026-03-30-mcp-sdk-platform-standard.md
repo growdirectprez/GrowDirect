@@ -1,5 +1,7 @@
 # ADR: Official MCP Python SDK as Platform Standard
 
+**Wiki:** [[Brain/wiki/canary-architecture|Canary Architecture]]
+
 > **Date:** 2026-03-30
 > **Status:** Accepted
 > **Context:** SDD audit revealed Canary built a custom MCP framework without knowing the official SDK existed. Cove uses the SDK correctly.

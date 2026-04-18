@@ -7,6 +7,9 @@ decided-by:
 tags: []
 ---
 
+
+**Wiki:** [[Brain/Home|Home]]
+
 # Decision: {{title}}
 
 ## Context

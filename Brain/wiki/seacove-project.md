@@ -3,6 +3,7 @@ date: 2026-04-13
 type: wiki
 status: current
 tags: [seacove, architecture, sketchup, rpv, permits, arc]
+sources: []
 last-compiled: 2026-04-13
 ---
 
@@ -18,7 +19,7 @@ last-compiled: 2026-04-13
 
 - **Address:** 25 Seacove Drive, Rancho Palos Verdes, CA 90275
 - **Tract:** 14649 (WPBCA, 81 lots)
-- **APN:** Within Cove's research_parcels dataset
+- **APN:** Within Cove's `parcels` table
 
 The house has been modified multiple times since original construction:
 1. **Original build** — 6 blueprint sheets (plot plan, foundation, floor plan, exterior elevations, interior elevations, HVAC)

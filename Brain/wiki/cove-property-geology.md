@@ -52,3 +52,34 @@ The landslide has been displacing the community's ocean access easement since th
 - [[Brain/wiki/cove-0-clipper|0 Clipper Road]] — the development threat
 - [[Brain/wiki/cove-legal-framework|Cove Legal Framework]]
 - [[Brain/wiki/cove-community-history|Community History]]
+
+## Sources — Transcriptions
+- [[Cove/docs/archive/originals/transcriptions/RPV-Zone2-Landslide-EIR-Geology-Section-4.5-Verbatim|Zone 2 Landslide EIR Geology Section]]
+- [[Cove/docs/archive/originals/transcriptions/LACA-Parcel-Maps-Tract-14649-Verbatim|LACA Parcel Maps — Tract 14649]]
+- [[Cove/docs/archive/originals/transcriptions/1985-Assessor-Map-7573-7-Setback-Verbatim|1985 Assessor Map Setback Notes]]
+
+## Sources — Summaries & Property Records
+- [[Cove/docs/archive/property/laca-parcel-maps-tract-14649|Parcel Maps Summary]]
+- [[Cove/docs/archive/property/rpv-zone2-landslide-eir-geology|EIR Geology Summary]]
+- [[Cove/docs/archive/property/1985-assessor-map-7573-7|1985 Assessor Map]]
+- [[Cove/docs/archive/property/legal-descriptions-index|Legal Descriptions Index]]
+- [[Cove/docs/archive/originals/analysis/data-sources-for-research-parcels|Data Sources for Research Parcels]]
+- [[Cove/docs/archive/originals/analysis/attom-enrichment-blueprint|ATTOM Enrichment Blueprint]]
+- [[Cove/docs/archive/originals/analysis/state-federal-primary-sources|State & Federal Primary Sources]]
+
+## Sources — City Records (Landslide & Geological)
+- [[Cove/docs/archive/originals/city-records/landslide-project/2023-11-14-staff-report-local-emergency-declaration-land-movement|Emergency Declaration — Land Movement (Nov 2023)]]
+- [[Cove/docs/archive/originals/city-records/landslide-project/2023-12-19-staff-report-landslide-management-december-2023|Landslide Management (Dec 2023)]]
+- [[Cove/docs/archive/originals/city-records/landslide-project/2024-04-16-staff-report-local-emergency-declaration-and-socalgas-shutoff|Emergency Declaration & SoCalGas Shutoff (Apr 2024)]]
+- [[Cove/docs/archive/originals/city-records/landslide-project/2024-05-07-staff-report-portuguese-bend-landslide-complex-update|PB Landslide Complex Update (May 2024)]]
+- [[Cove/docs/archive/originals/city-records/landslide-project/2024-07-02-staff-report-portuguese-bend-landslide-emergency-hydraugers-project|Emergency Hydraugers Project (Jul 2024)]]
+- [[Cove/docs/archive/originals/city-records/landslide-project/2024-09-03-governor-state-of-emergency|Governor's State of Emergency (Sep 2024)]]
+- [[Cove/docs/archive/originals/city-records/landslide-project/2025-05-07-working-group-meeting-notes|Landslide Working Group (May 2025)]]
+- [[Cove/docs/archive/originals/city-records/landslide-project/rpv-geology-survey-landslide-map|RPV Geology Survey — Landslide Map]]
+- [[Cove/docs/archive/originals/city-records/coastal-commission/2026-02-01-ccc-emergency-cdp-g-5-25-0045-bluff-failure-at-49-marguerite-dr|CCC Emergency CDP — Bluff Failure (Feb 2026)]]
+- [[Cove/docs/archive/originals/city-records/litigation/1965-albers-v-county-la-supreme-court|Albers v. County of LA (1965)]]
+- [[Cove/docs/archive/originals/city-records/council-staff-reports/2025-07-01-staff-report-landslide-moratorium-and-mitigation-district-update|Landslide Moratorium Update (Jul 2025)]]
+- [[Cove/docs/archive/originals/city-records/council-staff-reports/2025-07-01-environmental-assessment-rev-july-2025|Environmental Assessment (Jul 2025)]]
+- [[Cove/docs/archive/originals/city-records/council-staff-reports/2025-08-05-staff-report-interim-urgency-ordinance-686u-moratorium-extension|Moratorium Extension Ord 686U (Aug 2025)]]
+- [[Cove/docs/archive/originals/city-records/council-staff-reports/2025-08-19-ordinance-amending-rpvmc-chapter-1520-permanent-construction-prohibition-in-land|Permanent Construction Prohibition (Aug 2025)]]
+- [[Cove/docs/archive/originals/city-records/council-staff-reports/2025-11-04-staff-report-urgency-ordinance-674u-landslide-complex-moratorium|Urgency Ordinance 674U (Nov 2025)]]

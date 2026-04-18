@@ -1,7 +1,8 @@
 # Data Model
 
 **Type:** App Service (Canary)
-**Wiki:** [[Brain/wiki/canary-architecture|Canary Architecture]]
+**Wiki:** [[Brain/wiki/canary-architecture|Canary Architecture]], [[Brain/wiki/canary-data-model|Canary Data Model]]
+**Architecture:** [[docs/sdds/canary/architecture|Canary Architecture SDD]]
 **Source SDDs:** SDD-023 through SDD-032, SDD-042, SDD-043, SDD-044, SDD-057
 
 ---

@@ -7,6 +7,9 @@ The Test Lab is a developer-facing subsystem inside Canary's Ops Console that ge
 **Service type:** App Service (Platform/Canary)
 **Code location:** `Canary/canary/services/scenario_fire.py`, `Canary/canary/services/scenario_runner.py`, `Canary/canary/services/scenario_verify.py`, `Canary/canary/services/square_sandbox_seeder.py`, `Canary/canary/blueprints/ops_console.py`
 
+**Wiki:** [[Brain/wiki/canary-architecture|Canary Architecture]] · [[Brain/wiki/canary-detection|Canary Detection]] · [[Brain/projects/Canary|Canary MOC]]
+**Related:** [[docs/sdds/platform/shared-infrastructure|Shared Infrastructure]]
+
 ---
 
 ## Dependencies

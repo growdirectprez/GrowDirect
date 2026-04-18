@@ -5,9 +5,10 @@
 > **Namespace:** cove
 > **Last updated:** 2026-04-13
 > **Code location:** `Cove/cove/governance/services.py`, `Cove/cove/governance/quorum.py`, `Cove/cove/models/governance.py`
-> **Split parent:** [`governance-engine.md`](governance-engine.md) -- proposal lifecycle, state machine, proceedings
+> **Split parent:** [[docs/sdds/cove/governance-engine|Governance Engine]] -- proposal lifecycle, state machine, proceedings
 
 **Wiki:** [[Brain/wiki/cove-governance|Cove Governance]]
+**Architecture:** [[docs/sdds/cove/architecture|Cove Architecture]]
 
 ---
 
@@ -15,7 +16,7 @@
 
 This SDD covers the voting mechanics of the Cove Governance Engine: ballot casting, ballot/envelope separation for secret ballot compliance, vote tallying, quorum calculation, result determination, and the inspector dashboard. The two-table ballot architecture implements the Davis-Stirling two-envelope system (Civil Code 5100, WPBCA Bylaws 8.12) where vote content and voter identity are structurally separated.
 
-Proposal lifecycle, state machine, and proceedings tracking are in [`governance-engine.md`](governance-engine.md).
+Proposal lifecycle, state machine, and proceedings tracking are in [[docs/sdds/cove/governance-engine|Governance Engine]].
 
 ---
 
@@ -270,7 +271,7 @@ Unique constraint: `uq_one_vote_per_member_per_proposal` on `(member_id, proposa
 
 ## Deployment
 
-Voting runs inside the `cove_flask` container. No separate service. See [`governance-engine.md`](governance-engine.md) for deployment details.
+Voting runs inside the `cove_flask` container. No separate service. See [[docs/sdds/cove/governance-engine|Governance Engine]] for deployment details.
 
 ### RLS Deployment Requirement
 

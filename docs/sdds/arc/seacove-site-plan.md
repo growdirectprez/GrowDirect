@@ -4,7 +4,7 @@
 > **Status:** Active — survey data transcribed, ~40% of values need verification
 > **Date:** 2026-04-06 (ops upgrade 2026-04-13)
 
-**Wiki:** [[Brain/projects/Seacove|Seacove MOC]]
+**Wiki:** [[Brain/wiki/seacove-project|Seacove Project]] · [[Brain/projects/Seacove|Seacove MOC]]
 
 **Source:** IWS Surveying Boundary/Topographic Survey, Sheet 1 of 1
 **Survey Date:** June 20, 2018

@@ -4,7 +4,10 @@
 > **Type:** Platform Service
 > **Namespace:** platform
 > **Code location:** `factory-manifest.json`, `.claude/skills/factory-*.md`
-> **Companion:** [`skill-architecture.md`](skill-architecture.md) — skill taxonomy, eval strategy, layer tagging
+> **Companion:** [[docs/sdds/platform/skill-architecture|Skill Architecture]] — skill taxonomy, eval strategy, layer tagging
+
+**Wiki:** [[Brain/wiki/growdirect-workflow|GrowDirect Workflow]] · [[Brain/wiki/document-management|Document Management]]
+**Related:** [[docs/sdds/platform/shared-infrastructure|Shared Infrastructure]] · [[docs/sdds/platform/memory-bus|Memory Bus]]
 
 ---
 
@@ -359,7 +362,7 @@ data-expansion) with no factory-pipeline equivalents.
 The skill taxonomy, eval strategy, layer tagging rules, and full skill
 inventory (38 existing, 19 planned across 4 layers) are documented in:
 
-**[`docs/sdds/platform/skill-architecture.md`](skill-architecture.md)**
+**[[docs/sdds/platform/skill-architecture|Skill Architecture]]**
 
 That document covers the four-layer architecture (Corp / Cove / Canary /
 Shared), the 7-step skill creation pipeline, eval type ratios, memory

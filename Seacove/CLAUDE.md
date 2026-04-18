@@ -18,7 +18,7 @@ pattern used by Canary and Cove.
 3. **No Linear/GRO dispatch** — ARC is not managed by ALX or factory pipeline.
 4. **No Flask** — No web server, no routes, no templates (except Jinja2 for Ruby codegen).
 5. **No shared database** — File-based storage only (JSON). May use Postgres later.
-6. **Directory boundary** — Everything stays inside `GrowDirect/ARC/`.
+6. **Directory boundary** — Everything stays inside `GrowDirect/Seacove/`.
 
 ## What ARC CAN Use
 

@@ -6,6 +6,9 @@ project:
 tags: []
 ---
 
+
+**Wiki:** [[Brain/Home|Home]]
+
 # Meeting: {{title}}
 
 ## Agenda

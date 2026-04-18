@@ -1,35 +1,25 @@
 # GrowDirect — Platform Context
 
 This is the working repo for GrowDirect, a solo-founder operation building SaaS
-tools with AI assistance (Cowork sessions). Read this file first. App-specific
-CLAUDE.md files add domain context.
+tools with AI assistance (Claude Code for development, Cowork for strategy and
+content). Read this file first. App-specific CLAUDE.md files add domain context.
 
-**Honest status as of April 2026 — 8 weeks in:**
-This project has more scaffolding than shipping code. Sessions tend to build
-frameworks, folder structures, and config rather than delivering features. If
-you're an AI agent reading this: build something that runs, don't reorganize files.
+**Rule zero:** Build something that runs. Don't reorganize files. Don't create
+scaffolding. Ship features.
 
 ---
 
-## Active Projects
+## Projects
 
 | Project | Directory | Status | What it is |
 |---------|-----------|--------|------------|
-| Canary | `Canary/` | **Near-beta** | Loss prevention analytics for Square merchants. 293 Python files, 20+ blueprints, 213 tests. Needs docker-compose + migrations to boot. |
-| Cove | `Cove/` | **Early dev** | HOA governance app for WPBCA (81 lots, Abalone Cove, RPV). 109 Python files, 25 migrations, 10 templates. Has a working docker-compose. Massive research archive (773 docs) that needs cleanup. |
-| Angel | `Angel/` | **Parked** | Website builder / technical consultant for realtors. 11 Python files, no templates. Concept only — not active. |
-| Seacove | `Seacove/` | **Standalone hobby** | SketchUp model-building pipeline for 25 Seacove Drive. Has CLI, Ruby generation, tests. Not connected to platform infra. Has its own plugin (`rpv-permit-architect`). |
+| Canary | `Canary/` | **Near-beta** | Loss prevention analytics for Square merchants. |
+| Cove | `Cove/` | **Early dev** | HOA governance platform for WPBCA (81 lots, Abalone Cove, RPV). |
+| Angel | `Cove/cove/angel/` + `Angel/` | **Active (Cove module)** | Real estate intelligence + lead gen for Compass agents. Code in Cove, knowledge in Angel/. |
+| Seacove | `Seacove/` | **Standalone** | SketchUp model-building pipeline for 25 Seacove Drive. Not connected to platform infra. |
 
-**Removed:** Viva (crypto treasury engine) — was pure scaffolding with zero business logic. Skills and references should be deleted.
-
----
-
-## What Needs to Happen Next
-
-1. **Canary boot** — Create docker-compose.yml, generate Alembic migrations from existing models, get `/health` responding. Then find a beta customer.
-2. **Cove v1 scope** — Member directory (81 lots), document vault (founding instruments + governance docs), basic meeting/election tools. Stop researching, start shipping.
-3. **Cove archive cleanup** — Flatten the 8-layer folder trees, remove duplicate paths, delete empty directories. The `Cove/docs/` structure has triple-layered duplicates from multiple reorganization sessions.
-4. **Content engine** — Build a reusable intake pipeline: raw files in → process/summarize → archive with flat structure → index. Every project needs this. Should be a Cowork skill.
+**Roadmap and backlog live in Linear** (GRO-prefixed issues). Don't duplicate
+task lists or priorities here — check Linear for what's next.
 
 ---
 
@@ -76,21 +66,20 @@ cd ~/GrowDirect/<App>/devops && docker compose up -d
 | Database | Purpose |
 |----------|---------|
 | `canary` / `canary_test` | Canary (schemas: app, sales, metrics) |
-| `cove` / `cove_test` | Cove |
-| `angel` / `angel_test` | Angel (when active) |
+| `cove` / `cove_test` | Cove + Angel (Angel is a Cove module, same DB) |
 | `growdirect_memory` / `growdirect_memory_test` | Platform memory bus |
 
 Dev credentials: `growdirect / growdirect_dev`
 
-Valkey: DB 0 = Canary, DB 1 = Cove, DB 3 = Angel
+Valkey: DB 0 = Canary, DB 1 = Cove + Angel
 
 ### Ports
 
 | Service | Port |
 |---------|------|
 | Canary Flask | 5001 |
-| Cove Flask | 5002 |
-| Angel Flask | 5004 |
+| Cove Flask (includes Angel) | 5002 |
+| Angel Agent sidecar | 8004 |
 | Cove MailHog SMTP / Web | 1026 / 8026 |
 
 ### Docker Rules
@@ -140,25 +129,43 @@ These rules exist because past sessions created sprawl. Follow them.
 4. **Describe what is, not what should be.** SDDs, CLAUDE.md, and docs should
    reflect the current state of the code. Don't write architecture docs for
    systems that don't exist.
-5. **No scaffolding for parked projects.** Angel is parked. Don't create skills,
-   migrations, or infrastructure for it until it's active.
+5. **No scaffolding without a Linear issue.** Don't create skills, migrations,
+   or infrastructure speculatively. If it's not tied to a GRO issue, it shouldn't
+   be built.
 6. **Flat archives.** Research files go in `<project>/docs/archive/` with a flat
    or shallow structure. No 8-layer folder nesting. If you can't find a file,
    the structure is wrong.
 7. **Commit or revert.** Don't leave 100+ uncommitted changes across sessions.
    Each session commits its own work or reverts it.
+8. **Check Brain before creating.** Search Brain wiki before writing new docs.
+   If Brain covers it, update the existing article — don't create a parallel doc.
+9. **Route knowledge through Brain.** If a session produces knowledge (research,
+   analysis, decisions), it goes into `Brain/wiki/` — not dumped as a loose file.
+10. **Clean up your own artifacts.** Reports, manifests, and one-shot scripts
+    created during a session get deleted before the session ends. The content
+    engine itself stays; its output doesn't.
 
 ---
 
-## Known Debt
+## Brain — Domain Knowledge
 
-- `Cove/docs/` has triple-layered duplicate folders (archive/originals/founding,
-  admin/research/founding, archive/founding). Needs flattening.
-- Canary has no docker-compose.yml and zero Alembic migration files despite 20+ models.
-- 52 skills in `.claude/skills/`, many for apps that are parked or don't exist. Prune to what's actually used.
-- `docs/` root has 520+ markdown files outside the SDD/decisions/post-mortem structure. Most are session artifacts that were never filed properly.
-- Brain/ Obsidian vault was set up but wiki articles contain broken links from multiple reorganizations.
-- 112 uncommitted git changes from previous sessions.
+GrowDirect/ is the Obsidian vault. Brain/ holds the curated knowledge.
+
+**Before domain work:** Read the project MOC (`Brain/projects/<Project>.md`).
+It links to all wiki articles and source material for that project.
+
+**Before creating docs:** Search Brain first — `mcp__obsidian__obsidian_simple_search`
+or `engine.py registry check "<topic>"`. If it exists, update it.
+
+**Reading/writing Brain content:** Use `mcp__obsidian__*` tools (search, get,
+patch, append). Use `Read`/`Edit` for code files, not Brain content.
+
+**After producing knowledge:** New wiki articles or updates go directly in
+`Brain/wiki/`. Use Brain templates in `Brain/templates/` for structure.
+
+**No volatile data in wiki.** Row counts, record numbers, and stats belong in
+the database, not flat files. Wiki articles capture structure, relationships,
+decisions, and context that can't be derived from code or queries.
 
 ---
 
@@ -166,15 +173,16 @@ These rules exist because past sessions created sprawl. Follow them.
 
 ```
 GrowDirect/
-├── CLAUDE.md              ← you are here
+├── CLAUDE.md              ← you are here (platform rules + standards)
+├── Brain/                 — Obsidian second brain (read MOCs first for domain context)
 ├── Canary/                — loss prevention app (near-beta)
-├── Cove/                  — HOA governance app (early dev)
-├── Angel/                 — realtor tools (parked)
-├── Seacove/               — SketchUp hobby project (standalone)
-├── Brain/                 — Obsidian second brain (wiki, templates, MOCs)
+├── Cove/                  — HOA governance + Angel module (early dev)
+├── Angel/                 — Angel knowledge repo (code lives in Cove/)
+├── Seacove/               — SketchUp pipeline (standalone)
+├── content-engine/        — CLI: scan, dupes, triage, ingest, registry
 ├── devops/                — shared Docker infra (postgres, valkey, ollama)
-├── docs/                  — platform docs (SDDs, decisions, team, research)
-├── .claude/skills/        — factory and app skills (needs pruning)
+├── docs/                  — platform docs (SDDs, decisions, team)
+├── .claude/skills/        — Claude Code factory skills (not used in Cowork)
 ├── services/              — growdirect-mcp (memory bus)
 └── factory-manifest.json  — factory stage definitions
 ```

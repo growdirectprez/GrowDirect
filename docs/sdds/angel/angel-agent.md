@@ -7,6 +7,9 @@
 > **Owner:** ALX (COO) / Jeffe (CEO)
 > **Last reviewed:** 2026-04-13
 
+**Wiki:** [[Brain/wiki/angel-architecture|Angel Architecture]] · [[Brain/wiki/south-bay-wiki-architecture|South Bay Wiki Architecture]] · [[Brain/projects/Angel|Angel MOC]]
+**Parent:** [[docs/sdds/angel/angel-overview|Angel Overview]]
+
 ---
 
 ## Purpose

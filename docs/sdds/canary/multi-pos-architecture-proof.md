@@ -7,6 +7,7 @@
 **Reviewed by:** Jeffe (CEO)
 
 **Wiki:** [[Brain/wiki/canary-architecture|Canary Architecture]]
+**Architecture:** [[docs/sdds/canary/architecture|Canary Architecture SDD]]
 
 ---
 

@@ -7,6 +7,8 @@ updated: 2026-03-19
 ---
 # elJeffe Protocol Specification v1.0
 
+**Wiki:** [[Brain/wiki/canary-architecture|Canary Architecture]]
+
 **Version:** 1.0
 **Date:** March 2, 2026
 **Authors:** Tom (Systems Architect), ALX (Chief of Staff)

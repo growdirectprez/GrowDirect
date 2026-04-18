@@ -2,6 +2,7 @@
 
 **Type:** App Service (Canary) / Platform Service (Memory Bus)
 **Wiki:** [[Brain/wiki/canary-architecture|Canary Architecture]]
+**Architecture:** [[docs/sdds/canary/architecture|Canary Architecture SDD]]
 **Last reviewed:** 2026-04-13
 
 ## Purpose

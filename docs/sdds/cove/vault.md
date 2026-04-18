@@ -4,7 +4,8 @@
 **Type:** App Service
 **Last updated:** 2026-04-13
 **Blueprint:** `vault_bp` at `/documents` (redirected from `/vault` via GRO-395)
-**Wiki:** [[Brain/wiki/cove-governance|Cove Governance]]
+**Wiki:** [[Brain/wiki/cove-governance|Cove Governance]] | [[Brain/wiki/cove-legal-framework|Cove Legal Framework]]
+**Architecture:** [[docs/sdds/cove/architecture|Cove Architecture]]
 
 ---
 

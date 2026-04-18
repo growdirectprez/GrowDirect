@@ -4,6 +4,8 @@
 **Status:** Approved
 **Issue:** [GRO-376](https://linear.app/growdirect/issue/GRO-376)
 
+**Wiki:** [[Brain/wiki/canary-architecture|Canary Architecture]]
+
 ## Problem
 
 The factory process (8 platform skills + app overrides) works but has no machine-readable contract. Skills are nested 3 levels deep. Sessions rediscover the pipeline by reading markdown. There's no preflight check, no standardized Linear integration, and no research stage.

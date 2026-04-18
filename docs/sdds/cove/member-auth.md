@@ -5,6 +5,7 @@
 > **Last updated:** 2026-04-13
 > **Code location:** `Cove/cove/auth/`, `Cove/cove/member/`, `Cove/cove/models/member.py`
 > **Wiki:** [[Brain/wiki/cove-governance|Cove Governance]]
+> **Architecture:** [[docs/sdds/cove/architecture|Cove Architecture]]
 
 ---
 

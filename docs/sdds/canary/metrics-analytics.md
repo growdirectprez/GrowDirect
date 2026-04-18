@@ -1,12 +1,15 @@
 # Metrics & Analytics — Star Schema ETL Pipeline
 
+**Wiki:** [[Brain/wiki/canary-architecture|Canary Architecture]], [[Brain/wiki/canary-data-model|Canary Data Model]]
+**Architecture:** [[docs/sdds/canary/architecture|Canary Architecture SDD]]
+
 > **Type:** App Service (Canary)
 > **Status:** Operational — code review complete
 > **Last updated:** 2026-04-13
 > **Code location:** `Canary/canary/services/metrics_etl.py`, `Canary/canary/services/metrics/dim_loader.py`, `Canary/canary/services/period_aggregation.py`, `Canary/canary/services/fiscal_calendar.py`, `Canary/canary/models/metrics/`
 > **Split from:** Original `metrics-analytics.md` (7000 words, two deployable concerns)
 
-**Companion SDD:** [metrics-risk-scoring.md](metrics-risk-scoring.md) — Entity risk scoring, SRA computation, heatmap scoring, analytics dashboard
+**Companion SDD:** [[docs/sdds/canary/metrics-risk-scoring|Metrics Risk Scoring]] — Entity risk scoring, SRA computation, heatmap scoring, analytics dashboard
 
 ---
 
@@ -67,7 +70,7 @@ The Metrics ETL pipeline transforms raw Square sales events from the `canary.sal
 
 ### What exits
 
-- To **Analytics REST API** (`/api/analytics/*`) — period summaries, trends, drilldowns (see [metrics-risk-scoring.md](metrics-risk-scoring.md))
+- To **Analytics REST API** (`/api/analytics/*`) — period summaries, trends, drilldowns (see [[docs/sdds/canary/metrics-risk-scoring|Metrics Risk Scoring]])
 - To **Analytics MCP** (`/analytics/*`) — same data via tool registry
 - To **Chirp** — `daily_metrics`, `employee_daily_metrics` for anomaly threshold evaluation
 - To **Fox** — `entity_risk_scores`, `risk_score_history` for LP case context

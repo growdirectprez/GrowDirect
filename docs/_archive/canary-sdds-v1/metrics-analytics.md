@@ -5,6 +5,8 @@
 > **Last updated:** 2026-03-30
 > **Code location:** `Canary/canary/services/metrics/`, `Canary/canary/services/metrics_etl.py`, `Canary/canary/models/metrics/`
 
+**Wiki:** [[Brain/wiki/canary-architecture|Canary Architecture]]
+
 ---
 
 ## 1. Overview

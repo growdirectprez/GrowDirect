@@ -6,6 +6,9 @@
 > **Last updated:** 2026-04-13
 > **Code location:** `services/growdirect-mcp/`
 
+**Wiki:** [[Brain/wiki/growdirect-workflow|GrowDirect Workflow]] · [[Brain/wiki/document-management|Document Management]]
+**Related:** [[docs/sdds/platform/memory-bus|Memory Bus]] · [[docs/sdds/platform/shared-infrastructure|Shared Infrastructure]]
+
 ---
 
 ## Purpose

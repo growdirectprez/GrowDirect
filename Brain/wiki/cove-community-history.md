@@ -54,7 +54,38 @@ RPV incorporated in 1973 — 24 years after the PV Corp declarations. The city e
 | Ali Vahdani | Developer who wants condos (2024) | 2022-present |
 
 ## Related
-- [[Cove/docs/site/narrative|The Story of Abalone Cove]] — full member-facing narrative
+- [[Brain/wiki/cove-baughey-1947|Baughey 1947]] — PV Corp's official history of the rancho, written 2 years before WPBCA was founded- [[Cove/docs/site/narrative|The Story of Abalone Cove]] — full member-facing narrative
 - [[Brain/wiki/cove-legal-framework|Cove Legal Framework]]
 - [[Brain/wiki/cove-0-clipper|0 Clipper Road]]
 - [[Brain/wiki/cove-property-geology|Property & Geology]]
+
+## Sources — Transcriptions
+- [[Cove/docs/archive/originals/transcriptions/1972-Karshner-Proposal-Verbatim|1972 Karshner Proposal]]
+- [[Cove/docs/archive/originals/transcriptions/1972-Abalone-Cove-Fact-Sheet-Verbatim|1972 Abalone Cove Fact Sheet]]
+- [[Cove/docs/archive/originals/transcriptions/WPBCA-Letter-Condos-vs-Park-Verbatim|WPBCA Letter: Condos vs Park]]
+- [[Cove/docs/archive/originals/transcriptions/1971-1972-Shore-Club-Board-Docs-Verbatim|1971-72 Shore Club Board Docs]]
+- [[Cove/docs/archive/originals/transcriptions/1971-Filiorum-Abalone-Shore-Club-Lease-Verbatim|1971 Filiorum Shore Club Lease]]
+- [[Cove/docs/archive/originals/transcriptions/Abalone-Shore-Club-Corporate-Archives-Verbatim|Shore Club Corporate Archives]]
+- [[Cove/docs/archive/originals/transcriptions/Shoreclub-Vawter-Filiorum-Verbatim|Shoreclub Vawter Filiorum]]
+- [[Cove/docs/archive/originals/transcriptions/Abalone-Shore-Club-Site-Map-Verbatim|Shore Club Site Map]]
+
+## Sources — Summaries & Analysis
+- [[Cove/docs/archive/shore-club/1972-karshner-proposal|Karshner Proposal (Summary)]]
+- [[Cove/docs/archive/shore-club/1971-1972-board-docs|Shore Club Board Docs (Summary)]]
+- [[Cove/docs/archive/shore-club/1971-filiorum-lease|Filiorum Lease (Summary)]]
+- [[Cove/docs/archive/shore-club/1972-corporate-archives|Corporate Archives (Summary)]]
+- [[Cove/docs/archive/people/vawter-family-research|Vawter Family Research]]
+
+## Sources — Parks & Conservancy
+- [[Cove/docs/archive/originals/city-records/parks-conservancy/2015-rpv-parks-master-plan-staff-report|RPV Parks Master Plan (2015)]]
+- [[Cove/docs/archive/originals/city-records/parks-conservancy/pvplc-abalone-cove-brochure|PVPLC Abalone Cove Brochure]]
+- [[Cove/docs/archive/originals/city-records/parks-conservancy/pvplc-timeline|PVPLC Timeline]]
+- [[Cove/docs/archive/originals/city-records/parks-conservancy/pvplc-nccp-subarea-plan|PVPLC NCCP Subarea Plan]]
+- [[Cove/docs/archive/originals/city-records/parks-conservancy/usfws-pv-blue-butterfly-5yr-review-2014|PV Blue Butterfly 5-Year Review (2014)]]
+- [[Cove/docs/archive/originals/city-records/parks-conservancy/pvplc-abalone-cove-restoration-2019|Abalone Cove Restoration (2019)]]
+- [[Cove/docs/archive/originals/city-records/parks-conservancy/pvplc-abalone-cove-restoration-2013|Abalone Cove Restoration (2013)]]
+- [[Cove/docs/archive/originals/city-records/parks-conservancy/pvplc-open-spaces-2010|Open Spaces (2010)]]
+
+## Sources — Community Updates
+- [[Cove/docs/archive/originals/city-records/public-correspondence/0000-00-00-2024-community-updates-archive|2024 Community Updates]]
+- [[Cove/docs/archive/originals/city-records/public-correspondence/0000-00-00-2025-community-updates-archive|2025 Community Updates]]

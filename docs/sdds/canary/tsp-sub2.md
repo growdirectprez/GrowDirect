@@ -1,7 +1,10 @@
 # TSP Sub 2 -- Parse & Route
 
+**Wiki:** [[Brain/wiki/canary-architecture|Canary Architecture]]
+**Architecture:** [[docs/sdds/canary/architecture|Canary Architecture SDD]]
+
 > **Type:** App Service (Canary) -- Stream Consumer
-> **Parent SDD:** [tsp.md](tsp.md)
+> **Parent SDD:** [[docs/sdds/canary/tsp|TSP Pipeline Overview]]
 > **Status:** Production Readiness Review -- 2026-04-13
 > **Code location:** `Canary/canary/services/tsp/consumers/sub2_parse.py`, `Canary/canary/services/webhook_dispatch.py`
 

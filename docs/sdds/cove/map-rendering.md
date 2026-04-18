@@ -6,9 +6,10 @@
 > **Last updated:** 2026-04-13
 > **Code location:** `Cove/cove/map/`, `Cove/cove/services/boundary_services.py`, `Cove/cove/map/layer_services.py`, `Cove/cove/models/land_division.py`
 > **Split from:** Original `parcel-map-engine.md` (47K, 7500 words)
-> **Companion SDD:** [Parcel Map Engine](parcel-map-engine.md) — Parcel identity, data model, contacts, tags
+> **Companion SDD:** [[docs/sdds/cove/parcel-map-engine|Parcel Map Engine]] — Parcel identity, data model, contacts, tags
 
-**Wiki:** [[Brain/wiki/cove-governance|Cove Governance]]
+**Wiki:** [[Brain/wiki/cove-governance|Cove Governance]] | [[Brain/wiki/cove-property-geology|Cove Property & Geology]] | [[Brain/wiki/cove-lot-h-discovery|Lot H Discovery]]
+**Architecture:** [[docs/sdds/cove/architecture|Cove Architecture]]
 
 ---
 

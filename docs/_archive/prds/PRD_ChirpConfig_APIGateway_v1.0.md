@@ -7,6 +7,8 @@ updated: 2026-03-19
 ---
 # PRD: Chirp Config + API Gateway — Live Sandbox for Merchant Onboarding
 
+**Wiki:** [[Brain/wiki/canary-architecture|Canary Architecture]]
+
 **PRD ID:** E1-F14
 **Version:** 1.0
 **Date:** February 26, 2026

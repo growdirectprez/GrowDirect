@@ -6,6 +6,9 @@ created: 2026-03-19
 updated: 2026-03-19
 ---
 # Multi-POS Translation Layer Architecture
+
+**Wiki:** [[Brain/wiki/canary-architecture|Canary Architecture]]
+
 **Version:** 1.0
 **Date:** February 17, 2026
 **Author:** Tom (Systems Architect)

@@ -6,6 +6,9 @@ created: 2026-03-19
 updated: 2026-03-19
 ---
 # ALX Project Manifest v2.0 — Local + Linear
+
+**Wiki:** [[Brain/wiki/canary-architecture|Canary Architecture]]
+
 *All operations run local. No iCloud dependency. Linear is the task layer.*
 
 **Version:** 2.0

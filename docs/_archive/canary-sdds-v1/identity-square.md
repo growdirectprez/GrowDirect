@@ -6,6 +6,8 @@
 > **Code location:** `Canary/canary/services/identity/`, `Canary/canary/services/parsers/`, `Canary/canary/blueprints/square_oauth_wired.py`, `Canary/canary/services/square_oauth.py`
 > **Linear:** GRO-53, GRO-130, GRO-159, GRO-174, GRO-248, GRO-267, GRO-266, GRO-288, GRO-299
 
+**Wiki:** [[Brain/wiki/canary-architecture|Canary Architecture]]
+
 ---
 
 ## 1. Overview

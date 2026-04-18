@@ -1,0 +1,485 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>canary.growdirect.io — Page Structure Mockup</title>
+<link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;600;700&display=swap" rel="stylesheet">
+<style>
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+:root {
+  --bg-ink: #0D1117;
+  --bg-surface: #161B22;
+  --bg-card: #1C2128;
+  --border: #30363D;
+  --border-light: #21262D;
+  --gold: #FBBF24;
+  --amber: #F59E0B;
+  --gold-glow: rgba(251, 191, 36, 0.15);
+  --green: #059669;
+  --text-primary: #E6EDF3;
+  --text-secondary: #8B949E;
+  --text-muted: #6B7280;
+  --font: 'Space Grotesk', system-ui, sans-serif;
+}
+html { scroll-behavior: smooth; }
+body { font-family: var(--font); background: var(--bg-ink); color: var(--text-primary); line-height: 1.6; -webkit-font-smoothing: antialiased; }
+a { color: var(--gold); text-decoration: none; }
+
+/* Nav */
+.nav { display: flex; align-items: center; justify-content: space-between; padding: 20px 24px; max-width: 960px; margin: 0 auto; }
+.nav-brand { display: flex; align-items: center; gap: 10px; font-size: 18px; font-weight: 700; color: var(--gold); }
+.nav-links { display: flex; gap: 24px; font-size: 14px; font-weight: 500; }
+.nav-links a { color: var(--text-secondary); }
+.nav-links a:hover { color: var(--gold); }
+
+/* Section labels */
+.section-label {
+  position: relative;
+  margin: 0 auto;
+  max-width: 960px;
+  padding: 8px 24px;
+}
+.section-label span {
+  display: inline-block;
+  font-size: 10px;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.1em;
+  color: var(--bg-ink);
+  background: var(--gold);
+  padding: 2px 10px;
+  border-radius: 3px;
+}
+.section-label.partner span {
+  background: #059669;
+  color: #fff;
+}
+
+/* Divider */
+.divider { border: none; border-top: 1px solid var(--border-light); margin: 0; }
+
+/* Container */
+.container { max-width: 720px; margin: 0 auto; padding: 0 24px; }
+.container-wide { max-width: 960px; margin: 0 auto; padding: 0 24px; }
+
+/* Hero */
+.hero { text-align: center; padding: 80px 24px 60px; }
+.hero-bird { margin-bottom: 28px; filter: drop-shadow(0 0 32px rgba(251,191,36,0.25)); }
+.hero h1 { font-size: 38px; font-weight: 700; line-height: 1.15; margin-bottom: 16px; }
+.hero h1 em { font-style: normal; color: var(--gold); }
+.hero-sub { font-size: 18px; color: var(--text-secondary); max-width: 520px; margin: 0 auto 36px; line-height: 1.5; }
+.hero-trust { margin-top: 20px; font-size: 12px; color: var(--text-muted); }
+
+/* Buttons */
+.btn-primary {
+  display: inline-flex; align-items: center; gap: 8px;
+  padding: 16px 32px; border: none; border-radius: 12px;
+  background: linear-gradient(135deg, var(--gold), var(--amber));
+  color: #0a0a0a; font-size: 17px; font-weight: 700; font-family: var(--font);
+  cursor: pointer; box-shadow: 0 0 24px var(--gold-glow);
+}
+.btn-secondary {
+  display: inline-flex; align-items: center; gap: 6px;
+  padding: 12px 24px; border: 1px solid var(--border); border-radius: 10px;
+  background: transparent; color: var(--text-secondary);
+  font-size: 14px; font-weight: 500; font-family: var(--font); cursor: pointer;
+}
+
+/* Problem cards */
+.problem { padding: 72px 24px; }
+.problem-header { text-align: center; margin-bottom: 40px; }
+.problem-header h2 { font-size: 28px; font-weight: 700; margin-bottom: 12px; }
+.problem-header p { font-size: 16px; color: var(--text-secondary); max-width: 540px; margin: 0 auto; }
+.problem-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 16px; max-width: 720px; margin: 0 auto; }
+.problem-card { padding: 24px; border-radius: 12px; background: var(--bg-surface); border: 1px solid var(--border-light); }
+.problem-card-icon { font-size: 28px; margin-bottom: 12px; }
+.problem-card h3 { font-size: 16px; font-weight: 600; margin-bottom: 8px; }
+.problem-card p { font-size: 14px; color: var(--text-secondary); line-height: 1.55; }
+.problem-stat { display: block; font-size: 24px; font-weight: 700; color: var(--gold); margin-top: 8px; }
+
+/* How it works */
+.how { padding: 72px 24px; }
+.how h2 { text-align: center; font-size: 28px; font-weight: 700; margin-bottom: 48px; }
+.how-steps { max-width: 520px; margin: 0 auto; display: flex; flex-direction: column; }
+.how-step { display: flex; gap: 20px; padding: 28px 0; border-bottom: 1px solid var(--border-light); }
+.how-step:last-child { border-bottom: none; }
+.how-step-num { flex-shrink: 0; width: 36px; height: 36px; display: flex; align-items: center; justify-content: center; border-radius: 10px; background: var(--gold-glow); color: var(--gold); font-size: 15px; font-weight: 700; }
+.how-step h3 { font-size: 16px; font-weight: 600; margin-bottom: 4px; }
+.how-step p { font-size: 14px; color: var(--text-secondary); }
+
+/* Detection patterns */
+.finds { padding: 72px 24px; }
+.finds h2 { text-align: center; font-size: 28px; font-weight: 700; margin-bottom: 12px; }
+.finds-sub { text-align: center; font-size: 16px; color: var(--text-secondary); max-width: 480px; margin: 0 auto 40px; }
+.finds-list { max-width: 600px; margin: 0 auto; display: flex; flex-direction: column; gap: 12px; }
+.find-item { display: flex; align-items: flex-start; gap: 16px; padding: 20px; border-radius: 10px; background: var(--bg-surface); border-left: 3px solid var(--gold); }
+.find-item h4 { font-size: 14px; font-weight: 600; margin-bottom: 4px; }
+.find-item p { font-size: 13px; color: var(--text-secondary); }
+
+/* Report preview */
+.report-preview { padding: 72px 24px; }
+.report-preview h2 { text-align: center; font-size: 28px; font-weight: 700; margin-bottom: 12px; }
+.report-preview-sub { text-align: center; font-size: 16px; color: var(--text-secondary); margin-bottom: 36px; }
+.report-card { max-width: 420px; margin: 0 auto; padding: 28px 24px; border-radius: 14px; background: var(--bg-surface); border: 1px solid var(--border); box-shadow: 0 0 40px var(--gold-glow); }
+.report-card-header { display: flex; align-items: center; gap: 10px; margin-bottom: 20px; padding-bottom: 16px; border-bottom: 1px solid var(--border-light); font-size: 14px; font-weight: 600; color: var(--text-secondary); }
+.report-hero-num { text-align: center; padding: 20px 0; }
+.report-hero-num .amount { font-size: 48px; font-weight: 700; color: var(--gold); display: block; }
+.report-hero-num .label { font-size: 14px; color: var(--text-secondary); margin-top: 4px; }
+.report-body { font-size: 14px; color: var(--text-secondary); line-height: 1.65; padding: 16px 0; border-top: 1px solid var(--border-light); }
+.report-body strong { color: var(--text-primary); font-weight: 600; }
+.report-action { margin-top: 16px; padding: 12px 16px; border-radius: 8px; background: rgba(5,150,105,0.1); border: 1px solid rgba(5,150,105,0.2); font-size: 13px; color: #34D399; line-height: 1.5; }
+.report-action-label { font-weight: 700; font-size: 11px; text-transform: uppercase; letter-spacing: 0.04em; margin-bottom: 4px; color: #059669; }
+
+/* Merchant CTA */
+.merchant-cta { padding: 72px 24px; text-align: center; }
+.merchant-cta h2 { font-size: 28px; font-weight: 700; margin-bottom: 12px; }
+.merchant-cta h2 em { font-style: normal; color: var(--gold); }
+.merchant-cta p { font-size: 16px; color: var(--text-secondary); margin-bottom: 32px; max-width: 440px; margin-left: auto; margin-right: auto; }
+.email-form { display: flex; gap: 8px; max-width: 420px; margin: 0 auto; }
+.email-form input { flex: 1; padding: 14px 16px; border: 1px solid var(--border); border-radius: 10px; background: var(--bg-surface); color: var(--text-primary); font-size: 15px; font-family: var(--font); }
+.form-note { margin-top: 10px; font-size: 12px; color: var(--text-muted); }
+
+/* ═══════════════════════════════════════
+   PARTNER SECTION — "page within a page"
+   ═══════════════════════════════════════ */
+.partner-break {
+  padding: 0 24px;
+  max-width: 960px;
+  margin: 0 auto;
+}
+.partner-break-inner {
+  border-top: 2px solid var(--green);
+  padding-top: 8px;
+  display: flex;
+  align-items: center;
+  gap: 12px;
+}
+.partner-break-inner span {
+  font-size: 11px; font-weight: 700; text-transform: uppercase;
+  letter-spacing: 0.08em; color: #34D399;
+}
+
+.partner-hero {
+  padding: 72px 24px 48px;
+  text-align: center;
+}
+.partner-hero h2 {
+  font-size: 32px; font-weight: 700; line-height: 1.2; margin-bottom: 16px;
+}
+.partner-hero h2 em { font-style: normal; color: #34D399; }
+.partner-hero p {
+  font-size: 17px; color: var(--text-secondary); max-width: 600px; margin: 0 auto;
+  line-height: 1.6;
+}
+
+/* Credibility pillars */
+.credibility { padding: 48px 24px 72px; }
+.credibility-grid {
+  display: grid; grid-template-columns: repeat(3, 1fr); gap: 20px;
+  max-width: 840px; margin: 0 auto;
+}
+.cred-card {
+  padding: 28px 24px; border-radius: 12px;
+  background: var(--bg-surface); border: 1px solid var(--border-light);
+}
+.cred-card-num {
+  font-size: 36px; font-weight: 700; color: #34D399; margin-bottom: 8px;
+}
+.cred-card h3 { font-size: 15px; font-weight: 600; margin-bottom: 8px; }
+.cred-card p { font-size: 13px; color: var(--text-secondary); line-height: 1.55; }
+
+/* What we build */
+.capabilities-partner { padding: 72px 24px; }
+.capabilities-partner h3 { text-align: center; font-size: 24px; font-weight: 700; margin-bottom: 36px; }
+.cap-grid {
+  display: grid; grid-template-columns: repeat(2, 1fr); gap: 16px;
+  max-width: 720px; margin: 0 auto;
+}
+.cap-item {
+  padding: 20px; border-radius: 10px; background: var(--bg-surface);
+  border-left: 3px solid #34D399;
+}
+.cap-item h4 { font-size: 14px; font-weight: 600; margin-bottom: 4px; }
+.cap-item p { font-size: 13px; color: var(--text-secondary); }
+
+/* Partner CTA */
+.partner-cta { padding: 72px 24px; text-align: center; }
+.partner-cta h3 { font-size: 24px; font-weight: 700; margin-bottom: 12px; }
+.partner-cta p { font-size: 16px; color: var(--text-secondary); margin-bottom: 32px; max-width: 480px; margin-left: auto; margin-right: auto; }
+.partner-cta-buttons { display: flex; gap: 12px; justify-content: center; flex-wrap: wrap; }
+.btn-partner {
+  display: inline-flex; align-items: center; gap: 8px;
+  padding: 14px 28px; border: none; border-radius: 10px;
+  background: #059669; color: #fff;
+  font-size: 15px; font-weight: 700; font-family: var(--font); cursor: pointer;
+}
+
+/* Footer */
+.footer { padding: 32px 24px; border-top: 1px solid var(--border-light); text-align: center; }
+.footer-brand { font-size: 14px; font-weight: 600; color: var(--text-secondary); margin-bottom: 8px; }
+.footer p { font-size: 12px; color: var(--text-muted); }
+
+/* Bird animation */
+@keyframes gentle-bob { 0%, 100% { transform: translateY(0); } 50% { transform: translateY(-4px); } }
+
+/* Responsive */
+@media (max-width: 600px) {
+  .hero { padding: 48px 20px 40px; }
+  .hero h1 { font-size: 28px; }
+  .problem-grid { grid-template-columns: 1fr; }
+  .credibility-grid { grid-template-columns: 1fr; }
+  .cap-grid { grid-template-columns: 1fr; }
+  .email-form { flex-direction: column; }
+}
+</style>
+</head>
+<body>
+
+<!-- ═══ NAV ═══ -->
+<nav class="nav">
+  <div class="nav-brand">
+    <svg width="28" height="28" viewBox="0 0 130 100" fill="none">
+      <circle cx="42" cy="33" r="18" fill="#FBBF24"/>
+      <ellipse cx="50" cy="58" rx="25" ry="19" fill="#FBBF24"/>
+      <path d="M36 47 Q16 56 26 74 Q38 66 48 54 Z" fill="#F59E0B"/>
+      <circle cx="48" cy="30" r="4" fill="#0D1117"/>
+      <circle cx="46.5" cy="28.8" r="1.5" fill="#FBBF24"/>
+      <path d="M58 30 L73 24 L63 34 Z" fill="#E8A317"/>
+      <path d="M58 37 L71 40 L63 37 Z" fill="#D97706"/>
+      <path d="M28 66 Q12 78 18 88 Q28 80 36 72 Z" fill="#F59E0B"/>
+    </svg>
+    Canary
+  </div>
+  <div class="nav-links">
+    <a href="#how-it-works">How It Works</a>
+    <a href="#detections">Detections</a>
+    <a href="#partners">For Operators</a>
+    <a href="#get-started">Get Started</a>
+  </div>
+</nav>
+
+<!-- ═══ SECTION LABEL ═══ -->
+<div class="section-label"><span>MERCHANT EXPERIENCE</span></div>
+
+<!-- ═══ HERO ═══ -->
+<section class="hero">
+  <div class="hero-bird">
+    <svg width="88" height="80" viewBox="0 0 130 100" fill="none">
+      <g style="animation: gentle-bob 3s ease-in-out infinite">
+        <circle cx="42" cy="33" r="18" fill="#FBBF24"/>
+        <ellipse cx="50" cy="58" rx="25" ry="19" fill="#FBBF24"/>
+        <path d="M36 47 Q16 56 26 74 Q38 66 48 54 Z" fill="#F59E0B"/>
+        <circle cx="48" cy="30" r="4" fill="#0D1117"/>
+        <circle cx="46.5" cy="28.8" r="1.5" fill="#FBBF24"/>
+        <path d="M58 30 L73 24 L63 34 Z" fill="#E8A317"/>
+        <path d="M58 37 L71 40 L63 37 Z" fill="#D97706"/>
+        <path d="M28 66 Q12 78 18 88 Q28 80 36 72 Z" fill="#F59E0B"/>
+      </g>
+    </svg>
+  </div>
+  <h1>Your margins are shrinking.<br><em>Here's why.</em></h1>
+  <p class="hero-sub">Connect your Square account. Get a free profit health check in 60 seconds. See exactly where your money is going — and what to do about it.</p>
+  <div style="display:flex;flex-direction:column;align-items:center;gap:12px;">
+    <button class="btn-primary">Run My Free Health Check</button>
+    <button class="btn-secondary">Or book a 15-min walkthrough</button>
+  </div>
+  <p class="hero-trust">Read-only access · 60 seconds · No credit card</p>
+</section>
+
+<hr class="divider">
+
+<!-- ═══ PROBLEM ═══ -->
+<section class="problem container-wide">
+  <div class="problem-header">
+    <h2>The money you can't see leaving</h2>
+    <p>Most Square merchants lose 2-5% of revenue to patterns they never spot.</p>
+  </div>
+  <div class="problem-grid">
+    <div class="problem-card">
+      <div class="problem-card-icon">💸</div>
+      <h3>Invisible shrink</h3>
+      <p>Voids, refunds, and discounts that add up to real money every month.</p>
+      <span class="problem-stat">$200-800/mo</span>
+    </div>
+    <div class="problem-card">
+      <div class="problem-card-icon">🔍</div>
+      <h3>Buried in reports</h3>
+      <p>3,000 transactions. 6 that matter. Nobody has time to find them.</p>
+    </div>
+    <div class="problem-card">
+      <div class="problem-card-icon">🤷</div>
+      <h3>"Business is tough"</h3>
+      <p>Sometimes it's the economy. Sometimes it's a fixable pattern.</p>
+    </div>
+  </div>
+</section>
+
+<hr class="divider">
+
+<!-- ═══ HOW IT WORKS ═══ -->
+<section class="how container" id="how-it-works">
+  <h2>How the health check works</h2>
+  <div class="how-steps">
+    <div class="how-step">
+      <div class="how-step-num">1</div>
+      <div><h3>Connect Square</h3><p>One-click OAuth. Read-only — we can't touch your data.</p></div>
+    </div>
+    <div class="how-step">
+      <div class="how-step-num">2</div>
+      <div><h3>We scan your history</h3><p>90 days of transactions through 29 detection rules in ~60 seconds.</p></div>
+    </div>
+    <div class="how-step">
+      <div class="how-step-num">3</div>
+      <div><h3>See what you're losing</h3><p>One number. One explanation. One thing you can do this week.</p></div>
+    </div>
+  </div>
+</section>
+
+<hr class="divider">
+
+<!-- ═══ DETECTIONS ═══ -->
+<section class="finds container" id="detections">
+  <h2>Patterns you'd never spot manually</h2>
+  <p class="finds-sub">Real patterns Canary detects automatically from your Square data.</p>
+  <div class="finds-list">
+    <div class="find-item">
+      <div><h4>Post-sale voids</h4><p>$200 sale goes through. Customer leaves. Voided 3 minutes later. Cash doesn't come back.</p></div>
+    </div>
+    <div class="find-item">
+      <div><h4>After-hours transactions</h4><p>You close at 10 PM. There's a $300 payment at 2 AM. Invisible in daily totals.</p></div>
+    </div>
+    <div class="find-item">
+      <div><h4>Discount outliers</h4><p>One employee averages 40% discounts. Everyone else: 8%. Hundreds per month.</p></div>
+    </div>
+    <div class="find-item">
+      <div><h4>Rapid refunds</h4><p>Refund filed 3 minutes after a sale. Classic cash-out pattern.</p></div>
+    </div>
+  </div>
+</section>
+
+<hr class="divider">
+
+<!-- ═══ WEEKLY REPORT PREVIEW ═══ -->
+<section class="report-preview container">
+  <h2>One message a week. One number.</h2>
+  <p class="report-preview-sub">Not a dashboard — a text from someone watching your money.</p>
+  <div class="report-card">
+    <div class="report-card-header">
+      <svg width="24" height="22" viewBox="0 0 130 100" fill="none">
+        <circle cx="42" cy="33" r="18" fill="#FBBF24"/><ellipse cx="50" cy="58" rx="25" ry="19" fill="#FBBF24"/>
+        <path d="M36 47 Q16 56 26 74 Q38 66 48 54 Z" fill="#F59E0B"/>
+        <circle cx="48" cy="30" r="4" fill="#0D1117"/><circle cx="46.5" cy="28.8" r="1.5" fill="#FBBF24"/>
+        <path d="M58 30 L73 24 L63 34 Z" fill="#E8A317"/><path d="M58 37 L71 40 L63 37 Z" fill="#D97706"/>
+        <path d="M28 66 Q12 78 18 88 Q28 80 36 72 Z" fill="#F59E0B"/>
+      </svg>
+      <span>Canary Weekly — Mar 24-30</span>
+    </div>
+    <div class="report-hero-num">
+      <span class="amount">$437</span>
+      <span class="label">in potential losses found this week</span>
+    </div>
+    <div class="report-body">
+      <strong>Biggest driver:</strong> Tuesday/Thursday evening refund rate is 3.8× your store average. Consistent for 3 weeks — ~$280/week. Remaining $157 from two post-sale voids Wednesday.
+    </div>
+    <div class="report-action">
+      <div class="report-action-label">Recommended action</div>
+      Review the 6 flagged refunds with your Tue/Thu closing staff.
+    </div>
+  </div>
+</section>
+
+<hr class="divider">
+
+<!-- ═══ MERCHANT CTA ═══ -->
+<section class="merchant-cta container" id="get-started">
+  <h2>Find out what you're <em>really</em> losing</h2>
+  <p>Free health check. No credit card. Results in 60 seconds.</p>
+  <div class="email-form">
+    <input type="email" placeholder="you@yourbusiness.com">
+    <button class="btn-primary" style="font-size:15px;padding:14px 24px;">Get Started</button>
+  </div>
+  <p class="form-note">We'll send you a link to connect your Square account.</p>
+</section>
+
+<hr class="divider" style="margin-top:48px;">
+
+<!-- ═══════════════════════════════════════════════
+     PARTNER SECTION — "page within a page"
+     ═══════════════════════════════════════════════ -->
+
+<div class="partner-break" id="partners">
+  <div class="partner-break-inner">
+    <span>For Operators &amp; Partners</span>
+  </div>
+</div>
+
+<section class="partner-hero">
+  <h2>Enterprise LP capability.<br><em>SMB delivery.</em></h2>
+  <p>The detection engines, evidence chains, and case management workflows that protect national retail chains — now available for your 5-50 location operation. Built by the team that designed and operated these systems at enterprise scale. Delivered with Big 5 process discipline at a price point that makes sense.</p>
+</section>
+
+<!-- Credibility pillars -->
+<section class="credibility container-wide">
+  <div class="credibility-grid">
+    <div class="cred-card">
+      <div class="cred-card-num">30+</div>
+      <h3>Years in Production</h3>
+      <p>IBM 4690 POS to Square APIs. National grocery, convenience, and specialty retail. Systems that processed millions of transactions daily.</p>
+    </div>
+    <div class="cred-card">
+      <div class="cred-card-num">29</div>
+      <h3>Detection Rules</h3>
+      <p>Tuned across thousands of locations. Configurable per merchant, per vertical, per operation. Not a one-size-fits-all algorithm.</p>
+    </div>
+    <div class="cred-card">
+      <div class="cred-card-num">4</div>
+      <h3>Schema Architecture</h3>
+      <p>Separate operational, transactional, evidentiary, and analytics data. INSERT-only evidence tables. SHA-256 hash chains. Court-ready records.</p>
+    </div>
+  </div>
+</section>
+
+<!-- What we build for you -->
+<section class="capabilities-partner container-wide">
+  <h3>What we build for your operation</h3>
+  <div class="cap-grid">
+    <div class="cap-item">
+      <h4>Custom Detection Rules</h4>
+      <p>Rules tuned to your vertical — restaurant, retail, salon, convenience. Your thresholds, your patterns.</p>
+    </div>
+    <div class="cap-item">
+      <h4>Multi-Location Dashboards</h4>
+      <p>Roll-up reporting across 5, 20, or 50 locations. Compare stores. Spot systemic issues.</p>
+    </div>
+    <div class="cap-item">
+      <h4>Evidence &amp; Case Management</h4>
+      <p>Immutable audit trails that hold up to HR, legal, and law enforcement scrutiny.</p>
+    </div>
+    <div class="cap-item">
+      <h4>Integration &amp; Deployment</h4>
+      <p>Square API integration, custom reporting, staff training. White-glove onboarding.</p>
+    </div>
+  </div>
+</section>
+
+<hr class="divider">
+
+<!-- Partner CTA -->
+<section class="partner-cta container">
+  <h3>Let's talk about your operation</h3>
+  <p>Whether you're running 5 locations or 50, we'll scope a solution that fits — custom detection, multi-store reporting, and hands-on support.</p>
+  <div class="partner-cta-buttons">
+    <button class="btn-partner">Tell Us About Your Operation</button>
+    <button class="btn-secondary" style="border-color:#059669;color:#34D399;">Book a 15-Min Call</button>
+  </div>
+</section>
+
+<!-- Footer -->
+<footer class="footer">
+  <div class="footer-brand">Canary by GrowDirect</div>
+  <p>&copy; 2026 GrowDirect Inc. · gclyle@growdirect.io</p>
+</footer>
+
+</body>
+</html>

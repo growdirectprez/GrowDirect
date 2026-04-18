@@ -7,6 +7,8 @@ updated: 2026-03-19
 ---
 # Canary Retail Data Model (CRDM) — Field-Level Mapping Guide
 
+**Wiki:** [[Brain/wiki/canary-architecture|Canary Architecture]]
+
 **Version:** 1.0
 **Date:** February 20, 2026
 **Authors:** Tom (Systems Architect), Eva (Program Manager)

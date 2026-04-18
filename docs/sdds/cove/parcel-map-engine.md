@@ -6,9 +6,10 @@
 > **Last updated:** 2026-04-13
 > **Code location:** `Cove/cove/parcels/`, `Cove/cove/models/parcel*.py`, `Cove/cove/services/tag_services.py`
 > **Split from:** Original `parcel-map-engine.md` (47K, 7500 words)
-> **Companion SDD:** [Map Rendering](map-rendering.md) — Leaflet.js, GeoJSON overlays, boundary computation
+> **Companion SDD:** [[docs/sdds/cove/map-rendering|Map Rendering]] — Leaflet.js, GeoJSON overlays, boundary computation
 
-**Wiki:** [[Brain/wiki/cove-governance|Cove Governance]]
+**Wiki:** [[Brain/wiki/cove-governance|Cove Governance]] | [[Brain/wiki/cove-property-geology|Cove Property & Geology]]
+**Architecture:** [[docs/sdds/cove/architecture|Cove Architecture]]
 
 ---
 

@@ -5,7 +5,8 @@
 **Last updated:** 2026-04-13
 **Blueprint:** `archive_bp` at `/archive`
 **Code location:** `Cove/cove/archive/`
-**Wiki:** [[Brain/wiki/cove-governance|Cove Governance]]
+**Wiki:** [[Brain/wiki/cove-governance|Cove Governance]] | [[Brain/wiki/cove-legal-framework|Cove Legal Framework]] | [[Brain/wiki/cove-community-history|Cove Community History]]
+**Architecture:** [[docs/sdds/cove/architecture|Cove Architecture]]
 
 ---
 

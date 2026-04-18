@@ -3,6 +3,9 @@ date: {{date}}
 type: journal
 ---
 
+
+**Wiki:** [[Brain/Home|Home]]
+
 # {{date}}
 
 ## Focus today

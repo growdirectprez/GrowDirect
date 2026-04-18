@@ -7,6 +7,8 @@ updated: 2026-03-19
 ---
 # CRDM v1.1 Addendum — Namespace Bridge, Device Attestation Storage, Source System Refactor
 
+**Wiki:** [[Brain/wiki/canary-architecture|Canary Architecture]]
+
 **Version:** 1.1-B
 **Date:** March 3, 2026
 **Author:** ALX (Chief of Staff), Tom (Systems Architect)

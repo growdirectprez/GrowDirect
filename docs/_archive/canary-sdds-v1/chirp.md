@@ -5,6 +5,8 @@
 > **Last updated:** 2026-03-30
 > **Code location:** `Canary/canary/services/chirp/`
 
+**Wiki:** [[Brain/wiki/canary-architecture|Canary Architecture]]
+
 ---
 
 ## 1. Overview

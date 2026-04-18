@@ -5,7 +5,9 @@
 > **Namespace:** platform
 > **Last updated:** 2026-04-13
 > **Code location:** `devops/docker-compose.yml`, `devops/init-db/`
-> **AWS target:** See `docs/sdds/platform/aws-target-architecture.md`
+> **AWS target:** See [[docs/sdds/platform/aws-target-architecture|AWS Target Architecture]]
+
+**Wiki:** [[Brain/wiki/growdirect-workflow|GrowDirect Workflow]] · [[Brain/projects/Canary|Canary MOC]] · [[Brain/projects/Cove|Cove MOC]] · [[Brain/projects/Angel|Angel MOC]]
 
 ---
 
@@ -147,7 +149,7 @@ What breaks when each component goes down.
 
 ## API Contract
 
-Shared infrastructure exposes no HTTP routes of its own (except Memory Bus, documented separately in `memory-bus.md`). Services are accessed via protocol-specific connections:
+Shared infrastructure exposes no HTTP routes of its own (except Memory Bus, documented separately in [[docs/sdds/platform/memory-bus|Memory Bus]]). Services are accessed via protocol-specific connections:
 
 | Service | Protocol | Connection Pattern |
 |---------|----------|-------------------|
@@ -176,7 +178,7 @@ All services: `restart: unless-stopped`. Auto-restart on crash, daemon restart, 
 
 ### Monitoring (Current State)
 
-**Not implemented.** No metrics collection, no alerting, no dashboards. Health checks exist for container orchestration only. Production monitoring is documented in `aws-target-architecture.md`.
+**Not implemented.** No metrics collection, no alerting, no dashboards. Health checks exist for container orchestration only. Production monitoring is documented in [[docs/sdds/platform/aws-target-architecture|AWS Target Architecture]].
 
 ### Configuration — Environment Variables
 
@@ -354,7 +356,7 @@ All statements are idempotent (`IF NOT EXISTS` throughout). Safe to re-run manua
 - [ ] All container images pinned to specific versions (P1-6, P2-2)
 - [ ] Memory limits configured on all containers (P2-3)
 - [ ] All ports bound to `127.0.0.1` in dev (P2-5)
-- [ ] Monitoring and alerting configured (see aws-target-architecture.md)
+- [ ] Monitoring and alerting configured (see [[docs/sdds/platform/aws-target-architecture|AWS Target Architecture]])
 - [ ] Audit logging for database administrative operations
 - [ ] Rate limiting on infrastructure management endpoints
 - [ ] Error responses from infrastructure services do not leak credentials
