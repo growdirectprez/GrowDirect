@@ -9,7 +9,7 @@
 
 ## 1. Context
 
-This document consolidates the output of an extended brainstorm session working through the origin, mission, form, deliverables, and execution sequencing of the Abalone Cove Foundation (hereafter "the Foundation"). The Foundation is being formed in response to the 2024 rezoning of 0 Clipper Road (APN 7573-006-024) from RS-4 to RM-22 by the City of Rancho Palos Verdes, the simultaneous fiscal crisis of the West Portuguese Bend Community Association (WPBCA, the operating HOA for the 81-lot Community of Abalone Cove), and the broader pattern of governance and documentary neglect that the underlying research has surfaced.
+This document consolidates the output of an extended brainstorm session working through the origin, mission, form, deliverables, and execution sequencing of the Abalone Cove Foundation (hereafter "the Foundation"). The Foundation is being formed in response to the 2024 rezoning of 0 Clipper Road (APN 7573-006-024) from RS-4 to RM-22 by the City of Rancho Palos Verdes, the simultaneous fiscal crisis of the Community of Abalone Cove (formerly the West Portuguese Bend Community Association / WPBCA — renamed with the California Secretary of State by the previous board as its last act, to disassociate the 81-lot community from the Portuguese Bend landslide connotation; same legal entity, continuous history), and the broader pattern of governance and documentary neglect that the underlying research has surfaced.
 
 The brainstorm was grounded in a library of primary and secondary sources assembled over several months: Declaration No. 100 (1929), Declaration No. 101 (1929), the 1930 Palos Verdes Corporation → Filiorum Corporation grant deed, the 1939 *Palos Verdes Estates: Civic Problems* booklet, the 1972 Karshner Proposal and Abalone Shore Club bylaws, the 1978 Coastal Specific Plan (Subregion 4 + Urban Environment + Corridor elements, updated 2015 for the Trump National flagpole amendment), the Woodring 1946 USGS geological report, the 1982 Ehlig landslide guidebook, the 2011 LGC Valley Zone 2 geotechnical study, the 2012 CSUDH field guide, *Albers v. County of Los Angeles* (1965), *Russell v. Palos Verdes Properties* (1963), *Phillippe v. Shapell Industries* (1987), *Monks v. RPV* (2008), *Colyear v. Rolling Hills Community Association* (2024), the Successor Agency LRPMP (2014), the Horan litigation record, and the contemporary rezoning petition No. 24TRCP00352.
 
@@ -45,7 +45,7 @@ The Foundation operates in three layers, in ascending order of formality:
 
 1. **Research & Documentation** — assemble, transcribe, publish, and preserve primary and secondary sources bearing on the south coast's historical, regulatory, and governance record. This is the Foundation's core activity and the one that most directly supports the charitable purpose.
 
-2. **Inter-HOA Convening Body** — serve as a neutral 501(c)(3) convening body that facilitates coordination among peninsula HOAs (WPBCA, PV Bay Club, Portuguese Bend Beach Club, Portuguese Bend Community Association, Seaview Tract, Klondike Canyon area associations, and others) on shared issues: trails, landslide compliance, housing-element pressure, Coastal Commission positioning, Wayfarers reassembly siting, and beach access. The Foundation does not govern these HOAs; it provides research, facilitates joint letters, and publishes joint positions where they exist.
+2. **Inter-HOA Research & Convening Partner (working through CHOA)** — the Rancho Palos Verdes Council of Homeowners Associations (CHOA) is the existing inter-HOA coordination body in which the Community of Abalone Cove board already participates. The Foundation's role is not to build a parallel structure but to serve CHOA and its member associations as a neutral 501(c)(3) research, documentation, and convening partner. Where CHOA already convenes peninsula HOA presidents, the Foundation supplies the documentary evidence base, facilitates single-issue working groups on shared topics (trails, landslide compliance, housing-element pressure, Coastal Commission positioning, Wayfarers reassembly siting, beach access), drafts joint-letter templates for CHOA or member HOA adoption, and publishes joint positions where they exist. The Foundation does not govern CHOA, its member HOAs, or their communities; CHOA remains the HOA-of-HOAs forum, and the Foundation is a resource to it. Where member HOAs are not part of CHOA (or where CHOA's scope does not reach), the Foundation can convene directly, but the default posture is *work through CHOA first*.
 
 3. **§V §5 Reactivation Facilitator (Deferred)** — if the cooperative path hits a wall, the Foundation stands ready to facilitate the Declaration 100 Article II §5 reactivation of the Community Association of Palos Verdes. The Foundation does not become the reactivated Association; constituent HOAs (or individual owners) do. The Foundation provides research, notice templates, meeting infrastructure, and procedural guidance. See §9 for the federation architecture.
 
@@ -55,16 +55,19 @@ The three roles are compatible with 501(c)(3) status. Role 1 is clearly charitab
 
 ## 5. Corporate Separation
 
-Four legally distinct entities, cleanly separated:
+Five legally distinct entities, cleanly separated:
 
 | Entity | Legal Form | Role |
 |---|---|---|
-| Abalone Cove Foundation | California Nonprofit Public Benefit Corporation (501(c)(3)) | Research, documentation, advocacy, inter-HOA convening, reactivation facilitation |
-| West Portuguese Bend Community Association (WPBCA) | Existing CA Nonprofit Mutual Benefit Corp, 2009 restated declaration | Governance of the 81-lot Community of Abalone Cove tract |
+| Abalone Cove Foundation | California Nonprofit Public Benefit Corporation (501(c)(3)) | Research, documentation, advocacy, inter-HOA research/convening partnership, reactivation facilitation |
+| Community of Abalone Cove (formerly West Portuguese Bend Community Association / WPBCA) | Existing CA Nonprofit Mutual Benefit Corp; 2009 restated declaration; renamed with CA Secretary of State by the previous board as its last act | Governance of the 81-lot Community of Abalone Cove tract |
+| Rancho Palos Verdes Council of Homeowners Associations (CHOA) | Existing inter-HOA coordination body (peninsula HOA presidents / board representatives) | Peer-to-peer coordination forum among peninsula HOAs on shared issues |
+| Peer HOAs (PV Bay Club, Portuguese Bend Beach Club, Portuguese Bend Community Association, Seaview Tract, Klondike Canyon area associations, and others) | Each an existing California Nonprofit Mutual Benefit Corp or similar | Governance of their respective member communities |
 | Community Association of Palos Verdes (reactivated, if triggered) | Reactivated under Declaration 100 Article II §5 — existing legal entity with dormant operational status | Governance of the Declaration 100 boundary area |
-| Constituent peninsula HOAs (PV Bay Club, etc.) | Existing California Nonprofit Mutual Benefit Corps or similar | Governance of their respective member communities |
 
-**No commingling.** Foundation funds do not flow to WPBCA or to a reactivated Community Association for governance activities. The Foundation may publish research, provide templates, and fund its own activities (including publications, convenings, and advocacy) without triggering private-benefit or private-inurement concerns under 501(c)(3) rules. Foundation and WPBCA should have separate counsel; if the reactivated Community Association ever stands up, it should have its own counsel distinct from both.
+**CHOA — Council of Homeowners Associations.** CHOA is the pre-existing inter-HOA coordination body in which peninsula HOA boards participate. The Community of Abalone Cove board is already a participant. CHOA is *not* a governance body over its member HOAs — it is a peer forum where presidents and board members meet, share information, coordinate on shared issues, and occasionally produce joint positions. It is the natural institutional home for the inter-HOA work the Foundation supports. The Foundation's design explicitly routes inter-HOA convening *through* CHOA rather than creating a parallel structure: the Foundation supplies research and drafting capacity; CHOA supplies the convening authority and the roster of peer HOAs already at the table. This posture respects the existing institutional landscape, avoids duplicating effort, and gives the Foundation a credible existing partner for Track C activity (see §8). Where CHOA's scope or membership does not reach a particular HOA or issue, the Foundation can convene directly, but the default is: work through CHOA first.
+
+**No commingling.** Foundation funds do not flow to the Community of Abalone Cove, to CHOA, to any peer HOA, or to a reactivated Community Association for governance activities. The Foundation may publish research, provide templates, and fund its own activities (including publications, convenings, and advocacy) without triggering private-benefit or private-inurement concerns under 501(c)(3) rules. The Foundation and the Community of Abalone Cove should have separate counsel; CHOA's coordination function does not require the Foundation to share counsel with it; if the reactivated Community Association ever stands up, it should have its own counsel distinct from all of the above.
 
 ---
 
@@ -74,13 +77,13 @@ The Foundation's work surfaces through four coordinated channels, each serving a
 
 ### Surface 1: cove.org (Foundation-facing site)
 
-Audience: WPBCA members (immediate), peninsula HOA boards (near-term), wider community and media (ongoing).
+Audience: Community of Abalone Cove members (immediate), peninsula HOA boards via CHOA (near-term), wider community and media (ongoing).
 
 Purpose:
-- Address the WPBCA director-count crisis as the launch trigger
+- Address the Community of Abalone Cove director-count crisis as the launch trigger
 - Publish the Foundation's mission, founding story, and documentary record
 - Host concrete project proposals (trail restoration, Olmsted overlay, creek conservation easement, Fire Station 53 relocation)
-- Serve as the inter-HOA convening infrastructure
+- Serve as the documentary and drafting infrastructure that supports CHOA-led and direct inter-HOA convening
 
 Domain strategy: subdomain of abalonecove.org (e.g., foundation.abalonecove.org or community.abalonecove.org) for immediate ship; `cove.org` acquisition pursued in parallel as a stretch goal.
 
@@ -130,7 +133,7 @@ Status: **DEFERRED.** Captured in backlog (Epic 3). The Foundation's initial shi
 
 The Foundation's founding story is **documentary inheritance**, not legal succession. Specifically:
 
-- A previous WPBCA board member named Betty — who also served on the Abalone Shore Club board in the 1950s — left a documentary archive in banker boxes and a mailing tube in the home she commissioned from Doug Rucker, AIA (his first professional commission).
+- A previous WPBCA board member named Betty (WPBCA being the historical name of what is now the Community of Abalone Cove) — who also served on the Abalone Shore Club board in the 1950s — left a documentary archive in banker boxes and a mailing tube in the home she commissioned from Doug Rucker, AIA (his first professional commission).
 - The current Foundation organizer — a landscape-architecture enthusiast with tech and legal-research background and twenty years of residency in the community — found the archive, followed the document trail, and assembled the broader record.
 - The 1972 Abalone Shore Club (Dick Karshner, president) is named as the direct inspiration: a California nonprofit corporation that organized the successful 1972 community vote against Karl Rodi's 138–170-unit condominium proposal for Portuguese Point. The Shore Club's structure (board, bylaws, member vote) and its proposal template (context, options, committee, expert citations, Q&A, formal positions) are the Foundation's explicit model.
 
@@ -144,13 +147,13 @@ The Foundation's founding story is **documentary inheritance**, not legal succes
 
 Two workstreams run simultaneously. Neither blocks the other.
 
-### Track A — WPBCA Revival (public-facing, time-critical)
+### Track A — Community of Abalone Cove Revival (public-facing, time-critical)
 
-1. Week 1: Launch cove.org (or subdomain) with WPBCA director-crisis content + Foundation founding story + concrete project proposals
-2. Week 1–3: Member outreach via cove.org + traditional channels (mailings, doorstep, existing WPBCA communications) — support the board president without replacing her
-3. Week 3–6: WPBCA special or annual meeting; achieve quorum; elect third director; restore full board function
-4. Month 2: WPBCA board considers resolutions supporting Foundation initiatives; authorizes participation in inter-HOA convenings
-5. Month 2–3: WPBCA approaches peer HOAs (PV Bay Club first, for trail restoration) with Foundation research as evidence
+1. Week 1: Launch cove.org (or subdomain) with director-crisis content + Foundation founding story + concrete project proposals
+2. Week 1–3: Member outreach via cove.org + traditional channels (mailings, doorstep, existing Community of Abalone Cove communications) — support the board president without replacing her
+3. Week 3–6: Community of Abalone Cove special or annual meeting; achieve quorum; elect third director; restore full board function
+4. Month 2: Community of Abalone Cove board considers resolutions supporting Foundation initiatives; authorizes participation in CHOA-led and Foundation-supported convenings
+5. Month 2–3: Community of Abalone Cove approaches peer HOAs (PV Bay Club first, for trail restoration) *via CHOA where appropriate*, with Foundation research as evidence
 
 ### Track B — Foundation Formation (parallel, quieter)
 
@@ -162,12 +165,12 @@ Two workstreams run simultaneously. Neither blocks the other.
 6. Week 4–8: Await IRS determination letter (typically 2–4 weeks for 1023-EZ)
 7. Month 3+: Foundation fully recognized; fundraising, research publication, and convening activities formalized
 
-### Track C — Inter-HOA Outreach (follows Track A)
+### Track C — Inter-HOA Outreach, CHOA-Routed (follows Track A)
 
-1. Month 3: WPBCA (now functional) and Foundation (now recognized) jointly approach PV Bay Club for trail-restoration agreement
-2. Month 3–6: Expand to Portuguese Bend Beach Club, PBCA, Seaview Tract, Klondike Canyon associations
-3. Month 6+: Informal inter-HOA president convenings; shared-interest inventory; joint positions on shared issues
-4. Month 12+: If cooperative path is working, continue as convening body. If cooperative path is blocked, Track D activates.
+1. Month 3: Community of Abalone Cove (now functional) brings the trail-restoration question to CHOA as a standing participant; Foundation (now recognized) provides the research packet and drafting support. If CHOA can convene PV Bay Club directly, the first inter-HOA agreement moves through CHOA. If CHOA's scope does not cover the particular bilateral question, Community of Abalone Cove approaches PV Bay Club directly with CHOA awareness.
+2. Month 3–6: Broaden the CHOA agenda (where appropriate) to include shared south-coast questions — Portuguese Bend Beach Club, PBCA, Seaview Tract, Klondike Canyon associations, and Abalone Cove neighbors. Where these HOAs participate in CHOA, the Foundation contributes research to CHOA meetings. Where they do not, the Foundation supports direct bilateral convening while keeping CHOA informed.
+3. Month 6+: Build a shared-interest inventory across CHOA member HOAs; publish documentary packets (landslide compliance, trails, Coastal Commission positioning) that CHOA can adopt or member HOAs can use; identify single-issue working groups that CHOA can host.
+4. Month 12+: If the CHOA-routed cooperative path is working, continue as research/drafting partner to CHOA and its member HOAs. If the cooperative path is blocked despite CHOA's involvement, Track D activates.
 
 ### Track D — §V §5 Reactivation (reserve, not triggered)
 
@@ -211,12 +214,12 @@ Fundraising capacity once recognized: conservative estimate $50K–250K Year 1 f
 
 The launch site follows the 1972 Karshner Proposal structure, adapted for 2026:
 
-1. **Front page / Context.** The current situation stated neutrally: WPBCA below director threshold; 0 Clipper rezoning; slide reactivation; community asset at risk. 500 words. Direct. Reference-backed.
+1. **Front page / Context.** The current situation stated neutrally: Community of Abalone Cove (formerly WPBCA) below director threshold; 0 Clipper rezoning; slide reactivation; community asset at risk. 500 words. Direct. Reference-backed.
 
-2. **The Situation.** Detailed factual state of WPBCA per 2009 restated bylaws; Davis-Stirling provisions on director appointment and special meetings; legal risk of sub-quorum operation; the broader historical and regulatory context summarized with links to the full abalonecove.org evidence library.
+2. **The Situation.** Detailed factual state of the Community of Abalone Cove per the 2009 restated declaration and bylaws (the declaration of record names the entity at that time as the West Portuguese Bend Community Association; the entity was renamed with the CA Secretary of State by the previous board as its last act, disassociating the community from the Portuguese Bend landslide connotation); Davis-Stirling provisions on director appointment and special meetings; legal risk of sub-quorum operation; CHOA participation context; the broader historical and regulatory context summarized with links to the full abalonecove.org evidence library.
 
 3. **Options.** The responsible paths forward, stated neutrally:
-   - Restore WPBCA function (elect third director; resume regular board activity)
+   - Restore Community of Abalone Cove board function (elect third director; resume regular board activity)
    - Support concrete projects (trail restoration, Olmsted overlay, 0 Clipper preservation, creek conservation easement, fire station relocation)
    - If escalation becomes necessary: §V §5 reactivation pathway (held in reserve; described factually)
 
@@ -226,7 +229,7 @@ The launch site follows the 1972 Karshner Proposal structure, adapted for 2026:
 
 6. **Q&A Scenarios.** Specific concerns with specific factual responses: the geology, the traffic, the water, the wildlife, parking, beach access, Fire Station 53, the creek, the Wayfarers reassembly question, the LCP amendment question.
 
-7. **Formal Positions for Member Action.** Concrete actions members can take: attend the next WPBCA meeting; serve as director; give a proxy; update the membership roster; endorse the Foundation's proposed implementation of Subregion 4 policies; sign the beach-path inter-HOA restoration letter when circulated.
+7. **Formal Positions for Member Action.** Concrete actions members can take: attend the next Community of Abalone Cove meeting; serve as director; give a proxy; update the membership roster; endorse the Foundation's proposed implementation of Subregion 4 policies; sign the beach-path inter-HOA restoration letter (CHOA-routed where possible) when circulated.
 
 8. **Founding Story.** "How This Started" — the Betty archive, the Shore Club marginalia, the O.R. trail, the page 155 discovery, the torn map pages. Restrained narrative voice. Links to the evidence library.
 
@@ -236,7 +239,7 @@ The launch site follows the 1972 Karshner Proposal structure, adapted for 2026:
 
 The Foundation advances specific stewardship projects alongside its documentary work. Each is achievable on its own terms, does not depend on §V §5 reactivation, and fits the mission.
 
-1. **Trail Restoration — WPBCA ↔ PV Bay Club.** Inter-HOA agreement permitting members and registered guests of each community to traverse the chain-link fence boundary. Vehicle exclusion preserved. Liability, insurance, and maintenance allocated by agreement. First concrete inter-HOA project.
+1. **Trail Restoration — Community of Abalone Cove ↔ PV Bay Club (CHOA-routed).** Inter-HOA agreement permitting members and registered guests of each community to traverse the chain-link fence boundary. Vehicle exclusion preserved. Liability, insurance, and maintenance allocated by agreement. Brought to CHOA as the first shared-interest agenda item where feasible; otherwise pursued directly with CHOA kept informed. First concrete inter-HOA project.
 
 2. **Olmsted 1914 Master Plan Digital Overlay.** Digital reconstruction of the Olmsted Brothers' original trail and landscape plan overlaid on the current peninsula map. Published via cove.org and shared with all peninsula HOAs. Makes the gap between vision and execution visible.
 
@@ -259,7 +262,7 @@ Backlog captured as GRO-prefixed issues. Tracking location: to be decided (Linea
 - **Epic 5 — Declaration 100 Reactivation Preparation:** boundary mapping, owners identification, §V §5 procedural readiness (reserve, not triggered)
 - **Epic 6 — Strategic Partnerships:** Wayfarers Swedenborgian Church, PVPLC, board counsel, Bitcoin community, preservation community, Department of the Interior / NPS
 - **Epic 7 — Concrete Projects:** trail restoration, Olmsted overlay, 0 Clipper preservation, creek conservation easement, fire station relocation
-- **Epic 8 — Inter-HOA Coordinating Council:** federation framework, HOA survey, shared-interest inventory
+- **Epic 8 — CHOA Partnership & Inter-HOA Coordination:** document CHOA's current scope and membership; Community of Abalone Cove board's standing CHOA role; Foundation research-partnership proposal to CHOA; shared-interest inventory across CHOA member HOAs; single-issue working-group templates; fallback direct-convening playbook where CHOA scope does not reach
 - **Epic 9 — Research Threads:** Wayfarers origin, Walnut Creek CC&R parallel, Morro Hills Road Association parallel, charitable-gift disposal pattern in PV corporate era
 - **Epic 10 — "The Declaration" Book:** long-horizon longform treatment of the entire arc
 
@@ -289,8 +292,9 @@ Items still requiring user input before execution begins:
 4. **Domain strategy** — subdomain now while pursuing cove.org acquisition, or wait
 5. **Backlog tracking location** — Linear (GRO issues) or markdown file
 6. **Wayfarers origin research timing** — now (half-day focused work) or defer
-7. **Board counsel engagement** — existing WPBCA counsel, separate counsel, or both
+7. **Board counsel engagement** — existing Community of Abalone Cove counsel (formerly WPBCA), separate counsel, or both
 8. **Formation timing** — start Track B this week or wait
+9. **CHOA scope & mechanics** — confirm CHOA's current member roster, meeting cadence, governance (bylaws or informal convention), and the mechanism by which the Foundation is introduced as a research/drafting partner (Community of Abalone Cove board sponsorship; formal presentation; standing invitation). Confirm whether CHOA accepts documentary packets into its record or whether packets flow to member HOAs individually.
 
 ---
 
