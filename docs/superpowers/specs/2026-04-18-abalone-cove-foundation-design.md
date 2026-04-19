@@ -310,4 +310,113 @@ Upon user review and approval of this spec:
 
 ---
 
-*End of spec. User review requested before implementation plan is drafted.*
+## Appendix: 2026-04-19 Deltas (Advisor Review + Working Position Updates)
+
+The following working positions refine and extend this spec based on a 2026-04-19 comprehensive external-advisor review. Full archive in `Cove/docs/advisor-memos/2026-04-19-comprehensive-review.md`. Distilled into Brain/wiki cards under `foundation-*` and `wpbca-*` (filenames retained for continuity; content uses the current legal name **Community of Abalone Cove**, with **WPBCA** reserved for historical references per the 2026 rename).
+
+### Naming note
+
+Throughout this appendix "Community of Abalone Cove" (the current legal name of the 81-lot HOA, filed with CA SOS) is used for all forward-looking references. "WPBCA" is reserved for historical references (1949 founding, 2009 restated declaration, 2012 Bylaws drafting, Betty's prior board service, legacy board counsel). The advisor memos archived under `Cove/docs/advisor-memos/` are preserved verbatim and use the legacy WPBCA name; that is intentional — the archives are dated records of what the advisor said, and the distilled cards carry the current naming.
+
+### Entity Formation: California, Confirmed
+
+- Foundation forms as **California Nonprofit Public Benefit Corporation** under Corp. Code §§ 5110 et seq. Not Wyoming. Not Delaware.
+- Primary reasons: every activity is in California (research on CA declarations, inter-HOA convening among CA HOAs, advocacy on CA Coastal Specific Plan); a Wyoming nonprofit still must foreign-qualify + register with CA AG (same regulatory burden plus extra filings); no meaningful privacy advantage for a deliberately public Foundation.
+- Deferred Governance Engine (Epic 3) could later use a Wyoming LLC subsidiary if a DAO-style wrapper is genuinely needed; the parent 501(c)(3) stays California.
+- See `Brain/wiki/foundation-ca-formation.md`.
+
+### Commercial LLC: Existing CA LLC, Not a New Entity
+
+- The commercial R&D hat in the three-entity structure maps to the founder's **existing California LLC that needs rescuing**, not a new formation.
+- Status verification + reinstatement actions tracked as Linear issue: verify SOS + FTB status, pay back-taxes if suspended, update Operating Agreement with software-licensing authority and arm's-length transaction provisions (for future Foundation↔LLC licensing).
+- See `Brain/wiki/foundation-llc-rescue-status.md`.
+
+### Separate Bylaws Required
+
+- The Foundation cannot borrow WPBCA's 2012 bylaws. California Corp. Code §§ 5150–5152 and IRS Form 1023-EZ require standalone bylaws.
+- Foundation bylaws: short (10–20 pages), mission-focused, explicitly prohibit governance over WPBCA or any HOA.
+- Must include: strong conflict-of-interest policy, founding-period compensation ratification language, authorization for non-cash gifts including cryptocurrency, authorization for supplemental cryptographic record-keeping tools for §V §5 processes.
+- See `Brain/wiki/foundation-bylaws.md`.
+
+### Compensation: Three-Hat Model with File-Path Allocation
+
+- Three-hat structure: WPBCA (volunteer), Foundation (paid for actual services), existing LLC (commercial).
+- Allocation by file-path rules:
+  - LLC: `Canary/`, `Cove/cove/`, `Cove/cove/angel/`, `Angel/`, `services/`, `devops/`, `content-engine/`, `Seacove/`, `~/ownpalosverdes/`
+  - Foundation: `Brain/wiki/cove-*`, `Brain/wiki/foundation-*`, `Brain/wiki/wpbca-*` (neutral research), Foundation design specs, editorial site content
+  - WPBCA: member outreach, board prep, CC&R enforcement activities (not visible in git; logged separately as volunteer)
+- Reasonable-comp target: $50–$75/hr, $25–$60k Year-1 cap (pending comparable-data validation by disinterested directors).
+- Founding-period (Q1 2026) pre-formation work can be ratified at first organizational board meeting once logs and summary are reviewed.
+- See `Brain/wiki/foundation-three-hat-compensation.md`.
+
+### Time Logging: System-Generated, Not Reconstructed
+
+- Time evidence comes from **system-generated CICD pipeline + email + Linear + Brain wiki logs** — not manual reconstruction.
+- Monthly summaries from the logs are reviewed by disinterested directors (founder recused) alongside comparable-compensation data.
+- Board minutes record: "reviewed system-generated CICD and email logs and approved compensation as reasonable."
+- Project-timelog skill being extended for three-hat categorization and rollup generation (see `Brain/wiki/foundation-time-logging-policy.md`).
+
+### Crypto Donations: Supplemental with Mandatory Conversion
+
+- Foundation may accept crypto donations as one supplemental funding stream via a board-adopted Gift Acceptance Policy.
+- Mandatory USD conversion within 24–48 hours unless board specifically approves holding for mission-aligned reason.
+- Processor candidates: Coinbase Commerce, BitPay, The Giving Block.
+- NOT a crypto-native Foundation; donor influence is not tied to governance rights.
+- See `Brain/wiki/foundation-crypto-donations.md`.
+
+### Blockchain Proof Layer: Hybrid, Supplemental
+
+- Blockchain timestamping (OpenTimestamps, Bitcoin-anchored) can serve as a supplemental **proof-of-record** layer for Declaration 100 Article II §5 reactivation votes.
+- Cannot replace Davis-Stirling secret-ballot collection, inspector-of-elections oversight, or record retention.
+- Builds on Cove's existing `ballots` / `ballot_envelopes` architecture with PostgreSQL Row-Level Security.
+- Bylaw authorization language adopted now; operational build is deferred Epic 3.
+- See `Brain/wiki/foundation-blockchain-proof-layer.md`.
+
+### Name-Change Acknowledgement as an Early Test Vote
+
+The rename from WPBCA → Community of Abalone Cove was the previous board's last action, driven by the Portuguese Bend Abatement District forming and the desire to disassociate the community's HOA name from the landslide connotation. The rename was filed with the CA Secretary of State with quorum achieved on the governing vote. Immediately after, the board turned over — the current 2-of-5 director situation is a consequence of that turnover, not the rename itself.
+
+**Recommendation:** When the Cove governance engine comes online (post third-director recruitment, post first CoAC board adoption of the engine), the **first live vote** should be a low-stakes "Acknowledgement Proposal" that:
+
+1. Restates the current legal name (Community of Abalone Cove) and the historical name (formerly WPBCA)
+2. Acknowledges the prior board's Certificate of Amendment filing with CA SOS
+3. Establishes the rename as the **reference point going forward** for all community governance
+4. Serves as the engine's first Davis-Stirling-compliant test vote — low stakes, broad consensus expected, good data for inspector-of-elections process validation
+5. Paired with the blockchain proof layer (see `foundation-blockchain-proof-layer.md`), this creates an immutable anchor: "as of [date], the community acknowledged the current name as its reference point"
+
+This establishes a clean evidentiary timeline for all subsequent governance, provides a useful low-stakes platform test, and closes a loose end from the turnover period.
+
+### Community of Abalone Cove Operational Track (Parallel)
+
+Separate from Foundation formation, the Community of Abalone Cove (formerly WPBCA) has its own compliance framework:
+
+- **Third-director recruitment** is a hard blocker for every binding board action (payment platform, investment policy, cooperation resolution, etc.). Only 2 of 5 seats filled.
+- **Payment Policy**: HOA-specific platform (AppFolio / CINC / Buildium) as primary, optional Strike ACH as supplemental rail, funds flow into the EIN-tied business bank account.
+- **Investment Policy**: insured, liquid, stable USD instruments only — not Bitcoin, not Lightning sats, not community tokens. Prudent-person standard under Corp. Code § 7231.
+- **Ocean path easement (1952)**: sensitive private governance matter. Foundation does neutral documentation only; advocacy stays with the Community of Abalone Cove board and HOA counsel to avoid Hollister/Bixby-style external pressure.
+- **CHOA relationship**: the Community of Abalone Cove board is already a participating member of the Rancho Palos Verdes Council of Homeowners Associations. CHOA is a peer forum, not a governance body, and it is a potential future audience, partner, or commercial-software sales target — not the Foundation's primary charitable-activity channel.
+- See `Brain/wiki/wpbca-compliance-framework.md` MOC (filename preserved; content reflects the current entity name).
+
+### Parking: Umbrella ALX
+
+- Idea surfaced: ALX (the platform agent architecture) as the orchestration layer across Foundation + LLC + WPBCA operations.
+- Scopes from smallest (time-logging orchestration) to largest (cross-entity governance workflows).
+- Parked until entities are stable. See `Brain/wiki/foundation-umbrella-alx.md`.
+
+### Linear Issues Filed (2026-04-19)
+
+- **GRO-508** (Urgent) — Foundation: Recruit 3 initial directors + engage separate 501(c)(3) counsel
+- **GRO-509** (Urgent) — WPBCA: Recruit third director (quorum blocker)
+- **GRO-510** (Urgent) — LLC rescue: Verify status of existing CA LLC + plan reinstatement
+- **GRO-511** (High) — WPBCA: Verify EIN-tied business bank account + evaluate HOA payment platforms
+- **GRO-512** (High) — Extend project-timelog skill: three-hat categorization from CICD + email logs
+
+### Founder Narrative (Private)
+
+- Personal context captured in `Brain/wiki/foundation-founders-narrative.md` with `visibility: internal-only-until-foundation-seated`
+- 3rd-generation Californian, moved back 2003 for CA public schools, 55 years old, BTC miner 2014 on Raspberry Pi, sliding seaside cottage as largest asset, wife is CA realtor
+- Public Foundation voice stays restrained ("I might be right" register); founder narrative is for long-form later once Foundation is established
+
+---
+
+*End of spec. User review requested before implementation plan is drafted. 2026-04-19 appendix captures advisor-synthesis deltas; see Brain/wiki/foundation-legal-framework.md and Brain/wiki/wpbca-compliance-framework.md for the full framework.*
