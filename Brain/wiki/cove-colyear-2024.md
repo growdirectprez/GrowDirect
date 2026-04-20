@@ -2,7 +2,10 @@
 type: wiki
 tags: [cove, litigation, colyear, rolling-hills, declaration-150, declaration-100, cc&rs, 2024]
 created: 2026-04-18
-sources: [abalonecove/docs/litigation/2024-colyear-rolling-hills-community-association.md, abalonecove/docs/litigation/2024-colyear-rolling-hills-community-association.pdf]
+updated: 2026-04-19
+sources:
+  - Cove/docs/archive/originals/city-records/litigation/2024-03-01-colyear-v-rolling-hills-community-assn-B308382.pdf
+  - Cove/docs/archive/originals/city-records/litigation/2024-03-01-colyear-v-rolling-hills-community-assn-B308382.md
 ---
 
 # Colyear v. Rolling Hills Community Association (2024)
