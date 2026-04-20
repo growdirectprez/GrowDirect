@@ -26,12 +26,35 @@ These articles synthesize the full archive into navigable knowledge:
 | [[Brain/wiki/cove-lot-h-discovery|Lot H Discovery]] | The key finding — 1950 declaration covering hundreds of parcels |
 | [[Brain/wiki/cove-0-clipper|0 Clipper Road]] | The threat, the developer, the lawsuit, the counter-proposal |
 | [[Brain/wiki/cove-community-history|Community History]] | Tongva to Vanderlip to Shore Club to today |
+| [[Brain/wiki/cove-vanderlip-memoir|Vanderlip Memoir — In His Own Words]] | Verbatim extracts from Vanderlip's 1935 autobiography, PV-relevant passages only |
 | [[Brain/wiki/cove-property-geology|Property & Geology]] | Landslide complex, parcel maps, geological hazards |
 | [[Brain/wiki/cove-governance|Governance & Operations]] | WPBCA structure, 501(c)(3) strategy, 90-day action plan |
 | [[Brain/wiki/cove-city-positions|City Positions Cross-Reference]] | What the city says vs what we say, by topic — catch contradictions |
 | [[Brain/wiki/cove-pv-declaration-scheme|PV Corp Declaration Scheme]] | Olmsted legacy, Declaration 100/101, Art Jury, the coverage gap |
 | [[Brain/wiki/claim-lot-h-scope-correction|Lot H Scope Correction]] | CORRECTION: Lot H Declaration only had racial language, not building restrictions |
 | [[Brain/wiki/cove-platform|Platform Development]] | Tech stack, architecture, modules, SDDs |
+
+---
+
+## CoAC Strategic Framework
+
+| Article | What it covers |
+|---------|---------------|
+| [[Brain/wiki/coac-reactivation-framework|CoAC Reactivation Framework]] | Strategic 3-phase reactivation of Declaration 100 Article II §5 |
+| [[Brain/wiki/coac-declaration-100-article-ii-section-5|Declaration 100 Article II §5]] | Self-executing reactivation clause, 90-day condition, 15-owner threshold |
+| [[Brain/wiki/coac-negative-space-lot-h-boundary|Negative-Space Lot H Boundary]] | Boundary forensics for the original Declaration 100 area |
+
+## City & Court Records — Annotated Source Documents
+
+| Article | What it covers |
+|---------|---------------|
+| [[Brain/wiki/coac-1975-general-plan-eir|1975 RPV General Plan + EIR]] | Adopted June 26, 1975 with amendments through 1988; 5 Cove-relevant vectors (Abalone Cove parcels, Vanderlip lineage, landslide baseline, RM overlays, amendment trail) |
+| [[Brain/wiki/coac-rpv-housing-elements|RPV Housing Elements 1990 + 2001]] | City's pre-modern position on landslide moratorium = "not buildable"; estoppel basis vs Builder's Remedy |
+| [[Brain/wiki/coac-1984-gp-amendment-14-eastview|1984 GP Amendment 14 — Eastview]] | Jurisdictional-continuity precedent: pre-incorporation arrangements survive annexation; Eastview kept LAUSD post-RPV-annexation |
+| [[Brain/wiki/coac-1967-portuguese-bend-clay-mineralogy|1967 Portuguese Bend Clay Mobility]] | USAF/Columbia primary geology research (Kerr & Drew); "divided ownership" obstacle that COAC reactivation resolves |
+| [[Brain/wiki/coac-pv-endangered-species|PV Endangered Species & Habitat]] | 5 peer-reviewed scientific papers on PV blue butterfly + coastal cactus wren; PVPLC partnership citation framework |
+| [[Brain/wiki/coac-rpv-scotus-petitions|RPV-Resident SCOTUS Petitions]] | 3 cert petitions (Stuart 1994, Teng Lee, Echevarrieta 2001) — 23-year arc of resident-vs-city land-use litigation; thematic predecessor of Colyear 2024 |
+| [[Brain/wiki/cove-colyear-2024|Colyear v. RHCA (2024)]] | Modern bookend; RPV view-ordinance + tree CC&R appellate decision (B308382) |
 
 ---
 

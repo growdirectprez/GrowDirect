@@ -3,16 +3,19 @@ type: wiki
 tags: [cove, abalonecove, declaration-100, vanderlip, pv-corp, lot-h, governance]
 created: 2026-04-18
 sources: [abalonecove/docs/declarations/Declaration_100.md]
+verified: 2026-04-19
 ---
 
-# Declaration No. 100 — General Plan of Restrictions for Lot H
+# Declaration No. 100 — General Plan of Restrictions
 
-Declaration No. 100 is the constitutional framework for all Palos Verdes land outside the original Palos Verdes Estates development area. Recorded October 7, 1929 (Book 9436, Pages 155-178, LA County Recorder), it established a complete private municipal government over Lot H — the non-PVE portions of the peninsula — years before any city incorporated.
+Declaration No. 100 is the 1929 constitutional framework Palos Verdes Corporation used to impose a complete private municipal government across the land it then owned. Recorded October 7, 1929 (Book 9436, Pages 155-178, LA County Recorder). It predates any city incorporation on the peninsula by a decade or more.
+
+> **What Declaration 100 actually covers is not settled.** The property-description page (page 155) is partially illegible on the county recorder's microfilm — the one page that defines exactly which land is bound. The working assumption, not a proven fact, is that Declaration 100 covers all Palos Verdes Corporation land as of 1929 *except* areas already under Declaration 1 (Palos Verdes Estates, Miraleste) and named tracts that had their own declarations (Rolling Hills and possibly portions of what became Rolling Hills Estates). The distances visible on page 155 (2,304.72 ft, 1,779.84 ft, 2,209.30 ft) suggest full-coastline coverage, consistent with a superset read — but "suggests" is not "proves." Determining the actual boundary is one of the motivations for the Abalone Cove Foundation 501(c)(3): to do the archival work and provide institutional cover while it is done. See [[abalonecove-org]] and [[foundation-legal-framework]].
 
 ## Recording and Parties
 
 - **Recorded:** October 7, 1929 (filed October 10, 1929, 8:31 AM)
-- **Book 9436**, Pages 155-178, LA County Recorder
+- **Book 9436**, Pages 155-178, LA County Recorder. *(Note: the source transcription header cites pages 156-178, but the document's first content page is 155 — the partially illegible property-description page. Pages 155-178 is the accurate range.)*
 - **Signed by:** Jay Lawyer (Vice-President) and Donald K. Lawyer (Assistant Secretary) of Palos Verdes Corporation, a Delaware corporation
 - **Notarized by:** Nellie Grace Frantz, LA County (commission expiring May 8, 1932)
 - **Filed at request of:** Security Title Insurance & Guaranty Co.
@@ -42,7 +45,9 @@ Fragments visible on the damaged page:
 - An acreage figure (illegible)
 - A "true point of beginning"
 
-The significance: 22 of 23 pages are legible. The one page that would confirm whether 0 Clipper Road falls within the Declaration 100 boundary is the one that is damaged.
+The significance: 22 of 23 pages are legible. The one page that would confirm the exact boundary of Declaration 100 — and therefore whether any specific parcel (0 Clipper Road, specific lots in what became Rolling Hills Estates, any number of others) falls within it — is the one that is damaged.
+
+This is not a minor technicality. Until page 155 is recovered from an alternate source (clean microfilm from a different repository, a certified copy retained by a title company, a recorded reference in a later instrument that quotes the property description in full), every claim about which land is or is not subject to Declaration 100 is inference from surrounding evidence — signers' intent, later implementing declarations (101, 150), the 1930 Filiorum grant deed, and the geometric plausibility of the partially-visible distances. The Foundation's archival work is aimed in part at resolving this.
 
 ## Structure and Content
 
@@ -94,15 +99,17 @@ This article created a private governing body with powers equivalent to a city c
 
 A five-member design review body with binding authority:
 
-- **Section 5(a)** — Composition: one nominee from Palos Verdes Corporation, one from the Association board (versed in art), and three members from the practice of fine arts, initially selected from the **Southern California Chapter of the American Institute of Architects**. Vacancies among the three AIA seats filled from nominations by the AIA Southern California Chapter board.
-- Staggered terms (1, 2, 2, 3, 3 years initially, then 3-year terms)
-- Approval required for all construction, exterior alterations, color changes, signs, landscaping, and works of art
-- Art Jury decisions binding on the Association and not subject to override
-- Art Jury appoints a trust company as Treasurer to hold property
+- **§III.5(a) Composition:** one nominee from Palos Verdes Corporation, one from the Association board (versed in art), and three persons engaged in the practice of fine arts. For the *first* appointment, the three fine-arts seats are selected from the membership of the **Southern California Chapter of the American Institute of Architects**. For vacancies in those three seats, successors are appointed from a list of three nominees supplied by the Chapter's Board of Directors — successors must come from AIA nominations, but the declaration does not require them to be AIA members themselves.
+- **§III.5(b) Terms:** staggered (1, 2, 2, 3, 3 years initially; chosen by lot), then three-year terms for successors
+- **§III.1–§III.3 Scope:** approval required for all construction, exterior alterations, color changes, signs, landscaping, and works of art
+- **§V.4(2) Binding effect:** Art Jury approvals/decisions recorded by its secretary are "conclusive" as to matters within its jurisdiction; reinforced by Article II §4(n) which states "the decisions of the Art Jury shall be conclusive and binding upon the Association and shall not be set aside or changed by it."
+- **§III.5(d) Treasurer:** the Art Jury "shall designate and appoint a trust company to act as its Treasurer and to act as Trustee of all property of the Art Jury"
 
 ### Article IV: Use Districts and Zoning (Sections 1-36)
 
-A complete zoning code defining use districts, height districts, and architectural districts:
+A complete zoning code defining use districts, height districts, and architectural districts.
+
+> **Source caveat:** Page 166 of the source microfilm is missing. That page contains the end of Art Jury Section 7 and the beginning of Article IV Section 1 definitions (a) through (m) — the foundational zoning definitions. Section 1 resumes at (n) on page 167. The class summaries and zoning tables below are reconstructed from the surviving portions of Article IV (sections visible on pages 167+) and from the implementing instruments Declarations 101 and 150. Read them as derived, not verbatim, until page 166 is recovered.
 
 **Use District Classes:**
 | Class | Name | Permitted Uses |
@@ -139,16 +146,18 @@ Detailed area requirements specify rear yards, side yards, inner and outer court
 
 ### Article V: Duration, Enforcement, Amendment (Sections 1-13)
 
-- **Section 1** — Duration: In force until January 1, 1965, then automatically renewing in 20-year periods. Currently in force through at least January 1, 2045 (the 2025-2045 period). No evidence of any modification agreement being recorded.
-- **Section 2** — Amendment of basic restrictions requires: 80% by area + 70% of all owners + Association approval + Corporation (or successor) consent. Local restriction changes require: Association + 2/3 by area of affected property + 2/3 by area within 300 feet + Corporation + public hearing.
-- **Section 6** — Reversion of title: Breach causes property to revert to Corporation (or successor holding reversionary rights), with right of immediate re-entry. Restrictions run with the land. Bona fide mortgages protected.
-- **Section 7** — Violation gives Corporation/Association right to enter and summarily abate violations at owner's expense
-- **Section 8** — Every violation constitutes a nuisance
-- **Section 5** — Annexation: Adjacent property owners can voluntarily subject their land to Declaration 100 by agreement with Corporation and Association
+- **§V.1 Duration:** In force until January 1, 1965, then automatically renewing in 20-year periods. Renewal is defeated only if owners of more than one-half in area (exclusive of streets, parks, and open spaces) record a modification agreement within the six months prior to each 20-year boundary. Currently in force through at least January 1, 2045 (the 2025-2045 period). No evidence of any modification agreement being recorded.
+- **§V.2(a) Amendment of basic restrictions:** requires mutual written agreement of Palos Verdes Corporation (or its successor holding the reversionary rights) + owners of record of not less than 80% in area + not less than 70% of all owners of record title + the Association.
+- **§V.2(b) Amendment of local restrictions:** Association + 2/3 by area of the affected property + 2/3 by area of all lands in private ownership within 300 feet + Palos Verdes Corporation (or successor) + a public hearing convened by the Association.
+- **§V.3 Modification procedure:** applications must be endorsed by the Association secretary before circulation for signature; signatures expire 6 months after endorsement (extendable once by another 6 months); denied applications cannot be reconsidered for one year.
+- **§V.6 Reversion of title:** Breach causes property to revert to Palos Verdes Corporation or its successor in interest as owner of the reversionary rights, with right of immediate re-entry. Restrictions run with the land. Bona fide mortgages and deeds of trust protected.
+- **§V.7 Summary abatement:** Corporation or Association may enter and summarily abate violations at the owner's expense.
+- **§V.8 Nuisance:** Every violation constitutes a nuisance, abatable by Corporation, Association, or any lot owner subject to the Association's jurisdiction. Remedy is cumulative, not exclusive.
+- **§V.5 Annexation:** Adjacent property owners may voluntarily subject their land to Declaration 100 by agreement with Corporation and Association, approved by the Art Jury.
 
 ## Why This Matters: The City Before the City
 
-Declaration 100 established a complete private municipal government in 1929 — a decade before Palos Verdes Estates incorporated (1939), nearly three decades before Rolling Hills (1957), and four decades before Rancho Palos Verdes (1973).
+Declaration 100 established a complete private municipal government in 1929 — a decade before Palos Verdes Estates incorporated (1939), nearly three decades before Rolling Hills (1957), and four decades before Rancho Palos Verdes (1973). *Wherever it applies*, this private framework still runs parallel to the later municipal governments, and in some places imposes stricter standards. The open question of exactly where it applies is the point of ongoing research, not a footnote.
 
 The Association under Declaration 100 had powers equivalent to:
 - A city council (general governance, rule-making, enforcement)

@@ -40,6 +40,12 @@ The Abalone Shore Club operated from 1929. Ray Wallace, a Disney Imagineer, illu
 
 RPV incorporated in 1973 — 24 years after the PV Corp declarations. The city exists because communities like WPBCA decided to incorporate to stop condo developers. That is literally why RPV was created. And now the same city is rezoning for condos.
 
+### First-Person Account: Marilyn Ryan
+
+Marilyn Ryan moved to Rancho Palos Verdes in 1967, became active in the local League of Women Voters, ran for City Council, won, became Mayor, and signed the 1975 RPV General Plan + EIR. She was then elected to the California State Assembly (1976-1982), where she was directly involved in implementing **Proposition 20 (1972)** and the **California Coastal Act of 1976**.
+
+Her UCLA / California State Archives oral history (interviews November 2000 + January-March 2001) is the best primary-source narrative for the political environment in which WPBCA's covenants operated through the incorporation transition. See [[coac-1975-general-plan-eir]] for the policy document she signed and [`Cove/docs/archive/originals/people/2000-2001-marilyn-ryan-oral-history-ucla.md`](../../Cove/docs/archive/originals/people/2000-2001-marilyn-ryan-oral-history-ucla.md) for the full annotated source. Quote on the landslide: *"One of the problems with the peninsula is there's a landslide and you can't… It's very difficult to get…"*
+
 ## Key People
 
 | Person | Role | Era |
@@ -51,9 +57,11 @@ RPV incorporated in 1973 — 24 years after the PV Corp declarations. The city e
 | Ray Wallace | Disney Imagineer, Shore Club artist | ~1950s |
 | Dick Karshner | Shore Club President, organized 1972 vote | 1972 |
 | Karl Rodi | Developer who wanted condos (1972) | 1972 |
+| Marilyn Ryan | RPV Mayor (1975 GP signatory); CA Assemblywoman 1976-1982; involved in Prop 20 + Coastal Act 1976 | 1973-1982 |
 | Ali Vahdani | Developer who wants condos (2024) | 2022-present |
 
 ## Related
+- [[Brain/wiki/cove-vanderlip-memoir|Vanderlip Memoir — In His Own Words]] — verbatim PV passages from Vanderlip's 1935 autobiography
 - [[Brain/wiki/cove-baughey-1947|Baughey 1947]] — PV Corp's official history of the rancho, written 2 years before WPBCA was founded- [[Cove/docs/site/narrative|The Story of Abalone Cove]] — full member-facing narrative
 - [[Brain/wiki/cove-legal-framework|Cove Legal Framework]]
 - [[Brain/wiki/cove-0-clipper|0 Clipper Road]]
@@ -89,3 +97,12 @@ RPV incorporated in 1973 — 24 years after the PV Corp declarations. The city e
 ## Sources — Community Updates
 - [[Cove/docs/archive/originals/city-records/public-correspondence/0000-00-00-2024-community-updates-archive|2024 Community Updates]]
 - [[Cove/docs/archive/originals/city-records/public-correspondence/0000-00-00-2025-community-updates-archive|2025 Community Updates]]
+
+## Sources — Oral History
+- [[Cove/docs/archive/originals/people/2000-2001-marilyn-ryan-oral-history-ucla|Marilyn Ryan Oral History (UCLA / CA State Archives, 2000-2001)]] — RPV Mayor + CA Assemblywoman, signatory of 1975 GP/EIR
+
+## Sources — Founding Planning Documents
+- [[coac-1975-general-plan-eir|1975 RPV General Plan + EIR (annotated for Cove)]]
+- [[coac-rpv-housing-elements|RPV Housing Elements 1990 + 2001]]
+- [[coac-1984-gp-amendment-14-eastview|1984 GP Amendment 14 — Eastview (jurisdictional-continuity precedent)]]
+- [[coac-1967-portuguese-bend-clay-mineralogy|1967 Portuguese Bend Clay Mobility (Kerr & Drew, USAF/Columbia)]]
