@@ -526,9 +526,10 @@ Find the existing block inside `handle_chat` (starts with the `client = Anthropi
     ctx_token = set_merchant_context(merchant_id)
 ```
 
-Then wrap the existing dispatch loop (the `for _ in range(10):` block through `_daily_count += 1`) in a `try` / `finally`:
+Then wrap the existing dispatch loop (the `for _ in range(10):` block through `_daily_count += 1`) in a `try` / `finally`. Initialize `text_parts = []` before the `try` as defensive insurance — the existing code paths always bind it (via `break` or `else:`), but a future edit that raises mid-loop before either path hits would otherwise mask the real exception with an `UnboundLocalError` in the return statement:
 
 ```python
+    text_parts: list[str] = []  # defensive init; real value set in break/else below
     try:
         # ... existing dispatch loop, unchanged ...
         for _ in range(10):
@@ -796,7 +797,7 @@ def test_rls_isolation_across_merchants(
                 "INSERT INTO sales.transactions "
                 "(id, merchant_id, external_id, source_type, location_id, "
                 " transaction_type, transaction_date, amount_cents, currency) "
-                "VALUES (:id, :mid, :ext, 'square', :loc, 'payment', "
+                "VALUES (:id, :mid, :ext, 'WEBHOOK', :loc, 'SALE', "
                 "        :tdate, 1234, 'USD')"
             ),
             {
@@ -891,7 +892,7 @@ def test_rls_fails_closed_without_merchant_context(
             "INSERT INTO sales.transactions "
             "(id, merchant_id, external_id, source_type, location_id, "
             " transaction_type, transaction_date, amount_cents, currency) "
-            "VALUES (:id, :mid, :ext, 'square', :loc, 'payment', "
+            "VALUES (:id, :mid, :ext, 'WEBHOOK', :loc, 'SALE', "
             "        :tdate, 1234, 'USD')"
         ),
         {
