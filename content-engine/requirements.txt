@@ -1,0 +1,2 @@
+click>=8.1
+markitdown>=0.1.5
