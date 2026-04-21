@@ -73,19 +73,17 @@
 
 - [ ] **Step 2.1.2: Create `content-engine/tests/__init__.py`** (empty file).
 
-- [ ] **Step 2.1.3: Create test fixtures**
+- [ ] **Step 2.1.3: Create test fixtures (copy from `~/secure`, smallest real files)**
 
   ```bash
   mkdir -p content-engine/tests/fixtures
-  # Make a tiny docx via python-docx or copy one from ~/secure
-  python3 -c "from docx import Document; d=Document(); d.add_heading('Fixture', 0); d.add_paragraph('hello extract test'); d.save('content-engine/tests/fixtures/sample.docx')"
-  # If python-docx not present, copy a known-small docx from ~/secure and rename
+  # Use the smallest real .docx from the archive (17KB) and a real PDF
   cp "/Users/gclyle/secure/Secure Lite Config.docx" content-engine/tests/fixtures/sample.docx
-  # Tiny PDF
   cp "/Users/gclyle/secure/Secure 5 Solution Architecture.pdf" content-engine/tests/fixtures/sample.pdf
+  ls -lh content-engine/tests/fixtures/
   ```
 
-  Use whichever works first. The fixture files must be real Office/PDF — not placeholders — so markitdown has something real to convert.
+  Expected: two files present (sample.docx ~17KB, sample.pdf ~1.3MB). Real Office/PDF — not placeholders.
 
 - [ ] **Step 2.1.4: Commit scaffolding**
 
@@ -139,6 +137,12 @@
       src = FIXTURES / "sample.pdf"
       target = tmp_path / "sample.pdf.md"
       entry = engine._extract_file(src, target)
+      if entry["status"] != "ok":
+          # Fallback path relies on pdftotext; skip if neither primary nor
+          # fallback is available. Markitdown handles most PDFs by itself.
+          import shutil as sh
+          if not sh.which("pdftotext"):
+              pytest.skip(f"PDF extraction failed and pdftotext not installed: {entry['error']}")
       assert entry["status"] == "ok"
       assert entry["method"] in ("markitdown", "pdftotext")
       assert target.exists()
@@ -243,6 +247,12 @@
   Expected: **ALL FAIL** with `AttributeError: module 'engine' has no attribute '_extract_file'` and `No such command 'extract'`.
 
 ### 2.3 Implement `_extract_file` and the CLI command
+
+- [ ] **Step 2.3.0: Verify engine.py has the imports and constants `_extract_file` will rely on**
+
+  Run: `grep -nE "^(from datetime|import json|def _sha256|SKIP_FILES|SKIP_DIRS)" content-engine/engine.py`
+  Expected lines (approximately): `from datetime import...`, `import json`, `def _sha256(...)`, `SKIP_DIRS = {...}`, `SKIP_FILES = {...}`.
+  If any are missing, add before 2.3.1. As of plan writing, all are present (see engine.py lines 1–45 and 56–67).
 
 - [ ] **Step 2.3.1: Add constants + helper to `engine.py` top**
 
@@ -712,13 +722,23 @@
 
 - [ ] **Step 5.5: Ingest each extracted file to Brain raw inbox**
 
+  First verify the ingest flag surface (confirms `--project` + `--tags` exist):
+
+  ```bash
+  python3 content-engine/engine.py ingest --help
+  ```
+
+  Expected: usage shows `--project / -p` and `--tags / -t` flags. If surface differs, adjust command below.
+
+  Then ingest:
+
   ```bash
   for f in Secure/docs/extracted/*.md; do
     python3 content-engine/engine.py ingest "$f" --project secure --tags "secure,loss-prevention,retail"
   done
   ```
 
-  Expected: ~16 new files in `Brain/raw/inbox/secure-*.md`, each with `status: unprocessed` frontmatter.
+  Expected: ~16 new files in `Brain/raw/inbox/<slug>.md` (slug derived from source stem — e.g., `secure-5-solution-architecture-docx.md`). Verify with `ls Brain/raw/inbox/ | wc -l`.
 
 - [ ] **Step 5.6: Commit raw intake notes**
 
@@ -741,12 +761,25 @@
 
 **Writing conventions** (apply to ALL wiki articles in this sprint):
 
-- Frontmatter must match `Brain/templates/wiki-article.md` schema. Required fields: `date`, `type: wiki`, `tags: [...]`, `sources: [...]`, `last-compiled: YYYY-MM-DD`, `needs-review: YYYY-MM-DD` (today + 14 days = 2026-05-05).
+- **Read the template first:** `cat Brain/templates/wiki-article.md` — use the live frontmatter schema, not this plan's transcription. As of plan writing: required fields are `date`, `type: wiki`, `tags: [...]`, `sources: [...]`, `last-compiled: YYYY-MM-DD`, `needs-review: YYYY-MM-DD`. Title is inferred from H1, not a frontmatter field.
+- `needs-review` = `last-compiled` + 14 days. For Sprint 1 articles written on 2026-04-21, that's `2026-05-05`.
 - `**Wiki:** [[Brain/Home|Home]]` above the H1.
 - Sections: `# Title`, `## Summary` (2–3 sentences), `## Details` (main body, can have H2/H3 subsections), `## Related`, `## Sources` (list intake notes + source doc paths).
+- Wiki link style: match existing MOCs. `cat Brain/projects/Canary.md | head -30` to confirm — Canary uses `[[Brain/wiki/foo|Label]]` form.
 - No hype copy. Direct, serious, tangible. No "cutting-edge", "industry-leading", "revolutionary".
 - No volatile data (no "X rows", "Y customers" — link to DB queries or source doc page instead).
 - Target ~200 lines each; no hard cap.
+
+**Before writing: discover actual intake filenames**
+
+- [ ] **Step 6.0.1: List the intake notes produced by Chunk 5**
+
+  ```bash
+  ls Brain/raw/inbox/ | grep -v "^\." > /tmp/secure-intakes.txt
+  cat /tmp/secure-intakes.txt
+  ```
+
+  The `engine.py ingest` slug rules sanitize the source stem (lowercase, `[^a-z0-9_-]` → `-`). Actual filenames are likely like `secure-5-solution-architecture-docx.md`. Use what's actually there in each sub-chunk below, not the guessed names.
 
 ### 6.1 `secure-platform-overview.md`
 
@@ -910,17 +943,28 @@
   git commit -m "content(secure): extract Kroger source docs from NAS"
   ```
 
-- [ ] **Step 7.5: Ingest**
+- [ ] **Step 7.5: Ingest** (recursive — extract preserves source tree)
 
   ```bash
-  for f in Secure/docs/extracted/kroger/*.md Secure/docs/extracted/kroger/reference/*.md; do
+  find Secure/docs/extracted/kroger -type f -name '*.md' -not -path '*/\.*' | while read -r f; do
     python3 content-engine/engine.py ingest "$f" --project secure --tags "secure,kroger,retail"
   done
   git add Brain/raw/inbox/
   git commit -m "brain: ingest Kroger source docs"
   ```
 
-- [ ] **Step 7.6: Synthesize `Brain/wiki/secure-client-kroger.md`**
+  The `-not -path '*/\.*'` excludes `.extract-manifest.json` and any other dotfiles.
+
+- [ ] **Step 7.6: Discover actual Kroger intake filenames**
+
+  ```bash
+  ls Brain/raw/inbox/ | grep -iE "kroger|pos-baseline|crp|sow|dsd" > /tmp/kroger-intakes.txt
+  cat /tmp/kroger-intakes.txt
+  ```
+
+  Use these actual filenames in the `sources:` frontmatter list below, not the guesses in the template.
+
+- [ ] **Step 7.7: Synthesize `Brain/wiki/secure-client-kroger.md`**
 
   Sections:
   - Relationship summary (timeframe, engagement type, product variants deployed)
@@ -946,7 +990,7 @@
   ---
   ```
 
-- [ ] **Step 7.7: Lint + commit**
+- [ ] **Step 7.8: Lint + commit**
 
   ```bash
   python3 content-engine/engine.py lint Brain/wiki/secure-client-kroger.md
