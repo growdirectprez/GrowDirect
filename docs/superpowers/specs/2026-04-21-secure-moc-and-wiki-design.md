@@ -62,9 +62,10 @@ Office + PDF files.
     data spec relationship
   - `Brain/wiki/secure-client-kroger.md` — pilot client deep-dive (Kroger CRP +
     DSD)
-  - `Brain/wiki/retail-career-archive.md` — stub wiki article indexing the
-    pre-Secure `PROJECTS/` client folders with one-line descriptions per folder;
-    flagged as "circle back later"
+  - `Brain/wiki/secure-retail-career-archive.md` — stub wiki article indexing
+    the pre-Secure `PROJECTS/` client folders with one-line descriptions per
+    folder; flagged as "circle back later" (prefixed `secure-` for wiki
+    namespace consistency with the other Secure articles)
 - **Canary handoff brief** (working doc, not wiki):
   `docs/superpowers/briefs/2026-04-secure-to-canary-handoff.md` — patterns,
   schemas, detection concepts, and lessons from Secure that Canary should
@@ -94,24 +95,35 @@ Office + PDF files.
 python3 content-engine/engine.py extract <source-dir> \
   --target <output-dir> \
   [--ext doc,docx,ppt,pptx,xls,xlsx,pdf] \
-  [--skip-tmp] \
-  [--dry-run/--execute]
+  [--skip-tmp/--keep-tmp]     (default: skip-tmp)
+  [--dry-run/--execute]       (default: dry-run)
 ```
 
 **Behavior:**
 
 1. Walk `<source-dir>`, filter by extension.
-2. For each file, call `markitdown` to convert to markdown.
-3. Write the markdown to `<output-dir>/<relative-path>.md`, preserving tree
+2. Skip Office temp artifacts by default (`~$*`, `*.tmp`, `*.old`).
+3. For each file, call `markitdown` to convert to markdown.
+4. Write the markdown to `<output-dir>/<relative-path>.md`, preserving tree
    structure (not flattened — keeps provenance).
-4. On failure, fall back to:
-   - `.doc` → `textutil -convert txt` (macOS built-in) or `catdoc`
-   - `.pdf` → `pdftotext`
-   - `.xls` → `libreoffice --headless --convert-to csv` or `xlrd`
-   - record failure in `<output-dir>/.extract-failures.json`
-5. Write `<output-dir>/.extract-manifest.json` with per-file source hash,
-   extraction method, extraction status.
-6. Skip Office temp artifacts (`~$*.docx`, `.tmp`, `.old`).
+5. On `markitdown` failure, fall back **only to tools already on the system**:
+   - `.doc` → `textutil -convert txt` (macOS built-in)
+   - `.pdf` → `pdftotext` (if installed; skip otherwise and log)
+   - `.xls` → skip and log (legacy BIFF, rare; defer tooling decision)
+   - If no fallback succeeds, record failure in `.extract-failures.json`
+   - **Any new dependency (beyond markitdown + OS built-ins) is flagged to user for approval before install**, per standing instruction.
+6. Write `.extract-manifest.json` with schema:
+   ```json
+   {
+     "source_path": "...",
+     "source_sha256": "...",
+     "target_path": "...",
+     "method": "markitdown|textutil|pdftotext|...",
+     "status": "ok|failed|skipped",
+     "error": null,
+     "extracted_at": "ISO-8601"
+   }
+   ```
 
 **Dependency:** `markitdown` (MS-maintained, Apache-2.0). Pinned in
 `content-engine/requirements.txt` or the engine's venv. Per user standing
@@ -192,10 +204,10 @@ patterns).
   all files in `~/secure/PROJECTS/Kroger CRP/` + `Kroger DSD requirements.docx`
   + any Wal-Mart cross-references that mention Kroger.
 
-- **`retail-career-archive.md`** — stub article. One-line per pre-Secure client
-  folder with its era (IBM consulting 2001–2005, CEO Study 2006, etc.), size,
-  and status "Not ingested — circle back later." Keeps the knowledge that these
-  folders exist without ingesting them.
+- **`secure-retail-career-archive.md`** — stub article. One-line per pre-Secure
+  client folder with its era (IBM consulting 2001–2005, CEO Study 2006, etc.),
+  size, and status "Not ingested — circle back later." Keeps the knowledge that
+  these folders exist without ingesting them.
 
 ## Sprint chunks (execution order)
 
@@ -221,8 +233,8 @@ patterns).
 ## Success criteria
 
 - `Brain/projects/Secure.md` exists, renders, links resolve in Obsidian.
-- 6 wiki articles exist, each under 200 lines, each cites specific source files
-  from `~/secure/`.
+- 6 wiki articles exist (target ~200 lines each; no hard cap — match Canary /
+  Cove wiki length norms), each cites specific source files from `~/secure/`.
 - `engine.py extract` converts the 16 top-level docs + Kroger folder with ≥90%
   success rate. Any failures are logged in `.extract-failures.json` with reason.
 - `engine.py registry check "secure"` returns the new wiki articles.
@@ -260,6 +272,17 @@ patterns).
 - This sprint does NOT migrate `~/secure/` into the repo. The archive stays at
   its current path; Brain articles reference it by absolute path.
 
+## CLAUDE.md Projects table
+
+Sprint 1 creates a new `Secure/` project directory for extracted markdown. The
+platform `CLAUDE.md` Projects table currently lists Canary, Cove, Angel, and
+Seacove. Adding a "Secure" row to that table is **part of the final chunk of
+Sprint 1** — not deferred, not skipped. Row content:
+
+| Project | Directory | Status | What it is |
+|---------|-----------|--------|------------|
+| Secure | `Secure/` | **Archive** | Historical retail LP IP (IBM / Appriss / Sysrepublic 2001–2019). Extracted markdown only — source archive lives at `~/secure/`. |
+
 ## File locations summary
 
 | Artifact | Path |
@@ -273,10 +296,17 @@ patterns).
 | Engine code | `content-engine/engine.py` (new `extract` command) |
 | Registry | `Brain/REGISTRY.json` (rebuilt) |
 
-## Dependencies on user
+## Open questions for user (not design blockers — plan-time checkpoints)
 
-- Confirm `markitdown` as the extraction tool (user standing instruction: flag
-  dependency changes, approve, commit, rebuild).
-- Confirm Kroger as the pilot client (vs. Wal-Mart or Harrods).
-- Confirm PII review gate: extracted docs stay in `Secure/docs/extracted/`
-  until user signs off, then ingested.
+Design is approved. These are confirmations to resolve before the plan starts
+executing chunks that depend on them:
+
+- **Chunk 1 (engine extract):** Confirm `markitdown` as the extraction tool
+  before `pip install`. Per standing instruction: flag dependency changes,
+  approve, commit, rebuild.
+- **Chunk 6 (pilot client):** Confirm Kroger vs. Wal-Mart or Harrods. Folder
+  inspection suggests Kroger is densest for Canary relevance, but user
+  knows the history.
+- **Chunks 4–7 (Brain ingest):** Confirm PII review gate — extracted docs stay
+  in `Secure/docs/extracted/` until user signs off, then ingested. Alternative:
+  ingest all with redaction pass baked in. Default: gate.
