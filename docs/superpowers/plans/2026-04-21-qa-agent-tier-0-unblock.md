@@ -632,13 +632,21 @@ merchant context is bound.
 
 All tests run without a Flask app context — the ContextVar fallback in
 _set_rls_context is what we're exercising.
+
+SCHEMA NAMES: the database has three schemas named `app`, `sales`, and
+`metrics` (confirmed via canary/models/base.py — MetaData(schema="app")
+etc.). No `canary_` prefix. Use `app.merchants`, `sales.transactions`.
+
+RLS POLICIES: policies are applied by devops/seeds/level_b_demo.py, NOT
+by devops/init-db/*. Tests 3 and 4 check for policy presence and skip if
+absent — a clean test DB without the seed run is expected to lack policies.
 """
 
 from __future__ import annotations
 
 import os
 import uuid
-from decimal import Decimal
+from datetime import datetime, timezone
 
 import pytest
 from sqlalchemy import text
@@ -659,12 +667,17 @@ CANARY_DB_URL = os.getenv(
 
 
 # ---------------------------------------------------------------------------
-# Fixture: standalone factory, pointed at the real test DB.
-# Each test gets a fresh factory to avoid cross-test pool/listener bleed.
+# Fixtures
 # ---------------------------------------------------------------------------
 
 @pytest.fixture
 def standalone_factory():
+    """Fresh factory per test — avoids cross-test pool/listener bleed.
+
+    CONTRACT: do not call factory.init_standalone() twice on the same
+    factory instance. SQLAlchemy registers event listeners cumulatively
+    and a double-init would fire _set_rls_context twice per begin event.
+    """
     factory = DatabaseSessionFactory()
     factory.init_standalone(CANARY_DB_URL)
     yield factory
@@ -672,6 +685,27 @@ def standalone_factory():
         factory.session.remove()
     if factory.engine is not None:
         factory.engine.dispose()
+
+
+@pytest.fixture
+def rls_policy_present(committed_app_session):
+    """Skip the test unless the RLS policy we depend on is actually applied.
+
+    Policies are applied by devops/seeds/level_b_demo.py, not init-db. A fresh
+    test DB without the seed run has no RLS — and our fail-closed / isolation
+    tests would fail for environmental reasons, masking real regressions.
+    """
+    result = committed_app_session.execute(
+        text(
+            "SELECT policyname FROM pg_policies "
+            "WHERE schemaname = 'sales' AND tablename = 'transactions'"
+        )
+    ).fetchall()
+    if not result:
+        pytest.skip(
+            "RLS policy on sales.transactions not applied in test DB. "
+            "Run devops/seeds/level_b_demo.py to enable RLS-dependent tests."
+        )
 
 
 # ---------------------------------------------------------------------------
@@ -693,10 +727,14 @@ def test_standalone_factory_executes_sql(standalone_factory):
 
 def test_db_tool_via_execute_tool(standalone_factory, test_merchant):
     """execute_tool('get_dashboard', ...) must not return the NoneType error
-    envelope that was the GRO-389 symptom."""
-    # Rewire the module-level singleton for this test so execute_tool's
-    # internal `from canary.db.session_factory import get_session` picks up
-    # the standalone factory instead of the un-initialized default.
+    envelope that was the GRO-389 symptom.
+
+    Monkey-patch works because analytics/alerts/owl/tsp tools call
+    `from canary.db.session_factory import get_session` and the `get_session()`
+    function resolves `db.get_session()` at call time through the module-level
+    `db` name — which we rebind here. Any tool that does `from ... import db`
+    directly would bypass the patch; grep confirms none do today.
+    """
     import canary.db.session_factory as sf_module
     original_db = sf_module.db
     sf_module.db = standalone_factory
@@ -704,7 +742,9 @@ def test_db_tool_via_execute_tool(standalone_factory, test_merchant):
         token = set_merchant_context(str(test_merchant.id))
         try:
             from canary.services.qa_agent.tools import execute_tool
-            result = execute_tool("get_dashboard", {"merchant_id": str(test_merchant.id)})
+            result = execute_tool(
+                "get_dashboard", {"merchant_id": str(test_merchant.id)}
+            )
         finally:
             clear_merchant_context(token)
     finally:
@@ -724,9 +764,11 @@ def test_db_tool_via_execute_tool(standalone_factory, test_merchant):
 # ---------------------------------------------------------------------------
 
 def test_rls_isolation_across_merchants(
-    standalone_factory, committed_app_session
+    standalone_factory, committed_app_session, committed_sales_session,
+    rls_policy_present,
 ):
-    """Seed rows for merchants A and B; verify each merchant only sees its own."""
+    """Seed a transaction for merchant A and one for merchant B; each
+    merchant context sees only its own rows."""
     from canary.models.app.merchants import Merchant
 
     merchant_a = Merchant(
@@ -742,36 +784,79 @@ def test_rls_isolation_across_merchants(
     committed_app_session.add_all([merchant_a, merchant_b])
     committed_app_session.commit()
 
+    txn_a_id = str(uuid.uuid4())
+    txn_b_id = str(uuid.uuid4())
+    now = datetime.now(timezone.utc)
+
+    # Seed one transaction per merchant. See canary/models/sales/transactions.py
+    # for the NOT NULL column set — we populate only what's required.
+    for txn_id, mid in [(txn_a_id, merchant_a.id), (txn_b_id, merchant_b.id)]:
+        committed_sales_session.execute(
+            text(
+                "INSERT INTO sales.transactions "
+                "(id, merchant_id, external_id, source_type, location_id, "
+                " transaction_type, transaction_date, amount_cents, currency) "
+                "VALUES (:id, :mid, :ext, 'square', :loc, 'payment', "
+                "        :tdate, 1234, 'USD')"
+            ),
+            {
+                "id": txn_id,
+                "mid": str(mid),
+                "ext": f"ext-{txn_id[:8]}",
+                "loc": f"loc-{txn_id[:8]}",
+                "tdate": now,
+            },
+        )
+    committed_sales_session.commit()
+
     try:
         sess = standalone_factory.get_session()
 
-        # As merchant A
+        # As merchant A: see A's txn, NOT B's
         token = set_merchant_context(str(merchant_a.id))
         try:
-            rows_a = sess.execute(
-                text("SELECT id FROM canary_app.merchants WHERE id = :id"),
-                {"id": str(merchant_a.id)},
-            ).fetchall()
-            assert len(rows_a) == 1
-
-            rows_cross = sess.execute(
-                text("SELECT id FROM canary_app.merchants WHERE id = :id"),
-                {"id": str(merchant_b.id)},
-            ).fetchall()
-            # Depending on whether the merchants table has an RLS policy
-            # keyed on current_merchant, cross-merchant reads may return 0
-            # or 1 rows. The stronger test is on schema-scoped tables like
-            # sales.transactions — but a merchant-record read against the
-            # current_merchant ID should always succeed.
-            assert len(rows_cross) in (0, 1)
+            ids_seen = [
+                r[0] for r in sess.execute(
+                    text(
+                        "SELECT id FROM sales.transactions "
+                        "WHERE id IN (:a, :b)"
+                    ),
+                    {"a": txn_a_id, "b": txn_b_id},
+                ).fetchall()
+            ]
+            assert txn_a_id in [str(x) for x in ids_seen]
+            assert txn_b_id not in [str(x) for x in ids_seen]
         finally:
             clear_merchant_context(token)
             sess.close()
 
+        # As merchant B: see B's txn, NOT A's
+        token = set_merchant_context(str(merchant_b.id))
+        try:
+            sess2 = standalone_factory.get_session()
+            ids_seen = [
+                r[0] for r in sess2.execute(
+                    text(
+                        "SELECT id FROM sales.transactions "
+                        "WHERE id IN (:a, :b)"
+                    ),
+                    {"a": txn_a_id, "b": txn_b_id},
+                ).fetchall()
+            ]
+            assert txn_b_id in [str(x) for x in ids_seen]
+            assert txn_a_id not in [str(x) for x in ids_seen]
+            sess2.close()
+        finally:
+            clear_merchant_context(token)
+
     finally:
-        # Clean up seeded merchants
+        committed_sales_session.execute(
+            text("DELETE FROM sales.transactions WHERE id IN (:a, :b)"),
+            {"a": txn_a_id, "b": txn_b_id},
+        )
+        committed_sales_session.commit()
         committed_app_session.execute(
-            text("DELETE FROM canary_app.merchants WHERE id IN (:a, :b)"),
+            text("DELETE FROM app.merchants WHERE id IN (:a, :b)"),
             {"a": str(merchant_a.id), "b": str(merchant_b.id)},
         )
         committed_app_session.commit()
@@ -782,13 +867,13 @@ def test_rls_isolation_across_merchants(
 # ---------------------------------------------------------------------------
 
 def test_rls_fails_closed_without_merchant_context(
-    standalone_factory, committed_app_session
+    standalone_factory, committed_app_session, committed_sales_session,
+    rls_policy_present,
 ):
     """Seed a row, bind NO merchant context, read sales.transactions →
     expect zero rows under RLS. A regression that defaults RLS to 'allow
     all when current_merchant is null' would surface here."""
     from canary.models.app.merchants import Merchant
-    from canary.models.sales.transactions import Transaction
 
     merchant = Merchant(
         source_merchant_id=f"test-failclosed-{uuid.uuid4().hex[:8]}",
@@ -798,30 +883,34 @@ def test_rls_fails_closed_without_merchant_context(
     committed_app_session.add(merchant)
     committed_app_session.commit()
 
-    # Seed a transaction row for this merchant
-    txn_id = uuid.uuid4()
-    committed_app_session.execute(
+    txn_id = str(uuid.uuid4())
+    now = datetime.now(timezone.utc)
+
+    committed_sales_session.execute(
         text(
-            "INSERT INTO canary_sales.transactions "
-            "(id, merchant_id, external_id, total_money_amount, created_at) "
-            "VALUES (:id, :mid, :ext, :amt, NOW())"
+            "INSERT INTO sales.transactions "
+            "(id, merchant_id, external_id, source_type, location_id, "
+            " transaction_type, transaction_date, amount_cents, currency) "
+            "VALUES (:id, :mid, :ext, 'square', :loc, 'payment', "
+            "        :tdate, 1234, 'USD')"
         ),
         {
-            "id": str(txn_id),
+            "id": txn_id,
             "mid": str(merchant.id),
-            "ext": f"ext-{uuid.uuid4().hex[:8]}",
-            "amt": Decimal("12.34"),
+            "ext": f"ext-{txn_id[:8]}",
+            "loc": f"loc-{txn_id[:8]}",
+            "tdate": now,
         },
     )
-    committed_app_session.commit()
+    committed_sales_session.commit()
 
     try:
         sess = standalone_factory.get_session()
 
         # Explicitly DO NOT set merchant context
         rows = sess.execute(
-            text("SELECT id FROM canary_sales.transactions WHERE id = :id"),
-            {"id": str(txn_id)},
+            text("SELECT id FROM sales.transactions WHERE id = :id"),
+            {"id": txn_id},
         ).fetchall()
 
         assert len(rows) == 0, (
@@ -833,12 +922,13 @@ def test_rls_fails_closed_without_merchant_context(
         sess.close()
 
     finally:
-        committed_app_session.execute(
-            text("DELETE FROM canary_sales.transactions WHERE id = :id"),
-            {"id": str(txn_id)},
+        committed_sales_session.execute(
+            text("DELETE FROM sales.transactions WHERE id = :id"),
+            {"id": txn_id},
         )
+        committed_sales_session.commit()
         committed_app_session.execute(
-            text("DELETE FROM canary_app.merchants WHERE id = :id"),
+            text("DELETE FROM app.merchants WHERE id = :id"),
             {"id": str(merchant.id)},
         )
         committed_app_session.commit()
@@ -873,22 +963,25 @@ merchant context."
 
 ---
 
-### Task 3.2: Sidecar chat endpoint integration test
+### Task 3.2: Sidecar chat handler integration test
 
 **Files:**
 - Create: `Canary/tests/integration/test_qa_agent_chat.py`
 
-- [ ] **Step 1: Create the test file using httpx + ASGITransport**
+We test `handle_chat()` directly instead of going through httpx's `ASGITransport`. `ASGITransport` (httpx 0.28+) does not drive ASGI lifespan events — `db.engine` would stay `None` and reproduce the GRO-389 symptom the test is trying to rule out. Calling `handle_chat` directly with an explicitly bootstrapped factory is cleaner, needs no new dependencies, and proves the same property (merchant extraction → set_merchant_context → tool dispatch → real DB data).
+
+- [ ] **Step 1: Create the test file**
 
 ```python
-"""Integration test for the QA Agent sidecar /chat endpoint.
+"""Integration test for the QA Agent sidecar chat handler.
 
-GRO-389: proves the sidecar ASGI app, with lifespan initialization and
-per-request merchant binding, routes a user question through Anthropic
-(mocked) and dispatches a DB-backed tool that returns real data.
+GRO-389: proves handle_chat(), with a bootstrapped standalone factory and
+a merchant-prefixed message, routes a user question through Anthropic
+(mocked) and dispatches a DB-backed tool against the real test database.
 
-We hit the ASGI app in-process via httpx.AsyncClient + ASGITransport —
-no container, no uvicorn process, no external network.
+We call handle_chat directly — not through httpx's ASGITransport, which
+does not drive ASGI lifespan events (so db.engine would stay None and
+reproduce the bug we're testing the fix for).
 """
 
 from __future__ import annotations
@@ -897,29 +990,57 @@ import os
 from unittest.mock import MagicMock, patch
 
 import pytest
-import httpx
+
+from canary.db.session_factory import DatabaseSessionFactory
 
 pytestmark = pytest.mark.postgres
 
 
+CANARY_DB_URL = os.getenv(
+    "CANARY_DB_URL",
+    "postgresql://canary:canary_dev_2026@localhost:5432/canary",
+)
+
+
 @pytest.fixture
-def anthropic_mock_dashboard_tool():
-    """Patch anthropic.Anthropic so the first response is a tool_use for
-    get_dashboard and the second response is a plain text final answer."""
-    # Block 1 (first API call): Claude wants to call get_dashboard
+def bootstrapped_sidecar(monkeypatch):
+    """Set env and point the sidecar's module-level `db` at a fresh
+    standalone factory. Mirrors what the ASGI lifespan handler does at
+    container startup."""
+    monkeypatch.setenv("ANTHROPIC_API_KEY", "sk-test-mock")
+
+    import canary.db.session_factory as sf_module
+    original_db = sf_module.db
+
+    factory = DatabaseSessionFactory()
+    factory.init_standalone(CANARY_DB_URL)
+    sf_module.db = factory
+
+    yield factory
+
+    sf_module.db = original_db
+    if factory.session is not None:
+        factory.session.remove()
+    if factory.engine is not None:
+        factory.engine.dispose()
+
+
+@pytest.fixture
+def anthropic_two_turn_dashboard():
+    """Mock anthropic.Anthropic: first turn returns a tool_use for
+    get_dashboard; second turn returns a text final answer."""
     tool_use_block = MagicMock()
     tool_use_block.type = "tool_use"
     tool_use_block.name = "get_dashboard"
-    tool_use_block.id = "tool_1"
-    tool_use_block.input = {"merchant_id": "will-be-replaced"}
+    tool_use_block.id = "toolu_test_1"
+    tool_use_block.input = {}
 
     response_1 = MagicMock()
     response_1.content = [tool_use_block]
 
-    # Block 2 (second API call): Claude returns a final text answer
     text_block = MagicMock()
     text_block.type = "text"
-    text_block.text = "Here's your dashboard summary from the live data."
+    text_block.text = "Here's your dashboard summary from live data."
 
     response_2 = MagicMock()
     response_2.content = [text_block]
@@ -927,119 +1048,115 @@ def anthropic_mock_dashboard_tool():
     mock_client = MagicMock()
     mock_client.messages.create.side_effect = [response_1, response_2]
 
-    with patch("anthropic.Anthropic", return_value=mock_client) as p:
-        yield p, mock_client
-
-
-async def _drive_lifespan_startup(app):
-    """Send the ASGI lifespan.startup event so init_standalone fires."""
-    received = []
-    async def send(msg):
-        received.append(msg)
-
-    startup_messages = iter([
-        {"type": "lifespan.startup"},
-        {"type": "lifespan.shutdown"},
-    ])
-    async def receive():
-        return next(startup_messages)
-
-    # Kick off lifespan — returns after shutdown message
-    await app({"type": "lifespan"}, receive, send)
-    return received
+    with patch("anthropic.Anthropic", return_value=mock_client) as mocked:
+        yield mocked, mock_client
 
 
 @pytest.mark.asyncio
-async def test_sidecar_chat_endpoint_routes_dashboard_query(
-    anthropic_mock_dashboard_tool, test_merchant, monkeypatch
+async def test_sidecar_chat_handler_routes_dashboard_query(
+    bootstrapped_sidecar, anthropic_two_turn_dashboard, test_merchant,
 ):
-    """POST merchant-prefixed message to /chat; expect get_dashboard in
-    tool_calls and no 'connectivity issue' text."""
-    # Ensure the sidecar's lifespan handler sees the test DB URL
-    monkeypatch.setenv(
-        "CANARY_DB_URL",
-        os.getenv(
-            "CANARY_DB_URL",
-            "postgresql://canary:canary_dev_2026@localhost:5432/canary",
-        ),
-    )
-    monkeypatch.setenv("ANTHROPIC_API_KEY", "sk-test-mock")
+    """handle_chat with a merchant-prefixed message must:
+      1. Extract the merchant UUID and bind ContextVar
+      2. Call Anthropic (mocked — returns tool_use)
+      3. Dispatch get_dashboard via execute_tool
+      4. Call Anthropic again (mocked — returns final text)
+      5. Return the synth text and populated tool_calls
 
-    from canary.services.qa_agent import server
+    Failure path the GRO-389 bug produced: text contains "database
+    connectivity issue" because execute_tool returned a NoneType error.
+    """
+    from canary.services.qa_agent.server import handle_chat
 
-    transport = httpx.ASGITransport(app=server.app)
+    payload = {
+        "messages": [
+            {
+                "role": "user",
+                "content": (
+                    f"[Page: /chirps | Merchant: {test_merchant.id}] "
+                    "how many alerts fired today?"
+                ),
+            }
+        ],
+        "session_id": "test-sidecar-handle-chat",
+    }
 
-    async with httpx.AsyncClient(
-        transport=transport, base_url="http://qa-agent.test"
-    ) as client:
-        # httpx.ASGITransport with lifespan="auto" (default) handles startup;
-        # no need to drive it manually.
-        payload = {
-            "messages": [
-                {
-                    "role": "user",
-                    "content": (
-                        f"[Page: /chirps | Merchant: {test_merchant.id}] "
-                        "how many alerts fired today?"
-                    ),
-                }
-            ],
-            "session_id": "test-sidecar-chat",
-        }
-        resp = await client.post("/chat", json=payload)
-
-    assert resp.status_code == 200
-    body = resp.json()
+    result = await handle_chat(payload)
 
     # Tool dispatch ran
-    tool_names = [tc["tool"] for tc in body.get("tool_calls", [])]
+    tool_names = [tc["tool"] for tc in result.get("tool_calls", [])]
     assert "get_dashboard" in tool_names, (
-        f"Expected get_dashboard in tool_calls, got: {body.get('tool_calls')}"
+        f"Expected get_dashboard in tool_calls, got: {result.get('tool_calls')}"
     )
 
-    # Response text is NOT the old failure message
-    text = body.get("text", "")
+    # Final text came from the second Anthropic response, not the failure path
+    text = result.get("text", "")
     assert "database connectivity issue" not in text.lower()
     assert "sidecar is not running" not in text.lower()
+    assert "no merchant context" not in text.lower()
+
+
+@pytest.mark.asyncio
+async def test_sidecar_chat_handler_short_circuits_without_merchant(
+    bootstrapped_sidecar, anthropic_two_turn_dashboard,
+):
+    """Without a Merchant: <uuid> prefix, handle_chat must short-circuit
+    before calling Anthropic — no API tokens burned, no tool dispatch,
+    no shared __no_merchant__ session bucket race."""
+    from canary.services.qa_agent.server import handle_chat
+
+    _, mock_client = anthropic_two_turn_dashboard
+
+    result = await handle_chat({
+        "messages": [{"role": "user", "content": "no merchant here"}],
+        "session_id": "test-no-merchant",
+    })
+
+    assert "no merchant context" in result.get("text", "").lower()
+    assert result.get("tool_calls") == []
+    mock_client.messages.create.assert_not_called()
 ```
 
-- [ ] **Step 2: Install test dependencies if missing**
+- [ ] **Step 2: Verify pytest-asyncio is available and configured**
 
-Check: `cd ~/GrowDirect/Canary && python3 -c "import httpx; import pytest_asyncio; print('ok')"`
+Run: `cd ~/GrowDirect/Canary && python3 -c "import pytest_asyncio; print(pytest_asyncio.__version__)"`
 
-If `ModuleNotFoundError: No module named 'pytest_asyncio'` or `'httpx'`: **flag to the user before installing**. These are test-only dependencies and adding them to `requirements-dev.txt` needs their approval (see memory: "Flag dependency changes").
-
-If approved, add to `requirements-dev.txt`:
+If `ModuleNotFoundError`: **flag to the user before installing** — adding to `requirements-dev.txt` requires approval (per memory: "Flag dependency changes"). Approved addition:
 ```
-httpx>=0.27
 pytest-asyncio>=0.23
 ```
 
-Then: `cd ~/GrowDirect/Canary/devops && docker compose build qa-agent && docker compose up -d`
+Then check `pytest.ini` — it currently has no `asyncio_mode` setting. pytest-asyncio 1.x defaults to strict mode, which means explicit `@pytest.mark.asyncio` per test is required (already present in the tests above). No config change needed if using strict mode.
 
-- [ ] **Step 3: Run the test**
+**If asyncio_mode needs setting** (you see "coroutine was never awaited" warnings): add to `pytest.ini`:
+```
+asyncio_mode = strict
+```
+
+- [ ] **Step 3: Run the tests**
 
 ```bash
 cd ~/GrowDirect/Canary
 python3 -m pytest tests/integration/test_qa_agent_chat.py -v -m postgres
 ```
 
-Expected: 1 test PASS.
+Expected: 2 tests PASS.
 
-**If `ModuleNotFoundError: anthropic`**: the test is patching `anthropic.Anthropic`, but the sidecar imports it inside `handle_chat`. The patch target should match the import site. Fix by patching `canary.services.qa_agent.server` before `Anthropic` is looked up — or better, patch `anthropic.Anthropic` before the test client is created (current structure does this correctly).
+**If the first test fails with the NoneType error**: the `bootstrapped_sidecar` fixture didn't rebind `sf_module.db` correctly, or `handle_chat` grabs `db.session` before the fixture's `init_standalone` runs. Verify the fixture's `sf_module.db = factory` assignment lands BEFORE handle_chat is imported in the test body.
 
-**If lifespan never fires and `db.engine is None` errors appear**: httpx's `ASGITransport` defaults to `lifespan="auto"` which should drive startup. If it doesn't for this version, either upgrade httpx or use the `_drive_lifespan_startup` helper manually before the POST.
+**If the mock doesn't intercept `anthropic.Anthropic`**: the sidecar imports `Anthropic` inside `handle_chat` (see server.py:79 — `from anthropic import Anthropic`). Patching `anthropic.Anthropic` at the module level works because Python resolves the attribute at call time. If it breaks in future refactors that do `from anthropic import Anthropic` at module top, change the patch target to `canary.services.qa_agent.server.Anthropic`.
 
 - [ ] **Step 4: Commit**
 
 ```bash
 cd ~/GrowDirect/Canary
 git add tests/integration/test_qa_agent_chat.py
-git commit -m "test(qa-agent): sidecar /chat endpoint integration test [GRO-389]
+git commit -m "test(qa-agent): handle_chat integration tests [GRO-389]
 
-Exercises ASGI lifespan + merchant extraction + tool dispatch with a
-mocked Anthropic client. Proves get_dashboard is routed and the
-'database connectivity issue' failure path no longer triggers."
+Two tests: happy-path tool dispatch through a mocked Anthropic client
+(proves GRO-389 NoneType bug is gone), and missing-merchant short
+circuit (proves no Anthropic call + clear error). Calls handle_chat
+directly to sidestep httpx ASGITransport lack of lifespan support."
 ```
 
 ---
@@ -1059,11 +1176,18 @@ Wait for health: `docker ps` should show `canary_localhost_flask` and `canary_lo
 
 - [ ] **Step 2: Pre-count rows in sales.transactions for the test merchant**
 
-Replace `<TEST_MERCHANT_UUID>` with a known sandbox merchant UUID (pull from `canary_app.merchants` where `source_merchant_id` starts with `test-` or a known sandbox merchant):
+Replace `<TEST_MERCHANT_UUID>` with a known sandbox merchant UUID (pull from `app.merchants`):
 
 ```bash
 docker exec growdirect_postgres psql -U growdirect -d canary -c \
-  "SELECT count(*) FROM canary_sales.transactions WHERE merchant_id = '<TEST_MERCHANT_UUID>';"
+  "SELECT id, merchant_name FROM app.merchants ORDER BY created_at DESC LIMIT 5;"
+```
+
+Pick one; use its `id` for the rest of the gate. Record the pre-count:
+
+```bash
+docker exec growdirect_postgres psql -U growdirect -d canary -c \
+  "SELECT count(*) FROM sales.transactions WHERE merchant_id = '<TEST_MERCHANT_UUID>';"
 ```
 
 Record the count as `PRE_COUNT`.
@@ -1095,26 +1219,30 @@ Expected: response contains real numbers (not "database connectivity issue"). `t
 
 ```bash
 docker exec growdirect_postgres psql -U growdirect -d canary -c \
-  "SELECT count(*) FROM canary_sales.transactions WHERE merchant_id = '<TEST_MERCHANT_UUID>';"
+  "SELECT count(*) FROM sales.transactions WHERE merchant_id = '<TEST_MERCHANT_UUID>';"
 ```
 
 Expected: count is `PRE_COUNT + 1` (one new transaction from the scenario fire). If zero delta, the scenario fired but ingestion didn't land — this is a separate pipeline issue, not a QA Agent DB fix regression. File separately.
 
-- [ ] **Step 6: Route-level curl verification**
+- [ ] **Step 6: Route-level curl verification — sidecar directly**
+
+Hitting the Flask endpoint requires a login cookie (admin-gated). Easier: hit the sidecar directly on port 8002. This proves the DB fix end-to-end without auth plumbing.
 
 ```bash
-curl -s -X POST http://localhost:5001/ops/qa/chat \
+curl -s -X POST http://localhost:8002/chat \
   -H "Content-Type: application/json" \
-  -b "session=<valid-session-cookie>" \
   -d '{
     "messages": [{
       "role": "user",
       "content": "[Page: /ops/qa | Merchant: <TEST_MERCHANT_UUID>] what are my top risks?"
-    }]
+    }],
+    "session_id": "gate-verification"
   }' | python3 -m json.tool
 ```
 
-Expected: 200 response with `text` containing real analysis, `tool_calls` populated. "database connectivity issue" must NOT appear in the text.
+Expected: 200 response with `text` containing real analysis, `tool_calls` populated. `"database connectivity issue"` must NOT appear in the text. `"no merchant context"` must NOT appear (the Merchant: prefix is present).
+
+Then confirm the Flask path is wired — log into `/ops/qa` in a browser and send one message with the same merchant prefix. Response should match the curl output pattern.
 
 - [ ] **Step 7: Log the gate results in Linear**
 
@@ -1131,7 +1259,7 @@ No code changes — use the Linear MCP.
 
 - [ ] **Step 1: Close GRO-388 as duplicate of GRO-389**
 
-Use `mcp__a018de2b-6aea-4cf1-aa2a-20375d7d8e69__save_issue` (or Linear UI) to set GRO-388 status → Canceled, add comment: "Duplicate of GRO-389 — filed 7s apart on 2026-04-01. Fix landed on main; see GRO-389 for the closing commit."
+Use the Linear MCP `save_issue` tool (or Linear UI) to set GRO-388 status → Canceled, add comment: "Duplicate of GRO-389 — filed 7s apart on 2026-04-01. Fix landed on main; see GRO-389 for the closing commit."
 
 - [ ] **Step 2: Close GRO-389**
 
