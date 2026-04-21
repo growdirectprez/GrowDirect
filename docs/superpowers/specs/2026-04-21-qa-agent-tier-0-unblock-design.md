@@ -144,8 +144,10 @@ def _set_rls_context(self, connection):
 def init_standalone(self, db_url: str) -> None:
     """Initialize engine and session without a Flask app.
 
-    Caller is responsible for session cleanup (no teardown_appcontext).
-    Use db.session.remove() at the end of each unit of work.
+    scopefunc is bound to the ContextVar identity so each async task /
+    chat request gets its own session under asyncio. Caller is responsible
+    for session cleanup (no teardown_appcontext) — use db.session.remove()
+    in a finally block at the end of each request.
     """
     self.engine = create_engine(
         db_url,
@@ -153,23 +155,42 @@ def init_standalone(self, db_url: str) -> None:
         max_overflow=25,
         pool_pre_ping=True,
     )
-    self.session = scoped_session(sessionmaker(bind=self.engine))
+    # scopefunc returns a per-request id so concurrent asyncio tasks don't
+    # share one session (default scoped_session is thread-local, which under
+    # asyncio = all coroutines on one event loop share one session — a race).
+    self.session = scoped_session(
+        sessionmaker(bind=self.engine),
+        scopefunc=lambda: _merchant_ctx.get() or "no-merchant",
+    )
     event.listen(self.engine, "begin", self._set_rls_context)
     logger.info(
         "DatabaseSessionFactory initialized (standalone mode, no Flask app)"
     )
 ```
 
-**Net change:** ~25 lines added, zero lines modified in existing paths.
+**Note on scoping:** the scopefunc uses the ContextVar value as the session
+identity key. Since each chat request sets a unique merchant UUID (and
+ContextVars are per-asyncio-task), this gives per-request session isolation
+for concurrent chats from different merchants. Two concurrent requests for the
+*same* merchant will share a session — acceptable for the QA Agent's
+read-heavy workload; none of the exposed tools write cross-merchant state.
+
+**Net change:** ~30 lines added, zero lines modified in existing paths.
 
 **Guardian:** manifest SHA256 is bumped after edit. User has granted edit
-permission for this session; no approval cycle needed.
+permission for this session; no approval cycle needed. Implementer re-hashes
+and updates `.guardian-manifest` as part of the commit.
 
 ## Component 2 — Sidecar integration
 
 **File:** `canary/services/qa_agent/server.py`
 
-### 1. Startup bootstrap (module-level)
+### 1. Startup bootstrap — ASGI lifespan
+
+Use the ASGI lifespan protocol instead of module-level init so the engine is
+created after uvicorn's event loop starts (module-level init runs at import
+time, which is pre-fork if workers > 1 — SQLAlchemy connection pools don't
+survive `fork()`):
 
 ```python
 from canary.db.session_factory import (
@@ -178,18 +199,43 @@ from canary.db.session_factory import (
     clear_merchant_context,
 )
 
-_db_url = os.getenv("CANARY_DB_URL")
-if _db_url:
-    db.init_standalone(_db_url)
-    logger.info("QA Agent: DB session factory initialized (standalone mode)")
-else:
-    logger.error("QA Agent: CANARY_DB_URL not set — DB tools will fail")
+async def _lifespan(scope, receive, send):
+    while True:
+        message = await receive()
+        if message["type"] == "lifespan.startup":
+            db_url = os.getenv("CANARY_DB_URL")
+            if db_url:
+                db.init_standalone(db_url)
+                logger.info(
+                    "QA Agent: DB session factory initialized (standalone)"
+                )
+            else:
+                logger.error(
+                    "QA Agent: CANARY_DB_URL not set — DB tools will fail"
+                )
+            await send({"type": "lifespan.startup.complete"})
+        elif message["type"] == "lifespan.shutdown":
+            if db.session is not None:
+                db.session.remove()
+            if db.engine is not None:
+                db.engine.dispose()
+            await send({"type": "lifespan.shutdown.complete"})
+            return
 ```
+
+Update the top-level `app` ASGI callable to route `scope["type"] == "lifespan"`
+to `_lifespan`, keeping the existing `http` branch intact.
+
+**Deployment constraint:** the sidecar runs with `workers=1` (default in
+current Dockerfile). If that ever changes, revisit — connection pooling and
+the in-memory rate-limit counters both assume single-worker.
 
 ### 2. Per-request merchant binding in `handle_chat`
 
-Parse the `Merchant: <uuid>` prefix from the first user message, set the
-ContextVar before tool dispatch, reset it in `finally`:
+Parse the `Merchant: <uuid>` prefix from the earliest user message whose
+content is a string (tool-result turns are also `role=user` but their content
+is a list of dicts — the string check skips them). Set the ContextVar before
+tool dispatch, reset in `finally`:
 
 ```python
 import re
@@ -197,13 +243,17 @@ import re
 _MERCHANT_RE = re.compile(r"Merchant:\s*([0-9a-f-]{36})", re.IGNORECASE)
 
 def _extract_merchant(messages: list[dict]) -> str | None:
+    """Return the first Merchant: <uuid> found in a string-content user
+    message. Tool-result messages (role=user, content=list) are skipped."""
     for m in messages:
-        if m.get("role") == "user":
-            content = m.get("content", "")
-            if isinstance(content, str):
-                match = _MERCHANT_RE.search(content)
-                if match:
-                    return match.group(1)
+        if m.get("role") != "user":
+            continue
+        content = m.get("content")
+        if not isinstance(content, str):
+            continue
+        match = _MERCHANT_RE.search(content)
+        if match:
+            return match.group(1)
     return None
 
 # Inside handle_chat, wrap the existing dispatch loop:
@@ -216,6 +266,8 @@ finally:
     if ctx_token is not None:
         clear_merchant_context(ctx_token)
     if db.session is not None:
+        # scopefunc keys on ContextVar, so this only removes the session for
+        # this request's merchant — other concurrent requests are unaffected
         db.session.remove()
 ```
 
@@ -277,6 +329,12 @@ All tests live under `Canary/tests/`.
 
 ### Integration — `tests/integration/test_qa_agent_db.py` (new, `@pytest.mark.postgres`)
 
+All tests in this file run **without** a Flask app context so the ContextVar
+fallback path in `_set_rls_context` is actually exercised. If the shared
+`conftest.py` auto-pushes a Flask app context for all tests, this file needs a
+local fixture that pops it (or uses a fresh SQLAlchemy connection outside any
+app context).
+
 - `test_standalone_factory_executes_sql` — init against `canary_test`,
   `get_session().execute(text("SELECT 1"))` returns 1
 - `test_db_tool_via_execute_tool` — seed a transaction row for merchant A,
@@ -284,21 +342,31 @@ All tests live under `Canary/tests/`.
   row data returned (not a NoneType error envelope)
 - `test_rls_isolation_across_merchants` — seed rows for merchants A and B,
   set context A → query returns only A's rows; set context B → only B's rows
+- `test_rls_fails_closed_without_merchant_context` — seed rows for merchant A,
+  set **no** context (neither Flask g nor ContextVar), query
+  `sales.transactions` → returns zero rows. Proves the fail-closed claim; a
+  regression in the RLS policy ("allow all when current_merchant is null")
+  would surface here.
 
 ### Integration — `tests/integration/test_qa_agent_chat.py` (new, `@pytest.mark.postgres`)
 
-- `test_chat_endpoint_routes_dashboard_query` — POST to the sidecar `/chat`
-  with a merchant-prefixed message; assert 200, `tool_calls` contains
-  `get_dashboard`, response text doesn't match the failure pattern
+- `test_sidecar_chat_endpoint_routes_dashboard_query` — POST directly to the
+  **sidecar** `http://qa-agent:8002/chat` (or test client equivalent) with a
+  merchant-prefixed message; assert 200, `tool_calls` contains
+  `get_dashboard`, response text doesn't match the failure pattern. This test
+  covers the sidecar in isolation from the Flask proxy.
 
 **Test data:** reuse existing fixtures in `conftest.py`. No new sandbox payment
 creation for tests — that's the completeness gate's job.
 
 ## Completeness gate (end-of-session verification)
 
-Per Canary CLAUDE.md "No Lazy Pipes" delivery standard:
+Per Canary CLAUDE.md "No Lazy Pipes" delivery standard. The gate runs against
+the **Flask ops-console endpoint** (port 5001), not the sidecar directly —
+this proves the full user-facing path works, not just the sidecar in
+isolation. The sidecar-only path is covered by the integration tests.
 
-1. **Data in:** fire a scenario through the chat endpoint →
+1. **Data in:** fire a scenario through the Flask `/ops/qa/chat` endpoint →
    `fire_scenario({scenario: "high_velocity_refunds"})` → row lands in
    `sales.transactions` for the test merchant.
 2. **Data out:** same session, call `get_dashboard` → returns the row just
@@ -328,9 +396,16 @@ All four must pass before the session is declared done.
   uses a separate event loop, the merchant binding won't propagate. Current
   tool code is sync and in-process; fine today, worth re-checking if tool
   dispatch ever goes multi-threaded.
-- **QA_AGENT_PORT discrepancy.** GRO-326 ticket mentions 8004, Dockerfile
-  exposes 8002. Not addressed here — out of scope for the DB fix. Flag as a
-  follow-up.
+- **QA_AGENT_PORT discrepancy.** GRO-326 ticket and the platform CLAUDE.md port
+  table mention 8004; `Dockerfile.qa-agent` and `server.py` both use 8002.
+  Not addressed here — out of scope for the DB fix. File a separate Linear
+  issue during closeout.
+- **Tier 0 acceptance names `sandbox_fire`, tool is `fire_scenario`.** GRO-326
+  acceptance copy is stale. Update the ticket description when marking Tier 0
+  done to match the actual tool names exposed by `tools.py`.
+- **Single-worker constraint.** Sidecar must run `workers=1` under uvicorn.
+  Module-level rate-limit dicts and the factory's connection pool both
+  assume it. Documented; not enforced in code.
 
 ## Commit strategy
 
