@@ -150,6 +150,109 @@ def _flatten_target(entry: dict, seen: set[str]) -> str:
     return candidate
 
 
+# ── Extract helpers (binary → markdown) ──────────────────────────────
+
+EXTRACT_DEFAULT_EXTS = ("doc", "docx", "ppt", "pptx", "xls", "xlsx", "pdf")
+EXTRACT_TMP_PATTERNS = ("~$", ".tmp", ".old")
+
+def _is_tmp_file(path: Path) -> bool:
+    """Match Office temp artifacts."""
+    name = path.name
+    if name.startswith("~$"):
+        return True
+    if path.suffix.lower() in (".tmp", ".old"):
+        return True
+    return False
+
+
+def _extract_file(source: Path, target: Path) -> dict:
+    """Convert a single binary file to markdown.
+
+    Returns a manifest entry. Writes the markdown to target on success.
+    Raises only for I/O problems on the source path itself.
+
+    Attempts, in order:
+      1. markitdown (primary)
+      2. textutil (macOS .doc fallback)
+      3. pdftotext (.pdf fallback)
+    Otherwise records status='skipped'.
+    """
+    if not source.exists():
+        raise FileNotFoundError(source)
+
+    ext = source.suffix.lower().lstrip(".")
+    entry = {
+        "source_path": str(source),
+        "source_sha256": _sha256(source),
+        "target_path": str(target),
+        "method": None,
+        "status": "failed",
+        "error": None,
+        "extracted_at": datetime.now(timezone.utc).isoformat(),
+    }
+
+    # Short-circuit: skip unsupported extensions before attempting any conversion
+    if ext not in EXTRACT_DEFAULT_EXTS:
+        entry["status"] = "skipped"
+        entry["method"] = "skip"
+        entry["error"] = f"unsupported extension: .{ext}"
+        return entry
+
+    target.parent.mkdir(parents=True, exist_ok=True)
+
+    # Primary: markitdown
+    try:
+        from markitdown import MarkItDown
+        md = MarkItDown()
+        result = md.convert(str(source))
+        content = result.text_content or ""
+        if content.strip():
+            target.write_text(content, encoding="utf-8")
+            entry["method"] = "markitdown"
+            entry["status"] = "ok"
+            return entry
+    except Exception as e:  # noqa: BLE001
+        entry["error"] = f"markitdown: {type(e).__name__}: {e}"
+
+    # Fallback for .doc — macOS textutil
+    if ext == "doc":
+        try:
+            import subprocess
+            txt = subprocess.check_output(
+                ["textutil", "-convert", "txt", "-stdout", str(source)],
+                stderr=subprocess.DEVNULL,
+            ).decode("utf-8", errors="replace")
+            if txt.strip():
+                target.write_text(txt, encoding="utf-8")
+                entry["method"] = "textutil"
+                entry["status"] = "ok"
+                entry["error"] = None
+                return entry
+        except Exception as e:  # noqa: BLE001
+            entry["error"] = f"{entry['error']} | textutil: {type(e).__name__}: {e}"
+
+    # Fallback for .pdf — pdftotext
+    if ext == "pdf":
+        try:
+            import subprocess, shutil as sh
+            if sh.which("pdftotext"):
+                txt = subprocess.check_output(
+                    ["pdftotext", str(source), "-"],
+                    stderr=subprocess.DEVNULL,
+                ).decode("utf-8", errors="replace")
+                if txt.strip():
+                    target.write_text(txt, encoding="utf-8")
+                    entry["method"] = "pdftotext"
+                    entry["status"] = "ok"
+                    entry["error"] = None
+                    return entry
+        except Exception as e:  # noqa: BLE001
+            entry["error"] = f"{entry['error']} | pdftotext: {type(e).__name__}: {e}"
+
+    # All attempts failed for a supported extension
+    return entry
+
+
 # ── CLI ──────────────────────────────────────────────────────────────────
 
 @click.group()
@@ -543,6 +646,111 @@ def clean(directory: str, dry_run: bool):
 
         click.echo(f"\n  Deleted {deleted:,} files ({errors} errors)")
         click.echo(f"  Removed {empty_dirs_removed} empty directories")
+
+
+@cli.command()
+@click.argument("directory", type=click.Path(exists=True, file_okay=False))
+@click.option("--target", "-t", type=click.Path(), required=True,
+              help="Output directory for extracted markdown")
+@click.option("--ext", default=",".join(EXTRACT_DEFAULT_EXTS),
+              help=f"Comma-separated extensions to process (default: {','.join(EXTRACT_DEFAULT_EXTS)})")
+@click.option("--maxdepth", type=int, default=None,
+              help="Limit recursion depth (1 = top-level only)")
+@click.option("--skip-tmp/--keep-tmp", default=True,
+              help="Skip Office temp artifacts (~$*, *.tmp, *.old). Default: skip.")
+@click.option("--dry-run/--execute", default=True,
+              help="Preview extractions without writing (default: dry-run)")
+def extract(directory: str, target: str, ext: str, maxdepth: int | None,
+            skip_tmp: bool, dry_run: bool):
+    """Convert Office + PDF files to markdown via markitdown.
+
+    Walks DIRECTORY, filters by extension, writes one .md per source file
+    to TARGET preserving the source tree. Writes a manifest file
+    .extract-manifest.json and .extract-failures.json in TARGET.
+
+    Default is dry-run. Pass --execute to write output.
+    """
+    root = Path(directory).resolve()
+    target_root = Path(target).resolve()
+    exts = {e.strip().lstrip(".").lower() for e in ext.split(",") if e.strip()}
+
+    click.echo(f"{'[DRY RUN] ' if dry_run else ''}Extracting from {root}")
+    click.echo(f"  Target:    {target_root}")
+    click.echo(f"  Exts:      {sorted(exts)}")
+    click.echo(f"  Maxdepth:  {maxdepth or 'unlimited'}")
+
+    candidates: list[Path] = []
+    for item in sorted(root.rglob("*")):
+        if item.is_dir():
+            continue
+        if item.name in SKIP_FILES:
+            continue
+        if any(part in SKIP_DIRS for part in item.parts):
+            continue
+        if item.suffix.lower().lstrip(".") not in exts:
+            continue
+        if skip_tmp and _is_tmp_file(item):
+            continue
+        if maxdepth is not None:
+            rel = item.relative_to(root)
+            if len(rel.parts) > maxdepth:
+                continue
+        candidates.append(item)
+
+    click.echo(f"  Files:     {len(candidates)}")
+
+    if dry_run:
+        click.echo("\n  Would extract (first 30):")
+        for c in candidates[:30]:
+            rel = c.relative_to(root)
+            click.echo(f"    {rel}")
+        if len(candidates) > 30:
+            click.echo(f"    ... and {len(candidates) - 30} more")
+        click.echo("\n  To execute: re-run with --execute")
+        return
+
+    target_root.mkdir(parents=True, exist_ok=True)
+    manifest: list[dict] = []
+    failures: list[dict] = []
+    ok = failed = skipped = 0
+    for c in candidates:
+        rel = c.relative_to(root)
+        dest = target_root / (str(rel) + ".md")
+        try:
+            entry = _extract_file(c, dest)
+        except Exception as e:  # noqa: BLE001
+            entry = {
+                "source_path": str(c),
+                "source_sha256": "",
+                "target_path": str(dest),
+                "method": None,
+                "status": "failed",
+                "error": f"{type(e).__name__}: {e}",
+                "extracted_at": datetime.now(timezone.utc).isoformat(),
+            }
+        manifest.append(entry)
+        if entry["status"] == "ok":
+            ok += 1
+        elif entry["status"] == "skipped":
+            skipped += 1
+        else:
+            failed += 1
+            failures.append(entry)
+
+    (target_root / ".extract-manifest.json").write_text(
+        json.dumps(manifest, indent=2, ensure_ascii=False)
+    )
+    if failures:
+        (target_root / ".extract-failures.json").write_text(
+            json.dumps(failures, indent=2, ensure_ascii=False)
+        )
+
+    click.echo(f"\n  OK:       {ok}")
+    click.echo(f"  Failed:   {failed}")
+    click.echo(f"  Skipped:  {skipped}")
+    click.echo(f"  Manifest: {target_root / '.extract-manifest.json'}")
+    if failures:
+        click.echo(f"  Failures: {target_root / '.extract-failures.json'}")
 
 
 # ── Knowledge Layer Commands ─────────────────────────────────────────────
