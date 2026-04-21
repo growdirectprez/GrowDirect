@@ -160,7 +160,7 @@ def init_standalone(self, db_url: str) -> None:
     # asyncio = all coroutines on one event loop share one session — a race).
     self.session = scoped_session(
         sessionmaker(bind=self.engine),
-        scopefunc=lambda: _merchant_ctx.get() or "no-merchant",
+        scopefunc=lambda: _merchant_ctx.get() or "__no_merchant__",
     )
     event.listen(self.engine, "begin", self._set_rls_context)
     logger.info(
@@ -223,8 +223,18 @@ async def _lifespan(scope, receive, send):
             return
 ```
 
-Update the top-level `app` ASGI callable to route `scope["type"] == "lifespan"`
-to `_lifespan`, keeping the existing `http` branch intact.
+Update the top-level `app` ASGI callable to dispatch by scope type. Final
+shape:
+
+```python
+async def app(scope, receive, send):
+    if scope["type"] == "lifespan":
+        await _lifespan(scope, receive, send)
+        return
+    if scope["type"] != "http":
+        return
+    # ... existing http branch unchanged
+```
 
 **Deployment constraint:** the sidecar runs with `workers=1` (default in
 current Dockerfile). If that ever changes, revisit — connection pooling and
@@ -256,18 +266,29 @@ def _extract_merchant(messages: list[dict]) -> str | None:
             return match.group(1)
     return None
 
-# Inside handle_chat, wrap the existing dispatch loop:
+# Inside handle_chat, short-circuit when no merchant context is available —
+# every DB-backed tool would fail closed anyway, and entering the dispatch
+# loop would share the "no-merchant" session bucket across concurrent
+# unauthenticated requests (session.remove() would yank it mid-query).
 merchant_id = _extract_merchant(messages)
-ctx_token = set_merchant_context(merchant_id) if merchant_id else None
+if merchant_id is None:
+    return {
+        "text": "No merchant context in request. The QA Agent needs a "
+                "Merchant: <uuid> prefix to answer data questions.",
+        "tool_calls": [],
+        "model": DEFAULT_MODEL,
+    }
+
+ctx_token = set_merchant_context(merchant_id)
 try:
     # existing tool dispatch loop (unchanged)
     ...
 finally:
-    if ctx_token is not None:
-        clear_merchant_context(ctx_token)
+    clear_merchant_context(ctx_token)
     if db.session is not None:
         # scopefunc keys on ContextVar, so this only removes the session for
-        # this request's merchant — other concurrent requests are unaffected
+        # THIS merchant's scope — other concurrent merchant requests have
+        # their own session buckets and are unaffected
         db.session.remove()
 ```
 
@@ -278,10 +299,11 @@ response envelope.
 
 ### 4. Docker compose
 
-Verify `CANARY_DB_URL` is present in the qa-agent service environment in
-`Canary/devops/docker-compose*.yml` (or equivalent compose file that declares
-the sidecar). If missing, add it with the same value used by the main Flask
-service. Implementer confirms during execution.
+Verified during spec authoring: `CANARY_DB_URL` is already present in the
+qa-agent service environment at `Canary/devops/docker-compose.localhost.yml`
+(line 433), pointing at the shared `growdirect_postgres:5432/canary`
+database. No compose changes required. The dev compose override at
+`docker-compose.dev.yml` only patches `volumes` — it does not redefine env.
 
 ## Data flow after fix
 
@@ -406,6 +428,13 @@ All four must pass before the session is declared done.
 - **Single-worker constraint.** Sidecar must run `workers=1` under uvicorn.
   Module-level rate-limit dicts and the factory's connection pool both
   assume it. Documented; not enforced in code.
+- **Silent tool failures look like the old bug.** Today's symptom ("database
+  connectivity issue") is a tool-level error surfaced as a synth. After this
+  fix, DB tools return real data — but any non-DB tool failure still gets
+  swallowed into a generic response. Observability (per-tool error metrics,
+  structured tool_calls with status) is deferred to Tier 1/2. Mitigation
+  during verification: watch sidecar logs for `MCP tool ... failed` lines
+  while testing.
 
 ## Commit strategy
 
