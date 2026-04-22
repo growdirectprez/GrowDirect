@@ -3,6 +3,8 @@
 **Type:** App Service (Canary) / Platform Service (Memory Bus)
 **Wiki:** [[Brain/wiki/canary-architecture|Canary Architecture]]
 **Architecture:** [[docs/sdds/canary/architecture|Canary Architecture SDD]]
+**Method:** [[Brain/projects/Method|Method MOC]]
+**Author role:** [[Canary/docs/profiles/ops/Tom|Tom]] · **Operator role:** [[Canary/docs/profiles/ops/ALX|ALX]]
 **Last reviewed:** 2026-04-13
 
 ## Purpose

@@ -1288,5 +1288,238 @@ def lint(paths: tuple[Path, ...], fix: bool, scan_all: bool):
     raise SystemExit(1)
 
 
+# ── Method queries ──────────────────────────────────────────────────
+
+# Repo-relative defaults; overridable in tests via monkeypatch.
+# Resolved from Path.cwd() at command invocation time so tests that mock these
+# paths take effect.
+METHOD_SKILLS_DIR = Path(".claude/skills")
+METHOD_TEMPLATES_DIR = Path("Brain/templates")
+
+
+def _parse_list_field(value: str) -> list[str]:
+    """Parse `[A, B, C]` or `A, B, C` or `A` into a list of names."""
+    v = value.strip().strip("[]")
+    if not v:
+        return []
+    return [x.strip() for x in v.split(",") if x.strip()]
+
+
+def _method_meta(path: Path) -> dict:
+    """Extract role/stage metadata from a file's YAML frontmatter.
+
+    Recognized keys:
+      - name (skill identity)
+      - roles-primary, roles-assist, stage (skill tagging, Sprint C)
+      - method-role, method-stage (template tagging, Sprint C)
+      - type (template type marker)
+    Missing keys return empty values. Non-frontmatter files return an empty dict.
+    """
+    try:
+        content = path.read_text(encoding="utf-8", errors="replace")
+    except OSError:
+        return {}
+    m = re.match(r"^---\n(.*?)\n---", content, re.DOTALL)
+    if not m:
+        return {}
+    fm = m.group(1)
+    out = {
+        "name": "",
+        "type": "",
+        "roles-primary": [],
+        "roles-assist": [],
+        "stage": "",
+        "method-role": "",
+        "method-stage": "",
+    }
+    for line in fm.splitlines():
+        line_m = re.match(r"^([a-zA-Z-]+):\s*(.*)$", line)
+        if not line_m:
+            continue
+        key, val = line_m.group(1), line_m.group(2).strip()
+        if key in ("roles-primary", "roles-assist"):
+            out[key] = _parse_list_field(val)
+        elif key in ("name", "type", "stage", "method-role", "method-stage"):
+            out[key] = val
+    return out
+
+
+@cli.group()
+def method():
+    """Query the GrowDirect Method graph — roles, stages, skills, templates."""
+    pass
+
+
+@method.command("skills-for")
+@click.option("--role", default=None, help="Filter to skills this role uses")
+@click.option("--stage", default=None, help="Filter to skills that implement this stage")
+@click.option("--primary-only", is_flag=True, default=False,
+              help="Only match roles-primary (skip roles-assist)")
+def method_skills_for(role: str | None, stage: str | None, primary_only: bool):
+    """List skills filtered by role and/or stage.
+
+    Examples:
+      engine.py method skills-for --role ALX
+      engine.py method skills-for --stage blueprint
+      engine.py method skills-for --role Jeremy --stage tdd
+      engine.py method skills-for --role Tom --primary-only
+    """
+    if not role and not stage:
+        raise click.UsageError("Pass --role and/or --stage.")
+
+    skills_dir = METHOD_SKILLS_DIR
+    if not skills_dir.is_absolute():
+        skills_dir = (Path.cwd() / skills_dir) if not skills_dir.exists() else skills_dir
+
+    if not skills_dir.exists():
+        click.echo(f"No skills dir at {skills_dir}")
+        return
+
+    matches: list[tuple[str, dict]] = []
+    for path in sorted(skills_dir.glob("*.md")):
+        meta = _method_meta(path)
+        if not meta.get("name"):
+            continue
+        if role:
+            primary = meta["roles-primary"]
+            assist = meta["roles-assist"]
+            if role not in primary and (primary_only or role not in assist):
+                continue
+        if stage and meta["stage"] != stage:
+            continue
+        matches.append((path.stem, meta))
+
+    header = []
+    if role:
+        header.append(f"role={role}{' (primary only)' if primary_only else ''}")
+    if stage:
+        header.append(f"stage={stage}")
+    click.echo(f"Skills matching {', '.join(header)}: {len(matches)}")
+    click.echo()
+    for name, meta in matches:
+        marker = "primary" if role and role in meta["roles-primary"] else "assist" if role else ""
+        stage_note = f"  [stage: {meta['stage']}]" if meta["stage"] else ""
+        role_note = f"  [{marker}]" if marker else ""
+        click.echo(f"  {name}{role_note}{stage_note}")
+
+
+@method.command("templates-for")
+@click.option("--role", required=True, help="Filter to templates authored by this role")
+def method_templates_for(role: str):
+    """List Brain templates authored by a given role."""
+    tpl_dir = METHOD_TEMPLATES_DIR
+    if not tpl_dir.is_absolute():
+        tpl_dir = (Path.cwd() / tpl_dir) if not tpl_dir.exists() else tpl_dir
+
+    if not tpl_dir.exists():
+        click.echo(f"No templates dir at {tpl_dir}")
+        return
+
+    matches = []
+    for path in sorted(tpl_dir.glob("*.md")):
+        meta = _method_meta(path)
+        if meta.get("method-role") == role:
+            matches.append((path.stem, meta))
+
+    click.echo(f"Templates for method-role={role}: {len(matches)}")
+    click.echo()
+    for name, meta in matches:
+        stage = meta.get("method-stage") or ""
+        stage_note = f"  [stage: {stage}]" if stage else ""
+        click.echo(f"  {name}{stage_note}")
+
+
+@method.command("roles")
+def method_roles():
+    """List roles and their stage coverage (based on skill frontmatter)."""
+    skills_dir = METHOD_SKILLS_DIR
+    if not skills_dir.is_absolute():
+        skills_dir = (Path.cwd() / skills_dir) if not skills_dir.exists() else skills_dir
+    if not skills_dir.exists():
+        click.echo(f"No skills dir at {skills_dir}")
+        return
+
+    # Role -> {primary: {stage: [skill]}, assist: {stage: [skill]}}
+    index: dict[str, dict[str, dict[str, list[str]]]] = defaultdict(
+        lambda: {"primary": defaultdict(list), "assist": defaultdict(list)}
+    )
+    for path in sorted(skills_dir.glob("*.md")):
+        meta = _method_meta(path)
+        if not meta.get("name"):
+            continue
+        stage = meta["stage"] or "(unscoped)"
+        for r in meta["roles-primary"]:
+            index[r]["primary"][stage].append(meta["name"])
+        for r in meta["roles-assist"]:
+            index[r]["assist"][stage].append(meta["name"])
+
+    if not index:
+        click.echo("No tagged skills found.")
+        return
+
+    for role in sorted(index):
+        data = index[role]
+        p_count = sum(len(v) for v in data["primary"].values())
+        a_count = sum(len(v) for v in data["assist"].values())
+        click.echo(f"\n  {role}: {p_count} primary, {a_count} assist")
+        for stage in sorted(data["primary"]):
+            skills = data["primary"][stage]
+            click.echo(f"    [primary] {stage}: {', '.join(skills)}")
+        for stage in sorted(data["assist"]):
+            skills = data["assist"][stage]
+            click.echo(f"    [assist]  {stage}: {', '.join(skills)}")
+
+
+@method.command("stats")
+def method_stats():
+    """Summary counts — tagged vs untagged skills + templates + stage coverage."""
+    skills_dir = METHOD_SKILLS_DIR
+    if not skills_dir.is_absolute():
+        skills_dir = (Path.cwd() / skills_dir) if not skills_dir.exists() else skills_dir
+    tpl_dir = METHOD_TEMPLATES_DIR
+    if not tpl_dir.is_absolute():
+        tpl_dir = (Path.cwd() / tpl_dir) if not tpl_dir.exists() else tpl_dir
+
+    s_tagged = s_untagged = 0
+    stage_counts: dict[str, int] = defaultdict(int)
+    role_counts: dict[str, int] = defaultdict(int)
+    if skills_dir.exists():
+        for p in skills_dir.glob("*.md"):
+            meta = _method_meta(p)
+            if not meta.get("name"):
+                continue
+            if meta["roles-primary"] or meta["roles-assist"]:
+                s_tagged += 1
+                for r in meta["roles-primary"]:
+                    role_counts[r] += 1
+                if meta["stage"]:
+                    stage_counts[meta["stage"]] += 1
+            else:
+                s_untagged += 1
+
+    t_tagged = t_untagged = 0
+    if tpl_dir.exists():
+        for p in tpl_dir.glob("*.md"):
+            meta = _method_meta(p)
+            if meta.get("method-role"):
+                t_tagged += 1
+            else:
+                t_untagged += 1
+
+    click.echo(f"\nSkills:    {s_tagged} tagged, {s_untagged} untagged")
+    click.echo(f"Templates: {t_tagged} tagged, {t_untagged} untagged")
+    click.echo(f"Tagged: {s_tagged + t_tagged}  Untagged: {s_untagged + t_untagged}")
+
+    if stage_counts:
+        click.echo("\n  Stage coverage (skills):")
+        for stage, n in sorted(stage_counts.items()):
+            click.echo(f"    {stage:12s} {n}")
+
+    if role_counts:
+        click.echo("\n  Role coverage (primary skills):")
+        for r, n in sorted(role_counts.items(), key=lambda x: -x[1]):
+            click.echo(f"    {r:12s} {n}")
+
+
 if __name__ == "__main__":
     cli()

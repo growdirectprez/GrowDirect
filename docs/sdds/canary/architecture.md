@@ -1,6 +1,8 @@
 # Canary Architecture
 
 **Wiki:** [[Brain/wiki/canary-architecture|Canary Architecture]]
+**Method:** [[Brain/projects/Method|Method MOC]] · [[Brain/projects/Factory|Factory MOC]]
+**Author role:** [[Canary/docs/profiles/ops/Tom|Tom]] · **Operator role:** [[Canary/docs/profiles/ops/Jeremy|Jeremy]]
 **Type:** Platform Service (Canary index SDD)
 **Last reviewed:** 2026-04-13
 **Source SDDs:** SDD-045, SDD-047, SDD-048, SDD-049, SDD-050, SDD-051, SDD-052, SDD-053, SDD-054, SDD-057, SDD-059, SDD-060, SDD-062

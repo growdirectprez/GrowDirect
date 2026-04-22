@@ -3,6 +3,8 @@
 **Type:** App Service (Canary)
 **Wiki:** [[Brain/wiki/canary-architecture|Canary Architecture]], [[Brain/wiki/canary-detection|Canary Detection]]
 **Architecture:** [[docs/sdds/canary/architecture|Canary Architecture SDD]]
+**Method:** [[Brain/projects/Method|Method MOC]]
+**Author role:** [[Canary/docs/profiles/ops/Tom|Tom]] + [[Canary/docs/profiles/ops/Research|Research]] · **Operator role:** [[Canary/docs/profiles/ops/Jeremy|Jeremy]]
 **Linear:** GRO-85, GRO-128, GRO-132, GRO-174, GRO-247, GRO-278, GRO-279, GRO-289
 
 ## Purpose

@@ -33,6 +33,8 @@ def test_extract_file_docx_returns_markdown(tmp_path):
 
 def test_extract_file_pdf_returns_markdown(tmp_path):
     src = FIXTURES / "sample.pdf"
+    if not src.exists():
+        pytest.skip("sample.pdf fixture not present (gitignored via *.pdf rule)")
     target = tmp_path / "sample.pdf.md"
     entry = engine._extract_file(src, target)
     if entry["status"] != "ok":
@@ -98,6 +100,8 @@ def test_extract_cli_execute_writes_manifest_and_markdown(tmp_path):
     assert ok[0]["source_path"].endswith("a.docx")
 
 def test_extract_cli_ext_filter(tmp_path):
+    if not (FIXTURES / "sample.pdf").exists():
+        pytest.skip("sample.pdf fixture not present (gitignored via *.pdf rule)")
     src_dir = tmp_path / "src"
     src_dir.mkdir()
     (src_dir / "a.docx").write_bytes((FIXTURES / "sample.docx").read_bytes())
