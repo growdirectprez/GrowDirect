@@ -9,7 +9,7 @@
 **Wiki:** [[Brain/wiki/growdirect-workflow|GrowDirect Workflow]] · [[Brain/wiki/document-management|Document Management]]
 **Related:** [[docs/sdds/platform/memory-bus|Memory Bus]] · [[docs/sdds/platform/shared-infrastructure|Shared Infrastructure]]
 **Method:** [[Brain/projects/Method|Method MOC]]
-**Author role:** [[Canary/docs/profiles/ops/Tom|Tom]] · **Operator role:** [[Canary/docs/profiles/ops/Jeremy|Jeremy]]
+**Author role:** [[docs/team/Architect|Architect]] · **Operator role:** [[docs/team/Engineer|Engineer]]
 
 ---
 

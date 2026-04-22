@@ -4,7 +4,7 @@
 **Wiki:** [[Brain/wiki/canary-architecture|Canary Architecture]]
 **Architecture:** [[docs/sdds/canary/architecture|Canary Architecture SDD]]
 **Method:** [[Brain/projects/Method|Method MOC]]
-**Author role:** [[Canary/docs/profiles/ops/Tom|Tom]] + [[Canary/docs/profiles/ops/Research|Research]] · **Operator role:** [[Canary/docs/profiles/ops/Owl|Owl]] + [[Canary/docs/profiles/ops/Jeremy|Jeremy]]
+**Author role:** [[docs/team/Architect|Architect]] + [[docs/team/PhD|PhD]] · **Operator role:** [[docs/team/Owl|Owl]] + [[docs/team/Engineer|Engineer]]
 
 ---
 

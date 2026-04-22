@@ -2,7 +2,7 @@
 
 **Wiki:** [[Brain/wiki/canary-platform-overview|Canary Platform Overview]]
 **Method:** [[Brain/projects/Method|Method MOC]] · [[Brain/projects/Factory|Factory MOC]]
-**Author role:** [[Canary/docs/profiles/ops/Tom|Tom]] · **Operator role:** [[Canary/docs/profiles/ops/ALX|ALX]]
+**Author role:** [[docs/team/Architect|Architect]] · **Operator role:** [[docs/team/ALX|ALX]]
 **Type:** Product Context (top-level product SDD)
 **Last reviewed:** 2026-04-14
 **Source:** Canary_Platform_Overview_v1.0_1.docx (Feb 2026, Square Marketplace submission)

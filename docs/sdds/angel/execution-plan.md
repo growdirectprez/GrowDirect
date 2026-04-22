@@ -12,7 +12,7 @@
 **Wiki:** [[Brain/wiki/south-bay-wiki-architecture|South Bay Wiki Architecture]] · [[Brain/wiki/angel-architecture|Angel Architecture]] · [[Brain/projects/Angel|Angel MOC]]
 **Parent:** [[docs/sdds/angel/angel-overview|Angel Overview]]
 **Method:** [[Brain/projects/Method|Method MOC]]
-**Author role:** [[Canary/docs/profiles/ops/Tom|Tom]] · **Operator role:** [[Canary/docs/profiles/ops/Jeremy|Jeremy]]
+**Author role:** [[docs/team/Architect|Architect]] · **Operator role:** [[docs/team/Engineer|Engineer]]
 
 ---
 

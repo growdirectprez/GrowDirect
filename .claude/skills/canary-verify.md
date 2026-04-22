@@ -1,7 +1,7 @@
 ---
 name: canary-verify
-roles-primary: [Jeremy]
-roles-assist: [Jim]
+roles-primary:[Engineer]
+roles-assist:[QA]
 stage: verify
 description: |
   Verification before completion. Use before claiming work is complete, fixed,

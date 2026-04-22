@@ -1,5 +1,7 @@
 # CEO / Founder — Operational Profile
 
+> **Not in the Factory pipeline.** Jeffe is a real person — the CEO, the final scope authority, the North Star. Not a method role, not an agent, not tagged in the Method graph. Conversations go to ALX; ALX translates to GRO issues and dispatches. This profile exists so agents understand who the founder is, not so the Factory runs through him.
+
 **Role:** CEO and Founder — GrowDirect Inc.
 **Apps:** All (final authority)
 **Owns:** Product vision, company strategy, scope decisions, final approval on all ships, investor relationships, brand direction, hiring decisions, all external partnerships

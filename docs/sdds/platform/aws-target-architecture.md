@@ -5,7 +5,7 @@
 > **Namespace:** platform
 > **Last updated:** 2026-04-13
 > **Dev stack:** See [[docs/sdds/platform/shared-infrastructure|Shared Infrastructure]]
-> **Author role:** [[Canary/docs/profiles/ops/DevOps|DevOps]] · **Operator role:** [[Canary/docs/profiles/ops/Jeremy|Jeremy]]
+> **Author role:** [[docs/team/DevOps|DevOps]] · **Operator role:** [[docs/team/Engineer|Engineer]]
 
 **Wiki:** [[Brain/wiki/growdirect-workflow|GrowDirect Workflow]]
 **Method:** [[Brain/projects/Method|Method MOC]]

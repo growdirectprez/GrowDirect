@@ -1,7 +1,7 @@
 ---
 name: cove-close
-roles-primary: [ALX]
-roles-assist: [Eva]
+roles-primary:[ALX]
+roles-assist:[ProgramManager]
 stage: close
 description: |
   Session close for Cove development. Run at the end of every session before

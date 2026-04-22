@@ -1,7 +1,7 @@
 ---
 name: canary-assembly
-roles-primary: [Jeremy]
-roles-assist: [Tom]
+roles-primary:[Engineer]
+roles-assist:[Architect]
 stage: assembly
 description: |
   Factory Process plan execution. Use when you have a written implementation plan

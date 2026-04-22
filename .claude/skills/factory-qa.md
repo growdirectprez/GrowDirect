@@ -1,7 +1,7 @@
 ---
 name: factory-qa
-roles-primary: [Compliance]
-roles-assist: [Jim, Legal]
+roles-primary:[Compliance]
+roles-assist:[QA, Legal]
 stage: qa
 description: |
   Quality assurance pass. Route testing, auth checks, standards compliance, CSS validation, protected file audits.

@@ -1,7 +1,7 @@
 ---
 name: factory-tdd
-roles-primary: [Jeremy]
-roles-assist: [Tom]
+roles-primary:[Engineer]
+roles-assist:[Architect]
 stage: tdd
 description: |
   Test-first development workflow. RED-GREEN-REFACTOR cycle with test naming conventions and coverage requirements.

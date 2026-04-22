@@ -1,7 +1,7 @@
 ---
 name: canary-scenario
-roles-primary: [Jim]
-roles-assist: [Art]
+roles-primary:[QA]
+roles-assist:[UX]
 description: |
   Use when adding a new test scenario to the Test Lab. Enforces fully-populated
   payloads, proper scenario structure, and end-to-end verification for Chirp

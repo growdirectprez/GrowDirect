@@ -1,7 +1,7 @@
 ---
 name: factory-newapp
-roles-primary: [Tom]
-roles-assist: [Jeremy]
+roles-primary:[Architect]
+roles-assist:[Engineer]
 description: |
   Scaffold a new GrowDirect platform app from proven patterns. Use when starting
   a new project, prototyping a new service, or spinning up a new app. Triggers on

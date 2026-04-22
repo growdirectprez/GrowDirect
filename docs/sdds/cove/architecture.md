@@ -5,7 +5,7 @@
 **Last updated:** 2026-04-13
 **Wiki:** [[Brain/wiki/cove-governance|Cove Governance]] | [[Brain/wiki/cove-platform|Cove Platform]]
 **Method:** [[Brain/projects/Method|Method MOC]]
-**Author role:** [[Canary/docs/profiles/ops/Tom|Tom]] · **Operator role:** [[Canary/docs/profiles/ops/Jeremy|Jeremy]]
+**Author role:** [[docs/team/Architect|Architect]] · **Operator role:** [[docs/team/Engineer|Engineer]]
 
 ---
 

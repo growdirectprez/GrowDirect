@@ -1,7 +1,7 @@
 ---
 name: canary-deploy
-roles-primary: [DevOps]
-roles-assist: [Jeremy]
+roles-primary:[DevOps]
+roles-assist:[Engineer]
 description: |
   Orchestrates the full Canary LP deployment pipeline from dev to Demo (Mac Mini
   QA at demo.growdirect.app). Use when asked to deploy, push to Demo/QA, run

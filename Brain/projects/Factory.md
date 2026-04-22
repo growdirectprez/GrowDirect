@@ -21,7 +21,7 @@ Each stage consumes the prior stage's output. A stage that can't proceed stops a
 | # | Stage | Input | Output | Skill | Primary Role | Assist Roles |
 |---|---|---|---|---|---|---|
 | 1 | **Preflight** | GRO issue | `preflight_report` | [[.claude/skills/factory-preflight\|factory-preflight]] | [[Canary/docs/profiles/ops/ALX\|ALX]] | [[Canary/docs/profiles/ops/Eva\|Eva]] (program), [[Canary/docs/profiles/ops/Jeremy\|Jeremy]] (infra checks) |
-| 2 | **Research** | GRO issue + preflight | `context_bundle` | [[.claude/skills/factory-research\|factory-research]] | [[Canary/docs/profiles/ops/Research\|Research]] | [[Canary/docs/profiles/ops/Tom\|Tom]] (arch), [[Canary/docs/profiles/ops/Jess\|Jess]] (docs) |
+| 2 | **PhD** | GRO issue + preflight | `context_bundle` | [[.claude/skills/factory-research\|factory-research]] | [[Canary/docs/profiles/ops/Research\|Research]] | [[Canary/docs/profiles/ops/Tom\|Tom]] (arch), [[Canary/docs/profiles/ops/Jess\|Jess]] (docs) |
 | 3 | **Blueprint** | GRO + preflight + context | `docs/plans/{date}-{slug}.md` | [[.claude/skills/factory-blueprint\|factory-blueprint]] | [[Canary/docs/profiles/ops/Tom\|Tom]] (architect) | [[Canary/docs/profiles/ops/ALX\|ALX]], [[Canary/docs/profiles/ops/Eva\|Eva]] |
 | 4 | **TDD** | Plan | `tests/` (failing, one per behavior) | — | [[Canary/docs/profiles/ops/Jeremy\|Jeremy]] | [[Canary/docs/profiles/ops/Tom\|Tom]] |
 | 5 | **Assembly** | Plan + failing tests | Implementation (one commit per task) | [[.claude/skills/factory-assembly\|factory-assembly]] | [[Canary/docs/profiles/ops/Jeremy\|Jeremy]] (builder) | [[Canary/docs/profiles/ops/Tom\|Tom]], [[Canary/docs/profiles/ops/Art\|Art]] (UI) |
@@ -56,9 +56,9 @@ Every stage writes an artifact. The artifacts themselves live in Git + Linear, b
 
 All roles defined in `Canary/docs/profiles/ops/`. See [[Brain/method/Roles|Method › Roles]] for the role index.
 
-Primary runners: [[Canary/docs/profiles/ops/ALX|ALX]] (orchestration), [[Canary/docs/profiles/ops/Tom|Tom]] (architecture), [[Canary/docs/profiles/ops/Jeremy|Jeremy]] (build + DevOps), [[Canary/docs/profiles/ops/Compliance|Compliance]] (QA).
-Support: [[Canary/docs/profiles/ops/Eva|Eva]] (program), [[Canary/docs/profiles/ops/Jess|Jess]] (docs), [[Canary/docs/profiles/ops/Art|Art]] (UX), [[Canary/docs/profiles/ops/Jim|Jim]] (sentiment), [[Canary/docs/profiles/ops/Owl|Owl]] (AI), [[Canary/docs/profiles/ops/Research|Research]] (context).
-Gates: [[Canary/docs/profiles/ops/Legal|Legal]], [[Canary/docs/profiles/ops/Compliance|Compliance]], [[Canary/docs/profiles/ops/DevOps|DevOps]].
+Primary runners: [[docs/team/ALX|ALX]] (orchestration), [[docs/team/Architect|Architect]] (architecture), [[docs/team/Engineer|Engineer]] (build + DevOps), [[docs/team/Compliance|Compliance]] (QA).
+Support: [[docs/team/ProgramManager|ProgramManager]] (program), [[docs/team/Writer|Writer]] (docs), [[docs/team/UX|UX]] (UX), [[docs/team/QA|QA]] (sentiment), [[docs/team/Owl|Owl]] (AI), [[docs/team/PhD|PhD]] (context).
+Gates: [[docs/team/Legal|Legal]], [[docs/team/Compliance|Compliance]], [[docs/team/DevOps|DevOps]].
 
 ## Technique library (skills) used inside stages
 

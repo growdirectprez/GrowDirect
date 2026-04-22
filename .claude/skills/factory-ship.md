@@ -1,7 +1,7 @@
 ---
 name: factory-ship
-roles-primary: [Jeremy]
-roles-assist: [DevOps]
+roles-primary:[Engineer]
+roles-assist:[DevOps]
 stage: ship
 description: |
   Pre-ship checklist and deployment. Tests green, migrations reviewed, git log clean, push to remote, Linear status update.

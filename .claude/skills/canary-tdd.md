@@ -1,7 +1,7 @@
 ---
 name: canary-tdd
-roles-primary: [Jeremy]
-roles-assist: [Tom]
+roles-primary:[Engineer]
+roles-assist:[Architect]
 stage: tdd
 description: |
   Test-driven development for Canary. Use when implementing any feature or bugfix,

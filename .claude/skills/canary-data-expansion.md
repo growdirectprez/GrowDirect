@@ -1,7 +1,7 @@
 ---
 name: canary-data-expansion
-roles-primary: [Jeremy]
-roles-assist: [Tom]
+roles-primary:[Engineer]
+roles-assist:[Architect]
 description: |
   Factory process for expanding the Canary data model. Use when adding a new
   Square data domain, enriching an existing parser with dropped fields, wiring

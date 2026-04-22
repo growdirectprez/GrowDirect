@@ -1,6 +1,6 @@
 ---
 name: cove-verify
-roles-primary: [Jeremy]
+roles-primary:[Engineer]
 stage: verify
 description: |
   Verify work before claiming done. Use before committing, creating PRs, or
