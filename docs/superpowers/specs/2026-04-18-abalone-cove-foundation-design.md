@@ -11,9 +11,9 @@
 
 This document consolidates the output of an extended brainstorm session working through the origin, mission, form, deliverables, and execution sequencing of the Abalone Cove Foundation (hereafter "the Foundation"). The Foundation is being formed in response to the 2024 rezoning of 0 Clipper Road (APN 7573-006-024) from RS-4 to RM-22 by the City of Rancho Palos Verdes, the simultaneous fiscal crisis of the Community of Abalone Cove (formerly the West Portuguese Bend Community Association / WPBCA — renamed with the California Secretary of State by the previous board as its last act, to disassociate the 81-lot community from the Portuguese Bend landslide connotation; same legal entity, continuous history), and the broader pattern of governance and documentary neglect that the underlying research has surfaced.
 
-The brainstorm was grounded in a library of primary and secondary sources assembled over several months: Declaration No. 100 (1929), Declaration No. 101 (1929), the 1930 Palos Verdes Corporation → Filiorum Corporation grant deed, the 1939 *Palos Verdes Estates: Civic Problems* booklet, the 1972 Karshner Proposal and Abalone Shore Club bylaws, the 1978 Coastal Specific Plan (Subregion 4 + Urban Environment + Corridor elements, updated 2015 for the Trump National flagpole amendment), the Woodring 1946 USGS geological report, the 1982 Ehlig landslide guidebook, the 2011 LGC Valley Zone 2 geotechnical study, the 2012 CSUDH field guide, *Albers v. County of Los Angeles* (1965), *Russell v. Palos Verdes Properties* (1963), *Phillippe v. Shapell Industries* (1987), *Monks v. RPV* (2008), *Colyear v. Rolling Hills Community Association* (2024), the Successor Agency LRPMP (2014), the Horan litigation record, and the contemporary rezoning petition No. 24TRCP00352.
+The brainstorm was grounded in a library of primary and secondary sources assembled over several months: Declaration No. 100 (1929), Declaration No. 101 (1929), the 1930 Palos Verdes Corporation → Filiorum Corporation grant deed, the 1939 *Palos Verdes Estates: Civic Problems* booklet, the 1972 Karshner Proposal and Abalone Shore Club bylaws, the 1978 Coastal Specific Plan (Subregion 4 + Urban Environment + Corridor elements, updated 2015 for the Trump National flagpole amendment), the Woodring 1946 USGS geological report, the 1982 Ehlig landslide guidebook, the 2011 LGC Valley Zone 2 geotechnical study, the 2012 CSUDH field guide, *Albers v. County of Los Angeles* (1965), *Russell v. Palos Verdes Properties* (1963), *Nahrstedt v. Lakeside Village Condominium Assn* (1994), *Citizens for Covenant Compliance v. Anderson* (1995), *Villa De Las Palmas v. Terifaj* (2004), *Phillippe v. Shapell Industries* (1987), *Monks v. RPV* (2008), *Colyear v. Rolling Hills Community Association* (2024), the three RPV-resident SCOTUS cert petitions (*Stuart* 1994, *Teng Lee*, *Echevarrieta* 2001), the 1975 RPV General Plan + EIR with amendments through 1988, the 1990 and 2001 RPV Housing Elements, the 2018 RPV General Plan and 2018 Safety Element (Palos Verdes Fault Mw 7.3 / MMI XI baseline; Landslide Inventory; Fire Hazard Severity Zone), the Successor Agency LRPMP (2014), the Horan litigation record, and the contemporary rezoning petition No. 24TRCP00352.
 
-That library is published as a 137-reference Library of Evidence at abalonecove.org.
+That library is published as a 137-reference Library of Evidence at abalonecove.org. A 2026-04-19 synthesis pass distilled the library into five cross-cutting wiki articles — planning framework, case-law rules ledger, species → regulatory-trigger map, 2018 Safety Element annotation, and a running lessons-learned ledger — published under `Brain/wiki/cove-*`.
 
 ---
 
@@ -225,7 +225,7 @@ The launch site follows the 1972 Karshner Proposal structure, adapted for 2026:
 
 4. **The Committee.** The Foundation as the convening body — named directors, stated mission, stated scope of activity.
 
-5. **Expert Citations.** Woodring 1946 (USGS); Ehlig 1982 (AEG); LGC Valley 2011 (RPV-commissioned geotech); CSUDH 2012 (McNulty); the 1978 Coastal Specific Plan; *Colyear* 2024. Link to full transcripts in the evidence library.
+5. **Expert Citations.** Woodring 1946 (USGS); Ehlig 1982 (AEG); LGC Valley 2011 (RPV-commissioned geotech); CSUDH 2012 (McNulty); the 1978 Coastal Specific Plan; the 2018 RPV Safety Element (Palos Verdes Fault MMI XI baseline; Landslide Inventory Figure 3; Fire Hazard Severity Zone Figure 1); *Albers v. County of Los Angeles* (1965, inverse-condemnation baseline); *Monks v. RPV* (2008, landslide-moratorium defensibility); *Colyear v. Rolling Hills Community Assn* (2024, chain-of-title rule); the 1990 and 2001 RPV Housing Elements (city's own "Not buildable" designation); and the five Cove conservation-science papers (Dalkey 2016, Mattoni 1994 + 2003, the 2005 PVB mitigation framework, Marincovich). Link to full transcripts in the evidence library and to the synthesis articles at [[Brain/wiki/cove-rpv-planning-framework-2026]], [[Brain/wiki/cove-case-law-lessons]], [[Brain/wiki/cove-endangered-species-constraints]], [[Brain/wiki/cove-rpv-safety-element-2018]], [[Brain/wiki/coac-pv-endangered-species]].
 
 6. **Q&A Scenarios.** Specific concerns with specific factual responses: the geology, the traffic, the water, the wildlife, parking, beach access, Fire Station 53, the creek, the Wayfarers reassembly question, the LCP amendment question.
 
@@ -245,7 +245,7 @@ The Foundation advances specific stewardship projects alongside its documentary 
 
 3. **0 Clipper Preservation per 1980 Wong Subdivision.** Restore Tract 32977: four single-family lots plus one open-space parcel preserving the 0.57-acre flood-hazard area. Reclassify the existing 1962–1963 Clipper Road fourplexes from nonconforming to conforming and designate as affordable in the housing element. Relocate Fire Station 53 per Schematic Plan #2.
 
-4. **Creek / Flood-Hazard Conservation Easement.** Convey (or donate) a conservation easement on the 0.57-acre 0 Clipper creek/flood-hazard area to PVPLC as an extension of the adjacent 64-acre Abalone Cove Reserve. PVPLC is named after the Filiorum Corporation; the conveyance restores the documentary arc (PV Corp → Filiorum Corp → PVPLC).
+4. **Creek / Flood-Hazard Conservation Easement.** Convey (or donate) a conservation easement on the 0.57-acre 0 Clipper creek/flood-hazard area to PVPLC as an extension of the adjacent 64-acre Abalone Cove Reserve. PVPLC is named after the Filiorum Corporation; the conveyance restores the documentary arc (PV Corp → Filiorum Corp → PVPLC). Operational basis is now synthesized at [[Brain/wiki/cove-endangered-species-constraints]]: the 0.57-acre area is identified as "habitat area in excellent condition" in the 1978 Coastal Specific Plan Subregion 4 findings; NCCP/HCP compliance path is defined (RPV adopted Subarea Plan 2019); Section 7 (16 U.S.C. §1536) and Section 10 (16 U.S.C. §1539) consultation triggers for PVB (*Glaucopsyche lygdamus palosverdesensis*), coastal California gnatcatcher, and coastal cactus wren are mapped; the PVPLC partnership structure is documented at [[Brain/wiki/cove-pvplc-partnership]]. This project can move from proposed to ready-to-draft once board counsel is engaged.
 
 5. **Fire Station 53 Relocation.** Support the Coastal Specific Plan's Schematic Plan #2: relocate Fire Station 53 to the Forrestal Drive area; redesignate the current site for civic, recreational, or single-family use per the Plan. The current site is on unstable Parcel 106 land; relocation improves service and removes the inappropriate-use problem.
 
@@ -275,7 +275,7 @@ To protect focus and resources:
 - **Do not build the governance engine (Epic 3) in Year 1.** The capability is latent in the Library of Evidence; engineered implementation is Epic 3 Year 2+ at earliest.
 - **Do not trigger §V §5 reactivation (Epic 5) unless the cooperative path fails.** Standing by is the posture.
 - **Do not publish candidate endorsements or opposition.** 501(c)(3) political-activity guardrails are strict and the mission does not require crossing them.
-- **Do not assume the Declaration 100 boundary covers 0 Clipper until page 155 is resolved or the boundary is established by consent.** *Colyear* (2024) narrows coverage scope.
+- **Do not assume the Declaration 100 boundary covers 0 Clipper until page 155 is resolved or the boundary is established by consent.** *Colyear v. Rolling Hills Community Assn* (2024) narrows coverage scope. The controlling rules are now formalized as Rules **R5** (master declaration binds only when chain of title clearly incorporates it) and **R6** (extrinsic evidence of intent does not cure recording defects) in [[Brain/wiki/cove-case-law-lessons]]. Note: *Colyear* was "certified for partial publication" — before citing any *Colyear* reasoning in a brief, confirm the portions relied on are the published holdings (contradiction **OC-3** in the lessons ledger; not yet resolved).
 - **Do not commit to the Wired article on a timeline.** Pitch when the research and narrative are polished enough to be inarguable; not before.
 - **Do not build the book (Epic 10) now.** Park it.
 - **Do not accept case-specific legal representation of individual owners.** The Foundation supports research; counsel for litigation is separately engaged.
@@ -296,6 +296,10 @@ Items still requiring user input before execution begins:
 8. **Formation timing** — start Track B this week or wait
 9. **CHOA scope & mechanics** — confirm CHOA's current member roster, meeting cadence, governance (bylaws or informal convention), and the mechanism by which the Foundation is introduced as a research/drafting partner (Community of Abalone Cove board sponsorship; formal presentation; standing invitation). Confirm whether CHOA accepts documentary packets into its record or whether packets flow to member HOAs individually.
 
+10. **Pull current HCD certification letter** for RPV's 6th-cycle (2021–2029) Housing Element. Builder's Remedy applicability depends on whether RPV is continuously certified; this is a blocker for any Track D strategic decision and should precede any public Foundation positioning on 0 Clipper. Tracked as contradiction **OC-4** in [[Brain/wiki/cove-lessons-learned]].
+
+11. **Pull 2024 HE sites inventory spreadsheet** to confirm whether the 6th cycle preserves the 1990/2001 "Not buildable" zero-capacity treatment of moratorium parcels or assigns partial capacity under HCD pressure. This determines the strength of the estoppel-style argument. Tracked as contradiction **OC-5** in [[Brain/wiki/cove-lessons-learned]].
+
 ---
 
 ## 15. Next Steps
@@ -303,8 +307,10 @@ Items still requiring user input before execution begins:
 Upon user review and approval of this spec:
 
 1. Address items in §14 Open Decisions
-2. Invoke superpowers:writing-plans skill to produce a detailed implementation plan for Week 1 (Track A and Track B)
-3. Begin Track A (cove.org build) and Track B (Foundation formation) in parallel
+2. ~~Invoke superpowers:writing-plans skill to produce a detailed implementation plan for Week 1 (Track A and Track B)~~ **DONE 2026-04-19**:
+   - **Track A plan:** [`docs/superpowers/plans/2026-04-19-foundation-track-a-week-1.md`](../plans/2026-04-19-foundation-track-a-week-1.md) — Foundation site surface at `foundation.abalonecove.org`, Karshner-template content, 14 tasks in 5 chunks
+   - **Track B plan:** [`docs/superpowers/plans/2026-04-19-foundation-track-b-week-1.md`](../plans/2026-04-19-foundation-track-b-week-1.md) — 501(c)(3) formation filings (CA Articles → EIN → bylaws → CA CT-1 → FTB 3500A → IRS 1023-EZ), 10 tasks in 4 chunks across 4-week timeline
+3. Begin Track A (cove.org build) and Track B (Foundation formation) in parallel once blocker gates are cleared
 4. Capture backlog per §12 structure
 5. Schedule Week 2 review checkpoint
 

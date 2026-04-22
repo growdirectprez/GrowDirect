@@ -3,7 +3,7 @@ status: draft
 date: 2026-04-20
 topic: CoAC Board President Demo Tenant
 audience: cove builders, CoAC board sponsor (Angel), ARC librarian (Greg)
-deployment-target: qa.abalonecove.org on the mini (192.168.10.102)
+deployment-target: hoa.abalonecove.org on the mini (192.168.10.102)
 branch: feat/coac-hoa-qa-instance (from main)
 related: [Brain/wiki/coac-bylaws-moc, Brain/wiki/coac-reactivation-framework, Brain/wiki/wpbca-third-director-recruitment, Cove/CLAUDE.md]
 ---
@@ -192,7 +192,7 @@ Each row has an inline "Upload" CTA that routes to `/vault/upload?category=<cate
 
 ## 4.6 Production-Mode Feature Gating
 
-**New env var:** `COVE_DEPLOYMENT_MODE` with values `workspace` (default on dev.abalonecove.org / laptop) and `production` (on qa.abalonecove.org / mini).
+**New env var:** `COVE_DEPLOYMENT_MODE` with values `workspace` (default on dev.abalonecove.org / laptop) and `production` (on hoa.abalonecove.org / mini).
 
 **Behavior in production mode:**
 - `cove/__init__.py` conditionally registers blueprints. In production: `map_bp`, `parcels_bp`, `research_bp`, `agent_bp`, `archive_bp` are NOT registered (routes 404).
@@ -317,5 +317,5 @@ Branch: `feat/coac-hoa-qa-instance` from `main`. All work happens on this laptop
 12. Production-mode assertion tests + blueprint gate tests.
 13. Copy pass: compliance category text, advisor attestation text, notice templates.
 14. Laptop dev bring-up: boot locally in production mode; smoke test as Board president.
-15. Deploy runbook for the mini: tag commit → `git pull` on mini → `docker compose build cove_flask` → `up -d` → run migration + new seed → restart cloudflared tunnel → verify `qa.abalonecove.org` responds 200.
+15. Deploy runbook for the mini: tag commit → `git pull` on mini → `docker compose build cove_flask` → `up -d` → run migration + new seed → restart cloudflared tunnel → verify `hoa.abalonecove.org` responds 200.
 16. Cutover handoff: board proposal packet (cover letter, §4525 memo, request-for-approval, demo script, printed vault index).

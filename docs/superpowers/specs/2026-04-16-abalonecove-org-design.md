@@ -6,6 +6,10 @@
 **Entity:** 501(c)(3) nonprofit foundation (to be formed)
 **Stack:** Content engine + Brain wiki → static site → GitHub Pages
 
+> **Parent spec:** This is the Surface 1 (public editorial site) implementation under the [Abalone Cove Foundation consolidated design spec (2026-04-18)](2026-04-18-abalone-cove-foundation-design.md). When the two specs conflict, the Foundation spec controls; this one describes narrative execution.
+>
+> **2026-04-19 synthesis cross-reference:** The five Cove synthesis articles published 2026-04-19 ([planning framework](../../../Brain/wiki/cove-rpv-planning-framework-2026.md), [case-law ledger](../../../Brain/wiki/cove-case-law-lessons.md), [species constraints](../../../Brain/wiki/cove-endangered-species-constraints.md), [2018 Safety Element](../../../Brain/wiki/cove-rpv-safety-element-2018.md), [lessons learned](../../../Brain/wiki/cove-lessons-learned.md)) expand the evidence-library deep-link set available to the article and evidence room. See section-level notes below.
+
 ---
 
 ## What This Is
@@ -28,6 +32,8 @@ revenue to survive.
 **Voice:** First-person, pseudonymous HOA board member. Restrained, not
 sprawling. The author doesn't over-narrate — they present facts and let the
 reader sit with them.
+
+> **Voice register reconciliation (2026-04-19):** The Foundation consolidated spec (2026-04-18) §7 commits to Foundation corporate voice in a restrained "I might be right" register — not pseudonymous. Founder narrative (`Brain/wiki/foundation-founders-narrative.md`) is marked `visibility: internal-only-until-foundation-seated`. Before launch, resolve: is the author (a) the Foundation corporate voice, (b) a pseudonymous board member narrating the Foundation's findings, or (c) a named founder publishing under their own name post-formation? The Foundation spec §7 posture is (a). This spec's body still reads as (b). Pick one; update this section and Section 11 ("The Tools") accordingly before content production starts.
 
 **Tone:** Charles C. Mann's *1491* — an investigative journalist who took a
 subject everyone thought they knew, followed the evidence, and showed the
@@ -80,6 +86,10 @@ If watering grapes destabilized a chapel, what does 16 units of plumbing
 do? Jim York's house — why was he allowed to build? Catalina Gardens —
 why is it there? 2.14 inches per week today.
 
+> **2026-04-19 citations available:**
+> - 2018 Safety Element §5.3 — the city's own doc calls Portuguese Bend "the most studied and publicized landslide in the area, and perhaps in the Los Angeles Basin." 1956 movement triggered by grading (175,000 cu yd of fill in the Crenshaw extension road easement). Upper boundary under explicit debate (Valley View Graben vs. Dibblee 1999). Source: [`cove-rpv-safety-element-2018`](../../../Brain/wiki/cove-rpv-safety-element-2018.md).
+> - 1946 federal geological report on the prehistoric slide plane was known to both the county and the developers — per the *Albers* (1965) record. The city cannot plead ignorance. Source: [`cove-case-law-lessons`](../../../Brain/wiki/cove-case-law-lessons.md) R10.
+
 ### 7. Condos vs. the Beach (~400 words)
 1972. Karl Rodi proposes 138-170 units. Dick Karshner organizes the vote.
 The community chooses the park. Same question, fifty-four years later.
@@ -104,9 +114,13 @@ Note: the lot and Parcel 106 have a dubious history — even the city itself
 said in 1967-68 that the multi-units on Clipper should be demolished.
 Present facts, let reader draw conclusions.
 
+> **2026-04-19 citations available:** *Colyear v. RHCA* (2024) Rules R5/R6 — a master declaration does not bind a property unless the chain of title clearly and unequivocally incorporates it; extrinsic evidence of intent does not cure recording defects. The CTC title report for 0 Clipper (APN 7573-006-024) shows no Declaration 100 or 101 in the chain. Source: [`cove-colyear-2024`](../../../Brain/wiki/cove-colyear-2024.md) + [`cove-case-law-lessons`](../../../Brain/wiki/cove-case-law-lessons.md) R5/R6. Caveat: *Colyear* was certified for partial publication; confirm published scope before relying on specific reasoning (OC-3).
+
 ### 10. The Rezoning (~500 words)
 Three ordinances in 63 days. HCD says Site 16 can be removed. City keeps it.
 The planning department economics.
+
+> **2026-04-19 citations available:** The city's own 1990 + 2001 Housing Elements explicitly designated Portuguese Bend / moratorium parcels as **"Not buildable"** in the sites inventory and assigned them zero RHNA capacity — estoppel-style argument against any current upzoning in the same areas. Source: [`coac-rpv-housing-elements`](../../../Brain/wiki/coac-rpv-housing-elements.md) verbatim inventory entries. Builder's Remedy applies only to non-compliant city zoning (Rule R14); it does not override properly recorded CC&Rs. Source: [`cove-case-law-lessons`](../../../Brain/wiki/cove-case-law-lessons.md) R8/R14. Caveat: confirm current HCD certification status (OC-4) before publication; the estoppel argument's strength depends on whether the 2024 HE preserved the zero-capacity treatment or reclassified (OC-5).
 
 ### 11. The Tools (~500 words)
 How AI made this possible. Deed chains, 75-year-old declarations, GIS,
@@ -124,6 +138,14 @@ development (SB9, AB 670) while courts say CC&Rs still have teeth
 wants to build. The governance structure designed to protect this land
 is toothless — by economics, by liability, by design. But they wrote your gardener a $250 ticket for a leaf blower.
 And cited your dog off-leash in a park the city closed.
+
+> **2026-04-19 citations pending verification before publication:**
+>
+> 1. **"Carlsbad, April 2026"** — this citation is flagged as open contradiction **OC-1** in [`Brain/wiki/cove-lessons-learned.md`](../../../Brain/wiki/cove-lessons-learned.md). No source document for the ruling is in the vault. The Foundation cannot publish this claim until a citation and source exist. Either pull the real case name + citation or remove the reference.
+> 2. **"SB9, AB 670"** — AB 670 (2019) is specifically the HOA-cannot-prohibit-ADU law; SB 9 is duplex/lot-split; Civil Code § 4751 is ADU covenants. Per [`cove-legal-framework`](../../../Brain/wiki/cove-legal-framework.md) and [`cove-case-law-lessons`](../../../Brain/wiki/cove-case-law-lessons.md) R8 + R14, none of these preempt pre-existing CC&Rs — the state constrains government zoning, not private covenants. Rewrite this clause to distinguish: the state narrows some HOA restriction categories (ADUs, solar, lot splits) but does not override CC&Rs generally. The article's argument is strengthened, not weakened, by stating the rule precisely.
+> 3. **HCD certification status** — if Section 12 implies the city's position is locked, confirm current HCD certification of the 2024 HE (**OC-4** in lessons ledger) before publication.
+>
+> Strengthening citations available from the 2026-04-19 synthesis: the city's own 1990 + 2001 Housing Elements called Portuguese Bend / moratorium parcels "Not buildable" ([`coac-rpv-housing-elements`](../../../Brain/wiki/coac-rpv-housing-elements.md) verbatim); the 2018 Safety Element §5.3 acknowledges the landslide is actively monitored and the upper boundary is under debate ([`cove-rpv-safety-element-2018`](../../../Brain/wiki/cove-rpv-safety-element-2018.md)); *Albers v. County* (1965) is the inverse-condemnation baseline ([`cove-case-law-lessons`](../../../Brain/wiki/cove-case-law-lessons.md) R9). These are inarguable primary-source anchors.
 
 ### 13. Why? (~300 words)
 No call to action. Just the question. The record is right there.
@@ -157,9 +179,19 @@ Documents organized by the narrative sections, not by type:
 - 0 Clipper Parcel (tract maps, chain of title, assessor data)
 - Rezoning Record (ordinances 678U/680U/681, community opposition letter, HCD correspondence)
 - Litigation (petition, demurrer, opposition — Case 24TRCP00352)
+- **Case Law** (2026-04-19 addition): *Albers v. County of Los Angeles* (1965, 62 Cal. 2d 250 — inverse-condemnation baseline); *Russell v. Palos Verdes Properties* (1963); *Nahrstedt* (1994); *Citizens for Covenant Compliance* (1995); *Villa De Las Palmas* (2004); *Phillippe v. Shapell* (1987); *Monks v. RPV* (2008, 167 Cal. App. 4th 263 — landslide moratorium upheld); *Colyear v. RHCA* (2024, B308382 — chain-of-title rule); Stuart / Teng Lee / Echevarrieta SCOTUS cert petitions (1994 / ~late 1990s / 2001)
+- **City Planning Instruments** (2026-04-19 addition): 1975 RPV General Plan + EIR with amendments through 1988; 1990 and 2001 Housing Elements (verbatim "Not buildable" inventory entries); 2018 General Plan; 2018 Safety Element (Palos Verdes Fault Mw 7.3 / MMI XI; Landslide Inventory Figure 3; Fire Hazard Severity Zone Figure 1); 2024 HE adoption staff report and Builder's Remedy analysis
+- **Conservation Science** (2026-04-19 addition): Dalkey 2016 (coastal cactus wren site fidelity, PVPLC); Mattoni 1994 (PVB rediscovery); Mattoni et al. 2003 (PVB mass rearing); 2005 PVB pupae-salvage mitigation framework; Marincovich (Late Pleistocene Molluscan Faunas)
 
 Each evidence item: title, date, source, brief description, link/embed of
 primary document.
+
+**Foundation Synthesis Articles** (internal deep-links, cite from the article):
+- [`cove-rpv-planning-framework-2026`](../../../Brain/wiki/cove-rpv-planning-framework-2026.md) — what the current planning framework means for Tract 14649
+- [`cove-case-law-lessons`](../../../Brain/wiki/cove-case-law-lessons.md) — 19 rules that bind WPBCA / Foundation / public-entity posture
+- [`cove-endangered-species-constraints`](../../../Brain/wiki/cove-endangered-species-constraints.md) — species → regulatory trigger → project-scope map
+- [`cove-rpv-safety-element-2018`](../../../Brain/wiki/cove-rpv-safety-element-2018.md) — 2018 Safety Element annotated for Cove
+- [`cove-lessons-learned`](../../../Brain/wiki/cove-lessons-learned.md) — running lessons ledger
 
 ### Interactive Map
 
@@ -242,6 +274,8 @@ This is the first deliverable. The site doesn't get built until the spine is sol
 6. Editorial review and polish
 
 ### Phase 4: 501(c)(3) Formation
+
+> **2026-04-19 supersession:** Phase 4 is now fully specified as **Track B** of the [Foundation consolidated spec](2026-04-18-abalone-cove-foundation-design.md) §8 and §9. Cost ~$330 (CA Articles $30 + expedited $25 + 1023-EZ $275). Timeline ~4–8 weeks total (Articles file expedited ~3 days; 1023-EZ determination 2–4 weeks). Refer to that spec for filings, board composition, registered agent, fiscal year, and open decisions (§14 of the Foundation spec). The body text below is retained for historical context only.
 
 Parallel to content work:
 - Choose entity name (Abalone Cove Foundation, Abalone Shore Heritage Foundation, etc.)
