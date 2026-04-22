@@ -1125,5 +1125,168 @@ def registry_check(query: str):
         click.echo()
 
 
+# ── Lint ────────────────────────────────────────────────────────────────
+
+# Required frontmatter fields on every wiki article. Values must parse as
+# ISO-8601 dates (YYYY-MM-DD). Keep this list in sync with
+# Brain/templates/wiki-article.md.
+WIKI_REQUIRED_FIELDS = ("last-compiled", "needs-review")
+
+
+def _parse_frontmatter(content: str) -> tuple[str, str, str] | None:
+    """Split a markdown file into (open_fence, frontmatter_body, close_fence_plus_rest).
+
+    Returns None if no frontmatter block is found.
+    """
+    m = re.match(r"^(---\n)(.*?)(\n---\n?)", content, re.DOTALL)
+    if not m:
+        return None
+    return m.group(1), m.group(2), m.group(3)
+
+
+def _git_committer_date(path: Path) -> str | None:
+    """Return last commit date for path as YYYY-MM-DD, or None if not committed."""
+    import subprocess
+    try:
+        out = subprocess.check_output(
+            ["git", "log", "-1", "--format=%cs", "--", str(path)],
+            stderr=subprocess.DEVNULL,
+            text=True,
+        ).strip()
+        return out or None
+    except Exception:
+        return None
+
+
+def _backfill_date(path: Path) -> str:
+    """Best date for a file: last commit date, else filesystem mtime."""
+    import os
+    d = _git_committer_date(path)
+    if d:
+        return d
+    return datetime.fromtimestamp(os.path.getmtime(path)).date().isoformat()
+
+
+def _add_days(iso_date: str, days: int) -> str:
+    from datetime import date, timedelta
+    y, m, d = (int(x) for x in iso_date.split("-"))
+    return (date(y, m, d) + timedelta(days=days)).isoformat()
+
+
+def _lint_wiki_file(path: Path, fix: bool) -> tuple[list[str], list[str]]:
+    """Lint a single wiki markdown file.
+
+    Returns (violations, fixes_applied). Each is a list of human-readable strings.
+    """
+    content = path.read_text(encoding="utf-8", errors="replace")
+    parsed = _parse_frontmatter(content)
+    if not parsed:
+        return ([f"{path}: missing frontmatter block"], [])
+
+    open_fence, fm, close_fence = parsed
+
+    violations: list[str] = []
+    fixes: list[str] = []
+    new_fm = fm
+
+    for field in WIKI_REQUIRED_FIELDS:
+        if re.search(rf"^{re.escape(field)}:", new_fm, re.MULTILINE):
+            continue
+        if not fix:
+            violations.append(f"{path}: missing '{field}'")
+            continue
+        # Compute default value
+        if field == "last-compiled":
+            value = _backfill_date(path)
+        elif field == "needs-review":
+            # Anchor off last-compiled if present, else backfill date
+            lc_match = re.search(
+                r"^last-compiled:\s*[\"']?(\d{4}-\d{2}-\d{2})",
+                new_fm,
+                re.MULTILINE,
+            )
+            anchor = lc_match.group(1) if lc_match else _backfill_date(path)
+            value = _add_days(anchor, 14)
+        else:  # pragma: no cover — future-proofing
+            value = _backfill_date(path)
+        new_fm = new_fm.rstrip("\n") + f"\n{field}: {value}"
+        fixes.append(f"{path}: set '{field}: {value}'")
+
+    if fix and new_fm != fm:
+        new_content = open_fence + new_fm + close_fence + content[len(open_fence) + len(fm) + len(close_fence):]
+        path.write_text(new_content, encoding="utf-8")
+
+    return (violations, fixes)
+
+
+@cli.command()
+@click.argument("paths", nargs=-1, type=click.Path(exists=True, dir_okay=False, path_type=Path))
+@click.option("--fix", is_flag=True, help="Backfill missing frontmatter fields in place.")
+@click.option("--all", "scan_all", is_flag=True, help="Lint every Brain/wiki/*.md file.")
+def lint(paths: tuple[Path, ...], fix: bool, scan_all: bool):
+    """Lint Brain wiki frontmatter. Flags articles missing required fields.
+
+    Required fields: last-compiled, needs-review.
+
+    Usage:
+        engine.py lint --all                  # check every wiki article
+        engine.py lint --all --fix            # backfill missing fields
+        engine.py lint Brain/wiki/foo.md      # check a single file
+        engine.py lint $(git diff --cached --name-only | grep Brain/wiki/)  # precommit
+
+    Exit code: 0 if clean, 1 if violations found (in check mode).
+    """
+    gd_root = _find_growdirect_root(Path.cwd())
+    if not gd_root:
+        click.echo("ERROR: Run from within GrowDirect (need CLAUDE.md + Brain/)")
+        raise SystemExit(2)
+
+    if scan_all and paths:
+        click.echo("ERROR: pass PATHS or --all, not both.")
+        raise SystemExit(2)
+
+    if scan_all:
+        wiki_dir = gd_root / BRAIN_WIKI
+        targets = sorted(wiki_dir.glob("*.md")) if wiki_dir.exists() else []
+    elif paths:
+        targets = [p.resolve() for p in paths if p.suffix == ".md"]
+    else:
+        click.echo("ERROR: pass file paths or --all.")
+        raise SystemExit(2)
+
+    # Only lint files under Brain/wiki
+    wiki_prefix = (gd_root / BRAIN_WIKI).resolve()
+    filtered = [t for t in targets if str(t.resolve()).startswith(str(wiki_prefix))]
+
+    all_violations: list[str] = []
+    all_fixes: list[str] = []
+    for t in filtered:
+        v, f = _lint_wiki_file(t, fix=fix)
+        all_violations.extend(v)
+        all_fixes.extend(f)
+
+    if fix:
+        click.echo(f"  Files checked: {len(filtered)}")
+        click.echo(f"  Fixes applied: {len(all_fixes)}")
+        for msg in all_fixes:
+            click.echo(f"    + {msg}")
+        if all_violations:
+            click.echo(f"  Remaining violations: {len(all_violations)}")
+            for msg in all_violations:
+                click.echo(f"    - {msg}")
+            raise SystemExit(1)
+        return
+
+    click.echo(f"  Files checked: {len(filtered)}")
+    if not all_violations:
+        click.echo("  Clean. All required frontmatter fields present.")
+        return
+    click.echo(f"  Violations: {len(all_violations)}")
+    for msg in all_violations:
+        click.echo(f"    - {msg}")
+    click.echo("\n  Fix with: python3 content-engine/engine.py lint --all --fix")
+    raise SystemExit(1)
+
+
 if __name__ == "__main__":
     cli()
