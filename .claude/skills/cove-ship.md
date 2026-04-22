@@ -1,5 +1,8 @@
 ---
 name: cove-ship
+roles-primary: [Jeremy]
+roles-assist: [DevOps]
+stage: ship
 description: |
   Ship a development branch for Cove. Use when implementation is complete,
   tests pass, and you need to commit, PR, or deploy.

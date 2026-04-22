@@ -1,5 +1,7 @@
 ---
 name: factory-postmortem
+roles-primary: [Eva]
+roles-assist: [Jeremy, Jim]
 description: |
   Post-mortem capture after shipping sessions. Extracts lessons learned from
   the build cycle and stores them as structured memories tagged by layer.

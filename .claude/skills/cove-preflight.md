@@ -1,5 +1,8 @@
 ---
 name: cove-preflight
+roles-primary: [ALX]
+roles-assist: [Eva]
+stage: preflight
 description: |
   Session bootstrap for Cove development. Run at the start of every session.
   Delegates to factory-preflight for shared infrastructure, then adds Cove-specific

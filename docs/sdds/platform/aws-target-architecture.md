@@ -5,8 +5,10 @@
 > **Namespace:** platform
 > **Last updated:** 2026-04-13
 > **Dev stack:** See [[docs/sdds/platform/shared-infrastructure|Shared Infrastructure]]
+> **Author role:** [[Canary/docs/profiles/ops/DevOps|DevOps]] · **Operator role:** [[Canary/docs/profiles/ops/Jeremy|Jeremy]]
 
 **Wiki:** [[Brain/wiki/growdirect-workflow|GrowDirect Workflow]]
+**Method:** [[Brain/projects/Method|Method MOC]]
 **Related:** [[docs/sdds/platform/shared-infrastructure|Shared Infrastructure]] · [[docs/sdds/platform/memory-bus|Memory Bus]]
 > **Deployment status:** Planning. No AWS resources provisioned yet.
 

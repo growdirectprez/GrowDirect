@@ -1,5 +1,6 @@
 ---
 name: cove-archive
+roles-primary: [Jess]
 description: |
   Document intake and archive management for the WPBCA archive at docs/archive/.
   Use when the user provides a new document (PDF, scan, image, typed text) to add

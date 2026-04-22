@@ -1,5 +1,8 @@
 ---
 name: factory-blueprint
+roles-primary: [Tom]
+roles-assist: [ALX]
+stage: blueprint
 description: |
   Plan writing for multi-step tasks. Produces architecture decisions, file structure tables, and numbered task lists with acceptance criteria.
 ---

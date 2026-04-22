@@ -1,5 +1,7 @@
 ---
 name: cove-verify
+roles-primary: [Jeremy]
+stage: verify
 description: |
   Verify work before claiming done. Use before committing, creating PRs, or
   claiming a feature works. Evidence before assertions — run checks, show output.

@@ -6,8 +6,10 @@
 > **Last updated:** 2026-04-13
 > **Code location:** `devops/docker-compose.yml`, `devops/init-db/`
 > **AWS target:** See [[docs/sdds/platform/aws-target-architecture|AWS Target Architecture]]
+> **Author role:** [[Canary/docs/profiles/ops/DevOps|DevOps]] · **Operator role:** [[Canary/docs/profiles/ops/Jeremy|Jeremy]]
 
 **Wiki:** [[Brain/wiki/growdirect-workflow|GrowDirect Workflow]] · [[Brain/projects/Canary|Canary MOC]] · [[Brain/projects/Cove|Cove MOC]] · [[Brain/projects/Angel|Angel MOC]]
+**Method:** [[Brain/projects/Method|Method MOC]]
 
 ---
 

@@ -1,5 +1,7 @@
 ---
 name: cove-quorum
+roles-primary: [Compliance]
+roles-assist: [Legal]
 description: |
   Calculate quorum requirements for WPBCA governance votes. Given a proposal type
   and optional member count, returns quorum needed, approval threshold, secret ballot

@@ -1,5 +1,7 @@
 ---
 name: cove-tdd
+roles-primary: [Jeremy]
+stage: tdd
 description: |
   Test-driven development for Cove governance platform. Use when implementing
   any feature or bugfix, before writing implementation code. RED-GREEN-REFACTOR
