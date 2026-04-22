@@ -5,6 +5,8 @@
 **Service Type:** App Service (Canary blueprint)
 **Implementation Status:** Phase 0 complete (GRO-117, 2026-04-15)
 **Linear:** [GRO-117](https://linear.app/growdirect/issue/GRO-117)
+**Method:** [[Brain/projects/Method|Method MOC]]
+**Author role:** [[Canary/docs/profiles/ops/Tom|Tom]] · **Operator role:** [[Canary/docs/profiles/ops/Jeremy|Jeremy]]
 
 ---
 

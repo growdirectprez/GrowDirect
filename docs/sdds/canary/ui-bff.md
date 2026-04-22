@@ -4,6 +4,8 @@
 **Architecture:** [[docs/sdds/canary/architecture|Canary Architecture SDD]]
 **Service type:** App Service (Canary)
 **Last reviewed:** 2026-04-13
+**Method:** [[Brain/projects/Method|Method MOC]]
+**Author role:** [[Canary/docs/profiles/ops/Art|Art]] · **Operator role:** [[Canary/docs/profiles/ops/Jeremy|Jeremy]]
 
 ## Purpose
 

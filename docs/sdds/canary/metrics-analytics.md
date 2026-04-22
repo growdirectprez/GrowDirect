@@ -10,6 +10,8 @@
 > **Split from:** Original `metrics-analytics.md` (7000 words, two deployable concerns)
 
 **Companion SDD:** [[docs/sdds/canary/metrics-risk-scoring|Metrics Risk Scoring]] — Entity risk scoring, SRA computation, heatmap scoring, analytics dashboard
+**Method:** [[Brain/projects/Method|Method MOC]]
+**Author role:** [[Canary/docs/profiles/ops/Tom|Tom]] + [[Canary/docs/profiles/ops/Research|Research]] · **Operator role:** [[Canary/docs/profiles/ops/Jeremy|Jeremy]]
 
 ---
 

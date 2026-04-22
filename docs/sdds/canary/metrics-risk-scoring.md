@@ -10,6 +10,8 @@
 > **Split from:** Original `metrics-analytics.md` (7000 words, two deployable concerns)
 
 **Companion SDD:** [[docs/sdds/canary/metrics-analytics|Metrics Analytics ETL]] — Star schema ETL pipeline, dimension loading, fact tables, period aggregation
+**Method:** [[Brain/projects/Method|Method MOC]]
+**Author role:** [[Canary/docs/profiles/ops/Tom|Tom]] + [[Canary/docs/profiles/ops/Research|Research]] · **Operator role:** [[Canary/docs/profiles/ops/Jeremy|Jeremy]]
 
 ---
 
