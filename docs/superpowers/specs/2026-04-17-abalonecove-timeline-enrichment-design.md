@@ -4,6 +4,10 @@
 **Project:** abalonecove.org (static site, GitHub Pages)
 **File:** `~/abalonecove/timeline/index.html`
 
+> **Parent specs:** The [Abalone Cove Foundation consolidated design spec (2026-04-18)](2026-04-18-abalone-cove-foundation-design.md) is the top-level parent (entity, mission, strategy). The [abalonecove.org design spec (2026-04-16)](2026-04-16-abalonecove-org-design.md) is the Surface 1 parent (site architecture, narrative spine). This timeline spec is a sub-component of Surface 1.
+>
+> **2026-04-19 synthesis update:** inventory expands to include new anchor dates derived from the five Cove synthesis articles ([planning framework](../../../Brain/wiki/cove-rpv-planning-framework-2026.md), [case-law ledger](../../../Brain/wiki/cove-case-law-lessons.md), [species constraints](../../../Brain/wiki/cove-endangered-species-constraints.md), [2018 Safety Element](../../../Brain/wiki/cove-rpv-safety-element-2018.md), [lessons learned](../../../Brain/wiki/cove-lessons-learned.md)). See "2026-04-19 Entry Additions" below.
+
 ---
 
 ## Purpose
@@ -41,8 +45,8 @@ The timeline is divided into four eras with styled `<h2>` dividers. The vertical
 
 1. **Rancho Era** (1882–1925)
 2. **Declarations & Development** (1929–1954)
-3. **Geology & Regulation** (1956–1986)
-4. **Modern Era** (2009–2026)
+3. **Geology, Regulation & Resistance** (1946–2008) — *2026-04-19 expansion: extended from 1956–1986 to cover the 1946 federal geological report pre-dating the slide, and the 1994 / 2001 / 2008 SCOTUS / *Monks* litigation arc*
+4. **Modern Era** (2018–2026) — *2026-04-19 adjustment: start moved from 2009 to 2018 to align with the 2018 General Plan + Safety Element adoption that defines the current regulatory framework*
 
 ### Timeline Entries
 
@@ -120,6 +124,37 @@ Full chain-of-title treatment: what the document does, what flows from it, recor
 | PV Corp Dissolved | 1954 |
 | Emergency Declaration | 2024 |
 | Ground Movement | 2026 |
+
+## 2026-04-19 Entry Additions (from synthesis pass)
+
+The 2026-04-19 cross-cutting synthesis surfaced anchor dates that belong in the inventory. These are additive — they do not replace or modify the Tier 1 / Tier 2 / Tier 3 tables above.
+
+### New entries
+
+| Entry | Year | Era | Tier | Source / citation |
+|-------|------|-----|------|-------------------|
+| Federal geological report on Portuguese Bend prehistoric slide plane | 1946 | Geology, Regulation & Resistance | 2 | Woodring 1946 USGS. Cited in *Albers* (1965) opinion as having been known to both the county and developers. Source: [`cove-case-law-lessons`](../../../Brain/wiki/cove-case-law-lessons.md) R10 |
+| *Albers v. County of Los Angeles* — CA Supreme Court judgment | 1965 | Geology, Regulation & Resistance | 1 | 62 Cal. 2d 250. Judgments aggregating $5,360,000 affirmed on inverse-condemnation theory. Archive: [`1965-albers-v-county-la-supreme-court.md`](../../../Cove/docs/archive/originals/city-records/litigation/1965-albers-v-county-la-supreme-court.md); Synthesis: [`cove-case-law-lessons`](../../../Brain/wiki/cove-case-law-lessons.md) R9 |
+| *Stuart v. City of Rancho Palos Verdes* — SCOTUS cert petition | 1994 | Geology, Regulation & Resistance | 2 | Filed May 31, 1994 (October Term 1993). Pro Per. Question 5 raised secret-meeting / collusion vector. Source: [`coac-rpv-scotus-petitions`](../../../Brain/wiki/coac-rpv-scotus-petitions.md) |
+| *Echevarrieta v. City of Rancho Palos Verdes* — SCOTUS cert petition | 2001 | Geology, Regulation & Resistance | 2 | Filed June 19, 2001. Counseled (Robert Hampton Rogers, Sullivan, Workman & Dee LLP). View-ordinance takings argument. Source: [`coac-rpv-scotus-petitions`](../../../Brain/wiki/coac-rpv-scotus-petitions.md) |
+| *Monks v. City of Rancho Palos Verdes* — CA Court of Appeal | 2008 | Geology, Regulation & Resistance | 2 | 167 Cal. App. 4th 263. Upheld RPV landslide-moratorium framework. Source: [`cove-case-law-lessons`](../../../Brain/wiki/cove-case-law-lessons.md) R11 |
+| RPV 2018 General Plan + Safety Element adopted | 2018 | Modern Era | 2 | September 2018. Palos Verdes Fault Mw 7.3 / MMI XI at 0.691g PGA. Landslide Inventory Figure 3. Fire Hazard Severity Zone Figure 1. Coastal Cliff Retreat §5.9 validates Dec. One-A 40-ft bluff setback. Source: [`cove-rpv-safety-element-2018`](../../../Brain/wiki/cove-rpv-safety-element-2018.md) |
+| *Colyear v. Rolling Hills Community Assn* — CA Court of Appeal | 2024 | Modern Era | 1 | Case B308382, March 1, 2024, certified for partial publication. Controls chain-of-title rule for PV Corp master declarations. Source: [`cove-colyear-2024`](../../../Brain/wiki/cove-colyear-2024.md) |
+| Landslide moratorium made permanent | 2025 | Modern Era | 2 | Per [`cove-pvplc-partnership`](../../../Brain/wiki/cove-pvplc-partnership.md) timeline. Ordinance or resolution text — **open source thread**, confirm before publication |
+
+### Tier upgrades (existing entries)
+
+| Entry | Year | Change | Rationale |
+|-------|------|--------|-----------|
+| The Landslide | 1956 | Tier 2 → upgrade expand content | Cite 2018 Safety Element §5.3 language: "most studied and publicized landslide in the area, and perhaps in the Los Angeles Basin." Upper boundary under debate (Valley View Graben vs. Dibblee 1999). 1956 trigger = 175,000 cu yd grading fill in the Crenshaw extension easement per *Albers* (1965) record |
+| Coastal Specific Plan | 1978 | Tier 2 → add internal synthesis link | Link to [`cove-coastal-specific-plan-s4`](../../../Brain/wiki/cove-coastal-specific-plan-s4.md) + [`cove-rpv-planning-framework-2026`](../../../Brain/wiki/cove-rpv-planning-framework-2026.md) for Subregion 4 operational framework |
+
+### Citations pending verification (do not publish until resolved)
+
+- **"Carlsbad, April 2026"** CC&R ruling referenced in abalonecove.org design spec §12 — open contradiction **OC-1** in [`cove-lessons-learned`](../../../Brain/wiki/cove-lessons-learned.md). If/when resolved, add as a timeline entry with proper citation.
+- **RPV 2024 HE 6th-cycle adoption** (April 16, 2024) — staff report in archive but **HCD certification status is open contradiction OC-4**. Entry should be added at Tier 2 once certification status is confirmed.
+
+---
 
 ## Entry Changes from Current Timeline
 

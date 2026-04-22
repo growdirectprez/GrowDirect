@@ -1,0 +1,39 @@
+#!/usr/bin/env bash
+# GrowDirect pre-commit hook.
+#
+# Lints staged Brain wiki articles for required frontmatter fields
+# (last-compiled, needs-review). Run by git automatically on `git commit`.
+#
+# Install: ./devops/git-hooks/install.sh
+# Bypass:  git commit --no-verify
+set -euo pipefail
+
+repo_root="$(git rev-parse --show-toplevel)"
+cd "$repo_root"
+
+# Collect staged wiki articles (added or modified, not deleted).
+# bash-3 compatible (macOS default bash is 3.2, no `mapfile`).
+staged=()
+while IFS= read -r line; do
+  [ -n "$line" ] && staged+=("$line")
+done < <(
+  git diff --cached --name-only --diff-filter=AM \
+    | grep -E '^Brain/wiki/.*\.md$' || true
+)
+
+if [[ ${#staged[@]} -eq 0 ]]; then
+  exit 0
+fi
+
+if ! command -v python3 >/dev/null 2>&1; then
+  echo "pre-commit: python3 not found; skipping wiki lint" >&2
+  exit 0
+fi
+
+if ! python3 content-engine/engine.py lint "${staged[@]}"; then
+  echo
+  echo "pre-commit: wiki frontmatter lint failed."
+  echo "  Fix:    python3 content-engine/engine.py lint --all --fix"
+  echo "  Bypass: git commit --no-verify"
+  exit 1
+fi
