@@ -1,7 +1,7 @@
 {
-  "generated": "2026-04-20T01:04:58.978811+00:00",
-  "article_count": 122,
-  "topic_count": 1972,
+  "generated": "2026-04-22T02:51:34.878724+00:00",
+  "article_count": 129,
+  "topic_count": 2045,
   "articles": [
     {
       "path": "Brain/wiki/501c-advocacy-arm.md",
@@ -6536,6 +6536,298 @@
       "type": "wiki"
     },
     {
+      "path": "Brain/wiki/secure-architecture.md",
+      "title": "Secure Architecture",
+      "summary": "Secure was a five-layer enterprise web application on the Microsoft .NET + SQL Server stack: client SPA → ASP.NET MVC presentation → Dynamic Messaging Service → .NET service layer (Data Service Host) ",
+      "tags": [
+        "secure",
+        "architecture",
+        "appriss",
+        "sso",
+        "saml",
+        "oidc",
+        "factory",
+        "delivery-process",
+        "canary-lineage"
+      ],
+      "keywords": [
+        "2018",
+        "accounts",
+        "appriss",
+        "architecture",
+        "canary",
+        "canary-lineage",
+        "configurations",
+        "connect",
+        "crdm",
+        "delivery",
+        "delivery-process",
+        "deployment",
+        "details",
+        "development",
+        "environments",
+        "factory",
+        "identity:",
+        "oidc",
+        "openid",
+        "permissions",
+        "persistence",
+        "physical",
+        "process",
+        "reference",
+        "related",
+        "saml",
+        "secure",
+        "server",
+        "sources",
+        "sso",
+        "stores",
+        "summary",
+        "teaches",
+        "test",
+        "this",
+        "tiers",
+        "what"
+      ],
+      "type": "wiki"
+    },
+    {
+      "path": "Brain/wiki/secure-client-kroger.md",
+      "title": "Secure Client: Kroger",
+      "summary": "The Kroger archive spans **two distinct engagements separated by 16 years**: the 2001 Kroger Retek Procurement CRP (a PwC-led ERP rollout for DC-to-store merchandising on Retek RMS) and the 2017 Kroge",
+      "tags": [
+        "secure",
+        "kroger",
+        "retail",
+        "loss-prevention",
+        "client-implementation",
+        "retek",
+        "ebr",
+        "dsd",
+        "canary-lineage"
+      ],
+      "keywords": [
+        "2001",
+        "2017",
+        "archive",
+        "artifacts",
+        "canary",
+        "canary-lineage",
+        "client",
+        "client-implementation",
+        "client:",
+        "delivery",
+        "details",
+        "direct",
+        "dsd",
+        "ebr",
+        "engagement",
+        "extension",
+        "files",
+        "implementation",
+        "ingested",
+        "kroger",
+        "loss-prevention",
+        "procurement",
+        "related",
+        "replacement",
+        "retail",
+        "retek",
+        "secure",
+        "sources",
+        "store",
+        "summary",
+        "teaches",
+        "this",
+        "what"
+      ],
+      "type": "wiki"
+    },
+    {
+      "path": "Brain/wiki/secure-lite.md",
+      "title": "Secure Lite",
+      "summary": "Secure Lite (Oct 2018, proposed by Geoff Lyle) was a **simplified configuration** of Secure Store — not a separate codebase. Same engine, stripped config surface, pre-baked risk dictionary + Instant A",
+      "tags": [
+        "secure",
+        "secure-lite",
+        "appriss",
+        "smb",
+        "product-variant",
+        "canary-lineage"
+      ],
+      "keywords": [
+        "appriss",
+        "canary",
+        "canary-lineage",
+        "capability",
+        "details",
+        "existed",
+        "lite",
+        "product-variant",
+        "related",
+        "removed",
+        "role",
+        "secure",
+        "secure-lite",
+        "sheet",
+        "smb",
+        "sources",
+        "summary",
+        "teaches",
+        "this",
+        "three",
+        "what",
+        "what's"
+      ],
+      "type": "wiki"
+    },
+    {
+      "path": "Brain/wiki/secure-omnichannel.md",
+      "title": "Secure Omnichannel",
+      "summary": "Secure Omnichannel (Fall 2018) extended Secure from in-store post-transaction analytics into **ecommerce loss prevention** — the risk areas that open up after the \"buy\" button for retailers with multi",
+      "tags": [
+        "secure",
+        "omnichannel",
+        "appriss",
+        "ecommerce",
+        "bopis",
+        "boris",
+        "fraud-detection",
+        "canary-lineage"
+      ],
+      "keywords": [
+        "appriss",
+        "bopis",
+        "boris",
+        "canary",
+        "canary-lineage",
+        "data",
+        "details",
+        "ecommerce",
+        "flow",
+        "fraud",
+        "fraud-detection",
+        "fulfillment",
+        "inbound",
+        "kroger",
+        "omnichannel",
+        "order",
+        "outbound",
+        "problem",
+        "related",
+        "requirements",
+        "retail",
+        "secure",
+        "sources",
+        "specification",
+        "summary",
+        "surfaces",
+        "taxonomy",
+        "teaches",
+        "this",
+        "v1.1",
+        "what",
+        "workbook"
+      ],
+      "type": "wiki"
+    },
+    {
+      "path": "Brain/wiki/secure-platform-overview.md",
+      "title": "Secure Platform Overview",
+      "summary": "Secure was the Appriss Retail loss-prevention platform (2010s–2019), deployed on-premise at enterprise retailers. It ingested POS transaction data, applied exception-based reporting and case-managemen",
+      "tags": [
+        "secure",
+        "appriss",
+        "retail",
+        "loss-prevention",
+        "product-line",
+        "canary-lineage"
+      ],
+      "keywords": [
+        "2018",
+        "appriss",
+        "architecture",
+        "canary",
+        "canary-lineage",
+        "crdm",
+        "details",
+        "identity",
+        "line",
+        "loss",
+        "loss-prevention",
+        "model",
+        "modules",
+        "operator",
+        "overview",
+        "persistence",
+        "platform",
+        "prevention",
+        "problem",
+        "product",
+        "product-line",
+        "related",
+        "retail",
+        "role",
+        "secure",
+        "shape",
+        "sources",
+        "specialists",
+        "standard",
+        "stores",
+        "summary",
+        "teaches",
+        "this",
+        "three",
+        "what"
+      ],
+      "type": "wiki"
+    },
+    {
+      "path": "Brain/wiki/secure-retail-career-archive.md",
+      "title": "Pre-Secure Retail Career Archive",
+      "summary": "Index of client folders in `/Users/gclyle/secure/PROJECTS/` and their era classification. Sprint 1 does **not** ingest these — content is either pre-Secure (IBM / PwC / JDA / Retek consulting, 2001–20",
+      "tags": [
+        "secure",
+        "retail-career",
+        "ibm-consulting",
+        "pwc",
+        "appriss",
+        "archive-stub",
+        "nas-indexing-future"
+      ],
+      "keywords": [
+        "actually",
+        "appriss",
+        "archive",
+        "archive-stub",
+        "career",
+        "clients",
+        "consulting",
+        "content",
+        "deferred",
+        "details",
+        "empty",
+        "future",
+        "ibm-consulting",
+        "indexing",
+        "lives",
+        "locally",
+        "nas-indexing-future",
+        "populated",
+        "pwc",
+        "related",
+        "retail",
+        "retail-career",
+        "secure",
+        "sources",
+        "sprint",
+        "summary",
+        "where",
+        "work"
+      ],
+      "type": "wiki"
+    },
+    {
       "path": "Brain/wiki/south-bay-wiki-architecture.md",
       "title": "South Bay Wiki — Content Architecture",
       "summary": "**Wiki:** [[Brain/projects/Angel|Angel]]",
@@ -6894,6 +7186,16 @@
       "tags": [],
       "keywords": [
         "seacove"
+      ],
+      "type": "project-moc"
+    },
+    {
+      "path": "Brain/projects/Secure.md",
+      "title": "Secure",
+      "summary": "status: archive-active",
+      "tags": [],
+      "keywords": [
+        "secure"
       ],
       "type": "project-moc"
     }
@@ -7301,6 +7603,10 @@
       {
         "path": "Brain/wiki/coac-rpv-scotus-petitions.md",
         "title": "COAC: RPV-Resident SCOTUS Petitions (1994, 1990s, 2001)"
+      },
+      {
+        "path": "Brain/wiki/secure-client-kroger.md",
+        "title": "Secure Client: Kroger"
       }
     ],
     "2003": [
@@ -7361,6 +7667,22 @@
       {
         "path": "Brain/wiki/coac-pv-endangered-species.md",
         "title": "COAC: Palos Verdes Endangered Species & Habitat — Scientific Foundation"
+      }
+    ],
+    "2017": [
+      {
+        "path": "Brain/wiki/secure-client-kroger.md",
+        "title": "Secure Client: Kroger"
+      }
+    ],
+    "2018": [
+      {
+        "path": "Brain/wiki/secure-architecture.md",
+        "title": "Secure Architecture"
+      },
+      {
+        "path": "Brain/wiki/secure-platform-overview.md",
+        "title": "Secure Platform Overview"
       }
     ],
     "2021": [
@@ -7869,6 +8191,12 @@
         "title": "Community History"
       }
     ],
+    "accounts": [
+      {
+        "path": "Brain/wiki/secure-architecture.md",
+        "title": "Secure Architecture"
+      }
+    ],
     "acknowledgement": [
       {
         "path": "Brain/wiki/foundation-blockchain-proof-layer.md",
@@ -7987,6 +8315,10 @@
       {
         "path": "Brain/wiki/peninsula-kids-water.md",
         "title": "Kids Water Activities — Palos Verdes Peninsula & South Bay"
+      },
+      {
+        "path": "Brain/wiki/secure-retail-career-archive.md",
+        "title": "Pre-Secure Retail Career Archive"
       }
     ],
     "additional": [
@@ -8963,6 +9295,28 @@
         "title": "Community of Abalone Cove (formerly WPBCA) — Third-Director Recruitment"
       }
     ],
+    "appriss": [
+      {
+        "path": "Brain/wiki/secure-architecture.md",
+        "title": "Secure Architecture"
+      },
+      {
+        "path": "Brain/wiki/secure-lite.md",
+        "title": "Secure Lite"
+      },
+      {
+        "path": "Brain/wiki/secure-omnichannel.md",
+        "title": "Secure Omnichannel"
+      },
+      {
+        "path": "Brain/wiki/secure-platform-overview.md",
+        "title": "Secure Platform Overview"
+      },
+      {
+        "path": "Brain/wiki/secure-retail-career-archive.md",
+        "title": "Pre-Secure Retail Career Archive"
+      }
+    ],
     "approach": [
       {
         "path": "Brain/wiki/coac-15-owner-network.md",
@@ -9077,6 +9431,14 @@
         "title": "25 Seacove Drive — Project Overview"
       },
       {
+        "path": "Brain/wiki/secure-architecture.md",
+        "title": "Secure Architecture"
+      },
+      {
+        "path": "Brain/wiki/secure-platform-overview.md",
+        "title": "Secure Platform Overview"
+      },
+      {
         "path": "Brain/wiki/south-bay-wiki-architecture.md",
         "title": "South Bay Wiki — Content Architecture"
       },
@@ -9089,6 +9451,20 @@
       {
         "path": "Brain/wiki/angel-content-archive-index.md",
         "title": "Angel Content Archive — Index & Catalog Plan"
+      },
+      {
+        "path": "Brain/wiki/secure-client-kroger.md",
+        "title": "Secure Client: Kroger"
+      },
+      {
+        "path": "Brain/wiki/secure-retail-career-archive.md",
+        "title": "Pre-Secure Retail Career Archive"
+      }
+    ],
+    "archive-stub": [
+      {
+        "path": "Brain/wiki/secure-retail-career-archive.md",
+        "title": "Pre-Secure Retail Career Archive"
       }
     ],
     "archives": [
@@ -9247,6 +9623,10 @@
       {
         "path": "Brain/wiki/document-management.md",
         "title": "Document Management Strategy"
+      },
+      {
+        "path": "Brain/wiki/secure-client-kroger.md",
+        "title": "Secure Client: Kroger"
       }
     ],
     "arts": [
@@ -9859,6 +10239,18 @@
         "title": "Peninsula School Guide — Content Pool (Raw)"
       }
     ],
+    "bopis": [
+      {
+        "path": "Brain/wiki/secure-omnichannel.md",
+        "title": "Secure Omnichannel"
+      }
+    ],
+    "boris": [
+      {
+        "path": "Brain/wiki/secure-omnichannel.md",
+        "title": "Secure Omnichannel"
+      }
+    ],
     "both": [
       {
         "path": "Brain/wiki/wpbca-ocean-path-easement.md",
@@ -10301,8 +10693,50 @@
         "title": "Foundation Three-Hat Compensation Model"
       },
       {
+        "path": "Brain/wiki/secure-architecture.md",
+        "title": "Secure Architecture"
+      },
+      {
+        "path": "Brain/wiki/secure-client-kroger.md",
+        "title": "Secure Client: Kroger"
+      },
+      {
+        "path": "Brain/wiki/secure-lite.md",
+        "title": "Secure Lite"
+      },
+      {
+        "path": "Brain/wiki/secure-omnichannel.md",
+        "title": "Secure Omnichannel"
+      },
+      {
+        "path": "Brain/wiki/secure-platform-overview.md",
+        "title": "Secure Platform Overview"
+      },
+      {
         "path": "Brain/projects/Canary.md",
         "title": "Canary"
+      }
+    ],
+    "canary-lineage": [
+      {
+        "path": "Brain/wiki/secure-architecture.md",
+        "title": "Secure Architecture"
+      },
+      {
+        "path": "Brain/wiki/secure-client-kroger.md",
+        "title": "Secure Client: Kroger"
+      },
+      {
+        "path": "Brain/wiki/secure-lite.md",
+        "title": "Secure Lite"
+      },
+      {
+        "path": "Brain/wiki/secure-omnichannel.md",
+        "title": "Secure Omnichannel"
+      },
+      {
+        "path": "Brain/wiki/secure-platform-overview.md",
+        "title": "Secure Platform Overview"
       }
     ],
     "candidate": [
@@ -10339,6 +10773,12 @@
       {
         "path": "Brain/wiki/coac-rm-22-incompatibility.md",
         "title": "RM-22 Incompatibility — Peninsula Precedent Record"
+      }
+    ],
+    "capability": [
+      {
+        "path": "Brain/wiki/secure-lite.md",
+        "title": "Secure Lite"
       }
     ],
     "card": [
@@ -10403,6 +10843,12 @@
       {
         "path": "Brain/wiki/wpbca-compliance-framework.md",
         "title": "Community of Abalone Cove (formerly WPBCA) Compliance Framework — MOC"
+      }
+    ],
+    "career": [
+      {
+        "path": "Brain/wiki/secure-retail-career-archive.md",
+        "title": "Pre-Secure Retail Career Archive"
       }
     ],
     "carve": [
@@ -11069,6 +11515,28 @@
       {
         "path": "Brain/wiki/angel-voice-training.md",
         "title": "Angel Voice Training"
+      },
+      {
+        "path": "Brain/wiki/secure-client-kroger.md",
+        "title": "Secure Client: Kroger"
+      }
+    ],
+    "client-implementation": [
+      {
+        "path": "Brain/wiki/secure-client-kroger.md",
+        "title": "Secure Client: Kroger"
+      }
+    ],
+    "client:": [
+      {
+        "path": "Brain/wiki/secure-client-kroger.md",
+        "title": "Secure Client: Kroger"
+      }
+    ],
+    "clients": [
+      {
+        "path": "Brain/wiki/secure-retail-career-archive.md",
+        "title": "Pre-Secure Retail Career Archive"
       }
     ],
     "clipper": [
@@ -11931,6 +12399,12 @@
         "title": "15-Owner Network — Parcel Identification and Owner Recruitment"
       }
     ],
+    "configurations": [
+      {
+        "path": "Brain/wiki/secure-architecture.md",
+        "title": "Secure Architecture"
+      }
+    ],
     "confirm": [
       {
         "path": "Brain/wiki/coac-negative-space-lot-h-boundary.md",
@@ -11983,6 +12457,10 @@
       {
         "path": "Brain/wiki/angel-ninja-selling.md",
         "title": "Ninja Selling — Sales Methodology for Angel"
+      },
+      {
+        "path": "Brain/wiki/secure-architecture.md",
+        "title": "Secure Architecture"
       }
     ],
     "connection": [
@@ -12075,6 +12553,12 @@
       {
         "path": "Brain/wiki/abalonecove-org.md",
         "title": "abalonecove.org"
+      }
+    ],
+    "consulting": [
+      {
+        "path": "Brain/wiki/secure-retail-career-archive.md",
+        "title": "Pre-Secure Retail Career Archive"
       }
     ],
     "contains": [
@@ -12231,6 +12715,10 @@
       {
         "path": "Brain/wiki/seacove-arc-module.md",
         "title": "Seacove → Cove ARC Module"
+      },
+      {
+        "path": "Brain/wiki/secure-retail-career-archive.md",
+        "title": "Pre-Secure Retail Career Archive"
       },
       {
         "path": "Brain/wiki/south-bay-wiki-architecture.md",
@@ -13047,6 +13535,14 @@
       {
         "path": "Brain/wiki/canary-data-model.md",
         "title": "Canary Data Model"
+      },
+      {
+        "path": "Brain/wiki/secure-architecture.md",
+        "title": "Secure Architecture"
+      },
+      {
+        "path": "Brain/wiki/secure-platform-overview.md",
+        "title": "Secure Platform Overview"
       }
     ],
     "cream": [
@@ -13423,6 +13919,10 @@
       {
         "path": "Brain/wiki/cove-zone2-geotech-2011.md",
         "title": "Zone 2 Geotechnical Study (LGC Valley, 2011)"
+      },
+      {
+        "path": "Brain/wiki/secure-omnichannel.md",
+        "title": "Secure Omnichannel"
       }
     ],
     "data-pipeline": [
@@ -13859,6 +14359,10 @@
       {
         "path": "Brain/wiki/foundation-umbrella-alx.md",
         "title": "Foundation — Umbrella ALX (Parking)"
+      },
+      {
+        "path": "Brain/wiki/secure-retail-career-archive.md",
+        "title": "Pre-Secure Retail Career Archive"
       }
     ],
     "definition": [
@@ -13875,6 +14379,22 @@
       {
         "path": "Brain/wiki/document-management.md",
         "title": "Document Management Strategy"
+      }
+    ],
+    "delivery": [
+      {
+        "path": "Brain/wiki/secure-architecture.md",
+        "title": "Secure Architecture"
+      },
+      {
+        "path": "Brain/wiki/secure-client-kroger.md",
+        "title": "Secure Client: Kroger"
+      }
+    ],
+    "delivery-process": [
+      {
+        "path": "Brain/wiki/secure-architecture.md",
+        "title": "Secure Architecture"
       }
     ],
     "demand": [
@@ -13917,6 +14437,12 @@
       {
         "path": "Brain/wiki/501c-advocacy-arm.md",
         "title": "501(c)(4) Advocacy Arm — New Entity Decision (Parking)"
+      }
+    ],
+    "deployment": [
+      {
+        "path": "Brain/wiki/secure-architecture.md",
+        "title": "Secure Architecture"
       }
     ],
     "describe": [
@@ -14025,6 +14551,30 @@
       {
         "path": "Brain/wiki/card-yogasix-rolling-hills.md",
         "title": "YogaSix Rolling Hills"
+      },
+      {
+        "path": "Brain/wiki/secure-architecture.md",
+        "title": "Secure Architecture"
+      },
+      {
+        "path": "Brain/wiki/secure-client-kroger.md",
+        "title": "Secure Client: Kroger"
+      },
+      {
+        "path": "Brain/wiki/secure-lite.md",
+        "title": "Secure Lite"
+      },
+      {
+        "path": "Brain/wiki/secure-omnichannel.md",
+        "title": "Secure Omnichannel"
+      },
+      {
+        "path": "Brain/wiki/secure-platform-overview.md",
+        "title": "Secure Platform Overview"
+      },
+      {
+        "path": "Brain/wiki/secure-retail-career-archive.md",
+        "title": "Pre-Secure Retail Career Archive"
       }
     ],
     "detection": [
@@ -14087,6 +14637,10 @@
       {
         "path": "Brain/wiki/peninsula-tennis-pickleball.md",
         "title": "Tennis & Pickleball — Palos Verdes Peninsula"
+      },
+      {
+        "path": "Brain/wiki/secure-architecture.md",
+        "title": "Secure Architecture"
       }
     ],
     "development-pressure": [
@@ -14223,6 +14777,10 @@
       {
         "path": "Brain/wiki/coac-rpv-scotus-petitions.md",
         "title": "COAC: RPV-Resident SCOTUS Petitions (1994, 1990s, 2001)"
+      },
+      {
+        "path": "Brain/wiki/secure-client-kroger.md",
+        "title": "Secure Client: Kroger"
       }
     ],
     "director": [
@@ -14571,6 +15129,12 @@
         "title": "Peninsula School Guide — Content Pool (Raw)"
       }
     ],
+    "dsd": [
+      {
+        "path": "Brain/wiki/secure-client-kroger.md",
+        "title": "Secure Client: Kroger"
+      }
+    ],
     "dtic": [
       {
         "path": "Brain/wiki/coac-1967-portuguese-bend-clay-mineralogy.md",
@@ -14697,6 +15261,12 @@
         "title": "COAC: 1984 GP Amendment 14 — Eastview Annexation (Jurisdictional-Continuity Precedent)"
       }
     ],
+    "ebr": [
+      {
+        "path": "Brain/wiki/secure-client-kroger.md",
+        "title": "Secure Client: Kroger"
+      }
+    ],
     "echevarrieta": [
       {
         "path": "Brain/wiki/coac-rpv-scotus-petitions.md",
@@ -14707,6 +15277,12 @@
       {
         "path": "Brain/wiki/cove-lrpmp.md",
         "title": "RPV Long-Range Property Management Plan (LRPMP)"
+      }
+    ],
+    "ecommerce": [
+      {
+        "path": "Brain/wiki/secure-omnichannel.md",
+        "title": "Secure Omnichannel"
       }
     ],
     "economics": [
@@ -14821,6 +15397,10 @@
       {
         "path": "Brain/wiki/angel-peninsula-equestrian-guide.md",
         "title": "Peninsula Equestrian Guide — Content Pool (Raw, Stub)"
+      },
+      {
+        "path": "Brain/wiki/secure-retail-career-archive.md",
+        "title": "Pre-Secure Retail Career Archive"
       }
     ],
     "enables": [
@@ -14865,6 +15445,12 @@
       {
         "path": "Brain/wiki/cove-lot-h-discovery.md",
         "title": "Lot H Discovery"
+      }
+    ],
+    "engagement": [
+      {
+        "path": "Brain/wiki/secure-client-kroger.md",
+        "title": "Secure Client: Kroger"
       }
     ],
     "engine": [
@@ -14991,6 +15577,12 @@
       {
         "path": "Brain/wiki/cove-city-positions.md",
         "title": "City Positions Cross-Reference"
+      }
+    ],
+    "environments": [
+      {
+        "path": "Brain/wiki/secure-architecture.md",
+        "title": "Secure Architecture"
       }
     ],
     "equestrian": [
@@ -15395,6 +15987,10 @@
       {
         "path": "Brain/wiki/cove-lrpmp.md",
         "title": "RPV Long-Range Property Management Plan (LRPMP)"
+      },
+      {
+        "path": "Brain/wiki/secure-lite.md",
+        "title": "Secure Lite"
       }
     ],
     "existing": [
@@ -15483,6 +16079,12 @@
       {
         "path": "Brain/wiki/coac-negative-space-lot-h-boundary.md",
         "title": "Negative-Space Lot H Boundary — Technical Description"
+      }
+    ],
+    "extension": [
+      {
+        "path": "Brain/wiki/secure-client-kroger.md",
+        "title": "Secure Client: Kroger"
       }
     ],
     "external": [
@@ -15589,6 +16191,12 @@
       {
         "path": "Brain/wiki/cove-zone2-geotech-2011.md",
         "title": "Zone 2 Geotechnical Study (LGC Valley, 2011)"
+      }
+    ],
+    "factory": [
+      {
+        "path": "Brain/wiki/secure-architecture.md",
+        "title": "Secure Architecture"
       }
     ],
     "facts": [
@@ -15849,6 +16457,10 @@
       {
         "path": "Brain/wiki/cove-1976-pvp-development-pressure.md",
         "title": "1976 Palos Verdes Properties Development Pressure — The 50-Year Pattern"
+      },
+      {
+        "path": "Brain/wiki/secure-client-kroger.md",
+        "title": "Secure Client: Kroger"
       }
     ],
     "filings": [
@@ -16061,6 +16673,10 @@
       {
         "path": "Brain/wiki/foundation-time-logging-policy.md",
         "title": "Foundation Time Logging Policy"
+      },
+      {
+        "path": "Brain/wiki/secure-omnichannel.md",
+        "title": "Secure Omnichannel"
       }
     ],
     "foot:": [
@@ -16379,6 +16995,18 @@
         "title": "Peninsula School Guide — Content Pool (Raw)"
       }
     ],
+    "fraud": [
+      {
+        "path": "Brain/wiki/secure-omnichannel.md",
+        "title": "Secure Omnichannel"
+      }
+    ],
+    "fraud-detection": [
+      {
+        "path": "Brain/wiki/secure-omnichannel.md",
+        "title": "Secure Omnichannel"
+      }
+    ],
     "freshness": [
       {
         "path": "Brain/wiki/angel-content-engine.md",
@@ -16521,6 +17149,12 @@
         "title": "Ice Cream & Frozen Treats — Palos Verdes Peninsula & South Bay"
       }
     ],
+    "fulfillment": [
+      {
+        "path": "Brain/wiki/secure-omnichannel.md",
+        "title": "Secure Omnichannel"
+      }
+    ],
     "full": [
       {
         "path": "Brain/wiki/angel-1926-pv-estates-brochure.md",
@@ -16579,6 +17213,10 @@
       {
         "path": "Brain/wiki/angel-content-engine.md",
         "title": "Angel Content Engine"
+      },
+      {
+        "path": "Brain/wiki/secure-retail-career-archive.md",
+        "title": "Pre-Secure Retail Career Archive"
       }
     ],
     "future:": [
@@ -17557,6 +18195,12 @@
         "title": "Foundation Blockchain Proof Layer"
       }
     ],
+    "ibm-consulting": [
+      {
+        "path": "Brain/wiki/secure-retail-career-archive.md",
+        "title": "Pre-Secure Retail Career Archive"
+      }
+    ],
     "ice": [
       {
         "path": "Brain/wiki/peninsula-ice-cream.md",
@@ -17651,6 +18295,16 @@
       {
         "path": "Brain/wiki/angel-valmonte-raw.md",
         "title": "Valmonte — Content Pool (Raw)"
+      },
+      {
+        "path": "Brain/wiki/secure-platform-overview.md",
+        "title": "Secure Platform Overview"
+      }
+    ],
+    "identity:": [
+      {
+        "path": "Brain/wiki/secure-architecture.md",
+        "title": "Secure Architecture"
       }
     ],
     "iii:": [
@@ -17707,6 +18361,10 @@
       {
         "path": "Brain/wiki/cove-pvplc-partnership.md",
         "title": "PVPLC — Partnership for Sub Region 4 Implementation"
+      },
+      {
+        "path": "Brain/wiki/secure-client-kroger.md",
+        "title": "Secure Client: Kroger"
       },
       {
         "path": "Brain/wiki/south-bay-wiki-architecture.md",
@@ -17767,6 +18425,12 @@
         "title": "Peninsula School Guide — Content Pool (Raw)"
       }
     ],
+    "inbound": [
+      {
+        "path": "Brain/wiki/secure-omnichannel.md",
+        "title": "Secure Omnichannel"
+      }
+    ],
     "income": [
       {
         "path": "Brain/wiki/angel-ninja-selling.md",
@@ -17809,6 +18473,12 @@
         "title": "Angel Content Archive — Index & Catalog Plan"
       }
     ],
+    "indexing": [
+      {
+        "path": "Brain/wiki/secure-retail-career-archive.md",
+        "title": "Pre-Secure Retail Career Archive"
+      }
+    ],
     "informal": [
       {
         "path": "Brain/wiki/coac-aclad-partnership.md",
@@ -17829,6 +18499,12 @@
       {
         "path": "Brain/wiki/document-management.md",
         "title": "Document Management Strategy"
+      }
+    ],
+    "ingested": [
+      {
+        "path": "Brain/wiki/secure-client-kroger.md",
+        "title": "Secure Client: Kroger"
       }
     ],
     "ingestion": [
@@ -18331,6 +19007,16 @@
       {
         "path": "Brain/wiki/coac-pv-endangered-species.md",
         "title": "COAC: Palos Verdes Endangered Species & Habitat — Scientific Foundation"
+      }
+    ],
+    "kroger": [
+      {
+        "path": "Brain/wiki/secure-client-kroger.md",
+        "title": "Secure Client: Kroger"
+      },
+      {
+        "path": "Brain/wiki/secure-omnichannel.md",
+        "title": "Secure Omnichannel"
       }
     ],
     "k–12": [
@@ -18943,6 +19629,10 @@
       {
         "path": "Brain/wiki/angel-content-archive-index.md",
         "title": "Angel Content Archive — Index & Catalog Plan"
+      },
+      {
+        "path": "Brain/wiki/secure-platform-overview.md",
+        "title": "Secure Platform Overview"
       }
     ],
     "lineage": [
@@ -19025,6 +19715,12 @@
         "title": "Angel Data Platform"
       }
     ],
+    "lite": [
+      {
+        "path": "Brain/wiki/secure-lite.md",
+        "title": "Secure Lite"
+      }
+    ],
     "litigation": [
       {
         "path": "Brain/wiki/coac-rpv-scotus-petitions.md",
@@ -19089,6 +19785,10 @@
     ],
     "lives": [
       {
+        "path": "Brain/wiki/secure-retail-career-archive.md",
+        "title": "Pre-Secure Retail Career Archive"
+      },
+      {
         "path": "Brain/wiki/south-bay-wiki-architecture.md",
         "title": "South Bay Wiki — Content Architecture"
       }
@@ -19121,6 +19821,12 @@
       {
         "path": "Brain/wiki/cove-city-positions.md",
         "title": "City Positions Cross-Reference"
+      }
+    ],
+    "locally": [
+      {
+        "path": "Brain/wiki/secure-retail-career-archive.md",
+        "title": "Pre-Secure Retail Career Archive"
       }
     ],
     "location": [
@@ -19223,6 +19929,12 @@
         "title": "Peninsula Golf Guide — Content Pool (Raw, Stub)"
       }
     ],
+    "loss": [
+      {
+        "path": "Brain/wiki/secure-platform-overview.md",
+        "title": "Secure Platform Overview"
+      }
+    ],
     "loss-prevention": [
       {
         "path": "Brain/wiki/canary-detection.md",
@@ -19231,6 +19943,14 @@
       {
         "path": "Brain/wiki/canary-platform-overview.md",
         "title": "Canary — Platform Overview"
+      },
+      {
+        "path": "Brain/wiki/secure-client-kroger.md",
+        "title": "Secure Client: Kroger"
+      },
+      {
+        "path": "Brain/wiki/secure-platform-overview.md",
+        "title": "Secure Platform Overview"
       }
     ],
     "lot": [
@@ -20001,6 +20721,10 @@
         "title": "Foundation Three-Hat Compensation Model"
       },
       {
+        "path": "Brain/wiki/secure-platform-overview.md",
+        "title": "Secure Platform Overview"
+      },
+      {
         "path": "Brain/wiki/south-bay-wiki-architecture.md",
         "title": "South Bay Wiki — Content Architecture"
       }
@@ -20051,6 +20775,10 @@
       {
         "path": "Brain/wiki/cove-platform.md",
         "title": "Cove Platform Development"
+      },
+      {
+        "path": "Brain/wiki/secure-platform-overview.md",
+        "title": "Secure Platform Overview"
       }
     ],
     "molluscan": [
@@ -20307,6 +21035,12 @@
       {
         "path": "Brain/wiki/foundation-legal-framework.md",
         "title": "Foundation Legal Framework — MOC"
+      }
+    ],
+    "nas-indexing-future": [
+      {
+        "path": "Brain/wiki/secure-retail-career-archive.md",
+        "title": "Pre-Secure Retail Career Archive"
       }
     ],
     "national": [
@@ -20993,6 +21727,12 @@
         "title": "Foundation Bylaws"
       }
     ],
+    "oidc": [
+      {
+        "path": "Brain/wiki/secure-architecture.md",
+        "title": "Secure Architecture"
+      }
+    ],
     "olmsted": [
       {
         "path": "Brain/wiki/abalonecove-org.md",
@@ -21009,6 +21749,12 @@
       {
         "path": "Brain/wiki/cove-vanderlip-memoir.md",
         "title": "Vanderlip's Memoir — In His Own Words"
+      }
+    ],
+    "omnichannel": [
+      {
+        "path": "Brain/wiki/secure-omnichannel.md",
+        "title": "Secure Omnichannel"
       }
     ],
     "onion": [
@@ -21143,6 +21889,12 @@
         "title": "Angel Content Engine"
       }
     ],
+    "openid": [
+      {
+        "path": "Brain/wiki/secure-architecture.md",
+        "title": "Secure Architecture"
+      }
+    ],
     "operating": [
       {
         "path": "Brain/wiki/angel-content-engine.md",
@@ -21205,6 +21957,12 @@
         "title": "Community of Abalone Cove (formerly WPBCA) Compliance Framework — MOC"
       }
     ],
+    "operator": [
+      {
+        "path": "Brain/wiki/secure-platform-overview.md",
+        "title": "Secure Platform Overview"
+      }
+    ],
     "opposition": [
       {
         "path": "Brain/wiki/coac-yimby-opposition-landscape.md",
@@ -21259,6 +22017,12 @@
       {
         "path": "Brain/wiki/foundation-umbrella-alx.md",
         "title": "Foundation — Umbrella ALX (Parking)"
+      }
+    ],
+    "order": [
+      {
+        "path": "Brain/wiki/secure-omnichannel.md",
+        "title": "Secure Omnichannel"
       }
     ],
     "ordinance": [
@@ -21375,6 +22139,12 @@
         "title": "Foundation Three-Hat Compensation Model"
       }
     ],
+    "outbound": [
+      {
+        "path": "Brain/wiki/secure-omnichannel.md",
+        "title": "Secure Omnichannel"
+      }
+    ],
     "outcome": [
       {
         "path": "Brain/wiki/foundation-blockchain-proof-layer.md",
@@ -21445,6 +22215,10 @@
       {
         "path": "Brain/wiki/seacove-project.md",
         "title": "25 Seacove Drive — Project Overview"
+      },
+      {
+        "path": "Brain/wiki/secure-platform-overview.md",
+        "title": "Secure Platform Overview"
       }
     ],
     "owner": [
@@ -22083,6 +22857,12 @@
         "title": "Foundation Time Logging Policy"
       }
     ],
+    "permissions": [
+      {
+        "path": "Brain/wiki/secure-architecture.md",
+        "title": "Secure Architecture"
+      }
+    ],
     "permit": [
       {
         "path": "Brain/wiki/seacove-project.md",
@@ -22097,6 +22877,16 @@
       {
         "path": "Brain/wiki/seacove-project.md",
         "title": "25 Seacove Drive — Project Overview"
+      }
+    ],
+    "persistence": [
+      {
+        "path": "Brain/wiki/secure-architecture.md",
+        "title": "Secure Architecture"
+      },
+      {
+        "path": "Brain/wiki/secure-platform-overview.md",
+        "title": "Secure Platform Overview"
       }
     ],
     "person": [
@@ -22211,6 +23001,10 @@
       {
         "path": "Brain/wiki/cove-zone2-geotech-2011.md",
         "title": "Zone 2 Geotechnical Study (LGC Valley, 2011)"
+      },
+      {
+        "path": "Brain/wiki/secure-architecture.md",
+        "title": "Secure Architecture"
       }
     ],
     "pickleball": [
@@ -22393,6 +23187,10 @@
       {
         "path": "Brain/wiki/growdirect-workflow.md",
         "title": "GrowDirect Workflow"
+      },
+      {
+        "path": "Brain/wiki/secure-platform-overview.md",
+        "title": "Secure Platform Overview"
       },
       {
         "path": "Brain/wiki/wpbca-payments-platform.md",
@@ -22631,6 +23429,12 @@
       {
         "path": "Brain/wiki/angel-peninsula-sports-guide.md",
         "title": "Peninsula Sports Guide — Content Pool (Raw)"
+      }
+    ],
+    "populated": [
+      {
+        "path": "Brain/wiki/secure-retail-career-archive.md",
+        "title": "Pre-Secure Retail Career Archive"
       }
     ],
     "portuguese": [
@@ -22901,6 +23705,12 @@
         "title": "1976 Palos Verdes Properties Development Pressure — The 50-Year Pattern"
       }
     ],
+    "prevention": [
+      {
+        "path": "Brain/wiki/secure-platform-overview.md",
+        "title": "Secure Platform Overview"
+      }
+    ],
     "price": [
       {
         "path": "Brain/wiki/angel-market-intelligence.md",
@@ -23075,6 +23885,14 @@
       {
         "path": "Brain/wiki/cove-declaration-100.md",
         "title": "Declaration No. 100 — General Plan of Restrictions"
+      },
+      {
+        "path": "Brain/wiki/secure-omnichannel.md",
+        "title": "Secure Omnichannel"
+      },
+      {
+        "path": "Brain/wiki/secure-platform-overview.md",
+        "title": "Secure Platform Overview"
       }
     ],
     "problem:": [
@@ -23123,6 +23941,16 @@
       {
         "path": "Brain/wiki/foundation-blockchain-proof-layer.md",
         "title": "Foundation Blockchain Proof Layer"
+      },
+      {
+        "path": "Brain/wiki/secure-architecture.md",
+        "title": "Secure Architecture"
+      }
+    ],
+    "procurement": [
+      {
+        "path": "Brain/wiki/secure-client-kroger.md",
+        "title": "Secure Client: Kroger"
       }
     ],
     "produce": [
@@ -23149,6 +23977,22 @@
       {
         "path": "Brain/wiki/angel-ninja-selling.md",
         "title": "Ninja Selling — Sales Methodology for Angel"
+      },
+      {
+        "path": "Brain/wiki/secure-platform-overview.md",
+        "title": "Secure Platform Overview"
+      }
+    ],
+    "product-line": [
+      {
+        "path": "Brain/wiki/secure-platform-overview.md",
+        "title": "Secure Platform Overview"
+      }
+    ],
+    "product-variant": [
+      {
+        "path": "Brain/wiki/secure-lite.md",
+        "title": "Secure Lite"
       }
     ],
     "production": [
@@ -23707,6 +24551,12 @@
       {
         "path": "Brain/wiki/angel-peninsula-sports-guide.md",
         "title": "Peninsula Sports Guide — Content Pool (Raw)"
+      }
+    ],
+    "pwc": [
+      {
+        "path": "Brain/wiki/secure-retail-career-archive.md",
+        "title": "Pre-Secure Retail Career Archive"
       }
     ],
     "qualification": [
@@ -24399,6 +25249,10 @@
       {
         "path": "Brain/wiki/seacove-arc-module.md",
         "title": "Seacove → Cove ARC Module"
+      },
+      {
+        "path": "Brain/wiki/secure-architecture.md",
+        "title": "Secure Architecture"
       }
     ],
     "referenced": [
@@ -24865,6 +25719,30 @@
         "title": "25 Seacove Drive — Project Overview"
       },
       {
+        "path": "Brain/wiki/secure-architecture.md",
+        "title": "Secure Architecture"
+      },
+      {
+        "path": "Brain/wiki/secure-client-kroger.md",
+        "title": "Secure Client: Kroger"
+      },
+      {
+        "path": "Brain/wiki/secure-lite.md",
+        "title": "Secure Lite"
+      },
+      {
+        "path": "Brain/wiki/secure-omnichannel.md",
+        "title": "Secure Omnichannel"
+      },
+      {
+        "path": "Brain/wiki/secure-platform-overview.md",
+        "title": "Secure Platform Overview"
+      },
+      {
+        "path": "Brain/wiki/secure-retail-career-archive.md",
+        "title": "Pre-Secure Retail Career Archive"
+      },
+      {
         "path": "Brain/wiki/south-bay-wiki-architecture.md",
         "title": "South Bay Wiki — Content Architecture"
       },
@@ -24963,6 +25841,12 @@
         "title": "City Positions Cross-Reference"
       }
     ],
+    "removed": [
+      {
+        "path": "Brain/wiki/secure-lite.md",
+        "title": "Secure Lite"
+      }
+    ],
     "renewal": [
       {
         "path": "Brain/wiki/cove-lot-h-discovery.md",
@@ -24979,6 +25863,12 @@
       {
         "path": "Brain/wiki/angel-client-reviews.md",
         "title": "Angelique Lyle — Client Reviews"
+      }
+    ],
+    "replacement": [
+      {
+        "path": "Brain/wiki/secure-client-kroger.md",
+        "title": "Secure Client: Kroger"
       }
     ],
     "repo": [
@@ -25029,6 +25919,10 @@
       {
         "path": "Brain/wiki/peninsula-kids-water.md",
         "title": "Kids Water Activities — Palos Verdes Peninsula & South Bay"
+      },
+      {
+        "path": "Brain/wiki/secure-omnichannel.md",
+        "title": "Secure Omnichannel"
       }
     ],
     "rescue": [
@@ -25325,6 +26219,34 @@
       {
         "path": "Brain/wiki/angel-eastview-raw.md",
         "title": "Eastview — Content Pool (Raw)"
+      },
+      {
+        "path": "Brain/wiki/secure-client-kroger.md",
+        "title": "Secure Client: Kroger"
+      },
+      {
+        "path": "Brain/wiki/secure-omnichannel.md",
+        "title": "Secure Omnichannel"
+      },
+      {
+        "path": "Brain/wiki/secure-platform-overview.md",
+        "title": "Secure Platform Overview"
+      },
+      {
+        "path": "Brain/wiki/secure-retail-career-archive.md",
+        "title": "Pre-Secure Retail Career Archive"
+      }
+    ],
+    "retail-career": [
+      {
+        "path": "Brain/wiki/secure-retail-career-archive.md",
+        "title": "Pre-Secure Retail Career Archive"
+      }
+    ],
+    "retek": [
+      {
+        "path": "Brain/wiki/secure-client-kroger.md",
+        "title": "Secure Client: Kroger"
       }
     ],
     "retention": [
@@ -25545,6 +26467,14 @@
       {
         "path": "Brain/wiki/foundation-blockchain-proof-layer.md",
         "title": "Foundation Blockchain Proof Layer"
+      },
+      {
+        "path": "Brain/wiki/secure-lite.md",
+        "title": "Secure Lite"
+      },
+      {
+        "path": "Brain/wiki/secure-platform-overview.md",
+        "title": "Secure Platform Overview"
       },
       {
         "path": "Brain/wiki/wpbca-ocean-path-easement.md",
@@ -25847,6 +26777,12 @@
         "title": "Trustee Slate — Preparation and Vetting"
       }
     ],
+    "saml": [
+      {
+        "path": "Brain/wiki/secure-architecture.md",
+        "title": "Secure Architecture"
+      }
+    ],
     "san-pedro": [
       {
         "path": "Brain/wiki/angel-south-shores-raw.md",
@@ -26107,6 +27043,42 @@
         "title": "Foundation Bylaws"
       }
     ],
+    "secure": [
+      {
+        "path": "Brain/wiki/secure-architecture.md",
+        "title": "Secure Architecture"
+      },
+      {
+        "path": "Brain/wiki/secure-client-kroger.md",
+        "title": "Secure Client: Kroger"
+      },
+      {
+        "path": "Brain/wiki/secure-lite.md",
+        "title": "Secure Lite"
+      },
+      {
+        "path": "Brain/wiki/secure-omnichannel.md",
+        "title": "Secure Omnichannel"
+      },
+      {
+        "path": "Brain/wiki/secure-platform-overview.md",
+        "title": "Secure Platform Overview"
+      },
+      {
+        "path": "Brain/wiki/secure-retail-career-archive.md",
+        "title": "Pre-Secure Retail Career Archive"
+      },
+      {
+        "path": "Brain/projects/Secure.md",
+        "title": "Secure"
+      }
+    ],
+    "secure-lite": [
+      {
+        "path": "Brain/wiki/secure-lite.md",
+        "title": "Secure Lite"
+      }
+    ],
     "security": [
       {
         "path": "Brain/wiki/canary-platform-overview.md",
@@ -26235,6 +27207,12 @@
         "title": "Baughey Article — Rancho Palos Verdes 1784–1947"
       }
     ],
+    "server": [
+      {
+        "path": "Brain/wiki/secure-architecture.md",
+        "title": "Secure Architecture"
+      }
+    ],
     "service": [
       {
         "path": "Brain/wiki/angel-pv-dr-north-raw.md",
@@ -26313,6 +27291,12 @@
         "title": "Document Management Strategy"
       }
     ],
+    "shape": [
+      {
+        "path": "Brain/wiki/secure-platform-overview.md",
+        "title": "Secure Platform Overview"
+      }
+    ],
     "shapes": [
       {
         "path": "Brain/wiki/angel-peninsula-sports-guide.md",
@@ -26343,6 +27327,10 @@
       {
         "path": "Brain/wiki/coac-rpv-housing-elements.md",
         "title": "COAC: RPV Housing Elements (1990, 2001) — Annotated for Cove"
+      },
+      {
+        "path": "Brain/wiki/secure-lite.md",
+        "title": "Secure Lite"
       }
     ],
     "sheets": [
@@ -26675,6 +27663,12 @@
         "title": "Foundation — Umbrella ALX (Parking)"
       }
     ],
+    "smb": [
+      {
+        "path": "Brain/wiki/secure-lite.md",
+        "title": "Secure Lite"
+      }
+    ],
     "smeared": [
       {
         "path": "Brain/wiki/coac-negative-space-lot-h-boundary.md",
@@ -26931,6 +27925,30 @@
       {
         "path": "Brain/wiki/growdirect-workflow.md",
         "title": "GrowDirect Workflow"
+      },
+      {
+        "path": "Brain/wiki/secure-architecture.md",
+        "title": "Secure Architecture"
+      },
+      {
+        "path": "Brain/wiki/secure-client-kroger.md",
+        "title": "Secure Client: Kroger"
+      },
+      {
+        "path": "Brain/wiki/secure-lite.md",
+        "title": "Secure Lite"
+      },
+      {
+        "path": "Brain/wiki/secure-omnichannel.md",
+        "title": "Secure Omnichannel"
+      },
+      {
+        "path": "Brain/wiki/secure-platform-overview.md",
+        "title": "Secure Platform Overview"
+      },
+      {
+        "path": "Brain/wiki/secure-retail-career-archive.md",
+        "title": "Pre-Secure Retail Career Archive"
       }
     ],
     "sourcing": [
@@ -27029,6 +28047,12 @@
         "title": "Community of Abalone Cove (formerly WPBCA) — Third-Director Recruitment"
       }
     ],
+    "specialists": [
+      {
+        "path": "Brain/wiki/secure-platform-overview.md",
+        "title": "Secure Platform Overview"
+      }
+    ],
     "species": [
       {
         "path": "Brain/wiki/coac-pv-endangered-species.md",
@@ -27075,6 +28099,12 @@
         "title": "Foundation Blockchain Proof Layer"
       }
     ],
+    "specification": [
+      {
+        "path": "Brain/wiki/secure-omnichannel.md",
+        "title": "Secure Omnichannel"
+      }
+    ],
     "spine": [
       {
         "path": "Brain/wiki/south-bay-wiki-architecture.md",
@@ -27115,6 +28145,10 @@
       {
         "path": "Brain/wiki/angel-content-engine.md",
         "title": "Angel Content Engine"
+      },
+      {
+        "path": "Brain/wiki/secure-retail-career-archive.md",
+        "title": "Pre-Secure Retail Career Archive"
       }
     ],
     "spur": [
@@ -27155,6 +28189,12 @@
       {
         "path": "Brain/wiki/canary-platform-overview.md",
         "title": "Canary — Platform Overview"
+      }
+    ],
+    "sso": [
+      {
+        "path": "Brain/wiki/secure-architecture.md",
+        "title": "Secure Architecture"
       }
     ],
     "stabilization": [
@@ -27217,6 +28257,12 @@
       {
         "path": "Brain/wiki/angel-listing-process.md",
         "title": "Angel Listing Process"
+      }
+    ],
+    "standard": [
+      {
+        "path": "Brain/wiki/secure-platform-overview.md",
+        "title": "Secure Platform Overview"
       }
     ],
     "start": [
@@ -27423,6 +28469,22 @@
       {
         "path": "Brain/wiki/angel-ninja-selling.md",
         "title": "Ninja Selling — Sales Methodology for Angel"
+      }
+    ],
+    "store": [
+      {
+        "path": "Brain/wiki/secure-client-kroger.md",
+        "title": "Secure Client: Kroger"
+      }
+    ],
+    "stores": [
+      {
+        "path": "Brain/wiki/secure-architecture.md",
+        "title": "Secure Architecture"
+      },
+      {
+        "path": "Brain/wiki/secure-platform-overview.md",
+        "title": "Secure Platform Overview"
       }
     ],
     "story": [
@@ -27807,6 +28869,30 @@
       {
         "path": "Brain/wiki/foundation-time-logging-policy.md",
         "title": "Foundation Time Logging Policy"
+      },
+      {
+        "path": "Brain/wiki/secure-architecture.md",
+        "title": "Secure Architecture"
+      },
+      {
+        "path": "Brain/wiki/secure-client-kroger.md",
+        "title": "Secure Client: Kroger"
+      },
+      {
+        "path": "Brain/wiki/secure-lite.md",
+        "title": "Secure Lite"
+      },
+      {
+        "path": "Brain/wiki/secure-omnichannel.md",
+        "title": "Secure Omnichannel"
+      },
+      {
+        "path": "Brain/wiki/secure-platform-overview.md",
+        "title": "Secure Platform Overview"
+      },
+      {
+        "path": "Brain/wiki/secure-retail-career-archive.md",
+        "title": "Pre-Secure Retail Career Archive"
       }
     ],
     "summer": [
@@ -27883,6 +28969,10 @@
       {
         "path": "Brain/wiki/angel-content-engine.md",
         "title": "Angel Content Engine"
+      },
+      {
+        "path": "Brain/wiki/secure-omnichannel.md",
+        "title": "Secure Omnichannel"
       }
     ],
     "surfing": [
@@ -28035,6 +29125,12 @@
         "title": "Vanderlip's Memoir — In His Own Words"
       }
     ],
+    "taxonomy": [
+      {
+        "path": "Brain/wiki/secure-omnichannel.md",
+        "title": "Secure Omnichannel"
+      }
+    ],
     "taxpayers": [
       {
         "path": "Brain/wiki/coac-aclad-partnership.md",
@@ -28045,6 +29141,28 @@
       {
         "path": "Brain/wiki/card-coach-ken-taylor.md",
         "title": "Coach Ken Taylor — Junior Lifeguard Prep"
+      }
+    ],
+    "teaches": [
+      {
+        "path": "Brain/wiki/secure-architecture.md",
+        "title": "Secure Architecture"
+      },
+      {
+        "path": "Brain/wiki/secure-client-kroger.md",
+        "title": "Secure Client: Kroger"
+      },
+      {
+        "path": "Brain/wiki/secure-lite.md",
+        "title": "Secure Lite"
+      },
+      {
+        "path": "Brain/wiki/secure-omnichannel.md",
+        "title": "Secure Omnichannel"
+      },
+      {
+        "path": "Brain/wiki/secure-platform-overview.md",
+        "title": "Secure Platform Overview"
       }
     ],
     "team": [
@@ -28207,6 +29325,10 @@
       {
         "path": "Brain/wiki/peninsula-youth-sports-summer.md",
         "title": "Youth Sports, Summer & Enrichment — Palos Verdes Peninsula"
+      },
+      {
+        "path": "Brain/wiki/secure-architecture.md",
+        "title": "Secure Architecture"
       }
     ],
     "testimonials": [
@@ -28455,6 +29577,26 @@
         "title": "Seacove → Cove ARC Module"
       },
       {
+        "path": "Brain/wiki/secure-architecture.md",
+        "title": "Secure Architecture"
+      },
+      {
+        "path": "Brain/wiki/secure-client-kroger.md",
+        "title": "Secure Client: Kroger"
+      },
+      {
+        "path": "Brain/wiki/secure-lite.md",
+        "title": "Secure Lite"
+      },
+      {
+        "path": "Brain/wiki/secure-omnichannel.md",
+        "title": "Secure Omnichannel"
+      },
+      {
+        "path": "Brain/wiki/secure-platform-overview.md",
+        "title": "Secure Platform Overview"
+      },
+      {
         "path": "Brain/wiki/wpbca-compliance-framework.md",
         "title": "Community of Abalone Cove (formerly WPBCA) Compliance Framework — MOC"
       },
@@ -28543,6 +29685,14 @@
       {
         "path": "Brain/wiki/foundation-three-hat-compensation.md",
         "title": "Foundation Three-Hat Compensation Model"
+      },
+      {
+        "path": "Brain/wiki/secure-lite.md",
+        "title": "Secure Lite"
+      },
+      {
+        "path": "Brain/wiki/secure-platform-overview.md",
+        "title": "Secure Platform Overview"
       }
     ],
     "three-hat": [
@@ -28609,6 +29759,12 @@
       {
         "path": "Brain/wiki/angel-riviera-village-raw.md",
         "title": "Riviera Village — Content Pool (Raw)"
+      }
+    ],
+    "tiers": [
+      {
+        "path": "Brain/wiki/secure-architecture.md",
+        "title": "Secure Architecture"
       }
     ],
     "tight": [
@@ -29263,6 +30419,12 @@
       {
         "path": "Brain/wiki/cove-vanderlip-memoir.md",
         "title": "Vanderlip's Memoir — In His Own Words"
+      }
+    ],
+    "v1.1": [
+      {
+        "path": "Brain/wiki/secure-omnichannel.md",
+        "title": "Secure Omnichannel"
       }
     ],
     "validation": [
@@ -30005,6 +31167,26 @@
         "title": "Seacove → Cove ARC Module"
       },
       {
+        "path": "Brain/wiki/secure-architecture.md",
+        "title": "Secure Architecture"
+      },
+      {
+        "path": "Brain/wiki/secure-client-kroger.md",
+        "title": "Secure Client: Kroger"
+      },
+      {
+        "path": "Brain/wiki/secure-lite.md",
+        "title": "Secure Lite"
+      },
+      {
+        "path": "Brain/wiki/secure-omnichannel.md",
+        "title": "Secure Omnichannel"
+      },
+      {
+        "path": "Brain/wiki/secure-platform-overview.md",
+        "title": "Secure Platform Overview"
+      },
+      {
         "path": "Brain/wiki/south-bay-wiki-architecture.md",
         "title": "South Bay Wiki — Content Architecture"
       },
@@ -30025,6 +31207,10 @@
       {
         "path": "Brain/wiki/abalonecove-org.md",
         "title": "abalonecove.org"
+      },
+      {
+        "path": "Brain/wiki/secure-lite.md",
+        "title": "Secure Lite"
       }
     ],
     "when": [
@@ -30045,6 +31231,10 @@
       {
         "path": "Brain/wiki/document-management.md",
         "title": "Document Management Strategy"
+      },
+      {
+        "path": "Brain/wiki/secure-retail-career-archive.md",
+        "title": "Pre-Secure Retail Career Archive"
       },
       {
         "path": "Brain/wiki/south-bay-wiki-architecture.md",
@@ -30179,6 +31369,16 @@
       {
         "path": "Brain/wiki/growdirect-workflow.md",
         "title": "GrowDirect Workflow"
+      },
+      {
+        "path": "Brain/wiki/secure-retail-career-archive.md",
+        "title": "Pre-Secure Retail Career Archive"
+      }
+    ],
+    "workbook": [
+      {
+        "path": "Brain/wiki/secure-omnichannel.md",
+        "title": "Secure Omnichannel"
       }
     ],
     "workflow": [
