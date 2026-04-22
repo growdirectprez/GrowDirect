@@ -5,6 +5,8 @@ tags: [angel, card]
 sources: []
 last-compiled: <% tp.date.now("YYYY-MM-DD") %>
 needs-review: <% tp.date.now("YYYY-MM-DD", 14) %>
+method-role: Research
+method-stage: research
 ---
 
 

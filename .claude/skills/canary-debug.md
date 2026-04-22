@@ -1,5 +1,6 @@
 ---
 name: canary-debug
+roles-primary: [Jeremy]
 description: |
   Systematic debugging for Canary. Use when encountering any bug, test failure,
   or unexpected behavior — before proposing fixes. Four-phase root cause

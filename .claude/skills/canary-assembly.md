@@ -1,5 +1,8 @@
 ---
 name: canary-assembly
+roles-primary: [Jeremy]
+roles-assist: [Tom]
+stage: assembly
 description: |
   Factory Process plan execution. Use when you have a written implementation plan
   to execute. Loads context, enforces Guardian on protected files, runs smoke tests

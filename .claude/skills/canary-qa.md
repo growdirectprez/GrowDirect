@@ -1,5 +1,8 @@
 ---
 name: canary-qa
+roles-primary: [Compliance]
+roles-assist: [Jim]
+stage: qa
 description: |
   Diff-aware QA testing for Canary. Use when asked to "qa", "test this", "verify
   the branch", "check what changed", or before shipping. Four modes: diff-aware

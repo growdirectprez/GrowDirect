@@ -1,5 +1,8 @@
 ---
 name: canary-blueprint
+roles-primary: [Tom]
+roles-assist: [ALX]
+stage: blueprint
 description: |
   Factory Process plan-writing skill. Use when you have a spec, requirements,
   GRO issue, or Jeffe directive for a multi-step task — before touching code.

@@ -1,5 +1,8 @@
 ---
 name: canary-tdd
+roles-primary: [Jeremy]
+roles-assist: [Tom]
+stage: tdd
 description: |
   Test-driven development for Canary. Use when implementing any feature or bugfix,
   before writing implementation code. RED-GREEN-REFACTOR with data integrity

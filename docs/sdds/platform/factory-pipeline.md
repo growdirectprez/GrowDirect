@@ -5,8 +5,10 @@
 > **Namespace:** platform
 > **Code location:** `factory-manifest.json`, `.claude/skills/factory-*.md`
 > **Companion:** [[docs/sdds/platform/skill-architecture|Skill Architecture]] — skill taxonomy, eval strategy, layer tagging
+> **Author role:** [[Canary/docs/profiles/ops/Tom|Tom]] · **Operator role:** [[Canary/docs/profiles/ops/ALX|ALX]]
 
 **Wiki:** [[Brain/wiki/growdirect-workflow|GrowDirect Workflow]] · [[Brain/wiki/document-management|Document Management]]
+**Method:** [[Brain/projects/Method|Method MOC]] · [[Brain/projects/Factory|Factory MOC]]
 **Related:** [[docs/sdds/platform/shared-infrastructure|Shared Infrastructure]] · [[docs/sdds/platform/memory-bus|Memory Bus]]
 
 ---

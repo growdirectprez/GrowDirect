@@ -1,5 +1,7 @@
 ---
 name: cove-assembly
+roles-primary: [Jeremy]
+stage: assembly
 description: |
   Execute implementation plans for Cove. Use when you have a written plan to
   execute. Loads context, runs smoke tests between tasks, stops when blocked.

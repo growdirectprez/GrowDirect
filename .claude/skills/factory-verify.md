@@ -1,5 +1,8 @@
 ---
 name: factory-verify
+roles-primary: [Jeremy]
+roles-assist: [Jim]
+stage: verify
 description: |
   Full test suite execution and regression detection. Runs all tests, checks migration validity, confirms no regressions from assembly.
 ---

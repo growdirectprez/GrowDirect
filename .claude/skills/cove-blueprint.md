@@ -1,5 +1,8 @@
 ---
 name: cove-blueprint
+roles-primary: [Tom]
+roles-assist: [ALX]
+stage: blueprint
 description: |
   Factory Process plan-writing skill for Cove governance platform. Use when you
   have a GRO issue or Jeffe directive for a multi-step task — before touching

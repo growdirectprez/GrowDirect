@@ -1,5 +1,8 @@
 ---
 name: factory-research
+roles-primary: [Research]
+roles-assist: [Tom]
+stage: research
 description: |
   Prior art gathering before blueprint. Queries memory bus for decisions and
   domain context, optionally queries GitNexus for blast radius, Obsidian for

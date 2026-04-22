@@ -1,5 +1,8 @@
 ---
 name: factory-close
+roles-primary: [ALX]
+roles-assist: [Eva, Jess]
+stage: close
 description: |
   Session teardown. Session summary, pending items flagged, new issues created for out-of-scope work, post-mortem for shipping sessions.
 ---

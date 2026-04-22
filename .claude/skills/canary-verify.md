@@ -1,5 +1,8 @@
 ---
 name: canary-verify
+roles-primary: [Jeremy]
+roles-assist: [Jim]
+stage: verify
 description: |
   Verification before completion. Use before claiming work is complete, fixed,
   or passing — before committing or creating PRs. Evidence before assertions.

@@ -1,5 +1,8 @@
 ---
 name: canary-close
+roles-primary: [ALX]
+roles-assist: [Eva]
+stage: close
 description: |
   Session teardown for Canary development. Updates Linear issues, stores findings
   to ALX pgvector memory, writes timelog, and confirms with Jeffe. Use when:

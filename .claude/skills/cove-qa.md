@@ -1,5 +1,8 @@
 ---
 name: cove-qa
+roles-primary: [Compliance]
+roles-assist: [Jim]
+stage: qa
 description: |
   QA testing for Cove. Use when asked to test, verify a branch, or before
   shipping. Diff-aware route testing with governance checks and structured reports.

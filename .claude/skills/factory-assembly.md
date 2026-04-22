@@ -1,5 +1,8 @@
 ---
 name: factory-assembly
+roles-primary: [Jeremy]
+roles-assist: [Tom]
+stage: assembly
 description: |
   Incremental implementation of blueprint tasks. One task at a time, test after each, smoke test at end, commit per logical unit.
 ---

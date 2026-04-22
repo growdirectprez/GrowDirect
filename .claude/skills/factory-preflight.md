@@ -1,5 +1,8 @@
 ---
 name: factory-preflight
+roles-primary: [ALX]
+roles-assist: [Eva]
+stage: preflight
 description: |
   Infrastructure health checks and context loading before any factory stage.
   Replaces factory-startup. Runs red/yellow/green checks on Docker, PostgreSQL,

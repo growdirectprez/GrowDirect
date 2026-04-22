@@ -1,5 +1,8 @@
 ---
 name: cove-close
+roles-primary: [ALX]
+roles-assist: [Eva]
+stage: close
 description: |
   Session close for Cove development. Run at the end of every session before
   closing. Ensures all work is committed, tests pass, and main is up to date.
