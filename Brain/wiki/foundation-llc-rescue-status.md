@@ -2,8 +2,10 @@
 type: wiki
 tags: [foundation, cove, llc, entity, rescue, compensation, advisory-synthesis]
 created: 2026-04-19
-sources: [Cove/docs/advisor-memos/2026-04-19-comprehensive-review.md]
+sources: [Brain/raw/processed/advisor-memos/2026-04-19-comprehensive-review.md]
 status: draft
+last-compiled: 2026-04-19
+needs-review: 2026-05-03
 ---
 
 # LLC Rescue Status (Existing California LLC)

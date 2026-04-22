@@ -5,6 +5,7 @@ status: active
 tags: [angel, architecture, cove-module, sidecar, infrastructure]
 sources: [docs/sdds/angel/angel-overview.md, docs/sdds/angel/angel-agent.md, docs/sdds/angel/execution-plan.md, Cove/cove/angel/, docs/decisions/2026-04-06-angel-as-cove-module.md]
 last-compiled: 2026-04-13
+needs-review: 2026-04-27
 ---
 
 # Angel Architecture

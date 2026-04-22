@@ -5,6 +5,7 @@ status: raw-pool
 tags: [angel, neighborhood, country-club, rpv, content-pool, golf]
 sources: [WebSearch, D'Amico RE, BCRE, Haynes RE, TripAdvisor, Yelp, RPV city site]
 last-compiled: 2026-04-13
+needs-review: 2026-04-27
 ---
 
 # Country Club — Content Pool (Raw)

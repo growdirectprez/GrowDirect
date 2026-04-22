@@ -5,6 +5,7 @@ status: raw-pool
 tags: [angel, neighborhood, valmonte, pve, content-pool]
 sources: [WebSearch, Stroyke Properties, Redfin, PV Source, GreatSchools, AllTrails, PVE city site]
 last-compiled: 2026-04-13
+needs-review: 2026-04-27
 ---
 
 # Valmonte — Content Pool (Raw)

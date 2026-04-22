@@ -7,6 +7,8 @@ sources:
   - Cove/docs/archive/originals/city-records/general-plan/2001-housing-element.pdf
 status: source-document-summary
 visibility: public
+last-compiled: 2026-04-19
+needs-review: 2026-05-03
 ---
 
 # COAC: RPV Housing Elements (1990, 2001) — Annotated for Cove
@@ -79,6 +81,10 @@ Both are quotable in any Restated Declaration recital framing the moratorium as 
 - [[cove-0-clipper]] — current Builder's Remedy battlefield, contradicted by 2001 HE position
 - [[coac-reactivation-framework]] — strategic Restated Declaration framing
 - [[cove-zone2-geotech-2011]] — current landslide-area characterization
+
+## 2026-04-19 synthesis update
+
+The 6th-cycle Housing Element (2024 adoption, 2021–2029 planning period) + the 2024 Builder's Remedy pressure are now synthesized alongside the 1975 GP and 2018 Safety Element in [[cove-rpv-planning-framework-2026]] — the current operational picture of what binds Tract 14649. The "not buildable" posture documented in this article remains citable; *Monks v. City of Rancho Palos Verdes* (2008) upholds the moratorium framework (see [[cove-case-law-lessons]] R11). The housing-law vs private-CC&R separation is captured as Rule R8/R14 in [[cove-case-law-lessons]].
 
 ## Open Research Threads
 

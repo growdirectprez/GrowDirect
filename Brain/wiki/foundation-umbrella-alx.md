@@ -4,6 +4,8 @@ tags: [foundation, cove, alx, orchestration, architecture, parking, deferred]
 created: 2026-04-19
 sources: [user message 2026-04-19]
 status: parking
+last-compiled: 2026-04-19
+needs-review: 2026-05-03
 ---
 
 # Foundation — Umbrella ALX (Parking)

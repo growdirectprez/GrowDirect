@@ -5,6 +5,7 @@ status: active
 tags: [angel, buyer, process, compass, escrow, financing]
 sources: [Angel/Compass Content - Angelique Lyle/Print Material/Angelique-Lyle---2026-Buyers-Guide.pdf]
 last-compiled: 2026-04-13
+needs-review: 2026-04-27
 ---
 
 # Angel Buyer Process

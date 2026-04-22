@@ -4,6 +4,7 @@ type: wiki
 tags: [canary, architecture, mcp, services]
 sources: [Canary/docs/atlas/INDEX.md, Canary/canary/services/, Canary/canary/blueprints/]
 last-compiled: 2026-04-10
+needs-review: 2026-04-24
 ---
 
 # Canary Architecture

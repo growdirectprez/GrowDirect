@@ -5,6 +5,7 @@ status: raw-pool
 tags: [angel, neighborhood, los-verdes, rpv, content-pool, golf]
 sources: [WebSearch, Neighborhoods.com, Rubyhome, PV Source, TripAdvisor, Yelp, RPV city site, Los Verdes GC]
 last-compiled: 2026-04-13
+needs-review: 2026-04-27
 ---
 
 # Los Verdes — Content Pool (Raw)

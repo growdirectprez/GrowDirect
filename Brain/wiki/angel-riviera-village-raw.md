@@ -5,6 +5,7 @@ status: raw-pool
 tags: [angel, lifestyle, riviera-village, redondo-beach, south-bay, tier-2, dining, shopping]
 sources: [WebSearch, Riviera Village net, Yelp, OpenTable, Easy Reader, BeachLife, RBUSD, South Bay Residential]
 last-compiled: 2026-04-13
+needs-review: 2026-04-27
 ---
 
 # Riviera Village — Content Pool (Raw)

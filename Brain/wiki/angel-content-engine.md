@@ -5,6 +5,7 @@ status: active
 tags: [angel, content-engine, voice, crawl, wiki, seo, kanban, open-house]
 sources: [docs/sdds/angel/web-strategy.md, Brain/wiki/south-bay-wiki-architecture.md, Cove/cove/angel/crawl.py, Cove/cove/angel/voice_overlays.py, Cove/cove/angel/seed_content.py]
 last-compiled: 2026-04-13
+needs-review: 2026-04-27
 ---
 
 # Angel Content Engine

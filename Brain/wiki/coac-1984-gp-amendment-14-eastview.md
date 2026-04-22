@@ -7,6 +7,8 @@ sources:
   - Cove/docs/archive/originals/city-records/general-plan/eastview-1984/1984-gp-amendment-14-eastview-hocr.html
 status: source-document-summary
 visibility: public
+last-compiled: 2026-04-19
+needs-review: 2026-05-03
 ---
 
 # COAC: 1984 GP Amendment 14 — Eastview Annexation (Jurisdictional-Continuity Precedent)

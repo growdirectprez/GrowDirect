@@ -5,6 +5,7 @@ status: raw-pool
 tags: [angel, neighborhood, pv-dr-south, rpv, content-pool, luxury, terranea, trump-national, landslide]
 sources: [WebSearch, PV Source, South Bay Residential, Rubyhome, Prestige Team, Terranea, Trump National, RPV city site]
 last-compiled: 2026-04-13
+needs-review: 2026-04-27
 ---
 
 # PV Drive South — Content Pool (Raw)

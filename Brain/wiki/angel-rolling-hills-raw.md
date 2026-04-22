@@ -5,6 +5,7 @@ status: raw-pool
 tags: [angel, city, rolling-hills, gated, equestrian, estate, content-pool]
 sources: [WebSearch, City of Rolling Hills, RHCA, Wikipedia, PVPUSD, TripAdvisor, PCCH]
 last-compiled: 2026-04-13
+needs-review: 2026-04-27
 ---
 
 # Rolling Hills — Content Pool (Raw)

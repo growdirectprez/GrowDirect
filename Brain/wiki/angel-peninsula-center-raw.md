@@ -5,6 +5,7 @@ status: raw-pool
 tags: [angel, neighborhood, peninsula-center, rpv, content-pool, walkable, shopping]
 sources: [WebSearch, BCRE, PV Source, Compass, Peninsula Shopping Center, Promenade PV, GreatSchools]
 last-compiled: 2026-04-13
+needs-review: 2026-04-27
 ---
 
 # Peninsula Center — Content Pool (Raw)

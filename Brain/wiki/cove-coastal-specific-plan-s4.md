@@ -3,6 +3,8 @@ type: wiki
 tags: [cove, abalonecove, coastal-plan, subregion-4, 0-clipper, rpv, regulatory]
 created: 2026-04-18
 sources: [abalonecove/docs/coastal-plan/1978-coastal-specific-plan-subregion4-urban-verbatim.md, abalonecove/images/Coastal_Specific_Plan/, Cove/docs/archive/report/section-06-coastal-regulation.md]
+last-compiled: 2026-04-19
+needs-review: 2026-05-03
 ---
 
 # Coastal Specific Plan — Subregion 4

@@ -5,6 +5,7 @@ status: raw-pool
 tags: [angel, neighborhood, pv-dr-north, rpv, content-pool]
 sources: [WebSearch, NeighborhoodScout, Compass, Redfin, TripAdvisor, Yelp, RPV city site, PVPUSD]
 last-compiled: 2026-04-13
+needs-review: 2026-04-27
 ---
 
 # PV Drive North — Content Pool (Raw)

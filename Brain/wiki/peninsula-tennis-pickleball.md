@@ -4,6 +4,8 @@ type: wiki
 status: published
 tags: [angel, lifestyle, tennis, pickleball, peninsula, sports, content-pool]
 aliases: [tennis clubs, pickleball courts, racquet sports]
+last-compiled: 2026-04-15
+needs-review: 2026-04-29
 ---
 
 # Tennis & Pickleball — Palos Verdes Peninsula

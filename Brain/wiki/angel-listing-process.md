@@ -5,6 +5,7 @@ status: active
 tags: [angel, listing, seller, marketing, staging, compass, pricing]
 sources: [Angel/Compass Content - Angelique Lyle/2025/Angelique-Lyle---2025-Listing-Presentation-2025-02-13T20_3A55_3A43.586Z.pdf]
 last-compiled: 2026-04-13
+needs-review: 2026-04-27
 ---
 
 # Angel Listing Process

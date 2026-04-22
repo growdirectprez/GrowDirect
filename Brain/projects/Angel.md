@@ -94,17 +94,33 @@ DB holds facts (APN, price, DOM). Wiki holds intelligence (neighborhood characte
 - [[Brain/wiki/angel-transaction-timeline|Transaction Timeline]] — escrow roadmaps, checklists
 - [[Brain/wiki/angel-compass-concierge|Compass Concierge]] — pre-sale renovation financing
 - [[Brain/wiki/angel-brand-and-team|Brand & Team]] — AREA roster, credentials, marketing
+- [[Brain/wiki/angel-client-reviews|Client Reviews]] — Google/Zillow testimonials (voice calibration source)
 
 ### Neighborhood Profiles (19 articles)
 
 Each covers: character, price positioning, DOM, schools, lifestyle, key selling angles. Named `angel-{neighborhood}-raw` in `Brain/wiki/`.
 
-PVE: Valmonte, Malaga Cove, Montemalaga
-RPV: PV Dr North/East/South, Eastview, Silver Spur, Los Verdes, Country Club, La Cresta, Peninsula Center, West PV, The Crest, Mira Catalina, South Shores
-Other: Rolling Hills, Rolling Hills Estates, Riviera Village
+PVE: [[Brain/wiki/angel-valmonte-raw|Valmonte]], [[Brain/wiki/angel-malaga-cove-raw|Malaga Cove]], [[Brain/wiki/angel-montemalaga-raw|Montemalaga]]
+RPV: [[Brain/wiki/angel-pv-dr-north-raw|PV Dr North]], [[Brain/wiki/angel-pv-dr-east-raw|PV Dr East]], [[Brain/wiki/angel-pv-dr-south-raw|PV Dr South]], [[Brain/wiki/angel-eastview-raw|Eastview]], [[Brain/wiki/angel-silver-spur-raw|Silver Spur]], [[Brain/wiki/angel-los-verdes-raw|Los Verdes]], [[Brain/wiki/angel-country-club-raw|Country Club]], [[Brain/wiki/angel-la-cresta-raw|La Cresta]], [[Brain/wiki/angel-peninsula-center-raw|Peninsula Center]], [[Brain/wiki/angel-west-palos-verdes-raw|West PV]], [[Brain/wiki/angel-the-crest-raw|The Crest]], [[Brain/wiki/angel-mira-catalina-raw|Mira Catalina]], [[Brain/wiki/angel-south-shores-raw|South Shores]]
+Other: [[Brain/wiki/angel-rolling-hills-raw|Rolling Hills]], [[Brain/wiki/angel-rolling-hills-estates-raw|Rolling Hills Estates]], [[Brain/wiki/angel-riviera-village-raw|Riviera Village]]
 
-### Planned Articles
-Peninsula Golf, Equestrian, Arts — cross-cutting lifestyle articles. See [[Brain/wiki/angel-peninsula-golf-guide|Golf]], [[Brain/wiki/angel-peninsula-equestrian-guide|Equestrian]].
+### Cross-Cutting Lifestyle Guides
+- [[Brain/wiki/angel-peninsula-golf-guide|Golf]]
+- [[Brain/wiki/angel-peninsula-equestrian-guide|Equestrian]]
+- [[Brain/wiki/angel-peninsula-sports-guide|Sports]]
+- [[Brain/wiki/angel-peninsula-school-guide|Schools]]
+- [[Brain/wiki/peninsula-tennis-pickleball|Tennis & Pickleball]]
+- [[Brain/wiki/peninsula-ice-cream|Ice Cream & Frozen Treats]]
+- [[Brain/wiki/peninsula-gyms-fitness|Gyms & Fitness]]
+- [[Brain/wiki/peninsula-kids-water|Kids Water Activities]]
+- [[Brain/wiki/peninsula-youth-sports-summer|Youth Sports, Summer & Enrichment]]
+
+### Heritage & Source Documents
+- 1926 PV Estates Sales Brochure — PDF + OCR at `Angel/knowledge/heritage/1926-pv-estates-sales-brochure.*` (historical artifact, no wiki treatment)
+
+### Content Operations
+- [[Brain/wiki/angel-content-archive-index|Content Archive — Index & Catalog]]
+- [[Brain/wiki/angel-weekly-crmls-pull|Weekly CRMLS Pull]]
 
 ---
 

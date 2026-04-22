@@ -5,6 +5,7 @@ status: active
 tags: [angel, sales-methodology, ninja-selling, lead-gen, crm, habits]
 sources: [ninjaselling.com, Curb Hero, Larry Kendall, RealTrends, CIR Realty, studylib.net]
 last-compiled: 2026-04-13
+needs-review: 2026-04-27
 ---
 
 # Ninja Selling — Sales Methodology for Angel

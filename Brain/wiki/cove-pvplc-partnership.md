@@ -3,6 +3,8 @@ type: wiki
 tags: [cove, abalonecove, pvplc, conservation, partnership, land-trust, pv-blue-butterfly, filiorum]
 created: 2026-04-18
 sources: [pvplc.org/lands/, pvplc.org/conservancy-timeline/, pvplc.org/conservancyannounces30million-1/]
+last-compiled: 2026-04-19
+needs-review: 2026-05-03
 ---
 
 # PVPLC — Partnership for Sub Region 4 Implementation

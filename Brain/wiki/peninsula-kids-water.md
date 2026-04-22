@@ -4,6 +4,8 @@ type: wiki
 status: published
 tags: [angel, lifestyle, kids, junior-lifeguards, surf, swimming, peninsula, south-bay, content-pool]
 aliases: [junior guards, JG, surf camp, swim lessons, kids water]
+last-compiled: 2026-04-15
+needs-review: 2026-04-29
 ---
 
 # Kids Water Activities — Palos Verdes Peninsula & South Bay
@@ -40,7 +42,7 @@ Must pass a 100-yard swim test:
 ### Getting a Coach to Train for the Test
 This is real — many kids need swim coaching before they can pass. The test is competitive and nerves matter. Options:
 
-- **Coach Ken Taylor at PVBAC:** The go-to JG prep instructor on the Hill. On staff at PV Beach & Athletic Club since 1996. Runs three classes/day, 25 kids/class, through spring. "Almost all the kids pass who complete his classes." (Source: Easy Reader / Peninsula Magazine)
+- **Coach Ken Taylor at PVBAC:** The go-to JG prep instructor on the Hill. On staff at PV Beach & Athletic Club since 1996. Runs three classes/day, 25 kids/class, through spring. "Almost all the kids pass who complete his classes." (Source: Easy Reader / Peninsula Magazine) — see [[Brain/wiki/card-coach-ken-taylor|Card — Coach Ken Taylor]]
 - **South End Racquet & Health Club — ZAP Swimming:** Professional coaching specifically for JG test prep
 - **Swimphi:** Private lessons tailored to JG test — swimming techniques and endurance to meet qualifying times
 - **South Bay Swim Team:** Offers JG prep instruction
@@ -58,6 +60,8 @@ JG is a rite of passage. Kids who do it come back every summer. It's the connect
 ## Surf Camps & Lessons
 
 ### PV Surf Camp
+See: [[Brain/wiki/card-pv-surf-camp|Card — PV Surf Camp]]
+
 - **Address:** 300 Paseo Del Mar, Palos Verdes Estates 90274
 - **Phone:** (310) 908-8164
 - **Ages:** 6–14

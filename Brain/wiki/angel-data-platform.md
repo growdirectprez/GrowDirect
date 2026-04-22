@@ -5,6 +5,7 @@ status: active
 tags: [angel, data-platform, crmls, apn, listings, parcels, ingestion]
 sources: [docs/sdds/angel/data-platform.md, Cove/cove/models/listing.py, Cove/scripts/import_crmls.py, Angel/knowledge/south-bay-dataset.md]
 last-compiled: 2026-04-13
+needs-review: 2026-04-27
 ---
 
 # Angel Data Platform

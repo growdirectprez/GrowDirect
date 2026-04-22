@@ -6,6 +6,8 @@ updated: 2026-04-19
 sources:
   - Cove/docs/archive/originals/city-records/litigation/2024-03-01-colyear-v-rolling-hills-community-assn-B308382.pdf
   - Cove/docs/archive/originals/city-records/litigation/2024-03-01-colyear-v-rolling-hills-community-assn-B308382.md
+last-compiled: 2026-04-19
+needs-review: 2026-05-03
 ---
 
 # Colyear v. Rolling Hills Community Association (2024)
@@ -99,6 +101,10 @@ Related: the *Phillippe v. Shapell* (1987) case established that a 1973 attempt 
 
 Shapell walked away from Filiorum land because of geology. Fifty-one years later, Clipper Development bought adjacent land. Different answer. Same geology.
 
+## 2026-04-19 synthesis update
+
+*Colyear's* holdings are now codified as Rules R5 and R6 in [[cove-case-law-lessons]]: master declarations do not bind properties outside a clean chain of title, and extrinsic evidence of intent does not cure recording defects. The full case-law rules ledger covering CC&R enforceability, inverse condemnation, and active filings lives there. Note open thread C3 — confirm which portions of *Colyear* are published vs. unpublished before building a brief on the unpublished dicta.
+
 ## Related
 
 - [[Brain/wiki/cove-declaration-100|Declaration 100]] — the master general plan this case limits
@@ -108,3 +114,4 @@ Shapell walked away from Filiorum land because of geology. Fifty-one years later
 - [[Brain/wiki/cove-lrpmp-shoreline-park-parcel|LRPMP Shoreline Park Parcel]] — city's CC&R admission
 - [[Brain/wiki/cove-city-positions|City Positions]] — contradiction record
 - [[Brain/wiki/cove-legal-framework|Legal Framework]] — covenant chain
+- [[Brain/wiki/cove-case-law-lessons|Case-Law Synthesis — Rules That Bind WPBCA]]

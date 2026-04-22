@@ -5,6 +5,7 @@ status: active
 tags: [angel, crmls, data-pipeline, weekly-ops, process]
 sources: [listings table analysis, CRMLS Top Producer export interface]
 last-compiled: 2026-04-13
+needs-review: 2026-04-27
 ---
 
 # Angel Weekly CRMLS Pull — Process Definition

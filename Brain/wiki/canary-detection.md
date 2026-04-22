@@ -4,6 +4,7 @@ type: wiki
 tags: [canary, chirp, detection, alerts, loss-prevention, rules]
 sources: [Canary/canary/services/chirp/rule_definitions.py, Canary/docs/atlas/decision/]
 last-compiled: 2026-04-10
+needs-review: 2026-04-24
 ---
 
 # Canary Detection Engine

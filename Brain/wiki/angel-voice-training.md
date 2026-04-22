@@ -5,6 +5,7 @@ status: active
 tags: [angel, voice, brand, angelique, credentials, testimonials, team]
 sources: [Angel/Compass Content - Angelique Lyle/Agent Bio/Angelique Lyle Agent Bio.docx, Angel/Compass Content - Angelique Lyle/Print Material/Angelique-Lyle---2026-Buyers-Guide.pdf, Angel/Compass Content - Angelique Lyle/2025/Angelique-Lyle---2025-Listing-Presentation-2025-02-13T20_3A55_3A43.586Z.pdf]
 last-compiled: 2026-04-13
+needs-review: 2026-04-27
 ---
 
 # Angel Voice Training

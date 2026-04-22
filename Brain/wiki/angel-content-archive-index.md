@@ -5,6 +5,7 @@ status: active
 tags: [angel, archive, content-inventory, data-sources, collateral]
 sources: [Angel/ directory scan]
 last-compiled: 2026-04-13
+needs-review: 2026-04-27
 ---
 
 # Angel Content Archive — Index & Catalog Plan

@@ -4,6 +4,8 @@ type: wiki
 status: published
 tags: [angel, lifestyle, fitness, gyms, peninsula, south-bay, content-pool]
 aliases: [gyms, fitness centers, workout, exercise]
+last-compiled: 2026-04-18
+needs-review: 2026-05-02
 ---
 
 # Gyms & Fitness — Palos Verdes Peninsula & South Bay

@@ -2,6 +2,8 @@
 type: wiki
 tags: [cove, legal, property, redevelopment, lrpmp, parcels, landslide]
 source: Rancho Palos Verdes LRPMP (September 12, 2013), DOF Approval Letter (April 25, 2014), Resolution OB 2015-04 (September 9, 2015)
+last-compiled: 2026-04-18
+needs-review: 2026-05-02
 ---
 
 # RPV Long-Range Property Management Plan (LRPMP)

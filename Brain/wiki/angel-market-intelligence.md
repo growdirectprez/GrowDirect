@@ -5,6 +5,7 @@ status: active
 tags: [angel, market-intelligence, crmls, pricing, trends, palos-verdes]
 sources: [market_snapshots table (1250 snapshots), listings table (2301 records)]
 last-compiled: 2026-04-13
+needs-review: 2026-04-27
 ---
 
 # Angel Market Intelligence

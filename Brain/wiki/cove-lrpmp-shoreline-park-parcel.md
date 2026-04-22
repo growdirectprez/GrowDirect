@@ -3,6 +3,8 @@ type: wiki
 tags: [cove, abalonecove, lrpmp, parcel-106, shoreline-park, cc&rs, rpv, redevelopment]
 created: 2026-04-18
 sources: [Brain/raw/inbox/Rancho_Palos_Verdes_LRPMP.pdf (pages 23-26)]
+last-compiled: 2026-04-19
+needs-review: 2026-05-03
 ---
 
 # LRPMP — Shoreline Park Parcel (APN 7573-007-900)

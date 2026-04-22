@@ -11,6 +11,7 @@ sources:
   - easyreadernews.com (Horses on the Hill profile of Lisa Wolf / PBRC)
   - stablestyle.net (historic PBRC tour)
 last-compiled: 2026-04-14
+needs-review: 2026-04-28
 ---
 
 # Peninsula Equestrian Guide — Content Pool (Raw, Stub)

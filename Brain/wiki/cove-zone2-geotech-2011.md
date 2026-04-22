@@ -3,6 +3,8 @@ type: wiki
 tags: [cove, abalonecove, geology, landslide, zone-2, moratorium, rpv]
 created: 2026-04-18
 sources: [abalonecove/docs/geological/2011-lgc-valley-zone2-verbatim.md]
+last-compiled: 2026-04-19
+needs-review: 2026-05-03
 ---
 
 # Zone 2 Geotechnical Study (LGC Valley, 2011)

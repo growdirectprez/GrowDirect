@@ -5,6 +5,7 @@ status: raw-pool
 tags: [angel, neighborhood, pv-dr-east, rpv, content-pool]
 sources: [WebSearch, Neighborhoods.com, RubyHome, South Bay Residential, TripAdvisor, Terranea, AllTrails, RPV city site]
 last-compiled: 2026-04-13
+needs-review: 2026-04-27
 ---
 
 # PV Drive East — Content Pool (Raw)

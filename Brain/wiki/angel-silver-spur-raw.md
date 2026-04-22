@@ -5,6 +5,7 @@ status: raw-pool
 tags: [angel, neighborhood, silver-spur, rpv, rhe, content-pool]
 sources: [WebSearch, Redfin, PV Source, Neighborhoods.com, RubyHome, Yelp, TripAdvisor, PVPUSD, PV Pulse]
 last-compiled: 2026-04-13
+needs-review: 2026-04-27
 ---
 
 # Silver Spur — Content Pool (Raw)
