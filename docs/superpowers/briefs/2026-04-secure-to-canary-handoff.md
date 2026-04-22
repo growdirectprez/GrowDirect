@@ -12,7 +12,7 @@ status: working-draft
 
 Translate 10+ years of Secure IP into concrete ADOPT / ADAPT / REJECT calls for Canary. This is the "what did we already learn 15 years ago that Canary should (or should not) port" brief. Each pattern cites a source file; each gets a specific Canary recommendation and a proposed follow-up action.
 
-Not a design doc — a brief for the person (PhD / Tom / Owl) writing the Canary design docs that will act on these patterns.
+Not a design doc — a brief for the person (PhD / Architect) writing the Canary design docs that will act on these patterns. The Owl system consumes these recommendations via PhD methodology; not a reader of this brief.
 
 ## Patterns
 

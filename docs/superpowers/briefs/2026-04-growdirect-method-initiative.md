@@ -45,7 +45,7 @@ New `method` command group in `content-engine/engine.py`:
 Also fixed a pre-existing bug: PDF fixture tests now skip gracefully when `sample.pdf` is missing (gitignored via `*.pdf`).
 
 ### Sprint E — Coverage completion
-40 additional SDDs tagged across Canary (13 remaining), Cove (16), Angel (6), ALX-dir (2), ARC (1). Idempotent script used `/tmp/tag-sdds.py` with filename-keyword heuristics (governance→Compliance+Legal, metrics→Tom+Research, ui→Art+Jeremy, etc.).
+40 additional SDDs tagged across Canary (13 remaining), Cove (16), Angel (6), ALX-dir (2), ARC (1). Idempotent script used `/tmp/tag-sdds.py` with filename-keyword heuristics (governance→Compliance+Legal, metrics→Architect+PhD, ui→UX+Engineer, etc.).
 
 ## End-state inventory
 
@@ -123,15 +123,15 @@ Templates: 7 tagged, 0 untagged
     close        3    research     1    ship       3
 
   Role coverage (primary skills):
-    Jeremy       14   Compliance   4    Research     1
-    ALX          7    Jim          2    DevOps       1
-    Tom          5                      Eva          1
-                                        Jess         1
+    Engineer        14   Compliance  4    DevOps          1
+    ALX              7   QA          2    ProgramManager  1
+    Architect        5                    Writer          1
+                                          PhD             1
 ```
 
 ## Insights surfaced by the data
 
-1. **Jeremy is over-leveraged** — 14 primary skills vs. 1 for Jess or Eva. If the skill inventory reflects real work distribution, Jeremy is the bottleneck.
+1. **Engineer is over-leveraged** — 14 primary skills vs. 1 for Writer or ProgramManager. If the skill inventory reflects real work distribution, Engineer is the bottleneck.
 2. **Research has 1 primary skill (`factory-research`)** — the role is newer; skill coverage will grow as more research techniques get codified.
 3. **No skills tagged for `research` stage beyond 1** — suggests the research stage may be under-specified in the factory skill catalog. Opportunity to add techniques (competitive-brief, prior-art-scan, decision-log-lookup, etc.) as skills.
 4. **Stage symmetry is solid** — every main stage (preflight, blueprint, tdd, assembly, verify, qa, ship, close) has exactly 3 skills (one each for factory/canary/cove). The app-variant pattern is consistent.
@@ -141,10 +141,10 @@ Templates: 7 tagged, 0 untagged
 Non-factory-family skills exist for cross-cutting concerns and aren't tagged with a Factory stage:
 
 - `gitnexus` — code intelligence queries, cross-stage
-- `rooster` — Jim's QA test-scenario framework, orthogonal to Factory
+- `rooster` — QA's test-scenario framework, orthogonal to Factory
 - `jeffe-review` — founder vision check, before any Factory run
 - `file-guardian` — protected-file editor, orthogonal
-- `project-timelog` — Eva's tracking, spans all stages
+- `project-timelog` — ProgramManager's tracking, spans all stages
 - `remember-quote`, `session-synthesis` — ALX memory tools, cross-stage
 - `founder-probe` — discovery tool, pre-Factory
 
@@ -161,7 +161,7 @@ These remain un-method-tagged intentionally. If a future session wants them in t
 2. **Linear saved-view URLs** — role profile activity filters are prose today; they become clickable once the views exist in Linear.
 3. **Pipeline evals** — only `preflight` has `eval_threshold: 1.0` in `factory-manifest.json`. Other stages are undeclared.
 4. **`method roles --concise`** — the full output is ~450 lines on real data. A concise mode would fit on one screen.
-5. **Skill inventory rebalancing** — Jim / Jess / Eva / Research have thin skill coverage. Worth an audit of what techniques those roles actually run day-to-day and whether they'd benefit from being codified as skills.
+5. **Skill inventory rebalancing** — QA / Writer / ProgramManager / PhD have thin skill coverage. Worth an audit of what techniques those roles actually run day-to-day and whether they'd benefit from being codified as skills.
 6. **Linear GRO issues to file** — one per "what comes next" item above, plus the seven handoff brief items from the Secure → Canary initiative.
 
 ## Commits (on main)
