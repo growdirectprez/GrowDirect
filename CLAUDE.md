@@ -9,6 +9,18 @@ scaffolding. Ship features.
 
 ---
 
+## Documentation as Code
+
+SDDs → chunked memories → wikis → code. Top down, pushed through the Factory.
+
+The Architect writes the SDD. ALX chunks it into memory. The Writer narrates
+it in Brain/wiki/. The Engineer implements it. The Factory pipeline keeps
+them in sync. Every layer feeds the next; every stage is traceable.
+
+See [[Brain/projects/Method|Method MOC]] · [[docs/sdds/platform/factory-pipeline|Factory Pipeline SDD]].
+
+---
+
 ## Projects
 
 | Project | Directory | Status | What it is |
