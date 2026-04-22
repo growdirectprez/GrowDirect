@@ -5,6 +5,7 @@ status: raw-pool
 tags: [angel, neighborhood, montemalaga, pve, content-pool]
 sources: [WebSearch, Stroyke Properties, PV Source, GreatSchools, Niche, AllTrails, PVE city site]
 last-compiled: 2026-04-13
+needs-review: 2026-04-27
 ---
 
 # Montemalaga — Content Pool (Raw)
@@ -56,10 +57,11 @@ Montemalaga is purely residential — nearest dining at two village plazas withi
 
 ### Lunada Bay Plaza (south, ~5 min)
 - **Lunada Kitchen (Lunada Market & Deli)** — locally roasted coffee, brunch, handcrafted burgers, farm-to-table. Open daily 8am–8pm.
+- **Lunada Creamery** — 711 Yarmouth Rd. New (2024–2025) soft-serve shop in former Bank of America ATM space. Founded by Julie and Jason Anthony. Rotating weekly flavors, homemade cookie sandwiches, always a vegan option. See: [[Brain/wiki/card-lunada-creamery|Card — Lunada Creamery]] and [[Brain/wiki/peninsula-ice-cream|Peninsula Ice Cream Guide]].
 - **Black Bamboo Sushi** — hidden gem, small dining room and sushi bar
 - Raffaello's Pizza, Salsa Verdes, Tomatillo Express Mexican Grill
 
-Source: Yelp, Malaga Cove Ranch Market, Lunada Kitchen
+Source: Yelp, Malaga Cove Ranch Market, Lunada Kitchen, Lunada Creamery
 
 ---
 

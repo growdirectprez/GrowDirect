@@ -8,6 +8,8 @@ sources:
   - Cove/docs/archive/originals/city-records/general-plan/1975-general-plan-original.md
 status: source-document-summary
 visibility: public
+last-compiled: 2026-04-19
+needs-review: 2026-05-03
 ---
 
 # COAC: 1975 RPV General Plan + EIR — Annotated for Cove

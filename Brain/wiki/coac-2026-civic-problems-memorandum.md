@@ -2,9 +2,11 @@
 type: wiki
 tags: [coac, cove, governance, 2026-civic-problems, viral-campaign, 1939-parallel, seo, strategic, advisory-synthesis]
 created: 2026-04-19
-sources: [Cove/docs/advisor-memos/2026-04-19-reactivation-playbook.md]
+sources: [Brain/raw/processed/advisor-memos/2026-04-19-reactivation-playbook.md]
 status: strategic-draft
 visibility: private-until-board-authorized
+last-compiled: 2026-04-19
+needs-review: 2026-05-03
 ---
 
 # 2026 Civic Problems Memorandum — Viral Campaign Parallel to 1939 PVE Booklet

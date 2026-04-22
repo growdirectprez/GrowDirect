@@ -7,6 +7,8 @@ sources:
   - Cove/docs/archive/originals/Historic/news-clippings/1976-04-22-pv-peninsula-news-new-rpv-development-proposal-under-study.md
 status: source-document-summary
 visibility: public
+last-compiled: 2026-04-19
+needs-review: 2026-05-03
 ---
 
 # 1976 Palos Verdes Properties Development Pressure — The 50-Year Pattern

@@ -4,6 +4,8 @@ type: wiki
 status: published
 tags: [angel, lifestyle, ice-cream, dining, peninsula, south-bay, content-pool]
 aliases: [ice cream, frozen treats, gelato]
+last-compiled: 2026-04-15
+needs-review: 2026-04-29
 ---
 
 # Ice Cream & Frozen Treats — Palos Verdes Peninsula & South Bay
@@ -15,6 +17,8 @@ Three new shops opened on the Hill in 2024–2025, filling a long-standing gap. 
 ## On the Hill
 
 ### Lunada Creamery
+See: [[Brain/wiki/card-lunada-creamery|Card — Lunada Creamery]]
+
 - **Address:** 711 Yarmouth Rd, Palos Verdes Estates 90274
 - **Phone:** (424) 241-0620
 - **Hours:** Mon–Thu 12–8pm, Fri 12–9pm
@@ -26,6 +30,8 @@ Three new shops opened on the Hill in 2024–2025, filling a long-standing gap. 
 - **Sources:** OurSouthBay ("Two New Soft Serve Outposts"), Yelp, Lunada Creamery website
 
 ### Neptune's Frozen Treats
+See: [[Brain/wiki/card-neptunes-frozen-treats|Card — Neptune's Frozen Treats]]
+
 - **Address:** 55 Malaga Cove Plaza, Palos Verdes Estates 90274
 - **Phone:** (424) 365-9575
 - **Hours:** Sun–Thu 12–8pm, Fri–Sat 12–9pm
@@ -38,6 +44,8 @@ Three new shops opened on the Hill in 2024–2025, filling a long-standing gap. 
 - **Sources:** OurSouthBay ("Two New Soft Serve Outposts"), PV Pulse, Yelp, Neptune's website
 
 ### Golden Scoop Gelato
+See: [[Brain/wiki/card-golden-scoop-gelato|Card — Golden Scoop Gelato]]
+
 - **Address:** 31228 Palos Verdes Dr W, Rancho Palos Verdes 90275 (Golden Cove Center, corner of Hawthorne)
 - **Phone:** (424) 327-2888
 - **Hours:** Mon–Fri 12–9pm, Sat–Sun 11–9pm

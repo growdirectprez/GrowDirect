@@ -5,6 +5,7 @@ status: raw-pool
 tags: [angel, city, rolling-hills-estates, equestrian, rhe, content-pool]
 sources: [WebSearch, City of RHE, Wikipedia, Jake Sullivan, PVPUSD, GreatSchools, Niche, TripAdvisor, Promenade PV, PCCH]
 last-compiled: 2026-04-13
+needs-review: 2026-04-27
 ---
 
 # Rolling Hills Estates — Content Pool (Raw)
@@ -119,7 +120,11 @@ Source: RHE Planning, RHE Public Notices, Peter Weber Equestrian
 ### Character
 Block parties, nature walks, trail rides, neighborhood gatherings define social fabric. More accessible than gated Rolling Hills but shares same natural beauty and equestrian heritage.
 
-Source: RHE Equestrian, Ernie Howlett Facility, Peter Weber, George F Canyon AllTrails
+### Youth Sports & Coaching Anchors
+- **Spring Training Baseball (Dan Spring)** — PV/South Bay-based youth baseball program founded by Brown University captain and former Detroit Tigers pitcher Dan Spring. 60+ private lessons/week, 11 weeks of summer camp, Fall League with 100+ players. ~15,000 players served over 15+ years. Saturday hub gravitates around Ernie Howlett Park. See: [[Brain/wiki/card-dan-spring-training|Card — Spring Training (Dan Spring)]] and [[Brain/wiki/peninsula-youth-sports-summer|Peninsula Youth Sports & Summer Guide]].
+- Silver Spur Little League home field is **Ernie Howlett Park** — Saturday morning Little League hub.
+
+Source: RHE Equestrian, Ernie Howlett Facility, Peter Weber, George F Canyon AllTrails, stbaseball.com
 
 ---
 

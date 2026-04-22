@@ -4,6 +4,7 @@ type: wiki
 tags: [canary, database, models, postgresql, schemas]
 sources: [Canary/canary/models/, Canary/docs/atlas/infrastructure/]
 last-compiled: 2026-04-10
+needs-review: 2026-04-24
 ---
 
 # Canary Data Model

@@ -4,6 +4,7 @@ type: wiki
 tags: [cove, legal, ccrs, wpbca, lot-h]
 sources: [Cove/docs/admin/research/briefs/legal-brief-0-clipper, Cove/docs/admin/research/briefs/lot-h-community-action-brief, Cove/docs/admin/research/risk/legal-risk-assessment]
 last-compiled: 2026-04-10
+needs-review: 2026-04-24
 ---
 
 # Cove Legal Framework
@@ -73,12 +74,21 @@ Five major vulnerabilities identified in [[Cove/docs/admin/research/risk/legal-r
 4. **Changed circumstances** — Likelihood: Medium (5 and 7 Clipper have R-4 condos).
 5. **WPBCA lacks standing for Lot H** — Likelihood: Medium. Mitigation: individual lot owner plaintiffs as backup.
 
+## 2026-04-19 synthesis update
+
+The full case-law rules ledger now lives at [[cove-case-law-lessons]] — 19 rules covering CC&R enforceability, inverse condemnation, landslide, takings, and active filings. The regulatory context (2018 GP + 2018 Safety Element + 6th-cycle HE) is synthesized at [[cove-rpv-planning-framework-2026]]. Endangered-species regulatory triggers that intersect construction scopes are mapped at [[cove-endangered-species-constraints]].
+
 ## Related
 - [[Brain/wiki/cove-lrpmp|LRPMP]] — RDA property inventory, Horan Agreement, federal LWCF and Ecological Reserve encumbrances, Landslide Moratorium- [[Brain/wiki/cove-rpv-redevelopment-conveyance|RPV Redevelopment Conveyance (2014)]] — 11 governmental-use properties transferred to city, including Abalone Cove Shoreline Park parcels adjacent to 0 Clipper- [[Brain/wiki/cove-lot-h-discovery|Lot H Discovery]] — the key finding
 - [[Brain/wiki/cove-0-clipper|0 Clipper Road]] — the threat
 - [[Brain/wiki/cove-governance|Governance & Operations]]
+- [[Brain/wiki/coac-bylaws-moc|CoAC Bylaws MOC]] — governing-instrument map + 2026 compliance roadmap
+- [[Brain/wiki/cove-document-retention|Document Retention Requirements]] — HOA record-keeping obligations and member inspection rights
 - [[Brain/wiki/cove-community-history|Community History]]
 - [[Cove/docs/site/narrative|The Story of Abalone Cove]]
+- [[Brain/wiki/cove-case-law-lessons|Case-Law Synthesis — Rules That Bind WPBCA]]
+- [[Brain/wiki/cove-rpv-planning-framework-2026|RPV Planning Framework — What Controls WPBCA (2026)]]
+- [[Brain/wiki/cove-endangered-species-constraints|Endangered Species Constraints — Species → Trigger → Project Map]]
 
 ## Sources — Founding Instruments (Transcriptions)
 - [[Cove/docs/archive/originals/transcriptions/1949-WPBCA-Declaration-No-One-Verbatim|1949 Declaration No. One (Verbatim)]]
@@ -92,3 +102,4 @@ Five major vulnerabilities identified in [[Cove/docs/admin/research/risk/legal-r
 - [[Cove/docs/archive/originals/transcriptions/1952-PVCorp-Grant-Deed-Lot1|1952 PV Corp Grant Deed (Clean)]]
 - [[Cove/docs/archive/originals/transcriptions/2009-Restated-Declaration-Text|2009 Restated Declaration]]
 - [[Cove/docs/archive/originals/transcriptions/bylaws-full|2012 Bylaws (Full Text)]]
+- [[Cove/docs/archive/originals/transcriptions/2005-06-05-Haas-Meeting-Notes-Verbatim|2005-06-05 Haas Meeting Notes — Lot H Title Chain]] — primary-source handwritten notes documenting the 1952–1961 deed/easement chain for Lot H / Parcel 106, including the critical 1958–1961 easement swap (WPBCA ↔ Simes ↔ PV Properties) that defines current Ocean Access Easement lines

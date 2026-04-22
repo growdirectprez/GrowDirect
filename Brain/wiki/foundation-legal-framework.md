@@ -2,8 +2,10 @@
 type: moc
 tags: [foundation, cove, governance, legal, moc, advisory-synthesis]
 created: 2026-04-19
-sources: [Cove/docs/advisor-memos/2026-04-19-comprehensive-review.md, Cove/docs/advisor-memos/2026-04-19-hoa-payments.md]
+sources: [Brain/raw/processed/advisor-memos/2026-04-19-comprehensive-review.md, Brain/raw/processed/advisor-memos/2026-04-19-hoa-payments.md]
 status: draft
+last-compiled: 2026-04-19
+needs-review: 2026-05-03
 ---
 
 # Foundation Legal Framework — MOC
@@ -65,8 +67,8 @@ If the §V §5 reactivation path is ever triggered, a sixth entity — the react
 
 ## Provenance
 
-- [[Cove/docs/advisor-memos/2026-04-19-comprehensive-review]] — Comprehensive advisor memo covering compensation review, CICD logging, Q1 founding weeks, founder narrative, BTC treasury, Lightning vs bank account, HOA payment platforms
-- [[Cove/docs/advisor-memos/2026-04-19-hoa-payments]] — HOA payment platforms memo (subset, superseded by comprehensive review)
+- [[Brain/raw/processed/advisor-memos/2026-04-19-comprehensive-review]] — Comprehensive advisor memo covering compensation review, CICD logging, Q1 founding weeks, founder narrative, BTC treasury, Lightning vs bank account, HOA payment platforms
+- [[Brain/raw/processed/advisor-memos/2026-04-19-hoa-payments]] — HOA payment platforms memo (subset, superseded by comprehensive review)
 
 ## Related
 

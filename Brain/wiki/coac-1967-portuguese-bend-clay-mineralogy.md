@@ -6,6 +6,8 @@ sources:
   - Cove/docs/archive/originals/city-records/landslide-project/research-papers/1967-kerr-drew-clay-mineralogy-portuguese-bend.pdf
 status: source-document-summary
 visibility: public
+last-compiled: 2026-04-19
+needs-review: 2026-05-03
 ---
 
 # COAC: 1967 Portuguese Bend Clay Mobility (Kerr & Drew)

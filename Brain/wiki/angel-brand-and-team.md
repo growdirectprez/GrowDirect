@@ -5,6 +5,7 @@ status: active
 tags: [angel, brand, area, compass, team, angelique, accardo, marketing, listing-presentation]
 sources: [Angel/Compass Content - Angelique Lyle/, trifold, buyers guide, listing presentation, team bios]
 last-compiled: 2026-04-13
+needs-review: 2026-04-27
 ---
 
 # Angel Brand & Team — AREA at Compass

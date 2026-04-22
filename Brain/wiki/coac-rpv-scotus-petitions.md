@@ -6,6 +6,8 @@ sources:
   - Cove/docs/archive/originals/city-records/litigation/scotus-petitions/
 status: source-document-summary
 visibility: public
+last-compiled: 2026-04-19
+needs-review: 2026-05-03
 ---
 
 # COAC: RPV-Resident SCOTUS Petitions (1994, 1990s, 2001)

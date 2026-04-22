@@ -3,7 +3,7 @@ date: 2026-04-19
 type: wiki
 status: stub
 tags: [seacove, arc, cove, wpbca, rpv, permits, architecture]
-sources: [docs/team/Condor.md, docs/council/2026-04-19-permit-tech-recon.md, docs/council/2026-04-19-arc-posture-correction.md, docs/council/2026-04-19-art-jury-vs-wpbca-arc.md, docs/council/2026-04-19-seacove-wpbca-demo-delivery.md]
+sources: [docs/team/Condor.md, Brain/raw/processed/council/2026-04-19-permit-tech-recon.md, Brain/raw/processed/council/2026-04-19-arc-posture-correction.md, Brain/raw/processed/council/2026-04-19-art-jury-vs-wpbca-arc.md, Brain/raw/processed/council/2026-04-19-seacove-wpbca-demo-delivery.md]
 last-compiled: 2026-04-19
 needs-review: 2026-07-19
 ---
@@ -34,7 +34,7 @@ Abalone Cove is at a generational turnover point. Original owners cycling out, n
 - **Claude Opus 4.7** — SWE-Bench Pro +10%, `/ultrareview`, meaningful vision improvements. The plugin's pipeline gets free capability lift.
 - **Anthropic Skills** — formalized, portable, distributable. `rpv-permit-architect` is already in this format.
 
-See [[Brain/projects/Seacove|Seacove MOC]] and Condor's [permit-tech recon](../../docs/council/2026-04-19-permit-tech-recon.md) for the landscape.
+See [[Brain/projects/Seacove|Seacove MOC]] and [[cove-permit-tech-landscape|the permit-tech landscape]] for competitive context.
 
 ## Architecture (stub)
 
@@ -74,7 +74,7 @@ The six `rpv-permit-architect` skills stay intact, invoked by the module:
 
 ## What bylaws say this must produce
 
-From [Art Jury vs. WPBCA ARC](../../docs/council/2026-04-19-art-jury-vs-wpbca-arc.md) — the module operationalizes what WPBCA's 2012 Bylaws already require:
+From [[cove-art-jury-vs-wpbca-arc|the Art Jury vs. WPBCA ARC comparison]] — the module operationalizes what WPBCA's 2012 Bylaws already require:
 
 - **§16.4.1** Completeness determination → module's readiness check
 - **§16.4.2** Open meeting scheduling → concierge view of in-flight applications
@@ -109,7 +109,7 @@ The module does not reform the ARC. It systematizes what the 2012 Bylaws already
 ## Not in scope for v1
 
 - Multi-HOA support (PVE ARC, Rolling Hills, RHE) — different animals, later conversation
-- Design-standard publishing (the "ARC Manifest" concept from an earlier Condor memo was [retracted](../../docs/council/2026-04-19-arc-posture-correction.md))
+- Design-standard publishing (the "ARC Manifest" concept from an earlier Condor memo was retracted — see [[cove-arc-posture]])
 - Direct city-of-RPV integration beyond public case status
 - Any branding / SaaS productization
 

@@ -11,6 +11,7 @@ sources:
   - chadwickschool.org, peninsulaheritage.org, rhcds.com, rollinghillsprep.org
   - sjfpv.org (St. John Fisher), christrpv.com (Christ Lutheran), stpeterspres.org
 last-compiled: 2026-04-14
+needs-review: 2026-04-28
 ---
 
 # Peninsula School Guide — Content Pool (Raw)
@@ -233,7 +234,7 @@ family makes — and the two schools genuinely feel different.
 - **Scale:** Smaller than Peninsula. Feels more intimate; some families
   describe it as the more "boutique" of the two.
 - **Culture keywords (to vet with Angelique):** beachy, surf-culture undertone,
-  tight-knit, arts-forward.
+  tight-knit, arts-forward — see [[Brain/wiki/card-pvhs-drama|Card — PVHS Drama]] for the program nicknamed "Best Entertainment Value in LA."
 
 ### Palos Verdes Peninsula High School (PVPHS) — Traditional Schedule
 

@@ -5,6 +5,7 @@ status: current
 tags: [seacove, architecture, sketchup, rpv, permits, arc]
 sources: []
 last-compiled: 2026-04-13
+needs-review: 2026-04-27
 ---
 
 # 25 Seacove Drive — Project Overview

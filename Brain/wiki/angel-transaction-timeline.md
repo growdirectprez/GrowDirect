@@ -5,6 +5,7 @@ status: active
 tags: [angel, escrow, transaction, closing, timeline, checklist, moving]
 sources: [Angel/Compass Content - Angelique Lyle/Print Material/Angelique AREA Escrow Roadmap.pdf]
 last-compiled: 2026-04-13
+needs-review: 2026-04-27
 ---
 
 # Angel Transaction Timeline

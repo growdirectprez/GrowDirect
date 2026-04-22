@@ -5,6 +5,7 @@ status: raw-pool
 tags: [angel, neighborhood, south-shores, san-pedro, content-pool, affordable, coastal]
 sources: [WebSearch, Neighborhoods.com, South Bay Residential, Prestige Team, SSCA, SanPedro.com, Niche, GreatSchools]
 last-compiled: 2026-04-13
+needs-review: 2026-04-27
 ---
 
 # South Shores — Content Pool (Raw)

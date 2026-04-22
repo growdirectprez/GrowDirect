@@ -59,14 +59,14 @@ Beta / Early Release Candidate
 - [[Canary/docs/atlas/protocol/fig-r03-sidechain-hybrid-architecture|Sidechain Hybrid]]
 
 ## Team
-- [[Canary/docs/profiles/ops/ALX|ALX — COO / Chief of Staff]]
-- [[Canary/docs/profiles/ops/Eva|Eva — Technical Ops]]
-- [[Canary/docs/profiles/ops/Tom|Tom — Architecture]]
-- [[Canary/docs/profiles/ops/Jess|Jess — Documentation]]
-- [[Canary/docs/profiles/ops/Jeremy|Jeremy — DevOps]]
-- [[Canary/docs/profiles/ops/Jim|Jim — Customer Sentiment]]
-- [[Canary/docs/profiles/ops/Owl|Owl — Product AI]]
-- [[Canary/docs/profiles/ops/Art|Art — UX/Creative]]
+- [[docs/team/ALX|ALX — COO / Chief of Staff]]
+- [[docs/team/ProgramManager|Eva — Technical Ops]]
+- [[docs/team/Architect|Tom — Architecture]]
+- [[docs/team/Writer|Jess — Documentation]]
+- [[docs/team/Engineer|Jeremy — DevOps]]
+- [[docs/team/QA|Jim — Customer Sentiment]]
+- [[docs/team/Owl|Owl — Product AI]]
+- [[docs/team/UX|Art — UX/Creative]]
 
 ## Field Registry
 - [[Canary/docs/field-registry|Field Registry Index]]

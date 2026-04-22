@@ -5,6 +5,7 @@ status: raw-pool
 tags: [angel, neighborhood, la-cresta, rpv, content-pool, estate, views]
 sources: [WebSearch, Rubyhome, PV Source, Nextdoor, GreatSchools, Niche, TripAdvisor, RPV city site]
 last-compiled: 2026-04-13
+needs-review: 2026-04-27
 ---
 
 # La Cresta — Content Pool (Raw)

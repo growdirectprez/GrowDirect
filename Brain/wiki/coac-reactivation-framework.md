@@ -2,9 +2,11 @@
 type: moc
 tags: [coac, cove, governance, reactivation, declaration-100, strategic, advisory-synthesis]
 created: 2026-04-19
-sources: [Cove/docs/advisor-memos/2026-04-19-reactivation-playbook.md]
+sources: [Brain/raw/processed/advisor-memos/2026-04-19-reactivation-playbook.md]
 status: strategic-draft
 visibility: private-until-board-authorized
+last-compiled: 2026-04-19
+needs-review: 2026-05-03
 ---
 
 # CoAC Reactivation Framework — MOC
@@ -13,7 +15,7 @@ Map-of-content for the **strategic reactivation of Declaration 100 Article II §
 
 **Sensitivity:** This framework describes a deliberate "catch off guard" posture — the reactivation is designed to minimize the window for City, developer, or YIMBY preemptive moves against the recorded-title overlay. All cards marked `visibility: private-until-board-authorized` and `status: strategic-draft`. Not Foundation public voice. Not for cove.org or abalonecove.org publication. HOA counsel review required before any notice is published or instrument is recorded.
 
-**Not legal advice.** Distilled working positions from a 2026-04-19 external-advisor memo. Archived verbatim at `Cove/docs/advisor-memos/2026-04-19-reactivation-playbook.md`.
+**Not legal advice.** Distilled working positions from a 2026-04-19 external-advisor memo. Archived verbatim at `Brain/raw/processed/advisor-memos/2026-04-19-reactivation-playbook.md`.
 
 ## The Premise
 
@@ -89,7 +91,7 @@ Before any notice is published:
 
 ## Provenance and Related
 
-- [[Cove/docs/advisor-memos/2026-04-19-reactivation-playbook]] — Source advisor memo (verbatim)
+- [[Brain/raw/processed/advisor-memos/2026-04-19-reactivation-playbook]] — Source advisor memo (verbatim)
 - [[wpbca-compliance-framework]] — Parallel operational-compliance MOC
 - [[foundation-legal-framework]] — Foundation 501(c)(3) side (does NOT advocate on this topic)
 - [[foundation-blockchain-proof-layer]] — How the governance engine supports §V §5 procedurally (Epic 3, deferred)

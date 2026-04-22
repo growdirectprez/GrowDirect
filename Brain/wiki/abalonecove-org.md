@@ -2,6 +2,8 @@
 type: wiki
 tags: [cove, abalonecove, publication, 0-clipper, editorial]
 created: 2026-04-17
+last-compiled: 2026-04-18
+needs-review: 2026-05-02
 ---
 
 # abalonecove.org

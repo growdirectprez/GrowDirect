@@ -2,9 +2,11 @@
 type: wiki
 tags: [coac, cove, governance, reactivation, blitz, restated-declaration, strategic, advisory-synthesis]
 created: 2026-04-19
-sources: [Cove/docs/advisor-memos/2026-04-19-reactivation-playbook.md]
+sources: [Brain/raw/processed/advisor-memos/2026-04-19-reactivation-playbook.md]
 status: strategic-draft
 visibility: private-until-board-authorized
+last-compiled: 2026-04-19
+needs-review: 2026-05-03
 ---
 
 # Restated Declaration — Blitz Execution Plan

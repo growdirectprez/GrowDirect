@@ -11,6 +11,7 @@ sources:
   - Golfpass Rancho Palos Verdes directory
   - keithkylehomes.com PV golf coverage
 last-compiled: 2026-04-14
+needs-review: 2026-04-28
 ---
 
 # Peninsula Golf Guide — Content Pool (Raw, Stub)

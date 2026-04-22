@@ -4,6 +4,7 @@ type: wiki
 tags: [cove, geology, landslide, property, parcels]
 sources: [Cove/docs/archive/property/rpv-zone2-landslide-eir-geology, Cove/docs/archive/property/laca-parcel-maps-tract-14649]
 last-compiled: 2026-04-10
+needs-review: 2026-04-24
 ---
 
 # Property & Geology
@@ -57,6 +58,10 @@ The landslide has been displacing the community's ocean access easement since th
 - [[Cove/docs/archive/originals/transcriptions/RPV-Zone2-Landslide-EIR-Geology-Section-4.5-Verbatim|Zone 2 Landslide EIR Geology Section]]
 - [[Cove/docs/archive/originals/transcriptions/LACA-Parcel-Maps-Tract-14649-Verbatim|LACA Parcel Maps — Tract 14649]]
 - [[Cove/docs/archive/originals/transcriptions/1985-Assessor-Map-7573-7-Setback-Verbatim|1985 Assessor Map Setback Notes]]
+
+## Sources — Original Geotechnical / Engineering Studies
+- [[Cove/docs/archive/originals/property/engineering-studies/1949-07-compacted-fills-report-tract-14649-lots-1-to-81-donald-r-warren-f965|1949-07 Compacted Fills Report — Tract 14649, Lots 1-81 (Donald R. Warren Co., F 965)]] — **original geotechnical baseline.** Characterizes natural soils as "sandy loam to tough black clay containing marine deposits" with φ=15°, apparent cohesion 1100 lbs/sq.ft. LA County approved Apr 26, 1954. First documented acknowledgment of the marine-clay problem by the developer's own engineers; establishes what the city knew 75 years before the current Builder's Remedy / RM-22 rezoning push.
+- [[Cove/docs/archive/originals/property/engineering-studies/1983-12-09-hess-path-engineering-study|1983-12-09 Hess Path Engineering Study]]
 
 ## Sources — Summaries & Property Records
 - [[Cove/docs/archive/property/laca-parcel-maps-tract-14649|Parcel Maps Summary]]

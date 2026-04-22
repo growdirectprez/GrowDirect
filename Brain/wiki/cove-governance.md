@@ -4,6 +4,7 @@ type: wiki
 tags: [cove, governance, wpbca, 501c3, organization]
 sources: [Cove/docs/admin/research/governance/2012-bylaws, Cove/docs/admin/research/briefs/501c3-strategy]
 last-compiled: 2026-04-10
+needs-review: 2026-04-24
 ---
 
 # Governance & Operations
@@ -55,6 +56,8 @@ A separate public benefit nonprofit ("Cove Foundation" or "Abalone Shore Heritag
 
 ## Related
 - [[Brain/wiki/cove-legal-framework|Cove Legal Framework]]
+- [[Brain/wiki/coac-bylaws-moc|CoAC Bylaws MOC]] — full governing-instrument map + 2026 compliance roadmap
+- [[Brain/wiki/cove-document-retention|Document Retention Requirements]] — what records the association must keep, for how long
 - [[Brain/wiki/cove-0-clipper|0 Clipper Road]] — counter-proposal details
 - [[Brain/wiki/cove-platform|Cove Platform Development]]
 

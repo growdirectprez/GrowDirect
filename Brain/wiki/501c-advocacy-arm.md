@@ -2,9 +2,11 @@
 type: wiki
 tags: [501c, foundation, cove, governance, 501c4, advocacy, parking, advisory-synthesis]
 created: 2026-04-19
-sources: [Cove/docs/advisor-memos/2026-04-19-reactivation-playbook.md]
+sources: [Brain/raw/processed/advisor-memos/2026-04-19-reactivation-playbook.md]
 status: parking
 visibility: private-until-board-authorized
+last-compiled: 2026-04-19
+needs-review: 2026-05-03
 ---
 
 # 501(c)(4) Advocacy Arm — New Entity Decision (Parking)

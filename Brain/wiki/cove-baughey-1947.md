@@ -2,6 +2,8 @@
 type: wiki
 tags: [cove, history, primary-source, pv-corp, rancho, vanderlip]
 source: Palos Verdes News, Tenth Anniversary Edition, 1947
+last-compiled: 2026-04-18
+needs-review: 2026-05-02
 ---
 
 # Baughey Article — Rancho Palos Verdes 1784–1947

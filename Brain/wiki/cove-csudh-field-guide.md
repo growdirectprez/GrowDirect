@@ -3,6 +3,8 @@ type: wiki
 tags: [cove, abalonecove, geology, landslide, field-guide, academic]
 created: 2026-04-18
 sources: [abalonecove/docs/geological/2012-csudh-field-guide-verbatim.md]
+last-compiled: 2026-04-19
+needs-review: 2026-05-03
 ---
 
 # CSUDH Palos Verdes Field Guide (McNulty, 2012)

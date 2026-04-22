@@ -5,6 +5,7 @@ status: current
 tags: [canary, platform, square, loss-prevention]
 sources: [Brain/raw/inbox/Canary_Platform_Overview_v1.0_1.docx, Canary/CLAUDE.md]
 last-compiled: 2026-04-14
+needs-review: 2026-04-28
 ---
 
 # Canary — Platform Overview

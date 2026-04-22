@@ -4,6 +4,8 @@ type: wiki
 status: published
 tags: [angel, lifestyle, kids, youth-sports, summer, peninsula, south-bay, content-pool]
 aliases: [little league, summer camps, dance, sports coaching, tutoring]
+last-compiled: 2026-04-15
+needs-review: 2026-04-29
 ---
 
 # Youth Sports, Summer & Enrichment — Palos Verdes Peninsula
@@ -112,6 +114,8 @@ Beyond the major organized sports (covered in the lifestyle guide), the Hill has
 ## Baseball Camps & Private Instruction
 
 ### Spring Training Baseball Camp (Dan Spring)
+See: [[Brain/wiki/card-dan-spring-training|Card — Spring Training (Dan Spring)]]
+
 - **Website:** stbaseball.com
 - **Location:** Palos Verdes / South Bay
 - **Founded by:** Dan Spring — Brown University captain, All-Ivy League, drafted by the Detroit Tigers (pitched professionally 2003–2004). Relocated to Hermosa Beach, started volunteering at PV Little League, grew organically into a full program

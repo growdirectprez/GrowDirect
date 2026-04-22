@@ -2,6 +2,8 @@
 type: wiki
 tags: [cove, legal, property, redevelopment, lrpmp, parcels]
 source: November 4, 2014 Conveyance of Governmental-Use Properties to RPV (SA C-1 through C-15)
+last-compiled: 2026-04-18
+needs-review: 2026-05-02
 ---
 
 # RPV Redevelopment Agency Conveyance (2014)

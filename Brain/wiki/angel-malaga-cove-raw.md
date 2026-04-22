@@ -5,6 +5,7 @@ status: raw-pool
 tags: [angel, neighborhood, malaga-cove, pve, content-pool]
 sources: [WebSearch, Stroyke Properties, PV History, PV Pulse, GreatSchools, AllTrails, PVBAC, Yelp]
 last-compiled: 2026-04-13
+needs-review: 2026-04-27
 ---
 
 # Malaga Cove — Content Pool (Raw)
@@ -63,6 +64,9 @@ French-American brunch/lunch, in-house bakery. Open daily 7 AM–4 PM. Charming 
 
 **Malaga Cove Ranch Market** — 43 Malaga Cove Plaza
 Local deli, bakery, market, wine & beer bar. American, Mexican, Armenian food. Featured on Discover LA. Neighborhood staple since 1952 location. Prepared foods, sandwiches, grocery basics, catering.
+
+**Neptune's Frozen Treats** — 55 Malaga Cove Plaza
+New (2024–2025) frozen yogurt, custard, gelato, and sorbet shop in the former RE/MAX office space. Founded by Katherine Kemps and her mother Gemma; Katherine is a PV native whose great-great-grandfather founded Beverly Dairy (LA) and Kemps Ice Cream (Midwest). See: [[Brain/wiki/card-neptunes-frozen-treats|Card — Neptune's Frozen Treats]] and [[Brain/wiki/peninsula-ice-cream|Peninsula Ice Cream Guide]].
 
 **La Rive Gauche** — 320 Tejon Place (adjacent to plaza)
 Est. 1976. Classic French fine dining, date-night destination. **NOTE: Yelp lists as "CLOSED" as of March 2026 — status needs field confirmation before publishing.**
@@ -149,6 +153,8 @@ Sandy beach accessible via Malaga Cove Trail (4 miles round trip, ~2 hours, mode
 
 ### PV Beach & Athletic Club (PVBAC)
 389 Paseo del Mar. Members-only club. Opened 1930 (architect: Kirtland Cutter), reopened 1993 as PVBAC. 5-story clubhouse, 6-lane competition pool, children's pool, fitness center, two jacuzzis, sauna, steam room, snack shack. 640 member families, ~211 on waitlist. PVE residents can purchase day passes.
+
+**Coach Ken Taylor** — On staff at PVBAC since 1996 and the go-to JG (LA County Junior Lifeguards) test prep instructor on the Hill. Runs three classes/day, 25 kids/class, through spring. See: [[Brain/wiki/card-coach-ken-taylor|Card — Coach Ken Taylor]] and [[Brain/wiki/peninsula-kids-water|Peninsula Kids Water Guide]].
 
 Source: AllTrails, PV/SB Sierra Club, Outdoor SoCal, California Beaches, Wikipedia, PVBAC, PVE Recreation, PVPLC
 

@@ -6,6 +6,8 @@ sources:
   - Cove/docs/archive/originals/city-records/parks-conservancy/scientific-papers/
 status: source-document-summary
 visibility: public
+last-compiled: 2026-04-19
+needs-review: 2026-05-03
 ---
 
 # COAC: Palos Verdes Endangered Species & Habitat — Scientific Foundation
@@ -128,6 +130,10 @@ The 1975 GP RM-8 (Wildlife Habitat) and RM-9 (Natural Vegetation) overlays, plus
 - [[Cove/docs/archive/originals/city-records/parks-conservancy/usfws-pv-blue-butterfly-5yr-review-2014|USFWS PVB 5-Year Review (2014)]] — agency review of recovery
 - [[Cove/docs/archive/originals/city-records/parks-conservancy/pvplc-nccp-subarea-plan|PVPLC NCCP Subarea Plan]]
 - [[Cove/docs/archive/originals/city-records/parks-conservancy/pvplc-timeline|PVPLC Timeline]]
+
+## 2026-04-19 synthesis update
+
+The operational map — species → regulatory trigger → project scope — is at [[cove-endangered-species-constraints]]. That article is the decision tool for "given this ARC application or construction scope, what habitat/permit/consultation fires." This article remains the scientific-citation reference for recitals and briefs.
 
 ## Open Research Threads
 

@@ -13,6 +13,8 @@ tags:
 supersedes:
   - Lot H Declaration contains single-family restriction
   - Lot H Declaration has architectural controls
+last-compiled: 2026-04-13
+needs-review: 2026-04-27
 ---
 
 # Claim: Lot H Declaration Contains Only Racial Exclusionary Language
@@ -72,6 +74,7 @@ The research uncovered a layered system of protections PV Corp put in place acro
 - **2026-03-24:** Initial theory formed — Lot H Declaration assumed to contain single-family restriction
 - **2026-03-25:** Theory reinforced by title search and tract hierarchy research
 - **2026-04-10:** Theory corrected — source transcription confirms only racial language
+- **2026-04-20:** Lot H partition lineage confirmed via 2005-era primary-source notes — see [[Cove/docs/archive/originals/transcriptions/2005-06-05-Haas-Meeting-Notes-Verbatim|2005-06-05 Haas Meeting Notes]]. Notes reference Homer R. Dulen Company Job 11112-A / File U-7 (1955-10-26) — "Survey of Parcels 1, 2 & 3 of portion of Lot H of Rancho Palos Verdes" for Wanda W. Smith — as the survey source underlying the LACA Map No. 51 partition. Parcel 106 (a Lot H portion) is identified as subdividing into lots 90/91/92/93 = Seacove addresses 12, 8, 4, **vacant** (the vacant lot is 0 Clipper). This doesn't reverse the scope correction but adds verified chain-of-title anchoring for the parcels actually in Lot H.
 
 ## Affected Documents
 

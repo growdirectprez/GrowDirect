@@ -5,6 +5,7 @@ status: raw-pool
 tags: [angel, neighborhood, west-pv, portuguese-bend, rpv, gated, equestrian, landslide, content-pool]
 sources: [WebSearch, RPV city site, Rubyhome, CNN, PV Source, Terranea, AllTrails, Portuguese Bend Riding Club]
 last-compiled: 2026-04-13
+needs-review: 2026-04-27
 ---
 
 # West Palos Verdes — Content Pool (Raw)
@@ -41,7 +42,7 @@ Source: RPV, Rubyhome, CNN, RPV Land Movement
 
 See full agent research output. Schools coverage lives in [[angel-peninsula-school-guide|Peninsula School Guide]]. Key highlights:
 
-**Dining:** Portuguese Bend Beach Club (private), Terranea Resort (Mar'sel, Nelson's, Catalina Kitchen, Bashi, Sea Beans), Golden Cove (Avenue Italy, Swan Thai, Yellow Vase, Starbucks).
+**Dining:** Portuguese Bend Beach Club (private), Terranea Resort (Mar'sel, Nelson's, Catalina Kitchen, Bashi, Sea Beans), Golden Cove (Avenue Italy, Swan Thai, Yellow Vase, Starbucks, **Golden Scoop Gelato** — see [[Brain/wiki/card-golden-scoop-gelato|Card — Golden Scoop Gelato]] and [[Brain/wiki/peninsula-ice-cream|Peninsula Ice Cream Guide]]).
 
 **Lifestyle:** Portuguese Bend Riding Club (10+ acres, boarding, lessons, trails — historic stables from Villa Narcissa/Vanderlip era). Portuguese Bend Beach Club (private, pool, historic 485-ft pier, boating, paddle tennis). Extensive trail network through Portuguese Bend Reserve and Forrestal Nature Reserve.
 

@@ -2,8 +2,9 @@
 date: 2026-04-10
 type: wiki
 tags: [cove, legal, 0-clipper, development, litigation]
-sources: [Cove/docs/admin/research/briefs/legal-brief-0-clipper, Cove/docs/admin/research/litigation/2024-09-petition-filed, Cove/docs/archive/property/2026-ctc-title-report-0-clipper]
-last-compiled: 2026-04-10
+sources: [Cove/docs/admin/research/briefs/legal-brief-0-clipper, Cove/docs/admin/research/litigation/2024-09-petition-filed, Cove/docs/archive/property/2026-ctc-title-report-0-clipper, Cove/docs/archive/originals/litigation/2024-09-11-Verified-Petition-for-Writ-of-Mandate, Cove/docs/archive/originals/litigation/2024-09-13-Letter-to-City-Council]
+last-compiled: 2026-04-20
+needs-review: 2026-05-04
 ---
 
 # 0 Clipper Road
@@ -88,6 +89,12 @@ See [[Cove/docs/admin/research/briefs/counter-proposal|Counter-Proposal]] and [[
 - [[Brain/wiki/cove-property-geology|Property & Geology]]
 - [[Brain/wiki/cove-community-history|Community History]]
 
+## Sources — Litigation Documents (Originals)
+- [[Cove/docs/archive/originals/litigation/2024-09-11-Verified-Petition-for-Writ-of-Mandate|2024-09-11 Verified Petition for Writ of Mandate (CCP §1085)]] — the petition itself, Case 24TRCP00352
+- [[Cove/docs/archive/originals/litigation/2024-09-13-Letter-to-City-Council|2024-09-13 Carney Mehr Letter to RPV City Council]] — post-filing cover letter; cc: `egerli@awattorneys.com` (Aleshire & Wynder city attorney)
+- [[Cove/docs/archive/originals/litigation/1975-10-06-haase-v-wpbca-judgment-case-c24910|1975-10-06 Haase v WPBCA Judgment (Case C 24910)]] — 1975 LA Superior Court judgment adjudicating WPBCA's easement rights over the same 5.00-foot pedestrian walkway on Lot 106 of LACA 51; court-blessed historical precedent for current Ocean Access Easement
+- [[Cove/docs/archive/originals/litigation/1975-11-17-haase-v-wpbca-judgment-certified-copy-case-c24910-book-6823|1975-11-17 Haase v WPBCA — Certified Copy (Book 6823 p.12)]] — LA County Registrar-certified variant, higher-resolution scan with exhibits
+
 ## Sources — Litigation Documents (Transcriptions)
 - [[Cove/docs/archive/originals/transcriptions/2024-06-04-Comment-to-City-Council-Re-0-Clipper-Rezoning-Verbatim|2024-06 Comment to City Council re Rezoning]]
 - [[Cove/docs/archive/originals/transcriptions/2024-08-06-Easement-Status-Agreement-DRAFT-Verbatim|2024-08 Easement Status Agreement (Draft)]]
@@ -109,6 +116,20 @@ See [[Cove/docs/admin/research/briefs/counter-proposal|Counter-Proposal]] and [[
 - [[Cove/docs/archive/property/2026-ctc-title-report-0-clipper|CTC Title Report Summary]]
 - [[Cove/docs/archive/property/2024-easement-status-agreement-draft|Easement Status Agreement Draft]]
 - [[Cove/docs/archive/originals/property/2026-03-27-CTC-Property-Profile-0-Clipper-APN-7573-006-024|CTC Property Profile — 0 Clipper]]
+- [[Cove/docs/archive/originals/transcriptions/2005-06-05-Haas-Meeting-Notes-Verbatim|2005-06-05 Haase Meeting Notes — Lot H Title Chain]] — Wedemeyer's handwritten notes from meeting with Bob Haase (spelled "Haas" in notes; same family as 1975 Case C 24910 defendants) identifying 0 Clipper as the "vacant" 4th subdivision of Parcel 106 (lots 90/91/92/93 = Seacove 12, 8, 4, vacant); 2005-era owner map; 1958–1961 easement-swap chain citations
+- [[Cove/docs/archive/originals/property/research-notes/2005-06-05-wedemeyer-providenttitle-deed-chain-dossier|2005-06-05 Wedemeyer→WPBCA Board (subset, 15.5MB)]] — subset of the Provident Title dossier Wedemeyer circulated to the WPBCA board
+- [[Cove/docs/archive/originals/property/research-notes/2005-06-08-providenttitle-master-dossier-full|2005-06-08 Provident Title Master Dossier (full, 52MB)]] — complete response package to Wedemeyer; items 1-10 and 12 from his shopping list. Cover letter explicitly notes 1952-08-20 grant to WPBCA (Doc 2863) was still pending research
+- [[Cove/docs/archive/originals/property/research-notes/2011-06-29-haase-to-wedemeyer-bylaws-easement-analysis|2011-06-29 Haase→Wedemeyer Letter on Bylaws and Easement]] — Robert C. Haase Jr.'s legal analysis: easement is "in gross" not appurtenant, not a common area; Davis-Stirling shouldn't apply wholesale to pre-1985 declarations
+- [[Cove/docs/archive/originals/property/county-recorder-deeds/1959-01-14-wpbca-to-simes-quitclaim-doc-3150-book-d470|1959-01-14 WPBCA → Simes Quitclaim (Doc 3150)]]
+- [[Cove/docs/archive/originals/property/county-recorder-deeds/1961-08-14-pv-properties-quitclaim-of-easements-doc-4334-book-d1321|1961-08-14 PV Properties Quitclaim of Easements (Doc 4334)]]
+- [[Cove/docs/archive/originals/property/county-recorder-deeds/1934-08-27-pv-water-easement-book-12886-page-274|1934-08-27 PV Water Easement (Book 12886 p.274)]]
+- [[Cove/docs/archive/originals/property/county-recorder-deeds/1950-06-08-pv-corp-to-edison-telephone-utility-easement-tract-14649-inst-2370|1950-06-08 Utility Easement — PV Corp → SCE + Associated Telephone (Inst. 2370)]] — 5-foot utility strips across 48+ lots of Tract 14649
+- [[Cove/docs/archive/originals/property/engineering-studies/1949-07-compacted-fills-report-tract-14649-lots-1-to-81-donald-r-warren-f965|1949-07 Compacted Fills Report — Tract 14649 (Donald R. Warren Co., F 965)]] — **original geotechnical baseline covering 0 Clipper's development.** Marine-clay deposits documented by developer's engineers; φ=15° friction angle; LA County approved 1954
+- [[Cove/docs/archive/originals/property/engineering-studies/1983-12-09-hess-path-engineering-study|1983-12-09 Hess Path Engineering Study]]
+- [[Cove/docs/archive/originals/property/easements/seacove-utility-easements|Seacove Utility Easements]]
+
+## Sources — City Administrative Records (precedent support)
+- [[Cove/docs/archive/originals/city-records/permit-records/2012-05-16-rpv-notice-of-decision-zon2011-00266-12-barkentine-griffis-pool-grading|2012-05-16 RPV Notice of Decision — 12 Barkentine Pool/Grading Permit (ZON2011-00266)]] — **R9 precedent: the City's own 2012 permit process conditions construction on non-encroachment into a 1949 recorded easement (Instrument 2856)**. 136-page administrative record includes chain-of-title exhibits. Proves the City recognizes pre-1985 recorded servitudes as binding unless explicitly extinguished — contradicting their 2024 posture on 0 Clipper
 
 ## Sources — City Records (0 Clipper / Builder Remedy)
 - [[Cove/docs/archive/originals/city-records/builder-remedy/2024-12-17-staff-report-clipper-road-sb330-preliminary-application|SB330 Preliminary Application — Clipper (Dec 2024)]]

@@ -4,6 +4,8 @@ tags: [cove, abalonecove, declaration-100, vanderlip, pv-corp, lot-h, governance
 created: 2026-04-18
 sources: [abalonecove/docs/declarations/Declaration_100.md]
 verified: 2026-04-19
+last-compiled: 2026-04-19
+needs-review: 2026-05-03
 ---
 
 # Declaration No. 100 — General Plan of Restrictions

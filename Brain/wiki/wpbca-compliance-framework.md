@@ -2,8 +2,10 @@
 type: moc
 tags: [wpbca, cove, governance, compliance, davis-stirling, moc, advisory-synthesis]
 created: 2026-04-19
-sources: [Cove/docs/advisor-memos/2026-04-19-comprehensive-review.md]
+sources: [Brain/raw/processed/advisor-memos/2026-04-19-comprehensive-review.md]
 status: draft
+last-compiled: 2026-04-19
+needs-review: 2026-05-03
 ---
 
 # Community of Abalone Cove (formerly WPBCA) Compliance Framework — MOC
@@ -60,7 +62,7 @@ The Foundation does neutral documentation, inter-HOA convening, and procedural-s
 
 ## Provenance
 
-- [[Cove/docs/advisor-memos/2026-04-19-comprehensive-review]] — Covers BTC treasury, Lightning vs bank account, Strike ACH, HOA platforms, ocean path easement guidance
+- [[Brain/raw/processed/advisor-memos/2026-04-19-comprehensive-review]] — Covers BTC treasury, Lightning vs bank account, Strike ACH, HOA platforms, ocean path easement guidance
 - Cove/CLAUDE.md — WPBCA specifics (81 lots, 5 directors, bylaws sections, legislative updates)
 
 ## Related
