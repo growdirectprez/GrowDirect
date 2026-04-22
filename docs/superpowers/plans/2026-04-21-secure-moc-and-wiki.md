@@ -13,9 +13,18 @@
 **Discovery deltas from spec** (plan-time facts the spec didn't know):
 
 - Most `~/secure/PROJECTS/` folders are **empty stubs** locally. Only `FM-JDA` (1856 files), `Circuit City` (234), `Fresh&Easy` (85), `CEO Study` (23), `Dumoulin` (14), `CBM/D&G/CIRCUIT CITY WPC` (≤7 each) have content locally. Most of those are **pre-Secure IBM consulting** (2002–2005).
-- **Secure-era client content is on the NAS**, not local. Kroger pilot pulls from `~/mnt/nas-archive/Work/Clients/KROGER/` + `~/mnt/nas-archive/Work/Projects/Kroger CRP/` + `~/mnt/nas-archive/Reference/Kroger POS Baseline.pdf`.
-- `markitdown 0.1.5` is already installed (`pip list | grep markitdown`) — plan-time checkpoint #1 (dependency flag) is **resolved**. Record it in `content-engine/requirements.txt` for reproducibility.
+- **Secure-era client content is on the NAS**, not local. Kroger first-client pulls from `~/mnt/nas-archive/Work/Clients/KROGER/` + `~/mnt/nas-archive/Work/Projects/Kroger CRP/` + `~/mnt/nas-archive/Reference/Kroger POS Baseline.pdf`.
+- `markitdown 0.1.5` installed with `[docx,xlsx,pptx,xls,pdf,outlook,audio-transcription]` extras (approved dep, recorded in `content-engine/requirements.txt`). 15/15 top-level Secure docs extract cleanly.
 - NAS share is `//192.168.10.117/archive` (creds: user `gclyle`). Must be mounted at `~/mnt/nas-archive` before Chunk 7.
+
+**Scope revision (mid-sprint, post-Chunk-2):**
+
+- **Originals stay in place.** Extract reads NAS + `~/secure/` files where they live. Nothing is copied or moved into the repo.
+- **No `Secure/docs/extracted/` in repo.** Extract uses `/tmp/secure-extract/` scratch, deleted after ingest. Only Brain artifacts (intake notes, wiki, MOC) persist.
+- **No `Secure/` project dir.** Chunk 10 does NOT add a Secure row to `CLAUDE.md` Projects table.
+- **`~/secure/PROJECTS/*` is deferred.** Content is duplicated on NAS; scanning it now is redundant. Covered during future NAS indexing sprint.
+- **NAS broad archive** (Work/Reference/Unsorted beyond Kroger + SECURE 5) is a **separate future effort**: indexing + triage to classify treasures (SDD candidates, FR docs, methodology guides, agent-team playbooks) → deferred extraction. Sprint 1 does not touch it. Secure MOC references this as "Future work: NAS indexing sprint."
+- **Chunks reduced from 10 to 9.** Old Chunk 3 (client classification brief) collapses into Chunk 8 — the stub article captures the deferral in one place.
 
 ---
 
