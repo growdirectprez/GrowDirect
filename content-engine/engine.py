@@ -150,6 +150,109 @@ def _flatten_target(entry: dict, seen: set[str]) -> str:
     return candidate
 
 
+# ── Extract helpers (binary → markdown) ──────────────────────────────
+
+EXTRACT_DEFAULT_EXTS = ("doc", "docx", "ppt", "pptx", "xls", "xlsx", "pdf")
+EXTRACT_TMP_PATTERNS = ("~$", ".tmp", ".old")
+
+def _is_tmp_file(path: Path) -> bool:
+    """Match Office temp artifacts."""
+    name = path.name
+    if name.startswith("~$"):
+        return True
+    if path.suffix.lower() in (".tmp", ".old"):
+        return True
+    return False
+
+
+def _extract_file(source: Path, target: Path) -> dict:
+    """Convert a single binary file to markdown.
+
+    Returns a manifest entry. Writes the markdown to target on success.
+    Raises only for I/O problems on the source path itself.
+
+    Attempts, in order:
+      1. markitdown (primary)
+      2. textutil (macOS .doc fallback)
+      3. pdftotext (.pdf fallback)
+    Otherwise records status='skipped'.
+    """
+    if not source.exists():
+        raise FileNotFoundError(source)
+
+    ext = source.suffix.lower().lstrip(".")
+    entry = {
+        "source_path": str(source),
+        "source_sha256": _sha256(source),
+        "target_path": str(target),
+        "method": None,
+        "status": "failed",
+        "error": None,
+        "extracted_at": datetime.now(timezone.utc).isoformat(),
+    }
+
+    # Short-circuit: skip unsupported extensions before attempting any conversion
+    if ext not in EXTRACT_DEFAULT_EXTS:
+        entry["status"] = "skipped"
+        entry["method"] = "skip"
+        entry["error"] = f"unsupported extension: .{ext}"
+        return entry
+
+    target.parent.mkdir(parents=True, exist_ok=True)
+
+    # Primary: markitdown
+    try:
+        from markitdown import MarkItDown
+        md = MarkItDown()
+        result = md.convert(str(source))
+        content = result.text_content or ""
+        if content.strip():
+            target.write_text(content, encoding="utf-8")
+            entry["method"] = "markitdown"
+            entry["status"] = "ok"
+            return entry
+    except Exception as e:  # noqa: BLE001
+        entry["error"] = f"markitdown: {type(e).__name__}: {e}"
+
+    # Fallback for .doc — macOS textutil
+    if ext == "doc":
+        try:
+            import subprocess
+            txt = subprocess.check_output(
+                ["textutil", "-convert", "txt", "-stdout", str(source)],
+                stderr=subprocess.DEVNULL,
+            ).decode("utf-8", errors="replace")
+            if txt.strip():
+                target.write_text(txt, encoding="utf-8")
+                entry["method"] = "textutil"
+                entry["status"] = "ok"
+                entry["error"] = None
+                return entry
+        except Exception as e:  # noqa: BLE001
+            entry["error"] = f"{entry['error']} | textutil: {type(e).__name__}: {e}"
+
+    # Fallback for .pdf — pdftotext
+    if ext == "pdf":
+        try:
+            import subprocess, shutil as sh
+            if sh.which("pdftotext"):
+                txt = subprocess.check_output(
+                    ["pdftotext", str(source), "-"],
+                    stderr=subprocess.DEVNULL,
+                ).decode("utf-8", errors="replace")
+                if txt.strip():
+                    target.write_text(txt, encoding="utf-8")
+                    entry["method"] = "pdftotext"
+                    entry["status"] = "ok"
+                    entry["error"] = None
+                    return entry
+        except Exception as e:  # noqa: BLE001
+            entry["error"] = f"{entry['error']} | pdftotext: {type(e).__name__}: {e}"
+
+    # All attempts failed for a supported extension
+    return entry
+
+
 # ── CLI ──────────────────────────────────────────────────────────────────
 
 @click.group()
@@ -545,6 +648,111 @@ def clean(directory: str, dry_run: bool):
         click.echo(f"  Removed {empty_dirs_removed} empty directories")
 
 
+@cli.command()
+@click.argument("directory", type=click.Path(exists=True, file_okay=False))
+@click.option("--target", "-t", type=click.Path(), required=True,
+              help="Output directory for extracted markdown")
+@click.option("--ext", default=",".join(EXTRACT_DEFAULT_EXTS),
+              help=f"Comma-separated extensions to process (default: {','.join(EXTRACT_DEFAULT_EXTS)})")
+@click.option("--maxdepth", type=int, default=None,
+              help="Limit recursion depth (1 = top-level only)")
+@click.option("--skip-tmp/--keep-tmp", default=True,
+              help="Skip Office temp artifacts (~$*, *.tmp, *.old). Default: skip.")
+@click.option("--dry-run/--execute", default=True,
+              help="Preview extractions without writing (default: dry-run)")
+def extract(directory: str, target: str, ext: str, maxdepth: int | None,
+            skip_tmp: bool, dry_run: bool):
+    """Convert Office + PDF files to markdown via markitdown.
+
+    Walks DIRECTORY, filters by extension, writes one .md per source file
+    to TARGET preserving the source tree. Writes a manifest file
+    .extract-manifest.json and .extract-failures.json in TARGET.
+
+    Default is dry-run. Pass --execute to write output.
+    """
+    root = Path(directory).resolve()
+    target_root = Path(target).resolve()
+    exts = {e.strip().lstrip(".").lower() for e in ext.split(",") if e.strip()}
+
+    click.echo(f"{'[DRY RUN] ' if dry_run else ''}Extracting from {root}")
+    click.echo(f"  Target:    {target_root}")
+    click.echo(f"  Exts:      {sorted(exts)}")
+    click.echo(f"  Maxdepth:  {maxdepth or 'unlimited'}")
+
+    candidates: list[Path] = []
+    for item in sorted(root.rglob("*")):
+        if item.is_dir():
+            continue
+        if item.name in SKIP_FILES:
+            continue
+        if any(part in SKIP_DIRS for part in item.parts):
+            continue
+        if item.suffix.lower().lstrip(".") not in exts:
+            continue
+        if skip_tmp and _is_tmp_file(item):
+            continue
+        if maxdepth is not None:
+            rel = item.relative_to(root)
+            if len(rel.parts) > maxdepth:
+                continue
+        candidates.append(item)
+
+    click.echo(f"  Files:     {len(candidates)}")
+
+    if dry_run:
+        click.echo("\n  Would extract (first 30):")
+        for c in candidates[:30]:
+            rel = c.relative_to(root)
+            click.echo(f"    {rel}")
+        if len(candidates) > 30:
+            click.echo(f"    ... and {len(candidates) - 30} more")
+        click.echo("\n  To execute: re-run with --execute")
+        return
+
+    target_root.mkdir(parents=True, exist_ok=True)
+    manifest: list[dict] = []
+    failures: list[dict] = []
+    ok = failed = skipped = 0
+    for c in candidates:
+        rel = c.relative_to(root)
+        dest = target_root / (str(rel) + ".md")
+        try:
+            entry = _extract_file(c, dest)
+        except Exception as e:  # noqa: BLE001
+            entry = {
+                "source_path": str(c),
+                "source_sha256": "",
+                "target_path": str(dest),
+                "method": None,
+                "status": "failed",
+                "error": f"{type(e).__name__}: {e}",
+                "extracted_at": datetime.now(timezone.utc).isoformat(),
+            }
+        manifest.append(entry)
+        if entry["status"] == "ok":
+            ok += 1
+        elif entry["status"] == "skipped":
+            skipped += 1
+        else:
+            failed += 1
+            failures.append(entry)
+
+    (target_root / ".extract-manifest.json").write_text(
+        json.dumps(manifest, indent=2, ensure_ascii=False)
+    )
+    if failures:
+        (target_root / ".extract-failures.json").write_text(
+            json.dumps(failures, indent=2, ensure_ascii=False)
+        )
+
+    click.echo(f"\n  OK:       {ok}")
+    click.echo(f"  Failed:   {failed}")
+    click.echo(f"  Skipped:  {skipped}")
+    click.echo(f"  Manifest: {target_root / '.extract-manifest.json'}")
+    if failures:
+        click.echo(f"  Failures: {target_root / '.extract-failures.json'}")
+
+
 # ── Knowledge Layer Commands ─────────────────────────────────────────────
 
 
@@ -915,6 +1123,169 @@ def registry_check(query: str):
         click.echo(f"    └─ {path}")
         click.echo(f"       matched: {', '.join(sorted(keywords))}")
         click.echo()
+
+
+# ── Lint ────────────────────────────────────────────────────────────────
+
+# Required frontmatter fields on every wiki article. Values must parse as
+# ISO-8601 dates (YYYY-MM-DD). Keep this list in sync with
+# Brain/templates/wiki-article.md.
+WIKI_REQUIRED_FIELDS = ("last-compiled", "needs-review")
+
+
+def _parse_frontmatter(content: str) -> tuple[str, str, str] | None:
+    """Split a markdown file into (open_fence, frontmatter_body, close_fence_plus_rest).
+
+    Returns None if no frontmatter block is found.
+    """
+    m = re.match(r"^(---\n)(.*?)(\n---\n?)", content, re.DOTALL)
+    if not m:
+        return None
+    return m.group(1), m.group(2), m.group(3)
+
+
+def _git_committer_date(path: Path) -> str | None:
+    """Return last commit date for path as YYYY-MM-DD, or None if not committed."""
+    import subprocess
+    try:
+        out = subprocess.check_output(
+            ["git", "log", "-1", "--format=%cs", "--", str(path)],
+            stderr=subprocess.DEVNULL,
+            text=True,
+        ).strip()
+        return out or None
+    except Exception:
+        return None
+
+
+def _backfill_date(path: Path) -> str:
+    """Best date for a file: last commit date, else filesystem mtime."""
+    import os
+    d = _git_committer_date(path)
+    if d:
+        return d
+    return datetime.fromtimestamp(os.path.getmtime(path)).date().isoformat()
+
+
+def _add_days(iso_date: str, days: int) -> str:
+    from datetime import date, timedelta
+    y, m, d = (int(x) for x in iso_date.split("-"))
+    return (date(y, m, d) + timedelta(days=days)).isoformat()
+
+
+def _lint_wiki_file(path: Path, fix: bool) -> tuple[list[str], list[str]]:
+    """Lint a single wiki markdown file.
+
+    Returns (violations, fixes_applied). Each is a list of human-readable strings.
+    """
+    content = path.read_text(encoding="utf-8", errors="replace")
+    parsed = _parse_frontmatter(content)
+    if not parsed:
+        return ([f"{path}: missing frontmatter block"], [])
+
+    open_fence, fm, close_fence = parsed
+
+    violations: list[str] = []
+    fixes: list[str] = []
+    new_fm = fm
+
+    for field in WIKI_REQUIRED_FIELDS:
+        if re.search(rf"^{re.escape(field)}:", new_fm, re.MULTILINE):
+            continue
+        if not fix:
+            violations.append(f"{path}: missing '{field}'")
+            continue
+        # Compute default value
+        if field == "last-compiled":
+            value = _backfill_date(path)
+        elif field == "needs-review":
+            # Anchor off last-compiled if present, else backfill date
+            lc_match = re.search(
+                r"^last-compiled:\s*[\"']?(\d{4}-\d{2}-\d{2})",
+                new_fm,
+                re.MULTILINE,
+            )
+            anchor = lc_match.group(1) if lc_match else _backfill_date(path)
+            value = _add_days(anchor, 14)
+        else:  # pragma: no cover — future-proofing
+            value = _backfill_date(path)
+        new_fm = new_fm.rstrip("\n") + f"\n{field}: {value}"
+        fixes.append(f"{path}: set '{field}: {value}'")
+
+    if fix and new_fm != fm:
+        new_content = open_fence + new_fm + close_fence + content[len(open_fence) + len(fm) + len(close_fence):]
+        path.write_text(new_content, encoding="utf-8")
+
+    return (violations, fixes)
+
+
+@cli.command()
+@click.argument("paths", nargs=-1, type=click.Path(exists=True, dir_okay=False, path_type=Path))
+@click.option("--fix", is_flag=True, help="Backfill missing frontmatter fields in place.")
+@click.option("--all", "scan_all", is_flag=True, help="Lint every Brain/wiki/*.md file.")
+def lint(paths: tuple[Path, ...], fix: bool, scan_all: bool):
+    """Lint Brain wiki frontmatter. Flags articles missing required fields.
+
+    Required fields: last-compiled, needs-review.
+
+    Usage:
+        engine.py lint --all                  # check every wiki article
+        engine.py lint --all --fix            # backfill missing fields
+        engine.py lint Brain/wiki/foo.md      # check a single file
+        engine.py lint $(git diff --cached --name-only | grep Brain/wiki/)  # precommit
+
+    Exit code: 0 if clean, 1 if violations found (in check mode).
+    """
+    gd_root = _find_growdirect_root(Path.cwd())
+    if not gd_root:
+        click.echo("ERROR: Run from within GrowDirect (need CLAUDE.md + Brain/)")
+        raise SystemExit(2)
+
+    if scan_all and paths:
+        click.echo("ERROR: pass PATHS or --all, not both.")
+        raise SystemExit(2)
+
+    if scan_all:
+        wiki_dir = gd_root / BRAIN_WIKI
+        targets = sorted(wiki_dir.glob("*.md")) if wiki_dir.exists() else []
+    elif paths:
+        targets = [p.resolve() for p in paths if p.suffix == ".md"]
+    else:
+        click.echo("ERROR: pass file paths or --all.")
+        raise SystemExit(2)
+
+    # Only lint files under Brain/wiki
+    wiki_prefix = (gd_root / BRAIN_WIKI).resolve()
+    filtered = [t for t in targets if str(t.resolve()).startswith(str(wiki_prefix))]
+
+    all_violations: list[str] = []
+    all_fixes: list[str] = []
+    for t in filtered:
+        v, f = _lint_wiki_file(t, fix=fix)
+        all_violations.extend(v)
+        all_fixes.extend(f)
+
+    if fix:
+        click.echo(f"  Files checked: {len(filtered)}")
+        click.echo(f"  Fixes applied: {len(all_fixes)}")
+        for msg in all_fixes:
+            click.echo(f"    + {msg}")
+        if all_violations:
+            click.echo(f"  Remaining violations: {len(all_violations)}")
+            for msg in all_violations:
+                click.echo(f"    - {msg}")
+            raise SystemExit(1)
+        return
+
+    click.echo(f"  Files checked: {len(filtered)}")
+    if not all_violations:
+        click.echo("  Clean. All required frontmatter fields present.")
+        return
+    click.echo(f"  Violations: {len(all_violations)}")
+    for msg in all_violations:
+        click.echo(f"    - {msg}")
+    click.echo("\n  Fix with: python3 content-engine/engine.py lint --all --fix")
+    raise SystemExit(1)
 
 
 if __name__ == "__main__":
