@@ -5,7 +5,7 @@
 **Architecture:** [[docs/sdds/canary/architecture|Canary Architecture SDD]]
 **Linear:** GRO-267
 **Method:** [[Brain/projects/Method|Method MOC]]
-**Author role:** [[Canary/docs/profiles/ops/Tom|Tom]] · **Operator role:** [[Canary/docs/profiles/ops/Jeremy|Jeremy]]
+**Author role:** [[docs/team/Architect|Architect]] · **Operator role:** [[docs/team/Engineer|Engineer]]
 
 ---
 

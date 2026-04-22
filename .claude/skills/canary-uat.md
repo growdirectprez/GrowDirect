@@ -1,7 +1,7 @@
 ---
 name: canary-uat
-roles-primary: [Jim]
-roles-assist: [Eva]
+roles-primary:[QA]
+roles-assist:[ProgramManager]
 description: |
   Quick UAT health check for the Canary build. Use when Jeffe or any team member
   says: 'check the app', 'is the app working', 'run UAT', 'health check',

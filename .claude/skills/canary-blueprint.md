@@ -1,7 +1,7 @@
 ---
 name: canary-blueprint
-roles-primary: [Tom]
-roles-assist: [ALX]
+roles-primary:[Architect]
+roles-assist:[ALX]
 stage: blueprint
 description: |
   Factory Process plan-writing skill. Use when you have a spec, requirements,

@@ -1,6 +1,6 @@
 ---
 name: cove-assembly
-roles-primary: [Jeremy]
+roles-primary:[Engineer]
 stage: assembly
 description: |
   Execute implementation plans for Cove. Use when you have a written plan to

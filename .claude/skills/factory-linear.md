@@ -1,7 +1,7 @@
 ---
 name: factory-linear
-roles-primary: [ALX]
-roles-assist: [Eva]
+roles-primary:[ALX]
+roles-assist:[ProgramManager]
 description: |
   Standardized Linear integration at factory stage boundaries. Handles issue
   reads at preflight, status transitions at blueprint/ship, document attachment,

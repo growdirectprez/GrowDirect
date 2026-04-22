@@ -1,7 +1,7 @@
 ---
 name: canary-ship
-roles-primary: [Jeremy]
-roles-assist: [DevOps]
+roles-primary:[Engineer]
+roles-assist:[DevOps]
 stage: ship
 description: |
   Finish and ship a development branch. Use when implementation is complete,

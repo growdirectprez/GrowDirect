@@ -10,7 +10,7 @@
 **Wiki:** [[Brain/wiki/canary-architecture|Canary Architecture]]
 **Architecture:** [[docs/sdds/canary/architecture|Canary Architecture SDD]]
 **Method:** [[Brain/projects/Method|Method MOC]]
-**Author role:** [[Canary/docs/profiles/ops/Compliance|Compliance]] · **Operator role:** [[Canary/docs/profiles/ops/Jim|Jim]] + [[Canary/docs/profiles/ops/Jeremy|Jeremy]]
+**Author role:** [[docs/team/Compliance|Compliance]] · **Operator role:** [[docs/team/QA|QA]] + [[docs/team/Engineer|Engineer]]
 
 ---
 

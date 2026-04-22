@@ -11,4 +11,4 @@
 **Parent SDD:** [[docs/sdds/cove/sitemap-redesign|Sitemap Redesign]]
 **Decision:** [[docs/decisions/2026-04-01-cove-sitemap-redesign|Cove Sitemap Redesign Decision]]
 **Method:** [[Brain/projects/Method|Method MOC]]
-**Author role:** [[Canary/docs/profiles/ops/Tom|Tom]] · **Operator role:** [[Canary/docs/profiles/ops/Jeremy|Jeremy]]
+**Author role:** [[docs/team/Architect|Architect]] · **Operator role:** [[docs/team/Engineer|Engineer]]

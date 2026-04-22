@@ -10,7 +10,7 @@
 **Wiki:** [[Brain/wiki/south-bay-wiki-architecture|South Bay Wiki Architecture]] · [[Brain/wiki/angel-brand-and-team|Angel Brand & Team]] · [[Brain/wiki/angel-voice-training|Angel Voice Training]] · [[Brain/projects/Angel|Angel MOC]]
 **Parent:** [[docs/sdds/angel/angel-overview|Angel Overview]]
 **Method:** [[Brain/projects/Method|Method MOC]]
-**Author role:** [[Canary/docs/profiles/ops/Art|Art]] · **Operator role:** [[Canary/docs/profiles/ops/Jess|Jess]]
+**Author role:** [[docs/team/UX|UX]] · **Operator role:** [[docs/team/Writer|Writer]]
 
 ---
 

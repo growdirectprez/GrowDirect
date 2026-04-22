@@ -5,7 +5,7 @@
 **Architecture:** [[docs/sdds/canary/architecture|Canary Architecture SDD]]
 **Linear:** GRO-144, GRO-146, GRO-147, GRO-139, GRO-174, GRO-176, GRO-236, GRO-277
 **Method:** [[Brain/projects/Method|Method MOC]]
-**Author role:** [[Canary/docs/profiles/ops/Tom|Tom]] + [[Canary/docs/profiles/ops/Research|Research]] · **Operator role:** [[Canary/docs/profiles/ops/Jeremy|Jeremy]]
+**Author role:** [[docs/team/Architect|Architect]] + [[docs/team/PhD|PhD]] · **Operator role:** [[docs/team/Engineer|Engineer]]
 
 ## Purpose
 

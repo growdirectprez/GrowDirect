@@ -11,7 +11,7 @@
 **Wiki:** [[Brain/wiki/cove-governance|Cove Governance]] | [[Brain/wiki/cove-property-geology|Cove Property & Geology]] | [[Brain/wiki/cove-lot-h-discovery|Lot H Discovery]]
 **Architecture:** [[docs/sdds/cove/architecture|Cove Architecture]]
 **Method:** [[Brain/projects/Method|Method MOC]]
-**Author role:** [[Canary/docs/profiles/ops/Art|Art]] · **Operator role:** [[Canary/docs/profiles/ops/Jeremy|Jeremy]]
+**Author role:** [[docs/team/UX|UX]] · **Operator role:** [[docs/team/Engineer|Engineer]]
 
 ---
 

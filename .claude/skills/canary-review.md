@@ -1,7 +1,7 @@
 ---
 name: canary-review
-roles-primary: [Tom]
-roles-assist: [Jeremy]
+roles-primary:[Architect]
+roles-assist:[Engineer]
 description: |
   Code review for Canary. Use after completing tasks, implementing features,
   or before merging. Reviews against Factory Process compliance, data integrity,

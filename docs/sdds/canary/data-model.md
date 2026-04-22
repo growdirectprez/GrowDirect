@@ -4,7 +4,7 @@
 **Wiki:** [[Brain/wiki/canary-architecture|Canary Architecture]], [[Brain/wiki/canary-data-model|Canary Data Model]]
 **Architecture:** [[docs/sdds/canary/architecture|Canary Architecture SDD]]
 **Method:** [[Brain/projects/Method|Method MOC]]
-**Author role:** [[Canary/docs/profiles/ops/Tom|Tom]] · **Operator role:** [[Canary/docs/profiles/ops/Jeremy|Jeremy]]
+**Author role:** [[docs/team/Architect|Architect]] · **Operator role:** [[docs/team/Engineer|Engineer]]
 **Source SDDs:** SDD-023 through SDD-032, SDD-042, SDD-043, SDD-044, SDD-057
 
 ---

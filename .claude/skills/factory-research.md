@@ -1,7 +1,7 @@
 ---
 name: factory-research
-roles-primary: [Research]
-roles-assist: [Tom]
+roles-primary:[PhD]
+roles-assist:[Architect]
 stage: research
 description: |
   Prior art gathering before blueprint. Queries memory bus for decisions and

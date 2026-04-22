@@ -5,7 +5,7 @@
 > **Namespace:** platform
 > **Code location:** `factory-manifest.json`, `.claude/skills/factory-*.md`
 > **Companion:** [[docs/sdds/platform/skill-architecture|Skill Architecture]] — skill taxonomy, eval strategy, layer tagging
-> **Author role:** [[Canary/docs/profiles/ops/Tom|Tom]] · **Operator role:** [[Canary/docs/profiles/ops/ALX|ALX]]
+> **Author role:** [[docs/team/Architect|Architect]] · **Operator role:** [[docs/team/ALX|ALX]]
 
 **Wiki:** [[Brain/wiki/growdirect-workflow|GrowDirect Workflow]] · [[Brain/wiki/document-management|Document Management]]
 **Method:** [[Brain/projects/Method|Method MOC]] · [[Brain/projects/Factory|Factory MOC]]
@@ -95,7 +95,7 @@ An issue that is Done or Cancelled causes an immediate STOP.
 | Stage | Gate to proceed | What blocks progress |
 |-------|----------------|---------------------|
 | Preflight | All checks GREEN or YELLOW | Any RED check (Docker down, DB unreachable, no GRO issue) |
-| Research | Always proceeds (all sources optional) | Nothing — degrades gracefully |
+| PhD | Always proceeds (all sources optional) | Nothing — degrades gracefully |
 | Blueprint | Explicit confirmation from ALX/user | Plan exceeds 8 tasks (must split), standards violations |
 | TDD | All tests written and failing correctly | Test passes before implementation (defective test) |
 | Assembly | All TDD tests green + smoke tests pass | Any test failure, any regression |
@@ -208,7 +208,7 @@ every pipeline stage, not just design references:
 | Stage | How the SDD is used |
 |-------|---------------------|
 | Preflight | Check that service dependencies listed in SDD are running |
-| Research | Read SDD for PII map, current findings, operational context |
+| PhD | Read SDD for PII map, current findings, operational context |
 | Blueprint | Design against SDD's API contract and PII classification |
 | TDD | Write tests that validate SDD's production readiness checklist items |
 | Assembly | Implement against SDD's operational requirements |

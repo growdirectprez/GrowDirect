@@ -1,7 +1,7 @@
 ---
 name: canary-preflight
-roles-primary: [ALX]
-roles-assist: [Eva]
+roles-primary:[ALX]
+roles-assist:[ProgramManager]
 stage: preflight
 description: |
   Session bootstrap for Canary development. Run at the start of every session.

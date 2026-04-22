@@ -1,7 +1,7 @@
 ---
 name: canary-close
-roles-primary: [ALX]
-roles-assist: [Eva]
+roles-primary:[ALX]
+roles-assist:[ProgramManager]
 stage: close
 description: |
   Session teardown for Canary development. Updates Linear issues, stores findings

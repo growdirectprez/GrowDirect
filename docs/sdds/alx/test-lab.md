@@ -10,7 +10,7 @@ The Test Lab is a developer-facing subsystem inside Canary's Ops Console that ge
 **Wiki:** [[Brain/wiki/canary-architecture|Canary Architecture]] · [[Brain/wiki/canary-detection|Canary Detection]] · [[Brain/projects/Canary|Canary MOC]]
 **Related:** [[docs/sdds/platform/shared-infrastructure|Shared Infrastructure]]
 **Method:** [[Brain/projects/Method|Method MOC]]
-**Author role:** [[Canary/docs/profiles/ops/Compliance|Compliance]] · **Operator role:** [[Canary/docs/profiles/ops/Jim|Jim]]
+**Author role:** [[docs/team/Compliance|Compliance]] · **Operator role:** [[docs/team/QA|QA]]
 
 ---
 

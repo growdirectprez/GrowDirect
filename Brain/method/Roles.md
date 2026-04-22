@@ -15,43 +15,43 @@ Index of GrowDirect roles — the agent team that runs the Factory pipeline and 
 
 ## Orchestration
 
-- [[Canary/docs/profiles/ops/ALX|ALX]] — Orchestrator / Program Manager. Runs the Factory from preflight through close. Coordinates the team. Primary owner of session protocol + Linear workflow.
+- [[docs/team/ALX|ALX]] — Orchestrator / Program Manager. Runs the Factory from preflight through close. Coordinates the team. Primary owner of session protocol + Linear workflow.
 
 ## Core delivery
 
-- [[Canary/docs/profiles/ops/Tom|Tom]] — Architecture. Owns blueprint stage; decides how things get built. Designs SDDs; reviews plans.
-- [[Canary/docs/profiles/ops/Jeremy|Jeremy]] — Build + DevOps. TDD, Assembly, Verify, Ship. Owns the deploy pipeline, shared Docker infra, migrations.
-- [[Canary/docs/profiles/ops/Eva|Eva]] — Program Management. Tracks cycles, preflight coordination, timelog capture, cost tracking.
-- [[Canary/docs/profiles/ops/Jess|Jess]] — Documentation. SDDs, runbooks, onboarding, Brain wiki upkeep.
+- [[docs/team/Architect|Architect]] — Architecture. Owns blueprint stage; decides how things get built. Designs SDDs; reviews plans.
+- [[docs/team/Engineer|Engineer]] — Build + DevOps. TDD, Assembly, Verify, Ship. Owns the deploy pipeline, shared Docker infra, migrations.
+- [[docs/team/ProgramManager|ProgramManager]] — Program Management. Tracks cycles, preflight coordination, timelog capture, cost tracking.
+- [[docs/team/Writer|Writer]] — Documentation. SDDs, runbooks, onboarding, Brain wiki upkeep.
 
 ## Product + UX
 
-- [[Canary/docs/profiles/ops/Art|Art]] — UX / Creative. Design decisions, brand execution, UI review.
-- [[Canary/docs/profiles/ops/Owl|Owl]] — Product AI. MCP servers, agent composition, Ollama workloads, embeddings.
-- [[Canary/docs/profiles/ops/Jim|Jim]] — Customer sentiment + QA. Uses the product the way a merchant would; flags friction; runs UAT.
+- [[docs/team/UX|UX]] — UX / Creative. Design decisions, brand execution, UI review.
+- [[docs/team/Owl|Owl]] — Product AI. MCP servers, agent composition, Ollama workloads, embeddings.
+- [[docs/team/QA|QA]] — Customer sentiment + QA. Uses the product the way a merchant would; flags friction; runs UAT.
 
 ## Research + context
 
-- [[Canary/docs/profiles/ops/Research|Research]] — Context gathering. Research-stage owner; prior-art recall; competitive scan.
+- [[docs/team/PhD|PhD]] — Context gathering. Research-stage owner; prior-art recall; competitive scan.
 
 ## Gates + oversight
 
-- [[Canary/docs/profiles/ops/Compliance|Compliance]] — QA gate. Standards enforcement, data handling, RLS, audit trail.
-- [[Canary/docs/profiles/ops/Legal|Legal]] — Legal gate. Contracts, NDAs, privacy, IP.
-- [[Canary/docs/profiles/ops/DevOps|DevOps]] — Infrastructure gate. Ship stage review, infra cost, security.
+- [[docs/team/Compliance|Compliance]] — QA gate. Standards enforcement, data handling, RLS, audit trail.
+- [[docs/team/Legal|Legal]] — Legal gate. Contracts, NDAs, privacy, IP.
+- [[docs/team/DevOps|DevOps]] — Infrastructure gate. Ship stage review, infra cost, security.
 
 ## Role → Factory stage affinity
 
 | Stage | Primary | Assist |
 |---|---|---|
 | 1. Preflight | ALX | Eva, Jeremy |
-| 2. Research | Research | Tom, Jess |
-| 3. Blueprint | Tom | ALX, Eva |
-| 4. TDD | Jeremy | Tom |
-| 5. Assembly | Jeremy | Tom, Art |
-| 6. Verify | Jeremy | Jim |
+| 2. Research | PhD | Tom, Jess |
+| 3. Blueprint | Architect | ALX, Eva |
+| 4. TDD | Engineer | Architect |
+| 5. Assembly | Engineer | Tom, Art |
+| 6. Verify | Engineer | QA |
 | 7. QA | Compliance | Legal, Art |
-| 8. Ship | Jeremy | DevOps |
+| 8. Ship | Engineer | DevOps |
 | 9. Close | ALX | Eva, Jess |
 
 (Same matrix as [[Brain/projects/Factory|Factory MOC]] — duplicated here for role-first navigation.)

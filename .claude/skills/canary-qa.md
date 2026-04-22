@@ -1,7 +1,7 @@
 ---
 name: canary-qa
-roles-primary: [Compliance]
-roles-assist: [Jim]
+roles-primary:[Compliance]
+roles-assist:[QA]
 stage: qa
 description: |
   Diff-aware QA testing for Canary. Use when asked to "qa", "test this", "verify

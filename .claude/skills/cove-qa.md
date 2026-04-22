@@ -1,7 +1,7 @@
 ---
 name: cove-qa
-roles-primary: [Compliance]
-roles-assist: [Jim]
+roles-primary:[Compliance]
+roles-assist:[QA]
 stage: qa
 description: |
   QA testing for Cove. Use when asked to test, verify a branch, or before

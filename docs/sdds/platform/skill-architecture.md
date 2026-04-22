@@ -4,7 +4,7 @@
 > **Status:** Active — 38 skills deployed, 19 planned, eval framework designed
 > **Date:** 2026-03-30 (ops upgrade 2026-04-13)
 > **Linear:** GRO-378
-> **Author role:** [[Canary/docs/profiles/ops/Tom|Tom]] · **Operator role:** [[Canary/docs/profiles/ops/ALX|ALX]]
+> **Author role:** [[docs/team/Architect|Architect]] · **Operator role:** [[docs/team/ALX|ALX]]
 
 **Wiki:** [[Brain/wiki/document-management|Document Management]] · [[Brain/wiki/growdirect-workflow|GrowDirect Workflow]]
 **Method:** [[Brain/projects/Method|Method MOC]] · [[Brain/method/Techniques|Method › Techniques]]

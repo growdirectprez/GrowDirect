@@ -17,7 +17,7 @@
 **Assessor's I.D.:** T575-009-012
 **Legal Description:** Tract #14649, Lot 69
 **Method:** [[Brain/projects/Method|Method MOC]]
-**Author role:** [[Canary/docs/profiles/ops/Tom|Tom]] · **Operator role:** [[Canary/docs/profiles/ops/Jeremy|Jeremy]]
+**Author role:** [[docs/team/Architect|Architect]] · **Operator role:** [[docs/team/Engineer|Engineer]]
 
 ## Purpose
 
