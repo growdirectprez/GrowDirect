@@ -6,6 +6,8 @@
 **Blueprint:** `vault_bp` at `/documents` (redirected from `/vault` via GRO-395)
 **Wiki:** [[Brain/wiki/cove-governance|Cove Governance]] | [[Brain/wiki/cove-legal-framework|Cove Legal Framework]]
 **Architecture:** [[docs/sdds/cove/architecture|Cove Architecture]]
+**Method:** [[Brain/projects/Method|Method MOC]]
+**Author role:** [[Canary/docs/profiles/ops/Tom|Tom]] · **Operator role:** [[Canary/docs/profiles/ops/Jeremy|Jeremy]]
 
 ---
 

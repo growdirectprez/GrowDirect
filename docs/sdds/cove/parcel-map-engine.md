@@ -10,6 +10,8 @@
 
 **Wiki:** [[Brain/wiki/cove-governance|Cove Governance]] | [[Brain/wiki/cove-property-geology|Cove Property & Geology]]
 **Architecture:** [[docs/sdds/cove/architecture|Cove Architecture]]
+**Method:** [[Brain/projects/Method|Method MOC]]
+**Author role:** [[Canary/docs/profiles/ops/Tom|Tom]] · **Operator role:** [[Canary/docs/profiles/ops/Jeremy|Jeremy]]
 
 ---
 

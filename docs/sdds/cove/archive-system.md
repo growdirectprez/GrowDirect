@@ -7,6 +7,8 @@
 **Code location:** `Cove/cove/archive/`
 **Wiki:** [[Brain/wiki/cove-governance|Cove Governance]] | [[Brain/wiki/cove-legal-framework|Cove Legal Framework]] | [[Brain/wiki/cove-community-history|Cove Community History]]
 **Architecture:** [[docs/sdds/cove/architecture|Cove Architecture]]
+**Method:** [[Brain/projects/Method|Method MOC]]
+**Author role:** [[Canary/docs/profiles/ops/Jess|Jess]] · **Operator role:** [[Canary/docs/profiles/ops/ALX|ALX]]
 
 ---
 

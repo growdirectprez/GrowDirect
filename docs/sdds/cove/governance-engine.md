@@ -9,6 +9,8 @@
 
 **Wiki:** [[Brain/wiki/cove-governance|Cove Governance]]
 **Architecture:** [[docs/sdds/cove/architecture|Cove Architecture]]
+**Method:** [[Brain/projects/Method|Method MOC]]
+**Author role:** [[Canary/docs/profiles/ops/Compliance|Compliance]] · **Operator role:** [[Canary/docs/profiles/ops/Legal|Legal]] + [[Canary/docs/profiles/ops/Jeremy|Jeremy]]
 
 ---
 

@@ -2,6 +2,8 @@
 
 **Wiki:** [[Brain/wiki/canary-architecture|Canary Architecture]], [[Brain/wiki/canary-detection|Canary Detection]]
 **Architecture:** [[docs/sdds/canary/architecture|Canary Architecture SDD]]
+**Method:** [[Brain/projects/Method|Method MOC]]
+**Author role:** [[Canary/docs/profiles/ops/Tom|Tom]] · **Operator role:** [[Canary/docs/profiles/ops/Jeremy|Jeremy]]
 
 > **Type:** App Service (Canary) -- Stream Consumer
 > **Parent SDD:** [[docs/sdds/canary/tsp|TSP Pipeline Overview]]

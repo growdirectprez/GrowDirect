@@ -6,6 +6,8 @@
 **Blueprint:** `board_bp` at `/board`
 **Wiki:** [[Brain/wiki/cove-governance|Cove Governance]]
 **Architecture:** [[docs/sdds/cove/architecture|Cove Architecture]]
+**Method:** [[Brain/projects/Method|Method MOC]]
+**Author role:** [[Canary/docs/profiles/ops/ALX|ALX]] · **Operator role:** [[Canary/docs/profiles/ops/Compliance|Compliance]]
 
 ---
 

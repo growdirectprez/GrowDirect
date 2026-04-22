@@ -8,6 +8,8 @@
 > **Client:** Angelique Lyle, Compass, Palos Verdes Peninsula
 
 **Wiki:** [[Brain/wiki/south-bay-wiki-architecture|South Bay Wiki Architecture]] · [[Brain/wiki/angel-architecture|Angel Architecture]] · [[Brain/wiki/angel-data-platform|Angel Data Platform]] · [[Brain/projects/Angel|Angel MOC]]
+**Method:** [[Brain/projects/Method|Method MOC]]
+**Author role:** [[Canary/docs/profiles/ops/Tom|Tom]] · **Operator role:** [[Canary/docs/profiles/ops/Jeremy|Jeremy]]
 
 ---
 
