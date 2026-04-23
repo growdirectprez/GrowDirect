@@ -1,0 +1,272 @@
+<?xml version="1.0" encoding="utf-8"?>
+<xsl:stylesheet version="1.0" 
+    xmlns:xsl="http://www.w3.org/1999/XSL/Transform"
+    xmlns:store="http://tesco.com/common/Store"
+	xmlns:addr="http://tesco.com/common/Address"
+	>
+	<xsl:template match="/">
+		<xsl:for-each select="StoreDesc">
+			<store:Store xmlns="http://tesco.com/common/Store">
+				<xsl:if test="store!=''">
+					<StoreID>
+						<xsl:value-of select="store" />
+					</StoreID>
+				</xsl:if>
+				<xsl:if test="store_name!=''">
+					<StoreName>
+						<xsl:value-of select="store_name" />
+					</StoreName>
+				</xsl:if>
+				<xsl:if test="store_name10!=''">
+					<StoreName10>
+						<xsl:value-of select="store_name10" />
+					</StoreName10>
+				</xsl:if>
+				<xsl:if test="store_name3!=''">
+					<StoreName3>
+						<xsl:value-of select="store_name3" />
+					</StoreName3>
+				</xsl:if>
+				<xsl:if test="pricing_loc!=''">
+					<PricingSourceStore>
+						<xsl:value-of select="pricing_loc" />
+					</PricingSourceStore>
+				</xsl:if>
+				<xsl:if test="pricing_loc_curr!=''">
+					<PricingSourceCurrency>
+						<xsl:value-of select="pricing_loc_curr" />
+					</PricingSourceCurrency>
+				</xsl:if>
+				<xsl:if test="transfer_zone!=''">
+					<TransferZoneID>
+						<xsl:value-of select="transfer_zone" />
+					</TransferZoneID>
+				</xsl:if>
+				<xsl:if test="channel_id!=''">
+					<ChannelID>
+						<xsl:value-of select="channel_id" />
+					</ChannelID>
+				</xsl:if>
+				<xsl:if test="store_format!=''">
+					<StoreFormat>
+						<xsl:value-of select="store_format" />
+					</StoreFormat>
+				</xsl:if>
+				<xsl:if test="orig_currency_code!=''">
+					<OriginalCurrencyCode>
+						<xsl:value-of select="orig_currency_code" />
+					</OriginalCurrencyCode>
+				</xsl:if>
+				<xsl:if test="currency_code!=''">
+					<CurrencyCode>
+						<xsl:value-of select="currency_code" />
+					</CurrencyCode>
+				</xsl:if>
+				<xsl:if test="lang!=''">
+					<Language>
+						<xsl:value-of select="lang" />
+					</Language>
+				</xsl:if>
+				<xsl:if test="store_mgr_name!=''">
+					<StoreManagerName>
+						<xsl:value-of select="store_mgr_name" />
+					</StoreManagerName>
+				</xsl:if>
+				<xsl:if test="store_open_date/date-obj/date!=''">
+					<StoreOpenDate>
+						<xsl:value-of select="store_open_date/date-obj/date" />
+					</StoreOpenDate>
+				</xsl:if>
+				<xsl:if test="store_close_date/date-obj/date!=''">
+					<StoreCloseDate>
+						<xsl:value-of select="store_close_date/date-obj/date" />
+					</StoreCloseDate>
+				</xsl:if>
+				<xsl:if test="acquired_date/date-obj/date!=''">
+					<StoreAcquiredDate>
+						<xsl:value-of select="acquired_date/date-obj/date" />
+					</StoreAcquiredDate>
+				</xsl:if>
+				<xsl:if test="remodelled_date/date-obj/date!=''">
+					<StoreRemodelledDate>
+						<xsl:value-of select="remodelled_date/date-obj/date" />
+					</StoreRemodelledDate>
+				</xsl:if>
+				<xsl:if test="fax_number!=''">
+					<FaxNumber>
+						<xsl:value-of select="fax_number" />
+					</FaxNumber>
+				</xsl:if>
+				<xsl:if test="phone_number!=''">
+					<PhoneNumber>
+						<xsl:value-of select="phone_number" />
+					</PhoneNumber>
+				</xsl:if>
+				<xsl:if test="email!=''">
+					<EmailAddress>
+						<xsl:value-of select="email" />
+					</EmailAddress>
+				</xsl:if>
+				<xsl:if test="total_square_ft!=''">
+					<TotalSqFeet>
+						<xsl:value-of select="total_square_ft" />
+					</TotalSqFeet>
+				</xsl:if>
+				<xsl:if test="selling_square_ft!=''">
+					<SellingSquareFeet>
+						<xsl:value-of select="selling_square_ft" />
+					</SellingSquareFeet>
+				</xsl:if>
+				<xsl:if test="linear_distance!=''">
+					<LinearDistance>
+						<xsl:value-of select="linear_distance" />
+					</LinearDistance>
+				</xsl:if>
+				<xsl:if test="stockholding_ind!=''">
+					<StockHoldingInd>
+						<xsl:value-of select="stockholding_ind" />
+					</StockHoldingInd>
+				</xsl:if>
+				<xsl:if test="mall_name!=''">
+					<MallName>
+						<xsl:value-of select="mall_name" />
+					</MallName>
+				</xsl:if>
+				<xsl:if test="default_wh!=''">
+					<DefaultWarehouseID>
+						<xsl:value-of select="default_wh" />
+					</DefaultWarehouseID>
+				</xsl:if>
+				<xsl:if test="stop_order_days!=''">
+					<StopOrderDays>
+						<xsl:value-of select="stop_order_days" />
+					</StopOrderDays>
+				</xsl:if>
+				<xsl:if test="start_order_days!=''">
+					<StartOrderDays>
+						<xsl:value-of select="start_order_days" />
+					</StartOrderDays>
+				</xsl:if>
+				<xsl:if test="integrated_pos_ind!=''">
+					<IntegratedPOSInd>
+						<xsl:value-of select="integrated_pos_ind" />
+					</IntegratedPOSInd>
+				</xsl:if>
+				<xsl:if test="duns_number!=''">
+					<DUNSNumber>
+						<xsl:value-of select="duns_number" />
+					</DUNSNumber>
+				</xsl:if>
+				<xsl:if test="duns_loc!=''">
+					<DUNSLocation>
+						<xsl:value-of select="duns_loc" />
+					</DUNSLocation>
+				</xsl:if>				
+				
+				<xsl:if test="store_class!=''">
+					<StoreClass>
+						<xsl:value-of select="store_class" />
+					</StoreClass>
+				</xsl:if>
+				<xsl:if test="district!=''">
+					<District>
+						<xsl:value-of select="district" />
+					</District>
+				</xsl:if>
+				<xsl:for-each select="AddrDesc">
+					<addr:Address xmlns="http://tesco.com/common/Address">
+						<xsl:if test="addr!=''">
+							<AddressID>
+								<xsl:value-of select="addr" />
+							</AddressID>
+						</xsl:if>
+						<xsl:if test="addr_type!=''">
+							<AddressType>
+								<xsl:value-of select="addr_type" />
+							</AddressType>
+						</xsl:if>
+						<xsl:if test="primary_addr_ind!=''">
+							<PrimaryAddressInd>
+								<xsl:value-of select="primary_addr_ind" />
+							</PrimaryAddressInd>
+						</xsl:if>
+						<xsl:if test="add_1!=''">
+							<AddrLine1>
+								<xsl:value-of select="add_1" />
+							</AddrLine1>
+						</xsl:if>
+						<xsl:if test="add_2!=''">
+							<AddrLine2>
+								<xsl:value-of select="add_2" />
+							</AddrLine2>
+						</xsl:if>
+						<xsl:if test="add_3!=''">
+							<AddrLine3>
+								<xsl:value-of select="add_3" />
+							</AddrLine3>
+						</xsl:if>
+						<xsl:if test="city!=''">
+							<City>
+								<xsl:value-of select="city" />
+							</City>
+						</xsl:if>
+						<xsl:if test="state!=''">
+							<State>
+								<xsl:value-of select="state" />
+							</State>
+						</xsl:if>
+						<xsl:if test="country_id!=''">
+							<ISOCountryCode>
+								<xsl:value-of select="country_id" />
+							</ISOCountryCode>
+						</xsl:if>
+						<xsl:if test="post!=''">
+							<PostCode>
+								<xsl:value-of select="post" />
+							</PostCode>
+						</xsl:if>
+						<xsl:if test="contact_name!=''">
+							<ContactName>
+								<xsl:value-of select="contact_name" />
+							</ContactName>
+						</xsl:if>
+						<xsl:if test="contact_phone!=''">
+							<ContactPhone>
+								<xsl:value-of select="contact_phone" />
+							</ContactPhone>
+						</xsl:if>
+						<xsl:if test="contact_telex!=''">
+							<ContactTelex>
+								<xsl:value-of select="contact_telex" />
+							</ContactTelex>
+						</xsl:if>
+						<xsl:if test="contact_fax!=''">
+							<ContactFax>
+								<xsl:value-of select="contact_fax" />
+							</ContactFax>
+						</xsl:if>
+						<xsl:if test="contact_email!=''">
+							<ContactEmail>
+								<xsl:value-of select="contact_email" />
+							</ContactEmail>
+						</xsl:if>
+						<xsl:if test="county!=''">
+							<County>
+								<xsl:value-of select="county" />
+							</County>
+						</xsl:if>
+					</addr:Address>
+				</xsl:for-each>
+			</store:Store>
+		</xsl:for-each>
+		<xsl:for-each select="StoreRef">
+			<store:Store xmlns="http://tesco.com/common/Store">
+				<xsl:if test="store!=''">
+					<StoreID>
+						<xsl:value-of select="store" />
+					</StoreID>
+				</xsl:if>
+			</store:Store>
+		</xsl:for-each>
+	</xsl:template>
+</xsl:stylesheet>

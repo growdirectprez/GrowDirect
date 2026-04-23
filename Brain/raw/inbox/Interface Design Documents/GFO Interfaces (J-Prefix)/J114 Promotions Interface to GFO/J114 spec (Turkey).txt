@@ -1,0 +1,2 @@
+For Turkey the promotions interface is a pure file move from RMS to GFO. The interface is covered by specification
+C010TR. This can be found in the Commercial Interfaces section.

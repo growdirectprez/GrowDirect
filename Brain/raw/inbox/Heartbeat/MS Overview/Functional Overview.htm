@@ -1,0 +1,155 @@
+<html xmlns:v="urn:schemas-microsoft-com:vml" xmlns:o="urn:schemas-microsoft-com:office:office" xmlns="http://www.w3.org/TR/REC-html40">
+
+<head>
+<meta http-equiv="Content-Language" content="en-us">
+<meta name="GENERATOR" content="Microsoft FrontPage 5.0">
+<meta name="ProgId" content="FrontPage.Editor.Document">
+<meta http-equiv="Content-Type" content="text/html; charset=windows-1252">
+<link rel="File-List" href="Functional%20Overview_files/filelist.xml">
+<title>Functional Overview</title>
+<style>
+<!--
+h3
+	{margin-top:12.0pt;
+	margin-right:0in;
+	margin-bottom:3.0pt;
+	margin-left:0in;
+	page-break-after:avoid;
+	font-size:13.0pt;
+	font-family:Arial}
+ p.MsoNormal
+	{mso-style-parent:"";
+	margin-bottom:.0001pt;
+	font-size:12.0pt;
+	font-family:"Times New Roman";
+	margin-left:0in; margin-right:0in; margin-top:0in}
+p.Normal1
+	{mso-style-parent:"";
+	margin-top:0in;
+	margin-right:0in;
+	margin-bottom:8.0pt;
+	margin-left:0in;
+	font-size:10.5pt;
+	font-family:"Times New Roman"
+	}
+p.MsoBodyTextIndent
+	{margin-top:0in;
+	margin-right:0in;
+	margin-bottom:6.0pt;
+	margin-left:0in;
+	text-align:justify;
+	font-size:10.0pt;
+	font-family:Tahoma;
+	}
+-->
+</style>
+<!--[if !mso]>
+<style>
+v\:*         { behavior: url(#default#VML) }
+o\:*         { behavior: url(#default#VML) }
+.shape       { behavior: url(#default#VML) }
+</style>
+<![endif]--><!--[if gte mso 9]>
+<xml><o:shapedefaults v:ext="edit" spidmax="1027"/>
+</xml><![endif]-->
+</head>
+
+<body>
+
+<hr color="#FF0000">
+
+<h4 style="margin-bottom: 10; margin-top:0"><span style="font-family: Arial">
+Functional Overview</span></h4>
+
+<p><font face="Verdana" size="2">The <b><font color="#0000FF">Consumer Demand 
+Signal Service</font></b> 
+detects out-of-stock conditions in a live store environment and notifies store 
+personnel of these issues. The service is driven by near real-time data feeds of 
+the store's transaction data. This movement and pricing data is supplemented by 
+item and promotional data feeds. A subscription service manages delivery of the 
+events and alarms to the users. </font></p>
+
+<p><font face="Verdana" size="2">There are two functional domains of this 
+offering: </font><span style="font-size: 10.0pt; font-family: Verdana">&nbsp;</span></p>
+<p class="MsoNormal" style="text-indent: -.25in; margin-left: .5in">
+<font face="Verdana">
+<span style="font-size: 10.0pt; ">
+<img width="11" height="11" src="images/Functi1.gif" alt="*"></span></font><span style="font-style: normal; font-variant: normal; font-weight: normal; font-size: 7.0pt; font-family: Verdana">&nbsp;&nbsp;&nbsp;
+</span><span style="font-size: 10.0pt; font-family: Verdana"><b>Retail 
+Integration &amp; Operations Services (RIO)</b></span><font face="Verdana" size="2">
+<br>
+<br>
+RIO integrates the retail enterprise and its 
+data into Consumer Demand Signal Service.&nbsp; RIO is broken into two subsystems: RIO Inputs and RIO 
+Outputs. RIO Inputs focuses on integrating Point-of-Sale, item, and promotion 
+batched data into the hosted ASPEN service via secured XML data transfers over 
+HTTPS or VPN connections.&nbsp;RIO Outputs focuses on message routing to the 
+endpoint devices and systems supported by Consumer Demand Signal 
+Service.&nbsp; RIO Outputs currently supports Motorola, Blackberry, and other 
+SMTP pager devices only.&nbsp;Future versions of this offering will support 
+Symbol’s Retail Commercial Infrastructure systems. Both Motorola and Blackberry 
+devices were used in the offering pilots at Meijer and Food Lion.<br>
+&nbsp;</font></p>
+<p class="MsoNormal" style="text-indent: -.25in; margin-left: .5in">
+<font face="Verdana">
+<span style="font-size: 10.0pt; ">
+<img width="11" height="11" src="images/Functi1.gif" alt="*"></span></font><span style="font-style: normal; font-variant: normal; font-weight: normal; font-size: 7.0pt; font-family: Verdana">&nbsp;&nbsp;&nbsp;
+</span><span style="font-size: 10.0pt; font-family: Verdana; font-weight:700">Application 
+Service Provided
+Enterprise 
+Notification System (ASPEN)</span><font face="Verdana" size="2"><b><br>
+<br>
+</b>ASPEN is a hosted application service that is responsible for accepting RIO 
+Inputs, sending them to the Out-of-Stock Notification algorithm for processing, 
+and accepting and routing outbound messages as a result of that processing to 
+RIO Output Devices, Web Services, and Retail Commercial Systems. ASPEN is an 
+application service; it is constructed to support multiple retail enterprises 
+with thousands of retail grocery stores and data.&nbsp; A web service, ASPEN 
+Slopes, is designed to maintain retail, store, user, device, and subscription 
+data as well as provide the required accounting and operational facilities for 
+managing the business of the Consumer Demand Signal Service.</font></p>
+<h3>&nbsp;</h3>
+<p class="Normal1"><!--[if gte vml 1]><v:shapetype id="_x0000_t75"
+ coordsize="21600,21600" o:spt="75" o:preferrelative="t" path="m@4@5l@4@11@9@11@9@5xe"
+ filled="f" stroked="f">
+ <v:stroke joinstyle="miter"/>
+ <v:formulas>
+  <v:f eqn="if lineDrawn pixelLineWidth 0"/>
+  <v:f eqn="sum @0 1 0"/>
+  <v:f eqn="sum 0 0 @1"/>
+  <v:f eqn="prod @2 1 2"/>
+  <v:f eqn="prod @3 21600 pixelWidth"/>
+  <v:f eqn="prod @3 21600 pixelHeight"/>
+  <v:f eqn="sum @0 0 1"/>
+  <v:f eqn="prod @6 1 2"/>
+  <v:f eqn="prod @7 21600 pixelWidth"/>
+  <v:f eqn="sum @8 21600 0"/>
+  <v:f eqn="prod @7 21600 pixelHeight"/>
+  <v:f eqn="sum @10 21600 0"/>
+ </v:formulas>
+ <v:path o:extrusionok="f" gradientshapeok="t" o:connecttype="rect"/>
+ <o:lock v:ext="edit" aspectratio="t"/>
+</v:shapetype><v:shape id="_x0000_s1025" type="#_x0000_t75" style='width:6in;
+ height:231pt'>
+ <v:imagedata src="Functional%20Overview_files/image001.wmz" o:title=""/>
+</v:shape><![endif]--><![if !vml]><img border=0 width=576 height=308
+src="Functional%20Overview_files/image002.gif" v:shapes="_x0000_s1025"><![endif]><!--[if gte mso 9]><xml>
+ <o:OLEObject Type="Embed" ProgID="Visio.Drawing.6" ShapeID="_x0000_i1025" DrawAspect="Content" ObjectID="_1049193056">
+ </o:OLEObject>
+</xml><![endif]--></p>
+<p class="MsoBodyTextIndent">&nbsp;</p>
+<p class="MsoBodyTextIndent" align="left" style="text-align: left">
+&nbsp;</p>
+<p class="MsoBodyTextIndent" align="left" style="text-align: left">
+<font face="Verdana"><b><br>
+</b>&nbsp;</font></p>
+
+<p class="MsoBodyTextIndent" align="left" style="text-align: left">
+<font face="Verdana">&nbsp;</font></p>
+
+<p class="MsoBodyTextIndent" align="left" style="text-align: left"><font face="Verdana"><small><small><small>©2001 Microsoft Corporation. All 
+rights reserved. <a href="EULA.htm">Terms of use.</a></small></small></small></font> </p>
+
+</body>
+
+</html>

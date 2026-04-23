@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="utf-8"?>
+<xsl:stylesheet version="1.0" 
+	xmlns:xsl="http://www.w3.org/1999/XSL/Transform"
+	xmlns:dep="http://tesco.com/common/merchandise/department" >
+	<xsl:template match="/">
+		<xsl:for-each select="MrchHrGrpDesc">
+			<dep:Department xmlns="http://tesco.com/common/merchandise/department">
+				<Department>
+					<xsl:value-of select="group_no" />
+				</Department>
+				<Division>
+					<xsl:value-of select="division" />
+				</Division>
+				<DepartmentName>
+					<xsl:value-of select="group_name" />
+				</DepartmentName>
+			</dep:Department>
+		</xsl:for-each>
+		<xsl:for-each select="MrchHrGrpRef">
+			<dep:Department xmlns="http://tesco.com/common/merchandise/department">
+				<Department>
+					<xsl:value-of select="group_no" />
+				</Department>
+			</dep:Department>
+		</xsl:for-each>
+	</xsl:template>
+</xsl:stylesheet>

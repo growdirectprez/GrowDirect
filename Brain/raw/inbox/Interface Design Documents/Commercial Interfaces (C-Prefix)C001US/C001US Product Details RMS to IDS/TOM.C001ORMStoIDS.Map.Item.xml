@@ -1,0 +1,677 @@
+<?xml version="1.0" encoding="utf-8"?>
+<xsl:stylesheet version="1.0" 
+	xmlns:xsl="http://www.w3.org/1999/XSL/Transform" 
+	xmlns:item="http://tesco.com/common/item"
+	xmlns:pack="http://tesco.com/common/item/Pack"
+	xmlns:occ="http://tesco.com/common/item/OCC"
+	xmlns:style="http://tesco.com/common/item/style"
+	xmlns:sku="http://tesco.com/common/item/SKU"
+	xmlns:ean="http://tesco.com/common/item/EAN"
+	xmlns:supp="http://tesco.com/common/supplier"
+	xmlns:supcty="http://tesco.com/common/supplier/country"
+	xmlns:isc="http://tesco.com/common/supplier/country/dimensions">
+  <xsl:template match="/">
+    <xsl:for-each select="ItemDesc/ItemHdrDesc">
+		<item:Item xmlns="http://tesco.com/common/item">
+			<xsl:variable name="curItem" select="item" />
+			<Item>
+				<xsl:value-of select="item" />
+			</Item>
+			<xsl:if test="pack_ind!=''">
+				<PackInd>
+					<xsl:value-of select="pack_ind" />
+				</PackInd>
+			</xsl:if>
+			<xsl:if test="item_level!=''">
+				<ItemLevel>
+					<xsl:value-of select="item_level" />
+				</ItemLevel>
+			</xsl:if>
+			<xsl:if test="pack_ind = 'Y'">
+				<xsl:if test="item_level = 1">
+					<pack:Pack xmlns="http://tesco.com/common/item/Pack">
+						<PackNo>
+							<xsl:value-of select="item" />
+						</PackNo>
+						<xsl:if test="status!=''">
+							<Status>
+								<xsl:value-of select="status" />
+							</Status>
+						</xsl:if>
+						<xsl:if test="item_desc!=''">
+							<PackDesc>
+								<xsl:value-of select="item_desc" />
+							</PackDesc>
+						</xsl:if>
+						<!--PackDescSecondary>
+								<xsl:value-of select="item" />0
+							</PackDescSecondary-->
+						<xsl:if test="short_desc!=''">
+							<PackDescShort>
+								<xsl:value-of select="short_desc" />
+							</PackDescShort>
+						</xsl:if>
+						<xsl:if test="standard_uom!=''">
+							<StandardUOM>
+								<xsl:value-of select="standard_uom" />
+							</StandardUOM>
+						</xsl:if>
+						<xsl:if test="uom_conv_factor!=''">
+							<UOMConversionFactor>
+								<xsl:value-of select="uom_conv_factor" />
+							</UOMConversionFactor>
+						</xsl:if>
+						<xsl:if test="package_size!=''">
+							<PackageSize>
+								<xsl:value-of select="package_size" />
+							</PackageSize>
+						</xsl:if>
+						<xsl:if test="package_uom!=''">
+							<PackageUOM>
+								<xsl:value-of select="package_uom" />
+							</PackageUOM>
+						</xsl:if>
+						<xsl:if test="store_ord_mult!=''">
+							<StoreOrderMult>
+								<xsl:value-of select="store_ord_mult" />
+							</StoreOrderMult>
+						</xsl:if>
+						<xsl:if test="retail_label_value!=''">
+							<RetailLabelValue>
+								<xsl:value-of select="retail_label_value" />
+							</RetailLabelValue>
+						</xsl:if>
+						<xsl:if test="handling_temp!=''">
+							<HandlingTemp>
+								<xsl:value-of select="handling_temp" />
+							</HandlingTemp>
+						</xsl:if>
+						<xsl:if test="handling_sensitivity!=''">
+							<HandlingSensitivity>
+								<xsl:value-of select="handling_sensitivity" />
+							</HandlingSensitivity>
+						</xsl:if>
+						<xsl:if test="catch_weight_ind!=''">
+							<CatchWeightInd>
+								<xsl:value-of select="catch_weight_ind" />
+							</CatchWeightInd>
+						</xsl:if>
+						<xsl:if test="const_dimen_ind!=''">
+							<ConstantDimensionInd>
+								<xsl:value-of select="const_dimen_ind" />
+							</ConstantDimensionInd>
+						</xsl:if>
+						<xsl:if test="simple_pack_ind!=''">
+							<SimplePackInd>
+								<xsl:value-of select="simple_pack_ind" />
+							</SimplePackInd>
+						</xsl:if>
+						<xsl:if test="contains_inner_ind!=''">
+							<ContainsInnerInd>
+								<xsl:value-of select="contains_inner_ind" />
+							</ContainsInnerInd>
+						</xsl:if>
+						<xsl:if test="sellable_ind!=''">
+							<SellableInd>
+								<xsl:value-of select="sellable_ind" />
+							</SellableInd>
+						</xsl:if>
+						<xsl:if test="orderable_ind!=''">
+							<OrderableInd>
+								<xsl:value-of select="orderable_ind" />
+							</OrderableInd>
+						</xsl:if>
+						<xsl:if test="order_as_type!=''">
+							<OrderAsType>
+								<xsl:value-of select="order_as_type" />
+							</OrderAsType>
+						</xsl:if>
+						<xsl:if test="merchandise_ind!=''">
+							<MerchandiseInd>
+								<xsl:value-of select="merchandise_ind" />
+							</MerchandiseInd>
+						</xsl:if>
+						<xsl:for-each select="/ItemDesc/ItemSupDesc[item=$curItem]">
+							<supp:Supplier xmlns="http://tesco.com/common/supplier">
+								<SupplierID>
+									<xsl:value-of select="supplier" />
+								</SupplierID>
+								<xsl:if test="pallet_name!=''">
+									<PalletName>
+										<xsl:value-of select="pallet_name" />
+									</PalletName>
+								</xsl:if>
+								<xsl:if test="case_name!=''">
+									<CaseName>
+										<xsl:value-of select="case_name" />
+									</CaseName>
+								</xsl:if>
+								<xsl:if test="inner_name!=''">
+									<InnerName>
+										<xsl:value-of select="inner_name" />
+									</InnerName>
+								</xsl:if>
+								<xsl:if test="supp_discontinue_date!=''">
+									<SupplierDiscontinueDate>
+										<xsl:value-of select="supp_discontinue_date" />
+									</SupplierDiscontinueDate>
+								</xsl:if>
+								<xsl:variable name="curSupplier" select="supplier" />
+								<xsl:for-each select="/ItemDesc/ItemSupCtyDesc[item=$curItem and supplier = $curSupplier]">
+									<supcty:SupplierCountry xmlns="http://tesco.com/common/supplier/country">
+										<OriginCountryId>
+											<xsl:value-of select="origin_country_id" />
+										</OriginCountryId>
+										<xsl:if test="supp_pack_size!=''">
+											<SupplierPackSize>
+												<xsl:value-of select="supp_pack_size" />
+											</SupplierPackSize>
+										</xsl:if>
+										<xsl:if test="inner_pack_size!=''">
+											<InnerPackSize>
+												<xsl:value-of select="inner_pack_size" />
+											</InnerPackSize>
+										</xsl:if>
+										<xsl:if test="round_lvl!=''">
+											<RoundLvl>
+												<xsl:value-of select="round_lvl" />
+											</RoundLvl>
+										</xsl:if>
+										<xsl:if test="min_order_qty!=''">
+											<MinOrderQty>
+												<xsl:value-of select="min_order_qty" />
+											</MinOrderQty>
+										</xsl:if>
+										<xsl:if test="max_order_qty!=''">
+											<MaxOrderQty>
+												<xsl:value-of select="max_order_qty" />
+											</MaxOrderQty>
+										</xsl:if>
+										<xsl:if test="packing_method!=''">
+											<PackingMethod>
+												<xsl:value-of select="packing_method" />
+											</PackingMethod>
+										</xsl:if>
+										<xsl:if test="ti!=''">
+											<Ti>
+												<xsl:value-of select="ti" />
+											</Ti>
+										</xsl:if>
+										<xsl:if test="hi!=''">
+											<Hi>
+												<xsl:value-of select="hi" />
+											</Hi>
+										</xsl:if>
+										<xsl:if test="tolerance_type!=''">
+											<ToleranceType>
+												<xsl:value-of select="tolerance_type" />
+											</ToleranceType>
+										</xsl:if>
+										<xsl:if test="max_tolerance!=''">
+											<MaxTolerance>
+												<xsl:value-of select="max_tolerance" />
+											</MaxTolerance>
+										</xsl:if>
+										<xsl:if test="min_tolerance!=''">
+											<MinTolerance>
+												<xsl:value-of select="min_tolerance" />
+											</MinTolerance>
+										</xsl:if>
+										<xsl:variable name="curOriginCountryId" select="origin_country_id" />
+										<xsl:for-each select="/ItemDesc/ISCDimDesc[item=$curItem and supplier = $curSupplier and origin_country_id = $curOriginCountryId]">
+											<isc:CountryDimensions xmlns="http://tesco.com/common/supplier/country/dimensions">
+												<DimObject>
+													<xsl:value-of select="dim_object" />
+												</DimObject>
+											</isc:CountryDimensions>
+										</xsl:for-each>
+									</supcty:SupplierCountry>
+								</xsl:for-each>
+							</supp:Supplier>
+						</xsl:for-each>
+					</pack:Pack>
+				</xsl:if>
+				<xsl:if test="item_level = 2">
+					<occ:OCC xmlns="http://tesco.com/common/item/OCC">
+						<OCCNo>
+							<xsl:value-of select="item" />
+						</OCCNo>
+						<xsl:if test="format_id!=''">
+							<FormatID>
+								<xsl:value-of select="format_id" />
+							</FormatID>
+						</xsl:if>
+						<xsl:if test="prefix!=''">
+							<Prefix>
+								<xsl:value-of select="prefix" />
+							</Prefix>
+						</xsl:if>
+						<xsl:if test="merchandise_ind!=''">
+							<MerchandiseInd>
+								<xsl:value-of select="merchandise_ind" />
+							</MerchandiseInd>
+						</xsl:if>
+						<xsl:if test="primary_ref_item_ind !=''">
+							<PrimaryRefItemInd>
+								<xsl:value-of select="primary_ref_item_ind" />
+							</PrimaryRefItemInd>
+						</xsl:if>
+					</occ:OCC>
+				</xsl:if>
+			</xsl:if>
+			<xsl:if test="pack_ind = 'N'">
+				<xsl:if test="item_level = 1">
+					<style:Style xmlns="http://tesco.com/common/item/style">
+						<StyleNo>
+							<xsl:value-of select="item" />
+						</StyleNo>
+						<xsl:if test="section!=''">
+							<Section>
+								<xsl:value-of select="section" />
+							</Section>
+						</xsl:if>
+						<xsl:if test="class!=''">
+							<Class>
+								<xsl:value-of select="class" />
+							</Class>
+						</xsl:if>
+						<xsl:if test="subclass!=''">
+							<SubClass>
+								<xsl:value-of select="subclass" />
+							</SubClass>
+						</xsl:if>
+						<xsl:if test="diff_1!=''">
+							<Diff1>
+								<xsl:value-of select="diff_1" />
+							</Diff1>
+						</xsl:if>
+						<xsl:if test="diff_1_type!=''">
+							<Diff1AggregateInd>
+								<xsl:value-of select="diff_1_type" />
+							</Diff1AggregateInd>
+						</xsl:if>
+						<xsl:if test="diff_2!=''">
+							<Diff2>
+								<xsl:value-of select="diff_2" />
+							</Diff2>
+						</xsl:if>
+						<xsl:if test="diff_2_type!=''">
+							<Diff2AggregateInd>
+								<xsl:value-of select="diff_2_type" />
+							</Diff2AggregateInd>
+						</xsl:if>
+						<xsl:if test="diff_3!=''">
+							<Diff3>
+								<xsl:value-of select="diff_3" />
+							</Diff3>
+						</xsl:if>
+						<xsl:if test="diff_3_type!=''">
+							<Diff3AggregateInd>
+								<xsl:value-of select="diff_3_type" />
+							</Diff3AggregateInd>
+						</xsl:if>
+						<xsl:if test="diff_4!=''">
+							<Diff4>
+								<xsl:value-of select="diff_4" />
+							</Diff4>
+						</xsl:if>
+						<xsl:if test="diff_4_type!=''">
+							<Diff4AggregateInd>
+								<xsl:value-of select="diff_4_type" />
+							</Diff4AggregateInd>
+						</xsl:if>
+						<xsl:if test="status!=''">
+							<Status>
+								<xsl:value-of select="status" />
+							</Status>
+						</xsl:if>
+						<xsl:if test="item_desc!=''">
+							<ItemDesc>
+								<xsl:value-of select="item_desc" />
+							</ItemDesc>
+						</xsl:if>
+						<xsl:if test="short_desc!=''">
+							<ItemDescShort>
+								<xsl:value-of select="short_desc" />
+							</ItemDescShort>
+						</xsl:if>
+						<xsl:if test="merchandise_ind!=''">
+							<MerchandiseInd>
+								<xsl:value-of select="merchandise_ind" />
+							</MerchandiseInd>
+						</xsl:if>
+						<xsl:for-each select="/ItemDesc/ItemSupDesc[item=$curItem]">
+							<supp:Supplier xmlns="http://tesco.com/common/supplier">
+								<SupplierID>
+									<xsl:value-of select="supplier" />
+								</SupplierID>
+								<xsl:if test="supp_label!=''">
+									<SupplierLabel>
+										<xsl:value-of select="supp_label" />
+									</SupplierLabel>
+								</xsl:if>
+								<xsl:if test="primary_supp_ind!=''">
+									<PrimarySupplierInd>
+										<xsl:value-of select="primary_supp_ind" />
+									</PrimarySupplierInd>
+								</xsl:if>
+								<xsl:if test="supp_discontinue_date!=''">
+									<SupplierDiscountDate>
+										<xsl:value-of select="supp_discontinue_date" />
+									</SupplierDiscountDate>
+								</xsl:if>
+							</supp:Supplier>
+						</xsl:for-each>
+					</style:Style>
+				</xsl:if>
+				<xsl:if test="item_level = 2">
+					<sku:SKU xmlns="http://tesco.com/common/item/SKU">
+						<SKUNo>
+							<xsl:value-of select="item" />
+						</SKUNo>
+						<xsl:if test="status!=''">
+							<Status>
+								<xsl:value-of select="status" />
+							</Status>
+						</xsl:if>
+						<xsl:if test="item_desc!=''">
+							<ItemDesc>
+								<xsl:value-of select="item_desc" />
+							</ItemDesc>
+						</xsl:if>
+						<!--<ItemDescSecondary>
+							<xsl:value-of select="DONT KNOW" />
+						</ItemDescSecondary>-->
+						<xsl:if test="short_desc!=''">
+							<ItemDescShort>
+								<xsl:value-of select="short_desc" />
+							</ItemDescShort>
+						</xsl:if>
+						<xsl:if test="diff_1!=''">
+							<Diff1>
+								<xsl:value-of select="diff_1" />
+							</Diff1>
+						</xsl:if>
+						<xsl:if test="diff_1_type!=''">
+							<Diff1AggregateInd>
+								<xsl:value-of select="diff_1_type" />
+							</Diff1AggregateInd>
+						</xsl:if>
+						<xsl:if test="diff_1!=''">
+							<Diff2>
+								<xsl:value-of select="diff_2" />
+							</Diff2>
+						</xsl:if>
+						<xsl:if test="diff_2_type!=''">
+							<Diff2AggregateInd>
+								<xsl:value-of select="diff_2_type" />
+							</Diff2AggregateInd>
+						</xsl:if>
+						<xsl:if test="diff_3!=''">
+							<Diff3>
+								<xsl:value-of select="diff_3" />
+							</Diff3>
+						</xsl:if>
+						<xsl:if test="diff_3_type!=''">
+							<Diff3AggregateInd>
+								<xsl:value-of select="diff_3_type" />
+							</Diff3AggregateInd>
+						</xsl:if>
+						<xsl:if test="diff_4!=''">
+							<Diff4>
+								<xsl:value-of select="diff_4" />
+							</Diff4>
+						</xsl:if>
+						<xsl:if test="diff_4_type!=''">
+							<Diff4AggregateInd>
+								<xsl:value-of select="diff_4_type" />
+							</Diff4AggregateInd>
+						</xsl:if>
+						<xsl:if test="standard_uom!=''">
+							<StandardUOM>
+								<xsl:value-of select="standard_uom" />
+							</StandardUOM>
+						</xsl:if>
+						<xsl:if test="uom_conv_factor!=''">
+							<UOMConversionFactor>
+								<xsl:value-of select="uom_conv_factor" />
+							</UOMConversionFactor>
+						</xsl:if>
+						<xsl:if test="store_ord_mult!=''">
+							<StoreOrderMult>
+								<xsl:value-of select="store_ord_mult" />
+							</StoreOrderMult>
+						</xsl:if>
+						<xsl:if test="mfg_rec_retail!=''">
+							<ManufacturersRRP>
+								<xsl:value-of select="mfg_rec_retail" />
+							</ManufacturersRRP>
+						</xsl:if>
+						<xsl:if test="merchandise_ind!=''">
+							<MerchandiseInd>
+								<xsl:value-of select="merchandise_ind" />
+							</MerchandiseInd>
+						</xsl:if>
+						<xsl:if test="retail_label_type!=''">
+							<RetailLableType>
+								<xsl:value-of select="retail_label_type" />
+							</RetailLableType>
+						</xsl:if>
+						<xsl:if test="retail_label_value!=''">
+							<RetailLabelValue>
+								<xsl:value-of select="retail_label_value" />
+							</RetailLabelValue>
+						</xsl:if>
+						<xsl:if test="handling_temp!=''">
+							<HandlingTempCode>
+								<xsl:value-of select="handling_temp" />
+							</HandlingTempCode>
+						</xsl:if>
+						<xsl:if test="handling_sensitivity!=''">
+							<HandlingSensitivity>
+								<xsl:value-of select="handling_sensitivity" />
+							</HandlingSensitivity>
+						</xsl:if>
+						<xsl:if test="catch_weight_ind!=''">
+							<CatchWeightInd>
+								<xsl:value-of select="catch_weight_ind" />
+							</CatchWeightInd>
+						</xsl:if>
+						<xsl:if test="const_dimen_ind!=''">
+							<ConstantDimensionInd>
+								<xsl:value-of select="const_dimen_ind" />
+							</ConstantDimensionInd>
+						</xsl:if>
+						<!--<DiamondInd>
+                <xsl:value-of select="diamond" />
+              </DiamondInd>-->
+						<!--<ImportItemInd>
+                <xsl:value-of select="DONTKNOW" />
+              </ImportItemInd>-->
+						<!--<TescoBrand>
+                <xsl:value-of select="tescobrand" />
+                </TescoBrand>-->
+						<!--<TaxCategory>
+                <xsl:value-of select="taxcategory" />
+              </TaxCategory>-->
+						<xsl:if test="package_size!=''">
+							<PackageSize>
+								<xsl:value-of select="package_size" />
+							</PackageSize>
+						</xsl:if>
+						<xsl:if test="package_uom!=''">
+							<PackageUOM>
+								<xsl:value-of select="package_uom" />
+							</PackageUOM>
+						</xsl:if>
+						<xsl:if test="orderable_ind!=''">
+							<OrderableInd>
+								<xsl:value-of select="orderable_ind" />
+							</OrderableInd>
+						</xsl:if>
+						<!--
+						<xsl:if test="DistributionGroup!=''">
+							<DistributionGroup>
+								<xsl:value-of select="DON'T KNOW" />
+							</DistributionGroup>
+						</xsl:if>
+						-->
+						<xsl:if test="item_parent!=''">
+							<StyleItem>
+								<xsl:value-of select="item_parent" />
+							</StyleItem>
+						</xsl:if>
+						<xsl:for-each select="/ItemDesc/ItemSupDesc[item=$curItem]">
+							<supp:Supplier xmlns="http://tesco.com/common/supplier">
+								<SupplierID>
+									<xsl:value-of select="supplier" />
+								</SupplierID>
+								<xsl:if test="primary_supp_ind!=''">
+									<PrimarySupplierInd>
+										<xsl:value-of select="primary_supp_ind" />
+									</PrimarySupplierInd>
+								</xsl:if>
+								<xsl:if test="consignment_rate!=''">
+									<ConsignmentRate>
+										<xsl:value-of select="consignment_rate" />
+									</ConsignmentRate>
+								</xsl:if>
+								<xsl:if test="supp_diff_1!=''">
+									<SupplierDiff1>
+										<xsl:value-of select="supp_diff_1" />
+									</SupplierDiff1>
+								</xsl:if>
+								<xsl:if test="supp_diff_2!=''">
+									<SupplierDiff2>
+										<xsl:value-of select="supp_diff_2" />
+									</SupplierDiff2>
+								</xsl:if>
+								<xsl:if test="supp_diff_3!=''">
+									<SupplierDiff3>
+										<xsl:value-of select="supp_diff_3" />
+									</SupplierDiff3>
+								</xsl:if>
+								<xsl:if test="supp_diff_4!=''">
+									<SupplierDiff4>
+										<xsl:value-of select="supp_diff_4" />
+									</SupplierDiff4>
+								</xsl:if>
+								<xsl:if test="supp_discontinue_date!=''">
+									<SupplierDiscontinueDate>
+										<xsl:value-of select="supp_discontinue_date" />
+									</SupplierDiscontinueDate>
+								</xsl:if>
+								<xsl:if test="direct_ship_ind!=''">
+									<DirectShipInd>
+										<xsl:value-of select="direct_ship_ind" />
+									</DirectShipInd>
+								</xsl:if>
+								<!--<xsl:if test="item_parent!=''">
+									<ConcessionRate>
+										<xsl:value-of select="DON'T KNOW" />
+									</ConcessionRate>
+								</xsl:if>-->
+								<xsl:variable name="curSupplier" select="supplier" />
+								<xsl:for-each select="/ItemDesc/ItemSupCtyDesc[item=$curItem and supplier = $curSupplier]">
+									<supcty:SupplierCountry xmlns="http://tesco.com/common/supplier/country">
+										<OriginCountryId>
+											<xsl:value-of select="origin_country_id" />
+										</OriginCountryId>
+										<xsl:if test="primary_supp_ind!=''">
+											<PrimarySuppInd>
+												<xsl:value-of select="primary_supp_ind" />
+											</PrimarySuppInd>
+										</xsl:if>
+										<xsl:if test="primary_country_ind!=''">
+											<PrimaryCountryInd>
+												<xsl:value-of select="primary_country_ind" />
+											</PrimaryCountryInd>
+										</xsl:if>
+										<xsl:if test="unit_cost!=''">
+											<UnitCost>
+												<xsl:value-of select="unit_cost" />
+											</UnitCost>
+										</xsl:if>
+										<xsl:if test="lead_time!=''">
+											<LeadTime>
+												<xsl:value-of select="lead_time" />
+											</LeadTime>
+										</xsl:if>
+										<xsl:if test="pickup_lead_time!=''">
+											<PickupLeadTime>
+												<xsl:value-of select="pickup_lead_time" />
+											</PickupLeadTime>
+										</xsl:if>
+										<xsl:if test="default_uop!=''">
+											<DefaultUop>
+												<xsl:value-of select="default_uop" />
+											</DefaultUop>
+										</xsl:if>
+										<xsl:if test="cost_uom!=''">
+											<CostUom>
+												<xsl:value-of select="cost_uom" />
+											</CostUom>
+										</xsl:if>
+										<xsl:variable name="curOriginCountryId" select="origin_country_id" />
+										<xsl:for-each select="/ItemDesc/ISCDimDesc[item=$curItem and supplier = $curSupplier and origin_country_id = $curOriginCountryId]">
+											<isc:CountryDimensions xmlns="http://tesco.com/common/supplier/country/dimensions">
+												<DimObject>
+													<xsl:value-of select="dim_object" />
+												</DimObject>
+											</isc:CountryDimensions>
+										</xsl:for-each>
+									</supcty:SupplierCountry>
+								</xsl:for-each>
+							</supp:Supplier>
+						</xsl:for-each>
+					</sku:SKU>
+				</xsl:if>
+				<xsl:if test="item_level = 3">
+					<ean:EAN xmlns="http://tesco.com/common/item/EAN">
+						<EANNo>
+							<xsl:value-of select="item" />
+						</EANNo>
+						<xsl:if test="format_id!=''">
+							<FormatID>
+								<xsl:value-of select="format_id" />
+							</FormatID>
+						</xsl:if>
+						<xsl:if test="prefix!=''">
+							<Prefix>
+								<xsl:value-of select="prefix" />
+							</Prefix>
+						</xsl:if>
+						<xsl:if test="status!=''">
+							<Status>
+								<xsl:value-of select="status" />
+							</Status>
+						</xsl:if>
+						<xsl:if test="merchandise_ind!=''">
+							<MerchandiseInd>
+								<xsl:value-of select="merchandise_ind" />
+							</MerchandiseInd>
+						</xsl:if>
+						<xsl:if test="primary_ref_item_ind!=''">
+							<PrimaryRefItemInd>
+								<xsl:value-of select="primary_ref_item_ind" />
+							</PrimaryRefItemInd>
+						</xsl:if>
+						<xsl:if test="item_parent!=''">
+							<SKUNo>
+								<xsl:value-of select="item_parent" />
+							</SKUNo>
+						</xsl:if>
+					</ean:EAN>
+				</xsl:if>
+			</xsl:if>
+		</item:Item>
+    </xsl:for-each>
+	<xsl:for-each select="ItemRef">
+		  <item:Item xmlns="http://tesco.com/common/item">
+			  <Item>
+				  <xsl:value-of select="item" />
+			  </Item>
+		  </item:Item>
+	 </xsl:for-each>
+  </xsl:template>
+</xsl:stylesheet>

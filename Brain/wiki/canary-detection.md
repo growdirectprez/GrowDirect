@@ -63,6 +63,7 @@ The Alerts service scores each alert for business impact (dollar exposure, patte
 
 ## Related
 
+- [[Brain/wiki/canary-alerts-guide|Canary Alerts Guide]] — Merchant-facing plain-English counterpart to this architecture doc; covers every rule in plain language plus tuning, throttling, and onboarding sequence
 - [[Brain/wiki/canary-architecture|Canary Architecture]] — System overview and service mesh
 - [[Brain/wiki/canary-data-model|Canary Data Model]] — Schema details including alert and case tables
 - [[Brain/projects/Canary|Canary MOC]] — Links to all atlas decision diagrams (D-01 through D-04)

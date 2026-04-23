@@ -1,0 +1,236 @@
+<html>
+
+<head>
+<meta http-equiv="Content-Language" content="en-us">
+<meta http-equiv="Content-Type" content="text/html; charset=windows-1252">
+<meta name="GENERATOR" content="Microsoft FrontPage 4.0">
+<meta name="ProgId" content="FrontPage.Editor.Document">
+<title>Retail Biztalk Resource Kit</title>
+</head>
+
+<body topmargin="0" leftmargin="0">
+
+<div align="left">
+  <table border="0" width="100%" height="902" cellspacing="0">
+    <tr>
+      <td width="120" height="1" bgcolor="#000000">
+        <p align="center"><img border="0" src="Include/retailbiztalkRBK.png" width="100" height="90"></td>
+      <td width="662" height="71" align="center" bgcolor="#666666" colspan="2">
+        <p align="right" style="margin-top: 0"><img border="0" src="Include/retailbiztalk2.png" align="left" width="660" height="90"></td>
+      <td width="154" height="1" bgcolor="#FFFFFF" colspan="2">
+        <p align="center"><img border="0" src="Include/NPReta2.jpg" width="154" height="63"></td>
+    </tr>
+    <tr>
+      <td width="120" height="1" valign="middle" align="center" bgcolor="#000080"><font color="#FFFFFF" face="Arial" size="1"><b>CONTENTS</b></font></td>
+      <td width="7" height="1" bgcolor="#000080">
+        &nbsp;
+      </td>
+      <td width="651" height="1" bgcolor="#000080">
+        <p align="center">&nbsp;</td>
+    </tr>
+    <tr>
+      <td width="120" height="18" valign="top" align="center" bgcolor="#000000">
+        <applet code="fphover.class" codebase="./" width="120" height="24">
+          <param name="hovercolor" value="#0000FF">
+          <param name="url" valuetype="ref" value="Vision/Vision.htm">
+          <param name="color" value="#000000">
+          <param name="effect" value="lightGlow">
+          <param name="font" value="Dialog">
+          <param name="fontstyle" value="bold">
+          <param name="fontsize" value="13">
+          <param name="textcolor" value="#66FFFF">
+          <param name="text" value="Introduction">
+        </applet>
+      </td>
+      <td width="7" height="1257" rowspan="6" valign="top">
+        <p>&nbsp;</td>
+      <td width="651" height="1257" rowspan="6" valign="top">
+        <p class="MsoBodyText2" style="margin-bottom:0in;margin-bottom:.0001pt;
+mso-layout-grid-align:auto;punctuation-wrap:hanging;text-autospace:ideograph-numeric ideograph-other;
+mso-vertical-align-alt:auto"><font face="Arial"><span style="mso-bidi-font-style: normal"><i style="mso-bidi-font-style: normal"><font color="#000000" size="3">The
+        </font><b><font color="#FF0000" size="3">Retail Biztalk Resource Kit</font></b><font color="#FF0000" size="3"><b>
+        (RBK)</b></font><font color="#000000" size="3"> will provide a Retail framework for extracting,
+        transforming, and serializing transaction log data.<span style="mso-spacerun: yes; mso-bidi-font-style: normal">&nbsp;
+        </span>The data source will be IBM 4690 Point of Sale transaction log
+        data and <span style="mso-spacerun: yes; mso-bidi-font-style: normal">&nbsp;</span>will
+        use Biztalk to <span style="mso-spacerun: yes; mso-bidi-font-style: normal">&nbsp;</span>transform
+        this data into ActiveStore RBI schema found on <a href="http://www.biztalk.org/">http://www.Biztalk.org</a>.<span style="mso-spacerun: yes; mso-bidi-font-style: normal">&nbsp;
+        </span>This RBK will provide the user an example of how to integrate IBM
+        4690 transaction log data with other products and services using Biztalk.<span style="mso-spacerun: yes; mso-bidi-font-style: normal">&nbsp;
+        </span>The RBK is intended to be in PILOT form</i></font><font color="#000000" size="3"><i style="mso-bidi-font-style: normal">
+        to decide future Retail integration opportunities using Biztalk Server.</i></font></span></font></p>
+        <p class="MsoBodyText2" style="margin-bottom:0in;margin-bottom:.0001pt;
+mso-layout-grid-align:auto;punctuation-wrap:hanging;text-autospace:ideograph-numeric ideograph-other;
+mso-vertical-align-alt:auto"><span style="mso-bidi-font-style: normal"><font size="3" face="Arial" color="#FF0000"><b>What
+        is Biztalk Anyway?</b></font></span><span style="FONT-SIZE: 10pt"><i style="mso-bidi-font-style: normal"><O:P>
+        </i></span></p>
+        <p class="MsoBodyText2" style="margin-bottom:0in;margin-bottom:.0001pt;
+mso-layout-grid-align:auto;punctuation-wrap:hanging;text-autospace:ideograph-numeric ideograph-other;
+mso-vertical-align-alt:auto"><font face="Arial" size="2">Biztalk is one of the
+        most misunderstood products in the Microsoft .Net Server product
+        line.&nbsp; The following is an attempt to explain what Biztalk is from
+        a very high level and is by no means a full description of its
+        capabilities.&nbsp; Biztalk can be explained by using a simple travel metaphor.&nbsp;
+        As an example, <font color="#000080"><b>you are part of a five (5)
+        person team </b></font>each of you have to be in 5 major cities for client meetings.&nbsp; Each meeting has
+        its own agenda or topic that must be covered specific to that
+        client.&nbsp; <b><font color="#000080">Bob</font></b> agrees to <font color="#000080"><b>drop</b></font>
+        the five of you off at the airport but in this case we will call it a <font color="#000080"><b>travel
+        port</b></font>.&nbsp; At the travel port passengers have the option of
+        traveling by various methods: <font color="#000080"><b>car, train, bus, helicopter,
+        or jet</b></font>.&nbsp; Each travel method has a set of requirements or
+        rules that must be followed in order to go to the destination.&nbsp; All
+        passengers must be identified and must <font color="#000080"><b>check in</b></font>,
+        answer any questions that might be required in order to ensure safe
+        travel:&nbsp; You present <font color="#000080"><b>Identification</b></font>
+        and answer some questions:&nbsp; What is your Destination?&nbsp; What
+        are you bringing with you?&nbsp; What luggage do you have?&nbsp; After
+        you check in at the travel port, you stop at a data port and dial into
+        your virtual private network and <font color="#000080"><b>gather
+        required information and resources</b></font> about your customer so you
+        can be prepared for your meeting.&nbsp; You are now prepared and ready
+        to meet with your customer and you arrive at your gate to catch your jet
+        to go to your final destination.&nbsp;&nbsp;&nbsp;</font></p>
+        <p class="MsoBodyText2" style="margin-bottom:0in;margin-bottom:.0001pt;
+mso-layout-grid-align:auto;punctuation-wrap:hanging;text-autospace:ideograph-numeric ideograph-other;
+mso-vertical-align-alt:auto"><font face="Arial" size="2">So how does this
+        explain Biztalk?&nbsp; The five (5) person team represents a package of
+        data from a trading partner or data source.&nbsp; The five major cities
+        represent the destination addresses of each of the travelers.&nbsp;
+        Think of the Biztalk Framework as the travel port.&nbsp; Bob, represents
+        an external trading partner.&nbsp; The process Bob uses to drop off
+        people represents a file or Queue receive function which invokes the
+        Biztalk Framework.&nbsp; The check in process represents document
+        identification or schemas&nbsp; which are built using the Biztalk
+        Editor.&nbsp; The check in process also aids in identifying the
+        destination and any transformation of the data that might occur;
+        channels.&nbsp; When you step into the data port to gather required
+        information and resources you are changing and evolving yourself to meet
+        the requirements of your destination partner; data transformation.&nbsp; This
+        is a metaphor for XSLT or the Biztalk Mapper.&nbsp;&nbsp; The travel
+        methods (car, train, bus, helicopter, or jet) represent message ports
+        with SMTP, HTTP(S), MSMQ, File, or Application Interface Components as
+        transport types.</font></p>
+        <p class="MsoBodyText2" style="margin-bottom:0in;margin-bottom:.0001pt;
+mso-layout-grid-align:auto;punctuation-wrap:hanging;text-autospace:ideograph-numeric ideograph-other;
+mso-vertical-align-alt:auto">&nbsp;</p>
+        <p class="MsoBodyText2" style="margin-bottom:0in;margin-bottom:.0001pt;
+mso-layout-grid-align:auto;punctuation-wrap:hanging;text-autospace:ideograph-numeric ideograph-other;
+mso-vertical-align-alt:auto">&nbsp;</p>
+        <p class="MsoBodyText2" style="margin-bottom:0in;margin-bottom:.0001pt;
+mso-layout-grid-align:auto;punctuation-wrap:hanging;text-autospace:ideograph-numeric ideograph-other;
+mso-vertical-align-alt:auto"><font face="Arial">© 2001 Microsoft Corporation. All rights reserved.</font></p>
+        <p class="MsoNormal" style="line-height:10.0pt;mso-line-height-rule:exactly"><span style="font-size:8.5pt;mso-bidi-font-size:10.0pt"><font face="Arial">&nbsp;<o:p>
+        </o:p>
+        </font>
+        </span></p>
+        <p class="MsoNormal" style="line-height:10.0pt;mso-line-height-rule:exactly"><span style="font-size:8.5pt;mso-bidi-font-size:10.0pt"><font face="Arial">The
+        information contained in this document represents the current view of
+        Microsoft Corporation on the issues discussed as of the date of
+        publication. Because Microsoft must respond to changing market
+        conditions, it should not be interpreted to be a commitment on the part
+        of Microsoft, and Microsoft cannot guarantee the accuracy of any
+        information presented after the date of publication.<o:p>
+        </o:p>
+        </font>
+        </span></p>
+        <p class="MsoBodyText2" style="margin-bottom:0in;margin-bottom:.0001pt;
+mso-layout-grid-align:auto;punctuation-wrap:hanging;text-autospace:ideograph-numeric ideograph-other;
+mso-vertical-align-alt:auto"><font face="Arial">This document is for informational purposes only.
+        Microsoft MAKES NO WARRANTIES, EXPRESS OR IMPLIED, IN THIS DOCUMENT.</font></p>
+        <p class="MsoNormal" style="margin-bottom:0in;margin-bottom:.0001pt;line-height:
+10.0pt;mso-line-height-rule:exactly"><span style="font-size:8.5pt;mso-bidi-font-size:
+10.0pt"><font face="Arial">&nbsp;<o:p>
+        </o:p>
+        </font>
+        </span></p>
+        <span style="font-size: 10.5pt; mso-bidi-font-size: 10.0pt; mso-fareast-font-family: Times New Roman; mso-ansi-language: EN-US; mso-fareast-language: EN-US; mso-bidi-language: AR-SA"><font face="Arial">Microsoft, ActiveStore, ActiveX, BizTalk,
+        IntelliSense, JScript, MS-DOS, Visual Basic, C#, ASP.net, Marsh, IBM,
+        Systech, Visual Studio,
+        Win32, Windows, the Windows logo, Windows Media, Windows XP and Windows
+        NT are either registered trademarks or trademarks of Microsoft
+        Corporation in the United States and/or other countries. The names of
+        actual companies and products mentioned herein may be the trademarks of
+        their respective owners.</font></span>
+        <p>&nbsp;</td>
+      <td width="2" height="26" bgcolor="#C0C0C0">&nbsp;</td>
+      <td width="148" height="26" bgcolor="#C0C0C0">
+        <p align="center"><font color="#000080" face="Arial" size="1">INNOVATION</font></td>
+    </tr>
+    <tr>
+      <td width="120" height="20" valign="top" align="center" bgcolor="#000000">
+        <applet code="fphover.class" codebase="./" width="120" height="24">
+          <param name="hovercolor" value="#0000FF">
+          <param name="text" value="Organizations">
+          <param name="url" valuetype="ref" value="Organization/Organization.htm">
+          <param name="color" value="#000000">
+          <param name="textcolor" value="#66FFFF">
+          <param name="effect" value="lightGlow">
+          <param name="font" value="Dialog">
+          <param name="fontstyle" value="bold">
+          <param name="fontsize" value="13">
+        </applet>
+      </td>
+      <td width="2" height="1246" bgcolor="#C0C0C0" rowspan="5">&nbsp;</td>
+      <td width="148" height="1246" bgcolor="#C0C0C0" rowspan="5" valign="top" align="left"><font color="#000080" face="Arial" size="1">&quot;At
+        8:01 a.m. on June 26, 1974, a customer at Marsh's supermarket in Troy,
+        Ohio, made the first purchase of a product with a bar code, a 10-pack of
+        Wrigley's Juicy Fruit Gum...&quot;</font>
+        <p><font color="#000080" face="Arial" size="1"><a href="http://www.marsh.com">READ
+        MORE ABOUT THIS</a></font></td>
+    </tr>
+    <tr>
+      <td width="120" height="19" valign="top" align="center" bgcolor="#000000">
+        <applet code="fphover.class" codebase="./" width="120" height="24">
+          <param name="hovercolor" value="#0000FF">
+          <param name="text" value="Schemas">
+          <param name="url" valuetype="ref" value="Schema/Schema.htm">
+          <param name="color" value="#000000">
+          <param name="textcolor" value="#66FFFF">
+          <param name="effect" value="lightGlow">
+          <param name="font" value="Dialog">
+          <param name="fontstyle" value="bold">
+          <param name="fontsize" value="13">
+        </applet>
+      </td>
+    </tr>
+    <tr>
+      <td width="120" height="22" valign="top" align="center" bgcolor="#000000">
+        <applet code="fphover.class" codebase="./" width="120" height="24">
+          <param name="hovercolor" value="#0000FF">
+          <param name="text" value="Biztalk Collateral">
+          <param name="url" valuetype="ref" value="Collateral/Collateral.htm">
+          <param name="color" value="#000000">
+          <param name="textcolor" value="#66FFFF">
+          <param name="effect" value="lightGlow">
+          <param name="font" value="Dialog">
+          <param name="fontstyle" value="bold">
+          <param name="fontsize" value="13">
+        </applet>
+      </td>
+    </tr>
+    <tr>
+      <td width="120" height="25" valign="top" align="center" bgcolor="#000000">
+        <applet code="fphover.class" codebase="./" width="120" height="24">
+          <param name="hovercolor" value="#0000FF">
+          <param name="text" value="Scenario">
+          <param name="url" valuetype="ref" value="Scenario/scenario.htm">
+          <param name="color" value="#000000">
+          <param name="textcolor" value="#66FFFF">
+          <param name="effect" value="lightGlow">
+          <param name="font" value="Dialog">
+          <param name="fontstyle" value="bold">
+          <param name="fontsize" value="13">
+        </applet>
+      </td>
+    </tr>
+    <tr>
+      <td width="120" height="1136" valign="top" align="center" bgcolor="#000000">
+      </td>
+    </tr>
+  </table>
+</div>
+
+</body>
+
+</html>

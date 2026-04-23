@@ -1,0 +1,113 @@
+<html>
+
+<head>
+<meta http-equiv="Content-Language" content="en-us">
+<meta name="GENERATOR" content="Microsoft FrontPage 5.0">
+<meta name="ProgId" content="FrontPage.Editor.Document">
+<meta http-equiv="Content-Type" content="text/html; charset=windows-1252">
+<title>Algorithm</title>
+<style>
+<!--
+ li.MsoNormal
+	{mso-style-parent:"";
+	margin-bottom:.0001pt;
+	font-size:12.0pt;
+	font-family:"Times New Roman";
+	color:windowtext; margin-left:0in; margin-right:0in; margin-top:0in}
+-->
+</style>
+</head>
+
+<body>
+
+<hr color="#FF0000">
+
+<h4 style="margin-bottom: 10; margin-top:0"><span style="font-family: Arial">
+Consumer
+Demand Detection
+Algorithm</span></h4>
+<p><span style="font-family: Arial">
+<img border="0" src="images/POSHeartbeat.png" width="111" height="67" align="left" vspace="3" hspace="10"></span><font size="2"><span style="font-family: Verdana">The 
+<b><font color="#0000FF">Consumer Demand Signal 
+Service</font></b></span></font><span style="font-family: Verdana; color: windowtext"><font size="2"> 
+relies on the Data Ventures' XPLOSS algorithms to learn normal item velocities 
+and detect statistical variances from these such as &quot;moving too fast&quot;, &quot;moving 
+to slow&quot;, &quot;new item&quot;, &quot;dropped item&quot;, and out-of-stock 
+(OOS).&nbsp; XPLOSS learns best from 
+minute-by-minute transaction data containing the details of what items were 
+observed and at what price for every transaction.&nbsp; In the supermarket context, a 
+transaction is a &quot;shopping basket checkout&quot;, and observations are UPCs or 
+item 
+codes scanned by the checker.&nbsp; For every transaction, the data includes at least 
+a time stamp, a series of items identified by UPCs or item codes, the item 
+quantities, and the net price of each item or the regular price plus applicable 
+discounts. </font></span></p>
+<p><span style="font-family: Verdana; color: windowtext"><font size="2">Training 
+of the XPLOSS algorithm yields a model of item velocity for each monitored item 
+at each monitored store under various merchandising conditions.&nbsp; The XPLOSS 
+algorithm does this by transforming historical item movement data (across 1 or 
+more stores) into a series of &quot;event observations&quot; whose arrival times behave in 
+a random, statistically independent way called a Poisson process.&nbsp; The details 
+of this transformation are proprietary and confidential to Data Ventures and 
+P&amp;G.&nbsp; The XPLOSS model accounts for current price, time of day and day of week, 
+store name and current store traffic,&nbsp; current promotions, in-store competition, 
+and seasonality.&nbsp; When the model is first trained, it is used to detect OOS, new 
+item, and dropped item events.&nbsp; These events are then used to &quot;adjust&quot; the 
+historical data, which the model retrains to improve its accuracy. The model is 
+automatically rebuilt every 15 minutes to 24 hours, depending on the specific 
+installation.&nbsp;&nbsp; </font></span></p>
+<p><span style="font-family: Verdana; color: windowtext"><font size="2">New 
+transaction data is fed to the XPLOSS model to answer the question &quot;What is the 
+probability of the newly observed transaction data given the normal velocity 
+model?&quot;&nbsp; (Note that &quot;normal velocity&quot; takes into account current conditions such 
+as price, promotion, traffic, etc.)&nbsp; If there is a small probability of the data 
+being what it is or more extreme (e.g., slower/faster sales), then an anomaly 
+event is generated.&nbsp; The kind of event (new item, dropped item, OOS, fast, slow) 
+depends on the transaction data and model rules.&nbsp; These rules are adapted for 
+specific installations.&nbsp; Events are immediately stored into the events cache so 
+they can be accessed by the events server.&nbsp; Certain velocity model details, such 
+as expected item velocities and historical item sales are put into the cache as 
+well. </font></span></p>
+<p><span style="font-family: Verdana; color: windowtext"><font size="2">The item 
+movement, velocity, and event cache contents can be accessed at any time via a 
+client connection to the cache server.&nbsp; These connections are currently made by 
+either an XML or HTML client.&nbsp; The server supports detailed reporting (e.g., 
+individual events or item velocities, most recent item sale) and summarization 
+(e.g., service level over the past month, current OOS event losses exceed some 
+threshold, observed item velocity over the past day).&nbsp; The cache is normally 
+updated every 15 minutes. </font></span></p>
+<p><span style="font-size: 10.0pt; font-family: Verdana; color: windowtext">The 
+DV/P&amp;G&nbsp; Item Velocity Monitor consists of: </span></p>
+<ul type="disc" style="margin-bottom: 0in">
+  <li class="MsoNormal"><span style="font-size: 10.0pt; font-family: Verdana">a 
+  data feed (for trickled TLOGs and daily Item Tables) </span></li>
+  <li class="MsoNormal"><span style="font-size: 10.0pt; font-family: Verdana">
+  data handlers (RCO, POS_DATASOURCE, XPDATAREADER, XPIVMDBWRITE), </span></li>
+  <li class="MsoNormal"><span style="font-size: 10.0pt; font-family: Verdana">a 
+  high-speed, compressed transaction database (XPDB, XPSORT), </span></li>
+  <li class="MsoNormal"><span style="font-size: 10.0pt; font-family: Verdana">a 
+  velocity monitoring and out-of-stock (OOS) detection algorithm (XPLOSS),
+  </span></li>
+  <li class="MsoNormal"><span style="font-size: 10.0pt; font-family: Verdana">an 
+  item movement and velocity/OOS events cache and server (IVMSERVER), </span>
+  </li>
+  <li class="MsoNormal"><span style="font-size: 10.0pt; font-family: Verdana">a 
+  web server (http daemon) </span></li>
+  <li class="MsoNormal"><span style="font-size: 10.0pt; font-family: Verdana">an 
+  HTML events formatter (CGI bin IVMCLIENT) </span></li>
+  <li class="MsoNormal"><span style="font-size: 10.0pt; font-family: Verdana">an 
+  XML events formatter (notification client IVMALERT) </span></li>
+  <li class="MsoNormal"><span style="font-size: 10.0pt; font-family: Verdana">a 
+  processing scheduler (cron) </span></li>
+  <li class="MsoNormal"><span style="font-size: 10.0pt; font-family: Verdana">a 
+  batch process script (IVMDRIVER)</span></li>
+  <li><span style="font-size: 10.0pt; font-family: Verdana">a messaging server 
+  (BizTalk)</span></li>
+</ul>
+
+<p><font face="Verdana"><small><small><small>©2001 Microsoft Corporation. All 
+rights reserved. <a href="EULA.htm">Terms of use.</a></small></small></small></font> </p>
+
+</body>
+
+</html>

@@ -1,0 +1,1499 @@
+<html>
+
+<head>
+<meta http-equiv="Content-Language" content="en-us">
+<meta http-equiv="Content-Type" content="text/html; charset=windows-1252">
+<meta name="GENERATOR" content="Microsoft FrontPage 4.0">
+<meta name="ProgId" content="FrontPage.Editor.Document">
+<title>Schema - Systech</title>
+</head>
+
+<body topmargin="0" leftmargin="0">
+
+<div align="left">
+  <table border="0" width="100%" height="25463" cellpadding="0" cellspacing="0">
+    <tr>
+      <td width="122" height="1" bgcolor="#000000">
+        <p align="center"><img border="0" src="../Include/retailbiztalkRBK.png" width="100" height="90"></td>
+      <td width="622" height="71" align="center" bgcolor="#666666" colspan="2">
+        <p align="center" style="margin-top: 0"><img border="0" src="../Include/retailbiztalk2.png" width="660" height="90"></td>
+      <td width="155" height="1" bgcolor="#FFFFFF" colspan="2">
+        <p align="center"><img border="0" src="../Include/NPReta2.jpg" width="154" height="63"></td>
+    </tr>
+    <tr>
+      <td width="122" height="1" valign="middle" align="center" bgcolor="#003366">
+        <p align="center"><b><font face="Arial" size="1" color="#FFFFFF">CONTENTS</font></b></td>
+      <td width="10" height="1" bgcolor="#003366">
+        &nbsp;
+      </td>
+      <td width="610" height="1" bgcolor="#003366">
+        <p align="center">&nbsp;</td>
+    </tr>
+    <tr>
+      <td width="122" height="15" valign="top" align="center" bgcolor="#000000">
+        <applet code="fphover.class" codebase="./" width="120" height="24">
+          <param name="hovercolor" value="#0000FF">
+          <param name="color" value="#000000">
+          <param name="textcolor" value="#00FFFF">
+          <param name="effect" value="lightGlow">
+          <param name="font" value="Dialog">
+          <param name="fontstyle" value="bold">
+          <param name="fontsize" value="13">
+          <param name="text" value="Introduction">
+          <param name="url" valuetype="ref" value="../default.htm">
+        </applet>
+      </td>
+      <td width="10" height="25767" rowspan="13" valign="top" align="left"></td>
+      <td width="610" height="25767" rowspan="13" valign="top" align="left">
+        <h1><font size="3" face="Arial" color="#800000">Systech: Retail
+        Connector/4690 Tlog Fragmentizer</font></h1>
+        <p class="MsoNormal"><font face="Arial" size="2">This program runs as a
+        background application on the 4690 controller and processes the current
+        Tlog (SA Tlog supported currently) to produce delta output files with a
+        maximum size dictated by configuration.<span style="mso-spacerun: yes">&nbsp;
+        </span>The fragmentizer keeps track of where it read up to in the Tlog
+        in a mirrored file so that it can run in the event of a controller
+        failure.</font></p>
+        <font face="Arial" size="2"><span style="mso-bidi-font-size: 10.0pt; mso-fareast-font-family: Times New Roman; mso-ansi-language: EN-US; mso-fareast-language: EN-US; mso-bidi-language: AR-SA">The
+        fragmentizer can produce binary fragment files or an XML version of the
+        fragments.</span></font>
+        <p><span style="mso-bidi-font-size: 10.0pt; mso-fareast-font-family: Times New Roman; mso-ansi-language: EN-US; mso-fareast-language: EN-US; mso-bidi-language: AR-SA"><font face="Arial" color="#800000" size="3"><b>XDR
+        Schema Contents:&nbsp;</b></font></span></p>
+        <p><font face="Arial" size="2"><span style="mso-bidi-font-size: 10.0pt; mso-fareast-font-family: Times New Roman; mso-ansi-language: EN-US; mso-fareast-language: EN-US; mso-bidi-language: AR-SA">Found
+        in ..\include\systechtransactionschema_1_00.xdr</span></font></p>
+        <p><font face="Arial" size="1">&lt;?xml version=&quot;1.0&quot; ?&gt;</font></p>
+        <p><font face="Arial" size="1">&lt;Schema
+        name=&quot;systechtransactionschema_1_00&quot; xmlns=&quot;urn:schemas-microsoft-com:xml-data&quot;
+        xmlns:dt=&quot;urn:schemas-microsoft-com:datatypes&quot;&gt;</font></p>
+        <p><font face="Arial" size="1">&lt;!--</font></p>
+        <p><font face="Arial" size="1">(c) Copyright Systech Retail Systems,
+        2001.</font></p>
+        <p><font face="Arial" size="1">This is a transaction schema designed to
+        be generated from a variety</font></p>
+        <p><font face="Arial" size="1">of POS transaction feeds including both
+        legacy and new systems.</font></p>
+        <p><font face="Arial" size="1">--&gt;</font></p>
+        <p><font face="Arial" size="1">&lt;!-- accountnumber</font></p>
+        <p><font face="Arial" size="1">The account number used for tender
+        verification/authorization purposes</font></p>
+        <p><font face="Arial" size="1">--&gt;</font></p>
+        <p><font face="Arial" size="1">&lt;ElementType name=&quot;accountnumber&quot;
+        content=&quot;textOnly&quot; dt:type=&quot;string&quot; /&gt;</font></p>
+        <p><font face="Arial" size="1">&lt;!-- accountstatus</font></p>
+        <p><font face="Arial" size="1">The status returned by tender
+        verification/authorization process for a</font></p>
+        <p><font face="Arial" size="1">given accountnumber</font></p>
+        <p><font face="Arial" size="1">--&gt;</font></p>
+        <p><font face="Arial" size="1">&lt;ElementType name=&quot;accountstatus&quot;
+        content=&quot;textOnly&quot; dt:type=&quot;int&quot; /&gt;</font></p>
+        <p><font face="Arial" size="1">&lt;!-- address</font></p>
+        <p><font face="Arial" size="1">simple street address</font></p>
+        <p><font face="Arial" size="1">--&gt;</font></p>
+        <p><font face="Arial" size="1">&lt;ElementType name=&quot;address&quot;
+        content=&quot;textOnly&quot; dt:type=&quot;string&quot; /&gt;</font></p>
+        <p><font face="Arial" size="1">&lt;!-- adjustedsellingprice</font></p>
+        <p><font face="Arial" size="1">the extended price of a specific
+        itementry adjusted for coupons and</font></p>
+        <p><font face="Arial" size="1">discounts that have been applied to the
+        item. This is a truer reflection</font></p>
+        <p><font face="Arial" size="1">of the actual selling price of the item,
+        especially when electronic coupons</font></p>
+        <p><font face="Arial" size="1">are used to adjust the price of an item.</font></p>
+        <p><font face="Arial" size="1">--&gt;</font></p>
+        <p><font face="Arial" size="1">&lt;ElementType name=&quot;adjustedsellingprice&quot;
+        content=&quot;textOnly&quot; dt:type=&quot;int&quot; /&gt;</font></p>
+        <p><font face="Arial" size="1">&lt;!-- amount</font></p>
+        <p><font face="Arial" size="1">generic currency holder</font></p>
+        <p><font face="Arial" size="1">--&gt;</font></p>
+        <p><font face="Arial" size="1">&lt;ElementType name=&quot;amount&quot;
+        content=&quot;textOnly&quot; dt:type=&quot;int&quot; /&gt;</font></p>
+        <p><font face="Arial" size="1">&lt;!-- amount</font></p>
+        <p><font face="Arial" size="1">keyed or scanned item identifier</font></p>
+        <p><font face="Arial" size="1">--&gt;</font></p>
+        <p><font face="Arial" size="1">&lt;ElementType name=&quot;barcode&quot;
+        content=&quot;textOnly&quot; dt:type=&quot;string&quot; /&gt;</font></p>
+        <p><font face="Arial" size="1">&lt;!-- amount</font></p>
+        <p><font face="Arial" size="1">points issued other than those issued on
+        a per dollar basis</font></p>
+        <p><font face="Arial" size="1">--&gt;</font></p>
+        <p><font face="Arial" size="1">&lt;ElementType name=&quot;bonuspoints&quot;
+        content=&quot;textOnly&quot; dt:type=&quot;int&quot; /&gt;</font></p>
+        <p><font face="Arial" size="1">&lt;!-- businessdate</font></p>
+        <p><font face="Arial" size="1">the date in which the transaction is to
+        be accounted for.</font></p>
+        <p><font face="Arial" size="1">--&gt;</font></p>
+        <p><font face="Arial" size="1">&lt;ElementType name=&quot;businessdate&quot;
+        content=&quot;textOnly&quot; dt:type=&quot;date&quot; /&gt;</font></p>
+        <p><font face="Arial" size="1">&lt;!-- campaignid</font></p>
+        <p><font face="Arial" size="1">an identifier used to track awards issued
+        as a result of</font></p>
+        <p><font face="Arial" size="1">a particular promotion or group of
+        promotions</font></p>
+        <p><font face="Arial" size="1">--&gt;</font></p>
+        <p><font face="Arial" size="1">&lt;ElementType name=&quot;campaignid&quot;
+        content=&quot;textOnly&quot; dt:type=&quot;string&quot; /&gt;</font></p>
+        <p><font face="Arial" size="1">&lt;!-- cancel</font></p>
+        <p><font face="Arial" size="1">the presence of this element flags the
+        entry it applies to</font></p>
+        <p><font face="Arial" size="1">as being a cancel of a previous entry. In
+        some systems there</font></p>
+        <p><font face="Arial" size="1">is the possibility that a cancel will
+        have no matching prior</font></p>
+        <p><font face="Arial" size="1">entry.</font></p>
+        <p><font face="Arial" size="1">--&gt;</font></p>
+        <p><font face="Arial" size="1">&lt;ElementType name=&quot;cancel&quot;
+        content=&quot;empty&quot; /&gt;</font></p>
+        <p><font face="Arial" size="1">&lt;!-- cancelreason</font></p>
+        <p><font face="Arial" size="1">reason code associated with the cancel</font></p>
+        <p><font face="Arial" size="1">--&gt;</font></p>
+        <p><font face="Arial" size="1">&lt;ElementType name=&quot;cancelreason&quot;
+        content=&quot;textOnly&quot; dt:type=&quot;string&quot; /&gt;</font></p>
+        <p><font face="Arial" size="1">&lt;!-- cashieragerestriction</font></p>
+        <p><font face="Arial" size="1">identifier of an age restriction
+        associated with an item that</font></p>
+        <p><font face="Arial" size="1">applies to the cashier</font></p>
+        <p><font face="Arial" size="1">--&gt;</font></p>
+        <p><font face="Arial" size="1">&lt;ElementType name=&quot;cashieragerestriction&quot;
+        content=&quot;textOnly&quot; dt:type=&quot;int&quot; /&gt;</font></p>
+        <p><font face="Arial" size="1">&lt;!-- cashierbirthdate</font></p>
+        <p><font face="Arial" size="1">the date of birth for the cashier</font></p>
+        <p><font face="Arial" size="1">--&gt;</font></p>
+        <p><font face="Arial" size="1">&lt;ElementType name=&quot;cashierbirthdate&quot;
+        content=&quot;textOnly&quot; dt:type=&quot;date&quot; /&gt;</font></p>
+        <p><font face="Arial" size="1">&lt;!-- cashierid</font></p>
+        <p><font face="Arial" size="1">the id for the cashier</font></p>
+        <p><font face="Arial" size="1">--&gt;</font></p>
+        <p><font face="Arial" size="1">&lt;ElementType name=&quot;cashierid&quot;
+        content=&quot;textOnly&quot; dt:type=&quot;string&quot; /&gt;</font></p>
+        <p><font face="Arial" size="1">&lt;!-- couponamount</font></p>
+        <p><font face="Arial" size="1">amount of coupons taken in the
+        transaction</font></p>
+        <p><font face="Arial" size="1">--&gt;</font></p>
+        <p><font face="Arial" size="1">&lt;ElementType name=&quot;couponamount&quot;
+        content=&quot;textOnly&quot; dt:type=&quot;int&quot; /&gt;</font></p>
+        <p><font face="Arial" size="1">&lt;!-- couponamount</font></p>
+        <p><font face="Arial" size="1">count of coupons taken in the transaction</font></p>
+        <p><font face="Arial" size="1">--&gt;</font></p>
+        <p><font face="Arial" size="1">&lt;ElementType name=&quot;couponcount&quot;
+        content=&quot;textOnly&quot; dt:type=&quot;int&quot; /&gt;</font></p>
+        <p><font face="Arial" size="1">&lt;!-- couponfamilycode</font></p>
+        <p><font face="Arial" size="1">code used to validate coupons against
+        matching items</font></p>
+        <p><font face="Arial" size="1">--&gt;</font></p>
+        <p><font face="Arial" size="1">&lt;ElementType name=&quot;couponfamilycode&quot;
+        content=&quot;textOnly&quot; dt:type=&quot;int&quot; /&gt;</font></p>
+        <p><font face="Arial" size="1">&lt;!-- currencyamount</font></p>
+        <p><font face="Arial" size="1">amount in a currency other than the local
+        currency</font></p>
+        <p><font face="Arial" size="1">--&gt;</font></p>
+        <p><font face="Arial" size="1">&lt;ElementType name=&quot;currencyamount&quot;
+        content=&quot;textOnly&quot; dt:type=&quot;int&quot; /&gt;</font></p>
+        <p><font face="Arial" size="1">&lt;!-- currencyid</font></p>
+        <p><font face="Arial" size="1">the identifier of the currency</font></p>
+        <p><font face="Arial" size="1">--&gt;</font></p>
+        <p><font face="Arial" size="1">&lt;ElementType name=&quot;currencyid&quot;
+        content=&quot;textOnly&quot; dt:type=&quot;int&quot; /&gt;</font></p>
+        <p><font face="Arial" size="1">&lt;!-- currentpoints</font></p>
+        <p><font face="Arial" size="1">the points total for the customer</font></p>
+        <p><font face="Arial" size="1">--&gt;</font></p>
+        <p><font face="Arial" size="1">&lt;ElementType name=&quot;currentpoints&quot;
+        content=&quot;textOnly&quot; dt:type=&quot;int&quot; /&gt;</font></p>
+        <p><font face="Arial" size="1">&lt;!-- customeragerestriction</font></p>
+        <p><font face="Arial" size="1">identifier of an age restriction
+        associated with an item that</font></p>
+        <p><font face="Arial" size="1">applies to the customer</font></p>
+        <p><font face="Arial" size="1">--&gt;</font></p>
+        <p><font face="Arial" size="1">&lt;ElementType name=&quot;customeragerestriction&quot;
+        content=&quot;textOnly&quot; dt:type=&quot;int&quot; /&gt;</font></p>
+        <p><font face="Arial" size="1">&lt;!-- customerbirthdate</font></p>
+        <p><font face="Arial" size="1">the date of birth for the customer</font></p>
+        <p><font face="Arial" size="1">--&gt;</font></p>
+        <p><font face="Arial" size="1">&lt;ElementType name=&quot;customerbirthdate&quot;
+        content=&quot;textOnly&quot; dt:type=&quot;date&quot; /&gt;</font></p>
+        <p><font face="Arial" size="1">&lt;!-- customerid</font></p>
+        <p><font face="Arial" size="1">the id for the customer</font></p>
+        <p><font face="Arial" size="1">--&gt;</font></p>
+        <p><font face="Arial" size="1">&lt;ElementType name=&quot;customerid&quot;
+        content=&quot;textOnly&quot; dt:type=&quot;string&quot; /&gt;</font></p>
+        <p><font face="Arial" size="1">&lt;!-- datasource</font></p>
+        <p><font face="Arial" size="1">how the particular id or input was
+        entered into the application</font></p>
+        <p><font face="Arial" size="1">--&gt;</font></p>
+        <p><font face="Arial" size="1">&lt;ElementType name=&quot;datasource&quot;
+        content=&quot;textOnly&quot; dt:type=&quot;enumeration&quot; dt:values=&quot;keyboard
+        scanner msr micr electronic&quot; /&gt;</font></p>
+        <p><font face="Arial" size="1">&lt;!-- datetime</font></p>
+        <p><font face="Arial" size="1">a datetime field</font></p>
+        <p><font face="Arial" size="1">--&gt;</font></p>
+        <p><font face="Arial" size="1">&lt;ElementType name=&quot;datetime&quot;
+        content=&quot;textOnly&quot; dt:type=&quot;dateTime.tz&quot; /&gt;</font></p>
+        <p><font face="Arial" size="1">&lt;!-- deptno</font></p>
+        <p><font face="Arial" size="1">department number</font></p>
+        <p><font face="Arial" size="1">--&gt;</font></p>
+        <p><font face="Arial" size="1">&lt;ElementType name=&quot;deptno&quot;
+        content=&quot;textOnly&quot; dt:type=&quot;int&quot; /&gt;</font></p>
+        <p><font face="Arial" size="1">&lt;!-- description</font></p>
+        <p><font face="Arial" size="1">a description field</font></p>
+        <p><font face="Arial" size="1">--&gt;</font></p>
+        <p><font face="Arial" size="1">&lt;ElementType
+        name=&quot;description&quot; content=&quot;textOnly&quot; dt:type=&quot;string&quot;
+        /&gt;</font></p>
+        <p><font face="Arial" size="1">&lt;!-- detaillevel</font></p>
+        <p><font face="Arial" size="1">communicates the level of detail
+        contained in the document</font></p>
+        <p><font face="Arial" size="1">--&gt;</font></p>
+        <p><font face="Arial" size="1">&lt;ElementType name=&quot;detaillevel&quot;
+        content=&quot;textOnly&quot; dt:type=&quot;enumeration&quot; dt:values=&quot;summary
+        full&quot; /&gt;</font></p>
+        <p><font face="Arial" size="1">&lt;!-- discountid</font></p>
+        <p><font face="Arial" size="1">identifies the discount type that was
+        applied</font></p>
+        <p><font face="Arial" size="1">--&gt;</font></p>
+        <p><font face="Arial" size="1">&lt;ElementType name=&quot;discountid&quot;
+        content=&quot;textOnly&quot; dt:type=&quot;string&quot; /&gt;</font></p>
+        <p><font face="Arial" size="1">&lt;!-- discountrate</font></p>
+        <p><font face="Arial" size="1">the rate of the discount</font></p>
+        <p><font face="Arial" size="1">--&gt;</font></p>
+        <p><font face="Arial" size="1">&lt;ElementType name=&quot;discountrate&quot;
+        content=&quot;textOnly&quot; dt:type=&quot;float&quot; /&gt;</font></p>
+        <p><font face="Arial" size="1">&lt;!-- exchangerate</font></p>
+        <p><font face="Arial" size="1">the currency exchange rate applied</font></p>
+        <p><font face="Arial" size="1">--&gt;</font></p>
+        <p><font face="Arial" size="1">&lt;ElementType name=&quot;exchangerate&quot;
+        content=&quot;textOnly&quot; dt:type=&quot;float&quot; /&gt;</font></p>
+        <p><font face="Arial" size="1">&lt;!-- exemptedtaxes</font></p>
+        <p><font face="Arial" size="1">currently: flags that taxes were
+        excempted on this item</font></p>
+        <p><font face="Arial" size="1">future: list of the taxid's exempted</font></p>
+        <p><font face="Arial" size="1">--&gt;</font></p>
+        <p><font face="Arial" size="1">&lt;ElementType name=&quot;exemptedtaxes&quot;
+        content=&quot;empty&quot; /&gt;</font></p>
+        <p><font face="Arial" size="1">&lt;!-- expirationdate</font></p>
+        <p><font face="Arial" size="1">the date a card or other id expires</font></p>
+        <p><font face="Arial" size="1">--&gt;</font></p>
+        <p><font face="Arial" size="1">&lt;ElementType name=&quot;expirationdate&quot;
+        content=&quot;textOnly&quot; dt:type=&quot;string&quot; /&gt;</font></p>
+        <p><font face="Arial" size="1">&lt;!-- extendedprice</font></p>
+        <p><font face="Arial" size="1">the total price charged for an itementry</font></p>
+        <p><font face="Arial" size="1">--&gt;</font></p>
+        <p><font face="Arial" size="1">&lt;ElementType name=&quot;extendedprice&quot;
+        content=&quot;textOnly&quot; dt:type=&quot;int&quot; /&gt;</font></p>
+        <p><font face="Arial" size="1">&lt;!-- feeamount</font></p>
+        <p><font face="Arial" size="1">the amount of a fee applied to the
+        transaction</font></p>
+        <p><font face="Arial" size="1">--&gt;</font></p>
+        <p><font face="Arial" size="1">&lt;ElementType name=&quot;feeamount&quot;
+        content=&quot;textOnly&quot; dt:type=&quot;int&quot; /&gt;</font></p>
+        <p><font face="Arial" size="1">&lt;!-- firstname</font></p>
+        <font SIZE="2">
+        <p>&nbsp;</p>
+        </font>
+        <p><font face="Arial" size="1">--&gt;</font></p>
+        <p><font face="Arial" size="1">&lt;ElementType name=&quot;firstname&quot;
+        content=&quot;textOnly&quot; dt:type=&quot;string&quot; /&gt;</font></p>
+        <p><font face="Arial" size="1">&lt;!-- includedinprice</font></p>
+        <p><font face="Arial" size="1">flags that the tax is already included in
+        the price of the item</font></p>
+        <p><font face="Arial" size="1">--&gt;</font></p>
+        <p><font face="Arial" size="1">&lt;ElementType name=&quot;includedinprice&quot;
+        content=&quot;empty&quot; /&gt;</font></p>
+        <p><font face="Arial" size="1">&lt;!-- isalwaysexception</font></p>
+        <p><font face="Arial" size="1">flags that the sale of this item is
+        always noted as an</font></p>
+        <p><font face="Arial" size="1">exception</font></p>
+        <p><font face="Arial" size="1">--&gt;</font></p>
+        <p><font face="Arial" size="1">&lt;ElementType name=&quot;isalwaysexception&quot;
+        content=&quot;empty&quot; /&gt;</font></p>
+        <p><font face="Arial" size="1">&lt;!-- isdiscountallowed</font></p>
+        <p><font face="Arial" size="1">is this itementry eligible for
+        transaction discounts</font></p>
+        <p><font face="Arial" size="1">--&gt;</font></p>
+        <p><font face="Arial" size="1">&lt;ElementType name=&quot;isdiscountallowed&quot;
+        content=&quot;empty&quot; /&gt;</font></p>
+        <p><font face="Arial" size="1">&lt;!-- isdiscounted</font></p>
+        <p><font face="Arial" size="1">is this itementry discounted</font></p>
+        <p><font face="Arial" size="1">--&gt;</font></p>
+        <p><font face="Arial" size="1">&lt;ElementType name=&quot;isdiscounted&quot;
+        content=&quot;empty&quot; /&gt;</font></p>
+        <p><font face="Arial" size="1">&lt;!-- isexception</font></p>
+        <p><font face="Arial" size="1">is this itementry noted as an exception</font></p>
+        <p><font face="Arial" size="1">--&gt;</font></p>
+        <p><font face="Arial" size="1">&lt;ElementType name=&quot;isexception&quot;
+        content=&quot;empty&quot; /&gt;</font></p>
+        <p><font face="Arial" size="1">&lt;!-- isfoodstampable</font></p>
+        <p><font face="Arial" size="1">is this itementry eligible for foodstamps</font></p>
+        <p><font face="Arial" size="1">--&gt;</font></p>
+        <p><font face="Arial" size="1">&lt;ElementType name=&quot;isfoodstampable&quot;
+        content=&quot;empty&quot; /&gt;</font></p>
+        <p><font face="Arial" size="1">&lt;!-- isfoodstampabletoggled</font></p>
+        <p><font face="Arial" size="1">was the foodstamp eligibility of this
+        itementry toggled</font></p>
+        <p><font face="Arial" size="1">--&gt;</font></p>
+        <p><font face="Arial" size="1">&lt;ElementType name=&quot;isfoodstampabletoggled&quot;
+        content=&quot;empty&quot; /&gt;</font></p>
+        <p><font face="Arial" size="1">&lt;!-- isitemidfromalias</font></p>
+        <p><font face="Arial" size="1">the itemid for this itementry is not the
+        scanned item id. it</font></p>
+        <p><font face="Arial" size="1">comes from the alias pricing chain.</font></p>
+        <p><font face="Arial" size="1">--&gt;</font></p>
+        <p><font face="Arial" size="1">&lt;ElementType name=&quot;isitemidfromalias&quot;
+        content=&quot;empty&quot; /&gt;</font></p>
+        <p><font face="Arial" size="1">&lt;!-- ismanualweightallowed</font></p>
+        <p><font face="Arial" size="1">can weight be keyed (manually entered)
+        for this itementry</font></p>
+        <p><font face="Arial" size="1">--&gt;</font></p>
+        <p><font face="Arial" size="1">&lt;ElementType name=&quot;ismanualweightallowed&quot;
+        content=&quot;empty&quot; /&gt;</font></p>
+        <p><font face="Arial" size="1">&lt;!--
+        isminimumorderaccummulationallowed</font></p>
+        <p><font face="Arial" size="1">?</font></p>
+        <p><font face="Arial" size="1">--&gt;</font></p>
+        <p><font face="Arial" size="1">&lt;ElementType name=&quot;isminimumorderaccummulationallowed&quot;
+        content=&quot;empty&quot; /&gt;</font></p>
+        <p><font face="Arial" size="1">&lt;!-- ispriceoverrideallowed</font></p>
+        <p><font face="Arial" size="1">can the price be manually entered for
+        this itementry</font></p>
+        <p><font face="Arial" size="1">--&gt;</font></p>
+        <p><font face="Arial" size="1">&lt;ElementType name=&quot;ispriceoverrideallowed&quot;
+        content=&quot;empty&quot; /&gt;</font></p>
+        <p><font face="Arial" size="1">&lt;!-- ispricerequired</font></p>
+        <p><font face="Arial" size="1">is the price required to be manually
+        entered for this itementry</font></p>
+        <p><font face="Arial" size="1">--&gt;</font></p>
+        <p><font face="Arial" size="1">&lt;ElementType name=&quot;ispricerequired&quot;
+        content=&quot;empty&quot; /&gt;</font></p>
+        <p><font face="Arial" size="1">&lt;!-- isquantityallowed</font></p>
+        <p><font face="Arial" size="1">can a quantity be manually entered for
+        this itementry</font></p>
+        <p><font face="Arial" size="1">--&gt;</font></p>
+        <p><font face="Arial" size="1">&lt;ElementType name=&quot;isquantityallowed&quot;
+        content=&quot;empty&quot; /&gt;</font></p>
+        <p><font face="Arial" size="1">&lt;!-- isquantityrequired</font></p>
+        <p><font face="Arial" size="1">is a quantity required to be manually
+        entered for this itementry</font></p>
+        <p><font face="Arial" size="1">--&gt;</font></p>
+        <p><font face="Arial" size="1">&lt;ElementType name=&quot;isquantityrequired&quot;
+        content=&quot;empty&quot; /&gt;</font></p>
+        <p><font face="Arial" size="1">&lt;!-- isrefundallowed</font></p>
+        <p><font face="Arial" size="1">can this itementry be refunded</font></p>
+        <p><font face="Arial" size="1">--&gt;</font></p>
+        <p><font face="Arial" size="1">&lt;ElementType name=&quot;isrefundallowed&quot;
+        content=&quot;empty&quot; /&gt;</font></p>
+        <p><font face="Arial" size="1">&lt;!-- isunmatchedcancel</font></p>
+        <p><font face="Arial" size="1">is this itementry a cancel for which no
+        match was found in the transaction</font></p>
+        <p><font face="Arial" size="1">--&gt;</font></p>
+        <p><font face="Arial" size="1">&lt;ElementType name=&quot;isunmatchedcancel&quot;
+        content=&quot;empty&quot; /&gt;</font></p>
+        <p><font face="Arial" size="1">&lt;!-- isweightitem</font></p>
+        <p><font face="Arial" size="1">is this itementry sold by weight</font></p>
+        <p><font face="Arial" size="1">--&gt;</font></p>
+        <p><font face="Arial" size="1">&lt;ElementType name=&quot;isweightitem&quot;
+        content=&quot;empty&quot; /&gt;</font></p>
+        <p><font face="Arial" size="1">&lt;!-- iswiceligible</font></p>
+        <p><font face="Arial" size="1">can this itementry be purchased using WIC</font></p>
+        <p><font face="Arial" size="1">--&gt;</font></p>
+        <p><font face="Arial" size="1">&lt;ElementType name=&quot;iswiceligible&quot;
+        content=&quot;empty&quot; /&gt;</font></p>
+        <p><font face="Arial" size="1">&lt;!-- itemtype</font></p>
+        <p><font face="Arial" size="1">the type of itementry</font></p>
+        <p><font face="Arial" size="1">--&gt;</font></p>
+        <p><font size="1" face="Arial">&lt;ElementType name=&quot;itemtype&quot;
+        content=&quot;textOnly&quot; dt:type=&quot;enumeration&quot; dt:values=&quot;sale
+        storecoupon vendorcoupon deposit discount depositreturn refund paidout
+        paidin&quot; /&gt;</font></p>
+        <p><font size="1" face="Arial">&lt;!-- language</font></p>
+        <p><font size="1" face="Arial">language code for the cashier or customer</font></p>
+        <p><font size="1" face="Arial">--&gt;</font></p>
+        <p><font size="1" face="Arial">&lt;ElementType name=&quot;language&quot;
+        content=&quot;textOnly&quot; dt:type=&quot;string&quot; /&gt;</font></p>
+        <p><font size="1" face="Arial">&lt;!-- lastname</font></p>
+        <p><font size="1" face="Arial">--&gt;</font></p>
+        <p><font size="1" face="Arial">&lt;ElementType name=&quot;lastname&quot;
+        content=&quot;textOnly&quot; dt:type=&quot;string&quot; /&gt;</font></p>
+        <p><font size="1" face="Arial">&lt;!-- lastpurchasedate</font></p>
+        <p><font size="1" face="Arial">date of last purchase for the customer</font></p>
+        <p><font size="1" face="Arial">--&gt;</font></p>
+        <p><font size="1" face="Arial">&lt;ElementType name=&quot;lastpurchasedate&quot;
+        content=&quot;textOnly&quot; dt:type=&quot;date&quot; /&gt;</font></p>
+        <p><font size="1" face="Arial">&lt;!-- lineid</font></p>
+        <p><font size="1" face="Arial">unique line identifier within the
+        transaction</font></p>
+        <p><font size="1" face="Arial">--&gt;</font></p>
+        <p><font size="1" face="Arial">&lt;ElementType name=&quot;lineid&quot;
+        content=&quot;textOnly&quot; dt:type=&quot;int&quot; /&gt;</font></p>
+        <p><font size="1" face="Arial">&lt;!-- manualpriceoverride</font></p>
+        <p><font size="1" face="Arial">was the price be manually entered for
+        this itementry</font></p>
+        <p><font size="1" face="Arial">--&gt;</font></p>
+        <p><font size="1" face="Arial">&lt;ElementType name=&quot;manualpriceoverride&quot;
+        content=&quot;empty&quot; /&gt;</font></p>
+        <p><font size="1" face="Arial">&lt;!-- manufacturercouponamount</font></p>
+        <p><font size="1" face="Arial">total manufacturer coupon amount for the
+        transaction</font></p>
+        <p><font size="1" face="Arial">--&gt;</font></p>
+        <p><font size="1" face="Arial">&lt;ElementType name=&quot;manufacturercouponamount&quot;
+        content=&quot;textOnly&quot; dt:type=&quot;int&quot; /&gt;</font></p>
+        <p><font size="1" face="Arial">&lt;!-- manufacturercouponcount</font></p>
+        <p><font size="1" face="Arial">total manufacturer coupon count for the
+        transaction</font></p>
+        <p><font size="1" face="Arial">--&gt;</font></p>
+        <p><font size="1" face="Arial">&lt;ElementType name=&quot;manufacturercouponcount&quot;
+        content=&quot;textOnly&quot; dt:type=&quot;int&quot; /&gt;</font></p>
+        <p><font size="1" face="Arial">&lt;!-- manufacturerid</font></p>
+        <p><font size="1" face="Arial">the manufacturer id for this item entry.
+        usually this comes from the</font></p>
+        <p><font size="1" face="Arial">barcode, however for coupons this could
+        come from the database</font></p>
+        <p><font size="1" face="Arial">--&gt;</font></p>
+        <p><font size="1" face="Arial">&lt;ElementType name=&quot;manufacturerid&quot;
+        content=&quot;textOnly&quot; dt:type=&quot;string&quot; /&gt;</font></p>
+        <p><font size="1" face="Arial">&lt;!-- matchgroup</font></p>
+        <p><font size="1" face="Arial">group identifier used to group items for
+        mix and match pricing purposes</font></p>
+        <p><font size="1" face="Arial">--&gt;</font></p>
+        <p><font size="1" face="Arial">&lt;ElementType name=&quot;matchgroup&quot;
+        content=&quot;textOnly&quot; dt:type=&quot;string&quot; /&gt;</font></p>
+        <p><font size="1" face="Arial">&lt;!-- mediaid</font></p>
+        <p><font size="1" face="Arial">the identifier for the tender or media
+        taken</font></p>
+        <p><font size="1" face="Arial">--&gt;</font></p>
+        <p><font size="1" face="Arial">&lt;ElementType name=&quot;mediaid&quot;
+        content=&quot;textOnly&quot; dt:type=&quot;int&quot; /&gt;</font></p>
+        <p><font size="1" face="Arial">&lt;!-- messagecount</font></p>
+        <p><font size="1" face="Arial">count of targeted messages issued/printed
+        to the customer for the transaction</font></p>
+        <p><font size="1" face="Arial">--&gt;</font></p>
+        <p><font size="1" face="Arial">&lt;ElementType name=&quot;messagecount&quot;
+        content=&quot;textOnly&quot; dt:type=&quot;int&quot; /&gt;</font></p>
+        <p><font size="1" face="Arial">&lt;!-- nocouponmultiplication</font></p>
+        <p><font size="1" face="Arial">coupons taken against this item entry
+        will not be multiplied</font></p>
+        <p><font size="1" face="Arial">--&gt;</font></p>
+        <p><font size="1" face="Arial">&lt;ElementType name=&quot;nocouponmultiplication&quot;
+        content=&quot;empty&quot; /&gt;</font></p>
+        <p><font size="1" face="Arial">&lt;!-- nomovement</font></p>
+        <p><font size="1" face="Arial">item movement information is not kept for
+        this item</font></p>
+        <p><font size="1" face="Arial">--&gt;</font></p>
+        <p><font size="1" face="Arial">&lt;ElementType name=&quot;nomovement&quot;
+        content=&quot;empty&quot; /&gt;</font></p>
+        <p><font size="1" face="Arial">&lt;!-- nopoints</font></p>
+        <p><font size="1" face="Arial">points are not issued for this item</font></p>
+        <p><font size="1" face="Arial">--&gt;</font></p>
+        <p><font size="1" face="Arial">&lt;ElementType name=&quot;nopoints&quot;
+        content=&quot;empty&quot; /&gt;</font></p>
+        <p><font size="1" face="Arial">&lt;!-- points</font></p>
+        <p><font size="1" face="Arial">points value</font></p>
+        <p><font size="1" face="Arial">--&gt;</font></p>
+        <p><font size="1" face="Arial">&lt;ElementType name=&quot;points&quot;
+        content=&quot;textOnly&quot; dt:type=&quot;int&quot; /&gt;</font></p>
+        <p><font size="1" face="Arial">&lt;!-- possibleoutofbalance</font></p>
+        <p><font size="1" face="Arial">flags a transaction where the items,
+        discounts, taxes, tender and change</font></p>
+        <p><font size="1" face="Arial">for the information understood by the xml
+        processor does not balance</font></p>
+        <p><font size="1" face="Arial">--&gt;</font></p>
+        <p><font size="1" face="Arial">&lt;ElementType name=&quot;possibleoutofbalance&quot;
+        content=&quot;empty&quot; /&gt;</font></p>
+        <p><font size="1" face="Arial">&lt;!-- previouscouponfamilycode</font></p>
+        <p><font size="1" face="Arial">code used to validate coupons against
+        matching items</font></p>
+        <p><font size="1" face="Arial">--&gt;</font></p>
+        <p><font size="1" face="Arial">&lt;ElementType name=&quot;previouscouponfamilycode&quot;
+        content=&quot;textOnly&quot; dt:type=&quot;int&quot; /&gt;</font></p>
+        <p><font size="1" face="Arial">&lt;!-- pricelevel</font></p>
+        <p><font size="1" face="Arial">price level id</font></p>
+        <p><font size="1" face="Arial">--&gt;</font></p>
+        <p><font size="1" face="Arial">&lt;ElementType name=&quot;pricelevel&quot;
+        content=&quot;textOnly&quot; dt:type=&quot;string&quot;/&gt;</font></p>
+        <p><font size="1" face="Arial">&lt;!-- pricemethod</font></p>
+        <p><font size="1" face="Arial">the type of pricing applied (e.g. LQD,
+        MQD, etc.)</font></p>
+        <p><font size="1" face="Arial">--&gt;</font></p>
+        <p><font size="1" face="Arial">&lt;ElementType name=&quot;pricemethod&quot;
+        content=&quot;textOnly&quot; dt:type=&quot;string&quot;/&gt;</font></p>
+        <p><font size="1" face="Arial">&lt;!-- priceoverridereason</font></p>
+        <p><font size="1" face="Arial">reason code associated with a manual
+        price entry</font></p>
+        <p><font size="1" face="Arial">--&gt;</font></p>
+        <p><font size="1" face="Arial">&lt;ElementType name=&quot;priceoverridereason&quot;
+        content=&quot;textOnly&quot; dt:type=&quot;string&quot; /&gt;</font></p>
+        <p><font size="1" face="Arial">&lt;!-- promotioncode</font></p>
+        <p><font size="1" face="Arial">promotion id associated with a particular
+        award</font></p>
+        <p><font size="1" face="Arial">--&gt;</font></p>
+        <p><font size="1" face="Arial">&lt;ElementType name=&quot;promotioncode&quot;
+        content=&quot;textOnly&quot; dt:type=&quot;string&quot; /&gt;</font></p>
+        <p><font size="1" face="Arial">&lt;!-- quantity</font></p>
+        <p><font size="1" face="Arial">--&gt;</font></p>
+        <p><font size="1" face="Arial">&lt;ElementType name=&quot;quantity&quot;
+        content=&quot;textOnly&quot; dt:type=&quot;int&quot; /&gt;</font></p>
+        <p><font size="1" face="Arial">&lt;!-- reasoncode</font></p>
+        <p><font size="1" face="Arial">--&gt;</font></p>
+        <p><font size="1" face="Arial">&lt;ElementType name=&quot;reasoncode&quot;
+        content=&quot;textOnly&quot; dt:type=&quot;string&quot; /&gt;</font></p>
+        <p><font size="1" face="Arial">&lt;!-- redeemedpoints</font></p>
+        <p><font size="1" face="Arial">points redeemed for awards as part of
+        this transaction</font></p>
+        <p><font size="1" face="Arial">--&gt;</font></p>
+        <p><font size="1" face="Arial">&lt;ElementType name=&quot;redeemedpoints&quot;
+        content=&quot;textOnly&quot; dt:type=&quot;int&quot; /&gt;</font></p>
+        <p><font size="1" face="Arial">&lt;!-- refund</font></p>
+        <p><font size="1" face="Arial">flags the transaction entry as a refund.
+        For tenders and discounts</font></p>
+        <p><font size="1" face="Arial">some POS systems do not differentiate
+        between refunds and cancels.</font></p>
+        <p><font size="1" face="Arial">--&gt;</font></p>
+        <p><font size="1" face="Arial">&lt;ElementType name=&quot;refund&quot;
+        content=&quot;empty&quot; /&gt;</font></p>
+        <p><font size="1" face="Arial">&lt;!-- refundreason</font></p>
+        <p><font size="1" face="Arial">reason code associated with the refund</font></p>
+        <p><font size="1" face="Arial">--&gt;</font></p>
+        <p><font size="1" face="Arial">&lt;ElementType name=&quot;refundreason&quot;
+        content=&quot;textOnly&quot; dt:type=&quot;string&quot; /&gt;</font></p>
+        <p><font size="1" face="Arial">&lt;!-- registerid</font></p>
+        <p><font size="1" face="Arial">pos terminal or register identifier</font></p>
+        <p><font size="1" face="Arial">--&gt;</font></p>
+        <p><font size="1" face="Arial">&lt;ElementType name=&quot;registerid&quot;
+        content=&quot;textOnly&quot; dt:type=&quot;string&quot; /&gt;</font></p>
+        <p><font size="1" face="Arial">&lt;!-- securitylevel</font></p>
+        <p><font size="1" face="Arial">security level of the cashier</font></p>
+        <p><font size="1" face="Arial">--&gt;</font></p>
+        <p><font size="1" face="Arial">&lt;ElementType name=&quot;securitylevel&quot;
+        content=&quot;textOnly&quot; dt:type=&quot;int&quot; /&gt;</font></p>
+        <p><font size="1" face="Arial">&lt;!-- shopperlevel</font></p>
+        <p><font size="1" face="Arial">shopper level associated with the
+        customer</font></p>
+        <p><font size="1" face="Arial">--&gt;</font></p>
+        <p><font size="1" face="Arial">&lt;ElementType name=&quot;shopperlevel&quot;
+        content=&quot;textOnly&quot; dt:type=&quot;int&quot; /&gt;</font></p>
+        <p><font size="1" face="Arial">&lt;!-- shortname</font></p>
+        <p><font size="1" face="Arial">--&gt;</font></p>
+        <p><font size="1" face="Arial">&lt;ElementType name=&quot;shortname&quot;
+        content=&quot;textOnly&quot; dt:type=&quot;string&quot; /&gt;</font></p>
+        <p><font size="1" face="Arial">&lt;!-- storecouponamount</font></p>
+        <p><font size="1" face="Arial">total amount of store coupons taken in
+        the transaction</font></p>
+        <p><font size="1" face="Arial">--&gt;</font></p>
+        <p><font size="1" face="Arial">&lt;ElementType name=&quot;storecouponamount&quot;
+        content=&quot;textOnly&quot; dt:type=&quot;int&quot; /&gt;</font></p>
+        <p><font size="1" face="Arial">&lt;!-- storecouponcount</font></p>
+        <p><font size="1" face="Arial">total count of store coupons taken in the
+        transaction</font></p>
+        <p><font size="1" face="Arial">--&gt;</font></p>
+        <p><font size="1" face="Arial">&lt;ElementType name=&quot;storecouponcount&quot;
+        content=&quot;textOnly&quot; dt:type=&quot;int&quot; /&gt;</font></p>
+        <p><font size="1" face="Arial">&lt;!-- storeid</font></p>
+        <p><font size="1" face="Arial">store identifier</font></p>
+        <p><font size="1" face="Arial">--&gt;</font></p>
+        <p><font size="1" face="Arial">&lt;ElementType name=&quot;storeid&quot;
+        content=&quot;textOnly&quot; dt:type=&quot;string&quot; /&gt;</font></p>
+        <p><font size="1" face="Arial">&lt;!-- subdeptno</font></p>
+        <p><font size="1" face="Arial">the sub department number for the
+        itementry. Some POS systems</font></p>
+        <p><font size="1" face="Arial">do not have the concept of dept and
+        subdept so only one may</font></p>
+        <p><font size="1" face="Arial">be present.</font></p>
+        <p><font size="1" face="Arial">--&gt;</font></p>
+        <p><font size="1" face="Arial">&lt;ElementType name=&quot;subdeptno&quot;
+        content=&quot;textOnly&quot; dt:type=&quot;int&quot; /&gt;</font></p>
+        <p><font size="1" face="Arial">&lt;!-- tareid</font></p>
+        <p><font size="1" face="Arial">identifies the tare weight applied to the
+        itementry</font></p>
+        <p><font size="1" face="Arial">--&gt;</font></p>
+        <p><font size="1" face="Arial">&lt;ElementType name=&quot;tareid&quot;
+        content=&quot;textOnly&quot; dt:type=&quot;int&quot; /&gt;</font></p>
+        <p><font size="1" face="Arial">&lt;!-- tareweight</font></p>
+        <p><font size="1" face="Arial">value of the tare weight applied to the
+        itementry</font></p>
+        <p><font size="1" face="Arial">--&gt;</font></p>
+        <p><font size="1" face="Arial">&lt;ElementType name=&quot;tareweight&quot;
+        content=&quot;textOnly&quot; dt:type=&quot;float&quot; /&gt;</font></p>
+        <p><font size="1" face="Arial">&lt;!-- taxableamount</font></p>
+        <p><font size="1" face="Arial">the amount on which tax was applied</font></p>
+        <p><font size="1" face="Arial">--&gt;</font></p>
+        <p><font size="1" face="Arial">&lt;ElementType name=&quot;taxableamount&quot;
+        content=&quot;textOnly&quot; dt:type=&quot;int&quot; /&gt;</font></p>
+        <p><font size="1" face="Arial">&lt;!-- taxableamountexempt</font></p>
+        <p><font size="1" face="Arial">the amount on which tax would have been
+        applied had not itementrys or</font></p>
+        <p><font size="1" face="Arial">the entire transaction been exempt from
+        tax</font></p>
+        <p><font size="1" face="Arial">--&gt;</font></p>
+        <p><font size="1" face="Arial">&lt;ElementType name=&quot;taxableamountexempt&quot;
+        content=&quot;textOnly&quot; dt:type=&quot;int&quot; /&gt;</font></p>
+        <p><font size="1" face="Arial">&lt;!-- taxid</font></p>
+        <p><font size="1" face="Arial">the identifier for the tax plan</font></p>
+        <p><font size="1" face="Arial">--&gt;</font></p>
+        <p><font size="1" face="Arial">&lt;ElementType name=&quot;taxid&quot;
+        content=&quot;textOnly&quot; dt:type=&quot;int&quot; /&gt;</font></p>
+        <p><font size="1" face="Arial">&lt;!-- tillid</font></p>
+        <p><font size="1" face="Arial">the identifier used to account for sales
+        and tenders taken for cash</font></p>
+        <p><font size="1" face="Arial">management purposes. This is normally the
+        registerid or cashierid.</font></p>
+        <p><font size="1" face="Arial">--&gt;</font></p>
+        <p><font size="1" face="Arial">&lt;ElementType name=&quot;tillid&quot;
+        content=&quot;textOnly&quot; dt:type=&quot;string&quot; /&gt;</font></p>
+        <p><font size="1" face="Arial">&lt;!-- timerestrictionid</font></p>
+        <p><font size="1" face="Arial">the identifier for a time restriction on
+        sales this itementry</font></p>
+        <p><font size="1" face="Arial">--&gt;</font></p>
+        <p><font size="1" face="Arial">&lt;ElementType name=&quot;timerestrictionid&quot;
+        content=&quot;textOnly&quot; dt:type=&quot;int&quot; /&gt;</font></p>
+        <p><font size="1" face="Arial">&lt;!-- toggledtaxes</font></p>
+        <p><font size="1" face="Arial">currently: flags that taxes were toggled
+        on this item</font></p>
+        <p><font size="1" face="Arial">future: list of the taxid's toggled</font></p>
+        <p><font size="1" face="Arial">--&gt;</font></p>
+        <p><font size="1" face="Arial">&lt;ElementType name=&quot;toggledtaxes&quot;
+        content=&quot;empty&quot; /&gt;</font></p>
+        <p><font size="1" face="Arial">&lt;!-- totalchange</font></p>
+        <p><font size="1" face="Arial">total change given in the transaction</font></p>
+        <p><font size="1" face="Arial">--&gt;</font></p>
+        <p><font size="1" face="Arial">&lt;ElementType name=&quot;totalchange&quot;
+        content=&quot;textOnly&quot; dt:type=&quot;int&quot; /&gt;</font></p>
+        <p><font size="1" face="Arial">&lt;!-- totaldiscount</font></p>
+        <p><font size="1" face="Arial">total discount taken in the transaction</font></p>
+        <p><font size="1" face="Arial">--&gt;</font></p>
+        <p><font size="1" face="Arial">&lt;ElementType name=&quot;totaldiscount&quot;
+        content=&quot;textOnly&quot; dt:type=&quot;int&quot; /&gt;</font></p>
+        <p><font size="1" face="Arial">&lt;!-- totalitemcount</font></p>
+        <p><font size="1" face="Arial">total count of items sold in the
+        transaction</font></p>
+        <p><font size="1" face="Arial">--&gt;</font></p>
+        <p><font size="1" face="Arial">&lt;ElementType name=&quot;totalitemcount&quot;
+        content=&quot;textOnly&quot; dt:type=&quot;int&quot; /&gt;</font></p>
+        <p><font size="1" face="Arial">&lt;!-- totalitemsales</font></p>
+        <p><font size="1" face="Arial">total amount of items sold in the
+        transaction</font></p>
+        <p><font size="1" face="Arial">--&gt;</font></p>
+        <p><font size="1" face="Arial">&lt;ElementType name=&quot;totalitemsales&quot;
+        content=&quot;textOnly&quot; dt:type=&quot;int&quot; /&gt;</font></p>
+        <p><font size="1" face="Arial">&lt;!-- totaltax</font></p>
+        <p><font size="1" face="Arial">total amount of tax charged on the
+        transaction</font></p>
+        <p><font size="1" face="Arial">--&gt;</font></p>
+        <p><font size="1" face="Arial">&lt;ElementType name=&quot;totaltax&quot;
+        content=&quot;textOnly&quot; dt:type=&quot;int&quot; /&gt;</font></p>
+        <p><font size="1" face="Arial">&lt;!-- totaltender</font></p>
+        <p><font size="1" face="Arial">total amount of tender taken on the
+        transaction</font></p>
+        <p><font size="1" face="Arial">--&gt;</font></p>
+        <p><font size="1" face="Arial">&lt;ElementType name=&quot;totaltender&quot;
+        content=&quot;textOnly&quot; dt:type=&quot;int&quot; /&gt;</font></p>
+        <p><font size="1" face="Arial">&lt;!-- trainingmode</font></p>
+        <p><font size="1" face="Arial">flag indicating that this transaction was
+        a training transaction</font></p>
+        <p><font size="1" face="Arial">--&gt;</font></p>
+        <p><font size="1" face="Arial">&lt;ElementType name=&quot;trainingmode&quot;
+        content=&quot;empty&quot; /&gt;</font></p>
+        <p><font size="1" face="Arial">&lt;!-- transactiondatetime</font></p>
+        <p><font size="1" face="Arial">date/time of the transaction</font></p>
+        <p><font size="1" face="Arial">future: need a category (start, end, ...)</font></p>
+        <p><font size="1" face="Arial">--&gt;</font></p>
+        <p><font size="1" face="Arial">&lt;ElementType name=&quot;transactiondatetime&quot;
+        content=&quot;textOnly&quot; dt:type=&quot;dateTime.tz&quot; /&gt;</font></p>
+        <p><font size="1" face="Arial">&lt;!-- transactionnumber</font></p>
+        <p><font size="1" face="Arial">the transaction number allocated to the
+        transaction</font></p>
+        <p><font size="1" face="Arial">--&gt;</font></p>
+        <p><font size="1" face="Arial">&lt;ElementType name=&quot;transactionnumber&quot;
+        content=&quot;textOnly&quot; dt:type=&quot;string&quot; /&gt;</font></p>
+        <p><font size="1" face="Arial">&lt;!-- transactiontype</font></p>
+        <p><font size="1" face="Arial">the type of the transaction (sale,
+        refund, layaway, ...)</font></p>
+        <p><font size="1" face="Arial">--&gt;</font></p>
+        <p><font size="1" face="Arial">&lt;ElementType name=&quot;transactiontype&quot;
+        content=&quot;textOnly&quot; dt:type=&quot;string&quot; /&gt;</font></p>
+        <p><font size="1" face="Arial">&lt;!-- unmatchedcouponamount</font></p>
+        <p><font size="1" face="Arial">amount of a coupon that was not matched
+        against previous itementrys</font></p>
+        <p><font size="1" face="Arial">--&gt;</font></p>
+        <p><font size="1" face="Arial">&lt;ElementType name=&quot;unmatchedcouponamount&quot;
+        content=&quot;textOnly&quot; dt:type=&quot;int&quot; /&gt;</font></p>
+        <p><font size="1" face="Arial">&lt;!-- unmatchedcouponquantity</font></p>
+        <p><font size="1" face="Arial">quantity of a coupon that was not matched
+        against previous itementrys</font></p>
+        <p><font size="1" face="Arial">--&gt;</font></p>
+        <p><font size="1" face="Arial">&lt;ElementType name=&quot;unmatchedcouponquantity&quot;
+        content=&quot;textOnly&quot; dt:type=&quot;int&quot; /&gt;</font></p>
+        <p><font size="1" face="Arial">&lt;!-- unmatchedcouponweight</font></p>
+        <p><font size="1" face="Arial">weight of a coupon that was not matched
+        against previous itementrys</font></p>
+        <p><font size="1" face="Arial">--&gt;</font></p>
+        <p><font size="1" face="Arial">&lt;ElementType name=&quot;unmatchedcouponweight&quot;
+        content=&quot;textOnly&quot; dt:type=&quot;float&quot; /&gt;</font></p>
+        <p><font size="1" face="Arial">&lt;!-- velocitycode</font></p>
+        <p><font size="1" face="Arial">a (key entered) short code used to
+        identify the item</font></p>
+        <p><font size="1" face="Arial">--&gt;</font></p>
+        <p><font size="1" face="Arial">&lt;ElementType name=&quot;velocitycode&quot;
+        content=&quot;textOnly&quot; dt:type=&quot;string&quot; /&gt;</font></p>
+        <p><font size="1" face="Arial">&lt;!-- weight</font></p>
+        <p><font size="1" face="Arial">--&gt;</font></p>
+        <p><font size="1" face="Arial">&lt;ElementType name=&quot;weight&quot;
+        content=&quot;textOnly&quot; dt:type=&quot;float&quot; /&gt;</font></p>
+        <p><font size="1" face="Arial">&lt;!-- weightsource</font></p>
+        <p><font size="1" face="Arial">where the value of the weight originated
+        from</font></p>
+        <p><font size="1" face="Arial">--&gt;</font></p>
+        <p><font size="1" face="Arial">&lt;ElementType name=&quot;weightsource&quot;
+        content=&quot;textOnly&quot; dt:type=&quot;enumeration&quot; dt:values=&quot;electronic
+        keyboard scale&quot; /&gt;</font></p>
+        <p><font size="1" face="Arial">&lt;!-- weightunits</font></p>
+        <p><font size="1" face="Arial">the units the weight was entered in</font></p>
+        <p><font size="1" face="Arial">--&gt;</font></p>
+        <p><font size="1" face="Arial">&lt;ElementType name=&quot;weightunits&quot;
+        content=&quot;textOnly&quot; dt:type=&quot;enumeration&quot; dt:values=&quot;lb
+        kg&quot; /&gt;</font></p>
+        <p><font size="1" face="Arial">&lt;!-- cashierpassword</font></p>
+        <p><font size="1" face="Arial">the cashier's password</font></p>
+        <p><font size="1" face="Arial">--&gt;</font></p>
+        <p><font size="1" face="Arial">&lt;ElementType name=&quot;cashierpassword&quot;
+        content=&quot;textOnly&quot; dt:type=&quot;string&quot;&gt;</font></p>
+        <p><font size="1" face="Arial">&lt;AttributeType
+        name=&quot;encrypted&quot; dt:type=&quot;boolean&quot; /&gt;</font></p>
+        <p><font size="1" face="Arial">&lt;attribute type=&quot;encrypted&quot;
+        /&gt;</font></p>
+        <p><font size="1" face="Arial">&lt;/ElementType&gt;</font></p>
+        <font SIZE="2">
+        <p>&nbsp;</p>
+        </font>
+        <p><font size="1" face="Arial">&lt;!-- Name/value pair element used by a
+        variety of things.</font></p>
+        <p><font size="1" face="Arial">--&gt;</font></p>
+        <p><font size="1" face="Arial">&lt;ElementType name=&quot;namedvalue&quot;
+        content=&quot;textOnly&quot;&gt;</font></p>
+        <p><font size="1" face="Arial">&lt;AttributeType name=&quot;name&quot;
+        dt:type=&quot;string&quot; /&gt;</font></p>
+        <p><font size="1" face="Arial">&lt;attribute type=&quot;name&quot; /&gt;</font></p>
+        <p><font size="1" face="Arial">&lt;/ElementType&gt;</font></p>
+        <p><font size="1" face="Arial">&lt;ElementType name=&quot;dataentry&quot;
+        content=&quot;eltOnly&quot;&gt;</font></p>
+        <p><font size="1" face="Arial">&lt;element type=&quot;lineid&quot; /&gt;</font></p>
+        <p><font size="1" face="Arial">&lt;element type=&quot;namedvalue&quot;
+        minOccurs=&quot;0&quot; maxOccurs=&quot;*&quot; /&gt;</font></p>
+        <p><font size="1" face="Arial">&lt;/ElementType&gt;</font></p>
+        <p><font size="1" face="Arial">&lt;ElementType name=&quot;userentry&quot;
+        content=&quot;eltOnly&quot;&gt;</font></p>
+        <p><font size="1" face="Arial">&lt;element type=&quot;lineid&quot; /&gt;</font></p>
+        <p><font size="1" face="Arial">&lt;element type=&quot;namedvalue&quot;
+        minOccurs=&quot;0&quot; maxOccurs=&quot;*&quot; /&gt;</font></p>
+        <p><font size="1" face="Arial">&lt;/ElementType&gt;</font></p>
+        <p><font size="1" face="Arial">&lt;ElementType name=&quot;automaticcoupontransactionentry&quot;
+        content=&quot;eltOnly&quot;&gt;</font></p>
+        <p><font size="1" face="Arial">&lt;element type=&quot;manufacturercouponamount&quot;
+        minOccurs=&quot;0&quot; /&gt;</font></p>
+        <p><font size="1" face="Arial">&lt;element type=&quot;manufacturercouponcount&quot;
+        minOccurs=&quot;0&quot; /&gt;</font></p>
+        <p><font size="1" face="Arial">&lt;element type=&quot;storecouponamount&quot;
+        minOccurs=&quot;0&quot; /&gt;</font></p>
+        <p><font size="1" face="Arial">&lt;element type=&quot;storecouponcount&quot;
+        minOccurs=&quot;0&quot; /&gt;</font></p>
+        <p><font size="1" face="Arial">&lt;element type=&quot;namedvalue&quot;
+        minOccurs=&quot;0&quot; maxOccurs=&quot;*&quot; /&gt;</font></p>
+        <p><font size="1" face="Arial">&lt;/ElementType&gt;</font></p>
+        <p><font size="1" face="Arial">&lt;ElementType name=&quot;customertransactionentry&quot;
+        content=&quot;eltOnly&quot;&gt;</font></p>
+        <p><font size="1" face="Arial">&lt;element type=&quot;customerid&quot;
+        /&gt;</font></p>
+        <p><font size="1" face="Arial">&lt;element type=&quot;points&quot;
+        minOccurs=&quot;0&quot; /&gt;</font></p>
+        <p><font size="1" face="Arial">&lt;element type=&quot;couponcount&quot;
+        minOccurs=&quot;0&quot; /&gt;</font></p>
+        <p><font size="1" face="Arial">&lt;element type=&quot;couponamount&quot;
+        minOccurs=&quot;0&quot; /&gt;</font></p>
+        <p><font size="1" face="Arial">&lt;element type=&quot;messagecount&quot;
+        minOccurs=&quot;0&quot; /&gt;</font></p>
+        <p><font size="1" face="Arial">&lt;element type=&quot;bonuspoints&quot;
+        minOccurs=&quot;0&quot; /&gt;</font></p>
+        <p><font size="1" face="Arial">&lt;element type=&quot;redeemedpoints&quot;
+        minOccurs=&quot;0&quot; /&gt;</font></p>
+        <p><font size="1" face="Arial">&lt;/ElementType&gt;</font></p>
+        <p><font size="1" face="Arial">&lt;ElementType name=&quot;customeridentry&quot;
+        content=&quot;eltOnly&quot;&gt;</font></p>
+        <p><font size="1" face="Arial">&lt;element type=&quot;lineid&quot; /&gt;</font></p>
+        <p><font size="1" face="Arial">&lt;element type=&quot;customerid&quot;
+        /&gt;</font></p>
+        <p><font size="1" face="Arial">&lt;element type=&quot;expirationdate&quot;
+        /&gt;</font></p>
+        <p><font size="1" face="Arial">&lt;element type=&quot;storeid&quot;
+        /&gt;</font></p>
+        <p><font size="1" face="Arial">&lt;/ElementType&gt;</font></p>
+        <p><font size="1" face="Arial">&lt;ElementType name=&quot;customer&quot;
+        content=&quot;eltOnly&quot;&gt;</font></p>
+        <p><font size="1" face="Arial">&lt;element type=&quot;customerid&quot;
+        /&gt;</font></p>
+        <p><font size="1" face="Arial">&lt;element type=&quot;firstname&quot;
+        minOccurs=&quot;0&quot; /&gt;</font></p>
+        <p><font size="1" face="Arial">&lt;element type=&quot;lastname&quot;
+        minOccurs=&quot;0&quot; /&gt;</font></p>
+        <p><font size="1" face="Arial">&lt;element type=&quot;address&quot;
+        minOccurs=&quot;0&quot; /&gt;</font></p>
+        <p><font size="1" face="Arial">&lt;element type=&quot;shopperlevel&quot;
+        minOccurs=&quot;0&quot; /&gt;</font></p>
+        <p><font size="1" face="Arial">&lt;element type=&quot;lastpurchasedate&quot;
+        minOccurs=&quot;0&quot; /&gt;</font></p>
+        <p><font size="1" face="Arial">&lt;element type=&quot;currentpoints&quot;
+        minOccurs=&quot;0&quot; /&gt;</font></p>
+        <p><font size="1" face="Arial">&lt;/ElementType&gt;</font></p>
+        <p><font size="1" face="Arial">&lt;!-- totaltype</font></p>
+        <p><font size="1" face="Arial">--&gt;</font></p>
+        <p><font size="1" face="Arial">&lt;ElementType name=&quot;totaltype&quot;
+        content=&quot;textOnly&quot; dt:type=&quot;string&quot; /&gt;</font></p>
+        <p><font size="1" face="Arial">&lt;!-- totalcontextid</font></p>
+        <p><font size="1" face="Arial">--&gt;</font></p>
+        <p><font size="1" face="Arial">&lt;ElementType name=&quot;totalcontextid&quot;
+        content=&quot;textOnly&quot; dt:type=&quot;string&quot; /&gt;</font></p>
+        <p><font size="1" face="Arial">&lt;!-- totalid</font></p>
+        <p><font size="1" face="Arial">--&gt;</font></p>
+        <p><font size="1" face="Arial">&lt;ElementType name=&quot;totalid&quot;
+        content=&quot;textOnly&quot; dt:type=&quot;string&quot; /&gt;</font></p>
+        <p><font size="1" face="Arial">&lt;!-- totalamount</font></p>
+        <p><font size="1" face="Arial">--&gt;</font></p>
+        <p><font size="1" face="Arial">&lt;ElementType name=&quot;totalamount&quot;
+        content=&quot;textOnly&quot; dt:type=&quot;int&quot; /&gt;</font></p>
+        <p><font size="1" face="Arial">&lt;!-- totalquantity</font></p>
+        <p><font size="1" face="Arial">--&gt;</font></p>
+        <p><font size="1" face="Arial">&lt;ElementType name=&quot;totalcount&quot;
+        content=&quot;textOnly&quot; dt:type=&quot;int&quot; /&gt;</font></p>
+        <p><font size="1" face="Arial">&lt;!-- totalunits</font></p>
+        <p><font size="1" face="Arial">--&gt;</font></p>
+        <p><font size="1" face="Arial">&lt;ElementType name=&quot;totalunits&quot;
+        content=&quot;textOnly&quot; dt:type=&quot;float&quot; /&gt;</font></p>
+        <p><font size="1" face="Arial">&lt;ElementType name=&quot;total&quot;
+        content=&quot;eltOnly&quot; &gt;</font></p>
+        <p><font size="1" face="Arial">&lt;element type=&quot;totaltype&quot;
+        minOccurs=&quot;0&quot; /&gt;</font></p>
+        <p><font size="1" face="Arial">&lt;element type=&quot;totalcontextid&quot;
+        minOccurs=&quot;0&quot; /&gt;</font></p>
+        <p><font size="1" face="Arial">&lt;element type=&quot;totalid&quot;
+        /&gt;</font></p>
+        <p><font size="1" face="Arial">&lt;element type=&quot;totalamount&quot;
+        minOccurs=&quot;0&quot; /&gt;</font></p>
+        <p><font size="1" face="Arial">&lt;element type=&quot;totalcount&quot;
+        minOccurs=&quot;0&quot; /&gt;</font></p>
+        <p><font size="1" face="Arial">&lt;element type=&quot;totalunits&quot;
+        minOccurs=&quot;0&quot; /&gt;</font></p>
+        <p><font size="1" face="Arial">&lt;/ElementType&gt;</font></p>
+        <p><font size="1" face="Arial">&lt;!-- Exception</font></p>
+        <p><font size="1" face="Arial">--&gt;</font></p>
+        <p><font size="1" face="Arial">&lt;ElementType
+        name=&quot;exception&quot; content=&quot;eltOnly&quot;&gt;</font></p>
+        <p><font size="1" face="Arial">&lt;element type=&quot;namedvalue&quot;
+        minOccurs=&quot;0&quot; maxOccurs=&quot;*&quot; /&gt;</font></p>
+        <p><font size="1" face="Arial">&lt;/ElementType&gt;</font></p>
+        <p><font size="1" face="Arial">&lt;ElementType name=&quot;authorizationdetails&quot;
+        content=&quot;eltOnly&quot;&gt;</font></p>
+        <p><font size="1" face="Arial">&lt;element type=&quot;namedvalue&quot;
+        minOccurs=&quot;0&quot; maxOccurs=&quot;*&quot; /&gt;</font></p>
+        <p><font size="1" face="Arial">&lt;/ElementType&gt;</font></p>
+        <p><font size="1" face="Arial">&lt;!--</font></p>
+        <p><font size="1" face="Arial">Overrides may be required to complete a
+        request. They will normally</font></p>
+        <p><font size="1" face="Arial">only be added to a request after a
+        &quot;more data required&quot; response has</font></p>
+        <p><font size="1" face="Arial">been received that indicates an override
+        is needed (the override is</font></p>
+        <p><font size="1" face="Arial">the &quot;more data&quot;).</font></p>
+        <p><font size="1" face="Arial">--&gt;</font></p>
+        <p><font size="1" face="Arial">&lt;ElementType name=&quot;override&quot;
+        content=&quot;eltOnly&quot;&gt;</font></p>
+        <p><font size="1" face="Arial">&lt;element type=&quot;reasoncode&quot;
+        /&gt;</font></p>
+        <p><font size="1" face="Arial">&lt;element type=&quot;cashierid&quot;
+        /&gt;</font></p>
+        <p><font size="1" face="Arial">&lt;/ElementType&gt;</font></p>
+        <p><font size="1" face="Arial">&lt;!-- Override</font></p>
+        <p><font size="1" face="Arial">--&gt;</font></p>
+        <p><font size="1" face="Arial">&lt;ElementType name=&quot;overridelist&quot;
+        content=&quot;eltOnly&quot;&gt;</font></p>
+        <p><font size="1" face="Arial">&lt;element type=&quot;override&quot;
+        maxOccurs=&quot;*&quot; /&gt;</font></p>
+        <p><font size="1" face="Arial">&lt;/ElementType&gt;</font></p>
+        <font SIZE="2">
+        <p>&nbsp;</p>
+        </font>
+        <p><font size="1" face="Arial">&lt;!-- Price element representing e.g.
+        &quot;3 @ $1.00ea&quot; or &quot;3lbs @ $1.00/lb&quot;</font></p>
+        <p><font size="1" face="Arial">--&gt;</font></p>
+        <p><font size="1" face="Arial">&lt;ElementType name=&quot;simpleprice&quot;
+        content=&quot;eltOnly&quot;&gt;</font></p>
+        <p><font size="1" face="Arial">&lt;element type=&quot;quantity&quot;
+        /&gt;</font></p>
+        <p><font size="1" face="Arial">&lt;element type=&quot;weight&quot;
+        minOccurs=&quot;0&quot; /&gt;</font></p>
+        <p><font size="1" face="Arial">&lt;element type=&quot;amount&quot; /&gt;</font></p>
+        <p><font size="1" face="Arial">&lt;/ElementType&gt;</font></p>
+        <p><font size="1" face="Arial">&lt;ElementType name=&quot;extendedpricedetail&quot;
+        content=&quot;eltOnly&quot;&gt;</font></p>
+        <p><font size="1" face="Arial">&lt;element type=&quot;pricelevel&quot;
+        minOccurs=&quot;0&quot; /&gt;</font></p>
+        <p><font size="1" face="Arial">&lt;element type=&quot;pricemethod&quot;
+        minOccurs=&quot;0&quot; /&gt;</font></p>
+        <p><font size="1" face="Arial">&lt;element type=&quot;simpleprice&quot;
+        maxOccurs=&quot;*&quot; /&gt;</font></p>
+        <p><font size="1" face="Arial">&lt;element type=&quot;namedvalue&quot;
+        minOccurs=&quot;0&quot; maxOccurs=&quot;*&quot; /&gt;</font></p>
+        <p><font size="1" face="Arial">&lt;/ElementType&gt;</font></p>
+        <p><font size="1" face="Arial">&lt;ElementType
+        name=&quot;taxability&quot; content=&quot;eltOnly&quot;&gt;</font></p>
+        <p><font size="1" face="Arial">&lt;element type=&quot;taxid&quot;
+        maxOccurs=&quot;*&quot; /&gt;</font></p>
+        <p><font size="1" face="Arial">&lt;/ElementType&gt;</font></p>
+        <p><font size="1" face="Arial">&lt;ElementType name=&quot;itemid&quot;
+        content=&quot;eltOnly&quot;&gt;</font></p>
+        <p><font size="1" face="Arial">&lt;group order=&quot;one&quot;&gt;</font></p>
+        <p><font size="1" face="Arial">&lt;element type=&quot;barcode&quot;
+        /&gt;</font></p>
+        <p><font size="1" face="Arial">&lt;element type=&quot;velocitycode&quot;
+        /&gt;</font></p>
+        <p><font size="1" face="Arial">&lt;element type=&quot;subdeptno&quot;
+        /&gt;</font></p>
+        <p><font size="1" face="Arial">&lt;/group&gt;</font></p>
+        <p><font size="1" face="Arial">&lt;element type=&quot;datasource&quot;
+        minOccurs=&quot;0&quot; /&gt;</font></p>
+        <p><font size="1" face="Arial">&lt;element type=&quot;isitemidfromalias&quot;
+        minOccurs=&quot;0&quot; /&gt;</font></p>
+        <p><font size="1" face="Arial">&lt;/ElementType&gt;</font></p>
+        <p><font size="1" face="Arial">&lt;ElementType name=&quot;couponmatch&quot;
+        content=&quot;eltOnly&quot;&gt;</font></p>
+        <p><font size="1" face="Arial">&lt;group order=&quot;one&quot;&gt;</font></p>
+        <p><font size="1" face="Arial">&lt;element type=&quot;barcode&quot;
+        /&gt;</font></p>
+        <p><font size="1" face="Arial">&lt;element type=&quot;velocitycode&quot;
+        /&gt;</font></p>
+        <p><font size="1" face="Arial">&lt;element type=&quot;subdeptno&quot;
+        /&gt;</font></p>
+        <p><font size="1" face="Arial">&lt;/group&gt;</font></p>
+        <p><font size="1" face="Arial">&lt;/ElementType&gt;</font></p>
+        <p><font size="1" face="Arial">&lt;ElementType name=&quot;cancelby&quot;
+        content=&quot;eltOnly&quot;&gt;</font></p>
+        <p><font size="1" face="Arial">&lt;element type=&quot;lineid&quot; /&gt;</font></p>
+        <p><font size="1" face="Arial">&lt;element type=&quot;amount&quot; /&gt;</font></p>
+        <p><font size="1" face="Arial">&lt;element type=&quot;quantity&quot;
+        minOccurs=&quot;0&quot; /&gt;</font></p>
+        <p><font size="1" face="Arial">&lt;element type=&quot;weight&quot;
+        minOccurs=&quot;0&quot; /&gt;</font></p>
+        <p><font size="1" face="Arial">&lt;/ElementType&gt;</font></p>
+        <p><font size="1" face="Arial">&lt;ElementType name=&quot;cancelappliesto&quot;
+        content=&quot;eltOnly&quot;&gt;</font></p>
+        <p><font size="1" face="Arial">&lt;element type=&quot;lineid&quot; /&gt;</font></p>
+        <p><font size="1" face="Arial">&lt;element type=&quot;amount&quot; /&gt;</font></p>
+        <p><font size="1" face="Arial">&lt;element type=&quot;quantity&quot;
+        minOccurs=&quot;0&quot; /&gt;</font></p>
+        <p><font size="1" face="Arial">&lt;element type=&quot;weight&quot;
+        minOccurs=&quot;0&quot; /&gt;</font></p>
+        <p><font size="1" face="Arial">&lt;/ElementType&gt;</font></p>
+        <p><font size="1" face="Arial">&lt;ElementType name=&quot;couponsapplied&quot;
+        content=&quot;eltOnly&quot;&gt;</font></p>
+        <p><font size="1" face="Arial">&lt;element type=&quot;lineid&quot;
+        maxOccurs=&quot;*&quot; /&gt;</font></p>
+        <p><font size="1" face="Arial">&lt;/ElementType&gt;</font></p>
+        <p><font size="1" face="Arial">&lt;ElementType name=&quot;couponappliesto&quot;
+        content=&quot;eltOnly&quot;&gt;</font></p>
+        <p><font size="1" face="Arial">&lt;element type=&quot;lineid&quot;
+        maxOccurs=&quot;*&quot; /&gt;</font></p>
+        <p><font size="1" face="Arial">&lt;/ElementType&gt;</font></p>
+        <p><font size="1" face="Arial">&lt;ElementType
+        name=&quot;promotion&quot; content=&quot;eltOnly&quot;&gt;</font></p>
+        <p><font size="1" face="Arial">&lt;element type=&quot;campaignid&quot;
+        minOccurs=&quot;0&quot; /&gt;</font></p>
+        <p><font size="1" face="Arial">&lt;element type=&quot;manufacturerid&quot;
+        minOccurs=&quot;0&quot; /&gt;</font></p>
+        <p><font size="1" face="Arial">&lt;element type=&quot;promotioncode&quot;
+        minOccurs=&quot;0&quot; /&gt;</font></p>
+        <p><font size="1" face="Arial">&lt;element type=&quot;namedvalue&quot;
+        minOccurs=&quot;0&quot; maxOccurs=&quot;*&quot; /&gt;</font></p>
+        <p><font size="1" face="Arial">&lt;/ElementType&gt;</font></p>
+        <p><font size="1" face="Arial">&lt;!--</font></p>
+        <p><font size="1" face="Arial">An itemsummary element is intended to
+        contain enough information</font></p>
+        <p><font size="1" face="Arial">to allow the receipt entry for the item
+        to be generated.</font></p>
+        <p><font size="1" face="Arial">--&gt;</font></p>
+        <p><font size="1" face="Arial">&lt;ElementType name=&quot;itemsummary&quot;
+        content=&quot;eltOnly&quot; order=&quot;seq&quot;&gt;</font></p>
+        <p><font size="1" face="Arial">&lt;element type=&quot;lineid&quot; /&gt;</font></p>
+        <p><font size="1" face="Arial">&lt;element type=&quot;itemtype&quot;
+        minOccurs=&quot;0&quot; /&gt;</font></p>
+        <p><font size="1" face="Arial">&lt;element type=&quot;cancel&quot;
+        minOccurs=&quot;0&quot; /&gt;</font></p>
+        <p><font size="1" face="Arial">&lt;element type=&quot;itemid&quot; /&gt;</font></p>
+        <p><font size="1" face="Arial">&lt;element type=&quot;deptno&quot; /&gt;</font></p>
+        <p><font size="1" face="Arial">&lt;element type=&quot;subdeptno&quot;
+        minOccurs=&quot;0&quot; /&gt;</font></p>
+        <p><font size="1" face="Arial">&lt;element type=&quot;description&quot;
+        minOccurs=&quot;0&quot; /&gt;</font></p>
+        <p><font size="1" face="Arial">&lt;element type=&quot;manufacturerid&quot;
+        minOccurs=&quot;0&quot; /&gt;</font></p>
+        <p><font size="1" face="Arial">&lt;element type=&quot;extendedprice&quot;
+        /&gt;</font></p>
+        <p><font size="1" face="Arial">&lt;element type=&quot;points&quot;
+        minOccurs=&quot;0&quot; /&gt;</font></p>
+        <p><font size="1" face="Arial">&lt;element type=&quot;quantity&quot;
+        minOccurs=&quot;0&quot; /&gt;</font></p>
+        <p><font size="1" face="Arial">&lt;element type=&quot;weight&quot;
+        minOccurs=&quot;0&quot; /&gt;</font></p>
+        <p><font size="1" face="Arial">&lt;element type=&quot;weightsource&quot;
+        minOccurs=&quot;0&quot; /&gt;</font></p>
+        <p><font size="1" face="Arial">&lt;element type=&quot;tareweight&quot;
+        minOccurs=&quot;0&quot; /&gt;</font></p>
+        <p><font size="1" face="Arial">&lt;element type=&quot;tareid&quot;
+        minOccurs=&quot;0&quot; /&gt;</font></p>
+        <p><font size="1" face="Arial">&lt;element type=&quot;taxability&quot;
+        minOccurs=&quot;0&quot; /&gt;</font></p>
+        <p><font size="1" face="Arial">&lt;element type=&quot;isfoodstampable&quot;
+        minOccurs=&quot;0&quot; /&gt;</font></p>
+        <p><font size="1" face="Arial">&lt;/ElementType&gt;</font></p>
+        <p><font size="1" face="Arial">&lt;!--</font></p>
+        <p><font size="1" face="Arial">An itemdetail element contains everything
+        there is to know about</font></p>
+        <p><font size="1" face="Arial">the item.</font></p>
+        <p><font size="1" face="Arial">--&gt;</font></p>
+        <p><font size="1" face="Arial">&lt;ElementType name=&quot;itemdetail&quot;
+        content=&quot;eltOnly&quot; order=&quot;seq&quot;&gt;</font></p>
+        <p><font size="1" face="Arial">&lt;element type=&quot;matchgroup&quot;
+        minOccurs=&quot;0&quot; /&gt;</font></p>
+        <p><font size="1" face="Arial">&lt;element type=&quot;extendedpricedetail&quot;
+        minOccurs=&quot;0&quot; maxOccurs=&quot;*&quot; /&gt;</font></p>
+        <p><font size="1" face="Arial">&lt;element type=&quot;isdiscounted&quot;
+        minOccurs=&quot;0&quot; /&gt;</font></p>
+        <p><font size="1" face="Arial">&lt;element type=&quot;manualpriceoverride&quot;
+        minOccurs=&quot;0&quot; maxOccurs=&quot;*&quot; /&gt;</font></p>
+        <p><font size="1" face="Arial">&lt;element type=&quot;couponfamilycode&quot;
+        minOccurs=&quot;0&quot; /&gt;</font></p>
+        <p><font size="1" face="Arial">&lt;element type=&quot;previouscouponfamilycode&quot;
+        minOccurs=&quot;0&quot; /&gt;</font></p>
+        <p><font size="1" face="Arial">&lt;element type=&quot;nocouponmultiplication&quot;
+        minOccurs=&quot;0&quot; /&gt;</font></p>
+        <p><font size="1" face="Arial">&lt;element type=&quot;nomovement&quot;
+        minOccurs=&quot;0&quot; /&gt;</font></p>
+        <p><font size="1" face="Arial">&lt;element type=&quot;nopoints&quot;
+        minOccurs=&quot;0&quot; /&gt;</font></p>
+        <p><font size="1" face="Arial">&lt;element type=&quot;toggledtaxes&quot;
+        minOccurs=&quot;0&quot; /&gt;</font></p>
+        <p><font size="1" face="Arial">&lt;element type=&quot;exemptedtaxes&quot;
+        minOccurs=&quot;0&quot; /&gt;</font></p>
+        <p><font size="1" face="Arial">&lt;element type=&quot;isfoodstampabletoggled&quot;
+        minOccurs=&quot;0&quot; /&gt;</font></p>
+        <p><font size="1" face="Arial">&lt;element type=&quot;isweightitem&quot;
+        minOccurs=&quot;0&quot; /&gt;</font></p>
+        <p><font size="1" face="Arial">&lt;element type=&quot;isquantityallowed&quot;
+        minOccurs=&quot;0&quot; /&gt;</font></p>
+        <p><font size="1" face="Arial">&lt;element type=&quot;isquantityrequired&quot;
+        minOccurs=&quot;0&quot; /&gt;</font></p>
+        <p><font size="1" face="Arial">&lt;element type=&quot;ispriceoverrideallowed&quot;
+        minOccurs=&quot;0&quot; /&gt;</font></p>
+        <p><font size="1" face="Arial">&lt;element type=&quot;isquantityrequired&quot;
+        minOccurs=&quot;0&quot; /&gt;</font></p>
+        <p><font size="1" face="Arial">&lt;element type=&quot;ispricerequired&quot;
+        minOccurs=&quot;0&quot; /&gt;</font></p>
+        <p><font size="1" face="Arial">&lt;element type=&quot;ismanualweightallowed&quot;
+        minOccurs=&quot;0&quot; /&gt;</font></p>
+        <p><font size="1" face="Arial">&lt;element type=&quot;isrefundallowed&quot;
+        minOccurs=&quot;0&quot; /&gt;</font></p>
+        <p><font size="1" face="Arial">&lt;element type=&quot;isdiscountallowed&quot;
+        minOccurs=&quot;0&quot; /&gt;</font></p>
+        <p><font size="1" face="Arial">&lt;element type=&quot;iswiceligible&quot;
+        minOccurs=&quot;0&quot; /&gt;</font></p>
+        <p><font size="1" face="Arial">&lt;element type=&quot;isminimumorderaccummulationallowed&quot;
+        minOccurs=&quot;0&quot; /&gt;</font></p>
+        <p><font size="1" face="Arial">&lt;element type=&quot;isexception&quot;
+        minOccurs=&quot;0&quot; /&gt;</font></p>
+        <p><font size="1" face="Arial">&lt;element type=&quot;isalwaysexception&quot;
+        minOccurs=&quot;0&quot; /&gt;</font></p>
+        <p><font size="1" face="Arial">&lt;element type=&quot;timerestrictionid&quot;
+        minOccurs=&quot;0&quot; /&gt;</font></p>
+        <p><font size="1" face="Arial">&lt;element type=&quot;customeragerestriction&quot;
+        minOccurs=&quot;0&quot; /&gt;</font></p>
+        <p><font size="1" face="Arial">&lt;element type=&quot;cashieragerestriction&quot;
+        minOccurs=&quot;0&quot; /&gt;</font></p>
+        <p><font size="1" face="Arial">&lt;element type=&quot;refundreason&quot;
+        minOccurs=&quot;0&quot; /&gt;</font></p>
+        <p><font size="1" face="Arial">&lt;element type=&quot;cancelreason&quot;
+        minOccurs=&quot;0&quot; /&gt;</font></p>
+        <p><font size="1" face="Arial">&lt;element type=&quot;priceoverridereason&quot;
+        minOccurs=&quot;0&quot; /&gt;</font></p>
+        <p><font size="1" face="Arial">&lt;element type=&quot;cancelby&quot;
+        minOccurs=&quot;0&quot; /&gt;</font></p>
+        <p><font size="1" face="Arial">&lt;element type=&quot;cancelappliesto&quot;
+        minOccurs=&quot;0&quot; /&gt;</font></p>
+        <p><font size="1" face="Arial">&lt;element type=&quot;isunmatchedcancel&quot;
+        minOccurs=&quot;0&quot; /&gt;</font></p>
+        <p><font size="1" face="Arial">&lt;element type=&quot;adjustedsellingprice&quot;
+        minOccurs=&quot;0&quot; /&gt;</font></p>
+        <p><font size="1" face="Arial">&lt;element type=&quot;promotion&quot;
+        minOccurs=&quot;0&quot; /&gt;</font></p>
+        <p><font size="1" face="Arial">&lt;element type=&quot;couponmatch&quot;
+        minOccurs=&quot;0&quot; /&gt;</font></p>
+        <p><font size="1" face="Arial">&lt;element type=&quot;couponappliesto&quot;
+        minOccurs=&quot;0&quot; /&gt;</font></p>
+        <p><font size="1" face="Arial">&lt;element type=&quot;couponsapplied&quot;
+        minOccurs=&quot;0&quot; /&gt;</font></p>
+        <p><font size="1" face="Arial">&lt;element type=&quot;unmatchedcouponamount&quot;
+        minOccurs=&quot;0&quot; /&gt;</font></p>
+        <p><font size="1" face="Arial">&lt;element type=&quot;unmatchedcouponquantity&quot;
+        minOccurs=&quot;0&quot; /&gt;</font></p>
+        <p><font size="1" face="Arial">&lt;element type=&quot;unmatchedcouponweight&quot;
+        minOccurs=&quot;0&quot; /&gt;</font></p>
+        <p><font size="1" face="Arial">&lt;element type=&quot;namedvalue&quot;
+        minOccurs=&quot;0&quot; maxOccurs=&quot;*&quot; /&gt;</font></p>
+        <p><font size="1" face="Arial">&lt;/ElementType&gt;</font></p>
+        <p><font size="1" face="Arial">&lt;ElementType name=&quot;itementry&quot;
+        content=&quot;eltOnly&quot;&gt;</font></p>
+        <p><font size="1" face="Arial">&lt;element type=&quot;itemsummary&quot;
+        /&gt;</font></p>
+        <p><font size="1" face="Arial">&lt;element type=&quot;itemdetail&quot;
+        minOccurs=&quot;0&quot; /&gt;</font></p>
+        <p><font size="1" face="Arial">&lt;/ElementType&gt;</font></p>
+        <p><font size="1" face="Arial">&lt;!--</font></p>
+        <p><font size="1" face="Arial">Information about tenders taken for the
+        transaction</font></p>
+        <p><font size="1" face="Arial">--&gt;</font></p>
+        <p><font size="1" face="Arial">&lt;ElementType name=&quot;tendersummary&quot;
+        content=&quot;eltOnly&quot;&gt;</font></p>
+        <p><font size="1" face="Arial">&lt;element type=&quot;lineid&quot; /&gt;</font></p>
+        <p><font size="1" face="Arial">&lt;element type=&quot;mediaid&quot;
+        /&gt;</font></p>
+        <p><font size="1" face="Arial">&lt;element type=&quot;amount&quot; /&gt;</font></p>
+        <p><font size="1" face="Arial">&lt;element type=&quot;feeamount&quot;
+        minOccurs=&quot;0&quot; /&gt;</font></p>
+        <p><font size="1" face="Arial">&lt;/ElementType&gt;</font></p>
+        <p><font size="1" face="Arial">&lt;ElementType name=&quot;tenderdetail&quot;
+        content=&quot;eltOnly&quot;&gt;</font></p>
+        <p><font size="1" face="Arial">&lt;element type=&quot;accountnumber&quot;
+        minOccurs=&quot;0&quot; /&gt;</font></p>
+        <p><font size="1" face="Arial">&lt;element type=&quot;accountstatus&quot;
+        minOccurs=&quot;0&quot; /&gt;</font></p>
+        <p><font size="1" face="Arial">&lt;element type=&quot;authorizationdetails&quot;
+        minOccurs=&quot;0&quot; /&gt;</font></p>
+        <p><font size="1" face="Arial">&lt;element type=&quot;currencyid&quot;
+        minOccurs=&quot;0&quot; /&gt;</font></p>
+        <p><font size="1" face="Arial">&lt;element type=&quot;exchangerate&quot;
+        minOccurs=&quot;0&quot; /&gt;</font></p>
+        <p><font size="1" face="Arial">&lt;element type=&quot;currencyamount&quot;
+        minOccurs=&quot;0&quot; /&gt;</font></p>
+        <p><font size="1" face="Arial">&lt;element type=&quot;namedvalue&quot;
+        minOccurs=&quot;0&quot; maxOccurs=&quot;*&quot; /&gt;</font></p>
+        <p><font size="1" face="Arial">&lt;/ElementType&gt;</font></p>
+        <p><font size="1" face="Arial">&lt;ElementType name=&quot;tender&quot;
+        content=&quot;eltOnly&quot;&gt;</font></p>
+        <p><font size="1" face="Arial">&lt;element type=&quot;tendersummary&quot;
+        /&gt;</font></p>
+        <p><font size="1" face="Arial">&lt;element type=&quot;tenderdetail&quot;
+        minOccurs=&quot;0&quot; /&gt;</font></p>
+        <p><font size="1" face="Arial">&lt;/ElementType&gt;</font></p>
+        <p><font size="1" face="Arial">&lt;!--</font></p>
+        <p><font size="1" face="Arial">Information about change given for the
+        transaction</font></p>
+        <p><font size="1" face="Arial">--&gt;</font></p>
+        <p><font size="1" face="Arial">&lt;ElementType name=&quot;change&quot;
+        content=&quot;eltOnly&quot;&gt;</font></p>
+        <p><font size="1" face="Arial">&lt;element type=&quot;lineid&quot; /&gt;</font></p>
+        <p><font size="1" face="Arial">&lt;element type=&quot;mediaid&quot;
+        /&gt;</font></p>
+        <p><font size="1" face="Arial">&lt;element type=&quot;amount&quot; /&gt;</font></p>
+        <p><font size="1" face="Arial">&lt;/ElementType&gt;</font></p>
+        <p><font size="1" face="Arial">&lt;!--</font></p>
+        <p><font size="1" face="Arial">Information about transaction discounts</font></p>
+        <p><font size="1" face="Arial">future: add itemdiscounts</font></p>
+        <p><font size="1" face="Arial">--&gt;</font></p>
+        <p><font size="1" face="Arial">&lt;ElementType name=&quot;discountsummary&quot;
+        content=&quot;eltOnly&quot;&gt;</font></p>
+        <p><font size="1" face="Arial">&lt;element type=&quot;lineid&quot; /&gt;</font></p>
+        <p><font size="1" face="Arial">&lt;element type=&quot;discountid&quot;
+        /&gt;</font></p>
+        <p><font size="1" face="Arial">&lt;element type=&quot;refund&quot;
+        minOccurs=&quot;0&quot; /&gt;</font></p>
+        <p><font size="1" face="Arial">&lt;element type=&quot;amount&quot; /&gt;</font></p>
+        <p><font size="1" face="Arial">&lt;element type=&quot;discountrate&quot;
+        /&gt;</font></p>
+        <p><font size="1" face="Arial">&lt;element type=&quot;taxableamountexempt&quot;
+        /&gt;</font></p>
+        <p><font size="1" face="Arial">&lt;/ElementType&gt;</font></p>
+        <p><font size="1" face="Arial">&lt;ElementType name=&quot;discountdetail&quot;
+        content=&quot;eltOnly&quot;&gt;</font></p>
+        <p><font size="1" face="Arial">&lt;/ElementType&gt;</font></p>
+        <p><font size="1" face="Arial">&lt;ElementType name=&quot;discount&quot;
+        content=&quot;eltOnly&quot;&gt;</font></p>
+        <p><font size="1" face="Arial">&lt;element type=&quot;discountsummary&quot;
+        /&gt;</font></p>
+        <p><font size="1" face="Arial">&lt;element type=&quot;discountdetail&quot;
+        minOccurs=&quot;0&quot; /&gt;</font></p>
+        <p><font size="1" face="Arial">&lt;element type=&quot;namedvalue&quot;
+        minOccurs=&quot;0&quot; maxOccurs=&quot;*&quot; /&gt;</font></p>
+        <p><font size="1" face="Arial">&lt;/ElementType&gt;</font></p>
+        <p><font size="1" face="Arial">&lt;!--</font></p>
+        <p><font size="1" face="Arial">Information about tax charged or refunded
+        on the transaction</font></p>
+        <p><font size="1" face="Arial">--&gt;</font></p>
+        <p><font size="1" face="Arial">&lt;ElementType name=&quot;tax&quot;
+        content=&quot;eltOnly&quot;&gt;</font></p>
+        <p><font size="1" face="Arial">&lt;element type=&quot;taxid&quot; /&gt;</font></p>
+        <p><font size="1" face="Arial">&lt;element type=&quot;refund&quot;
+        minOccurs=&quot;0&quot; /&gt;</font></p>
+        <p><font size="1" face="Arial">&lt;element type=&quot;includedinprice&quot;
+        minOccurs=&quot;0&quot; /&gt;</font></p>
+        <p><font size="1" face="Arial">&lt;element type=&quot;amount&quot; /&gt;</font></p>
+        <p><font size="1" face="Arial">&lt;element type=&quot;taxableamount&quot;
+        minOccurs=&quot;0&quot; /&gt;</font></p>
+        <p><font size="1" face="Arial">&lt;element type=&quot;namedvalue&quot;
+        minOccurs=&quot;0&quot; maxOccurs=&quot;*&quot; /&gt;</font></p>
+        <p><font size="1" face="Arial">&lt;/ElementType&gt;</font></p>
+        <p><font size="1" face="Arial">&lt;!--</font></p>
+        <p><font size="1" face="Arial">A summary of the key information about
+        the transaction.</font></p>
+        <p><font size="1" face="Arial">--&gt;</font></p>
+        <p><font size="1" face="Arial">&lt;ElementType name=&quot;transactionsummary&quot;
+        content=&quot;eltOnly&quot;&gt;</font></p>
+        <p><font size="1" face="Arial">&lt;element type=&quot;storeid&quot;
+        /&gt;</font></p>
+        <p><font size="1" face="Arial">&lt;element type=&quot;registerid&quot;
+        /&gt;</font></p>
+        <p><font size="1" face="Arial">&lt;element type=&quot;transactionnumber&quot;
+        /&gt;</font></p>
+        <p><font size="1" face="Arial">&lt;element type=&quot;cashierid&quot;
+        /&gt;</font></p>
+        <p><font size="1" face="Arial">&lt;element type=&quot;tillid&quot; /&gt;</font></p>
+        <p><font size="1" face="Arial">&lt;element type=&quot;businessdate&quot;
+        /&gt;</font></p>
+        <p><font size="1" face="Arial">&lt;element type=&quot;transactiondatetime&quot;
+        /&gt;</font></p>
+        <p><font size="1" face="Arial">&lt;element type=&quot;transactiontype&quot;
+        minOccurs=&quot;0&quot; /&gt;</font></p>
+        <p><font size="1" face="Arial">&lt;element type=&quot;trainingmode&quot;
+        minOccurs=&quot;0&quot; /&gt;</font></p>
+        <p><font size="1" face="Arial">&lt;element type=&quot;customer&quot;
+        minOccurs=&quot;0&quot; /&gt;</font></p>
+        <p><font size="1" face="Arial">&lt;element type=&quot;totalitemcount&quot;
+        minOccurs=&quot;0&quot; maxOccurs=&quot;*&quot; /&gt;</font></p>
+        <p><font size="1" face="Arial">&lt;element type=&quot;totalitemsales&quot;
+        minOccurs=&quot;0&quot; maxOccurs=&quot;*&quot; /&gt;</font></p>
+        <p><font size="1" face="Arial">&lt;element type=&quot;totaldiscount&quot;
+        minOccurs=&quot;0&quot; maxOccurs=&quot;*&quot; /&gt;</font></p>
+        <p><font size="1" face="Arial">&lt;element type=&quot;totaltax&quot;
+        minOccurs=&quot;0&quot; maxOccurs=&quot;*&quot; /&gt;</font></p>
+        <p><font size="1" face="Arial">&lt;element type=&quot;totaltender&quot;
+        minOccurs=&quot;0&quot; maxOccurs=&quot;*&quot; /&gt;</font></p>
+        <p><font size="1" face="Arial">&lt;element type=&quot;totalchange&quot;
+        minOccurs=&quot;0&quot; maxOccurs=&quot;*&quot; /&gt;</font></p>
+        <p><font size="1" face="Arial">&lt;element type=&quot;possibleoutofbalance&quot;
+        minOccurs=&quot;0&quot; maxOccurs=&quot;*&quot; /&gt;</font></p>
+        <p><font size="1" face="Arial">&lt;element type=&quot;total&quot;
+        minOccurs=&quot;0&quot; maxOccurs=&quot;*&quot; /&gt;</font></p>
+        <p><font size="1" face="Arial">&lt;element type=&quot;namedvalue&quot;
+        minOccurs=&quot;0&quot; maxOccurs=&quot;*&quot; /&gt;</font></p>
+        <p><font size="1" face="Arial">&lt;/ElementType&gt;</font></p>
+        <p><font size="1" face="Arial">&lt;ElementType name=&quot;transactiondetail&quot;
+        content=&quot;eltOnly&quot; order=&quot;many&quot; &gt;</font></p>
+        <p><font size="1" face="Arial">&lt;!--</font></p>
+        <p><font size="1" face="Arial">The transaction detail element includes
+        all of the elements that can</font></p>
+        <p><font size="1" face="Arial">be in a transaction such as items and
+        tenders.</font></p>
+        <p><font size="1" face="Arial">--&gt;</font></p>
+        <p><font size="1" face="Arial">&lt;element type=&quot;customeridentry&quot;
+        minOccurs=&quot;0&quot; maxOccurs=&quot;*&quot; /&gt;</font></p>
+        <p><font size="1" face="Arial">&lt;element type=&quot;itementry&quot;
+        minOccurs=&quot;0&quot; maxOccurs=&quot;*&quot; /&gt;</font></p>
+        <p><font size="1" face="Arial">&lt;element type=&quot;discount&quot;
+        minOccurs=&quot;0&quot; maxOccurs=&quot;*&quot; /&gt;</font></p>
+        <p><font size="1" face="Arial">&lt;element type=&quot;tax&quot;
+        minOccurs=&quot;0&quot; maxOccurs=&quot;*&quot; /&gt;</font></p>
+        <p><font size="1" face="Arial">&lt;element type=&quot;tender&quot;
+        minOccurs=&quot;0&quot; maxOccurs=&quot;*&quot; /&gt;</font></p>
+        <p><font size="1" face="Arial">&lt;element type=&quot;change&quot;
+        minOccurs=&quot;0&quot; maxOccurs=&quot;*&quot; /&gt;</font></p>
+        <p><font size="1" face="Arial">&lt;element type=&quot;override&quot;
+        minOccurs=&quot;0&quot; maxOccurs=&quot;*&quot; /&gt;</font></p>
+        <p><font size="1" face="Arial">&lt;element type=&quot;customertransactionentry&quot;
+        minOccurs=&quot;0&quot; maxOccurs=&quot;*&quot; /&gt;</font></p>
+        <p><font size="1" face="Arial">&lt;element type=&quot;automaticcoupontransactionentry&quot;
+        minOccurs=&quot;0&quot; maxOccurs=&quot;*&quot; /&gt;</font></p>
+        <p><font size="1" face="Arial">&lt;element type=&quot;userentry&quot;
+        minOccurs=&quot;0&quot; maxOccurs=&quot;*&quot; /&gt;</font></p>
+        <p><font size="1" face="Arial">&lt;element type=&quot;dataentry&quot;
+        minOccurs=&quot;0&quot; maxOccurs=&quot;*&quot; /&gt;</font></p>
+        <p><font size="1" face="Arial">&lt;element type=&quot;exception&quot;
+        minOccurs=&quot;0&quot; maxOccurs=&quot;*&quot; /&gt;</font></p>
+        <p><font size="1" face="Arial">&lt;/ElementType&gt;</font></p>
+        <p><font size="1" face="Arial">&lt;!--</font></p>
+        <p><font size="1" face="Arial">The transaction can contain just a
+        summary of the</font></p>
+        <p><font size="1" face="Arial">current transaction (basic info and
+        totals) or a full description</font></p>
+        <p><font size="1" face="Arial">including all items.</font></p>
+        <p><font size="1" face="Arial">--&gt;</font></p>
+        <p><font size="1" face="Arial">&lt;ElementType
+        name=&quot;transaction&quot; content=&quot;eltOnly&quot;&gt;</font></p>
+        <p><font size="1" face="Arial">&lt;element type=&quot;transactionsummary&quot;
+        /&gt;</font></p>
+        <p><font size="1" face="Arial">&lt;element type=&quot;transactiondetail&quot;
+        minOccurs=&quot;0&quot; /&gt;</font></p>
+        <p><font size="1" face="Arial">&lt;/ElementType&gt;</font></p>
+        <p><font size="1" face="Arial">&lt;!--</font></p>
+        <p><font size="1" face="Arial">This is the root element for the
+        document.</font></p>
+        <p><font size="1" face="Arial">The transactions contains 1 to n
+        transaction elements.</font></p>
+        <p><font size="1" face="Arial">Attributes can identify the input file
+        (file), type of processing (action)</font></p>
+        <p><font size="1" face="Arial">and store number (store) associated with
+        producing this xml document.</font></p>
+        <p><font size="1" face="Arial">--&gt;</font></p>
+        <p><font size="1" face="Arial">&lt;ElementType
+        name=&quot;transactions&quot; content=&quot;eltOnly&quot;&gt;</font></p>
+        <p><font size="1" face="Arial">&lt;AttributeType name=&quot;store&quot;
+        dt:type=&quot;string&quot; /&gt;</font></p>
+        <p><font size="1" face="Arial">&lt;AttributeType name=&quot;action&quot;
+        dt:type=&quot;string&quot; /&gt;</font></p>
+        <p><font size="1" face="Arial">&lt;AttributeType name=&quot;file&quot;
+        dt:type=&quot;string&quot; /&gt;</font></p>
+        <p><font size="1" face="Arial">&lt;attribute type=&quot;store&quot;
+        /&gt;</font></p>
+        <p><font size="1" face="Arial">&lt;attribute type=&quot;action&quot;
+        /&gt;</font></p>
+        <p><font size="1" face="Arial">&lt;attribute type=&quot;file&quot; /&gt;</font></p>
+        <p><font size="1" face="Arial">&lt;element type=&quot;transaction&quot;
+        maxOccurs=&quot;*&quot; /&gt;</font></p>
+        <p><font size="1" face="Arial">&lt;/ElementType&gt;</font></p>
+        <p><font size="1" face="Arial">&lt;/Schema&gt;</font></p>
+        <p><font size="1" face="Arial"></Schema>
+        </font></p>
+        <p>&nbsp;</p>
+        <p>&nbsp;</p>
+        <p>&nbsp;</p>
+        <p>&nbsp;</p>
+        <p>&nbsp;
+      </td>
+      <td width="3" height="25747" bgcolor="#C0C0C0" rowspan="13">&nbsp;</td>
+      <td width="150" height="25747" bgcolor="#C0C0C0" rowspan="13">&nbsp;</td>
+    </tr>
+    <tr>
+      <td width="122" height="9" valign="top" align="center" bgcolor="#000000">
+        <applet code="fphover.class" codebase="./" width="120" height="24">
+          <param name="hovercolor" value="#0000FF">
+          <param name="text" value="Organizations">
+          <param name="color" value="#000000">
+          <param name="textcolor" value="#00FFFF">
+          <param name="font" value="Dialog">
+          <param name="fontstyle" value="bold">
+          <param name="fontsize" value="13">
+          <param name="url" valuetype="ref" value="../Organization/Organization.htm">
+          <param name="effect" value="lightGlow">
+        </applet>
+      </td>
+    </tr>
+    <tr>
+      <td width="122" height="6" valign="top" align="center" bgcolor="#FFFFFF">
+        <applet code="fphover.class" codebase="./" width="120" height="24">
+          <param name="text" value="Schemas">
+          <param name="font" value="Dialog">
+          <param name="fontstyle" value="bold">
+          <param name="fontsize" value="13">
+          <param name="color" value="#FFFFFF">
+          <param name="textcolor" value="#000000">
+          <param name="url" valuetype="ref" value="Schema.htm">
+          <param name="hovercolor" value="#FFFFFF">
+          <param name="effect" value="lightGlow">
+        </applet>
+      </td>
+    </tr>
+    <tr>
+      <td width="122" height="7" valign="top" align="center" bgcolor="#000000">
+        <applet code="fphover.class" codebase="./" width="120" height="17">
+          <param name="bgcolor" value="#FF0000">
+          <param name="font" value="Helvetica">
+          <param name="fontstyle" value="regular">
+          <param name="effect" value="average">
+          <param name="hovercolor" value="#0000FF">
+          <param name="text" value="Systech">
+          <param name="textcolor" value="#FFFFFF">
+          <param name="fontsize" value="10">
+          <param name="color" value="#000000">
+          <param name="url" valuetype="ref" value="systech.htm">
+        </applet>
+      </td>
+    </tr>
+    <tr>
+      <td width="122" height="1" valign="top" align="center" bgcolor="#000000">
+        <applet code="fphover.class" codebase="./" width="120" height="17">
+          <param name="font" value="Helvetica">
+          <param name="fontstyle" value="regular">
+          <param name="effect" value="average">
+          <param name="bgcolor" value="#0000FF">
+          <param name="hovercolor" value="#0000FF">
+          <param name="text" value="ActiveStore">
+          <param name="textcolor" value="#FFFFFF">
+          <param name="fontsize" value="10">
+          <param name="color" value="#000000">
+          <param name="url" valuetype="ref" value="ActiveStore.htm">
+        </applet>
+      </td>
+    </tr>
+    <tr>
+      <td width="122" height="1" valign="top" align="center" bgcolor="#000000">
+        <applet code="fphover.class" codebase="./" width="120" height="24">
+          <param name="hovercolor" value="#0000FF">
+          <param name="text" value="Biztalk Collateral">
+          <param name="color" value="#000000">
+          <param name="textcolor" value="#00FFFF">
+          <param name="font" value="Dialog">
+          <param name="fontstyle" value="bold">
+          <param name="fontsize" value="13">
+          <param name="url" valuetype="ref" value="../Collateral/Collateral.htm">
+          <param name="effect" value="lightGlow">
+        </applet>
+      </td>
+    </tr>
+    <tr>
+      <td width="122" height="15" valign="top" align="center" bgcolor="#000000">
+        <applet code="fphover.class" codebase="./" width="120" height="24">
+          <param name="hovercolor" value="#0000FF">
+          <param name="text" value="Scenario">
+          <param name="color" value="#000000">
+          <param name="textcolor" value="#00FFFF">
+          <param name="font" value="Dialog">
+          <param name="fontstyle" value="bold">
+          <param name="fontsize" value="13">
+          <param name="url" valuetype="ref" value="../Scenario/scenario.htm">
+          <param name="effect" value="lightGlow">
+        </applet>
+      </td>
+    </tr>
+    <tr>
+      <td width="122" height="17" valign="top" align="center" bgcolor="#000000"></td>
+    </tr>
+    <tr>
+      <td width="122" height="14" valign="top" align="center" bgcolor="#000000"></td>
+    </tr>
+    <tr>
+      <td width="122" height="17" valign="top" align="center" bgcolor="#000000"></td>
+    </tr>
+    <tr>
+      <td width="122" height="8" valign="top" align="center" bgcolor="#000000"></td>
+    </tr>
+    <tr>
+      <td width="122" height="21" valign="top" align="center" bgcolor="#000000"></td>
+    </tr>
+    <tr>
+      <td width="122" height="25617" valign="top" align="center" bgcolor="#000000"></td>
+    </tr>
+  </table>
+</div>
+
+<p>&nbsp;</p>
+<p>&nbsp;</p>
+<p>&nbsp;</p>
+<p>&nbsp;</p>
+<p>&nbsp;</p>
+<p>&nbsp;</p>
+<p>&nbsp;</p>
+<p>&nbsp;</p>
+
+</body>
+
+</html>

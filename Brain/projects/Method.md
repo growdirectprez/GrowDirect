@@ -6,7 +6,9 @@ tags: [method, growdirect-method, methodology, navigation-moc]
 
 # Method
 
-GrowDirect's method — the structured navigation over how work gets done here. Modeled on IBM Global Services MethodWeb's structure (Models / Roles / Techniques / Work Products / Activities / Communication Documents), adapted for how GrowDirect actually operates today: Linear for activities, Obsidian for the graph, skills for executable techniques, Brain templates for work products.
+GrowDirect's method — the structured navigation over how work gets done here. Six categories describe the shape: **Models** (methods), **Roles** (who), **Techniques** (skills), **Work Products** (deliverables), **Activities** (Linear issues), **Communication Documents** (SDDs, briefs, handoffs). The operating stack: Linear for activities, Obsidian for the graph, skills for executable techniques, Brain templates for work products.
+
+> **Companion:** [[Brain/method/Orchestration|Method › Orchestration]] — the same method described in terms of the stack that runs it: Claude as dispatcher, MCP as connective tissue, Linear as activity system, Obsidian as knowledge graph.
 
 ## Summary
 
@@ -86,9 +88,9 @@ Client-facing and cross-agent artifact structures.
 
 ## Related
 
+- [[Brain/method/Orchestration|Method › Orchestration]] — outside-in description of this node (the stack, the why, the leverage points)
 - [[Brain/projects/Factory|Factory Pipeline MOC]] — the dominant operational method
 - [[Brain/projects/Canary|Canary]] — the app where Factory was codified
 - [[Brain/projects/Cove|Cove]], [[Brain/projects/Angel|Angel]], [[Brain/projects/Seacove|Seacove]], [[Brain/projects/Secure|Secure]] — other project MOCs
 - [[docs/sdds/platform/factory-pipeline|Factory Pipeline SDD]] — authoritative factory spec
 - [[docs/sdds/platform/skill-architecture|Skill Architecture SDD]] — skill composition rules
-- IBM MethodWeb (source inspiration, not ingested): `/Users/gclyle/Desktop/IBM Method Web/IBMGSM40/` — 2001-era reference for the structure, not the content

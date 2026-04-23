@@ -1,0 +1,126 @@
+<html xmlns:v="urn:schemas-microsoft-com:vml" xmlns:o="urn:schemas-microsoft-com:office:office" xmlns="http://www.w3.org/TR/REC-html40">
+
+<head>
+<meta http-equiv="Content-Language" content="en-us">
+<meta name="GENERATOR" content="Microsoft FrontPage 5.0">
+<meta name="ProgId" content="FrontPage.Editor.Document">
+<meta http-equiv="Content-Type" content="text/html; charset=windows-1252">
+<link rel="File-List" href="Process%20Flows_files/filelist.xml">
+
+<title>Process Flows</title>
+<style>
+<!--
+p.MsoBodyText
+	{margin-bottom:.0001pt;
+	font-size:10.0pt;
+	font-family:Tahoma;
+	margin-left:0in; margin-right:0in; margin-top:0in}
+-->
+</style>
+<!--[if !mso]>
+<style>
+v\:*         { behavior: url(#default#VML) }
+o\:*         { behavior: url(#default#VML) }
+.shape       { behavior: url(#default#VML) }
+</style>
+<![endif]--><!--[if gte mso 9]>
+<xml><o:shapedefaults v:ext="edit" spidmax="1027"/>
+</xml><![endif]-->
+</head>
+
+<body>
+
+<hr color="#FF0000">
+
+<h4 style="margin-bottom: 10; margin-top:0"><span style="font-family: Arial">
+Process Flows</span></h4>
+
+<p class="MsoBodyText"><font face="Verdana">The diagram below describes the 
+Fireball Pilot Process.&nbsp; The process begins with a data file being sent from 
+Data Ventures (XML) which contains Out of Stock (OOS), Alarm, or Data Flow 
+alarms. A file from Data Ventures will only contain one type of data.&nbsp; Meaning a 
+file will never arrive at the Biztalk Server containing both alarms and OOS 
+data.</font></p>
+<p class="MsoBodyText">&nbsp;</p>
+<p class="MsoBodyText"><font face="Verdana">The destination of the message is 
+contained in the database.&nbsp; The preprocessors derive those addresses based on 
+information contained in the XML message.</font></p>
+<p class="MsoBodyText">&nbsp;</p>
+<p class="MsoBodyText"><font face="Verdana">Messages are finally routed to an 
+SMTP Address which could be a pager or an email client.</font></p>
+<p><span style="font-size: 12.0pt; font-family: Times New Roman"><!--[if gte vml 1]><v:shapetype id="_x0000_t75"
+ coordsize="21600,21600" o:spt="75" o:preferrelative="t" path="m@4@5l@4@11@9@11@9@5xe"
+ filled="f" stroked="f">
+ <v:stroke joinstyle="miter"/>
+ <v:formulas>
+  <v:f eqn="if lineDrawn pixelLineWidth 0"/>
+  <v:f eqn="sum @0 1 0"/>
+  <v:f eqn="sum 0 0 @1"/>
+  <v:f eqn="prod @2 1 2"/>
+  <v:f eqn="prod @3 21600 pixelWidth"/>
+  <v:f eqn="prod @3 21600 pixelHeight"/>
+  <v:f eqn="sum @0 0 1"/>
+  <v:f eqn="prod @6 1 2"/>
+  <v:f eqn="prod @7 21600 pixelWidth"/>
+  <v:f eqn="sum @8 21600 0"/>
+  <v:f eqn="prod @7 21600 pixelHeight"/>
+  <v:f eqn="sum @10 21600 0"/>
+ </v:formulas>
+ <v:path o:extrusionok="f" gradientshapeok="t" o:connecttype="rect"/>
+ <o:lock v:ext="edit" aspectratio="t"/>
+</v:shapetype><v:shape id="_x0000_s1025" type="#_x0000_t75" style='width:566.25pt;
+ height:358.5pt'>
+ <v:imagedata src="Process%20Flows_files/image001.wmz" o:title=""/>
+</v:shape><![endif]--><![if !vml]><img border=0 width=755 height=478
+src="Process%20Flows_files/image002.gif" v:shapes="_x0000_s1025"><![endif]><!--[if gte mso 9]><xml>
+ <o:OLEObject Type="Embed" ProgID="Visio.Drawing.6" ShapeID="_x0000_i1025" DrawAspect="Content" ObjectID="_1053253612">
+ </o:OLEObject>
+</xml><![endif]--></span><span style="font-size: 10.0pt; font-family: Times New Roman"><br clear="all" style="page-break-before: always">
+&nbsp;</span></p>
+
+<h4 style="margin-bottom: 10; margin-top:0"><br>
+<font face="Verdana" size="2">R<b>IO Inputs</b></font></h4>
+<p class="MsoBodyText"><font face="Verdana">Each Retailer will have its own methods and systems for 
+collecting and storing Point-of-Sale (POS) transaction data and their item and promotional data.&nbsp; Some 
+retailers will have a centralized spoke hub model; some will have a 
+decentralized model.&nbsp; The main goal of RIO inputs is to understand the 
+retailer's data and to translate this data into an XML format for transfer into 
+ASPEN.&nbsp; Analysis and understanding the structure and definition of data is 
+critical to the success of RIO Inputs.&nbsp; </font> </p>
+<p class="MsoBodyText">&nbsp;</p>
+<p class="MsoBodyText"><font face="Verdana">The following files contain, respectively, the XML schema 
+and an instance of the data required by ASPEN:</font></p>
+<p class="MsoBodyText">&nbsp;</p>
+<!--msimagelist--><table border="0" cellpadding="0" cellspacing="0" width="100%">
+  <!--msimagelist--><tr>
+    <!--msimagelist--><td valign="baseline" width="42">
+    <img src="images/Functi1.gif" width="11" height="11" hspace="15" alt="bullet"></td>
+    <td valign="top" width="100%">
+    <p class="MsoBodyText"><font face="Verdana"><a href="Collateral/RIO/Pos.xml">POS.xml</a></font><!--msimagelist--></td>
+  </tr>
+  <!--msimagelist--><tr>
+    <!--msimagelist--><td valign="baseline" width="42">
+    <img src="images/Functi1.gif" width="11" height="11" hspace="15" alt="bullet"></td>
+    <td valign="top" width="100%">
+    <p class="MsoBodyText"><font face="Verdana"><a href="Collateral/RIO/POSInstance.xml">POSInstance.xml</a></font><!--msimagelist--></td>
+  </tr>
+  <!--msimagelist--></table>
+<p class="MsoBodyText">&nbsp;</p>
+<p class="MsoBodyText"><font face="Verdana">If additional data integration is required, the
+<a href="Collateral/RIO/Transaction%20Schema%20Document%20Description.htm">Biztalk 
+Sales Transaction Schema</a> described by the 
+<a target="_self" href="Resources.htm">Activestore</a> initiative is useful.</font></p>
+<p class="MsoBodyText">&nbsp;</p>
+<p class="MsoBodyText">&nbsp;</p>
+<p class="MsoBodyText"><font face="Verdana"><small><small><small>©2001 Microsoft Corporation. All 
+rights reserved. <a href="../../Service%20Offerings/Store%20Front/EULA.htm">
+Terms of use.</a></small></small></small></font> </p>
+<p class="MsoBodyText"><!--[if gte mso 9]><xml>
+ <o:OLEObject Type="Embed" ProgID="Package" ShapeID="_x0000_i1027" DrawAspect="Content" ObjectID="_1049276375">
+ </o:OLEObject>
+</xml><![endif]--></p>
+<p class="MsoBodyText">&nbsp;</p>
+
+</body>
+
+</html>

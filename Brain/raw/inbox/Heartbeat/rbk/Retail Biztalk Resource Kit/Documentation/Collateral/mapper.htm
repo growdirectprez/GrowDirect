@@ -1,0 +1,369 @@
+<html>
+
+<head>
+<meta http-equiv="Content-Language" content="en-us">
+<meta http-equiv="Content-Type" content="text/html; charset=windows-1252">
+<meta name="GENERATOR" content="Microsoft FrontPage 4.0">
+<meta name="ProgId" content="FrontPage.Editor.Document">
+<title>Biztalk Collateral - Biztalk Mapper</title>
+</head>
+
+<body topmargin="0" leftmargin="0">
+
+<div align="left">
+  <table border="0" width="100%" height="1812" cellpadding="0" cellspacing="0">
+    <tr>
+      <td width="121" height="1" bgcolor="#000000" align="right">
+        <p align="center"><img border="0" src="../Include/retailbiztalkRBK.png" width="100" height="90"></td>
+      <td width="624" height="71" align="center" bgcolor="#666666" colspan="2">
+        <p align="center" style="margin-top: 0"><img border="0" src="../Include/retailbiztalk2.png" width="660" height="90"></td>
+      <td width="154" height="1" bgcolor="#FFFFFF" colspan="2">
+        <p align="center"><img border="0" src="../Include/NPReta2.jpg" width="154" height="63"></td>
+    </tr>
+    <tr>
+      <td width="121" height="1" valign="middle" align="right" bgcolor="#003366">
+        <p align="center"><font color="#FFFFFF" face="Arial" size="1"><b>CONTENTS</b></font></td>
+      <td width="10" height="1" bgcolor="#003366">
+        &nbsp;
+      </td>
+      <td width="612" height="1" bgcolor="#003366">
+        <p align="center">&nbsp;</td>
+    </tr>
+    <tr>
+      <td width="121" height="1" valign="top" align="right" bgcolor="#000000">
+        <applet code="fphover.class" codebase="./" width="120" height="24">
+          <param name="hovercolor" value="#0000FF">
+          <param name="color" value="#000000">
+          <param name="font" value="Dialog">
+          <param name="fontstyle" value="bold">
+          <param name="fontsize" value="13">
+          <param name="effect" value="lightGlow">
+          <param name="textcolor" value="#66FFCC">
+          <param name="text" value="Introduction">
+          <param name="url" valuetype="ref" value="../default.htm">
+        </applet>
+      </td>
+      <td width="10" height="2116" rowspan="16"></td>
+      <td width="612" height="2116" rowspan="16" valign="top" align="left">
+        <font face="Arial" color="#800000"><b>Biztalk Mapper</b></font>
+        <p><font size="2" face="Arial">The two <nobr><span class="PopLink" id="PopUp" term="#bts:specification">specifications</span></nobr>
+        that are used to create a <nobr><span class="PopLink" id="PopUp" term="#bts:map">map</span></nobr>
+        appear as tree views in the main window of BizTalk Mapper. The <nobr><span class="PopLink" id="PopUp" term="#bts:source_specification">source
+        specification</span></nobr> from which the data is mapped is on the
+        left, and the <nobr><span class="PopLink" id="PopUp" term="#bts:destination_specification">destination
+        specification</span></nobr> to which the data is mapped is on the right.
+        The mapping grid between the two specifications graphically displays the
+        structural data transformation between the two specifications. <nobr><span class="PopLink" id="PopUp" term="#bts:link">Links</span></nobr>
+        and <nobr><span class="PopLink" id="PopUp" term="#bts:functoid">functoids</span></nobr>
+        appear in the mapping grid. You can easily move up, down, left, or right
+        in the mapping grid by moving the pointer to the borders of the mapping
+        grid.</font></p>
+        <p><font size="2" face="Arial">You can use the <b>Grid Preview</b>
+        dialog box to move quickly from one location in the mapping grid to
+        another. By dragging the green locator bar, you can move up, down, left,
+        or right. A functoid in the mapping grid appears in the preview grid as
+        a red box that is surrounded by a black outline. If there are two or
+        more functoids in the mapping grid, the graphic appears as two red boxes
+        attached to one another, surrounded by a black outline.</font></p>
+        <p><font size="2" face="Arial">Beneath the tree views and mapping grid
+        is the lower pane. This area has four tabs:</font>
+        <ul type="disc">
+          <li><font size="2" face="Arial"><b>Properties.</b> When you select a
+            node in the source specification tree or the destination
+            specification tree, the <b>Properties </b>tab displays the
+            properties and property values for that node.<br>
+            </font>
+          <li><font size="2" face="Arial"><b>Values.</b> This tab has two text
+            boxes: <b>Source test value</b> and <b>Destination constant value</b>.
+            You can select a field and then type a value in the <b>Source test
+            value</b> box. This allows you to test maps with actual values
+            assigned to fields. In the <b>Destination constant value</b> box,
+            you can specify a value to assign to a field. You cannot create a
+            link from a functoid or from a node in the source specification to a
+            field with a constant value assigned to it.<br>
+            </font>
+          <li><font size="2" face="Arial"><b>Output.</b> This tab displays a <nobr><span class="PopLink" id="PopUp" term="#bts:compile">compiled</span></nobr>
+            <nobr><span class="PopLink" id="PopUp" term="#bts:extensible_stylesheet_language__xsl_">Extensible
+            Stylesheet Language (XSL)</span></nobr> style sheet when you compile
+            a map, and it displays test map output when you test a map.<br>
+            </font>
+          <li><font size="2" face="Arial"><b>Warnings.</b> This tab displays
+            compiler warnings after you compile a map.</font></li>
+        </ul>
+        <p><font face="Arial" size="2">The above section was taken from the
+        Biztalk Help file.</font></p>
+        <p><b><font color="#800000" face="Arial" size="3">Transforming Systech
+        Specification to ActiveStore Specification:</font></b></p>
+        <p><font face="Arial" size="2">1.&nbsp; Open Biztalk Mapper</font></p>
+        <p><font face="Arial" size="2">2.&nbsp; Open the xml file:&nbsp; ...</font><font face="Arial" size="2">\RetailKit\BTSObjects\sys2act.xml</font></p>
+        <p><font face="Arial" size="2">You should see the following screen:</font></p>
+        <p><img border="0" src="../Include/mapper7.gif" width="567" height="630"></p>
+        <p><font face="Arial" size="2">On the left pane is the Systech Source
+        Document Specification and on the Right Pane is the ActiveStore
+        Specification.</font></p>
+        <p><font size="2" face="Arial">3.&nbsp; Store to WebDAV:</font></p>
+        <p><font size="2" face="Arial">&nbsp;&nbsp;&nbsp; a.&nbsp; Create a
+        folder in WebDAV called 'ResourceKitMaps'</font></p>
+        <p><font size="2" face="Arial">&nbsp;&nbsp;&nbsp; b.&nbsp; Double click
+        the 'ResourceKitMaps' Directory and store the Map specification as
+        'sys2act.xml'</font></p>
+        <p><img border="0" src="../Include/mapper8.gif" width="552" height="387"></p>
+        <p>&nbsp;</td>
+      <td width="1" height="7" bgcolor="#C0C0C0">&nbsp;</td>
+      <td width="151" height="62" bgcolor="#C0C0C0" rowspan="4" valign="top" align="left"><font color="#003366" size="1" face="Arial">BTS
+        was architected for the enterprise using scale up, out and shared queue
+        architecture.</font>
+        <p><font color="#003366" size="1" face="Arial">Customer Site: 1 million
+        Transactions/Day</font></td>
+    </tr>
+    <tr>
+      <td width="121" height="9" valign="top" align="right" bgcolor="#000000">
+        <applet code="fphover.class" codebase="./" width="120" height="24">
+          <param name="hovercolor" value="#0000FF">
+          <param name="text" value="Organizations">
+          <param name="font" value="Dialog">
+          <param name="fontstyle" value="bold">
+          <param name="fontsize" value="13">
+          <param name="effect" value="lightGlow">
+          <param name="url" valuetype="ref" value="../Organization/Organization.htm">
+          <param name="color" value="#000000">
+          <param name="textcolor" value="#66FFCC">
+        </applet>
+      </td>
+      <td width="1" height="55" bgcolor="#C0C0C0" rowspan="3" valign="top" align="left">&nbsp;</td>
+    </tr>
+    <tr>
+      <td width="121" height="15" valign="top" align="right" bgcolor="#000000">
+        <applet code="fphover.class" codebase="./" width="120" height="24">
+          <param name="hovercolor" value="#0000FF">
+          <param name="text" value="Schemas">
+          <param name="color" value="#000000">
+          <param name="font" value="Dialog">
+          <param name="fontstyle" value="bold">
+          <param name="fontsize" value="13">
+          <param name="effect" value="lightGlow">
+          <param name="url" valuetype="ref" value="../Schema/Schema.htm">
+          <param name="textcolor" value="#66FFCC">
+        </applet>
+      </td>
+    </tr>
+    <tr>
+      <td width="121" height="1" valign="top" align="right" bgcolor="#FFFFFF">
+        <applet code="fphover.class" codebase="./" width="120" height="24">
+          <param name="text" value="Biztalk Collateral">
+          <param name="font" value="Dialog">
+          <param name="fontsize" value="13">
+          <param name="fontstyle" value="bold">
+          <param name="color" value="#FFFFFF">
+          <param name="textcolor" value="#000000">
+          <param name="hovercolor" value="#FFFFFF">
+          <param name="effect" value="lightGlow">
+          <param name="url" valuetype="ref" value="Collateral.htm">
+        </applet>
+      </td>
+    </tr>
+    <tr>
+      <td width="121" height="1" valign="top" align="right" bgcolor="#000000">
+        <applet code="fphover.class" codebase="./" width="120" height="17">
+          <param name="bgcolor" value="#FF0000">
+          <param name="font" value="Helvetica">
+          <param name="fontstyle" value="regular">
+          <param name="effect" value="average">
+          <param name="text" value="Setup">
+          <param name="hovercolor" value="#0000FF">
+          <param name="textcolor" value="#FFFFFF">
+          <param name="fontsize" value="10">
+          <param name="color" value="#000000">
+          <param name="url" valuetype="ref" value="setup.htm">
+        </applet>
+      </td>
+      <td width="1" height="84" bgcolor="#C0C0C0" rowspan="4">&nbsp;</td>
+      <td width="151" height="84" bgcolor="#C0C0C0" rowspan="4"><font face="Arial" size="1" color="#003366">Test
+        Lab:&nbsp; 100 Million Transactions/Day</font>
+        <p>&nbsp;</td>
+    </tr>
+    <tr>
+      <td width="121" height="1" valign="top" align="right" bgcolor="#000000">
+        <applet code="fphover.class" codebase="./" width="120" height="17">
+          <param name="font" value="Helvetica">
+          <param name="fontstyle" value="regular">
+          <param name="effect" value="average">
+          <param name="text" value="Blueprint">
+          <param name="bgcolor" value="#0000FF">
+          <param name="hovercolor" value="#0000FF">
+          <param name="textcolor" value="#FFFFFF">
+          <param name="fontsize" value="10">
+          <param name="color" value="#000000">
+          <param name="url" valuetype="ref" value="blueprint.htm">
+        </applet>
+      </td>
+    </tr>
+    <tr>
+      <td width="121" height="15" valign="top" align="right" bgcolor="#000000">
+        <applet code="fphover.class" codebase="./" width="120" height="17">
+          <param name="bgcolor" value="#FF0000">
+          <param name="font" value="Helvetica">
+          <param name="fontstyle" value="regular">
+          <param name="effect" value="average">
+          <param name="text" value="Editor">
+          <param name="hovercolor" value="#0000FF">
+          <param name="textcolor" value="#FFFFFF">
+          <param name="fontsize" value="10">
+          <param name="color" value="#000000">
+          <param name="url" valuetype="ref" value="editor.htm">
+        </applet>
+      </td>
+    </tr>
+    <tr>
+      <td width="121" height="17" valign="top" align="right" bgcolor="#000000">
+        <applet code="fphover.class" codebase="./" width="120" height="17">
+          <param name="font" value="Helvetica">
+          <param name="fontstyle" value="regular">
+          <param name="effect" value="average">
+          <param name="bgcolor" value="#0000FF">
+          <param name="hovercolor" value="#0000FF">
+          <param name="fontsize" value="10">
+          <param name="color" value="#000000">
+          <param name="textcolor" value="#FFFFFF">
+          <param name="text" value="Message Manager">
+          <param name="url" valuetype="ref" value="messagemanager.htm">
+        </applet>
+      </td>
+    </tr>
+    <tr>
+      <td width="121" height="11" valign="top" align="right" bgcolor="#000000">
+        <applet code="fphover.class" codebase="./" width="120" height="17">
+          <param name="font" value="Helvetica">
+          <param name="fontstyle" value="regular">
+          <param name="effect" value="average">
+          <param name="text" value="Organizations">
+          <param name="bgcolor" value="#0000FF">
+          <param name="hovercolor" value="#0000FF">
+          <param name="fontsize" value="10">
+          <param name="color" value="#000000">
+          <param name="textcolor" value="#FFFFFF">
+          <param name="url" valuetype="ref" value="Organization.htm">
+        </applet>
+      </td>
+      <td width="1" height="84" bgcolor="#C0C0C0" rowspan="7">&nbsp;</td>
+      <td width="151" height="84" bgcolor="#C0C0C0" rowspan="7">&nbsp;</td>
+    </tr>
+    <tr>
+      <td width="121" height="10" valign="top" align="right" bgcolor="#000000">
+        <applet code="fphover.class" codebase="./" width="120" height="17">
+          <param name="font" value="Helvetica">
+          <param name="fontstyle" value="regular">
+          <param name="effect" value="average">
+          <param name="bgcolor" value="#0000FF">
+          <param name="hovercolor" value="#0000FF">
+          <param name="fontsize" value="10">
+          <param name="color" value="#000000">
+          <param name="textcolor" value="#FFFFFF">
+          <param name="text" value="Envelopes">
+          <param name="url" valuetype="ref" value="Envelope.htm">
+        </applet>
+      </td>
+    </tr>
+    <tr>
+      <td width="121" height="7" valign="top" align="right" bgcolor="#000000">
+        <applet code="fphover.class" codebase="./" width="120" height="17">
+          <param name="font" value="Helvetica">
+          <param name="fontstyle" value="regular">
+          <param name="effect" value="average">
+          <param name="bgcolor" value="#0000FF">
+          <param name="hovercolor" value="#0000FF">
+          <param name="fontsize" value="10">
+          <param name="color" value="#000000">
+          <param name="textcolor" value="#FFFFFF">
+          <param name="text" value="Document Definitions">
+          <param name="url" valuetype="ref" value="docdef.htm">
+        </applet>
+      </td>
+    </tr>
+    <tr>
+      <td width="121" height="14" valign="top" align="right" bgcolor="#000000">
+        <applet code="fphover.class" codebase="./" width="120" height="17">
+          <param name="bgcolor" value="#FF0000">
+          <param name="font" value="Helvetica">
+          <param name="fontstyle" value="regular">
+          <param name="effect" value="average">
+          <param name="text" value="Message Port">
+          <param name="hovercolor" value="#0000FF">
+          <param name="textcolor" value="#FFFFFF">
+          <param name="fontsize" value="10">
+          <param name="color" value="#000000">
+          <param name="url" valuetype="ref" value="messageport.htm">
+        </applet>
+      </td>
+    </tr>
+    <tr>
+      <td width="121" height="17" valign="top" align="right" bgcolor="#000000">
+        <applet code="fphover.class" codebase="./" width="120" height="17">
+          <param name="bgcolor" value="#FF0000">
+          <param name="font" value="Helvetica">
+          <param name="fontstyle" value="regular">
+          <param name="effect" value="average">
+          <param name="text" value="Mapper">
+          <param name="hovercolor" value="#0000FF">
+          <param name="textcolor" value="#FFFFFF">
+          <param name="fontsize" value="10">
+          <param name="color" value="#000000">
+          <param name="url" valuetype="ref" value="mapper.htm">
+        </applet>
+      </td>
+    </tr>
+    <tr>
+      <td width="121" height="8" valign="top" align="right" bgcolor="#000000">
+        <applet code="fphover.class" codebase="./" width="120" height="17">
+          <param name="bgcolor" value="#FF0000">
+          <param name="font" value="Helvetica">
+          <param name="fontstyle" value="regular">
+          <param name="effect" value="average">
+          <param name="text" value="Channels">
+          <param name="hovercolor" value="#0000FF">
+          <param name="textcolor" value="#FFFFFF">
+          <param name="fontsize" value="10">
+          <param name="color" value="#000000">
+          <param name="url" valuetype="ref" value="Channel.htm">
+        </applet>
+      </td>
+    </tr>
+    <tr>
+      <td width="121" height="21" valign="top" align="right" bgcolor="#000000">
+        <applet code="fphover.class" codebase="./" width="120" height="17">
+          <param name="bgcolor" value="#FF0000">
+          <param name="font" value="Helvetica">
+          <param name="fontstyle" value="regular">
+          <param name="effect" value="average">
+          <param name="text" value="Administration">
+          <param name="hovercolor" value="#0000FF">
+          <param name="textcolor" value="#FFFFFF">
+          <param name="fontsize" value="10">
+          <param name="color" value="#000000">
+          <param name="url" valuetype="ref" value="btsadmin.htm">
+        </applet>
+      </td>
+    </tr>
+    <tr>
+      <td width="121" height="2001" valign="top" align="right" bgcolor="#000000">
+        <applet code="fphover.class" codebase="./" width="120" height="24">
+          <param name="hovercolor" value="#0000FF">
+          <param name="text" value="Scenario">
+          <param name="color" value="#000000">
+          <param name="font" value="Dialog">
+          <param name="fontstyle" value="bold">
+          <param name="fontsize" value="13">
+          <param name="effect" value="lightGlow">
+          <param name="url" valuetype="ref" value="../Scenario/scenario.htm">
+          <param name="textcolor" value="#66FFCC">
+        </applet>
+      </td>
+      <td width="1" height="2001" bgcolor="#C0C0C0">&nbsp;</td>
+      <td width="151" height="2001" bgcolor="#C0C0C0">&nbsp;</td>
+    </tr>
+  </table>
+</div>
+
+</body>
+
+</html>
