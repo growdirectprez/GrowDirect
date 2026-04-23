@@ -41,7 +41,7 @@ Rules are classified by what they need to read to decide.
 
 ### The rule catalog
 
-`rule_definitions.py` holds 29 `ChirpRuleDefinition` frozen dataclasses, organized into eight categories:
+`rule_definitions.py` holds 37 `ChirpRuleDefinition` frozen dataclasses, organized into ten categories:
 
 | Category | IDs | Count | Role |
 |---|---|---|---|
@@ -52,10 +52,13 @@ Rules are classified by what they need to read to decide.
 | void | C-501, C-502 | 2 | High void rate, post-void (completed → canceled) |
 | gift_card | C-601, C-602 | 2 | Load velocity, full drain |
 | loyalty | C-801 through C-804 | 4 | Point accumulation, bulk redemption, cross-location velocity, enrollment fraud |
+| dispute | C-D01 through C-D03 | 3 | Chargeback lifecycle signals: disputed transactions, dispute-to-sale ratios, evidence gaps |
+| invoice | C-I01 through C-I03 | 3 | Invoice-specific anomalies: unpaid velocity, write-off patterns, line item manipulation |
+| composite | C-901 | 1 | Multi-signal rules that combine base detections (e.g., rapid-refund + after-hours) |
 
 Each rule carries an ID, name, description, category, default thresholds (JSON), severity (`low`/`medium`/`high`/`critical`), and a tier classification. The catalog is seeded into the `detection_rules` table on first boot but the code is the authority — rows in the table are a convenience for admin UIs, not the source of truth.
 
-The user-facing [[canary-alerts-guide|Canary Alerts Guide]] references additional rule IDs (dispute and invoice families, for example). Those live in related rule sets evaluated alongside Chirp; the Chirp catalog itself is the 29 rules in `rule_definitions.py`.
+The [[canary-alerts-guide|Canary Alerts Guide]] narrates the same catalog for an operator audience — same 37 rules, plain-language framing, tuning dials, throttling controls.
 
 ### Threshold resolution
 
@@ -150,7 +153,7 @@ Every checker is wrapped. `_write_alerts()` catches per-alert write failures and
 
 ## Code pointers
 
-- [canary/services/chirp/rule_definitions.py](../../Canary/canary/services/chirp/rule_definitions.py) — Frozen catalog of 29 rules, lookup helpers (`RULE_MAP`, `get_rule`, `get_rules_by_category`, `get_rules_by_tier`)
+- [canary/services/chirp/rule_definitions.py](../../Canary/canary/services/chirp/rule_definitions.py) — Frozen catalog of 37 rules, lookup helpers (`RULE_MAP`, `get_rule`, `get_rules_by_category`, `get_rules_by_tier`)
 - [canary/services/chirp/stateless_engine.py](../../Canary/canary/services/chirp/stateless_engine.py) — Tier 1 pure-function evaluation, no ORM
 - [canary/services/chirp/rule_engine.py](../../Canary/canary/services/chirp/rule_engine.py) — `ChirpRuleEngine` class, Tier 2 and Tier 3, category dispatchers, alert writes, auto-case hook
 - [canary/services/chirp/threshold_manager.py](../../Canary/canary/services/chirp/threshold_manager.py) — Three-layer threshold resolution, cache invalidation
