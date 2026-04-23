@@ -18,9 +18,9 @@
 
 **Created:**
 - `Canary/canary/services/qa_agent/linear_client.py` — minimal Linear GraphQL client
-- `Canary/tests/unit/test_qa_agent_linear_client.py` — 3 unit tests
-- `Canary/tests/unit/test_atlas_figure_frontmatter_strip.py` — 2 unit tests
-- `Canary/tests/integration/test_qa_agent_file_linear_bug.py` — 3 integration tests
+- `Canary/tests/unit/test_qa_agent_linear_client.py` — 5 unit tests
+- `Canary/tests/unit/test_atlas_figure_frontmatter_strip.py` — 5 unit tests
+- `Canary/tests/integration/test_qa_agent_file_linear_bug.py` — 4 integration tests
 
 **Modified:**
 - `Canary/canary/services/qa_agent/tools.py` — add `file_linear_bug` tool + handler
@@ -238,9 +238,54 @@ Linear personal keys use bare Authorization: <key>."
 - Modify: `Canary/canary/services/qa_agent/tools.py`
 - Modify: `Canary/canary/services/qa_agent/agent.py`
 
-- [ ] **Step 1: Add `file_linear_bug` to the QA tool defs and handlers**
+- [ ] **Step 1: Find the actual symbol names**
 
-In `tools.py`, append to the existing `_qa_tool_defs` list (find where `fire_scenario`, `poll_scenario`, etc. are defined):
+The QA tool metadata lives in THREE locations inside `tools.py`:
+
+1. `_QA_HANDLERS` — module-level dict at line 203 (`fire_scenario`, `poll_scenario`, `list_scenarios`, `get_thresholds`)
+2. `qa_tools` — LOCAL list variable inside `get_tool_definitions()` at line 98 (Claude API format — uses `input_schema`)
+3. `_qa_tool_defs` — LOCAL list variable inside `build_canary_mcp_server()` at line 286 (SDK MCP format — uses `schema`)
+
+All three need `file_linear_bug` added. Note the key name differs between Claude API format (`input_schema`) and SDK format (`schema`).
+
+- [ ] **Step 2: Add module-level `LinearClient` import for clean mocking**
+
+At the top of `tools.py` (with the other module imports, not inside a function), add:
+
+```python
+from canary.services.qa_agent.linear_client import LinearClient, LinearAPIError
+```
+
+This makes `canary.services.qa_agent.tools.LinearClient` a valid patch target for the integration tests (avoids the standard "patch-where-used" gotcha when the import is inside a function body).
+
+- [ ] **Step 3: Add the Claude API format tool def**
+
+In `get_tool_definitions()` at around line 98, locate the existing `qa_tools = [ ... ]` list. Append:
+
+```python
+{
+    "name": "file_linear_bug",
+    "description": "File a Linear bug report based on the current conversation. Use when the user says 'log this as a bug', 'file this', 'report this as a bug', or similar. Do NOT ask for confirmation; file immediately and return the URL.",
+    "input_schema": {
+        "type": "object",
+        "properties": {
+            "title": {
+                "type": "string",
+                "description": "Short, specific title for the bug (< 80 chars). Infer from the conversation."
+            },
+            "description": {
+                "type": "string",
+                "description": "Bug description. What the user expected and what they observed. Do NOT include the transcript or merchant ID — those are auto-appended."
+            },
+        },
+        "required": ["title", "description"],
+    },
+},
+```
+
+- [ ] **Step 4: Add the SDK MCP format tool def**
+
+In `build_canary_mcp_server()` at around line 286, locate the existing `_qa_tool_defs = [ ... ]` list. Append the SAME definition but with `schema` instead of `input_schema`:
 
 ```python
 {
@@ -263,13 +308,15 @@ In `tools.py`, append to the existing `_qa_tool_defs` list (find where `fire_sce
 },
 ```
 
-And add a new handler (near `_handle_fire_scenario` et al.):
+- [ ] **Step 5: Add the handler function**
+
+Near `_handle_fire_scenario` et al. at module scope:
 
 ```python
 def _handle_file_linear_bug(params: dict) -> dict[str, Any]:
     import os
     from canary.db.session_factory import _merchant_ctx
-    from canary.services.qa_agent.linear_client import LinearClient, LinearAPIError
+    # LinearClient + LinearAPIError imported at module top (see Step 2)
 
     title = params.get("title", "").strip()
     description = params.get("description", "").strip()
@@ -304,13 +351,23 @@ def _handle_file_linear_bug(params: dict) -> dict[str, Any]:
         }
 ```
 
-Register the handler in the `_qa_tool_handlers` dict (same file):
+- [ ] **Step 6: Register the handler in `_QA_HANDLERS`**
+
+At the existing `_QA_HANDLERS = { ... }` dict around line 203, add the entry:
 
 ```python
-_qa_tool_handlers["file_linear_bug"] = _handle_file_linear_bug
+_QA_HANDLERS = {
+    "fire_scenario": _handle_fire_scenario,
+    "poll_scenario": _handle_poll_scenario,
+    "list_scenarios": _handle_list_scenarios,
+    "get_thresholds": _handle_get_thresholds,
+    "file_linear_bug": _handle_file_linear_bug,  # NEW for GRO-517 F2
+}
 ```
 
-- [ ] **Step 2: Update SYSTEM_PROMPT with F2 section**
+(Exact symbol name: `_QA_HANDLERS`, all-caps, not `_qa_tool_handlers`.)
+
+- [ ] **Step 7: Update SYSTEM_PROMPT with F2 section**
 
 In `canary/services/qa_agent/agent.py`, find the current `SYSTEM_PROMPT`. Near the "Response style" section (post-GRO-517 F1 update), add a new section BEFORE "Response style":
 
@@ -326,7 +383,7 @@ conversation transcripts, or timestamps — those are auto-appended.
 After the tool returns, reply: "Filed [<identifier>](<url>): <title>"
 ```
 
-- [ ] **Step 3: Verify syntax + imports**
+- [ ] **Step 8: Verify syntax + imports**
 
 ```bash
 cd /Users/gclyle/GrowDirect/Canary
@@ -339,7 +396,7 @@ print('prompt has F2 section')
 "
 ```
 
-- [ ] **Step 4: Commit**
+- [ ] **Step 9: Commit**
 
 ```bash
 git add canary/services/qa_agent/tools.py canary/services/qa_agent/agent.py
