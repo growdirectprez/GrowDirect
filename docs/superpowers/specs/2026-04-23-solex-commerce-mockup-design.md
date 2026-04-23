@@ -207,7 +207,7 @@ Each component lists: **purpose**, **interface**, **v1 implementation**, **depen
 - **Purpose:** Autoship — real subscription engine. Customer saves card, selects product + cadence, the system charges on schedule.
 - **Interface:** `Subscription.create(customer, product, qty, cadence_days, starting_at)`, `.pause()`, `.resume()`, `.cancel()`, `charge_due_subscriptions()` (runs on a schedule).
 - **v1:** Full architecture. Card-on-file via Square `save_card_on_file`. `Subscription` model with `next_charge_at`. rq-scheduler cron job calls `charge_due_subscriptions()` every 15 min, which finds due subs and runs each through `checkout.place_order(..., autoship_source=subscription_id)`.
-- **Stub:** Customer-facing self-service subscription management UI (`/account/subscriptions`) is wired for view + cancel only. Pause/resume/skip-next are TODO with feature flag.
+- **Stub:** Customer-facing self-service subscription management UI (`/account/subscriptions`) is wired for view + cancel only. Pause/resume/skip-next are stubbed behind feature flag `SOLEX_FLAG_SUB_SELFSERVE=false`.
 
 ### 4.6 `services/refunds.py`
 
@@ -264,6 +264,7 @@ Each component lists: **purpose**, **interface**, **v1 implementation**, **depen
 - **Interface:** `handle(event)`, plus route `/api/webhooks/square`.
 - **v1:** Signature verification, event dispatch (`payment.updated`, `refund.updated`, `order.updated`). Idempotent via `SquareWebhookEvent` dedup table.
 - **Why:** Handles the case where a Square payment transitions state out-of-band (e.g., disputed, reconciled). Without this, our order state drifts from Square.
+- **Orphan-payment recovery:** If a webhook arrives for a `square_payment_id` we have no local `Order` for (e.g., DB write failed after Square charged), the handler issues an automatic refund via `refunds.issue_refund_by_payment_id` and logs to `admin_low_stock`-style admin alert. We do not synthesize local orders from webhook data — we reverse the payment and surface it.
 
 ### 4.11 `services/catalog_import.py`
 
@@ -341,7 +342,7 @@ Cart(id, customer_id?, session_key?, currency, applied_promo_code?,
 CartLine(id, cart_id, product_id, qty, price_snapshot_cents)
 ```
 
-Guest carts may exist as Valkey-only (no DB row); on customer sign-in, Valkey cart migrates to `Cart`.
+Guest carts may exist as Valkey-only (no DB row); on customer sign-in, Valkey cart migrates to `Cart`. **Merge semantics:** if the signing-in customer already has a persisted `Cart`, line quantities are summed by `product_id` (no dedup by price snapshot), and the most-recent `last_activity_at` wins. Applied promo code, if any, is preserved from the persisted cart.
 
 ### 5.5 Order
 
@@ -540,7 +541,7 @@ Matches reference: four-column layout, policy links (terms, privacy, refunds, sh
 | Autoship charge declined | Square returns declined | `Subscription.status = past_due`, email customer, retry next tick up to 3 times, then cancel |
 | Email send failure | EmailService exception | Log to `EmailLog.error`, enqueue retry (RQ retry policy: 3 tries) |
 
-Nothing silent. Everything logged. Sandbox-era tolerances (oversell) documented and tagged TODO for when we flip to live mode.
+Nothing silent. Everything logged. Sandbox-era tolerances (oversell) documented and deferred to the live-mode cut-over spec (§1.4).
 
 ---
 
