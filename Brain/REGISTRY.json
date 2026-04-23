@@ -1,7 +1,7 @@
 {
-  "generated": "2026-04-23T17:37:57.977111+00:00",
-  "article_count": 243,
-  "topic_count": 3427,
+  "generated": "2026-04-23T20:34:04.707185+00:00",
+  "article_count": 246,
+  "topic_count": 3424,
   "articles": [
     {
       "path": "Brain/wiki/501c-advocacy-arm.md",
@@ -2668,6 +2668,61 @@
       "type": "wiki"
     },
     {
+      "path": "Brain/wiki/canary-chirp-rules.md",
+      "title": "Canary Chirp Rules",
+      "summary": "Chirp is Canary's rule engine. It takes a parsed Square transaction (or cash drawer shift, gift card activity, loyalty event), runs it against a catalog of frozen detection rules, scores any violation",
+      "tags": [
+        "canary",
+        "chirp",
+        "rules",
+        "detection",
+        "thresholds",
+        "alerts",
+        "risk-scoring"
+      ],
+      "keywords": [
+        "aggregation",
+        "alerts",
+        "batch",
+        "canary",
+        "catalog",
+        "chirp",
+        "code",
+        "decisions",
+        "detection",
+        "does",
+        "entity",
+        "error",
+        "evaluation",
+        "handling",
+        "heatmap",
+        "pointers",
+        "presets",
+        "real",
+        "related",
+        "resolution",
+        "risk",
+        "risk-scoring",
+        "rule",
+        "rules",
+        "scoring",
+        "sensitivity",
+        "sources",
+        "summary",
+        "sweep",
+        "templates",
+        "three",
+        "threshold",
+        "thresholds",
+        "tiers",
+        "time",
+        "velocity",
+        "what",
+        "works"
+      ],
+      "type": "wiki"
+    },
+    {
       "path": "Brain/wiki/canary-data-model.md",
       "title": "Canary Data Model",
       "summary": "Canary uses PostgreSQL 17 with four schemas that separate concerns: `app` for core platform entities, `sales` for the Square CRDM (canonical relational data model), `fox` for case management with cryp",
@@ -2739,6 +2794,61 @@
         "three",
         "threshold",
         "tier"
+      ],
+      "type": "wiki"
+    },
+    {
+      "path": "Brain/wiki/canary-fox-case-management.md",
+      "title": "Canary Fox Case Management",
+      "summary": "Fox is Canary's case management and evidence locker. When a merchant decides a Chirp alert warrants investigation, Fox opens a case, links the originating alerts, tracks subjects of interest, stores e",
+      "tags": [
+        "canary",
+        "fox",
+        "cases",
+        "evidence",
+        "chain-of-custody",
+        "investigation",
+        "audit"
+      ],
+      "keywords": [
+        "access",
+        "alert",
+        "audit",
+        "canary",
+        "case",
+        "cases",
+        "chain",
+        "chain-of-custody",
+        "code",
+        "context",
+        "creation",
+        "decisions",
+        "does",
+        "evidence",
+        "flow",
+        "fox",
+        "from",
+        "generation",
+        "hash",
+        "integrity",
+        "investigation",
+        "lifecycle",
+        "management",
+        "number",
+        "pointers",
+        "related",
+        "seven",
+        "sources",
+        "summary",
+        "tables",
+        "three",
+        "tiers",
+        "timeline",
+        "unified",
+        "upload",
+        "validation",
+        "what",
+        "works"
       ],
       "type": "wiki"
     },
@@ -2818,6 +2928,50 @@
         "that",
         "themselves",
         "validation"
+      ],
+      "type": "wiki"
+    },
+    {
+      "path": "Brain/wiki/canary-tsp-pipeline.md",
+      "title": "Canary TSP Pipeline",
+      "summary": "TSP (Triple Subscriber Pipeline) is Canary's ingestion front door. Every Square webhook enters through a single Flask endpoint, gets HMAC-validated and hashed, and is published to a Valkey stream. Fou",
+      "tags": [
+        "canary",
+        "tsp",
+        "webhook",
+        "ingestion",
+        "pipeline",
+        "valkey",
+        "merkle",
+        "evidence"
+      ],
+      "keywords": [
+        "canary",
+        "code",
+        "consumers",
+        "decisions",
+        "does",
+        "drift",
+        "entry",
+        "evidence",
+        "failure",
+        "four",
+        "handling",
+        "ingestion",
+        "merkle",
+        "pipeline",
+        "point",
+        "pointers",
+        "related",
+        "schema",
+        "sources",
+        "streams",
+        "summary",
+        "tsp",
+        "valkey",
+        "webhook",
+        "what",
+        "works"
       ],
       "type": "wiki"
     },
@@ -11859,13 +12013,13 @@
     {
       "path": "Brain/wiki/reference-hoa-disclosure-sample-2018.md",
       "title": "Reference — HOA Disclosure Documents (Sample, 2018)",
-      "summary": "> ⚠️ **PII-sensitive source.** The underlying intake contains personally-identifiable information (a named homeowner + street address). This wiki card is intentionally high-level — it describes the *s",
+      "summary": "> ⚠️ **PII-sensitive source.** The underlying intake contains personally-identifiable information (a named homeowner + street address) and the community name + management company. This wiki card is in",
       "tags": [
         "reference",
         "hoa",
         "disclosure-documents",
         "governance",
-        "firstservice-residential",
+        "professional-managed-hoa",
         "2018",
         "pii-sensitive"
       ],
@@ -11875,7 +12029,6 @@
         "disclosure",
         "disclosure-documents",
         "documents",
-        "firstservice-residential",
         "governance",
         "hoa",
         "inbox",
@@ -11884,6 +12037,7 @@
         "open",
         "pack",
         "pii-sensitive",
+        "professional-managed-hoa",
         "question",
         "reference",
         "related",
@@ -12066,7 +12220,7 @@
         "secure-5",
         "appriss",
         "inventory",
-        "ollies",
+        "discount-retailer",
         "s5-1",
         "ebr",
         "shrink",
@@ -12083,6 +12237,8 @@
         "availability",
         "conversion",
         "data",
+        "discount",
+        "discount-retailer",
         "ebr",
         "inventory",
         "kickoff",
@@ -12091,11 +12247,10 @@
         "matters",
         "mock",
         "model",
-        "ollie's",
-        "ollies",
         "program",
         "related",
         "requirements",
+        "retailer",
         "s5-1",
         "s5.1",
         "secure",
@@ -12260,7 +12415,7 @@
     },
     {
       "path": "Brain/wiki/secure-dsd-ired-analytics.md",
-      "title": "Secure DSD iRED Analytics — FnE Annual Summary",
+      "title": "Secure DSD iRED Analytics — US Grocery Chain Annual Summary",
       "summary": "A **Direct Store Delivery (DSD) Annual Summary** report in **iRED** (intelligent Retail Exception Detection) format — the analytical view Secure used to surface **vendor delivery vs. credit variance p",
       "tags": [
         "secure",
@@ -12270,23 +12425,24 @@
         "vendor-analytics",
         "credit-invoice",
         "variance",
-        "fne"
+        "us-grocery"
       ],
       "keywords": [
         "analyst",
         "analytical",
         "analytics",
         "annual",
+        "anonymised",
+        "chain",
         "credit-invoice",
         "direct-store-delivery",
         "dsd",
-        "extract",
-        "fne",
-        "from",
+        "grocery",
         "ired",
         "matters",
         "metrics",
         "open",
+        "pattern",
         "questions",
         "related",
         "review",
@@ -12296,18 +12452,19 @@
         "sources",
         "summary",
         "this",
+        "us-grocery",
         "uses",
         "variance",
+        "vendor",
         "vendor-analytics",
-        "vendors",
         "view"
       ],
       "type": "wiki"
     },
     {
       "path": "Brain/wiki/secure-dv-private-label-2006.md",
-      "title": "Private Label Food Setup — USA Design Validation Workshop (Aug 2006)",
-      "summary": "**Design Validation (DV) workshop deck**, week commencing 21 August 2006, for a US retailer's private-label food setup process. Two near-identical versions (v2 + v3) archived together — content is eff",
+      "title": "Private Label Food Setup — US Design Validation Workshop (Aug 2006)",
+      "summary": "**Design Validation (DV) workshop deck**, week commencing 21 August 2006, for a **US retailer**'s private-label food setup process. Two near-identical versions (v2 + v3) archived together — content is",
       "tags": [
         "secure",
         "retail-career",
@@ -12432,65 +12589,6 @@
       "type": "wiki"
     },
     {
-      "path": "Brain/wiki/secure-jlp-property-services-2002.md",
-      "title": "John Lewis Partnership — Property & Building Services Operating Model (2002)",
-      "summary": "Two linked October–November 2002 draft decks from an IBM consulting engagement at **John Lewis Partnership (JLP)**, covering Property, Building Services & Facilities Management (P&BS) across JLP's two",
-      "tags": [
-        "secure",
-        "retail-career",
-        "ibm-consulting",
-        "jlp",
-        "john-lewis",
-        "waitrose",
-        "property-services",
-        "2002",
-        "pre-secure"
-      ],
-      "keywords": [
-        "2002",
-        "building",
-        "context",
-        "contract",
-        "decomposition",
-        "engagement",
-        "from",
-        "ibm-consulting",
-        "initiatives",
-        "innovation",
-        "jlp",
-        "john",
-        "john-lewis",
-        "level",
-        "lewis",
-        "management",
-        "managing",
-        "matters",
-        "model",
-        "operating",
-        "organisational",
-        "partnership",
-        "planning",
-        "portfolio",
-        "pre-secure",
-        "process",
-        "procurement",
-        "property",
-        "property-services",
-        "raci",
-        "related",
-        "retail-career",
-        "secure",
-        "services",
-        "sources",
-        "summarised",
-        "summary",
-        "tables",
-        "this",
-        "waitrose"
-      ],
-      "type": "wiki"
-    },
-    {
       "path": "Brain/wiki/secure-lite.md",
       "title": "Secure Lite",
       "summary": "Secure Lite (Oct 2018, proposed by Geoff Lyle) was a **simplified configuration** of Secure Store — not a separate codebase. Same engine, stripped config surface, pre-baked risk dictionary + Instant A",
@@ -12529,16 +12627,15 @@
       "type": "wiki"
     },
     {
-      "path": "Brain/wiki/secure-lpms-case-management-dsg-2015.md",
-      "title": "LPMS Case Management — Dick's Sporting Goods (2015)",
-      "summary": "Seven intakes from **Dick's Sporting Goods (DSG)** LPMS (Loss Prevention Management System) circa 2015. A complete operational snapshot of how a major US multi-brand retailer ran its LP function: the ",
+      "path": "Brain/wiki/secure-lpms-case-management-2015.md",
+      "title": "LPMS Case Management — Sporting-Goods Chain Deployment (2015)",
+      "summary": "Seven intakes from a 2015 LPMS (Loss Prevention Management System) deployment at a **US sporting-goods chain with ~1,100+ stores operating across a firearms-regulated segment**. A complete operational",
       "tags": [
         "secure",
         "lpms",
         "case-management",
-        "dicks-sporting-goods",
-        "dsg",
-        "golf-galaxy",
+        "sporting-goods",
+        "firearms-regulated",
         "taxonomy",
         "reference-data",
         "2015"
@@ -12551,13 +12648,12 @@
         "analyst",
         "case",
         "case-management",
+        "chain",
         "data",
-        "dick's",
-        "dicks-sporting-goods",
-        "dsg",
+        "deployment",
         "errors",
         "extract",
-        "golf-galaxy",
+        "firearms-regulated",
         "goods",
         "incident",
         "info",
@@ -12581,6 +12677,7 @@
         "source",
         "sources",
         "sporting",
+        "sporting-goods",
         "summary",
         "taxonomy",
         "this",
@@ -12593,14 +12690,14 @@
       "type": "wiki"
     },
     {
-      "path": "Brain/wiki/secure-merchandising-rfp-evant-2003.md",
-      "title": "Merchandising System RFP — Evant Response for Lillian Vernon (Sept 2003)",
-      "summary": "Evant's response to a Merchandise Forecasting / Planning **Request for Proposal** from **Lillian Vernon Corporation (LVC)**, dated **8 September 2003**. A 23+ section RFP response spanning Executive S",
+      "path": "Brain/wiki/secure-merchandising-rfp-evant-response-2003.md",
+      "title": "Merchandising System RFP — Evant Response (Sept 2003)",
+      "summary": "Evant's response to a Merchandise Forecasting / Planning **Request for Proposal** from a **US mid-market multi-channel catalog retailer**, dated **8 September 2003**. A 23+ section RFP response spanni",
       "tags": [
         "secure",
         "retail-career",
         "evant",
-        "lillian-vernon",
+        "catalog-retailer",
         "merchandising",
         "rfp",
         "multi-channel",
@@ -12609,9 +12706,8 @@
       ],
       "keywords": [
         "2003",
+        "catalog-retailer",
         "evant",
-        "lillian",
-        "lillian-vernon",
         "management",
         "matters",
         "merchandising",
@@ -12630,8 +12726,7 @@
         "suite",
         "summary",
         "system",
-        "this",
-        "vernon"
+        "this"
       ],
       "type": "wiki"
     },
@@ -12737,6 +12832,65 @@
       "type": "wiki"
     },
     {
+      "path": "Brain/wiki/secure-property-services-operating-model-2002.md",
+      "title": "Property & Building Services Operating Model — 2002 (UK dept-store + grocery group)",
+      "summary": "Two linked October–November 2002 draft decks from an IBM consulting engagement at a **UK mutually-owned department-store + grocery group**, covering Property, Building Services & Facilities Management",
+      "tags": [
+        "secure",
+        "retail-career",
+        "ibm-consulting",
+        "property-services",
+        "department-store-grocery-group",
+        "operating-model",
+        "raci",
+        "2002",
+        "pre-secure"
+      ],
+      "keywords": [
+        "2002",
+        "building",
+        "context",
+        "contract",
+        "decomposition",
+        "department-store-grocery-group",
+        "dept",
+        "engagement",
+        "from",
+        "grocery",
+        "group",
+        "ibm-consulting",
+        "initiatives",
+        "innovation",
+        "level",
+        "management",
+        "managing",
+        "matters",
+        "model",
+        "operating",
+        "operating-model",
+        "organisational",
+        "planning",
+        "portfolio",
+        "pre-secure",
+        "process",
+        "procurement",
+        "property",
+        "property-services",
+        "raci",
+        "related",
+        "retail-career",
+        "secure",
+        "services",
+        "sources",
+        "store",
+        "summarised",
+        "summary",
+        "tables",
+        "this"
+      ],
+      "type": "wiki"
+    },
+    {
       "path": "Brain/wiki/secure-retail-career-archive.md",
       "title": "Pre-Secure Retail Career Archive",
       "summary": "Index of client folders in `/Users/gclyle/secure/PROJECTS/` and their era classification. Sprint 1 does **not** ingest these — content is either pre-Secure (IBM / PwC / JDA / Retek consulting, 2001–20",
@@ -12782,14 +12936,68 @@
       "type": "wiki"
     },
     {
+      "path": "Brain/wiki/secure-retail-operating-model-2006.md",
+      "title": "Retail Operating Model — 2006 (IBM engagement, UK global grocer)",
+      "summary": "Eight draft Top-Down Design decks from the **International Operations Development Design Group** of a **UK global grocery retailer** expanding internationally, June–July 2006. IBM-era consulting engag",
+      "tags": [
+        "secure",
+        "retail-career",
+        "ibm-consulting",
+        "operating-model",
+        "global-grocery-retailer",
+        "2006",
+        "pre-secure"
+      ],
+      "keywords": [
+        "2006",
+        "chain",
+        "commercial",
+        "deck",
+        "decks",
+        "display",
+        "engagement",
+        "finance",
+        "forecast",
+        "global",
+        "global-grocery-retailer",
+        "grocer",
+        "ibm-consulting",
+        "image",
+        "july",
+        "june",
+        "matters",
+        "model",
+        "only",
+        "operating",
+        "operating-model",
+        "operations",
+        "ordering",
+        "people",
+        "pre-secure",
+        "property",
+        "range",
+        "related",
+        "retail",
+        "retail-career",
+        "secure",
+        "services",
+        "sources",
+        "space",
+        "summary",
+        "supply",
+        "this"
+      ],
+      "type": "wiki"
+    },
+    {
       "path": "Brain/wiki/secure-sysrepublic-xbr-2016.md",
-      "title": "Lululemon xBR Replacement — Sysrepublic Functional Requirements Response (June 2016)",
-      "summary": "Functional requirements response spreadsheet for the **Lululemon xBR replacement project**, dated **2016-06-08**. Lululemon Asset Protection issued a Functional Requirements Specification (FRS) for re",
+      "title": "xBR Replacement — Sysrepublic Functional Requirements Response (June 2016)",
+      "summary": "Functional requirements response spreadsheet for an **xBR (Exception-Based Reporting) replacement project** at a **specialty athleisure retailer (DTC + retail)**, dated **2016-06-08**. The retailer's ",
       "tags": [
         "secure",
         "sysrepublic",
         "xbr",
-        "lululemon",
+        "athleisure-retailer",
         "ebr",
         "case-management",
         "icms",
@@ -12799,6 +13007,7 @@
       "keywords": [
         "*did*",
         "2016",
+        "athleisure-retailer",
         "boundary:",
         "canary",
         "case-management",
@@ -12812,7 +13021,6 @@
         "icms",
         "june",
         "lineage",
-        "lululemon",
         "matters",
         "notable",
         "notes",
@@ -12838,92 +13046,21 @@
       "type": "wiki"
     },
     {
-      "path": "Brain/wiki/secure-tesco-tom-2006.md",
-      "title": "Tesco Operating Model — 2006 (IBM engagement)",
-      "summary": "Eight draft Top-Down Design decks from the **Tesco International Operations Development Design Group**, June–July 2006. IBM-era consulting engagement (Jeffe's career line) to produce Phase 1 of the Te",
+      "path": "Brain/wiki/secure-us-property-it-scoping.md",
+      "title": "US Property IT Requirements — Scoping Document (IBM, pre-Secure)",
+      "summary": "An \"IBM and Client Confidential\" discussion document labelled **Property IT Requirements** for a **US retailer** (client identity behind an internal codename in the source deck). Appears to be a scopi",
       "tags": [
         "secure",
         "retail-career",
         "ibm-consulting",
-        "tesco",
-        "operating-model",
-        "2006",
-        "pre-secure"
-      ],
-      "keywords": [
-        "2006",
-        "baglin",
-        "chain",
-        "commercial",
-        "deck",
-        "decks",
-        "display",
-        "dodd",
-        "engagement",
-        "final\"",
-        "finance",
-        "forecast",
-        "golding",
-        "heynen",
-        "ibm-consulting",
-        "image",
-        "janet",
-        "jenny",
-        "july",
-        "june",
-        "jurrien",
-        "lazarus",
-        "lisa",
-        "lucy",
-        "matters",
-        "model",
-        "only",
-        "operating",
-        "operating-model",
-        "operations",
-        "ordering",
-        "people",
-        "pre-secure",
-        "property",
-        "range",
-        "related",
-        "retail",
-        "retail-career",
-        "richard",
-        "secure",
-        "services",
-        "seth",
-        "smith",
-        "sources",
-        "space",
-        "summary",
-        "supply",
-        "tesco",
-        "this",
-        "tom",
-        "wilkinson",
-        "williams"
-      ],
-      "type": "wiki"
-    },
-    {
-      "path": "Brain/wiki/secure-tiger-property-it.md",
-      "title": "Tiger (US) — Property IT Requirements Discussion Document",
-      "summary": "An \"IBM and Client Confidential\" discussion document labelled **Property IT Requirements** for a US retailer codenamed **Tiger** (client identity not explicitly stated in the extract). Appears to be a",
-      "tags": [
-        "secure",
-        "retail-career",
-        "ibm-consulting",
-        "tiger",
-        "property-it",
         "us-property",
+        "scoping",
         "pre-secure"
       ],
       "keywords": [
         "acquisition",
         "captured",
         "construction",
-        "discussion",
         "document",
         "findings",
         "ibm-consulting",
@@ -12933,18 +13070,17 @@
         "open",
         "pre-secure",
         "property",
-        "property-it",
         "questions",
         "related",
         "requirements",
         "retail-career",
+        "scoping",
         "secure",
         "site",
         "sources",
         "summary",
         "synthesis",
         "this",
-        "tiger",
         "us-property"
       ],
       "type": "wiki"
@@ -13956,7 +14092,7 @@
     "*did*": [
       {
         "path": "Brain/wiki/secure-sysrepublic-xbr-2016.md",
-        "title": "Lululemon xBR Replacement — Sysrepublic Functional Requirements Response (June 2016)"
+        "title": "xBR Replacement — Sysrepublic Functional Requirements Response (June 2016)"
       }
     ],
     "*phillippe": [
@@ -14321,8 +14457,8 @@
     ],
     "2002": [
       {
-        "path": "Brain/wiki/secure-jlp-property-services-2002.md",
-        "title": "John Lewis Partnership — Property & Building Services Operating Model (2002)"
+        "path": "Brain/wiki/secure-property-services-operating-model-2002.md",
+        "title": "Property & Building Services Operating Model — 2002 (UK dept-store + grocery group)"
       }
     ],
     "2003": [
@@ -14335,8 +14471,8 @@
         "title": "Integrated Maps — Retail Hardlines Solution Landscape (2003/04)"
       },
       {
-        "path": "Brain/wiki/secure-merchandising-rfp-evant-2003.md",
-        "title": "Merchandising System RFP — Evant Response for Lillian Vernon (Sept 2003)"
+        "path": "Brain/wiki/secure-merchandising-rfp-evant-response-2003.md",
+        "title": "Merchandising System RFP — Evant Response (Sept 2003)"
       }
     ],
     "2003/04": [
@@ -14358,11 +14494,11 @@
     "2006": [
       {
         "path": "Brain/wiki/secure-dv-private-label-2006.md",
-        "title": "Private Label Food Setup — USA Design Validation Workshop (Aug 2006)"
+        "title": "Private Label Food Setup — US Design Validation Workshop (Aug 2006)"
       },
       {
-        "path": "Brain/wiki/secure-tesco-tom-2006.md",
-        "title": "Tesco Operating Model — 2006 (IBM engagement)"
+        "path": "Brain/wiki/secure-retail-operating-model-2006.md",
+        "title": "Retail Operating Model — 2006 (IBM engagement, UK global grocer)"
       }
     ],
     "2009": [
@@ -14431,8 +14567,8 @@
         "title": "RPV Long-Range Property Management Plan (LRPMP)"
       },
       {
-        "path": "Brain/wiki/secure-lpms-case-management-dsg-2015.md",
-        "title": "LPMS Case Management — Dick's Sporting Goods (2015)"
+        "path": "Brain/wiki/secure-lpms-case-management-2015.md",
+        "title": "LPMS Case Management — Sporting-Goods Chain Deployment (2015)"
       }
     ],
     "2016": [
@@ -14442,7 +14578,7 @@
       },
       {
         "path": "Brain/wiki/secure-sysrepublic-xbr-2016.md",
-        "title": "Lululemon xBR Replacement — Sysrepublic Functional Requirements Response (June 2016)"
+        "title": "xBR Replacement — Sysrepublic Functional Requirements Response (June 2016)"
       }
     ],
     "2017": [
@@ -14949,8 +15085,8 @@
     ],
     "7/17/2015": [
       {
-        "path": "Brain/wiki/secure-lpms-case-management-dsg-2015.md",
-        "title": "LPMS Case Management — Dick's Sporting Goods (2015)"
+        "path": "Brain/wiki/secure-lpms-case-management-2015.md",
+        "title": "LPMS Case Management — Sporting-Goods Chain Deployment (2015)"
       }
     ],
     "7573": [
@@ -15185,6 +15321,10 @@
         "title": "Silver Spur — Content Pool (Raw)"
       },
       {
+        "path": "Brain/wiki/canary-fox-case-management.md",
+        "title": "Canary Fox Case Management"
+      },
+      {
         "path": "Brain/wiki/growdirect-canary.md",
         "title": "The Play"
       },
@@ -15291,8 +15431,8 @@
         "title": "LRPMP — Shoreline Park Parcel (APN 7573-007-900)"
       },
       {
-        "path": "Brain/wiki/secure-tiger-property-it.md",
-        "title": "Tiger (US) — Property IT Requirements Discussion Document"
+        "path": "Brain/wiki/secure-us-property-it-scoping.md",
+        "title": "US Property IT Requirements — Scoping Document (IBM, pre-Secure)"
       }
     ],
     "acre": [
@@ -15361,8 +15501,8 @@
         "title": "Weekly Roll-Up — February 16–24, 2026"
       },
       {
-        "path": "Brain/wiki/secure-lpms-case-management-dsg-2015.md",
-        "title": "LPMS Case Management — Dick's Sporting Goods (2015)"
+        "path": "Brain/wiki/secure-lpms-case-management-2015.md",
+        "title": "LPMS Case Management — Sporting-Goods Chain Deployment (2015)"
       }
     ],
     "actionable": [
@@ -15387,8 +15527,8 @@
     ],
     "actions.xlsx": [
       {
-        "path": "Brain/wiki/secure-lpms-case-management-dsg-2015.md",
-        "title": "LPMS Case Management — Dick's Sporting Goods (2015)"
+        "path": "Brain/wiki/secure-lpms-case-management-2015.md",
+        "title": "LPMS Case Management — Sporting-Goods Chain Deployment (2015)"
       }
     ],
     "activate": [
@@ -15868,7 +16008,7 @@
     "agenda": [
       {
         "path": "Brain/wiki/secure-dv-private-label-2006.md",
-        "title": "Private Label Food Setup — USA Design Validation Workshop (Aug 2006)"
+        "title": "Private Label Food Setup — US Design Validation Workshop (Aug 2006)"
       }
     ],
     "agent": [
@@ -15929,6 +16069,10 @@
     ],
     "aggregation": [
       {
+        "path": "Brain/wiki/canary-chirp-rules.md",
+        "title": "Canary Chirp Rules"
+      },
+      {
         "path": "Brain/wiki/growdirect-the-market.md",
         "title": "The Market"
       }
@@ -15985,6 +16129,10 @@
         "title": "Canary Detection Engine"
       },
       {
+        "path": "Brain/wiki/canary-fox-case-management.md",
+        "title": "Canary Fox Case Management"
+      },
+      {
         "path": "Brain/wiki/canary-sales-strategy.md",
         "title": "Canary Sales Strategy"
       }
@@ -15993,6 +16141,10 @@
       {
         "path": "Brain/wiki/canary-alerts-guide.md",
         "title": "Canary Alerts — A Plain-English Guide"
+      },
+      {
+        "path": "Brain/wiki/canary-chirp-rules.md",
+        "title": "Canary Chirp Rules"
       },
       {
         "path": "Brain/wiki/canary-detection.md",
@@ -16280,17 +16432,17 @@
       },
       {
         "path": "Brain/wiki/secure-dsd-ired-analytics.md",
-        "title": "Secure DSD iRED Analytics — FnE Annual Summary"
+        "title": "Secure DSD iRED Analytics — US Grocery Chain Annual Summary"
       },
       {
-        "path": "Brain/wiki/secure-lpms-case-management-dsg-2015.md",
-        "title": "LPMS Case Management — Dick's Sporting Goods (2015)"
+        "path": "Brain/wiki/secure-lpms-case-management-2015.md",
+        "title": "LPMS Case Management — Sporting-Goods Chain Deployment (2015)"
       }
     ],
     "analytical": [
       {
         "path": "Brain/wiki/secure-dsd-ired-analytics.md",
-        "title": "Secure DSD iRED Analytics — FnE Annual Summary"
+        "title": "Secure DSD iRED Analytics — US Grocery Chain Annual Summary"
       }
     ],
     "analytics": [
@@ -16316,7 +16468,7 @@
       },
       {
         "path": "Brain/wiki/secure-dsd-ired-analytics.md",
-        "title": "Secure DSD iRED Analytics — FnE Annual Summary"
+        "title": "Secure DSD iRED Analytics — US Grocery Chain Annual Summary"
       }
     ],
     "anchor": [
@@ -16734,7 +16886,7 @@
       },
       {
         "path": "Brain/wiki/secure-dsd-ired-analytics.md",
-        "title": "Secure DSD iRED Analytics — FnE Annual Summary"
+        "title": "Secure DSD iRED Analytics — US Grocery Chain Annual Summary"
       }
     ],
     "anomalies": [
@@ -16747,6 +16899,12 @@
       {
         "path": "Brain/wiki/growdirect-white-paper-quant-peer-review.md",
         "title": "**Executive Summary: The Quant’s Verdict**"
+      }
+    ],
+    "anonymised": [
+      {
+        "path": "Brain/wiki/secure-dsd-ired-analytics.md",
+        "title": "Secure DSD iRED Analytics — US Grocery Chain Annual Summary"
       }
     ],
     "anonymized": [
@@ -17537,6 +17695,12 @@
         "title": "RM-22 Incompatibility — Peninsula Precedent Record"
       }
     ],
+    "athleisure-retailer": [
+      {
+        "path": "Brain/wiki/secure-sysrepublic-xbr-2016.md",
+        "title": "xBR Replacement — Sysrepublic Functional Requirements Response (June 2016)"
+      }
+    ],
     "athletic": [
       {
         "path": "Brain/wiki/angel-malaga-cove-raw.md",
@@ -17604,6 +17768,10 @@
       }
     ],
     "audit": [
+      {
+        "path": "Brain/wiki/canary-fox-case-management.md",
+        "title": "Canary Fox Case Management"
+      },
       {
         "path": "Brain/wiki/growdirect-research-worm-exposure.md",
         "title": "WORM Exposure Sprint Deliverables"
@@ -17805,12 +17973,6 @@
         "title": "Angel Voice Training"
       }
     ],
-    "baglin": [
-      {
-        "path": "Brain/wiki/secure-tesco-tom-2006.md",
-        "title": "Tesco Operating Model — 2006 (IBM engagement)"
-      }
-    ],
     "bakeries": [
       {
         "path": "Brain/wiki/angel-la-cresta-raw.md",
@@ -17912,6 +18074,10 @@
       }
     ],
     "batch": [
+      {
+        "path": "Brain/wiki/canary-chirp-rules.md",
+        "title": "Canary Chirp Rules"
+      },
       {
         "path": "Brain/wiki/growdirect-attack-plan.md",
         "title": "Canary LP — Attack Plan v3.0"
@@ -18556,7 +18722,7 @@
     "boundary:": [
       {
         "path": "Brain/wiki/secure-sysrepublic-xbr-2016.md",
-        "title": "Lululemon xBR Replacement — Sysrepublic Functional Requirements Response (June 2016)"
+        "title": "xBR Replacement — Sysrepublic Functional Requirements Response (June 2016)"
       }
     ],
     "boutiques": [
@@ -18841,8 +19007,8 @@
         "title": "**1. The $112 Billion Problem**"
       },
       {
-        "path": "Brain/wiki/secure-jlp-property-services-2002.md",
-        "title": "John Lewis Partnership — Property & Building Services Operating Model (2002)"
+        "path": "Brain/wiki/secure-property-services-operating-model-2002.md",
+        "title": "Property & Building Services Operating Model — 2002 (UK dept-store + grocery group)"
       },
       {
         "path": "Brain/wiki/south-bay-wiki-architecture.md",
@@ -19173,6 +19339,10 @@
         "title": "Canary Architecture"
       },
       {
+        "path": "Brain/wiki/canary-chirp-rules.md",
+        "title": "Canary Chirp Rules"
+      },
+      {
         "path": "Brain/wiki/canary-data-model.md",
         "title": "Canary Data Model"
       },
@@ -19181,12 +19351,20 @@
         "title": "Canary Detection Engine"
       },
       {
+        "path": "Brain/wiki/canary-fox-case-management.md",
+        "title": "Canary Fox Case Management"
+      },
+      {
         "path": "Brain/wiki/canary-platform-overview.md",
         "title": "Canary — Platform Overview"
       },
       {
         "path": "Brain/wiki/canary-sales-strategy.md",
         "title": "Canary Sales Strategy"
+      },
+      {
+        "path": "Brain/wiki/canary-tsp-pipeline.md",
+        "title": "Canary TSP Pipeline"
       },
       {
         "path": "Brain/wiki/foundation-three-hat-compensation.md",
@@ -19282,7 +19460,7 @@
       },
       {
         "path": "Brain/wiki/secure-sysrepublic-xbr-2016.md",
-        "title": "Lululemon xBR Replacement — Sysrepublic Functional Requirements Response (June 2016)"
+        "title": "xBR Replacement — Sysrepublic Functional Requirements Response (June 2016)"
       },
       {
         "path": "Brain/projects/Canary.md",
@@ -19427,8 +19605,8 @@
         "title": "Session — ALX Cowork Capture (Feb 27, 2026)"
       },
       {
-        "path": "Brain/wiki/secure-tiger-property-it.md",
-        "title": "Tiger (US) — Property IT Requirements Discussion Document"
+        "path": "Brain/wiki/secure-us-property-it-scoping.md",
+        "title": "US Property IT Requirements — Scoping Document (IBM, pre-Secure)"
       }
     ],
     "card": [
@@ -19545,6 +19723,10 @@
         "title": "Canary Data Model"
       },
       {
+        "path": "Brain/wiki/canary-fox-case-management.md",
+        "title": "Canary Fox Case Management"
+      },
+      {
         "path": "Brain/wiki/canary-platform-overview.md",
         "title": "Canary — Platform Overview"
       },
@@ -19573,8 +19755,8 @@
         "title": "The Fox — Case Management"
       },
       {
-        "path": "Brain/wiki/secure-lpms-case-management-dsg-2015.md",
-        "title": "LPMS Case Management — Dick's Sporting Goods (2015)"
+        "path": "Brain/wiki/secure-lpms-case-management-2015.md",
+        "title": "LPMS Case Management — Sporting-Goods Chain Deployment (2015)"
       }
     ],
     "case-law": [
@@ -19589,12 +19771,12 @@
         "title": "The Fox — Case Management"
       },
       {
-        "path": "Brain/wiki/secure-lpms-case-management-dsg-2015.md",
-        "title": "LPMS Case Management — Dick's Sporting Goods (2015)"
+        "path": "Brain/wiki/secure-lpms-case-management-2015.md",
+        "title": "LPMS Case Management — Sporting-Goods Chain Deployment (2015)"
       },
       {
         "path": "Brain/wiki/secure-sysrepublic-xbr-2016.md",
-        "title": "Lululemon xBR Replacement — Sysrepublic Functional Requirements Response (June 2016)"
+        "title": "xBR Replacement — Sysrepublic Functional Requirements Response (June 2016)"
       }
     ],
     "case:": [
@@ -19604,6 +19786,10 @@
       }
     ],
     "cases": [
+      {
+        "path": "Brain/wiki/canary-fox-case-management.md",
+        "title": "Canary Fox Case Management"
+      },
       {
         "path": "Brain/wiki/coac-15-owner-network.md",
         "title": "15-Owner Network — Parcel Identification and Owner Recruitment"
@@ -19653,12 +19839,22 @@
         "title": "Angel Content Archive — Index & Catalog Plan"
       },
       {
+        "path": "Brain/wiki/canary-chirp-rules.md",
+        "title": "Canary Chirp Rules"
+      },
+      {
         "path": "Brain/wiki/canary-detection.md",
         "title": "Canary Detection Engine"
       },
       {
         "path": "Brain/wiki/growdirect-research-reference-library.md",
         "title": "Canary / GrowDirect — Project Reference Library"
+      }
+    ],
+    "catalog-retailer": [
+      {
+        "path": "Brain/wiki/secure-merchandising-rfp-evant-response-2003.md",
+        "title": "Merchandising System RFP — Evant Response (Sept 2003)"
       }
     ],
     "cataloged": [
@@ -19674,7 +19870,7 @@
       },
       {
         "path": "Brain/wiki/secure-sysrepublic-xbr-2016.md",
-        "title": "Lululemon xBR Replacement — Sysrepublic Functional Requirements Response (June 2016)"
+        "title": "xBR Replacement — Sysrepublic Functional Requirements Response (June 2016)"
       }
     ],
     "category": [
@@ -19855,6 +20051,10 @@
     ],
     "chain": [
       {
+        "path": "Brain/wiki/canary-fox-case-management.md",
+        "title": "Canary Fox Case Management"
+      },
+      {
         "path": "Brain/wiki/cove-baughey-1947.md",
         "title": "Baughey Article — Rancho Palos Verdes 1784–1947"
       },
@@ -19907,8 +20107,22 @@
         "title": "The Scaling Model"
       },
       {
-        "path": "Brain/wiki/secure-tesco-tom-2006.md",
-        "title": "Tesco Operating Model — 2006 (IBM engagement)"
+        "path": "Brain/wiki/secure-dsd-ired-analytics.md",
+        "title": "Secure DSD iRED Analytics — US Grocery Chain Annual Summary"
+      },
+      {
+        "path": "Brain/wiki/secure-lpms-case-management-2015.md",
+        "title": "LPMS Case Management — Sporting-Goods Chain Deployment (2015)"
+      },
+      {
+        "path": "Brain/wiki/secure-retail-operating-model-2006.md",
+        "title": "Retail Operating Model — 2006 (IBM engagement, UK global grocer)"
+      }
+    ],
+    "chain-of-custody": [
+      {
+        "path": "Brain/wiki/canary-fox-case-management.md",
+        "title": "Canary Fox Case Management"
       }
     ],
     "chained": [
@@ -20225,6 +20439,10 @@
     ],
     "chirp": [
       {
+        "path": "Brain/wiki/canary-chirp-rules.md",
+        "title": "Canary Chirp Rules"
+      },
+      {
         "path": "Brain/wiki/canary-detection.md",
         "title": "Canary Detection Engine"
       },
@@ -20514,7 +20732,7 @@
     "clarifications": [
       {
         "path": "Brain/wiki/secure-sysrepublic-xbr-2016.md",
-        "title": "Lululemon xBR Replacement — Sysrepublic Functional Requirements Response (June 2016)"
+        "title": "xBR Replacement — Sysrepublic Functional Requirements Response (June 2016)"
       }
     ],
     "class": [
@@ -21095,6 +21313,18 @@
         "title": "Angel Architecture"
       },
       {
+        "path": "Brain/wiki/canary-chirp-rules.md",
+        "title": "Canary Chirp Rules"
+      },
+      {
+        "path": "Brain/wiki/canary-fox-case-management.md",
+        "title": "Canary Fox Case Management"
+      },
+      {
+        "path": "Brain/wiki/canary-tsp-pipeline.md",
+        "title": "Canary TSP Pipeline"
+      },
+      {
         "path": "Brain/wiki/cove-city-positions.md",
         "title": "City Positions Cross-Reference"
       },
@@ -21309,8 +21539,8 @@
         "title": "Peninsula School Guide — Content Pool (Raw)"
       },
       {
-        "path": "Brain/wiki/secure-tesco-tom-2006.md",
-        "title": "Tesco Operating Model — 2006 (IBM engagement)"
+        "path": "Brain/wiki/secure-retail-operating-model-2006.md",
+        "title": "Retail Operating Model — 2006 (IBM engagement, UK global grocer)"
       }
     ],
     "commission": [
@@ -22207,8 +22437,8 @@
         "title": "The Article — From tLog to gLog"
       },
       {
-        "path": "Brain/wiki/secure-tiger-property-it.md",
-        "title": "Tiger (US) — Property IT Requirements Discussion Document"
+        "path": "Brain/wiki/secure-us-property-it-scoping.md",
+        "title": "US Property IT Requirements — Scoping Document (IBM, pre-Secure)"
       }
     ],
     "constructive": [
@@ -22258,6 +22488,10 @@
       }
     ],
     "consumers": [
+      {
+        "path": "Brain/wiki/canary-tsp-pipeline.md",
+        "title": "Canary TSP Pipeline"
+      },
       {
         "path": "Brain/wiki/growdirect-timelog-token-analysis-feb20.md",
         "title": "Token Consumption Analysis — February 20, 2026"
@@ -22601,6 +22835,10 @@
         "title": "West Palos Verdes — Content Pool (Raw)"
       },
       {
+        "path": "Brain/wiki/canary-fox-case-management.md",
+        "title": "Canary Fox Case Management"
+      },
+      {
         "path": "Brain/wiki/cove-lessons-learned.md",
         "title": "Cove Lessons Learned — Running Ledger"
       },
@@ -22617,8 +22855,8 @@
         "title": "Session — B-059 Execution: TSP PRD Revision (Feb 27, 2026)"
       },
       {
-        "path": "Brain/wiki/secure-jlp-property-services-2002.md",
-        "title": "John Lewis Partnership — Property & Building Services Operating Model (2002)"
+        "path": "Brain/wiki/secure-property-services-operating-model-2002.md",
+        "title": "Property & Building Services Operating Model — 2002 (UK dept-store + grocery group)"
       }
     ],
     "contextual": [
@@ -22655,8 +22893,8 @@
         "title": "elJeffe"
       },
       {
-        "path": "Brain/wiki/secure-jlp-property-services-2002.md",
-        "title": "John Lewis Partnership — Property & Building Services Operating Model (2002)"
+        "path": "Brain/wiki/secure-property-services-operating-model-2002.md",
+        "title": "Property & Building Services Operating Model — 2002 (UK dept-store + grocery group)"
       }
     ],
     "contracts": [
@@ -23508,7 +23746,7 @@
       },
       {
         "path": "Brain/wiki/secure-sysrepublic-xbr-2016.md",
-        "title": "Lululemon xBR Replacement — Sysrepublic Functional Requirements Response (June 2016)"
+        "title": "xBR Replacement — Sysrepublic Functional Requirements Response (June 2016)"
       }
     ],
     "coverage": [
@@ -23643,6 +23881,10 @@
     ],
     "creation": [
       {
+        "path": "Brain/wiki/canary-fox-case-management.md",
+        "title": "Canary Fox Case Management"
+      },
+      {
         "path": "Brain/wiki/growdirect-manifesto.md",
         "title": "GrowDirect Manifesto"
       }
@@ -23670,7 +23912,7 @@
     "credit-invoice": [
       {
         "path": "Brain/wiki/secure-dsd-ired-analytics.md",
-        "title": "Secure DSD iRED Analytics — FnE Annual Summary"
+        "title": "Secure DSD iRED Analytics — US Grocery Chain Annual Summary"
       }
     ],
     "creek": [
@@ -24263,8 +24505,8 @@
         "title": "Secure — Customer Order Management Data Flow (2017)"
       },
       {
-        "path": "Brain/wiki/secure-lpms-case-management-dsg-2015.md",
-        "title": "LPMS Case Management — Dick's Sporting Goods (2015)"
+        "path": "Brain/wiki/secure-lpms-case-management-2015.md",
+        "title": "LPMS Case Management — Sporting-Goods Chain Deployment (2015)"
       },
       {
         "path": "Brain/wiki/secure-omnichannel.md",
@@ -24597,6 +24839,18 @@
         "title": "abalonecove.org"
       },
       {
+        "path": "Brain/wiki/canary-chirp-rules.md",
+        "title": "Canary Chirp Rules"
+      },
+      {
+        "path": "Brain/wiki/canary-fox-case-management.md",
+        "title": "Canary Fox Case Management"
+      },
+      {
+        "path": "Brain/wiki/canary-tsp-pipeline.md",
+        "title": "Canary TSP Pipeline"
+      },
+      {
         "path": "Brain/wiki/foundation-blockchain-proof-layer.md",
         "title": "Foundation Blockchain Proof Layer"
       },
@@ -24691,14 +24945,14 @@
         "title": "Session — RaaS Strategic Reframe + Investor Deck QA (Mar 1, 2026)"
       },
       {
-        "path": "Brain/wiki/secure-tesco-tom-2006.md",
-        "title": "Tesco Operating Model — 2006 (IBM engagement)"
+        "path": "Brain/wiki/secure-retail-operating-model-2006.md",
+        "title": "Retail Operating Model — 2006 (IBM engagement, UK global grocer)"
       }
     ],
     "decks": [
       {
-        "path": "Brain/wiki/secure-tesco-tom-2006.md",
-        "title": "Tesco Operating Model — 2006 (IBM engagement)"
+        "path": "Brain/wiki/secure-retail-operating-model-2006.md",
+        "title": "Retail Operating Model — 2006 (IBM engagement, UK global grocer)"
       }
     ],
     "declaration": [
@@ -24865,8 +25119,8 @@
     ],
     "decomposition": [
       {
-        "path": "Brain/wiki/secure-jlp-property-services-2002.md",
-        "title": "John Lewis Partnership — Property & Building Services Operating Model (2002)"
+        "path": "Brain/wiki/secure-property-services-operating-model-2002.md",
+        "title": "Property & Building Services Operating Model — 2002 (UK dept-store + grocery group)"
       }
     ],
     "deed": [
@@ -25167,6 +25421,12 @@
         "title": "Coastal Specific Plan — Subregion 4"
       }
     ],
+    "department-store-grocery-group": [
+      {
+        "path": "Brain/wiki/secure-property-services-operating-model-2002.md",
+        "title": "Property & Building Services Operating Model — 2002 (UK dept-store + grocery group)"
+      }
+    ],
     "dependencies": [
       {
         "path": "Brain/wiki/501c-advocacy-arm.md",
@@ -25228,13 +25488,23 @@
       },
       {
         "path": "Brain/wiki/secure-dv-private-label-2006.md",
-        "title": "Private Label Food Setup — USA Design Validation Workshop (Aug 2006)"
+        "title": "Private Label Food Setup — US Design Validation Workshop (Aug 2006)"
+      },
+      {
+        "path": "Brain/wiki/secure-lpms-case-management-2015.md",
+        "title": "LPMS Case Management — Sporting-Goods Chain Deployment (2015)"
       }
     ],
     "deprecated": [
       {
         "path": "Brain/wiki/growdirect-attack-plan.md",
         "title": "Canary LP — Attack Plan v3.0"
+      }
+    ],
+    "dept": [
+      {
+        "path": "Brain/wiki/secure-property-services-operating-model-2002.md",
+        "title": "Property & Building Services Operating Model — 2002 (UK dept-store + grocery group)"
       }
     ],
     "depth": [
@@ -25312,13 +25582,13 @@
       },
       {
         "path": "Brain/wiki/secure-dv-private-label-2006.md",
-        "title": "Private Label Food Setup — USA Design Validation Workshop (Aug 2006)"
+        "title": "Private Label Food Setup — US Design Validation Workshop (Aug 2006)"
       }
     ],
     "design-validation": [
       {
         "path": "Brain/wiki/secure-dv-private-label-2006.md",
-        "title": "Private Label Food Setup — USA Design Validation Workshop (Aug 2006)"
+        "title": "Private Label Food Setup — US Design Validation Workshop (Aug 2006)"
       }
     ],
     "designation": [
@@ -25424,6 +25694,10 @@
       }
     ],
     "detection": [
+      {
+        "path": "Brain/wiki/canary-chirp-rules.md",
+        "title": "Canary Chirp Rules"
+      },
       {
         "path": "Brain/wiki/canary-detection.md",
         "title": "Canary Detection Engine"
@@ -25557,18 +25831,6 @@
       {
         "path": "Brain/wiki/angel-client-reviews.md",
         "title": "Angelique Lyle — Client Reviews"
-      }
-    ],
-    "dick's": [
-      {
-        "path": "Brain/wiki/secure-lpms-case-management-dsg-2015.md",
-        "title": "LPMS Case Management — Dick's Sporting Goods (2015)"
-      }
-    ],
-    "dicks-sporting-goods": [
-      {
-        "path": "Brain/wiki/secure-lpms-case-management-dsg-2015.md",
-        "title": "LPMS Case Management — Dick's Sporting Goods (2015)"
       }
     ],
     "dictionary": [
@@ -25752,7 +26014,7 @@
     "direct-store-delivery": [
       {
         "path": "Brain/wiki/secure-dsd-ired-analytics.md",
-        "title": "Secure DSD iRED Analytics — FnE Annual Summary"
+        "title": "Secure DSD iRED Analytics — US Grocery Chain Annual Summary"
       }
     ],
     "directive": [
@@ -25829,6 +26091,16 @@
       {
         "path": "Brain/wiki/growdirect-white-paper-quant-peer-review.md",
         "title": "**Executive Summary: The Quant’s Verdict**"
+      },
+      {
+        "path": "Brain/wiki/secure-5-inventory.md",
+        "title": "Secure 5 Inventory"
+      }
+    ],
+    "discount-retailer": [
+      {
+        "path": "Brain/wiki/secure-5-inventory.md",
+        "title": "Secure 5 Inventory"
       }
     ],
     "discounts": [
@@ -25853,12 +26125,6 @@
         "title": "Cannabis Retail Risk Dictionary & Integration Spec"
       }
     ],
-    "discussion": [
-      {
-        "path": "Brain/wiki/secure-tiger-property-it.md",
-        "title": "Tiger (US) — Property IT Requirements Discussion Document"
-      }
-    ],
     "dispatch": [
       {
         "path": "Brain/wiki/growdirect-timelog-alx-b072-symbiosis-dispatch-mar01.md",
@@ -25877,8 +26143,8 @@
     ],
     "display": [
       {
-        "path": "Brain/wiki/secure-tesco-tom-2006.md",
-        "title": "Tesco Operating Model — 2006 (IBM engagement)"
+        "path": "Brain/wiki/secure-retail-operating-model-2006.md",
+        "title": "Retail Operating Model — 2006 (IBM engagement, UK global grocer)"
       }
     ],
     "disqualifying": [
@@ -26069,8 +26335,8 @@
         "title": "Oracle Project Costing — User Guide, Release 11i (May 2005)"
       },
       {
-        "path": "Brain/wiki/secure-tiger-property-it.md",
-        "title": "Tiger (US) — Property IT Requirements Discussion Document"
+        "path": "Brain/wiki/secure-us-property-it-scoping.md",
+        "title": "US Property IT Requirements — Scoping Document (IBM, pre-Secure)"
       }
     ],
     "documentation": [
@@ -26151,13 +26417,19 @@
         "title": "Reference — HOA Disclosure Documents (Sample, 2018)"
       }
     ],
-    "dodd": [
-      {
-        "path": "Brain/wiki/secure-tesco-tom-2006.md",
-        "title": "Tesco Operating Model — 2006 (IBM engagement)"
-      }
-    ],
     "does": [
+      {
+        "path": "Brain/wiki/canary-chirp-rules.md",
+        "title": "Canary Chirp Rules"
+      },
+      {
+        "path": "Brain/wiki/canary-fox-case-management.md",
+        "title": "Canary Fox Case Management"
+      },
+      {
+        "path": "Brain/wiki/canary-tsp-pipeline.md",
+        "title": "Canary TSP Pipeline"
+      },
       {
         "path": "Brain/wiki/coac-15-owner-network.md",
         "title": "15-Owner Network — Parcel Identification and Owner Recruitment"
@@ -26359,6 +26631,12 @@
         "title": "COAC: 1967 Portuguese Bend Clay Mobility (Kerr & Drew)"
       }
     ],
+    "drift": [
+      {
+        "path": "Brain/wiki/canary-tsp-pipeline.md",
+        "title": "Canary TSP Pipeline"
+      }
+    ],
     "drive": [
       {
         "path": "Brain/wiki/angel-malaga-cove-raw.md",
@@ -26430,13 +26708,7 @@
       },
       {
         "path": "Brain/wiki/secure-dsd-ired-analytics.md",
-        "title": "Secure DSD iRED Analytics — FnE Annual Summary"
-      }
-    ],
-    "dsg": [
-      {
-        "path": "Brain/wiki/secure-lpms-case-management-dsg-2015.md",
-        "title": "LPMS Case Management — Dick's Sporting Goods (2015)"
+        "title": "Secure DSD iRED Analytics — US Grocery Chain Annual Summary"
       }
     ],
     "dss:": [
@@ -26612,7 +26884,7 @@
       },
       {
         "path": "Brain/wiki/secure-sysrepublic-xbr-2016.md",
-        "title": "Lululemon xBR Replacement — Sysrepublic Functional Requirements Response (June 2016)"
+        "title": "xBR Replacement — Sysrepublic Functional Requirements Response (June 2016)"
       }
     ],
     "echeck": [
@@ -27075,12 +27347,12 @@
         "title": "Secure Client: Kroger"
       },
       {
-        "path": "Brain/wiki/secure-jlp-property-services-2002.md",
-        "title": "John Lewis Partnership — Property & Building Services Operating Model (2002)"
+        "path": "Brain/wiki/secure-property-services-operating-model-2002.md",
+        "title": "Property & Building Services Operating Model — 2002 (UK dept-store + grocery group)"
       },
       {
-        "path": "Brain/wiki/secure-tesco-tom-2006.md",
-        "title": "Tesco Operating Model — 2006 (IBM engagement)"
+        "path": "Brain/wiki/secure-retail-operating-model-2006.md",
+        "title": "Retail Operating Model — 2006 (IBM engagement, UK global grocer)"
       }
     ],
     "engine": [
@@ -27229,6 +27501,10 @@
         "title": "501(c)(4) Advocacy Arm — New Entity Decision (Parking)"
       },
       {
+        "path": "Brain/wiki/canary-chirp-rules.md",
+        "title": "Canary Chirp Rules"
+      },
+      {
         "path": "Brain/wiki/coac-article-v-equity-modernization.md",
         "title": "Article V Equity / Vote-Share Modernization"
       },
@@ -27263,6 +27539,10 @@
       {
         "path": "Brain/wiki/angel-peninsula-sports-guide.md",
         "title": "Peninsula Sports Guide — Content Pool (Raw)"
+      },
+      {
+        "path": "Brain/wiki/canary-tsp-pipeline.md",
+        "title": "Canary TSP Pipeline"
       }
     ],
     "entry/starter": [
@@ -27389,10 +27669,16 @@
         "title": "Oracle Project Costing — User Guide, Release 11i (May 2005)"
       }
     ],
+    "error": [
+      {
+        "path": "Brain/wiki/canary-chirp-rules.md",
+        "title": "Canary Chirp Rules"
+      }
+    ],
     "errors": [
       {
-        "path": "Brain/wiki/secure-lpms-case-management-dsg-2015.md",
-        "title": "LPMS Case Management — Dick's Sporting Goods (2015)"
+        "path": "Brain/wiki/secure-lpms-case-management-2015.md",
+        "title": "LPMS Case Management — Sporting-Goods Chain Deployment (2015)"
       }
     ],
     "esa": [
@@ -27575,6 +27861,12 @@
         "title": "Canary LP — The Factory Process"
       }
     ],
+    "evaluation": [
+      {
+        "path": "Brain/wiki/canary-chirp-rules.md",
+        "title": "Canary Chirp Rules"
+      }
+    ],
     "evans": [
       {
         "path": "Brain/wiki/angel-brand-and-team.md",
@@ -27583,8 +27875,8 @@
     ],
     "evant": [
       {
-        "path": "Brain/wiki/secure-merchandising-rfp-evant-2003.md",
-        "title": "Merchandising System RFP — Evant Response for Lillian Vernon (Sept 2003)"
+        "path": "Brain/wiki/secure-merchandising-rfp-evant-response-2003.md",
+        "title": "Merchandising System RFP — Evant Response (Sept 2003)"
       }
     ],
     "even": [
@@ -27727,6 +28019,14 @@
       {
         "path": "Brain/wiki/abalonecove-org.md",
         "title": "abalonecove.org"
+      },
+      {
+        "path": "Brain/wiki/canary-fox-case-management.md",
+        "title": "Canary Fox Case Management"
+      },
+      {
+        "path": "Brain/wiki/canary-tsp-pipeline.md",
+        "title": "Canary TSP Pipeline"
       },
       {
         "path": "Brain/wiki/cove-case-law-lessons.md",
@@ -28063,12 +28363,8 @@
     ],
     "extract": [
       {
-        "path": "Brain/wiki/secure-dsd-ired-analytics.md",
-        "title": "Secure DSD iRED Analytics — FnE Annual Summary"
-      },
-      {
-        "path": "Brain/wiki/secure-lpms-case-management-dsg-2015.md",
-        "title": "LPMS Case Management — Dick's Sporting Goods (2015)"
+        "path": "Brain/wiki/secure-lpms-case-management-2015.md",
+        "title": "LPMS Case Management — Sporting-Goods Chain Deployment (2015)"
       }
     ],
     "extracted": [
@@ -28347,6 +28643,12 @@
       {
         "path": "Brain/wiki/coac-restated-declaration-blitz-plan.md",
         "title": "Restated Declaration — Blitz Execution Plan"
+      }
+    ],
+    "failure": [
+      {
+        "path": "Brain/wiki/canary-tsp-pipeline.md",
+        "title": "Canary TSP Pipeline"
       }
     ],
     "fair": [
@@ -28813,16 +29115,10 @@
         "title": "Executive Summary"
       }
     ],
-    "final\"": [
-      {
-        "path": "Brain/wiki/secure-tesco-tom-2006.md",
-        "title": "Tesco Operating Model — 2006 (IBM engagement)"
-      }
-    ],
     "finance": [
       {
-        "path": "Brain/wiki/secure-tesco-tom-2006.md",
-        "title": "Tesco Operating Model — 2006 (IBM engagement)"
+        "path": "Brain/wiki/secure-retail-operating-model-2006.md",
+        "title": "Retail Operating Model — 2006 (IBM engagement, UK global grocer)"
       }
     ],
     "financial": [
@@ -28899,8 +29195,8 @@
         "title": "Session — ALX Cowork Dispatch (Feb 26, 2026)"
       },
       {
-        "path": "Brain/wiki/secure-tiger-property-it.md",
-        "title": "Tiger (US) — Property IT Requirements Discussion Document"
+        "path": "Brain/wiki/secure-us-property-it-scoping.md",
+        "title": "US Property IT Requirements — Scoping Document (IBM, pre-Secure)"
       }
     ],
     "fine": [
@@ -28947,6 +29243,12 @@
       {
         "path": "Brain/wiki/cove-rpv-safety-element-2018.md",
         "title": "COAC: RPV 2018 Safety Element — Annotated for Cove"
+      }
+    ],
+    "firearms-regulated": [
+      {
+        "path": "Brain/wiki/secure-lpms-case-management-2015.md",
+        "title": "LPMS Case Management — Sporting-Goods Chain Deployment (2015)"
       }
     ],
     "firecrawl": [
@@ -29035,12 +29337,6 @@
       {
         "path": "Brain/wiki/growdirect-first-mover.md",
         "title": "Protection"
-      }
-    ],
-    "firstservice-residential": [
-      {
-        "path": "Brain/wiki/reference-hoa-disclosure-sample-2018.md",
-        "title": "Reference — HOA Disclosure Documents (Sample, 2018)"
       }
     ],
     "fitness": [
@@ -29136,7 +29432,7 @@
       },
       {
         "path": "Brain/wiki/secure-sysrepublic-xbr-2016.md",
-        "title": "Lululemon xBR Replacement — Sysrepublic Functional Requirements Response (June 2016)"
+        "title": "xBR Replacement — Sysrepublic Functional Requirements Response (June 2016)"
       }
     ],
     "flagship": [
@@ -29189,6 +29485,10 @@
         "title": "Canary Architecture"
       },
       {
+        "path": "Brain/wiki/canary-fox-case-management.md",
+        "title": "Canary Fox Case Management"
+      },
+      {
         "path": "Brain/wiki/foundation-time-logging-policy.md",
         "title": "Foundation Time Logging Policy"
       },
@@ -29233,12 +29533,6 @@
         "title": "The Validation Gate"
       }
     ],
-    "fne": [
-      {
-        "path": "Brain/wiki/secure-dsd-ired-analytics.md",
-        "title": "Secure DSD iRED Analytics — FnE Annual Summary"
-      }
-    ],
     "fnr": [
       {
         "path": "Brain/wiki/secure-eagle-eye-fnr-2018.md",
@@ -29248,7 +29542,7 @@
     "food": [
       {
         "path": "Brain/wiki/secure-dv-private-label-2006.md",
-        "title": "Private Label Food Setup — USA Design Validation Workshop (Aug 2006)"
+        "title": "Private Label Food Setup — US Design Validation Workshop (Aug 2006)"
       }
     ],
     "foot": [
@@ -29289,8 +29583,8 @@
     ],
     "forecast": [
       {
-        "path": "Brain/wiki/secure-tesco-tom-2006.md",
-        "title": "Tesco Operating Model — 2006 (IBM engagement)"
+        "path": "Brain/wiki/secure-retail-operating-model-2006.md",
+        "title": "Retail Operating Model — 2006 (IBM engagement, UK global grocer)"
       }
     ],
     "forecasting": [
@@ -29629,6 +29923,10 @@
         "title": "Canary Alerts — A Plain-English Guide"
       },
       {
+        "path": "Brain/wiki/canary-tsp-pipeline.md",
+        "title": "Canary TSP Pipeline"
+      },
+      {
         "path": "Brain/wiki/coac-bylaws-moc.md",
         "title": "CoAC Bylaws & Governing Instruments — MOC"
       },
@@ -29652,6 +29950,10 @@
       }
     ],
     "fox": [
+      {
+        "path": "Brain/wiki/canary-fox-case-management.md",
+        "title": "Canary Fox Case Management"
+      },
       {
         "path": "Brain/wiki/growdirect-the-fox.md",
         "title": "The Fox — Case Management"
@@ -29949,6 +30251,10 @@
         "title": "Canary Alerts — A Plain-English Guide"
       },
       {
+        "path": "Brain/wiki/canary-fox-case-management.md",
+        "title": "Canary Fox Case Management"
+      },
+      {
         "path": "Brain/wiki/cove-baughey-1947.md",
         "title": "Baughey Article — Rancho Palos Verdes 1784–1947"
       },
@@ -29989,16 +30295,12 @@
         "title": "Secure — Customer Order Management Data Flow (2017)"
       },
       {
-        "path": "Brain/wiki/secure-dsd-ired-analytics.md",
-        "title": "Secure DSD iRED Analytics — FnE Annual Summary"
-      },
-      {
-        "path": "Brain/wiki/secure-jlp-property-services-2002.md",
-        "title": "John Lewis Partnership — Property & Building Services Operating Model (2002)"
+        "path": "Brain/wiki/secure-property-services-operating-model-2002.md",
+        "title": "Property & Building Services Operating Model — 2002 (UK dept-store + grocery group)"
       },
       {
         "path": "Brain/wiki/secure-sysrepublic-xbr-2016.md",
-        "title": "Lululemon xBR Replacement — Sysrepublic Functional Requirements Response (June 2016)"
+        "title": "xBR Replacement — Sysrepublic Functional Requirements Response (June 2016)"
       },
       {
         "path": "Brain/wiki/wpbca-third-director-recruitment.md",
@@ -30080,7 +30382,7 @@
       },
       {
         "path": "Brain/wiki/secure-sysrepublic-xbr-2016.md",
-        "title": "Lululemon xBR Replacement — Sysrepublic Functional Requirements Response (June 2016)"
+        "title": "xBR Replacement — Sysrepublic Functional Requirements Response (June 2016)"
       },
       {
         "path": "Brain/wiki/wpbca-payments-platform.md",
@@ -30297,6 +30599,10 @@
     ],
     "generation": [
       {
+        "path": "Brain/wiki/canary-fox-case-management.md",
+        "title": "Canary Fox Case Management"
+      },
+      {
         "path": "Brain/wiki/growdirect-timelog-token-analysis-feb20.md",
         "title": "Token Consumption Analysis — February 20, 2026"
       }
@@ -30465,6 +30771,18 @@
         "title": "Foundation Crypto Donations"
       }
     ],
+    "global": [
+      {
+        "path": "Brain/wiki/secure-retail-operating-model-2006.md",
+        "title": "Retail Operating Model — 2006 (IBM engagement, UK global grocer)"
+      }
+    ],
+    "global-grocery-retailer": [
+      {
+        "path": "Brain/wiki/secure-retail-operating-model-2006.md",
+        "title": "Retail Operating Model — 2006 (IBM engagement, UK global grocer)"
+      }
+    ],
     "glog": [
       {
         "path": "Brain/wiki/growdirect-first-mover.md",
@@ -30565,12 +30883,6 @@
         "title": "Golden Scoop Gelato"
       }
     ],
-    "golding": [
-      {
-        "path": "Brain/wiki/secure-tesco-tom-2006.md",
-        "title": "Tesco Operating Model — 2006 (IBM engagement)"
-      }
-    ],
     "golf": [
       {
         "path": "Brain/wiki/angel-country-club-raw.md",
@@ -30597,16 +30909,10 @@
         "title": "PV Drive South — Content Pool (Raw)"
       }
     ],
-    "golf-galaxy": [
-      {
-        "path": "Brain/wiki/secure-lpms-case-management-dsg-2015.md",
-        "title": "LPMS Case Management — Dick's Sporting Goods (2015)"
-      }
-    ],
     "goods": [
       {
-        "path": "Brain/wiki/secure-lpms-case-management-dsg-2015.md",
-        "title": "LPMS Case Management — Dick's Sporting Goods (2015)"
+        "path": "Brain/wiki/secure-lpms-case-management-2015.md",
+        "title": "LPMS Case Management — Sporting-Goods Chain Deployment (2015)"
       }
     ],
     "goose": [
@@ -30847,10 +31153,24 @@
         "title": "Canary LP — Attack Plan v3.0"
       }
     ],
+    "grocer": [
+      {
+        "path": "Brain/wiki/secure-retail-operating-model-2006.md",
+        "title": "Retail Operating Model — 2006 (IBM engagement, UK global grocer)"
+      }
+    ],
     "grocery": [
       {
         "path": "Brain/wiki/angel-eastview-raw.md",
         "title": "Eastview — Content Pool (Raw)"
+      },
+      {
+        "path": "Brain/wiki/secure-dsd-ired-analytics.md",
+        "title": "Secure DSD iRED Analytics — US Grocery Chain Annual Summary"
+      },
+      {
+        "path": "Brain/wiki/secure-property-services-operating-model-2002.md",
+        "title": "Property & Building Services Operating Model — 2002 (UK dept-store + grocery group)"
       }
     ],
     "groundwater": [
@@ -30867,6 +31187,10 @@
       {
         "path": "Brain/wiki/cove-rpv-redevelopment-conveyance.md",
         "title": "RPV Redevelopment Agency Conveyance (2014)"
+      },
+      {
+        "path": "Brain/wiki/secure-property-services-operating-model-2002.md",
+        "title": "Property & Building Services Operating Model — 2002 (UK dept-store + grocery group)"
       }
     ],
     "growdirect": [
@@ -31361,6 +31685,14 @@
     ],
     "handling": [
       {
+        "path": "Brain/wiki/canary-chirp-rules.md",
+        "title": "Canary Chirp Rules"
+      },
+      {
+        "path": "Brain/wiki/canary-tsp-pipeline.md",
+        "title": "Canary TSP Pipeline"
+      },
+      {
         "path": "Brain/wiki/coac-15-owner-network.md",
         "title": "15-Owner Network — Parcel Identification and Owner Recruitment"
       },
@@ -31462,6 +31794,10 @@
       }
     ],
     "hash": [
+      {
+        "path": "Brain/wiki/canary-fox-case-management.md",
+        "title": "Canary Fox Case Management"
+      },
       {
         "path": "Brain/wiki/growdirect-research-bitcoin-architecture.md",
         "title": "Bitcoin-Native Infrastructure for Retail Loss Prevention"
@@ -31569,6 +31905,12 @@
         "title": "GrowDirect Manifesto"
       }
     ],
+    "heatmap": [
+      {
+        "path": "Brain/wiki/canary-chirp-rules.md",
+        "title": "Canary Chirp Rules"
+      }
+    ],
     "heavy": [
       {
         "path": "Brain/wiki/growdirect-research-cannabis-retail-risk.md",
@@ -31601,12 +31943,6 @@
       {
         "path": "Brain/wiki/coac-15-owner-network.md",
         "title": "15-Owner Network — Parcel Identification and Owner Recruitment"
-      }
-    ],
-    "heynen": [
-      {
-        "path": "Brain/wiki/secure-tesco-tom-2006.md",
-        "title": "Tesco Operating Model — 2006 (IBM engagement)"
       }
     ],
     "hidden": [
@@ -32084,27 +32420,27 @@
     "ibm-consulting": [
       {
         "path": "Brain/wiki/secure-dv-private-label-2006.md",
-        "title": "Private Label Food Setup — USA Design Validation Workshop (Aug 2006)"
+        "title": "Private Label Food Setup — US Design Validation Workshop (Aug 2006)"
       },
       {
         "path": "Brain/wiki/secure-integrated-maps-2003.md",
         "title": "Integrated Maps — Retail Hardlines Solution Landscape (2003/04)"
       },
       {
-        "path": "Brain/wiki/secure-jlp-property-services-2002.md",
-        "title": "John Lewis Partnership — Property & Building Services Operating Model (2002)"
+        "path": "Brain/wiki/secure-property-services-operating-model-2002.md",
+        "title": "Property & Building Services Operating Model — 2002 (UK dept-store + grocery group)"
       },
       {
         "path": "Brain/wiki/secure-retail-career-archive.md",
         "title": "Pre-Secure Retail Career Archive"
       },
       {
-        "path": "Brain/wiki/secure-tesco-tom-2006.md",
-        "title": "Tesco Operating Model — 2006 (IBM engagement)"
+        "path": "Brain/wiki/secure-retail-operating-model-2006.md",
+        "title": "Retail Operating Model — 2006 (IBM engagement, UK global grocer)"
       },
       {
-        "path": "Brain/wiki/secure-tiger-property-it.md",
-        "title": "Tiger (US) — Property IT Requirements Discussion Document"
+        "path": "Brain/wiki/secure-us-property-it-scoping.md",
+        "title": "US Property IT Requirements — Scoping Document (IBM, pre-Secure)"
       }
     ],
     "ice": [
@@ -32134,7 +32470,7 @@
     "icms": [
       {
         "path": "Brain/wiki/secure-sysrepublic-xbr-2016.md",
-        "title": "Lululemon xBR Replacement — Sysrepublic Functional Requirements Response (June 2016)"
+        "title": "xBR Replacement — Sysrepublic Functional Requirements Response (June 2016)"
       }
     ],
     "identification": [
@@ -32327,8 +32663,8 @@
     ],
     "image": [
       {
-        "path": "Brain/wiki/secure-tesco-tom-2006.md",
-        "title": "Tesco Operating Model — 2006 (IBM engagement)"
+        "path": "Brain/wiki/secure-retail-operating-model-2006.md",
+        "title": "Retail Operating Model — 2006 (IBM engagement, UK global grocer)"
       }
     ],
     "imagery": [
@@ -32549,8 +32885,8 @@
         "title": "The Fox — Case Management"
       },
       {
-        "path": "Brain/wiki/secure-lpms-case-management-dsg-2015.md",
-        "title": "LPMS Case Management — Dick's Sporting Goods (2015)"
+        "path": "Brain/wiki/secure-lpms-case-management-2015.md",
+        "title": "LPMS Case Management — Sporting-Goods Chain Deployment (2015)"
       }
     ],
     "income": [
@@ -32651,14 +32987,14 @@
     ],
     "info": [
       {
-        "path": "Brain/wiki/secure-lpms-case-management-dsg-2015.md",
-        "title": "LPMS Case Management — Dick's Sporting Goods (2015)"
+        "path": "Brain/wiki/secure-lpms-case-management-2015.md",
+        "title": "LPMS Case Management — Sporting-Goods Chain Deployment (2015)"
       }
     ],
     "info.xlsx": [
       {
-        "path": "Brain/wiki/secure-lpms-case-management-dsg-2015.md",
-        "title": "LPMS Case Management — Dick's Sporting Goods (2015)"
+        "path": "Brain/wiki/secure-lpms-case-management-2015.md",
+        "title": "LPMS Case Management — Sporting-Goods Chain Deployment (2015)"
       }
     ],
     "informal": [
@@ -32733,6 +33069,10 @@
       {
         "path": "Brain/wiki/angel-data-platform.md",
         "title": "Angel Data Platform"
+      },
+      {
+        "path": "Brain/wiki/canary-tsp-pipeline.md",
+        "title": "Canary TSP Pipeline"
       }
     ],
     "inherit": [
@@ -32753,8 +33093,8 @@
     ],
     "initiatives": [
       {
-        "path": "Brain/wiki/secure-jlp-property-services-2002.md",
-        "title": "John Lewis Partnership — Property & Building Services Operating Model (2002)"
+        "path": "Brain/wiki/secure-property-services-operating-model-2002.md",
+        "title": "Property & Building Services Operating Model — 2002 (UK dept-store + grocery group)"
       }
     ],
     "inland": [
@@ -32769,8 +33109,8 @@
         "title": "GrowDirect Thesis v1.0 — Investor Deck"
       },
       {
-        "path": "Brain/wiki/secure-jlp-property-services-2002.md",
-        "title": "John Lewis Partnership — Property & Building Services Operating Model (2002)"
+        "path": "Brain/wiki/secure-property-services-operating-model-2002.md",
+        "title": "Property & Building Services Operating Model — 2002 (UK dept-store + grocery group)"
       }
     ],
     "inscription": [
@@ -33057,6 +33397,10 @@
     ],
     "integrity": [
       {
+        "path": "Brain/wiki/canary-fox-case-management.md",
+        "title": "Canary Fox Case Management"
+      },
+      {
         "path": "Brain/wiki/growdirect-data-strategy.md",
         "title": "Canary Data Strategy — North Star"
       }
@@ -33331,10 +33675,16 @@
         "title": "Case-Law Synthesis — Rules That Bind WPBCA"
       }
     ],
+    "investigation": [
+      {
+        "path": "Brain/wiki/canary-fox-case-management.md",
+        "title": "Canary Fox Case Management"
+      }
+    ],
     "investigations": [
       {
-        "path": "Brain/wiki/secure-lpms-case-management-dsg-2015.md",
-        "title": "LPMS Case Management — Dick's Sporting Goods (2015)"
+        "path": "Brain/wiki/secure-lpms-case-management-2015.md",
+        "title": "LPMS Case Management — Sporting-Goods Chain Deployment (2015)"
       }
     ],
     "investment": [
@@ -33486,7 +33836,7 @@
     "ired": [
       {
         "path": "Brain/wiki/secure-dsd-ired-analytics.md",
-        "title": "Secure DSD iRED Analytics — FnE Annual Summary"
+        "title": "Secure DSD iRED Analytics — US Grocery Chain Annual Summary"
       }
     ],
     "irs/cpa": [
@@ -33611,12 +33961,6 @@
         "title": "Tennis & Pickleball — Palos Verdes Peninsula"
       }
     ],
-    "janet": [
-      {
-        "path": "Brain/wiki/secure-tesco-tom-2006.md",
-        "title": "Tesco Operating Model — 2006 (IBM engagement)"
-      }
-    ],
     "january": [
       {
         "path": "Brain/wiki/cove-permit-tech-landscape.md",
@@ -33657,12 +34001,6 @@
       {
         "path": "Brain/wiki/growdirect-data-strategy.md",
         "title": "Canary Data Strategy — North Star"
-      }
-    ],
-    "jenny": [
-      {
-        "path": "Brain/wiki/secure-tesco-tom-2006.md",
-        "title": "Tesco Operating Model — 2006 (IBM engagement)"
       }
     ],
     "jeremy": [
@@ -33719,24 +34057,6 @@
         "title": "Peninsula School Guide — Content Pool (Raw)"
       }
     ],
-    "jlp": [
-      {
-        "path": "Brain/wiki/secure-jlp-property-services-2002.md",
-        "title": "John Lewis Partnership — Property & Building Services Operating Model (2002)"
-      }
-    ],
-    "john": [
-      {
-        "path": "Brain/wiki/secure-jlp-property-services-2002.md",
-        "title": "John Lewis Partnership — Property & Building Services Operating Model (2002)"
-      }
-    ],
-    "john-lewis": [
-      {
-        "path": "Brain/wiki/secure-jlp-property-services-2002.md",
-        "title": "John Lewis Partnership — Property & Building Services Operating Model (2002)"
-      }
-    ],
     "johnson": [
       {
         "path": "Brain/wiki/growdirect-competitive-landscape.md",
@@ -33789,22 +34109,22 @@
     ],
     "july": [
       {
-        "path": "Brain/wiki/secure-lpms-case-management-dsg-2015.md",
-        "title": "LPMS Case Management — Dick's Sporting Goods (2015)"
+        "path": "Brain/wiki/secure-lpms-case-management-2015.md",
+        "title": "LPMS Case Management — Sporting-Goods Chain Deployment (2015)"
       },
       {
-        "path": "Brain/wiki/secure-tesco-tom-2006.md",
-        "title": "Tesco Operating Model — 2006 (IBM engagement)"
+        "path": "Brain/wiki/secure-retail-operating-model-2006.md",
+        "title": "Retail Operating Model — 2006 (IBM engagement, UK global grocer)"
       }
     ],
     "june": [
       {
-        "path": "Brain/wiki/secure-sysrepublic-xbr-2016.md",
-        "title": "Lululemon xBR Replacement — Sysrepublic Functional Requirements Response (June 2016)"
+        "path": "Brain/wiki/secure-retail-operating-model-2006.md",
+        "title": "Retail Operating Model — 2006 (IBM engagement, UK global grocer)"
       },
       {
-        "path": "Brain/wiki/secure-tesco-tom-2006.md",
-        "title": "Tesco Operating Model — 2006 (IBM engagement)"
+        "path": "Brain/wiki/secure-sysrepublic-xbr-2016.md",
+        "title": "xBR Replacement — Sysrepublic Functional Requirements Response (June 2016)"
       }
     ],
     "junior": [
@@ -33855,12 +34175,6 @@
       {
         "path": "Brain/wiki/coac-1984-gp-amendment-14-eastview.md",
         "title": "COAC: 1984 GP Amendment 14 — Eastview Annexation (Jurisdictional-Continuity Precedent)"
-      }
-    ],
-    "jurrien": [
-      {
-        "path": "Brain/wiki/secure-tesco-tom-2006.md",
-        "title": "Tesco Operating Model — 2006 (IBM engagement)"
       }
     ],
     "jury": [
@@ -34130,7 +34444,7 @@
     "label": [
       {
         "path": "Brain/wiki/secure-dv-private-label-2006.md",
-        "title": "Private Label Food Setup — USA Design Validation Workshop (Aug 2006)"
+        "title": "Private Label Food Setup — US Design Validation Workshop (Aug 2006)"
       }
     ],
     "lacrosse": [
@@ -34545,12 +34859,6 @@
         "title": "Property & Geology"
       }
     ],
-    "lazarus": [
-      {
-        "path": "Brain/wiki/secure-tesco-tom-2006.md",
-        "title": "Tesco Operating Model — 2006 (IBM engagement)"
-      }
-    ],
     "lead": [
       {
         "path": "Brain/wiki/angel-architecture.md",
@@ -34799,18 +35107,12 @@
         "title": "GrowDirect Working Papers — Structure"
       },
       {
-        "path": "Brain/wiki/secure-jlp-property-services-2002.md",
-        "title": "John Lewis Partnership — Property & Building Services Operating Model (2002)"
+        "path": "Brain/wiki/secure-property-services-operating-model-2002.md",
+        "title": "Property & Building Services Operating Model — 2002 (UK dept-store + grocery group)"
       },
       {
         "path": "Brain/wiki/wpbca-ocean-path-easement.md",
         "title": "Community of Abalone Cove (formerly WPBCA) — Ocean Path Easements — Private Governance Matter"
-      }
-    ],
-    "lewis": [
-      {
-        "path": "Brain/wiki/secure-jlp-property-services-2002.md",
-        "title": "John Lewis Partnership — Property & Building Services Operating Model (2002)"
       }
     ],
     "liability": [
@@ -34874,6 +35176,10 @@
       }
     ],
     "lifecycle": [
+      {
+        "path": "Brain/wiki/canary-fox-case-management.md",
+        "title": "Canary Fox Case Management"
+      },
       {
         "path": "Brain/wiki/growdirect-patent-visual-namespace-lifecycle.md",
         "title": "Patent Schematic — Namespace Lifecycle v1.0 (FIG. 5)"
@@ -35113,18 +35419,6 @@
         "title": "LLC Rescue Status (Existing California LLC)"
       }
     ],
-    "lillian": [
-      {
-        "path": "Brain/wiki/secure-merchandising-rfp-evant-2003.md",
-        "title": "Merchandising System RFP — Evant Response for Lillian Vernon (Sept 2003)"
-      }
-    ],
-    "lillian-vernon": [
-      {
-        "path": "Brain/wiki/secure-merchandising-rfp-evant-2003.md",
-        "title": "Merchandising System RFP — Evant Response for Lillian Vernon (Sept 2003)"
-      }
-    ],
     "limited": [
       {
         "path": "Brain/wiki/wpbca-ocean-path-easement.md",
@@ -35190,7 +35484,7 @@
       },
       {
         "path": "Brain/wiki/secure-sysrepublic-xbr-2016.md",
-        "title": "Lululemon xBR Replacement — Sysrepublic Functional Requirements Response (June 2016)"
+        "title": "xBR Replacement — Sysrepublic Functional Requirements Response (June 2016)"
       }
     ],
     "linear": [
@@ -35239,12 +35533,6 @@
       {
         "path": "Brain/wiki/growdirect-revenue.md",
         "title": "The Financial Model"
-      }
-    ],
-    "lisa": [
-      {
-        "path": "Brain/wiki/secure-tesco-tom-2006.md",
-        "title": "Tesco Operating Model — 2006 (IBM engagement)"
       }
     ],
     "list": [
@@ -35703,8 +35991,8 @@
     ],
     "lpms": [
       {
-        "path": "Brain/wiki/secure-lpms-case-management-dsg-2015.md",
-        "title": "LPMS Case Management — Dick's Sporting Goods (2015)"
+        "path": "Brain/wiki/secure-lpms-case-management-2015.md",
+        "title": "LPMS Case Management — Sporting-Goods Chain Deployment (2015)"
       }
     ],
     "lrpmp": [
@@ -35719,18 +36007,6 @@
       {
         "path": "Brain/wiki/cove-rpv-redevelopment-conveyance.md",
         "title": "RPV Redevelopment Agency Conveyance (2014)"
-      }
-    ],
-    "lucy": [
-      {
-        "path": "Brain/wiki/secure-tesco-tom-2006.md",
-        "title": "Tesco Operating Model — 2006 (IBM engagement)"
-      }
-    ],
-    "lululemon": [
-      {
-        "path": "Brain/wiki/secure-sysrepublic-xbr-2016.md",
-        "title": "Lululemon xBR Replacement — Sysrepublic Functional Requirements Response (June 2016)"
       }
     ],
     "lunada": [
@@ -35897,6 +36173,10 @@
         "title": "Canary Data Model"
       },
       {
+        "path": "Brain/wiki/canary-fox-case-management.md",
+        "title": "Canary Fox Case Management"
+      },
+      {
         "path": "Brain/wiki/canary-platform-overview.md",
         "title": "Canary — Platform Overview"
       },
@@ -35929,20 +36209,20 @@
         "title": "Secure — Customer Order Management Data Flow (2017)"
       },
       {
-        "path": "Brain/wiki/secure-jlp-property-services-2002.md",
-        "title": "John Lewis Partnership — Property & Building Services Operating Model (2002)"
+        "path": "Brain/wiki/secure-lpms-case-management-2015.md",
+        "title": "LPMS Case Management — Sporting-Goods Chain Deployment (2015)"
       },
       {
-        "path": "Brain/wiki/secure-lpms-case-management-dsg-2015.md",
-        "title": "LPMS Case Management — Dick's Sporting Goods (2015)"
+        "path": "Brain/wiki/secure-merchandising-rfp-evant-response-2003.md",
+        "title": "Merchandising System RFP — Evant Response (Sept 2003)"
       },
       {
-        "path": "Brain/wiki/secure-merchandising-rfp-evant-2003.md",
-        "title": "Merchandising System RFP — Evant Response for Lillian Vernon (Sept 2003)"
+        "path": "Brain/wiki/secure-property-services-operating-model-2002.md",
+        "title": "Property & Building Services Operating Model — 2002 (UK dept-store + grocery group)"
       },
       {
-        "path": "Brain/wiki/secure-tiger-property-it.md",
-        "title": "Tiger (US) — Property IT Requirements Discussion Document"
+        "path": "Brain/wiki/secure-us-property-it-scoping.md",
+        "title": "US Property IT Requirements — Scoping Document (IBM, pre-Secure)"
       },
       {
         "path": "Brain/wiki/south-bay-wiki-architecture.md",
@@ -35967,8 +36247,8 @@
     ],
     "managing": [
       {
-        "path": "Brain/wiki/secure-jlp-property-services-2002.md",
-        "title": "John Lewis Partnership — Property & Building Services Operating Model (2002)"
+        "path": "Brain/wiki/secure-property-services-operating-model-2002.md",
+        "title": "Property & Building Services Operating Model — 2002 (UK dept-store + grocery group)"
       }
     ],
     "mandate": [
@@ -36424,11 +36704,11 @@
       },
       {
         "path": "Brain/wiki/secure-dsd-ired-analytics.md",
-        "title": "Secure DSD iRED Analytics — FnE Annual Summary"
+        "title": "Secure DSD iRED Analytics — US Grocery Chain Annual Summary"
       },
       {
         "path": "Brain/wiki/secure-dv-private-label-2006.md",
-        "title": "Private Label Food Setup — USA Design Validation Workshop (Aug 2006)"
+        "title": "Private Label Food Setup — US Design Validation Workshop (Aug 2006)"
       },
       {
         "path": "Brain/wiki/secure-eagle-eye-fnr-2018.md",
@@ -36439,28 +36719,28 @@
         "title": "Integrated Maps — Retail Hardlines Solution Landscape (2003/04)"
       },
       {
-        "path": "Brain/wiki/secure-jlp-property-services-2002.md",
-        "title": "John Lewis Partnership — Property & Building Services Operating Model (2002)"
+        "path": "Brain/wiki/secure-lpms-case-management-2015.md",
+        "title": "LPMS Case Management — Sporting-Goods Chain Deployment (2015)"
       },
       {
-        "path": "Brain/wiki/secure-lpms-case-management-dsg-2015.md",
-        "title": "LPMS Case Management — Dick's Sporting Goods (2015)"
+        "path": "Brain/wiki/secure-merchandising-rfp-evant-response-2003.md",
+        "title": "Merchandising System RFP — Evant Response (Sept 2003)"
       },
       {
-        "path": "Brain/wiki/secure-merchandising-rfp-evant-2003.md",
-        "title": "Merchandising System RFP — Evant Response for Lillian Vernon (Sept 2003)"
+        "path": "Brain/wiki/secure-property-services-operating-model-2002.md",
+        "title": "Property & Building Services Operating Model — 2002 (UK dept-store + grocery group)"
+      },
+      {
+        "path": "Brain/wiki/secure-retail-operating-model-2006.md",
+        "title": "Retail Operating Model — 2006 (IBM engagement, UK global grocer)"
       },
       {
         "path": "Brain/wiki/secure-sysrepublic-xbr-2016.md",
-        "title": "Lululemon xBR Replacement — Sysrepublic Functional Requirements Response (June 2016)"
+        "title": "xBR Replacement — Sysrepublic Functional Requirements Response (June 2016)"
       },
       {
-        "path": "Brain/wiki/secure-tesco-tom-2006.md",
-        "title": "Tesco Operating Model — 2006 (IBM engagement)"
-      },
-      {
-        "path": "Brain/wiki/secure-tiger-property-it.md",
-        "title": "Tiger (US) — Property IT Requirements Discussion Document"
+        "path": "Brain/wiki/secure-us-property-it-scoping.md",
+        "title": "US Property IT Requirements — Scoping Document (IBM, pre-Secure)"
       },
       {
         "path": "Brain/wiki/wpbca-compliance-framework.md",
@@ -36717,8 +36997,8 @@
     ],
     "merchandising": [
       {
-        "path": "Brain/wiki/secure-merchandising-rfp-evant-2003.md",
-        "title": "Merchandising System RFP — Evant Response for Lillian Vernon (Sept 2003)"
+        "path": "Brain/wiki/secure-merchandising-rfp-evant-response-2003.md",
+        "title": "Merchandising System RFP — Evant Response (Sept 2003)"
       }
     ],
     "merchant": [
@@ -36784,6 +37064,10 @@
       }
     ],
     "merkle": [
+      {
+        "path": "Brain/wiki/canary-tsp-pipeline.md",
+        "title": "Canary TSP Pipeline"
+      },
       {
         "path": "Brain/wiki/growdirect-the-notary.md",
         "title": "The Notarization Service"
@@ -36888,7 +37172,7 @@
       },
       {
         "path": "Brain/wiki/secure-dsd-ired-analytics.md",
-        "title": "Secure DSD iRED Analytics — FnE Annual Summary"
+        "title": "Secure DSD iRED Analytics — US Grocery Chain Annual Summary"
       }
     ],
     "micro": [
@@ -37281,20 +37565,20 @@
         "title": "Secure 5 Inventory"
       },
       {
-        "path": "Brain/wiki/secure-jlp-property-services-2002.md",
-        "title": "John Lewis Partnership — Property & Building Services Operating Model (2002)"
-      },
-      {
-        "path": "Brain/wiki/secure-lpms-case-management-dsg-2015.md",
-        "title": "LPMS Case Management — Dick's Sporting Goods (2015)"
+        "path": "Brain/wiki/secure-lpms-case-management-2015.md",
+        "title": "LPMS Case Management — Sporting-Goods Chain Deployment (2015)"
       },
       {
         "path": "Brain/wiki/secure-platform-overview.md",
         "title": "Secure Platform Overview"
       },
       {
-        "path": "Brain/wiki/secure-tesco-tom-2006.md",
-        "title": "Tesco Operating Model — 2006 (IBM engagement)"
+        "path": "Brain/wiki/secure-property-services-operating-model-2002.md",
+        "title": "Property & Building Services Operating Model — 2002 (UK dept-store + grocery group)"
+      },
+      {
+        "path": "Brain/wiki/secure-retail-operating-model-2006.md",
+        "title": "Retail Operating Model — 2006 (IBM engagement, UK global grocer)"
       },
       {
         "path": "Brain/wiki/south-bay-wiki-architecture.md",
@@ -37393,8 +37677,8 @@
         "title": "Glossary"
       },
       {
-        "path": "Brain/wiki/secure-merchandising-rfp-evant-2003.md",
-        "title": "Merchandising System RFP — Evant Response for Lillian Vernon (Sept 2003)"
+        "path": "Brain/wiki/secure-merchandising-rfp-evant-response-2003.md",
+        "title": "Merchandising System RFP — Evant Response (Sept 2003)"
       },
       {
         "path": "Brain/wiki/secure-platform-overview.md",
@@ -37639,8 +37923,8 @@
     ],
     "multi-channel": [
       {
-        "path": "Brain/wiki/secure-merchandising-rfp-evant-2003.md",
-        "title": "Merchandising System RFP — Evant Response for Lillian Vernon (Sept 2003)"
+        "path": "Brain/wiki/secure-merchandising-rfp-evant-response-2003.md",
+        "title": "Merchandising System RFP — Evant Response (Sept 2003)"
       }
     ],
     "multiple": [
@@ -38576,7 +38860,7 @@
       },
       {
         "path": "Brain/wiki/secure-sysrepublic-xbr-2016.md",
-        "title": "Lululemon xBR Replacement — Sysrepublic Functional Requirements Response (June 2016)"
+        "title": "xBR Replacement — Sysrepublic Functional Requirements Response (June 2016)"
       }
     ],
     "notarization": [
@@ -38768,11 +39052,11 @@
       },
       {
         "path": "Brain/wiki/secure-sysrepublic-xbr-2016.md",
-        "title": "Lululemon xBR Replacement — Sysrepublic Functional Requirements Response (June 2016)"
+        "title": "xBR Replacement — Sysrepublic Functional Requirements Response (June 2016)"
       },
       {
-        "path": "Brain/wiki/secure-tiger-property-it.md",
-        "title": "Tiger (US) — Property IT Requirements Discussion Document"
+        "path": "Brain/wiki/secure-us-property-it-scoping.md",
+        "title": "US Property IT Requirements — Scoping Document (IBM, pre-Secure)"
       }
     ],
     "notice": [
@@ -38829,6 +39113,12 @@
       {
         "path": "Brain/wiki/secure-eagle-eye-fnr-2018.md",
         "title": "Eagle Eye — Functional & Non-Functional Requirements v4.0 (Feb 2018, NS Comments)"
+      }
+    ],
+    "number": [
+      {
+        "path": "Brain/wiki/canary-fox-case-management.md",
+        "title": "Canary Fox Case Management"
       }
     ],
     "numbering": [
@@ -38977,18 +39267,6 @@
         "title": "Secure Architecture"
       }
     ],
-    "ollie's": [
-      {
-        "path": "Brain/wiki/secure-5-inventory.md",
-        "title": "Secure 5 Inventory"
-      }
-    ],
-    "ollies": [
-      {
-        "path": "Brain/wiki/secure-5-inventory.md",
-        "title": "Secure 5 Inventory"
-      }
-    ],
     "olmsted": [
       {
         "path": "Brain/wiki/abalonecove-org.md",
@@ -39061,8 +39339,8 @@
         "title": "The Data Model"
       },
       {
-        "path": "Brain/wiki/secure-tesco-tom-2006.md",
-        "title": "Tesco Operating Model — 2006 (IBM engagement)"
+        "path": "Brain/wiki/secure-retail-operating-model-2006.md",
+        "title": "Retail Operating Model — 2006 (IBM engagement, UK global grocer)"
       }
     ],
     "onward": [
@@ -39186,23 +39464,23 @@
       },
       {
         "path": "Brain/wiki/secure-dsd-ired-analytics.md",
-        "title": "Secure DSD iRED Analytics — FnE Annual Summary"
+        "title": "Secure DSD iRED Analytics — US Grocery Chain Annual Summary"
       },
       {
         "path": "Brain/wiki/secure-eagle-eye-fnr-2018.md",
         "title": "Eagle Eye — Functional & Non-Functional Requirements v4.0 (Feb 2018, NS Comments)"
       },
       {
-        "path": "Brain/wiki/secure-lpms-case-management-dsg-2015.md",
-        "title": "LPMS Case Management — Dick's Sporting Goods (2015)"
+        "path": "Brain/wiki/secure-lpms-case-management-2015.md",
+        "title": "LPMS Case Management — Sporting-Goods Chain Deployment (2015)"
       },
       {
         "path": "Brain/wiki/secure-sysrepublic-xbr-2016.md",
-        "title": "Lululemon xBR Replacement — Sysrepublic Functional Requirements Response (June 2016)"
+        "title": "xBR Replacement — Sysrepublic Functional Requirements Response (June 2016)"
       },
       {
-        "path": "Brain/wiki/secure-tiger-property-it.md",
-        "title": "Tiger (US) — Property IT Requirements Discussion Document"
+        "path": "Brain/wiki/secure-us-property-it-scoping.md",
+        "title": "US Property IT Requirements — Scoping Document (IBM, pre-Secure)"
       },
       {
         "path": "Brain/wiki/wpbca-investment-policy.md",
@@ -39267,18 +39545,22 @@
         "title": "The Team"
       },
       {
-        "path": "Brain/wiki/secure-jlp-property-services-2002.md",
-        "title": "John Lewis Partnership — Property & Building Services Operating Model (2002)"
+        "path": "Brain/wiki/secure-property-services-operating-model-2002.md",
+        "title": "Property & Building Services Operating Model — 2002 (UK dept-store + grocery group)"
       },
       {
-        "path": "Brain/wiki/secure-tesco-tom-2006.md",
-        "title": "Tesco Operating Model — 2006 (IBM engagement)"
+        "path": "Brain/wiki/secure-retail-operating-model-2006.md",
+        "title": "Retail Operating Model — 2006 (IBM engagement, UK global grocer)"
       }
     ],
     "operating-model": [
       {
-        "path": "Brain/wiki/secure-tesco-tom-2006.md",
-        "title": "Tesco Operating Model — 2006 (IBM engagement)"
+        "path": "Brain/wiki/secure-property-services-operating-model-2002.md",
+        "title": "Property & Building Services Operating Model — 2002 (UK dept-store + grocery group)"
+      },
+      {
+        "path": "Brain/wiki/secure-retail-operating-model-2006.md",
+        "title": "Retail Operating Model — 2006 (IBM engagement, UK global grocer)"
       }
     ],
     "operation": [
@@ -39325,8 +39607,8 @@
         "title": "Protection"
       },
       {
-        "path": "Brain/wiki/secure-lpms-case-management-dsg-2015.md",
-        "title": "LPMS Case Management — Dick's Sporting Goods (2015)"
+        "path": "Brain/wiki/secure-lpms-case-management-2015.md",
+        "title": "LPMS Case Management — Sporting-Goods Chain Deployment (2015)"
       },
       {
         "path": "Brain/wiki/wpbca-investment-policy.md",
@@ -39371,8 +39653,8 @@
         "title": "GrowDirect Workflow"
       },
       {
-        "path": "Brain/wiki/secure-tesco-tom-2006.md",
-        "title": "Tesco Operating Model — 2006 (IBM engagement)"
+        "path": "Brain/wiki/secure-retail-operating-model-2006.md",
+        "title": "Retail Operating Model — 2006 (IBM engagement, UK global grocer)"
       },
       {
         "path": "Brain/wiki/wpbca-compliance-framework.md",
@@ -39517,8 +39799,8 @@
     ],
     "ordering": [
       {
-        "path": "Brain/wiki/secure-tesco-tom-2006.md",
-        "title": "Tesco Operating Model — 2006 (IBM engagement)"
+        "path": "Brain/wiki/secure-retail-operating-model-2006.md",
+        "title": "Retail Operating Model — 2006 (IBM engagement, UK global grocer)"
       }
     ],
     "orders": [
@@ -39589,8 +39871,8 @@
     ],
     "organisational": [
       {
-        "path": "Brain/wiki/secure-jlp-property-services-2002.md",
-        "title": "John Lewis Partnership — Property & Building Services Operating Model (2002)"
+        "path": "Brain/wiki/secure-property-services-operating-model-2002.md",
+        "title": "Property & Building Services Operating Model — 2002 (UK dept-store + grocery group)"
       }
     ],
     "organization": [
@@ -40407,10 +40689,6 @@
       {
         "path": "Brain/wiki/cove-pvplc-partnership.md",
         "title": "PVPLC — Partnership for Sub Region 4 Implementation"
-      },
-      {
-        "path": "Brain/wiki/secure-jlp-property-services-2002.md",
-        "title": "John Lewis Partnership — Property & Building Services Operating Model (2002)"
       }
     ],
     "parts": [
@@ -40651,6 +40929,10 @@
       {
         "path": "Brain/wiki/growdirect-white-paper-quant-peer-review.md",
         "title": "**Executive Summary: The Quant’s Verdict**"
+      },
+      {
+        "path": "Brain/wiki/secure-dsd-ired-analytics.md",
+        "title": "Secure DSD iRED Analytics — US Grocery Chain Annual Summary"
       }
     ],
     "patterns": [
@@ -40865,8 +41147,8 @@
         "title": "Community History"
       },
       {
-        "path": "Brain/wiki/secure-tesco-tom-2006.md",
-        "title": "Tesco Operating Model — 2006 (IBM engagement)"
+        "path": "Brain/wiki/secure-retail-operating-model-2006.md",
+        "title": "Retail Operating Model — 2006 (IBM engagement, UK global grocer)"
       }
     ],
     "performance": [
@@ -41233,6 +41515,10 @@
         "title": "Canary Detection Engine"
       },
       {
+        "path": "Brain/wiki/canary-tsp-pipeline.md",
+        "title": "Canary TSP Pipeline"
+      },
+      {
         "path": "Brain/wiki/document-management.md",
         "title": "Document Management Strategy"
       },
@@ -41455,8 +41741,8 @@
         "title": "RPV Planning Framework — What Controls WPBCA (2026 Synthesis)"
       },
       {
-        "path": "Brain/wiki/secure-jlp-property-services-2002.md",
-        "title": "John Lewis Partnership — Property & Building Services Operating Model (2002)"
+        "path": "Brain/wiki/secure-property-services-operating-model-2002.md",
+        "title": "Property & Building Services Operating Model — 2002 (UK dept-store + grocery group)"
       }
     ],
     "plat": [
@@ -41667,6 +41953,10 @@
         "title": "PV Drive South — Content Pool (Raw)"
       },
       {
+        "path": "Brain/wiki/canary-tsp-pipeline.md",
+        "title": "Canary TSP Pipeline"
+      },
+      {
         "path": "Brain/wiki/growdirect-data-strategy.md",
         "title": "Canary Data Strategy — North Star"
       },
@@ -41685,6 +41975,20 @@
       {
         "path": "Brain/wiki/growdirect-sales-socal-lead-database.md",
         "title": "Canary SoCal Lead Database v1.0"
+      }
+    ],
+    "pointers": [
+      {
+        "path": "Brain/wiki/canary-chirp-rules.md",
+        "title": "Canary Chirp Rules"
+      },
+      {
+        "path": "Brain/wiki/canary-fox-case-management.md",
+        "title": "Canary Fox Case Management"
+      },
+      {
+        "path": "Brain/wiki/canary-tsp-pipeline.md",
+        "title": "Canary TSP Pipeline"
       }
     ],
     "points": [
@@ -41921,8 +42225,8 @@
     ],
     "portfolio": [
       {
-        "path": "Brain/wiki/secure-jlp-property-services-2002.md",
-        "title": "John Lewis Partnership — Property & Building Services Operating Model (2002)"
+        "path": "Brain/wiki/secure-property-services-operating-model-2002.md",
+        "title": "Property & Building Services Operating Model — 2002 (UK dept-store + grocery group)"
       }
     ],
     "portuguese": [
@@ -42016,7 +42320,7 @@
       },
       {
         "path": "Brain/wiki/secure-sysrepublic-xbr-2016.md",
-        "title": "Lululemon xBR Replacement — Sysrepublic Functional Requirements Response (June 2016)"
+        "title": "xBR Replacement — Sysrepublic Functional Requirements Response (June 2016)"
       }
     ],
     "positions": [
@@ -42136,27 +42440,27 @@
     "pre-secure": [
       {
         "path": "Brain/wiki/secure-dv-private-label-2006.md",
-        "title": "Private Label Food Setup — USA Design Validation Workshop (Aug 2006)"
+        "title": "Private Label Food Setup — US Design Validation Workshop (Aug 2006)"
       },
       {
         "path": "Brain/wiki/secure-integrated-maps-2003.md",
         "title": "Integrated Maps — Retail Hardlines Solution Landscape (2003/04)"
       },
       {
-        "path": "Brain/wiki/secure-jlp-property-services-2002.md",
-        "title": "John Lewis Partnership — Property & Building Services Operating Model (2002)"
+        "path": "Brain/wiki/secure-merchandising-rfp-evant-response-2003.md",
+        "title": "Merchandising System RFP — Evant Response (Sept 2003)"
       },
       {
-        "path": "Brain/wiki/secure-merchandising-rfp-evant-2003.md",
-        "title": "Merchandising System RFP — Evant Response for Lillian Vernon (Sept 2003)"
+        "path": "Brain/wiki/secure-property-services-operating-model-2002.md",
+        "title": "Property & Building Services Operating Model — 2002 (UK dept-store + grocery group)"
       },
       {
-        "path": "Brain/wiki/secure-tesco-tom-2006.md",
-        "title": "Tesco Operating Model — 2006 (IBM engagement)"
+        "path": "Brain/wiki/secure-retail-operating-model-2006.md",
+        "title": "Retail Operating Model — 2006 (IBM engagement, UK global grocer)"
       },
       {
-        "path": "Brain/wiki/secure-tiger-property-it.md",
-        "title": "Tiger (US) — Property IT Requirements Discussion Document"
+        "path": "Brain/wiki/secure-us-property-it-scoping.md",
+        "title": "US Property IT Requirements — Scoping Document (IBM, pre-Secure)"
       }
     ],
     "precedent": [
@@ -42347,6 +42651,12 @@
       {
         "path": "Brain/wiki/cove-case-law-lessons.md",
         "title": "Case-Law Synthesis — Rules That Bind WPBCA"
+      }
+    ],
+    "presets": [
+      {
+        "path": "Brain/wiki/canary-chirp-rules.md",
+        "title": "Canary Chirp Rules"
       }
     ],
     "press": [
@@ -42610,7 +42920,7 @@
       },
       {
         "path": "Brain/wiki/secure-dv-private-label-2006.md",
-        "title": "Private Label Food Setup — USA Design Validation Workshop (Aug 2006)"
+        "title": "Private Label Food Setup — US Design Validation Workshop (Aug 2006)"
       },
       {
         "path": "Brain/wiki/wpbca-ocean-path-easement.md",
@@ -42626,7 +42936,7 @@
     "private-label": [
       {
         "path": "Brain/wiki/secure-dv-private-label-2006.md",
-        "title": "Private Label Food Setup — USA Design Validation Workshop (Aug 2006)"
+        "title": "Private Label Food Setup — US Design Validation Workshop (Aug 2006)"
       }
     ],
     "problem": [
@@ -42785,8 +43095,8 @@
         "title": "Secure Architecture"
       },
       {
-        "path": "Brain/wiki/secure-jlp-property-services-2002.md",
-        "title": "John Lewis Partnership — Property & Building Services Operating Model (2002)"
+        "path": "Brain/wiki/secure-property-services-operating-model-2002.md",
+        "title": "Property & Building Services Operating Model — 2002 (UK dept-store + grocery group)"
       }
     ],
     "processor": [
@@ -42801,8 +43111,8 @@
         "title": "Secure Client: Kroger"
       },
       {
-        "path": "Brain/wiki/secure-jlp-property-services-2002.md",
-        "title": "John Lewis Partnership — Property & Building Services Operating Model (2002)"
+        "path": "Brain/wiki/secure-property-services-operating-model-2002.md",
+        "title": "Property & Building Services Operating Model — 2002 (UK dept-store + grocery group)"
       }
     ],
     "produce": [
@@ -42874,7 +43184,7 @@
       },
       {
         "path": "Brain/wiki/secure-dv-private-label-2006.md",
-        "title": "Private Label Food Setup — USA Design Validation Workshop (Aug 2006)"
+        "title": "Private Label Food Setup — US Design Validation Workshop (Aug 2006)"
       },
       {
         "path": "Brain/wiki/secure-platform-overview.md",
@@ -42882,7 +43192,7 @@
       },
       {
         "path": "Brain/wiki/secure-sysrepublic-xbr-2016.md",
-        "title": "Lululemon xBR Replacement — Sysrepublic Functional Requirements Response (June 2016)"
+        "title": "xBR Replacement — Sysrepublic Functional Requirements Response (June 2016)"
       }
     ],
     "product-line": [
@@ -42921,6 +43231,12 @@
       {
         "path": "Brain/wiki/angel-voice-training.md",
         "title": "Angel Voice Training"
+      }
+    ],
+    "professional-managed-hoa": [
+      {
+        "path": "Brain/wiki/reference-hoa-disclosure-sample-2018.md",
+        "title": "Reference — HOA Disclosure Documents (Sample, 2018)"
       }
     ],
     "profile": [
@@ -43145,28 +43461,22 @@
         "title": "25 Seacove Drive — Project Overview"
       },
       {
-        "path": "Brain/wiki/secure-jlp-property-services-2002.md",
-        "title": "John Lewis Partnership — Property & Building Services Operating Model (2002)"
+        "path": "Brain/wiki/secure-property-services-operating-model-2002.md",
+        "title": "Property & Building Services Operating Model — 2002 (UK dept-store + grocery group)"
       },
       {
-        "path": "Brain/wiki/secure-tesco-tom-2006.md",
-        "title": "Tesco Operating Model — 2006 (IBM engagement)"
+        "path": "Brain/wiki/secure-retail-operating-model-2006.md",
+        "title": "Retail Operating Model — 2006 (IBM engagement, UK global grocer)"
       },
       {
-        "path": "Brain/wiki/secure-tiger-property-it.md",
-        "title": "Tiger (US) — Property IT Requirements Discussion Document"
-      }
-    ],
-    "property-it": [
-      {
-        "path": "Brain/wiki/secure-tiger-property-it.md",
-        "title": "Tiger (US) — Property IT Requirements Discussion Document"
+        "path": "Brain/wiki/secure-us-property-it-scoping.md",
+        "title": "US Property IT Requirements — Scoping Document (IBM, pre-Secure)"
       }
     ],
     "property-services": [
       {
-        "path": "Brain/wiki/secure-jlp-property-services-2002.md",
-        "title": "John Lewis Partnership — Property & Building Services Operating Model (2002)"
+        "path": "Brain/wiki/secure-property-services-operating-model-2002.md",
+        "title": "Property & Building Services Operating Model — 2002 (UK dept-store + grocery group)"
       }
     ],
     "property.": [
@@ -43207,8 +43517,8 @@
         "title": "0 Clipper Road"
       },
       {
-        "path": "Brain/wiki/secure-merchandising-rfp-evant-2003.md",
-        "title": "Merchandising System RFP — Evant Response for Lillian Vernon (Sept 2003)"
+        "path": "Brain/wiki/secure-merchandising-rfp-evant-response-2003.md",
+        "title": "Merchandising System RFP — Evant Response (Sept 2003)"
       }
     ],
     "proposed:": [
@@ -43882,11 +44192,11 @@
       },
       {
         "path": "Brain/wiki/secure-dsd-ired-analytics.md",
-        "title": "Secure DSD iRED Analytics — FnE Annual Summary"
+        "title": "Secure DSD iRED Analytics — US Grocery Chain Annual Summary"
       },
       {
-        "path": "Brain/wiki/secure-tiger-property-it.md",
-        "title": "Tiger (US) — Property IT Requirements Discussion Document"
+        "path": "Brain/wiki/secure-us-property-it-scoping.md",
+        "title": "US Property IT Requirements — Scoping Document (IBM, pre-Secure)"
       }
     ],
     "queue": [
@@ -43967,8 +44277,8 @@
     ],
     "raci": [
       {
-        "path": "Brain/wiki/secure-jlp-property-services-2002.md",
-        "title": "John Lewis Partnership — Property & Building Services Operating Model (2002)"
+        "path": "Brain/wiki/secure-property-services-operating-model-2002.md",
+        "title": "Property & Building Services Operating Model — 2002 (UK dept-store + grocery group)"
       }
     ],
     "racial": [
@@ -44037,8 +44347,8 @@
         "title": "The Fee Window"
       },
       {
-        "path": "Brain/wiki/secure-tesco-tom-2006.md",
-        "title": "Tesco Operating Model — 2006 (IBM engagement)"
+        "path": "Brain/wiki/secure-retail-operating-model-2006.md",
+        "title": "Retail Operating Model — 2006 (IBM engagement, UK global grocer)"
       }
     ],
     "ranges**": [
@@ -44337,6 +44647,10 @@
         "title": "West Palos Verdes — Content Pool (Raw)"
       },
       {
+        "path": "Brain/wiki/canary-chirp-rules.md",
+        "title": "Canary Chirp Rules"
+      },
+      {
         "path": "Brain/wiki/card-pvhs-drama.md",
         "title": "PV High School Drama — \"Best Entertainment Value in LA\""
       },
@@ -44403,8 +44717,8 @@
     ],
     "recap": [
       {
-        "path": "Brain/wiki/secure-lpms-case-management-dsg-2015.md",
-        "title": "LPMS Case Management — Dick's Sporting Goods (2015)"
+        "path": "Brain/wiki/secure-lpms-case-management-2015.md",
+        "title": "LPMS Case Management — Sporting-Goods Chain Deployment (2015)"
       }
     ],
     "receipt": [
@@ -44845,14 +45159,14 @@
         "title": "Secure Architecture"
       },
       {
-        "path": "Brain/wiki/secure-lpms-case-management-dsg-2015.md",
-        "title": "LPMS Case Management — Dick's Sporting Goods (2015)"
+        "path": "Brain/wiki/secure-lpms-case-management-2015.md",
+        "title": "LPMS Case Management — Sporting-Goods Chain Deployment (2015)"
       }
     ],
     "reference-data": [
       {
-        "path": "Brain/wiki/secure-lpms-case-management-dsg-2015.md",
-        "title": "LPMS Case Management — Dick's Sporting Goods (2015)"
+        "path": "Brain/wiki/secure-lpms-case-management-2015.md",
+        "title": "LPMS Case Management — Sporting-Goods Chain Deployment (2015)"
       }
     ],
     "reference-library": [
@@ -45197,6 +45511,10 @@
         "title": "Canary Architecture"
       },
       {
+        "path": "Brain/wiki/canary-chirp-rules.md",
+        "title": "Canary Chirp Rules"
+      },
+      {
         "path": "Brain/wiki/canary-data-model.md",
         "title": "Canary Data Model"
       },
@@ -45205,12 +45523,20 @@
         "title": "Canary Detection Engine"
       },
       {
+        "path": "Brain/wiki/canary-fox-case-management.md",
+        "title": "Canary Fox Case Management"
+      },
+      {
         "path": "Brain/wiki/canary-platform-overview.md",
         "title": "Canary — Platform Overview"
       },
       {
         "path": "Brain/wiki/canary-sales-strategy.md",
         "title": "Canary Sales Strategy"
+      },
+      {
+        "path": "Brain/wiki/canary-tsp-pipeline.md",
+        "title": "Canary TSP Pipeline"
       },
       {
         "path": "Brain/wiki/card-coach-ken-taylor.md",
@@ -45818,11 +46144,11 @@
       },
       {
         "path": "Brain/wiki/secure-dsd-ired-analytics.md",
-        "title": "Secure DSD iRED Analytics — FnE Annual Summary"
+        "title": "Secure DSD iRED Analytics — US Grocery Chain Annual Summary"
       },
       {
         "path": "Brain/wiki/secure-dv-private-label-2006.md",
-        "title": "Private Label Food Setup — USA Design Validation Workshop (Aug 2006)"
+        "title": "Private Label Food Setup — US Design Validation Workshop (Aug 2006)"
       },
       {
         "path": "Brain/wiki/secure-eagle-eye-fnr-2018.md",
@@ -45833,20 +46159,16 @@
         "title": "Integrated Maps — Retail Hardlines Solution Landscape (2003/04)"
       },
       {
-        "path": "Brain/wiki/secure-jlp-property-services-2002.md",
-        "title": "John Lewis Partnership — Property & Building Services Operating Model (2002)"
-      },
-      {
         "path": "Brain/wiki/secure-lite.md",
         "title": "Secure Lite"
       },
       {
-        "path": "Brain/wiki/secure-lpms-case-management-dsg-2015.md",
-        "title": "LPMS Case Management — Dick's Sporting Goods (2015)"
+        "path": "Brain/wiki/secure-lpms-case-management-2015.md",
+        "title": "LPMS Case Management — Sporting-Goods Chain Deployment (2015)"
       },
       {
-        "path": "Brain/wiki/secure-merchandising-rfp-evant-2003.md",
-        "title": "Merchandising System RFP — Evant Response for Lillian Vernon (Sept 2003)"
+        "path": "Brain/wiki/secure-merchandising-rfp-evant-response-2003.md",
+        "title": "Merchandising System RFP — Evant Response (Sept 2003)"
       },
       {
         "path": "Brain/wiki/secure-omnichannel.md",
@@ -45857,20 +46179,24 @@
         "title": "Secure Platform Overview"
       },
       {
+        "path": "Brain/wiki/secure-property-services-operating-model-2002.md",
+        "title": "Property & Building Services Operating Model — 2002 (UK dept-store + grocery group)"
+      },
+      {
         "path": "Brain/wiki/secure-retail-career-archive.md",
         "title": "Pre-Secure Retail Career Archive"
       },
       {
+        "path": "Brain/wiki/secure-retail-operating-model-2006.md",
+        "title": "Retail Operating Model — 2006 (IBM engagement, UK global grocer)"
+      },
+      {
         "path": "Brain/wiki/secure-sysrepublic-xbr-2016.md",
-        "title": "Lululemon xBR Replacement — Sysrepublic Functional Requirements Response (June 2016)"
+        "title": "xBR Replacement — Sysrepublic Functional Requirements Response (June 2016)"
       },
       {
-        "path": "Brain/wiki/secure-tesco-tom-2006.md",
-        "title": "Tesco Operating Model — 2006 (IBM engagement)"
-      },
-      {
-        "path": "Brain/wiki/secure-tiger-property-it.md",
-        "title": "Tiger (US) — Property IT Requirements Discussion Document"
+        "path": "Brain/wiki/secure-us-property-it-scoping.md",
+        "title": "US Property IT Requirements — Scoping Document (IBM, pre-Secure)"
       },
       {
         "path": "Brain/wiki/south-bay-wiki-architecture.md",
@@ -46064,7 +46390,7 @@
       },
       {
         "path": "Brain/wiki/secure-sysrepublic-xbr-2016.md",
-        "title": "Lululemon xBR Replacement — Sysrepublic Functional Requirements Response (June 2016)"
+        "title": "xBR Replacement — Sysrepublic Functional Requirements Response (June 2016)"
       }
     ],
     "reply": [
@@ -46095,8 +46421,8 @@
     ],
     "reporting": [
       {
-        "path": "Brain/wiki/secure-lpms-case-management-dsg-2015.md",
-        "title": "LPMS Case Management — Dick's Sporting Goods (2015)"
+        "path": "Brain/wiki/secure-lpms-case-management-2015.md",
+        "title": "LPMS Case Management — Sporting-Goods Chain Deployment (2015)"
       }
     ],
     "reports": [
@@ -46144,7 +46470,7 @@
     "requirement": [
       {
         "path": "Brain/wiki/secure-sysrepublic-xbr-2016.md",
-        "title": "Lululemon xBR Replacement — Sysrepublic Functional Requirements Response (June 2016)"
+        "title": "xBR Replacement — Sysrepublic Functional Requirements Response (June 2016)"
       }
     ],
     "requirements": [
@@ -46182,11 +46508,11 @@
       },
       {
         "path": "Brain/wiki/secure-sysrepublic-xbr-2016.md",
-        "title": "Lululemon xBR Replacement — Sysrepublic Functional Requirements Response (June 2016)"
+        "title": "xBR Replacement — Sysrepublic Functional Requirements Response (June 2016)"
       },
       {
-        "path": "Brain/wiki/secure-tiger-property-it.md",
-        "title": "Tiger (US) — Property IT Requirements Discussion Document"
+        "path": "Brain/wiki/secure-us-property-it-scoping.md",
+        "title": "US Property IT Requirements — Scoping Document (IBM, pre-Secure)"
       }
     ],
     "rescue": [
@@ -46405,6 +46731,10 @@
     ],
     "resolution": [
       {
+        "path": "Brain/wiki/canary-chirp-rules.md",
+        "title": "Canary Chirp Rules"
+      },
+      {
         "path": "Brain/wiki/cove-declaration-100-scope-open.md",
         "title": "Declaration 100 Scope — The Open Question"
       },
@@ -46481,18 +46811,18 @@
     ],
     "response": [
       {
-        "path": "Brain/wiki/secure-merchandising-rfp-evant-2003.md",
-        "title": "Merchandising System RFP — Evant Response for Lillian Vernon (Sept 2003)"
+        "path": "Brain/wiki/secure-merchandising-rfp-evant-response-2003.md",
+        "title": "Merchandising System RFP — Evant Response (Sept 2003)"
       },
       {
         "path": "Brain/wiki/secure-sysrepublic-xbr-2016.md",
-        "title": "Lululemon xBR Replacement — Sysrepublic Functional Requirements Response (June 2016)"
+        "title": "xBR Replacement — Sysrepublic Functional Requirements Response (June 2016)"
       }
     ],
     "responses": [
       {
         "path": "Brain/wiki/secure-sysrepublic-xbr-2016.md",
-        "title": "Lululemon xBR Replacement — Sysrepublic Functional Requirements Response (June 2016)"
+        "title": "xBR Replacement — Sysrepublic Functional Requirements Response (June 2016)"
       }
     ],
     "restated": [
@@ -46651,8 +46981,8 @@
         "title": "Integrated Maps — Retail Hardlines Solution Landscape (2003/04)"
       },
       {
-        "path": "Brain/wiki/secure-merchandising-rfp-evant-2003.md",
-        "title": "Merchandising System RFP — Evant Response for Lillian Vernon (Sept 2003)"
+        "path": "Brain/wiki/secure-merchandising-rfp-evant-response-2003.md",
+        "title": "Merchandising System RFP — Evant Response (Sept 2003)"
       },
       {
         "path": "Brain/wiki/secure-omnichannel.md",
@@ -46667,38 +46997,38 @@
         "title": "Pre-Secure Retail Career Archive"
       },
       {
-        "path": "Brain/wiki/secure-tesco-tom-2006.md",
-        "title": "Tesco Operating Model — 2006 (IBM engagement)"
+        "path": "Brain/wiki/secure-retail-operating-model-2006.md",
+        "title": "Retail Operating Model — 2006 (IBM engagement, UK global grocer)"
       }
     ],
     "retail-career": [
       {
         "path": "Brain/wiki/secure-dv-private-label-2006.md",
-        "title": "Private Label Food Setup — USA Design Validation Workshop (Aug 2006)"
+        "title": "Private Label Food Setup — US Design Validation Workshop (Aug 2006)"
       },
       {
         "path": "Brain/wiki/secure-integrated-maps-2003.md",
         "title": "Integrated Maps — Retail Hardlines Solution Landscape (2003/04)"
       },
       {
-        "path": "Brain/wiki/secure-jlp-property-services-2002.md",
-        "title": "John Lewis Partnership — Property & Building Services Operating Model (2002)"
+        "path": "Brain/wiki/secure-merchandising-rfp-evant-response-2003.md",
+        "title": "Merchandising System RFP — Evant Response (Sept 2003)"
       },
       {
-        "path": "Brain/wiki/secure-merchandising-rfp-evant-2003.md",
-        "title": "Merchandising System RFP — Evant Response for Lillian Vernon (Sept 2003)"
+        "path": "Brain/wiki/secure-property-services-operating-model-2002.md",
+        "title": "Property & Building Services Operating Model — 2002 (UK dept-store + grocery group)"
       },
       {
         "path": "Brain/wiki/secure-retail-career-archive.md",
         "title": "Pre-Secure Retail Career Archive"
       },
       {
-        "path": "Brain/wiki/secure-tesco-tom-2006.md",
-        "title": "Tesco Operating Model — 2006 (IBM engagement)"
+        "path": "Brain/wiki/secure-retail-operating-model-2006.md",
+        "title": "Retail Operating Model — 2006 (IBM engagement, UK global grocer)"
       },
       {
-        "path": "Brain/wiki/secure-tiger-property-it.md",
-        "title": "Tiger (US) — Property IT Requirements Discussion Document"
+        "path": "Brain/wiki/secure-us-property-it-scoping.md",
+        "title": "US Property IT Requirements — Scoping Document (IBM, pre-Secure)"
       }
     ],
     "retail-hardlines": [
@@ -46717,6 +47047,12 @@
       {
         "path": "Brain/wiki/reference-oracle-project-costing.md",
         "title": "Oracle Project Costing — User Guide, Release 11i (May 2005)"
+      }
+    ],
+    "retailer": [
+      {
+        "path": "Brain/wiki/secure-5-inventory.md",
+        "title": "Secure 5 Inventory"
       }
     ],
     "retailnext": [
@@ -46852,7 +47188,7 @@
       },
       {
         "path": "Brain/wiki/secure-dsd-ired-analytics.md",
-        "title": "Secure DSD iRED Analytics — FnE Annual Summary"
+        "title": "Secure DSD iRED Analytics — US Grocery Chain Annual Summary"
       },
       {
         "path": "Brain/wiki/secure-eagle-eye-fnr-2018.md",
@@ -46923,8 +47259,8 @@
     ],
     "rfp": [
       {
-        "path": "Brain/wiki/secure-merchandising-rfp-evant-2003.md",
-        "title": "Merchandising System RFP — Evant Response for Lillian Vernon (Sept 2003)"
+        "path": "Brain/wiki/secure-merchandising-rfp-evant-response-2003.md",
+        "title": "Merchandising System RFP — Evant Response (Sept 2003)"
       }
     ],
     "rhcc": [
@@ -46987,12 +47323,6 @@
         "title": "How We Build"
       }
     ],
-    "richard": [
-      {
-        "path": "Brain/wiki/secure-tesco-tom-2006.md",
-        "title": "Tesco Operating Model — 2006 (IBM engagement)"
-      }
-    ],
     "riding": [
       {
         "path": "Brain/wiki/angel-peninsula-equestrian-guide.md",
@@ -47032,6 +47362,10 @@
       }
     ],
     "risk": [
+      {
+        "path": "Brain/wiki/canary-chirp-rules.md",
+        "title": "Canary Chirp Rules"
+      },
       {
         "path": "Brain/wiki/coac-restated-declaration-blitz-plan.md",
         "title": "Restated Declaration — Blitz Execution Plan"
@@ -47079,6 +47413,12 @@
       {
         "path": "Brain/wiki/growdirect-research-cannabis-retail-risk.md",
         "title": "Cannabis Retail Risk Dictionary & Integration Spec"
+      }
+    ],
+    "risk-scoring": [
+      {
+        "path": "Brain/wiki/canary-chirp-rules.md",
+        "title": "Canary Chirp Rules"
       }
     ],
     "risk:": [
@@ -47497,6 +47837,10 @@
         "title": "Canary Alerts — A Plain-English Guide"
       },
       {
+        "path": "Brain/wiki/canary-chirp-rules.md",
+        "title": "Canary Chirp Rules"
+      },
+      {
         "path": "Brain/wiki/canary-detection.md",
         "title": "Canary Detection Engine"
       },
@@ -47521,6 +47865,10 @@
       {
         "path": "Brain/wiki/canary-alerts-guide.md",
         "title": "Canary Alerts — A Plain-English Guide"
+      },
+      {
+        "path": "Brain/wiki/canary-chirp-rules.md",
+        "title": "Canary Chirp Rules"
       },
       {
         "path": "Brain/wiki/canary-detection.md",
@@ -47776,11 +48124,11 @@
       },
       {
         "path": "Brain/wiki/secure-dsd-ired-analytics.md",
-        "title": "Secure DSD iRED Analytics — FnE Annual Summary"
+        "title": "Secure DSD iRED Analytics — US Grocery Chain Annual Summary"
       },
       {
-        "path": "Brain/wiki/secure-lpms-case-management-dsg-2015.md",
-        "title": "LPMS Case Management — Dick's Sporting Goods (2015)"
+        "path": "Brain/wiki/secure-lpms-case-management-2015.md",
+        "title": "LPMS Case Management — Sporting-Goods Chain Deployment (2015)"
       }
     ],
     "san-pedro": [
@@ -47913,6 +48261,10 @@
       {
         "path": "Brain/wiki/angel-data-platform.md",
         "title": "Angel Data Platform"
+      },
+      {
+        "path": "Brain/wiki/canary-tsp-pipeline.md",
+        "title": "Canary TSP Pipeline"
       },
       {
         "path": "Brain/wiki/growdirect-attack-plan.md",
@@ -48125,6 +48477,12 @@
         "title": "Endangered Species Constraints — Species → Trigger → Project Map"
       }
     ],
+    "scoping": [
+      {
+        "path": "Brain/wiki/secure-us-property-it-scoping.md",
+        "title": "US Property IT Requirements — Scoping Document (IBM, pre-Secure)"
+      }
+    ],
     "score": [
       {
         "path": "Brain/wiki/growdirect-white-paper-quant-peer-review.md",
@@ -48132,6 +48490,10 @@
       }
     ],
     "scoring": [
+      {
+        "path": "Brain/wiki/canary-chirp-rules.md",
+        "title": "Canary Chirp Rules"
+      },
       {
         "path": "Brain/wiki/growdirect-the-fox.md",
         "title": "The Fox — Case Management"
@@ -48334,11 +48696,11 @@
       },
       {
         "path": "Brain/wiki/secure-dsd-ired-analytics.md",
-        "title": "Secure DSD iRED Analytics — FnE Annual Summary"
+        "title": "Secure DSD iRED Analytics — US Grocery Chain Annual Summary"
       },
       {
         "path": "Brain/wiki/secure-dv-private-label-2006.md",
-        "title": "Private Label Food Setup — USA Design Validation Workshop (Aug 2006)"
+        "title": "Private Label Food Setup — US Design Validation Workshop (Aug 2006)"
       },
       {
         "path": "Brain/wiki/secure-eagle-eye-fnr-2018.md",
@@ -48349,20 +48711,16 @@
         "title": "Integrated Maps — Retail Hardlines Solution Landscape (2003/04)"
       },
       {
-        "path": "Brain/wiki/secure-jlp-property-services-2002.md",
-        "title": "John Lewis Partnership — Property & Building Services Operating Model (2002)"
-      },
-      {
         "path": "Brain/wiki/secure-lite.md",
         "title": "Secure Lite"
       },
       {
-        "path": "Brain/wiki/secure-lpms-case-management-dsg-2015.md",
-        "title": "LPMS Case Management — Dick's Sporting Goods (2015)"
+        "path": "Brain/wiki/secure-lpms-case-management-2015.md",
+        "title": "LPMS Case Management — Sporting-Goods Chain Deployment (2015)"
       },
       {
-        "path": "Brain/wiki/secure-merchandising-rfp-evant-2003.md",
-        "title": "Merchandising System RFP — Evant Response for Lillian Vernon (Sept 2003)"
+        "path": "Brain/wiki/secure-merchandising-rfp-evant-response-2003.md",
+        "title": "Merchandising System RFP — Evant Response (Sept 2003)"
       },
       {
         "path": "Brain/wiki/secure-omnichannel.md",
@@ -48373,20 +48731,24 @@
         "title": "Secure Platform Overview"
       },
       {
+        "path": "Brain/wiki/secure-property-services-operating-model-2002.md",
+        "title": "Property & Building Services Operating Model — 2002 (UK dept-store + grocery group)"
+      },
+      {
         "path": "Brain/wiki/secure-retail-career-archive.md",
         "title": "Pre-Secure Retail Career Archive"
       },
       {
+        "path": "Brain/wiki/secure-retail-operating-model-2006.md",
+        "title": "Retail Operating Model — 2006 (IBM engagement, UK global grocer)"
+      },
+      {
         "path": "Brain/wiki/secure-sysrepublic-xbr-2016.md",
-        "title": "Lululemon xBR Replacement — Sysrepublic Functional Requirements Response (June 2016)"
+        "title": "xBR Replacement — Sysrepublic Functional Requirements Response (June 2016)"
       },
       {
-        "path": "Brain/wiki/secure-tesco-tom-2006.md",
-        "title": "Tesco Operating Model — 2006 (IBM engagement)"
-      },
-      {
-        "path": "Brain/wiki/secure-tiger-property-it.md",
-        "title": "Tiger (US) — Property IT Requirements Discussion Document"
+        "path": "Brain/wiki/secure-us-property-it-scoping.md",
+        "title": "US Property IT Requirements — Scoping Document (IBM, pre-Secure)"
       },
       {
         "path": "Brain/projects/Secure.md",
@@ -48547,6 +48909,12 @@
         "title": "Case-Law Synthesis — Rules That Bind WPBCA"
       }
     ],
+    "sensitivity": [
+      {
+        "path": "Brain/wiki/canary-chirp-rules.md",
+        "title": "Canary Chirp Rules"
+      }
+    ],
     "sensormatic": [
       {
         "path": "Brain/wiki/growdirect-competitive-landscape.md",
@@ -48603,8 +48971,8 @@
     ],
     "sept": [
       {
-        "path": "Brain/wiki/secure-merchandising-rfp-evant-2003.md",
-        "title": "Merchandising System RFP — Evant Response for Lillian Vernon (Sept 2003)"
+        "path": "Brain/wiki/secure-merchandising-rfp-evant-response-2003.md",
+        "title": "Merchandising System RFP — Evant Response (Sept 2003)"
       }
     ],
     "sepulveda": [
@@ -48693,12 +49061,12 @@
         "title": "Chirp UDQ + Lightning Metering — Branch Strategy"
       },
       {
-        "path": "Brain/wiki/secure-jlp-property-services-2002.md",
-        "title": "John Lewis Partnership — Property & Building Services Operating Model (2002)"
+        "path": "Brain/wiki/secure-property-services-operating-model-2002.md",
+        "title": "Property & Building Services Operating Model — 2002 (UK dept-store + grocery group)"
       },
       {
-        "path": "Brain/wiki/secure-tesco-tom-2006.md",
-        "title": "Tesco Operating Model — 2006 (IBM engagement)"
+        "path": "Brain/wiki/secure-retail-operating-model-2006.md",
+        "title": "Retail Operating Model — 2006 (IBM engagement, UK global grocer)"
       }
     ],
     "servitudes": [
@@ -48776,7 +49144,7 @@
       },
       {
         "path": "Brain/wiki/secure-dsd-ired-analytics.md",
-        "title": "Secure DSD iRED Analytics — FnE Annual Summary"
+        "title": "Secure DSD iRED Analytics — US Grocery Chain Annual Summary"
       },
       {
         "path": "Brain/wiki/secure-eagle-eye-fnr-2018.md",
@@ -48793,12 +49161,6 @@
       {
         "path": "Brain/wiki/cove-rpv-safety-element-2018.md",
         "title": "COAC: RPV 2018 Safety Element — Annotated for Cove"
-      }
-    ],
-    "seth": [
-      {
-        "path": "Brain/wiki/secure-tesco-tom-2006.md",
-        "title": "Tesco Operating Model — 2006 (IBM engagement)"
       }
     ],
     "setting": [
@@ -48834,10 +49196,14 @@
       },
       {
         "path": "Brain/wiki/secure-dv-private-label-2006.md",
-        "title": "Private Label Food Setup — USA Design Validation Workshop (Aug 2006)"
+        "title": "Private Label Food Setup — US Design Validation Workshop (Aug 2006)"
       }
     ],
     "seven": [
+      {
+        "path": "Brain/wiki/canary-fox-case-management.md",
+        "title": "Canary Fox Case Management"
+      },
       {
         "path": "Brain/wiki/cove-csudh-field-guide.md",
         "title": "CSUDH Palos Verdes Field Guide (McNulty, 2012)"
@@ -49375,8 +49741,8 @@
         "title": "COAC: Palos Verdes Endangered Species & Habitat — Scientific Foundation"
       },
       {
-        "path": "Brain/wiki/secure-tiger-property-it.md",
-        "title": "Tiger (US) — Property IT Requirements Discussion Document"
+        "path": "Brain/wiki/secure-us-property-it-scoping.md",
+        "title": "US Property IT Requirements — Scoping Document (IBM, pre-Secure)"
       }
     ],
     "sites": [
@@ -49517,12 +49883,6 @@
         "title": "Declaration No. 100 — General Plan of Restrictions"
       }
     ],
-    "smith": [
-      {
-        "path": "Brain/wiki/secure-tesco-tom-2006.md",
-        "title": "Tesco Operating Model — 2006 (IBM engagement)"
-      }
-    ],
     "smoke": [
       {
         "path": "Brain/wiki/growdirect-timelog-jeremy-b076-wire-seed-mar01.md",
@@ -49543,8 +49903,8 @@
     ],
     "snapshots": [
       {
-        "path": "Brain/wiki/secure-lpms-case-management-dsg-2015.md",
-        "title": "LPMS Case Management — Dick's Sporting Goods (2015)"
+        "path": "Brain/wiki/secure-lpms-case-management-2015.md",
+        "title": "LPMS Case Management — Sporting-Goods Chain Deployment (2015)"
       }
     ],
     "socal": [
@@ -49771,8 +50131,8 @@
         "title": "GrowDirect Working Papers — Structure"
       },
       {
-        "path": "Brain/wiki/secure-lpms-case-management-dsg-2015.md",
-        "title": "LPMS Case Management — Dick's Sporting Goods (2015)"
+        "path": "Brain/wiki/secure-lpms-case-management-2015.md",
+        "title": "LPMS Case Management — Sporting-Goods Chain Deployment (2015)"
       }
     ],
     "source-document": [
@@ -49831,6 +50191,10 @@
         "title": "Canary Architecture"
       },
       {
+        "path": "Brain/wiki/canary-chirp-rules.md",
+        "title": "Canary Chirp Rules"
+      },
+      {
         "path": "Brain/wiki/canary-data-model.md",
         "title": "Canary Data Model"
       },
@@ -49839,8 +50203,16 @@
         "title": "Canary Detection Engine"
       },
       {
+        "path": "Brain/wiki/canary-fox-case-management.md",
+        "title": "Canary Fox Case Management"
+      },
+      {
         "path": "Brain/wiki/canary-sales-strategy.md",
         "title": "Canary Sales Strategy"
+      },
+      {
+        "path": "Brain/wiki/canary-tsp-pipeline.md",
+        "title": "Canary TSP Pipeline"
       },
       {
         "path": "Brain/wiki/card-coach-ken-taylor.md",
@@ -50304,11 +50676,11 @@
       },
       {
         "path": "Brain/wiki/secure-dsd-ired-analytics.md",
-        "title": "Secure DSD iRED Analytics — FnE Annual Summary"
+        "title": "Secure DSD iRED Analytics — US Grocery Chain Annual Summary"
       },
       {
         "path": "Brain/wiki/secure-dv-private-label-2006.md",
-        "title": "Private Label Food Setup — USA Design Validation Workshop (Aug 2006)"
+        "title": "Private Label Food Setup — US Design Validation Workshop (Aug 2006)"
       },
       {
         "path": "Brain/wiki/secure-eagle-eye-fnr-2018.md",
@@ -50319,20 +50691,16 @@
         "title": "Integrated Maps — Retail Hardlines Solution Landscape (2003/04)"
       },
       {
-        "path": "Brain/wiki/secure-jlp-property-services-2002.md",
-        "title": "John Lewis Partnership — Property & Building Services Operating Model (2002)"
-      },
-      {
         "path": "Brain/wiki/secure-lite.md",
         "title": "Secure Lite"
       },
       {
-        "path": "Brain/wiki/secure-lpms-case-management-dsg-2015.md",
-        "title": "LPMS Case Management — Dick's Sporting Goods (2015)"
+        "path": "Brain/wiki/secure-lpms-case-management-2015.md",
+        "title": "LPMS Case Management — Sporting-Goods Chain Deployment (2015)"
       },
       {
-        "path": "Brain/wiki/secure-merchandising-rfp-evant-2003.md",
-        "title": "Merchandising System RFP — Evant Response for Lillian Vernon (Sept 2003)"
+        "path": "Brain/wiki/secure-merchandising-rfp-evant-response-2003.md",
+        "title": "Merchandising System RFP — Evant Response (Sept 2003)"
       },
       {
         "path": "Brain/wiki/secure-omnichannel.md",
@@ -50343,20 +50711,24 @@
         "title": "Secure Platform Overview"
       },
       {
+        "path": "Brain/wiki/secure-property-services-operating-model-2002.md",
+        "title": "Property & Building Services Operating Model — 2002 (UK dept-store + grocery group)"
+      },
+      {
         "path": "Brain/wiki/secure-retail-career-archive.md",
         "title": "Pre-Secure Retail Career Archive"
       },
       {
+        "path": "Brain/wiki/secure-retail-operating-model-2006.md",
+        "title": "Retail Operating Model — 2006 (IBM engagement, UK global grocer)"
+      },
+      {
         "path": "Brain/wiki/secure-sysrepublic-xbr-2016.md",
-        "title": "Lululemon xBR Replacement — Sysrepublic Functional Requirements Response (June 2016)"
+        "title": "xBR Replacement — Sysrepublic Functional Requirements Response (June 2016)"
       },
       {
-        "path": "Brain/wiki/secure-tesco-tom-2006.md",
-        "title": "Tesco Operating Model — 2006 (IBM engagement)"
-      },
-      {
-        "path": "Brain/wiki/secure-tiger-property-it.md",
-        "title": "Tiger (US) — Property IT Requirements Discussion Document"
+        "path": "Brain/wiki/secure-us-property-it-scoping.md",
+        "title": "US Property IT Requirements — Scoping Document (IBM, pre-Secure)"
       }
     ],
     "sourcing": [
@@ -50477,8 +50849,8 @@
         "title": "Block Space as Write Access"
       },
       {
-        "path": "Brain/wiki/secure-tesco-tom-2006.md",
-        "title": "Tesco Operating Model — 2006 (IBM engagement)"
+        "path": "Brain/wiki/secure-retail-operating-model-2006.md",
+        "title": "Retail Operating Model — 2006 (IBM engagement, UK global grocer)"
       }
     ],
     "sparse/missing": [
@@ -50613,8 +50985,14 @@
     ],
     "sporting": [
       {
-        "path": "Brain/wiki/secure-lpms-case-management-dsg-2015.md",
-        "title": "LPMS Case Management — Dick's Sporting Goods (2015)"
+        "path": "Brain/wiki/secure-lpms-case-management-2015.md",
+        "title": "LPMS Case Management — Sporting-Goods Chain Deployment (2015)"
+      }
+    ],
+    "sporting-goods": [
+      {
+        "path": "Brain/wiki/secure-lpms-case-management-2015.md",
+        "title": "LPMS Case Management — Sporting-Goods Chain Deployment (2015)"
       }
     ],
     "sports": [
@@ -51359,8 +51737,12 @@
         "title": "Secure Client: Kroger"
       },
       {
+        "path": "Brain/wiki/secure-property-services-operating-model-2002.md",
+        "title": "Property & Building Services Operating Model — 2002 (UK dept-store + grocery group)"
+      },
+      {
         "path": "Brain/wiki/secure-sysrepublic-xbr-2016.md",
-        "title": "Lululemon xBR Replacement — Sysrepublic Functional Requirements Response (June 2016)"
+        "title": "xBR Replacement — Sysrepublic Functional Requirements Response (June 2016)"
       }
     ],
     "stores": [
@@ -51569,6 +51951,12 @@
       {
         "path": "Brain/wiki/growdirect-revenue.md",
         "title": "The Financial Model"
+      }
+    ],
+    "streams": [
+      {
+        "path": "Brain/wiki/canary-tsp-pipeline.md",
+        "title": "Canary TSP Pipeline"
       }
     ],
     "street": [
@@ -51915,8 +52303,8 @@
     ],
     "suite": [
       {
-        "path": "Brain/wiki/secure-merchandising-rfp-evant-2003.md",
-        "title": "Merchandising System RFP — Evant Response for Lillian Vernon (Sept 2003)"
+        "path": "Brain/wiki/secure-merchandising-rfp-evant-response-2003.md",
+        "title": "Merchandising System RFP — Evant Response (Sept 2003)"
       }
     ],
     "summaries": [
@@ -51931,8 +52319,8 @@
     ],
     "summarised": [
       {
-        "path": "Brain/wiki/secure-jlp-property-services-2002.md",
-        "title": "John Lewis Partnership — Property & Building Services Operating Model (2002)"
+        "path": "Brain/wiki/secure-property-services-operating-model-2002.md",
+        "title": "Property & Building Services Operating Model — 2002 (UK dept-store + grocery group)"
       }
     ],
     "summary": [
@@ -51973,6 +52361,10 @@
         "title": "Canary Architecture"
       },
       {
+        "path": "Brain/wiki/canary-chirp-rules.md",
+        "title": "Canary Chirp Rules"
+      },
+      {
         "path": "Brain/wiki/canary-data-model.md",
         "title": "Canary Data Model"
       },
@@ -51981,8 +52373,16 @@
         "title": "Canary Detection Engine"
       },
       {
+        "path": "Brain/wiki/canary-fox-case-management.md",
+        "title": "Canary Fox Case Management"
+      },
+      {
         "path": "Brain/wiki/canary-sales-strategy.md",
         "title": "Canary Sales Strategy"
+      },
+      {
+        "path": "Brain/wiki/canary-tsp-pipeline.md",
+        "title": "Canary TSP Pipeline"
       },
       {
         "path": "Brain/wiki/card-coach-ken-taylor.md",
@@ -52134,11 +52534,11 @@
       },
       {
         "path": "Brain/wiki/secure-dsd-ired-analytics.md",
-        "title": "Secure DSD iRED Analytics — FnE Annual Summary"
+        "title": "Secure DSD iRED Analytics — US Grocery Chain Annual Summary"
       },
       {
         "path": "Brain/wiki/secure-dv-private-label-2006.md",
-        "title": "Private Label Food Setup — USA Design Validation Workshop (Aug 2006)"
+        "title": "Private Label Food Setup — US Design Validation Workshop (Aug 2006)"
       },
       {
         "path": "Brain/wiki/secure-eagle-eye-fnr-2018.md",
@@ -52149,20 +52549,16 @@
         "title": "Integrated Maps — Retail Hardlines Solution Landscape (2003/04)"
       },
       {
-        "path": "Brain/wiki/secure-jlp-property-services-2002.md",
-        "title": "John Lewis Partnership — Property & Building Services Operating Model (2002)"
-      },
-      {
         "path": "Brain/wiki/secure-lite.md",
         "title": "Secure Lite"
       },
       {
-        "path": "Brain/wiki/secure-lpms-case-management-dsg-2015.md",
-        "title": "LPMS Case Management — Dick's Sporting Goods (2015)"
+        "path": "Brain/wiki/secure-lpms-case-management-2015.md",
+        "title": "LPMS Case Management — Sporting-Goods Chain Deployment (2015)"
       },
       {
-        "path": "Brain/wiki/secure-merchandising-rfp-evant-2003.md",
-        "title": "Merchandising System RFP — Evant Response for Lillian Vernon (Sept 2003)"
+        "path": "Brain/wiki/secure-merchandising-rfp-evant-response-2003.md",
+        "title": "Merchandising System RFP — Evant Response (Sept 2003)"
       },
       {
         "path": "Brain/wiki/secure-omnichannel.md",
@@ -52173,20 +52569,24 @@
         "title": "Secure Platform Overview"
       },
       {
+        "path": "Brain/wiki/secure-property-services-operating-model-2002.md",
+        "title": "Property & Building Services Operating Model — 2002 (UK dept-store + grocery group)"
+      },
+      {
         "path": "Brain/wiki/secure-retail-career-archive.md",
         "title": "Pre-Secure Retail Career Archive"
       },
       {
+        "path": "Brain/wiki/secure-retail-operating-model-2006.md",
+        "title": "Retail Operating Model — 2006 (IBM engagement, UK global grocer)"
+      },
+      {
         "path": "Brain/wiki/secure-sysrepublic-xbr-2016.md",
-        "title": "Lululemon xBR Replacement — Sysrepublic Functional Requirements Response (June 2016)"
+        "title": "xBR Replacement — Sysrepublic Functional Requirements Response (June 2016)"
       },
       {
-        "path": "Brain/wiki/secure-tesco-tom-2006.md",
-        "title": "Tesco Operating Model — 2006 (IBM engagement)"
-      },
-      {
-        "path": "Brain/wiki/secure-tiger-property-it.md",
-        "title": "Tiger (US) — Property IT Requirements Discussion Document"
+        "path": "Brain/wiki/secure-us-property-it-scoping.md",
+        "title": "US Property IT Requirements — Scoping Document (IBM, pre-Secure)"
       }
     ],
     "summary:": [
@@ -52243,8 +52643,8 @@
     ],
     "supply": [
       {
-        "path": "Brain/wiki/secure-tesco-tom-2006.md",
-        "title": "Tesco Operating Model — 2006 (IBM engagement)"
+        "path": "Brain/wiki/secure-retail-operating-model-2006.md",
+        "title": "Retail Operating Model — 2006 (IBM engagement, UK global grocer)"
       }
     ],
     "support": [
@@ -52345,6 +52745,12 @@
       {
         "path": "Brain/wiki/growdirect-sales-square-opportunity.md",
         "title": "Canary Square Opportunity — CEO Briefing (Feb 2026)"
+      }
+    ],
+    "sweep": [
+      {
+        "path": "Brain/wiki/canary-chirp-rules.md",
+        "title": "Canary Chirp Rules"
       }
     ],
     "swim": [
@@ -52449,8 +52855,8 @@
         "title": "RPV Planning Framework — What Controls WPBCA (2026 Synthesis)"
       },
       {
-        "path": "Brain/wiki/secure-tiger-property-it.md",
-        "title": "Tiger (US) — Property IT Requirements Discussion Document"
+        "path": "Brain/wiki/secure-us-property-it-scoping.md",
+        "title": "US Property IT Requirements — Scoping Document (IBM, pre-Secure)"
       }
     ],
     "sysrepublic": [
@@ -52460,7 +52866,7 @@
       },
       {
         "path": "Brain/wiki/secure-sysrepublic-xbr-2016.md",
-        "title": "Lululemon xBR Replacement — Sysrepublic Functional Requirements Response (June 2016)"
+        "title": "xBR Replacement — Sysrepublic Functional Requirements Response (June 2016)"
       }
     ],
     "sysrepublic.com": [
@@ -52511,8 +52917,8 @@
         "title": "Cannabis Retail Risk Dictionary & Integration Spec"
       },
       {
-        "path": "Brain/wiki/secure-merchandising-rfp-evant-2003.md",
-        "title": "Merchandising System RFP — Evant Response for Lillian Vernon (Sept 2003)"
+        "path": "Brain/wiki/secure-merchandising-rfp-evant-response-2003.md",
+        "title": "Merchandising System RFP — Evant Response (Sept 2003)"
       }
     ],
     "system-architecture": [
@@ -52539,8 +52945,12 @@
         "title": "Angel Data Platform"
       },
       {
-        "path": "Brain/wiki/secure-jlp-property-services-2002.md",
-        "title": "John Lewis Partnership — Property & Building Services Operating Model (2002)"
+        "path": "Brain/wiki/canary-fox-case-management.md",
+        "title": "Canary Fox Case Management"
+      },
+      {
+        "path": "Brain/wiki/secure-property-services-operating-model-2002.md",
+        "title": "Property & Building Services Operating Model — 2002 (UK dept-store + grocery group)"
       }
     ],
     "tagged": [
@@ -52665,8 +53075,8 @@
         "title": "Cannabis Retail Risk Dictionary & Integration Spec"
       },
       {
-        "path": "Brain/wiki/secure-lpms-case-management-dsg-2015.md",
-        "title": "LPMS Case Management — Dick's Sporting Goods (2015)"
+        "path": "Brain/wiki/secure-lpms-case-management-2015.md",
+        "title": "LPMS Case Management — Sporting-Goods Chain Deployment (2015)"
       },
       {
         "path": "Brain/wiki/secure-omnichannel.md",
@@ -52861,6 +53271,10 @@
     ],
     "templates": [
       {
+        "path": "Brain/wiki/canary-chirp-rules.md",
+        "title": "Canary Chirp Rules"
+      },
+      {
         "path": "Brain/wiki/cove-0-clipper.md",
         "title": "0 Clipper Road"
       },
@@ -52985,12 +53399,6 @@
       {
         "path": "Brain/wiki/growdirect-white-paper-competitive-landscape.md",
         "title": "Executive Summary"
-      }
-    ],
-    "tesco": [
-      {
-        "path": "Brain/wiki/secure-tesco-tom-2006.md",
-        "title": "Tesco Operating Model — 2006 (IBM engagement)"
       }
     ],
     "test": [
@@ -53602,11 +54010,11 @@
       },
       {
         "path": "Brain/wiki/secure-dsd-ired-analytics.md",
-        "title": "Secure DSD iRED Analytics — FnE Annual Summary"
+        "title": "Secure DSD iRED Analytics — US Grocery Chain Annual Summary"
       },
       {
         "path": "Brain/wiki/secure-dv-private-label-2006.md",
-        "title": "Private Label Food Setup — USA Design Validation Workshop (Aug 2006)"
+        "title": "Private Label Food Setup — US Design Validation Workshop (Aug 2006)"
       },
       {
         "path": "Brain/wiki/secure-eagle-eye-fnr-2018.md",
@@ -53617,20 +54025,16 @@
         "title": "Integrated Maps — Retail Hardlines Solution Landscape (2003/04)"
       },
       {
-        "path": "Brain/wiki/secure-jlp-property-services-2002.md",
-        "title": "John Lewis Partnership — Property & Building Services Operating Model (2002)"
-      },
-      {
         "path": "Brain/wiki/secure-lite.md",
         "title": "Secure Lite"
       },
       {
-        "path": "Brain/wiki/secure-lpms-case-management-dsg-2015.md",
-        "title": "LPMS Case Management — Dick's Sporting Goods (2015)"
+        "path": "Brain/wiki/secure-lpms-case-management-2015.md",
+        "title": "LPMS Case Management — Sporting-Goods Chain Deployment (2015)"
       },
       {
-        "path": "Brain/wiki/secure-merchandising-rfp-evant-2003.md",
-        "title": "Merchandising System RFP — Evant Response for Lillian Vernon (Sept 2003)"
+        "path": "Brain/wiki/secure-merchandising-rfp-evant-response-2003.md",
+        "title": "Merchandising System RFP — Evant Response (Sept 2003)"
       },
       {
         "path": "Brain/wiki/secure-omnichannel.md",
@@ -53641,16 +54045,20 @@
         "title": "Secure Platform Overview"
       },
       {
+        "path": "Brain/wiki/secure-property-services-operating-model-2002.md",
+        "title": "Property & Building Services Operating Model — 2002 (UK dept-store + grocery group)"
+      },
+      {
+        "path": "Brain/wiki/secure-retail-operating-model-2006.md",
+        "title": "Retail Operating Model — 2006 (IBM engagement, UK global grocer)"
+      },
+      {
         "path": "Brain/wiki/secure-sysrepublic-xbr-2016.md",
-        "title": "Lululemon xBR Replacement — Sysrepublic Functional Requirements Response (June 2016)"
+        "title": "xBR Replacement — Sysrepublic Functional Requirements Response (June 2016)"
       },
       {
-        "path": "Brain/wiki/secure-tesco-tom-2006.md",
-        "title": "Tesco Operating Model — 2006 (IBM engagement)"
-      },
-      {
-        "path": "Brain/wiki/secure-tiger-property-it.md",
-        "title": "Tiger (US) — Property IT Requirements Discussion Document"
+        "path": "Brain/wiki/secure-us-property-it-scoping.md",
+        "title": "US Property IT Requirements — Scoping Document (IBM, pre-Secure)"
       },
       {
         "path": "Brain/wiki/wpbca-compliance-framework.md",
@@ -53761,8 +54169,16 @@
         "title": "Canary Alerts — A Plain-English Guide"
       },
       {
+        "path": "Brain/wiki/canary-chirp-rules.md",
+        "title": "Canary Chirp Rules"
+      },
+      {
         "path": "Brain/wiki/canary-detection.md",
         "title": "Canary Detection Engine"
+      },
+      {
+        "path": "Brain/wiki/canary-fox-case-management.md",
+        "title": "Canary Fox Case Management"
       },
       {
         "path": "Brain/wiki/coac-reactivation-framework.md",
@@ -53857,6 +54273,10 @@
     ],
     "threshold": [
       {
+        "path": "Brain/wiki/canary-chirp-rules.md",
+        "title": "Canary Chirp Rules"
+      },
+      {
         "path": "Brain/wiki/canary-detection.md",
         "title": "Canary Detection Engine"
       },
@@ -53882,6 +54302,10 @@
       }
     ],
     "thresholds": [
+      {
+        "path": "Brain/wiki/canary-chirp-rules.md",
+        "title": "Canary Chirp Rules"
+      },
       {
         "path": "Brain/wiki/growdirect-manifesto.md",
         "title": "GrowDirect Manifesto"
@@ -54005,6 +54429,14 @@
     ],
     "tiers": [
       {
+        "path": "Brain/wiki/canary-chirp-rules.md",
+        "title": "Canary Chirp Rules"
+      },
+      {
+        "path": "Brain/wiki/canary-fox-case-management.md",
+        "title": "Canary Fox Case Management"
+      },
+      {
         "path": "Brain/wiki/growdirect-data-strategy.md",
         "title": "Canary Data Strategy — North Star"
       },
@@ -54017,12 +54449,6 @@
         "title": "Secure Architecture"
       }
     ],
-    "tiger": [
-      {
-        "path": "Brain/wiki/secure-tiger-property-it.md",
-        "title": "Tiger (US) — Property IT Requirements Discussion Document"
-      }
-    ],
     "tight": [
       {
         "path": "Brain/wiki/angel-market-intelligence.md",
@@ -54030,6 +54456,10 @@
       }
     ],
     "time": [
+      {
+        "path": "Brain/wiki/canary-chirp-rules.md",
+        "title": "Canary Chirp Rules"
+      },
       {
         "path": "Brain/wiki/foundation-legal-framework.md",
         "title": "Foundation Legal Framework — MOC"
@@ -54101,6 +54531,10 @@
         "title": "Angel Transaction Timeline"
       },
       {
+        "path": "Brain/wiki/canary-fox-case-management.md",
+        "title": "Canary Fox Case Management"
+      },
+      {
         "path": "Brain/wiki/coac-1984-gp-amendment-14-eastview.md",
         "title": "COAC: 1984 GP Amendment 14 — Eastview Annexation (Jurisdictional-Continuity Precedent)"
       },
@@ -54146,7 +54580,7 @@
       },
       {
         "path": "Brain/wiki/secure-dv-private-label-2006.md",
-        "title": "Private Label Food Setup — USA Design Validation Workshop (Aug 2006)"
+        "title": "Private Label Food Setup — US Design Validation Workshop (Aug 2006)"
       }
     ],
     "timeline:": [
@@ -54369,10 +54803,6 @@
       {
         "path": "Brain/wiki/growdirect-timelog-tom-b068-reconciliation-feb28.md",
         "title": "Session — Tom: B-068 Token Registry Reconciliation (Feb 28, 2026)"
-      },
-      {
-        "path": "Brain/wiki/secure-tesco-tom-2006.md",
-        "title": "Tesco Operating Model — 2006 (IBM engagement)"
       }
     ],
     "tom:": [
@@ -55061,6 +55491,10 @@
     ],
     "tsp": [
       {
+        "path": "Brain/wiki/canary-tsp-pipeline.md",
+        "title": "Canary TSP Pipeline"
+      },
+      {
         "path": "Brain/wiki/growdirect-patent-visual-triple-subscriber.md",
         "title": "Patent Schematic — Triple Subscriber Component v2.0 (FIG. 3)"
       },
@@ -55123,8 +55557,8 @@
         "title": "GrowDirect Working Papers — Structure"
       },
       {
-        "path": "Brain/wiki/secure-lpms-case-management-dsg-2015.md",
-        "title": "LPMS Case Management — Dick's Sporting Goods (2015)"
+        "path": "Brain/wiki/secure-lpms-case-management-2015.md",
+        "title": "LPMS Case Management — Sporting-Goods Chain Deployment (2015)"
       }
     ],
     "types": [
@@ -55138,13 +55572,13 @@
       },
       {
         "path": "Brain/wiki/secure-dv-private-label-2006.md",
-        "title": "Private Label Food Setup — USA Design Validation Workshop (Aug 2006)"
+        "title": "Private Label Food Setup — US Design Validation Workshop (Aug 2006)"
       }
     ],
     "types.xlsx": [
       {
-        "path": "Brain/wiki/secure-lpms-case-management-dsg-2015.md",
-        "title": "LPMS Case Management — Dick's Sporting Goods (2015)"
+        "path": "Brain/wiki/secure-lpms-case-management-2015.md",
+        "title": "LPMS Case Management — Sporting-Goods Chain Deployment (2015)"
       }
     ],
     "udq": [
@@ -55193,6 +55627,12 @@
       {
         "path": "Brain/wiki/coac-restated-declaration-blitz-plan.md",
         "title": "Restated Declaration — Blitz Execution Plan"
+      }
+    ],
+    "unified": [
+      {
+        "path": "Brain/wiki/canary-fox-case-management.md",
+        "title": "Canary Fox Case Management"
       }
     ],
     "unique": [
@@ -55341,6 +55781,12 @@
         "title": "**Executive Summary: The Quant’s Verdict**"
       }
     ],
+    "upload": [
+      {
+        "path": "Brain/wiki/canary-fox-case-management.md",
+        "title": "Canary Fox Case Management"
+      }
+    ],
     "upper": [
       {
         "path": "Brain/wiki/cove-rpv-safety-element-2018.md",
@@ -55365,16 +55811,22 @@
         "title": "Endangered Species Constraints — Species → Trigger → Project Map"
       }
     ],
+    "us-grocery": [
+      {
+        "path": "Brain/wiki/secure-dsd-ired-analytics.md",
+        "title": "Secure DSD iRED Analytics — US Grocery Chain Annual Summary"
+      }
+    ],
     "us-property": [
       {
-        "path": "Brain/wiki/secure-tiger-property-it.md",
-        "title": "Tiger (US) — Property IT Requirements Discussion Document"
+        "path": "Brain/wiki/secure-us-property-it-scoping.md",
+        "title": "US Property IT Requirements — Scoping Document (IBM, pre-Secure)"
       }
     ],
     "us-retail": [
       {
         "path": "Brain/wiki/secure-dv-private-label-2006.md",
-        "title": "Private Label Food Setup — USA Design Validation Workshop (Aug 2006)"
+        "title": "Private Label Food Setup — US Design Validation Workshop (Aug 2006)"
       }
     ],
     "usaf": [
@@ -55442,7 +55894,7 @@
       },
       {
         "path": "Brain/wiki/secure-dsd-ired-analytics.md",
-        "title": "Secure DSD iRED Analytics — FnE Annual Summary"
+        "title": "Secure DSD iRED Analytics — US Grocery Chain Annual Summary"
       }
     ],
     "utopian": [
@@ -55571,6 +56023,10 @@
     ],
     "validation": [
       {
+        "path": "Brain/wiki/canary-fox-case-management.md",
+        "title": "Canary Fox Case Management"
+      },
+      {
         "path": "Brain/wiki/canary-sales-strategy.md",
         "title": "Canary Sales Strategy"
       },
@@ -55600,13 +56056,19 @@
       },
       {
         "path": "Brain/wiki/secure-dv-private-label-2006.md",
-        "title": "Private Label Food Setup — USA Design Validation Workshop (Aug 2006)"
+        "title": "Private Label Food Setup — US Design Validation Workshop (Aug 2006)"
       }
     ],
     "validator": [
       {
         "path": "Brain/wiki/growdirect-revenue.md",
         "title": "The Financial Model"
+      }
+    ],
+    "valkey": [
+      {
+        "path": "Brain/wiki/canary-tsp-pipeline.md",
+        "title": "Canary TSP Pipeline"
       }
     ],
     "valley": [
@@ -55682,7 +56144,7 @@
     "variance": [
       {
         "path": "Brain/wiki/secure-dsd-ired-analytics.md",
-        "title": "Secure DSD iRED Analytics — FnE Annual Summary"
+        "title": "Secure DSD iRED Analytics — US Grocery Chain Annual Summary"
       }
     ],
     "variations": [
@@ -55715,30 +56177,36 @@
         "title": "Endangered Species Constraints — Species → Trigger → Project Map"
       }
     ],
+    "velocity": [
+      {
+        "path": "Brain/wiki/canary-chirp-rules.md",
+        "title": "Canary Chirp Rules"
+      }
+    ],
     "vendor": [
       {
         "path": "Brain/wiki/growdirect-data-strategy.md",
         "title": "Canary Data Strategy — North Star"
       },
       {
+        "path": "Brain/wiki/secure-dsd-ired-analytics.md",
+        "title": "Secure DSD iRED Analytics — US Grocery Chain Annual Summary"
+      },
+      {
         "path": "Brain/wiki/secure-sysrepublic-xbr-2016.md",
-        "title": "Lululemon xBR Replacement — Sysrepublic Functional Requirements Response (June 2016)"
+        "title": "xBR Replacement — Sysrepublic Functional Requirements Response (June 2016)"
       }
     ],
     "vendor-analytics": [
       {
         "path": "Brain/wiki/secure-dsd-ired-analytics.md",
-        "title": "Secure DSD iRED Analytics — FnE Annual Summary"
+        "title": "Secure DSD iRED Analytics — US Grocery Chain Annual Summary"
       }
     ],
     "vendors": [
       {
         "path": "Brain/wiki/growdirect-the-market.md",
         "title": "The Market"
-      },
-      {
-        "path": "Brain/wiki/secure-dsd-ired-analytics.md",
-        "title": "Secure DSD iRED Analytics — FnE Annual Summary"
       }
     ],
     "venues": [
@@ -55925,12 +56393,6 @@
         "title": "War Chest Source 56: Competitive Landscape"
       }
     ],
-    "vernon": [
-      {
-        "path": "Brain/wiki/secure-merchandising-rfp-evant-2003.md",
-        "title": "Merchandising System RFP — Evant Response for Lillian Vernon (Sept 2003)"
-      }
-    ],
     "version": [
       {
         "path": "Brain/wiki/cove-colyear-2024.md",
@@ -56042,7 +56504,7 @@
       },
       {
         "path": "Brain/wiki/secure-dsd-ired-analytics.md",
-        "title": "Secure DSD iRED Analytics — FnE Annual Summary"
+        "title": "Secure DSD iRED Analytics — US Grocery Chain Annual Summary"
       }
     ],
     "view-ordinance": [
@@ -56351,12 +56813,6 @@
       {
         "path": "Brain/wiki/coac-article-v-equity-modernization.md",
         "title": "Article V Equity / Vote-Share Modernization"
-      }
-    ],
-    "waitrose": [
-      {
-        "path": "Brain/wiki/secure-jlp-property-services-2002.md",
-        "title": "John Lewis Partnership — Property & Building Services Operating Model (2002)"
       }
     ],
     "walkability": [
@@ -56671,6 +57127,12 @@
         "title": "Trustee Slate — Preparation and Vetting"
       }
     ],
+    "webhook": [
+      {
+        "path": "Brain/wiki/canary-tsp-pipeline.md",
+        "title": "Canary TSP Pipeline"
+      }
+    ],
     "websites": [
       {
         "path": "Brain/wiki/angel-architecture.md",
@@ -56699,8 +57161,8 @@
         "title": "Weekly Roll-Up — February 16–24, 2026"
       },
       {
-        "path": "Brain/wiki/secure-lpms-case-management-dsg-2015.md",
-        "title": "LPMS Case Management — Dick's Sporting Goods (2015)"
+        "path": "Brain/wiki/secure-lpms-case-management-2015.md",
+        "title": "LPMS Case Management — Sporting-Goods Chain Deployment (2015)"
       }
     ],
     "weekly": [
@@ -56729,8 +57191,8 @@
         "title": "Weekly Roll-Up — February 16–24, 2026"
       },
       {
-        "path": "Brain/wiki/secure-lpms-case-management-dsg-2015.md",
-        "title": "LPMS Case Management — Dick's Sporting Goods (2015)"
+        "path": "Brain/wiki/secure-lpms-case-management-2015.md",
+        "title": "LPMS Case Management — Sporting-Goods Chain Deployment (2015)"
       }
     ],
     "weekly-ops": [
@@ -56847,6 +57309,18 @@
       {
         "path": "Brain/wiki/angel-weekly-crmls-pull.md",
         "title": "Angel Weekly CRMLS Pull — Process Definition"
+      },
+      {
+        "path": "Brain/wiki/canary-chirp-rules.md",
+        "title": "Canary Chirp Rules"
+      },
+      {
+        "path": "Brain/wiki/canary-fox-case-management.md",
+        "title": "Canary Fox Case Management"
+      },
+      {
+        "path": "Brain/wiki/canary-tsp-pipeline.md",
+        "title": "Canary TSP Pipeline"
       },
       {
         "path": "Brain/wiki/claim-lot-h-scope-correction.md",
@@ -57114,7 +57588,7 @@
       },
       {
         "path": "Brain/wiki/secure-sysrepublic-xbr-2016.md",
-        "title": "Lululemon xBR Replacement — Sysrepublic Functional Requirements Response (June 2016)"
+        "title": "xBR Replacement — Sysrepublic Functional Requirements Response (June 2016)"
       },
       {
         "path": "Brain/wiki/south-bay-wiki-architecture.md",
@@ -57345,18 +57819,6 @@
       {
         "path": "Brain/wiki/cove-rpv-safety-element-2018.md",
         "title": "COAC: RPV 2018 Safety Element — Annotated for Cove"
-      }
-    ],
-    "wilkinson": [
-      {
-        "path": "Brain/wiki/secure-tesco-tom-2006.md",
-        "title": "Tesco Operating Model — 2006 (IBM engagement)"
-      }
-    ],
-    "williams": [
-      {
-        "path": "Brain/wiki/secure-tesco-tom-2006.md",
-        "title": "Tesco Operating Model — 2006 (IBM engagement)"
       }
     ],
     "window": [
@@ -57623,6 +58085,18 @@
         "title": "Canary Alerts — A Plain-English Guide"
       },
       {
+        "path": "Brain/wiki/canary-chirp-rules.md",
+        "title": "Canary Chirp Rules"
+      },
+      {
+        "path": "Brain/wiki/canary-fox-case-management.md",
+        "title": "Canary Fox Case Management"
+      },
+      {
+        "path": "Brain/wiki/canary-tsp-pipeline.md",
+        "title": "Canary TSP Pipeline"
+      },
+      {
         "path": "Brain/wiki/coac-aclad-partnership.md",
         "title": "ACLAD Partnership — Same-Side Public-Private Defense"
       },
@@ -57672,7 +58146,7 @@
     "workshop": [
       {
         "path": "Brain/wiki/secure-dv-private-label-2006.md",
-        "title": "Private Label Food Setup — USA Design Validation Workshop (Aug 2006)"
+        "title": "Private Label Food Setup — US Design Validation Workshop (Aug 2006)"
       }
     ],
     "world": [
@@ -57848,7 +58322,7 @@
     "xbr": [
       {
         "path": "Brain/wiki/secure-sysrepublic-xbr-2016.md",
-        "title": "Lululemon xBR Replacement — Sysrepublic Functional Requirements Response (June 2016)"
+        "title": "xBR Replacement — Sysrepublic Functional Requirements Response (June 2016)"
       }
     ],
     "year": [
@@ -57887,8 +58361,8 @@
     ],
     "yearly": [
       {
-        "path": "Brain/wiki/secure-lpms-case-management-dsg-2015.md",
-        "title": "LPMS Case Management — Dick's Sporting Goods (2015)"
+        "path": "Brain/wiki/secure-lpms-case-management-2015.md",
+        "title": "LPMS Case Management — Sporting-Goods Chain Deployment (2015)"
       }
     ],
     "years": [

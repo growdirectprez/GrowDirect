@@ -1,7 +1,7 @@
 ---
 date: 2026-04-23
 type: wiki
-tags: [secure, lpms, case-management, dicks-sporting-goods, dsg, golf-galaxy, taxonomy, reference-data, 2015]
+tags: [secure, lpms, case-management, sporting-goods, firearms-regulated, taxonomy, reference-data, 2015]
 sources:
   - Brain/raw/inbox/actions.md
   - Brain/raw/inbox/incident-types.md
@@ -16,13 +16,13 @@ needs-review: 2026-05-07
 
 **Wiki:** [[Brain/Home|Home]]
 
-# LPMS Case Management — Dick's Sporting Goods (2015)
+# LPMS Case Management — Sporting-Goods Chain Deployment (2015)
 
 ## Summary
 
-Seven intakes from **Dick's Sporting Goods (DSG)** LPMS (Loss Prevention Management System) circa 2015. A complete operational snapshot of how a major US multi-brand retailer ran its LP function: the taxonomies used to classify incidents and outcomes, the regional org structure, a weekly operational recap showing audit performance and shrink tiers, a YTD data-quality errors tracker, and a sample yearly case extract with real (anonymised-by-context) case records.
+Seven intakes from a 2015 LPMS (Loss Prevention Management System) deployment at a **US sporting-goods chain with ~1,100+ stores operating across a firearms-regulated segment**. A complete operational snapshot of how a mid-to-large US multi-brand retailer ran its LP function: the taxonomies used to classify incidents and outcomes, the regional org structure, a weekly operational recap showing audit performance and shrink tiers, a YTD data-quality errors tracker, and a sample yearly case extract with real case records.
 
-**Client identification:** Confirmed as Dick's Sporting Goods by multiple signals — explicit DSG references in incident-types, the **Golf Galaxy** sub-brand appearing in Weekly Recap store audits, DSG store numbering, and the Regional LP Director names (Cheng, Parsons, Hunter, Conaway, del Aguila, Jackson, Clayton).
+**Deployment archetype:** US sporting-goods chain, 1,100+ stores, multi-brand portfolio including a specialty-golf sub-brand, firearms-regulated (FFL compliance surface), seven named LP regions with Regional LP Director + District LP Manager cascade, Analyst + Field Investigator tiers.
 
 ## The Reference Data Model
 
@@ -72,8 +72,8 @@ Three-level classification: **Class** (Critical Smart Alert / External / Interna
 - Non-Productive Detainment *(shoplifter stopped but no merch recovered)*
 - Robbery
 - Serious Workplace Accident
-- Shooting: Active In or Around DSG
-- Shooting: Potentially Linked to a DSG Purchase *(media-sensitive)*
+- Shooting: Active In or Around a Store Location
+- Shooting: Potentially Linked to a Store Purchase *(media-sensitive)*
 - Straw Purchase *(firearms fraud)*
 - Unaccounted for Firearm
 - Weather Related Business Disruption *(Inactive)*
@@ -103,7 +103,7 @@ Three-level classification: **Class** (Critical Smart Alert / External / Interna
 - Violation of Company Policy
 - Falsification of Company Document
 
-The firearms-heavy Critical Smart Alert list is distinctive to DSG — the regulatory surface around firearms sales (form 4473, ATF reporting, straw purchase detection) drove a specialised alert taxonomy that generic retailers wouldn't need.
+The firearms-heavy Critical Smart Alert list is distinctive to the firearms-regulated segment — the regulatory surface around firearms sales (ATF Form 4473, reporting, straw purchase detection, unaccounted-for firearm traceability) drives a specialised alert taxonomy that generic retailers wouldn't need.
 
 ### Source of Info Taxonomy (Source of Info.xlsx)
 
@@ -115,19 +115,19 @@ Notable internal sources: Analyst Generated EBR, DLPM Generated EBR, Super User 
 
 ### Open Analyst Investigations — 7/17/2015
 
-Weekly snapshot by Region, showing **Open** (current) vs **Last Week**:
+Weekly snapshot by Region, showing **Open** (current) vs **Last Week**. Seven numbered LP regions, each owned by a Regional LP Director (RLPD):
 
-| Region | RLPD (Regional LP Director) | Open | Last Week |
-|---:|---|---:|---:|
-| 1 | Cheng | 20 | 13 |
-| 2 | Parsons | 16 | 19 |
-| 3 | Hunter | 9 | 9 |
-| 4 | Conaway | 5 | 8 |
-| 6 | del Aguila | 7 | 5 |
-| 7 | Jackson | 9 | 9 |
-| 9 | Clayton | 7 | 6 |
-| Misc | DC/F&S/CORP | 0 | 0 |
-| **Total** | | **73** | **69** |
+| Region | Open | Last Week |
+|---:|---:|---:|
+| 1 | 20 | 13 |
+| 2 | 16 | 19 |
+| 3 | 9 | 9 |
+| 4 | 5 | 8 |
+| 6 | 7 | 5 |
+| 7 | 9 | 9 |
+| 9 | 7 | 6 |
+| Misc (DC / F&S / Corp) | 0 | 0 |
+| **Total** | **73** | **69** |
 
 **Aged leads breakdown:**
 
@@ -137,20 +137,9 @@ Weekly snapshot by Region, showing **Open** (current) vs **Last Week**:
 
 ### Weekly LP Recap — Week 24, July 2–8, 2015
 
-Store assessment performance snapshot. Stores scoring ≥90% or <80% are highlighted. Each row: Region / District / Store Name / Store # / Score % / Audit Date / Type (**2015 LP Audit** or **2015 Golf Galaxy Audit**) / **Shrink Tier** (G/Y/R/New) / Cost Shrink % most recent / Cost Shrink Goal %.
+Store assessment performance snapshot. Stores scoring ≥90% or <80% are highlighted. Each row: Region / District / Store Name / Store # / Score % / Audit Date / Type (**2015 LP Audit** or **2015 Specialty-Golf Audit**, reflecting the main-brand vs sub-brand audit program split) / **Shrink Tier** (G/Y/R/New) / Cost Shrink % most recent / Cost Shrink Goal %.
 
-Sample performers that week:
-
-| Region | District | Store | Score % | Audit Type | Shrink Tier | Shrink vs Goal |
-|---|---|---|---:|---|---|---|
-| Midwest | Wisconsin | Brookfield | 97.61 | Golf Galaxy | G | −0.22% vs −0.35% |
-| Mid-Atlantic | Richmond | Virginia Beach | 97.61 | Golf Galaxy | G | −0.16% vs −0.35% |
-| Southeast | Florida South | Pembroke Pines | 95.13 | Golf Galaxy | R | −1.72% vs −1.30% |
-| Southwest | Memphis | Columbus, MS | 93.69 | LP Audit | G | −0.61% vs −0.84% |
-| Southwest | Memphis | Conway, AR | 93.20 | LP Audit | Y | −1.17% vs −0.62% |
-| Ohio Valley | Cincinnati | Western Hills | 92.46 | LP Audit | R | −1.19% vs −1.21% |
-
-The **Shrink Tier** classification (G/Y/R) is a shrink-performance signal; **G** = on target, **Y** = cautionary, **R** = missing target by material margin.
+The **Shrink Tier** classification (G/Y/R) is a shrink-performance signal; **G** = on target, **Y** = cautionary, **R** = missing target by material margin. Typical per-week audit volume in the extract spans store counts across Midwest, Mid-Atlantic, Southeast, Southwest, Ohio Valley, Northeast regions.
 
 ### YTD Errors in LPMS Reporting (2015)
 
@@ -175,32 +164,31 @@ Case ID format: **{DE|PV|FW}-{YY}-{STORE#}-{SEQ}** e.g. `DE-15-00092-1` (Dishone
 
 Sample case types observed in the extract:
 
-- Unauthorized Markdowns (Cashier, $845)
-- Gift/Merchandise Card Fraud (Customer Service Specialist, $200)
+- Unauthorized Markdowns (Cashier)
+- Gift/Merchandise Card Fraud (Customer Service Specialist)
 - Violation of Company Policy
 - Falsification of Company Document
-- Merchandise Theft (Cashier, various $ values)
-- Passing Merchandise (Sales Associate/Cashier, $1,505–$3,505 — high-$ cases typically got Phone Interview outcome)
+- Merchandise Theft (Cashier)
+- Passing Merchandise (Sales Associate/Cashier — high-$ cases typically got Phone Interview outcome)
 - Scorecard Abuse
-- Employee Discount Abuse ($8.25 recorded — small-$ but tracked)
+- Employee Discount Abuse
 
-Positions involved: Cashier, Customer Service Specialist, Sales Associate/Cashier, Operations Associate, Golf Club Technician. Virtually all 2015 cases in the extract closed with **Terminated - Released** or similar; Phone Interview used for the higher-value prosecutable cases.
+Positions involved: Cashier, Customer Service Specialist, Sales Associate/Cashier, Operations Associate, specialty-technician roles. Virtually all 2015 cases in the extract closed with **Terminated - Released** or similar; Phone Interview used for the higher-value prosecutable cases.
 
 ## Why This Matters
 
-- **Taxonomy archaeology.** LP case management is a taxonomy discipline — the Action / Incident Type / Source of Info enums ARE the system. DSG's 2015 taxonomies are a masterclass in how a mature mid-market LP function structures its classification hierarchy, and a direct reference for how Canary's Fox module should shape its case taxonomies for multi-vertical Square merchants.
+- **Taxonomy archaeology.** LP case management is a taxonomy discipline — the Action / Incident Type / Source of Info enums ARE the system. The 2015 taxonomies from this deployment are a masterclass in how a mature mid-market LP function structures its classification hierarchy, and a direct reference for how Canary's Fox module should shape its case taxonomies for multi-vertical Square merchants.
 - **Real shrink-tier example.** The Green/Yellow/Red shrink-tier classification mapped against per-store shrink vs. goal is the exact pattern Canary's Chirps + merchant dashboard want to surface.
 - **Regional org structure.** Seven numbered regions × ~60+ districts × ~1,100+ stores → RLPD → DLPM → Analyst roles. Clean precedent for how the LP management layer cascades. Canary's tenant model has to support that scale eventually.
-- **Firearms-specific alerts.** DSG's Critical Smart Alert list captures firearms-compliance signals (F4473, ATF, straw purchase, unaccounted firearm) that are real-retail, real-regulatory — worth preserving as a reference for any future Canary vertical module targeting firearms retailers.
+- **Firearms-vertical alerts.** The Critical Smart Alert list captures firearms-compliance signals (F4473, ATF, straw purchase, unaccounted firearm) that are real-retail, real-regulatory — worth preserving as a reference for any future Canary vertical module targeting firearms retailers.
 - **Data-quality error tracker.** The YTD Errors workbook is the off-system process for when the system lets bad data in. Maps directly to Canary's dashboard validation + case-completeness checks.
 
 ## Related
 
 - [[Brain/projects/Secure|Secure MOC]]
-- [[Brain/wiki/secure-sysrepublic-xbr-2016|Sysrepublic xBR (2016)]] — the SysRepublic Secure Alerts feed referenced in DSG's Source-of-Info
+- [[Brain/wiki/secure-sysrepublic-xbr-2016|Sysrepublic xBR Response (2016)]] — the SysRepublic Secure Alerts feed referenced in this deployment's Source-of-Info
 - [[Brain/wiki/secure-eagle-eye-fnr-2018|Eagle Eye FR/NFR (2018)]] — follow-on product requirements work
 - [[Brain/wiki/secure-platform-overview|Secure Platform Overview]]
-- [[Brain/wiki/secure-client-kroger|Kroger Implementation]] — another mid-market retailer implementation
 - [[Brain/projects/Canary|Canary]] — forward lineage (Fox module case management)
 
 ## Sources

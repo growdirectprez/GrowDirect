@@ -64,8 +64,8 @@ A snapshot of what the retail software stack looked like in 2003 *as an IBM cons
 
 - [[Brain/projects/Secure|Secure MOC]]
 - [[Brain/wiki/secure-retail-career-archive|Pre-Secure Retail Career Archive]]
-- [[Brain/wiki/secure-merchandising-rfp-evant-2003|Merchandising System RFP — Evant Response (2003)]] — same year, adjacent merchandising-planning context
-- [[Brain/wiki/secure-tesco-tom-2006|Tesco TOM 2006]] — later IBM retail consulting work referencing the same ecosystem
+- [[Brain/wiki/secure-merchandising-rfp-evant-response-2003|Merchandising System RFP — Evant Response (2003)]] — same year, adjacent merchandising-planning context
+- [[Brain/wiki/secure-retail-operating-model-2006|Retail Operating Model 2006]] — later IBM retail consulting work referencing the same ecosystem
 
 ## Sources
 

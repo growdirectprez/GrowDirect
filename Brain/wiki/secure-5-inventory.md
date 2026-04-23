@@ -1,7 +1,7 @@
 ---
 date: 2026-04-23
 type: wiki
-tags: [secure, secure-5, appriss, inventory, ollies, s5-1, ebr, shrink, availability, accuracy, 2018, 2021]
+tags: [secure, secure-5, appriss, inventory, discount-retailer, s5-1, ebr, shrink, availability, accuracy, 2018, 2021]
 sources:
   - Brain/raw/inbox/s5-1-inventory-data-requirements.md
   - Brain/raw/inbox/inventory-mock-up.md
@@ -17,7 +17,7 @@ needs-review: 2026-05-07
 
 ## Summary
 
-The **Secure Inventory** product module within the Appriss Retail **Secure Exception Based Reporting (EBR)** family. Four intakes covering the product's scope, data requirements, a transactional model mock-up, and two client-facing rollout artefacts — the **Ollie's Bargain Outlet Secure Store Kickoff** (March 2018, launch of Secure 5 at Ollie's 271 stores) and a **February 2021 Marketing Update on Secure 3 → Secure 5 conversions**.
+The **Secure Inventory** product module within the Appriss Retail **Secure Exception Based Reporting (EBR)** family. Four intakes covering the product's scope, data requirements, a transactional model mock-up, and two client-facing rollout artefacts — a **Secure Store Kickoff at a US mid-market discount retailer** (March 2018, 271-location deployment) and a **February 2021 Marketing Update on Secure 3 → Secure 5 conversions**.
 
 Secure Inventory extends the Secure EBR platform beyond POS exception detection into the **inventory dimension** — surfacing issues across three risk axes:
 
@@ -27,7 +27,7 @@ Secure Inventory extends the Secure EBR platform beyond POS exception detection 
 
 ## Data Requirements (S5.1)
 
-Authored by **Richard Williams**, the **Inventory Data Requirements document** (S5.1) is the canonical source-data specification for Secure Inventory — what the product needs from the retailer to be able to compute the shrink/availability/accuracy signals. The extracted version captures the document frame (title, version table, reviewer signoff grid) but individual data-field definitions are preserved in the source `.docx` at the path in frontmatter.
+Authored by the Secure product team, the **Inventory Data Requirements document** (S5.1) is the canonical source-data specification for Secure Inventory — what the product needs from the retailer to be able to compute the shrink/availability/accuracy signals. The extracted version captures the document frame (title, version table, reviewer signoff grid) but individual data-field definitions are preserved in the source `.docx` at the path in frontmatter.
 
 ## The Inventory Transactional Model (2018 mock-up)
 
@@ -55,13 +55,17 @@ Example rows (March 2018):
 
 The invariant is `EOH = BOH + RTN + ADJ + RCT − units_sold`. Exceptions arise when the math doesn't balance, which points at either POS data gaps, adjustment errors, receiving errors, or shrink.
 
-## Ollie's Secure Store Kickoff (March 2018)
+## Discount-Retailer Secure Store Kickoff (March 2018)
 
-Secure Store v5 was rolled out to **Ollie's Bargain Outlet** across **271 retail locations** starting with a March 7, 2018 kickoff. Scope:
+Secure Store v5 was rolled out to a **US mid-market discount retailer** across **271 retail locations** starting with a March 7, 2018 kickoff.
+
+**Deployment archetype:** US mid-market discount retailer, 271 stores, daily batch ingest (not webhooks), integrated with an in-house Refund Management system.
+
+Scope:
 
 - Exception-Based Reporting on 12 months of detailed POS transactional data
 - Daily batch feed of: POS sales data, store + item master data, employee reference data
-- Additional feed of returns data from Ollie's Refund Management system
+- Additional feed of returns data from the retailer's Refund Management system
 - Base Appriss Retail **Enterprise Case Management** application configuration included in the project scope
 
 The kickoff deck frames Secure Store v5 as an **Exception-Based Reporting System designed to assist Loss Prevention and Store Operations in identifying anomalies at point of sale** — which is the same product thesis that Canary reapplies to Square merchants today, at a different price point and via a different data pipeline (webhooks vs batch).
@@ -81,13 +85,13 @@ The same deck also introduces Secure Inventory as the surrounding product contex
 
 > *"Secure Inventory is part of the Appriss Retail Secure Exception Based Reporting (EBR) family of products, leveraging all of the platform capabilities to identify Inventory risks associated with Shrink (Unexplained Loss), Availability (out of stock or excess stock), and Accuracy (unit level on hand). Secure relies on a prescriptive set of Inventory data sources which are required to identify issues related to shrink, stock availability, and inventory accuracy within the store."*
 
-A subsequent slide introduces the **DSD Work Item List** — tying Secure Inventory into the same Direct Store Delivery analytics family as the [[Brain/wiki/secure-dsd-ired-analytics|FnE DSD iRED analytics]] content.
+A subsequent slide introduces the **DSD Work Item List** — tying Secure Inventory into the same Direct Store Delivery analytics family as the [[Brain/wiki/secure-dsd-ired-analytics|DSD iRED Analytics]] content.
 
 ## Why This Matters
 
-- **Canary lineage.** The BOH/RTN/ADJ/RCT/EOH ledger model is a direct precursor to Canary's inventory module. The Secure 5 data-requirements + Ollie's kickoff give a blueprint for the data feeds + scope a Secure-lineage Inventory product depends on.
+- **Canary lineage.** The BOH/RTN/ADJ/RCT/EOH ledger model is a direct precursor to Canary's inventory module. The Secure 5 data-requirements + discount-retailer kickoff give a blueprint for the data feeds + scope a Secure-lineage Inventory product depends on.
 - **Multi-year product strategy reference.** The Secure 3 → Secure 5 conversion program illustrates how Appriss Retail managed a multi-year product-migration at scale (30 accounts, 18 months, three strategic cohorts). Pattern precedent for any future Canary major-version migration.
-- **Ollie's deployment scale.** 271 store locations on a daily batch feed is a useful anchor for "what a real mid-market Secure 5 deployment looked like in 2018."
+- **Mid-market deployment scale.** 271 store locations on a daily batch feed is a useful anchor for "what a real mid-market Secure 5 deployment looked like in 2018."
 
 ## Related
 
@@ -100,9 +104,11 @@ A subsequent slide introduces the **DSD Work Item List** — tying Secure Invent
 
 ## Sources
 
-- `Brain/raw/inbox/S5.1 Inventory Data Requirements.docx` — S5.1 data requirements, authored by Richard Williams
+Raw intakes retain original client-identifying content as source of record per `feedback_scrub_client_names.md`.
+
+- `Brain/raw/inbox/S5.1 Inventory Data Requirements.docx` — S5.1 data requirements
 - `Brain/raw/inbox/Inventory Mock Up.xlsx` — BOH/RTN/ADJ/RCT/EOH daily ledger mock-up (March 2018)
-- `Brain/raw/inbox/Secure Inventory Overview-v2.pptx` — Ollie's Secure Store v5 Kickoff, March 7, 2018
+- `Brain/raw/inbox/Secure Inventory Overview-v2.pptx` — Discount-retailer Secure Store v5 Kickoff, March 7, 2018
 - `Brain/raw/inbox/Secure Inventory Overview 022221.pptx` — Marketing Update: Secure 3 Conversions + Secure Inventory, February 2021 (©Appriss Retail, Proprietary and Confidential)
 
 Extraction path: `.docx` / `.xlsx` / `.pptx` → markitdown.

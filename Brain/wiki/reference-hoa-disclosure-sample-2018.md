@@ -1,7 +1,7 @@
 ---
 date: 2026-04-23
 type: wiki
-tags: [reference, hoa, disclosure-documents, governance, firstservice-residential, 2018, pii-sensitive]
+tags: [reference, hoa, disclosure-documents, governance, professional-managed-hoa, 2018, pii-sensitive]
 sources:
   - Brain/raw/inbox/hoa-docs.md
 last-compiled: 2026-04-23
@@ -12,17 +12,19 @@ needs-review: 2026-05-07
 
 # Reference — HOA Disclosure Documents (Sample, 2018)
 
-> ⚠️ **PII-sensitive source.** The underlying intake contains personally-identifiable information (a named homeowner + street address). This wiki card is intentionally high-level — it describes the *structure* and *utility* of the source pack without reproducing PII. Downstream wiki synthesis should also redact or paraphrase any personal details.
+> ⚠️ **PII-sensitive source.** The underlying intake contains personally-identifiable information (a named homeowner + street address) and the community name + management company. This wiki card is intentionally high-level — it describes the *structure* and *utility* of the source pack without reproducing PII. Downstream wiki synthesis should also redact or paraphrase any personal details or identifying associations.
 
 ## Summary
 
-A California HOA disclosure documents pack dated **20 June 2018**, prepared by **FirstService Residential California (Inland Empire branch)** for a homeowner in a **non-WPBCA community** (College Park Community Association, Chino CA). Archived in the inbox for reference on HOA governance-document structure, **not** as source material for [[Brain/projects/Cove|Cove]] or WPBCA/Abalone Cove.
+A **California HOA disclosure documents pack** dated **20 June 2018**, prepared by a **large professional HOA management firm** for a homeowner in a **mid-size inland California HOA community**. The community is explicitly **not WPBCA / Abalone Cove / Rancho Palos Verdes** — it's a separate California residential community in a different region. Archived in the inbox as a reference sample on HOA governance-document structure, **not** as source material for [[Brain/projects/Cove|Cove]].
+
+**Deployment archetype:** California HOA community (mid-size, inland), professionally managed by a large national/regional HOA management firm. Standard California-law disclosure cycle.
 
 The pack is the standard Civil Code §4525 disclosure package a California HOA is required to deliver to a buyer in escrow — CC&Rs, bylaws, articles, rules + regulations, budget + reserve study, insurance summary, financial statements, board meeting minutes summary, collection policy, fine schedule, architectural guidelines, and any pending litigation disclosures.
 
 ## Why It's in the Inbox
 
-Likely deposited as a reference sample — a real-world example of what a full California HOA disclosure pack looks like from a large professional management company (FirstService Residential is one of the largest HOA-management firms in North America). Useful for Cove because:
+Likely deposited as a reference sample — a real-world example of what a full California HOA disclosure pack looks like from a large professional management company. Useful for Cove because:
 
 - It shows the **standard document set** required by California statute for HOA disclosures
 - It demonstrates the **management-company layer** between the board and homeowners — something WPBCA currently handles in-house but could choose to outsource
@@ -33,8 +35,8 @@ Likely deposited as a reference sample — a real-world example of what a full C
 ## If the Pack Is Actually Needed
 
 - Open the original `.pdf` at the path in the sources section — it's a full 20MB disclosure pack
-- Treat the homeowner's name and address as PII. Do not reproduce them in wiki, briefs, or downstream artefacts
-- If Cove-related HOA governance work needs a disclosure-pack reference, this is a clean example from a professional-managed community
+- Treat the homeowner's name, address, community name, and management company name as PII / confidential. Do not reproduce them in wiki, briefs, or downstream artefacts
+- If Cove-related HOA governance work needs a disclosure-pack reference, this is a clean example from a professional-managed community — but abstract to the archetype, do not identify the specific community
 
 ## Open Question
 
@@ -47,6 +49,8 @@ Likely deposited as a reference sample — a real-world example of what a full C
 
 ## Sources
 
-- `Brain/raw/inbox/HOA+DOCS.pdf` — 20 MB California HOA disclosure documents pack, 20 June 2018, prepared by FirstService Residential California
+Raw intake retains the full PII / identifying content as source of record per `feedback_scrub_client_names.md`. Wiki card abstracts to archetype only.
 
-Extraction path: `.pdf` → markitdown. Full text extracted; PII in extract not reproduced here.
+- `Brain/raw/inbox/HOA+DOCS.pdf` — 20 MB California HOA disclosure documents pack, 20 June 2018
+
+Extraction path: `.pdf` → markitdown. Full text extracted; PII / identifying content in extract not reproduced here.
