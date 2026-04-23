@@ -17,6 +17,9 @@ Beta / Early Release Candidate
 - [[Brain/wiki/canary-detection|Detection Engine]] — 37 Chirp rules across 10 categories, 3 tiers, threshold system, alert pipeline
 - [[Brain/wiki/canary-data-model|Data Model]] — 60+ models across app, sales, fox, metrics schemas
 - [[Brain/wiki/canary-sales-strategy|Sales Strategy]] — Gold list rules, adoption ladder, signal-over-noise philosophy
+- [[Brain/wiki/canary-tsp-pipeline|TSP Pipeline]] — Webhook ingestion, 4 stream consumers, HMAC validation, hash chain, Merkle batching
+- [[Brain/wiki/canary-chirp-rules|Chirp Rules]] — 29-rule catalog, 3 evaluation tiers, threshold resolution, risk scoring, auto-casing
+- [[Brain/wiki/canary-fox-case-management|Fox Case Management]] — Case lifecycle, evidence hash chain, append-only timeline, DB-enforced immutability
 
 ## User Guides
 - [[Brain/wiki/canary-alerts-guide|Alerts Guide]] — Plain-English reference for all 37 rules, tuning dials, throttling controls, and the recommended onboarding sequence
