@@ -14,12 +14,40 @@ Archive. Product history, architecture, detection concepts, and client implement
 
 ## Wiki Articles
 
+### Secure Product Line (core)
+
 - [[Brain/wiki/secure-platform-overview|Platform Overview]] — what Secure was, product line, positioning, mapping to Canary
 - [[Brain/wiki/secure-architecture|Architecture]] — S5 on-premise, SSO, Factory + New Delivery Process
 - [[Brain/wiki/secure-lite|Secure Lite]] — product variant for smaller merchants (overview + config)
 - [[Brain/wiki/secure-omnichannel|Omnichannel]] — omnichannel positioning + Appriss retail data spec
+- [[Brain/wiki/secure-customer-order-management-flow-2017|Customer Order Management Flow (2017)]] — omnichannel data-flow diagram
+- [[Brain/wiki/secure-5-inventory|Secure 5 Inventory]] — Secure Inventory product module (S5.1 data reqs, Ollie's kickoff 2018, Secure 3→5 conversion 2021)
+- [[Brain/wiki/secure-dsd-ired-analytics|DSD iRED Analytics]] — FnE DSD vendor-credit variance analysis
+
+### Client Implementations
+
 - [[Brain/wiki/secure-client-kroger|Kroger Implementation]] — first client deep-dive (POS baseline, CRP, DSD)
-- [[Brain/wiki/secure-retail-career-archive|Pre-Secure Retail Career]] — stub index of the earlier IBM consulting era
+- [[Brain/wiki/secure-lpms-case-management-dsg-2015|Dick's Sporting Goods LPMS (2015)]] — DSG case-management taxonomies, reporting, and sample case extract
+
+### Requirements Artefacts
+
+- [[Brain/wiki/secure-sysrepublic-xbr-2016|Lululemon xBR Replacement — Sysrepublic Response (2016)]] — FRS vendor-response with Secure Store EBR / ICMS scope boundary
+- [[Brain/wiki/secure-eagle-eye-fnr-2018|Eagle Eye FR/NFR v4.0 (2018)]] — traceability-matrix requirements workbook with NS review comments
+
+### Pre-Secure Retail Career Archive (IBM era)
+
+- [[Brain/wiki/secure-retail-career-archive|Pre-Secure Retail Career Archive]] — top-level index (expand via child cards below)
+- [[Brain/wiki/secure-tesco-tom-2006|Tesco Operating Model 2006]] — 8-deck Target Operating Model engagement (Commercial, Finance, Supply Chain, Retail Ops, Space/Range/Display, Forecast/Ordering, People, Property)
+- [[Brain/wiki/secure-jlp-property-services-2002|JLP Property Services (2002)]] — John Lewis Partnership P&BS operating model + DS process workshops
+- [[Brain/wiki/secure-tiger-property-it|Tiger US Property IT]] — IBM-and-Client-Confidential scoping document for US property IT
+- [[Brain/wiki/secure-integrated-maps-2003|Integrated Maps — Retail Hardlines Landscape (2003)]] — SAP / ISV / IBM solution map
+- [[Brain/wiki/secure-merchandising-rfp-evant-2003|Lillian Vernon Merchandising RFP — Evant Response (Sept 2003)]] — multi-channel retail planning RFP response
+- [[Brain/wiki/secure-dv-private-label-2006|DV Private Label Food Setup (Aug 2006)]] — USA Design Validation workshop
+
+### Reference Materials (non-Secure)
+
+- [[Brain/wiki/reference-oracle-project-costing|Oracle Project Costing User Guide (2005)]] — Oracle E-Business Suite 11i reference, relevant to Tiger Property IT + JLP engagements
+- [[Brain/wiki/reference-hoa-disclosure-sample-2018|HOA Disclosure Documents Sample (2018)]] — California HOA disclosure pack reference (not WPBCA; PII-sensitive)
 
 ## Source Archives
 
