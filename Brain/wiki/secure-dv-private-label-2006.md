@@ -11,11 +11,13 @@ needs-review: 2026-05-07
 
 **Wiki:** [[Brain/Home|Home]]
 
-# Private Label Food Setup — USA Design Validation Workshop (Aug 2006)
+# Private Label Food Setup — US Design Validation Workshop (Aug 2006)
 
 ## Summary
 
-**Design Validation (DV) workshop deck**, week commencing 21 August 2006, for a US retailer's private-label food setup process. Two near-identical versions (v2 + v3) archived together — content is effectively a single workshop artefact. Part of the same 2006 IBM consulting practice as the [[Brain/wiki/secure-tesco-tom-2006|Tesco Top-Down Design]] engagement.
+**Design Validation (DV) workshop deck**, week commencing 21 August 2006, for a **US retailer**'s private-label food setup process. Two near-identical versions (v2 + v3) archived together — content is effectively a single workshop artefact. Part of the same 2006 IBM consulting practice as the [[Brain/wiki/secure-retail-operating-model-2006|Retail Operating Model (2006) engagement]].
+
+**Deployment archetype:** US retailer with a private-label food program rolling out across new infrastructure (RMS + Technical Library) on a phased Interim → Pre-Launch → End State timeline.
 
 ## Agenda
 
@@ -59,7 +61,7 @@ Phases: Interim → Pre-Launch → End State. Capability deployment (**Process S
 
 ## Why This Matters
 
-A representative mid-engagement artefact from the IBM pre-Secure consulting practice — specifically, a **Design Validation workshop** that sits between scoping (see [[Brain/wiki/secure-tiger-property-it|Tiger Property IT]]) and implementation build. DV workshops confirm the design choices made in scoping against stakeholder input before committing to build.
+A representative mid-engagement artefact from the IBM pre-Secure consulting practice — specifically, a **Design Validation workshop** that sits between scoping (see [[Brain/wiki/secure-us-property-it-scoping|US Property IT Scoping]]) and implementation build. DV workshops confirm the design choices made in scoping against stakeholder input before committing to build.
 
 Useful as pattern precedent for:
 
@@ -71,11 +73,13 @@ Useful as pattern precedent for:
 
 - [[Brain/projects/Secure|Secure MOC]]
 - [[Brain/wiki/secure-retail-career-archive|Pre-Secure Retail Career Archive]]
-- [[Brain/wiki/secure-tesco-tom-2006|Tesco TOM 2006]] — same-year / same-practice IBM engagement
-- [[Brain/wiki/secure-tiger-property-it|Tiger US Property IT]] — scoping-phase parallel
+- [[Brain/wiki/secure-retail-operating-model-2006|Retail Operating Model 2006]] — same-year / same-practice IBM engagement
+- [[Brain/wiki/secure-us-property-it-scoping|US Property IT Scoping]] — scoping-phase parallel
 - [[Brain/wiki/secure-integrated-maps-2003|Integrated Maps 2003/04]] — ecosystem reference for RMS
 
 ## Sources
+
+Raw intakes retain original client-identifying content as source of record per `feedback_scrub_client_names.md`.
 
 - `Brain/raw/inbox/DV Private Label Food Setup v2.ppt`
 - `Brain/raw/inbox/DV Private Label Food Setup v3.ppt`

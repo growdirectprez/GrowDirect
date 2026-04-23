@@ -122,6 +122,31 @@ Beta / Early Release Candidate
 ## Strategy
 - [[Canary/docs/Canary-Blue-Ocean-Strategy-Analysis|Blue Ocean Strategy Analysis]]
 
+## Prior-Art Lineage
+
+Light references into the [[Brain/projects/Secure|Secure MOC]] for the pre-Secure / Secure-era retail-consulting IP that Canary's current design draws on. Primary home for these cards is the Secure MOC; this section is the Canary-side entry point so the forward project isn't orphaned from its heritage.
+
+All referenced cards use deployment-archetype language per `feedback_scrub_client_names.md` — no named clients.
+
+### Operating-model doctrine
+
+- [[Brain/wiki/secure-retail-operating-model-2006|Retail Operating Model 2006]] — 8-domain Target Operating Model (UK global grocer, IBM 2006). Level-0/1/2 process decomposition, Dependencies + Key Decisions template. Precedent for Canary's Factory Pipeline SDD layering.
+- [[Brain/wiki/secure-property-services-operating-model-2002|Property Services Operating Model 2002]] — earlier UK dept-store + grocery group operating model with RACI tables. RACI pattern informs Canary team responsibility mapping.
+
+### Data / integration pattern precedents
+
+- [[Brain/wiki/secure-merchandising-rfp-evant-response-2003|Merchandising RFP — Evant Response 2003]] — "centralized system of record repository for retail enterprise data" (Evant EIM) is the 2003 precursor to Canary's CRDM. Evant sold it as a million-dollar integration; Canary ships it as OAuth SaaS.
+- [[Brain/wiki/secure-integrated-maps-2003|Integrated Maps 2003]] — retail-tech landscape map. Context for interpreting earlier engagement docs.
+- [[Brain/wiki/secure-customer-order-management-flow-2017|Secure Customer Order Management Flow 2017]] — omnichannel order-fulfilment flow. Reference for Canary's future BOPIS / ship-from-store extensions.
+
+### LP / EBR product lineage
+
+- [[Brain/wiki/secure-sysrepublic-xbr-2016|xBR Replacement — Sysrepublic Response 2016]] — Foundation Objects / Lead Development / Case Management taxonomies directly map to Canary's tenant + Chirp + Fox architecture. "100 hours of consultancy" is the anti-pattern Canary's SaaS model rejects.
+- [[Brain/wiki/secure-lpms-case-management-2015|Sporting-Goods Chain LPMS 2015]] — Action / Incident Type / Source-of-Info taxonomies. Direct reference for Canary's Fox module case taxonomies, Green/Yellow/Red shrink tier pattern, regional org cascade model.
+- [[Brain/wiki/secure-5-inventory|Secure 5 Inventory]] — BOH/RTN/ADJ/RCT/EOH ledger model is the direct precursor to Canary's inventory module.
+- [[Brain/wiki/secure-dsd-ired-analytics|DSD iRED Analytics]] — vendor-credit variance analysis at a US grocery chain. Cross-merchant benchmark pattern (industry-avg variant ratio) = the network-intelligence moat Canary is building.
+- [[Brain/wiki/secure-eagle-eye-fnr-2018|Eagle Eye FR/NFR 2018]] — traceability-matrix requirements template. Pattern reference for future Canary PRDs / SDDs that need SDLC-grade traceability.
+
 ## Sprint Prompts
 - [[Canary/devops/prompts/00_README|Prompt Library Index]]
 - [[Canary/devops/prompts/sprint2/00_README_Sprint2|Sprint 2 Index]]

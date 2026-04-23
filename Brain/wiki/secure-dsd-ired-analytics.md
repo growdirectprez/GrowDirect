@@ -1,7 +1,7 @@
 ---
 date: 2026-04-23
 type: wiki
-tags: [secure, dsd, ired, direct-store-delivery, vendor-analytics, credit-invoice, variance, fne]
+tags: [secure, dsd, ired, direct-store-delivery, vendor-analytics, credit-invoice, variance, us-grocery]
 sources:
   - Brain/raw/inbox/copy-of-fne-dsd-annual-summary-ired-view.md
 last-compiled: 2026-04-23
@@ -10,11 +10,13 @@ needs-review: 2026-05-07
 
 **Wiki:** [[Brain/Home|Home]]
 
-# Secure DSD iRED Analytics — FnE Annual Summary
+# Secure DSD iRED Analytics — US Grocery Chain Annual Summary
 
 ## Summary
 
-A **Direct Store Delivery (DSD) Annual Summary** report in **iRED** (intelligent Retail Exception Detection) format — the analytical view Secure used to surface **vendor delivery vs. credit variance patterns** that indicate receiving errors, overbilling, or invoice fraud. Source is FnE (client codename, likely Fresh & Easy). The workbook is a master DSD Summary with per-vendor rows and a rich column set of derived ratios.
+A **Direct Store Delivery (DSD) Annual Summary** report in **iRED** (intelligent Retail Exception Detection) format — the analytical view Secure used to surface **vendor delivery vs. credit variance patterns** that indicate receiving errors, overbilling, or invoice fraud. Source is a **US grocery chain with heavy DSD dependency** (beverage, adult beverage, food) operating across multiple US state regions — client identity carried behind an internal codename in the source workbook. The workbook is a master DSD Summary with per-vendor rows and a rich column set of derived ratios.
+
+**Deployment archetype:** US grocery chain, multi-state footprint, heavy beverage + DSD vendor dependency, running DSD analytics as part of a vendor-compliance / shrink-management program.
 
 DSD is the retail practice where vendors deliver product directly to individual stores rather than through a retailer's DC. Store receivers accept goods at the back door, and the retailer pays the invoice after the fact. This model is systematically vulnerable to over-billing, short-shipment, and "credit friction" — the practice of making post-delivery credits onerous so they don't get taken.
 
@@ -46,15 +48,9 @@ Each vendor row carries delivery-side data, credit-side data, and derived ratios
 
 Time horizons: per month/period, rolling 12-week, rolling 6-month, rolling 12-month, YTD. Primaries A/B/C/D vs. LY ("Last Year same") comparison brackets.
 
-## Sample Vendors (from extract)
+## Sample Vendor Pattern (anonymised)
 
-| Rank | Vendor | Major / Minor | Del Invoices | Del $ | Cred Invoices | Cred $ | Variant Ratio |
-|---:|---|---|---:|---:|---:|---:|---:|
-| 1 | MARKSTEIN BEVERAGE (Sacramento) | Beverage / Adult / Beer | 73 | $29,886 | 1 | −$62 | −176% |
-| 2 | HEIMARK DISTRIBUTING (Indio) | Beverage | 82 | $46,224 | 2 | −$113 | −170% |
-| 3 | VALLEY WIDE BEVERAGE (Fresno) | Beverage / Adult / Beer | 97 | $53,629 | 3 | −$205 | −34% |
-| 4 | CRESCENT CROWN DISTRIBUTING (Phoenix) | Beverage | 2,649 | $2,483,885 | 4 | −$570 | −26% |
-| 5 | ROMEROS FOOD PRODUCTS (Santa Fe Springs) | Food | 198 | $1,108,058 | 1 | −$144 | −25% |
+Vendor rows in the extract show per-vendor Delivery Invoices / Delivery $ / Credit Invoices / Credit $ / Variant Ratio. High-volume beverage vendors in the sample hit variant ratios between −26% and −176% — well below the industry average of −63%, which is exactly the anomaly the iRED view is built to surface.
 
 Industry average variant ratio is **−63%**. Vendors at or below that mark get flagged for investigation — either the retailer's receiving process isn't catching issues (driving credit rates too low) or the vendor is engaging in systematic over-billing without pushback.
 
@@ -71,23 +67,24 @@ Industry average variant ratio is **−63%**. Vendors at or below that mark get 
 Direct Canary lineage:
 
 - The Canary CRDM's normalised transaction + vendor model supports this same class of analysis when Square merchants start capturing vendor invoice data
-- The **Chirp** concept (plain-language alerts) is the UX evolution of the iRED view — instead of showing the merchant a ratio table, we'd say *"you've received $4,358 of deliveries from Crescent Crown this month but only credited $570 back. Industry peers credit 63% more on this volume. Check your back-door receiving process."*
+- The **Chirp** concept (plain-language alerts) is the UX evolution of the iRED view — instead of showing the merchant a ratio table, we'd say *"you've received $X,XXX of deliveries from this vendor this month but only credited $Y back. Industry peers credit 63% more on this volume. Check your back-door receiving process."*
 - The "variant ratio industry avg −63%" is a concrete example of a **cross-merchant benchmark** — exactly the network-intelligence moat Canary is building
 
 ## Open Questions for Session Review
 
-- **Client codename FnE.** Almost certainly **Fresh & Easy** (Tesco's US grocery chain). If correct, this artefact is contemporaneous with the [[Brain/wiki/secure-tesco-tom-2006|Tesco TOM engagement]] or a later Secure client engagement — worth confirming during review.
 - **iRED vs. Secure EBR.** Relationship between the iRED product line and the broader Secure EBR is not made explicit in this extract.
 
 ## Related
 
 - [[Brain/projects/Secure|Secure MOC]]
 - [[Brain/wiki/secure-5-inventory|Secure 5 Inventory]] — adjacent Secure EBR product
-- [[Brain/wiki/secure-client-kroger|Kroger Implementation]] — DSD was also a focus at Kroger (POS baseline + CRP + DSD)
+- [[Brain/wiki/secure-client-kroger|Kroger Implementation]] — DSD was also a focus in the mid-market grocery implementation covered there
 - [[Brain/wiki/secure-platform-overview|Secure Platform Overview]]
 - [[Brain/projects/Canary|Canary]] — forward lineage
 
 ## Sources
+
+Raw intake retains original client-codename filename + sample vendor rows as source of record per `feedback_scrub_client_names.md`.
 
 - `Brain/raw/inbox/Copy of FnE DSD Annual Summary iRED view.xlsx` — DSD Summary Master workbook in iRED analytical view format
 

@@ -37,8 +37,8 @@ The guide is ~500+ pages covering: project structures, budgeting, expenditure en
 ## Related
 
 - [[Brain/projects/Secure|Secure MOC]] — Reference Materials section
-- [[Brain/wiki/secure-tiger-property-it|Tiger Property IT Discussion]] — document that references Oracle Financials integration
-- [[Brain/wiki/secure-jlp-property-services-2002|JLP Property Services (2002)]] — adjacent property-services engagement
+- [[Brain/wiki/secure-us-property-it-scoping|US Property IT Scoping]] — document that references Oracle Financials integration
+- [[Brain/wiki/secure-property-services-operating-model-2002|Property Services Operating Model (2002)]] — adjacent property-services engagement
 - [[Brain/wiki/secure-integrated-maps-2003|Integrated Maps 2003/04]] — 2003 retail tech landscape including SAP as the ERP counterweight
 
 ## Sources
