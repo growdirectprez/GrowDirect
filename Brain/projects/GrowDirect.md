@@ -104,29 +104,71 @@ Active. Manifesto v1.2 is the master source. War Chest v3.x is the current IP tr
 - [[Brain/wiki/growdirect-white-paper-micropayment|Micropayment Strategy Position Paper]] — L402 / Lightning strategy
 - [[Brain/wiki/growdirect-white-paper-quant-peer-review|Quant Peer Review v1.0]] — methodology peer review
 
+### Patent Visuals (SVG schematics, FIG. 1–6)
+
+- [[Brain/wiki/growdirect-patent-visual-architecture-v3|Architecture Visual v3.0]] — FIG. 1 canonical (six-node pipeline)
+- [[Brain/wiki/growdirect-patent-visual-dataflow-v3|Data Flow Visual v3.0]] — FIG. 2 (single-transaction timeline)
+- [[Brain/wiki/growdirect-patent-visual-triple-subscriber|Triple Subscriber Component v2.0]] — FIG. 3 (Sub 1/2/3 internals)
+- [[Brain/wiki/growdirect-patent-visual-data-sovereignty|Data Sovereignty Stack v1.0]] — FIG. 4 (3-layer stack + Bitcoin anchor)
+- [[Brain/wiki/growdirect-patent-visual-namespace-lifecycle|Namespace Lifecycle v1.0]] — FIG. 5 (RaaS + Lightning wallet)
+- [[Brain/wiki/growdirect-patent-visual-rebuild-recovery|Rebuild & Recovery Path v1.0]] — FIG. 6 (cockroach principle)
+- [[Brain/wiki/growdirect-patent-visual-six-node-v2|Six-Node Architecture v2.0 (historical)]] — FIG. 1, superseded
+
+### Press (legal-review-gated)
+
+- [[Brain/wiki/growdirect-press-release-syd-revision|Canary Press Release v2.0 (Syd Revision)]] — founder-credibility play, PENDING JEFFE APPROVAL
+
+### Sales
+
+- [[Brain/wiki/growdirect-sales-socal-lead-database|SoCal Lead Database v1.0]] — 200mi prospecting around 90275; structure-only card (live data in xlsx)
+- [[Brain/wiki/growdirect-sales-square-opportunity|Square Market Opportunity]] — CEO briefing deck (6 acts)
+- [[Brain/wiki/growdirect-sales-thesis-deck|GrowDirect Thesis v1.0]] — master investor deck (patent 63/991,596)
+
+### Team
+
+- [[Brain/wiki/growdirect-team-jeffe-quotes|Jeffe Quotes]] — curated quote bank for press, investor, marketing
+
+### Timelogs — named session captures
+
+Twelve named captures wiki'd; plain daily work-hour logs kept source-only.
+
+- [[Brain/wiki/growdirect-timelog-week-feb16-24|Weekly Roll-Up: Feb 16–24]] — 128 → 541 tests, Alpha v0.1.0, local-first validated
+- [[Brain/wiki/growdirect-timelog-token-analysis-feb20|Token Analysis: Feb 20]] — $282 baseline, efficiency benchmarks
+- [[Brain/wiki/growdirect-timelog-jess-companion-guides-feb24|Jess Companion Guides: Feb 24]] — both v1.0 guides delivered
+- [[Brain/wiki/growdirect-timelog-alx-cowork-dispatch-feb26|ALX Dispatch: Feb 26]] — 5-agent, 20 deliverables (PRDs, patent brief)
+- [[Brain/wiki/growdirect-timelog-alx-cowork-capture-feb27|ALX Capture: Feb 27]] — gLog/tLog origin, naming locked
+- [[Brain/wiki/growdirect-timelog-b059-execution-feb27|B-059 Execution: Feb 27]] — 10 TSP PRDs to v1.2
+- [[Brain/wiki/growdirect-timelog-jeremy-heartbeat-integration-feb27|Heartbeat Integration: Feb 27]] — 9/9 PASS, 4 bugs fixed
+- [[Brain/wiki/growdirect-timelog-tsp-consolidated-review-feb27|TSP Consolidated Review: Feb 27]] — Sprint 6 GREENLIT, Key Custody locked
+- [[Brain/wiki/growdirect-timelog-tom-b068-reconciliation-feb28|B-068 Reconciliation: Feb 28]] — Lane B/D reconciled
+- [[Brain/wiki/growdirect-timelog-alx-b072-symbiosis-dispatch-mar01|B-072 Symbiosis Dispatch: Mar 1]] — 6-agent 3-wave
+- [[Brain/wiki/growdirect-timelog-alx-raas-architecture-mar01|RaaS Architecture: Mar 1]] — Receipt-as-a-Service reframe
+- [[Brain/wiki/growdirect-timelog-jeremy-b076-wire-seed-mar01|B-076 Wire & Seed: Mar 1]] — 9/9 desktop routes PASS
+
 ### Utility files (not wiki'd — kept in source form)
 
 `docs/_archive/ip-vault/warchest/sources/90-disclaimer.md`, `91-changelog.md`, `92-issues.md`, `93-references.md` stay as source-only artifacts. Not promoted to wiki cards — they're rebuild-output utility, not knowledge.
 
 `docs/_archive/ip-vault/PROJECT_MANIFEST.md` — historical ALX project manifest v2.0, superseded by Linear-as-truth. Not wiki'd.
 
-### Subdirs not yet swept
+`docs/_archive/ip-vault/timelogs/2026/{02-February,03-March}/daily/YYYY-MM-DD.md` — plain daily work-hour logs (~30 files). Source-only per the rebuild-output doctrine (same treatment as `90-disclaimer`). Hours and deliverables captured here are operational tracking, not doctrinal knowledge. The 12 *named* session captures (with descriptors like `_B059_Execution` or `_RaaS_Architecture`) ARE wiki'd above — those contain session-level architectural decisions, not just time-tracking.
 
-- `patent-visuals/` — diagrams supporting IP filings (mixed formats)
-- `press/` — press-facing artifacts (review before publish)
-- `sales/` — sales-enablement material
-- `Team/` — team documents
-- `timelogs/` — time-tracking by date (daily log files; probably keep as-source, not wiki'd)
+`docs/_archive/ip-vault/sales/Canary_LP_Pitch_Package.zip` — archive is corrupted (central-directory signature not found on 2026-04-22 inspection). Not extractable. If a clean copy surfaces, extract and wiki-ify; otherwise treat as lost.
 
 ### Total Brain coverage of ip-vault
 
-**62 wiki cards** indexed under `growdirect-*`:
+**86 wiki cards** indexed under `growdirect-*`:
 - 1 MOC (this file)
 - 1 structure wiki (working papers)
 - 41 warchest narrative cards (Acts 1–8 + supporting)
 - 10 strategy / doctrine cards
 - 5 research papers
 - 4 white papers
+- 7 patent visuals (FIG. 1–6 + historical v2)
+- 1 press release (legal-review-gated)
+- 3 sales cards
+- 1 team card (Jeffe Quotes)
+- 12 timelog named-session captures
 
 ## Working Papers — Master Index
 
