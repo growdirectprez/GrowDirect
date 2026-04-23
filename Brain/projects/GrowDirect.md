@@ -76,11 +76,57 @@ Active. Manifesto v1.2 is the master source. War Chest v3.x is the current IP tr
 - [[Brain/wiki/growdirect-symbiosis-thesis|Symbiosis Thesis]] — platform/merchant alignment (55)
 - [[Brain/wiki/growdirect-competitive-landscape|Competitive Landscape]] — market positioning (56)
 
+### Strategy — doctrine layer (above the warchest)
+
+- [[Brain/wiki/growdirect-manifesto|GrowDirect Manifesto (v1.1/1.2)]] — **the master source**; everything else rebuilds from this
+- [[Brain/wiki/growdirect-manifesto-v1|Manifesto v1.0 (historical)]] — superseded
+- [[Brain/wiki/growdirect-strategic-thesis|Strategic Thesis]] — distilled positioning: opportunity, product, market, moat, GTM, model
+- [[Brain/wiki/growdirect-attack-plan|Attack Plan v3.0]] — current execution plan, sprints, accountability
+- [[Brain/wiki/growdirect-data-strategy|Data Strategy North Star]] — full CRDM vision, retail app platform play
+- [[Brain/wiki/growdirect-factory-process|Factory Process v1.0]] — doctrine precedent for the platform Factory Pipeline SDD
+- [[Brain/wiki/growdirect-chirp-udq-strategy|Chirp UDQ Branch Strategy]] — detection branching approach
+- [[Brain/wiki/growdirect-competitive-oracle-oci|Competitive Intel: Oracle OCI Polling]] — competitor analysis
+- [[Brain/wiki/growdirect-pitch-spine|Pitch Spine v0.4]] — the narrative-order backbone the War Chest is numbered against
+- [[Brain/wiki/growdirect-production-chain|Production Chain v0.1]] — Manifesto → sources → outputs rebuild pipeline (doc-as-code engine)
+
+### Research papers (top-level ip-vault)
+
+- [[Brain/wiki/growdirect-research-bitcoin-architecture|Bitcoin Architecture Research]] — Canary Bitcoin architecture research paper v1.0
+- [[Brain/wiki/growdirect-research-reference-library|Reference Library]] — canonical citation set
+- [[Brain/wiki/growdirect-research-cannabis-retail-risk|Cannabis Retail Risk Dictionary]] — vertical-specific detection library
+- [[Brain/wiki/growdirect-research-worm-exposure|WORM Exposure Sprint Deliverables]] — immutability posture
+- [[Brain/wiki/growdirect-glossary|Glossary]] — canonical terminology
+
+### White papers (markitdown-extracted)
+
+- [[Brain/wiki/growdirect-white-paper|Canary White Paper v1.3]] — flagship investor document
+- [[Brain/wiki/growdirect-white-paper-competitive-landscape|Competitive Landscape]] — formal competitive analysis
+- [[Brain/wiki/growdirect-white-paper-micropayment|Micropayment Strategy Position Paper]] — L402 / Lightning strategy
+- [[Brain/wiki/growdirect-white-paper-quant-peer-review|Quant Peer Review v1.0]] — methodology peer review
+
 ### Utility files (not wiki'd — kept in source form)
 
 `docs/_archive/ip-vault/warchest/sources/90-disclaimer.md`, `91-changelog.md`, `92-issues.md`, `93-references.md` stay as source-only artifacts. Not promoted to wiki cards — they're rebuild-output utility, not knowledge.
 
-(Next batch: strategy docs — Manifesto, Thesis, Pitch Spine, Production Chain — plus the 4 white papers and 5 top-level research papers. Clipper-style: add as we go.)
+`docs/_archive/ip-vault/PROJECT_MANIFEST.md` — historical ALX project manifest v2.0, superseded by Linear-as-truth. Not wiki'd.
+
+### Subdirs not yet swept
+
+- `patent-visuals/` — diagrams supporting IP filings (mixed formats)
+- `press/` — press-facing artifacts (review before publish)
+- `sales/` — sales-enablement material
+- `Team/` — team documents
+- `timelogs/` — time-tracking by date (daily log files; probably keep as-source, not wiki'd)
+
+### Total Brain coverage of ip-vault
+
+**62 wiki cards** indexed under `growdirect-*`:
+- 1 MOC (this file)
+- 1 structure wiki (working papers)
+- 41 warchest narrative cards (Acts 1–8 + supporting)
+- 10 strategy / doctrine cards
+- 5 research papers
+- 4 white papers
 
 ## Working Papers — Master Index
 
