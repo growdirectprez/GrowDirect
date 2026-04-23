@@ -95,3 +95,71 @@
 5. **SECURITY.md** — responsible disclosure contact, scope, response SLA.
 6. **Pre-commit secret scan** — `git-secrets` or equivalent wired into `devops/git-hooks/` for all four repos.
 7. **Token rotation runbook** — for cert.pem, tunnel credentials, CANARY_MCP_API_KEY, Square app secret.
+
+---
+
+## Key storage — proposed architecture
+
+GrowDirect operates as a single-founder shop with several secret surfaces (Cloudflare
+zone tokens, tunnel credentials, Square OAuth, Keycloak realms, Postgres passwords,
+investor allowlists, SMTP credentials, SendGrid/Postmark keys once added). Today
+these live in a mix of `.env` files, `~/.cloudflared/`, shell history, and ad-hoc
+one-time pastes. That's not a posture we can ship investor access on top of.
+
+**Two-layer pattern:**
+
+### Layer 1 — Human vault (1Password)
+
+Canonical store for anything a human touches directly: API tokens, admin passwords,
+recovery codes, domain registrar login, Cloudflare account login, Square developer
+console, investor contact list.
+
+- CLI: `op` — lets us read + inject secrets programmatically without exposing them
+  in shell history.
+- Shared vaults per property ("GrowDirect Platform", "Canary", "Abalone Cove",
+  "Angel") so access can be granted surgically.
+- Recovery kit printed and stored offline.
+- Rotation cadence: tokens → 90 days; passwords → 180 days or on incident.
+
+### Layer 2 — Git-committed encrypted secrets (sops + age)
+
+For secrets that need to live in the repo (deploy configs, `.env` files, Cloudflare
+tunnel creds when checked in for reproducibility):
+
+- `sops` (Mozilla) encrypts individual values in YAML/JSON/ENV files.
+- `age` (modern file encryption) provides the key; the age public key is in the
+  repo, the private key lives in 1Password.
+- Files on disk: `canary/.env.enc`, `cove/.env.enc`, etc. — encrypted at rest,
+  decrypted on demand locally and at deploy time.
+- `.agekey` and decrypted `.env` are `.gitignore`d.
+- `.sops.yaml` at the repo root declares which files are encrypted and which
+  age public keys can decrypt them.
+
+### Runtime secrets (Docker / Flask)
+
+- `docker compose` reads from `.env` — but that file is the sops-decrypted product
+  of `.env.enc`. Local dev: `sops -d .env.enc > .env`.
+- Production (Mac Mini / cloud host): `cloudflared` tunnel credentials unchanged
+  (they're device-scoped files); app secrets injected via the same sops flow at
+  deploy time.
+
+### What NOT in this pattern
+
+- **Cloudflare Workers Secrets** — good for Worker scripts, not relevant until we
+  have one.
+- **AWS Secrets Manager** — over-indexed for our footprint; we're not on AWS.
+- **HashiCorp Vault** — cluster-grade; overkill for single-founder.
+
+### Adoption path
+
+| Step | Cost | What it unlocks |
+|---|---|---|
+| 1. Sign up for 1Password Business (or reuse personal) | $8/mo | Vault + `op` CLI + shared-vault model |
+| 2. Import current `.env` files + `cert.pem` + tunnel creds to vault | 1 hr | Single source of truth, audit log starts |
+| 3. Install `sops` + `age`; generate age keypair per repo | 30 min | Encrypted secrets in git become safe |
+| 4. Migrate `.env` → `.env.enc` across Canary, Cove, canary-site, growdirectprez.github.io | 1 hr/repo | `git diff` stops leaking secrets |
+| 5. Pre-commit hook — reject commits with unencrypted secrets | 30 min | Enforcement, not just policy |
+| 6. Document the dance in `docs/security/secret-handling.md` | 30 min | Reproducibility, onboarding-ready |
+
+Total: ~5–6 hours of focused work to flip to this posture. Doable in one session
+once a GRO is filed for it.
