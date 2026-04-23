@@ -274,12 +274,23 @@ Emit the top 5 visible alerts:
 </script>
 ```
 
-**Exact template paths discovered during implementation.** The spec asserts
-the entity shapes; the implementer maps those onto actual template files by
-grepping for existing Jinja variables (e.g. `alert.id`, `case.title`). If a
-linked-ID collection isn't already available in the template scope, the
-corresponding view function is extended to compute it. Any such backend
-change is noted in the implementation plan.
+**Template paths (confirmed during spec review):**
+
+- `/chirps` → `templates/app/chirps.html`
+- `/alert/<uuid>` → `templates/app/alert_detail.html`
+- `/fox/cases/<uuid>` → `templates/app/case_detail.html` (route prefix `/fox/cases`, template name `case_detail.html`)
+- `/txn/<uuid>` → `templates/app/txn_detail.html`
+
+The implementer verifies the exact template filenames and locates the
+existing Jinja variables (`alert.id`, `case.title`, etc.) before adding the
+entity-snapshot script block. If a linked-ID collection isn't already in
+the template scope, the corresponding view function is extended to compute
+it; any such backend change is captured in the implementation plan.
+
+**Linked-ID truncation.** `linked_alert_ids` and `linked_transaction_ids`
+arrays are capped at 20 items. If the case/txn has more, the snapshot
+object includes `linked_alert_ids_truncated: true` (or equivalent). Keeps
+the header size bounded and prevents Anthropic token waste on an edge case.
 
 ## Component 3 — QA page consumption
 
@@ -298,15 +309,25 @@ Inside the `{% block content %}` or `{% block scripts_extra %}`, add:
 ```
 
 The Flask view `qa_agent_page` in `canary/blueprints/ops_console.py` is
-updated to resolve the merchant UUID and pass it to the template:
+updated to pass the merchant UUID to the template. `g.merchant_id` is
+already the internal UUID at this point — `canary/middleware/jwt_auth.py`
+resolves it at the auth boundary via `_resolve_merchant_uuid`, so no
+additional lookup is needed in the view:
 
 ```python
 @ops_console_bp.route("/qa")
 def qa_agent_page():
-    from canary.blueprints.views_wired import _resolve_merchant
-    internal_uuid, _ = _resolve_merchant(g.merchant_id) if hasattr(g, "merchant_id") else (None, None)
-    return render_template("ops/qa.html", merchant_internal_uuid=str(internal_uuid) if internal_uuid else None)
+    merchant_internal_uuid = getattr(g, "merchant_id", None)
+    return render_template(
+        "ops/qa.html",
+        merchant_internal_uuid=str(merchant_internal_uuid) if merchant_internal_uuid else None,
+    )
 ```
+
+(The existing `_resolve_merchant` helper in `views_wired.py` is defensively
+idempotent — it accepts both Square IDs and internal UUIDs — but calling it
+here would imply a resolution step that doesn't actually happen in the
+modern auth flow. Skip it.)
 
 ### 3b. Compose the context header in `sendMessage()`
 
@@ -485,6 +506,9 @@ richer header shape. No JS test; sidecar-side only.
   payload includes escaped quotes in titles; regex doesn't break
 - `test_extract_merchant_missing_visible` — header is just
   `[Page: /x | Merchant: <uuid>]` (no Visible); still matches
+- `test_extract_merchant_position_independent` — regex matches even if
+  `Visible: {...}` appears before `Merchant: <uuid>` (future-proofs the
+  contract against header-ordering changes)
 
 ### Integration — `tests/integration/test_qa_agent_chat_with_context.py` (new, `@pytest.mark.postgres`)
 
@@ -510,6 +534,12 @@ End-to-end browser test:
 - Send a chat message, inspect the network request to `/ops/qa/chat`,
   assert the `messages[0].content` starts with `[Page: /chirps | Merchant:
   <uuid> | Visible:`
+
+**Pre-flight:** check `tests/smoke/conftest.py` for an existing admin-login
+fixture. If one exists (likely — Canary has admin-only routes covered by
+smoke tests), reuse it. If not, adding an `admin_logged_in_page` fixture is
+part of commit 6; call this out explicitly in the implementation plan so
+the extra scope doesn't surprise anyone.
 
 ## Completeness gate (end-of-session verification)
 
@@ -565,7 +595,8 @@ Per Canary CLAUDE.md "No Lazy Pipes":
 3. `feat(qa-agent): QA page reads context + injects merchant [GRO-517]`
    — qa.html + ops_console.py view update
 4. `feat(qa-agent): SYSTEM_PROMPT update — UUID principle + reasoning order [GRO-517]`
-   — agent.py
+   — agent.py. Behaviour verified by the smoke test in commit 6; no
+   standalone unit test (mocked Anthropic ignores the prompt).
 5. `feat(qa-agent): structured log for no-tool-call responses [GRO-517]`
    — server.py
 6. `test(qa-agent): context header unit + integration + smoke [GRO-517]`
@@ -573,4 +604,6 @@ Per Canary CLAUDE.md "No Lazy Pipes":
 7. (if needed) `fix(qa-agent): address review findings [GRO-517]`
 
 Each commit is bisectable. Tests land last because most of them require the
-header to exist end-to-end.
+header to exist end-to-end. If a future bisect implicates "agent started
+hedging about UUIDs again," the suspect is commit 4 — commit 6 tests will
+be where the regression surfaces, but the fix belongs in the prompt.
