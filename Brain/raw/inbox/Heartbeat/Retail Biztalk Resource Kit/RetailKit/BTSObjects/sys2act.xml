@@ -1,0 +1,1197 @@
+<?xml version="1.0"?>
+<!-- Generated using BizTalk Mapper on Mon, Feb 18 2002 02:59:11 PM -->
+<!-- Microsoft Corporation (c) 2000 (http://www.microsoft.com) -->
+<mapsource name="sys2act" BizTalkServerMapperTool_Version="1.0" version="1" xrange="100" yrange="420">
+<srctree><Schema name="transactions" b:BizTalkServerEditorTool_Version="1.0" b:root_reference="transactions" b:standard="XML" xmlns="urn:schemas-microsoft-com:xml-data" xmlns:b="urn:schemas-microsoft-com:BizTalkServer" xmlns:d="urn:schemas-microsoft-com:datatypes">
+			<b:SelectionFields/>
+			<ElementType name="weightsource" content="textOnly" model="closed">
+				<b:FieldInfo/>
+			</ElementType><ElementType name="weight" content="textOnly" model="closed">
+				<b:FieldInfo/>
+			</ElementType><ElementType name="transactiontype" content="textOnly" model="closed">
+				<b:FieldInfo/>
+			</ElementType><ElementType name="transactionsummary" content="eltOnly" model="closed">
+				<b:RecordInfo/>
+				<element type="storeid" maxOccurs="*" minOccurs="0"/>
+				<element type="registerid" maxOccurs="*" minOccurs="0"/>
+				<element type="transactionnumber" maxOccurs="*" minOccurs="0"/>
+				<element type="cashierid" maxOccurs="*" minOccurs="0"/>
+				<element type="tillid" maxOccurs="*" minOccurs="0"/>
+				<element type="businessdate" maxOccurs="*" minOccurs="0"/>
+				<element type="transactiondatetime" maxOccurs="*" minOccurs="0"/>
+				<element type="transactiontype" maxOccurs="*" minOccurs="0"/>
+				<element type="totalitemcount" maxOccurs="*" minOccurs="0"/>
+				<element type="totalitemsales" maxOccurs="*" minOccurs="0"/>
+			</ElementType><ElementType name="transactions" content="eltOnly" model="closed">
+				<b:RecordInfo/>
+				<element type="transaction" maxOccurs="*" minOccurs="0"/>
+			</ElementType><ElementType name="transactionnumber" content="textOnly" model="closed">
+				<b:FieldInfo/>
+			</ElementType><ElementType name="transactiondetail" content="eltOnly" model="closed">
+				<b:RecordInfo/>
+				<element type="itementry" maxOccurs="*" minOccurs="0"/>
+			</ElementType><ElementType name="transactiondatetime" content="textOnly" model="closed">
+				<b:FieldInfo/>
+			</ElementType><ElementType name="transaction" content="eltOnly" model="closed">
+				<b:RecordInfo/>
+				<element type="transactionsummary" maxOccurs="1" minOccurs="0"/>
+				<element type="transactiondetail" maxOccurs="1" minOccurs="0"/>
+			</ElementType><ElementType name="totalitemsales" content="textOnly" model="closed">
+				<b:FieldInfo/>
+			</ElementType><ElementType name="totalitemcount" content="textOnly" model="closed">
+				<b:FieldInfo/>
+			</ElementType><ElementType name="tillid" content="textOnly" model="closed">
+				<b:FieldInfo/>
+			</ElementType><ElementType name="storeid" content="textOnly" model="closed">
+				<b:FieldInfo/>
+			</ElementType><ElementType name="registerid" content="textOnly" model="closed">
+				<b:FieldInfo/>
+			</ElementType><ElementType name="quantity" content="textOnly" model="closed">
+				<b:FieldInfo/>
+			</ElementType><ElementType name="nocouponmultiplication" content="textOnly" model="closed">
+				<b:FieldInfo/>
+			</ElementType><ElementType name="namedvalue" content="textOnly" model="closed">
+				<b:RecordInfo/>
+				<AttributeType name="name">
+					<b:FieldInfo/></AttributeType>
+				<attribute type="name"/>
+			</ElementType><ElementType name="lineid" content="textOnly" model="closed">
+				<b:FieldInfo/>
+			</ElementType><ElementType name="itemtype" content="textOnly" model="closed">
+				<b:FieldInfo/>
+			</ElementType><ElementType name="itemsummary" content="eltOnly" model="open">
+				<b:RecordInfo/>
+				<element type="lineid" maxOccurs="*" minOccurs="0"/>
+				<element type="itemtype" maxOccurs="*" minOccurs="0"/>
+				<element type="itemid" maxOccurs="*" minOccurs="0"/>
+				<element type="deptno" maxOccurs="*" minOccurs="0"/>
+				<element type="extendedprice" maxOccurs="*" minOccurs="0"/>
+				<element type="quantity" maxOccurs="*" minOccurs="0"/>
+				<element type="isfoodstampable" maxOccurs="1" minOccurs="0"/>
+				<element type="weight" maxOccurs="*" minOccurs="0"/>
+				<element type="weightsource" maxOccurs="*" minOccurs="0"/>
+			</ElementType><ElementType name="itemid" content="eltOnly" model="closed">
+				<b:RecordInfo/>
+				<element type="barcode" maxOccurs="*" minOccurs="0"/>
+				<element type="datasource" maxOccurs="*" minOccurs="0"/>
+			</ElementType><ElementType name="itementry" content="eltOnly" model="closed">
+				<b:RecordInfo/>
+				<element type="itemsummary" maxOccurs="1" minOccurs="0"/>
+				<element type="itemdetail" maxOccurs="1" minOccurs="0"/>
+			</ElementType><ElementType name="itemdetail" content="eltOnly" model="open">
+				<b:RecordInfo/>
+				<element type="couponfamilycode" maxOccurs="*" minOccurs="0"/>
+				<element type="nocouponmultiplication" maxOccurs="*" minOccurs="0"/>
+				<element type="isdiscountallowed" maxOccurs="*" minOccurs="0"/>
+				<element type="isweightitem" maxOccurs="*" minOccurs="0"/>
+				<element type="namedvalue" maxOccurs="*" minOccurs="0"/>
+			</ElementType><ElementType name="isweightitem" content="textOnly" model="closed">
+				<b:FieldInfo/>
+			</ElementType><ElementType name="isfoodstampable" content="textOnly" model="closed">
+				<b:FieldInfo/>
+			</ElementType><ElementType name="isdiscountallowed" content="textOnly" model="closed">
+				<b:FieldInfo/>
+			</ElementType><ElementType name="extendedprice" content="textOnly" model="closed">
+				<b:FieldInfo/>
+			</ElementType><ElementType name="deptno" content="textOnly" model="closed">
+				<b:FieldInfo/>
+			</ElementType><ElementType name="datasource" content="textOnly" model="closed">
+				<b:FieldInfo/>
+			</ElementType><ElementType name="couponfamilycode" content="textOnly" model="closed">
+				<b:FieldInfo/>
+			</ElementType><ElementType name="cashierid" content="textOnly" model="closed">
+				<b:FieldInfo/>
+			</ElementType><ElementType name="businessdate" content="textOnly" model="closed">
+				<b:FieldInfo/>
+			</ElementType><ElementType name="barcode" content="textOnly" model="closed">
+				<b:FieldInfo/>
+			</ElementType></Schema>
+	</srctree>
+<Values><ConstantValues><Value value="0" Query="/ActiveStore_Transaction_2.00/TrainingModeFlag"/><Value value="TransactionNettAmount" Query="/ActiveStore_Transaction_2.00/RetailTransaction/Total/@TotalTypes"/><Value value="0" Query="/ActiveStore_Transaction_2.00/RetailTransaction/SuspendFlag"/><Value value="0" Query="/ActiveStore_Transaction_2.00/RetailTransaction/RestrictionValidation/QuestionAnswer"/><Value value="0" Query="/ActiveStore_Transaction_2.00/RetailTransaction/RestrictionValidation/OperatorByPassFlag"/><Value value="0" Query="/ActiveStore_Transaction_2.00/RetailTransaction/RestrictionValidation/EntryMethod/@EntryMethodCodes"/><Value value="0" Query="/ActiveStore_Transaction_2.00/RetailTransaction/RestrictionValidation/Approval/SequenceNumber"/><Value value="0" Query="/ActiveStore_Transaction_2.00/RetailTransaction/RestrictionValidation/Approval/LineApprovalCode"/><Value value="0" Query="/ActiveStore_Transaction_2.00/RetailTransaction/RestrictionValidation/Approval/EntryMethod/@EntryMethodCodes"/><Value value="0" Query="/ActiveStore_Transaction_2.00/RetailTransaction/RestrictionValidation/Approval/ApproverID"/><Value value="0" Query="/ActiveStore_Transaction_2.00/RetailTransaction/RestrictionValidation/Address/Name"/><Value value="0" Query="/ActiveStore_Transaction_2.00/RetailTransaction/RestrictionValidation/Address/City"/><Value value="0" Query="/ActiveStore_Transaction_2.00/RetailTransaction/RestrictionValidation/Address/AddressLine"/><Value value="CustomerID" Query="/ActiveStore_Transaction_2.00/RetailTransaction/RestrictionValidation/@CustomerQuestionIDs"/><Value value="0" Query="/ActiveStore_Transaction_2.00/RetailTransaction/OutsideSalesFlag"/><Value value="0" Query="/ActiveStore_Transaction_2.00/RetailTransaction/OriginalTransaction/WorkstationID"/><Value value="0" Query="/ActiveStore_Transaction_2.00/RetailTransaction/OriginalTransaction/SequenceNumber"/><Value value="0" Query="/ActiveStore_Transaction_2.00/RetailTransaction/OriginalTransaction/RetailStoreID"/><Value value="0" Query="/ActiveStore_Transaction_2.00/RetailTransaction/OriginalTransaction/EntryMethod/@EntryMethodCodes"/><Value value="0" Query="/ActiveStore_Transaction_2.00/RetailTransaction/OriginalTransaction/BusinessDayDate"/><Value value="0" Query="/ActiveStore_Transaction_2.00/RetailTransaction/OriginalTransaction/@PreviousTransactionLinkCodes"/><Value value="0" Query="/ActiveStore_Transaction_2.00/RetailTransaction/LineItem/Voids/LineItemSequenceNumber"/><Value value="0" Query="/ActiveStore_Transaction_2.00/RetailTransaction/LineItem/VoidFlag"/><Value value="0" Query="/ActiveStore_Transaction_2.00/RetailTransaction/LineItem/Tender/TenderID"/><Value value="0" Query="/ActiveStore_Transaction_2.00/RetailTransaction/LineItem/Tender/SendCheck/ReasonCode"/><Value value="0" Query="/ActiveStore_Transaction_2.00/RetailTransaction/LineItem/Tender/Rounding/Amount"/><Value value="0" Query="/ActiveStore_Transaction_2.00/RetailTransaction/LineItem/Tender/ManufacturerCoupon/SecondaryLabel"/><Value value="0" Query="/ActiveStore_Transaction_2.00/RetailTransaction/LineItem/Tender/ManufacturerCoupon/PrimaryLabel"/><Value value="0" Query="/ActiveStore_Transaction_2.00/RetailTransaction/LineItem/Tender/ForeignCurrency/CurrencyCode"/><Value value="0" Query="/ActiveStore_Transaction_2.00/RetailTransaction/LineItem/Tender/ForeignCurrency/Amount"/><Value value="0" Query="/ActiveStore_Transaction_2.00/RetailTransaction/LineItem/Tender/CustomerIdentification/PersonalIDType"/><Value value="0" Query="/ActiveStore_Transaction_2.00/RetailTransaction/LineItem/Tender/CustomerIdentification/PersonalID"/><Value value="0" Query="/ActiveStore_Transaction_2.00/RetailTransaction/LineItem/Tender/CustomerIdentification/OperatorByPassFlag"/><Value value="0" Query="/ActiveStore_Transaction_2.00/RetailTransaction/LineItem/Tender/CustomerIdentification/EntryMethod/@EntryMethodCodes"/><Value value="0" Query="/ActiveStore_Transaction_2.00/RetailTransaction/LineItem/Tender/CustomerIdentification/Approval/SequenceNumber"/><Value value="0" Query="/ActiveStore_Transaction_2.00/RetailTransaction/LineItem/Tender/CustomerIdentification/Approval/LineApprovalCode"/><Value value="0" Query="/ActiveStore_Transaction_2.00/RetailTransaction/LineItem/Tender/CustomerIdentification/Approval/EntryMethod/@EntryMethodCodes"/><Value value="0" Query="/ActiveStore_Transaction_2.00/RetailTransaction/LineItem/Tender/CustomerIdentification/Approval/ApproverID"/><Value value="0" Query="/ActiveStore_Transaction_2.00/RetailTransaction/LineItem/Tender/CreditDebit/ServiceCode"/><Value value="0" Query="/ActiveStore_Transaction_2.00/RetailTransaction/LineItem/Tender/CreditDebit/IssueSequence"/><Value value="0" Query="/ActiveStore_Transaction_2.00/RetailTransaction/LineItem/Tender/CreditDebit/CardIssuerID"/><Value value="0" Query="/ActiveStore_Transaction_2.00/RetailTransaction/LineItem/Tender/Check/CheckNumber"/><Value value="0" Query="/ActiveStore_Transaction_2.00/RetailTransaction/LineItem/Tender/Check/BankID"/><Value value="0" Query="/ActiveStore_Transaction_2.00/RetailTransaction/LineItem/Tender/ChangeFlag"/><Value value="0" Query="/ActiveStore_Transaction_2.00/RetailTransaction/LineItem/Tender/Authorization/RequestedAmount"/><Value value="0" Query="/ActiveStore_Transaction_2.00/RetailTransaction/LineItem/Tender/Authorization/ReferenceNumber"/><Value value="0" Query="/ActiveStore_Transaction_2.00/RetailTransaction/LineItem/Tender/Authorization/ProviderID"/><Value value="0" Query="/ActiveStore_Transaction_2.00/RetailTransaction/LineItem/Tender/Authorization/HostAuthorized"/><Value value="0" Query="/ActiveStore_Transaction_2.00/RetailTransaction/LineItem/Tender/Authorization/ForceOnLine"/><Value value="0" Query="/ActiveStore_Transaction_2.00/RetailTransaction/LineItem/Tender/Authorization/AuthorizationVoid/OrigReferenceNo"/><Value value="0" Query="/ActiveStore_Transaction_2.00/RetailTransaction/LineItem/Tender/Authorization/AuthorizationVoid/OrigApprovalCode"/><Value value="0" Query="/ActiveStore_Transaction_2.00/RetailTransaction/LineItem/Tender/Authorization/AuthorizationVoid/OrigAmount"/><Value value="0" Query="/ActiveStore_Transaction_2.00/RetailTransaction/LineItem/Tender/Authorization/AuthorizationDateTime"/><Value value="0" Query="/ActiveStore_Transaction_2.00/RetailTransaction/LineItem/Tender/Authorization/AuthorizationCode"/><Value value="0" Query="/ActiveStore_Transaction_2.00/RetailTransaction/LineItem/Tender/Authorization/ApprovalCode"/><Value value="0" Query="/ActiveStore_Transaction_2.00/RetailTransaction/LineItem/Tender/Amount"/><Value value="0" Query="/ActiveStore_Transaction_2.00/RetailTransaction/LineItem/Tender/Address/Name"/><Value value="0" Query="/ActiveStore_Transaction_2.00/RetailTransaction/LineItem/Tender/Address/City"/><Value value="0" Query="/ActiveStore_Transaction_2.00/RetailTransaction/LineItem/Tender/Address/AddressLine"/><Value value="0" Query="/ActiveStore_Transaction_2.00/RetailTransaction/LineItem/Tender/AccountInfo/Fleet/DriverID"/><Value value="0" Query="/ActiveStore_Transaction_2.00/RetailTransaction/LineItem/Tender/AccountInfo/Address/Name"/><Value value="0" Query="/ActiveStore_Transaction_2.00/RetailTransaction/LineItem/Tender/AccountInfo/Address/City"/><Value value="0" Query="/ActiveStore_Transaction_2.00/RetailTransaction/LineItem/Tender/AccountInfo/Address/AddressLine"/><Value value="0" Query="/ActiveStore_Transaction_2.00/RetailTransaction/LineItem/Tax/TaxableAmount"/><Value value="0" Query="/ActiveStore_Transaction_2.00/RetailTransaction/LineItem/Tax/TaxOverride/TaxOverrideID"/><Value value="0" Query="/ActiveStore_Transaction_2.00/RetailTransaction/LineItem/Tax/TaxOverride/OriginalTaxRuleID"/><Value value="0" Query="/ActiveStore_Transaction_2.00/RetailTransaction/LineItem/Tax/TaxOverride/OriginalTaxAmount"/><Value value="0" Query="/ActiveStore_Transaction_2.00/RetailTransaction/LineItem/Tax/TaxOverride/Approval/SequenceNumber"/><Value value="0" Query="/ActiveStore_Transaction_2.00/RetailTransaction/LineItem/Tax/TaxOverride/Approval/LineApprovalCode"/><Value value="0" Query="/ActiveStore_Transaction_2.00/RetailTransaction/LineItem/Tax/TaxOverride/Approval/EntryMethod/@EntryMethodCodes"/><Value value="0" Query="/ActiveStore_Transaction_2.00/RetailTransaction/LineItem/Tax/TaxOverride/Approval/ApproverID"/><Value value="0" Query="/ActiveStore_Transaction_2.00/RetailTransaction/LineItem/Tax/TaxExemption/ExemptTaxableAmount"/><Value value="0" Query="/ActiveStore_Transaction_2.00/RetailTransaction/LineItem/Tax/TaxExemption/ExemptTaxAmount"/><Value value="0" Query="/ActiveStore_Transaction_2.00/RetailTransaction/LineItem/Tax/TaxExemption/CustomerExemptionID"/><Value value="0" Query="/ActiveStore_Transaction_2.00/RetailTransaction/LineItem/Tax/TaxExemption/Approval/SequenceNumber"/><Value value="0" Query="/ActiveStore_Transaction_2.00/RetailTransaction/LineItem/Tax/TaxExemption/Approval/LineApprovalCode"/><Value value="0" Query="/ActiveStore_Transaction_2.00/RetailTransaction/LineItem/Tax/TaxExemption/Approval/EntryMethod/@EntryMethodCodes"/><Value value="0" Query="/ActiveStore_Transaction_2.00/RetailTransaction/LineItem/Tax/TaxExemption/Approval/ApproverID"/><Value value="0" Query="/ActiveStore_Transaction_2.00/RetailTransaction/LineItem/Tax/RuleID"/><Value value="0" Query="/ActiveStore_Transaction_2.00/RetailTransaction/LineItem/Tax/AuthorityID"/><Value value="0" Query="/ActiveStore_Transaction_2.00/RetailTransaction/LineItem/Tax/Amount"/><Value value="0" Query="/ActiveStore_Transaction_2.00/RetailTransaction/LineItem/StoreFinancialLedgerAcccount/GLReasonCode"/><Value value="0" Query="/ActiveStore_Transaction_2.00/RetailTransaction/LineItem/StoreFinancialLedgerAcccount/GLAmount"/><Value value="0" Query="/ActiveStore_Transaction_2.00/RetailTransaction/LineItem/SaleOrReturn/Tax/TaxableAmount"/><Value value="0" Query="/ActiveStore_Transaction_2.00/RetailTransaction/LineItem/SaleOrReturn/Tax/TaxOverride/TaxOverrideID"/><Value value="0" Query="/ActiveStore_Transaction_2.00/RetailTransaction/LineItem/SaleOrReturn/Tax/TaxOverride/OriginalTaxRuleID"/><Value value="0" Query="/ActiveStore_Transaction_2.00/RetailTransaction/LineItem/SaleOrReturn/Tax/TaxOverride/OriginalTaxAmount"/><Value value="0" Query="/ActiveStore_Transaction_2.00/RetailTransaction/LineItem/SaleOrReturn/Tax/TaxOverride/Approval/SequenceNumber"/><Value value="0" Query="/ActiveStore_Transaction_2.00/RetailTransaction/LineItem/SaleOrReturn/Tax/TaxOverride/Approval/LineApprovalCode"/><Value value="0" Query="/ActiveStore_Transaction_2.00/RetailTransaction/LineItem/SaleOrReturn/Tax/TaxOverride/Approval/EntryMethod/@EntryMethodCodes"/><Value value="0" Query="/ActiveStore_Transaction_2.00/RetailTransaction/LineItem/SaleOrReturn/Tax/TaxOverride/Approval/ApproverID"/><Value value="0" Query="/ActiveStore_Transaction_2.00/RetailTransaction/LineItem/SaleOrReturn/Tax/TaxExemption/ExemptTaxableAmount"/><Value value="0" Query="/ActiveStore_Transaction_2.00/RetailTransaction/LineItem/SaleOrReturn/Tax/TaxExemption/ExemptTaxAmount"/><Value value="0" Query="/ActiveStore_Transaction_2.00/RetailTransaction/LineItem/SaleOrReturn/Tax/TaxExemption/CustomerExemptionID"/><Value value="0" Query="/ActiveStore_Transaction_2.00/RetailTransaction/LineItem/SaleOrReturn/Tax/TaxExemption/Approval/SequenceNumber"/><Value value="0" Query="/ActiveStore_Transaction_2.00/RetailTransaction/LineItem/SaleOrReturn/Tax/TaxExemption/Approval/LineApprovalCode"/><Value value="0" Query="/ActiveStore_Transaction_2.00/RetailTransaction/LineItem/SaleOrReturn/Tax/TaxExemption/Approval/EntryMethod/@EntryMethodCodes"/><Value value="0" Query="/ActiveStore_Transaction_2.00/RetailTransaction/LineItem/SaleOrReturn/Tax/TaxExemption/Approval/ApproverID"/><Value value="0" Query="/ActiveStore_Transaction_2.00/RetailTransaction/LineItem/SaleOrReturn/Tax/RuleID"/><Value value="0" Query="/ActiveStore_Transaction_2.00/RetailTransaction/LineItem/SaleOrReturn/Tax/AuthorityID"/><Value value="0" Query="/ActiveStore_Transaction_2.00/RetailTransaction/LineItem/SaleOrReturn/Tax/Amount"/><Value value="0" Query="/ActiveStore_Transaction_2.00/RetailTransaction/LineItem/SaleOrReturn/Rounding/Amount"/><Value value="0" Query="/ActiveStore_Transaction_2.00/RetailTransaction/LineItem/SaleOrReturn/RetailPriceModifier/PreviousPrice"/><Value value="0" Query="/ActiveStore_Transaction_2.00/RetailTransaction/LineItem/SaleOrReturn/RetailPriceModifier/Approval/SequenceNumber"/><Value value="0" Query="/ActiveStore_Transaction_2.00/RetailTransaction/LineItem/SaleOrReturn/RetailPriceModifier/Approval/LineApprovalCode"/><Value value="0" Query="/ActiveStore_Transaction_2.00/RetailTransaction/LineItem/SaleOrReturn/RetailPriceModifier/Approval/EntryMethod/@EntryMethodCodes"/><Value value="0" Query="/ActiveStore_Transaction_2.00/RetailTransaction/LineItem/SaleOrReturn/RetailPriceModifier/Approval/ApproverID"/><Value value="0" Query="/ActiveStore_Transaction_2.00/RetailTransaction/LineItem/SaleOrReturn/RetailPriceModifier/@PriceModifierTypes"/><Value value="4690" Query="/ActiveStore_Transaction_2.00/RetailTransaction/LineItem/SaleOrReturn/POSIdentity/Qualifier"/><Value value="IBM 4690" Query="/ActiveStore_Transaction_2.00/RetailTransaction/LineItem/SaleOrReturn/POSIdentity/POSItemID"/><Value value="IBM 4690" Query="/ActiveStore_Transaction_2.00/RetailTransaction/LineItem/SaleOrReturn/POSIdentity/POSIDType"/><Value value="0" Query="/ActiveStore_Transaction_2.00/RetailTransaction/LineItem/SaleOrReturn/OriginalTransaction/WorkstationID"/><Value value="0" Query="/ActiveStore_Transaction_2.00/RetailTransaction/LineItem/SaleOrReturn/OriginalTransaction/SequenceNumber"/><Value value="0" Query="/ActiveStore_Transaction_2.00/RetailTransaction/LineItem/SaleOrReturn/OriginalTransaction/RetailStoreID"/><Value value="0" Query="/ActiveStore_Transaction_2.00/RetailTransaction/LineItem/SaleOrReturn/OriginalTransaction/EntryMethod/@EntryMethodCodes"/><Value value="0" Query="/ActiveStore_Transaction_2.00/RetailTransaction/LineItem/SaleOrReturn/OriginalTransaction/BusinessDayDate"/><Value value="0" Query="/ActiveStore_Transaction_2.00/RetailTransaction/LineItem/SaleOrReturn/OriginalTransaction/@PreviousTransactionLinkCodes"/><Value value="0" Query="/ActiveStore_Transaction_2.00/RetailTransaction/LineItem/SaleOrReturn/MerchandiseHierarchy"/><Value value="0" Query="/ActiveStore_Transaction_2.00/RetailTransaction/LineItem/SaleOrReturn/ItemLink/LineItemSequenceNumber"/><Value value="0" Query="/ActiveStore_Transaction_2.00/RetailTransaction/LineItem/SaleOrReturn/Discount/Tax/TaxableAmount"/><Value value="0" Query="/ActiveStore_Transaction_2.00/RetailTransaction/LineItem/SaleOrReturn/Discount/Tax/TaxOverride/TaxOverrideID"/><Value value="0" Query="/ActiveStore_Transaction_2.00/RetailTransaction/LineItem/SaleOrReturn/Discount/Tax/TaxOverride/OriginalTaxRuleID"/><Value value="0" Query="/ActiveStore_Transaction_2.00/RetailTransaction/LineItem/SaleOrReturn/Discount/Tax/TaxOverride/OriginalTaxAmount"/><Value value="0" Query="/ActiveStore_Transaction_2.00/RetailTransaction/LineItem/SaleOrReturn/Discount/Tax/TaxOverride/Approval/SequenceNumber"/><Value value="0" Query="/ActiveStore_Transaction_2.00/RetailTransaction/LineItem/SaleOrReturn/Discount/Tax/TaxOverride/Approval/LineApprovalCode"/><Value value="0" Query="/ActiveStore_Transaction_2.00/RetailTransaction/LineItem/SaleOrReturn/Discount/Tax/TaxOverride/Approval/EntryMethod/@EntryMethodCodes"/><Value value="0" Query="/ActiveStore_Transaction_2.00/RetailTransaction/LineItem/SaleOrReturn/Discount/Tax/TaxOverride/Approval/ApproverID"/><Value value="0" Query="/ActiveStore_Transaction_2.00/RetailTransaction/LineItem/SaleOrReturn/Discount/Tax/TaxExemption/ExemptTaxableAmount"/><Value value="0" Query="/ActiveStore_Transaction_2.00/RetailTransaction/LineItem/SaleOrReturn/Discount/Tax/TaxExemption/ExemptTaxAmount"/><Value value="0" Query="/ActiveStore_Transaction_2.00/RetailTransaction/LineItem/SaleOrReturn/Discount/Tax/TaxExemption/CustomerExemptionID"/><Value value="0" Query="/ActiveStore_Transaction_2.00/RetailTransaction/LineItem/SaleOrReturn/Discount/Tax/TaxExemption/Approval/SequenceNumber"/><Value value="0" Query="/ActiveStore_Transaction_2.00/RetailTransaction/LineItem/SaleOrReturn/Discount/Tax/TaxExemption/Approval/LineApprovalCode"/><Value value="0" Query="/ActiveStore_Transaction_2.00/RetailTransaction/LineItem/SaleOrReturn/Discount/Tax/TaxExemption/Approval/EntryMethod/@EntryMethodCodes"/><Value value="0" Query="/ActiveStore_Transaction_2.00/RetailTransaction/LineItem/SaleOrReturn/Discount/Tax/TaxExemption/Approval/ApproverID"/><Value value="0" Query="/ActiveStore_Transaction_2.00/RetailTransaction/LineItem/SaleOrReturn/Discount/Tax/RuleID"/><Value value="0" Query="/ActiveStore_Transaction_2.00/RetailTransaction/LineItem/SaleOrReturn/Discount/Tax/AuthorityID"/><Value value="0" Query="/ActiveStore_Transaction_2.00/RetailTransaction/LineItem/SaleOrReturn/Discount/Tax/Amount"/><Value value="0" Query="/ActiveStore_Transaction_2.00/RetailTransaction/LineItem/SaleOrReturn/Discount/Rounding/Amount"/><Value value="0" Query="/ActiveStore_Transaction_2.00/RetailTransaction/LineItem/SaleOrReturn/Discount/Amount"/><Value value="0" Query="/ActiveStore_Transaction_2.00/RetailTransaction/LineItem/SaleOrReturn/Delivery/Address/Name"/><Value value="0" Query="/ActiveStore_Transaction_2.00/RetailTransaction/LineItem/SaleOrReturn/Delivery/Address/City"/><Value value="0" Query="/ActiveStore_Transaction_2.00/RetailTransaction/LineItem/SaleOrReturn/Delivery/Address/AddressLine"/><Value value="0" Query="/ActiveStore_Transaction_2.00/RetailTransaction/LineItem/SaleOrReturn/Associate/AssociateID"/><Value value="0" Query="/ActiveStore_Transaction_2.00/RetailTransaction/LineItem/SaleOrReturn/Associate/Action/DateTime"/><Value value="0" Query="/ActiveStore_Transaction_2.00/RetailTransaction/LineItem/SaleOrReturn/Associate/Action/@AssociateActionCodes"/><Value value="0" Query="/ActiveStore_Transaction_2.00/RetailTransaction/LineItem/SaleOrReturn/ActualSalesUnitPrice"/><Value value="0" Query="/ActiveStore_Transaction_2.00/RetailTransaction/LineItem/SaleOrReturn/@ItemTypeCodes"/><Value value="0" Query="/ActiveStore_Transaction_2.00/RetailTransaction/LineItem/SaleOrReturn/@ItemTransactionUsages"/><Value value="0" Query="/ActiveStore_Transaction_2.00/RetailTransaction/LineItem/Rounding/Amount"/><Value value="0" Query="/ActiveStore_Transaction_2.00/RetailTransaction/LineItem/LoyaltyTrigger/VoucherRedeemed/Voucher/VoucherID"/><Value value="0" Query="/ActiveStore_Transaction_2.00/RetailTransaction/LineItem/LoyaltyTrigger/PointsRedeemed/FrequentShopperPoints/TypeID"/><Value value="0" Query="/ActiveStore_Transaction_2.00/RetailTransaction/LineItem/LoyaltyTrigger/PointsRedeemed/FrequentShopperPoints/Quantity"/><Value value="0" Query="/ActiveStore_Transaction_2.00/RetailTransaction/LineItem/LoyaltyTrigger/ManualAction/ManualActionID"/><Value value="0" Query="/ActiveStore_Transaction_2.00/RetailTransaction/LineItem/LoyaltyReward/VoucherRewarded/Voucher/VoucherID"/><Value value="0" Query="/ActiveStore_Transaction_2.00/RetailTransaction/LineItem/LoyaltyReward/PromotionMessage/MessageID"/><Value value="0" Query="/ActiveStore_Transaction_2.00/RetailTransaction/LineItem/LoyaltyReward/PromotionID"/><Value value="0" Query="/ActiveStore_Transaction_2.00/RetailTransaction/LineItem/LoyaltyReward/PointsRewarded/FrequentShopperPoints/TypeID"/><Value value="0" Query="/ActiveStore_Transaction_2.00/RetailTransaction/LineItem/LoyaltyReward/PointsRewarded/FrequentShopperPoints/Quantity"/><Value value="0" Query="/ActiveStore_Transaction_2.00/RetailTransaction/LineItem/LoyaltyReward/Discount/Tax/TaxableAmount"/><Value value="0" Query="/ActiveStore_Transaction_2.00/RetailTransaction/LineItem/LoyaltyReward/Discount/Tax/TaxOverride/TaxOverrideID"/><Value value="0" Query="/ActiveStore_Transaction_2.00/RetailTransaction/LineItem/LoyaltyReward/Discount/Tax/TaxOverride/OriginalTaxRuleID"/><Value value="0" Query="/ActiveStore_Transaction_2.00/RetailTransaction/LineItem/LoyaltyReward/Discount/Tax/TaxOverride/OriginalTaxAmount"/><Value value="0" Query="/ActiveStore_Transaction_2.00/RetailTransaction/LineItem/LoyaltyReward/Discount/Tax/TaxOverride/Approval/SequenceNumber"/><Value value="0" Query="/ActiveStore_Transaction_2.00/RetailTransaction/LineItem/LoyaltyReward/Discount/Tax/TaxOverride/Approval/LineApprovalCode"/><Value value="0" Query="/ActiveStore_Transaction_2.00/RetailTransaction/LineItem/LoyaltyReward/Discount/Tax/TaxOverride/Approval/EntryMethod/@EntryMethodCodes"/><Value value="0" Query="/ActiveStore_Transaction_2.00/RetailTransaction/LineItem/LoyaltyReward/Discount/Tax/TaxOverride/Approval/ApproverID"/><Value value="0" Query="/ActiveStore_Transaction_2.00/RetailTransaction/LineItem/LoyaltyReward/Discount/Tax/TaxExemption/ExemptTaxableAmount"/><Value value="0" Query="/ActiveStore_Transaction_2.00/RetailTransaction/LineItem/LoyaltyReward/Discount/Tax/TaxExemption/ExemptTaxAmount"/><Value value="0" Query="/ActiveStore_Transaction_2.00/RetailTransaction/LineItem/LoyaltyReward/Discount/Tax/TaxExemption/CustomerExemptionID"/><Value value="0" Query="/ActiveStore_Transaction_2.00/RetailTransaction/LineItem/LoyaltyReward/Discount/Tax/TaxExemption/Approval/SequenceNumber"/><Value value="0" Query="/ActiveStore_Transaction_2.00/RetailTransaction/LineItem/LoyaltyReward/Discount/Tax/TaxExemption/Approval/LineApprovalCode"/><Value value="0" Query="/ActiveStore_Transaction_2.00/RetailTransaction/LineItem/LoyaltyReward/Discount/Tax/TaxExemption/Approval/EntryMethod/@EntryMethodCodes"/><Value value="0" Query="/ActiveStore_Transaction_2.00/RetailTransaction/LineItem/LoyaltyReward/Discount/Tax/TaxExemption/Approval/ApproverID"/><Value value="0" Query="/ActiveStore_Transaction_2.00/RetailTransaction/LineItem/LoyaltyReward/Discount/Tax/RuleID"/><Value value="0" Query="/ActiveStore_Transaction_2.00/RetailTransaction/LineItem/LoyaltyReward/Discount/Tax/AuthorityID"/><Value value="0" Query="/ActiveStore_Transaction_2.00/RetailTransaction/LineItem/LoyaltyReward/Discount/Tax/Amount"/><Value value="0" Query="/ActiveStore_Transaction_2.00/RetailTransaction/LineItem/LoyaltyReward/Discount/Rounding/Amount"/><Value value="0" Query="/ActiveStore_Transaction_2.00/RetailTransaction/LineItem/LoyaltyReward/Discount/Amount"/><Value value="0" Query="/ActiveStore_Transaction_2.00/RetailTransaction/LineItem/EndDateTime"/><Value value="0" Query="/ActiveStore_Transaction_2.00/RetailTransaction/LineItem/BeginDateTime"/><Value value="0" Query="/ActiveStore_Transaction_2.00/RetailTransaction/LineItem/Approval/SequenceNumber"/><Value value="0" Query="/ActiveStore_Transaction_2.00/RetailTransaction/LineItem/Approval/LineApprovalCode"/><Value value="0" Query="/ActiveStore_Transaction_2.00/RetailTransaction/LineItem/Approval/EntryMethod/@EntryMethodCodes"/><Value value="0" Query="/ActiveStore_Transaction_2.00/RetailTransaction/LineItem/Approval/ApproverID"/><Value value="0" Query="/ActiveStore_Transaction_2.00/RetailTransaction/Delivery/Address/State"/><Value value="0" Query="/ActiveStore_Transaction_2.00/RetailTransaction/Delivery/Address/PostalCode"/><Value value="0" Query="/ActiveStore_Transaction_2.00/RetailTransaction/Delivery/Address/Name"/><Value value="0" Query="/ActiveStore_Transaction_2.00/RetailTransaction/Delivery/Address/CountryCode"/><Value value="0" Query="/ActiveStore_Transaction_2.00/RetailTransaction/Delivery/Address/City"/><Value value="0" Query="/ActiveStore_Transaction_2.00/RetailTransaction/Delivery/Address/AddressLine"/><Value value="0" Query="/ActiveStore_Transaction_2.00/RetailTransaction/Associate/AssociateID"/><Value value="0" Query="/ActiveStore_Transaction_2.00/RetailTransaction/Associate/Action/DateTime"/><Value value="0" Query="/ActiveStore_Transaction_2.00/RetailTransaction/Associate/Action/@AssociateActionCodes"/><Value value="0" Query="/ActiveStore_Transaction_2.00/OfflineFlag"/><Value value="0" Query="/ActiveStore_Transaction_2.00/CancelFlag"/></ConstantValues>
+	</Values>
+<sinktree><Schema name="ActiveStore Transaction (XDR Schema) V.200.26.xdr" b:BizTalkServerEditorTool_Version="1.0" b:root_reference="ActiveStore_Transaction_2.00" b:standard="XML" xmlns="urn:schemas-microsoft-com:xml-data" xmlns:dt="urn:schemas-microsoft-com:datatypes" xmlns:b="urn:schemas-microsoft-com:BizTalkServer">
+			<b:SelectionFields/>
+			<ElementType name="WorkstationID" content="textOnly" dt:type="string">
+				<b:FieldInfo/>
+			</ElementType><ElementType name="VoucherRewarded" content="eltOnly" order="seq">
+				<b:RecordInfo/>
+				<element type="Voucher"/>
+			</ElementType><ElementType name="VoucherRedeemed" content="eltOnly" order="seq">
+				<b:RecordInfo/>
+				<element type="Voucher"/>
+			</ElementType><ElementType name="VoucherID" content="textOnly" dt:type="string">
+				<b:FieldInfo/>
+			</ElementType><ElementType name="Voucher" content="eltOnly" order="seq" model="closed">
+				<b:RecordInfo/>
+				<element type="VoucherID"/>
+			</ElementType><ElementType name="Voids" content="eltOnly" order="seq">
+				<b:RecordInfo/>
+				<element type="LineItemSequenceNumber"/>
+			</ElementType><ElementType name="VoidFlag" content="textOnly" dt:type="boolean">
+				<b:FieldInfo/>
+			</ElementType><ElementType name="VehicleID" content="textOnly" model="closed" dt:type="string">
+				<b:FieldInfo/>
+			</ElementType><ElementType name="Units" content="textOnly" dt:type="number">
+				<b:FieldInfo/>
+			</ElementType><ElementType name="UnitOfMeasureCode" content="textOnly" dt:type="string">
+				<b:FieldInfo/>
+			</ElementType><ElementType name="UnitListPrice" content="textOnly" model="closed" dt:type="fixed.14.4">
+				<b:FieldInfo/>
+			</ElementType><ElementType name="UnitCostPrice" content="textOnly" dt:type="fixed.14.4">
+				<b:FieldInfo/>
+			</ElementType><ElementType name="TypeID" content="textOnly" dt:type="string">
+				<b:FieldInfo/>
+			</ElementType><ElementType name="TrainingModeFlag" content="textOnly" dt:type="boolean">
+				<b:FieldInfo/>
+			</ElementType><ElementType name="Track3Data" content="textOnly" dt:type="string">
+				<b:FieldInfo/>
+			</ElementType><ElementType name="Track2Data" content="textOnly" dt:type="string">
+				<b:FieldInfo/>
+			</ElementType><ElementType name="Track1Data" content="textOnly" dt:type="string">
+				<b:FieldInfo/>
+			</ElementType><ElementType name="Total" content="eltOnly" order="seq">
+				<b:RecordInfo/>
+				<AttributeType name="TotalTypes" dt:type="enumeration" dt:values="TransactionGrossAmount TransactionNettAmount TransactionTaxAmount TransactionTaxExemptAmount TransactionGrandAmount">
+					<b:FieldInfo/></AttributeType>
+				<attribute type="TotalTypes" required="yes"/>
+				<element type="Amount"/>
+			</ElementType><ElementType name="TillID" content="textOnly" dt:type="string">
+				<b:FieldInfo/>
+			</ElementType><ElementType name="TenderSubCode" content="textOnly" model="closed" dt:type="string">
+				<b:FieldInfo/>
+			</ElementType><ElementType name="TenderID" content="textOnly" dt:type="string">
+				<b:FieldInfo/>
+			</ElementType><ElementType name="Tender" content="eltOnly" order="seq">
+				<b:RecordInfo/>
+				<element type="TenderID"/>
+				<element type="TenderSubCode" maxOccurs="1" minOccurs="0"/>
+				<element type="Amount"/>
+				<element type="ForeignCurrency" maxOccurs="1" minOccurs="0"/>
+				<element type="ChangeFlag"/>
+				<element type="AccountID" maxOccurs="1" minOccurs="0"/>
+				<element type="AccountInfo" maxOccurs="*" minOccurs="0"/>
+				<element type="CustomerIdentification" maxOccurs="*" minOccurs="0"/>
+				<element type="Address" maxOccurs="1" minOccurs="0"/>
+				<element type="Authorization" maxOccurs="*" minOccurs="0"/>
+				<element type="Rounding"/>
+				<element type="Check"/>
+				<element type="CreditDebit"/>
+				<element type="ManufacturerCoupon"/>
+				<element type="SendCheck"/>
+			</ElementType><ElementType name="TemporaryCar" content="textOnly" model="closed" dt:type="boolean">
+				<b:FieldInfo/>
+			</ElementType><ElementType name="TaxableAmount" content="textOnly" dt:type="fixed.14.4">
+				<b:FieldInfo/>
+			</ElementType><ElementType name="TaxOverrideID" content="textOnly" dt:type="string">
+				<b:FieldInfo/>
+			</ElementType><ElementType name="TaxOverride" content="eltOnly" order="seq">
+				<b:RecordInfo/>
+				<element type="TaxOverrideID"/>
+				<element type="OriginalTaxRuleID"/>
+				<element type="OriginalTaxPercentage" maxOccurs="1" minOccurs="0"/>
+				<element type="OriginalTaxAmount"/>
+				<element type="Approval" maxOccurs="*" minOccurs="0"/>
+			</ElementType><ElementType name="TaxGroupID" content="textOnly" model="closed" dt:type="string">
+				<b:FieldInfo/>
+			</ElementType><ElementType name="TaxExemption" content="eltOnly" order="seq">
+				<b:RecordInfo/>
+				<element type="CustomerExemptionID"/>
+				<element type="ExemptTaxAmount"/>
+				<element type="ExemptTaxableAmount"/>
+				<element type="ReasonCode" maxOccurs="1" minOccurs="0"/>
+				<element type="Approval" maxOccurs="*" minOccurs="0"/>
+			</ElementType><ElementType name="Tax" content="eltOnly" order="seq">
+				<b:RecordInfo/>
+				<element type="AuthorityID"/>
+				<element type="RuleID"/>
+				<element type="TaxGroupID" maxOccurs="1" minOccurs="0"/>
+				<element type="TaxableAmount"/>
+				<element type="Amount"/>
+				<element type="Percentage" maxOccurs="1" minOccurs="0"/>
+				<element type="SequenceNumber" maxOccurs="1" minOccurs="0"/>
+				<element type="TaxExemption" maxOccurs="1" minOccurs="0"/>
+				<element type="TaxOverride" maxOccurs="1" minOccurs="0"/>
+			</ElementType><ElementType name="TableID" content="textOnly" dt:type="string">
+				<b:FieldInfo/>
+			</ElementType><ElementType name="SuspendFlag" content="textOnly" dt:type="boolean">
+				<b:FieldInfo/>
+			</ElementType><ElementType name="StoreHierarchy" content="textOnly" dt:type="string">
+				<b:FieldInfo/>
+			</ElementType><ElementType name="StoreFinancialLedgerAcccount" content="eltOnly" order="seq">
+				<b:RecordInfo/>
+				<element type="GLAmount"/>
+				<element type="GLReasonCode"/>
+				<element type="GLExplanation" maxOccurs="1" minOccurs="0"/>
+			</ElementType><ElementType name="State" content="textOnly" dt:type="string">
+				<b:FieldInfo/>
+			</ElementType><ElementType name="StartDate" content="textOnly" dt:type="string">
+				<b:FieldInfo/>
+			</ElementType><ElementType name="SocialSecurityNumber" content="textOnly" model="closed" dt:type="string">
+				<b:FieldInfo/>
+			</ElementType><ElementType name="ServiceCode" content="textOnly" dt:type="string">
+				<b:FieldInfo/>
+			</ElementType><ElementType name="SerialNumber" content="textOnly" dt:type="string">
+				<b:FieldInfo/>
+			</ElementType><ElementType name="SequenceNumber" content="textOnly" model="closed" dt:type="ui8">
+				<b:FieldInfo/>
+			</ElementType><ElementType name="SendCheck" content="eltOnly" order="seq">
+				<b:RecordInfo/>
+				<element type="ReasonCode"/>
+			</ElementType><ElementType name="SecondaryLabel" content="textOnly" dt:type="string">
+				<b:FieldInfo/>
+			</ElementType><ElementType name="SaleOrReturn" content="eltOnly" order="seq">
+				<b:RecordInfo/>
+				<AttributeType name="ItemTypeCodes" dt:type="string">
+					<b:FieldInfo/></AttributeType>
+				<AttributeType name="ItemTransactionUsages" dt:type="string">
+					<b:FieldInfo/></AttributeType>
+				<attribute type="ItemTypeCodes" required="yes"/>
+				<attribute type="ItemTransactionUsages" required="yes"/>
+				<element type="POSIdentity" maxOccurs="1" minOccurs="0"/>
+				<element type="ItemID" maxOccurs="1" minOccurs="0"/>
+				<element type="MerchandiseHierarchy"/>
+				<element type="Description"/>
+				<element type="UnitCostPrice" maxOccurs="1" minOccurs="0"/>
+				<element type="UnitListPrice" maxOccurs="1" minOccurs="0"/>
+				<element type="RegularSalesUnitPrice" maxOccurs="1" minOccurs="0"/>
+				<element type="InventoryValuePrice" maxOccurs="1" minOccurs="0"/>
+				<element type="ActualSalesUnitPrice"/>
+				<element type="ExtendedAmount"/>
+				<element type="Quantity"/>
+				<element type="Units" maxOccurs="1" minOccurs="0"/>
+				<element type="UnitOfMeasureCode" maxOccurs="1" minOccurs="0"/>
+				<element type="StoreHierarchy" maxOccurs="1" minOccurs="0"/>
+				<element type="Associate" maxOccurs="*" minOccurs="0"/>
+				<element type="ItemLink" maxOccurs="*" minOccurs="0"/>
+				<element type="Discount" maxOccurs="*" minOccurs="0"/>
+				<element type="RetailPriceModifier" maxOccurs="*" minOccurs="0"/>
+				<element type="Tax" maxOccurs="*" minOccurs="0"/>
+				<element type="SerialNumber" maxOccurs="*" minOccurs="0"/>
+				<element type="OriginalTransaction" maxOccurs="1" minOccurs="0"/>
+				<element type="Delivery" maxOccurs="1" minOccurs="0"/>
+				<element type="Rounding" maxOccurs="1" minOccurs="0"/>
+			</ElementType><ElementType name="RuleID" content="textOnly" model="closed" dt:type="string">
+				<b:FieldInfo/>
+			</ElementType><ElementType name="Rounding" content="eltOnly" order="seq">
+				<b:RecordInfo/>
+				<element type="Amount"/>
+			</ElementType><ElementType name="RetailTransaction" content="eltOnly" order="seq" model="closed">
+				<b:RecordInfo/>
+				<element type="TillID" maxOccurs="1" minOccurs="0"/>
+				<element type="OutsideSalesFlag"/>
+				<element type="SuspendFlag"/>
+				<element type="ReceiptDateTime" maxOccurs="1" minOccurs="0"/>
+				<element type="LineItem" maxOccurs="*" minOccurs="1"/>
+				<element type="Total" maxOccurs="*" minOccurs="0"/>
+				<element type="RestrictionValidation" maxOccurs="*" minOccurs="0"/>
+				<element type="Delivery" maxOccurs="1" minOccurs="0"/>
+				<element type="Associate" maxOccurs="*" minOccurs="0"/>
+				<element type="Hospitality" maxOccurs="*" minOccurs="0"/>
+				<element type="OriginalTransaction" maxOccurs="1" minOccurs="0"/>
+			</ElementType><ElementType name="RetailStoreID" content="textOnly" dt:type="string">
+				<b:FieldInfo/>
+			</ElementType><ElementType name="RetailPriceModifier" content="eltOnly" order="seq">
+				<b:RecordInfo/>
+				<AttributeType name="PriceModifierTypes" dt:type="string">
+					<b:FieldInfo/></AttributeType>
+				<attribute type="PriceModifierTypes" required="yes"/>
+				<element type="PreviousPrice"/>
+				<element type="ReasonCode" maxOccurs="1" minOccurs="0"/>
+				<element type="SequenceNumber" maxOccurs="1" minOccurs="0"/>
+				<element type="Approval" maxOccurs="*" minOccurs="0"/>
+			</ElementType><ElementType name="RestrictionValidation" content="eltOnly" order="seq">
+				<b:RecordInfo/>
+				<AttributeType name="CustomerQuestionIDs" dt:type="enumeration" dt:values="CustomerIDType CustomerID CustomerBirthDate NumberOfVisits LastVisitDate LastAmountSpend CustomerAddress">
+					<b:FieldInfo/></AttributeType>
+				<attribute type="CustomerQuestionIDs" required="yes"/>
+				<element type="QuestionText" maxOccurs="1" minOccurs="0"/>
+				<element type="OperatorByPassFlag"/>
+				<element type="Approval" maxOccurs="*" minOccurs="0"/>
+				<element type="EntryMethod" maxOccurs="1" minOccurs="0"/>
+				<element type="QuestionAnswer"/>
+				<element type="Address"/>
+			</ElementType><ElementType name="RequestedAmount" content="textOnly" dt:type="fixed.14.4">
+				<b:FieldInfo/>
+			</ElementType><ElementType name="RegularSalesUnitPrice" content="textOnly" model="closed" dt:type="fixed.14.4">
+				<b:FieldInfo/>
+			</ElementType><ElementType name="ReferenceNumber" content="textOnly" dt:type="string">
+				<b:FieldInfo/>
+			</ElementType><ElementType name="ReconciliationCode" content="textOnly" dt:type="int">
+				<b:FieldInfo/>
+			</ElementType><ElementType name="ReceiptDateTime" content="textOnly" model="closed">
+				<b:FieldInfo/>
+			</ElementType><ElementType name="ReasonCode" content="textOnly" model="closed" dt:type="string">
+				<b:FieldInfo/>
+			</ElementType><ElementType name="QuestionText" content="textOnly" model="closed" dt:type="string">
+				<b:FieldInfo/>
+			</ElementType><ElementType name="QuestionAnswer" content="textOnly" model="closed" dt:type="string">
+				<b:FieldInfo/>
+			</ElementType><ElementType name="Quantity" content="textOnly" dt:type="ui4">
+				<b:FieldInfo/>
+			</ElementType><ElementType name="Qualifier" content="textOnly" model="closed" dt:type="string">
+				<b:FieldInfo/>
+			</ElementType><ElementType name="ProviderID" content="textOnly" dt:type="string">
+				<b:FieldInfo/>
+			</ElementType><ElementType name="PromotionMessage" content="eltOnly" order="seq">
+				<b:RecordInfo/>
+				<element type="MessageID"/>
+			</ElementType><ElementType name="PromotionID" content="textOnly" dt:type="string">
+				<b:FieldInfo/>
+			</ElementType><ElementType name="PromotionCode" content="textOnly" dt:type="string">
+				<b:FieldInfo/>
+			</ElementType><ElementType name="PrimaryLabel" content="textOnly" dt:type="string">
+				<b:FieldInfo/>
+			</ElementType><ElementType name="PreviousPrice" content="textOnly" dt:type="fixed.14.4">
+				<b:FieldInfo/>
+			</ElementType><ElementType name="PreferredTime" content="textOnly" dt:type="string">
+				<b:FieldInfo/>
+			</ElementType><ElementType name="PreferredDate" content="textOnly" dt:type="string">
+				<b:FieldInfo/>
+			</ElementType><ElementType name="PreAuthorizationFlag" content="textOnly" model="closed" dt:type="boolean">
+				<b:FieldInfo/>
+			</ElementType><ElementType name="PostalCode" content="textOnly" dt:type="string">
+				<b:FieldInfo/>
+			</ElementType><ElementType name="PointsRewarded" content="eltOnly" order="seq">
+				<b:RecordInfo/>
+				<element type="FrequentShopperPoints"/>
+			</ElementType><ElementType name="PointsRedeemed" content="eltOnly" order="seq">
+				<b:RecordInfo/>
+				<element type="FrequentShopperPoints"/>
+			</ElementType><ElementType name="PhoneNumber" content="textOnly" model="closed" dt:type="string">
+				<b:FieldInfo/>
+			</ElementType><ElementType name="PersonalIDType" content="textOnly" dt:type="string">
+				<b:FieldInfo/>
+			</ElementType><ElementType name="PersonalID" content="textOnly" dt:type="string">
+				<b:FieldInfo/>
+			</ElementType><ElementType name="Percentage" content="textOnly" dt:type="number">
+				<b:FieldInfo/>
+			</ElementType><ElementType name="PaymentMethod" content="textOnly" dt:type="string">
+				<b:FieldInfo/>
+			</ElementType><ElementType name="PartySize" content="textOnly" dt:type="ui2">
+				<b:FieldInfo/>
+			</ElementType><ElementType name="POSItemID" content="textOnly" dt:type="string">
+				<b:FieldInfo/>
+			</ElementType><ElementType name="POSIdentity" content="eltOnly" order="seq" model="closed">
+				<b:RecordInfo/>
+				<element type="POSIDType"/>
+				<element type="POSItemID"/>
+				<element type="Qualifier"/>
+			</ElementType><ElementType name="POSIDType" content="textOnly" model="closed" dt:type="string">
+				<b:FieldInfo/>
+			</ElementType><ElementType name="OutsideSalesFlag" content="textOnly" model="closed" dt:type="boolean">
+				<b:FieldInfo/>
+			</ElementType><ElementType name="OriginalTransaction" content="eltOnly" order="seq">
+				<b:RecordInfo/>
+				<AttributeType name="PreviousTransactionLinkCodes" dt:type="string">
+					<b:FieldInfo/></AttributeType>
+				<attribute type="PreviousTransactionLinkCodes" required="yes"/>
+				<element type="RetailStoreID"/>
+				<element type="WorkstationID"/>
+				<element type="SequenceNumber"/>
+				<element type="BusinessDayDate"/>
+				<element type="BeginDateTime" maxOccurs="1" minOccurs="0"/>
+				<element type="EndDateTime" maxOccurs="1" minOccurs="0"/>
+				<element type="ReasonCode" maxOccurs="1" minOccurs="0"/>
+				<element type="EntryMethod" maxOccurs="1" minOccurs="0"/>
+			</ElementType><ElementType name="OriginalTaxRuleID" content="textOnly" dt:type="string">
+				<b:FieldInfo/>
+			</ElementType><ElementType name="OriginalTaxPercentage" content="textOnly" dt:type="number">
+				<b:FieldInfo/>
+			</ElementType><ElementType name="OriginalTaxAmount" content="textOnly" dt:type="fixed.14.4">
+				<b:FieldInfo/>
+			</ElementType><ElementType name="OrigReferenceNo" content="textOnly" dt:type="string">
+				<b:FieldInfo/>
+			</ElementType><ElementType name="OrigApprovalCode" content="textOnly" dt:type="string">
+				<b:FieldInfo/>
+			</ElementType><ElementType name="OrigAmount" content="textOnly" dt:type="fixed.14.4">
+				<b:FieldInfo/>
+			</ElementType><ElementType name="OperatorID" content="textOnly" dt:type="string">
+				<b:FieldInfo/>
+			</ElementType><ElementType name="OperatorByPassFlag" content="textOnly" model="closed" dt:type="boolean">
+				<b:FieldInfo/>
+			</ElementType><ElementType name="OfflineFlag" content="textOnly" dt:type="boolean">
+				<b:FieldInfo/>
+			</ElementType><ElementType name="OdometerReading" content="textOnly" model="closed" dt:type="ui8">
+				<b:FieldInfo/>
+			</ElementType><ElementType name="Notes" content="textOnly" model="closed" dt:type="string">
+				<b:FieldInfo/>
+			</ElementType><ElementType name="Name" content="textOnly" dt:type="string">
+				<b:FieldInfo/>
+			</ElementType><ElementType name="Method" content="textOnly" model="closed" dt:type="string">
+				<b:FieldInfo/>
+			</ElementType><ElementType name="MessageID" content="textOnly" dt:type="string">
+				<b:FieldInfo/>
+			</ElementType><ElementType name="MerchandiseHierarchy" content="textOnly" dt:type="string">
+				<b:FieldInfo/>
+			</ElementType><ElementType name="ManufacturerID" content="textOnly" dt:type="string">
+				<b:FieldInfo/>
+			</ElementType><ElementType name="ManufacturerCoupon" content="eltOnly" order="seq">
+				<b:RecordInfo/>
+				<element type="PrimaryLabel"/>
+				<element type="SecondaryLabel"/>
+				<element type="ManufacturerID" maxOccurs="1" minOccurs="0"/>
+				<element type="FamilyCode" maxOccurs="1" minOccurs="0"/>
+				<element type="CouponExpirationDate" maxOccurs="1" minOccurs="0"/>
+				<element type="PromotionCode" maxOccurs="1" minOccurs="0"/>
+			</ElementType><ElementType name="ManualActionID" content="textOnly" dt:type="string">
+				<b:FieldInfo/>
+			</ElementType><ElementType name="ManualAction" content="eltOnly" order="seq">
+				<b:RecordInfo/>
+				<element type="ManualActionID"/>
+			</ElementType><ElementType name="LoyaltyTrigger" content="eltOnly" order="one">
+				<b:RecordInfo/>
+				<element type="PointsRedeemed"/>
+				<element type="ManualAction"/>
+				<element type="VoucherRedeemed"/>
+			</ElementType><ElementType name="LoyaltyReward" content="eltOnly" order="seq">
+				<b:RecordInfo/>
+				<element type="PromotionID"/>
+				<element type="EventID" maxOccurs="1" minOccurs="0"/>
+				<element type="ReasonCode" maxOccurs="1" minOccurs="0"/>
+				<element type="Discount"/>
+				<element type="PromotionMessage"/>
+				<element type="PointsRewarded"/>
+				<element type="VoucherRewarded"/>
+			</ElementType><ElementType name="LineItemSequenceNumber" content="textOnly" model="closed" dt:type="ui8">
+				<b:FieldInfo/>
+			</ElementType><ElementType name="LineItem" content="eltOnly" order="seq">
+				<b:RecordInfo/>
+				<element type="SequenceNumber"/>
+				<element type="BeginDateTime"/>
+				<element type="EndDateTime" maxOccurs="1" minOccurs="0"/>
+				<element type="VoidFlag"/>
+				<element type="GLAccountID" maxOccurs="1" minOccurs="0"/>
+				<element type="EntryMethod" maxOccurs="1" minOccurs="0"/>
+				<element type="Approval" maxOccurs="*" minOccurs="0"/>
+				<element type="SaleOrReturn"/>
+				<element type="Rounding"/>
+				<element type="Voids"/>
+				<element type="Tax"/>
+				<element type="LoyaltyReward"/>
+				<element type="LoyaltyTrigger"/>
+				<element type="StoreFinancialLedgerAcccount"/>
+				<element type="Tender"/>
+			</ElementType><ElementType name="LineApprovalCode" content="textOnly" dt:type="string">
+				<b:FieldInfo/>
+			</ElementType><ElementType name="JobID" content="textOnly" model="closed" dt:type="string">
+				<b:FieldInfo/>
+			</ElementType><ElementType name="ItemLink" content="eltOnly" order="seq" model="closed">
+				<b:RecordInfo/>
+				<element type="LineItemSequenceNumber"/>
+			</ElementType><ElementType name="ItemID" content="textOnly" dt:type="string">
+				<b:FieldInfo/>
+			</ElementType><ElementType name="IssueSequence" content="textOnly" dt:type="int">
+				<b:FieldInfo/>
+			</ElementType><ElementType name="InventoryValuePrice" content="textOnly" model="closed" dt:type="fixed.14.4">
+				<b:FieldInfo/>
+			</ElementType><ElementType name="IDIssuingAuthority" content="textOnly" dt:type="string">
+				<b:FieldInfo/>
+			</ElementType><ElementType name="IDExpirationDate" content="textOnly" dt:type="date">
+				<b:FieldInfo/>
+			</ElementType><ElementType name="HostAuthorized" content="textOnly" dt:type="boolean">
+				<b:FieldInfo/>
+			</ElementType><ElementType name="Hospitality" content="eltOnly" order="seq">
+				<b:RecordInfo/>
+				<element type="TableID" maxOccurs="1" minOccurs="0"/>
+				<element type="PartySize" maxOccurs="1" minOccurs="0"/>
+			</ElementType><ElementType name="GLReasonCode" content="textOnly" dt:type="string">
+				<b:FieldInfo/>
+			</ElementType><ElementType name="GLExplanation" content="textOnly" dt:type="string">
+				<b:FieldInfo/>
+			</ElementType><ElementType name="GLAmount" content="textOnly" dt:type="fixed.14.4">
+				<b:FieldInfo/>
+			</ElementType><ElementType name="GLAccountID" content="textOnly" dt:type="string">
+				<b:FieldInfo/>
+			</ElementType><ElementType name="FrequentShopperPoints" content="eltOnly" order="seq" model="closed">
+				<b:RecordInfo/>
+				<element type="TypeID"/>
+				<element type="Quantity"/>
+			</ElementType><ElementType name="ForeignCurrency" content="eltOnly" order="seq" model="closed">
+				<b:RecordInfo/>
+				<element type="CurrencyCode"/>
+				<element type="Amount"/>
+			</ElementType><ElementType name="ForceOnLine" content="textOnly" dt:type="boolean">
+				<b:FieldInfo/>
+			</ElementType><ElementType name="Fleet" content="eltOnly" order="seq" model="closed">
+				<b:RecordInfo/>
+				<element type="DriverID"/>
+				<element type="VehicleID" maxOccurs="1" minOccurs="0"/>
+				<element type="TemporaryCar" maxOccurs="1" minOccurs="0"/>
+				<element type="OdometerReading" maxOccurs="1" minOccurs="0"/>
+				<element type="JobID" maxOccurs="1" minOccurs="0"/>
+			</ElementType><ElementType name="FamilyCode" content="textOnly" dt:type="string">
+				<b:FieldInfo/>
+			</ElementType><ElementType name="ExtendedAmount" content="textOnly" dt:type="fixed.14.4">
+				<b:FieldInfo/>
+			</ElementType><ElementType name="ExpirationDate" content="textOnly" dt:type="string">
+				<b:FieldInfo/>
+			</ElementType><ElementType name="ExemptTaxableAmount" content="textOnly" dt:type="fixed.14.4">
+				<b:FieldInfo/>
+			</ElementType><ElementType name="ExemptTaxAmount" content="textOnly" dt:type="fixed.14.4">
+				<b:FieldInfo/>
+			</ElementType><ElementType name="EventID" content="textOnly" dt:type="string">
+				<b:FieldInfo/>
+			</ElementType><ElementType name="EntryMethod" content="empty">
+				<b:RecordInfo/>
+				<AttributeType name="EntryMethodCodes" dt:type="string">
+					<b:FieldInfo/></AttributeType>
+				<attribute type="EntryMethodCodes" required="yes"/>
+			</ElementType><ElementType name="EndDateTime" content="textOnly" model="closed">
+				<b:FieldInfo/>
+			</ElementType><ElementType name="ElectronicSignature" content="textOnly" dt:type="string">
+				<b:FieldInfo/>
+			</ElementType><ElementType name="DriverID" content="textOnly" model="closed" dt:type="string">
+				<b:FieldInfo/>
+			</ElementType><ElementType name="Discount" content="eltOnly" order="seq">
+				<b:RecordInfo/>
+				<element type="Amount"/>
+				<element type="Tax" maxOccurs="*" minOccurs="0"/>
+				<element type="Rounding" maxOccurs="1" minOccurs="0"/>
+			</ElementType><ElementType name="Description" content="textOnly" model="closed" dt:type="string">
+				<b:FieldInfo/>
+			</ElementType><ElementType name="Delivery" content="eltOnly" order="seq">
+				<b:RecordInfo/>
+				<element type="Address"/>
+				<element type="PreferredDate" maxOccurs="1" minOccurs="0"/>
+				<element type="PreferredTime" maxOccurs="1" minOccurs="0"/>
+				<element type="Method" maxOccurs="1" minOccurs="0"/>
+				<element type="PaymentMethod" maxOccurs="1" minOccurs="0"/>
+				<element type="AmountToCollect" maxOccurs="1" minOccurs="0"/>
+				<element type="PhoneNumber" maxOccurs="1" minOccurs="0"/>
+				<element type="Notes" maxOccurs="1" minOccurs="0"/>
+			</ElementType><ElementType name="DateTime" content="textOnly">
+				<b:FieldInfo/>
+			</ElementType><ElementType name="CustomerIdentification" content="eltOnly" order="seq">
+				<b:RecordInfo/>
+				<element type="OperatorByPassFlag"/>
+				<element type="PersonalIDType"/>
+				<element type="PersonalID"/>
+				<element type="IDExpirationDate" maxOccurs="1" minOccurs="0"/>
+				<element type="IDIssuingAuthority" maxOccurs="1" minOccurs="0"/>
+				<element type="BirthDate" maxOccurs="1" minOccurs="0"/>
+				<element type="EntryMethod" maxOccurs="1" minOccurs="0"/>
+				<element type="Approval" maxOccurs="*" minOccurs="0"/>
+			</ElementType><ElementType name="CustomerExemptionID" content="textOnly" dt:type="string">
+				<b:FieldInfo/>
+			</ElementType><ElementType name="CurrencyCode" content="textOnly" dt:type="string">
+				<b:FieldInfo/>
+			</ElementType><ElementType name="CreditDebit" content="eltOnly" order="seq">
+				<b:RecordInfo/>
+				<element type="ExpirationDate" maxOccurs="1" minOccurs="0"/>
+				<element type="CardIssuerID"/>
+				<element type="Track1Data" maxOccurs="1" minOccurs="0"/>
+				<element type="Track2Data" maxOccurs="1" minOccurs="0"/>
+				<element type="Track3Data" maxOccurs="1" minOccurs="0"/>
+				<element type="IssueSequence"/>
+				<element type="ReconciliationCode" maxOccurs="1" minOccurs="0"/>
+				<element type="StartDate" maxOccurs="1" minOccurs="0"/>
+				<element type="ServiceCode"/>
+			</ElementType><ElementType name="CouponExpirationDate" content="textOnly" dt:type="string">
+				<b:FieldInfo/>
+			</ElementType><ElementType name="CountryCode" content="textOnly" dt:type="string">
+				<b:FieldInfo/>
+			</ElementType><ElementType name="Commission" content="eltOnly" order="seq">
+				<b:RecordInfo/>
+				<element type="Percentage" maxOccurs="1" minOccurs="0"/>
+				<element type="Amount" maxOccurs="1" minOccurs="0"/>
+			</ElementType><ElementType name="City" content="textOnly" dt:type="string">
+				<b:FieldInfo/>
+			</ElementType><ElementType name="CheckNumber" content="textOnly" dt:type="ui8">
+				<b:FieldInfo/>
+			</ElementType><ElementType name="Check" content="eltOnly" order="seq">
+				<b:RecordInfo/>
+				<element type="BankID"/>
+				<element type="CheckNumber"/>
+			</ElementType><ElementType name="ChangeFlag" content="textOnly" dt:type="boolean">
+				<b:FieldInfo/>
+			</ElementType><ElementType name="CardIssuerID" content="textOnly" dt:type="string">
+				<b:FieldInfo/>
+			</ElementType><ElementType name="CancelFlag" content="textOnly" dt:type="boolean">
+				<b:FieldInfo/>
+			</ElementType><ElementType name="BusinessDayDate" content="textOnly">
+				<b:FieldInfo/>
+			</ElementType><ElementType name="BirthDate" content="textOnly" dt:type="string">
+				<b:FieldInfo/>
+			</ElementType><ElementType name="BeginDateTime" content="textOnly" model="closed">
+				<b:FieldInfo/>
+			</ElementType><ElementType name="BankID" content="textOnly" dt:type="string">
+				<b:FieldInfo/>
+			</ElementType><ElementType name="AuthorizingTermID" content="textOnly" dt:type="string">
+				<b:FieldInfo/>
+			</ElementType><ElementType name="AuthorizedChangeAmount" content="textOnly" dt:type="fixed.14.4">
+				<b:FieldInfo/>
+			</ElementType><ElementType name="AuthorizationVoid" content="eltOnly" order="seq">
+				<b:RecordInfo/>
+				<element type="OrigAmount"/>
+				<element type="OrigApprovalCode"/>
+				<element type="OrigReferenceNo"/>
+			</ElementType><ElementType name="AuthorizationDateTime" content="textOnly" dt:type="string">
+				<b:FieldInfo/>
+			</ElementType><ElementType name="AuthorizationCode" content="textOnly" dt:type="string">
+				<b:FieldInfo/>
+			</ElementType><ElementType name="AuthorizationApprovalCode" content="textOnly" dt:type="string">
+				<b:FieldInfo/>
+			</ElementType><ElementType name="Authorization" content="eltOnly" order="seq">
+				<b:RecordInfo/>
+				<element type="RequestedAmount"/>
+				<element type="AuthorizationCode"/>
+				<element type="ReferenceNumber"/>
+				<element type="ProviderID"/>
+				<element type="AuthorizationDateTime"/>
+				<element type="AuthorizedChangeAmount" maxOccurs="1" minOccurs="0"/>
+				<element type="HostAuthorized"/>
+				<element type="AuthorizationApprovalCode" maxOccurs="1" minOccurs="0"/>
+				<element type="ApprovalCode"/>
+				<element type="AuthorizingTermID" maxOccurs="1" minOccurs="0"/>
+				<element type="ForceOnLine"/>
+				<element type="ElectronicSignature" maxOccurs="1" minOccurs="0"/>
+				<element type="PreAuthorizationFlag" maxOccurs="1" minOccurs="0"/>
+				<element type="AuthorizationVoid" maxOccurs="1" minOccurs="0"/>
+			</ElementType><ElementType name="AuthorityID" content="textOnly" model="closed" dt:type="string">
+				<b:FieldInfo/>
+			</ElementType><ElementType name="AssociateID" content="textOnly" dt:type="string">
+				<b:FieldInfo/>
+			</ElementType><ElementType name="Associate" content="eltOnly" order="seq">
+				<b:RecordInfo/>
+				<element type="AssociateID"/>
+				<element type="Commission" maxOccurs="*" minOccurs="0"/>
+				<element type="Action" maxOccurs="*" minOccurs="0"/>
+			</ElementType><ElementType name="ApproverID" content="textOnly" dt:type="string">
+				<b:FieldInfo/>
+			</ElementType><ElementType name="ApprovalCode" content="textOnly" dt:type="string">
+				<b:FieldInfo/>
+			</ElementType><ElementType name="Approval" content="eltOnly" order="seq">
+				<b:RecordInfo/>
+				<element type="SequenceNumber"/>
+				<element type="ApproverID"/>
+				<element type="LineApprovalCode"/>
+				<element type="Description" maxOccurs="1" minOccurs="0"/>
+				<element type="EntryMethod" maxOccurs="1" minOccurs="0"/>
+			</ElementType><ElementType name="AmountToCollect" content="textOnly" model="closed" dt:type="fixed.14.4">
+				<b:FieldInfo/>
+			</ElementType><ElementType name="Amount" content="textOnly" dt:type="fixed.14.4">
+				<b:FieldInfo/>
+			</ElementType><ElementType name="AddressLine" content="textOnly" model="closed" dt:type="string">
+				<b:FieldInfo/>
+			</ElementType><ElementType name="Address" content="eltOnly" order="seq">
+				<b:RecordInfo/>
+				<element type="Name"/>
+				<element type="AddressLine" maxOccurs="*" minOccurs="1"/>
+				<element type="City"/>
+				<element type="State" maxOccurs="1" minOccurs="0"/>
+				<element type="PostalCode" maxOccurs="1" minOccurs="0"/>
+				<element type="CountryCode" maxOccurs="1" minOccurs="0"/>
+			</ElementType><ElementType name="ActualSalesUnitPrice" content="textOnly" model="closed" dt:type="fixed.14.4">
+				<b:FieldInfo/>
+			</ElementType><ElementType name="ActiveStore_Transaction_2.00" content="eltOnly" order="seq">
+				<b:RecordInfo/>
+				<element type="RetailStoreID"/>
+				<element type="WorkstationID"/>
+				<element type="SequenceNumber"/>
+				<element type="BusinessDayDate"/>
+				<element type="BeginDateTime"/>
+				<element type="EndDateTime"/>
+				<element type="OperatorID"/>
+				<element type="CurrencyCode" maxOccurs="1" minOccurs="0"/>
+				<element type="CancelFlag"/>
+				<element type="TrainingModeFlag"/>
+				<element type="OfflineFlag"/>
+				<element type="RetailTransaction"/>
+			</ElementType><ElementType name="Action" content="eltOnly" order="seq">
+				<b:RecordInfo/>
+				<AttributeType name="AssociateActionCodes" dt:type="string">
+					<b:FieldInfo/></AttributeType>
+				<attribute type="AssociateActionCodes" required="yes"/>
+				<element type="DateTime"/>
+			</ElementType><ElementType name="AccountName" content="textOnly" dt:type="string">
+				<b:FieldInfo/>
+			</ElementType><ElementType name="AccountMiddleName" content="textOnly" dt:type="string">
+				<b:FieldInfo/>
+			</ElementType><ElementType name="AccountLastName" content="textOnly" dt:type="string">
+				<b:FieldInfo/>
+			</ElementType><ElementType name="AccountInfo" content="eltOnly" order="seq">
+				<b:RecordInfo/>
+				<element type="AccountName" maxOccurs="1" minOccurs="0"/>
+				<element type="AccountFirstName" maxOccurs="1" minOccurs="0"/>
+				<element type="AccountMiddleName" maxOccurs="1" minOccurs="0"/>
+				<element type="AccountLastName" maxOccurs="1" minOccurs="0"/>
+				<element type="Address" maxOccurs="1" minOccurs="0"/>
+				<element type="SocialSecurityNumber" maxOccurs="1" minOccurs="0"/>
+				<element type="PhoneNumber" maxOccurs="1" minOccurs="0"/>
+				<element type="Fleet" maxOccurs="1" minOccurs="0"/>
+			</ElementType><ElementType name="AccountID" content="textOnly" dt:type="string">
+				<b:FieldInfo/>
+			</ElementType><ElementType name="AccountFirstName" content="textOnly" dt:type="string">
+				<b:FieldInfo/>
+			</ElementType></Schema>
+	</sinktree>
+<links>
+<link linkid="1" linkfrom="/transactions/transaction/transactionsummary/totalitemsales" linkto="/ActiveStore_Transaction_2.00/RetailTransaction/Total/Amount"/>
+<link linkid="2" linkfrom="/transactions/transaction/transactiondetail/itementry/itemsummary/itemid/datasource" linkto="/ActiveStore_Transaction_2.00/RetailTransaction/LineItem/EntryMethod/@EntryMethodCodes"/>
+<link linkid="3" linkfrom="/transactions/transaction/transactiondetail/itementry/itemsummary/itemtype" linkto="/ActiveStore_Transaction_2.00/RetailTransaction/LineItem/SaleOrReturn/Description"/>
+<link linkid="4" linkfrom="/transactions/transaction/transactiondetail/itementry/itemsummary/itemid/barcode" linkto="/ActiveStore_Transaction_2.00/RetailTransaction/LineItem/SaleOrReturn/ItemID"/>
+<link linkid="5" linkfrom="/transactions/transaction/transactiondetail/itementry/itemsummary/weightsource" linkto="/ActiveStore_Transaction_2.00/RetailTransaction/LineItem/SaleOrReturn/UnitOfMeasureCode"/>
+<link linkid="6" linkfrom="/transactions/transaction/transactionsummary/transactionnumber" linkto="/ActiveStore_Transaction_2.00/SequenceNumber"/>
+<link linkid="7" linkfrom="/transactions/transaction/transactionsummary/cashierid" linkto="/ActiveStore_Transaction_2.00/OperatorID"/>
+<link linkid="8" linkfrom="/transactions/transaction/transactionsummary/registerid" linkto="/ActiveStore_Transaction_2.00/WorkstationID"/>
+<link linkid="9" linkfrom="/transactions/transaction/transactionsummary/storeid" linkto="/ActiveStore_Transaction_2.00/RetailStoreID"/>
+<link linkid="10" linkfrom="1" linkto="/ActiveStore_Transaction_2.00/RetailTransaction"/>
+<link linkid="11" linkfrom="/transactions/transaction" linkto="1"/>
+<link linkid="12" linkfrom="/transactions/transaction/transactionsummary/tillid" linkto="/ActiveStore_Transaction_2.00/RetailTransaction/TillID"/>
+<link linkid="13" linkfrom="/transactions/transaction/transactionsummary/businessdate" linkto="/ActiveStore_Transaction_2.00/BusinessDayDate"/>
+<link linkid="14" linkfrom="/transactions/transaction/transactionsummary/transactiondatetime" linkto="/ActiveStore_Transaction_2.00/BeginDateTime"/>
+<link linkid="15" linkfrom="/transactions/transaction/transactionsummary/transactiondatetime" linkto="/ActiveStore_Transaction_2.00/EndDateTime"/>
+<link linkid="16" linkfrom="/transactions/transaction/transactiondetail/itementry" linkto="2"/>
+<link linkid="17" linkfrom="2" linkto="/ActiveStore_Transaction_2.00/RetailTransaction/LineItem"/>
+<link linkid="18" linkfrom="/transactions/transaction/transactiondetail/itementry/itemsummary/lineid" linkto="/ActiveStore_Transaction_2.00/RetailTransaction/LineItem/SequenceNumber"/>
+<link linkid="19" linkfrom="/transactions/transaction/transactiondetail/itementry/itemsummary/quantity" linkto="/ActiveStore_Transaction_2.00/RetailTransaction/LineItem/SaleOrReturn/Quantity"/>
+<link linkid="20" linkfrom="/transactions/transaction/transactiondetail/itementry/itemsummary/deptno" linkto="/ActiveStore_Transaction_2.00/RetailTransaction/LineItem/SaleOrReturn/StoreHierarchy"/>
+<link linkid="21" linkfrom="/transactions/transaction/transactiondetail/itementry/itemsummary/extendedprice" linkto="/ActiveStore_Transaction_2.00/RetailTransaction/LineItem/SaleOrReturn/ExtendedAmount"/>
+<link linkid="22" linkfrom="/transactions/transaction/transactiondetail/itementry/itemsummary/weight" linkto="/ActiveStore_Transaction_2.00/RetailTransaction/LineItem/SaleOrReturn/Units"/></links>
+<functions>
+<function functionid="1" xcell="61" ycell="211" funcfuncid="424" funcversion="1" isscripter="no">
+<inputparams>
+<param type="link" value="11"/></inputparams></function>
+<function functionid="2" xcell="61" ycell="218" funcfuncid="424" funcversion="1" isscripter="no">
+<inputparams>
+<param type="link" value="16"/></inputparams></function></functions>
+<CompiledXSL><xsl:stylesheet xmlns:xsl="http://www.w3.org/1999/XSL/Transform" xmlns:msxsl="urn:schemas-microsoft-com:xslt" xmlns:var="urn:var" xmlns:user="urn:user" exclude-result-prefixes="msxsl var user" version="1.0">
+			<xsl:output method="xml" omit-xml-declaration="yes"/>
+			<xsl:template match="/">
+				<xsl:apply-templates select="transactions"/>
+			</xsl:template>
+			<xsl:template match="transactions">
+				<ActiveStore_Transaction_2.00>
+					<!-- Connection from source node "storeid" to destination node "RetailStoreID" -->
+					<xsl:if test="transaction/transactionsummary/storeid"><RetailStoreID><xsl:value-of select="transaction/transactionsummary/storeid/text()"/></RetailStoreID></xsl:if>
+					<!-- Connection from source node "registerid" to destination node "WorkstationID" -->
+					<xsl:if test="transaction/transactionsummary/registerid"><WorkstationID><xsl:value-of select="transaction/transactionsummary/registerid/text()"/></WorkstationID></xsl:if>
+					<!-- Connection from source node "transactionnumber" to destination node "SequenceNumber" -->
+					<xsl:if test="transaction/transactionsummary/transactionnumber"><SequenceNumber><xsl:value-of select="transaction/transactionsummary/transactionnumber/text()"/></SequenceNumber></xsl:if>
+					<!-- Connection from source node "businessdate" to destination node "BusinessDayDate" -->
+					<xsl:if test="transaction/transactionsummary/businessdate"><BusinessDayDate><xsl:value-of select="transaction/transactionsummary/businessdate/text()"/></BusinessDayDate></xsl:if>
+					<!-- Connection from source node "transactiondatetime" to destination node "BeginDateTime" -->
+					<xsl:if test="transaction/transactionsummary/transactiondatetime"><BeginDateTime><xsl:value-of select="transaction/transactionsummary/transactiondatetime/text()"/></BeginDateTime></xsl:if>
+					<!-- Connection from source node "transactiondatetime" to destination node "EndDateTime" -->
+					<xsl:if test="transaction/transactionsummary/transactiondatetime"><EndDateTime><xsl:value-of select="transaction/transactionsummary/transactiondatetime/text()"/></EndDateTime></xsl:if>
+					<!-- Connection from source node "cashierid" to destination node "OperatorID" -->
+					<xsl:if test="transaction/transactionsummary/cashierid"><OperatorID><xsl:value-of select="transaction/transactionsummary/cashierid/text()"/></OperatorID></xsl:if>
+					<CancelFlag>0</CancelFlag>
+					<TrainingModeFlag>0</TrainingModeFlag>
+					<OfflineFlag>0</OfflineFlag>
+					<xsl:for-each select="transaction">
+						<RetailTransaction>
+							<!-- Connection from source node "tillid" to destination node "TillID" -->
+							<xsl:if test="transactionsummary/tillid"><TillID><xsl:value-of select="transactionsummary/tillid/text()"/></TillID></xsl:if>
+							<OutsideSalesFlag>0</OutsideSalesFlag>
+							<SuspendFlag>0</SuspendFlag>
+							<xsl:for-each select="transactiondetail">
+								<xsl:for-each select="itementry">
+									<LineItem>
+										<!-- Connection from source node "lineid" to destination node "SequenceNumber" -->
+										<xsl:if test="itemsummary/lineid"><SequenceNumber><xsl:value-of select="itemsummary/lineid/text()"/></SequenceNumber></xsl:if>
+										<BeginDateTime>0</BeginDateTime>
+										<EndDateTime>0</EndDateTime>
+										<VoidFlag>0</VoidFlag>
+										<EntryMethod>
+											<!-- Connection from source node "datasource" to destination node "EntryMethodCodes" -->
+											<xsl:if test="itemsummary/itemid/datasource"><xsl:attribute name="EntryMethodCodes"><xsl:value-of select="itemsummary/itemid/datasource/text()"/></xsl:attribute></xsl:if>
+										</EntryMethod>
+										<Approval>
+											<SequenceNumber>0</SequenceNumber>
+											<ApproverID>0</ApproverID>
+											<LineApprovalCode>0</LineApprovalCode>
+											<EntryMethod>
+												<xsl:attribute name="EntryMethodCodes">0</xsl:attribute>
+											</EntryMethod>
+										</Approval>
+										<SaleOrReturn>
+											<xsl:attribute name="ItemTypeCodes">0</xsl:attribute>
+											<xsl:attribute name="ItemTransactionUsages">0</xsl:attribute>
+											<POSIdentity>
+												<POSIDType>IBM 4690</POSIDType>
+												<POSItemID>IBM 4690</POSItemID>
+												<Qualifier>4690</Qualifier>
+											</POSIdentity>
+											<!-- Connection from source node "barcode" to destination node "ItemID" -->
+											<xsl:if test="itemsummary/itemid/barcode"><ItemID><xsl:value-of select="itemsummary/itemid/barcode/text()"/></ItemID></xsl:if>
+											<MerchandiseHierarchy>0</MerchandiseHierarchy>
+											<!-- Connection from source node "itemtype" to destination node "Description" -->
+											<xsl:if test="itemsummary/itemtype"><Description><xsl:value-of select="itemsummary/itemtype/text()"/></Description></xsl:if>
+											<ActualSalesUnitPrice>0</ActualSalesUnitPrice>
+											<!-- Connection from source node "extendedprice" to destination node "ExtendedAmount" -->
+											<xsl:if test="itemsummary/extendedprice"><ExtendedAmount><xsl:value-of select="itemsummary/extendedprice/text()"/></ExtendedAmount></xsl:if>
+											<!-- Connection from source node "quantity" to destination node "Quantity" -->
+											<xsl:if test="itemsummary/quantity"><Quantity><xsl:value-of select="itemsummary/quantity/text()"/></Quantity></xsl:if>
+											<!-- Connection from source node "weight" to destination node "Units" -->
+											<xsl:if test="itemsummary/weight"><Units><xsl:value-of select="itemsummary/weight/text()"/></Units></xsl:if>
+											<!-- Connection from source node "weightsource" to destination node "UnitOfMeasureCode" -->
+											<xsl:if test="itemsummary/weightsource"><UnitOfMeasureCode><xsl:value-of select="itemsummary/weightsource/text()"/></UnitOfMeasureCode></xsl:if>
+											<!-- Connection from source node "deptno" to destination node "StoreHierarchy" -->
+											<xsl:if test="itemsummary/deptno"><StoreHierarchy><xsl:value-of select="itemsummary/deptno/text()"/></StoreHierarchy></xsl:if>
+											<Associate>
+												<AssociateID>0</AssociateID>
+												<Action>
+													<xsl:attribute name="AssociateActionCodes">0</xsl:attribute>
+													<DateTime>0</DateTime>
+												</Action>
+											</Associate>
+											<ItemLink>
+												<LineItemSequenceNumber>0</LineItemSequenceNumber>
+											</ItemLink>
+											<Discount>
+												<Amount>0</Amount>
+												<Tax>
+													<AuthorityID>0</AuthorityID>
+													<RuleID>0</RuleID>
+													<TaxableAmount>0</TaxableAmount>
+													<Amount>0</Amount>
+													<TaxExemption>
+														<CustomerExemptionID>0</CustomerExemptionID>
+														<ExemptTaxAmount>0</ExemptTaxAmount>
+														<ExemptTaxableAmount>0</ExemptTaxableAmount>
+														<Approval>
+															<SequenceNumber>0</SequenceNumber>
+															<ApproverID>0</ApproverID>
+															<LineApprovalCode>0</LineApprovalCode>
+															<EntryMethod>
+																<xsl:attribute name="EntryMethodCodes">0</xsl:attribute>
+															</EntryMethod>
+														</Approval>
+													</TaxExemption>
+													<TaxOverride>
+														<TaxOverrideID>0</TaxOverrideID>
+														<OriginalTaxRuleID>0</OriginalTaxRuleID>
+														<OriginalTaxAmount>0</OriginalTaxAmount>
+														<Approval>
+															<SequenceNumber>0</SequenceNumber>
+															<ApproverID>0</ApproverID>
+															<LineApprovalCode>0</LineApprovalCode>
+															<EntryMethod>
+																<xsl:attribute name="EntryMethodCodes">0</xsl:attribute>
+															</EntryMethod>
+														</Approval>
+													</TaxOverride>
+												</Tax>
+												<Rounding>
+													<Amount>0</Amount>
+												</Rounding>
+											</Discount>
+											<RetailPriceModifier>
+												<xsl:attribute name="PriceModifierTypes">0</xsl:attribute>
+												<PreviousPrice>0</PreviousPrice>
+												<Approval>
+													<SequenceNumber>0</SequenceNumber>
+													<ApproverID>0</ApproverID>
+													<LineApprovalCode>0</LineApprovalCode>
+													<EntryMethod>
+														<xsl:attribute name="EntryMethodCodes">0</xsl:attribute>
+													</EntryMethod>
+												</Approval>
+											</RetailPriceModifier>
+											<Tax>
+												<AuthorityID>0</AuthorityID>
+												<RuleID>0</RuleID>
+												<TaxableAmount>0</TaxableAmount>
+												<Amount>0</Amount>
+												<TaxExemption>
+													<CustomerExemptionID>0</CustomerExemptionID>
+													<ExemptTaxAmount>0</ExemptTaxAmount>
+													<ExemptTaxableAmount>0</ExemptTaxableAmount>
+													<Approval>
+														<SequenceNumber>0</SequenceNumber>
+														<ApproverID>0</ApproverID>
+														<LineApprovalCode>0</LineApprovalCode>
+														<EntryMethod>
+															<xsl:attribute name="EntryMethodCodes">0</xsl:attribute>
+														</EntryMethod>
+													</Approval>
+												</TaxExemption>
+												<TaxOverride>
+													<TaxOverrideID>0</TaxOverrideID>
+													<OriginalTaxRuleID>0</OriginalTaxRuleID>
+													<OriginalTaxAmount>0</OriginalTaxAmount>
+													<Approval>
+														<SequenceNumber>0</SequenceNumber>
+														<ApproverID>0</ApproverID>
+														<LineApprovalCode>0</LineApprovalCode>
+														<EntryMethod>
+															<xsl:attribute name="EntryMethodCodes">0</xsl:attribute>
+														</EntryMethod>
+													</Approval>
+												</TaxOverride>
+											</Tax>
+											<OriginalTransaction>
+												<xsl:attribute name="PreviousTransactionLinkCodes">0</xsl:attribute>
+												<RetailStoreID>0</RetailStoreID>
+												<WorkstationID>0</WorkstationID>
+												<SequenceNumber>0</SequenceNumber>
+												<BusinessDayDate>0</BusinessDayDate>
+												<EntryMethod>
+													<xsl:attribute name="EntryMethodCodes">0</xsl:attribute>
+												</EntryMethod>
+											</OriginalTransaction>
+											<Delivery>
+												<Address>
+													<Name>0</Name>
+													<AddressLine>0</AddressLine>
+													<City>0</City>
+												</Address>
+											</Delivery>
+											<Rounding>
+												<Amount>0</Amount>
+											</Rounding>
+										</SaleOrReturn>
+										<Rounding>
+											<Amount>0</Amount>
+										</Rounding>
+										<Voids>
+											<LineItemSequenceNumber>0</LineItemSequenceNumber>
+										</Voids>
+										<Tax>
+											<AuthorityID>0</AuthorityID>
+											<RuleID>0</RuleID>
+											<TaxableAmount>0</TaxableAmount>
+											<Amount>0</Amount>
+											<TaxExemption>
+												<CustomerExemptionID>0</CustomerExemptionID>
+												<ExemptTaxAmount>0</ExemptTaxAmount>
+												<ExemptTaxableAmount>0</ExemptTaxableAmount>
+												<Approval>
+													<SequenceNumber>0</SequenceNumber>
+													<ApproverID>0</ApproverID>
+													<LineApprovalCode>0</LineApprovalCode>
+													<EntryMethod>
+														<xsl:attribute name="EntryMethodCodes">0</xsl:attribute>
+													</EntryMethod>
+												</Approval>
+											</TaxExemption>
+											<TaxOverride>
+												<TaxOverrideID>0</TaxOverrideID>
+												<OriginalTaxRuleID>0</OriginalTaxRuleID>
+												<OriginalTaxAmount>0</OriginalTaxAmount>
+												<Approval>
+													<SequenceNumber>0</SequenceNumber>
+													<ApproverID>0</ApproverID>
+													<LineApprovalCode>0</LineApprovalCode>
+													<EntryMethod>
+														<xsl:attribute name="EntryMethodCodes">0</xsl:attribute>
+													</EntryMethod>
+												</Approval>
+											</TaxOverride>
+										</Tax>
+										<LoyaltyReward>
+											<PromotionID>0</PromotionID>
+											<Discount>
+												<Amount>0</Amount>
+												<Tax>
+													<AuthorityID>0</AuthorityID>
+													<RuleID>0</RuleID>
+													<TaxableAmount>0</TaxableAmount>
+													<Amount>0</Amount>
+													<TaxExemption>
+														<CustomerExemptionID>0</CustomerExemptionID>
+														<ExemptTaxAmount>0</ExemptTaxAmount>
+														<ExemptTaxableAmount>0</ExemptTaxableAmount>
+														<Approval>
+															<SequenceNumber>0</SequenceNumber>
+															<ApproverID>0</ApproverID>
+															<LineApprovalCode>0</LineApprovalCode>
+															<EntryMethod>
+																<xsl:attribute name="EntryMethodCodes">0</xsl:attribute>
+															</EntryMethod>
+														</Approval>
+													</TaxExemption>
+													<TaxOverride>
+														<TaxOverrideID>0</TaxOverrideID>
+														<OriginalTaxRuleID>0</OriginalTaxRuleID>
+														<OriginalTaxAmount>0</OriginalTaxAmount>
+														<Approval>
+															<SequenceNumber>0</SequenceNumber>
+															<ApproverID>0</ApproverID>
+															<LineApprovalCode>0</LineApprovalCode>
+															<EntryMethod>
+																<xsl:attribute name="EntryMethodCodes">0</xsl:attribute>
+															</EntryMethod>
+														</Approval>
+													</TaxOverride>
+												</Tax>
+												<Rounding>
+													<Amount>0</Amount>
+												</Rounding>
+											</Discount>
+											<PromotionMessage>
+												<MessageID>0</MessageID>
+											</PromotionMessage>
+											<PointsRewarded>
+												<FrequentShopperPoints>
+													<TypeID>0</TypeID>
+													<Quantity>0</Quantity>
+												</FrequentShopperPoints>
+											</PointsRewarded>
+											<VoucherRewarded>
+												<Voucher>
+													<VoucherID>0</VoucherID>
+												</Voucher>
+											</VoucherRewarded>
+										</LoyaltyReward>
+										<LoyaltyTrigger>
+											<PointsRedeemed>
+												<FrequentShopperPoints>
+													<TypeID>0</TypeID>
+													<Quantity>0</Quantity>
+												</FrequentShopperPoints>
+											</PointsRedeemed>
+											<ManualAction>
+												<ManualActionID>0</ManualActionID>
+											</ManualAction>
+											<VoucherRedeemed>
+												<Voucher>
+													<VoucherID>0</VoucherID>
+												</Voucher>
+											</VoucherRedeemed>
+										</LoyaltyTrigger>
+										<StoreFinancialLedgerAcccount>
+											<GLAmount>0</GLAmount>
+											<GLReasonCode>0</GLReasonCode>
+										</StoreFinancialLedgerAcccount>
+										<Tender>
+											<TenderID>0</TenderID>
+											<Amount>0</Amount>
+											<ForeignCurrency>
+												<CurrencyCode>0</CurrencyCode>
+												<Amount>0</Amount>
+											</ForeignCurrency>
+											<ChangeFlag>0</ChangeFlag>
+											<AccountInfo>
+												<Address>
+													<Name>0</Name>
+													<AddressLine>0</AddressLine>
+													<City>0</City>
+												</Address>
+												<Fleet>
+													<DriverID>0</DriverID>
+												</Fleet>
+											</AccountInfo>
+											<CustomerIdentification>
+												<OperatorByPassFlag>0</OperatorByPassFlag>
+												<PersonalIDType>0</PersonalIDType>
+												<PersonalID>0</PersonalID>
+												<EntryMethod>
+													<xsl:attribute name="EntryMethodCodes">0</xsl:attribute>
+												</EntryMethod>
+												<Approval>
+													<SequenceNumber>0</SequenceNumber>
+													<ApproverID>0</ApproverID>
+													<LineApprovalCode>0</LineApprovalCode>
+													<EntryMethod>
+														<xsl:attribute name="EntryMethodCodes">0</xsl:attribute>
+													</EntryMethod>
+												</Approval>
+											</CustomerIdentification>
+											<Address>
+												<Name>0</Name>
+												<AddressLine>0</AddressLine>
+												<City>0</City>
+											</Address>
+											<Authorization>
+												<RequestedAmount>0</RequestedAmount>
+												<AuthorizationCode>0</AuthorizationCode>
+												<ReferenceNumber>0</ReferenceNumber>
+												<ProviderID>0</ProviderID>
+												<AuthorizationDateTime>0</AuthorizationDateTime>
+												<HostAuthorized>0</HostAuthorized>
+												<ApprovalCode>0</ApprovalCode>
+												<ForceOnLine>0</ForceOnLine>
+												<AuthorizationVoid>
+													<OrigAmount>0</OrigAmount>
+													<OrigApprovalCode>0</OrigApprovalCode>
+													<OrigReferenceNo>0</OrigReferenceNo>
+												</AuthorizationVoid>
+											</Authorization>
+											<Rounding>
+												<Amount>0</Amount>
+											</Rounding>
+											<Check>
+												<BankID>0</BankID>
+												<CheckNumber>0</CheckNumber>
+											</Check>
+											<CreditDebit>
+												<CardIssuerID>0</CardIssuerID>
+												<IssueSequence>0</IssueSequence>
+												<ServiceCode>0</ServiceCode>
+											</CreditDebit>
+											<ManufacturerCoupon>
+												<PrimaryLabel>0</PrimaryLabel>
+												<SecondaryLabel>0</SecondaryLabel>
+											</ManufacturerCoupon>
+											<SendCheck>
+												<ReasonCode>0</ReasonCode>
+											</SendCheck>
+										</Tender>
+									</LineItem>
+								</xsl:for-each>
+							</xsl:for-each>
+							<Total>
+								<xsl:attribute name="TotalTypes">TransactionNettAmount</xsl:attribute>
+								<!-- Connection from source node "totalitemsales" to destination node "Amount" -->
+								<xsl:if test="transactionsummary/totalitemsales"><Amount><xsl:value-of select="transactionsummary/totalitemsales/text()"/></Amount></xsl:if>
+							</Total>
+							<RestrictionValidation>
+								<xsl:attribute name="CustomerQuestionIDs">CustomerID</xsl:attribute>
+								<OperatorByPassFlag>0</OperatorByPassFlag>
+								<Approval>
+									<SequenceNumber>0</SequenceNumber>
+									<ApproverID>0</ApproverID>
+									<LineApprovalCode>0</LineApprovalCode>
+									<EntryMethod>
+										<xsl:attribute name="EntryMethodCodes">0</xsl:attribute>
+									</EntryMethod>
+								</Approval>
+								<EntryMethod>
+									<xsl:attribute name="EntryMethodCodes">0</xsl:attribute>
+								</EntryMethod>
+								<QuestionAnswer>0</QuestionAnswer>
+								<Address>
+									<Name>0</Name>
+									<AddressLine>0</AddressLine>
+									<City>0</City>
+								</Address>
+							</RestrictionValidation>
+							<Delivery>
+								<Address>
+									<Name>0</Name>
+									<AddressLine>0</AddressLine>
+									<City>0</City>
+									<State>0</State>
+									<PostalCode>0</PostalCode>
+									<CountryCode>0</CountryCode>
+								</Address>
+							</Delivery>
+							<Associate>
+								<AssociateID>0</AssociateID>
+								<Action>
+									<xsl:attribute name="AssociateActionCodes">0</xsl:attribute>
+									<DateTime>0</DateTime>
+								</Action>
+							</Associate>
+							<OriginalTransaction>
+								<xsl:attribute name="PreviousTransactionLinkCodes">0</xsl:attribute>
+								<RetailStoreID>0</RetailStoreID>
+								<WorkstationID>0</WorkstationID>
+								<SequenceNumber>0</SequenceNumber>
+								<BusinessDayDate>0</BusinessDayDate>
+								<EntryMethod>
+									<xsl:attribute name="EntryMethodCodes">0</xsl:attribute>
+								</EntryMethod>
+							</OriginalTransaction>
+						</RetailTransaction>
+					</xsl:for-each>
+				</ActiveStore_Transaction_2.00>
+			</xsl:template>
+			<msxsl:script language="VBScript" implements-prefix="user">
+				<![CDATA[
+]]>
+			</msxsl:script>
+		</xsl:stylesheet>
+	</CompiledXSL></mapsource>

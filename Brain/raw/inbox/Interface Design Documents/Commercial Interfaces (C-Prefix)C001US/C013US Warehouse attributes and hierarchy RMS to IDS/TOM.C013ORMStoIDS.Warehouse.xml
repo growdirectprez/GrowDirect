@@ -1,0 +1,76 @@
+<?xml version="1.0" encoding="utf-8"?>
+<xsl:stylesheet version="1.0" 
+    xmlns:xsl="http://www.w3.org/1999/XSL/Transform"
+    xmlns:wh="http://tesco.com/common/Warehouse">
+	<xsl:template match="/">
+		<xsl:for-each select="WHDesc">
+			<wh:Warehouse xmlns="http://tesco.com/common/Warehouse">
+				<WarehouseID>
+					<xsl:value-of select="wh" />
+				</WarehouseID>
+				<xsl:if test="wh_name!=''">
+					<WarehouseName>
+						<xsl:value-of select="wh_name" />
+					</WarehouseName>
+				</xsl:if>
+				<xsl:if test="email!=''">
+					<EmailAddress>
+						<xsl:value-of select="email" />
+					</EmailAddress>
+				</xsl:if>
+				<xsl:if test="currency_code!=''">
+					<CurrencyCode>
+						<xsl:value-of select="currency_code" />
+					</CurrencyCode>
+				</xsl:if>
+				<xsl:if test="channel_id!=''">
+					<ChannelID>
+						<xsl:value-of select="channel_id" />
+					</ChannelID>
+				</xsl:if>
+				<xsl:if test="stockholding_ind!=''">
+					<StockHoldingInd>
+						<xsl:value-of select="stockholding_ind" />
+					</StockHoldingInd>
+				</xsl:if>
+				<xsl:if test="break_pack_ind!=''">
+					<BreakPackInd>
+						<xsl:value-of select="break_pack_ind" />
+					</BreakPackInd>
+				</xsl:if>
+				<xsl:if test="redist_wh_ind!=''">
+					<RedistributionWHInd>
+						<xsl:value-of select="redist_wh_ind" />
+					</RedistributionWHInd>
+				</xsl:if>
+				<xsl:if test="delivery_policy!=''">
+					<DeliveryPolicy>
+						<xsl:value-of select="delivery_policy" />
+					</DeliveryPolicy>
+				</xsl:if>
+				<xsl:if test="duns_number!=''">
+					<DUNSNumber>
+						<xsl:value-of select="duns_number" />
+					</DUNSNumber>
+				</xsl:if>
+				<xsl:if test="duns_loc!=''">
+					<DUNSLocation>
+						<xsl:value-of select="duns_loc" />
+					</DUNSLocation>
+				</xsl:if>
+				<xsl:if test="AddrDesc/addr!=''">
+					<AddressID>
+						<xsl:value-of select="AddrDesc/addr" />
+					</AddressID>
+				</xsl:if>
+			</wh:Warehouse>
+		</xsl:for-each>
+		<xsl:for-each select="WHRef">
+			<wh:Warehouse xmlns="http://tesco.com/common/Warehouse">
+				<WarehouseID>
+					<xsl:value-of select="wh" />
+				</WarehouseID>
+			</wh:Warehouse>
+		</xsl:for-each>
+	</xsl:template>
+</xsl:stylesheet>

@@ -4,21 +4,21 @@
     "type": "split",
     "children": [
       {
-        "id": "3dfe88cb849c548c",
+        "id": "16db7d3f0e1c3cbd",
         "type": "tabs",
         "children": [
           {
-            "id": "41e8b03e9a83e395",
+            "id": "ee024cec74661266",
             "type": "leaf",
             "state": {
               "type": "markdown",
               "state": {
-                "file": "Brain/projects/Method.md",
+                "file": "Brain/wiki/secure-omnichannel.md",
                 "mode": "source",
                 "source": false
               },
               "icon": "lucide-file",
-              "title": "Method"
+              "title": "secure-omnichannel"
             }
           }
         ]
@@ -156,13 +156,12 @@
             "state": {
               "type": "outline",
               "state": {
-                "file": "Brain/projects/Method.md",
                 "followCursor": false,
                 "showSearch": false,
                 "searchQuery": ""
               },
               "icon": "lucide-list",
-              "title": "Outline of Method"
+              "title": "Outline"
             }
           }
         ],
@@ -185,53 +184,53 @@
       "bases:Create new base": false
     }
   },
-  "active": "41e8b03e9a83e395",
+  "active": "ee024cec74661266",
   "lastOpenFiles": [
-    "docs/dispatches/dispatch-site-2026-04-22.md",
-    "docs/dispatches/dispatch-demo-prep-2026-04-22.md",
-    "docs/dispatches",
-    "Canary/dispatch-demo-prep-2026-04-22.md",
-    "dispatch-site-2026-04-22.md",
-    "dispatch-code-2026-04-22-deploy-landing.md",
-    "Canary/static/landing/roadshow.html",
-    "Canary/static/landing/prototype.html",
-    "site/prototype.html",
-    "Canary/docs/sdds/v2/chirp.md",
-    "Brain/projects/Cove.md",
-    "Brain/wiki/canary-architecture.md",
-    "dispatch-cowork-2026-04-22.md",
-    "docs/_archive/workorders/output/docs/canary_technical_roadshow_v1.0.html",
-    "docs/_archive/workorders/output/docs",
-    "docs/_archive/workorders/output",
-    "docs/_archive/workorders",
-    "docs/_archive/ip-vault/warchest/site/why-now.html",
-    "docs/_archive/ip-vault/warchest/site/triple-subscriber.html",
-    "Brain/projects/Method.md",
-    "Canary/docs/strategic/Canary_Fireball_Integration_BRD.md",
-    "docs/team/DevOps.md",
-    "docs/team/Compliance.md",
-    "docs/team/QA.md",
-    "docs/team/UX.md",
-    "docs/team/Writer.md",
-    "docs/team/ProgramManager.md",
-    "docs/team/Engineer.md",
-    "docs/team/Architect.md",
-    "Cove/docs/voices/Condor.md",
-    "Brain/raw/inbox/brain-health-check-2026-04-21.md",
-    "docs/superpowers/briefs/2026-04-growdirect-method-initiative.md",
-    "Canary/docs/field-registry.md",
-    "Canary/docs/sdds/v2/alert.md",
-    "Canary/docs/sdds/v2/multi-pos-architecture-proof.md",
-    "Canary/docs/sdds/v2/identity.md",
-    "Cove/docs/archive/originals/city-records/landslide-project/media/la-times-slide-article.png",
-    "Brain/raw/inbox/LA Times SLide Article.png",
-    "Brain/raw/inbox/Screenshot 2026-04-20 at 9.56.28 PM.png",
-    "Cove/docs/archive/originals/Historic/news-clippings/1976-04-22-pv-peninsula-news-new-rpv-development-proposal-under-study.png",
-    "Brain/raw/inbox/PIA03348.jpg",
-    "Brain/raw/inbox/0994061.jpg",
-    "Cove/docs/archive/originals/property/county-recorder-declarations/Screenshot 2026-04-18 at 6.03.08 AM.png",
-    "Cove/docs/archive/originals/property/county-recorder-declarations/Screenshot 2026-04-18 at 4.53.48 AM.png",
-    "Cove/docs/archive/originals/property/county-recorder-declarations/dec100-page-177.jpeg",
-    "Cove/docs/archive/originals/property/county-recorder-declarations/dec100-page-176.jpeg"
+    "Brain/wiki/secure-5-inventory.md",
+    "Canary/canary/services/qa_agent/__pycache__/linear_client.cpython-312.pyc",
+    "Angel/AngeliqueLyle-LP-Integration-Spec.docx",
+    "Brain/wiki/secure-eagle-eye-fnr-2018.md",
+    "Brain/wiki/secure-sysrepublic-xbr-2016.md",
+    "Brain/wiki/secure-merchandising-rfp-evant-2003.md",
+    "Brain/wiki/secure-dv-private-label-2006.md",
+    "Brain/wiki/secure-integrated-maps-2003.md",
+    "Brain/wiki/secure-tiger-property-it.md",
+    "Brain/wiki/secure-jlp-property-services-2002.md",
+    "Brain/wiki/secure-tesco-tom-2006.md",
+    "Brain/raw/inbox/starbucks/Starbucks kickoff.pptx",
+    "Brain/raw/inbox/starbucks/bid_export Geoff Lyle 8 23 2018.xlsx",
+    "Brain/raw/inbox/starbucks/Starbucks questions.xlsx",
+    "Brain/raw/inbox/starbucks/SBUX SECR Questionnaire Follow-ups GL edits 8 9 2019.xlsx",
+    "Brain/raw/inbox/starbucks/Appriss Onsite Agenda.pptx",
+    "Brain/raw/inbox/starbucks/S5 On Premise - Starbucks China v1.3.docx",
+    "Brain/raw/inbox/starbucks/Appriss Retail Secure Proposal for Starbucks China 7 8 20.docx",
+    "Brain/raw/inbox/starbucks/Appriss Core EBR SOW Oct_2019.docx",
+    "docs/dispatches/dispatch-primetime-2026-04-23.md",
+    "Brain/raw/inbox/_brain-assessment-v1.md",
+    "Brain/wiki/canary-alerts-guide.md",
+    "docs/dispatch-brain-scaffold-design.md",
+    "docs/playbook-brain-scaffold-design.md",
+    "docs/playbook-method-katz-reverse-engineer.md",
+    "docs/playbook-solex-square-merchant.md",
+    "docs/playbook-retail-ops-model.md",
+    "docs/email-migration-fastmail.md",
+    "Brain/raw/inbox/Heartbeat/WebFiles/Fireball/images/_vti_cnf/pglogo.gif",
+    "Brain/raw/inbox/Heartbeat/WebFiles/Fireball/images/_vti_cnf/nrflogo.gif",
+    "Brain/raw/inbox/Heartbeat/WebFiles/Fireball/images/_vti_cnf/ic_wd.gif",
+    "Brain/raw/inbox/Heartbeat/WebFiles/Fireball/images/_vti_cnf/ic_net.gif",
+    "Brain/raw/inbox/Heartbeat/WebFiles/Fireball/images/_vti_cnf/dv_small_logo.gif",
+    "Brain/raw/inbox/Heartbeat/WebFiles/Fireball/images/_vti_cnf/artslogo.gif",
+    "Brain/raw/inbox/Heartbeat/WebFiles/Fireball/images/_vti_cnf/activestore.gif",
+    "Brain/raw/inbox/Heartbeat/WebFiles/Fireball/images/_vti_cnf/RetailConsulting.jpg",
+    "Brain/raw/inbox/Heartbeat/WebFiles/Fireball/images/_vti_cnf/POSHeartbeat.png",
+    "Brain/raw/inbox/Heartbeat/WebFiles/Fireball/images/_vti_cnf/Functi1.gif",
+    "Brain/wiki/canary-user-guide-alerts.md",
+    "Brain/raw/inbox/oracle-project-costing-user-guide.md",
+    "Brain/raw/inbox/top-down-design--retail-ops-jb-final.md",
+    "Brain/raw/inbox/tesco-operating-model---finance-ver2.md",
+    "Brain/raw/inbox/tom-business-model-v15-supply-chain.md",
+    "Brain/raw/inbox/tom-top-down-design---property-pack-template-jul-06-v5.md",
+    "Brain/raw/inbox/tom-forecast--ordering-v3.md",
+    "Brain/raw/inbox/summary-document-people-work-in-progress.md"
   ]
 }

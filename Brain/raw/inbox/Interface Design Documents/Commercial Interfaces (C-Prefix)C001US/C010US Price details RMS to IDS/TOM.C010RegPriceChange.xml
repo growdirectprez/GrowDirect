@@ -1,0 +1,76 @@
+<?xml version="1.0" encoding="utf-8"?>
+<xsl:stylesheet version="1.0" 
+    xmlns:xsl="http://www.w3.org/1999/XSL/Transform"
+    xmlns:reg="http://tesco.com/common/Regular"
+    xmlns:regevt="http://tesco.com/common/Price/RegularPriceChangeEvent">
+  <xsl:template match="/">
+    <xsl:for-each select="RegPrcChgDtl">
+      <reg:RegularPriceChange xmlns="http://tesco.com/common/Regular">
+        <xsl:if test="location!=''">
+          <LocationID>
+            <xsl:value-of select="location" />
+          </LocationID>
+        </xsl:if>
+        <xsl:if test="item!=''">
+          <ItemNo>
+            <xsl:value-of select="item" />
+          </ItemNo>
+        </xsl:if>
+        <xsl:if test="price_change_id!=''">
+          <PriceChangeID>
+            <xsl:value-of select="price_change_id" />
+          </PriceChangeID>
+        </xsl:if>
+        <xsl:if test="selling_unit_retail!=''">
+          <SellingUnitRetailPrice>
+            <xsl:value-of select="selling_unit_retail" />
+          </SellingUnitRetailPrice>
+        </xsl:if>
+        <xsl:if test="selling_uom!=''">
+          <SellingUOM>
+            <xsl:value-of select="selling_uom" />
+          </SellingUOM>
+        </xsl:if>
+        <xsl:if test="selling_currency!=''">
+          <SellingCurrency>
+            <xsl:value-of select="selling_currency" />
+          </SellingCurrency>
+        </xsl:if>
+		    <xsl:if test="multi_units!=''">
+          <MultiUnits>
+            <xsl:value-of select="multi_units" />
+          </MultiUnits>
+        </xsl:if>
+		    <xsl:if test="multi_unit_retail!=''">
+          <MultiUnitRetail>
+            <xsl:value-of select="multi_unit_retail" />
+          </MultiUnitRetail>
+        </xsl:if>
+		    <xsl:if test="multi_selling_uom!=''">
+          <MultiSellingUom>
+            <xsl:value-of select="multi_selling_uom" />
+          </MultiSellingUom>
+        </xsl:if>
+		    <xsl:if test="multi_unit_retail_currency!=''">
+          <MultiUnitRetailCurrency>
+            <xsl:value-of select="multi_unit_retail_currency" />
+          </MultiUnitRetailCurrency>
+        </xsl:if>
+        <xsl:for-each select="/RegPrcChgDtl/RegPrcChgEvt">
+        <regevt:RegularPriceChangeEvent xmlns="http://tesco.com/common/Price/RegularPriceChangeEvent">
+          <xsl:if test="price_change_id!=''">
+            <PriceChangeID>
+              <xsl:value-of select="price_change_id" />
+            </PriceChangeID>
+          </xsl:if>
+          <xsl:if test="effective_date!=''">
+            <PriceChangeEffectiveDate>
+              <xsl:value-of select="effective_date" />
+            </PriceChangeEffectiveDate>
+          </xsl:if>
+        </regevt:RegularPriceChangeEvent>
+        </xsl:for-each>
+      </reg:RegularPriceChange>
+    </xsl:for-each>
+  </xsl:template>
+</xsl:stylesheet>

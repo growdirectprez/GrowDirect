@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="utf-8"?>
+<xsl:stylesheet version="1.0" 
+	xmlns:xsl="http://www.w3.org/1999/XSL/Transform"
+	xmlns:div="http://tesco.com/common/merchandise/division" >
+	<xsl:template match="/">
+		<xsl:for-each select="MrchHrDivDesc">
+			<div:Division xmlns="http://tesco.com/common/merchandise/division">
+				<Division>
+					<xsl:value-of select="division" />
+				</Division>
+				<DivisionName>
+					<xsl:value-of select="div_name" />
+				</DivisionName>
+			</div:Division>
+		</xsl:for-each>
+		<xsl:for-each select="MrchHrDivRef">
+			<div:Division xmlns="http://tesco.com/common/merchandise/division">
+				<Division>
+					<xsl:value-of select="division" />
+				</Division>
+			</div:Division>
+		</xsl:for-each>
+	</xsl:template>
+</xsl:stylesheet>

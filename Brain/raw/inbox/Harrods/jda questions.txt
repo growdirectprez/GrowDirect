@@ -1,0 +1,19 @@
+How does JDA handle special orders and third party order?
+
+Can JDA support multiple Promotional Events at the Same location with overlapping time periods?
+
+Can JDA support QA metrics by vendor / location? - Manual Control
+
+How does the JDA merchandise hierarchy relate to the web download file. Does the file layout include dept, sub-dept, class, sub-class and can this be used as a way to begin structuring the web menus?
+
+How would JDA handle vendor consignment merchandise?
+
+Is there an established relationship to electroniclly manage the currency conversion tables?
+
+Can cost and retail for a single location be maintained in different currencies?
+
+
+
+
+
+

@@ -1,0 +1,165 @@
+<?xml version="1.0" encoding="utf-8"?>
+<xsl:stylesheet version="1.0" 
+    xmlns:xsl="http://www.w3.org/1999/XSL/Transform"
+    xmlns:prom="http://tesco.com/common/Promotion"
+    xmlns:promcomp="http://tesco.com/common/PromotionComponent"
+    xmlns:promcompdet="http://tesco.com/common/PromotionComponent/Detail"
+    xmlns:storeitempromcompdet="http://tesco.com/common/PromotionComponent/Detail/StoreItem">
+  <xsl:template match="/">
+    <xsl:for-each select="PrmPrcChgDesc/PrmPrcChgDtl">
+      <prom:Promotion xmlns="http://tesco.com/common/Promotion">
+        <xsl:if test="promo_id!=''">
+          <PromotionID>
+            <xsl:value-of select="promo_id" />
+          </PromotionID>
+        </xsl:if>
+        <xsl:if test="promo_name!=''">
+          <PromoName>
+            <xsl:value-of select="promo_name" />
+          </PromoName>
+        </xsl:if>
+        <xsl:if test="promo_description!=''">
+          <PromoDescription>
+            <xsl:value-of select="promo_description" />
+          </PromoDescription>
+        </xsl:if>
+        <xsl:if test="start_date!=''">
+          <StartDate>
+            <xsl:value-of select="start_date" />
+          </StartDate>
+        </xsl:if>
+        <xsl:if test="end_date!=''">
+          <EndDate>
+            <xsl:value-of select="end_date"/>
+          </EndDate>
+        </xsl:if>
+        <!--<xsl:if test="state!=''">
+          <State>
+            <xsl:value-of select="state" />
+          </State>
+        </xsl:if>-->
+        <promcomp:PromotionComponent xmlns="http://tesco.com/common/PromotionComponent">
+          <xsl:if test="promo_id!=''">
+            <PromotionID>
+              <xsl:value-of select="promo_id" />
+            </PromotionID>
+          </xsl:if>
+          <xsl:if test="promo_comp_id!=''">
+            <PromotionComponentID>
+              <xsl:value-of select="promo_comp_id" />
+            </PromotionComponentID>
+          </xsl:if>
+          <!--<xsl:if test="promo_comp_name!=''">  ** COULDN'T FIND IN RIB MESSAGE **
+              <PromoComponentName>
+                <xsl:value-of select="promo_comp_name" />
+              </PromoComponentName>
+            </xsl:if>-->
+          <promcompdet:PromotionComponentDetail xmlns="http://tesco.com/common/PromotionComponent/Detail">
+            <xsl:if test="promo_id!=''">
+              <PromotionID>
+                <xsl:value-of select="promo_id" />
+              </PromotionID>
+            </xsl:if>
+            <xsl:if test="promo_comp_id!=''">
+              <PromotionComponentID>
+                <xsl:value-of select="promo_comp_id" />
+              </PromotionComponentID>
+            </xsl:if>
+            <xsl:if test="promo_comp_detail_id!=''">
+              <PromotionComponentDetailID>
+                <xsl:value-of select="promo_comp_detail_id" />
+              </PromotionComponentDetailID>
+            </xsl:if>
+            <xsl:if test="start_date!=''">
+              <StartDate>
+                <xsl:value-of select="start_date" />
+              </StartDate>
+            </xsl:if>
+            <xsl:if test="end_date!=''">
+              <EndDate>
+                <xsl:value-of select="end_date"/>
+              </EndDate>
+            </xsl:if>
+            <xsl:if test="apply_order!=''">
+              <ApplyOrder>
+                <xsl:value-of select="apply_order"/>
+              </ApplyOrder>
+            </xsl:if>
+            <!--<xsl:if test="threshold_id!=''">  
+                  <ThresholdID>
+                    <xsl:value-of select="threshold_id"/>
+                  </ThresholdID>
+                </xsl:if>-->
+            <!--<xsl:if test="buy_type!=''">
+                  <BuyItemType>
+                    <xsl:value-of select="buy_type"/>
+                  </BuyItemType>
+                </xsl:if>-->
+            <!--<xsl:if test="buy_qty!=''">
+                  <BuyItemQty>
+                    <xsl:value-of select="buy_qty"/>
+                  </BuyItemQty>
+                </xsl:if>-->
+            <storeitempromcompdet:PromoCompDetailStoreItem xmlns="http://tesco.com/common/PromotionComponent/Detail/StoreItem">
+              <xsl:if test="/PrmPrcChgDesc/location!=''">
+                <LocationID>
+                  <xsl:value-of select="/PrmPrcChgDesc/location" />
+                </LocationID>
+              </xsl:if>
+              <xsl:if test="/PrmPrcChgDesc/PrmPrcChgDtl/PrmPrcChgSmp/item!=''">
+                <ItemNo>
+                  <xsl:value-of select="/PrmPrcChgDesc/PrmPrcChgDtl/PrmPrcChgSmp/item" />
+                </ItemNo>
+              </xsl:if>
+              <xsl:if test="promo_id!=''">
+                <PromotionID>
+                  <xsl:value-of select="promo_id" />
+                </PromotionID>
+              </xsl:if>
+              <xsl:if test="promo_comp_id!=''">
+                <PromotionComponentID>
+                  <xsl:value-of select="promo_comp_id" />
+                </PromotionComponentID>
+              </xsl:if>
+              <xsl:if test="promo_comp_detail_id!=''">
+                <PromotionComponentDetailID>
+                  <xsl:value-of select="promo_comp_detail_id" />
+                </PromotionComponentDetailID>
+              </xsl:if>
+              <xsl:if test="/PrmPrcChgDesc/PrmPrcChgDtl/PrmPrcChgSmp/prm_chg_type!=''">
+                <PromoChangeType>
+                  <xsl:value-of select="/PrmPrcChgDesc/PrmPrcChgDtl/PrmPrcChgSmp/prm_chg_type"/>
+                </PromoChangeType>
+              </xsl:if>
+              <xsl:if test="/PrmPrcChgDesc/PrmPrcChgDtl/PrmPrcChgSmp/prm_chg_value!=''">
+                <PromoChangeAmount>
+                  <xsl:value-of select="/PrmPrcChgDesc/PrmPrcChgDtl/PrmPrcChgSmp/prm_chg_value"/>
+                </PromoChangeAmount>
+              </xsl:if>
+              <!--<xsl:if test="prm_chg_currency!=''">   ** COULDN'T FIND IN RIB MESSAGE **
+                      <PromoChangeCurrency>
+                        <xsl:value-of select="prm_chg_currency"/>
+                      </PromoChangeCurrency>
+                    </xsl:if>-->
+              <!--<xsl:if test="prm_chg_percent!=''">   ** COULDN'T FIND IN RIB MESSAGE **
+                      <PromoChangePercent>
+                        <xsl:value-of select="prm_chg_percent"/>
+                      </PromoChangePercent>
+                    </xsl:if>-->
+              <xsl:if test="/PrmPrcChgDesc/PrmPrcChgDtl/PrmPrcChgSmp/promo_selling_uom!=''">
+                <PromoChangeSellingUOM>
+                  <xsl:value-of select="/PrmPrcChgDesc/PrmPrcChgDtl/PrmPrcChgSmp/promo_selling_uom"/>
+                </PromoChangeSellingUOM>
+              </xsl:if>
+              <!--<xsl:if test="item_buy_get_role_ind!=''"> 
+                      <ItemBuyGetRoleInd>
+                        <xsl:value-of select="item_buy_get_role_ind"/>
+                      </ItemBuyGetRoleInd>
+                    </xsl:if>-->
+            </storeitempromcompdet:PromoCompDetailStoreItem>
+          </promcompdet:PromotionComponentDetail>
+        </promcomp:PromotionComponent>
+      </prom:Promotion>
+    </xsl:for-each>
+  </xsl:template>
+</xsl:stylesheet>

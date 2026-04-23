@@ -1,0 +1,40 @@
+SETUP INFORMATION FOR USING AND INSTALLING THE RETAIL BIZTALK RESOURCE KIT V1
+-----------------------------------------------------------------------------
+
+*** What is the Retail Biztalk Resource Kit:
+
+RBK is short for Retail Biztalk Resource Kit.
+A retail specific framework utizing Biztalk Server.
+A framework for serializing IBM 4690 transaction data using Systechs Fragmentizer.
+An HTML based document showing how to integrate Biztalk with the Kit.
+
+*** What the Retail Biztalk Resource Kit is not:
+
+Does not provide Biztalk.
+Does not provide Systech's Fragmentizer.
+Does not provide a comprehensive explanation of Biztalk or its capabilities.
+
+*** Recommended Requirements:
+
+You have Microsoft Biztalk Server 2000 or 2002 installed and running.
+	This is recommended you can view the HTML portion as a reference without having Bizalk installed.
+You have Microsoft Internet Explorer Version 5.0+ browser installed.
+
+*** Retail Biztalk Resource Kit Contents:
+
+RBK.ZIP
+
+RBK.ZIP Contains:
+	Retail Biztalk Resource Kit (Folder)
+		
+		Documentation (Folder)
+			RetailBiztalkResourceKit.htm - Double Click this file to activate the HTML documentation for the RBK.
+		RetailKit(Folder)
+			BTSObjects (Folder) - XML Schemas for the RBK
+			IN (Folder) - File receive function path
+			OUT (Folder) - Destination Path or Message Port output file path
+			TestData (Folder) - Contains a test transaction in XML format
+		READ ME FIRST.TXT (File) - You are reading this file now.  Instructions for installation.
+			
+
+

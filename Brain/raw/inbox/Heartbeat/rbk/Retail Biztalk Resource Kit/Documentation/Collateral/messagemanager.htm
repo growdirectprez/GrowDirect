@@ -1,0 +1,393 @@
+<html>
+
+<head>
+<meta http-equiv="Content-Language" content="en-us">
+<meta http-equiv="Content-Type" content="text/html; charset=windows-1252">
+<meta name="GENERATOR" content="Microsoft FrontPage 4.0">
+<meta name="ProgId" content="FrontPage.Editor.Document">
+<title>Biztalk Collateral - Biztalk Message Manager</title>
+</head>
+
+<body topmargin="0" leftmargin="0">
+
+<div align="left">
+  <table border="0" width="100%" height="1812" cellpadding="0" cellspacing="0">
+    <tr>
+      <td width="122" height="1" bgcolor="#000000" align="right">
+        <p align="center"><img border="0" src="../Include/retailbiztalkRBK.png" width="100" height="90"></td>
+      <td width="622" height="71" align="center" bgcolor="#666666" colspan="2">
+        <p align="center" style="margin-top: 0"><img border="0" src="../Include/retailbiztalk2.png" width="660" height="90"></td>
+      <td width="155" height="1" bgcolor="#FFFFFF" colspan="2">
+        <p align="center"><img border="0" src="../Include/NPReta2.jpg" width="154" height="63"></td>
+    </tr>
+    <tr>
+      <td width="122" height="1" valign="middle" align="right" bgcolor="#003366">
+        <p align="center"><font color="#FFFFFF" face="Arial" size="1"><b>CONTENTS</b></font></td>
+      <td width="10" height="1" bgcolor="#003366">
+        &nbsp;
+      </td>
+      <td width="610" height="1" bgcolor="#003366">
+        <p align="center"><b><font face="Arial" size="1" color="#FFFFFF">DID YOU
+        KNOW ???</font></b></td>
+    </tr>
+    <tr>
+      <td width="122" height="1" valign="top" align="right" bgcolor="#000000">
+        <applet code="fphover.class" codebase="./" width="120" height="24">
+          <param name="hovercolor" value="#0000FF">
+          <param name="color" value="#000000">
+          <param name="font" value="Dialog">
+          <param name="fontstyle" value="bold">
+          <param name="fontsize" value="13">
+          <param name="effect" value="lightGlow">
+          <param name="textcolor" value="#66FFCC">
+          <param name="text" value="Introduction">
+          <param name="url" valuetype="ref" value="../default.htm">
+        </applet>
+      </td>
+      <td width="10" height="2116" rowspan="16"></td>
+      <td width="610" height="2116" rowspan="16" valign="top" align="left">
+        <h1><font face="Arial" size="3" color="#800000"><b>Biztalk Messaging
+        Manager:</b></font></h1>
+        <p><font face="Arial" size="2">The following can be found in the
+        Microsoft Biztalk Documentation.</font></p>
+        <p><font face="Arial" size="2">The following summary provides a brief
+        overview of the objects that you can create by using BizTalk Messaging
+        Manager. This summary also further explains the relationship between the
+        objects. For more detailed information about each object, please consult
+        the Biztalk Help Contained in this Kit.</font></p>
+        <p><b><font face="Arial" size="2" color="#800000">Channels</font></b></p>
+        <p><font face="Arial" size="2">Channels are the primary objects in
+        BizTalk Messaging Manager. The purpose of all other BizTalk Messaging
+        Manager objects is to either create channels or support the operation of
+        channels. Channels identify the source of documents, which can be an
+        organization, an application within your business, or an XLANG schedule.
+        Channels also identify inbound and outbound documents by using document
+        definitions. For more information, see&nbsp;Understanding Channels.</font></p>
+        <p><b><font face="Arial" size="2" color="#800000">Messaging ports</font></b></p>
+        <p><font face="Arial" size="2">Messaging ports identify a destination
+        for the documents that are processed by a channel. The destination can
+        be an organization, an application within your business, or an <nobr><span class="PopLink" id="PopUp" term="#bts:xlang_schedule">XLANG
+        schedule</span></nobr>. A messaging port specifies a destination address
+        to which the documents are sent, how they are transported to that
+        address, and if and how they are secured and enveloped. For more
+        information, see&nbsp;Understanding Messaging Ports.</font></p>
+        <p><b><font face="Arial" size="2" color="#800000">Organizations</font></b></p>
+        <p><font face="Arial" size="2">Organizations represent other trading
+        partners with which you exchange documents. A special organization type,
+        called the <nobr><span class="PopLink" id="PopUp" term="#bts:home_organization">home
+        organization</span></nobr>, represents your business. You can create
+        applications for the home organization that represent the internal
+        applications that your business uses. Organizations and applications
+        serve as the source for a channel or the destination for a messaging
+        port. For more information, see&nbsp;Understanding Organizations.</font></p>
+        <p><b><font face="Arial" size="2" color="#800000">Document definitions</font></b></p>
+        <p><font face="Arial" size="2">A document definition represents a
+        specific type of document that is processed by BizTalk&nbsp;Server&nbsp;2000.
+        A document definition provides a pointer to a <nobr><span class="PopLink" id="PopUp" term="#bts:specification">specification</span></nobr>.
+        Specifications define the document structure, type, and version.
+        Channels specify an inbound and an outbound document definition to
+        indicate which documents the server processes. A document definition can
+        be used in any number of channels. For more information, see&nbsp;Understanding
+        Document Definitions.</font></p>
+        <p><b><font face="Arial" size="2" color="#800000">Envelopes</font></b></p>
+        <p><font face="Arial" size="2">Envelopes provide BizTalk&nbsp;Server&nbsp;2000
+        with the information that the server needs to either open inbound or
+        create outbound <nobr><span class="PopLink" id="PopUp" term="#bts:interchange">interchanges</span></nobr>.
+        Envelopes can be selected from within a messaging port to direct the
+        server in creating outbound interchanges. Envelopes, which are
+        independent of a messaging port, can be used by BizTalk&nbsp;Server&nbsp;2000
+        to open inbound interchanges. For more information, see&nbsp;Understanding
+        Envelopes.</font></p>
+        <p><b><font face="Arial" size="2" color="#800000">Distribution lists</font></b></p>
+        <p><font face="Arial" size="2">Distribution lists are groups of
+        messaging ports with which you can send the same document to a group of
+        different trading partner organizations or internal applications. You
+        must create at least one channel for a distribution list, just as you do
+        for an individual messaging port. For more information, see&nbsp;Understanding
+        Distribution Lists.</font></p>
+        <p><span style="font-size:12.0pt;font-family:&quot;Times New Roman&quot;;
+mso-fareast-font-family:&quot;Times New Roman&quot;;mso-ansi-language:EN-US;mso-fareast-language:
+EN-US;mso-bidi-language:AR-SA"><!--[if gte vml 1]><v:shapetype id="_x0000_t75"
+ coordsize="21600,21600" o:spt="75" o:preferrelative="t" path="m@4@5l@4@11@9@11@9@5xe"
+ filled="f" stroked="f">
+ <v:stroke joinstyle="miter"/>
+ <v:formulas>
+  <v:f eqn="if lineDrawn pixelLineWidth 0"/>
+  <v:f eqn="sum @0 1 0"/>
+  <v:f eqn="sum 0 0 @1"/>
+  <v:f eqn="prod @2 1 2"/>
+  <v:f eqn="prod @3 21600 pixelWidth"/>
+  <v:f eqn="prod @3 21600 pixelHeight"/>
+  <v:f eqn="sum @0 0 1"/>
+  <v:f eqn="prod @6 1 2"/>
+  <v:f eqn="prod @7 21600 pixelWidth"/>
+  <v:f eqn="sum @8 21600 0"/>
+  <v:f eqn="prod @7 21600 pixelHeight"/>
+  <v:f eqn="sum @10 21600 0"/>
+ </v:formulas>
+ <v:path o:extrusionok="f" gradientshapeok="t" o:connecttype="rect"/>
+ <o:lock v:ext="edit" aspectratio="t"/>
+</v:shapetype><v:shape id="_x0000_i1025" type="#_x0000_t75" style='width:336.75pt;
+ height:395.25pt'>
+ <v:imagedata src="file:///C:/DOCUME~1/ADMINI~2.HAV/LOCALS~1/Temp/msoclip1/01/clip_image001.png"
+  o:title=""/>
+</v:shape><![endif]-->
+        <img src="../Include/Organi1.jpg" v:shapes="_x0000_i1025" width="449" height="527"></span></td>
+      <td width="1" height="7" bgcolor="#C0C0C0">&nbsp;</td>
+      <td width="152" height="62" bgcolor="#C0C0C0" rowspan="4" valign="top" align="left"><font color="#003366" size="1" face="Arial">BTS
+        was architected for the enterprise using scale up, out and shared queue
+        architecture.</font>
+        <p><font color="#003366" size="1" face="Arial">Customer Site: 1 million
+        Transactions/Day</font></td>
+    </tr>
+    <tr>
+      <td width="122" height="9" valign="top" align="right" bgcolor="#000000">
+        <applet code="fphover.class" codebase="./" width="120" height="24">
+          <param name="hovercolor" value="#0000FF">
+          <param name="text" value="Organizations">
+          <param name="font" value="Dialog">
+          <param name="fontstyle" value="bold">
+          <param name="fontsize" value="13">
+          <param name="effect" value="lightGlow">
+          <param name="url" valuetype="ref" value="../Organization/Organization.htm">
+          <param name="color" value="#000000">
+          <param name="textcolor" value="#66FFCC">
+        </applet>
+      </td>
+      <td width="1" height="55" bgcolor="#C0C0C0" rowspan="3" valign="top" align="left">&nbsp;</td>
+    </tr>
+    <tr>
+      <td width="122" height="15" valign="top" align="right" bgcolor="#000000">
+        <applet code="fphover.class" codebase="./" width="120" height="24">
+          <param name="hovercolor" value="#0000FF">
+          <param name="text" value="Schemas">
+          <param name="color" value="#000000">
+          <param name="font" value="Dialog">
+          <param name="fontstyle" value="bold">
+          <param name="fontsize" value="13">
+          <param name="effect" value="lightGlow">
+          <param name="url" valuetype="ref" value="../Schema/Schema.htm">
+          <param name="textcolor" value="#66FFCC">
+        </applet>
+      </td>
+    </tr>
+    <tr>
+      <td width="122" height="1" valign="top" align="right" bgcolor="#FFFFFF">
+        <applet code="fphover.class" codebase="./" width="120" height="24">
+          <param name="text" value="Biztalk Collateral">
+          <param name="font" value="Dialog">
+          <param name="fontsize" value="13">
+          <param name="fontstyle" value="bold">
+          <param name="color" value="#FFFFFF">
+          <param name="textcolor" value="#000000">
+          <param name="hovercolor" value="#FFFFFF">
+          <param name="effect" value="lightGlow">
+          <param name="url" valuetype="ref" value="Collateral.htm">
+        </applet>
+      </td>
+    </tr>
+    <tr>
+      <td width="122" height="1" valign="top" align="right" bgcolor="#000000">
+        <applet code="fphover.class" codebase="./" width="120" height="17">
+          <param name="bgcolor" value="#FF0000">
+          <param name="font" value="Helvetica">
+          <param name="fontstyle" value="regular">
+          <param name="effect" value="average">
+          <param name="text" value="Setup">
+          <param name="hovercolor" value="#0000FF">
+          <param name="textcolor" value="#FFFFFF">
+          <param name="fontsize" value="10">
+          <param name="color" value="#000000">
+          <param name="url" valuetype="ref" value="setup.htm">
+        </applet>
+      </td>
+      <td width="1" height="84" bgcolor="#C0C0C0" rowspan="4">&nbsp;</td>
+      <td width="152" height="84" bgcolor="#C0C0C0" rowspan="4"><font face="Arial" size="1" color="#003366">Test
+        Lab:&nbsp; 100 Million Transactions/Day</font>
+        <p>&nbsp;</td>
+    </tr>
+    <tr>
+      <td width="122" height="1" valign="top" align="right" bgcolor="#000000">
+        <applet code="fphover.class" codebase="./" width="120" height="17">
+          <param name="font" value="Helvetica">
+          <param name="fontstyle" value="regular">
+          <param name="effect" value="average">
+          <param name="text" value="Blueprint">
+          <param name="bgcolor" value="#0000FF">
+          <param name="hovercolor" value="#0000FF">
+          <param name="textcolor" value="#FFFFFF">
+          <param name="fontsize" value="10">
+          <param name="color" value="#000000">
+          <param name="url" valuetype="ref" value="blueprint.htm">
+        </applet>
+      </td>
+    </tr>
+    <tr>
+      <td width="122" height="15" valign="top" align="right" bgcolor="#000000">
+        <applet code="fphover.class" codebase="./" width="120" height="17">
+          <param name="bgcolor" value="#FF0000">
+          <param name="font" value="Helvetica">
+          <param name="fontstyle" value="regular">
+          <param name="effect" value="average">
+          <param name="text" value="Editor">
+          <param name="hovercolor" value="#0000FF">
+          <param name="textcolor" value="#FFFFFF">
+          <param name="fontsize" value="10">
+          <param name="color" value="#000000">
+          <param name="url" valuetype="ref" value="editor.htm">
+        </applet>
+      </td>
+    </tr>
+    <tr>
+      <td width="122" height="17" valign="top" align="right" bgcolor="#000000">
+        <applet code="fphover.class" codebase="./" width="120" height="17">
+          <param name="font" value="Helvetica">
+          <param name="fontstyle" value="regular">
+          <param name="effect" value="average">
+          <param name="bgcolor" value="#0000FF">
+          <param name="hovercolor" value="#0000FF">
+          <param name="fontsize" value="10">
+          <param name="color" value="#000000">
+          <param name="textcolor" value="#FFFFFF">
+          <param name="text" value="Message Manager">
+          <param name="url" valuetype="ref" value="messagemanager.htm">
+        </applet>
+      </td>
+    </tr>
+    <tr>
+      <td width="122" height="13" valign="top" align="right" bgcolor="#000000">
+        <applet code="fphover.class" codebase="./" width="120" height="17">
+          <param name="font" value="Helvetica">
+          <param name="fontstyle" value="regular">
+          <param name="effect" value="average">
+          <param name="text" value="Organizations">
+          <param name="bgcolor" value="#0000FF">
+          <param name="hovercolor" value="#0000FF">
+          <param name="fontsize" value="10">
+          <param name="color" value="#000000">
+          <param name="textcolor" value="#FFFFFF">
+          <param name="url" valuetype="ref" value="Organization.htm">
+        </applet>
+      </td>
+      <td width="1" height="84" bgcolor="#C0C0C0" rowspan="7">&nbsp;</td>
+      <td width="152" height="84" bgcolor="#C0C0C0" rowspan="7">&nbsp;</td>
+    </tr>
+    <tr>
+      <td width="122" height="8" valign="top" align="right" bgcolor="#000000">
+        <applet code="fphover.class" codebase="./" width="120" height="17">
+          <param name="font" value="Helvetica">
+          <param name="fontstyle" value="regular">
+          <param name="effect" value="average">
+          <param name="bgcolor" value="#0000FF">
+          <param name="hovercolor" value="#0000FF">
+          <param name="fontsize" value="10">
+          <param name="color" value="#000000">
+          <param name="textcolor" value="#FFFFFF">
+          <param name="text" value="Envelopes">
+          <param name="url" valuetype="ref" value="Envelope.htm">
+        </applet>
+      </td>
+    </tr>
+    <tr>
+      <td width="122" height="11" valign="top" align="right" bgcolor="#000000">
+        <applet code="fphover.class" codebase="./" width="120" height="17">
+          <param name="font" value="Helvetica">
+          <param name="fontstyle" value="regular">
+          <param name="effect" value="average">
+          <param name="bgcolor" value="#0000FF">
+          <param name="hovercolor" value="#0000FF">
+          <param name="fontsize" value="10">
+          <param name="color" value="#000000">
+          <param name="textcolor" value="#FFFFFF">
+          <param name="text" value="Document Definitions">
+          <param name="url" valuetype="ref" value="docdef.htm">
+        </applet>
+      </td>
+    </tr>
+    <tr>
+      <td width="122" height="17" valign="top" align="right" bgcolor="#000000">
+        <applet code="fphover.class" codebase="./" width="120" height="17">
+          <param name="bgcolor" value="#FF0000">
+          <param name="font" value="Helvetica">
+          <param name="fontstyle" value="regular">
+          <param name="effect" value="average">
+          <param name="text" value="Message Port">
+          <param name="hovercolor" value="#0000FF">
+          <param name="textcolor" value="#FFFFFF">
+          <param name="fontsize" value="10">
+          <param name="color" value="#000000">
+          <param name="url" valuetype="ref" value="messageport.htm">
+        </applet>
+      </td>
+    </tr>
+    <tr>
+      <td width="122" height="17" valign="top" align="right" bgcolor="#000000">
+        <applet code="fphover.class" codebase="./" width="120" height="17">
+          <param name="bgcolor" value="#FF0000">
+          <param name="font" value="Helvetica">
+          <param name="fontstyle" value="regular">
+          <param name="effect" value="average">
+          <param name="text" value="Mapper">
+          <param name="hovercolor" value="#0000FF">
+          <param name="textcolor" value="#FFFFFF">
+          <param name="fontsize" value="10">
+          <param name="color" value="#000000">
+          <param name="url" valuetype="ref" value="mapper.htm">
+        </applet>
+      </td>
+    </tr>
+    <tr>
+      <td width="122" height="8" valign="top" align="right" bgcolor="#000000">
+        <applet code="fphover.class" codebase="./" width="120" height="17">
+          <param name="bgcolor" value="#FF0000">
+          <param name="font" value="Helvetica">
+          <param name="fontstyle" value="regular">
+          <param name="effect" value="average">
+          <param name="text" value="Channels">
+          <param name="hovercolor" value="#0000FF">
+          <param name="textcolor" value="#FFFFFF">
+          <param name="fontsize" value="10">
+          <param name="color" value="#000000">
+          <param name="url" valuetype="ref" value="Channel.htm">
+        </applet>
+      </td>
+    </tr>
+    <tr>
+      <td width="122" height="21" valign="top" align="right" bgcolor="#000000">
+        <applet code="fphover.class" codebase="./" width="120" height="17">
+          <param name="bgcolor" value="#FF0000">
+          <param name="font" value="Helvetica">
+          <param name="fontstyle" value="regular">
+          <param name="effect" value="average">
+          <param name="text" value="Administration">
+          <param name="hovercolor" value="#0000FF">
+          <param name="textcolor" value="#FFFFFF">
+          <param name="fontsize" value="10">
+          <param name="color" value="#000000">
+          <param name="url" valuetype="ref" value="btsadmin.htm">
+        </applet>
+      </td>
+    </tr>
+    <tr>
+      <td width="122" height="2001" valign="top" align="right" bgcolor="#000000">
+        <applet code="fphover.class" codebase="./" width="120" height="24">
+          <param name="hovercolor" value="#0000FF">
+          <param name="text" value="Scenario">
+          <param name="color" value="#000000">
+          <param name="font" value="Dialog">
+          <param name="fontstyle" value="bold">
+          <param name="fontsize" value="13">
+          <param name="effect" value="lightGlow">
+          <param name="url" valuetype="ref" value="../Scenario/scenario.htm">
+          <param name="textcolor" value="#66FFCC">
+        </applet>
+      </td>
+      <td width="1" height="2001" bgcolor="#C0C0C0">&nbsp;</td>
+      <td width="152" height="2001" bgcolor="#C0C0C0">&nbsp;</td>
+    </tr>
+  </table>
+</div>
+
+</body>
+
+</html>

@@ -1,0 +1,61 @@
+<?xml version="1.0" encoding="utf-8"?>
+<xsl:stylesheet version="1.0" 
+    xmlns:xsl="http://www.w3.org/1999/XSL/Transform"
+    xmlns:clr="http://tesco.com/common/Clearance"
+    xmlns:clrevt="http://tesco.com/common/Clearance/Event">
+  <xsl:template match="/">
+    <xsl:for-each select="ClrPrcChgDtl">
+      <clr:ClearPriceChange xmlns="http://tesco.com/common/Clearance">
+        <xsl:if test="location!=''">
+          <LocationID>
+            <xsl:value-of select="location" />
+          </LocationID>
+        </xsl:if>
+        <xsl:if test="item!=''">
+          <ItemNo>
+            <xsl:value-of select="item" />
+          </ItemNo>
+        </xsl:if>
+        <xsl:if test="clearance_id!=''">
+          <ClearanceID>
+            <xsl:value-of select="clearance_id" />
+          </ClearanceID>
+        </xsl:if>
+        <xsl:if test="selling_unit_retail!=''">
+          <SellingUnitClearPrice>
+            <xsl:value-of select="selling_unit_retail" />
+          </SellingUnitClearPrice>
+        </xsl:if>
+        <xsl:if test="selling_uom!=''">
+          <SellingUOM>
+            <xsl:value-of select="selling_uom" />
+          </SellingUOM>
+        </xsl:if>
+        <xsl:if test="selling_currency!=''">
+          <SellingCurrency>
+            <xsl:value-of select="selling_currency" />
+          </SellingCurrency>
+        </xsl:if>
+        <xsl:for-each select="/ClrPrcChgDtl/ClrPrcChgEvt">
+          <clrevt:ClearancePriceChangeEvent xmlns="http://tesco.com/common/Clearance/Event">
+            <xsl:if test="clearance_id!=''">
+              <ClearanceID>
+                <xsl:value-of select="clearance_id" />
+              </ClearanceID>
+            </xsl:if>
+            <xsl:if test="effective_date!=''">
+              <PriceChangeEffectiveDate>
+                <xsl:value-of select="effective_date" />
+              </PriceChangeEffectiveDate>
+            </xsl:if>
+            <xsl:if test="reset_date!=''">
+              <ResetDate>
+                <xsl:value-of select="reset_date" />
+              </ResetDate>
+            </xsl:if>
+          </clrevt:ClearancePriceChangeEvent>
+        </xsl:for-each>
+      </clr:ClearPriceChange>
+    </xsl:for-each>
+  </xsl:template>
+</xsl:stylesheet>

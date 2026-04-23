@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="utf-8"?>
+<xsl:stylesheet version="1.0" 
+	xmlns:xsl="http://www.w3.org/1999/XSL/Transform"
+	xmlns:sec="http://tesco.com/common/merchandise/section" >
+	<xsl:template match="/">
+		<xsl:for-each select="MrchHrDeptDesc">
+			<sec:Section xmlns="http://tesco.com/common/merchandise/section">
+				<Section>
+					<xsl:value-of select="dept" />
+				</Section>
+				<Department>
+					<xsl:value-of select="group_no" />
+				</Department>
+				<SectionName>
+					<xsl:value-of select="dept_name" />
+				</SectionName>
+			</sec:Section>
+		</xsl:for-each>
+		<xsl:for-each select="MrchHrDeptRef">
+			<sec:Section xmlns="http://tesco.com/common/merchandise/section">
+				<Section>
+					<xsl:value-of select="dept" />
+				</Section>
+			</sec:Section>
+		</xsl:for-each>
+	</xsl:template>
+</xsl:stylesheet>

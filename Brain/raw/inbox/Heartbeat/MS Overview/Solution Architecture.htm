@@ -1,0 +1,150 @@
+<html xmlns:v="urn:schemas-microsoft-com:vml" xmlns:o="urn:schemas-microsoft-com:office:office" xmlns="http://www.w3.org/TR/REC-html40">
+
+<head>
+<meta http-equiv="Content-Language" content="en-us">
+<meta name="GENERATOR" content="Microsoft FrontPage 5.0">
+<meta name="ProgId" content="FrontPage.Editor.Document">
+<meta http-equiv="Content-Type" content="text/html; charset=windows-1252">
+<link rel="File-List" href="Solution%20Architecture_files/filelist.xml">
+<title>Solution Architecture</title>
+<style>
+<!--
+p.MsoBodyText
+	{margin-bottom:.0001pt;
+	font-size:10.0pt;
+	font-family:Tahoma;
+	margin-left:0in; margin-right:0in; margin-top:0in}
+span.poplink
+	{}
+-->
+</style>
+<!--[if !mso]>
+<style>
+v\:*         { behavior: url(#default#VML) }
+o\:*         { behavior: url(#default#VML) }
+.shape       { behavior: url(#default#VML) }
+</style>
+<![endif]--><!--[if gte mso 9]>
+<xml><o:shapedefaults v:ext="edit" spidmax="1027"/>
+</xml><![endif]-->
+</head>
+
+<body>
+
+<hr color="#FF0000">
+
+<h4 style="margin-bottom: 10; margin-top:0"><span style="font-family: Arial">
+Solution Architecture</span></h4>
+<p class="MsoBodyText"><font face="Verdana">ASPEN, Application Service Provided 
+Enterprise Notification System, is a centrally hosted Web Service that contains 
+the <a href="Algorithm.htm">Consumer Demand Signal Monitor algorithm</a>.&nbsp;ASPEN 
+can accept data from enterprise retail organizations of all sizes and scale.</font></p>
+<p class="MsoBodyText">&nbsp;</p>
+<p class="MsoBodyText"><font face="Verdana">Retail enterprise customers send 
+Point-of-Sale (POS) transaction data to a central Biztalk Server Group.&nbsp;Biztalk 
+constructs the data to be sent to the Demand Signal Monitor.&nbsp;The Demand Signal 
+Monitor determines what products are out-of-stock based on the POS data from the 
+store and sends a message back to the Biztalk Server Group.&nbsp; Biztalk derives the 
+destination, source, and message type from the data contained in the message 
+from the Monitor. A message is then routed to a stock person working at the 
+store where the POS data originated.</font></p>
+<p class="MsoBodyText"><font face="Verdana"><!--[if gte vml 1]><v:shapetype id="_x0000_t75"
+ coordsize="21600,21600" o:spt="75" o:preferrelative="t" path="m@4@5l@4@11@9@11@9@5xe"
+ filled="f" stroked="f">
+ <v:stroke joinstyle="miter"/>
+ <v:formulas>
+  <v:f eqn="if lineDrawn pixelLineWidth 0"/>
+  <v:f eqn="sum @0 1 0"/>
+  <v:f eqn="sum 0 0 @1"/>
+  <v:f eqn="prod @2 1 2"/>
+  <v:f eqn="prod @3 21600 pixelWidth"/>
+  <v:f eqn="prod @3 21600 pixelHeight"/>
+  <v:f eqn="sum @0 0 1"/>
+  <v:f eqn="prod @6 1 2"/>
+  <v:f eqn="prod @7 21600 pixelWidth"/>
+  <v:f eqn="sum @8 21600 0"/>
+  <v:f eqn="prod @7 21600 pixelHeight"/>
+  <v:f eqn="sum @10 21600 0"/>
+ </v:formulas>
+ <v:path o:extrusionok="f" gradientshapeok="t" o:connecttype="rect"/>
+ <o:lock v:ext="edit" aspectratio="t"/>
+</v:shapetype><v:shape id="_x0000_s1032" type="#_x0000_t75" alt="" style='width:431.25pt;
+ height:282pt;mso-wrap-edited:f' wrapcoords="451 3906 451 18440 21450 18440 21450 3906 451 3906">
+ <v:imagedata src="Solution%20Architecture_files/image001.wmz" o:title=""/>
+</v:shape><![endif]--><![if !vml]><img border=0 width=575 height=376
+src="Solution%20Architecture_files/image002.gif" v:shapes="_x0000_s1032"><![endif]></font></p>
+<p class="MsoBodyText"><font face="Arial" size="2"><b>Anatomy</b></font></p>
+<p class="MsoBodyText">&nbsp;</p>
+<p class="MsoBodyText"><font face="Verdana">ASPEN is a hosted web service 
+environment. Its primary function is to deliver the consumer demand signal (OOS 
+notification) for the retail enterprise customer. It consists of a multi-server 
+web cluster as shown in the diagram.</font></p>
+<p><!--[if gte vml 1]><v:shape
+ id="_x0000_s1030" type="#_x0000_t75" alt="" style='width:249.75pt;height:269.25pt;
+ mso-wrap-edited:f;float:left' wrapcoords="454 4502 454 17857 19005 17857 19005 4502 454 4502">
+ <v:imagedata src="Solution%20Architecture_files/image003.wmz" o:title=""/>
+</v:shape><![endif]--><![if !vml]><img border=0 width=333 height=359
+src="Solution%20Architecture_files/image004.gif" align=left v:shapes="_x0000_s1030"><![endif]></p>
+<p class="MsoBodyText"><font face="Verdana"><b>Windows 2000 Advanced Server Web 
+Cluster:</b></font></p>
+<p class="MsoBodyText"><font face="Verdana">&nbsp;</font></p>
+<p class="MsoBodyText"><font face="Verdana">Provide all HTTP and HTTPS 
+connectivity.&nbsp; Retail Enterprise for ASPEN.&nbsp; This cluster serves as the 
+interface to the Biztalk Server Group through ASP driven HTTPS Receive 
+Functions.&nbsp; The customer has the ability to VPN into our Web Cluster and use 
+FTP.&nbsp; This cluster will also contain the Web Interface for managing access to 
+Demand Signal Notification Services.<b>&nbsp; </b></font></p>
+<p class="MsoBodyText"><font face="Verdana">&nbsp;</font></p>
+<p class="MsoBodyText"><font face="Verdana"><b>Biztalk Server Group Cluster:</b></font></p>
+<p class="MsoBodyText"><font face="Verdana">&nbsp;</font></p>
+<p class="MsoBodyText"><font face="Verdana">Provides all message and data 
+routing for ASPEN.&nbsp; Open Channels and Message ports are used to derive transport 
+and destination information from data contained in the incoming XML data from 
+the Enterprise Retailer.&nbsp; The transport and destination information are derived 
+from a SQL Server 2000 database.&nbsp; See CASE: Fireball Solution Capital for 
+details of Biztalk objects.</font></p>
+<p class="MsoBodyText"><font face="Verdana">&nbsp;</font></p>
+<p class="MsoBodyText"><font face="Verdana">Rational for using Open Message 
+Ports and Channels:</font></p>
+<p class="MsoBodyText"><font face="Verdana">&nbsp;</font></p>
+<p class="MsoBodyText"><font face="Verdana">“When you create a
+<span class="poplink">channel</span> for an open messaging port, and the 
+destination information is provided in the document, the inbound
+<span class="poplink">document definition</span> for that channel must reference 
+a <span class="poplink">specification</span> that is properly configured.</font></p>
+<p class="MsoBodyText"><font face="Verdana">&nbsp;</font></p>
+<p class="MsoBodyText"><font face="Verdana">You can use an open messaging port 
+to send one or more standardized documents to many different current or future
+<span class="poplink">trading partner</span> organizations without creating a 
+messaging port for each destination. All documents share the same
+<span class="poplink">envelope</span>, security, and transport properties that 
+are established in the messaging port.”&nbsp; Biztalk Help File</font></p>
+<p class="MsoBodyText"><font face="Verdana">&nbsp;</font></p>
+<p class="MsoBodyText"><font face="Verdana"><b>Application Server Cluster:</b></font></p>
+<p class="MsoBodyText"><font face="Verdana">&nbsp;</font></p>
+<p class="MsoBodyText"><font face="Verdana">The Application Servers contain the 
+Business objects required for the Demand Signal Notification System.&nbsp; As well as 
+COM+ objects for the Web Interface.</font></p>
+<p class="MsoBodyText"><font face="Verdana">&nbsp;</font></p>
+<p class="MsoBodyText"><font face="Verdana"><b>SQL Server / Analysis Services 
+Cluster:</b></font></p>
+<p class="MsoBodyText"><font face="Verdana">&nbsp;</font></p>
+<p class="MsoBodyText"><font face="Verdana">The SQL Server Cluster will contain 
+the Biztalk databases for managing state.&nbsp; It could also act as a repository for 
+POS and Item promotion data into a data warehouse based on the ARTS data model 
+fed by the IXRetail XML data model definitions.&nbsp; Retail specific Business 
+Intelligence Cubes would then be generated sold as a Web Service to the 
+Enterprise Retail Customer.&nbsp; </font></p>
+<p class="MsoBodyText"><font face="Verdana">&nbsp;<b>&nbsp;</b></font></p>
+<p class="MsoBodyText"><font face="Verdana"><b>OOS Application Server Cluster</b></font></p>
+<p class="MsoBodyText"><font face="Verdana">&nbsp;</font></p>
+<p class="MsoBodyText"><font face="Verdana">This cluster of servers contains the 
+Data Ventures Demand Signal Algorithm for determining what items are out of 
+stock for a store given POS and Item History.&nbsp; Point of Sale data will be sent 
+to this algorithm to be processed to determine what is out of stock at that 
+store.&nbsp; Then a message will be routed back to Biztalk to be sent back to SMTP 
+pagers. </font></p>
+
+</body>
+
+</html>

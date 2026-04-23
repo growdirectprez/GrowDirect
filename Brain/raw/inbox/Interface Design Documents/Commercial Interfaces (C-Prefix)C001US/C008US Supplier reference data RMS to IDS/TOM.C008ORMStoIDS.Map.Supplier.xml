@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="utf-8"?>
+<xsl:stylesheet version="1.0" 
+    xmlns:xsl="http://www.w3.org/1999/XSL/Transform"
+    xmlns:sup="http://tesco.com/common/Supplier">
+	<xsl:template match="/">
+		<xsl:for-each select="VendorHdrDesc">
+			<sup:Supplier xmlns="http://tesco.com/common/Supplier">
+				<xsl:if test="supplier!=''">
+					<SupplierID>
+						<xsl:value-of select="supplier" />
+					</SupplierID>
+				</xsl:if>
+				<xsl:if test="sup_name!=''">
+					<SupplierName>
+						<xsl:value-of select="sup_name" />
+					</SupplierName>
+				</xsl:if>
+			</sup:Supplier>
+		</xsl:for-each>
+		<xsl:for-each select="VendorRef">
+			<sup:Supplier xmlns="http://tesco.com/common/Supplier">
+				<xsl:if test="supplier!=''">
+					<SupplierID>
+						<xsl:value-of select="supplier" />
+					</SupplierID>
+				</xsl:if>
+			</sup:Supplier>
+		</xsl:for-each>
+	</xsl:template>
+</xsl:stylesheet>

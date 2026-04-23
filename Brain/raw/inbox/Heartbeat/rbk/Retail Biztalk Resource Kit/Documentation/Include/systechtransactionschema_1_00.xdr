@@ -1,0 +1,871 @@
+<?xml version="1.0" ?> 
+<Schema name="systechtransactionschema_1_00" xmlns="urn:schemas-microsoft-com:xml-data" xmlns:dt="urn:schemas-microsoft-com:datatypes">
+<!-- 
+    (c) Copyright Systech Retail Systems, 2001.
+
+    This is a transaction schema designed to be generated from a variety 
+    of POS transaction feeds including both legacy and new systems.
+
+--> 
+
+<!-- accountnumber
+     The account number used for tender verification/authorization purposes
+-->
+<ElementType name="accountnumber" content="textOnly" dt:type="string" /> 
+<!-- accountstatus
+     The status returned by tender verification/authorization process for a 
+     given accountnumber
+-->
+<ElementType name="accountstatus" content="textOnly" dt:type="int" /> 
+<!-- address
+     simple street address
+-->
+<ElementType name="address" content="textOnly" dt:type="string" /> 
+<!-- adjustedsellingprice
+     the extended price of a specific itementry adjusted for coupons and  
+     discounts that have been applied to the item.  This is a truer reflection
+     of the actual selling price of the item, especially when electronic coupons
+     are used to adjust the price of an item.
+-->
+<ElementType name="adjustedsellingprice" content="textOnly" dt:type="int" /> 
+<!-- amount
+     generic currency holder
+-->
+<ElementType name="amount" content="textOnly" dt:type="int" /> 
+<!-- amount
+     keyed or scanned item identifier
+-->
+<ElementType name="barcode" content="textOnly" dt:type="string" />
+<!-- amount
+     points issued other than those issued on a per dollar basis
+-->
+<ElementType name="bonuspoints" content="textOnly" dt:type="int" /> 
+<!-- businessdate
+     the date in which the transaction is to be accounted for.
+-->
+<ElementType name="businessdate" content="textOnly" dt:type="date" /> 
+<!-- campaignid
+     an identifier used to track awards issued as a result of 
+     a particular promotion or group of promotions
+-->
+<ElementType name="campaignid" content="textOnly" dt:type="string" /> 
+<!-- cancel
+     the presence of this element flags the entry it applies to
+     as being a cancel of a previous entry.  In some systems there
+     is the possibility that a cancel will have no matching prior
+     entry.
+-->
+<ElementType name="cancel" content="empty" /> 
+<!-- cancelreason
+     reason code associated with the cancel
+-->
+<ElementType name="cancelreason" content="textOnly" dt:type="string" /> 
+<!-- cashieragerestriction
+     identifier of an age restriction associated with an item that
+     applies to the cashier 
+-->
+<ElementType name="cashieragerestriction" content="textOnly" dt:type="int" /> 
+<!-- cashierbirthdate
+     the date of birth for the cashier 
+-->
+<ElementType name="cashierbirthdate" content="textOnly" dt:type="date" /> 
+<!-- cashierid
+     the id for the cashier 
+-->
+<ElementType name="cashierid" content="textOnly" dt:type="string" /> 
+<!-- couponamount
+     amount of coupons taken in the transaction 
+-->
+<ElementType name="couponamount" content="textOnly" dt:type="int" /> 
+<!-- couponamount
+     count of coupons taken in the transaction 
+-->
+<ElementType name="couponcount" content="textOnly" dt:type="int" /> 
+<!-- couponfamilycode
+     code used to validate coupons against matching items
+-->
+<ElementType name="couponfamilycode" content="textOnly" dt:type="int" /> 
+<!-- currencyamount
+     amount in a currency other than the local currency 
+-->
+<ElementType name="currencyamount" content="textOnly" dt:type="int" /> 
+<!-- currencyid
+     the identifier of the currency 
+-->
+<ElementType name="currencyid" content="textOnly" dt:type="int" /> 
+<!-- currentpoints
+     the points total for the customer
+-->
+<ElementType name="currentpoints" content="textOnly" dt:type="int" /> 
+<!-- customeragerestriction
+     identifier of an age restriction associated with an item that
+     applies to the customer 
+-->
+<ElementType name="customeragerestriction" content="textOnly" dt:type="int" /> 
+<!-- customerbirthdate
+     the date of birth for the customer 
+-->
+<ElementType name="customerbirthdate" content="textOnly" dt:type="date" /> 
+<!-- customerid
+     the id for the customer 
+-->
+<ElementType name="customerid" content="textOnly" dt:type="string" /> 
+<!-- datasource
+     how the particular id or input was entered into the application 
+-->
+<ElementType name="datasource" content="textOnly" dt:type="enumeration" dt:values="keyboard scanner msr micr electronic" /> 
+<!-- datetime
+     a datetime field
+-->
+<ElementType name="datetime" content="textOnly" dt:type="dateTime.tz" /> 
+<!-- deptno
+     department number
+-->
+<ElementType name="deptno" content="textOnly" dt:type="int" /> 
+<!-- description
+     a description field
+-->
+<ElementType name="description" content="textOnly" dt:type="string" /> 
+<!-- detaillevel
+     communicates the level of detail contained in the document
+-->
+<ElementType name="detaillevel" content="textOnly" dt:type="enumeration" dt:values="summary full" /> 
+<!-- discountid
+     identifies the discount type that was applied
+-->
+<ElementType name="discountid" content="textOnly" dt:type="string" /> 
+<!-- discountrate
+     the rate of the discount 
+-->
+<ElementType name="discountrate" content="textOnly" dt:type="float" /> 
+<!-- exchangerate
+     the currency exchange rate applied 
+-->
+<ElementType name="exchangerate" content="textOnly" dt:type="float" /> 
+<!-- exemptedtaxes
+     currently: flags that taxes were excempted on this item
+     future: list of the taxid's exempted
+-->
+<ElementType name="exemptedtaxes" content="empty" /> 
+<!-- expirationdate
+     the date a card or other id expires
+-->
+<ElementType name="expirationdate" content="textOnly" dt:type="string" /> 
+<!-- extendedprice
+     the total price charged for an itementry 
+-->
+<ElementType name="extendedprice" content="textOnly" dt:type="int" /> 
+<!-- feeamount
+     the amount of a fee applied to the transaction
+-->
+<ElementType name="feeamount" content="textOnly" dt:type="int" /> 
+<!-- firstname
+     
+-->
+<ElementType name="firstname" content="textOnly" dt:type="string" /> 
+<!-- includedinprice
+     flags that the tax is already included in the price of the item
+-->
+<ElementType name="includedinprice" content="empty" /> 
+<!-- isalwaysexception
+     flags that the sale of this item is always noted as an
+     exception
+-->
+<ElementType name="isalwaysexception" content="empty" /> 
+<!-- isdiscountallowed
+     is this itementry eligible for transaction discounts
+-->
+<ElementType name="isdiscountallowed" content="empty" /> 
+<!-- isdiscounted
+     is this itementry discounted
+-->
+<ElementType name="isdiscounted" content="empty" /> 
+<!-- isexception
+     is this itementry noted as an exception
+-->
+<ElementType name="isexception" content="empty" /> 
+<!-- isfoodstampable
+     is this itementry eligible for foodstamps
+-->
+<ElementType name="isfoodstampable" content="empty" /> 
+<!-- isfoodstampabletoggled
+     was the foodstamp eligibility of this itementry toggled
+-->
+<ElementType name="isfoodstampabletoggled" content="empty" /> 
+<!-- isitemidfromalias
+     the itemid for this itementry is not the scanned item id.  it 
+     comes from the alias pricing chain.
+-->
+<ElementType name="isitemidfromalias" content="empty" /> 
+<!-- ismanualweightallowed
+     can weight be keyed (manually entered) for this itementry
+-->
+<ElementType name="ismanualweightallowed" content="empty" /> 
+<!-- isminimumorderaccummulationallowed
+     ?
+-->
+<ElementType name="isminimumorderaccummulationallowed" content="empty" /> 
+<!-- ispriceoverrideallowed
+     can the price be manually entered for this itementry
+-->
+<ElementType name="ispriceoverrideallowed" content="empty" /> 
+<!-- ispricerequired
+     is the price required to be manually entered for this itementry
+-->
+<ElementType name="ispricerequired" content="empty" /> 
+<!-- isquantityallowed
+     can a quantity be manually entered for this itementry
+-->
+<ElementType name="isquantityallowed" content="empty" /> 
+<!-- isquantityrequired
+     is a quantity required to be manually entered for this itementry
+-->
+<ElementType name="isquantityrequired" content="empty" /> 
+<!-- isrefundallowed
+     can this itementry be refunded
+-->
+<ElementType name="isrefundallowed" content="empty" /> 
+<!-- isunmatchedcancel
+     is this itementry a cancel for which no match was found in the transaction
+-->
+<ElementType name="isunmatchedcancel" content="empty" /> 
+<!-- isweightitem
+     is this itementry sold by weight
+-->
+<ElementType name="isweightitem" content="empty" /> 
+<!-- iswiceligible
+     can this itementry be purchased using WIC
+-->
+<ElementType name="iswiceligible" content="empty" /> 
+<!-- itemtype
+     the type of itementry
+-->
+<ElementType name="itemtype" content="textOnly" dt:type="enumeration" dt:values="sale storecoupon vendorcoupon deposit discount depositreturn refund paidout paidin" /> 
+<!-- language
+     language code for the cashier or customer
+-->
+<ElementType name="language" content="textOnly" dt:type="string" /> 
+<!-- lastname
+-->
+<ElementType name="lastname" content="textOnly" dt:type="string" /> 
+<!-- lastpurchasedate
+     date of last purchase for the customer
+-->
+<ElementType name="lastpurchasedate" content="textOnly" dt:type="date" /> 
+<!-- lineid
+     unique line identifier within the transaction
+-->
+<ElementType name="lineid" content="textOnly" dt:type="int" /> 
+<!-- manualpriceoverride
+     was the price be manually entered for this itementry
+-->
+<ElementType name="manualpriceoverride" content="empty" /> 
+<!-- manufacturercouponamount
+     total manufacturer coupon amount for the transaction
+-->
+<ElementType name="manufacturercouponamount" content="textOnly" dt:type="int" /> 
+<!-- manufacturercouponcount
+     total manufacturer coupon count for the transaction
+-->
+<ElementType name="manufacturercouponcount" content="textOnly" dt:type="int" /> 
+<!-- manufacturerid
+     the manufacturer id for this item entry.  usually this comes from the
+     barcode, however for coupons this could come from the database
+-->
+<ElementType name="manufacturerid" content="textOnly" dt:type="string" /> 
+<!-- matchgroup
+     group identifier used to group items for mix and match pricing purposes
+-->
+<ElementType name="matchgroup" content="textOnly" dt:type="string" /> 
+<!-- mediaid
+     the identifier for the tender or media taken
+-->
+<ElementType name="mediaid" content="textOnly" dt:type="int" /> 
+<!-- messagecount
+     count of targeted messages issued/printed to the customer for the transaction
+-->
+<ElementType name="messagecount" content="textOnly" dt:type="int" /> 
+<!-- nocouponmultiplication
+     coupons taken against this item entry will not be multiplied
+-->
+<ElementType name="nocouponmultiplication" content="empty" /> 
+<!-- nomovement
+     item movement information is not kept for this item
+-->
+<ElementType name="nomovement" content="empty" /> 
+<!-- nopoints
+     points are not issued for this item
+-->
+<ElementType name="nopoints" content="empty" /> 
+<!-- points
+     points value
+-->
+<ElementType name="points" content="textOnly" dt:type="int" /> 
+<!-- possibleoutofbalance
+     flags a transaction where the items, discounts, taxes, tender and change
+     for the information understood by the xml processor does not balance
+-->
+<ElementType name="possibleoutofbalance" content="empty" /> 
+<!-- previouscouponfamilycode
+     code used to validate coupons against matching items
+-->
+<ElementType name="previouscouponfamilycode" content="textOnly" dt:type="int" /> 
+<!-- pricelevel
+     price level id 
+-->
+<ElementType name="pricelevel" content="textOnly"  dt:type="string"/> 
+<!-- pricemethod
+     the type of pricing applied (e.g. LQD, MQD, etc.)
+-->
+<ElementType name="pricemethod" content="textOnly" dt:type="string"/> 
+<!-- priceoverridereason
+     reason code associated with a manual price entry
+-->
+<ElementType name="priceoverridereason" content="textOnly" dt:type="string" /> 
+<!-- promotioncode
+     promotion id associated with a particular award
+-->
+<ElementType name="promotioncode" content="textOnly" dt:type="string" /> 
+<!-- quantity
+-->
+<ElementType name="quantity" content="textOnly" dt:type="int" /> 
+<!-- reasoncode
+-->
+<ElementType name="reasoncode" content="textOnly" dt:type="string" /> 
+<!-- redeemedpoints
+     points redeemed for awards as part of this transaction
+-->
+<ElementType name="redeemedpoints" content="textOnly" dt:type="int" /> 
+<!-- refund
+     flags the transaction entry as a refund.  For tenders and discounts
+     some POS systems do not differentiate between refunds and cancels.
+-->
+<ElementType name="refund" content="empty" /> 
+<!-- refundreason
+     reason code associated with the refund
+-->
+<ElementType name="refundreason" content="textOnly" dt:type="string" /> 
+<!-- registerid
+     pos terminal or register identifier 
+-->
+<ElementType name="registerid" content="textOnly" dt:type="string" /> 
+<!-- securitylevel
+     security level of the cashier
+-->
+<ElementType name="securitylevel" content="textOnly" dt:type="int" /> 
+<!-- shopperlevel
+     shopper level associated with the customer
+-->
+<ElementType name="shopperlevel" content="textOnly" dt:type="int" /> 
+<!-- shortname
+
+-->
+<ElementType name="shortname" content="textOnly" dt:type="string" /> 
+<!-- storecouponamount
+     total amount of store coupons taken in the transaction
+-->
+<ElementType name="storecouponamount" content="textOnly" dt:type="int" /> 
+<!-- storecouponcount
+     total count of store coupons taken in the transaction
+-->
+<ElementType name="storecouponcount" content="textOnly" dt:type="int" /> 
+<!-- storeid
+     store identifier
+-->
+<ElementType name="storeid" content="textOnly" dt:type="string" /> 
+<!-- subdeptno
+     the sub department number for the itementry.  Some POS systems
+     do not have the concept of dept and subdept so only one may
+     be present.
+-->
+<ElementType name="subdeptno" content="textOnly" dt:type="int" /> 
+<!-- tareid
+     identifies the tare weight applied to the itementry
+-->
+<ElementType name="tareid" content="textOnly" dt:type="int" /> 
+<!-- tareweight
+     value of the tare weight applied to the itementry
+-->
+<ElementType name="tareweight" content="textOnly" dt:type="float" />
+<!-- taxableamount
+     the amount on which tax was applied
+-->
+<ElementType name="taxableamount" content="textOnly" dt:type="int" /> 
+<!-- taxableamountexempt
+     the amount on which tax would have been applied had not itementrys or 
+     the entire transaction been exempt from tax
+-->
+<ElementType name="taxableamountexempt" content="textOnly" dt:type="int" /> 
+<!-- taxid
+     the identifier for the tax plan
+-->
+<ElementType name="taxid" content="textOnly" dt:type="int" /> 
+<!-- tillid
+     the identifier used to account for sales and tenders taken for cash 
+     management purposes.  This is normally the registerid or cashierid.
+-->
+<ElementType name="tillid" content="textOnly" dt:type="string" /> 
+<!-- timerestrictionid
+     the identifier for a time restriction on sales this itementry
+-->
+<ElementType name="timerestrictionid" content="textOnly" dt:type="int" /> 
+<!-- toggledtaxes
+     currently: flags that taxes were toggled on this item
+     future: list of the taxid's toggled
+-->
+<ElementType name="toggledtaxes" content="empty" /> 
+<!-- totalchange
+     total change given in the transaction
+-->
+<ElementType name="totalchange" content="textOnly" dt:type="int" /> 
+<!-- totaldiscount
+     total discount taken in the transaction
+-->
+<ElementType name="totaldiscount" content="textOnly" dt:type="int" /> 
+<!-- totalitemcount
+     total count of items sold in the transaction
+-->
+<ElementType name="totalitemcount" content="textOnly" dt:type="int" /> 
+<!-- totalitemsales
+     total amount of items sold in the transaction
+-->
+<ElementType name="totalitemsales" content="textOnly" dt:type="int" /> 
+<!-- totaltax
+     total amount of tax charged on the transaction
+-->
+<ElementType name="totaltax" content="textOnly" dt:type="int" /> 
+<!-- totaltender
+     total amount of tender taken on the transaction
+-->
+<ElementType name="totaltender" content="textOnly" dt:type="int" /> 
+<!-- trainingmode
+     flag indicating that this transaction was a training transaction
+-->
+<ElementType name="trainingmode" content="empty" /> 
+<!-- transactiondatetime
+     date/time of the transaction
+     future: need a category (start, end, ...)
+-->
+<ElementType name="transactiondatetime" content="textOnly" dt:type="dateTime.tz" /> 
+<!-- transactionnumber
+     the transaction number allocated to the transaction
+-->
+<ElementType name="transactionnumber" content="textOnly" dt:type="string" /> 
+<!-- transactiontype
+     the type of the transaction (sale, refund, layaway, ...)
+-->
+<ElementType name="transactiontype" content="textOnly" dt:type="string" /> 
+<!-- unmatchedcouponamount
+     amount of a coupon that was not matched against previous itementrys
+-->
+<ElementType name="unmatchedcouponamount" content="textOnly" dt:type="int" /> 
+<!-- unmatchedcouponquantity
+     quantity of a coupon that was not matched against previous itementrys
+-->
+<ElementType name="unmatchedcouponquantity" content="textOnly" dt:type="int" /> 
+<!-- unmatchedcouponweight
+     weight of a coupon that was not matched against previous itementrys
+-->
+<ElementType name="unmatchedcouponweight" content="textOnly" dt:type="float" /> 
+<!-- velocitycode
+     a (key entered) short code used to identify the item
+-->
+<ElementType name="velocitycode" content="textOnly" dt:type="string" /> 
+<!-- weight
+-->
+<ElementType name="weight" content="textOnly" dt:type="float" /> 
+<!-- weightsource
+     where the value of the weight originated from
+-->
+<ElementType name="weightsource" content="textOnly" dt:type="enumeration" dt:values="electronic keyboard scale" /> 
+<!-- weightunits
+     the units the weight was entered in
+-->
+<ElementType name="weightunits" content="textOnly" dt:type="enumeration" dt:values="lb kg" /> 
+
+<!-- cashierpassword
+     the cashier's password
+-->
+<ElementType name="cashierpassword" content="textOnly" dt:type="string">
+<AttributeType name="encrypted" dt:type="boolean" /> 
+<attribute type="encrypted" /> 
+</ElementType>
+                           
+<!--  Name/value pair element used by a variety of things. 
+--> 
+<ElementType name="namedvalue" content="textOnly">
+<AttributeType name="name" dt:type="string" /> 
+<attribute type="name" /> 
+</ElementType>
+
+<ElementType name="dataentry" content="eltOnly">
+<element type="lineid" /> 
+<element type="namedvalue" minOccurs="0" maxOccurs="*" /> 
+</ElementType>
+<ElementType name="userentry" content="eltOnly">
+<element type="lineid" /> 
+<element type="namedvalue" minOccurs="0" maxOccurs="*" /> 
+</ElementType>
+
+<ElementType name="automaticcoupontransactionentry" content="eltOnly">
+<element type="manufacturercouponamount" minOccurs="0" /> 
+<element type="manufacturercouponcount" minOccurs="0" /> 
+<element type="storecouponamount" minOccurs="0" /> 
+<element type="storecouponcount" minOccurs="0" /> 
+<element type="namedvalue" minOccurs="0" maxOccurs="*" /> 
+</ElementType>
+
+<ElementType name="customertransactionentry" content="eltOnly">
+<element type="customerid" /> 
+<element type="points" minOccurs="0" /> 
+<element type="couponcount" minOccurs="0" /> 
+<element type="couponamount" minOccurs="0" /> 
+<element type="messagecount" minOccurs="0" /> 
+<element type="bonuspoints" minOccurs="0" /> 
+<element type="redeemedpoints" minOccurs="0" /> 
+</ElementType>
+<ElementType name="customeridentry" content="eltOnly">
+<element type="lineid" /> 
+<element type="customerid" /> 
+<element type="expirationdate" /> 
+<element type="storeid" /> 
+</ElementType>
+<ElementType name="customer" content="eltOnly">
+<element type="customerid" /> 
+<element type="firstname" minOccurs="0" /> 
+<element type="lastname" minOccurs="0" /> 
+<element type="address" minOccurs="0" /> 
+<element type="shopperlevel" minOccurs="0" /> 
+<element type="lastpurchasedate" minOccurs="0" /> 
+<element type="currentpoints" minOccurs="0" /> 
+</ElementType>
+
+<!-- totaltype
+-->
+<ElementType name="totaltype" content="textOnly" dt:type="string" /> 
+<!-- totalcontextid
+-->
+<ElementType name="totalcontextid" content="textOnly" dt:type="string" /> 
+<!-- totalid
+-->
+<ElementType name="totalid" content="textOnly" dt:type="string" /> 
+<!-- totalamount
+-->
+<ElementType name="totalamount" content="textOnly" dt:type="int" /> 
+<!-- totalquantity
+-->
+<ElementType name="totalcount" content="textOnly" dt:type="int" /> 
+<!-- totalunits
+-->
+<ElementType name="totalunits" content="textOnly" dt:type="float" /> 
+<ElementType name="total" content="eltOnly" >
+<element type="totaltype" minOccurs="0" /> 
+<element type="totalcontextid" minOccurs="0" /> 
+<element type="totalid" /> 
+<element type="totalamount" minOccurs="0" /> 
+<element type="totalcount" minOccurs="0" /> 
+<element type="totalunits" minOccurs="0" /> 
+</ElementType>
+
+<!--  Exception 
+--> 
+<ElementType name="exception" content="eltOnly">
+<element type="namedvalue" minOccurs="0" maxOccurs="*" /> 
+</ElementType>
+
+<ElementType name="authorizationdetails" content="eltOnly">
+<element type="namedvalue" minOccurs="0" maxOccurs="*" /> 
+</ElementType>
+
+<!-- 
+    Overrides may be required to complete a request. They will normally 
+    only be added to a request after a "more data required" response has
+    been received that indicates an override is needed (the override is 
+    the "more data"). 
+--> 
+<ElementType name="override" content="eltOnly">
+<element type="reasoncode" /> 
+<element type="cashierid" /> 
+</ElementType>
+<!--  Override 
+--> 
+<ElementType name="overridelist" content="eltOnly">
+<element type="override" maxOccurs="*" /> 
+</ElementType>
+
+
+<!--  Price element representing e.g. "3 @ $1.00ea" or "3lbs @ $1.00/lb" 
+--> 
+<ElementType name="simpleprice" content="eltOnly">
+<element type="quantity" /> 
+<element type="weight" minOccurs="0" /> 
+<element type="amount" /> 
+</ElementType>
+<ElementType name="extendedpricedetail" content="eltOnly">
+<element type="pricelevel" minOccurs="0" /> 
+<element type="pricemethod" minOccurs="0" /> 
+<element type="simpleprice" maxOccurs="*" /> 
+<element type="namedvalue" minOccurs="0" maxOccurs="*" /> 
+</ElementType>
+<ElementType name="taxability" content="eltOnly">
+<element type="taxid" maxOccurs="*" /> 
+</ElementType>
+
+<ElementType name="itemid" content="eltOnly">
+<group order="one">
+<element type="barcode" /> 
+<element type="velocitycode" /> 
+<element type="subdeptno" /> 
+</group>
+<element type="datasource" minOccurs="0" /> 
+<element type="isitemidfromalias" minOccurs="0" /> 
+</ElementType>
+
+<ElementType name="couponmatch" content="eltOnly">
+<group order="one">
+<element type="barcode" /> 
+<element type="velocitycode" /> 
+<element type="subdeptno" /> 
+</group>
+</ElementType>
+
+<ElementType name="cancelby" content="eltOnly">
+<element type="lineid" /> 
+<element type="amount" /> 
+<element type="quantity" minOccurs="0" /> 
+<element type="weight" minOccurs="0" /> 
+</ElementType>
+
+<ElementType name="cancelappliesto" content="eltOnly">
+<element type="lineid" /> 
+<element type="amount" /> 
+<element type="quantity" minOccurs="0" /> 
+<element type="weight" minOccurs="0" /> 
+</ElementType>
+
+<ElementType name="couponsapplied" content="eltOnly">
+<element type="lineid" maxOccurs="*" /> 
+</ElementType>
+
+<ElementType name="couponappliesto" content="eltOnly">
+<element type="lineid" maxOccurs="*" /> 
+</ElementType>
+
+<ElementType name="promotion" content="eltOnly">
+<element type="campaignid" minOccurs="0" /> 
+<element type="manufacturerid" minOccurs="0" /> 
+<element type="promotioncode" minOccurs="0" /> 
+<element type="namedvalue" minOccurs="0" maxOccurs="*" /> 
+</ElementType>
+<!-- 
+   An itemsummary element is intended to contain enough information
+   to allow the receipt entry for the item to be generated. 
+--> 
+<ElementType name="itemsummary" content="eltOnly" order="seq">
+<element type="lineid" /> 
+<element type="itemtype" minOccurs="0" /> 
+<element type="cancel" minOccurs="0" /> 
+<element type="itemid" /> 
+<element type="deptno" /> 
+<element type="subdeptno" minOccurs="0" /> 
+<element type="description" minOccurs="0" /> 
+<element type="manufacturerid" minOccurs="0" /> 
+<element type="extendedprice" /> 
+<element type="points" minOccurs="0" /> 
+<element type="quantity" minOccurs="0" /> 
+<element type="weight" minOccurs="0" /> 
+<element type="weightsource" minOccurs="0" /> 
+<element type="tareweight" minOccurs="0" /> 
+<element type="tareid" minOccurs="0" /> 
+<element type="taxability" minOccurs="0" /> 
+<element type="isfoodstampable" minOccurs="0" /> 
+</ElementType>
+<!-- 
+   An itemdetail element contains everything there is to know about
+   the item. 
+--> 
+<ElementType name="itemdetail" content="eltOnly" order="seq">
+<element type="matchgroup" minOccurs="0" /> 
+<element type="extendedpricedetail" minOccurs="0" maxOccurs="*" /> 
+<element type="isdiscounted" minOccurs="0" /> 
+<element type="manualpriceoverride" minOccurs="0" maxOccurs="*" /> 
+<element type="couponfamilycode" minOccurs="0" /> 
+<element type="previouscouponfamilycode" minOccurs="0" /> 
+<element type="nocouponmultiplication" minOccurs="0" /> 
+<element type="nomovement" minOccurs="0" /> 
+<element type="nopoints" minOccurs="0" /> 
+<element type="toggledtaxes" minOccurs="0" /> 
+<element type="exemptedtaxes" minOccurs="0" /> 
+<element type="isfoodstampabletoggled" minOccurs="0" /> 
+<element type="isweightitem" minOccurs="0" /> 
+<element type="isquantityallowed" minOccurs="0" /> 
+<element type="isquantityrequired" minOccurs="0" /> 
+<element type="ispriceoverrideallowed" minOccurs="0" /> 
+<element type="isquantityrequired" minOccurs="0" /> 
+<element type="ispricerequired" minOccurs="0" /> 
+<element type="ismanualweightallowed" minOccurs="0" /> 
+<element type="isrefundallowed" minOccurs="0" /> 
+<element type="isdiscountallowed" minOccurs="0" /> 
+<element type="iswiceligible" minOccurs="0" /> 
+<element type="isminimumorderaccummulationallowed" minOccurs="0" /> 
+<element type="isexception" minOccurs="0" /> 
+<element type="isalwaysexception" minOccurs="0" /> 
+<element type="timerestrictionid" minOccurs="0" /> 
+<element type="customeragerestriction" minOccurs="0" /> 
+<element type="cashieragerestriction" minOccurs="0" /> 
+<element type="refundreason" minOccurs="0" /> 
+<element type="cancelreason" minOccurs="0" /> 
+<element type="priceoverridereason" minOccurs="0" /> 
+<element type="cancelby" minOccurs="0" /> 
+<element type="cancelappliesto" minOccurs="0" /> 
+<element type="isunmatchedcancel" minOccurs="0" /> 
+<element type="adjustedsellingprice" minOccurs="0" /> 
+<element type="promotion" minOccurs="0" /> 
+<element type="couponmatch" minOccurs="0" /> 
+<element type="couponappliesto" minOccurs="0" /> 
+<element type="couponsapplied" minOccurs="0" /> 
+<element type="unmatchedcouponamount" minOccurs="0" /> 
+<element type="unmatchedcouponquantity" minOccurs="0" /> 
+<element type="unmatchedcouponweight" minOccurs="0" /> 
+<element type="namedvalue" minOccurs="0" maxOccurs="*" /> 
+</ElementType>
+<ElementType name="itementry" content="eltOnly">
+<element type="itemsummary" /> 
+<element type="itemdetail" minOccurs="0"  /> 
+</ElementType>
+
+<!--   
+    Information about tenders taken for the transaction
+--> 
+<ElementType name="tendersummary" content="eltOnly">
+<element type="lineid" /> 
+<element type="mediaid" /> 
+<element type="amount" /> 
+<element type="feeamount" minOccurs="0" /> 
+</ElementType>
+<ElementType name="tenderdetail" content="eltOnly">
+<element type="accountnumber" minOccurs="0" /> 
+<element type="accountstatus" minOccurs="0" /> 
+<element type="authorizationdetails" minOccurs="0" /> 
+<element type="currencyid" minOccurs="0" /> 
+<element type="exchangerate" minOccurs="0" /> 
+<element type="currencyamount" minOccurs="0" /> 
+<element type="namedvalue" minOccurs="0" maxOccurs="*" /> 
+</ElementType>
+<ElementType name="tender" content="eltOnly">
+<element type="tendersummary" /> 
+<element type="tenderdetail" minOccurs="0" /> 
+</ElementType>
+
+<!--   
+    Information about change given for the transaction
+--> 
+<ElementType name="change" content="eltOnly">
+<element type="lineid" /> 
+<element type="mediaid" /> 
+<element type="amount" /> 
+</ElementType>
+
+<!--   
+    Information about transaction discounts
+    future: add itemdiscounts
+--> 
+<ElementType name="discountsummary" content="eltOnly">
+<element type="lineid" /> 
+<element type="discountid" /> 
+<element type="refund" minOccurs="0" /> 
+<element type="amount" /> 
+<element type="discountrate" /> 
+<element type="taxableamountexempt" /> 
+</ElementType>
+<ElementType name="discountdetail" content="eltOnly">
+</ElementType>
+<ElementType name="discount" content="eltOnly">
+<element type="discountsummary" /> 
+<element type="discountdetail" minOccurs="0" /> 
+<element type="namedvalue" minOccurs="0" maxOccurs="*" /> 
+</ElementType>
+
+<!--   
+    Information about tax charged or refunded on the transaction
+--> 
+<ElementType name="tax" content="eltOnly">
+<element type="taxid" /> 
+<element type="refund" minOccurs="0" /> 
+<element type="includedinprice" minOccurs="0" /> 
+<element type="amount" /> 
+<element type="taxableamount" minOccurs="0" /> 
+<element type="namedvalue" minOccurs="0" maxOccurs="*" /> 
+</ElementType>
+
+<!--   
+    A summary of the key information about the transaction. 
+--> 
+<ElementType name="transactionsummary" content="eltOnly">
+<element type="storeid" /> 
+<element type="registerid" /> 
+<element type="transactionnumber" /> 
+<element type="cashierid" /> 
+<element type="tillid" /> 
+<element type="businessdate" /> 
+<element type="transactiondatetime" /> 
+<element type="transactiontype" minOccurs="0" /> 
+<element type="trainingmode" minOccurs="0" /> 
+<element type="customer" minOccurs="0" /> 
+<element type="totalitemcount" minOccurs="0" maxOccurs="*" /> 
+<element type="totalitemsales" minOccurs="0" maxOccurs="*" /> 
+<element type="totaldiscount" minOccurs="0" maxOccurs="*" /> 
+<element type="totaltax" minOccurs="0" maxOccurs="*" /> 
+<element type="totaltender" minOccurs="0" maxOccurs="*" /> 
+<element type="totalchange" minOccurs="0" maxOccurs="*" /> 
+<element type="possibleoutofbalance" minOccurs="0" maxOccurs="*" /> 
+<element type="total" minOccurs="0" maxOccurs="*" /> 
+<element type="namedvalue" minOccurs="0" maxOccurs="*" /> 
+</ElementType>
+
+<ElementType name="transactiondetail" content="eltOnly" order="many" >
+<!--  
+    The transaction detail element includes all of the elements that can
+    be in a transaction such as items and tenders. 
+--> 
+<element type="customeridentry" minOccurs="0" maxOccurs="*" /> 
+<element type="itementry" minOccurs="0" maxOccurs="*" /> 
+<element type="discount" minOccurs="0" maxOccurs="*" /> 
+<element type="tax" minOccurs="0" maxOccurs="*" /> 
+<element type="tender" minOccurs="0" maxOccurs="*" /> 
+<element type="change" minOccurs="0" maxOccurs="*" /> 
+<element type="override" minOccurs="0" maxOccurs="*" /> 
+<element type="customertransactionentry" minOccurs="0" maxOccurs="*" /> 
+<element type="automaticcoupontransactionentry" minOccurs="0" maxOccurs="*" /> 
+<element type="userentry" minOccurs="0" maxOccurs="*" /> 
+<element type="dataentry" minOccurs="0" maxOccurs="*" /> 
+<element type="exception" minOccurs="0" maxOccurs="*" /> 
+</ElementType>
+
+<!-- 
+    The transaction can contain just a summary of the
+    current transaction (basic info and totals) or a full description
+    including all items. 
+--> 
+<ElementType name="transaction" content="eltOnly">
+<element type="transactionsummary" /> 
+<element type="transactiondetail" minOccurs="0" /> 
+</ElementType>
+
+<!-- 
+    This is the root element for the document.
+    The transactions contains 1 to n transaction elements. 
+    Attributes can identify the input file (file), type of processing (action)
+    and store number (store) associated with producing this xml document.
+--> 
+<ElementType name="transactions" content="eltOnly">
+<AttributeType name="store" dt:type="string" /> 
+<AttributeType name="action" dt:type="string" /> 
+<AttributeType name="file" dt:type="string" /> 
+<attribute type="store" /> 
+<attribute type="action" /> 
+<attribute type="file" /> 
+<element type="transaction" maxOccurs="*" /> 
+</ElementType>
+
+</Schema>
