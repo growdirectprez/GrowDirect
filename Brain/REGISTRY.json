@@ -1,7 +1,7 @@
 {
-  "generated": "2026-04-23T20:34:04.707185+00:00",
+  "generated": "2026-04-23T20:48:13.224165+00:00",
   "article_count": 246,
-  "topic_count": 3424,
+  "topic_count": 3425,
   "articles": [
     {
       "path": "Brain/wiki/501c-advocacy-arm.md",
@@ -12322,12 +12322,12 @@
       "type": "wiki"
     },
     {
-      "path": "Brain/wiki/secure-client-kroger.md",
-      "title": "Secure Client: Kroger",
-      "summary": "The Kroger archive spans **two distinct engagements separated by 16 years**: the 2001 Kroger Retek Procurement CRP (a PwC-led ERP rollout for DC-to-store merchandising on Retek RMS) and the 2017 Kroge",
+      "path": "Brain/wiki/secure-client-top5-grocery-chain.md",
+      "title": "Secure Client: Top-5 US Grocery Chain",
+      "summary": "A **top-5 US grocery chain** archive spanning **two distinct engagements separated by 16 years**: a 2001 Retek Procurement CRP (a PwC-led ERP rollout for DC-to-store merchandising on Retek RMS) and a ",
       "tags": [
         "secure",
-        "kroger",
+        "top5-grocery-chain",
         "retail",
         "loss-prevention",
         "client-implementation",
@@ -12343,6 +12343,7 @@
         "artifacts",
         "canary",
         "canary-lineage",
+        "chain",
         "client",
         "client-implementation",
         "client:",
@@ -12354,9 +12355,10 @@
         "engagement",
         "extension",
         "files",
+        "grocery",
         "implementation",
         "ingested",
-        "kroger",
+        "legacy",
         "loss-prevention",
         "procurement",
         "related",
@@ -12367,8 +12369,11 @@
         "sources",
         "store",
         "summary",
+        "system",
         "teaches",
         "this",
+        "top5",
+        "top5-grocery-chain",
         "what"
       ],
       "type": "wiki"
@@ -12750,6 +12755,7 @@
         "boris",
         "canary",
         "canary-lineage",
+        "chain",
         "data",
         "details",
         "ecommerce",
@@ -12757,8 +12763,8 @@
         "fraud",
         "fraud-detection",
         "fulfillment",
+        "grocery",
         "inbound",
-        "kroger",
         "omnichannel",
         "order",
         "outbound",
@@ -12893,7 +12899,7 @@
     {
       "path": "Brain/wiki/secure-retail-career-archive.md",
       "title": "Pre-Secure Retail Career Archive",
-      "summary": "Index of client folders in `/Users/gclyle/secure/PROJECTS/` and their era classification. Sprint 1 does **not** ingest these — content is either pre-Secure (IBM / PwC / JDA / Retek consulting, 2001–20",
+      "summary": "Index of client folders in `/Users/gclyle/secure/PROJECTS/` and their era classification. Sprint 1 did **not** ingest these — content is either pre-Secure (IBM / PwC / JDA / Retek consulting, 2001–200",
       "tags": [
         "secure",
         "retail-career",
@@ -14451,8 +14457,8 @@
         "title": "Case-Law Synthesis — Rules That Bind WPBCA"
       },
       {
-        "path": "Brain/wiki/secure-client-kroger.md",
-        "title": "Secure Client: Kroger"
+        "path": "Brain/wiki/secure-client-top5-grocery-chain.md",
+        "title": "Secure Client: Top-5 US Grocery Chain"
       }
     ],
     "2002": [
@@ -14583,8 +14589,8 @@
     ],
     "2017": [
       {
-        "path": "Brain/wiki/secure-client-kroger.md",
-        "title": "Secure Client: Kroger"
+        "path": "Brain/wiki/secure-client-top5-grocery-chain.md",
+        "title": "Secure Client: Top-5 US Grocery Chain"
       },
       {
         "path": "Brain/wiki/secure-customer-order-management-flow-2017.md",
@@ -17313,8 +17319,8 @@
         "title": "Angel Content Archive — Index & Catalog Plan"
       },
       {
-        "path": "Brain/wiki/secure-client-kroger.md",
-        "title": "Secure Client: Kroger"
+        "path": "Brain/wiki/secure-client-top5-grocery-chain.md",
+        "title": "Secure Client: Top-5 US Grocery Chain"
       },
       {
         "path": "Brain/wiki/secure-retail-career-archive.md",
@@ -17521,8 +17527,8 @@
         "title": "Document Management Strategy"
       },
       {
-        "path": "Brain/wiki/secure-client-kroger.md",
-        "title": "Secure Client: Kroger"
+        "path": "Brain/wiki/secure-client-top5-grocery-chain.md",
+        "title": "Secure Client: Top-5 US Grocery Chain"
       }
     ],
     "arts": [
@@ -19443,8 +19449,8 @@
         "title": "Secure Architecture"
       },
       {
-        "path": "Brain/wiki/secure-client-kroger.md",
-        "title": "Secure Client: Kroger"
+        "path": "Brain/wiki/secure-client-top5-grocery-chain.md",
+        "title": "Secure Client: Top-5 US Grocery Chain"
       },
       {
         "path": "Brain/wiki/secure-lite.md",
@@ -19485,8 +19491,8 @@
         "title": "Secure Architecture"
       },
       {
-        "path": "Brain/wiki/secure-client-kroger.md",
-        "title": "Secure Client: Kroger"
+        "path": "Brain/wiki/secure-client-top5-grocery-chain.md",
+        "title": "Secure Client: Top-5 US Grocery Chain"
       },
       {
         "path": "Brain/wiki/secure-lite.md",
@@ -20107,12 +20113,20 @@
         "title": "The Scaling Model"
       },
       {
+        "path": "Brain/wiki/secure-client-top5-grocery-chain.md",
+        "title": "Secure Client: Top-5 US Grocery Chain"
+      },
+      {
         "path": "Brain/wiki/secure-dsd-ired-analytics.md",
         "title": "Secure DSD iRED Analytics — US Grocery Chain Annual Summary"
       },
       {
         "path": "Brain/wiki/secure-lpms-case-management-2015.md",
         "title": "LPMS Case Management — Sporting-Goods Chain Deployment (2015)"
+      },
+      {
+        "path": "Brain/wiki/secure-omnichannel.md",
+        "title": "Secure Omnichannel"
       },
       {
         "path": "Brain/wiki/secure-retail-operating-model-2006.md",
@@ -20813,20 +20827,20 @@
         "title": "Angel Voice Training"
       },
       {
-        "path": "Brain/wiki/secure-client-kroger.md",
-        "title": "Secure Client: Kroger"
+        "path": "Brain/wiki/secure-client-top5-grocery-chain.md",
+        "title": "Secure Client: Top-5 US Grocery Chain"
       }
     ],
     "client-implementation": [
       {
-        "path": "Brain/wiki/secure-client-kroger.md",
-        "title": "Secure Client: Kroger"
+        "path": "Brain/wiki/secure-client-top5-grocery-chain.md",
+        "title": "Secure Client: Top-5 US Grocery Chain"
       }
     ],
     "client:": [
       {
-        "path": "Brain/wiki/secure-client-kroger.md",
-        "title": "Secure Client: Kroger"
+        "path": "Brain/wiki/secure-client-top5-grocery-chain.md",
+        "title": "Secure Client: Top-5 US Grocery Chain"
       }
     ],
     "clients": [
@@ -25341,8 +25355,8 @@
         "title": "Secure Architecture"
       },
       {
-        "path": "Brain/wiki/secure-client-kroger.md",
-        "title": "Secure Client: Kroger"
+        "path": "Brain/wiki/secure-client-top5-grocery-chain.md",
+        "title": "Secure Client: Top-5 US Grocery Chain"
       }
     ],
     "delivery-plan": [
@@ -25673,8 +25687,8 @@
         "title": "Secure Architecture"
       },
       {
-        "path": "Brain/wiki/secure-client-kroger.md",
-        "title": "Secure Client: Kroger"
+        "path": "Brain/wiki/secure-client-top5-grocery-chain.md",
+        "title": "Secure Client: Top-5 US Grocery Chain"
       },
       {
         "path": "Brain/wiki/secure-lite.md",
@@ -26007,8 +26021,8 @@
         "title": "The Market"
       },
       {
-        "path": "Brain/wiki/secure-client-kroger.md",
-        "title": "Secure Client: Kroger"
+        "path": "Brain/wiki/secure-client-top5-grocery-chain.md",
+        "title": "Secure Client: Top-5 US Grocery Chain"
       }
     ],
     "direct-store-delivery": [
@@ -26703,8 +26717,8 @@
     ],
     "dsd": [
       {
-        "path": "Brain/wiki/secure-client-kroger.md",
-        "title": "Secure Client: Kroger"
+        "path": "Brain/wiki/secure-client-top5-grocery-chain.md",
+        "title": "Secure Client: Top-5 US Grocery Chain"
       },
       {
         "path": "Brain/wiki/secure-dsd-ired-analytics.md",
@@ -26879,8 +26893,8 @@
         "title": "Secure 5 Inventory"
       },
       {
-        "path": "Brain/wiki/secure-client-kroger.md",
-        "title": "Secure Client: Kroger"
+        "path": "Brain/wiki/secure-client-top5-grocery-chain.md",
+        "title": "Secure Client: Top-5 US Grocery Chain"
       },
       {
         "path": "Brain/wiki/secure-sysrepublic-xbr-2016.md",
@@ -27343,8 +27357,8 @@
         "title": "WORM Exposure Sprint Deliverables"
       },
       {
-        "path": "Brain/wiki/secure-client-kroger.md",
-        "title": "Secure Client: Kroger"
+        "path": "Brain/wiki/secure-client-top5-grocery-chain.md",
+        "title": "Secure Client: Top-5 US Grocery Chain"
       },
       {
         "path": "Brain/wiki/secure-property-services-operating-model-2002.md",
@@ -28337,8 +28351,8 @@
     ],
     "extension": [
       {
-        "path": "Brain/wiki/secure-client-kroger.md",
-        "title": "Secure Client: Kroger"
+        "path": "Brain/wiki/secure-client-top5-grocery-chain.md",
+        "title": "Secure Client: Top-5 US Grocery Chain"
       }
     ],
     "external": [
@@ -29057,8 +29071,8 @@
         "title": "GrowDirect Working Papers — Structure"
       },
       {
-        "path": "Brain/wiki/secure-client-kroger.md",
-        "title": "Secure Client: Kroger"
+        "path": "Brain/wiki/secure-client-top5-grocery-chain.md",
+        "title": "Secure Client: Top-5 US Grocery Chain"
       }
     ],
     "filing": [
@@ -31165,8 +31179,16 @@
         "title": "Eastview — Content Pool (Raw)"
       },
       {
+        "path": "Brain/wiki/secure-client-top5-grocery-chain.md",
+        "title": "Secure Client: Top-5 US Grocery Chain"
+      },
+      {
         "path": "Brain/wiki/secure-dsd-ired-analytics.md",
         "title": "Secure DSD iRED Analytics — US Grocery Chain Annual Summary"
+      },
+      {
+        "path": "Brain/wiki/secure-omnichannel.md",
+        "title": "Secure Omnichannel"
       },
       {
         "path": "Brain/wiki/secure-property-services-operating-model-2002.md",
@@ -32765,8 +32787,8 @@
         "title": "**Executive Summary: The Quant’s Verdict**"
       },
       {
-        "path": "Brain/wiki/secure-client-kroger.md",
-        "title": "Secure Client: Kroger"
+        "path": "Brain/wiki/secure-client-top5-grocery-chain.md",
+        "title": "Secure Client: Top-5 US Grocery Chain"
       },
       {
         "path": "Brain/wiki/south-bay-wiki-architecture.md",
@@ -33055,8 +33077,8 @@
     ],
     "ingested": [
       {
-        "path": "Brain/wiki/secure-client-kroger.md",
-        "title": "Secure Client: Kroger"
+        "path": "Brain/wiki/secure-client-top5-grocery-chain.md",
+        "title": "Secure Client: Top-5 US Grocery Chain"
       }
     ],
     "ingesting": [
@@ -34371,16 +34393,6 @@
         "title": "COAC: Palos Verdes Endangered Species & Habitat — Scientific Foundation"
       }
     ],
-    "kroger": [
-      {
-        "path": "Brain/wiki/secure-client-kroger.md",
-        "title": "Secure Client: Kroger"
-      },
-      {
-        "path": "Brain/wiki/secure-omnichannel.md",
-        "title": "Secure Omnichannel"
-      }
-    ],
     "kubernetes": [
       {
         "path": "Brain/wiki/growdirect-canary.md",
@@ -34959,6 +34971,10 @@
       {
         "path": "Brain/wiki/cove-pv-declaration-scheme.md",
         "title": "PV Corp Declaration Scheme & the Olmsted Legacy"
+      },
+      {
+        "path": "Brain/wiki/secure-client-top5-grocery-chain.md",
+        "title": "Secure Client: Top-5 US Grocery Chain"
       }
     ],
     "legal": [
@@ -35931,8 +35947,8 @@
         "title": "Canary — Platform Overview"
       },
       {
-        "path": "Brain/wiki/secure-client-kroger.md",
-        "title": "Secure Client: Kroger"
+        "path": "Brain/wiki/secure-client-top5-grocery-chain.md",
+        "title": "Secure Client: Top-5 US Grocery Chain"
       },
       {
         "path": "Brain/wiki/secure-platform-overview.md",
@@ -43107,8 +43123,8 @@
     ],
     "procurement": [
       {
-        "path": "Brain/wiki/secure-client-kroger.md",
-        "title": "Secure Client: Kroger"
+        "path": "Brain/wiki/secure-client-top5-grocery-chain.md",
+        "title": "Secure Client: Top-5 US Grocery Chain"
       },
       {
         "path": "Brain/wiki/secure-property-services-operating-model-2002.md",
@@ -46135,8 +46151,8 @@
         "title": "Secure Architecture"
       },
       {
-        "path": "Brain/wiki/secure-client-kroger.md",
-        "title": "Secure Client: Kroger"
+        "path": "Brain/wiki/secure-client-top5-grocery-chain.md",
+        "title": "Secure Client: Top-5 US Grocery Chain"
       },
       {
         "path": "Brain/wiki/secure-customer-order-management-flow-2017.md",
@@ -46385,8 +46401,8 @@
     ],
     "replacement": [
       {
-        "path": "Brain/wiki/secure-client-kroger.md",
-        "title": "Secure Client: Kroger"
+        "path": "Brain/wiki/secure-client-top5-grocery-chain.md",
+        "title": "Secure Client: Top-5 US Grocery Chain"
       },
       {
         "path": "Brain/wiki/secure-sysrepublic-xbr-2016.md",
@@ -46973,8 +46989,8 @@
         "title": "The Owl — Analytics Oracle"
       },
       {
-        "path": "Brain/wiki/secure-client-kroger.md",
-        "title": "Secure Client: Kroger"
+        "path": "Brain/wiki/secure-client-top5-grocery-chain.md",
+        "title": "Secure Client: Top-5 US Grocery Chain"
       },
       {
         "path": "Brain/wiki/secure-integrated-maps-2003.md",
@@ -47063,8 +47079,8 @@
     ],
     "retek": [
       {
-        "path": "Brain/wiki/secure-client-kroger.md",
-        "title": "Secure Client: Kroger"
+        "path": "Brain/wiki/secure-client-top5-grocery-chain.md",
+        "title": "Secure Client: Top-5 US Grocery Chain"
       }
     ],
     "retention": [
@@ -48687,8 +48703,8 @@
         "title": "Secure Architecture"
       },
       {
-        "path": "Brain/wiki/secure-client-kroger.md",
-        "title": "Secure Client: Kroger"
+        "path": "Brain/wiki/secure-client-top5-grocery-chain.md",
+        "title": "Secure Client: Top-5 US Grocery Chain"
       },
       {
         "path": "Brain/wiki/secure-customer-order-management-flow-2017.md",
@@ -50667,8 +50683,8 @@
         "title": "Secure Architecture"
       },
       {
-        "path": "Brain/wiki/secure-client-kroger.md",
-        "title": "Secure Client: Kroger"
+        "path": "Brain/wiki/secure-client-top5-grocery-chain.md",
+        "title": "Secure Client: Top-5 US Grocery Chain"
       },
       {
         "path": "Brain/wiki/secure-customer-order-management-flow-2017.md",
@@ -51733,8 +51749,8 @@
         "title": "Secure 5 Inventory"
       },
       {
-        "path": "Brain/wiki/secure-client-kroger.md",
-        "title": "Secure Client: Kroger"
+        "path": "Brain/wiki/secure-client-top5-grocery-chain.md",
+        "title": "Secure Client: Top-5 US Grocery Chain"
       },
       {
         "path": "Brain/wiki/secure-property-services-operating-model-2002.md",
@@ -52525,8 +52541,8 @@
         "title": "Secure Architecture"
       },
       {
-        "path": "Brain/wiki/secure-client-kroger.md",
-        "title": "Secure Client: Kroger"
+        "path": "Brain/wiki/secure-client-top5-grocery-chain.md",
+        "title": "Secure Client: Top-5 US Grocery Chain"
       },
       {
         "path": "Brain/wiki/secure-customer-order-management-flow-2017.md",
@@ -52917,6 +52933,10 @@
         "title": "Cannabis Retail Risk Dictionary & Integration Spec"
       },
       {
+        "path": "Brain/wiki/secure-client-top5-grocery-chain.md",
+        "title": "Secure Client: Top-5 US Grocery Chain"
+      },
+      {
         "path": "Brain/wiki/secure-merchandising-rfp-evant-response-2003.md",
         "title": "Merchandising System RFP — Evant Response (Sept 2003)"
       }
@@ -53105,8 +53125,8 @@
         "title": "Secure Architecture"
       },
       {
-        "path": "Brain/wiki/secure-client-kroger.md",
-        "title": "Secure Client: Kroger"
+        "path": "Brain/wiki/secure-client-top5-grocery-chain.md",
+        "title": "Secure Client: Top-5 US Grocery Chain"
       },
       {
         "path": "Brain/wiki/secure-lite.md",
@@ -54001,8 +54021,8 @@
         "title": "Secure Architecture"
       },
       {
-        "path": "Brain/wiki/secure-client-kroger.md",
-        "title": "Secure Client: Kroger"
+        "path": "Brain/wiki/secure-client-top5-grocery-chain.md",
+        "title": "Secure Client: Top-5 US Grocery Chain"
       },
       {
         "path": "Brain/wiki/secure-customer-order-management-flow-2017.md",
@@ -54851,6 +54871,18 @@
       {
         "path": "Brain/wiki/growdirect-research-reference-library.md",
         "title": "Canary / GrowDirect — Project Reference Library"
+      }
+    ],
+    "top5": [
+      {
+        "path": "Brain/wiki/secure-client-top5-grocery-chain.md",
+        "title": "Secure Client: Top-5 US Grocery Chain"
+      }
+    ],
+    "top5-grocery-chain": [
+      {
+        "path": "Brain/wiki/secure-client-top5-grocery-chain.md",
+        "title": "Secure Client: Top-5 US Grocery Chain"
       }
     ],
     "topgolf": [
@@ -57567,8 +57599,8 @@
         "title": "Secure Architecture"
       },
       {
-        "path": "Brain/wiki/secure-client-kroger.md",
-        "title": "Secure Client: Kroger"
+        "path": "Brain/wiki/secure-client-top5-grocery-chain.md",
+        "title": "Secure Client: Top-5 US Grocery Chain"
       },
       {
         "path": "Brain/wiki/secure-customer-order-management-flow-2017.md",

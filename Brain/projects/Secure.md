@@ -28,7 +28,7 @@ Archive. Product history, architecture, detection concepts, and client implement
 
 All entries abstracted to deployment archetypes per `feedback_scrub_client_names.md` — raw intakes retain original client identifiers as source of record.
 
-- [[Brain/wiki/secure-client-kroger|Top-5 Grocery Chain Implementation]] — first client deep-dive (POS baseline, CRP, DSD) *(legacy card — client name in filename pending scrub)*
+- [[Brain/wiki/secure-client-top5-grocery-chain|Top-5 Grocery Chain Implementation]] — first client deep-dive (POS baseline, CRP, DSD)
 - [[Brain/wiki/secure-lpms-case-management-2015|Sporting-Goods Chain LPMS (2015)]] — case-management taxonomies, reporting, sample case extract, firearms-regulated segment
 
 ### Requirements Artefacts
@@ -69,7 +69,7 @@ Originals live in place — Brain references them by path, never copies.
 
 ## Client Implementations
 
-- **Kroger** — [[Brain/wiki/secure-client-kroger|deep-dive]] (Sprint 1 first client)
+- **Kroger** — [[Brain/wiki/secure-client-top5-grocery-chain|deep-dive]] (Sprint 1 first client)
 - Wal-Mart, Harrods, Staples, Toys 'R' Us, Heartbeat, TSA — Sprint 2+ (sources on NAS)
 
 ## Future Work

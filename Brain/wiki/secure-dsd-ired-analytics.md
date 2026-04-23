@@ -78,7 +78,7 @@ Direct Canary lineage:
 
 - [[Brain/projects/Secure|Secure MOC]]
 - [[Brain/wiki/secure-5-inventory|Secure 5 Inventory]] — adjacent Secure EBR product
-- [[Brain/wiki/secure-client-kroger|Kroger Implementation]] — DSD was also a focus in the mid-market grocery implementation covered there
+- [[Brain/wiki/secure-client-top5-grocery-chain|Top-5 Grocery Chain Implementation]] — DSD was also a focus in the grocery-chain implementation covered there
 - [[Brain/wiki/secure-platform-overview|Secure Platform Overview]]
 - [[Brain/projects/Canary|Canary]] — forward lineage
 
