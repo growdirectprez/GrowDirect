@@ -106,7 +106,7 @@ Factory philosophy: ship one pre-wired install, not a dozen independent componen
 
 ### New Delivery Process (NDP, Oct 2018)
 
-NDP was the organizational reform aligning Appriss Retail's quote-to-contract-to-invoice flow. The problem it solved: too many people in every meeting, unclear accountability, quality incidents like "the Ollie's situation." Scope of the reform:
+NDP was the organizational reform aligning Appriss Retail's quote-to-contract-to-invoice flow. The problem it solved: too many people in every meeting, unclear accountability, quality incidents at specific mid-market accounts where hand-off gaps produced rework. Scope of the reform:
 
 - Define the org model and reporting lines
 - Clarify accountability from quote → contract → delivery → invoice

@@ -74,11 +74,11 @@ The `5.1 Requirements.xlsx` workbook catalogs Secure 5.1 functional requirements
 
 (Full requirements are in the intake at `Brain/raw/inbox/5-1-requirements-xlsx.md`. Candidate for deeper extraction during a Canary SDD-writing pass.)
 
-### Kroger DSD requirements
+### DSD requirements (top-5 grocery chain)
 
-`Kroger DSD requirements.docx` is the concrete spec for Kroger Direct Store Delivery — a specific omnichannel adjacency where vendor trucks deliver inventory directly to stores, bypassing the DC. This creates its own fraud surface: vendor-driver collusion with store receivers, shorted deliveries, damaged-goods claims. The doc is a worked example of how Secure extended its base model to a retailer-specific workflow.
+The `Kroger DSD requirements.docx` intake (top-5 US grocery chain) is the concrete spec for Direct Store Delivery — a specific omnichannel adjacency where vendor trucks deliver inventory directly to stores, bypassing the DC. This creates its own fraud surface: vendor-driver collusion with store receivers, shorted deliveries, damaged-goods claims. The doc is a worked example of how Secure extended its base model to a retailer-specific workflow.
 
-See [[Brain/wiki/secure-client-kroger|Secure Client: Kroger]] for the full Kroger deep-dive.
+See [[Brain/wiki/secure-client-top5-grocery-chain|Secure Client: Top-5 Grocery Chain]] for the full grocery-chain deep-dive.
 
 ### What this teaches Canary
 
@@ -86,14 +86,14 @@ See [[Brain/wiki/secure-client-kroger|Secure Client: Kroger]] for the full Kroge
 - **Inbound / Fulfillment / Outbound as rule taxonomy.** Classic retail shrink decomposition. Canary's Chirp rule grouping could adopt this structure to make rule intent legible to operators.
 - **The "divorce customer" concept.** Not every customer should be retained. Canary's customer-level risk scoring may benefit from a "cost-to-serve-exceeds-contribution" signal.
 - **Appriss Retail Data Specification as SDD source.** v1.1 is a 2018 schema for retail LP data. Comparing it field-by-field against Canary's current schema surfaces gaps in what Canary captures. Candidate for future SDD extraction work.
-- **DSD as a worked-example pattern for client extensions.** Secure's base model plus retailer-specific extensions (Kroger DSD) is a delivery pattern Canary can adopt for its largest merchants — core rules + merchant-specific rule packs.
+- **DSD as a worked-example pattern for client extensions.** Secure's base model plus retailer-specific extensions (grocery-chain DSD) is a delivery pattern Canary can adopt for its largest merchants — core rules + merchant-specific rule packs.
 
 ## Related
 
 - [[Brain/projects/Secure|Secure]] MOC
 - [[Brain/wiki/secure-platform-overview|Secure Platform Overview]]
 - [[Brain/wiki/secure-architecture|Secure Architecture]]
-- [[Brain/wiki/secure-client-kroger|Secure Client: Kroger]] — DSD example
+- [[Brain/wiki/secure-client-top5-grocery-chain|Secure Client: Top-5 Grocery Chain]] — DSD example
 - [[Brain/projects/Canary|Canary]] — forward project
 - [[docs/superpowers/briefs/2026-04-secure-to-canary-handoff|Secure → Canary Handoff]]
 
@@ -102,4 +102,4 @@ See [[Brain/wiki/secure-client-kroger|Secure Client: Kroger]] for the full Kroge
 - `/Users/gclyle/secure/Secure Omnichannel Overview-Oct2018.pdf` — product overview, risk surfaces, order flow
 - `/Users/gclyle/secure/Appriss Retail Data Specification v1.1.pdf` — data schema contract
 - `/Users/gclyle/secure/5.1 Requirements.xlsx` — Secure 5.1 functional requirements
-- `/Users/gclyle/secure/Kroger DSD requirements.docx` — retailer-specific DSD extension
+- `/Users/gclyle/secure/Kroger DSD requirements.docx` — retailer-specific DSD extension (top-5 grocery chain — raw intake retains original client identifier as source of record per `feedback_scrub_client_names.md`)
