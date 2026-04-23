@@ -18,7 +18,7 @@ Beta / Early Release Candidate
 - [[Brain/wiki/canary-data-model|Data Model]] — 60+ models across app, sales, fox, metrics schemas
 - [[Brain/wiki/canary-sales-strategy|Sales Strategy]] — Gold list rules, adoption ladder, signal-over-noise philosophy
 - [[Brain/wiki/canary-tsp-pipeline|TSP Pipeline]] — Webhook ingestion, 4 stream consumers, HMAC validation, hash chain, Merkle batching
-- [[Brain/wiki/canary-chirp-rules|Chirp Rules]] — 29-rule catalog, 3 evaluation tiers, threshold resolution, risk scoring, auto-casing
+- [[Brain/wiki/canary-chirp-rules|Chirp Rules]] — 37-rule catalog (10 categories), 3 evaluation tiers, threshold resolution, risk scoring, auto-casing
 - [[Brain/wiki/canary-fox-case-management|Fox Case Management]] — Case lifecycle, evidence hash chain, append-only timeline, DB-enforced immutability
 
 ## User Guides
@@ -102,7 +102,7 @@ Beta / Early Release Candidate
 - [[docs/sdds/canary/webhook-pipeline|Webhook Pipeline]] — Square webhook ingestion, HMAC validation
 
 ### Detection & Cases
-- [[docs/sdds/canary/chirp|Chirp Detection]] — 29 detection rules, 3 tiers
+- [[docs/sdds/canary/chirp|Chirp Detection]] — 37 detection rules (10 categories), 3 tiers
 - [[docs/sdds/canary/alert|Alerts]] — Alert lifecycle, notification routing
 - [[docs/sdds/canary/fox|Fox Cases]] — Case management, evidence chain
 - [[docs/sdds/canary/owl|Owl Analytics]] — AI analysis, Ollama, MCP server
