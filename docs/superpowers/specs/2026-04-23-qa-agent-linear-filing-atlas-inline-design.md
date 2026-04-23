@@ -79,9 +79,11 @@ Agent responds: "Filed [GRO-XYZ](https://linear.app/.../GRO-XYZ): Alert count in
 Single-responsibility module:
 - `class LinearClient` — wraps the GraphQL endpoint
 - Method `create_issue(title, description, team="Growdirect", project="Canary", labels=("Canary Builder", "Bug")) -> dict`
-- Uses `requests` (already in Canary's deps) for sync HTTP from the async sidecar — called in a threadpool via `asyncio.to_thread` from the tool handler if needed, or just synchronously since tool dispatch is inside the sidecar's HTTP handler and a ~500ms Linear call is acceptable.
-- On startup OR first call, resolves team ID + project ID + label IDs via one-time GraphQL queries; cached on the client instance.
+- Uses `requests` (already in Canary's deps) synchronously from the tool handler. Sidecar already calls Anthropic sync inside `handle_chat` (`server.py:149`), so another sync call inside the tool dispatch inherits the established pattern. Async migration is a Tier-2 tech-debt item for the whole handle_chat, not this feature's problem.
+- **Auth header:** `Authorization: <LINEAR_API_KEY>` — bare token, NO `Bearer` prefix. Linear personal API keys (prefixed `lin_api_...`) use this exact form per their docs. Do not add `Bearer` from training-data muscle memory.
+- On first call, resolves team ID + project ID + label IDs via one-time GraphQL queries; cached on the client instance. If a label (e.g., `Canary Builder`) doesn't exist in the workspace, log a warning and file the issue without it — don't fail-closed.
 - Raises `LinearAPIError` with `.message` and `.request_id` on failure.
+- Defensive parsing: if the `issueCreate` response is missing `url` or `identifier`, raise `LinearAPIError` rather than returning a malformed dict that breaks the caller.
 
 ### Component 2 — QA tool handler
 
@@ -155,11 +157,16 @@ def _handle_file_linear_bug(params: dict) -> dict[str, Any]:
 
 ### Component 3 — Compose + env wiring
 
-**File:** `Canary/devops/docker-compose.localhost.yml` (modified)
+**Files:**
+- `Canary/devops/docker-compose.localhost.yml` (modified, GUARDIAN-PROTECTED)
+- `Canary/.env` (modified, GUARDIAN-PROTECTED)
 
-Add `LINEAR_API_KEY` to the `qa-agent` service environment block. Value from `.env` (user adds `LINEAR_API_KEY=lin_api_xxx` to their `.env` before rebuilding the sidecar). Without it, the tool returns an error envelope rather than crashing.
+Add `LINEAR_API_KEY` to the `qa-agent` service environment block (just passing through from `.env`, no hardcoded value in compose). Value from `.env` (user adds `LINEAR_API_KEY=lin_api_xxx` to their `.env` before rebuilding the sidecar). Without it, the tool returns an error envelope rather than crashing.
 
-**Note:** `.env` is guardian-protected. User approved the env addition; still needs a `critical-file-guardian` touch to land (or direct edit since user granted guardian permission earlier). Implementation plan calls this out.
+**Guardian implications:**
+- `.guardian-manifest` lists both `devops/docker-compose.localhost.yml` and `.env` as protected. Both commits must go through `critical-file-guardian` (or equivalent direct-edit permission from the user, as was granted for GRO-389).
+- Implementation plan MUST explicitly call this out — previous work (GRO-389) walked this path and updated the manifest SHA256 + timestamp + reason in the same commit; do the same here.
+- User responsible for the `.env` value itself (it's a secret that doesn't belong in any commit). Compose file change lands in git; `.env` update is user-side.
 
 ### Component 4 — SYSTEM_PROMPT addition
 
@@ -191,15 +198,46 @@ loads mermaid.js and renders ` ```mermaid``` ` blocks inline (`qa.html:336-337`)
 
 ### Goal
 
-When the agent calls `atlas_figure`, it includes the figure's `content` field
-verbatim in its response. The mermaid block renders inline. One prompt
-instruction, zero template changes, zero tool-result payload changes.
+When the agent calls `atlas_figure`, the figure's mermaid block ends up inline
+in the response. The chat UI's existing `renderMarkdown` in `qa.html`
+(lines 335-340) catches ` ```mermaid``` ` blocks and renders them via
+`mermaid.min.js` as SVG.
+
+### Implementation note — YAML frontmatter stripping
+
+`AtlasService.get_figure()` at `canary/services/atlas/service.py:58-68` reads
+the raw figure file, which starts with a YAML frontmatter block:
+
+```
+---
+figure: pipe-001
+title: Detection Pipeline
+services: [chirp, fox]
+---
+
+# Title
+
+... body markdown + ```mermaid ...``` ...
+```
+
+If the agent dumps `content` verbatim, the user sees the YAML frontmatter
+above the diagram — ugly and unhelpful. Fix server-side in
+`_handle_atlas_figure` (`canary/services/atlas/tools.py:30`): strip everything
+between the first `---` and the second `---` (inclusive) before returning
+`content` to the agent. Frontmatter metadata is already exposed on the
+`metadata` field for tools that need it; stripping it from `content` loses
+nothing.
+
+This also defangs the prompt-reliability risk: the agent no longer has to
+"know" to skip frontmatter.
 
 ### Scope
 
 **In:**
-- SYSTEM_PROMPT instruction telling the agent to include the full `content` of
-  the atlas figure in its response (not just a link).
+- Strip YAML frontmatter from `atlas_figure` tool's `content` return value
+  (`canary/services/atlas/tools.py`).
+- SYSTEM_PROMPT instruction telling the agent to include the cleaned `content`
+  of the atlas figure in its response (not just a link).
 
 **Out (deferred):**
 - PNG/SVG rendering for non-mermaid figures (all current figures are mermaid)
@@ -262,9 +300,22 @@ the diagram.
   `linear_client.LinearClient`; set merchant ContextVar; call
   `execute_tool("file_linear_bug", {"title": ..., "description": ...})`; assert
   mock `create_issue` was called with a description containing the merchant
-  UUID; assert returned dict has `url` and `identifier`.
+  UUID; the auto-footer `## Auto-appended context` heading; and the
+  `Source: QA Agent chat (/ops/qa)` line; assert returned dict has `url` and
+  `identifier`.
+- `test_file_linear_bug_no_merchant_context_still_files` — no ContextVar set;
+  assert `create_issue` still called; description contains `Source: QA Agent
+  chat (/ops/qa)` but no merchant line. Graceful degradation branch.
 - `test_file_linear_bug_no_api_key_returns_error` — no env var; assert
   `{"error": "...API key not configured..."}` returned, no network call.
+
+**Unit** — `tests/unit/test_atlas_figure_frontmatter_strip.py` (new)
+
+- `test_atlas_figure_strips_frontmatter` — fake figure file with
+  `---\nfigure: x\n---\n\n# body` content; assert the handler returns
+  content starting at `# body` (no frontmatter) and `metadata.figure == "x"`.
+- `test_atlas_figure_no_frontmatter_passthrough` — file without frontmatter;
+  assert content unchanged.
 
 ### Feature 3
 
@@ -274,9 +325,14 @@ gate: navigate to `/ops/qa`, ask "show me the chirp pipeline diagram," verify
 the response contains a rendered mermaid SVG in the chat bubble.
 
 If the prompt proves unreliable in real use (agent links instead of inlining),
-add server-side post-processing in `handle_chat`: scan `all_tool_calls` for
-`atlas_figure`, fetch the content, inject a `\n\n<mermaid-content>` suffix into
-the response text. Deferred unless needed.
+add server-side post-processing in `handle_chat`. The tool result is already
+on the message list as a tool_result block — no refetch needed. Logic: after
+the dispatch loop, before returning, scan `all_tool_calls` for `atlas_figure`.
+If any fired AND `"\n```mermaid" NOT in "\n".join(text_parts)`, pull the
+`content` from the matching tool_result block and append to `text_parts` as a
+final "Here's the diagram:\n\n<content>" turn. This keeps the agent's synthesis
+text AND guarantees the diagram reaches the UI. Deferred until prompt
+reliability is measured.
 
 ## Completeness gate
 
@@ -314,14 +370,19 @@ the response text. Deferred unless needed.
 - **No authentication on `file_linear_bug`.** Anyone with admin access to
   `/ops/qa` can file Linear issues. Acceptable — admin gating is enforced at
   the Flask blueprint level, not the sidecar.
+- **Large tool-result truncation.** `server.py:184-185` truncates tool results
+  to 8000 chars. `file_linear_bug` response is tiny (~200 bytes), no concern.
+  `atlas_figure` content can be several KB for complex diagrams; stays under
+  the limit but flag it to future tool authors.
 
 ## Commit strategy
 
-1. `feat(qa-agent): Linear GraphQL client for bug filing [GRO-517]` — linear_client.py
-2. `feat(qa-agent): file_linear_bug tool + SYSTEM_PROMPT update [GRO-517]` — tools.py + agent.py
-3. `chore(devops): wire LINEAR_API_KEY into qa-agent service [GRO-517]` — docker-compose.localhost.yml
-4. `feat(qa-agent): SYSTEM_PROMPT — inline atlas_figure mermaid content [GRO-517]` — agent.py (small Feature 3 addition; may combine with #2 depending on coherence)
-5. `test(qa-agent): Linear client + file_linear_bug integration [GRO-517]` — 2 test files
+1. `feat(qa-agent): Linear GraphQL client for bug filing [GRO-517]` — `linear_client.py`
+2. `feat(qa-agent): file_linear_bug tool + SYSTEM_PROMPT F2 update [GRO-517]` — `tools.py` + `agent.py` (bug-filing prompt section only)
+3. `chore(devops): wire LINEAR_API_KEY into qa-agent service [GRO-517]` — `docker-compose.localhost.yml` (GUARDIAN; bump `.guardian-manifest`)
+4. `feat(atlas): strip YAML frontmatter from atlas_figure content [GRO-517]` — `canary/services/atlas/tools.py` (and/or `service.py`)
+5. `feat(qa-agent): SYSTEM_PROMPT F3 — inline atlas_figure mermaid content [GRO-517]` — `agent.py` (stays separate from #2 for bisect cleanliness)
+6. `test(qa-agent): Linear client + file_linear_bug + atlas frontmatter [GRO-517]` — 3 test files
 
-5 commits, bisectable. User updates `.env` separately (outside the commit
-stream — .env is gitignored).
+6 commits, bisectable. User updates `.env` separately (outside the commit
+stream — .env is gitignored and guardian-protected).
