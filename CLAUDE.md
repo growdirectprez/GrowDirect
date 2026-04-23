@@ -21,6 +21,47 @@ See [[Brain/projects/Method|Method MOC]] · [[docs/sdds/platform/factory-pipelin
 
 ---
 
+## New Engineer — Start Here
+
+If you just landed in this repo, read in this order:
+
+1. **[[Brain/projects/Method|Method MOC]]** — the Factory, how we build, the roles
+2. **[[Brain/wiki/canary-platform-overview|Canary Platform Overview]]** — the first shipping product
+3. **[[Brain/wiki/canary-architecture|Canary Architecture]]** — how the pieces fit
+4. **A single SDD** — pick one from `Canary/docs/sdds/v2/` that matches your focus area
+
+Then look at the code under `Canary/canary/`. The SDDs were written first; the
+code implements them. If they disagree, the code is the authority — but file
+a note on what drifted.
+
+### Memory bus
+
+A pgvector-backed search surface over Brain + curated engineering notes.
+Lives at `services/memory-bus/`, queried from agents via the `alx` MCP
+server. Canary agents call `memory_recall("your topic")` and get back
+the most relevant chunks (SDDs, decisions, wiki cards) with citations.
+
+Humans query it via the Owl UI at `/owl/search` on a running Canary app,
+or directly:
+
+```bash
+cd services/memory-bus && python3 -m memory_bus.cli recall "detection rules"
+```
+
+### Key entry points
+
+| Thing | Where |
+|---|---|
+| Platform MOC | [[Brain/projects/Method|Method]] |
+| Project MOCs | [[Brain/projects/Canary|Canary]] · [[Brain/projects/Cove|Cove]] · [[Brain/projects/Angel|Angel]] |
+| Shared infra | `devops/docker-compose.yml` |
+| Canary entry point | `Canary/wsgi.py` (Guardian-protected) |
+| Canary SDDs | `Canary/docs/sdds/v2/` (16 files) |
+| Content engine CLI | `content-engine/engine.py` |
+| Factory manifest | `factory-manifest.json` |
+
+---
+
 ## Intake Protocol
 
 **Trigger:** "I have [project] working papers to process."
