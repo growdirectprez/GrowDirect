@@ -12,6 +12,14 @@
 
 **Linear:** GRO-517 (Feature 1); builds on GRO-389 merged at commit `4951dc6`.
 
+## Scope note — Hero Bird drawer coexistence
+
+`templates/app/base_app.html` already ships a global chat drawer (the Hero Bird) with its own `qdSendMessage` that scrapes page DOM for context and POSTs to the same `/ops/qa/chat` endpoint. That path works today — the agent receives `[Page: ... | Merchant: <uuid> | Section: ... | Tab: ... | Viewing: <title text>]`. The specific thing the drawer can't do is reference entity IDs (it only captures titles via `.detail-title, .alert-title, .case-title`).
+
+**This plan touches the drawer NONE.** It fixes the standalone `/ops/qa` page (which today sends zero context prefix) using sessionStorage-based carryover from the previous app page. Two coexisting context-header paths is an acceptable short-term state. Unifying them — so the drawer also reads the entity snapshot — is filed as a follow-up (see Linear closeout) and not in this plan.
+
+Shared artifacts (the `_context_snapshot.html` partial + the 4 entity-page snapshots) benefit BOTH consumers down the road; only the `/ops/qa` page actually reads them in this plan.
+
 ---
 
 ## File Structure
@@ -161,26 +169,30 @@ If any of the 5 fields isn't available in the template scope (e.g., `status` is 
 
 - [ ] **Step 2: Add the snapshot script**
 
+Before writing this script, `grep -n alerts templates/app/chirps.html` to confirm the listing variable name — it may be `alerts`, `alerts_page.items`, `rows`, or similar. The snippet below assumes `alerts`; adapt the loop variable.
+
 ```jinja
 <script nonce="{{ csp_nonce() }}">
-  window.OPS_CONTEXT_ENTITIES = {
-    type: "alerts_list",
-    alerts: [
-      {% for alert in alerts[:5] %}
-      {
-        id: "{{ alert.id }}",
-        title: {{ alert.title | tojson }},
-        rule_id: "{{ alert.rule_id }}",
-        severity: "{{ alert.severity }}",
-        status: "{{ alert.status }}"
-      }{{ "," if not loop.last }}
-      {% endfor %}
-    ]
-  };
+  (function() {
+    window.OPS_CONTEXT_ENTITIES = {
+      type: "alerts_list",
+      alerts: [
+        {% for alert in alerts[:5] %}
+        {
+          id: "{{ alert.id }}",
+          title: {{ alert.title | tojson }},
+          rule_id: "{{ alert.rule_id }}",
+          severity: "{{ alert.severity }}",
+          status: "{{ alert.status }}"
+        }{{ "," if not loop.last }}
+        {% endfor %}
+      ]
+    };
+  })();
 </script>
 ```
 
-Insert at the top of `{% block content %}` (or equivalent).
+Insert at the top of `{% block content %}` (or equivalent). IIFE wrapper keeps Jinja loop variables from accidentally creating unscoped JS.
 
 - [ ] **Step 3: Verify the snapshot shape at runtime**
 
@@ -225,18 +237,20 @@ At the top of `{% block content %}`:
 
 ```jinja
 <script nonce="{{ csp_nonce() }}">
-  window.OPS_CONTEXT_ENTITIES = {
-    type: "alert_detail",
-    alert: {
-      id: "{{ alert.id }}",
-      title: {{ alert.title | tojson }},
-      rule_id: "{{ alert.rule_id }}",
-      severity: "{{ alert.severity }}",
-      status: "{{ alert.status }}",
-      linked_transaction_id: {{ (alert.transaction_id or None) | tojson }},
-      triggered_at: "{{ alert.triggered_at.isoformat() if alert.triggered_at else '' }}"
-    }
-  };
+  (function() {
+    window.OPS_CONTEXT_ENTITIES = {
+      type: "alert_detail",
+      alert: {
+        id: "{{ alert.id }}",
+        title: {{ alert.title | tojson }},
+        rule_id: "{{ alert.rule_id }}",
+        severity: "{{ alert.severity }}",
+        status: "{{ alert.status }}",
+        linked_transaction_id: {{ (alert.transaction_id or None) | tojson }},
+        triggered_at: "{{ alert.triggered_at.isoformat() if alert.triggered_at else '' }}"
+      }
+    };
+  })();
 </script>
 ```
 
@@ -264,42 +278,71 @@ git commit -m "feat(qa-agent): /alert/<uuid> entity snapshot [GRO-517]"
 
 **Files:**
 - Modify: `Canary/templates/app/case_detail.html`
+- Modify: the view function that renders `case_detail.html` (likely in `canary/blueprints/views_wired.py` — grep `case_detail.html` to find it)
 
-- [ ] **Step 1: Read the template and identify linked-ID collections**
+**Model reality** (confirmed during plan review): `FoxCase.alerts` returns `list[FoxCaseAlert]` (junction rows). Each junction has `alert_id` (a string) pointing at the underlying alert. There is NO direct `FoxCase.alerts → list[Alert]` relationship. The template can iterate `case.alerts` and access `.alert_id`, but it does NOT have access to alert titles (which would require a second query). For this plan, the snapshot emits alert IDs only.
 
-The spec emits `linked_alert_ids` and `linked_transaction_ids`, both capped at 20. Check whether these are already in the Jinja scope (`case.linked_alert_ids`, `case.alerts`, `case.alert_ids`, etc.). If not, note what IS in scope (e.g., `case.alerts` might be a list of Alert objects rather than IDs) and either:
+For transactions: check what relationship `FoxCase` exposes. If there's a `case.transactions` list with a similar junction, use `.transaction_id`. If not, the snapshot emits `linked_transaction_ids: []` and notes it.
 
-a. Derive the IDs inline with a Jinja list-comprehension: `[{% for a in case.alerts[:20] %}"{{ a.id }}"{{ "," if not loop.last }}{% endfor %}]`
-b. Update the view in `canary/blueprints/views_wired.py` to pass `linked_alert_ids=[str(a.id) for a in case.alerts[:20]]` to the template. Only do this if option (a) produces messy Jinja.
+- [ ] **Step 1: View update to pre-compute linked ID lists**
 
-Cap at 20; include `linked_alert_ids_truncated: true` when the full list was longer (see spec).
+Grep for the case-detail view:
+```bash
+grep -rn "case_detail.html" canary/ | head -5
+```
+
+In that view, BEFORE the `render_template(...)` call, add:
+
+```python
+# GRO-517: pre-compute linked IDs for the QA Agent context snapshot.
+# FoxCase.alerts is list[FoxCaseAlert] (junction); .alert_id is the string.
+linked_alert_ids = [str(ja.alert_id) for ja in (case.alerts or [])][:20]
+linked_alert_ids_truncated = len(case.alerts or []) > 20
+
+# Transactions: if FoxCase has a similar junction, use it; otherwise empty
+linked_transaction_ids = []  # TODO: check FoxCase model for a txn junction
+linked_transaction_ids_truncated = False
+```
+
+Pass to the template:
+```python
+return render_template(
+    "app/case_detail.html",
+    case=case,
+    # ...existing args...
+    linked_alert_ids=linked_alert_ids,
+    linked_alert_ids_truncated=linked_alert_ids_truncated,
+    linked_transaction_ids=linked_transaction_ids,
+    linked_transaction_ids_truncated=linked_transaction_ids_truncated,
+)
+```
+
+If FoxCase model has a transaction-junction (e.g., `case.transactions` or similar), populate `linked_transaction_ids` analogously. Otherwise leave the `# TODO:` comment AND keep the lists empty — a later pass can add them, and an empty list is valid context.
 
 - [ ] **Step 2: Add the snapshot script**
 
-Rough shape (adapt to whatever's in scope):
+In `case_detail.html`, at the top of `{% block content %}`:
 
 ```jinja
 <script nonce="{{ csp_nonce() }}">
   (function() {
-    var allAlertIds = [{% for a in case.alerts %}"{{ a.id }}"{{ "," if not loop.last }}{% endfor %}];
-    var allTxnIds = [{% for t in case.transactions %}"{{ t.id }}"{{ "," if not loop.last }}{% endfor %}];
     window.OPS_CONTEXT_ENTITIES = {
       type: "case_detail",
       case: {
         id: "{{ case.id }}",
         title: {{ case.title | tojson }},
         status: "{{ case.status }}",
-        linked_alert_ids: allAlertIds.slice(0, 20),
-        linked_alert_ids_truncated: allAlertIds.length > 20,
-        linked_transaction_ids: allTxnIds.slice(0, 20),
-        linked_transaction_ids_truncated: allTxnIds.length > 20
+        linked_alert_ids: {{ linked_alert_ids | tojson }},
+        linked_alert_ids_truncated: {{ linked_alert_ids_truncated | tojson }},
+        linked_transaction_ids: {{ linked_transaction_ids | tojson }},
+        linked_transaction_ids_truncated: {{ linked_transaction_ids_truncated | tojson }}
       }
     };
   })();
 </script>
 ```
 
-Wrap in an IIFE so the truncation logic doesn't leak vars into the global scope.
+`| tojson` handles list serialization cleanly — no manual Jinja list-literal construction needed.
 
 - [ ] **Step 3: Verify runtime**
 
@@ -307,16 +350,20 @@ Open `/fox/cases/<any-case-uuid>` in browser, DevTools:
 ```javascript
 JSON.parse(sessionStorage.getItem('opsContext'))
 ```
-Expected: snapshot has `case.id`, `case.title`, capped linked arrays.
+Expected: snapshot has `case.id`, `case.title`, `linked_alert_ids` array populated.
 
 - [ ] **Step 4: Commit**
 
 ```bash
 cd ~/GrowDirect/Canary
-git add templates/app/case_detail.html
-# If view update needed:
-# git add canary/blueprints/views_wired.py
-git commit -m "feat(qa-agent): /fox/cases/<uuid> entity snapshot [GRO-517]"
+git add templates/app/case_detail.html canary/blueprints/views_wired.py
+git commit -m "feat(qa-agent): /fox/cases/<uuid> entity snapshot [GRO-517]
+
+View now pre-computes linked_alert_ids (and transaction IDs if the
+model exposes them). Template consumes via | tojson for clean
+serialization. FoxCase.alerts is a junction table (FoxCaseAlert rows
+with alert_id fields), not Alert objects — this was why the original
+spec's 'case.alerts[].id' didn't work. Moved to view-function level."
 ```
 
 ---
@@ -325,17 +372,55 @@ git commit -m "feat(qa-agent): /fox/cases/<uuid> entity snapshot [GRO-517]"
 
 **Files:**
 - Modify: `Canary/templates/app/txn_detail.html`
+- Modify: the view function that renders `txn_detail.html`
 
-- [ ] **Step 1: Read the template**
+**Model reality** (confirmed during plan review): `Transaction` exposes NO `alerts` relationship. The template CANNOT iterate `txn.alerts` — the attribute doesn't exist. To supply `linked_alert_ids`, the view must run a separate query against the `Alert` table filtering by `transaction_id=txn.id`. This is a view-function-only change; no model change.
 
-Check for `txn` or `transaction` as the Jinja variable. Verify `id`, `external_id`, `amount_cents`, `transaction_date`, `transaction_type` are accessible. `linked_alert_ids` is the derived list — may require the same inline derivation or view change as Task 1.5.
+- [ ] **Step 1: View update to query alerts linked to this transaction**
+
+Grep for the txn-detail view:
+```bash
+grep -rn "txn_detail.html" canary/ | head -5
+```
+
+In that view, before `render_template(...)`:
+
+```python
+# GRO-517: derive linked alerts for the QA Agent context snapshot.
+# Transaction model has no alerts relationship — query separately.
+from canary.models.app.detection import Alert  # if not already imported
+from canary.db.session_factory import get_session
+sess = get_session()
+alert_rows = sess.query(Alert.id).filter_by(
+    transaction_id=str(txn.id)
+).limit(21).all()  # +1 to detect truncation
+linked_alert_ids = [str(r[0]) for r in alert_rows[:20]]
+linked_alert_ids_truncated = len(alert_rows) > 20
+```
+
+Pass to the template:
+```python
+return render_template(
+    "app/txn_detail.html",
+    txn=txn,
+    # ...existing args...
+    linked_alert_ids=linked_alert_ids,
+    linked_alert_ids_truncated=linked_alert_ids_truncated,
+)
+```
+
+Exact import path for Alert may vary — grep for the Alert model before running:
+```bash
+grep -rn "^class Alert" canary/models/ | head -3
+```
 
 - [ ] **Step 2: Add the snapshot script**
+
+In `txn_detail.html`, at the top of `{% block content %}`:
 
 ```jinja
 <script nonce="{{ csp_nonce() }}">
   (function() {
-    var allAlertIds = [{% for a in txn.alerts %}"{{ a.id }}"{{ "," if not loop.last }}{% endfor %}];
     window.OPS_CONTEXT_ENTITIES = {
       type: "transaction_detail",
       transaction: {
@@ -344,8 +429,8 @@ Check for `txn` or `transaction` as the Jinja variable. Verify `id`, `external_i
         amount_cents: {{ txn.amount_cents }},
         transaction_date: "{{ txn.transaction_date.isoformat() if txn.transaction_date else '' }}",
         transaction_type: "{{ txn.transaction_type }}",
-        linked_alert_ids: allAlertIds.slice(0, 20),
-        linked_alert_ids_truncated: allAlertIds.length > 20
+        linked_alert_ids: {{ linked_alert_ids | tojson }},
+        linked_alert_ids_truncated: {{ linked_alert_ids_truncated | tojson }}
       }
     };
   })();
@@ -354,14 +439,19 @@ Check for `txn` or `transaction` as the Jinja variable. Verify `id`, `external_i
 
 - [ ] **Step 3: Verify runtime**
 
-DevTools: `JSON.parse(sessionStorage.getItem('opsContext'))` — check the shape.
+DevTools: `JSON.parse(sessionStorage.getItem('opsContext'))` — check the shape, including `linked_alert_ids` (may be empty for most txns; pick a txn you know has an alert).
 
 - [ ] **Step 4: Commit**
 
 ```bash
 cd ~/GrowDirect/Canary
-git add templates/app/txn_detail.html
-git commit -m "feat(qa-agent): /txn/<uuid> entity snapshot [GRO-517]"
+git add templates/app/txn_detail.html canary/blueprints/views_wired.py
+git commit -m "feat(qa-agent): /txn/<uuid> entity snapshot [GRO-517]
+
+View queries the alerts table for rows linked to this transaction and
+passes linked_alert_ids (capped at 20) to the template. Transaction
+model has no alerts relationship — cross-table query required.
+Template emits via | tojson."
 ```
 
 ---
@@ -583,7 +673,7 @@ Rewrites the system prompt to:
   answering
 - give page-to-likely-tool mapping for the 4 entity pages
 
-Behaviour verified by the smoke test added in commit Task 2.4.
+Behaviour verified by the smoke test added in Task 2.5.
 No standalone unit test — mocked Anthropic ignores the prompt.
 If a future bisect implicates 'agent hedging about UUIDs' or 'agent
 answered without calling a tool', suspect this commit."
@@ -609,21 +699,29 @@ IMMEDIATELY BEFORE the final `return {...}` inside the `try` block (after rate-l
             # GRO-517 observability — no-tool-call responses are the pattern
             # the SYSTEM_PROMPT rewrite is trying to eliminate. Log them for
             # later analysis to decide whether a corrective re-prompt
-            # guardrail is warranted. Strip the context header from the
-            # first user message so merchant UUIDs don't leak at INFO level.
+            # guardrail is warranted. Redact any Merchant: <uuid> occurrence
+            # from the logged text so UUIDs don't leak at INFO level —
+            # defense-in-depth against future header shape changes (a bare
+            # prefix-strip would miss UUIDs embedded mid-message).
             first_user = next(
                 (m.get("content", "") for m in messages
                  if m.get("role") == "user" and isinstance(m.get("content"), str)),
                 ""
             )
-            if first_user.startswith("["):
-                idx = first_user.find("]\n")
-                first_user = first_user[idx + 2:] if idx != -1 else first_user
+            redacted = _MERCHANT_RE.sub("Merchant: <redacted>", first_user)
+            # Also strip any leading [Page: ... ] header so we log the
+            # actual user question, not the plumbing.
+            if redacted.startswith("["):
+                idx = redacted.find("]\n")
+                if idx != -1:
+                    redacted = redacted[idx + 2:]
             logger.info(
                 "qa_agent.no_tool_call session=%s text=%r",
-                session_id, first_user[:200]
+                session_id, redacted[:200]
             )
 ```
+
+`_MERCHANT_RE` is already defined at module scope in `server.py` (added in GRO-389 Task B). Reuse it here.
 
 - [ ] **Step 3: Verify module imports**
 
@@ -920,16 +1018,11 @@ Two tests:
 **Files:**
 - Create: `Canary/tests/smoke/test_qa_page_context_header.py`
 
-- [ ] **Step 1: Check for an existing admin-login fixture**
+- [ ] **Step 1: Confirm the existing fixture (`authed_page`)**
 
-```bash
-cd ~/GrowDirect/Canary
-grep -n "admin\|logged_in\|login" tests/smoke/conftest.py | head -20
-```
+`tests/smoke/conftest.py` provides `authed_page` — a Playwright page whose cookies were exported to `tests/smoke/.auth-state.json`. If the file isn't present, the fixture calls `pytest.skip(...)` with instructions. The smoke test below USES `authed_page`, inheriting that skip-when-unset behaviour. This is the expected Tier 1 posture: the smoke test lands, runs in CI environments where auth state is prepared, and skips cleanly elsewhere.
 
-If you find a fixture like `admin_page` or `logged_in_admin_page`, REUSE it. If you find only merchant-user login fixtures, you'll need to write a new `admin_logged_in_page` fixture — that's fine, add it to `conftest.py` as part of this task (note it in the commit message).
-
-If there's no login fixture at all, STOP and report back — the gate is going to need manual verification and this test belongs in a follow-up issue.
+No new fixture needed.
 
 - [ ] **Step 2: Create the smoke test**
 
@@ -955,11 +1048,13 @@ import pytest
 pytestmark = pytest.mark.smoke
 
 
-def test_qa_chat_carries_context_header(admin_page):
-    """admin_page is a fixture providing a Playwright page logged in as
-    an ops admin. Navigates /chirps → /ops/qa, sends a message, inspects
-    the network request."""
-    page = admin_page
+def test_qa_chat_carries_context_header(authed_page):
+    """authed_page is a Playwright page whose cookies were restored from
+    tests/smoke/.auth-state.json. The fixture skips the test if that
+    file is absent (instructions in tests/smoke/conftest.py:111).
+    Navigates /chirps → /ops/qa, sends a message, inspects the network
+    request."""
+    page = authed_page
 
     # Visit /chirps and wait for alerts to load
     page.goto("http://localhost:5001/chirps")
@@ -1010,19 +1105,19 @@ python3 -m pytest tests/smoke/test_qa_page_context_header.py -v -m smoke
 Expected: 1 passed.
 
 Likely snags:
-- If `admin_page` fixture doesn't exist in smoke conftest, adapt to whatever fixture name DOES exist. The test's role-check requirement is "logged in, can view /chirps and /ops/qa."
-- If `input` / `send` IDs in `qa.html` don't match the test's selectors, check the template and adjust.
-- If the test times out waiting for the alerts list, the test merchant needs seeded alerts — use a merchant with known data (maybe the Sandbox Merchant `67584298-7494-43a0-a54e-4d3eb11f86c9`).
+- If `.auth-state.json` isn't present, the fixture skips — that's expected. Generate it per the instructions in `tests/smoke/conftest.py:111-125` if you want the test to actually execute.
+- If `#input` / `#send` IDs in `qa.html` don't match, check the template and adjust the selectors.
+- If the test times out waiting for the alerts list, the test merchant needs seeded alerts — use a merchant with known data (Sandbox Merchant `67584298-7494-43a0-a54e-4d3eb11f86c9` is known to have alerts post-GRO-389).
 
 - [ ] **Step 4: Commit**
 
 ```bash
 cd ~/GrowDirect/Canary
 git add tests/smoke/test_qa_page_context_header.py
-# Add conftest.py if you added a new fixture
 git commit -m "test(qa-agent): smoke — end-to-end context header pipeline [GRO-517]
 
-Full browser flow: visit /chirps → snapshot writes to sessionStorage →
+Full browser flow (via authed_page fixture, skipped if .auth-state.json
+is absent): visit /chirps → snapshot writes to sessionStorage →
 navigate /ops/qa → window.OPS_MERCHANT_ID present → send chat →
 intercept POST → assert messages[0].content starts with
 '[Page: /chirps | Merchant: ... | Visible:'. Proves the complete
