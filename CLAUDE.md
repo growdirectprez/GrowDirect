@@ -21,6 +21,28 @@ See [[Brain/projects/Method|Method MOC]] · [[docs/sdds/platform/factory-pipelin
 
 ---
 
+## Intake Protocol
+
+**Trigger:** "I have [project] working papers to process."
+
+That invokes the intake pipeline:
+
+1. You point at a directory or file(s) — binaries (docx/pdf/pptx/xlsx/doc)
+   or already-markdown both work. Originals stay where they are.
+2. `engine.py extract` converts binaries → markdown scratch
+3. `engine.py ingest` writes each into `Brain/raw/inbox/<slug>.md` with
+   source path preserved in frontmatter
+4. `engine.py registry build` indexes them
+5. Report back — file count, parse failures, ready for synthesis
+
+Synthesis (`Brain/raw/inbox/` → `Brain/wiki/`) is a separate session-level
+pass — agent reads the intakes, proposes wiki placement, drafts, you approve.
+Organize and optimize as we go; precedent is the Secure/Kroger sprint (Apr 2026,
+18 binaries → 18 intakes → 6 wiki articles + 2 briefs). See
+[[Brain/projects/Secure|Secure MOC]].
+
+---
+
 ## Projects
 
 | Project | Directory | Status | What it is |
