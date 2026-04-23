@@ -1,0 +1,167 @@
+---
+date: 2026-04-22
+type: wiki
+tags: [growdirect, timelog, weekly-roll-up, sprint-4, sprint-5, alpha-v0.1.0]
+sources:
+  - docs/_archive/ip-vault/timelogs/2026/02-February/weekly/Week_2026-02-16_to_2026-02-24.md
+last-compiled: 2026-04-22
+needs-review: 2026-05-06
+---
+
+**Wiki:** [[Brain/Home|Home]]
+
+# Weekly Roll-Up — February 16–24, 2026
+
+**Compiled by:** ALX (Chief of Staff)
+**Date Filed:** 2026-02-24
+**Sprint:** Sprint 4 close → Sprint 5 active (AutoBuild Integration + Boot Verification)
+
+## Executive Summary
+
+The most productive week in Canary's history. The team went from a codebase with 128 tests and a paper architecture to **541 passing tests**, a clean dev loop, resolved critical blockers, and **UAT targeted for Monday March 3**. Local-first co-development was validated (98% cost reduction vs. cloud-only), and the agent team scaled from ad-hoc sessions to a fully operational dispatch system (TRIAGE / HANDOFF / DISPATCH).
+
+## Team Hours — Weekly Roll-Up
+
+| Team Member | Total Hours |
+|---|---|
+| Jeffe | 15.5h+ |
+| Eva | 24.5h+ |
+| Jeremy | 19.0h+ |
+| Tom | 6.0h |
+| Jess | 9.5h |
+| Syd | 5.0h |
+| PhD | 8.0h+ |
+| Jim | 0.5h+ |
+| Art | ? |
+| ALX | 1.75h+ |
+| **TOTAL** | **89.75h+** |
+
+**Coverage gaps:** Feb 18–19 and Feb 23 have zero logs on disk. Feb 24 has partial coverage (Tom + Jess only; Jim, Art, PhD, Eva, Jeremy, ALX sessions unlogged).
+
+## Deliverables — Weekly Inventory
+
+### Feb 16 (Saturday) — 9 deliverables
+- Fox Module Technical Specification v1.0 (PhD + Jess, 1,817 lines)
+- Data Model Assessment v1.0, JSONB Forensic Analysis v1.0, CRDM Mapping Analysis v1.0 (PhD)
+- Lightning Strategy v2.0 repositioning (Syd)
+- CEO Quote tracking system (Syd)
+- 3 Claude Code skills: project-timelog, remember-quote, content-extractor
+
+### Feb 17 (Monday) — 8 deliverables
+- Fox Sprint 1 complete: 7 tables, 18 endpoints, 20+ service functions (Jeremy)
+- 35 Fox unit tests passing (Jeremy)
+- Clickable HTML prototype — 25 pages, all 4 modules (Eva)
+- Jim onboarded — full agentic profile (Eva)
+- Fox Kickoff Briefing (ALX)
+
+### Feb 20 (Thursday) — 25 deliverables (MILESTONE DAY)
+- **Alpha v0.1.0** — first clean GitHub push (109 files, zero IP leak)
+- Enterprise LP Data Spec v1.1 recovered (48-page primary source)
+- MVP expanded: 18→24 features, 97→148 AC
+- Sprint 2 fully coded: 6 new tables, 10 Chirp rules, 6 parse helpers, ingestion layer
+- 85 new Sprint 2 tests (total: 213+)
+- CRDM v1.0, Gap Analysis, Tom T-3 DDL
+- iMac QA environment built from bare metal
+- **LP coverage: 32% → 85%**
+
+### Feb 21 (Friday) — 8 deliverables
+- iMac Linux fresh install (Jeffe, 4.5h hands-on)
+- Ollama + Qwen 2.5 Coder 7B running on Mac Mini M4
+- Full Alpha 3X due diligence doc set
+
+### Feb 22 (Saturday) — 10 deliverables
+- Sprints 3, 3.5, 4 executed (Qwen local-first)
+- Opus 4.6 synthesis: 24 issues, 87 SP prioritized
+- **Local-first co-dev validated and codified as Principle 18**
+- Alpha 3X replan (Sprint 3 → UAT)
+
+### Feb 23 (Sunday) — ? deliverables (NO TIMELOG)
+- From HANDOFF.md: ALX operational system created (_ALX/, TRIAGE, HANDOFF, DISPATCH); Art dispatched; Slack/hardware/MCP blockers logged
+
+### Feb 24 (Monday) — 15+ deliverables (PARTIAL LOGS)
+- **Tom (logged):** B-001 resolved — INSERT-only triggers for 10 tables, hash chain spec, CRDM sign-off with 3 gaps, Airflow 3.0 assessment
+- **Jess (logged):** Both Companion Guides v1.0 — Functional (10 sections) + Technical (13 sections), brand-compliant
+- **Jeremy (unlogged):** B-023/024/025 resolved, P0-1/P0-2/P0-3 Alembic migrations, dev loop → 541 pass / 0 fail
+- **Jim (unlogged):** 7 QA deliverables — UAT logistics, Alpha Gate review, route prioritization, day-in-life scripts, wizard QA, 2C brief
+- **Art (unlogged):** Today's View wireframe v1.0 + v1.1 (9.0/10 self-critique)
+- **PhD (unlogged):** Product_Sites Alignment Brief (19-file inventory, terminology reconciliation)
+- **Eva (unlogged):** Sprint 5 delivery ownership takeover, Jim + Jess dispatched, Friday sprint review committed
+- **ALX (unlogged):** 5 sessions — triage, dispatch, doc production, brand template process fix
+
+## Token / Cost Tracking
+
+| Date | API Cost | Key Driver |
+|---|---|---|
+| Feb 16 | ? | No token tracking (pre-v2.0) |
+| Feb 17 | ? | No token tracking (pre-v2.0) |
+| Feb 20 | **~$282** | Sprint 2 code gen (7 context windows, 813 API calls, 88M tokens) |
+| Feb 21 | **~$2.25** | Local-first Qwen — 98% cost reduction |
+| Feb 22 | **~$2.25** | Local-first Qwen — Sprints 3–4 |
+| Feb 24 (Jess) | **~$59** | Companion Guides — 97 API calls, 12.5M tokens |
+| Feb 24 (others) | **?** | No logs filed |
+| **TOTAL LOGGED** | **~$345** | |
+
+### Efficiency Benchmarks (Established Feb 20)
+
+| Metric | Feb 20 Baseline | Feb 22 Local-First | Feb 24 (Jess) | Target |
+|---|---|---|---|---|
+| Cost/deliverable | $11.28 | ~$0.15 | $29.49 | <$20 |
+| Cost/test written | $2.05 | $0.00 (Qwen) | N/A | <$5 |
+| Cache hit rate | 92.4% | N/A | 83.2% | >85% |
+| Context continuations/day | 6 | N/A | 1 | <4 |
+| Sprint token budget | — | — | — | $400/sprint |
+
+### Key Token Insights
+
+1. **Local-first is the play.** Feb 22 proved Qwen handles greenfield generation at $0. Claude reserved for cross-file surgical edits (~$0.50/sprint).
+2. **Documentation sessions are expensive.** Jess's Companion Guides cost $59 for 2 deliverables — driven by reading 15+ large source files.
+3. **IP scrub subagents are wasteful.** $71 for text replacement on Feb 20. A Python script does the same for $0.01. Fixed in process.
+
+## Key Metrics — Week Over Week
+
+| Metric | Feb 16 (start) | Feb 24 (end) | Delta |
+|---|---|---|---|
+| MVP Features | 18 | 27 (frozen) | +9 |
+| Acceptance Criteria | ~50 | 174 | +124 |
+| Chirp Detection Rules | 4 | 22 | +18 |
+| Platform Tables | ~20 | 35+ | +15 |
+| Tests Passing | 128 | **541** | **+413** |
+| Tests Failing | ? | **0** | CLEAN |
+| Code on GitHub | 0 | 109 files | First push |
+| QA Hardware | None | iMac Ubuntu + Mac Mini M4 | Built |
+| Agent Profiles | ~5 | 10+ | Full team |
+| Operational System | None | TRIAGE/HANDOFF/DISPATCH | New |
+| Timelogs Filed | 0 | 7 daily logs | New |
+| Sprint | Pre-sprint | Sprint 5 Phase 2 active | 4 sprints executed |
+| UAT Target | None | Monday March 3 | Set |
+| Dev Loop Status | No loop | 541/0/0/216 CLEAN | Operational |
+
+## Coverage Gaps — Action Required
+
+| Gap | Days | Impact | Fix |
+|---|---|---|---|
+| Feb 18–19 not logged | 2 days | Unknown hours/deliverables | Retroactive reconstruction from git + session outputs if available |
+| Feb 23 not logged | 1 day | ALX system creation untracked | Retroactive from HANDOFF.md + `_ALX/` file timestamps |
+| Feb 24 partial (5+ sessions unlogged) | 1 day | Jim, Art, PhD, Eva, Jeremy, ALX work untracked | Retroactive from WorkOrders/output/ + HANDOFF.md |
+| Token data only for 3 of 7+ logged days | 4+ days | Cost tracking incomplete | Cowork sessions don't expose JSONL — need process fix |
+| Timelog skill not in Cowork | Ongoing | Agents can't invoke skill | Port skill or build Cowork-native equivalent |
+| Directory split (3 locations) | Ongoing | **FIXED this session** — consolidated to `Documents/timelogs/` | Done |
+
+## Process Recommendations
+
+1. Every agent session prompt must include timelog instruction — add to DISPATCH.md session prompt template
+2. Eva enforces timelog on session close — add to Sprint 5 accountability checklist
+3. Token tracking in Cowork — agents can't extract JSONL in Cowork; use API call count + model as proxy, note "Cowork — no JSONL available" in token section
+4. Canonical directory is `GrowDirect/Documents/timelogs/` — no more Canary_IP or legacy paths
+5. Weekly roll-up every Monday — ALX produces this summary from daily logs
+
+## Related
+
+- [[Brain/projects/GrowDirect|GrowDirect MOC]]
+- [[Brain/wiki/growdirect-working-papers|Working Papers Structure]]
+- [[Brain/wiki/growdirect-timelog-token-analysis-feb20|Token Analysis: Feb 20]]
+- [[Brain/wiki/growdirect-timelog-jess-companion-guides-feb24|Jess Companion Guides: Feb 24]]
+
+## Sources
+
+- `docs/_archive/ip-vault/timelogs/2026/02-February/weekly/Week_2026-02-16_to_2026-02-24.md`
