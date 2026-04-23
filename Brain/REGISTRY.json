@@ -1,7 +1,7 @@
 {
-  "generated": "2026-04-22T14:47:03.676413+00:00",
-  "article_count": 142,
-  "topic_count": 2297,
+  "generated": "2026-04-23T05:29:41.987043+00:00",
+  "article_count": 144,
+  "topic_count": 2316,
   "articles": [
     {
       "path": "Brain/wiki/501c-advocacy-arm.md",
@@ -7092,6 +7092,64 @@
       "type": "wiki"
     },
     {
+      "path": "Brain/wiki/growdirect-working-papers.md",
+      "title": "GrowDirect Working Papers — Structure",
+      "summary": "Every piece of GrowDirect intellectual property has a permanent address in a 7-domain tree. The address never changes. Content moves through states; the address stays. Doctrine flows top-down — the Ma",
+      "tags": [
+        "growdirect",
+        "working-papers",
+        "ip-vault",
+        "warchest",
+        "numbering-scheme"
+      ],
+      "keywords": [
+        "address",
+        "asset",
+        "changes",
+        "chest",
+        "deliverable",
+        "details",
+        "domains",
+        "file",
+        "files",
+        "format",
+        "growdirect",
+        "ingesting",
+        "intake",
+        "ip-vault",
+        "layer",
+        "level",
+        "lock",
+        "markers",
+        "material",
+        "numbering",
+        "numbering-scheme",
+        "numbers",
+        "output",
+        "papers",
+        "permanent",
+        "protocol",
+        "related",
+        "source",
+        "sources",
+        "starting",
+        "status",
+        "structure",
+        "suffixes",
+        "summary",
+        "targets",
+        "thinking",
+        "this",
+        "type",
+        "version",
+        "warchest",
+        "when",
+        "working",
+        "working-papers"
+      ],
+      "type": "wiki"
+    },
+    {
       "path": "Brain/wiki/peninsula-gyms-fitness.md",
       "title": "Gyms & Fitness — Palos Verdes Peninsula & South Bay",
       "summary": "The peninsula has a range of fitness options from luxury clubs to budget gyms, with boutique studios concentrated in the Peninsula Center / Deep Valley corridor in Rolling Hills Estates. Nearby Torran",
@@ -8149,6 +8207,16 @@
       "tags": [],
       "keywords": [
         "factory"
+      ],
+      "type": "project-moc"
+    },
+    {
+      "path": "Brain/projects/GrowDirect.md",
+      "title": "GrowDirect",
+      "summary": "status: active",
+      "tags": [],
+      "keywords": [
+        "growdirect"
       ],
       "type": "project-moc"
     },
@@ -9500,6 +9568,12 @@
       {
         "path": "Brain/wiki/peninsula-tennis-pickleball.md",
         "title": "Tennis & Pickleball — Palos Verdes Peninsula"
+      }
+    ],
+    "address": [
+      {
+        "path": "Brain/wiki/growdirect-working-papers.md",
+        "title": "GrowDirect Working Papers — Structure"
       }
     ],
     "adjacent": [
@@ -10948,6 +11022,12 @@
       {
         "path": "Brain/wiki/cove-property-geology.md",
         "title": "Property & Geology"
+      }
+    ],
+    "asset": [
+      {
+        "path": "Brain/wiki/growdirect-working-papers.md",
+        "title": "GrowDirect Working Papers — Structure"
       }
     ],
     "assets": [
@@ -12626,6 +12706,10 @@
       {
         "path": "Brain/wiki/claim-lot-h-scope-correction.md",
         "title": "Claim: Lot H Declaration Contains Only Racial Exclusionary Language"
+      },
+      {
+        "path": "Brain/wiki/growdirect-working-papers.md",
+        "title": "GrowDirect Working Papers — Structure"
       }
     ],
     "character": [
@@ -12780,6 +12864,12 @@
       {
         "path": "Brain/wiki/cove-rpv-redevelopment-conveyance.md",
         "title": "RPV Redevelopment Agency Conveyance (2014)"
+      }
+    ],
+    "chest": [
+      {
+        "path": "Brain/wiki/growdirect-working-papers.md",
+        "title": "GrowDirect Working Papers — Structure"
       }
     ],
     "childhood": [
@@ -16448,6 +16538,12 @@
         "title": "Document Management Strategy"
       }
     ],
+    "deliverable": [
+      {
+        "path": "Brain/wiki/growdirect-working-papers.md",
+        "title": "GrowDirect Working Papers — Structure"
+      }
+    ],
     "deliverables": [
       {
         "path": "Brain/wiki/seacove-wpbca-demo-plan.md",
@@ -16654,6 +16750,10 @@
       {
         "path": "Brain/wiki/card-yogasix-rolling-hills.md",
         "title": "YogaSix Rolling Hills"
+      },
+      {
+        "path": "Brain/wiki/growdirect-working-papers.md",
+        "title": "GrowDirect Working Papers — Structure"
       },
       {
         "path": "Brain/wiki/secure-architecture.md",
@@ -17166,6 +17266,12 @@
       {
         "path": "Brain/wiki/cove-case-law-lessons.md",
         "title": "Case-Law Synthesis — Rules That Bind WPBCA"
+      }
+    ],
+    "domains": [
+      {
+        "path": "Brain/wiki/growdirect-working-papers.md",
+        "title": "GrowDirect Working Papers — Structure"
       }
     ],
     "dominguez": [
@@ -18776,6 +18882,10 @@
         "title": "Foundation Time Logging Policy"
       },
       {
+        "path": "Brain/wiki/growdirect-working-papers.md",
+        "title": "GrowDirect Working Papers — Structure"
+      },
+      {
         "path": "Brain/wiki/seacove-arc-module.md",
         "title": "Seacove → Cove ARC Module"
       }
@@ -18808,6 +18918,10 @@
       {
         "path": "Brain/wiki/cove-1976-pvp-development-pressure.md",
         "title": "1976 Palos Verdes Properties Development Pressure — The 50-Year Pattern"
+      },
+      {
+        "path": "Brain/wiki/growdirect-working-papers.md",
+        "title": "GrowDirect Working Papers — Structure"
       },
       {
         "path": "Brain/wiki/secure-client-kroger.md",
@@ -19134,6 +19248,10 @@
       {
         "path": "Brain/wiki/angel-data-platform.md",
         "title": "Angel Data Platform"
+      },
+      {
+        "path": "Brain/wiki/growdirect-working-papers.md",
+        "title": "GrowDirect Working Papers — Structure"
       }
     ],
     "formation": [
@@ -20142,6 +20260,14 @@
       {
         "path": "Brain/wiki/growdirect-workflow.md",
         "title": "GrowDirect Workflow"
+      },
+      {
+        "path": "Brain/wiki/growdirect-working-papers.md",
+        "title": "GrowDirect Working Papers — Structure"
+      },
+      {
+        "path": "Brain/projects/GrowDirect.md",
+        "title": "GrowDirect"
       }
     ],
     "growing": [
@@ -21108,6 +21234,12 @@
         "title": "Secure Client: Kroger"
       }
     ],
+    "ingesting": [
+      {
+        "path": "Brain/wiki/growdirect-working-papers.md",
+        "title": "GrowDirect Working Papers — Structure"
+      }
+    ],
     "ingestion": [
       {
         "path": "Brain/wiki/angel-data-platform.md",
@@ -21240,6 +21372,10 @@
       {
         "path": "Brain/wiki/document-management.md",
         "title": "Document Management Strategy"
+      },
+      {
+        "path": "Brain/wiki/growdirect-working-papers.md",
+        "title": "GrowDirect Working Papers — Structure"
       }
     ],
     "integrated": [
@@ -21448,6 +21584,12 @@
       {
         "path": "Brain/wiki/angel-listing-process.md",
         "title": "Angel Listing Process"
+      }
+    ],
+    "ip-vault": [
+      {
+        "path": "Brain/wiki/growdirect-working-papers.md",
+        "title": "GrowDirect Working Papers — Structure"
       }
     ],
     "ipad": [
@@ -22014,6 +22156,10 @@
       {
         "path": "Brain/wiki/foundation-blockchain-proof-layer.md",
         "title": "Foundation Blockchain Proof Layer"
+      },
+      {
+        "path": "Brain/wiki/growdirect-working-papers.md",
+        "title": "GrowDirect Working Papers — Structure"
       }
     ],
     "layers": [
@@ -22220,6 +22366,10 @@
       {
         "path": "Brain/wiki/angel-market-intelligence.md",
         "title": "Angel Market Intelligence"
+      },
+      {
+        "path": "Brain/wiki/growdirect-working-papers.md",
+        "title": "GrowDirect Working Papers — Structure"
       },
       {
         "path": "Brain/wiki/wpbca-ocean-path-easement.md",
@@ -22710,6 +22860,10 @@
       {
         "path": "Brain/wiki/coac-restated-declaration-blitz-plan.md",
         "title": "Restated Declaration — Blitz Execution Plan"
+      },
+      {
+        "path": "Brain/wiki/growdirect-working-papers.md",
+        "title": "GrowDirect Working Papers — Structure"
       }
     ],
     "logging": [
@@ -23096,6 +23250,12 @@
         "title": "CSUDH Palos Verdes Field Guide (McNulty, 2012)"
       }
     ],
+    "markers": [
+      {
+        "path": "Brain/wiki/growdirect-working-papers.md",
+        "title": "GrowDirect Working Papers — Structure"
+      }
+    ],
     "market": [
       {
         "path": "Brain/wiki/angel-client-reviews.md",
@@ -23174,6 +23334,10 @@
       {
         "path": "Brain/wiki/coac-pv-endangered-species.md",
         "title": "COAC: Palos Verdes Endangered Species & Habitat — Scientific Foundation"
+      },
+      {
+        "path": "Brain/wiki/growdirect-working-papers.md",
+        "title": "GrowDirect Working Papers — Structure"
       }
     ],
     "materials": [
@@ -24688,6 +24852,24 @@
         "title": "Case-Law Synthesis — Rules That Bind WPBCA"
       }
     ],
+    "numbering": [
+      {
+        "path": "Brain/wiki/growdirect-working-papers.md",
+        "title": "GrowDirect Working Papers — Structure"
+      }
+    ],
+    "numbering-scheme": [
+      {
+        "path": "Brain/wiki/growdirect-working-papers.md",
+        "title": "GrowDirect Working Papers — Structure"
+      }
+    ],
+    "numbers": [
+      {
+        "path": "Brain/wiki/growdirect-working-papers.md",
+        "title": "GrowDirect Working Papers — Structure"
+      }
+    ],
     "objects": [
       {
         "path": "Brain/wiki/coac-aclad-partnership.md",
@@ -25276,6 +25458,12 @@
         "title": "Silver Spur — Content Pool (Raw)"
       }
     ],
+    "output": [
+      {
+        "path": "Brain/wiki/growdirect-working-papers.md",
+        "title": "GrowDirect Working Papers — Structure"
+      }
+    ],
     "outreach": [
       {
         "path": "Brain/wiki/wpbca-third-director-recruitment.md",
@@ -25518,6 +25706,10 @@
       {
         "path": "Brain/wiki/coac-pv-endangered-species.md",
         "title": "COAC: Palos Verdes Endangered Species & Habitat — Scientific Foundation"
+      },
+      {
+        "path": "Brain/wiki/growdirect-working-papers.md",
+        "title": "GrowDirect Working Papers — Structure"
       }
     ],
     "parallel": [
@@ -26002,6 +26194,12 @@
       {
         "path": "Brain/wiki/foundation-time-logging-policy.md",
         "title": "Foundation Time Logging Policy"
+      }
+    ],
+    "permanent": [
+      {
+        "path": "Brain/wiki/growdirect-working-papers.md",
+        "title": "GrowDirect Working Papers — Structure"
       }
     ],
     "permissions": [
@@ -27556,6 +27754,12 @@
       {
         "path": "Brain/wiki/wpbca-ocean-path-easement.md",
         "title": "Community of Abalone Cove (formerly WPBCA) — Ocean Path Easements — Private Governance Matter"
+      }
+    ],
+    "protocol": [
+      {
+        "path": "Brain/wiki/growdirect-working-papers.md",
+        "title": "GrowDirect Working Papers — Structure"
       }
     ],
     "prototypes": [
@@ -29242,6 +29446,10 @@
       {
         "path": "Brain/wiki/growdirect-workflow.md",
         "title": "GrowDirect Workflow"
+      },
+      {
+        "path": "Brain/wiki/growdirect-working-papers.md",
+        "title": "GrowDirect Working Papers — Structure"
       },
       {
         "path": "Brain/wiki/seacove-arc-module.md",
@@ -31676,6 +31884,10 @@
       {
         "path": "Brain/wiki/foundation-time-logging-policy.md",
         "title": "Foundation Time Logging Policy"
+      },
+      {
+        "path": "Brain/wiki/growdirect-working-papers.md",
+        "title": "GrowDirect Working Papers — Structure"
       }
     ],
     "source-document": [
@@ -31840,6 +32052,10 @@
       {
         "path": "Brain/wiki/growdirect-workflow.md",
         "title": "GrowDirect Workflow"
+      },
+      {
+        "path": "Brain/wiki/growdirect-working-papers.md",
+        "title": "GrowDirect Working Papers — Structure"
       },
       {
         "path": "Brain/wiki/secure-architecture.md",
@@ -32218,6 +32434,12 @@
         "title": "Ninja Selling — Sales Methodology for Angel"
       }
     ],
+    "starting": [
+      {
+        "path": "Brain/wiki/growdirect-working-papers.md",
+        "title": "GrowDirect Working Papers — Structure"
+      }
+    ],
     "startup": [
       {
         "path": "Brain/wiki/growdirect-workflow.md",
@@ -32320,6 +32542,10 @@
       {
         "path": "Brain/wiki/foundation-llc-rescue-status.md",
         "title": "LLC Rescue Status (Existing California LLC)"
+      },
+      {
+        "path": "Brain/wiki/growdirect-working-papers.md",
+        "title": "GrowDirect Working Papers — Structure"
       },
       {
         "path": "Brain/wiki/south-bay-wiki-architecture.md",
@@ -32670,6 +32896,10 @@
         "title": "Foundation Legal Framework — MOC"
       },
       {
+        "path": "Brain/wiki/growdirect-working-papers.md",
+        "title": "GrowDirect Working Papers — Structure"
+      },
+      {
         "path": "Brain/wiki/peninsula-kids-water.md",
         "title": "Kids Water Activities — Palos Verdes Peninsula & South Bay"
       }
@@ -32820,6 +33050,12 @@
         "title": "Restated Declaration — Blitz Execution Plan"
       }
     ],
+    "suffixes": [
+      {
+        "path": "Brain/wiki/growdirect-working-papers.md",
+        "title": "GrowDirect Working Papers — Structure"
+      }
+    ],
     "summaries": [
       {
         "path": "Brain/wiki/cove-community-history.md",
@@ -32930,6 +33166,10 @@
       {
         "path": "Brain/wiki/foundation-time-logging-policy.md",
         "title": "Foundation Time Logging Policy"
+      },
+      {
+        "path": "Brain/wiki/growdirect-working-papers.md",
+        "title": "GrowDirect Working Papers — Structure"
       },
       {
         "path": "Brain/wiki/secure-architecture.md",
@@ -33238,6 +33478,10 @@
       {
         "path": "Brain/wiki/coac-trustee-slate-preparation.md",
         "title": "Trustee Slate — Preparation and Vetting"
+      },
+      {
+        "path": "Brain/wiki/growdirect-working-papers.md",
+        "title": "GrowDirect Working Papers — Structure"
       }
     ],
     "taxes": [
@@ -33576,6 +33820,12 @@
         "title": "Document Management Strategy"
       }
     ],
+    "thinking": [
+      {
+        "path": "Brain/wiki/growdirect-working-papers.md",
+        "title": "GrowDirect Working Papers — Structure"
+      }
+    ],
     "third": [
       {
         "path": "Brain/wiki/angel-peninsula-school-guide.md",
@@ -33742,6 +33992,10 @@
       {
         "path": "Brain/wiki/foundation-umbrella-alx.md",
         "title": "Foundation — Umbrella ALX (Parking)"
+      },
+      {
+        "path": "Brain/wiki/growdirect-working-papers.md",
+        "title": "GrowDirect Working Papers — Structure"
       },
       {
         "path": "Brain/wiki/seacove-arc-module.md",
@@ -34548,6 +34802,10 @@
       {
         "path": "Brain/wiki/document-management.md",
         "title": "Document Management Strategy"
+      },
+      {
+        "path": "Brain/wiki/growdirect-working-papers.md",
+        "title": "GrowDirect Working Papers — Structure"
       }
     ],
     "types": [
@@ -34978,6 +35236,10 @@
       {
         "path": "Brain/wiki/cove-colyear-2024.md",
         "title": "Colyear v. Rolling Hills Community Association (2024)"
+      },
+      {
+        "path": "Brain/wiki/growdirect-working-papers.md",
+        "title": "GrowDirect Working Papers — Structure"
       }
     ],
     "vetting": [
@@ -35212,6 +35474,12 @@
       {
         "path": "Brain/wiki/coac-15-owner-network.md",
         "title": "15-Owner Network — Parcel Identification and Owner Recruitment"
+      }
+    ],
+    "warchest": [
+      {
+        "path": "Brain/wiki/growdirect-working-papers.md",
+        "title": "GrowDirect Working Papers — Structure"
       }
     ],
     "warm": [
@@ -35598,6 +35866,10 @@
         "title": "Peninsula School Guide — Content Pool (Raw)"
       },
       {
+        "path": "Brain/wiki/growdirect-working-papers.md",
+        "title": "GrowDirect Working Papers — Structure"
+      },
+      {
         "path": "Brain/wiki/wpbca-payments-platform.md",
         "title": "Community of Abalone Cove (formerly WPBCA) — Payments Platform and Assessment Collection"
       }
@@ -35810,6 +36082,16 @@
       {
         "path": "Brain/wiki/growdirect-workflow.md",
         "title": "GrowDirect Workflow"
+      },
+      {
+        "path": "Brain/wiki/growdirect-working-papers.md",
+        "title": "GrowDirect Working Papers — Structure"
+      }
+    ],
+    "working-papers": [
+      {
+        "path": "Brain/wiki/growdirect-working-papers.md",
+        "title": "GrowDirect Working Papers — Structure"
       }
     ],
     "works": [
