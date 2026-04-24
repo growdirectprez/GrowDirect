@@ -1,12 +1,11 @@
 import pytest
 from solex import create_app
+from solex.config import TestConfig
 
 
 @pytest.fixture()
 def app():
-    app = create_app()
-    app.config.update(TESTING=True)
-    return app
+    return create_app(TestConfig)
 
 
 @pytest.fixture()
