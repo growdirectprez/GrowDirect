@@ -1,0 +1,29 @@
+{% extends "admin/_layout.html" %}
+{% block admin_main %}
+<h1 class="text-2xl font-semibold mb-6">Lab</h1>
+<h2 class="font-semibold mb-3">Scenarios</h2>
+<ul class="divide-y mb-8">
+  {% for s in scenarios %}
+  <li class="py-3">
+    <div class="flex justify-between">
+      <div>
+        <a href="{{ url_for('lab.run_form', name=s.name) }}" class="font-medium">{{ s.name }}</a>
+        <p class="text-sm text-stone-500">{{ s.description }}</p>
+        {% if s.expected_chirps %}<p class="text-xs text-stone-400">Expects: {{ s.expected_chirps | join(', ') }}</p>{% endif %}
+      </div>
+      <a href="{{ url_for('lab.run_form', name=s.name) }}" class="text-sm underline">Run →</a>
+    </div>
+  </li>
+  {% endfor %}
+</ul>
+<h2 class="font-semibold mb-3">Recent runs</h2>
+<table class="w-full text-sm">
+  <thead><tr class="border-b text-left"><th>Scenario</th><th>Started</th><th>Status</th></tr></thead>
+  <tbody>
+    {% for r in recent %}
+    <tr class="border-b"><td class="py-2"><a href="{{ url_for('lab.run_detail', run_id=r.id) }}" class="underline">{{ r.scenario_name }}</a></td>
+      <td>{{ r.started_at.strftime('%Y-%m-%d %H:%M') }}</td><td>{{ r.status }}</td></tr>
+    {% endfor %}
+  </tbody>
+</table>
+{% endblock %}
