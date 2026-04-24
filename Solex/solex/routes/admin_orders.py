@@ -24,10 +24,12 @@ def _refunds_svc():
 @bp.get("/")
 @admin_required
 def list_orders():
-    orders = db.session.execute(
-        select(Order).order_by(Order.placed_at.desc())
-    ).scalars().all()
-    return render_template("admin/orders/list.html", orders=orders)
+    tag = request.args.get("scenario_tag")
+    q = select(Order).order_by(Order.placed_at.desc()).limit(200)
+    if tag:
+        q = q.where(Order.scenario_tag == tag)
+    orders = db.session.execute(q).scalars().all()
+    return render_template("admin/orders/list.html", orders=orders, scenario_tag=tag)
 
 
 @bp.get("/<uuid:oid>")
