@@ -1,0 +1,73 @@
+{% extends "account/_layout.html" %}
+{% block account_main %}
+<div class="mb-4">
+  <a href="/account/subscriptions" class="text-sm text-stone-500 underline">&larr; Subscriptions</a>
+</div>
+<h1 class="text-2xl font-semibold mb-2">Subscription</h1>
+
+{% with messages = get_flashed_messages(with_categories=true) %}
+  {% for category, message in messages %}
+  <div class="mb-4 text-sm {% if category == 'error' %}text-red-600{% else %}text-green-700{% endif %}">{{ message }}</div>
+  {% endfor %}
+{% endwith %}
+
+<div class="bg-stone-50 rounded border p-4 mb-6 text-sm space-y-2">
+  <div class="flex justify-between"><span class="text-stone-500">Status</span><span class="font-medium">{{ sub.status }}</span></div>
+  <div class="flex justify-between"><span class="text-stone-500">Cadence</span><span>Every {{ sub.cadence_days }} days</span></div>
+  <div class="flex justify-between"><span class="text-stone-500">Qty</span><span>{{ sub.qty }}</span></div>
+  <div class="flex justify-between"><span class="text-stone-500">Next charge</span><span>{{ sub.next_charge_at.strftime('%Y-%m-%d') }}</span></div>
+  {% if sub.last_charged_at %}
+  <div class="flex justify-between"><span class="text-stone-500">Last charged</span><span>{{ sub.last_charged_at.strftime('%Y-%m-%d') }}</span></div>
+  {% endif %}
+  {% if sub.cancelled_at %}
+  <div class="flex justify-between"><span class="text-stone-500">Cancelled</span><span>{{ sub.cancelled_at.strftime('%Y-%m-%d') }}</span></div>
+  {% endif %}
+</div>
+
+{% if sub.charges %}
+<h2 class="font-semibold mb-2">Charge history</h2>
+<table class="w-full text-sm mb-6">
+  <thead class="text-stone-500 text-left border-b">
+    <tr><th class="pb-1">Date</th><th class="pb-1">Result</th><th class="pb-1">Note</th></tr>
+  </thead>
+  <tbody class="divide-y">
+    {% for ch in sub.charges | sort(attribute='attempted_at', reverse=True) %}
+    <tr class="py-2">
+      <td class="py-2">{{ ch.attempted_at.strftime('%Y-%m-%d') }}</td>
+      <td class="py-2 {% if ch.succeeded %}text-green-700{% else %}text-red-600{% endif %}">
+        {{ 'Success' if ch.succeeded else 'Failed' }}
+      </td>
+      <td class="py-2 text-stone-400">{{ ch.failure_reason or '' }}</td>
+    </tr>
+    {% endfor %}
+  </tbody>
+</table>
+{% endif %}
+
+<div class="flex gap-3">
+  {% if sub.status == 'active' %}
+  {% if selfserve %}
+  <form action="/account/subscriptions/{{ sub.id }}/pause" method="post">
+    <button type="submit" class="border border-stone-300 px-4 py-2 rounded text-sm">Pause</button>
+  </form>
+  {% else %}
+  <button type="button" disabled
+          class="border border-stone-200 px-4 py-2 rounded text-sm text-stone-400 cursor-not-allowed"
+          title="Contact support to pause">Pause</button>
+  {% endif %}
+  <form action="/account/subscriptions/{{ sub.id }}/cancel" method="post">
+    <button type="submit" class="bg-red-600 text-white px-4 py-2 rounded text-sm">Cancel subscription</button>
+  </form>
+  {% elif sub.status == 'paused' %}
+  {% if selfserve %}
+  <form action="/account/subscriptions/{{ sub.id }}/resume" method="post">
+    <button type="submit" class="bg-stone-900 text-white px-4 py-2 rounded text-sm">Resume</button>
+  </form>
+  {% else %}
+  <button type="button" disabled
+          class="border border-stone-200 px-4 py-2 rounded text-sm text-stone-400 cursor-not-allowed"
+          title="Contact support to resume">Resume</button>
+  {% endif %}
+  {% endif %}
+</div>
+{% endblock %}

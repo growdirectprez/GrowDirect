@@ -7,7 +7,9 @@ async function initCheckout() {
 
   const appId = form.dataset.appId;
   const locationId = form.dataset.locationId;
+  const hasSubscription = form.dataset.hasSubscription === "true";
   const errDiv = document.getElementById("checkout-error");
+  const storeCardSection = document.getElementById("store-card-section");
 
   if (!appId) {
     errDiv.textContent =
@@ -15,7 +17,6 @@ async function initCheckout() {
     return;
   }
 
-  // Square Web Payments SDK must be loaded via the script tag in the template
   if (typeof Square === "undefined") {
     errDiv.textContent = "Payment provider failed to load. Please refresh the page.";
     return;
@@ -29,6 +30,7 @@ async function initCheckout() {
     return;
   }
 
+  // Payment card (always)
   let card;
   try {
     card = await payments.card();
@@ -38,14 +40,28 @@ async function initCheckout() {
     return;
   }
 
+  // Store card (subscription only)
+  let storeCard = null;
+  if (hasSubscription && storeCardSection) {
+    storeCardSection.classList.remove("hidden");
+    try {
+      storeCard = await payments.card();
+      await storeCard.attach("#store-card-container");
+    } catch (e) {
+      errDiv.textContent = "Could not load subscription card input: " + e.message;
+      return;
+    }
+  }
+
   const payButton = document.getElementById("pay-button");
 
   form.addEventListener("submit", async (e) => {
     e.preventDefault();
     errDiv.textContent = "";
     payButton.disabled = true;
-    payButton.textContent = "Processing…";
+    payButton.textContent = "Processing\u2026";
 
+    // Tokenize the payment card
     let tokenResult;
     try {
       tokenResult = await card.tokenize();
@@ -62,6 +78,26 @@ async function initCheckout() {
       payButton.disabled = false;
       payButton.textContent = payButton.dataset.label || "Pay";
       return;
+    }
+
+    // Tokenize the store card if present
+    let storeTokenResult = null;
+    if (storeCard) {
+      try {
+        storeTokenResult = await storeCard.tokenize();
+      } catch (e) {
+        errDiv.textContent = "Subscription card tokenization error: " + e.message;
+        payButton.disabled = false;
+        payButton.textContent = payButton.dataset.label || "Pay";
+        return;
+      }
+      if (storeTokenResult.status !== "OK") {
+        errDiv.textContent =
+          storeTokenResult.errors?.[0]?.message || "Subscription card tokenization failed.";
+        payButton.disabled = false;
+        payButton.textContent = payButton.dataset.label || "Pay";
+        return;
+      }
     }
 
     const fd = new FormData(form);
@@ -85,6 +121,10 @@ async function initCheckout() {
       },
     };
 
+    if (storeTokenResult) {
+      body.store_payment_token = storeTokenResult.token;
+    }
+
     let resp;
     try {
       resp = await fetch("/checkout/submit", {
@@ -103,14 +143,25 @@ async function initCheckout() {
     if (!resp.ok) {
       let j = {};
       try { j = await resp.json(); } catch (_) {}
-      errDiv.textContent = j.detail || j.error || "Checkout failed. Please try again.";
+      if (j.error === "login_required_for_subscription") {
+        errDiv.textContent = "You must be signed in to subscribe. Sign in and try again.";
+      } else if (j.error === "store_payment_token_required_for_subscription") {
+        errDiv.textContent = "Please enter a card for subscription billing.";
+      } else {
+        errDiv.textContent = j.detail || j.error || "Checkout failed. Please try again.";
+      }
       payButton.disabled = false;
       payButton.textContent = payButton.dataset.label || "Pay";
       return;
     }
 
-    const { order_token } = await resp.json();
-    window.location.href = "/order/" + order_token;
+    const data = await resp.json();
+    const { order_token, subscription_next_charge } = data;
+    let redirect = "/order/" + order_token;
+    if (subscription_next_charge) {
+      redirect += "?sub_next=" + encodeURIComponent(subscription_next_charge);
+    }
+    window.location.href = redirect;
   });
 }
 

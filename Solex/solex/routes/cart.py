@@ -40,7 +40,9 @@ def as_json():
 def add():
     product_id = UUID(request.form["product_id"])
     qty = max(1, int(request.form.get("qty", 1)))
-    snap = _service().add(_session_key(), product_id, qty)
+    cadence_raw = request.form.get("subscription_cadence_days")
+    cadence_days = int(cadence_raw) if cadence_raw and cadence_raw.isdigit() else None
+    snap = _service().add(_session_key(), product_id, qty, cadence_days=cadence_days)
     return jsonify(snap.__dict__), 200
 
 

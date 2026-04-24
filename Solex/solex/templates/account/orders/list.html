@@ -1,0 +1,19 @@
+{% extends "account/_layout.html" %}
+{% block account_main %}
+<h1 class="text-2xl font-semibold mb-6">Orders</h1>
+{% if orders %}
+<ul class="divide-y">
+  {% for o in orders %}
+  <li class="py-3 flex justify-between items-center">
+    <div>
+      <a href="/account/orders/{{ o.id }}" class="underline font-medium">{{ o.public_token }}</a>
+      <div class="text-sm text-stone-500">{{ o.placed_at.strftime('%Y-%m-%d') }}</div>
+    </div>
+    <span class="text-sm">${{ '%.2f' % (o.total_cents / 100) }} — {{ o.status }}</span>
+  </li>
+  {% endfor %}
+</ul>
+{% else %}
+<p class="text-stone-500">No orders yet.</p>
+{% endif %}
+{% endblock %}
