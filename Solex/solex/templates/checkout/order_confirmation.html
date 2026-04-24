@@ -36,6 +36,12 @@
     </div>
   </div>
 
+  {% if request.args.get('sub_next') %}
+  <div class="mt-6 bg-stone-50 border border-stone-200 rounded p-4 text-sm">
+    <div class="font-medium mb-1">Subscription scheduled.</div>
+    <p class="text-stone-600">Next charge: {{ request.args.get('sub_next') }}. Manage at <a href="/account/subscriptions" class="underline">My subscriptions</a>.</p>
+  </div>
+  {% endif %}
   <div class="mt-8">
     <a href="{{ url_for('storefront.shop') }}" class="underline text-stone-700 text-sm">Continue shopping</a>
   </div>
