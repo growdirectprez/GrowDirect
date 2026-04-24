@@ -1,0 +1,23 @@
+{% extends "admin/_layout.html" %}
+{% block admin_main %}
+<h1 class="text-xl font-semibold mb-2">{{ run.scenario_name }}</h1>
+<p class="text-sm text-stone-500 mb-4">{{ run.started_at.strftime('%Y-%m-%d %H:%M:%S') }} — <strong>{{ run.status }}</strong></p>
+<section class="mb-6">
+  <h2 class="font-semibold mb-2">Params</h2>
+  <pre class="bg-stone-100 p-3 text-xs overflow-auto">{{ run.params_json | tojson(indent=2) }}</pre>
+</section>
+<section class="mb-6">
+  <h2 class="font-semibold mb-2">Summary</h2>
+  <pre class="bg-stone-100 p-3 text-xs overflow-auto">{{ run.summary_json | tojson(indent=2) }}</pre>
+</section>
+<section>
+  <h2 class="font-semibold mb-2">Tagged orders ({{ orders | length }})</h2>
+  {% if orders %}
+  <ul class="divide-y text-sm">
+    {% for o in orders %}
+    <li class="py-2"><a href="{{ url_for('admin_orders.detail', oid=o.id) }}" class="underline">{{ o.public_token }}</a> — ${{ '%.2f' % (o.total_cents / 100) }} — {{ o.status }}</li>
+    {% endfor %}
+  </ul>
+  {% else %}<p class="text-stone-500">None.</p>{% endif %}
+</section>
+{% endblock %}
