@@ -1,0 +1,43 @@
+{% extends "base.html" %}
+{% block main %}
+<div class="max-w-xl mx-auto py-8">
+  <h1 class="text-xl font-semibold mb-2">Order confirmed.</h1>
+  <p class="text-stone-600 mb-6">Thanks, {{ order.customer_name }}. A receipt will be sent to {{ order.customer_email }}.</p>
+
+  <div class="text-sm text-stone-500 mb-4">
+    Order <span class="font-mono">{{ order.public_token }}</span>
+  </div>
+
+  <ul class="divide-y divide-stone-200 mb-6">
+    {% for item in order.items %}
+    <li class="py-3 flex justify-between text-sm">
+      <span>{{ item.name_snapshot }} &times; {{ item.qty }}</span>
+      <span>${{ '%.2f' % (item.line_total_cents / 100) }}</span>
+    </li>
+    {% endfor %}
+  </ul>
+
+  <div class="text-sm space-y-1 border-t border-stone-200 pt-4">
+    <div class="flex justify-between text-stone-600">
+      <span>Subtotal</span>
+      <span>${{ '%.2f' % (order.subtotal_cents / 100) }}</span>
+    </div>
+    <div class="flex justify-between text-stone-600">
+      <span>Shipping</span>
+      <span>${{ '%.2f' % (order.shipping_cents / 100) }}</span>
+    </div>
+    <div class="flex justify-between text-stone-600">
+      <span>Tax</span>
+      <span>${{ '%.2f' % (order.tax_cents / 100) }}</span>
+    </div>
+    <div class="flex justify-between font-semibold text-stone-900 pt-1">
+      <span>Total</span>
+      <span>${{ '%.2f' % (order.total_cents / 100) }}</span>
+    </div>
+  </div>
+
+  <div class="mt-8">
+    <a href="{{ url_for('storefront.shop') }}" class="underline text-stone-700 text-sm">Continue shopping</a>
+  </div>
+</div>
+{% endblock %}

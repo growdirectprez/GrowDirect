@@ -1,0 +1,7 @@
+{% extends "base.html" %}
+{% block main %}
+<div class="max-w-xl mx-auto py-12 text-center">
+  <p class="text-stone-500 text-lg">Your cart is empty.</p>
+  <a href="{{ url_for('storefront.shop') }}" class="mt-4 inline-block underline text-stone-700">Shop now</a>
+</div>
+{% endblock %}
