@@ -1,0 +1,23 @@
+{# storefront/_product_card.html #}
+{% macro product_card(p) %}
+<a href="{{ url_for('storefront.product_detail', slug=p.slug) }}" class="card-product">
+  <div class="aspect-square bg-solex-sand overflow-hidden">
+    {% if p.image_path %}
+    <img src="{{ url_for('static', filename=p.image_path) }}"
+         alt="{{ p.name }}" class="w-full h-full object-cover group-hover:scale-[1.02] transition-transform"
+         loading="lazy">
+    {% else %}
+    <div class="w-full h-full flex items-center justify-center text-solex-muted text-xs">
+      {{ p.sku }}
+    </div>
+    {% endif %}
+  </div>
+  <div class="p-4">
+    <p class="text-xs uppercase tracking-wide text-solex-muted">
+      {% if p.category %}{{ p.category.name }}{% endif %}
+    </p>
+    <h3 class="mt-1 text-base font-medium text-solex-ink">{{ p.name }}</h3>
+    <p class="mt-2 text-solex-ink font-medium">${{ "%.2f"|format(p.price_cents / 100) }}</p>
+  </div>
+</a>
+{% endmacro %}

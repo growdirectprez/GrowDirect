@@ -27,6 +27,19 @@ def import_catalog(path):
         click.echo(f"imported: {counts}")
 
 
+@catalog.command("generate-placeholders")
+def catalog_generate_placeholders():
+    """Generate placeholder PNGs for every SKU in products.yaml."""
+    from pathlib import Path
+    import yaml
+    from solex.services.placeholder_gen import generate
+    data = yaml.safe_load(Path("catalog/products.yaml").read_text())
+    skus = [p["sku"] for p in data.get("products", [])]
+    out = Path("solex/static/catalog/images")
+    count = generate(skus, out)
+    click.echo(f"generated: {count} PNG tiles at {out}")
+
+
 @catalog.command("sync-to-square")
 def sync_to_square():
     """Sync all active products to Square Catalog (requires SQUARE env vars)."""

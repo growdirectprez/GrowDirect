@@ -5,3 +5,4 @@ pytest-mock==3.14.0
 responses==0.25.3
 freezegun==1.5.1
 ruff==0.7.4
+Pillow==11.0.0

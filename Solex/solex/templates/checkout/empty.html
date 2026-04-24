@@ -1,7 +1,9 @@
+{# checkout/empty.html #}
 {% extends "base.html" %}
 {% block main %}
-<div class="max-w-xl mx-auto py-12 text-center">
-  <p class="text-stone-500 text-lg">Your cart is empty.</p>
-  <a href="{{ url_for('storefront.shop') }}" class="mt-4 inline-block underline text-stone-700">Shop now</a>
-</div>
+<section class="container-narrow py-16 max-w-lg text-center">
+  <h1 class="text-3xl font-display mb-4">Your cart is empty.</h1>
+  <p class="text-solex-muted mb-6">Find something you want to take home.</p>
+  <a href="{{ url_for('storefront.shop') }}" class="btn-primary">Shop now</a>
+</section>
 {% endblock %}

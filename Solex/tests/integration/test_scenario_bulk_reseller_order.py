@@ -18,8 +18,8 @@ def test_bulk_reseller_order_creates_multi_line_orders(
     summary = cls().run(ctx, cls.params_schema(count=2, seed=99))
     assert not summary["failed"], summary["failed"]
     assert summary["attempted"] == 2
-    # With 5 seed products, each order caps at 5 lines
+    # With 25 seed products, each order has 10–25 lines (lines_per_order_min=10)
     orders = db_session.query(Order).filter_by(scenario_tag=ctx.tag).all()
     assert len(orders) == 2
     for o in orders:
-        assert len(o.items) == 5, f"expected 5 lines, got {len(o.items)}"
+        assert 10 <= len(o.items) <= 25, f"expected 10–25 lines, got {len(o.items)}"
