@@ -1,0 +1,92 @@
+{% extends "admin/_layout.html" %}
+{% block title %}Order {{ order.public_token }} — Admin{% endblock %}
+{% block admin_main %}
+<div class="mb-4">
+  <a href="/admin/orders/" class="text-sm text-stone-500">&larr; Orders</a>
+</div>
+{% with messages = get_flashed_messages(with_categories=true) %}
+  {% for cat, msg in messages %}
+    <p class="mb-3 text-sm text-{{ 'green' if cat == 'ok' else 'red' }}-700">{{ msg }}</p>
+  {% endfor %}
+{% endwith %}
+
+<div class="mb-6">
+  <h1 class="text-xl font-semibold">Order {{ order.public_token }}</h1>
+  <p class="text-sm text-stone-500">Placed {{ order.placed_at.strftime("%Y-%m-%d %H:%M UTC") }}</p>
+  <p class="text-sm mt-1">Status: <strong>{{ order.status }}</strong></p>
+  <p class="text-sm">Total: ${{ "%.2f"|format(order.total_cents / 100) }}</p>
+</div>
+
+<div class="mb-6">
+  <h2 class="font-semibold mb-2 text-sm">Customer</h2>
+  <p class="text-sm">{{ order.customer_email }}</p>
+  <pre class="text-xs bg-stone-50 border rounded p-2 mt-2 overflow-auto">{{ order.shipping_address_json | tojson(indent=2) }}</pre>
+</div>
+
+<div class="mb-6">
+  <h2 class="font-semibold mb-2 text-sm">Items</h2>
+  <table class="w-full text-sm border-collapse">
+    <thead>
+      <tr class="border-b text-left">
+        <th class="py-1 pr-4">Product</th>
+        <th class="py-1 pr-4">SKU</th>
+        <th class="py-1 pr-4">Qty</th>
+        <th class="py-1 pr-4">Price</th>
+        <th class="py-1">Line Total</th>
+      </tr>
+    </thead>
+    <tbody>
+      {% for item in order.items %}
+      <tr class="border-b">
+        <td class="py-1 pr-4">{{ item.name_snapshot }}</td>
+        <td class="py-1 pr-4">{{ item.sku_snapshot }}</td>
+        <td class="py-1 pr-4">{{ item.qty }}</td>
+        <td class="py-1 pr-4">${{ "%.2f"|format(item.price_snapshot_cents / 100) }}</td>
+        <td class="py-1">${{ "%.2f"|format(item.line_total_cents / 100) }}</td>
+      </tr>
+      {% endfor %}
+    </tbody>
+  </table>
+</div>
+
+{% if refunds %}
+<div class="mb-6">
+  <h2 class="font-semibold mb-2 text-sm">Refunds</h2>
+  <table class="w-full text-sm border-collapse">
+    <thead>
+      <tr class="border-b text-left">
+        <th class="py-1 pr-4">Amount</th>
+        <th class="py-1 pr-4">Reason</th>
+        <th class="py-1">Square ID</th>
+      </tr>
+    </thead>
+    <tbody>
+      {% for r in refunds %}
+      <tr class="border-b">
+        <td class="py-1 pr-4">${{ "%.2f"|format(r.amount_cents / 100) }}</td>
+        <td class="py-1 pr-4">{{ r.reason }}</td>
+        <td class="py-1 font-mono text-xs">{{ r.square_refund_id or "—" }}</td>
+      </tr>
+      {% endfor %}
+    </tbody>
+  </table>
+</div>
+{% endif %}
+
+<div class="mb-6 max-w-sm">
+  <h2 class="font-semibold mb-2 text-sm">Issue Refund</h2>
+  <form method="post" action="/admin/orders/{{ order.id }}/refund" class="space-y-3">
+    <input type="hidden" name="csrf_token" value="{{ csrf_token() }}">
+    <div>
+      <label class="block text-sm mb-1">Amount (cents)</label>
+      <input name="amount_cents" type="number" value="{{ order.total_cents }}"
+             class="w-full border rounded px-3 py-2 text-sm">
+    </div>
+    <div>
+      <label class="block text-sm mb-1">Reason</label>
+      <textarea name="reason" rows="2" class="w-full border rounded px-3 py-2 text-sm">admin refund</textarea>
+    </div>
+    <button type="submit" class="border px-4 py-2 rounded text-sm">Issue Refund</button>
+  </form>
+</div>
+{% endblock %}

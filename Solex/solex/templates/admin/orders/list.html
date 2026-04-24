@@ -1,0 +1,38 @@
+{% extends "admin/_layout.html" %}
+{% block title %}Orders — Admin{% endblock %}
+{% block admin_main %}
+<h1 class="text-xl font-semibold mb-4">Orders</h1>
+{% with messages = get_flashed_messages(with_categories=true) %}
+  {% for cat, msg in messages %}
+    <p class="mb-3 text-sm text-{{ 'green' if cat == 'ok' else 'red' }}-700">{{ msg }}</p>
+  {% endfor %}
+{% endwith %}
+<table class="w-full text-sm border-collapse">
+  <thead>
+    <tr class="border-b text-left">
+      <th class="py-2 pr-4">Token</th>
+      <th class="py-2 pr-4">Customer</th>
+      <th class="py-2 pr-4">Total</th>
+      <th class="py-2 pr-4">Status</th>
+      <th class="py-2 pr-4">Placed</th>
+      <th class="py-2"></th>
+    </tr>
+  </thead>
+  <tbody>
+    {% for order in orders %}
+    <tr class="border-b">
+      <td class="py-2 pr-4 font-mono text-xs">{{ order.public_token }}</td>
+      <td class="py-2 pr-4">{{ order.customer_email }}</td>
+      <td class="py-2 pr-4">${{ "%.2f"|format(order.total_cents / 100) }}</td>
+      <td class="py-2 pr-4">{{ order.status }}</td>
+      <td class="py-2 pr-4">{{ order.placed_at.strftime("%Y-%m-%d") }}</td>
+      <td class="py-2">
+        <a href="/admin/orders/{{ order.id }}" class="text-blue-600">View</a>
+      </td>
+    </tr>
+    {% else %}
+    <tr><td colspan="6" class="py-4 text-stone-400">No orders.</td></tr>
+    {% endfor %}
+  </tbody>
+</table>
+{% endblock %}
