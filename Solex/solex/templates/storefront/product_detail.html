@@ -1,38 +1,66 @@
 {% extends "base.html" %}
+{% block title %}{{ product.name }} — Solex{% endblock %}
 {% block main %}
-<div class="grid md:grid-cols-2 gap-8">
-  <div class="aspect-square bg-stone-100"></div>
-  <div>
-    <h1 class="text-2xl font-semibold mb-2">{{ product.name }}</h1>
-    <div class="text-lg text-stone-700 mb-4">${{ '%.2f' % (product.price_cents / 100) }}</div>
-    <p class="mb-6">{{ product.description }}</p>
-    <form class="js-cart-form" action="{{ url_for('cart.add') }}" method="post">
-      <input type="hidden" name="product_id" value="{{ product.id }}">
-      <div class="mb-4 space-y-2">
-        <label class="flex items-center gap-2 cursor-pointer">
-          <input type="radio" name="purchase_type" value="onetime" checked class="accent-stone-900">
-          <span class="text-sm">One-time purchase</span>
-        </label>
-        <label class="flex items-center gap-2 cursor-pointer">
-          <input type="radio" name="purchase_type" value="subscribe" class="accent-stone-900" id="subscribe-radio">
-          <span class="text-sm">Subscribe &amp; save — every 30 days</span>
-        </label>
-        <input type="hidden" name="subscription_cadence_days" id="cadence-input" value="">
+<section class="container-narrow py-12">
+  <nav class="text-xs text-solex-muted mb-6">
+    <a href="{{ url_for('storefront.shop') }}" class="hover:underline">Shop</a>
+    {% if product.category %}
+      / <a href="{{ url_for('storefront.shop_by_category', slug=product.category.slug) }}" class="hover:underline">{{ product.category.name }}</a>
+    {% endif %}
+    / <span class="text-solex-body">{{ product.name }}</span>
+  </nav>
+
+  <div class="grid md:grid-cols-2 gap-12">
+    <div>
+      <div class="aspect-square bg-solex-sand rounded-brand overflow-hidden">
+        {% if product.image_path %}
+        <img src="{{ url_for('static', filename=product.image_path) }}"
+             alt="{{ product.name }}" class="w-full h-full object-cover">
+        {% endif %}
       </div>
-      <div class="flex items-center gap-3">
-        <input type="number" name="qty" value="1" min="1" class="w-20 border p-2">
-        <button type="submit" class="bg-stone-900 text-white px-4 py-2 rounded">Add to cart</button>
+    </div>
+    <div>
+      <p class="eyebrow mb-2">{% if product.category %}{{ product.category.name }}{% endif %}</p>
+      <h1 class="text-4xl font-display mb-3">{{ product.name }}</h1>
+      <p class="text-2xl text-solex-ink mb-5">${{ "%.2f"|format(product.price_cents / 100) }}</p>
+      {% if product.short_description %}
+      <p class="text-solex-body mb-6">{{ product.short_description }}</p>
+      {% endif %}
+
+      <form class="js-cart-form space-y-4" action="{{ url_for('cart.add') }}" method="post">
+        <input type="hidden" name="product_id" value="{{ product.id }}">
+        <div class="border border-solex-line rounded-brand p-1">
+          <label class="flex items-start gap-3 p-3 cursor-pointer">
+            <input type="radio" name="purchase_type" value="onetime" checked
+                   class="mt-1 text-solex-teal focus:ring-solex-teal">
+            <span>
+              <span class="block font-medium">One-time purchase</span>
+              <span class="block text-sm text-solex-muted">${{ "%.2f"|format(product.price_cents / 100) }}</span>
+            </span>
+          </label>
+          <label class="flex items-start gap-3 p-3 cursor-pointer border-t border-solex-line">
+            <input type="radio" name="subscription_cadence_days" value="30"
+                   class="mt-1 text-solex-teal focus:ring-solex-teal">
+            <span>
+              <span class="block font-medium">Subscribe &amp; save — every 30 days</span>
+              <span class="block text-sm text-solex-muted">Auto-renew at ${{ "%.2f"|format(product.price_cents / 100) }}. Cancel anytime.</span>
+            </span>
+          </label>
+        </div>
+        <div class="flex items-center gap-3">
+          <input type="number" name="qty" value="1" min="1"
+                 class="input w-24">
+          <button type="submit" class="btn-primary flex-1">Add to cart</button>
+        </div>
+      </form>
+
+      {% if product.description %}
+      <div class="mt-10 prose prose-solex max-w-none">
+        <h3 class="font-display text-xl mb-3">About this product</h3>
+        <p>{{ product.description }}</p>
       </div>
-    </form>
-    <script>
-    (function() {
-      const radios = document.querySelectorAll('input[name="purchase_type"]');
-      const cadenceInput = document.getElementById('cadence-input');
-      radios.forEach(r => r.addEventListener('change', () => {
-        cadenceInput.value = r.value === 'subscribe' ? '30' : '';
-      }));
-    })();
-    </script>
+      {% endif %}
+    </div>
   </div>
-</div>
+</section>
 {% endblock %}
