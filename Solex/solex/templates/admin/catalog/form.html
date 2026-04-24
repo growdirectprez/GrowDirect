@@ -1,0 +1,103 @@
+{% extends "admin/_layout.html" %}
+{% block title %}{{ "Edit" if product else "New" }} Product — Admin{% endblock %}
+{% block admin_main %}
+<h1 class="text-xl font-semibold mb-4">{{ "Edit" if product else "New" }} Product</h1>
+{% with messages = get_flashed_messages(with_categories=true) %}
+  {% for cat, msg in messages %}
+    <p class="mb-3 text-sm text-red-700">{{ msg }}</p>
+  {% endfor %}
+{% endwith %}
+<form method="post" class="space-y-4 max-w-lg">
+  <input type="hidden" name="csrf_token" value="{{ csrf_token() }}">
+
+  <div>
+    <label class="block text-sm font-medium mb-1">Name</label>
+    <input name="name" value="{{ product.name if product else '' }}" required
+           class="w-full border rounded px-3 py-2 text-sm">
+  </div>
+
+  <div>
+    <label class="block text-sm font-medium mb-1">SKU</label>
+    <input name="sku" value="{{ product.sku if product else '' }}" required
+           class="w-full border rounded px-3 py-2 text-sm">
+  </div>
+
+  <div>
+    <label class="block text-sm font-medium mb-1">Slug</label>
+    <input name="slug" value="{{ product.slug if product else '' }}" required
+           class="w-full border rounded px-3 py-2 text-sm">
+  </div>
+
+  <div>
+    <label class="block text-sm font-medium mb-1">Price (cents)</label>
+    <input name="price_cents" type="number" value="{{ product.price_cents if product else '' }}" required
+           class="w-full border rounded px-3 py-2 text-sm">
+  </div>
+
+  <div>
+    <label class="block text-sm font-medium mb-1">Compare-at price (cents, optional)</label>
+    <input name="compare_at_cents" type="number"
+           value="{{ product.compare_at_cents if product and product.compare_at_cents else '' }}"
+           class="w-full border rounded px-3 py-2 text-sm">
+  </div>
+
+  <div>
+    <label class="block text-sm font-medium mb-1">Short description</label>
+    <input name="short_description"
+           value="{{ product.short_description if product else '' }}"
+           class="w-full border rounded px-3 py-2 text-sm">
+  </div>
+
+  <div>
+    <label class="block text-sm font-medium mb-1">Description</label>
+    <textarea name="description" rows="4"
+              class="w-full border rounded px-3 py-2 text-sm">{{ product.description if product else '' }}</textarea>
+  </div>
+
+  <div>
+    <label class="block text-sm font-medium mb-1">Image path</label>
+    <input name="image_path" value="{{ product.image_path if product else '' }}"
+           class="w-full border rounded px-3 py-2 text-sm">
+  </div>
+
+  <div>
+    <label class="block text-sm font-medium mb-1">Weight (grams)</label>
+    <input name="weight_grams" type="number" value="{{ product.weight_grams if product else 0 }}"
+           class="w-full border rounded px-3 py-2 text-sm">
+  </div>
+
+  <div>
+    <label class="block text-sm font-medium mb-1">Category</label>
+    <select name="category_id" class="w-full border rounded px-3 py-2 text-sm">
+      <option value="">— none —</option>
+      {% for cat in categories %}
+        <option value="{{ cat.id }}"
+          {% if product and product.category_id == cat.id %}selected{% endif %}>
+          {{ cat.name }}
+        </option>
+      {% endfor %}
+    </select>
+  </div>
+
+  <div class="flex items-center gap-2">
+    <input type="checkbox" name="active" id="active"
+           {% if not product or product.active %}checked{% endif %}>
+    <label for="active" class="text-sm">Active</label>
+  </div>
+
+  {% if not product %}
+  <div>
+    <label class="block text-sm font-medium mb-1">Starting inventory</label>
+    <input name="starting_inventory" type="number" value="0"
+           class="w-full border rounded px-3 py-2 text-sm">
+  </div>
+  {% endif %}
+
+  <div class="flex gap-3">
+    <button type="submit" class="border px-4 py-2 rounded text-sm">
+      {{ "Update" if product else "Create" }}
+    </button>
+    <a href="/admin/catalog/" class="border px-4 py-2 rounded text-sm text-stone-500">Cancel</a>
+  </div>
+</form>
+{% endblock %}
