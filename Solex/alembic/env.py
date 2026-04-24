@@ -4,8 +4,8 @@ from alembic import context
 from solex.config import resolve_config
 from solex.extensions import Base
 
-# Import models so MetaData is populated (none yet; added in Chunk 3):
-# import solex.models  # noqa
+# Import models so MetaData is populated:
+import solex.models  # noqa
 
 config = context.config
 cfg = resolve_config()
