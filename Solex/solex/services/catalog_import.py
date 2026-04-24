@@ -65,6 +65,23 @@ class CatalogImporter:
             self._copy_image(p.get("image_path"))
 
         self.session.commit()
+
+        import os
+        if os.environ.get("SOLEX_FLAG_SYNC_CATALOG_TO_SQUARE", "").lower() == "true":
+            try:
+                from solex.services.catalog_sync import CatalogSyncService
+                from solex.services.square_client import SquareClient, SquareConfig
+                cfg = SquareConfig(
+                    access_token=os.environ["SQUARE_SANDBOX_ACCESS_TOKEN"],
+                    environment=os.environ.get("SQUARE_ENVIRONMENT", "sandbox"),
+                    location_id=os.environ["SQUARE_SANDBOX_LOCATION_ID"],
+                    webhook_signature_key=os.environ.get("SQUARE_SANDBOX_WEBHOOK_SIGNATURE_KEY", ""),
+                )
+                CatalogSyncService(self.session, SquareClient(cfg)).sync_all()
+            except Exception:
+                # Sync failure must not break catalog import
+                pass
+
         return counts
 
     def _copy_image(self, rel_path: str | None):

@@ -27,6 +27,25 @@ def import_catalog(path):
         click.echo(f"imported: {counts}")
 
 
+@catalog.command("sync-to-square")
+def sync_to_square():
+    """Sync all active products to Square Catalog (requires SQUARE env vars)."""
+    import os
+    from solex.services.catalog_sync import CatalogSyncService
+    from solex.services.square_client import SquareClient, SquareConfig
+
+    app = create_app()
+    with app.app_context():
+        cfg = SquareConfig(
+            access_token=os.environ["SQUARE_SANDBOX_ACCESS_TOKEN"],
+            environment=os.environ.get("SQUARE_ENVIRONMENT", "sandbox"),
+            location_id=os.environ["SQUARE_SANDBOX_LOCATION_ID"],
+            webhook_signature_key=os.environ.get("SQUARE_SANDBOX_WEBHOOK_SIGNATURE_KEY", ""),
+        )
+        summary = CatalogSyncService(db.session, SquareClient(cfg)).sync_all()
+        click.echo(f"sync complete: {summary}")
+
+
 @cli.group()
 def admin(): ...
 
