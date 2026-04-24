@@ -1,0 +1,51 @@
+{% extends "account/_layout.html" %}
+{% block account_main %}
+<h1 class="text-2xl font-semibold mb-6">Subscriptions</h1>
+
+{% with messages = get_flashed_messages(with_categories=true) %}
+  {% for category, message in messages %}
+  <div class="mb-4 text-sm {% if category == 'error' %}text-red-600{% else %}text-green-700{% endif %}">{{ message }}</div>
+  {% endfor %}
+{% endwith %}
+
+{% if subs %}
+<ul class="divide-y">
+  {% for s in subs %}
+  <li class="py-3 flex justify-between items-center">
+    <div>
+      <a href="/account/subscriptions/{{ s.id }}" class="underline font-medium">
+        Every {{ s.cadence_days }} days
+      </a>
+      <div class="text-sm text-stone-500">
+        {{ s.status }} &mdash; next charge {{ s.next_charge_at.strftime('%Y-%m-%d') }}
+      </div>
+    </div>
+    <div class="flex gap-2 text-sm">
+      {% if s.status == 'active' %}
+      {% if selfserve %}
+      <form action="/account/subscriptions/{{ s.id }}/pause" method="post">
+        <button type="submit" class="underline text-stone-600">Pause</button>
+      </form>
+      {% else %}
+      <span class="text-stone-400" title="Contact support to pause">Pause</span>
+      {% endif %}
+      <form action="/account/subscriptions/{{ s.id }}/cancel" method="post">
+        <button type="submit" class="underline text-red-600">Cancel</button>
+      </form>
+      {% elif s.status == 'paused' %}
+      {% if selfserve %}
+      <form action="/account/subscriptions/{{ s.id }}/resume" method="post">
+        <button type="submit" class="underline text-stone-600">Resume</button>
+      </form>
+      {% else %}
+      <span class="text-stone-400" title="Contact support to resume">Resume</span>
+      {% endif %}
+      {% endif %}
+    </div>
+  </li>
+  {% endfor %}
+</ul>
+{% else %}
+<p class="text-stone-500">No subscriptions.</p>
+{% endif %}
+{% endblock %}
