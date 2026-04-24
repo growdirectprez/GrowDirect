@@ -1,0 +1,46 @@
+{% extends "admin/_layout.html" %}
+{% block title %}Inventory — Admin{% endblock %}
+{% block admin_main %}
+<h1 class="text-xl font-semibold mb-4">Inventory</h1>
+{% with messages = get_flashed_messages(with_categories=true) %}
+  {% for cat, msg in messages %}
+    <p class="mb-3 text-sm text-{{ 'green' if cat == 'ok' else 'red' }}-700">{{ msg }}</p>
+  {% endfor %}
+{% endwith %}
+<table class="w-full text-sm border-collapse">
+  <thead>
+    <tr class="border-b text-left">
+      <th class="py-2 pr-4">Product</th>
+      <th class="py-2 pr-4">On Hand</th>
+      <th class="py-2">Adjust</th>
+    </tr>
+  </thead>
+  <tbody>
+    {% for product, inv in rows %}
+    <tr class="border-b align-top">
+      <td class="py-2 pr-4">{{ product.name }}</td>
+      <td class="py-2 pr-4">{{ inv.on_hand if inv else 0 }}</td>
+      <td class="py-2">
+        <form method="post" action="/admin/inventory/{{ product.id }}/adjust" class="flex gap-2 items-center flex-wrap">
+          <input type="hidden" name="csrf_token" value="{{ csrf_token() }}">
+          <input name="delta" type="number" placeholder="delta" required
+                 class="border rounded px-2 py-1 text-sm w-20">
+          <select name="reason" class="border rounded px-2 py-1 text-sm">
+            <option value="restock">Restock</option>
+            <option value="sale">Sale</option>
+            <option value="refund">Refund</option>
+            <option value="shrink">Shrink</option>
+            <option value="correction">Correction</option>
+          </select>
+          <input name="note" placeholder="note (optional)"
+                 class="border rounded px-2 py-1 text-sm w-36">
+          <button type="submit" class="border px-3 py-1 rounded text-sm">Apply</button>
+        </form>
+      </td>
+    </tr>
+    {% else %}
+    <tr><td colspan="3" class="py-4 text-stone-400">No products.</td></tr>
+    {% endfor %}
+  </tbody>
+</table>
+{% endblock %}
