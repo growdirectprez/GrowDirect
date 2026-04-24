@@ -103,7 +103,9 @@ class SubscriptionService:
             square_card_id=sub.square_card_id,
             amount_cents=product.price_cents * sub.qty,
             customer_id=customer.square_customer_id,
-            reference_id=f"autoship:{sub.id}:{now.isoformat()}",
+            # Square caps idempotency_key at 45 chars. Keep short + deterministic
+            # within a charge period so retries dedupe: 8 hex of sub id + unix mins.
+            reference_id=f"s{sub.id.hex[:8]}{int(now.timestamp() // 60)}",
         )
         from secrets import token_urlsafe
         order = Order(
