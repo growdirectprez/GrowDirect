@@ -13,37 +13,196 @@ categories:
     sort: 4
 
 products:
+  # ── Supplements (10) ──────────────────────────────────────────────────────
   - sku: AO-YOUTH-30
     slug: ao-youth-30
     name: AO Youth — 30 count
     short_description: Daily cellular support supplement.
-    description: Placeholder description. Real Solex copy pulled in Plan 4.
+    description: AO Youth supports cellular vitality with a proprietary blend of antioxidants and frequency-optimized nutrients. 30 capsules, one per day.
     price_cents: 4995
-    image_path: catalog/images/ao-youth-30.jpg
+    image_path: catalog/images/ao-youth-30.png
     category_slug: supplements
     active: true
     weight_grams: 120
     starting_inventory: 100
 
+  - sku: AO-YOUTH-90
+    slug: ao-youth-90
+    name: AO Youth — 90 count
+    short_description: Three-month cellular support supply.
+    description: AO Youth 90-count value pack. Same formula as the 30-count, ideal for committed daily users.
+    price_cents: 12995
+    image_path: catalog/images/ao-youth-90.png
+    category_slug: supplements
+    active: true
+    weight_grams: 310
+    starting_inventory: 80
+
+  - sku: AO-MIND-30
+    slug: ao-mind-30
+    name: AO Mind — 30 count
+    short_description: Cognitive clarity and focus support.
+    description: AO Mind combines adaptogenic herbs with frequency-aligned botanicals to support mental clarity, focus, and calm energy.
+    price_cents: 5495
+    image_path: catalog/images/ao-mind-30.png
+    category_slug: supplements
+    active: true
+    weight_grams: 125
+    starting_inventory: 90
+
+  - sku: AO-SLEEP-30
+    slug: ao-sleep-30
+    name: AO Sleep — 30 count
+    short_description: Restorative sleep formula.
+    description: AO Sleep supports deeper, more restorative sleep cycles with a blend of magnesium, ashwagandha, and melatonin precursors.
+    price_cents: 4495
+    image_path: catalog/images/ao-sleep-30.png
+    category_slug: supplements
+    active: true
+    weight_grams: 115
+    starting_inventory: 85
+
+  - sku: AO-IMMUNE-30
+    slug: ao-immune-30
+    name: AO Immune — 30 count
+    short_description: Daily immune defense supplement.
+    description: AO Immune strengthens the body's natural defenses with vitamin C, zinc, elderberry extract, and frequency-tuned botanicals.
+    price_cents: 4795
+    image_path: catalog/images/ao-immune-30.png
+    category_slug: supplements
+    active: true
+    weight_grams: 120
+    starting_inventory: 95
+
+  - sku: AO-GUT-30
+    slug: ao-gut-30
+    name: AO Gut — 30 count
+    short_description: Gut microbiome support formula.
+    description: AO Gut nurtures the gut-brain axis with a prebiotic-probiotic blend and digestive enzymes.
+    price_cents: 4995
+    image_path: catalog/images/ao-gut-30.png
+    category_slug: supplements
+    active: true
+    weight_grams: 130
+    starting_inventory: 75
+
+  - sku: AO-ENERGY-30
+    slug: ao-energy-30
+    name: AO Energy — 30 count
+    short_description: Clean energy without stimulants.
+    description: AO Energy supports mitochondrial function and sustained energy with CoQ10, B-vitamins, and adaptogens. No caffeine.
+    price_cents: 5295
+    image_path: catalog/images/ao-energy-30.png
+    category_slug: supplements
+    active: true
+    weight_grams: 125
+    starting_inventory: 80
+
+  - sku: AO-JOINT-60
+    slug: ao-joint-60
+    name: AO Joint — 60 count
+    short_description: Joint and connective tissue support.
+    description: AO Joint delivers collagen peptides, turmeric, and boswellia for flexible, comfortable joints.
+    price_cents: 5995
+    image_path: catalog/images/ao-joint-60.png
+    category_slug: supplements
+    active: true
+    weight_grams: 200
+    starting_inventory: 70
+
+  - sku: AO-DETOX-30
+    slug: ao-detox-30
+    name: AO Detox — 30 count
+    short_description: Liver and cellular detox support.
+    description: AO Detox supports the liver's natural cleansing pathways with milk thistle, NAC, and chlorella.
+    price_cents: 4695
+    image_path: catalog/images/ao-detox-30.png
+    category_slug: supplements
+    active: true
+    weight_grams: 120
+    starting_inventory: 65
+
+  - sku: AO-HEART-30
+    slug: ao-heart-30
+    name: AO Heart — 30 count
+    short_description: Cardiovascular vitality formula.
+    description: AO Heart combines CoQ10, omega-3 concentrates, and hawthorne berry for heart health and circulation.
+    price_cents: 5995
+    image_path: catalog/images/ao-heart-30.png
+    category_slug: supplements
+    active: true
+    weight_grams: 140
+    starting_inventory: 60
+
+  # ── Frequency Devices (5) ─────────────────────────────────────────────────
   - sku: AO-SCAN-V1
     slug: ao-scan-v1
     name: AO Scan — Baseline
     short_description: Frequency diagnostic tool.
-    description: Placeholder description.
+    description: The AO Scan Baseline device reads bioenergetic frequencies and provides a full-body scan report in minutes.
     price_cents: 149900
-    image_path: catalog/images/ao-scan.jpg
+    image_path: catalog/images/ao-scan-v1.png
     category_slug: devices
     active: true
     weight_grams: 500
     starting_inventory: 20
 
+  - sku: AO-SCAN-PRO
+    slug: ao-scan-pro
+    name: AO Scan — Professional
+    short_description: Advanced clinical frequency device.
+    description: AO Scan Professional includes all Baseline features plus extended organ mapping, practitioner reporting, and priority support.
+    price_cents: 249900
+    image_path: catalog/images/ao-scan-pro.png
+    category_slug: devices
+    active: true
+    weight_grams: 620
+    starting_inventory: 10
+
+  - sku: AO-INNER-VOICE
+    slug: ao-inner-voice
+    name: AO Inner Voice
+    short_description: Voice analysis frequency tool.
+    description: AO Inner Voice uses voice analysis algorithms to identify emotional and energetic imbalances, then generates balancing tones.
+    price_cents: 99900
+    image_path: catalog/images/ao-inner-voice.png
+    category_slug: devices
+    active: true
+    weight_grams: 350
+    starting_inventory: 15
+
+  - sku: AO-SEFI-UNIT
+    slug: ao-sefi-unit
+    name: AO SEFI Unit
+    short_description: Subtle energy frequency imprinter.
+    description: The AO SEFI (Subtle Energy Frequency Imprinter) broadcasts customized frequency programs to support wellness goals.
+    price_cents: 179900
+    image_path: catalog/images/ao-sefi-unit.png
+    category_slug: devices
+    active: true
+    weight_grams: 800
+    starting_inventory: 8
+
+  - sku: AO-IMPLANT-STIM
+    slug: ao-implant-stim
+    name: AO Implant Stimulator
+    short_description: Resonance stimulator for implant sites.
+    description: AO Implant Stimulator delivers targeted frequencies to reduce interference from metal implants and support local tissue health.
+    price_cents: 129900
+    image_path: catalog/images/ao-implant-stim.png
+    category_slug: devices
+    active: true
+    weight_grams: 450
+    starting_inventory: 12
+
+  # ── Light & PEMF Therapy (5) ──────────────────────────────────────────────
   - sku: PEMF-MAT-INF
     slug: ao-infinity-mat
     name: AO Infinity Mat
     short_description: Full-body PEMF therapy mat.
-    description: Placeholder description.
+    description: The AO Infinity Mat delivers full-body pulsed electromagnetic field (PEMF) therapy for cellular regeneration and recovery.
     price_cents: 259900
-    image_path: catalog/images/infinity-mat.jpg
+    image_path: catalog/images/pemf-mat-inf.png
     category_slug: therapy
     active: true
     weight_grams: 8000
@@ -53,22 +212,107 @@ products:
     slug: red-light-belt
     name: Red Light Belt
     short_description: Targeted red light therapy belt.
-    description: Placeholder description.
+    description: Wearable red and near-infrared light therapy belt targets inflammation, pain, and tissue recovery in the lumbar and abdominal regions.
     price_cents: 34900
-    image_path: catalog/images/red-light-belt.jpg
+    image_path: catalog/images/red-light-belt.png
     category_slug: therapy
     active: true
     weight_grams: 900
     starting_inventory: 40
 
+  - sku: RED-LIGHT-PANEL-M
+    slug: red-light-panel-m
+    name: Red Light Panel — Medium
+    short_description: Wall-mount red + NIR panel, medium.
+    description: Medium-format red and near-infrared light panel for targeted or full-torso sessions. 660nm and 850nm dual-wavelength.
+    price_cents: 79900
+    image_path: catalog/images/red-light-panel-m.png
+    category_slug: therapy
+    active: true
+    weight_grams: 5000
+    starting_inventory: 15
+
+  - sku: PEMF-SPOT-PAD
+    slug: pemf-spot-pad
+    name: PEMF Spot Pad
+    short_description: Targeted PEMF applicator pad.
+    description: Compact PEMF spot pad for localized joint and muscle therapy. Pairs with the Infinity Mat controller.
+    price_cents: 14900
+    image_path: catalog/images/pemf-spot-pad.png
+    category_slug: therapy
+    active: true
+    weight_grams: 600
+    starting_inventory: 30
+
+  - sku: AO-LIGHT-SPECS
+    slug: ao-light-specs
+    name: AO Light Specs
+    short_description: Photobiomodulation eyewear.
+    description: AO Light Specs deliver precise wavelengths to ocular and cranial tissues, supporting vision health and neurological calm.
+    price_cents: 24900
+    image_path: catalog/images/ao-light-specs.png
+    category_slug: therapy
+    active: true
+    weight_grams: 120
+    starting_inventory: 25
+
+  # ── Pet (5) ───────────────────────────────────────────────────────────────
   - sku: PET-GUT-60
     slug: pet-gut-60
     name: Pet Gut — 60 count
     short_description: Pet gut support.
-    description: Placeholder description.
+    description: Probiotic and prebiotic formula for dogs and cats. Supports digestive balance, coat health, and immune function.
     price_cents: 3495
-    image_path: catalog/images/pet-gut.jpg
+    image_path: catalog/images/pet-gut-60.png
     category_slug: pet
     active: true
     weight_grams: 90
     starting_inventory: 60
+
+  - sku: PET-CALM-30
+    slug: pet-calm-30
+    name: Pet Calm — 30 count
+    short_description: Stress and anxiety support for pets.
+    description: PET Calm uses ashwagandha, L-theanine, and chamomile to support relaxed behavior in anxious dogs and cats.
+    price_cents: 2995
+    image_path: catalog/images/pet-calm-30.png
+    category_slug: pet
+    active: true
+    weight_grams: 80
+    starting_inventory: 55
+
+  - sku: PET-JOINT-60
+    slug: pet-joint-60
+    name: Pet Joint — 60 count
+    short_description: Mobility and joint support for dogs.
+    description: Glucosamine, chondroitin, and omega-3 in a palatable chew for aging or active dogs.
+    price_cents: 3795
+    image_path: catalog/images/pet-joint-60.png
+    category_slug: pet
+    active: true
+    weight_grams: 200
+    starting_inventory: 50
+
+  - sku: PET-IMMUNE-30
+    slug: pet-immune-30
+    name: Pet Immune — 30 count
+    short_description: Daily immune support for cats and dogs.
+    description: Vitamin C, zinc, and elderberry in a pet-safe format. Supports immune resilience year-round.
+    price_cents: 2795
+    image_path: catalog/images/pet-immune-30.png
+    category_slug: pet
+    active: true
+    weight_grams: 85
+    starting_inventory: 65
+
+  - sku: PET-SCAN-MINI
+    slug: pet-scan-mini
+    name: AO Pet Scan Mini
+    short_description: Bioenergetic scanner for small animals.
+    description: Compact version of the AO Scan designed for veterinary and at-home use with cats, dogs, and small animals.
+    price_cents: 89900
+    image_path: catalog/images/pet-scan-mini.png
+    category_slug: pet
+    active: true
+    weight_grams: 300
+    starting_inventory: 8

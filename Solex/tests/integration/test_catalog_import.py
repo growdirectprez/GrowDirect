@@ -17,8 +17,8 @@ def test_imports_seed_yaml(app, db_session, tmp_static):
         static_root=tmp_static,
     )
     counts = importer.import_from_yaml(Path("catalog/products.yaml"))
-    assert counts["products"]["inserted"] == 5
-    assert db_session.query(Product).count() == 5
+    assert counts["products"]["inserted"] == 25
+    assert db_session.query(Product).count() == 25
     assert db_session.query(Category).count() == 4
 
 
@@ -26,4 +26,4 @@ def test_reimport_is_idempotent(app, db_session, tmp_static):
     importer = CatalogImporter(db_session, Path("catalog"), tmp_static)
     importer.import_from_yaml(Path("catalog/products.yaml"))
     importer.import_from_yaml(Path("catalog/products.yaml"))
-    assert db_session.query(Product).count() == 5
+    assert db_session.query(Product).count() == 25
