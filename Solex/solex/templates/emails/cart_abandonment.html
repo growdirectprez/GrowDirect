@@ -1,0 +1,4 @@
+{# templates/emails/cart_abandonment.html #}
+<p>Hi {{ cart.customer.first_name or "there" }},</p>
+<p>You left items in your cart. Pick up where you left off at
+<a href="{{ url_for('storefront.shop', _external=True) }}">Solex</a>.</p>

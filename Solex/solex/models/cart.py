@@ -1,10 +1,13 @@
 import uuid
-from typing import Optional
+from typing import Optional, TYPE_CHECKING
 from datetime import datetime
 from sqlalchemy import String, Integer, ForeignKey, DateTime, Index
 from sqlalchemy.dialects.postgresql import UUID
 from sqlalchemy.orm import Mapped, mapped_column, relationship
 from solex.models.base import BaseModel
+
+if TYPE_CHECKING:
+    from solex.models.customer import Customer
 
 
 class Cart(BaseModel):
@@ -19,6 +22,7 @@ class Cart(BaseModel):
     recovered_at: Mapped[Optional[datetime]] = mapped_column(DateTime(timezone=True), nullable=True)
     abandonment_emailed_at: Mapped[Optional[datetime]] = mapped_column(DateTime(timezone=True), nullable=True)
     lines: Mapped[list["CartLine"]] = relationship(back_populates="cart", cascade="all, delete-orphan")
+    customer: Mapped[Optional["Customer"]] = relationship("Customer", foreign_keys=[customer_id])
     __table_args__ = (
         Index("ix_carts_session", "session_key"),
         Index("ix_carts_customer", "customer_id"),

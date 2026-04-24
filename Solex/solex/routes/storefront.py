@@ -1,6 +1,7 @@
-from flask import Blueprint, render_template, abort
+from flask import Blueprint, render_template, abort, request
 from solex.extensions import db
 from solex.services.catalog import CatalogService
+from solex.services.search import SearchService
 
 bp = Blueprint("storefront", __name__)
 
@@ -37,3 +38,10 @@ def product_detail(slug):
     if product is None or not product.active:
         abort(404)
     return render_template("storefront/product_detail.html", product=product)
+
+
+@bp.get("/search")
+def search():
+    q = request.args.get("q", "").strip()
+    products = SearchService(db.session).search(q) if q else []
+    return render_template("storefront/search.html", q=q, products=products)

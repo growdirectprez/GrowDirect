@@ -1,0 +1,29 @@
+{% extends "admin/_layout.html" %}
+{% block title %}Subscriptions — Admin{% endblock %}
+{% block admin_main %}
+<h1 class="text-xl font-semibold mb-4">Subscriptions</h1>
+<table class="w-full text-sm border-collapse">
+  <thead>
+    <tr class="border-b text-left">
+      <th class="py-2 pr-4">Customer</th>
+      <th class="py-2 pr-4">Status</th>
+      <th class="py-2 pr-4">Cadence</th>
+      <th class="py-2 pr-4">Next Charge</th>
+      <th class="py-2"></th>
+    </tr>
+  </thead>
+  <tbody>
+    {% for sub in subs %}
+    <tr class="border-b">
+      <td class="py-2 pr-4 font-mono text-xs">{{ sub.customer_id }}</td>
+      <td class="py-2 pr-4">{{ sub.status }}</td>
+      <td class="py-2 pr-4">every {{ sub.cadence_days }}d</td>
+      <td class="py-2 pr-4">{{ sub.next_charge_at.strftime("%Y-%m-%d") }}</td>
+      <td class="py-2"><a href="/admin/subscriptions/{{ sub.id }}" class="text-blue-600">View</a></td>
+    </tr>
+    {% else %}
+    <tr><td colspan="5" class="py-4 text-stone-400">No subscriptions.</td></tr>
+    {% endfor %}
+  </tbody>
+</table>
+{% endblock %}

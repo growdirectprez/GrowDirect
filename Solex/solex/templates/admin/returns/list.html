@@ -1,0 +1,34 @@
+{% extends "admin/_layout.html" %}
+{% block title %}Returns — Admin{% endblock %}
+{% block admin_main %}
+<h1 class="text-xl font-semibold mb-4">Returns</h1>
+{% with messages = get_flashed_messages(with_categories=true) %}
+  {% for cat, msg in messages %}
+    <p class="mb-3 text-sm text-{{ 'green' if cat == 'ok' else 'red' }}-700">{{ msg }}</p>
+  {% endfor %}
+{% endwith %}
+<table class="w-full text-sm border-collapse">
+  <thead>
+    <tr class="border-b text-left">
+      <th class="py-2 pr-4">Order</th>
+      <th class="py-2 pr-4">Status</th>
+      <th class="py-2 pr-4">Reason</th>
+      <th class="py-2 pr-4">Created</th>
+      <th class="py-2"></th>
+    </tr>
+  </thead>
+  <tbody>
+    {% for req in reqs %}
+    <tr class="border-b">
+      <td class="py-2 pr-4 font-mono text-xs">{{ req.order_id }}</td>
+      <td class="py-2 pr-4">{{ req.status }}</td>
+      <td class="py-2 pr-4">{{ req.reason[:60] }}{% if req.reason|length > 60 %}…{% endif %}</td>
+      <td class="py-2 pr-4">{{ req.created_at.strftime("%Y-%m-%d") }}</td>
+      <td class="py-2"><a href="/admin/returns/{{ req.id }}" class="text-blue-600">Review</a></td>
+    </tr>
+    {% else %}
+    <tr><td colspan="5" class="py-4 text-stone-400">No return requests.</td></tr>
+    {% endfor %}
+  </tbody>
+</table>
+{% endblock %}

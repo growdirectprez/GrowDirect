@@ -7,7 +7,8 @@
         class="space-y-4"
         data-app-id="{{ square_app_id }}"
         data-location-id="{{ square_location_id }}"
-        data-env="{{ square_environment }}">
+        data-env="{{ square_environment }}"
+        data-has-subscription="{{ 'true' if cart.lines | selectattr('cadence_days', 'defined') | list else 'false' }}">
 
     <div class="space-y-2">
       <label class="block text-sm font-medium text-stone-700">Email</label>
@@ -38,6 +39,12 @@
     <div class="space-y-2">
       <label class="block text-sm font-medium text-stone-700">Card</label>
       <div id="card-container" class="border border-stone-300 rounded p-3 min-h-[44px]"></div>
+    </div>
+
+    <div id="store-card-section" class="space-y-2 hidden">
+      <label class="block text-sm font-medium text-stone-700">Card for subscription billing</label>
+      <p class="text-xs text-stone-500">Your subscription requires a card saved on file. This can be the same card.</p>
+      <div id="store-card-container" class="border border-stone-300 rounded p-3 min-h-[44px]"></div>
     </div>
 
     <div class="pt-2 border-t border-stone-200 text-sm text-stone-600 space-y-1">

@@ -1,0 +1,44 @@
+{% extends "admin/_layout.html" %}
+{% block title %}Return Request — Admin{% endblock %}
+{% block admin_main %}
+<div class="mb-4">
+  <a href="/admin/returns/" class="text-sm text-stone-500">&larr; Returns</a>
+</div>
+{% with messages = get_flashed_messages(with_categories=true) %}
+  {% for cat, msg in messages %}
+    <p class="mb-3 text-sm text-{{ 'green' if cat == 'ok' else 'red' }}-700">{{ msg }}</p>
+  {% endfor %}
+{% endwith %}
+
+<h1 class="text-xl font-semibold mb-4">Return Request</h1>
+<div class="mb-6 space-y-1 text-sm">
+  <p>Status: <strong>{{ req.status }}</strong></p>
+  <p>Order ID: <span class="font-mono text-xs">{{ req.order_id }}</span></p>
+  <p>Customer ID: <span class="font-mono text-xs">{{ req.customer_id or "—" }}</span></p>
+  <p>Reason: {{ req.reason }}</p>
+  <p>Created: {{ req.created_at.strftime("%Y-%m-%d %H:%M UTC") }}</p>
+  {% if req.resolved_at %}
+  <p>Resolved: {{ req.resolved_at.strftime("%Y-%m-%d %H:%M UTC") }}</p>
+  {% endif %}
+  {% if req.refund_id %}
+  <p>Refund ID: <span class="font-mono text-xs">{{ req.refund_id }}</span></p>
+  {% endif %}
+</div>
+
+{% if req.status == "pending" %}
+<div class="flex gap-4 flex-wrap">
+  <form method="post" action="/admin/returns/{{ req.id }}/approve">
+    <input type="hidden" name="csrf_token" value="{{ csrf_token() }}">
+    <button type="submit" class="border px-4 py-2 rounded text-sm"
+            onclick="return confirm('Approve and issue full refund?')">Approve + Refund</button>
+  </form>
+
+  <form method="post" action="/admin/returns/{{ req.id }}/deny" class="flex gap-2 items-start">
+    <input type="hidden" name="csrf_token" value="{{ csrf_token() }}">
+    <textarea name="reason" placeholder="Denial reason" rows="2"
+              class="border rounded px-2 py-1 text-sm w-48"></textarea>
+    <button type="submit" class="border px-4 py-2 rounded text-sm text-red-600">Deny</button>
+  </form>
+</div>
+{% endif %}
+{% endblock %}
