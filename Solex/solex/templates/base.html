@@ -20,8 +20,11 @@
   <main class="pb-20">{% block main %}{% endblock %}</main>
   {% include "_partials/footer.html" %}
   {% include "cart/_drawer.html" ignore missing %}
-  <script src="{{ url_for('static', filename='js/vendor/alpine.min.js') }}" defer></script>
+  {# cart_drawer.js MUST load before alpine.min.js so window.cartDrawer exists
+     when Alpine evaluates x-data="cartDrawer()" during init. Both are deferred
+     and execute in DOM order after parsing. #}
   <script src="{{ url_for('static', filename='js/cart_drawer.js') }}" defer></script>
+  <script src="{{ url_for('static', filename='js/vendor/alpine.min.js') }}" defer></script>
   {% block scripts %}{% endblock %}
 </body>
 </html>
