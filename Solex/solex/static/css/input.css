@@ -32,7 +32,7 @@
     @apply bg-white rounded-brand border border-solex-line overflow-hidden;
   }
   .card-product {
-    @apply card group block transition-shadow hover:shadow-md;
+    @apply card block transition-shadow hover:shadow-md;
   }
   .container-narrow {
     @apply mx-auto max-w-content px-4 sm:px-6 lg:px-8;
