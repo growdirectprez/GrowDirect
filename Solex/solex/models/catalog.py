@@ -1,7 +1,7 @@
 import uuid
 from typing import Optional
 from sqlalchemy import String, Integer, Boolean, ForeignKey, Text, Index
-from sqlalchemy.dialects.postgresql import UUID, JSONB
+from sqlalchemy.dialects.postgresql import UUID, JSONB, TSVECTOR
 from sqlalchemy.orm import Mapped, mapped_column, relationship
 from solex.models.base import BaseModel
 
@@ -35,6 +35,8 @@ class Product(BaseModel):
     weight_grams: Mapped[int] = mapped_column(Integer, default=0, nullable=False)
     dimensions_json: Mapped[dict] = mapped_column(JSONB, default=dict, nullable=False)
     square_catalog_object_id: Mapped[Optional[str]] = mapped_column(String(80), nullable=True)
+    # search_tsv is populated by DB trigger (migration 0003) — read-only from SQLAlchemy's POV
+    search_tsv: Mapped[Optional[str]] = mapped_column(TSVECTOR, nullable=True, deferred=True)
     category: Mapped[Optional[Category]] = relationship(back_populates="products")
     tags: Mapped[list["ProductTag"]] = relationship(back_populates="product", cascade="all, delete-orphan")
 
