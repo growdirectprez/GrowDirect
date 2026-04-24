@@ -13,3 +13,4 @@ solex/static/catalog/images/*
 htmlcov/
 dist/
 build/
+/solex/static/js/vendor/
