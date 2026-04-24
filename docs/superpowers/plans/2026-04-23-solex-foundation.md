@@ -108,6 +108,7 @@ Solex/
 │   └── images/                       placeholder imagery
 ├── solex/
 │   ├── __init__.py                   app factory (create_app)
+│   ├── __main__.py                   `python3 -m solex.cli` entry
 │   ├── config.py                     BaseConfig / DevConfig / TestConfig / ProdConfig
 │   ├── extensions.py                 db, login_manager (admin + customer), csrf, limiter, mail
 │   ├── cli.py                        click entry: catalog import, etc.
@@ -176,9 +177,9 @@ Solex/
 │       │   ├── input.css             Tailwind entry
 │       │   └── output.css            generated (gitignored in dev)
 │       ├── js/
-│       │   ├── alpine_init.js
 │       │   ├── cart_drawer.js
-│       │   └── checkout.js           wires Square Web Payments SDK
+│       │   ├── checkout.js           wires Square Web Payments SDK
+│       │   └── vendor/alpine.min.js  copied from node_modules at build
 │       └── catalog/images/           images copied in by import
 └── tests/
     ├── conftest.py                   app, db, client fixtures
@@ -338,7 +339,7 @@ psycopg[binary]==3.2.3
 redis==5.2.0
 rq==1.16.2
 rq-scheduler==0.14.0
-squareup==38.1.0.20241017
+squareup  # pin a tested version; run `pip index versions squareup` first, then replace with `squareup==X.Y.Z`
 tenacity==9.0.0
 pydantic==2.9.2
 PyYAML==6.0.2
@@ -382,14 +383,16 @@ Refs GRO-XXX. Plan 1 task 1.2."
 ```dockerfile
 # syntax=docker/dockerfile:1.7
 
-# --- stage 1: tailwind build ---
+# --- stage 1: tailwind build + alpine bundle ---
 FROM node:20-alpine AS assets
 WORKDIR /assets
 COPY package.json tailwind.config.js postcss.config.js ./
 RUN npm install
 COPY solex/static/css ./solex/static/css
 COPY solex/templates ./solex/templates
-RUN npx tailwindcss -i ./solex/static/css/input.css -o ./solex/static/css/output.css --minify
+RUN npx tailwindcss -i ./solex/static/css/input.css -o ./solex/static/css/output.css --minify \
+ && mkdir -p ./solex/static/js/vendor \
+ && cp ./node_modules/alpinejs/dist/cdn.min.js ./solex/static/js/vendor/alpine.min.js
 
 # --- stage 2: runtime ---
 FROM python:3.12-slim AS runtime
@@ -405,6 +408,7 @@ RUN pip install --no-cache-dir -r requirements-dev.txt
 
 COPY . .
 COPY --from=assets /assets/solex/static/css/output.css ./solex/static/css/output.css
+COPY --from=assets /assets/solex/static/js/vendor ./solex/static/js/vendor
 
 EXPOSE 5003
 CMD ["gunicorn", "-b", "0.0.0.0:5003", "--reload", "--workers", "2", "wsgi:app"]
@@ -1373,12 +1377,11 @@ class Customer(BaseModel):
     last_name: Mapped[Optional[str]] = mapped_column(String(80), nullable=True)
     phone: Mapped[Optional[str]] = mapped_column(String(40), nullable=True)
     square_customer_id: Mapped[Optional[str]] = mapped_column(String(80), nullable=True)
-    default_address_id: Mapped[Optional[uuid.UUID]] = mapped_column(
-        UUID(as_uuid=True), ForeignKey("addresses.id", ondelete="SET NULL"), nullable=True,
-        use_existing_column=False,
-    )
+    # default_address_id intentionally omitted in Plan 1 — would create a circular FK
+    # (customers.default_address_id → addresses.id, addresses.customer_id → customers.id)
+    # that Alembic autogen doesn't order correctly without use_alter. Plan 2 adds it
+    # back with the full account surface.
     addresses: Mapped[list["Address"]] = relationship(
-        "Address", primaryjoin="Address.customer_id == Customer.id",
         back_populates="customer", cascade="all, delete-orphan",
     )
 
@@ -1397,10 +1400,7 @@ class Address(BaseModel):
     postal_code: Mapped[str] = mapped_column(String(20), nullable=False)
     country: Mapped[str] = mapped_column(String(2), default="US", nullable=False)
     phone: Mapped[Optional[str]] = mapped_column(String(40), nullable=True)
-    customer: Mapped["Customer"] = relationship(
-        "Customer", primaryjoin="Address.customer_id == Customer.id",
-        back_populates="addresses",
-    )
+    customer: Mapped["Customer"] = relationship(back_populates="addresses")
 ```
 
 ```python
@@ -1584,8 +1584,11 @@ from solex.models.base import BaseModel
 
 class Refund(BaseModel):
     __tablename__ = "refunds"
-    order_id: Mapped[uuid.UUID] = mapped_column(
-        UUID(as_uuid=True), ForeignKey("orders.id", ondelete="CASCADE"), nullable=False,
+    # Nullable to support orphan-payment recovery (spec §4.10): a webhook may
+    # arrive for a Square payment we have no local Order for; we issue a refund
+    # and persist a Refund row with order_id=NULL.
+    order_id: Mapped[Optional[uuid.UUID]] = mapped_column(
+        UUID(as_uuid=True), ForeignKey("orders.id", ondelete="CASCADE"), nullable=True,
     )
     square_refund_id: Mapped[Optional[str]] = mapped_column(String(80), nullable=True)
     amount_cents: Mapped[int] = mapped_column(Integer, nullable=False)
@@ -1674,7 +1677,13 @@ docker compose -f devops/docker-compose.yml run --rm web \
 
 - [ ] **Step 4: Review the generated file**
 
-Rename the generated file to `0001_initial.py` (delete the placeholder empty file if present). Verify every model you added is present as `op.create_table`. If anything's missing, the likely cause is a forgotten `import` in `solex/models/__init__.py`.
+Rename the generated file to `0001_initial.py` (delete the placeholder empty file if present). Verify:
+- Every model you added is present as `op.create_table` (15+ tables).
+- FK `ondelete` clauses match the model declarations: `CASCADE` on owned-child rows (cart_lines, order_items, addresses, product_tags), `SET NULL` where a parent may be deleted but the record should survive (order_notes.admin_user_id, inventory_adjustments.order_id/refund_id, orders.customer_id, magic_link_tokens user FK — though MagicLinkToken.user_id isn't a hard FK since audience varies), and `CASCADE` on refunds→orders.
+- The unique constraint on `square_webhook_events.square_event_id` is present (required for idempotent webhook processing).
+- No FK into `customers.default_address_id` (we intentionally skipped that — see Task 3.3 comment).
+
+If anything's missing, the likely cause is a forgotten `import` in `solex/models/__init__.py`.
 
 - [ ] **Step 5: Run upgrade**
 
@@ -2167,6 +2176,7 @@ Add the fixture to conftest:
 ```python
 # tests/conftest.py (add)
 import pytest
+from sqlalchemy import text, inspect
 from solex.extensions import db as _db
 
 @pytest.fixture()
@@ -2175,7 +2185,10 @@ def db_session(app):
         yield _db.session
         _db.session.rollback()
         # Tear-down: truncate all data tables (keep schema)
-        for table in reversed(_db.session.get_bind().dialect.get_table_names(_db.session.get_bind())):
+        bind = _db.session.get_bind()
+        tables = inspect(bind).get_table_names()
+        # alembic_version stays; others get wiped
+        for table in [t for t in tables if t != "alembic_version"]:
             _db.session.execute(text(f'TRUNCATE "{table}" CASCADE'))
         _db.session.commit()
 ```
@@ -2316,7 +2329,7 @@ Skeleton:
   </header>
   <main class="mx-auto max-w-6xl p-4">{% block main %}{% endblock %}</main>
   {% include "cart/_drawer.html" %}
-  <script src="{{ url_for('static', filename='js/alpine_init.js') }}" defer></script>
+  <script src="{{ url_for('static', filename='js/vendor/alpine.min.js') }}" defer></script>
   <script src="{{ url_for('static', filename='js/cart_drawer.js') }}" defer></script>
 </body>
 </html>
@@ -2399,9 +2412,176 @@ Commit.
 
 ### Task 5.3 — Cart blueprint + drawer
 
-- [ ] Create `solex/routes/cart.py` with `POST /cart/add`, `POST /cart/update`, `POST /cart/remove`, `GET /cart`. Add-to-cart uses `CartService` + session key.
-- [ ] Create `solex/templates/cart/_drawer.html` (Alpine-driven slide-over) and `solex/templates/cart/cart.html`.
-- [ ] `solex/static/js/cart_drawer.js` — fetches `/cart.json` (add a JSON subroute), updates drawer contents on add events (dispatch a CustomEvent).
+**Files:**
+- Create: `Solex/solex/routes/cart.py`
+- Create: `Solex/solex/templates/cart/_drawer.html`
+- Create: `Solex/solex/templates/cart/cart.html`
+- Create: `Solex/solex/static/js/cart_drawer.js`
+
+- [ ] **Step 1: Session-key helper + blueprint**
+
+```python
+# solex/routes/cart.py
+from flask import Blueprint, request, jsonify, session, render_template
+from uuid import UUID
+import secrets
+from redis import Redis
+from solex.extensions import db
+from solex.services.cart import CartService, ValkeyCartBackend
+from solex.services.catalog import CatalogService
+from flask import current_app
+
+bp = Blueprint("cart", __name__)
+
+def _session_key() -> str:
+    key = session.get("cart_key")
+    if not key:
+        key = secrets.token_urlsafe(16)
+        session["cart_key"] = key
+    return key
+
+def _service() -> CartService:
+    redis = Redis.from_url(current_app.config["VALKEY_URL"])
+    backend = ValkeyCartBackend(redis)
+    catalog = CatalogService(db.session)
+    return CartService(backend, catalog.get_product_by_id)
+
+@bp.get("/cart")
+def view():
+    snap = _service().backend.load(_session_key())
+    return render_template("cart/cart.html", cart=snap)
+
+@bp.get("/cart.json")
+def as_json():
+    snap = _service().backend.load(_session_key())
+    return jsonify(snap.__dict__)
+
+@bp.post("/cart/add")
+def add():
+    product_id = UUID(request.form["product_id"])
+    qty = max(1, int(request.form.get("qty", 1)))
+    snap = _service().add(_session_key(), product_id, qty)
+    return jsonify(snap.__dict__), 200
+
+@bp.post("/cart/update")
+def update():
+    product_id = UUID(request.form["product_id"])
+    qty = max(0, int(request.form["qty"]))
+    snap = _service().update_qty(_session_key(), product_id, qty)
+    return jsonify(snap.__dict__), 200
+
+@bp.post("/cart/remove")
+def remove():
+    product_id = UUID(request.form["product_id"])
+    snap = _service().remove(_session_key(), product_id)
+    return jsonify(snap.__dict__), 200
+```
+
+- [ ] **Step 2: Add `CatalogService.get_product_by_id`** — add this method next to `get_product(slug)` in `solex/services/catalog.py`:
+
+```python
+    def get_product_by_id(self, product_id):
+        return self.session.get(Product, product_id)
+```
+
+- [ ] **Step 3: Register blueprint + CSRF exempt the JSON endpoints**
+
+In `solex/__init__.py` add `app.register_blueprint(cart.bp)`. In `create_app`, after `csrf.init_app(app)`, exempt the three POST endpoints (they're same-origin + session-gated; adding CSRF tokens to Alpine POSTs is deferred to Plan 2 where account flows need it):
+
+```python
+    from solex.routes import cart as cart_routes
+    csrf.exempt(cart_routes.bp)
+```
+
+- [ ] **Step 4: Drawer template**
+
+```html
+{# solex/templates/cart/_drawer.html #}
+<div x-show="cartOpen" @keydown.escape.window="cartOpen=false"
+     x-transition class="fixed inset-0 z-50" style="display:none">
+  <div class="absolute inset-0 bg-black/40" @click="cartOpen=false"></div>
+  <aside class="absolute right-0 top-0 h-full w-96 bg-white shadow-xl p-4 overflow-y-auto"
+         x-data="cartDrawer()" x-init="refresh()" @cart-updated.window="refresh()">
+    <div class="flex justify-between items-center mb-4">
+      <h2 class="text-lg font-semibold">Cart</h2>
+      <button @click="cartOpen=false" aria-label="Close">×</button>
+    </div>
+    <template x-if="lines.length === 0"><p class="text-stone-500">Empty.</p></template>
+    <ul>
+      <template x-for="line in lines" :key="line.product_id">
+        <li class="flex gap-3 py-2 border-b">
+          <img :src="line.image_path ? '/static/' + line.image_path : ''" class="w-14 h-14 object-cover">
+          <div class="flex-1">
+            <div x-text="line.name" class="text-sm font-medium"></div>
+            <div class="text-xs text-stone-500" x-text="'qty ' + line.qty"></div>
+          </div>
+          <div x-text="'$' + (line.qty * line.price_cents / 100).toFixed(2)"></div>
+        </li>
+      </template>
+    </ul>
+    <div class="mt-4 flex justify-between font-semibold">
+      <span>Subtotal</span>
+      <span x-text="'$' + (subtotal_cents/100).toFixed(2)"></span>
+    </div>
+    <a href="/checkout" class="mt-4 block text-center bg-stone-900 text-white rounded py-2">Checkout</a>
+  </aside>
+</div>
+```
+
+- [ ] **Step 5: Drawer JS**
+
+```js
+// solex/static/js/cart_drawer.js
+function cartDrawer() {
+  return {
+    lines: [],
+    subtotal_cents: 0,
+    async refresh() {
+      const r = await fetch("/cart.json", { credentials: "same-origin" });
+      const d = await r.json();
+      this.lines = d.lines;
+      this.subtotal_cents = d.subtotal_cents;
+      document.querySelectorAll("#cart-count").forEach(
+        el => el.textContent = d.lines.reduce((n,l)=>n+l.qty,0)
+      );
+    },
+  };
+}
+window.cartDrawer = cartDrawer;
+
+// Dispatch after any cart mutation
+document.addEventListener("submit", async (e) => {
+  const form = e.target;
+  if (!form.matches("form.js-cart-form")) return;
+  e.preventDefault();
+  const r = await fetch(form.action, {
+    method: "POST",
+    body: new FormData(form),
+    credentials: "same-origin",
+  });
+  if (r.ok) {
+    window.dispatchEvent(new CustomEvent("cart-updated"));
+    window.dispatchEvent(new CustomEvent("open-cart"));
+  }
+});
+```
+
+In `base.html`, add `x-on:open-cart.window="cartOpen = true"` on `<body>`.
+
+- [ ] **Step 6: Cart page template (`cart.html`)** — thin wrapper around the same data for non-JS fallback. Can be minimal for Plan 1; Plan 4 polishes.
+
+- [ ] **Step 7: Test — add-to-cart round trip**
+
+```python
+# tests/unit/test_routes_cart.py
+def test_add_to_cart_returns_updated_snapshot(client, seed_catalog):
+    product = seed_catalog.products[0]
+    resp = client.post("/cart/add", data={"product_id": str(product.id), "qty": 2})
+    assert resp.status_code == 200
+    body = resp.get_json()
+    assert body["lines"][0]["qty"] == 2
+    assert body["subtotal_cents"] == 2 * product.price_cents
+```
 
 Commit.
 
@@ -2506,20 +2686,378 @@ Unit test mocks `Client.orders.create_order` via `pytest-mock`, asserts retry be
 - Create: `Solex/solex/services/checkout.py`
 - Create: `Solex/tests/unit/test_services_checkout.py` (Square mocked)
 
-- [ ] Implement `place_order(cart_snapshot, customer_info, address, payment_token, *, autoship_source=None, scenario_tag=None, placed_at=None) -> Order` per the spec §6.1 flow. Use the stubs for tax/shipping. Wrap the whole DB transaction in `session.begin()`. On Square failure, no `Order` persists; re-raise. TDD with mocked `SquareClient`. Commit.
+- [ ] **Step 1: Skeleton** — TDD: start with the "happy path" test using a mocked `SquareClient` (returns an order_id and payment_id), then implement. Full skeleton:
+
+```python
+# solex/services/checkout.py
+from dataclasses import dataclass
+from datetime import datetime, timezone
+from secrets import token_urlsafe
+from typing import Optional
+from sqlalchemy.orm import Session
+from solex.models import Order, OrderItem, Product
+from solex.services.square_client import SquareClient, SquareDeclined, SquareError
+from solex.services.inventory import InventoryService
+from solex.services.tax import TaxService
+from solex.services.shipping import ShippingService
+
+@dataclass
+class CartLineIn:
+    product_id: str
+    qty: int
+    price_cents: int
+    name: str
+    sku: str
+    image_path: str
+
+@dataclass
+class CustomerIn:
+    email: str
+    name: str
+
+class CheckoutError(Exception): ...
+class PaymentDeclined(CheckoutError): ...
+
+class CheckoutService:
+    def __init__(
+        self,
+        session: Session,
+        square: SquareClient,
+        tax: TaxService,
+        shipping: ShippingService,
+        inventory: InventoryService,
+    ):
+        self.session = session
+        self.square = square
+        self.tax = tax
+        self.shipping = shipping
+        self.inventory = inventory
+
+    def place_order(
+        self,
+        cart_lines: list[CartLineIn],
+        customer: CustomerIn,
+        shipping_addr: dict,
+        billing_addr: dict,
+        payment_token: str,
+        *,
+        autoship_source: Optional[str] = None,
+        scenario_tag: Optional[str] = None,
+        placed_at: Optional[datetime] = None,
+    ) -> Order:
+        if not cart_lines:
+            raise CheckoutError("empty cart")
+        placed_at = placed_at or datetime.now(timezone.utc)
+
+        subtotal = sum(l.qty * l.price_cents for l in cart_lines)
+        ship_quote = self.shipping.quote(subtotal, shipping_addr.get("region", ""))
+        tax_calc = self.tax.compute(subtotal, ship_quote.shipping_cents, shipping_addr.get("region", ""))
+        total = subtotal + tax_calc.tax_cents + ship_quote.shipping_cents
+
+        # Build Square line items for order creation
+        square_lines = [{
+            "name": l.name,
+            "quantity": str(l.qty),
+            "base_price_money": {"amount": l.price_cents, "currency": "USD"},
+        } for l in cart_lines]
+
+        # ---- Square side (outside DB tx so we don't hold locks across network) ----
+        try:
+            sq_order = self.square.create_order(
+                line_items=square_lines,
+                taxes_cents=tax_calc.tax_cents,
+                shipping_cents=ship_quote.shipping_cents,
+            )
+            sq_payment = self.square.create_payment(
+                source_id=payment_token,
+                amount_cents=total,
+                order_id=sq_order["id"],
+            )
+        except SquareDeclined as e:
+            raise PaymentDeclined(str(e)) from e
+
+        # ---- Local persistence ----
+        with self.session.begin_nested():
+            order = Order(
+                public_token=token_urlsafe(16),
+                customer_email=customer.email,
+                customer_name=customer.name,
+                shipping_address_json=shipping_addr,
+                billing_address_json=billing_addr,
+                subtotal_cents=subtotal,
+                tax_cents=tax_calc.tax_cents,
+                shipping_cents=ship_quote.shipping_cents,
+                total_cents=total,
+                status="paid",
+                square_order_id=sq_order["id"],
+                square_payment_id=sq_payment["id"],
+                scenario_tag=scenario_tag,
+                autoship=bool(autoship_source),
+                placed_at=placed_at,
+            )
+            self.session.add(order)
+            self.session.flush()
+            for l in cart_lines:
+                self.session.add(OrderItem(
+                    order_id=order.id,
+                    product_id=l.product_id,
+                    sku_snapshot=l.sku,
+                    name_snapshot=l.name,
+                    image_path_snapshot=l.image_path,
+                    price_snapshot_cents=l.price_cents,
+                    qty=l.qty,
+                    line_total_cents=l.qty * l.price_cents,
+                ))
+            self.session.flush()
+            self.inventory.decrement_for_order(order)
+        self.session.commit()
+        return order
+```
+
+Note the DB tx boundary: Square calls happen **before** the DB `begin_nested`. On Square failure (declined, transient, unavailable), no local state is written. On DB failure after a successful Square payment, the webhook orphan-recovery path (§4.10) catches it and issues a refund. This is the critical invariant — don't reorder.
+
+- [ ] **Step 2: Unit tests — happy path + declined path** (mock `SquareClient`)
+
+```python
+# tests/unit/test_services_checkout.py
+from unittest.mock import Mock
+import pytest
+from solex.services.checkout import CheckoutService, CartLineIn, CustomerIn, PaymentDeclined
+from solex.services.square_client import SquareDeclined
+
+def test_places_order_happy_path(app, db_session, seed_catalog):
+    sq = Mock()
+    sq.create_order.return_value = {"id": "sq_order_123"}
+    sq.create_payment.return_value = {"id": "sq_payment_123"}
+    # ... build tax/shipping/inventory, call service.place_order, assert
+    # Order.status == "paid", square_payment_id set, inventory decremented
+
+def test_payment_declined_raises_and_persists_nothing(app, db_session, seed_catalog):
+    sq = Mock()
+    sq.create_order.return_value = {"id": "sq_order_456"}
+    sq.create_payment.side_effect = SquareDeclined("bad card")
+    # ... assert PaymentDeclined raised, Order count unchanged, Inventory unchanged
+```
+
+Flesh these in. Commit.
 
 ### Task 6.3 — Checkout routes + template
 
-- [ ] Create `solex/routes/checkout.py`:
-  - `GET /checkout` — renders form, passes Square Web Payments SDK app ID + location ID.
-  - `POST /checkout/submit` — JSON endpoint receiving `{cart_key, customer, address, payment_token}`. Calls `CheckoutService.place_order()`. Returns `{order_token}` on success, error codes on failure.
-  - `GET /order/<public_token>` — confirmation page.
+**Files:**
+- Create: `Solex/solex/routes/checkout.py`
+- Create: `Solex/solex/templates/checkout/checkout.html`
+- Create: `Solex/solex/templates/checkout/order_confirmation.html`
+- Create: `Solex/solex/static/js/checkout.js`
 
-- [ ] Create `solex/templates/checkout/checkout.html` with Web Payments SDK card element and `solex/static/js/checkout.js` that tokenizes and POSTs.
+- [ ] **Step 1: Checkout blueprint**
 
-- [ ] Create `solex/templates/checkout/order_confirmation.html`.
+```python
+# solex/routes/checkout.py
+from flask import Blueprint, render_template, request, jsonify, abort, current_app
+from redis import Redis
+from solex.extensions import db, csrf
+from solex.services.cart import ValkeyCartBackend
+from solex.services.checkout import CheckoutService, CartLineIn, CustomerIn, PaymentDeclined
+from solex.services.square_client import SquareClient, SquareConfig, SquareError
+from solex.services.inventory import InventoryService
+from solex.services.tax import FlatRateTaxStub
+from solex.services.shipping import FlatRateShippingStub
+from solex.models import Order
+from sqlalchemy import select
+from flask import session
 
-- [ ] Integration test stubs with Square mocked go in Task 6.2; the real sandbox call is in Task 8.1.
+bp = Blueprint("checkout", __name__)
+
+def _square() -> SquareClient:
+    c = current_app.config
+    return SquareClient(SquareConfig(
+        access_token=c["SQUARE_ACCESS_TOKEN"],
+        environment=c["SQUARE_ENVIRONMENT"],
+        location_id=c["SQUARE_LOCATION_ID"],
+        webhook_signature_key=c["SQUARE_WEBHOOK_SIGNATURE_KEY"],
+    ))
+
+def _cart_backend():
+    return ValkeyCartBackend(Redis.from_url(current_app.config["VALKEY_URL"]))
+
+@bp.get("/checkout")
+def view():
+    snap = _cart_backend().load(session.get("cart_key", ""))
+    if not snap.lines:
+        return render_template("checkout/empty.html"), 200
+    return render_template(
+        "checkout/checkout.html",
+        cart=snap,
+        square_app_id=current_app.config["SQUARE_APPLICATION_ID"],
+        square_location_id=current_app.config["SQUARE_LOCATION_ID"],
+        square_environment=current_app.config["SQUARE_ENVIRONMENT"],
+    )
+
+@bp.post("/checkout/submit")
+@csrf.exempt  # JSON endpoint; session-gated. Real CSRF hardening in Plan 2.
+def submit():
+    data = request.get_json(force=True)
+    snap = _cart_backend().load(session.get("cart_key", ""))
+    if not snap.lines:
+        return jsonify(error="empty_cart"), 400
+
+    cart_lines = [CartLineIn(
+        product_id=l["product_id"], qty=l["qty"], price_cents=l["price_cents"],
+        name=l["name"], sku=l["sku"], image_path=l.get("image_path", ""),
+    ) for l in snap.lines]
+
+    cfg = current_app.config
+    svc = CheckoutService(
+        session=db.session,
+        square=_square(),
+        tax=FlatRateTaxStub(rate_pct=cfg["TAX_RATE_PCT"]),
+        shipping=FlatRateShippingStub(
+            flat_cents=cfg["SHIPPING_FLAT_CENTS"],
+            free_threshold_cents=cfg["SHIPPING_FREE_THRESHOLD_CENTS"],
+        ),
+        inventory=InventoryService(db.session),
+    )
+    try:
+        order = svc.place_order(
+            cart_lines=cart_lines,
+            customer=CustomerIn(email=data["email"], name=data["name"]),
+            shipping_addr=data["shipping_address"],
+            billing_addr=data.get("billing_address", data["shipping_address"]),
+            payment_token=data["payment_token"],
+        )
+    except PaymentDeclined as e:
+        return jsonify(error="declined", detail=str(e)), 402
+    except SquareError as e:
+        return jsonify(error="payment_failed", detail=str(e)), 502
+
+    # Clear the cart
+    session.pop("cart_key", None)
+    return jsonify(order_token=order.public_token), 200
+
+@bp.get("/order/<token>")
+def confirmation(token):
+    order = db.session.execute(
+        select(Order).where(Order.public_token == token)
+    ).scalar_one_or_none()
+    if order is None:
+        abort(404)
+    return render_template("checkout/order_confirmation.html", order=order)
+```
+
+- [ ] **Step 2: Checkout template** — form fields for email, name, shipping address; `<div id="card-container"></div>`; submit button; includes `checkout.js`. Pass `square_app_id`, `square_location_id`, `square_environment` as data attributes so the JS can init the SDK.
+
+```html
+{# solex/templates/checkout/checkout.html #}
+{% extends "base.html" %}
+{% block main %}
+<form id="checkout-form" class="max-w-xl space-y-4"
+      data-app-id="{{ square_app_id }}"
+      data-location-id="{{ square_location_id }}"
+      data-env="{{ square_environment }}">
+  <input name="email" type="email" placeholder="Email" required class="w-full border p-2">
+  <input name="name" type="text" placeholder="Full name" required class="w-full border p-2">
+  <input name="line1" placeholder="Address" required class="w-full border p-2">
+  <div class="grid grid-cols-3 gap-2">
+    <input name="city" placeholder="City" required class="border p-2">
+    <input name="region" placeholder="State" required class="border p-2">
+    <input name="postal_code" placeholder="ZIP" required class="border p-2">
+  </div>
+  <div id="card-container" class="border p-2"></div>
+  <button id="pay-button" type="submit" class="bg-stone-900 text-white px-4 py-2">
+    Pay ${{ '%.2f' % (cart.subtotal_cents / 100) }}
+  </button>
+  <div id="checkout-error" class="text-red-600"></div>
+</form>
+<script src="https://sandbox.web.squarecdn.com/v1/square.js"></script>
+<script src="{{ url_for('static', filename='js/checkout.js') }}" defer></script>
+{% endblock %}
+```
+
+> For production (live mode), swap `sandbox.web.squarecdn.com` for `web.squarecdn.com`. The template could branch on `square_environment` — add that in Plan 4.
+
+- [ ] **Step 3: checkout.js**
+
+```js
+// solex/static/js/checkout.js
+async function init() {
+  const form = document.getElementById("checkout-form");
+  const appId = form.dataset.appId;
+  const locationId = form.dataset.locationId;
+
+  const payments = Square.payments(appId, locationId);
+  const card = await payments.card();
+  await card.attach("#card-container");
+
+  form.addEventListener("submit", async (e) => {
+    e.preventDefault();
+    const errDiv = document.getElementById("checkout-error");
+    errDiv.textContent = "";
+
+    const result = await card.tokenize();
+    if (result.status !== "OK") {
+      errDiv.textContent = result.errors?.[0]?.message || "Card tokenization failed";
+      return;
+    }
+
+    const fd = new FormData(form);
+    const body = {
+      email: fd.get("email"),
+      name: fd.get("name"),
+      payment_token: result.token,
+      shipping_address: {
+        first_name: (fd.get("name") || "").split(" ")[0] || "",
+        last_name: (fd.get("name") || "").split(" ").slice(1).join(" ") || "",
+        line1: fd.get("line1"),
+        city: fd.get("city"),
+        region: fd.get("region"),
+        postal_code: fd.get("postal_code"),
+        country: "US",
+      },
+    };
+
+    const resp = await fetch("/checkout/submit", {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify(body),
+      credentials: "same-origin",
+    });
+
+    if (!resp.ok) {
+      const j = await resp.json().catch(() => ({}));
+      errDiv.textContent = j.detail || j.error || "Checkout failed";
+      return;
+    }
+    const { order_token } = await resp.json();
+    window.location = `/order/${order_token}`;
+  });
+}
+document.addEventListener("DOMContentLoaded", init);
+```
+
+- [ ] **Step 4: Order confirmation template**
+
+```html
+{# solex/templates/checkout/order_confirmation.html #}
+{% extends "base.html" %}
+{% block main %}
+<h1 class="text-xl font-semibold">Thanks, {{ order.customer_name }}.</h1>
+<p>Order {{ order.public_token }} — ${{ '%.2f' % (order.total_cents / 100) }}</p>
+<ul class="mt-4 divide-y">
+{% for item in order.items %}
+  <li class="py-2 flex justify-between">
+    <span>{{ item.name_snapshot }} × {{ item.qty }}</span>
+    <span>${{ '%.2f' % (item.line_total_cents / 100) }}</span>
+  </li>
+{% endfor %}
+</ul>
+{% endblock %}
+```
+
+- [ ] **Step 5: Register blueprint.** Add `app.register_blueprint(checkout.bp)` in `create_app`.
+
+- [ ] **Step 6: Unit test** — GET `/order/<bogus>` returns 404; GET `/checkout` with empty session renders the empty template.
+
+Integration: the sandbox-live flow (real card token `cnon:card-nonce-ok`) is exercised in Task 8.1.
 
 Commit.
 
@@ -2552,9 +3090,57 @@ Unit tests mock `SquareClient`. Commit.
 
 ### Task 7.2 — RefundsService (minimal — orphan recovery only)
 
-- [ ] Create `solex/services/refunds.py` with `issue_refund(order, amount_cents, reason)` and `issue_refund_by_payment_id(payment_id, reason)`. Payment-id variant calls Square directly (no local `Order`), creates a `Refund` row linked to a synthetic `Order` stub? **No** — per spec, we do not synthesize. Instead: create `Refund` with `order_id=None` allowed via nullable FK in a follow-up migration. Simpler: introduce a dedicated `OrphanRefund` table.
-  - **Decision for Plan 1:** go with nullable `Refund.order_id`. Add Alembic migration `0002_refund_order_nullable.py`.
-- [ ] Tests. Commit.
+**Files:**
+- Create: `Solex/solex/services/refunds.py`
+- Create: `Solex/tests/unit/test_services_refunds.py`
+
+`Refund.order_id` was declared nullable back in Task 3.6 to accommodate the orphan-recovery case — no separate migration needed.
+
+- [ ] Create the service with two entry points:
+
+```python
+# solex/services/refunds.py
+from typing import Optional
+from sqlalchemy.orm import Session
+from solex.models import Order, Refund
+from solex.services.square_client import SquareClient
+from solex.services.inventory import InventoryService
+
+class RefundsService:
+    def __init__(self, session: Session, square: SquareClient, inventory: InventoryService):
+        self.session = session; self.square = square; self.inventory = inventory
+
+    def issue_refund(self, order: Order, amount_cents: int, reason: str, *, scenario_tag: Optional[str] = None) -> Refund:
+        sq = self.square.create_refund(order.square_payment_id, amount_cents)
+        refund = Refund(
+            order_id=order.id, square_refund_id=sq["id"],
+            amount_cents=amount_cents, reason=reason, scenario_tag=scenario_tag,
+        )
+        self.session.add(refund); self.session.flush()
+        if amount_cents >= order.total_cents:
+            order.status = "refunded"
+            self.inventory.increment_for_refund(refund)
+        else:
+            order.status = "partially_refunded"
+        self.session.commit()
+        return refund
+
+    def issue_refund_by_payment_id(self, payment_id: str, amount_cents: int, reason: str) -> Refund:
+        """Orphan-payment recovery (spec §4.10): we received a webhook for a
+        Square payment we have no local Order for. Refund the payment and
+        persist a Refund row with order_id=NULL."""
+        sq = self.square.create_refund(payment_id, amount_cents)
+        refund = Refund(
+            order_id=None, square_refund_id=sq["id"],
+            amount_cents=amount_cents, reason=reason,
+        )
+        self.session.add(refund); self.session.commit()
+        return refund
+```
+
+Note: `SquareClient.create_refund(payment_id, amount_cents)` isn't in the Task 6.1 skeleton; add it there when you hit this task. Square API call: `self._client.refunds.refund_payment(body=...)`.
+
+- [ ] Tests use a mocked `SquareClient` returning `{"id": "refund_abc"}`. Verify both entry points write the expected rows and transition order status correctly. Commit.
 
 ### Task 7.3 — Webhook route
 
@@ -2610,9 +3196,222 @@ Expect PASS against the real sandbox.
 
 ### Task 8.2 — Admin auth (login + logout only; surfaces deferred to Plan 2)
 
-- [ ] Implement `solex/services/auth.py` (password check + magic-link request/consume), `solex/routes/admin_auth.py` (`/admin/login` GET+POST, `/admin/magic/<token>`, `/admin/logout`), and `account_auth.py` (same shape but customer-flavored, routes only — no account surface yet).
-- [ ] Write a seed admin user (`dev@solex.local` / `password` — only in DevConfig, never Prod). Add a `python3 -m solex.cli admin create-seed-user` CLI.
-- [ ] Tests + commit.
+**Files:**
+- Create: `Solex/solex/services/auth.py`
+- Create: `Solex/solex/routes/admin_auth.py`
+- Create: `Solex/solex/routes/account_auth.py`
+- Create: `Solex/solex/templates/auth/admin_login.html`
+- Create: `Solex/solex/templates/auth/magic_link_sent.html`
+- Create: `Solex/tests/unit/test_services_auth.py`
+
+- [ ] **Step 1: Auth service (password + magic-link helpers)**
+
+```python
+# solex/services/auth.py
+import hashlib, secrets
+from datetime import datetime, timedelta, timezone
+from typing import Optional
+from werkzeug.security import check_password_hash, generate_password_hash
+from sqlalchemy import select
+from sqlalchemy.orm import Session
+from solex.models import AdminUser, Customer, MagicLinkToken
+
+MAGIC_LINK_TTL = timedelta(minutes=20)
+
+def _hash(token: str) -> str:
+    return hashlib.sha256(token.encode()).hexdigest()
+
+class AuthService:
+    def __init__(self, session: Session):
+        self.session = session
+
+    def verify_admin_password(self, email: str, password: str) -> Optional[AdminUser]:
+        user = self.session.execute(
+            select(AdminUser).where(AdminUser.email == email, AdminUser.active == True)
+        ).scalar_one_or_none()
+        if user is None or not user.password_hash:
+            return None
+        return user if check_password_hash(user.password_hash, password) else None
+
+    def set_admin_password(self, user: AdminUser, password: str):
+        user.password_hash = generate_password_hash(password)
+        self.session.flush()
+
+    def issue_magic_link(self, audience: str, user_id) -> str:
+        assert audience in ("admin", "customer")
+        token = secrets.token_urlsafe(32)
+        self.session.add(MagicLinkToken(
+            audience=audience,
+            user_id=user_id,
+            token_hash=_hash(token),
+            expires_at=datetime.now(timezone.utc) + MAGIC_LINK_TTL,
+        ))
+        self.session.flush()
+        return token
+
+    def consume_magic_link(self, audience: str, token: str):
+        row = self.session.execute(
+            select(MagicLinkToken).where(
+                MagicLinkToken.audience == audience,
+                MagicLinkToken.token_hash == _hash(token),
+            )
+        ).scalar_one_or_none()
+        if row is None or row.consumed_at is not None:
+            return None
+        if row.expires_at < datetime.now(timezone.utc):
+            return None
+        row.consumed_at = datetime.now(timezone.utc)
+        self.session.flush()
+        Model = AdminUser if audience == "admin" else Customer
+        return self.session.get(Model, row.user_id)
+```
+
+- [ ] **Step 2: Wire the two `LoginManager` user loaders**
+
+In `solex/extensions.py`, after the two `LoginManager` instances are created, add:
+
+```python
+@admin_login.user_loader
+def _load_admin(user_id):
+    from solex.models import AdminUser
+    return db.session.get(AdminUser, user_id)
+
+@customer_login.user_loader
+def _load_customer(user_id):
+    from solex.models import Customer
+    return db.session.get(Customer, user_id)
+```
+
+Also add `get_id`, `is_authenticated`, etc. — the cleanest path is having `AdminUser` and `Customer` inherit from `flask_login.UserMixin`. Update those model imports:
+
+```python
+# solex/models/admin.py
+from flask_login import UserMixin
+class AdminUser(UserMixin, BaseModel): ...  # existing body
+```
+
+```python
+# solex/models/customer.py
+from flask_login import UserMixin
+class Customer(UserMixin, BaseModel): ...  # existing body
+```
+
+- [ ] **Step 3: Admin blueprint**
+
+```python
+# solex/routes/admin_auth.py
+from flask import Blueprint, render_template, request, redirect, url_for, abort, current_app
+from flask_login import login_user, logout_user, login_required
+from solex.extensions import db, limiter
+from solex.services.auth import AuthService
+from solex.services.email import EmailService  # from Task 6.4
+
+bp = Blueprint("admin_auth", __name__, url_prefix="/admin")
+
+@bp.get("/login")
+def login():
+    return render_template("auth/admin_login.html")
+
+@bp.post("/login")
+@limiter.limit("10 per minute")
+def login_submit():
+    svc = AuthService(db.session)
+    user = svc.verify_admin_password(request.form["email"], request.form["password"])
+    if user is None:
+        return render_template("auth/admin_login.html", error="bad_creds"), 401
+    login_user(user)
+    db.session.commit()
+    return redirect(url_for("storefront.home"))  # admin dashboard lands in Plan 2
+
+@bp.post("/login/magic")
+@limiter.limit("5 per minute")
+def request_magic():
+    from sqlalchemy import select
+    from solex.models import AdminUser
+    email = request.form["email"]
+    user = db.session.execute(
+        select(AdminUser).where(AdminUser.email == email, AdminUser.active == True)
+    ).scalar_one_or_none()
+    if user is not None:
+        token = AuthService(db.session).issue_magic_link("admin", user.id)
+        db.session.commit()
+        link = url_for("admin_auth.consume_magic", token=token, _external=True)
+        EmailService().send("magic_link", to=email, link=link, audience="admin")
+    # Always render success to avoid user-enumeration
+    return render_template("auth/magic_link_sent.html")
+
+@bp.get("/login/magic/<token>")
+def consume_magic(token):
+    user = AuthService(db.session).consume_magic_link("admin", token)
+    if user is None:
+        abort(401)
+    login_user(user)
+    db.session.commit()
+    return redirect(url_for("storefront.home"))
+
+@bp.get("/logout")
+@login_required
+def logout():
+    logout_user()
+    return redirect(url_for("admin_auth.login"))
+```
+
+- [ ] **Step 4: Customer auth blueprint** — same shape, `url_prefix="/account"`, audience `"customer"`, logs in via `customer_login`. Routes only — `/account` surface is Plan 2.
+
+- [ ] **Step 5: Seed admin CLI**
+
+```python
+# solex/cli.py (add)
+from solex.models import AdminUser
+from solex.services.auth import AuthService
+
+@cli.group()
+def admin(): ...
+
+@admin.command("create-seed-user")
+@click.option("--email", default="dev@solex.local")
+@click.option("--password", default="password")
+def create_seed(email, password):
+    app = create_app()
+    with app.app_context():
+        from sqlalchemy import select
+        existing = db.session.execute(select(AdminUser).where(AdminUser.email == email)).scalar_one_or_none()
+        if existing:
+            click.echo(f"exists: {email}"); return
+        user = AdminUser(email=email, active=True)
+        db.session.add(user); db.session.flush()
+        AuthService(db.session).set_admin_password(user, password)
+        db.session.commit()
+        click.echo(f"created: {email}")
+```
+
+Do **not** call this in production — the CLI is for dev only; Plan 2 adds a real onboarding path.
+
+- [ ] **Step 6: Test**
+
+```python
+# tests/unit/test_services_auth.py
+def test_password_roundtrip(db_session):
+    from solex.models import AdminUser
+    from solex.services.auth import AuthService
+    svc = AuthService(db_session)
+    u = AdminUser(email="a@b.c", active=True); db_session.add(u); db_session.flush()
+    svc.set_admin_password(u, "hunter2")
+    assert svc.verify_admin_password("a@b.c", "hunter2") is not None
+    assert svc.verify_admin_password("a@b.c", "wrong") is None
+
+def test_magic_link_single_use(db_session):
+    from solex.models import AdminUser
+    from solex.services.auth import AuthService
+    svc = AuthService(db_session)
+    u = AdminUser(email="a@b.c", active=True); db_session.add(u); db_session.flush()
+    token = svc.issue_magic_link("admin", u.id)
+    db_session.commit()
+    assert svc.consume_magic_link("admin", token) is not None
+    assert svc.consume_magic_link("admin", token) is None  # already consumed
+```
+
+Commit.
 
 ### Task 8.3 — /health expansion + smoke boot test
 
