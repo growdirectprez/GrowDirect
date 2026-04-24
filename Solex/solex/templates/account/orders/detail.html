@@ -1,0 +1,49 @@
+{% extends "account/_layout.html" %}
+{% block account_main %}
+{% with messages = get_flashed_messages(with_categories=true) %}
+  {% for category, message in messages %}
+  <div class="mb-4 text-sm {% if category == 'error' %}text-red-600{% else %}text-green-700{% endif %}">{{ message }}</div>
+  {% endfor %}
+{% endwith %}
+<div class="mb-4">
+  <a href="/account/orders" class="text-sm text-stone-500 underline">&larr; Orders</a>
+</div>
+<h1 class="text-2xl font-semibold mb-2">Order {{ order.public_token }}</h1>
+<div class="text-sm text-stone-500 mb-6">{{ order.placed_at.strftime('%Y-%m-%d') }} &mdash; {{ order.status }}</div>
+
+<section class="mb-6">
+  <h2 class="font-semibold mb-2">Items</h2>
+  <ul class="divide-y">
+    {% for item in order.items %}
+    <li class="py-2 flex justify-between">
+      <span>{{ item.name_snapshot }} &times; {{ item.qty }}</span>
+      <span>${{ '%.2f' % (item.line_total_cents / 100) }}</span>
+    </li>
+    {% endfor %}
+  </ul>
+  <div class="pt-2 text-sm text-stone-600 space-y-1">
+    <div class="flex justify-between"><span>Subtotal</span><span>${{ '%.2f' % (order.subtotal_cents / 100) }}</span></div>
+    {% if order.tax_cents %}<div class="flex justify-between"><span>Tax</span><span>${{ '%.2f' % (order.tax_cents / 100) }}</span></div>{% endif %}
+    {% if order.shipping_cents %}<div class="flex justify-between"><span>Shipping</span><span>${{ '%.2f' % (order.shipping_cents / 100) }}</span></div>{% endif %}
+    <div class="flex justify-between font-semibold"><span>Total</span><span>${{ '%.2f' % (order.total_cents / 100) }}</span></div>
+  </div>
+</section>
+
+<section>
+  <h2 class="font-semibold mb-2">Returns</h2>
+  {% if return_request %}
+  <div class="text-sm bg-stone-50 border rounded p-3">
+    <div class="font-medium mb-1">Return request — {{ return_request.status }}</div>
+    <p class="text-stone-600">{{ return_request.reason }}</p>
+    {% if return_request.resolved_at %}
+    <div class="text-stone-400 mt-1 text-xs">Resolved {{ return_request.resolved_at.strftime('%Y-%m-%d') }}</div>
+    {% endif %}
+  </div>
+  {% elif order.status in ('paid', 'shipped', 'delivered') %}
+  <a href="/account/orders/{{ order.id }}/return"
+     class="inline-block bg-stone-900 text-white px-4 py-2 rounded text-sm">Request return</a>
+  {% else %}
+  <p class="text-stone-500 text-sm">Returns are not available for this order.</p>
+  {% endif %}
+</section>
+{% endblock %}
