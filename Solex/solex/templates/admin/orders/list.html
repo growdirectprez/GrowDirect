@@ -7,6 +7,12 @@
     <p class="mb-3 text-sm text-{{ 'green' if cat == 'ok' else 'red' }}-700">{{ msg }}</p>
   {% endfor %}
 {% endwith %}
+<form method="get" class="mb-4 flex gap-2 items-center">
+  <input type="text" name="scenario_tag" value="{{ scenario_tag or '' }}"
+         placeholder="Filter by scenario tag" class="border p-1 text-sm w-64">
+  <button type="submit" class="text-sm px-3 py-1 bg-stone-900 text-white">Filter</button>
+  {% if scenario_tag %}<a href="/admin/orders/" class="text-sm underline">Clear</a>{% endif %}
+</form>
 <table class="w-full text-sm border-collapse">
   <thead>
     <tr class="border-b text-left">
@@ -15,6 +21,7 @@
       <th class="py-2 pr-4">Total</th>
       <th class="py-2 pr-4">Status</th>
       <th class="py-2 pr-4">Placed</th>
+      <th class="py-2 pr-4">Scenario Tag</th>
       <th class="py-2"></th>
     </tr>
   </thead>
@@ -26,12 +33,13 @@
       <td class="py-2 pr-4">${{ "%.2f"|format(order.total_cents / 100) }}</td>
       <td class="py-2 pr-4">{{ order.status }}</td>
       <td class="py-2 pr-4">{{ order.placed_at.strftime("%Y-%m-%d") }}</td>
+      <td class="py-2 pr-4 font-mono text-xs">{{ order.scenario_tag or '' }}</td>
       <td class="py-2">
         <a href="/admin/orders/{{ order.id }}" class="text-blue-600">View</a>
       </td>
     </tr>
     {% else %}
-    <tr><td colspan="6" class="py-4 text-stone-400">No orders.</td></tr>
+    <tr><td colspan="7" class="py-4 text-stone-400">No orders.</td></tr>
     {% endfor %}
   </tbody>
 </table>
