@@ -1,0 +1,15 @@
+__pycache__/
+*.py[cod]
+.venv/
+.env
+.env.local
+*.egg-info/
+node_modules/
+solex/static/css/output.css
+solex/static/catalog/images/*
+!solex/static/catalog/images/.gitkeep
+.pytest_cache/
+.coverage
+htmlcov/
+dist/
+build/
