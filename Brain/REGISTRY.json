@@ -1,7 +1,7 @@
 {
-  "generated": "2026-04-23T20:48:13.224165+00:00",
-  "article_count": 246,
-  "topic_count": 3425,
+  "generated": "2026-04-24T00:15:35.523716+00:00",
+  "article_count": 251,
+  "topic_count": 3459,
   "articles": [
     {
       "path": "Brain/wiki/501c-advocacy-arm.md",
@@ -12085,6 +12085,199 @@
       "type": "wiki"
     },
     {
+      "path": "Brain/wiki/retail-integration-spine.md",
+      "title": "Retail Integration Spine — Canonical Interface Catalog",
+      "summary": "A canonical, vendor-agnostic catalog of the integration interfaces that",
+      "tags": [
+        "retail-spine",
+        "retail-integration",
+        "canonical",
+        "oracle-retail",
+        "interface-catalog",
+        "crosswalk"
+      ],
+      "keywords": [
+        "active",
+        "bsts",
+        "canonical",
+        "catalog",
+        "channel",
+        "commercial",
+        "corporate",
+        "corpus",
+        "crosswalk",
+        "customer",
+        "display",
+        "distribution",
+        "domain",
+        "domains",
+        "empty",
+        "enables",
+        "feeding",
+        "finance",
+        "five",
+        "folder",
+        "forecasting",
+        "glossary",
+        "integration",
+        "interface",
+        "interface-catalog",
+        "interfaces",
+        "isn't",
+        "management",
+        "merchandising",
+        "multi",
+        "operations",
+        "oracle-retail",
+        "ordering",
+        "patterns",
+        "people",
+        "placeholder",
+        "products",
+        "range",
+        "rbis",
+        "related",
+        "retail",
+        "retail-integration",
+        "retail-spine",
+        "reverse",
+        "services",
+        "source",
+        "sources",
+        "space",
+        "spine",
+        "store",
+        "summary",
+        "system",
+        "this",
+        "visible",
+        "what"
+      ],
+      "type": "wiki"
+    },
+    {
+      "path": "Brain/wiki/retail-spine-secure-crosswalk.md",
+      "title": "Retail Spine — Prior-Art Cards Crosswalk",
+      "summary": "Maps the 18 Secure prior-art wiki cards to the",
+      "tags": [
+        "retail-spine",
+        "secure",
+        "prior-art",
+        "loss-prevention",
+        "crosswalk"
+      ],
+      "keywords": [
+        "about",
+        "across",
+        "card",
+        "cards",
+        "cell",
+        "channel",
+        "cluster",
+        "contributes",
+        "corporate",
+        "corpus",
+        "covered",
+        "crosswalk",
+        "customer",
+        "density",
+        "domain",
+        "each",
+        "finance",
+        "loss-prevention",
+        "management",
+        "mapping",
+        "merchandising",
+        "multi",
+        "operations",
+        "patterns",
+        "prior",
+        "prior-art",
+        "products",
+        "related",
+        "retail",
+        "retail-spine",
+        "secure",
+        "services",
+        "source",
+        "sources",
+        "spine",
+        "store",
+        "summary",
+        "tells",
+        "this",
+        "visible",
+        "what",
+        "what's",
+        "where"
+      ],
+      "type": "wiki"
+    },
+    {
+      "path": "Brain/wiki/retail-spine-solex-crosswalk.md",
+      "title": "Retail Spine — E-commerce Worked Example Crosswalk",
+      "summary": "Maps the components, data flows, and entities of a single-channel SMB",
+      "tags": [
+        "retail-spine",
+        "solex",
+        "e-commerce",
+        "multi-channel",
+        "crosswalk"
+      ],
+      "keywords": [
+        "about",
+        "assessment",
+        "cell",
+        "channel",
+        "collapse",
+        "commerce",
+        "component",
+        "contributes",
+        "corporate",
+        "coverage",
+        "covered",
+        "crosswalk",
+        "customer",
+        "data",
+        "dimension/measure",
+        "downstream",
+        "e-commerce",
+        "event",
+        "example",
+        "finance",
+        "flow",
+        "gaps",
+        "management",
+        "mapping",
+        "matrix",
+        "merchandising",
+        "model",
+        "multi",
+        "multi-channel",
+        "operations",
+        "products",
+        "related",
+        "retail",
+        "retail-spine",
+        "scenario",
+        "services",
+        "solex",
+        "solex's",
+        "source",
+        "sources",
+        "spine",
+        "store",
+        "summary",
+        "tells",
+        "this",
+        "what",
+        "what's",
+        "work",
+        "worked"
+      ],
+      "type": "wiki"
+    },
+    {
       "path": "Brain/wiki/seacove-arc-module.md",
       "title": "Seacove → Cove ARC Module",
       "summary": "**Wiki:** [[Brain/projects/Seacove|Seacove MOC]] · [[Brain/projects/Cove|Cove MOC]]",
@@ -12550,6 +12743,54 @@
         "this",
         "user-stories",
         "v4.0"
+      ],
+      "type": "wiki"
+    },
+    {
+      "path": "Brain/wiki/secure-heartbeat-fireball-2002.md",
+      "title": "Heartbeat / Fireball (2002) — Essential Design",
+      "summary": "A 2001–2003 retail out-of-stock detection + notification system,",
+      "tags": [
+        "secure",
+        "heartbeat",
+        "fireball",
+        "prior-art",
+        "canary-lineage",
+        "retail-oos",
+        "essential-design",
+        "2002",
+        "eai",
+        "notification-subsystem"
+      ],
+      "keywords": [
+        "2002",
+        "abstracted",
+        "assessment",
+        "canary",
+        "canary-lineage",
+        "design",
+        "eai",
+        "essential",
+        "essential-design",
+        "findings",
+        "fireball",
+        "heartbeat",
+        "lineage",
+        "matters",
+        "naming",
+        "notification-subsystem",
+        "open",
+        "phase",
+        "pilot",
+        "prior-art",
+        "related",
+        "relationship",
+        "retail-oos",
+        "secure",
+        "sources",
+        "summary",
+        "this",
+        "today"
       ],
       "type": "wiki"
     },
@@ -13470,6 +13711,16 @@
       "tags": [],
       "keywords": [
         "method"
+      ],
+      "type": "project-moc"
+    },
+    {
+      "path": "Brain/projects/RetailSpine.md",
+      "title": "RetailSpine",
+      "summary": "date: 2026-04-23",
+      "tags": [],
+      "keywords": [
+        "retailspine"
       ],
       "type": "project-moc"
     },
@@ -14463,6 +14714,10 @@
     ],
     "2002": [
       {
+        "path": "Brain/wiki/secure-heartbeat-fireball-2002.md",
+        "title": "Heartbeat / Fireball (2002) — Essential Design"
+      },
+      {
         "path": "Brain/wiki/secure-property-services-operating-model-2002.md",
         "title": "Property & Building Services Operating Model — 2002 (UK dept-store + grocery group)"
       }
@@ -15255,6 +15510,14 @@
       {
         "path": "Brain/wiki/growdirect-press-release-syd-revision.md",
         "title": "Canary Press Release v2.0 — Syd Revision"
+      },
+      {
+        "path": "Brain/wiki/retail-spine-secure-crosswalk.md",
+        "title": "Retail Spine — Prior-Art Cards Crosswalk"
+      },
+      {
+        "path": "Brain/wiki/retail-spine-solex-crosswalk.md",
+        "title": "Retail Spine — E-commerce Worked Example Crosswalk"
       }
     ],
     "above": [
@@ -15271,6 +15534,12 @@
       {
         "path": "Brain/wiki/growdirect-research-bitcoin-architecture.md",
         "title": "Bitcoin-Native Infrastructure for Retail Loss Prevention"
+      }
+    ],
+    "abstracted": [
+      {
+        "path": "Brain/wiki/secure-heartbeat-fireball-2002.md",
+        "title": "Heartbeat / Fireball (2002) — Essential Design"
       }
     ],
     "academic": [
@@ -15471,6 +15740,10 @@
       {
         "path": "Brain/wiki/growdirect-timelog-b059-execution-feb27.md",
         "title": "Session — B-059 Execution: TSP PRD Revision (Feb 27, 2026)"
+      },
+      {
+        "path": "Brain/wiki/retail-spine-secure-crosswalk.md",
+        "title": "Retail Spine — Prior-Art Cards Crosswalk"
       }
     ],
     "action": [
@@ -15567,6 +15840,10 @@
       {
         "path": "Brain/wiki/growdirect-attack-plan.md",
         "title": "Canary LP — Attack Plan v3.0"
+      },
+      {
+        "path": "Brain/wiki/retail-integration-spine.md",
+        "title": "Retail Integration Spine — Canonical Interface Catalog"
       }
     ],
     "activities": [
@@ -17593,6 +17870,14 @@
         "title": "The Patent"
       },
       {
+        "path": "Brain/wiki/retail-spine-solex-crosswalk.md",
+        "title": "Retail Spine — E-commerce Worked Example Crosswalk"
+      },
+      {
+        "path": "Brain/wiki/secure-heartbeat-fireball-2002.md",
+        "title": "Heartbeat / Fireball (2002) — Essential Design"
+      },
+      {
         "path": "Brain/wiki/wpbca-payments-platform.md",
         "title": "Community of Abalone Cove (formerly WPBCA) — Payments Platform and Assessment Collection"
       }
@@ -18917,6 +19202,12 @@
         "title": "Vanderlip's Memoir — In His Own Words"
       }
     ],
+    "bsts": [
+      {
+        "path": "Brain/wiki/retail-integration-spine.md",
+        "title": "Retail Integration Spine — Canonical Interface Catalog"
+      }
+    ],
     "btc.": [
       {
         "path": "Brain/wiki/growdirect-genesis-pool.md",
@@ -19453,6 +19744,10 @@
         "title": "Secure Client: Top-5 US Grocery Chain"
       },
       {
+        "path": "Brain/wiki/secure-heartbeat-fireball-2002.md",
+        "title": "Heartbeat / Fireball (2002) — Essential Design"
+      },
+      {
         "path": "Brain/wiki/secure-lite.md",
         "title": "Secure Lite"
       },
@@ -19493,6 +19788,10 @@
       {
         "path": "Brain/wiki/secure-client-top5-grocery-chain.md",
         "title": "Secure Client: Top-5 US Grocery Chain"
+      },
+      {
+        "path": "Brain/wiki/secure-heartbeat-fireball-2002.md",
+        "title": "Heartbeat / Fireball (2002) — Essential Design"
       },
       {
         "path": "Brain/wiki/secure-lite.md",
@@ -19549,6 +19848,10 @@
       {
         "path": "Brain/wiki/growdirect-the-notary.md",
         "title": "The Notarization Service"
+      },
+      {
+        "path": "Brain/wiki/retail-integration-spine.md",
+        "title": "Retail Integration Spine — Canonical Interface Catalog"
       }
     ],
     "canyon": [
@@ -19665,6 +19968,10 @@
         "title": "**1. The $112 Billion Problem**"
       },
       {
+        "path": "Brain/wiki/retail-spine-secure-crosswalk.md",
+        "title": "Retail Spine — Prior-Art Cards Crosswalk"
+      },
+      {
         "path": "Brain/wiki/wpbca-ocean-path-easement.md",
         "title": "Community of Abalone Cove (formerly WPBCA) — Ocean Path Easements — Private Governance Matter"
       }
@@ -19685,6 +19992,10 @@
       {
         "path": "Brain/wiki/foundation-legal-framework.md",
         "title": "Foundation Legal Framework — MOC"
+      },
+      {
+        "path": "Brain/wiki/retail-spine-secure-crosswalk.md",
+        "title": "Retail Spine — Prior-Art Cards Crosswalk"
       },
       {
         "path": "Brain/wiki/wpbca-compliance-framework.md",
@@ -19855,6 +20166,10 @@
       {
         "path": "Brain/wiki/growdirect-research-reference-library.md",
         "title": "Canary / GrowDirect — Project Reference Library"
+      },
+      {
+        "path": "Brain/wiki/retail-integration-spine.md",
+        "title": "Retail Integration Spine — Canonical Interface Catalog"
       }
     ],
     "catalog-retailer": [
@@ -19991,6 +20306,16 @@
       {
         "path": "Brain/wiki/cove-legal-framework.md",
         "title": "Cove Legal Framework"
+      }
+    ],
+    "cell": [
+      {
+        "path": "Brain/wiki/retail-spine-secure-crosswalk.md",
+        "title": "Retail Spine — Prior-Art Cards Crosswalk"
+      },
+      {
+        "path": "Brain/wiki/retail-spine-solex-crosswalk.md",
+        "title": "Retail Spine — E-commerce Worked Example Crosswalk"
       }
     ],
     "census": [
@@ -20221,6 +20546,18 @@
       {
         "path": "Brain/wiki/growdirect-timelog-token-analysis-feb20.md",
         "title": "Token Consumption Analysis — February 20, 2026"
+      },
+      {
+        "path": "Brain/wiki/retail-integration-spine.md",
+        "title": "Retail Integration Spine — Canonical Interface Catalog"
+      },
+      {
+        "path": "Brain/wiki/retail-spine-secure-crosswalk.md",
+        "title": "Retail Spine — Prior-Art Cards Crosswalk"
+      },
+      {
+        "path": "Brain/wiki/retail-spine-solex-crosswalk.md",
+        "title": "Retail Spine — E-commerce Worked Example Crosswalk"
       }
     ],
     "channels": [
@@ -21037,6 +21374,10 @@
       {
         "path": "Brain/wiki/angel-peninsula-school-guide.md",
         "title": "Peninsula School Guide — Content Pool (Raw)"
+      },
+      {
+        "path": "Brain/wiki/retail-spine-secure-crosswalk.md",
+        "title": "Retail Spine — Prior-Art Cards Crosswalk"
       }
     ],
     "clusters": [
@@ -21473,6 +21814,10 @@
       {
         "path": "Brain/wiki/growdirect-manifesto.md",
         "title": "GrowDirect Manifesto"
+      },
+      {
+        "path": "Brain/wiki/retail-spine-solex-crosswalk.md",
+        "title": "Retail Spine — E-commerce Worked Example Crosswalk"
       }
     ],
     "collateral": [
@@ -21539,6 +21884,10 @@
       {
         "path": "Brain/wiki/growdirect-research-bitcoin-architecture.md",
         "title": "Bitcoin-Native Infrastructure for Retail Loss Prevention"
+      },
+      {
+        "path": "Brain/wiki/retail-spine-solex-crosswalk.md",
+        "title": "Retail Spine — E-commerce Worked Example Crosswalk"
       }
     ],
     "commerce**": [
@@ -21551,6 +21900,10 @@
       {
         "path": "Brain/wiki/angel-peninsula-school-guide.md",
         "title": "Peninsula School Guide — Content Pool (Raw)"
+      },
+      {
+        "path": "Brain/wiki/retail-integration-spine.md",
+        "title": "Retail Integration Spine — Canonical Interface Catalog"
       },
       {
         "path": "Brain/wiki/secure-retail-operating-model-2006.md",
@@ -22057,6 +22410,10 @@
       {
         "path": "Brain/wiki/growdirect-patent-visual-triple-subscriber.md",
         "title": "Patent Schematic — Triple Subscriber Component v2.0 (FIG. 3)"
+      },
+      {
+        "path": "Brain/wiki/retail-spine-solex-crosswalk.md",
+        "title": "Retail Spine — E-commerce Worked Example Crosswalk"
       }
     ],
     "compose": [
@@ -22927,6 +23284,16 @@
         "title": "Cove Lessons Learned — Running Ledger"
       }
     ],
+    "contributes": [
+      {
+        "path": "Brain/wiki/retail-spine-secure-crosswalk.md",
+        "title": "Retail Spine — Prior-Art Cards Crosswalk"
+      },
+      {
+        "path": "Brain/wiki/retail-spine-solex-crosswalk.md",
+        "title": "Retail Spine — E-commerce Worked Example Crosswalk"
+      }
+    ],
     "contributors": [
       {
         "path": "Brain/wiki/growdirect-timelog-jess-companion-guides-feb24.md",
@@ -23185,8 +23552,30 @@
         "title": "CoAC Bylaws & Governing Instruments — MOC"
       },
       {
+        "path": "Brain/wiki/retail-integration-spine.md",
+        "title": "Retail Integration Spine — Canonical Interface Catalog"
+      },
+      {
+        "path": "Brain/wiki/retail-spine-secure-crosswalk.md",
+        "title": "Retail Spine — Prior-Art Cards Crosswalk"
+      },
+      {
+        "path": "Brain/wiki/retail-spine-solex-crosswalk.md",
+        "title": "Retail Spine — E-commerce Worked Example Crosswalk"
+      },
+      {
         "path": "Brain/wiki/wpbca-investment-policy.md",
         "title": "Community of Abalone Cove (formerly WPBCA) — Investment Policy Statement"
+      }
+    ],
+    "corpus": [
+      {
+        "path": "Brain/wiki/retail-integration-spine.md",
+        "title": "Retail Integration Spine — Canonical Interface Catalog"
+      },
+      {
+        "path": "Brain/wiki/retail-spine-secure-crosswalk.md",
+        "title": "Retail Spine — Prior-Art Cards Crosswalk"
       }
     ],
     "correct": [
@@ -23771,9 +24160,21 @@
       {
         "path": "Brain/wiki/growdirect-timelog-week-feb16-24.md",
         "title": "Weekly Roll-Up — February 16–24, 2026"
+      },
+      {
+        "path": "Brain/wiki/retail-spine-solex-crosswalk.md",
+        "title": "Retail Spine — E-commerce Worked Example Crosswalk"
       }
     ],
     "covered": [
+      {
+        "path": "Brain/wiki/retail-spine-secure-crosswalk.md",
+        "title": "Retail Spine — Prior-Art Cards Crosswalk"
+      },
+      {
+        "path": "Brain/wiki/retail-spine-solex-crosswalk.md",
+        "title": "Retail Spine — E-commerce Worked Example Crosswalk"
+      },
       {
         "path": "Brain/wiki/south-bay-wiki-architecture.md",
         "title": "South Bay Wiki — Content Architecture"
@@ -24171,6 +24572,18 @@
       {
         "path": "Brain/wiki/abalonecove-org.md",
         "title": "abalonecove.org"
+      },
+      {
+        "path": "Brain/wiki/retail-integration-spine.md",
+        "title": "Retail Integration Spine — Canonical Interface Catalog"
+      },
+      {
+        "path": "Brain/wiki/retail-spine-secure-crosswalk.md",
+        "title": "Retail Spine — Prior-Art Cards Crosswalk"
+      },
+      {
+        "path": "Brain/wiki/retail-spine-solex-crosswalk.md",
+        "title": "Retail Spine — E-commerce Worked Example Crosswalk"
       }
     ],
     "cruikshank": [
@@ -24321,6 +24734,18 @@
       {
         "path": "Brain/wiki/growdirect-white-paper.md",
         "title": "**1. The $112 Billion Problem**"
+      },
+      {
+        "path": "Brain/wiki/retail-integration-spine.md",
+        "title": "Retail Integration Spine — Canonical Interface Catalog"
+      },
+      {
+        "path": "Brain/wiki/retail-spine-secure-crosswalk.md",
+        "title": "Retail Spine — Prior-Art Cards Crosswalk"
+      },
+      {
+        "path": "Brain/wiki/retail-spine-solex-crosswalk.md",
+        "title": "Retail Spine — E-commerce Worked Example Crosswalk"
       },
       {
         "path": "Brain/wiki/secure-customer-order-management-flow-2017.md",
@@ -24509,6 +24934,10 @@
       {
         "path": "Brain/wiki/growdirect-white-paper-quant-peer-review.md",
         "title": "**Executive Summary: The Quant’s Verdict**"
+      },
+      {
+        "path": "Brain/wiki/retail-spine-solex-crosswalk.md",
+        "title": "Retail Spine — E-commerce Worked Example Crosswalk"
       },
       {
         "path": "Brain/wiki/secure-5-inventory.md",
@@ -25433,6 +25862,10 @@
       {
         "path": "Brain/wiki/cove-coastal-specific-plan-s4.md",
         "title": "Coastal Specific Plan — Subregion 4"
+      },
+      {
+        "path": "Brain/wiki/retail-spine-secure-crosswalk.md",
+        "title": "Retail Spine — Prior-Art Cards Crosswalk"
       }
     ],
     "department-store-grocery-group": [
@@ -25597,6 +26030,10 @@
       {
         "path": "Brain/wiki/secure-dv-private-label-2006.md",
         "title": "Private Label Food Setup — US Design Validation Workshop (Aug 2006)"
+      },
+      {
+        "path": "Brain/wiki/secure-heartbeat-fireball-2002.md",
+        "title": "Heartbeat / Fireball (2002) — Essential Design"
       }
     ],
     "design-validation": [
@@ -25895,6 +26332,12 @@
         "title": "Canary / GrowDirect — Project Reference Library"
       }
     ],
+    "dimension/measure": [
+      {
+        "path": "Brain/wiki/retail-spine-solex-crosswalk.md",
+        "title": "Retail Spine — E-commerce Worked Example Crosswalk"
+      }
+    ],
     "dimensional": [
       {
         "path": "Brain/wiki/growdirect-white-paper-quant-peer-review.md",
@@ -26157,6 +26600,10 @@
     ],
     "display": [
       {
+        "path": "Brain/wiki/retail-integration-spine.md",
+        "title": "Retail Integration Spine — Canonical Interface Catalog"
+      },
+      {
         "path": "Brain/wiki/secure-retail-operating-model-2006.md",
         "title": "Retail Operating Model — 2006 (IBM engagement, UK global grocer)"
       }
@@ -26207,6 +26654,10 @@
       {
         "path": "Brain/wiki/growdirect-manifesto.md",
         "title": "GrowDirect Manifesto"
+      },
+      {
+        "path": "Brain/wiki/retail-integration-spine.md",
+        "title": "Retail Integration Spine — Canonical Interface Catalog"
       },
       {
         "path": "Brain/wiki/south-bay-wiki-architecture.md",
@@ -26501,12 +26952,24 @@
       {
         "path": "Brain/wiki/growdirect-white-paper-quant-peer-review.md",
         "title": "**Executive Summary: The Quant’s Verdict**"
+      },
+      {
+        "path": "Brain/wiki/retail-integration-spine.md",
+        "title": "Retail Integration Spine — Canonical Interface Catalog"
+      },
+      {
+        "path": "Brain/wiki/retail-spine-secure-crosswalk.md",
+        "title": "Retail Spine — Prior-Art Cards Crosswalk"
       }
     ],
     "domains": [
       {
         "path": "Brain/wiki/growdirect-working-papers.md",
         "title": "GrowDirect Working Papers — Structure"
+      },
+      {
+        "path": "Brain/wiki/retail-integration-spine.md",
+        "title": "Retail Integration Spine — Canonical Interface Catalog"
       }
     ],
     "dome": [
@@ -26581,6 +27044,12 @@
       {
         "path": "Brain/wiki/angel-pv-dr-north-raw.md",
         "title": "PV Drive North — Content Pool (Raw)"
+      }
+    ],
+    "downstream": [
+      {
+        "path": "Brain/wiki/retail-spine-solex-crosswalk.md",
+        "title": "Retail Spine — E-commerce Worked Example Crosswalk"
       }
     ],
     "drafted": [
@@ -26797,10 +27266,20 @@
         "title": "Tennis & Pickleball — Palos Verdes Peninsula"
       }
     ],
+    "e-commerce": [
+      {
+        "path": "Brain/wiki/retail-spine-solex-crosswalk.md",
+        "title": "Retail Spine — E-commerce Worked Example Crosswalk"
+      }
+    ],
     "each": [
       {
         "path": "Brain/wiki/angel-weekly-crmls-pull.md",
         "title": "Angel Weekly CRMLS Pull — Process Definition"
+      },
+      {
+        "path": "Brain/wiki/retail-spine-secure-crosswalk.md",
+        "title": "Retail Spine — Prior-Art Cards Crosswalk"
       }
     ],
     "eagle": [
@@ -26813,6 +27292,12 @@
       {
         "path": "Brain/wiki/secure-eagle-eye-fnr-2018.md",
         "title": "Eagle Eye — Functional & Non-Functional Requirements v4.0 (Feb 2018, NS Comments)"
+      }
+    ],
+    "eai": [
+      {
+        "path": "Brain/wiki/secure-heartbeat-fireball-2002.md",
+        "title": "Heartbeat / Fireball (2002) — Essential Design"
       }
     ],
     "early": [
@@ -27259,6 +27744,10 @@
         "title": "Peninsula Equestrian Guide — Content Pool (Raw, Stub)"
       },
       {
+        "path": "Brain/wiki/retail-integration-spine.md",
+        "title": "Retail Integration Spine — Canonical Interface Catalog"
+      },
+      {
         "path": "Brain/wiki/secure-retail-career-archive.md",
         "title": "Pre-Secure Retail Career Archive"
       }
@@ -27277,6 +27766,10 @@
       {
         "path": "Brain/wiki/angel-market-intelligence.md",
         "title": "Angel Market Intelligence"
+      },
+      {
+        "path": "Brain/wiki/retail-integration-spine.md",
+        "title": "Retail Integration Spine — Canonical Interface Catalog"
       }
     ],
     "enchilada": [
@@ -27727,6 +28220,18 @@
         "title": "Riviera Village — Content Pool (Raw)"
       }
     ],
+    "essential": [
+      {
+        "path": "Brain/wiki/secure-heartbeat-fireball-2002.md",
+        "title": "Heartbeat / Fireball (2002) — Essential Design"
+      }
+    ],
+    "essential-design": [
+      {
+        "path": "Brain/wiki/secure-heartbeat-fireball-2002.md",
+        "title": "Heartbeat / Fireball (2002) — Essential Design"
+      }
+    ],
     "established": [
       {
         "path": "Brain/wiki/growdirect-timelog-week-feb16-24.md",
@@ -27903,6 +28408,10 @@
       {
         "path": "Brain/wiki/growdirect-research-reference-library.md",
         "title": "Canary / GrowDirect — Project Reference Library"
+      },
+      {
+        "path": "Brain/wiki/retail-spine-solex-crosswalk.md",
+        "title": "Retail Spine — E-commerce Worked Example Crosswalk"
       }
     ],
     "events": [
@@ -28085,6 +28594,12 @@
       {
         "path": "Brain/wiki/growdirect-the-crdm.md",
         "title": "The Data Model"
+      }
+    ],
+    "example": [
+      {
+        "path": "Brain/wiki/retail-spine-solex-crosswalk.md",
+        "title": "Retail Spine — E-commerce Worked Example Crosswalk"
       }
     ],
     "excluded": [
@@ -28857,6 +29372,12 @@
         "title": "The Fee Window"
       }
     ],
+    "feeding": [
+      {
+        "path": "Brain/wiki/retail-integration-spine.md",
+        "title": "Retail Integration Spine — Canonical Interface Catalog"
+      }
+    ],
     "feeds": [
       {
         "path": "Brain/wiki/angel-brand-and-team.md",
@@ -29131,6 +29652,18 @@
     ],
     "finance": [
       {
+        "path": "Brain/wiki/retail-integration-spine.md",
+        "title": "Retail Integration Spine — Canonical Interface Catalog"
+      },
+      {
+        "path": "Brain/wiki/retail-spine-secure-crosswalk.md",
+        "title": "Retail Spine — Prior-Art Cards Crosswalk"
+      },
+      {
+        "path": "Brain/wiki/retail-spine-solex-crosswalk.md",
+        "title": "Retail Spine — E-commerce Worked Example Crosswalk"
+      },
+      {
         "path": "Brain/wiki/secure-retail-operating-model-2006.md",
         "title": "Retail Operating Model — 2006 (IBM engagement, UK global grocer)"
       }
@@ -29209,6 +29742,10 @@
         "title": "Session — ALX Cowork Dispatch (Feb 26, 2026)"
       },
       {
+        "path": "Brain/wiki/secure-heartbeat-fireball-2002.md",
+        "title": "Heartbeat / Fireball (2002) — Essential Design"
+      },
+      {
         "path": "Brain/wiki/secure-us-property-it-scoping.md",
         "title": "US Property IT Requirements — Scoping Document (IBM, pre-Secure)"
       }
@@ -29263,6 +29800,12 @@
       {
         "path": "Brain/wiki/secure-lpms-case-management-2015.md",
         "title": "LPMS Case Management — Sporting-Goods Chain Deployment (2015)"
+      }
+    ],
+    "fireball": [
+      {
+        "path": "Brain/wiki/secure-heartbeat-fireball-2002.md",
+        "title": "Heartbeat / Fireball (2002) — Essential Design"
       }
     ],
     "firecrawl": [
@@ -29405,6 +29948,10 @@
       {
         "path": "Brain/wiki/growdirect-the-patent.md",
         "title": "The Patent"
+      },
+      {
+        "path": "Brain/wiki/retail-integration-spine.md",
+        "title": "Retail Integration Spine — Canonical Interface Catalog"
       }
     ],
     "fixed": [
@@ -29519,6 +30066,10 @@
         "title": "The Architecture"
       },
       {
+        "path": "Brain/wiki/retail-spine-solex-crosswalk.md",
+        "title": "Retail Spine — E-commerce Worked Example Crosswalk"
+      },
+      {
         "path": "Brain/wiki/secure-customer-order-management-flow-2017.md",
         "title": "Secure — Customer Order Management Data Flow (2017)"
       },
@@ -29551,6 +30102,12 @@
       {
         "path": "Brain/wiki/secure-eagle-eye-fnr-2018.md",
         "title": "Eagle Eye — Functional & Non-Functional Requirements v4.0 (Feb 2018, NS Comments)"
+      }
+    ],
+    "folder": [
+      {
+        "path": "Brain/wiki/retail-integration-spine.md",
+        "title": "Retail Integration Spine — Canonical Interface Catalog"
       }
     ],
     "food": [
@@ -29605,6 +30162,10 @@
       {
         "path": "Brain/wiki/growdirect-the-owl.md",
         "title": "The Owl — Analytics Oracle"
+      },
+      {
+        "path": "Brain/wiki/retail-integration-spine.md",
+        "title": "Retail Integration Spine — Canonical Interface Catalog"
       }
     ],
     "forensics": [
@@ -30493,6 +31054,10 @@
       {
         "path": "Brain/wiki/growdirect-white-paper-quant-peer-review.md",
         "title": "**Executive Summary: The Quant’s Verdict**"
+      },
+      {
+        "path": "Brain/wiki/retail-spine-solex-crosswalk.md",
+        "title": "Retail Spine — E-commerce Worked Example Crosswalk"
       }
     ],
     "gaps**": [
@@ -30835,6 +31400,10 @@
       {
         "path": "Brain/wiki/growdirect-glossary.md",
         "title": "Glossary"
+      },
+      {
+        "path": "Brain/wiki/retail-integration-spine.md",
+        "title": "Retail Integration Spine — Canonical Interface Catalog"
       }
     ],
     "gnatcatcher": [
@@ -31919,6 +32488,10 @@
       {
         "path": "Brain/wiki/growdirect-timelog-jeremy-heartbeat-integration-feb27.md",
         "title": "Session — Jeremy: Heartbeat Integration Testing (Feb 27, 2026)"
+      },
+      {
+        "path": "Brain/wiki/secure-heartbeat-fireball-2002.md",
+        "title": "Heartbeat / Fireball (2002) — Essential Design"
       }
     ],
     "heartbeat:": [
@@ -33403,6 +33976,10 @@
       {
         "path": "Brain/wiki/growdirect-timelog-jeremy-heartbeat-integration-feb27.md",
         "title": "Session — Jeremy: Heartbeat Integration Testing (Feb 27, 2026)"
+      },
+      {
+        "path": "Brain/wiki/retail-integration-spine.md",
+        "title": "Retail Integration Spine — Canonical Interface Catalog"
       }
     ],
     "integration-test": [
@@ -33539,6 +34116,22 @@
       {
         "path": "Brain/wiki/growdirect-the-chirp.md",
         "title": "The Chirp"
+      },
+      {
+        "path": "Brain/wiki/retail-integration-spine.md",
+        "title": "Retail Integration Spine — Canonical Interface Catalog"
+      }
+    ],
+    "interface-catalog": [
+      {
+        "path": "Brain/wiki/retail-integration-spine.md",
+        "title": "Retail Integration Spine — Canonical Interface Catalog"
+      }
+    ],
+    "interfaces": [
+      {
+        "path": "Brain/wiki/retail-integration-spine.md",
+        "title": "Retail Integration Spine — Canonical Interface Catalog"
       }
     ],
     "interim": [
@@ -33871,6 +34464,10 @@
       {
         "path": "Brain/wiki/coac-yimby-opposition-landscape.md",
         "title": "YIMBY Opposition Landscape — Adversarial Network and Neutralization"
+      },
+      {
+        "path": "Brain/wiki/retail-integration-spine.md",
+        "title": "Retail Integration Spine — Canonical Interface Catalog"
       }
     ],
     "isolation": [
@@ -35499,6 +36096,10 @@
         "title": "GrowDirect Manifesto"
       },
       {
+        "path": "Brain/wiki/secure-heartbeat-fireball-2002.md",
+        "title": "Heartbeat / Fireball (2002) — Essential Design"
+      },
+      {
         "path": "Brain/wiki/secure-sysrepublic-xbr-2016.md",
         "title": "xBR Replacement — Sysrepublic Functional Requirements Response (June 2016)"
       }
@@ -35947,6 +36548,10 @@
         "title": "Canary — Platform Overview"
       },
       {
+        "path": "Brain/wiki/retail-spine-secure-crosswalk.md",
+        "title": "Retail Spine — Prior-Art Cards Crosswalk"
+      },
+      {
         "path": "Brain/wiki/secure-client-top5-grocery-chain.md",
         "title": "Secure Client: Top-5 US Grocery Chain"
       },
@@ -36221,6 +36826,18 @@
         "title": "The Scaling Model"
       },
       {
+        "path": "Brain/wiki/retail-integration-spine.md",
+        "title": "Retail Integration Spine — Canonical Interface Catalog"
+      },
+      {
+        "path": "Brain/wiki/retail-spine-secure-crosswalk.md",
+        "title": "Retail Spine — Prior-Art Cards Crosswalk"
+      },
+      {
+        "path": "Brain/wiki/retail-spine-solex-crosswalk.md",
+        "title": "Retail Spine — E-commerce Worked Example Crosswalk"
+      },
+      {
         "path": "Brain/wiki/secure-customer-order-management-flow-2017.md",
         "title": "Secure — Customer Order Management Data Flow (2017)"
       },
@@ -36347,6 +36964,14 @@
       {
         "path": "Brain/wiki/growdirect-production-chain.md",
         "title": "GrowDirect Production Chain — v0.1"
+      },
+      {
+        "path": "Brain/wiki/retail-spine-secure-crosswalk.md",
+        "title": "Retail Spine — Prior-Art Cards Crosswalk"
+      },
+      {
+        "path": "Brain/wiki/retail-spine-solex-crosswalk.md",
+        "title": "Retail Spine — E-commerce Worked Example Crosswalk"
       }
     ],
     "maps": [
@@ -36601,6 +37226,10 @@
       {
         "path": "Brain/wiki/cove-endangered-species-constraints.md",
         "title": "Endangered Species Constraints — Species → Trigger → Project Map"
+      },
+      {
+        "path": "Brain/wiki/retail-spine-solex-crosswalk.md",
+        "title": "Retail Spine — E-commerce Worked Example Crosswalk"
       }
     ],
     "matter": [
@@ -36729,6 +37358,10 @@
       {
         "path": "Brain/wiki/secure-eagle-eye-fnr-2018.md",
         "title": "Eagle Eye — Functional & Non-Functional Requirements v4.0 (Feb 2018, NS Comments)"
+      },
+      {
+        "path": "Brain/wiki/secure-heartbeat-fireball-2002.md",
+        "title": "Heartbeat / Fireball (2002) — Essential Design"
       },
       {
         "path": "Brain/wiki/secure-integrated-maps-2003.md",
@@ -37012,6 +37645,18 @@
       }
     ],
     "merchandising": [
+      {
+        "path": "Brain/wiki/retail-integration-spine.md",
+        "title": "Retail Integration Spine — Canonical Interface Catalog"
+      },
+      {
+        "path": "Brain/wiki/retail-spine-secure-crosswalk.md",
+        "title": "Retail Spine — Prior-Art Cards Crosswalk"
+      },
+      {
+        "path": "Brain/wiki/retail-spine-solex-crosswalk.md",
+        "title": "Retail Spine — E-commerce Worked Example Crosswalk"
+      },
       {
         "path": "Brain/wiki/secure-merchandising-rfp-evant-response-2003.md",
         "title": "Merchandising System RFP — Evant Response (Sept 2003)"
@@ -37577,6 +38222,10 @@
         "title": "The Vision"
       },
       {
+        "path": "Brain/wiki/retail-spine-solex-crosswalk.md",
+        "title": "Retail Spine — E-commerce Worked Example Crosswalk"
+      },
+      {
         "path": "Brain/wiki/secure-5-inventory.md",
         "title": "Secure 5 Inventory"
       },
@@ -37935,9 +38584,25 @@
       {
         "path": "Brain/wiki/growdirect-white-paper-quant-peer-review.md",
         "title": "**Executive Summary: The Quant’s Verdict**"
+      },
+      {
+        "path": "Brain/wiki/retail-integration-spine.md",
+        "title": "Retail Integration Spine — Canonical Interface Catalog"
+      },
+      {
+        "path": "Brain/wiki/retail-spine-secure-crosswalk.md",
+        "title": "Retail Spine — Prior-Art Cards Crosswalk"
+      },
+      {
+        "path": "Brain/wiki/retail-spine-solex-crosswalk.md",
+        "title": "Retail Spine — E-commerce Worked Example Crosswalk"
       }
     ],
     "multi-channel": [
+      {
+        "path": "Brain/wiki/retail-spine-solex-crosswalk.md",
+        "title": "Retail Spine — E-commerce Worked Example Crosswalk"
+      },
       {
         "path": "Brain/wiki/secure-merchandising-rfp-evant-response-2003.md",
         "title": "Merchandising System RFP — Evant Response (Sept 2003)"
@@ -38125,6 +38790,10 @@
       {
         "path": "Brain/wiki/growdirect-production-chain.md",
         "title": "GrowDirect Production Chain — v0.1"
+      },
+      {
+        "path": "Brain/wiki/secure-heartbeat-fireball-2002.md",
+        "title": "Heartbeat / Fireball (2002) — Essential Design"
       },
       {
         "path": "Brain/wiki/wpbca-compliance-framework.md",
@@ -39101,6 +39770,12 @@
         "title": "Canary Alerts — A Plain-English Guide"
       }
     ],
+    "notification-subsystem": [
+      {
+        "path": "Brain/wiki/secure-heartbeat-fireball-2002.md",
+        "title": "Heartbeat / Fireball (2002) — Essential Design"
+      }
+    ],
     "novel": [
       {
         "path": "Brain/wiki/growdirect-first-mover.md",
@@ -39487,6 +40162,10 @@
         "title": "Eagle Eye — Functional & Non-Functional Requirements v4.0 (Feb 2018, NS Comments)"
       },
       {
+        "path": "Brain/wiki/secure-heartbeat-fireball-2002.md",
+        "title": "Heartbeat / Fireball (2002) — Essential Design"
+      },
+      {
         "path": "Brain/wiki/secure-lpms-case-management-2015.md",
         "title": "LPMS Case Management — Sporting-Goods Chain Deployment (2015)"
       },
@@ -39669,6 +40348,18 @@
         "title": "GrowDirect Workflow"
       },
       {
+        "path": "Brain/wiki/retail-integration-spine.md",
+        "title": "Retail Integration Spine — Canonical Interface Catalog"
+      },
+      {
+        "path": "Brain/wiki/retail-spine-secure-crosswalk.md",
+        "title": "Retail Spine — Prior-Art Cards Crosswalk"
+      },
+      {
+        "path": "Brain/wiki/retail-spine-solex-crosswalk.md",
+        "title": "Retail Spine — E-commerce Worked Example Crosswalk"
+      },
+      {
         "path": "Brain/wiki/secure-retail-operating-model-2006.md",
         "title": "Retail Operating Model — 2006 (IBM engagement, UK global grocer)"
       },
@@ -39779,6 +40470,12 @@
         "title": "Oracle Project Costing — User Guide, Release 11i (May 2005)"
       }
     ],
+    "oracle-retail": [
+      {
+        "path": "Brain/wiki/retail-integration-spine.md",
+        "title": "Retail Integration Spine — Canonical Interface Catalog"
+      }
+    ],
     "oral": [
       {
         "path": "Brain/wiki/cove-community-history.md",
@@ -39814,6 +40511,10 @@
       }
     ],
     "ordering": [
+      {
+        "path": "Brain/wiki/retail-integration-spine.md",
+        "title": "Retail Integration Spine — Canonical Interface Catalog"
+      },
       {
         "path": "Brain/wiki/secure-retail-operating-model-2006.md",
         "title": "Retail Operating Model — 2006 (IBM engagement, UK global grocer)"
@@ -40963,6 +41664,14 @@
       {
         "path": "Brain/wiki/growdirect-workflow.md",
         "title": "GrowDirect Workflow"
+      },
+      {
+        "path": "Brain/wiki/retail-integration-spine.md",
+        "title": "Retail Integration Spine — Canonical Interface Catalog"
+      },
+      {
+        "path": "Brain/wiki/retail-spine-secure-crosswalk.md",
+        "title": "Retail Spine — Prior-Art Cards Crosswalk"
       }
     ],
     "payment": [
@@ -41161,6 +41870,10 @@
       {
         "path": "Brain/wiki/cove-community-history.md",
         "title": "Community History"
+      },
+      {
+        "path": "Brain/wiki/retail-integration-spine.md",
+        "title": "Retail Integration Spine — Canonical Interface Catalog"
       },
       {
         "path": "Brain/wiki/secure-retail-operating-model-2006.md",
@@ -41393,6 +42106,10 @@
       {
         "path": "Brain/wiki/growdirect-white-paper-quant-peer-review.md",
         "title": "**Executive Summary: The Quant’s Verdict**"
+      },
+      {
+        "path": "Brain/wiki/secure-heartbeat-fireball-2002.md",
+        "title": "Heartbeat / Fireball (2002) — Essential Design"
       }
     ],
     "phase**": [
@@ -41501,6 +42218,10 @@
       {
         "path": "Brain/wiki/growdirect-research-cannabis-retail-risk.md",
         "title": "Cannabis Retail Risk Dictionary & Integration Spec"
+      },
+      {
+        "path": "Brain/wiki/secure-heartbeat-fireball-2002.md",
+        "title": "Heartbeat / Fireball (2002) — Essential Design"
       }
     ],
     "pipe": [
@@ -41623,6 +42344,12 @@
       {
         "path": "Brain/wiki/cove-declaration-100.md",
         "title": "Declaration No. 100 — General Plan of Restrictions"
+      }
+    ],
+    "placeholder": [
+      {
+        "path": "Brain/wiki/retail-integration-spine.md",
+        "title": "Retail Integration Spine — Canonical Interface Catalog"
       }
     ],
     "plain": [
@@ -42853,6 +43580,20 @@
       {
         "path": "Brain/wiki/cove-coastal-specific-plan-s4.md",
         "title": "Coastal Specific Plan — Subregion 4"
+      },
+      {
+        "path": "Brain/wiki/retail-spine-secure-crosswalk.md",
+        "title": "Retail Spine — Prior-Art Cards Crosswalk"
+      }
+    ],
+    "prior-art": [
+      {
+        "path": "Brain/wiki/retail-spine-secure-crosswalk.md",
+        "title": "Retail Spine — Prior-Art Cards Crosswalk"
+      },
+      {
+        "path": "Brain/wiki/secure-heartbeat-fireball-2002.md",
+        "title": "Heartbeat / Fireball (2002) — Essential Design"
       }
     ],
     "priority": [
@@ -43241,6 +43982,20 @@
       {
         "path": "Brain/wiki/growdirect-production-chain.md",
         "title": "GrowDirect Production Chain — v0.1"
+      }
+    ],
+    "products": [
+      {
+        "path": "Brain/wiki/retail-integration-spine.md",
+        "title": "Retail Integration Spine — Canonical Interface Catalog"
+      },
+      {
+        "path": "Brain/wiki/retail-spine-secure-crosswalk.md",
+        "title": "Retail Spine — Prior-Art Cards Crosswalk"
+      },
+      {
+        "path": "Brain/wiki/retail-spine-solex-crosswalk.md",
+        "title": "Retail Spine — E-commerce Worked Example Crosswalk"
       }
     ],
     "professional": [
@@ -44363,6 +45118,10 @@
         "title": "The Fee Window"
       },
       {
+        "path": "Brain/wiki/retail-integration-spine.md",
+        "title": "Retail Integration Spine — Canonical Interface Catalog"
+      },
+      {
         "path": "Brain/wiki/secure-retail-operating-model-2006.md",
         "title": "Retail Operating Model — 2006 (IBM engagement, UK global grocer)"
       }
@@ -44479,6 +45238,12 @@
       {
         "path": "Brain/wiki/growdirect-the-fox.md",
         "title": "The Fox — Case Management"
+      }
+    ],
+    "rbis": [
+      {
+        "path": "Brain/wiki/retail-integration-spine.md",
+        "title": "Retail Integration Spine — Canonical Interface Catalog"
       }
     ],
     "reactivate": [
@@ -46131,6 +46896,18 @@
         "title": "Oracle Project Costing — User Guide, Release 11i (May 2005)"
       },
       {
+        "path": "Brain/wiki/retail-integration-spine.md",
+        "title": "Retail Integration Spine — Canonical Interface Catalog"
+      },
+      {
+        "path": "Brain/wiki/retail-spine-secure-crosswalk.md",
+        "title": "Retail Spine — Prior-Art Cards Crosswalk"
+      },
+      {
+        "path": "Brain/wiki/retail-spine-solex-crosswalk.md",
+        "title": "Retail Spine — E-commerce Worked Example Crosswalk"
+      },
+      {
         "path": "Brain/wiki/seacove-arc-module.md",
         "title": "Seacove → Cove ARC Module"
       },
@@ -46169,6 +46946,10 @@
       {
         "path": "Brain/wiki/secure-eagle-eye-fnr-2018.md",
         "title": "Eagle Eye — Functional & Non-Functional Requirements v4.0 (Feb 2018, NS Comments)"
+      },
+      {
+        "path": "Brain/wiki/secure-heartbeat-fireball-2002.md",
+        "title": "Heartbeat / Fireball (2002) — Essential Design"
       },
       {
         "path": "Brain/wiki/secure-integrated-maps-2003.md",
@@ -46269,6 +47050,10 @@
       {
         "path": "Brain/wiki/seacove-wpbca-demo-plan.md",
         "title": "Seacove → WPBCA Demo Delivery Plan"
+      },
+      {
+        "path": "Brain/wiki/secure-heartbeat-fireball-2002.md",
+        "title": "Heartbeat / Fireball (2002) — Essential Design"
       }
     ],
     "release": [
@@ -46989,6 +47774,18 @@
         "title": "The Owl — Analytics Oracle"
       },
       {
+        "path": "Brain/wiki/retail-integration-spine.md",
+        "title": "Retail Integration Spine — Canonical Interface Catalog"
+      },
+      {
+        "path": "Brain/wiki/retail-spine-secure-crosswalk.md",
+        "title": "Retail Spine — Prior-Art Cards Crosswalk"
+      },
+      {
+        "path": "Brain/wiki/retail-spine-solex-crosswalk.md",
+        "title": "Retail Spine — E-commerce Worked Example Crosswalk"
+      },
+      {
         "path": "Brain/wiki/secure-client-top5-grocery-chain.md",
         "title": "Secure Client: Top-5 US Grocery Chain"
       },
@@ -47053,10 +47850,36 @@
         "title": "Integrated Maps — Retail Hardlines Solution Landscape (2003/04)"
       }
     ],
+    "retail-integration": [
+      {
+        "path": "Brain/wiki/retail-integration-spine.md",
+        "title": "Retail Integration Spine — Canonical Interface Catalog"
+      }
+    ],
     "retail-lp": [
       {
         "path": "Brain/wiki/growdirect-the-crdm.md",
         "title": "The Data Model"
+      }
+    ],
+    "retail-oos": [
+      {
+        "path": "Brain/wiki/secure-heartbeat-fireball-2002.md",
+        "title": "Heartbeat / Fireball (2002) — Essential Design"
+      }
+    ],
+    "retail-spine": [
+      {
+        "path": "Brain/wiki/retail-integration-spine.md",
+        "title": "Retail Integration Spine — Canonical Interface Catalog"
+      },
+      {
+        "path": "Brain/wiki/retail-spine-secure-crosswalk.md",
+        "title": "Retail Spine — Prior-Art Cards Crosswalk"
+      },
+      {
+        "path": "Brain/wiki/retail-spine-solex-crosswalk.md",
+        "title": "Retail Spine — E-commerce Worked Example Crosswalk"
       }
     ],
     "retail-tech-era": [
@@ -47075,6 +47898,12 @@
       {
         "path": "Brain/wiki/growdirect-competitive-landscape.md",
         "title": "War Chest Source 56: Competitive Landscape"
+      }
+    ],
+    "retailspine": [
+      {
+        "path": "Brain/projects/RetailSpine.md",
+        "title": "RetailSpine"
       }
     ],
     "retek": [
@@ -47165,6 +47994,12 @@
       {
         "path": "Brain/wiki/growdirect-white-paper.md",
         "title": "**1. The $112 Billion Problem**"
+      }
+    ],
+    "reverse": [
+      {
+        "path": "Brain/wiki/retail-integration-spine.md",
+        "title": "Retail Integration Spine — Canonical Interface Catalog"
       }
     ],
     "reversionary": [
@@ -48263,6 +49098,12 @@
         "title": "The Scaling Model"
       }
     ],
+    "scenario": [
+      {
+        "path": "Brain/wiki/retail-spine-solex-crosswalk.md",
+        "title": "Retail Spine — E-commerce Worked Example Crosswalk"
+      }
+    ],
     "schedule": [
       {
         "path": "Brain/wiki/angel-peninsula-school-guide.md",
@@ -48695,6 +49536,10 @@
     ],
     "secure": [
       {
+        "path": "Brain/wiki/retail-spine-secure-crosswalk.md",
+        "title": "Retail Spine — Prior-Art Cards Crosswalk"
+      },
+      {
         "path": "Brain/wiki/secure-5-inventory.md",
         "title": "Secure 5 Inventory"
       },
@@ -48721,6 +49566,10 @@
       {
         "path": "Brain/wiki/secure-eagle-eye-fnr-2018.md",
         "title": "Eagle Eye — Functional & Non-Functional Requirements v4.0 (Feb 2018, NS Comments)"
+      },
+      {
+        "path": "Brain/wiki/secure-heartbeat-fireball-2002.md",
+        "title": "Heartbeat / Fireball (2002) — Essential Design"
       },
       {
         "path": "Brain/wiki/secure-integrated-maps-2003.md",
@@ -49075,6 +49924,18 @@
       {
         "path": "Brain/wiki/growdirect-chirp-udq-strategy.md",
         "title": "Chirp UDQ + Lightning Metering — Branch Strategy"
+      },
+      {
+        "path": "Brain/wiki/retail-integration-spine.md",
+        "title": "Retail Integration Spine — Canonical Interface Catalog"
+      },
+      {
+        "path": "Brain/wiki/retail-spine-secure-crosswalk.md",
+        "title": "Retail Spine — Prior-Art Cards Crosswalk"
+      },
+      {
+        "path": "Brain/wiki/retail-spine-solex-crosswalk.md",
+        "title": "Retail Spine — E-commerce Worked Example Crosswalk"
       },
       {
         "path": "Brain/wiki/secure-property-services-operating-model-2002.md",
@@ -49957,6 +50818,18 @@
         "title": "COAC: RPV 2018 Safety Element — Annotated for Cove"
       }
     ],
+    "solex": [
+      {
+        "path": "Brain/wiki/retail-spine-solex-crosswalk.md",
+        "title": "Retail Spine — E-commerce Worked Example Crosswalk"
+      }
+    ],
+    "solex's": [
+      {
+        "path": "Brain/wiki/retail-spine-solex-crosswalk.md",
+        "title": "Retail Spine — E-commerce Worked Example Crosswalk"
+      }
+    ],
     "solution": [
       {
         "path": "Brain/wiki/coac-2026-civic-problems-memorandum.md",
@@ -50145,6 +51018,18 @@
       {
         "path": "Brain/wiki/growdirect-working-papers.md",
         "title": "GrowDirect Working Papers — Structure"
+      },
+      {
+        "path": "Brain/wiki/retail-integration-spine.md",
+        "title": "Retail Integration Spine — Canonical Interface Catalog"
+      },
+      {
+        "path": "Brain/wiki/retail-spine-secure-crosswalk.md",
+        "title": "Retail Spine — Prior-Art Cards Crosswalk"
+      },
+      {
+        "path": "Brain/wiki/retail-spine-solex-crosswalk.md",
+        "title": "Retail Spine — E-commerce Worked Example Crosswalk"
       },
       {
         "path": "Brain/wiki/secure-lpms-case-management-2015.md",
@@ -50675,6 +51560,18 @@
         "title": "Oracle Project Costing — User Guide, Release 11i (May 2005)"
       },
       {
+        "path": "Brain/wiki/retail-integration-spine.md",
+        "title": "Retail Integration Spine — Canonical Interface Catalog"
+      },
+      {
+        "path": "Brain/wiki/retail-spine-secure-crosswalk.md",
+        "title": "Retail Spine — Prior-Art Cards Crosswalk"
+      },
+      {
+        "path": "Brain/wiki/retail-spine-solex-crosswalk.md",
+        "title": "Retail Spine — E-commerce Worked Example Crosswalk"
+      },
+      {
         "path": "Brain/wiki/secure-5-inventory.md",
         "title": "Secure 5 Inventory"
       },
@@ -50701,6 +51598,10 @@
       {
         "path": "Brain/wiki/secure-eagle-eye-fnr-2018.md",
         "title": "Eagle Eye — Functional & Non-Functional Requirements v4.0 (Feb 2018, NS Comments)"
+      },
+      {
+        "path": "Brain/wiki/secure-heartbeat-fireball-2002.md",
+        "title": "Heartbeat / Fireball (2002) — Essential Design"
       },
       {
         "path": "Brain/wiki/secure-integrated-maps-2003.md",
@@ -50865,6 +51766,10 @@
         "title": "Block Space as Write Access"
       },
       {
+        "path": "Brain/wiki/retail-integration-spine.md",
+        "title": "Retail Integration Spine — Canonical Interface Catalog"
+      },
+      {
         "path": "Brain/wiki/secure-retail-operating-model-2006.md",
         "title": "Retail Operating Model — 2006 (IBM engagement, UK global grocer)"
       }
@@ -50993,6 +51898,18 @@
       {
         "path": "Brain/wiki/growdirect-pitch-spine.md",
         "title": "GrowDirect Investor Pitch — SPINE v0.4"
+      },
+      {
+        "path": "Brain/wiki/retail-integration-spine.md",
+        "title": "Retail Integration Spine — Canonical Interface Catalog"
+      },
+      {
+        "path": "Brain/wiki/retail-spine-secure-crosswalk.md",
+        "title": "Retail Spine — Prior-Art Cards Crosswalk"
+      },
+      {
+        "path": "Brain/wiki/retail-spine-solex-crosswalk.md",
+        "title": "Retail Spine — E-commerce Worked Example Crosswalk"
       },
       {
         "path": "Brain/wiki/south-bay-wiki-architecture.md",
@@ -51743,6 +52660,18 @@
       {
         "path": "Brain/wiki/growdirect-white-paper.md",
         "title": "**1. The $112 Billion Problem**"
+      },
+      {
+        "path": "Brain/wiki/retail-integration-spine.md",
+        "title": "Retail Integration Spine — Canonical Interface Catalog"
+      },
+      {
+        "path": "Brain/wiki/retail-spine-secure-crosswalk.md",
+        "title": "Retail Spine — Prior-Art Cards Crosswalk"
+      },
+      {
+        "path": "Brain/wiki/retail-spine-solex-crosswalk.md",
+        "title": "Retail Spine — E-commerce Worked Example Crosswalk"
       },
       {
         "path": "Brain/wiki/secure-5-inventory.md",
@@ -52533,6 +53462,18 @@
         "title": "Oracle Project Costing — User Guide, Release 11i (May 2005)"
       },
       {
+        "path": "Brain/wiki/retail-integration-spine.md",
+        "title": "Retail Integration Spine — Canonical Interface Catalog"
+      },
+      {
+        "path": "Brain/wiki/retail-spine-secure-crosswalk.md",
+        "title": "Retail Spine — Prior-Art Cards Crosswalk"
+      },
+      {
+        "path": "Brain/wiki/retail-spine-solex-crosswalk.md",
+        "title": "Retail Spine — E-commerce Worked Example Crosswalk"
+      },
+      {
         "path": "Brain/wiki/secure-5-inventory.md",
         "title": "Secure 5 Inventory"
       },
@@ -52559,6 +53500,10 @@
       {
         "path": "Brain/wiki/secure-eagle-eye-fnr-2018.md",
         "title": "Eagle Eye — Functional & Non-Functional Requirements v4.0 (Feb 2018, NS Comments)"
+      },
+      {
+        "path": "Brain/wiki/secure-heartbeat-fireball-2002.md",
+        "title": "Heartbeat / Fireball (2002) — Essential Design"
       },
       {
         "path": "Brain/wiki/secure-integrated-maps-2003.md",
@@ -52933,6 +53878,10 @@
         "title": "Cannabis Retail Risk Dictionary & Integration Spec"
       },
       {
+        "path": "Brain/wiki/retail-integration-spine.md",
+        "title": "Retail Integration Spine — Canonical Interface Catalog"
+      },
+      {
         "path": "Brain/wiki/secure-client-top5-grocery-chain.md",
         "title": "Secure Client: Top-5 US Grocery Chain"
       },
@@ -53273,6 +54222,16 @@
       {
         "path": "Brain/wiki/cove-1976-pvp-development-pressure.md",
         "title": "1976 Palos Verdes Properties Development Pressure — The 50-Year Pattern"
+      }
+    ],
+    "tells": [
+      {
+        "path": "Brain/wiki/retail-spine-secure-crosswalk.md",
+        "title": "Retail Spine — Prior-Art Cards Crosswalk"
+      },
+      {
+        "path": "Brain/wiki/retail-spine-solex-crosswalk.md",
+        "title": "Retail Spine — E-commerce Worked Example Crosswalk"
       }
     ],
     "template": [
@@ -54009,6 +54968,18 @@
         "title": "Oracle Project Costing — User Guide, Release 11i (May 2005)"
       },
       {
+        "path": "Brain/wiki/retail-integration-spine.md",
+        "title": "Retail Integration Spine — Canonical Interface Catalog"
+      },
+      {
+        "path": "Brain/wiki/retail-spine-secure-crosswalk.md",
+        "title": "Retail Spine — Prior-Art Cards Crosswalk"
+      },
+      {
+        "path": "Brain/wiki/retail-spine-solex-crosswalk.md",
+        "title": "Retail Spine — E-commerce Worked Example Crosswalk"
+      },
+      {
         "path": "Brain/wiki/seacove-arc-module.md",
         "title": "Seacove → Cove ARC Module"
       },
@@ -54039,6 +55010,10 @@
       {
         "path": "Brain/wiki/secure-eagle-eye-fnr-2018.md",
         "title": "Eagle Eye — Functional & Non-Functional Requirements v4.0 (Feb 2018, NS Comments)"
+      },
+      {
+        "path": "Brain/wiki/secure-heartbeat-fireball-2002.md",
+        "title": "Heartbeat / Fireball (2002) — Essential Design"
       },
       {
         "path": "Brain/wiki/secure-integrated-maps-2003.md",
@@ -54757,6 +55732,10 @@
       {
         "path": "Brain/wiki/foundation-umbrella-alx.md",
         "title": "Foundation — Umbrella ALX (Parking)"
+      },
+      {
+        "path": "Brain/wiki/secure-heartbeat-fireball-2002.md",
+        "title": "Heartbeat / Fireball (2002) — Essential Design"
       }
     ],
     "today**": [
@@ -56647,6 +57626,16 @@
         "title": "2026 Civic Problems Memorandum — Viral Campaign Parallel to 1939 PVE Booklet"
       }
     ],
+    "visible": [
+      {
+        "path": "Brain/wiki/retail-integration-spine.md",
+        "title": "Retail Integration Spine — Canonical Interface Catalog"
+      },
+      {
+        "path": "Brain/wiki/retail-spine-secure-crosswalk.md",
+        "title": "Retail Spine — Prior-Art Cards Crosswalk"
+      }
+    ],
     "vision": [
       {
         "path": "Brain/wiki/angel-listing-process.md",
@@ -57587,6 +58576,18 @@
         "title": "Oracle Project Costing — User Guide, Release 11i (May 2005)"
       },
       {
+        "path": "Brain/wiki/retail-integration-spine.md",
+        "title": "Retail Integration Spine — Canonical Interface Catalog"
+      },
+      {
+        "path": "Brain/wiki/retail-spine-secure-crosswalk.md",
+        "title": "Retail Spine — Prior-Art Cards Crosswalk"
+      },
+      {
+        "path": "Brain/wiki/retail-spine-solex-crosswalk.md",
+        "title": "Retail Spine — E-commerce Worked Example Crosswalk"
+      },
+      {
         "path": "Brain/wiki/seacove-arc-module.md",
         "title": "Seacove → Cove ARC Module"
       },
@@ -57661,6 +58662,14 @@
         "title": "GrowDirect Production Chain — v0.1"
       },
       {
+        "path": "Brain/wiki/retail-spine-secure-crosswalk.md",
+        "title": "Retail Spine — Prior-Art Cards Crosswalk"
+      },
+      {
+        "path": "Brain/wiki/retail-spine-solex-crosswalk.md",
+        "title": "Retail Spine — E-commerce Worked Example Crosswalk"
+      },
+      {
         "path": "Brain/wiki/secure-lite.md",
         "title": "Secure Lite"
       }
@@ -57727,6 +58736,10 @@
       {
         "path": "Brain/wiki/growdirect-timelog-token-analysis-feb20.md",
         "title": "Token Consumption Analysis — February 20, 2026"
+      },
+      {
+        "path": "Brain/wiki/retail-spine-secure-crosswalk.md",
+        "title": "Retail Spine — Prior-Art Cards Crosswalk"
       },
       {
         "path": "Brain/wiki/secure-retail-career-archive.md",
@@ -58067,6 +59080,10 @@
         "title": "GrowDirect Workflow"
       },
       {
+        "path": "Brain/wiki/retail-spine-solex-crosswalk.md",
+        "title": "Retail Spine — E-commerce Worked Example Crosswalk"
+      },
+      {
         "path": "Brain/wiki/secure-retail-career-archive.md",
         "title": "Pre-Secure Retail Career Archive"
       }
@@ -58075,6 +59092,12 @@
       {
         "path": "Brain/wiki/secure-omnichannel.md",
         "title": "Secure Omnichannel"
+      }
+    ],
+    "worked": [
+      {
+        "path": "Brain/wiki/retail-spine-solex-crosswalk.md",
+        "title": "Retail Spine — E-commerce Worked Example Crosswalk"
       }
     ],
     "workflow": [
