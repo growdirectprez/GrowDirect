@@ -191,6 +191,70 @@ class SquareClient:
 
         return resp.refund.model_dump()  # type: ignore[union-attr]
 
+    def create_customer(self, email: str, name: Optional[str] = None) -> dict:
+        """Create a Square customer and return the customer dict."""
+        ApiError = _get_api_error_class()
+
+        body: dict = {"email_address": email}
+        if name:
+            parts = name.split(" ", 1)
+            body["given_name"] = parts[0]
+            if len(parts) > 1:
+                body["family_name"] = parts[1]
+
+        try:
+            resp = self._client.customers.create(
+                idempotency_key=_gen_idem_key(),
+                **body,
+            )
+        except ApiError as exc:
+            self._reraise(exc)
+
+        return resp.customer.model_dump()  # type: ignore[union-attr]
+
+    def save_card_on_file(self, square_customer_id: str, source_id: str) -> dict:
+        """Save a card on file for a customer and return the card dict."""
+        ApiError = _get_api_error_class()
+
+        try:
+            resp = self._client.cards.create(
+                idempotency_key=_gen_idem_key(),
+                source_id=source_id,
+                card={"customer_id": square_customer_id},
+            )
+        except ApiError as exc:
+            self._reraise(exc)
+
+        return resp.card.model_dump()  # type: ignore[union-attr]
+
+    @retry(
+        stop=stop_after_attempt(3),
+        wait=wait_exponential(multiplier=0.5, max=4),
+        retry=retry_if_exception_type(SquareTransient),
+    )
+    def charge_saved_card(
+        self,
+        square_card_id: str,
+        amount_cents: int,
+        customer_id: str,
+        reference_id: Optional[str] = None,
+    ) -> dict:
+        """Charge a saved card on file and return the payment dict."""
+        ApiError = _get_api_error_class()
+
+        try:
+            resp = self._client.payments.create(
+                source_id=square_card_id,
+                idempotency_key=reference_id or _gen_idem_key(),
+                amount_money={"amount": amount_cents, "currency": "USD"},
+                location_id=self.cfg.location_id,
+                customer_id=customer_id,
+            )
+        except ApiError as exc:
+            self._reraise(exc)
+
+        return resp.payment.model_dump()  # type: ignore[union-attr]
+
     def verify_webhook_signature(
         self,
         url: str,
