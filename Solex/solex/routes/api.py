@@ -1,4 +1,7 @@
 from flask import Blueprint, jsonify, request, abort, current_app
+from redis import Redis
+from sqlalchemy import text as sql_text
+
 from solex.extensions import db, limiter
 
 bp = Blueprint("api", __name__)
@@ -6,7 +9,18 @@ bp = Blueprint("api", __name__)
 
 @bp.get("/health")
 def health():
-    return jsonify(ok=True)
+    ok = {"ok": True, "db": False, "valkey": False, "version": "0.1.0"}
+    try:
+        db.session.execute(sql_text("SELECT 1"))
+        ok["db"] = True
+    except Exception:
+        ok["ok"] = False
+    try:
+        Redis.from_url(current_app.config["VALKEY_URL"]).ping()
+        ok["valkey"] = True
+    except Exception:
+        ok["ok"] = False
+    return jsonify(ok), (200 if ok["ok"] else 503)
 
 
 def _webhook_services():
