@@ -1,0 +1,19 @@
+{% extends "base.html" %}
+{% block main %}
+<div class="flex gap-6">
+  <aside class="w-56 shrink-0">
+    <h3 class="font-semibold mb-3">Admin</h3>
+    <nav class="space-y-1 text-sm">
+      <a href="/admin/" class="block">Dashboard</a>
+      <a href="/admin/catalog/" class="block">Catalog</a>
+      <a href="/admin/orders/" class="block">Orders</a>
+      <a href="/admin/inventory/" class="block">Inventory</a>
+      <a href="/admin/customers/" class="block">Customers</a>
+      <a href="/admin/subscriptions/" class="block">Subscriptions</a>
+      <a href="/admin/returns/" class="block">Returns</a>
+      <a href="/admin/logout" class="block text-stone-500 mt-4">Sign out</a>
+    </nav>
+  </aside>
+  <section class="flex-1">{% block admin_main %}{% endblock %}</section>
+</div>
+{% endblock %}
