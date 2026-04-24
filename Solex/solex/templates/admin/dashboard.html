@@ -1,0 +1,13 @@
+{% extends "admin/_layout.html" %}
+{% block title %}Admin Dashboard — Solex{% endblock %}
+{% block admin_main %}
+<h1 class="text-xl font-semibold mb-4">Dashboard</h1>
+<ul class="space-y-2 text-sm">
+  <li><a href="/admin/catalog/">Catalog</a></li>
+  <li><a href="/admin/orders/">Orders</a></li>
+  <li><a href="/admin/inventory/">Inventory</a></li>
+  <li><a href="/admin/customers/">Customers</a></li>
+  <li><a href="/admin/subscriptions/">Subscriptions</a></li>
+  <li><a href="/admin/returns/">Returns</a></li>
+</ul>
+{% endblock %}
