@@ -1,11 +1,12 @@
 from typing import Optional
 from datetime import datetime
+from flask_login import UserMixin
 from sqlalchemy import String, Boolean, DateTime
 from sqlalchemy.orm import Mapped, mapped_column
 from solex.models.base import BaseModel
 
 
-class AdminUser(BaseModel):
+class AdminUser(UserMixin, BaseModel):
     __tablename__ = "admin_users"
     email: Mapped[str] = mapped_column(String(254), unique=True, nullable=False)
     password_hash: Mapped[Optional[str]] = mapped_column(String(255), nullable=True)
