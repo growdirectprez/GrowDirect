@@ -1,0 +1,62 @@
+{% extends "admin/_layout.html" %}
+{% block title %}Subscription — Admin{% endblock %}
+{% block admin_main %}
+<div class="mb-4">
+  <a href="/admin/subscriptions/" class="text-sm text-stone-500">&larr; Subscriptions</a>
+</div>
+{% with messages = get_flashed_messages(with_categories=true) %}
+  {% for cat, msg in messages %}
+    <p class="mb-3 text-sm text-{{ 'green' if cat == 'ok' else 'red' }}-700">{{ msg }}</p>
+  {% endfor %}
+{% endwith %}
+
+<h1 class="text-xl font-semibold mb-4">Subscription</h1>
+<div class="mb-6 space-y-1 text-sm">
+  <p>Status: <strong>{{ sub.status }}</strong></p>
+  <p>Customer ID: <span class="font-mono text-xs">{{ sub.customer_id }}</span></p>
+  <p>Product ID: <span class="font-mono text-xs">{{ sub.product_id }}</span></p>
+  <p>Qty: {{ sub.qty }} — every {{ sub.cadence_days }} days</p>
+  <p>Next charge: {{ sub.next_charge_at.strftime("%Y-%m-%d %H:%M UTC") }}</p>
+  <p>Last charged: {{ sub.last_charged_at.strftime("%Y-%m-%d") if sub.last_charged_at else "—" }}</p>
+</div>
+
+{% if sub.charges %}
+<div class="mb-6">
+  <h2 class="font-semibold mb-2 text-sm">Charge History</h2>
+  <table class="w-full text-sm border-collapse">
+    <thead>
+      <tr class="border-b text-left">
+        <th class="py-1 pr-4">Date</th>
+        <th class="py-1 pr-4">Result</th>
+        <th class="py-1">Reason</th>
+      </tr>
+    </thead>
+    <tbody>
+      {% for charge in sub.charges %}
+      <tr class="border-b">
+        <td class="py-1 pr-4">{{ charge.attempted_at.strftime("%Y-%m-%d") }}</td>
+        <td class="py-1 pr-4">{{ "OK" if charge.succeeded else "Failed" }}</td>
+        <td class="py-1 text-xs">{{ charge.failure_reason or "—" }}</td>
+      </tr>
+      {% endfor %}
+    </tbody>
+  </table>
+</div>
+{% endif %}
+
+{% if sub.status not in ("cancelled",) %}
+<div class="flex gap-3">
+  {% if sub.status == "active" %}
+  <form method="post" action="/admin/subscriptions/{{ sub.id }}/pause">
+    <input type="hidden" name="csrf_token" value="{{ csrf_token() }}">
+    <button type="submit" class="border px-4 py-2 rounded text-sm">Pause</button>
+  </form>
+  {% endif %}
+  <form method="post" action="/admin/subscriptions/{{ sub.id }}/cancel">
+    <input type="hidden" name="csrf_token" value="{{ csrf_token() }}">
+    <button type="submit" class="border px-4 py-2 rounded text-sm text-red-600"
+            onclick="return confirm('Cancel this subscription?')">Cancel</button>
+  </form>
+</div>
+{% endif %}
+{% endblock %}
