@@ -85,3 +85,50 @@ def test_issue_refund(admin_client, seed_order):
 def test_orders_list_redirects_unauthenticated(client):
     resp = client.get("/admin/orders/")
     assert resp.status_code in (302, 401)
+
+
+def test_orders_list_scenario_tag_filter(admin_client, db_session):
+    from secrets import token_urlsafe
+    from datetime import datetime, timezone
+    from solex.models import Product, Order, Inventory
+
+    product = Product(
+        sku="TAG-P1", slug="tag-product", name="Tag Product",
+        price_cents=500, description="", short_description="",
+    )
+    db_session.add(product)
+    db_session.flush()
+    db_session.add(Inventory(product_id=product.id, on_hand=10))
+    now = datetime.now(timezone.utc)
+
+    def _make_order(tag):
+        o = Order(
+            public_token=token_urlsafe(8),
+            customer_email="cust@example.com",
+            customer_name="Test Customer",
+            shipping_address_json={"line1": "1 Main"},
+            billing_address_json={"line1": "1 Main"},
+            subtotal_cents=500, tax_cents=0, shipping_cents=0, total_cents=500,
+            status="paid",
+            square_order_id=f"sq_{token_urlsafe(4)}",
+            square_payment_id=f"sp_{token_urlsafe(4)}",
+            placed_at=now,
+            scenario_tag=tag,
+        )
+        db_session.add(o)
+        return o
+
+    o1 = _make_order("alpha-run-aabbccdd")
+    o2 = _make_order("beta-run-11223344")
+    db_session.commit()
+
+    # Filter by alpha tag — only o1 should appear
+    resp = admin_client.get("/admin/orders/?scenario_tag=alpha-run-aabbccdd")
+    assert resp.status_code == 200
+    assert o1.public_token.encode() in resp.data
+    assert o2.public_token.encode() not in resp.data
+
+    # No filter — both appear
+    resp_all = admin_client.get("/admin/orders/")
+    assert o1.public_token.encode() in resp_all.data
+    assert o2.public_token.encode() in resp_all.data
