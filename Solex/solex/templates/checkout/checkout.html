@@ -1,0 +1,61 @@
+{% extends "base.html" %}
+{% block main %}
+<div class="max-w-xl mx-auto py-8">
+  <h1 class="text-xl font-semibold mb-6">Checkout</h1>
+
+  <form id="checkout-form"
+        class="space-y-4"
+        data-app-id="{{ square_app_id }}"
+        data-location-id="{{ square_location_id }}"
+        data-env="{{ square_environment }}">
+
+    <div class="space-y-2">
+      <label class="block text-sm font-medium text-stone-700">Email</label>
+      <input name="email" type="email" placeholder="you@example.com" required
+             class="w-full border border-stone-300 rounded p-2 focus:outline-none focus:ring-1 focus:ring-stone-500">
+    </div>
+
+    <div class="space-y-2">
+      <label class="block text-sm font-medium text-stone-700">Full name</label>
+      <input name="name" type="text" placeholder="Full name" required
+             class="w-full border border-stone-300 rounded p-2 focus:outline-none focus:ring-1 focus:ring-stone-500">
+    </div>
+
+    <div class="space-y-2">
+      <label class="block text-sm font-medium text-stone-700">Address</label>
+      <input name="line1" type="text" placeholder="Street address" required
+             class="w-full border border-stone-300 rounded p-2 focus:outline-none focus:ring-1 focus:ring-stone-500">
+      <div class="grid grid-cols-3 gap-2">
+        <input name="city" type="text" placeholder="City" required
+               class="border border-stone-300 rounded p-2 focus:outline-none focus:ring-1 focus:ring-stone-500">
+        <input name="region" type="text" placeholder="State" required maxlength="2"
+               class="border border-stone-300 rounded p-2 focus:outline-none focus:ring-1 focus:ring-stone-500">
+        <input name="postal_code" type="text" placeholder="ZIP" required
+               class="border border-stone-300 rounded p-2 focus:outline-none focus:ring-1 focus:ring-stone-500">
+      </div>
+    </div>
+
+    <div class="space-y-2">
+      <label class="block text-sm font-medium text-stone-700">Card</label>
+      <div id="card-container" class="border border-stone-300 rounded p-3 min-h-[44px]"></div>
+    </div>
+
+    <div class="pt-2 border-t border-stone-200 text-sm text-stone-600 space-y-1">
+      <div class="flex justify-between">
+        <span>Subtotal</span>
+        <span>${{ '%.2f' % (cart.subtotal_cents / 100) }}</span>
+      </div>
+    </div>
+
+    <button id="pay-button" type="submit"
+            class="w-full bg-stone-900 text-white rounded px-4 py-3 font-medium hover:bg-stone-700 transition-colors">
+      Pay ${{ '%.2f' % (cart.subtotal_cents / 100) }}
+    </button>
+
+    <p id="checkout-error" class="text-red-600 text-sm"></p>
+  </form>
+</div>
+
+<script src="https://sandbox.web.squarecdn.com/v1/square.js"></script>
+<script src="{{ url_for('static', filename='js/checkout.js') }}" defer></script>
+{% endblock %}
