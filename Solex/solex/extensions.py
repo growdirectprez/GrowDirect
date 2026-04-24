@@ -47,6 +47,22 @@ def init_extensions(app):
     customer_login.init_app(app)
     csrf.init_app(app)
 
+    from solex.models import AdminUser, Customer
+
+    @admin_login.user_loader
+    def load_admin(user_id):
+        from sqlalchemy import select
+        return db.session.execute(
+            select(AdminUser).where(AdminUser.id == user_id)
+        ).scalar_one_or_none()
+
+    @customer_login.user_loader
+    def load_customer(user_id):
+        from sqlalchemy import select
+        return db.session.execute(
+            select(Customer).where(Customer.id == user_id)
+        ).scalar_one_or_none()
+
     app.config["SESSION_REDIS"] = redis.Redis.from_url(app.config["VALKEY_URL"])
     server_session.init_app(app)
 
