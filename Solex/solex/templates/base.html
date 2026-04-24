@@ -1,0 +1,27 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="robots" content="noindex,nofollow">
+  <meta name="viewport" content="width=device-width,initial-scale=1">
+  <title>{% block title %}Solex{% endblock %}</title>
+  <link rel="stylesheet" href="{{ url_for('static', filename='css/output.css') }}">
+</head>
+<body class="bg-white text-stone-900" x-data="{cartOpen:false}" x-on:open-cart.window="cartOpen = true">
+  <header class="border-b border-stone-200">
+    <nav class="mx-auto max-w-6xl flex items-center justify-between p-4">
+      <a href="{{ url_for('storefront.home') }}" class="font-semibold">Solex</a>
+      <ul class="flex gap-6 text-sm">
+        <li><a href="{{ url_for('storefront.shop') }}">Shop</a></li>
+        <li><a href="#">AO Scan</a></li>
+        <li><a href="#">University</a></li>
+      </ul>
+      <button @click="cartOpen = true" class="text-sm">Cart (<span id="cart-count">0</span>)</button>
+    </nav>
+  </header>
+  <main class="mx-auto max-w-6xl p-4">{% block main %}{% endblock %}</main>
+  {% include "cart/_drawer.html" ignore missing %}
+  <script src="{{ url_for('static', filename='js/vendor/alpine.min.js') }}" defer></script>
+  <script src="{{ url_for('static', filename='js/cart_drawer.js') }}" defer></script>
+</body>
+</html>

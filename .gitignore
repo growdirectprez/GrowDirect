@@ -51,6 +51,13 @@ Angel/media/
 .obsidian/community-plugins.json
 .obsidianignore
 
+# Obsidian user-local state (navigation, layout, per-user — not vault content)
+.obsidian/workspace.json
+.obsidian/workspace-mobile.json
+.obsidian/app.json
+.obsidian/appearance.json
+.obsidian/graph.json
+
 
 
 
