@@ -7,6 +7,8 @@ def create_app(config_cls=None) -> Flask:
     app = Flask(__name__, template_folder="templates", static_folder="static")
     app.config.from_object(config_cls or resolve_config())
     init_extensions(app)
+    from datetime import datetime, timezone
+    app.jinja_env.globals.setdefault("now", lambda: datetime.now(timezone.utc))
     from solex.routes import api, storefront, cart as cart_routes, checkout as checkout_routes
     from solex.routes import admin_auth, account_auth
     from solex.routes import admin, admin_catalog, admin_orders, admin_inventory
