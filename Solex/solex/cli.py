@@ -74,5 +74,24 @@ def create_seed(email, password):
         click.echo(f"created: {email}")
 
 
+@cli.group()
+def scheduler(): ...
+
+
+@scheduler.command("run")
+def scheduler_run():
+    """Run rq-scheduler in the foreground. Used by the scheduler container."""
+    from solex.jobs.scheduler import run_forever
+    run_forever()
+
+
+@scheduler.command("schedule-once")
+def scheduler_schedule_once():
+    """Register (or re-register) cron jobs idempotently; don't run forever."""
+    from solex.jobs.scheduler import schedule_recurring_jobs
+    ids = schedule_recurring_jobs()
+    click.echo(f"scheduled: {ids}")
+
+
 if __name__ == "__main__":
     cli()
