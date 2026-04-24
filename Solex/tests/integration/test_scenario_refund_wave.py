@@ -27,6 +27,11 @@ def test_refund_wave_refunds_prior_orders(
         create_refund=MagicMock(side_effect=_refund),
     )
     mocker.patch("solex.services.scenarios.base._square", return_value=client)
+    mocker.patch(
+        "solex.services.scenarios.refund_wave._square",
+        return_value=client,
+        create=True,
+    )
     registry._import_all()
 
     # Seed 3 paid orders
