@@ -1,16 +1,17 @@
+{# account/_layout.html #}
 {% extends "base.html" %}
 {% block main %}
-<div class="flex gap-6">
+<div class="container-narrow py-8 flex gap-8">
   <aside class="w-56 shrink-0">
-    <h3 class="font-semibold mb-3">Account</h3>
+    <p class="eyebrow mb-3">Account</p>
     <nav class="space-y-1 text-sm">
-      <a href="/account/" class="block">Overview</a>
-      <a href="/account/orders" class="block">Orders</a>
-      <a href="/account/addresses" class="block">Addresses</a>
-      <a href="/account/subscriptions" class="block">Subscriptions</a>
-      <a href="/account/logout" class="block text-stone-500 mt-4">Sign out</a>
+      <a href="/account/" class="block py-1 text-solex-body hover:text-solex-ink">Overview</a>
+      <a href="/account/orders" class="block py-1 text-solex-body hover:text-solex-ink">Orders</a>
+      <a href="/account/addresses" class="block py-1 text-solex-body hover:text-solex-ink">Addresses</a>
+      <a href="/account/subscriptions" class="block py-1 text-solex-body hover:text-solex-ink">Subscriptions</a>
+      <a href="/account/logout" class="block pt-4 text-solex-muted hover:text-solex-ink">Sign out</a>
     </nav>
   </aside>
-  <section class="flex-1">{% block account_main %}{% endblock %}</section>
+  <section class="flex-1 min-w-0">{% block account_main %}{% endblock %}</section>
 </div>
 {% endblock %}
