@@ -255,6 +255,85 @@ class SquareClient:
 
         return resp.payment.model_dump()  # type: ignore[union-attr]
 
+    def upsert_catalog_item(
+        self,
+        name: str,
+        description: str,
+        sku: str,
+        price_cents: int,
+        square_object_id: Optional[str] = None,
+    ) -> dict:
+        """Create or update a Square Catalog ITEM with a single ITEM_VARIATION.
+
+        Uses batch_upsert with a single-object batch. If square_object_id is
+        provided, the existing object is updated; otherwise a new object is
+        created using a #-prefixed temp ID.
+
+        Returns a dict with at least an 'id' key for the upserted catalog object.
+        """
+        ApiError = _get_api_error_class()
+
+        item_id = square_object_id or "#new_item"
+        variation_id = f"#{sku}_var" if not square_object_id else f"{square_object_id}_var"
+
+        try:
+            resp = self._client.catalog.batch_upsert(
+                idempotency_key=_gen_idem_key(),
+                batches=[
+                    {
+                        "objects": [
+                            {
+                                "type": "ITEM",
+                                "id": item_id,
+                                "item_data": {
+                                    "name": name,
+                                    "description": description or "",
+                                    "variations": [
+                                        {
+                                            "type": "ITEM_VARIATION",
+                                            "id": variation_id,
+                                            "item_variation_data": {
+                                                "item_id": item_id,
+                                                "name": "Regular",
+                                                "sku": sku,
+                                                "pricing_type": "FIXED_PRICING",
+                                                "price_money": {
+                                                    "amount": price_cents,
+                                                    "currency": "USD",
+                                                },
+                                            },
+                                        }
+                                    ],
+                                },
+                            }
+                        ]
+                    }
+                ],
+            )
+        except ApiError as exc:
+            self._reraise(exc)
+
+        # The response contains id_mappings for #-prefixed temp IDs.
+        # If we used an existing ID, the objects list has the upserted item.
+        objects = getattr(resp, "objects", None) or []
+        id_mappings = getattr(resp, "id_mappings", None) or []
+
+        # Prefer the real ID from id_mappings (temp ID resolution)
+        for mapping in id_mappings:
+            client_obj_id = getattr(mapping, "client_object_id", None)
+            object_id = getattr(mapping, "object_id", None)
+            if client_obj_id == item_id and object_id:
+                return {"id": object_id}
+
+        # Fall back to first object in the response
+        if objects:
+            obj = objects[0]
+            obj_id = getattr(obj, "id", None)
+            if obj_id:
+                return {"id": obj_id}
+
+        return {}
+
     def verify_webhook_signature(
         self,
         url: str,
