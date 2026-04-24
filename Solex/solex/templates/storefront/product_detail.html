@@ -8,11 +8,31 @@
     <p class="mb-6">{{ product.description }}</p>
     <form class="js-cart-form" action="{{ url_for('cart.add') }}" method="post">
       <input type="hidden" name="product_id" value="{{ product.id }}">
+      <div class="mb-4 space-y-2">
+        <label class="flex items-center gap-2 cursor-pointer">
+          <input type="radio" name="purchase_type" value="onetime" checked class="accent-stone-900">
+          <span class="text-sm">One-time purchase</span>
+        </label>
+        <label class="flex items-center gap-2 cursor-pointer">
+          <input type="radio" name="purchase_type" value="subscribe" class="accent-stone-900" id="subscribe-radio">
+          <span class="text-sm">Subscribe &amp; save — every 30 days</span>
+        </label>
+        <input type="hidden" name="subscription_cadence_days" id="cadence-input" value="">
+      </div>
       <div class="flex items-center gap-3">
         <input type="number" name="qty" value="1" min="1" class="w-20 border p-2">
         <button type="submit" class="bg-stone-900 text-white px-4 py-2 rounded">Add to cart</button>
       </div>
     </form>
+    <script>
+    (function() {
+      const radios = document.querySelectorAll('input[name="purchase_type"]');
+      const cadenceInput = document.getElementById('cadence-input');
+      radios.forEach(r => r.addEventListener('change', () => {
+        cadenceInput.value = r.value === 'subscribe' ? '30' : '';
+      }));
+    })();
+    </script>
   </div>
 </div>
 {% endblock %}

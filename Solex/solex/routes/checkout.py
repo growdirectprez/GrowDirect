@@ -1,5 +1,8 @@
 """Checkout blueprint — view, submit, and order confirmation routes."""
+from datetime import datetime, timedelta, timezone
+from uuid import UUID
 from flask import Blueprint, render_template, request, jsonify, abort, current_app, session
+from flask_login import current_user
 from redis import Redis
 from sqlalchemy import select
 from solex.extensions import db
@@ -9,7 +12,7 @@ from solex.services.square_client import SquareClient, SquareConfig, SquareError
 from solex.services.inventory import InventoryService
 from solex.services.tax import FlatRateTaxStub
 from solex.services.shipping import FlatRateShippingStub
-from solex.models import Order
+from solex.models import Order, Customer, Product
 
 bp = Blueprint("checkout", __name__)
 
@@ -79,6 +82,14 @@ def submit():
         inventory=InventoryService(db.session),
     )
 
+    # Subscription pre-flight: if any cart line has cadence_days, enforce login + store token
+    has_sub_lines = any(l.get("cadence_days") for l in snap.lines)
+    if has_sub_lines:
+        if not (current_user.is_authenticated and isinstance(current_user, Customer)):
+            return jsonify(error="login_required_for_subscription"), 400
+        if not data.get("store_payment_token"):
+            return jsonify(error="store_payment_token_required_for_subscription"), 400
+
     try:
         order = svc.place_order(
             cart_lines=cart_lines,
@@ -92,6 +103,69 @@ def submit():
     except SquareError as e:
         return jsonify(error="payment_failed", detail=str(e)), 502
 
+    # Link the order to the logged-in customer if not already set
+    if current_user.is_authenticated and isinstance(current_user, Customer):
+        if order.customer_id is None:
+            order.customer_id = current_user.id
+            db.session.commit()
+
+    # Post-checkout subscription creation
+    sub_next_charge_at = None
+    if has_sub_lines:
+        sq = _square()
+        customer = current_user  # already verified above
+        try:
+            if not customer.square_customer_id:
+                sq_cust = sq.create_customer(
+                    customer.email,
+                    f"{customer.first_name or ''} {customer.last_name or ''}".strip() or customer.email,
+                )
+                customer.square_customer_id = sq_cust["id"]
+                db.session.commit()
+
+            card = sq.save_card_on_file(customer.square_customer_id, data["store_payment_token"])
+
+            from solex.services.subscriptions import SubscriptionService
+
+            cfg = current_app.config
+            sub_svc = SubscriptionService(
+                db.session, sq,
+                CheckoutService(
+                    session=db.session, square=sq,
+                    tax=FlatRateTaxStub(cfg["TAX_RATE_PCT"]),
+                    shipping=FlatRateShippingStub(cfg["SHIPPING_FLAT_CENTS"], cfg["SHIPPING_FREE_THRESHOLD_CENTS"]),
+                    inventory=InventoryService(db.session),
+                ),
+            )
+
+            for line in snap.lines:
+                cadence = int(line.get("cadence_days") or 0)
+                if cadence <= 0:
+                    continue
+                product = db.session.get(Product, UUID(line["product_id"]))
+                if product is None:
+                    continue
+                starting_at = datetime.now(timezone.utc) + timedelta(days=cadence)
+                sub_svc.create(
+                    customer=customer, product=product, qty=line["qty"],
+                    cadence_days=cadence, starting_at=starting_at,
+                    square_card_id=card["id"],
+                )
+                sub_next_charge_at = sub_next_charge_at or starting_at
+        except Exception as exc:
+            # Subscription setup failures are non-fatal — order already placed.
+            # Log and surface to caller so the frontend can inform the customer.
+            current_app.logger.exception("subscription setup failed after successful payment")
+            # Clear the cart before returning
+            token = order.public_token
+            session.pop("cart_key", None)
+            if cart_key:
+                try:
+                    backend.redis.delete(backend._k(cart_key))
+                except Exception:
+                    pass
+            return jsonify(order_token=token, subscription_error=str(exc)), 200
+
     # Clear the cart
     token = order.public_token
     session.pop("cart_key", None)
@@ -101,7 +175,10 @@ def submit():
         except Exception:
             pass
 
-    return jsonify(order_token=token), 200
+    resp_body = {"order_token": token}
+    if sub_next_charge_at:
+        resp_body["subscription_next_charge"] = sub_next_charge_at.strftime("%Y-%m-%d")
+    return jsonify(resp_body), 200
 
 
 @bp.get("/order/<token>")
