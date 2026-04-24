@@ -93,5 +93,46 @@ def scheduler_schedule_once():
     click.echo(f"scheduled: {ids}")
 
 
+@cli.group()
+def scenarios(): ...
+
+
+@scenarios.command("list")
+def scenarios_list():
+    from solex.services.scenarios import registry
+    registry._import_all()
+    for name, cls in sorted(registry.all_scenarios().items()):
+        click.echo(f"{name:30s} {cls.description}")
+
+
+@scenarios.command("run")
+@click.argument("name")
+@click.option("--params-json", default="{}")
+def scenarios_run(name, params_json):
+    import json
+    from datetime import datetime, timezone
+    from solex.services.scenarios import registry, prepare_context
+    registry._import_all()
+    cls = registry.get(name)
+    if cls is None:
+        click.echo(f"unknown scenario: {name}"); raise SystemExit(1)
+    app = create_app()
+    with app.app_context():
+        from solex.models import ScenarioRun
+        params = cls.params_schema(**json.loads(params_json))
+        run = ScenarioRun(
+            scenario_name=name, params_json=params.model_dump(),
+            started_at=datetime.now(timezone.utc), status="running", summary_json={},
+        )
+        db.session.add(run); db.session.commit()
+        ctx = prepare_context(db.session, run, config=dict(app.config))
+        summary = cls().run(ctx, params)
+        run.summary_json = summary
+        run.completed_at = datetime.now(timezone.utc)
+        run.status = "succeeded" if not summary.get("failed") else "partial"
+        db.session.commit()
+        click.echo(json.dumps(summary, indent=2, default=str))
+
+
 if __name__ == "__main__":
     cli()
