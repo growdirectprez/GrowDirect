@@ -1,0 +1,74 @@
+categories:
+  - slug: supplements
+    name: Supplements
+    sort: 1
+  - slug: devices
+    name: Frequency Devices
+    sort: 2
+  - slug: therapy
+    name: Light & PEMF Therapy
+    sort: 3
+  - slug: pet
+    name: Pet
+    sort: 4
+
+products:
+  - sku: AO-YOUTH-30
+    slug: ao-youth-30
+    name: AO Youth — 30 count
+    short_description: Daily cellular support supplement.
+    description: Placeholder description. Real Solex copy pulled in Plan 4.
+    price_cents: 4995
+    image_path: catalog/images/ao-youth-30.jpg
+    category_slug: supplements
+    active: true
+    weight_grams: 120
+    starting_inventory: 100
+
+  - sku: AO-SCAN-V1
+    slug: ao-scan-v1
+    name: AO Scan — Baseline
+    short_description: Frequency diagnostic tool.
+    description: Placeholder description.
+    price_cents: 149900
+    image_path: catalog/images/ao-scan.jpg
+    category_slug: devices
+    active: true
+    weight_grams: 500
+    starting_inventory: 20
+
+  - sku: PEMF-MAT-INF
+    slug: ao-infinity-mat
+    name: AO Infinity Mat
+    short_description: Full-body PEMF therapy mat.
+    description: Placeholder description.
+    price_cents: 259900
+    image_path: catalog/images/infinity-mat.jpg
+    category_slug: therapy
+    active: true
+    weight_grams: 8000
+    starting_inventory: 10
+
+  - sku: RED-LIGHT-BELT
+    slug: red-light-belt
+    name: Red Light Belt
+    short_description: Targeted red light therapy belt.
+    description: Placeholder description.
+    price_cents: 34900
+    image_path: catalog/images/red-light-belt.jpg
+    category_slug: therapy
+    active: true
+    weight_grams: 900
+    starting_inventory: 40
+
+  - sku: PET-GUT-60
+    slug: pet-gut-60
+    name: Pet Gut — 60 count
+    short_description: Pet gut support.
+    description: Placeholder description.
+    price_cents: 3495
+    image_path: catalog/images/pet-gut.jpg
+    category_slug: pet
+    active: true
+    weight_grams: 90
+    starting_inventory: 60
