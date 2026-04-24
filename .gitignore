@@ -63,3 +63,8 @@ Angel/media/
 
 # Ignore Smart Environment folder
 .smart-env
+
+# Brain intake working dirs — raw source binaries, extraction scratch, logs
+Brain/raw/inbox/
+Brain/raw/.extract/
+Brain/raw/.logs/
