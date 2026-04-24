@@ -1,0 +1,52 @@
+name: solex
+
+services:
+  web:
+    image: solex-web
+    container_name: solex_web
+    build:
+      context: ..
+      dockerfile: devops/Dockerfile
+    ports:
+      - "5003:5003"
+    env_file: ../.env
+    environment:
+      - SOLEX_ENV=development
+    volumes:
+      - ../solex:/app/solex
+      - ../wsgi.py:/app/wsgi.py
+      - ../alembic:/app/alembic
+      - ../alembic.ini:/app/alembic.ini
+      - ../catalog:/app/catalog
+      - ../tests:/app/tests
+      - ../pytest.ini:/app/pytest.ini
+    depends_on:
+      - mailhog
+    networks:
+      - growdirect
+
+  worker:
+    image: solex-worker
+    container_name: solex_worker
+    build:
+      context: ..
+      dockerfile: devops/Dockerfile
+    command: ["rq", "worker", "--url", "redis://growdirect_valkey:6379/2", "solex-default"]
+    env_file: ../.env
+    volumes:
+      - ../solex:/app/solex
+    networks:
+      - growdirect
+
+  mailhog:
+    image: mailhog/mailhog:latest
+    container_name: solex_mailhog
+    ports:
+      - "1027:1025"
+      - "8027:8025"
+    networks:
+      - growdirect
+
+networks:
+  growdirect:
+    external: true
