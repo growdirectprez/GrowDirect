@@ -26,6 +26,38 @@ class ValkeyCartBackend:
         return CartSnapshot(**data)
     def save(self, key, snap):
         self.redis.setex(self._k(key), 7 * 24 * 3600, json.dumps(snap.__dict__))
+        self._persist_to_db(key, snap)
+
+    def _persist_to_db(self, key: str, snap):
+        try:
+            from solex.extensions import db
+            from solex.models import Cart, CartLine
+            from datetime import datetime, timezone
+            from sqlalchemy import select, delete
+            from uuid import UUID
+            cart = db.session.execute(
+                select(Cart).where(Cart.session_key == key)
+            ).scalar_one_or_none()
+            now = datetime.now(timezone.utc)
+            if cart is None:
+                cart = Cart(session_key=key, last_activity_at=now, currency=snap.currency)
+                db.session.add(cart); db.session.flush()
+            else:
+                # If the cart was abandonment-emailed and the user came back, mark recovered.
+                if cart.abandonment_emailed_at and cart.recovered_at is None:
+                    cart.recovered_at = now
+                cart.last_activity_at = now
+                db.session.execute(delete(CartLine).where(CartLine.cart_id == cart.id))
+            for line in snap.lines:
+                db.session.add(CartLine(
+                    cart_id=cart.id, product_id=UUID(line["product_id"]),
+                    qty=line["qty"], price_snapshot_cents=line["price_cents"],
+                ))
+            db.session.commit()
+        except Exception:
+            # Write-through failure must not break cart UX
+            from solex.extensions import db
+            db.session.rollback()
 
 class CartService:
     def __init__(self, backend: CartBackend, catalog_get_product):
