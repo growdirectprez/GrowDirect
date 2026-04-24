@@ -13,6 +13,7 @@ def create_app(config_cls=None) -> Flask:
     app.register_blueprint(cart_routes.bp)
     app.register_blueprint(checkout_routes.bp)
     from solex.extensions import csrf
+    csrf.exempt(api.bp)
     csrf.exempt(cart_routes.bp)
     csrf.exempt(checkout_routes.bp)
     return app
