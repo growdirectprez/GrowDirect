@@ -1,0 +1,47 @@
+{# _partials/footer.html #}
+<footer class="mt-24 bg-solex-ink text-solex-cream">
+  <div class="container-narrow py-16 grid grid-cols-2 md:grid-cols-4 gap-10 text-sm">
+    <div>
+      <p class="eyebrow text-solex-gold mb-3">Shop</p>
+      <ul class="space-y-2">
+        <li><a href="{{ url_for('storefront.shop_by_category', slug='supplements') }}" class="hover:text-white">Supplements</a></li>
+        <li><a href="{{ url_for('storefront.shop_by_category', slug='devices') }}" class="hover:text-white">Frequency devices</a></li>
+        <li><a href="{{ url_for('storefront.shop_by_category', slug='therapy') }}" class="hover:text-white">Light & PEMF</a></li>
+        <li><a href="{{ url_for('storefront.shop_by_category', slug='pet') }}" class="hover:text-white">Pet</a></li>
+        <li><a href="{{ url_for('storefront.shop') }}" class="hover:text-white">All products</a></li>
+      </ul>
+    </div>
+    <div>
+      <p class="eyebrow text-solex-gold mb-3">Company</p>
+      <ul class="space-y-2">
+        <li><a href="/about" class="hover:text-white">About</a></li>
+        <li><a href="/university" class="hover:text-white">University</a></li>
+        <li><a href="/events" class="hover:text-white">Events</a></li>
+        <li><a href="/blog" class="hover:text-white">Blog</a></li>
+      </ul>
+    </div>
+    <div>
+      <p class="eyebrow text-solex-gold mb-3">Support</p>
+      <ul class="space-y-2">
+        <li><a href="/shipping" class="hover:text-white">Shipping</a></li>
+        <li><a href="/refunds" class="hover:text-white">Refunds</a></li>
+        <li><a href="/privacy" class="hover:text-white">Privacy</a></li>
+        <li><a href="/terms" class="hover:text-white">Terms</a></li>
+      </ul>
+    </div>
+    <div>
+      <p class="eyebrow text-solex-gold mb-3">Account</p>
+      <ul class="space-y-2">
+        <li><a href="{{ url_for('account_auth.login') }}" class="hover:text-white">Sign in</a></li>
+        <li><a href="/resources" class="hover:text-white">Resources</a></li>
+        <li><a href="mailto:support@solex.local" class="hover:text-white">Contact</a></li>
+      </ul>
+    </div>
+  </div>
+  <div class="border-t border-white/10">
+    <div class="container-narrow py-6 flex flex-col md:flex-row md:items-center md:justify-between gap-3 text-xs text-solex-cream/60">
+      <p>© {{ now().year }} Solex. Non-public sandbox.</p>
+      <p>Canary-observed Square sandbox merchant. Not a live business.</p>
+    </div>
+  </div>
+</footer>

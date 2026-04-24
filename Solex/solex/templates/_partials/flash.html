@@ -1,0 +1,13 @@
+{# _partials/flash.html #}
+{% with messages = get_flashed_messages(with_categories=true) %}
+  {% if messages %}
+  <div class="container-narrow pt-4">
+    {% for cat, msg in messages %}
+    <div class="rounded-brand px-4 py-2 text-sm mb-2
+                {% if cat == 'error' %}bg-solex-clay/10 text-solex-clay{% else %}bg-solex-leaf/10 text-solex-leaf{% endif %}">
+      {{ msg }}
+    </div>
+    {% endfor %}
+  </div>
+  {% endif %}
+{% endwith %}

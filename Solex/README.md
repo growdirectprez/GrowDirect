@@ -75,3 +75,48 @@ docker compose run --rm -e SOLEX_ENV=testing web pytest -m sandbox_live -v
 ```
 
 If creds are missing, the test is automatically skipped.
+
+## Theme
+
+Plan 4 ships with a branded Tailwind theme approximating Solex Global's look:
+
+| Token | Hex | Use |
+|---|---|---|
+| `solex-teal`  | `#1F5961` | Primary accents, CTAs, logo |
+| `solex-gold`  | `#B79355` | Eyebrows, badges, highlights |
+| `solex-leaf`  | `#5E7A5A` | Secondary accents, hover states |
+| `solex-clay`  | `#A35E3E` | Alerts, tertiary labels |
+| `solex-cream` | `#F7F4EE` | Page background |
+| `solex-sand`  | `#E8E0D1` | Subtle section backgrounds, image placeholders |
+| `solex-ink`   | `#1C1C1A` | Headings, body text on light |
+| `solex-body`  | `#3F3F3B` | Body copy |
+| `solex-muted` | `#8A8A84` | Muted metadata |
+| `solex-line`  | `#E5E2DC` | Dividers, borders |
+
+Typography: Cormorant Garamond (display) + Inter (body) via Google Fonts.
+Tune the palette in `Solex/tailwind.config.js` after seeing real screenshots
+against `solexglobal.com`.
+
+## Catalog
+
+- 25 SKUs live in `catalog/products.yaml` across 4 categories (supplements 10,
+  devices 5, therapy 5, pet 5).
+- Imagery is Pillow-generated placeholder tiles (`solex/static/catalog/images/`).
+  Real Solex product photos swap in post-merge.
+
+### Regenerate placeholder tiles
+
+```
+docker compose exec web python3 -m solex.cli catalog generate-placeholders
+```
+
+### Drop in real imagery
+
+1. Save each photo as JPG or PNG to `Solex/catalog/images/<sku>.<ext>` using
+   the lowercased SKU.
+2. Update `image_path` in `products.yaml` if the extension changes.
+3. Run `docker compose exec web python3 -m solex.cli catalog import` — the
+   importer copies updated images from `catalog/images/` to
+   `solex/static/catalog/images/`.
+
+See `docs/catalog-curation.md` for the full playbook.

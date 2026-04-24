@@ -1,3 +1,43 @@
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
+
+@layer base {
+  html { scroll-behavior: smooth; }
+  body { @apply font-sans text-solex-body bg-solex-cream antialiased; }
+  h1, h2, h3, h4 { @apply font-display text-solex-ink; }
+  a { @apply text-solex-teal hover:text-solex-leaf transition-colors; }
+}
+
+@layer components {
+  .btn-primary {
+    @apply inline-flex items-center justify-center rounded-brand bg-solex-teal px-5 py-2.5
+           text-white font-medium hover:bg-solex-leaf transition-colors
+           focus:outline-none focus:ring-2 focus:ring-solex-teal focus:ring-offset-2
+           focus:ring-offset-solex-cream;
+  }
+  .btn-secondary {
+    @apply inline-flex items-center justify-center rounded-brand border border-solex-ink
+           px-5 py-2.5 font-medium hover:bg-solex-ink hover:text-solex-cream transition-colors;
+  }
+  .btn-ghost {
+    @apply inline-flex items-center justify-center px-3 py-1.5 text-sm text-solex-body
+           hover:text-solex-ink transition-colors;
+  }
+  .input {
+    @apply w-full rounded-brand border-solex-line bg-white
+           focus:border-solex-teal focus:ring-solex-teal text-solex-ink;
+  }
+  .card {
+    @apply bg-white rounded-brand border border-solex-line overflow-hidden;
+  }
+  .card-product {
+    @apply card block transition-shadow hover:shadow-md;
+  }
+  .container-narrow {
+    @apply mx-auto max-w-content px-4 sm:px-6 lg:px-8;
+  }
+  .eyebrow {
+    @apply text-xs uppercase tracking-widest text-solex-gold font-semibold;
+  }
+}

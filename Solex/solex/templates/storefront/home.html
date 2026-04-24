@@ -1,20 +1,63 @@
 {% extends "base.html" %}
+{% from "storefront/_product_card.html" import product_card %}
 {% block main %}
-<section class="py-12">
-  <h1 class="text-3xl font-semibold mb-6">Welcome to Solex</h1>
-  <p class="text-stone-600 mb-8">Frequency, wellness, and life-force technology.</p>
-  <a href="{{ url_for('storefront.shop') }}" class="inline-block bg-stone-900 text-white px-5 py-2 rounded">Shop all</a>
+
+<section class="relative bg-solex-sand">
+  <div class="container-narrow py-22 grid md:grid-cols-2 gap-12 items-center">
+    <div>
+      <p class="eyebrow mb-4">Frequency · Wellness · Life Force</p>
+      <h1 class="text-5xl md:text-6xl font-display leading-tight text-solex-ink mb-6">
+        Tune your home to what your body is asking for.
+      </h1>
+      <p class="text-lg text-solex-body mb-8 max-w-md">
+        AO Scan, supplements, and therapy devices from Solex — shipped from our catalog.
+      </p>
+      <div class="flex gap-3">
+        <a href="{{ url_for('storefront.shop') }}" class="btn-primary">Shop all</a>
+        <a href="/university" class="btn-secondary">Learn more</a>
+      </div>
+    </div>
+    <div class="aspect-square bg-gradient-to-br from-solex-teal/10 via-solex-gold/10 to-solex-leaf/10 rounded-brand"></div>
+  </div>
 </section>
-<section class="py-8">
-  <h2 class="text-xl font-semibold mb-4">Featured</h2>
-  <div class="grid grid-cols-2 md:grid-cols-4 gap-4">
-    {% for p in products %}
-    <a href="{{ url_for('storefront.product_detail', slug=p.slug) }}" class="block">
-      <div class="aspect-square bg-stone-100 mb-2"></div>
-      <div class="text-sm font-medium">{{ p.name }}</div>
-      <div class="text-sm text-stone-600">${{ '%.2f' % (p.price_cents / 100) }}</div>
+
+<section class="container-narrow py-16">
+  <div class="flex items-end justify-between mb-8">
+    <h2 class="text-3xl font-display">Featured</h2>
+    <a href="{{ url_for('storefront.shop') }}" class="text-sm">Browse all →</a>
+  </div>
+  <div class="grid grid-cols-2 md:grid-cols-4 gap-6">
+    {% for p in products %}{{ product_card(p) }}{% endfor %}
+  </div>
+</section>
+
+<section class="bg-solex-cream border-t border-solex-line">
+  <div class="container-narrow py-10 grid grid-cols-2 md:grid-cols-4 gap-6 text-sm text-solex-body">
+    <div><p class="eyebrow mb-1">Sandbox</p><p>Non-public demo merchant</p></div>
+    <div><p class="eyebrow mb-1">Sourced</p><p>Solex Global product line</p></div>
+    <div><p class="eyebrow mb-1">Observed</p><p>Canary loss-prevention</p></div>
+    <div><p class="eyebrow mb-1">Gated</p><p>Cloudflare Access required</p></div>
+  </div>
+</section>
+
+<section class="container-narrow py-20">
+  <h2 class="text-3xl font-display mb-8">Shop by category</h2>
+  <div class="grid grid-cols-2 md:grid-cols-4 gap-6">
+    {% for slug, label in [
+      ('supplements', 'Supplements'),
+      ('devices', 'Frequency devices'),
+      ('therapy', 'Light & PEMF'),
+      ('pet', 'Pet'),
+    ] %}
+    <a href="{{ url_for('storefront.shop_by_category', slug=slug) }}"
+       class="group block aspect-[4/3] bg-solex-sand rounded-brand overflow-hidden relative">
+      <div class="absolute inset-0 bg-gradient-to-br from-solex-teal/10 to-solex-gold/10"></div>
+      <div class="absolute inset-0 flex items-end p-4">
+        <p class="text-solex-ink font-medium group-hover:underline">{{ label }}</p>
+      </div>
     </a>
     {% endfor %}
   </div>
 </section>
+
 {% endblock %}
