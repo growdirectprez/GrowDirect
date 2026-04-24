@@ -4,6 +4,10 @@ from solex.models.inventory import Inventory, InventoryAdjustment
 from solex.models.customer import Customer, Address
 from solex.models.admin import AdminUser
 from solex.models.auth import MagicLinkToken
+from solex.models.cart import Cart, CartLine
+from solex.models.order import Order, OrderItem, OrderNote, ORDER_STATUSES
+from solex.models.refund import Refund
+from solex.models.ops import SquareWebhookEvent, EmailLog
 
 __all__ = [
     "BaseModel",
@@ -11,4 +15,8 @@ __all__ = [
     "Inventory", "InventoryAdjustment",
     "Customer", "Address",
     "AdminUser", "MagicLinkToken",
+    "Cart", "CartLine",
+    "Order", "OrderItem", "OrderNote", "ORDER_STATUSES",
+    "Refund",
+    "SquareWebhookEvent", "EmailLog",
 ]
