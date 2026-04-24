@@ -1,28 +1,32 @@
 {% extends "base.html" %}
 {% block main %}
-<h1 class="text-2xl font-semibold mb-6">Cart</h1>
-{% if cart.lines %}
-<table class="w-full text-sm">
-  <thead>
-    <tr class="border-b text-left">
-      <th class="py-2">Product</th><th>Qty</th><th>Total</th>
-    </tr>
-  </thead>
-  <tbody>
-    {% for line in cart.lines %}
-    <tr class="border-b">
-      <td class="py-2">{{ line.name }}</td>
-      <td>{{ line.qty }}</td>
-      <td>${{ '%.2f' % (line.qty * line.price_cents / 100) }}</td>
-    </tr>
-    {% endfor %}
-  </tbody>
-</table>
-<div class="mt-6 text-right">
-  <div class="text-lg font-semibold">Subtotal: ${{ '%.2f' % (cart.subtotal_cents / 100) }}</div>
-  <a href="/checkout" class="mt-2 inline-block bg-stone-900 text-white px-5 py-2 rounded">Checkout</a>
-</div>
-{% else %}
-<p class="text-stone-500">Your cart is empty. <a href="{{ url_for('storefront.shop') }}" class="underline">Browse the shop</a>.</p>
-{% endif %}
+<section class="container-narrow py-12">
+  <h1 class="text-4xl font-display mb-8">Cart</h1>
+  {% if cart.lines %}
+  <div class="card">
+    <table class="w-full text-sm">
+      <thead class="bg-solex-sand">
+        <tr class="text-left">
+          <th class="p-4">Product</th><th class="p-4">Qty</th><th class="p-4 text-right">Total</th>
+        </tr>
+      </thead>
+      <tbody>
+        {% for line in cart.lines %}
+        <tr class="border-t border-solex-line">
+          <td class="p-4">{{ line.name }}</td>
+          <td class="p-4">{{ line.qty }}</td>
+          <td class="p-4 text-right">${{ '%.2f' % (line.qty * line.price_cents / 100) }}</td>
+        </tr>
+        {% endfor %}
+      </tbody>
+    </table>
+  </div>
+  <div class="mt-6 flex items-center justify-between">
+    <p class="text-lg font-medium">Subtotal: ${{ '%.2f' % (cart.subtotal_cents / 100) }}</p>
+    <a href="/checkout" class="btn-primary">Checkout</a>
+  </div>
+  {% else %}
+  <p class="text-solex-muted">Your cart is empty. <a href="{{ url_for('storefront.shop') }}">Browse the shop</a>.</p>
+  {% endif %}
+</section>
 {% endblock %}
