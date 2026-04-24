@@ -1,0 +1,29 @@
+<div x-show="cartOpen" @keydown.escape.window="cartOpen=false"
+     x-transition class="fixed inset-0 z-50" style="display:none">
+  <div class="absolute inset-0 bg-black/40" @click="cartOpen=false"></div>
+  <aside class="absolute right-0 top-0 h-full w-96 bg-white shadow-xl p-4 overflow-y-auto"
+         x-data="cartDrawer()" x-init="refresh()" @cart-updated.window="refresh()">
+    <div class="flex justify-between items-center mb-4">
+      <h2 class="text-lg font-semibold">Cart</h2>
+      <button @click="cartOpen=false" aria-label="Close">&#215;</button>
+    </div>
+    <template x-if="lines.length === 0"><p class="text-stone-500">Empty.</p></template>
+    <ul>
+      <template x-for="line in lines" :key="line.product_id">
+        <li class="flex gap-3 py-2 border-b">
+          <img :src="line.image_path ? '/static/' + line.image_path : ''" class="w-14 h-14 object-cover" alt="">
+          <div class="flex-1">
+            <div x-text="line.name" class="text-sm font-medium"></div>
+            <div class="text-xs text-stone-500" x-text="'qty ' + line.qty"></div>
+          </div>
+          <div x-text="'$' + (line.qty * line.price_cents / 100).toFixed(2)"></div>
+        </li>
+      </template>
+    </ul>
+    <div class="mt-4 flex justify-between font-semibold">
+      <span>Subtotal</span>
+      <span x-text="'$' + (subtotal_cents/100).toFixed(2)"></span>
+    </div>
+    <a href="/checkout" class="mt-4 block text-center bg-stone-900 text-white rounded py-2">Checkout</a>
+  </aside>
+</div>
