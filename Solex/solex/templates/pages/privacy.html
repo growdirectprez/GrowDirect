@@ -1,0 +1,14 @@
+{% extends "base.html" %}
+{% block title %}{{ meta.title }} — Solex{% endblock %}
+{% block main %}
+{% include "_partials/placeholder_banner.html" %}
+<section class="container-narrow py-16 max-w-2xl">
+  <p class="eyebrow mb-3">{{ "Policy" if meta.policy else "Solex" }}</p>
+  <h1 class="text-4xl font-display mb-5">{{ meta.title }}</h1>
+  <p class="text-lg text-solex-body mb-10">{{ meta.intro }}</p>
+  <div class="prose prose-solex max-w-none">
+    <p>This page ships with honest placeholder copy. Real content authored by the Solex team (or drafted under brand-voice guidelines) drops in post-merge.</p>
+    <p>Until then, this site functions end-to-end as a Canary-observable Square sandbox merchant. See the spec at <code>docs/superpowers/specs/2026-04-23-solex-commerce-mockup-design.md</code>.</p>
+  </div>
+</section>
+{% endblock %}
