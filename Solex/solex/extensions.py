@@ -63,8 +63,9 @@ def init_extensions(app):
             select(Customer).where(Customer.id == user_id)
         ).scalar_one_or_none()
 
-    app.config["SESSION_REDIS"] = redis.Redis.from_url(app.config["VALKEY_URL"])
-    server_session.init_app(app)
+    if app.config.get("SESSION_TYPE", "redis") == "redis":
+        app.config["SESSION_REDIS"] = redis.Redis.from_url(app.config["VALKEY_URL"])
+        server_session.init_app(app)
 
     storage_uri = app.config["VALKEY_URL"]
     limiter.storage_uri = storage_uri

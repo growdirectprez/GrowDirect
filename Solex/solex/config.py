@@ -46,6 +46,7 @@ class TestConfig(BaseConfig):
         os.environ.get("DATABASE_URL", "") + "_test",
     ))
     WTF_CSRF_ENABLED = False
+    SESSION_TYPE = "null"  # no Valkey needed in tests
 
 
 class ProdConfig(BaseConfig):

@@ -1,4 +1,5 @@
 import pytest
+from pathlib import Path
 from sqlalchemy import text, inspect
 from solex import create_app
 from solex.config import TestConfig
@@ -25,3 +26,18 @@ def db_session(app):
         for table in [t for t in tables if t != "alembic_version"]:
             _db.session.execute(text(f'TRUNCATE "{table}" CASCADE'))
         _db.session.commit()
+
+
+@pytest.fixture()
+def seed_catalog(app, db_session, tmp_path):
+    from solex.services.catalog_import import CatalogImporter
+    (tmp_path / "catalog").mkdir(exist_ok=True)
+    importer = CatalogImporter(
+        session=db_session,
+        catalog_root=Path("catalog"),
+        static_root=tmp_path,
+    )
+    importer.import_from_yaml(Path("catalog/products.yaml"))
+    db_session.expire_all()
+    from solex.models import Product
+    return type("Seed", (), {"products": db_session.query(Product).all()})
