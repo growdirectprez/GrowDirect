@@ -1,12 +1,13 @@
 import uuid
 from typing import Optional
+from flask_login import UserMixin
 from sqlalchemy import String, ForeignKey
 from sqlalchemy.dialects.postgresql import UUID
 from sqlalchemy.orm import Mapped, mapped_column, relationship
 from solex.models.base import BaseModel
 
 
-class Customer(BaseModel):
+class Customer(UserMixin, BaseModel):
     __tablename__ = "customers"
     email: Mapped[str] = mapped_column(String(254), unique=True, nullable=False)
     password_hash: Mapped[Optional[str]] = mapped_column(String(255), nullable=True)
