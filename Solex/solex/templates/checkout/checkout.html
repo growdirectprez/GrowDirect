@@ -1,68 +1,60 @@
+{# checkout/checkout.html #}
 {% extends "base.html" %}
 {% block main %}
-<div class="max-w-xl mx-auto py-8">
-  <h1 class="text-xl font-semibold mb-6">Checkout</h1>
-
-  <form id="checkout-form"
-        class="space-y-4"
-        data-app-id="{{ square_app_id }}"
-        data-location-id="{{ square_location_id }}"
-        data-env="{{ square_environment }}"
-        data-has-subscription="{{ 'true' if cart.lines | selectattr('cadence_days', 'defined') | list else 'false' }}">
-
-    <div class="space-y-2">
-      <label class="block text-sm font-medium text-stone-700">Email</label>
-      <input name="email" type="email" placeholder="you@example.com" required
-             class="w-full border border-stone-300 rounded p-2 focus:outline-none focus:ring-1 focus:ring-stone-500">
-    </div>
-
-    <div class="space-y-2">
-      <label class="block text-sm font-medium text-stone-700">Full name</label>
-      <input name="name" type="text" placeholder="Full name" required
-             class="w-full border border-stone-300 rounded p-2 focus:outline-none focus:ring-1 focus:ring-stone-500">
-    </div>
-
-    <div class="space-y-2">
-      <label class="block text-sm font-medium text-stone-700">Address</label>
-      <input name="line1" type="text" placeholder="Street address" required
-             class="w-full border border-stone-300 rounded p-2 focus:outline-none focus:ring-1 focus:ring-stone-500">
-      <div class="grid grid-cols-3 gap-2">
-        <input name="city" type="text" placeholder="City" required
-               class="border border-stone-300 rounded p-2 focus:outline-none focus:ring-1 focus:ring-stone-500">
-        <input name="region" type="text" placeholder="State" required maxlength="2"
-               class="border border-stone-300 rounded p-2 focus:outline-none focus:ring-1 focus:ring-stone-500">
-        <input name="postal_code" type="text" placeholder="ZIP" required
-               class="border border-stone-300 rounded p-2 focus:outline-none focus:ring-1 focus:ring-stone-500">
+<section class="container-narrow py-12 grid md:grid-cols-[1fr_24rem] gap-12">
+  <div>
+    <h1 class="text-4xl font-display mb-8">Checkout</h1>
+    <form id="checkout-form" class="space-y-6"
+          data-app-id="{{ square_app_id }}"
+          data-location-id="{{ square_location_id }}"
+          data-env="{{ square_environment }}"
+          data-has-subscription="{{ 'true' if cart.lines | selectattr('cadence_days', 'defined') | list else 'false' }}">
+      <fieldset class="space-y-3">
+        <legend class="eyebrow mb-2">Contact</legend>
+        <input name="email" type="email" placeholder="Email" required class="input">
+        <input name="name" type="text" placeholder="Full name" required class="input">
+      </fieldset>
+      <fieldset class="space-y-3">
+        <legend class="eyebrow mb-2">Shipping</legend>
+        <input name="line1" placeholder="Address" required class="input">
+        <div class="grid grid-cols-3 gap-3">
+          <input name="city" placeholder="City" required class="input">
+          <input name="region" placeholder="State" required maxlength="2" class="input">
+          <input name="postal_code" placeholder="ZIP" required class="input">
+        </div>
+      </fieldset>
+      <fieldset>
+        <legend class="eyebrow mb-2">Payment</legend>
+        <div id="card-container" class="border border-solex-line rounded-brand p-3 min-h-[44px] bg-white"></div>
+        <div id="checkout-error" class="mt-3 text-solex-clay text-sm"></div>
+      </fieldset>
+      <div id="store-card-section" class="space-y-2 hidden">
+        <p class="eyebrow mb-2">Card for subscription billing</p>
+        <p class="text-xs text-solex-muted">Your subscription requires a card saved on file. This can be the same card.</p>
+        <div id="store-card-container" class="border border-solex-line rounded-brand p-3 min-h-[44px] bg-white"></div>
+      </div>
+      <button id="pay-button" type="submit" class="btn-primary w-full">
+        Pay ${{ '%.2f' % (cart.subtotal_cents / 100) }}
+      </button>
+    </form>
+  </div>
+  <aside>
+    <div class="card p-6 sticky top-20">
+      <h2 class="font-display text-xl mb-4">Order summary</h2>
+      <ul class="divide-y divide-solex-line text-sm">
+        {% for line in cart.lines %}
+        <li class="py-2 flex justify-between">
+          <span>{{ line.name }} × {{ line.qty }}</span>
+          <span>${{ '%.2f' % (line.qty * line.price_cents / 100) }}</span>
+        </li>
+        {% endfor %}
+      </ul>
+      <div class="mt-4 pt-4 border-t border-solex-line flex justify-between font-medium">
+        <span>Subtotal</span><span>${{ '%.2f' % (cart.subtotal_cents / 100) }}</span>
       </div>
     </div>
-
-    <div class="space-y-2">
-      <label class="block text-sm font-medium text-stone-700">Card</label>
-      <div id="card-container" class="border border-stone-300 rounded p-3 min-h-[44px]"></div>
-    </div>
-
-    <div id="store-card-section" class="space-y-2 hidden">
-      <label class="block text-sm font-medium text-stone-700">Card for subscription billing</label>
-      <p class="text-xs text-stone-500">Your subscription requires a card saved on file. This can be the same card.</p>
-      <div id="store-card-container" class="border border-stone-300 rounded p-3 min-h-[44px]"></div>
-    </div>
-
-    <div class="pt-2 border-t border-stone-200 text-sm text-stone-600 space-y-1">
-      <div class="flex justify-between">
-        <span>Subtotal</span>
-        <span>${{ '%.2f' % (cart.subtotal_cents / 100) }}</span>
-      </div>
-    </div>
-
-    <button id="pay-button" type="submit"
-            class="w-full bg-stone-900 text-white rounded px-4 py-3 font-medium hover:bg-stone-700 transition-colors">
-      Pay ${{ '%.2f' % (cart.subtotal_cents / 100) }}
-    </button>
-
-    <p id="checkout-error" class="text-red-600 text-sm"></p>
-  </form>
-</div>
-
+  </aside>
+</section>
 <script src="https://sandbox.web.squarecdn.com/v1/square.js"></script>
 <script src="{{ url_for('static', filename='js/checkout.js') }}" defer></script>
 {% endblock %}
