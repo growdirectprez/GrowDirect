@@ -1,9 +1,18 @@
 import os
 
 
+def _psycopg3_url(raw: str) -> str:
+    """Ensure the URL uses the psycopg3 driver scheme (postgresql+psycopg://)."""
+    if raw.startswith("postgresql://") or raw.startswith("postgres://"):
+        return raw.replace("postgresql://", "postgresql+psycopg://", 1).replace(
+            "postgres://", "postgresql+psycopg://", 1
+        )
+    return raw
+
+
 class BaseConfig:
     SECRET_KEY = os.environ["SECRET_KEY"]
-    SQLALCHEMY_DATABASE_URI = os.environ["DATABASE_URL"]
+    SQLALCHEMY_DATABASE_URI = _psycopg3_url(os.environ["DATABASE_URL"])
     SQLALCHEMY_ENGINE_OPTIONS = {"pool_pre_ping": True}
     VALKEY_URL = os.environ["VALKEY_URL"]
     SESSION_TYPE = "redis"
@@ -32,10 +41,10 @@ class DevConfig(BaseConfig):
 
 class TestConfig(BaseConfig):
     TESTING = True
-    SQLALCHEMY_DATABASE_URI = os.environ.get(
+    SQLALCHEMY_DATABASE_URI = _psycopg3_url(os.environ.get(
         "TEST_DATABASE_URL",
-        BaseConfig.SQLALCHEMY_DATABASE_URI + "_test",
-    )
+        os.environ.get("DATABASE_URL", "") + "_test",
+    ))
     WTF_CSRF_ENABLED = False
 
 
