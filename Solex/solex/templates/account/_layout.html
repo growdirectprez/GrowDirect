@@ -1,0 +1,16 @@
+{% extends "base.html" %}
+{% block main %}
+<div class="flex gap-6">
+  <aside class="w-56 shrink-0">
+    <h3 class="font-semibold mb-3">Account</h3>
+    <nav class="space-y-1 text-sm">
+      <a href="/account/" class="block">Overview</a>
+      <a href="/account/orders" class="block">Orders</a>
+      <a href="/account/addresses" class="block">Addresses</a>
+      <a href="/account/subscriptions" class="block">Subscriptions</a>
+      <a href="/account/logout" class="block text-stone-500 mt-4">Sign out</a>
+    </nav>
+  </aside>
+  <section class="flex-1">{% block account_main %}{% endblock %}</section>
+</div>
+{% endblock %}

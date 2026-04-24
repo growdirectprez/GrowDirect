@@ -1,0 +1,31 @@
+{% extends "account/_layout.html" %}
+{% block account_main %}
+<h1 class="text-2xl font-semibold mb-6">Hi {{ current_user.first_name or current_user.email }}.</h1>
+<section class="mb-8">
+  <h2 class="font-semibold mb-2">Recent orders</h2>
+  {% if orders %}
+  <ul class="divide-y">
+    {% for o in orders %}
+    <li class="py-2 flex justify-between">
+      <a href="/account/orders/{{ o.id }}" class="underline">{{ o.public_token }}</a>
+      <span>${{ '%.2f' % (o.total_cents / 100) }} — {{ o.status }}</span>
+    </li>
+    {% endfor %}
+  </ul>
+  {% else %}<p class="text-stone-500">No orders yet.</p>{% endif %}
+</section>
+<section class="mb-8">
+  <h2 class="font-semibold mb-2">Active subscriptions</h2>
+  {% if subs %}
+  <ul class="divide-y">
+    {% for s in subs %}
+    <li class="py-2"><a href="/account/subscriptions/{{ s.id }}" class="underline">Every {{ s.cadence_days }} days — next {{ s.next_charge_at.strftime('%Y-%m-%d') }}</a></li>
+    {% endfor %}
+  </ul>
+  {% else %}<p class="text-stone-500">None.</p>{% endif %}
+</section>
+<section>
+  <h2 class="font-semibold mb-2">Addresses</h2>
+  <p class="text-stone-500">{{ addresses | length }} saved. <a href="/account/addresses" class="underline">Manage</a></p>
+</section>
+{% endblock %}

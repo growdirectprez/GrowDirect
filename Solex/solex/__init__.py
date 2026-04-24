@@ -11,6 +11,7 @@ def create_app(config_cls=None) -> Flask:
     from solex.routes import admin_auth, account_auth
     from solex.routes import admin, admin_catalog, admin_orders, admin_inventory
     from solex.routes import admin_customers, admin_subscriptions, admin_returns
+    from solex.routes import account, account_orders, account_addresses, account_subscriptions
     app.register_blueprint(api.bp)
     app.register_blueprint(storefront.bp)
     app.register_blueprint(cart_routes.bp)
@@ -24,6 +25,10 @@ def create_app(config_cls=None) -> Flask:
     app.register_blueprint(admin_customers.bp)
     app.register_blueprint(admin_subscriptions.bp)
     app.register_blueprint(admin_returns.bp)
+    app.register_blueprint(account.bp)
+    app.register_blueprint(account_orders.bp)
+    app.register_blueprint(account_addresses.bp)
+    app.register_blueprint(account_subscriptions.bp)
     from solex.extensions import csrf
     csrf.exempt(api.bp)
     csrf.exempt(cart_routes.bp)
