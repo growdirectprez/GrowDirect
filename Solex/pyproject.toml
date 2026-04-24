@@ -1,0 +1,9 @@
+[project]
+name = "solex"
+version = "0.1.0"
+description = "Solex commerce mockup — Canary-observable Square sandbox merchant"
+requires-python = ">=3.12"
+
+[tool.ruff]
+line-length = 100
+target-version = "py312"

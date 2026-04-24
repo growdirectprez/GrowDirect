@@ -1,0 +1,15 @@
+Hi {{ order.customer_name }},
+
+Your order is confirmed. Your order number is {{ order.public_token }}.
+
+Items:
+{% for item in order.items %}
+- {{ item.name_snapshot }} x {{ item.qty }} — ${{ '%.2f' % (item.line_total_cents / 100) }}
+{% endfor %}
+
+Subtotal: ${{ '%.2f' % (order.subtotal_cents / 100) }}
+Shipping: ${{ '%.2f' % (order.shipping_cents / 100) }}
+Tax:      ${{ '%.2f' % (order.tax_cents / 100) }}
+Total:    ${{ '%.2f' % (order.total_cents / 100) }}
+
+— Solex
