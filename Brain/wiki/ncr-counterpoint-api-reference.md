@@ -371,6 +371,54 @@ Sample (test DB):
 
 This field-density means the Module N section of the SDD should treat Store config as a first-class data structure, not just store demographics.
 
+## Ecommerce surface — Counterpoint as omnichannel hub
+
+Counterpoint has a real ecommerce story; it operates as a **hub** with the storefront as a spoke. Three layers customers can choose from:
+
+1. **NCR Retail Online** — NCR's native ecommerce storefront product. Auto-syncs inventory + orders + customers between Counterpoint and a hosted web store. The default if a Counterpoint customer wants ecommerce without picking a third party.
+2. **Third-party connectors** — IceSync (most feature-rich Counterpoint connector), Shopify integrations via cloud, plus other partner-built bridges. Customer chooses based on their preferred web platform.
+3. **DIY against the API** — possible via the EC endpoints, though most customers go with options 1 or 2 rather than building.
+
+### Ecommerce surface in the API
+
+The endpoints + fields supporting ecommerce sync are already in the standard Counterpoint REST API:
+
+**Dedicated EC endpoints:**
+- `GET_EC` — ecommerce control / config
+- `GET_ECCategories` — category tree as published to ecommerce
+- `GET_Customers_EC` — ecommerce-flagged customers
+- `GET_InventoryEC` — ecommerce inventory state (separate from physical-store inventory state)
+
+**Per-Item ecommerce fields** (from `IM_ITEM`):
+- `IS_ECOMM_ITEM` — Y/N flag
+- `ECOMM_LST_PUB_STAT` — last publish status
+- `ECOMM_TXBL_1/2/3` — taxability flags per ecommerce jurisdiction
+- `ECOMM_NEW` — new-item flag for storefront
+- `ECOMM_ON_SPECL` — on-special / promotion flag
+- `ECOMM_CHRG_FRT` — charge freight Y/N
+- `ECOMM_DISC_ON_SAL` — discountable on sale Y/N
+- `ECOMM_ITEM_IS_DISCNTBL` — item discountable Y/N
+- `ECOMM_NXT_PUB_UPDT` / `ECOMM_NXT_PUB_FULL` — next-publish state machine
+- `ECOMM_LST_IMP_TYP` — last import type (orders flowing back from storefront)
+- `EC_ITEM_DESCR.HTML_DESCR` — HTML description for storefront display
+
+**Per-Customer ecommerce field** (from `AR_CUST`):
+- `IS_ECOMM_CUST` — Y/N flag
+- `ECOMM_NXT_PUB_UPDT/FULL`, `ECOMM_LST_PUB_TYP`, `ECOMM_CREATED_CUST`, `ECOMM_LST_IMP_TYP` — sync state machine
+
+### Implication for Canary
+
+**One TSP adapter, both channels.** Ecommerce orders flow through the same Document family as in-store orders — likely with EC flags set or specific DOC_TYP codes. Canary observes both physical-store and online transactions through one ingestion pathway. Customers running NCR Retail Online or any third-party connector look the same from Canary's perspective: Counterpoint is the system of record.
+
+This is a real strength for Canary's omnichannel positioning: a Counterpoint customer that adds online ordering doesn't require a second Canary integration. The EC fields in the existing entities are sufficient signal for analytics + LP detection rules to differentiate channels when needed.
+
+### Open verifications
+
+- Whether ecommerce orders carry a distinct DOC_TYP or are differentiated only by the EC flags on the lines / header
+- Whether `GET_Customers_EC` is a filter view of `GET_Customers` or a different table
+- Whether `GET_InventoryEC` represents separate stock allocation (held for ecommerce fulfillment) vs the same inventory with a different view
+- For the H&G chain: which ecommerce platform (if any) they currently run
+
 ## Source
 
 `Brain/raw/inbox/rapid-pos/ncr-counterpoint-api/` — full repo, 97 endpoint docs, Basics/, InstallationAndConfiguration/, Release_Notes/.

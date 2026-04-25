@@ -45,6 +45,10 @@ source-corpus: Brain/raw/inbox/rapid-pos/ncr-counterpoint-api/
 
 **Network:** Counterpoint API server is at the customer's site, on Windows. Canary's adapter polls / fetches from it over HTTPS using HTTP Basic auth + APIKey header. Customer-provided host or Canary-provided edge box is a per-deployment decision (see §10 Risks).
 
+**Omnichannel coverage.** Counterpoint operates as the system-of-record hub; ecommerce platforms (NCR Retail Online — NCR's native storefront — or third-party connectors like IceSync, Shopify integrations, etc.) operate as spokes. Ecommerce orders sync back into Counterpoint's Document family with EC flags / fields populated. **Canary's TSP adapter sees both physical-store and online transactions through one ingestion pathway** — no separate ecommerce integration required regardless of which storefront the customer uses. See `Brain/wiki/ncr-counterpoint-api-reference.md` §"Ecommerce surface" for the EC endpoints and fields.
+
+**Operating-reality variance.** Customers running Counterpoint span tech-sophistication ranges (single-location indie → regional chain → omnichannel destination retailer) and have vertical-specific operational realities. Garden centers in particular have an unusual vendor mix — large commercial nurseries (EDI-capable) alongside local specialty growers (cash, paper, no system) — that affects vendor-data-quality and Module Q detection rule design. See `Brain/wiki/garden-center-operating-reality.md` for the H&G-specific operating reality the integration must accommodate.
+
 ## 2. Source-of-truth references
 
 - **API spec** — `Brain/raw/inbox/rapid-pos/ncr-counterpoint-api/` (cloned from `github.com/NCRCounterpointAPI/APIGuide`)
@@ -238,6 +242,12 @@ For each module: **spine intent**, **Counterpoint endpoints**, **CRDM entities**
 - **Open questions:**
   - Whether Counterpoint exposes its replenishment engine via REST or only via UI
   - Vendor catalog vs item catalog separation
+- **Garden-center reality (per `Brain/wiki/garden-center-operating-reality.md`):**
+  - Vendor mix is heterogeneous: large commercial nurseries (EDI-capable) alongside local specialty growers (cash, paper, no system, hobbyist scale)
+  - Cash-paid vendor receipts are real and legitimate — adapter ingestion + Module Q detection rules must allow-list or differently classify them
+  - Manual paper-invoice entry produces data noise that's transcription error, not fraud
+  - Vendor-item relationships are loose; same plant from multiple growers may have multiple ITEM_NO records or one with multiple IM_VEND_ITEM rows — verify against real deployment
+  - Ad-hoc vendor onboarding mid-season is normal; new vendors get added without formal process
 
 ### 6.10 Module S — Space / Range / Display
 
