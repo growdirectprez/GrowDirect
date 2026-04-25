@@ -160,14 +160,51 @@ def list_runs():
 @bp.get("/runs/<uuid:run_id>")
 @admin_required
 def run_detail(run_id):
+    from solex.models import InventoryAdjustment, Refund
     run = db.session.get(ScenarioRun, run_id)
     if run is None:
         abort(404)
     tag = f"{run.scenario_name}-{str(run.id)[:8]}"
     tagged_orders = db.session.execute(
         select(Order).where(Order.scenario_tag == tag)
+        .order_by(Order.placed_at.desc())
     ).scalars().all()
-    return render_template("admin/lab/run_detail.html", run=run, orders=tagged_orders)
+    tagged_adjustments = db.session.execute(
+        select(InventoryAdjustment).where(InventoryAdjustment.scenario_tag == tag)
+        .order_by(InventoryAdjustment.created_at.desc())
+    ).scalars().all()
+    tagged_refunds = db.session.execute(
+        select(Refund).where(Refund.scenario_tag == tag)
+    ).scalars().all()
+    metadata = registry.describe(run.scenario_name) or {}
+    # Group adjustments by reason for the structured summary
+    adjustments_by_reason: dict[str, list] = {}
+    for adj in tagged_adjustments:
+        adjustments_by_reason.setdefault(adj.reason or "—", []).append(adj)
+    return render_template(
+        "admin/lab/run_detail.html",
+        run=run,
+        metadata=metadata,
+        orders=tagged_orders,
+        adjustments_by_reason=adjustments_by_reason,
+        refunds=tagged_refunds,
+        tag=tag,
+    )
+
+
+@bp.get("/runs/<uuid:run_id>/status.json")
+@admin_required
+def run_status(run_id):
+    run = db.session.get(ScenarioRun, run_id)
+    if run is None:
+        abort(404)
+    return jsonify({
+        "id": str(run.id),
+        "status": run.status,
+        "started_at": run.started_at.isoformat() if run.started_at else None,
+        "completed_at": run.completed_at.isoformat() if run.completed_at else None,
+        "summary_keys": sorted(list((run.summary_json or {}).keys())),
+    })
 
 
 @bp.post("/runs/<uuid:run_id>/favorite")

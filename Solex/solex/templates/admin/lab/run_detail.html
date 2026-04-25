@@ -1,23 +1,171 @@
 {% extends "admin/_layout.html" %}
 {% block admin_main %}
-<h1 class="text-xl font-semibold mb-2">{{ run.scenario_name }}</h1>
-<p class="text-sm text-stone-500 mb-4">{{ run.started_at.strftime('%Y-%m-%d %H:%M:%S') }} — <strong>{{ run.status }}</strong></p>
-<section class="mb-6">
-  <h2 class="font-semibold mb-2">Params</h2>
-  <pre class="bg-stone-100 p-3 text-xs overflow-auto">{{ run.params_json | tojson(indent=2) }}</pre>
-</section>
-<section class="mb-6">
-  <h2 class="font-semibold mb-2">Summary</h2>
-  <pre class="bg-stone-100 p-3 text-xs overflow-auto">{{ run.summary_json | tojson(indent=2) }}</pre>
-</section>
-<section>
-  <h2 class="font-semibold mb-2">Tagged orders ({{ orders | length }})</h2>
-  {% if orders %}
-  <ul class="divide-y text-sm">
-    {% for o in orders %}
-    <li class="py-2"><a href="{{ url_for('admin_orders.detail', oid=o.id) }}" class="underline">{{ o.public_token }}</a> — ${{ '%.2f' % (o.total_cents / 100) }} — {{ o.status }}</li>
+<div x-data="{
+  status: {{ run.status | tojson }},
+  completed: {{ (run.completed_at is not none) | tojson }},
+  poll() {
+    if (this.completed || ['succeeded','failed','partial'].includes(this.status)) return;
+    fetch('{{ url_for("lab.run_status", run_id=run.id) }}')
+      .then(r => r.json())
+      .then(data => {
+        this.status = data.status;
+        this.completed = !!data.completed_at;
+        if (!this.completed) setTimeout(() => this.poll(), 2000);
+        else window.location.reload();
+      })
+      .catch(() => setTimeout(() => this.poll(), 5000));
+  }
+}" x-init="poll()">
+
+<header class="mb-6 flex items-start justify-between">
+  <div>
+    <p class="eyebrow">Lab</p>
+    <h1 class="text-3xl font-display text-solex-ink mb-1">{{ run.scenario_name }}</h1>
+    <p class="text-sm text-solex-muted">
+      Started {{ run.started_at.strftime('%Y-%m-%d %H:%M:%S') }} ·
+      <span x-text="status"
+            class="inline-block px-2 py-0.5 rounded text-xs ml-1"
+            :class="{
+              'bg-solex-leaf/20 text-solex-leaf': status === 'succeeded',
+              'bg-solex-clay/20 text-solex-clay': status === 'failed',
+              'bg-solex-gold/20 text-solex-gold': status === 'partial',
+              'bg-solex-sand text-solex-body': ['pending','running'].includes(status)
+            }"></span>
+      <template x-if="!completed && ['pending','running'].includes(status)">
+        <span class="text-solex-muted text-xs ml-2">(polling…)</span>
+      </template>
+    </p>
+    <p class="text-xs text-solex-muted mt-1">
+      <span class="font-mono">{{ run.id }}</span> · tag <span class="font-mono">{{ tag }}</span>
+    </p>
+  </div>
+  <a href="{{ url_for('lab.list_runs') }}"
+     class="text-sm text-solex-muted hover:text-solex-ink">← All runs</a>
+</header>
+
+{% if metadata %}
+<section class="mb-8 border border-solex-line rounded-md bg-white p-5">
+  <h2 class="eyebrow text-solex-teal mb-2">Scenario</h2>
+  <p class="text-solex-body mb-3">{{ metadata.description }}</p>
+  {% if metadata.expected_behaviors %}
+  <p class="eyebrow text-solex-muted mb-1">Expected behaviors</p>
+  <ul class="text-sm text-solex-body space-y-1 mb-3">
+    {% for b in metadata.expected_behaviors %}
+    <li class="before:content-['—'] before:mr-2 before:text-solex-muted">{{ b }}</li>
     {% endfor %}
   </ul>
-  {% else %}<p class="text-stone-500">None.</p>{% endif %}
+  {% endif %}
+  {% if metadata.expected_chirps %}
+  <p class="text-sm text-solex-gold">
+    <span class="eyebrow text-solex-gold">Expected chirps</span>
+    {{ metadata.expected_chirps | join(', ') }}
+  </p>
+  {% endif %}
 </section>
+{% endif %}
+
+<section class="mb-8 border border-solex-line rounded-md bg-white p-5">
+  <h2 class="eyebrow text-solex-teal mb-3">Parameters</h2>
+  <dl class="grid grid-cols-2 gap-x-6 gap-y-2 text-sm">
+    {% for k, v in (run.params_json or {}).items() %}
+    <dt class="text-solex-muted">{{ k }}</dt>
+    <dd class="text-solex-body font-mono">{{ v }}</dd>
+    {% endfor %}
+  </dl>
+</section>
+
+{% if run.summary_json and run.summary_json.get('error') %}
+<section class="mb-8 border border-solex-clay rounded-md bg-solex-clay/5 p-5">
+  <h2 class="eyebrow text-solex-clay mb-2">Error</h2>
+  <pre class="text-sm text-solex-clay whitespace-pre-wrap">{{ run.summary_json.error }}</pre>
+</section>
+{% endif %}
+
+<section class="mb-8 border border-solex-line rounded-md bg-white p-5">
+  <h2 class="eyebrow text-solex-teal mb-3">Orders ({{ orders | length }})</h2>
+  {% if orders %}
+  <table class="w-full text-sm border-collapse">
+    <thead>
+      <tr class="border-b border-solex-line text-left text-solex-muted">
+        <th class="py-2 pr-4 font-normal">Token</th>
+        <th class="py-2 pr-4 font-normal">Placed</th>
+        <th class="py-2 pr-4 font-normal text-right">Total</th>
+        <th class="py-2 pr-4 font-normal">Status</th>
+      </tr>
+    </thead>
+    <tbody>
+      {% for o in orders %}
+      <tr class="border-b border-solex-line">
+        <td class="py-2 pr-4">
+          <a href="{{ url_for('admin_orders.detail', oid=o.id) }}"
+             class="text-solex-teal hover:text-solex-ink underline-offset-2 hover:underline font-mono">
+            {{ o.public_token }}
+          </a>
+        </td>
+        <td class="py-2 pr-4 text-solex-body">{{ o.placed_at.strftime('%Y-%m-%d %H:%M') if o.placed_at else '—' }}</td>
+        <td class="py-2 pr-4 text-right text-solex-body">${{ '%.2f' % (o.total_cents / 100) }}</td>
+        <td class="py-2 pr-4 text-solex-body">{{ o.status }}</td>
+      </tr>
+      {% endfor %}
+    </tbody>
+  </table>
+  {% else %}
+  <p class="text-solex-muted text-sm italic">No tagged orders.</p>
+  {% endif %}
+</section>
+
+{% if adjustments_by_reason %}
+<section class="mb-8 border border-solex-line rounded-md bg-white p-5">
+  <h2 class="eyebrow text-solex-teal mb-3">Inventory adjustments</h2>
+  {% for reason, items in adjustments_by_reason.items() %}
+  <div class="mb-4 last:mb-0">
+    <p class="eyebrow text-solex-muted mb-2">{{ reason }} · {{ items | length }}</p>
+    <table class="w-full text-sm border-collapse">
+      <thead>
+        <tr class="border-b border-solex-line text-left text-solex-muted">
+          <th class="py-1 pr-4 font-normal">Product</th>
+          <th class="py-1 pr-4 font-normal text-right">Delta</th>
+          <th class="py-1 pr-4 font-normal">When</th>
+        </tr>
+      </thead>
+      <tbody>
+        {% for adj in items %}
+        <tr class="border-b border-solex-line">
+          <td class="py-1 pr-4 text-solex-body font-mono">{{ adj.product_id }}</td>
+          <td class="py-1 pr-4 text-right text-solex-body">{{ adj.delta }}</td>
+          <td class="py-1 pr-4 text-solex-body">{{ adj.created_at.strftime('%H:%M:%S') }}</td>
+        </tr>
+        {% endfor %}
+      </tbody>
+    </table>
+  </div>
+  {% endfor %}
+</section>
+{% endif %}
+
+{% if refunds %}
+<section class="mb-8 border border-solex-line rounded-md bg-white p-5">
+  <h2 class="eyebrow text-solex-teal mb-3">Refunds ({{ refunds | length }})</h2>
+  <table class="w-full text-sm border-collapse">
+    <thead>
+      <tr class="border-b border-solex-line text-left text-solex-muted">
+        <th class="py-2 pr-4 font-normal">Refund</th>
+        <th class="py-2 pr-4 font-normal text-right">Amount</th>
+        <th class="py-2 pr-4 font-normal">Reason</th>
+      </tr>
+    </thead>
+    <tbody>
+      {% for r in refunds %}
+      <tr class="border-b border-solex-line">
+        <td class="py-2 pr-4 text-solex-body font-mono">{{ r.id }}</td>
+        <td class="py-2 pr-4 text-right text-solex-body">${{ '%.2f' % (r.amount_cents / 100) }}</td>
+        <td class="py-2 pr-4 text-solex-body">{{ r.reason or '—' }}</td>
+      </tr>
+      {% endfor %}
+    </tbody>
+  </table>
+</section>
+{% endif %}
+
+</div>
 {% endblock %}
