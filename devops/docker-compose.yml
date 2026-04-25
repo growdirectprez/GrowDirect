@@ -130,3 +130,4 @@ volumes:
 networks:
   default:
     name: growdirect
+    external: true
