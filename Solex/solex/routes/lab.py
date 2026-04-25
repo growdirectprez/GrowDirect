@@ -90,6 +90,73 @@ def run_form(name):
                            name=name, cls=cls, form={})
 
 
+@bp.get("/runs/")
+@admin_required
+def list_runs():
+    from datetime import datetime, time as _time
+    scenario = request.args.get("scenario", "").strip()
+    status = request.args.get("status", "").strip()
+    favorites_only = request.args.get("favorites", "").strip() in ("1", "true", "on")
+    date_from = request.args.get("from", "").strip()
+    date_to = request.args.get("to", "").strip()
+
+    q = select(ScenarioRun)
+    if scenario:
+        q = q.where(ScenarioRun.scenario_name == scenario)
+    if status:
+        q = q.where(ScenarioRun.status == status)
+    if date_from:
+        try:
+            d = datetime.fromisoformat(date_from)
+            q = q.where(ScenarioRun.started_at >= d)
+        except ValueError:
+            pass
+    if date_to:
+        try:
+            d = datetime.fromisoformat(date_to)
+            # treat date_to as end-of-day inclusive
+            if d.time() == _time.min:
+                d = d.replace(hour=23, minute=59, second=59)
+            q = q.where(ScenarioRun.started_at <= d)
+        except ValueError:
+            pass
+
+    favorited_ids: set = set()
+    admin = _load_admin_from_session()
+    if admin is not None:
+        rows = db.session.execute(
+            select(ScenarioRunFavorite.scenario_run_id).where(
+                ScenarioRunFavorite.admin_user_id == admin.id
+            )
+        ).scalars().all()
+        favorited_ids = {r for r in rows}
+        if favorites_only and favorited_ids:
+            q = q.where(ScenarioRun.id.in_(favorited_ids))
+        elif favorites_only:
+            # no favorites yet — return empty result deterministically
+            q = q.where(ScenarioRun.id.is_(None))
+
+    runs = db.session.execute(
+        q.order_by(ScenarioRun.started_at.desc()).limit(200)
+    ).scalars().all()
+
+    registry._import_all()
+    scenario_names = sorted(registry.all_scenarios().keys())
+
+    return render_template(
+        "admin/lab/runs.html",
+        runs=runs,
+        favorited_ids=favorited_ids,
+        filters={
+            "scenario": scenario, "status": status,
+            "favorites": favorites_only,
+            "from": date_from, "to": date_to,
+        },
+        scenario_names=scenario_names,
+        statuses=["pending", "running", "succeeded", "partial", "failed"],
+    )
+
+
 @bp.get("/runs/<uuid:run_id>")
 @admin_required
 def run_detail(run_id):
