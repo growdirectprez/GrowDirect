@@ -1,0 +1,3232 @@
+{
+  "errors": [],
+  "generated_at": "2026-04-25T05:37:33Z",
+  "metrics": {
+    "/Users/gclyle/GrowDirect/content-engine/engine.py": {
+      "CONFIDENCE.HIGH": 9,
+      "CONFIDENCE.LOW": 0,
+      "CONFIDENCE.MEDIUM": 0,
+      "CONFIDENCE.UNDEFINED": 0,
+      "SEVERITY.HIGH": 0,
+      "SEVERITY.LOW": 9,
+      "SEVERITY.MEDIUM": 0,
+      "SEVERITY.UNDEFINED": 0,
+      "loc": 1212,
+      "nosec": 0,
+      "skipped_tests": 0
+    },
+    "/Users/gclyle/GrowDirect/content-engine/tests/__init__.py": {
+      "CONFIDENCE.HIGH": 0,
+      "CONFIDENCE.LOW": 0,
+      "CONFIDENCE.MEDIUM": 0,
+      "CONFIDENCE.UNDEFINED": 0,
+      "SEVERITY.HIGH": 0,
+      "SEVERITY.LOW": 0,
+      "SEVERITY.MEDIUM": 0,
+      "SEVERITY.UNDEFINED": 0,
+      "loc": 0,
+      "nosec": 0,
+      "skipped_tests": 0
+    },
+    "/Users/gclyle/GrowDirect/content-engine/tests/test_extract.py": {
+      "CONFIDENCE.HIGH": 32,
+      "CONFIDENCE.LOW": 0,
+      "CONFIDENCE.MEDIUM": 0,
+      "CONFIDENCE.UNDEFINED": 0,
+      "SEVERITY.HIGH": 0,
+      "SEVERITY.LOW": 32,
+      "SEVERITY.MEDIUM": 0,
+      "SEVERITY.UNDEFINED": 0,
+      "loc": 113,
+      "nosec": 0,
+      "skipped_tests": 0
+    },
+    "/Users/gclyle/GrowDirect/content-engine/tests/test_method.py": {
+      "CONFIDENCE.HIGH": 25,
+      "CONFIDENCE.LOW": 0,
+      "CONFIDENCE.MEDIUM": 0,
+      "CONFIDENCE.UNDEFINED": 0,
+      "SEVERITY.HIGH": 0,
+      "SEVERITY.LOW": 25,
+      "SEVERITY.MEDIUM": 0,
+      "SEVERITY.UNDEFINED": 0,
+      "loc": 129,
+      "nosec": 0,
+      "skipped_tests": 0
+    },
+    "/Users/gclyle/GrowDirect/services/alx/__init__.py": {
+      "CONFIDENCE.HIGH": 0,
+      "CONFIDENCE.LOW": 0,
+      "CONFIDENCE.MEDIUM": 0,
+      "CONFIDENCE.UNDEFINED": 0,
+      "SEVERITY.HIGH": 0,
+      "SEVERITY.LOW": 0,
+      "SEVERITY.MEDIUM": 0,
+      "SEVERITY.UNDEFINED": 0,
+      "loc": 8,
+      "nosec": 0,
+      "skipped_tests": 0
+    },
+    "/Users/gclyle/GrowDirect/services/growdirect-mcp/growdirect_mcp/__init__.py": {
+      "CONFIDENCE.HIGH": 0,
+      "CONFIDENCE.LOW": 0,
+      "CONFIDENCE.MEDIUM": 0,
+      "CONFIDENCE.UNDEFINED": 0,
+      "SEVERITY.HIGH": 0,
+      "SEVERITY.LOW": 0,
+      "SEVERITY.MEDIUM": 0,
+      "SEVERITY.UNDEFINED": 0,
+      "loc": 4,
+      "nosec": 0,
+      "skipped_tests": 0
+    },
+    "/Users/gclyle/GrowDirect/services/growdirect-mcp/growdirect_mcp/auth.py": {
+      "CONFIDENCE.HIGH": 0,
+      "CONFIDENCE.LOW": 0,
+      "CONFIDENCE.MEDIUM": 0,
+      "CONFIDENCE.UNDEFINED": 0,
+      "SEVERITY.HIGH": 0,
+      "SEVERITY.LOW": 0,
+      "SEVERITY.MEDIUM": 0,
+      "SEVERITY.UNDEFINED": 0,
+      "loc": 29,
+      "nosec": 0,
+      "skipped_tests": 0
+    },
+    "/Users/gclyle/GrowDirect/services/growdirect-mcp/growdirect_mcp/bridge.py": {
+      "CONFIDENCE.HIGH": 0,
+      "CONFIDENCE.LOW": 0,
+      "CONFIDENCE.MEDIUM": 0,
+      "CONFIDENCE.UNDEFINED": 0,
+      "SEVERITY.HIGH": 0,
+      "SEVERITY.LOW": 0,
+      "SEVERITY.MEDIUM": 0,
+      "SEVERITY.UNDEFINED": 0,
+      "loc": 55,
+      "nosec": 0,
+      "skipped_tests": 0
+    },
+    "/Users/gclyle/GrowDirect/services/growdirect-mcp/growdirect_mcp/registry.py": {
+      "CONFIDENCE.HIGH": 0,
+      "CONFIDENCE.LOW": 0,
+      "CONFIDENCE.MEDIUM": 0,
+      "CONFIDENCE.UNDEFINED": 0,
+      "SEVERITY.HIGH": 0,
+      "SEVERITY.LOW": 0,
+      "SEVERITY.MEDIUM": 0,
+      "SEVERITY.UNDEFINED": 0,
+      "loc": 63,
+      "nosec": 0,
+      "skipped_tests": 0
+    },
+    "/Users/gclyle/GrowDirect/services/growdirect-mcp/growdirect_mcp/tool.py": {
+      "CONFIDENCE.HIGH": 0,
+      "CONFIDENCE.LOW": 0,
+      "CONFIDENCE.MEDIUM": 0,
+      "CONFIDENCE.UNDEFINED": 0,
+      "SEVERITY.HIGH": 0,
+      "SEVERITY.LOW": 0,
+      "SEVERITY.MEDIUM": 0,
+      "SEVERITY.UNDEFINED": 0,
+      "loc": 57,
+      "nosec": 0,
+      "skipped_tests": 0
+    },
+    "/Users/gclyle/GrowDirect/services/growdirect-mcp/tests/test_auth.py": {
+      "CONFIDENCE.HIGH": 3,
+      "CONFIDENCE.LOW": 0,
+      "CONFIDENCE.MEDIUM": 0,
+      "CONFIDENCE.UNDEFINED": 0,
+      "SEVERITY.HIGH": 0,
+      "SEVERITY.LOW": 3,
+      "SEVERITY.MEDIUM": 0,
+      "SEVERITY.UNDEFINED": 0,
+      "loc": 42,
+      "nosec": 0,
+      "skipped_tests": 0
+    },
+    "/Users/gclyle/GrowDirect/services/growdirect-mcp/tests/test_bridge.py": {
+      "CONFIDENCE.HIGH": 9,
+      "CONFIDENCE.LOW": 0,
+      "CONFIDENCE.MEDIUM": 0,
+      "CONFIDENCE.UNDEFINED": 0,
+      "SEVERITY.HIGH": 0,
+      "SEVERITY.LOW": 9,
+      "SEVERITY.MEDIUM": 0,
+      "SEVERITY.UNDEFINED": 0,
+      "loc": 47,
+      "nosec": 0,
+      "skipped_tests": 0
+    },
+    "/Users/gclyle/GrowDirect/services/growdirect-mcp/tests/test_registry.py": {
+      "CONFIDENCE.HIGH": 18,
+      "CONFIDENCE.LOW": 0,
+      "CONFIDENCE.MEDIUM": 0,
+      "CONFIDENCE.UNDEFINED": 0,
+      "SEVERITY.HIGH": 0,
+      "SEVERITY.LOW": 18,
+      "SEVERITY.MEDIUM": 0,
+      "SEVERITY.UNDEFINED": 0,
+      "loc": 66,
+      "nosec": 0,
+      "skipped_tests": 0
+    },
+    "/Users/gclyle/GrowDirect/services/growdirect-mcp/tests/test_tool.py": {
+      "CONFIDENCE.HIGH": 15,
+      "CONFIDENCE.LOW": 0,
+      "CONFIDENCE.MEDIUM": 0,
+      "CONFIDENCE.UNDEFINED": 0,
+      "SEVERITY.HIGH": 0,
+      "SEVERITY.LOW": 15,
+      "SEVERITY.MEDIUM": 0,
+      "SEVERITY.UNDEFINED": 0,
+      "loc": 79,
+      "nosec": 0,
+      "skipped_tests": 0
+    },
+    "/Users/gclyle/GrowDirect/services/memory-bus/memory_bus/__init__.py": {
+      "CONFIDENCE.HIGH": 0,
+      "CONFIDENCE.LOW": 0,
+      "CONFIDENCE.MEDIUM": 0,
+      "CONFIDENCE.UNDEFINED": 0,
+      "SEVERITY.HIGH": 0,
+      "SEVERITY.LOW": 0,
+      "SEVERITY.MEDIUM": 0,
+      "SEVERITY.UNDEFINED": 0,
+      "loc": 1,
+      "nosec": 0,
+      "skipped_tests": 0
+    },
+    "/Users/gclyle/GrowDirect/services/memory-bus/memory_bus/config.py": {
+      "CONFIDENCE.HIGH": 0,
+      "CONFIDENCE.LOW": 0,
+      "CONFIDENCE.MEDIUM": 0,
+      "CONFIDENCE.UNDEFINED": 0,
+      "SEVERITY.HIGH": 0,
+      "SEVERITY.LOW": 0,
+      "SEVERITY.MEDIUM": 0,
+      "SEVERITY.UNDEFINED": 0,
+      "loc": 15,
+      "nosec": 0,
+      "skipped_tests": 0
+    },
+    "/Users/gclyle/GrowDirect/services/memory-bus/memory_bus/embeddings.py": {
+      "CONFIDENCE.HIGH": 0,
+      "CONFIDENCE.LOW": 0,
+      "CONFIDENCE.MEDIUM": 0,
+      "CONFIDENCE.UNDEFINED": 0,
+      "SEVERITY.HIGH": 0,
+      "SEVERITY.LOW": 0,
+      "SEVERITY.MEDIUM": 0,
+      "SEVERITY.UNDEFINED": 0,
+      "loc": 21,
+      "nosec": 0,
+      "skipped_tests": 0
+    },
+    "/Users/gclyle/GrowDirect/services/memory-bus/memory_bus/server.py": {
+      "CONFIDENCE.HIGH": 0,
+      "CONFIDENCE.LOW": 0,
+      "CONFIDENCE.MEDIUM": 1,
+      "CONFIDENCE.UNDEFINED": 0,
+      "SEVERITY.HIGH": 0,
+      "SEVERITY.LOW": 0,
+      "SEVERITY.MEDIUM": 1,
+      "SEVERITY.UNDEFINED": 0,
+      "loc": 144,
+      "nosec": 0,
+      "skipped_tests": 0
+    },
+    "/Users/gclyle/GrowDirect/services/memory-bus/memory_bus/store.py": {
+      "CONFIDENCE.HIGH": 0,
+      "CONFIDENCE.LOW": 5,
+      "CONFIDENCE.MEDIUM": 0,
+      "CONFIDENCE.UNDEFINED": 0,
+      "SEVERITY.HIGH": 0,
+      "SEVERITY.LOW": 0,
+      "SEVERITY.MEDIUM": 5,
+      "SEVERITY.UNDEFINED": 0,
+      "loc": 543,
+      "nosec": 0,
+      "skipped_tests": 0
+    },
+    "/Users/gclyle/GrowDirect/services/memory-bus/migrations/__init__.py": {
+      "CONFIDENCE.HIGH": 0,
+      "CONFIDENCE.LOW": 0,
+      "CONFIDENCE.MEDIUM": 0,
+      "CONFIDENCE.UNDEFINED": 0,
+      "SEVERITY.HIGH": 0,
+      "SEVERITY.LOW": 0,
+      "SEVERITY.MEDIUM": 0,
+      "SEVERITY.UNDEFINED": 0,
+      "loc": 0,
+      "nosec": 0,
+      "skipped_tests": 0
+    },
+    "/Users/gclyle/GrowDirect/services/memory-bus/migrations/env.py": {
+      "CONFIDENCE.HIGH": 0,
+      "CONFIDENCE.LOW": 0,
+      "CONFIDENCE.MEDIUM": 0,
+      "CONFIDENCE.UNDEFINED": 0,
+      "SEVERITY.HIGH": 0,
+      "SEVERITY.LOW": 0,
+      "SEVERITY.MEDIUM": 0,
+      "SEVERITY.UNDEFINED": 0,
+      "loc": 16,
+      "nosec": 0,
+      "skipped_tests": 0
+    },
+    "/Users/gclyle/GrowDirect/services/memory-bus/migrations/versions/001_baseline.py": {
+      "CONFIDENCE.HIGH": 0,
+      "CONFIDENCE.LOW": 0,
+      "CONFIDENCE.MEDIUM": 0,
+      "CONFIDENCE.UNDEFINED": 0,
+      "SEVERITY.HIGH": 0,
+      "SEVERITY.LOW": 0,
+      "SEVERITY.MEDIUM": 0,
+      "SEVERITY.UNDEFINED": 0,
+      "loc": 67,
+      "nosec": 0,
+      "skipped_tests": 0
+    },
+    "/Users/gclyle/GrowDirect/services/memory-bus/migrations/versions/002_drop_seed_embeddings.py": {
+      "CONFIDENCE.HIGH": 0,
+      "CONFIDENCE.LOW": 0,
+      "CONFIDENCE.MEDIUM": 0,
+      "CONFIDENCE.UNDEFINED": 0,
+      "SEVERITY.HIGH": 0,
+      "SEVERITY.LOW": 0,
+      "SEVERITY.MEDIUM": 0,
+      "SEVERITY.UNDEFINED": 0,
+      "loc": 27,
+      "nosec": 0,
+      "skipped_tests": 0
+    },
+    "/Users/gclyle/GrowDirect/services/memory-bus/migrations/versions/003_hnsw_index.py": {
+      "CONFIDENCE.HIGH": 0,
+      "CONFIDENCE.LOW": 0,
+      "CONFIDENCE.MEDIUM": 0,
+      "CONFIDENCE.UNDEFINED": 0,
+      "SEVERITY.HIGH": 0,
+      "SEVERITY.LOW": 0,
+      "SEVERITY.MEDIUM": 0,
+      "SEVERITY.UNDEFINED": 0,
+      "loc": 16,
+      "nosec": 0,
+      "skipped_tests": 0
+    },
+    "/Users/gclyle/GrowDirect/services/memory-bus/migrations/versions/004_session_fk.py": {
+      "CONFIDENCE.HIGH": 0,
+      "CONFIDENCE.LOW": 0,
+      "CONFIDENCE.MEDIUM": 0,
+      "CONFIDENCE.UNDEFINED": 0,
+      "SEVERITY.HIGH": 0,
+      "SEVERITY.LOW": 0,
+      "SEVERITY.MEDIUM": 0,
+      "SEVERITY.UNDEFINED": 0,
+      "loc": 31,
+      "nosec": 0,
+      "skipped_tests": 0
+    },
+    "/Users/gclyle/GrowDirect/services/memory-bus/migrations/versions/__init__.py": {
+      "CONFIDENCE.HIGH": 0,
+      "CONFIDENCE.LOW": 0,
+      "CONFIDENCE.MEDIUM": 0,
+      "CONFIDENCE.UNDEFINED": 0,
+      "SEVERITY.HIGH": 0,
+      "SEVERITY.LOW": 0,
+      "SEVERITY.MEDIUM": 0,
+      "SEVERITY.UNDEFINED": 0,
+      "loc": 0,
+      "nosec": 0,
+      "skipped_tests": 0
+    },
+    "/Users/gclyle/GrowDirect/services/memory-bus/scripts/seed_clean.py": {
+      "CONFIDENCE.HIGH": 0,
+      "CONFIDENCE.LOW": 0,
+      "CONFIDENCE.MEDIUM": 0,
+      "CONFIDENCE.UNDEFINED": 0,
+      "SEVERITY.HIGH": 0,
+      "SEVERITY.LOW": 0,
+      "SEVERITY.MEDIUM": 0,
+      "SEVERITY.UNDEFINED": 0,
+      "loc": 239,
+      "nosec": 0,
+      "skipped_tests": 0
+    },
+    "/Users/gclyle/GrowDirect/services/memory-bus/tests/__init__.py": {
+      "CONFIDENCE.HIGH": 0,
+      "CONFIDENCE.LOW": 0,
+      "CONFIDENCE.MEDIUM": 0,
+      "CONFIDENCE.UNDEFINED": 0,
+      "SEVERITY.HIGH": 0,
+      "SEVERITY.LOW": 0,
+      "SEVERITY.MEDIUM": 0,
+      "SEVERITY.UNDEFINED": 0,
+      "loc": 0,
+      "nosec": 0,
+      "skipped_tests": 0
+    },
+    "/Users/gclyle/GrowDirect/services/memory-bus/tests/conftest.py": {
+      "CONFIDENCE.HIGH": 0,
+      "CONFIDENCE.LOW": 0,
+      "CONFIDENCE.MEDIUM": 0,
+      "CONFIDENCE.UNDEFINED": 0,
+      "SEVERITY.HIGH": 0,
+      "SEVERITY.LOW": 0,
+      "SEVERITY.MEDIUM": 0,
+      "SEVERITY.UNDEFINED": 0,
+      "loc": 7,
+      "nosec": 0,
+      "skipped_tests": 0
+    },
+    "/Users/gclyle/GrowDirect/services/memory-bus/tests/test_config.py": {
+      "CONFIDENCE.HIGH": 4,
+      "CONFIDENCE.LOW": 0,
+      "CONFIDENCE.MEDIUM": 0,
+      "CONFIDENCE.UNDEFINED": 0,
+      "SEVERITY.HIGH": 0,
+      "SEVERITY.LOW": 4,
+      "SEVERITY.MEDIUM": 0,
+      "SEVERITY.UNDEFINED": 0,
+      "loc": 24,
+      "nosec": 0,
+      "skipped_tests": 0
+    },
+    "/Users/gclyle/GrowDirect/services/memory-bus/tests/test_embeddings.py": {
+      "CONFIDENCE.HIGH": 6,
+      "CONFIDENCE.LOW": 0,
+      "CONFIDENCE.MEDIUM": 0,
+      "CONFIDENCE.UNDEFINED": 0,
+      "SEVERITY.HIGH": 0,
+      "SEVERITY.LOW": 6,
+      "SEVERITY.MEDIUM": 0,
+      "SEVERITY.UNDEFINED": 0,
+      "loc": 42,
+      "nosec": 0,
+      "skipped_tests": 0
+    },
+    "/Users/gclyle/GrowDirect/services/memory-bus/tests/test_smoke.py": {
+      "CONFIDENCE.HIGH": 1,
+      "CONFIDENCE.LOW": 0,
+      "CONFIDENCE.MEDIUM": 0,
+      "CONFIDENCE.UNDEFINED": 0,
+      "SEVERITY.HIGH": 0,
+      "SEVERITY.LOW": 1,
+      "SEVERITY.MEDIUM": 0,
+      "SEVERITY.UNDEFINED": 0,
+      "loc": 23,
+      "nosec": 0,
+      "skipped_tests": 0
+    },
+    "/Users/gclyle/GrowDirect/services/memory-bus/tests/test_store.py": {
+      "CONFIDENCE.HIGH": 8,
+      "CONFIDENCE.LOW": 0,
+      "CONFIDENCE.MEDIUM": 0,
+      "CONFIDENCE.UNDEFINED": 0,
+      "SEVERITY.HIGH": 0,
+      "SEVERITY.LOW": 8,
+      "SEVERITY.MEDIUM": 0,
+      "SEVERITY.UNDEFINED": 0,
+      "loc": 78,
+      "nosec": 0,
+      "skipped_tests": 0
+    },
+    "_totals": {
+      "CONFIDENCE.HIGH": 130,
+      "CONFIDENCE.LOW": 5,
+      "CONFIDENCE.MEDIUM": 1,
+      "CONFIDENCE.UNDEFINED": 0,
+      "SEVERITY.HIGH": 0,
+      "SEVERITY.LOW": 130,
+      "SEVERITY.MEDIUM": 6,
+      "SEVERITY.UNDEFINED": 0,
+      "loc": 3198,
+      "nosec": 0,
+      "skipped_tests": 0
+    }
+  },
+  "results": [
+    {
+      "code": "219         try:\n220             import subprocess\n221             txt = subprocess.check_output(\n",
+      "col_offset": 12,
+      "end_col_offset": 29,
+      "filename": "/Users/gclyle/GrowDirect/content-engine/engine.py",
+      "issue_confidence": "HIGH",
+      "issue_cwe": {
+        "id": 78,
+        "link": "https://cwe.mitre.org/data/definitions/78.html"
+      },
+      "issue_severity": "LOW",
+      "issue_text": "Consider possible security implications associated with the subprocess module.",
+      "line_number": 220,
+      "line_range": [
+        220
+      ],
+      "more_info": "https://bandit.readthedocs.io/en/1.9.4/blacklists/blacklist_imports.html#b404-import-subprocess",
+      "test_id": "B404",
+      "test_name": "blacklist"
+    },
+    {
+      "code": "220             import subprocess\n221             txt = subprocess.check_output(\n222                 [\"textutil\", \"-convert\", \"txt\", \"-stdout\", str(source)],\n223                 stderr=subprocess.DEVNULL,\n224             ).decode(\"utf-8\", errors=\"replace\")\n225             if txt.strip():\n",
+      "col_offset": 18,
+      "end_col_offset": 13,
+      "filename": "/Users/gclyle/GrowDirect/content-engine/engine.py",
+      "issue_confidence": "HIGH",
+      "issue_cwe": {
+        "id": 78,
+        "link": "https://cwe.mitre.org/data/definitions/78.html"
+      },
+      "issue_severity": "LOW",
+      "issue_text": "Starting a process with a partial executable path",
+      "line_number": 221,
+      "line_range": [
+        221,
+        222,
+        223,
+        224
+      ],
+      "more_info": "https://bandit.readthedocs.io/en/1.9.4/plugins/b607_start_process_with_partial_path.html",
+      "test_id": "B607",
+      "test_name": "start_process_with_partial_path"
+    },
+    {
+      "code": "220             import subprocess\n221             txt = subprocess.check_output(\n222                 [\"textutil\", \"-convert\", \"txt\", \"-stdout\", str(source)],\n223                 stderr=subprocess.DEVNULL,\n224             ).decode(\"utf-8\", errors=\"replace\")\n225             if txt.strip():\n",
+      "col_offset": 18,
+      "end_col_offset": 13,
+      "filename": "/Users/gclyle/GrowDirect/content-engine/engine.py",
+      "issue_confidence": "HIGH",
+      "issue_cwe": {
+        "id": 78,
+        "link": "https://cwe.mitre.org/data/definitions/78.html"
+      },
+      "issue_severity": "LOW",
+      "issue_text": "subprocess call - check for execution of untrusted input.",
+      "line_number": 221,
+      "line_range": [
+        221,
+        222,
+        223,
+        224
+      ],
+      "more_info": "https://bandit.readthedocs.io/en/1.9.4/plugins/b603_subprocess_without_shell_equals_true.html",
+      "test_id": "B603",
+      "test_name": "subprocess_without_shell_equals_true"
+    },
+    {
+      "code": "236         try:\n237             import subprocess, shutil as sh\n238             if sh.which(\"pdftotext\"):\n",
+      "col_offset": 12,
+      "end_col_offset": 43,
+      "filename": "/Users/gclyle/GrowDirect/content-engine/engine.py",
+      "issue_confidence": "HIGH",
+      "issue_cwe": {
+        "id": 78,
+        "link": "https://cwe.mitre.org/data/definitions/78.html"
+      },
+      "issue_severity": "LOW",
+      "issue_text": "Consider possible security implications associated with the subprocess module.",
+      "line_number": 237,
+      "line_range": [
+        237
+      ],
+      "more_info": "https://bandit.readthedocs.io/en/1.9.4/blacklists/blacklist_imports.html#b404-import-subprocess",
+      "test_id": "B404",
+      "test_name": "blacklist"
+    },
+    {
+      "code": "238             if sh.which(\"pdftotext\"):\n239                 txt = subprocess.check_output(\n240                     [\"pdftotext\", str(source), \"-\"],\n241                     stderr=subprocess.DEVNULL,\n242                 ).decode(\"utf-8\", errors=\"replace\")\n243                 if txt.strip():\n",
+      "col_offset": 22,
+      "end_col_offset": 17,
+      "filename": "/Users/gclyle/GrowDirect/content-engine/engine.py",
+      "issue_confidence": "HIGH",
+      "issue_cwe": {
+        "id": 78,
+        "link": "https://cwe.mitre.org/data/definitions/78.html"
+      },
+      "issue_severity": "LOW",
+      "issue_text": "Starting a process with a partial executable path",
+      "line_number": 239,
+      "line_range": [
+        239,
+        240,
+        241,
+        242
+      ],
+      "more_info": "https://bandit.readthedocs.io/en/1.9.4/plugins/b607_start_process_with_partial_path.html",
+      "test_id": "B607",
+      "test_name": "start_process_with_partial_path"
+    },
+    {
+      "code": "238             if sh.which(\"pdftotext\"):\n239                 txt = subprocess.check_output(\n240                     [\"pdftotext\", str(source), \"-\"],\n241                     stderr=subprocess.DEVNULL,\n242                 ).decode(\"utf-8\", errors=\"replace\")\n243                 if txt.strip():\n",
+      "col_offset": 22,
+      "end_col_offset": 17,
+      "filename": "/Users/gclyle/GrowDirect/content-engine/engine.py",
+      "issue_confidence": "HIGH",
+      "issue_cwe": {
+        "id": 78,
+        "link": "https://cwe.mitre.org/data/definitions/78.html"
+      },
+      "issue_severity": "LOW",
+      "issue_text": "subprocess call - check for execution of untrusted input.",
+      "line_number": 239,
+      "line_range": [
+        239,
+        240,
+        241,
+        242
+      ],
+      "more_info": "https://bandit.readthedocs.io/en/1.9.4/plugins/b603_subprocess_without_shell_equals_true.html",
+      "test_id": "B603",
+      "test_name": "subprocess_without_shell_equals_true"
+    },
+    {
+      "code": "1148     \"\"\"Return last commit date for path as YYYY-MM-DD, or None if not committed.\"\"\"\n1149     import subprocess\n1150     try:\n",
+      "col_offset": 4,
+      "end_col_offset": 21,
+      "filename": "/Users/gclyle/GrowDirect/content-engine/engine.py",
+      "issue_confidence": "HIGH",
+      "issue_cwe": {
+        "id": 78,
+        "link": "https://cwe.mitre.org/data/definitions/78.html"
+      },
+      "issue_severity": "LOW",
+      "issue_text": "Consider possible security implications associated with the subprocess module.",
+      "line_number": 1149,
+      "line_range": [
+        1149
+      ],
+      "more_info": "https://bandit.readthedocs.io/en/1.9.4/blacklists/blacklist_imports.html#b404-import-subprocess",
+      "test_id": "B404",
+      "test_name": "blacklist"
+    },
+    {
+      "code": "1150     try:\n1151         out = subprocess.check_output(\n1152             [\"git\", \"log\", \"-1\", \"--format=%cs\", \"--\", str(path)],\n1153             stderr=subprocess.DEVNULL,\n1154             text=True,\n1155         ).strip()\n1156         return out or None\n",
+      "col_offset": 14,
+      "end_col_offset": 9,
+      "filename": "/Users/gclyle/GrowDirect/content-engine/engine.py",
+      "issue_confidence": "HIGH",
+      "issue_cwe": {
+        "id": 78,
+        "link": "https://cwe.mitre.org/data/definitions/78.html"
+      },
+      "issue_severity": "LOW",
+      "issue_text": "Starting a process with a partial executable path",
+      "line_number": 1151,
+      "line_range": [
+        1151,
+        1152,
+        1153,
+        1154,
+        1155
+      ],
+      "more_info": "https://bandit.readthedocs.io/en/1.9.4/plugins/b607_start_process_with_partial_path.html",
+      "test_id": "B607",
+      "test_name": "start_process_with_partial_path"
+    },
+    {
+      "code": "1150     try:\n1151         out = subprocess.check_output(\n1152             [\"git\", \"log\", \"-1\", \"--format=%cs\", \"--\", str(path)],\n1153             stderr=subprocess.DEVNULL,\n1154             text=True,\n1155         ).strip()\n1156         return out or None\n",
+      "col_offset": 14,
+      "end_col_offset": 9,
+      "filename": "/Users/gclyle/GrowDirect/content-engine/engine.py",
+      "issue_confidence": "HIGH",
+      "issue_cwe": {
+        "id": 78,
+        "link": "https://cwe.mitre.org/data/definitions/78.html"
+      },
+      "issue_severity": "LOW",
+      "issue_text": "subprocess call - check for execution of untrusted input.",
+      "line_number": 1151,
+      "line_range": [
+        1151,
+        1152,
+        1153,
+        1154,
+        1155
+      ],
+      "more_info": "https://bandit.readthedocs.io/en/1.9.4/plugins/b603_subprocess_without_shell_equals_true.html",
+      "test_id": "B603",
+      "test_name": "subprocess_without_shell_equals_true"
+    },
+    {
+      "code": "2 import json\n3 import subprocess\n4 import sys\n",
+      "col_offset": 0,
+      "end_col_offset": 17,
+      "filename": "/Users/gclyle/GrowDirect/content-engine/tests/test_extract.py",
+      "issue_confidence": "HIGH",
+      "issue_cwe": {
+        "id": 78,
+        "link": "https://cwe.mitre.org/data/definitions/78.html"
+      },
+      "issue_severity": "LOW",
+      "issue_text": "Consider possible security implications associated with the subprocess module.",
+      "line_number": 3,
+      "line_range": [
+        3
+      ],
+      "more_info": "https://bandit.readthedocs.io/en/1.9.4/blacklists/blacklist_imports.html#b404-import-subprocess",
+      "test_id": "B404",
+      "test_name": "blacklist"
+    },
+    {
+      "code": "23     entry = engine._extract_file(src, target)\n24     assert entry[\"status\"] == \"ok\"\n25     assert entry[\"method\"] == \"markitdown\"\n",
+      "col_offset": 4,
+      "end_col_offset": 34,
+      "filename": "/Users/gclyle/GrowDirect/content-engine/tests/test_extract.py",
+      "issue_confidence": "HIGH",
+      "issue_cwe": {
+        "id": 703,
+        "link": "https://cwe.mitre.org/data/definitions/703.html"
+      },
+      "issue_severity": "LOW",
+      "issue_text": "Use of assert detected. The enclosed code will be removed when compiling to optimised byte code.",
+      "line_number": 24,
+      "line_range": [
+        24
+      ],
+      "more_info": "https://bandit.readthedocs.io/en/1.9.4/plugins/b101_assert_used.html",
+      "test_id": "B101",
+      "test_name": "assert_used"
+    },
+    {
+      "code": "24     assert entry[\"status\"] == \"ok\"\n25     assert entry[\"method\"] == \"markitdown\"\n26     assert target.exists()\n",
+      "col_offset": 4,
+      "end_col_offset": 42,
+      "filename": "/Users/gclyle/GrowDirect/content-engine/tests/test_extract.py",
+      "issue_confidence": "HIGH",
+      "issue_cwe": {
+        "id": 703,
+        "link": "https://cwe.mitre.org/data/definitions/703.html"
+      },
+      "issue_severity": "LOW",
+      "issue_text": "Use of assert detected. The enclosed code will be removed when compiling to optimised byte code.",
+      "line_number": 25,
+      "line_range": [
+        25
+      ],
+      "more_info": "https://bandit.readthedocs.io/en/1.9.4/plugins/b101_assert_used.html",
+      "test_id": "B101",
+      "test_name": "assert_used"
+    },
+    {
+      "code": "25     assert entry[\"method\"] == \"markitdown\"\n26     assert target.exists()\n27     text = target.read_text()\n",
+      "col_offset": 4,
+      "end_col_offset": 26,
+      "filename": "/Users/gclyle/GrowDirect/content-engine/tests/test_extract.py",
+      "issue_confidence": "HIGH",
+      "issue_cwe": {
+        "id": 703,
+        "link": "https://cwe.mitre.org/data/definitions/703.html"
+      },
+      "issue_severity": "LOW",
+      "issue_text": "Use of assert detected. The enclosed code will be removed when compiling to optimised byte code.",
+      "line_number": 26,
+      "line_range": [
+        26
+      ],
+      "more_info": "https://bandit.readthedocs.io/en/1.9.4/plugins/b101_assert_used.html",
+      "test_id": "B101",
+      "test_name": "assert_used"
+    },
+    {
+      "code": "27     text = target.read_text()\n28     assert len(text) > 0\n29     assert entry[\"source_sha256\"]\n",
+      "col_offset": 4,
+      "end_col_offset": 24,
+      "filename": "/Users/gclyle/GrowDirect/content-engine/tests/test_extract.py",
+      "issue_confidence": "HIGH",
+      "issue_cwe": {
+        "id": 703,
+        "link": "https://cwe.mitre.org/data/definitions/703.html"
+      },
+      "issue_severity": "LOW",
+      "issue_text": "Use of assert detected. The enclosed code will be removed when compiling to optimised byte code.",
+      "line_number": 28,
+      "line_range": [
+        28
+      ],
+      "more_info": "https://bandit.readthedocs.io/en/1.9.4/plugins/b101_assert_used.html",
+      "test_id": "B101",
+      "test_name": "assert_used"
+    },
+    {
+      "code": "28     assert len(text) > 0\n29     assert entry[\"source_sha256\"]\n30     assert entry[\"target_path\"] == str(target)\n",
+      "col_offset": 4,
+      "end_col_offset": 33,
+      "filename": "/Users/gclyle/GrowDirect/content-engine/tests/test_extract.py",
+      "issue_confidence": "HIGH",
+      "issue_cwe": {
+        "id": 703,
+        "link": "https://cwe.mitre.org/data/definitions/703.html"
+      },
+      "issue_severity": "LOW",
+      "issue_text": "Use of assert detected. The enclosed code will be removed when compiling to optimised byte code.",
+      "line_number": 29,
+      "line_range": [
+        29
+      ],
+      "more_info": "https://bandit.readthedocs.io/en/1.9.4/plugins/b101_assert_used.html",
+      "test_id": "B101",
+      "test_name": "assert_used"
+    },
+    {
+      "code": "29     assert entry[\"source_sha256\"]\n30     assert entry[\"target_path\"] == str(target)\n31     assert entry[\"extracted_at\"].startswith(\"20\")\n",
+      "col_offset": 4,
+      "end_col_offset": 46,
+      "filename": "/Users/gclyle/GrowDirect/content-engine/tests/test_extract.py",
+      "issue_confidence": "HIGH",
+      "issue_cwe": {
+        "id": 703,
+        "link": "https://cwe.mitre.org/data/definitions/703.html"
+      },
+      "issue_severity": "LOW",
+      "issue_text": "Use of assert detected. The enclosed code will be removed when compiling to optimised byte code.",
+      "line_number": 30,
+      "line_range": [
+        30
+      ],
+      "more_info": "https://bandit.readthedocs.io/en/1.9.4/plugins/b101_assert_used.html",
+      "test_id": "B101",
+      "test_name": "assert_used"
+    },
+    {
+      "code": "30     assert entry[\"target_path\"] == str(target)\n31     assert entry[\"extracted_at\"].startswith(\"20\")\n32     assert entry[\"error\"] is None\n",
+      "col_offset": 4,
+      "end_col_offset": 49,
+      "filename": "/Users/gclyle/GrowDirect/content-engine/tests/test_extract.py",
+      "issue_confidence": "HIGH",
+      "issue_cwe": {
+        "id": 703,
+        "link": "https://cwe.mitre.org/data/definitions/703.html"
+      },
+      "issue_severity": "LOW",
+      "issue_text": "Use of assert detected. The enclosed code will be removed when compiling to optimised byte code.",
+      "line_number": 31,
+      "line_range": [
+        31
+      ],
+      "more_info": "https://bandit.readthedocs.io/en/1.9.4/plugins/b101_assert_used.html",
+      "test_id": "B101",
+      "test_name": "assert_used"
+    },
+    {
+      "code": "31     assert entry[\"extracted_at\"].startswith(\"20\")\n32     assert entry[\"error\"] is None\n33 \n",
+      "col_offset": 4,
+      "end_col_offset": 33,
+      "filename": "/Users/gclyle/GrowDirect/content-engine/tests/test_extract.py",
+      "issue_confidence": "HIGH",
+      "issue_cwe": {
+        "id": 703,
+        "link": "https://cwe.mitre.org/data/definitions/703.html"
+      },
+      "issue_severity": "LOW",
+      "issue_text": "Use of assert detected. The enclosed code will be removed when compiling to optimised byte code.",
+      "line_number": 32,
+      "line_range": [
+        32
+      ],
+      "more_info": "https://bandit.readthedocs.io/en/1.9.4/plugins/b101_assert_used.html",
+      "test_id": "B101",
+      "test_name": "assert_used"
+    },
+    {
+      "code": "43             pytest.skip(f\"PDF extraction failed and pdftotext not installed: {entry['error']}\")\n44     assert entry[\"status\"] == \"ok\"\n45     assert entry[\"method\"] in (\"markitdown\", \"pdftotext\")\n",
+      "col_offset": 4,
+      "end_col_offset": 34,
+      "filename": "/Users/gclyle/GrowDirect/content-engine/tests/test_extract.py",
+      "issue_confidence": "HIGH",
+      "issue_cwe": {
+        "id": 703,
+        "link": "https://cwe.mitre.org/data/definitions/703.html"
+      },
+      "issue_severity": "LOW",
+      "issue_text": "Use of assert detected. The enclosed code will be removed when compiling to optimised byte code.",
+      "line_number": 44,
+      "line_range": [
+        44
+      ],
+      "more_info": "https://bandit.readthedocs.io/en/1.9.4/plugins/b101_assert_used.html",
+      "test_id": "B101",
+      "test_name": "assert_used"
+    },
+    {
+      "code": "44     assert entry[\"status\"] == \"ok\"\n45     assert entry[\"method\"] in (\"markitdown\", \"pdftotext\")\n46     assert target.exists()\n",
+      "col_offset": 4,
+      "end_col_offset": 57,
+      "filename": "/Users/gclyle/GrowDirect/content-engine/tests/test_extract.py",
+      "issue_confidence": "HIGH",
+      "issue_cwe": {
+        "id": 703,
+        "link": "https://cwe.mitre.org/data/definitions/703.html"
+      },
+      "issue_severity": "LOW",
+      "issue_text": "Use of assert detected. The enclosed code will be removed when compiling to optimised byte code.",
+      "line_number": 45,
+      "line_range": [
+        45
+      ],
+      "more_info": "https://bandit.readthedocs.io/en/1.9.4/plugins/b101_assert_used.html",
+      "test_id": "B101",
+      "test_name": "assert_used"
+    },
+    {
+      "code": "45     assert entry[\"method\"] in (\"markitdown\", \"pdftotext\")\n46     assert target.exists()\n47     assert len(target.read_text()) > 0\n",
+      "col_offset": 4,
+      "end_col_offset": 26,
+      "filename": "/Users/gclyle/GrowDirect/content-engine/tests/test_extract.py",
+      "issue_confidence": "HIGH",
+      "issue_cwe": {
+        "id": 703,
+        "link": "https://cwe.mitre.org/data/definitions/703.html"
+      },
+      "issue_severity": "LOW",
+      "issue_text": "Use of assert detected. The enclosed code will be removed when compiling to optimised byte code.",
+      "line_number": 46,
+      "line_range": [
+        46
+      ],
+      "more_info": "https://bandit.readthedocs.io/en/1.9.4/plugins/b101_assert_used.html",
+      "test_id": "B101",
+      "test_name": "assert_used"
+    },
+    {
+      "code": "46     assert target.exists()\n47     assert len(target.read_text()) > 0\n48 \n",
+      "col_offset": 4,
+      "end_col_offset": 38,
+      "filename": "/Users/gclyle/GrowDirect/content-engine/tests/test_extract.py",
+      "issue_confidence": "HIGH",
+      "issue_cwe": {
+        "id": 703,
+        "link": "https://cwe.mitre.org/data/definitions/703.html"
+      },
+      "issue_severity": "LOW",
+      "issue_text": "Use of assert detected. The enclosed code will be removed when compiling to optimised byte code.",
+      "line_number": 47,
+      "line_range": [
+        47
+      ],
+      "more_info": "https://bandit.readthedocs.io/en/1.9.4/plugins/b101_assert_used.html",
+      "test_id": "B101",
+      "test_name": "assert_used"
+    },
+    {
+      "code": "53     entry = engine._extract_file(src, target)\n54     assert entry[\"status\"] == \"skipped\"\n55     assert entry[\"method\"] == \"skip\"\n",
+      "col_offset": 4,
+      "end_col_offset": 39,
+      "filename": "/Users/gclyle/GrowDirect/content-engine/tests/test_extract.py",
+      "issue_confidence": "HIGH",
+      "issue_cwe": {
+        "id": 703,
+        "link": "https://cwe.mitre.org/data/definitions/703.html"
+      },
+      "issue_severity": "LOW",
+      "issue_text": "Use of assert detected. The enclosed code will be removed when compiling to optimised byte code.",
+      "line_number": 54,
+      "line_range": [
+        54
+      ],
+      "more_info": "https://bandit.readthedocs.io/en/1.9.4/plugins/b101_assert_used.html",
+      "test_id": "B101",
+      "test_name": "assert_used"
+    },
+    {
+      "code": "54     assert entry[\"status\"] == \"skipped\"\n55     assert entry[\"method\"] == \"skip\"\n56     assert not target.exists()\n",
+      "col_offset": 4,
+      "end_col_offset": 36,
+      "filename": "/Users/gclyle/GrowDirect/content-engine/tests/test_extract.py",
+      "issue_confidence": "HIGH",
+      "issue_cwe": {
+        "id": 703,
+        "link": "https://cwe.mitre.org/data/definitions/703.html"
+      },
+      "issue_severity": "LOW",
+      "issue_text": "Use of assert detected. The enclosed code will be removed when compiling to optimised byte code.",
+      "line_number": 55,
+      "line_range": [
+        55
+      ],
+      "more_info": "https://bandit.readthedocs.io/en/1.9.4/plugins/b101_assert_used.html",
+      "test_id": "B101",
+      "test_name": "assert_used"
+    },
+    {
+      "code": "55     assert entry[\"method\"] == \"skip\"\n56     assert not target.exists()\n57 \n",
+      "col_offset": 4,
+      "end_col_offset": 30,
+      "filename": "/Users/gclyle/GrowDirect/content-engine/tests/test_extract.py",
+      "issue_confidence": "HIGH",
+      "issue_cwe": {
+        "id": 703,
+        "link": "https://cwe.mitre.org/data/definitions/703.html"
+      },
+      "issue_severity": "LOW",
+      "issue_text": "Use of assert detected. The enclosed code will be removed when compiling to optimised byte code.",
+      "line_number": 56,
+      "line_range": [
+        56
+      ],
+      "more_info": "https://bandit.readthedocs.io/en/1.9.4/plugins/b101_assert_used.html",
+      "test_id": "B101",
+      "test_name": "assert_used"
+    },
+    {
+      "code": "74     result = runner.invoke(engine.cli, [\"extract\", str(src_dir), \"--target\", str(target)])\n75     assert result.exit_code == 0, result.output\n76     assert \"DRY RUN\" in result.output or \"dry-run\" in result.output.lower()\n",
+      "col_offset": 4,
+      "end_col_offset": 47,
+      "filename": "/Users/gclyle/GrowDirect/content-engine/tests/test_extract.py",
+      "issue_confidence": "HIGH",
+      "issue_cwe": {
+        "id": 703,
+        "link": "https://cwe.mitre.org/data/definitions/703.html"
+      },
+      "issue_severity": "LOW",
+      "issue_text": "Use of assert detected. The enclosed code will be removed when compiling to optimised byte code.",
+      "line_number": 75,
+      "line_range": [
+        75
+      ],
+      "more_info": "https://bandit.readthedocs.io/en/1.9.4/plugins/b101_assert_used.html",
+      "test_id": "B101",
+      "test_name": "assert_used"
+    },
+    {
+      "code": "75     assert result.exit_code == 0, result.output\n76     assert \"DRY RUN\" in result.output or \"dry-run\" in result.output.lower()\n77     assert not any(target.rglob(\"*.md\")) if target.exists() else True\n",
+      "col_offset": 4,
+      "end_col_offset": 75,
+      "filename": "/Users/gclyle/GrowDirect/content-engine/tests/test_extract.py",
+      "issue_confidence": "HIGH",
+      "issue_cwe": {
+        "id": 703,
+        "link": "https://cwe.mitre.org/data/definitions/703.html"
+      },
+      "issue_severity": "LOW",
+      "issue_text": "Use of assert detected. The enclosed code will be removed when compiling to optimised byte code.",
+      "line_number": 76,
+      "line_range": [
+        76
+      ],
+      "more_info": "https://bandit.readthedocs.io/en/1.9.4/plugins/b101_assert_used.html",
+      "test_id": "B101",
+      "test_name": "assert_used"
+    },
+    {
+      "code": "76     assert \"DRY RUN\" in result.output or \"dry-run\" in result.output.lower()\n77     assert not any(target.rglob(\"*.md\")) if target.exists() else True\n78 \n",
+      "col_offset": 4,
+      "end_col_offset": 69,
+      "filename": "/Users/gclyle/GrowDirect/content-engine/tests/test_extract.py",
+      "issue_confidence": "HIGH",
+      "issue_cwe": {
+        "id": 703,
+        "link": "https://cwe.mitre.org/data/definitions/703.html"
+      },
+      "issue_severity": "LOW",
+      "issue_text": "Use of assert detected. The enclosed code will be removed when compiling to optimised byte code.",
+      "line_number": 77,
+      "line_range": [
+        77
+      ],
+      "more_info": "https://bandit.readthedocs.io/en/1.9.4/plugins/b101_assert_used.html",
+      "test_id": "B101",
+      "test_name": "assert_used"
+    },
+    {
+      "code": "90     )\n91     assert result.exit_code == 0, result.output\n92     assert (target / \"a.docx.md\").exists()\n",
+      "col_offset": 4,
+      "end_col_offset": 47,
+      "filename": "/Users/gclyle/GrowDirect/content-engine/tests/test_extract.py",
+      "issue_confidence": "HIGH",
+      "issue_cwe": {
+        "id": 703,
+        "link": "https://cwe.mitre.org/data/definitions/703.html"
+      },
+      "issue_severity": "LOW",
+      "issue_text": "Use of assert detected. The enclosed code will be removed when compiling to optimised byte code.",
+      "line_number": 91,
+      "line_range": [
+        91
+      ],
+      "more_info": "https://bandit.readthedocs.io/en/1.9.4/plugins/b101_assert_used.html",
+      "test_id": "B101",
+      "test_name": "assert_used"
+    },
+    {
+      "code": "91     assert result.exit_code == 0, result.output\n92     assert (target / \"a.docx.md\").exists()\n93     assert not (target / \"~$a.docx.md\").exists()\n",
+      "col_offset": 4,
+      "end_col_offset": 42,
+      "filename": "/Users/gclyle/GrowDirect/content-engine/tests/test_extract.py",
+      "issue_confidence": "HIGH",
+      "issue_cwe": {
+        "id": 703,
+        "link": "https://cwe.mitre.org/data/definitions/703.html"
+      },
+      "issue_severity": "LOW",
+      "issue_text": "Use of assert detected. The enclosed code will be removed when compiling to optimised byte code.",
+      "line_number": 92,
+      "line_range": [
+        92
+      ],
+      "more_info": "https://bandit.readthedocs.io/en/1.9.4/plugins/b101_assert_used.html",
+      "test_id": "B101",
+      "test_name": "assert_used"
+    },
+    {
+      "code": "92     assert (target / \"a.docx.md\").exists()\n93     assert not (target / \"~$a.docx.md\").exists()\n94     manifest_path = target / \".extract-manifest.json\"\n",
+      "col_offset": 4,
+      "end_col_offset": 48,
+      "filename": "/Users/gclyle/GrowDirect/content-engine/tests/test_extract.py",
+      "issue_confidence": "HIGH",
+      "issue_cwe": {
+        "id": 703,
+        "link": "https://cwe.mitre.org/data/definitions/703.html"
+      },
+      "issue_severity": "LOW",
+      "issue_text": "Use of assert detected. The enclosed code will be removed when compiling to optimised byte code.",
+      "line_number": 93,
+      "line_range": [
+        93
+      ],
+      "more_info": "https://bandit.readthedocs.io/en/1.9.4/plugins/b101_assert_used.html",
+      "test_id": "B101",
+      "test_name": "assert_used"
+    },
+    {
+      "code": "94     manifest_path = target / \".extract-manifest.json\"\n95     assert manifest_path.exists()\n96     manifest = json.loads(manifest_path.read_text())\n",
+      "col_offset": 4,
+      "end_col_offset": 33,
+      "filename": "/Users/gclyle/GrowDirect/content-engine/tests/test_extract.py",
+      "issue_confidence": "HIGH",
+      "issue_cwe": {
+        "id": 703,
+        "link": "https://cwe.mitre.org/data/definitions/703.html"
+      },
+      "issue_severity": "LOW",
+      "issue_text": "Use of assert detected. The enclosed code will be removed when compiling to optimised byte code.",
+      "line_number": 95,
+      "line_range": [
+        95
+      ],
+      "more_info": "https://bandit.readthedocs.io/en/1.9.4/plugins/b101_assert_used.html",
+      "test_id": "B101",
+      "test_name": "assert_used"
+    },
+    {
+      "code": "96     manifest = json.loads(manifest_path.read_text())\n97     assert isinstance(manifest, list)\n98     ok = [m for m in manifest if m[\"status\"] == \"ok\"]\n",
+      "col_offset": 4,
+      "end_col_offset": 37,
+      "filename": "/Users/gclyle/GrowDirect/content-engine/tests/test_extract.py",
+      "issue_confidence": "HIGH",
+      "issue_cwe": {
+        "id": 703,
+        "link": "https://cwe.mitre.org/data/definitions/703.html"
+      },
+      "issue_severity": "LOW",
+      "issue_text": "Use of assert detected. The enclosed code will be removed when compiling to optimised byte code.",
+      "line_number": 97,
+      "line_range": [
+        97
+      ],
+      "more_info": "https://bandit.readthedocs.io/en/1.9.4/plugins/b101_assert_used.html",
+      "test_id": "B101",
+      "test_name": "assert_used"
+    },
+    {
+      "code": "98     ok = [m for m in manifest if m[\"status\"] == \"ok\"]\n99     assert len(ok) == 1\n100     assert ok[0][\"source_path\"].endswith(\"a.docx\")\n",
+      "col_offset": 4,
+      "end_col_offset": 23,
+      "filename": "/Users/gclyle/GrowDirect/content-engine/tests/test_extract.py",
+      "issue_confidence": "HIGH",
+      "issue_cwe": {
+        "id": 703,
+        "link": "https://cwe.mitre.org/data/definitions/703.html"
+      },
+      "issue_severity": "LOW",
+      "issue_text": "Use of assert detected. The enclosed code will be removed when compiling to optimised byte code.",
+      "line_number": 99,
+      "line_range": [
+        99
+      ],
+      "more_info": "https://bandit.readthedocs.io/en/1.9.4/plugins/b101_assert_used.html",
+      "test_id": "B101",
+      "test_name": "assert_used"
+    },
+    {
+      "code": "99     assert len(ok) == 1\n100     assert ok[0][\"source_path\"].endswith(\"a.docx\")\n101 \n",
+      "col_offset": 4,
+      "end_col_offset": 50,
+      "filename": "/Users/gclyle/GrowDirect/content-engine/tests/test_extract.py",
+      "issue_confidence": "HIGH",
+      "issue_cwe": {
+        "id": 703,
+        "link": "https://cwe.mitre.org/data/definitions/703.html"
+      },
+      "issue_severity": "LOW",
+      "issue_text": "Use of assert detected. The enclosed code will be removed when compiling to optimised byte code.",
+      "line_number": 100,
+      "line_range": [
+        100
+      ],
+      "more_info": "https://bandit.readthedocs.io/en/1.9.4/plugins/b101_assert_used.html",
+      "test_id": "B101",
+      "test_name": "assert_used"
+    },
+    {
+      "code": "115     )\n116     assert result.exit_code == 0, result.output\n117     assert (target / \"a.docx.md\").exists()\n",
+      "col_offset": 4,
+      "end_col_offset": 47,
+      "filename": "/Users/gclyle/GrowDirect/content-engine/tests/test_extract.py",
+      "issue_confidence": "HIGH",
+      "issue_cwe": {
+        "id": 703,
+        "link": "https://cwe.mitre.org/data/definitions/703.html"
+      },
+      "issue_severity": "LOW",
+      "issue_text": "Use of assert detected. The enclosed code will be removed when compiling to optimised byte code.",
+      "line_number": 116,
+      "line_range": [
+        116
+      ],
+      "more_info": "https://bandit.readthedocs.io/en/1.9.4/plugins/b101_assert_used.html",
+      "test_id": "B101",
+      "test_name": "assert_used"
+    },
+    {
+      "code": "116     assert result.exit_code == 0, result.output\n117     assert (target / \"a.docx.md\").exists()\n118     assert not (target / \"b.pdf.md\").exists()\n",
+      "col_offset": 4,
+      "end_col_offset": 42,
+      "filename": "/Users/gclyle/GrowDirect/content-engine/tests/test_extract.py",
+      "issue_confidence": "HIGH",
+      "issue_cwe": {
+        "id": 703,
+        "link": "https://cwe.mitre.org/data/definitions/703.html"
+      },
+      "issue_severity": "LOW",
+      "issue_text": "Use of assert detected. The enclosed code will be removed when compiling to optimised byte code.",
+      "line_number": 117,
+      "line_range": [
+        117
+      ],
+      "more_info": "https://bandit.readthedocs.io/en/1.9.4/plugins/b101_assert_used.html",
+      "test_id": "B101",
+      "test_name": "assert_used"
+    },
+    {
+      "code": "117     assert (target / \"a.docx.md\").exists()\n118     assert not (target / \"b.pdf.md\").exists()\n119 \n",
+      "col_offset": 4,
+      "end_col_offset": 45,
+      "filename": "/Users/gclyle/GrowDirect/content-engine/tests/test_extract.py",
+      "issue_confidence": "HIGH",
+      "issue_cwe": {
+        "id": 703,
+        "link": "https://cwe.mitre.org/data/definitions/703.html"
+      },
+      "issue_severity": "LOW",
+      "issue_text": "Use of assert detected. The enclosed code will be removed when compiling to optimised byte code.",
+      "line_number": 118,
+      "line_range": [
+        118
+      ],
+      "more_info": "https://bandit.readthedocs.io/en/1.9.4/plugins/b101_assert_used.html",
+      "test_id": "B101",
+      "test_name": "assert_used"
+    },
+    {
+      "code": "131     )\n132     assert result.exit_code == 0, result.output\n133     assert (target / \"top.docx.md\").exists()\n",
+      "col_offset": 4,
+      "end_col_offset": 47,
+      "filename": "/Users/gclyle/GrowDirect/content-engine/tests/test_extract.py",
+      "issue_confidence": "HIGH",
+      "issue_cwe": {
+        "id": 703,
+        "link": "https://cwe.mitre.org/data/definitions/703.html"
+      },
+      "issue_severity": "LOW",
+      "issue_text": "Use of assert detected. The enclosed code will be removed when compiling to optimised byte code.",
+      "line_number": 132,
+      "line_range": [
+        132
+      ],
+      "more_info": "https://bandit.readthedocs.io/en/1.9.4/plugins/b101_assert_used.html",
+      "test_id": "B101",
+      "test_name": "assert_used"
+    },
+    {
+      "code": "132     assert result.exit_code == 0, result.output\n133     assert (target / \"top.docx.md\").exists()\n134     assert not (target / \"nested\" / \"deep.docx.md\").exists()\n",
+      "col_offset": 4,
+      "end_col_offset": 44,
+      "filename": "/Users/gclyle/GrowDirect/content-engine/tests/test_extract.py",
+      "issue_confidence": "HIGH",
+      "issue_cwe": {
+        "id": 703,
+        "link": "https://cwe.mitre.org/data/definitions/703.html"
+      },
+      "issue_severity": "LOW",
+      "issue_text": "Use of assert detected. The enclosed code will be removed when compiling to optimised byte code.",
+      "line_number": 133,
+      "line_range": [
+        133
+      ],
+      "more_info": "https://bandit.readthedocs.io/en/1.9.4/plugins/b101_assert_used.html",
+      "test_id": "B101",
+      "test_name": "assert_used"
+    },
+    {
+      "code": "133     assert (target / \"top.docx.md\").exists()\n134     assert not (target / \"nested\" / \"deep.docx.md\").exists()\n",
+      "col_offset": 4,
+      "end_col_offset": 60,
+      "filename": "/Users/gclyle/GrowDirect/content-engine/tests/test_extract.py",
+      "issue_confidence": "HIGH",
+      "issue_cwe": {
+        "id": 703,
+        "link": "https://cwe.mitre.org/data/definitions/703.html"
+      },
+      "issue_severity": "LOW",
+      "issue_text": "Use of assert detected. The enclosed code will be removed when compiling to optimised byte code.",
+      "line_number": 134,
+      "line_range": [
+        134
+      ],
+      "more_info": "https://bandit.readthedocs.io/en/1.9.4/plugins/b101_assert_used.html",
+      "test_id": "B101",
+      "test_name": "assert_used"
+    },
+    {
+      "code": "50     result = runner.invoke(engine.cli, [\"method\", \"skills-for\", \"--role\", \"ALX\"])\n51     assert result.exit_code == 0, result.output\n52     assert \"foo\" in result.output\n",
+      "col_offset": 4,
+      "end_col_offset": 47,
+      "filename": "/Users/gclyle/GrowDirect/content-engine/tests/test_method.py",
+      "issue_confidence": "HIGH",
+      "issue_cwe": {
+        "id": 703,
+        "link": "https://cwe.mitre.org/data/definitions/703.html"
+      },
+      "issue_severity": "LOW",
+      "issue_text": "Use of assert detected. The enclosed code will be removed when compiling to optimised byte code.",
+      "line_number": 51,
+      "line_range": [
+        51
+      ],
+      "more_info": "https://bandit.readthedocs.io/en/1.9.4/plugins/b101_assert_used.html",
+      "test_id": "B101",
+      "test_name": "assert_used"
+    },
+    {
+      "code": "51     assert result.exit_code == 0, result.output\n52     assert \"foo\" in result.output\n53     assert \"baz\" in result.output\n",
+      "col_offset": 4,
+      "end_col_offset": 33,
+      "filename": "/Users/gclyle/GrowDirect/content-engine/tests/test_method.py",
+      "issue_confidence": "HIGH",
+      "issue_cwe": {
+        "id": 703,
+        "link": "https://cwe.mitre.org/data/definitions/703.html"
+      },
+      "issue_severity": "LOW",
+      "issue_text": "Use of assert detected. The enclosed code will be removed when compiling to optimised byte code.",
+      "line_number": 52,
+      "line_range": [
+        52
+      ],
+      "more_info": "https://bandit.readthedocs.io/en/1.9.4/plugins/b101_assert_used.html",
+      "test_id": "B101",
+      "test_name": "assert_used"
+    },
+    {
+      "code": "52     assert \"foo\" in result.output\n53     assert \"baz\" in result.output\n54     assert \"bar\" not in result.output\n",
+      "col_offset": 4,
+      "end_col_offset": 33,
+      "filename": "/Users/gclyle/GrowDirect/content-engine/tests/test_method.py",
+      "issue_confidence": "HIGH",
+      "issue_cwe": {
+        "id": 703,
+        "link": "https://cwe.mitre.org/data/definitions/703.html"
+      },
+      "issue_severity": "LOW",
+      "issue_text": "Use of assert detected. The enclosed code will be removed when compiling to optimised byte code.",
+      "line_number": 53,
+      "line_range": [
+        53
+      ],
+      "more_info": "https://bandit.readthedocs.io/en/1.9.4/plugins/b101_assert_used.html",
+      "test_id": "B101",
+      "test_name": "assert_used"
+    },
+    {
+      "code": "53     assert \"baz\" in result.output\n54     assert \"bar\" not in result.output\n55 \n",
+      "col_offset": 4,
+      "end_col_offset": 37,
+      "filename": "/Users/gclyle/GrowDirect/content-engine/tests/test_method.py",
+      "issue_confidence": "HIGH",
+      "issue_cwe": {
+        "id": 703,
+        "link": "https://cwe.mitre.org/data/definitions/703.html"
+      },
+      "issue_severity": "LOW",
+      "issue_text": "Use of assert detected. The enclosed code will be removed when compiling to optimised byte code.",
+      "line_number": 54,
+      "line_range": [
+        54
+      ],
+      "more_info": "https://bandit.readthedocs.io/en/1.9.4/plugins/b101_assert_used.html",
+      "test_id": "B101",
+      "test_name": "assert_used"
+    },
+    {
+      "code": "65     result = runner.invoke(engine.cli, [\"method\", \"skills-for\", \"--role\", \"ALX\"])\n66     assert result.exit_code == 0, result.output\n67     assert \"foo\" in result.output  # as assist\n",
+      "col_offset": 4,
+      "end_col_offset": 47,
+      "filename": "/Users/gclyle/GrowDirect/content-engine/tests/test_method.py",
+      "issue_confidence": "HIGH",
+      "issue_cwe": {
+        "id": 703,
+        "link": "https://cwe.mitre.org/data/definitions/703.html"
+      },
+      "issue_severity": "LOW",
+      "issue_text": "Use of assert detected. The enclosed code will be removed when compiling to optimised byte code.",
+      "line_number": 66,
+      "line_range": [
+        66
+      ],
+      "more_info": "https://bandit.readthedocs.io/en/1.9.4/plugins/b101_assert_used.html",
+      "test_id": "B101",
+      "test_name": "assert_used"
+    },
+    {
+      "code": "66     assert result.exit_code == 0, result.output\n67     assert \"foo\" in result.output  # as assist\n68 \n",
+      "col_offset": 4,
+      "end_col_offset": 33,
+      "filename": "/Users/gclyle/GrowDirect/content-engine/tests/test_method.py",
+      "issue_confidence": "HIGH",
+      "issue_cwe": {
+        "id": 703,
+        "link": "https://cwe.mitre.org/data/definitions/703.html"
+      },
+      "issue_severity": "LOW",
+      "issue_text": "Use of assert detected. The enclosed code will be removed when compiling to optimised byte code.",
+      "line_number": 67,
+      "line_range": [
+        67
+      ],
+      "more_info": "https://bandit.readthedocs.io/en/1.9.4/plugins/b101_assert_used.html",
+      "test_id": "B101",
+      "test_name": "assert_used"
+    },
+    {
+      "code": "79     result = runner.invoke(engine.cli, [\"method\", \"skills-for\", \"--role\", \"ALX\", \"--primary-only\"])\n80     assert result.exit_code == 0, result.output\n81     assert \"bar\" in result.output\n",
+      "col_offset": 4,
+      "end_col_offset": 47,
+      "filename": "/Users/gclyle/GrowDirect/content-engine/tests/test_method.py",
+      "issue_confidence": "HIGH",
+      "issue_cwe": {
+        "id": 703,
+        "link": "https://cwe.mitre.org/data/definitions/703.html"
+      },
+      "issue_severity": "LOW",
+      "issue_text": "Use of assert detected. The enclosed code will be removed when compiling to optimised byte code.",
+      "line_number": 80,
+      "line_range": [
+        80
+      ],
+      "more_info": "https://bandit.readthedocs.io/en/1.9.4/plugins/b101_assert_used.html",
+      "test_id": "B101",
+      "test_name": "assert_used"
+    },
+    {
+      "code": "80     assert result.exit_code == 0, result.output\n81     assert \"bar\" in result.output\n82     assert \"foo\" not in result.output\n",
+      "col_offset": 4,
+      "end_col_offset": 33,
+      "filename": "/Users/gclyle/GrowDirect/content-engine/tests/test_method.py",
+      "issue_confidence": "HIGH",
+      "issue_cwe": {
+        "id": 703,
+        "link": "https://cwe.mitre.org/data/definitions/703.html"
+      },
+      "issue_severity": "LOW",
+      "issue_text": "Use of assert detected. The enclosed code will be removed when compiling to optimised byte code.",
+      "line_number": 81,
+      "line_range": [
+        81
+      ],
+      "more_info": "https://bandit.readthedocs.io/en/1.9.4/plugins/b101_assert_used.html",
+      "test_id": "B101",
+      "test_name": "assert_used"
+    },
+    {
+      "code": "81     assert \"bar\" in result.output\n82     assert \"foo\" not in result.output\n83 \n",
+      "col_offset": 4,
+      "end_col_offset": 37,
+      "filename": "/Users/gclyle/GrowDirect/content-engine/tests/test_method.py",
+      "issue_confidence": "HIGH",
+      "issue_cwe": {
+        "id": 703,
+        "link": "https://cwe.mitre.org/data/definitions/703.html"
+      },
+      "issue_severity": "LOW",
+      "issue_text": "Use of assert detected. The enclosed code will be removed when compiling to optimised byte code.",
+      "line_number": 82,
+      "line_range": [
+        82
+      ],
+      "more_info": "https://bandit.readthedocs.io/en/1.9.4/plugins/b101_assert_used.html",
+      "test_id": "B101",
+      "test_name": "assert_used"
+    },
+    {
+      "code": "95     result = runner.invoke(engine.cli, [\"method\", \"skills-for\", \"--stage\", \"ship\"])\n96     assert result.exit_code == 0, result.output\n97     assert \"factory-ship\" in result.output\n",
+      "col_offset": 4,
+      "end_col_offset": 47,
+      "filename": "/Users/gclyle/GrowDirect/content-engine/tests/test_method.py",
+      "issue_confidence": "HIGH",
+      "issue_cwe": {
+        "id": 703,
+        "link": "https://cwe.mitre.org/data/definitions/703.html"
+      },
+      "issue_severity": "LOW",
+      "issue_text": "Use of assert detected. The enclosed code will be removed when compiling to optimised byte code.",
+      "line_number": 96,
+      "line_range": [
+        96
+      ],
+      "more_info": "https://bandit.readthedocs.io/en/1.9.4/plugins/b101_assert_used.html",
+      "test_id": "B101",
+      "test_name": "assert_used"
+    },
+    {
+      "code": "96     assert result.exit_code == 0, result.output\n97     assert \"factory-ship\" in result.output\n98     assert \"canary-ship\" in result.output\n",
+      "col_offset": 4,
+      "end_col_offset": 42,
+      "filename": "/Users/gclyle/GrowDirect/content-engine/tests/test_method.py",
+      "issue_confidence": "HIGH",
+      "issue_cwe": {
+        "id": 703,
+        "link": "https://cwe.mitre.org/data/definitions/703.html"
+      },
+      "issue_severity": "LOW",
+      "issue_text": "Use of assert detected. The enclosed code will be removed when compiling to optimised byte code.",
+      "line_number": 97,
+      "line_range": [
+        97
+      ],
+      "more_info": "https://bandit.readthedocs.io/en/1.9.4/plugins/b101_assert_used.html",
+      "test_id": "B101",
+      "test_name": "assert_used"
+    },
+    {
+      "code": "97     assert \"factory-ship\" in result.output\n98     assert \"canary-ship\" in result.output\n99     assert \"factory-qa\" not in result.output\n",
+      "col_offset": 4,
+      "end_col_offset": 41,
+      "filename": "/Users/gclyle/GrowDirect/content-engine/tests/test_method.py",
+      "issue_confidence": "HIGH",
+      "issue_cwe": {
+        "id": 703,
+        "link": "https://cwe.mitre.org/data/definitions/703.html"
+      },
+      "issue_severity": "LOW",
+      "issue_text": "Use of assert detected. The enclosed code will be removed when compiling to optimised byte code.",
+      "line_number": 98,
+      "line_range": [
+        98
+      ],
+      "more_info": "https://bandit.readthedocs.io/en/1.9.4/plugins/b101_assert_used.html",
+      "test_id": "B101",
+      "test_name": "assert_used"
+    },
+    {
+      "code": "98     assert \"canary-ship\" in result.output\n99     assert \"factory-qa\" not in result.output\n100 \n",
+      "col_offset": 4,
+      "end_col_offset": 44,
+      "filename": "/Users/gclyle/GrowDirect/content-engine/tests/test_method.py",
+      "issue_confidence": "HIGH",
+      "issue_cwe": {
+        "id": 703,
+        "link": "https://cwe.mitre.org/data/definitions/703.html"
+      },
+      "issue_severity": "LOW",
+      "issue_text": "Use of assert detected. The enclosed code will be removed when compiling to optimised byte code.",
+      "line_number": 99,
+      "line_range": [
+        99
+      ],
+      "more_info": "https://bandit.readthedocs.io/en/1.9.4/plugins/b101_assert_used.html",
+      "test_id": "B101",
+      "test_name": "assert_used"
+    },
+    {
+      "code": "112     result = runner.invoke(engine.cli, [\"method\", \"skills-for\", \"--role\", \"Jeremy\", \"--stage\", \"ship\"])\n113     assert result.exit_code == 0, result.output\n114     # Check per-line: skill listings are indented with \"  <name>\"\n",
+      "col_offset": 4,
+      "end_col_offset": 47,
+      "filename": "/Users/gclyle/GrowDirect/content-engine/tests/test_method.py",
+      "issue_confidence": "HIGH",
+      "issue_cwe": {
+        "id": 703,
+        "link": "https://cwe.mitre.org/data/definitions/703.html"
+      },
+      "issue_severity": "LOW",
+      "issue_text": "Use of assert detected. The enclosed code will be removed when compiling to optimised byte code.",
+      "line_number": 113,
+      "line_range": [
+        113
+      ],
+      "more_info": "https://bandit.readthedocs.io/en/1.9.4/plugins/b101_assert_used.html",
+      "test_id": "B101",
+      "test_name": "assert_used"
+    },
+    {
+      "code": "115     listed = {line.strip().split()[0] for line in result.output.splitlines() if line.startswith(\"  \") and line.strip()}\n116     assert \"a\" in listed\n117     assert \"b\" not in listed  # wrong role\n",
+      "col_offset": 4,
+      "end_col_offset": 24,
+      "filename": "/Users/gclyle/GrowDirect/content-engine/tests/test_method.py",
+      "issue_confidence": "HIGH",
+      "issue_cwe": {
+        "id": 703,
+        "link": "https://cwe.mitre.org/data/definitions/703.html"
+      },
+      "issue_severity": "LOW",
+      "issue_text": "Use of assert detected. The enclosed code will be removed when compiling to optimised byte code.",
+      "line_number": 116,
+      "line_range": [
+        116
+      ],
+      "more_info": "https://bandit.readthedocs.io/en/1.9.4/plugins/b101_assert_used.html",
+      "test_id": "B101",
+      "test_name": "assert_used"
+    },
+    {
+      "code": "116     assert \"a\" in listed\n117     assert \"b\" not in listed  # wrong role\n118     assert \"c\" not in listed  # wrong stage\n",
+      "col_offset": 4,
+      "end_col_offset": 28,
+      "filename": "/Users/gclyle/GrowDirect/content-engine/tests/test_method.py",
+      "issue_confidence": "HIGH",
+      "issue_cwe": {
+        "id": 703,
+        "link": "https://cwe.mitre.org/data/definitions/703.html"
+      },
+      "issue_severity": "LOW",
+      "issue_text": "Use of assert detected. The enclosed code will be removed when compiling to optimised byte code.",
+      "line_number": 117,
+      "line_range": [
+        117
+      ],
+      "more_info": "https://bandit.readthedocs.io/en/1.9.4/plugins/b101_assert_used.html",
+      "test_id": "B101",
+      "test_name": "assert_used"
+    },
+    {
+      "code": "117     assert \"b\" not in listed  # wrong role\n118     assert \"c\" not in listed  # wrong stage\n119 \n",
+      "col_offset": 4,
+      "end_col_offset": 28,
+      "filename": "/Users/gclyle/GrowDirect/content-engine/tests/test_method.py",
+      "issue_confidence": "HIGH",
+      "issue_cwe": {
+        "id": 703,
+        "link": "https://cwe.mitre.org/data/definitions/703.html"
+      },
+      "issue_severity": "LOW",
+      "issue_text": "Use of assert detected. The enclosed code will be removed when compiling to optimised byte code.",
+      "line_number": 118,
+      "line_range": [
+        118
+      ],
+      "more_info": "https://bandit.readthedocs.io/en/1.9.4/plugins/b101_assert_used.html",
+      "test_id": "B101",
+      "test_name": "assert_used"
+    },
+    {
+      "code": "124     result = runner.invoke(engine.cli, [\"method\", \"skills-for\"])\n125     assert result.exit_code != 0\n126 \n",
+      "col_offset": 4,
+      "end_col_offset": 32,
+      "filename": "/Users/gclyle/GrowDirect/content-engine/tests/test_method.py",
+      "issue_confidence": "HIGH",
+      "issue_cwe": {
+        "id": 703,
+        "link": "https://cwe.mitre.org/data/definitions/703.html"
+      },
+      "issue_severity": "LOW",
+      "issue_text": "Use of assert detected. The enclosed code will be removed when compiling to optimised byte code.",
+      "line_number": 125,
+      "line_range": [
+        125
+      ],
+      "more_info": "https://bandit.readthedocs.io/en/1.9.4/plugins/b101_assert_used.html",
+      "test_id": "B101",
+      "test_name": "assert_used"
+    },
+    {
+      "code": "140     result = runner.invoke(engine.cli, [\"method\", \"templates-for\", \"--role\", \"Research\"])\n141     assert result.exit_code == 0, result.output\n142     assert \"raw-intake\" in result.output\n",
+      "col_offset": 4,
+      "end_col_offset": 47,
+      "filename": "/Users/gclyle/GrowDirect/content-engine/tests/test_method.py",
+      "issue_confidence": "HIGH",
+      "issue_cwe": {
+        "id": 703,
+        "link": "https://cwe.mitre.org/data/definitions/703.html"
+      },
+      "issue_severity": "LOW",
+      "issue_text": "Use of assert detected. The enclosed code will be removed when compiling to optimised byte code.",
+      "line_number": 141,
+      "line_range": [
+        141
+      ],
+      "more_info": "https://bandit.readthedocs.io/en/1.9.4/plugins/b101_assert_used.html",
+      "test_id": "B101",
+      "test_name": "assert_used"
+    },
+    {
+      "code": "141     assert result.exit_code == 0, result.output\n142     assert \"raw-intake\" in result.output\n143     assert \"wiki-article\" not in result.output\n",
+      "col_offset": 4,
+      "end_col_offset": 40,
+      "filename": "/Users/gclyle/GrowDirect/content-engine/tests/test_method.py",
+      "issue_confidence": "HIGH",
+      "issue_cwe": {
+        "id": 703,
+        "link": "https://cwe.mitre.org/data/definitions/703.html"
+      },
+      "issue_severity": "LOW",
+      "issue_text": "Use of assert detected. The enclosed code will be removed when compiling to optimised byte code.",
+      "line_number": 142,
+      "line_range": [
+        142
+      ],
+      "more_info": "https://bandit.readthedocs.io/en/1.9.4/plugins/b101_assert_used.html",
+      "test_id": "B101",
+      "test_name": "assert_used"
+    },
+    {
+      "code": "142     assert \"raw-intake\" in result.output\n143     assert \"wiki-article\" not in result.output\n144 \n",
+      "col_offset": 4,
+      "end_col_offset": 46,
+      "filename": "/Users/gclyle/GrowDirect/content-engine/tests/test_method.py",
+      "issue_confidence": "HIGH",
+      "issue_cwe": {
+        "id": 703,
+        "link": "https://cwe.mitre.org/data/definitions/703.html"
+      },
+      "issue_severity": "LOW",
+      "issue_text": "Use of assert detected. The enclosed code will be removed when compiling to optimised byte code.",
+      "line_number": 143,
+      "line_range": [
+        143
+      ],
+      "more_info": "https://bandit.readthedocs.io/en/1.9.4/plugins/b101_assert_used.html",
+      "test_id": "B101",
+      "test_name": "assert_used"
+    },
+    {
+      "code": "164     result = runner.invoke(engine.cli, [\"method\", \"stats\"])\n165     assert result.exit_code == 0, result.output\n166     assert \"Skills\" in result.output\n",
+      "col_offset": 4,
+      "end_col_offset": 47,
+      "filename": "/Users/gclyle/GrowDirect/content-engine/tests/test_method.py",
+      "issue_confidence": "HIGH",
+      "issue_cwe": {
+        "id": 703,
+        "link": "https://cwe.mitre.org/data/definitions/703.html"
+      },
+      "issue_severity": "LOW",
+      "issue_text": "Use of assert detected. The enclosed code will be removed when compiling to optimised byte code.",
+      "line_number": 165,
+      "line_range": [
+        165
+      ],
+      "more_info": "https://bandit.readthedocs.io/en/1.9.4/plugins/b101_assert_used.html",
+      "test_id": "B101",
+      "test_name": "assert_used"
+    },
+    {
+      "code": "165     assert result.exit_code == 0, result.output\n166     assert \"Skills\" in result.output\n167     assert \"2 tagged\" in result.output or \"Tagged: 2\" in result.output\n",
+      "col_offset": 4,
+      "end_col_offset": 36,
+      "filename": "/Users/gclyle/GrowDirect/content-engine/tests/test_method.py",
+      "issue_confidence": "HIGH",
+      "issue_cwe": {
+        "id": 703,
+        "link": "https://cwe.mitre.org/data/definitions/703.html"
+      },
+      "issue_severity": "LOW",
+      "issue_text": "Use of assert detected. The enclosed code will be removed when compiling to optimised byte code.",
+      "line_number": 166,
+      "line_range": [
+        166
+      ],
+      "more_info": "https://bandit.readthedocs.io/en/1.9.4/plugins/b101_assert_used.html",
+      "test_id": "B101",
+      "test_name": "assert_used"
+    },
+    {
+      "code": "166     assert \"Skills\" in result.output\n167     assert \"2 tagged\" in result.output or \"Tagged: 2\" in result.output\n168     # 1 untagged skill + 1 untagged template\n",
+      "col_offset": 4,
+      "end_col_offset": 70,
+      "filename": "/Users/gclyle/GrowDirect/content-engine/tests/test_method.py",
+      "issue_confidence": "HIGH",
+      "issue_cwe": {
+        "id": 703,
+        "link": "https://cwe.mitre.org/data/definitions/703.html"
+      },
+      "issue_severity": "LOW",
+      "issue_text": "Use of assert detected. The enclosed code will be removed when compiling to optimised byte code.",
+      "line_number": 167,
+      "line_range": [
+        167
+      ],
+      "more_info": "https://bandit.readthedocs.io/en/1.9.4/plugins/b101_assert_used.html",
+      "test_id": "B101",
+      "test_name": "assert_used"
+    },
+    {
+      "code": "168     # 1 untagged skill + 1 untagged template\n169     assert \"1 untagged\" in result.output or \"Untagged: 1\" in result.output\n",
+      "col_offset": 4,
+      "end_col_offset": 74,
+      "filename": "/Users/gclyle/GrowDirect/content-engine/tests/test_method.py",
+      "issue_confidence": "HIGH",
+      "issue_cwe": {
+        "id": 703,
+        "link": "https://cwe.mitre.org/data/definitions/703.html"
+      },
+      "issue_severity": "LOW",
+      "issue_text": "Use of assert detected. The enclosed code will be removed when compiling to optimised byte code.",
+      "line_number": 169,
+      "line_range": [
+        169
+      ],
+      "more_info": "https://bandit.readthedocs.io/en/1.9.4/plugins/b101_assert_used.html",
+      "test_id": "B101",
+      "test_name": "assert_used"
+    },
+    {
+      "code": "9     monkeypatch.setenv(\"MCP_API_KEY\", \"test-secret-key\")\n10     assert validate_api_key(\"test-secret-key\") is True\n11 \n",
+      "col_offset": 4,
+      "end_col_offset": 54,
+      "filename": "/Users/gclyle/GrowDirect/services/growdirect-mcp/tests/test_auth.py",
+      "issue_confidence": "HIGH",
+      "issue_cwe": {
+        "id": 703,
+        "link": "https://cwe.mitre.org/data/definitions/703.html"
+      },
+      "issue_severity": "LOW",
+      "issue_text": "Use of assert detected. The enclosed code will be removed when compiling to optimised byte code.",
+      "line_number": 10,
+      "line_range": [
+        10
+      ],
+      "more_info": "https://bandit.readthedocs.io/en/1.9.4/plugins/b101_assert_used.html",
+      "test_id": "B101",
+      "test_name": "assert_used"
+    },
+    {
+      "code": "40     monkeypatch.setenv(\"MCP_AUTH_DISABLED\", \"1\")\n41     assert validate_api_key(None) is True\n42 \n",
+      "col_offset": 4,
+      "end_col_offset": 41,
+      "filename": "/Users/gclyle/GrowDirect/services/growdirect-mcp/tests/test_auth.py",
+      "issue_confidence": "HIGH",
+      "issue_cwe": {
+        "id": 703,
+        "link": "https://cwe.mitre.org/data/definitions/703.html"
+      },
+      "issue_severity": "LOW",
+      "issue_text": "Use of assert detected. The enclosed code will be removed when compiling to optimised byte code.",
+      "line_number": 41,
+      "line_range": [
+        41
+      ],
+      "more_info": "https://bandit.readthedocs.io/en/1.9.4/plugins/b101_assert_used.html",
+      "test_id": "B101",
+      "test_name": "assert_used"
+    },
+    {
+      "code": "48     claims = validate_jwt(token)\n49     assert claims[\"sub\"] == \"service-a\"\n50 \n",
+      "col_offset": 4,
+      "end_col_offset": 39,
+      "filename": "/Users/gclyle/GrowDirect/services/growdirect-mcp/tests/test_auth.py",
+      "issue_confidence": "HIGH",
+      "issue_cwe": {
+        "id": 703,
+        "link": "https://cwe.mitre.org/data/definitions/703.html"
+      },
+      "issue_severity": "LOW",
+      "issue_text": "Use of assert detected. The enclosed code will be removed when compiling to optimised byte code.",
+      "line_number": 49,
+      "line_range": [
+        49
+      ],
+      "more_info": "https://bandit.readthedocs.io/en/1.9.4/plugins/b101_assert_used.html",
+      "test_id": "B101",
+      "test_name": "assert_used"
+    },
+    {
+      "code": "14     )\n15     assert config.name == \"memory-bus\"\n16     assert config.base_url == \"http://localhost:8003\"\n",
+      "col_offset": 4,
+      "end_col_offset": 38,
+      "filename": "/Users/gclyle/GrowDirect/services/growdirect-mcp/tests/test_bridge.py",
+      "issue_confidence": "HIGH",
+      "issue_cwe": {
+        "id": 703,
+        "link": "https://cwe.mitre.org/data/definitions/703.html"
+      },
+      "issue_severity": "LOW",
+      "issue_text": "Use of assert detected. The enclosed code will be removed when compiling to optimised byte code.",
+      "line_number": 15,
+      "line_range": [
+        15
+      ],
+      "more_info": "https://bandit.readthedocs.io/en/1.9.4/plugins/b101_assert_used.html",
+      "test_id": "B101",
+      "test_name": "assert_used"
+    },
+    {
+      "code": "15     assert config.name == \"memory-bus\"\n16     assert config.base_url == \"http://localhost:8003\"\n17 \n",
+      "col_offset": 4,
+      "end_col_offset": 53,
+      "filename": "/Users/gclyle/GrowDirect/services/growdirect-mcp/tests/test_bridge.py",
+      "issue_confidence": "HIGH",
+      "issue_cwe": {
+        "id": 703,
+        "link": "https://cwe.mitre.org/data/definitions/703.html"
+      },
+      "issue_severity": "LOW",
+      "issue_text": "Use of assert detected. The enclosed code will be removed when compiling to optimised byte code.",
+      "line_number": 16,
+      "line_range": [
+        16
+      ],
+      "more_info": "https://bandit.readthedocs.io/en/1.9.4/plugins/b101_assert_used.html",
+      "test_id": "B101",
+      "test_name": "assert_used"
+    },
+    {
+      "code": "27     servers = discover_servers()\n28     assert len(servers) == 2\n29     assert servers[0].name == \"memory-bus\"\n",
+      "col_offset": 4,
+      "end_col_offset": 28,
+      "filename": "/Users/gclyle/GrowDirect/services/growdirect-mcp/tests/test_bridge.py",
+      "issue_confidence": "HIGH",
+      "issue_cwe": {
+        "id": 703,
+        "link": "https://cwe.mitre.org/data/definitions/703.html"
+      },
+      "issue_severity": "LOW",
+      "issue_text": "Use of assert detected. The enclosed code will be removed when compiling to optimised byte code.",
+      "line_number": 28,
+      "line_range": [
+        28
+      ],
+      "more_info": "https://bandit.readthedocs.io/en/1.9.4/plugins/b101_assert_used.html",
+      "test_id": "B101",
+      "test_name": "assert_used"
+    },
+    {
+      "code": "28     assert len(servers) == 2\n29     assert servers[0].name == \"memory-bus\"\n30     assert servers[1].name == \"cove-knowledge\"\n",
+      "col_offset": 4,
+      "end_col_offset": 42,
+      "filename": "/Users/gclyle/GrowDirect/services/growdirect-mcp/tests/test_bridge.py",
+      "issue_confidence": "HIGH",
+      "issue_cwe": {
+        "id": 703,
+        "link": "https://cwe.mitre.org/data/definitions/703.html"
+      },
+      "issue_severity": "LOW",
+      "issue_text": "Use of assert detected. The enclosed code will be removed when compiling to optimised byte code.",
+      "line_number": 29,
+      "line_range": [
+        29
+      ],
+      "more_info": "https://bandit.readthedocs.io/en/1.9.4/plugins/b101_assert_used.html",
+      "test_id": "B101",
+      "test_name": "assert_used"
+    },
+    {
+      "code": "29     assert servers[0].name == \"memory-bus\"\n30     assert servers[1].name == \"cove-knowledge\"\n31 \n",
+      "col_offset": 4,
+      "end_col_offset": 46,
+      "filename": "/Users/gclyle/GrowDirect/services/growdirect-mcp/tests/test_bridge.py",
+      "issue_confidence": "HIGH",
+      "issue_cwe": {
+        "id": 703,
+        "link": "https://cwe.mitre.org/data/definitions/703.html"
+      },
+      "issue_severity": "LOW",
+      "issue_text": "Use of assert detected. The enclosed code will be removed when compiling to optimised byte code.",
+      "line_number": 30,
+      "line_range": [
+        30
+      ],
+      "more_info": "https://bandit.readthedocs.io/en/1.9.4/plugins/b101_assert_used.html",
+      "test_id": "B101",
+      "test_name": "assert_used"
+    },
+    {
+      "code": "35     servers = discover_servers()\n36     assert servers == []\n37 \n",
+      "col_offset": 4,
+      "end_col_offset": 24,
+      "filename": "/Users/gclyle/GrowDirect/services/growdirect-mcp/tests/test_bridge.py",
+      "issue_confidence": "HIGH",
+      "issue_cwe": {
+        "id": 703,
+        "link": "https://cwe.mitre.org/data/definitions/703.html"
+      },
+      "issue_severity": "LOW",
+      "issue_text": "Use of assert detected. The enclosed code will be removed when compiling to optimised byte code.",
+      "line_number": 36,
+      "line_range": [
+        36
+      ],
+      "more_info": "https://bandit.readthedocs.io/en/1.9.4/plugins/b101_assert_used.html",
+      "test_id": "B101",
+      "test_name": "assert_used"
+    },
+    {
+      "code": "54         bridge = build_bridge_registry(servers)\n55         assert len(bridge) == 2\n56         assert \"memory-bus:memory_store\" in bridge\n",
+      "col_offset": 8,
+      "end_col_offset": 31,
+      "filename": "/Users/gclyle/GrowDirect/services/growdirect-mcp/tests/test_bridge.py",
+      "issue_confidence": "HIGH",
+      "issue_cwe": {
+        "id": 703,
+        "link": "https://cwe.mitre.org/data/definitions/703.html"
+      },
+      "issue_severity": "LOW",
+      "issue_text": "Use of assert detected. The enclosed code will be removed when compiling to optimised byte code.",
+      "line_number": 55,
+      "line_range": [
+        55
+      ],
+      "more_info": "https://bandit.readthedocs.io/en/1.9.4/plugins/b101_assert_used.html",
+      "test_id": "B101",
+      "test_name": "assert_used"
+    },
+    {
+      "code": "55         assert len(bridge) == 2\n56         assert \"memory-bus:memory_store\" in bridge\n57         assert \"memory-bus:memory_recall\" in bridge\n",
+      "col_offset": 8,
+      "end_col_offset": 50,
+      "filename": "/Users/gclyle/GrowDirect/services/growdirect-mcp/tests/test_bridge.py",
+      "issue_confidence": "HIGH",
+      "issue_cwe": {
+        "id": 703,
+        "link": "https://cwe.mitre.org/data/definitions/703.html"
+      },
+      "issue_severity": "LOW",
+      "issue_text": "Use of assert detected. The enclosed code will be removed when compiling to optimised byte code.",
+      "line_number": 56,
+      "line_range": [
+        56
+      ],
+      "more_info": "https://bandit.readthedocs.io/en/1.9.4/plugins/b101_assert_used.html",
+      "test_id": "B101",
+      "test_name": "assert_used"
+    },
+    {
+      "code": "56         assert \"memory-bus:memory_store\" in bridge\n57         assert \"memory-bus:memory_recall\" in bridge\n",
+      "col_offset": 8,
+      "end_col_offset": 51,
+      "filename": "/Users/gclyle/GrowDirect/services/growdirect-mcp/tests/test_bridge.py",
+      "issue_confidence": "HIGH",
+      "issue_cwe": {
+        "id": 703,
+        "link": "https://cwe.mitre.org/data/definitions/703.html"
+      },
+      "issue_severity": "LOW",
+      "issue_text": "Use of assert detected. The enclosed code will be removed when compiling to optimised byte code.",
+      "line_number": 57,
+      "line_range": [
+        57
+      ],
+      "more_info": "https://bandit.readthedocs.io/en/1.9.4/plugins/b101_assert_used.html",
+      "test_id": "B101",
+      "test_name": "assert_used"
+    },
+    {
+      "code": "36     names = registry.tool_names()\n37     assert \"echo\" in names\n38     assert \"fail\" in names\n",
+      "col_offset": 4,
+      "end_col_offset": 26,
+      "filename": "/Users/gclyle/GrowDirect/services/growdirect-mcp/tests/test_registry.py",
+      "issue_confidence": "HIGH",
+      "issue_cwe": {
+        "id": 703,
+        "link": "https://cwe.mitre.org/data/definitions/703.html"
+      },
+      "issue_severity": "LOW",
+      "issue_text": "Use of assert detected. The enclosed code will be removed when compiling to optimised byte code.",
+      "line_number": 37,
+      "line_range": [
+        37
+      ],
+      "more_info": "https://bandit.readthedocs.io/en/1.9.4/plugins/b101_assert_used.html",
+      "test_id": "B101",
+      "test_name": "assert_used"
+    },
+    {
+      "code": "37     assert \"echo\" in names\n38     assert \"fail\" in names\n39     assert len(names) == 2\n",
+      "col_offset": 4,
+      "end_col_offset": 26,
+      "filename": "/Users/gclyle/GrowDirect/services/growdirect-mcp/tests/test_registry.py",
+      "issue_confidence": "HIGH",
+      "issue_cwe": {
+        "id": 703,
+        "link": "https://cwe.mitre.org/data/definitions/703.html"
+      },
+      "issue_severity": "LOW",
+      "issue_text": "Use of assert detected. The enclosed code will be removed when compiling to optimised byte code.",
+      "line_number": 38,
+      "line_range": [
+        38
+      ],
+      "more_info": "https://bandit.readthedocs.io/en/1.9.4/plugins/b101_assert_used.html",
+      "test_id": "B101",
+      "test_name": "assert_used"
+    },
+    {
+      "code": "38     assert \"fail\" in names\n39     assert len(names) == 2\n40 \n",
+      "col_offset": 4,
+      "end_col_offset": 26,
+      "filename": "/Users/gclyle/GrowDirect/services/growdirect-mcp/tests/test_registry.py",
+      "issue_confidence": "HIGH",
+      "issue_cwe": {
+        "id": 703,
+        "link": "https://cwe.mitre.org/data/definitions/703.html"
+      },
+      "issue_severity": "LOW",
+      "issue_text": "Use of assert detected. The enclosed code will be removed when compiling to optimised byte code.",
+      "line_number": 39,
+      "line_range": [
+        39
+      ],
+      "more_info": "https://bandit.readthedocs.io/en/1.9.4/plugins/b101_assert_used.html",
+      "test_id": "B101",
+      "test_name": "assert_used"
+    },
+    {
+      "code": "43     tool = registry.get(\"echo\")\n44     assert tool is not None\n45     assert tool.name == \"echo\"\n",
+      "col_offset": 4,
+      "end_col_offset": 27,
+      "filename": "/Users/gclyle/GrowDirect/services/growdirect-mcp/tests/test_registry.py",
+      "issue_confidence": "HIGH",
+      "issue_cwe": {
+        "id": 703,
+        "link": "https://cwe.mitre.org/data/definitions/703.html"
+      },
+      "issue_severity": "LOW",
+      "issue_text": "Use of assert detected. The enclosed code will be removed when compiling to optimised byte code.",
+      "line_number": 44,
+      "line_range": [
+        44
+      ],
+      "more_info": "https://bandit.readthedocs.io/en/1.9.4/plugins/b101_assert_used.html",
+      "test_id": "B101",
+      "test_name": "assert_used"
+    },
+    {
+      "code": "44     assert tool is not None\n45     assert tool.name == \"echo\"\n46 \n",
+      "col_offset": 4,
+      "end_col_offset": 30,
+      "filename": "/Users/gclyle/GrowDirect/services/growdirect-mcp/tests/test_registry.py",
+      "issue_confidence": "HIGH",
+      "issue_cwe": {
+        "id": 703,
+        "link": "https://cwe.mitre.org/data/definitions/703.html"
+      },
+      "issue_severity": "LOW",
+      "issue_text": "Use of assert detected. The enclosed code will be removed when compiling to optimised byte code.",
+      "line_number": 45,
+      "line_range": [
+        45
+      ],
+      "more_info": "https://bandit.readthedocs.io/en/1.9.4/plugins/b101_assert_used.html",
+      "test_id": "B101",
+      "test_name": "assert_used"
+    },
+    {
+      "code": "48 def test_get_nonexistent_returns_none(registry):\n49     assert registry.get(\"nonexistent\") is None\n50 \n",
+      "col_offset": 4,
+      "end_col_offset": 46,
+      "filename": "/Users/gclyle/GrowDirect/services/growdirect-mcp/tests/test_registry.py",
+      "issue_confidence": "HIGH",
+      "issue_cwe": {
+        "id": 703,
+        "link": "https://cwe.mitre.org/data/definitions/703.html"
+      },
+      "issue_severity": "LOW",
+      "issue_text": "Use of assert detected. The enclosed code will be removed when compiling to optimised byte code.",
+      "line_number": 49,
+      "line_range": [
+        49
+      ],
+      "more_info": "https://bandit.readthedocs.io/en/1.9.4/plugins/b101_assert_used.html",
+      "test_id": "B101",
+      "test_name": "assert_used"
+    },
+    {
+      "code": "53     tools = registry.list_tools()\n54     assert len(tools) == 2\n55     assert all(t.name in (\"echo\", \"fail\") for t in tools)\n",
+      "col_offset": 4,
+      "end_col_offset": 26,
+      "filename": "/Users/gclyle/GrowDirect/services/growdirect-mcp/tests/test_registry.py",
+      "issue_confidence": "HIGH",
+      "issue_cwe": {
+        "id": 703,
+        "link": "https://cwe.mitre.org/data/definitions/703.html"
+      },
+      "issue_severity": "LOW",
+      "issue_text": "Use of assert detected. The enclosed code will be removed when compiling to optimised byte code.",
+      "line_number": 54,
+      "line_range": [
+        54
+      ],
+      "more_info": "https://bandit.readthedocs.io/en/1.9.4/plugins/b101_assert_used.html",
+      "test_id": "B101",
+      "test_name": "assert_used"
+    },
+    {
+      "code": "54     assert len(tools) == 2\n55     assert all(t.name in (\"echo\", \"fail\") for t in tools)\n56 \n",
+      "col_offset": 4,
+      "end_col_offset": 57,
+      "filename": "/Users/gclyle/GrowDirect/services/growdirect-mcp/tests/test_registry.py",
+      "issue_confidence": "HIGH",
+      "issue_cwe": {
+        "id": 703,
+        "link": "https://cwe.mitre.org/data/definitions/703.html"
+      },
+      "issue_severity": "LOW",
+      "issue_text": "Use of assert detected. The enclosed code will be removed when compiling to optimised byte code.",
+      "line_number": 55,
+      "line_range": [
+        55
+      ],
+      "more_info": "https://bandit.readthedocs.io/en/1.9.4/plugins/b101_assert_used.html",
+      "test_id": "B101",
+      "test_name": "assert_used"
+    },
+    {
+      "code": "59     manifest = registry.get_manifest()\n60     assert manifest[\"server_name\"] == \"test-server\"\n61     assert manifest[\"version\"] == \"0.1.0\"\n",
+      "col_offset": 4,
+      "end_col_offset": 51,
+      "filename": "/Users/gclyle/GrowDirect/services/growdirect-mcp/tests/test_registry.py",
+      "issue_confidence": "HIGH",
+      "issue_cwe": {
+        "id": 703,
+        "link": "https://cwe.mitre.org/data/definitions/703.html"
+      },
+      "issue_severity": "LOW",
+      "issue_text": "Use of assert detected. The enclosed code will be removed when compiling to optimised byte code.",
+      "line_number": 60,
+      "line_range": [
+        60
+      ],
+      "more_info": "https://bandit.readthedocs.io/en/1.9.4/plugins/b101_assert_used.html",
+      "test_id": "B101",
+      "test_name": "assert_used"
+    },
+    {
+      "code": "60     assert manifest[\"server_name\"] == \"test-server\"\n61     assert manifest[\"version\"] == \"0.1.0\"\n62     assert len(manifest[\"tools\"]) == 2\n",
+      "col_offset": 4,
+      "end_col_offset": 41,
+      "filename": "/Users/gclyle/GrowDirect/services/growdirect-mcp/tests/test_registry.py",
+      "issue_confidence": "HIGH",
+      "issue_cwe": {
+        "id": 703,
+        "link": "https://cwe.mitre.org/data/definitions/703.html"
+      },
+      "issue_severity": "LOW",
+      "issue_text": "Use of assert detected. The enclosed code will be removed when compiling to optimised byte code.",
+      "line_number": 61,
+      "line_range": [
+        61
+      ],
+      "more_info": "https://bandit.readthedocs.io/en/1.9.4/plugins/b101_assert_used.html",
+      "test_id": "B101",
+      "test_name": "assert_used"
+    },
+    {
+      "code": "61     assert manifest[\"version\"] == \"0.1.0\"\n62     assert len(manifest[\"tools\"]) == 2\n63 \n",
+      "col_offset": 4,
+      "end_col_offset": 38,
+      "filename": "/Users/gclyle/GrowDirect/services/growdirect-mcp/tests/test_registry.py",
+      "issue_confidence": "HIGH",
+      "issue_cwe": {
+        "id": 703,
+        "link": "https://cwe.mitre.org/data/definitions/703.html"
+      },
+      "issue_severity": "LOW",
+      "issue_text": "Use of assert detected. The enclosed code will be removed when compiling to optimised byte code.",
+      "line_number": 62,
+      "line_range": [
+        62
+      ],
+      "more_info": "https://bandit.readthedocs.io/en/1.9.4/plugins/b101_assert_used.html",
+      "test_id": "B101",
+      "test_name": "assert_used"
+    },
+    {
+      "code": "68     parsed = json.loads(result[0].text)\n69     assert parsed[\"ok\"] is True\n70     assert parsed[\"result\"][\"echo\"] == \"hello\"\n",
+      "col_offset": 4,
+      "end_col_offset": 31,
+      "filename": "/Users/gclyle/GrowDirect/services/growdirect-mcp/tests/test_registry.py",
+      "issue_confidence": "HIGH",
+      "issue_cwe": {
+        "id": 703,
+        "link": "https://cwe.mitre.org/data/definitions/703.html"
+      },
+      "issue_severity": "LOW",
+      "issue_text": "Use of assert detected. The enclosed code will be removed when compiling to optimised byte code.",
+      "line_number": 69,
+      "line_range": [
+        69
+      ],
+      "more_info": "https://bandit.readthedocs.io/en/1.9.4/plugins/b101_assert_used.html",
+      "test_id": "B101",
+      "test_name": "assert_used"
+    },
+    {
+      "code": "69     assert parsed[\"ok\"] is True\n70     assert parsed[\"result\"][\"echo\"] == \"hello\"\n71 \n",
+      "col_offset": 4,
+      "end_col_offset": 46,
+      "filename": "/Users/gclyle/GrowDirect/services/growdirect-mcp/tests/test_registry.py",
+      "issue_confidence": "HIGH",
+      "issue_cwe": {
+        "id": 703,
+        "link": "https://cwe.mitre.org/data/definitions/703.html"
+      },
+      "issue_severity": "LOW",
+      "issue_text": "Use of assert detected. The enclosed code will be removed when compiling to optimised byte code.",
+      "line_number": 70,
+      "line_range": [
+        70
+      ],
+      "more_info": "https://bandit.readthedocs.io/en/1.9.4/plugins/b101_assert_used.html",
+      "test_id": "B101",
+      "test_name": "assert_used"
+    },
+    {
+      "code": "76     parsed = json.loads(result[0].text)\n77     assert parsed[\"ok\"] is False\n78     assert \"Unknown tool\" in parsed[\"error\"]\n",
+      "col_offset": 4,
+      "end_col_offset": 32,
+      "filename": "/Users/gclyle/GrowDirect/services/growdirect-mcp/tests/test_registry.py",
+      "issue_confidence": "HIGH",
+      "issue_cwe": {
+        "id": 703,
+        "link": "https://cwe.mitre.org/data/definitions/703.html"
+      },
+      "issue_severity": "LOW",
+      "issue_text": "Use of assert detected. The enclosed code will be removed when compiling to optimised byte code.",
+      "line_number": 77,
+      "line_range": [
+        77
+      ],
+      "more_info": "https://bandit.readthedocs.io/en/1.9.4/plugins/b101_assert_used.html",
+      "test_id": "B101",
+      "test_name": "assert_used"
+    },
+    {
+      "code": "77     assert parsed[\"ok\"] is False\n78     assert \"Unknown tool\" in parsed[\"error\"]\n79 \n",
+      "col_offset": 4,
+      "end_col_offset": 44,
+      "filename": "/Users/gclyle/GrowDirect/services/growdirect-mcp/tests/test_registry.py",
+      "issue_confidence": "HIGH",
+      "issue_cwe": {
+        "id": 703,
+        "link": "https://cwe.mitre.org/data/definitions/703.html"
+      },
+      "issue_severity": "LOW",
+      "issue_text": "Use of assert detected. The enclosed code will be removed when compiling to optimised byte code.",
+      "line_number": 78,
+      "line_range": [
+        78
+      ],
+      "more_info": "https://bandit.readthedocs.io/en/1.9.4/plugins/b101_assert_used.html",
+      "test_id": "B101",
+      "test_name": "assert_used"
+    },
+    {
+      "code": "81 def test_contains(registry):\n82     assert \"echo\" in registry\n83     assert \"nope\" not in registry\n",
+      "col_offset": 4,
+      "end_col_offset": 29,
+      "filename": "/Users/gclyle/GrowDirect/services/growdirect-mcp/tests/test_registry.py",
+      "issue_confidence": "HIGH",
+      "issue_cwe": {
+        "id": 703,
+        "link": "https://cwe.mitre.org/data/definitions/703.html"
+      },
+      "issue_severity": "LOW",
+      "issue_text": "Use of assert detected. The enclosed code will be removed when compiling to optimised byte code.",
+      "line_number": 82,
+      "line_range": [
+        82
+      ],
+      "more_info": "https://bandit.readthedocs.io/en/1.9.4/plugins/b101_assert_used.html",
+      "test_id": "B101",
+      "test_name": "assert_used"
+    },
+    {
+      "code": "82     assert \"echo\" in registry\n83     assert \"nope\" not in registry\n84 \n",
+      "col_offset": 4,
+      "end_col_offset": 33,
+      "filename": "/Users/gclyle/GrowDirect/services/growdirect-mcp/tests/test_registry.py",
+      "issue_confidence": "HIGH",
+      "issue_cwe": {
+        "id": 703,
+        "link": "https://cwe.mitre.org/data/definitions/703.html"
+      },
+      "issue_severity": "LOW",
+      "issue_text": "Use of assert detected. The enclosed code will be removed when compiling to optimised byte code.",
+      "line_number": 83,
+      "line_range": [
+        83
+      ],
+      "more_info": "https://bandit.readthedocs.io/en/1.9.4/plugins/b101_assert_used.html",
+      "test_id": "B101",
+      "test_name": "assert_used"
+    },
+    {
+      "code": "86 def test_len(registry):\n87     assert len(registry) == 2\n",
+      "col_offset": 4,
+      "end_col_offset": 29,
+      "filename": "/Users/gclyle/GrowDirect/services/growdirect-mcp/tests/test_registry.py",
+      "issue_confidence": "HIGH",
+      "issue_cwe": {
+        "id": 703,
+        "link": "https://cwe.mitre.org/data/definitions/703.html"
+      },
+      "issue_severity": "LOW",
+      "issue_text": "Use of assert detected. The enclosed code will be removed when compiling to optimised byte code.",
+      "line_number": 87,
+      "line_range": [
+        87
+      ],
+      "more_info": "https://bandit.readthedocs.io/en/1.9.4/plugins/b101_assert_used.html",
+      "test_id": "B101",
+      "test_name": "assert_used"
+    },
+    {
+      "code": "18     )\n19     assert tool.name == \"test_tool\"\n20     assert tool.description == \"A test tool\"\n",
+      "col_offset": 4,
+      "end_col_offset": 35,
+      "filename": "/Users/gclyle/GrowDirect/services/growdirect-mcp/tests/test_tool.py",
+      "issue_confidence": "HIGH",
+      "issue_cwe": {
+        "id": 703,
+        "link": "https://cwe.mitre.org/data/definitions/703.html"
+      },
+      "issue_severity": "LOW",
+      "issue_text": "Use of assert detected. The enclosed code will be removed when compiling to optimised byte code.",
+      "line_number": 19,
+      "line_range": [
+        19
+      ],
+      "more_info": "https://bandit.readthedocs.io/en/1.9.4/plugins/b101_assert_used.html",
+      "test_id": "B101",
+      "test_name": "assert_used"
+    },
+    {
+      "code": "19     assert tool.name == \"test_tool\"\n20     assert tool.description == \"A test tool\"\n21     assert tool.category == \"general\"\n",
+      "col_offset": 4,
+      "end_col_offset": 44,
+      "filename": "/Users/gclyle/GrowDirect/services/growdirect-mcp/tests/test_tool.py",
+      "issue_confidence": "HIGH",
+      "issue_cwe": {
+        "id": 703,
+        "link": "https://cwe.mitre.org/data/definitions/703.html"
+      },
+      "issue_severity": "LOW",
+      "issue_text": "Use of assert detected. The enclosed code will be removed when compiling to optimised byte code.",
+      "line_number": 20,
+      "line_range": [
+        20
+      ],
+      "more_info": "https://bandit.readthedocs.io/en/1.9.4/plugins/b101_assert_used.html",
+      "test_id": "B101",
+      "test_name": "assert_used"
+    },
+    {
+      "code": "20     assert tool.description == \"A test tool\"\n21     assert tool.category == \"general\"\n22 \n",
+      "col_offset": 4,
+      "end_col_offset": 37,
+      "filename": "/Users/gclyle/GrowDirect/services/growdirect-mcp/tests/test_tool.py",
+      "issue_confidence": "HIGH",
+      "issue_cwe": {
+        "id": 703,
+        "link": "https://cwe.mitre.org/data/definitions/703.html"
+      },
+      "issue_severity": "LOW",
+      "issue_text": "Use of assert detected. The enclosed code will be removed when compiling to optimised byte code.",
+      "line_number": 21,
+      "line_range": [
+        21
+      ],
+      "more_info": "https://bandit.readthedocs.io/en/1.9.4/plugins/b101_assert_used.html",
+      "test_id": "B101",
+      "test_name": "assert_used"
+    },
+    {
+      "code": "31     )\n32     assert tool.category == \"search\"\n33 \n",
+      "col_offset": 4,
+      "end_col_offset": 36,
+      "filename": "/Users/gclyle/GrowDirect/services/growdirect-mcp/tests/test_tool.py",
+      "issue_confidence": "HIGH",
+      "issue_cwe": {
+        "id": 703,
+        "link": "https://cwe.mitre.org/data/definitions/703.html"
+      },
+      "issue_severity": "LOW",
+      "issue_text": "Use of assert detected. The enclosed code will be removed when compiling to optimised byte code.",
+      "line_number": 32,
+      "line_range": [
+        32
+      ],
+      "more_info": "https://bandit.readthedocs.io/en/1.9.4/plugins/b101_assert_used.html",
+      "test_id": "B101",
+      "test_name": "assert_used"
+    },
+    {
+      "code": "46     result = await tool.invoke({\"query\": \"hello\"}, {\"user_id\": \"u1\"})\n47     assert result[\"ok\"] is True\n48     assert result[\"result\"][\"data\"] == \"hello\"\n",
+      "col_offset": 4,
+      "end_col_offset": 31,
+      "filename": "/Users/gclyle/GrowDirect/services/growdirect-mcp/tests/test_tool.py",
+      "issue_confidence": "HIGH",
+      "issue_cwe": {
+        "id": 703,
+        "link": "https://cwe.mitre.org/data/definitions/703.html"
+      },
+      "issue_severity": "LOW",
+      "issue_text": "Use of assert detected. The enclosed code will be removed when compiling to optimised byte code.",
+      "line_number": 47,
+      "line_range": [
+        47
+      ],
+      "more_info": "https://bandit.readthedocs.io/en/1.9.4/plugins/b101_assert_used.html",
+      "test_id": "B101",
+      "test_name": "assert_used"
+    },
+    {
+      "code": "47     assert result[\"ok\"] is True\n48     assert result[\"result\"][\"data\"] == \"hello\"\n49     assert result[\"tool\"] == \"test_tool\"\n",
+      "col_offset": 4,
+      "end_col_offset": 46,
+      "filename": "/Users/gclyle/GrowDirect/services/growdirect-mcp/tests/test_tool.py",
+      "issue_confidence": "HIGH",
+      "issue_cwe": {
+        "id": 703,
+        "link": "https://cwe.mitre.org/data/definitions/703.html"
+      },
+      "issue_severity": "LOW",
+      "issue_text": "Use of assert detected. The enclosed code will be removed when compiling to optimised byte code.",
+      "line_number": 48,
+      "line_range": [
+        48
+      ],
+      "more_info": "https://bandit.readthedocs.io/en/1.9.4/plugins/b101_assert_used.html",
+      "test_id": "B101",
+      "test_name": "assert_used"
+    },
+    {
+      "code": "48     assert result[\"result\"][\"data\"] == \"hello\"\n49     assert result[\"tool\"] == \"test_tool\"\n50     assert \"timestamp\" in result\n",
+      "col_offset": 4,
+      "end_col_offset": 40,
+      "filename": "/Users/gclyle/GrowDirect/services/growdirect-mcp/tests/test_tool.py",
+      "issue_confidence": "HIGH",
+      "issue_cwe": {
+        "id": 703,
+        "link": "https://cwe.mitre.org/data/definitions/703.html"
+      },
+      "issue_severity": "LOW",
+      "issue_text": "Use of assert detected. The enclosed code will be removed when compiling to optimised byte code.",
+      "line_number": 49,
+      "line_range": [
+        49
+      ],
+      "more_info": "https://bandit.readthedocs.io/en/1.9.4/plugins/b101_assert_used.html",
+      "test_id": "B101",
+      "test_name": "assert_used"
+    },
+    {
+      "code": "49     assert result[\"tool\"] == \"test_tool\"\n50     assert \"timestamp\" in result\n51 \n",
+      "col_offset": 4,
+      "end_col_offset": 32,
+      "filename": "/Users/gclyle/GrowDirect/services/growdirect-mcp/tests/test_tool.py",
+      "issue_confidence": "HIGH",
+      "issue_cwe": {
+        "id": 703,
+        "link": "https://cwe.mitre.org/data/definitions/703.html"
+      },
+      "issue_severity": "LOW",
+      "issue_text": "Use of assert detected. The enclosed code will be removed when compiling to optimised byte code.",
+      "line_number": 50,
+      "line_range": [
+        50
+      ],
+      "more_info": "https://bandit.readthedocs.io/en/1.9.4/plugins/b101_assert_used.html",
+      "test_id": "B101",
+      "test_name": "assert_used"
+    },
+    {
+      "code": "64     result = await tool.invoke({}, {})\n65     assert result[\"ok\"] is False\n66     assert result[\"error\"] == \"not found\"\n",
+      "col_offset": 4,
+      "end_col_offset": 32,
+      "filename": "/Users/gclyle/GrowDirect/services/growdirect-mcp/tests/test_tool.py",
+      "issue_confidence": "HIGH",
+      "issue_cwe": {
+        "id": 703,
+        "link": "https://cwe.mitre.org/data/definitions/703.html"
+      },
+      "issue_severity": "LOW",
+      "issue_text": "Use of assert detected. The enclosed code will be removed when compiling to optimised byte code.",
+      "line_number": 65,
+      "line_range": [
+        65
+      ],
+      "more_info": "https://bandit.readthedocs.io/en/1.9.4/plugins/b101_assert_used.html",
+      "test_id": "B101",
+      "test_name": "assert_used"
+    },
+    {
+      "code": "65     assert result[\"ok\"] is False\n66     assert result[\"error\"] == \"not found\"\n67 \n",
+      "col_offset": 4,
+      "end_col_offset": 41,
+      "filename": "/Users/gclyle/GrowDirect/services/growdirect-mcp/tests/test_tool.py",
+      "issue_confidence": "HIGH",
+      "issue_cwe": {
+        "id": 703,
+        "link": "https://cwe.mitre.org/data/definitions/703.html"
+      },
+      "issue_severity": "LOW",
+      "issue_text": "Use of assert detected. The enclosed code will be removed when compiling to optimised byte code.",
+      "line_number": 66,
+      "line_range": [
+        66
+      ],
+      "more_info": "https://bandit.readthedocs.io/en/1.9.4/plugins/b101_assert_used.html",
+      "test_id": "B101",
+      "test_name": "assert_used"
+    },
+    {
+      "code": "80     result = await tool.invoke({}, {})\n81     assert result[\"ok\"] is False\n82     assert \"boom\" in result[\"error\"]\n",
+      "col_offset": 4,
+      "end_col_offset": 32,
+      "filename": "/Users/gclyle/GrowDirect/services/growdirect-mcp/tests/test_tool.py",
+      "issue_confidence": "HIGH",
+      "issue_cwe": {
+        "id": 703,
+        "link": "https://cwe.mitre.org/data/definitions/703.html"
+      },
+      "issue_severity": "LOW",
+      "issue_text": "Use of assert detected. The enclosed code will be removed when compiling to optimised byte code.",
+      "line_number": 81,
+      "line_range": [
+        81
+      ],
+      "more_info": "https://bandit.readthedocs.io/en/1.9.4/plugins/b101_assert_used.html",
+      "test_id": "B101",
+      "test_name": "assert_used"
+    },
+    {
+      "code": "81     assert result[\"ok\"] is False\n82     assert \"boom\" in result[\"error\"]\n83 \n",
+      "col_offset": 4,
+      "end_col_offset": 36,
+      "filename": "/Users/gclyle/GrowDirect/services/growdirect-mcp/tests/test_tool.py",
+      "issue_confidence": "HIGH",
+      "issue_cwe": {
+        "id": 703,
+        "link": "https://cwe.mitre.org/data/definitions/703.html"
+      },
+      "issue_severity": "LOW",
+      "issue_text": "Use of assert detected. The enclosed code will be removed when compiling to optimised byte code.",
+      "line_number": 82,
+      "line_range": [
+        82
+      ],
+      "more_info": "https://bandit.readthedocs.io/en/1.9.4/plugins/b101_assert_used.html",
+      "test_id": "B101",
+      "test_name": "assert_used"
+    },
+    {
+      "code": "92     mcp_tool = tool.to_mcp()\n93     assert mcp_tool.name == \"test_tool\"\n94     assert mcp_tool.description == \"A test tool\"\n",
+      "col_offset": 4,
+      "end_col_offset": 39,
+      "filename": "/Users/gclyle/GrowDirect/services/growdirect-mcp/tests/test_tool.py",
+      "issue_confidence": "HIGH",
+      "issue_cwe": {
+        "id": 703,
+        "link": "https://cwe.mitre.org/data/definitions/703.html"
+      },
+      "issue_severity": "LOW",
+      "issue_text": "Use of assert detected. The enclosed code will be removed when compiling to optimised byte code.",
+      "line_number": 93,
+      "line_range": [
+        93
+      ],
+      "more_info": "https://bandit.readthedocs.io/en/1.9.4/plugins/b101_assert_used.html",
+      "test_id": "B101",
+      "test_name": "assert_used"
+    },
+    {
+      "code": "93     assert mcp_tool.name == \"test_tool\"\n94     assert mcp_tool.description == \"A test tool\"\n95     assert mcp_tool.inputSchema[\"properties\"][\"q\"][\"type\"] == \"string\"\n",
+      "col_offset": 4,
+      "end_col_offset": 48,
+      "filename": "/Users/gclyle/GrowDirect/services/growdirect-mcp/tests/test_tool.py",
+      "issue_confidence": "HIGH",
+      "issue_cwe": {
+        "id": 703,
+        "link": "https://cwe.mitre.org/data/definitions/703.html"
+      },
+      "issue_severity": "LOW",
+      "issue_text": "Use of assert detected. The enclosed code will be removed when compiling to optimised byte code.",
+      "line_number": 94,
+      "line_range": [
+        94
+      ],
+      "more_info": "https://bandit.readthedocs.io/en/1.9.4/plugins/b101_assert_used.html",
+      "test_id": "B101",
+      "test_name": "assert_used"
+    },
+    {
+      "code": "94     assert mcp_tool.description == \"A test tool\"\n95     assert mcp_tool.inputSchema[\"properties\"][\"q\"][\"type\"] == \"string\"\n",
+      "col_offset": 4,
+      "end_col_offset": 70,
+      "filename": "/Users/gclyle/GrowDirect/services/growdirect-mcp/tests/test_tool.py",
+      "issue_confidence": "HIGH",
+      "issue_cwe": {
+        "id": 703,
+        "link": "https://cwe.mitre.org/data/definitions/703.html"
+      },
+      "issue_severity": "LOW",
+      "issue_text": "Use of assert detected. The enclosed code will be removed when compiling to optimised byte code.",
+      "line_number": 95,
+      "line_range": [
+        95
+      ],
+      "more_info": "https://bandit.readthedocs.io/en/1.9.4/plugins/b101_assert_used.html",
+      "test_id": "B101",
+      "test_name": "assert_used"
+    },
+    {
+      "code": "18     \"GrowDirect Memory Bus\",\n19     host=\"0.0.0.0\",\n20     port=config.port,\n",
+      "col_offset": 9,
+      "end_col_offset": 18,
+      "filename": "/Users/gclyle/GrowDirect/services/memory-bus/memory_bus/server.py",
+      "issue_confidence": "MEDIUM",
+      "issue_cwe": {
+        "id": 605,
+        "link": "https://cwe.mitre.org/data/definitions/605.html"
+      },
+      "issue_severity": "MEDIUM",
+      "issue_text": "Possible binding to all interfaces.",
+      "line_number": 19,
+      "line_range": [
+        19
+      ],
+      "more_info": "https://bandit.readthedocs.io/en/1.9.4/plugins/b104_hardcoded_bind_all_interfaces.html",
+      "test_id": "B104",
+      "test_name": "hardcoded_bind_all_interfaces"
+    },
+    {
+      "code": "292                 rows = db.execute(\n293                     text(f\"\"\"\n294                         SELECT id, session_id, memory_type, content, metadata,\n295                                layer, created_at,\n296                                1 - (embedding <=> :embedding::vector) AS similarity\n297                         FROM alx_memories\n298                         WHERE embedding IS NOT NULL {extra_where}\n299                         ORDER BY embedding <=> :embedding::vector\n300                         LIMIT :limit\n301                     \"\"\"),\n302                     {\"embedding\": str(embedding), \"limit\": limit, **filter_params},\n",
+      "col_offset": 29,
+      "end_col_offset": 52,
+      "filename": "/Users/gclyle/GrowDirect/services/memory-bus/memory_bus/store.py",
+      "issue_confidence": "LOW",
+      "issue_cwe": {
+        "id": 89,
+        "link": "https://cwe.mitre.org/data/definitions/89.html"
+      },
+      "issue_severity": "MEDIUM",
+      "issue_text": "Possible SQL injection vector through string-based query construction.",
+      "line_number": 293,
+      "line_range": [
+        293,
+        294,
+        295,
+        296,
+        297,
+        298,
+        299,
+        300,
+        301
+      ],
+      "more_info": "https://bandit.readthedocs.io/en/1.9.4/plugins/b608_hardcoded_sql_expressions.html",
+      "test_id": "B608",
+      "test_name": "hardcoded_sql_expressions"
+    },
+    {
+      "code": "309             rows = db.execute(\n310                 text(f\"\"\"\n311                     SELECT id, session_id, memory_type, content, metadata,\n312                            layer, created_at,\n313                            ts_rank(to_tsvector('english', content),\n314                                    plainto_tsquery('english', :query)) AS similarity\n315                     FROM alx_memories\n316                     WHERE to_tsvector('english', content) @@\n317                           plainto_tsquery('english', :query) {extra_where}\n318                     ORDER BY similarity DESC\n319                     LIMIT :limit\n320                 \"\"\"),\n321                 {\"query\": query, \"limit\": limit, **filter_params},\n",
+      "col_offset": 25,
+      "end_col_offset": 61,
+      "filename": "/Users/gclyle/GrowDirect/services/memory-bus/memory_bus/store.py",
+      "issue_confidence": "LOW",
+      "issue_cwe": {
+        "id": 89,
+        "link": "https://cwe.mitre.org/data/definitions/89.html"
+      },
+      "issue_severity": "MEDIUM",
+      "issue_text": "Possible SQL injection vector through string-based query construction.",
+      "line_number": 310,
+      "line_range": [
+        310,
+        311,
+        312,
+        313,
+        314,
+        315,
+        316,
+        317,
+        318,
+        319,
+        320
+      ],
+      "more_info": "https://bandit.readthedocs.io/en/1.9.4/plugins/b608_hardcoded_sql_expressions.html",
+      "test_id": "B608",
+      "test_name": "hardcoded_sql_expressions"
+    },
+    {
+      "code": "328             rows = db.execute(\n329                 text(f\"\"\"\n330                     SELECT id, session_id, memory_type, content, metadata,\n331                            layer, created_at, 0.0 AS similarity\n332                     FROM alx_memories\n333                     WHERE content ILIKE :pattern {extra_where}\n334                     ORDER BY created_at DESC\n335                     LIMIT :limit\n336                 \"\"\"),\n337                 {\"pattern\": f\"%{query}%\", \"limit\": limit, **filter_params},\n",
+      "col_offset": 25,
+      "end_col_offset": 49,
+      "filename": "/Users/gclyle/GrowDirect/services/memory-bus/memory_bus/store.py",
+      "issue_confidence": "LOW",
+      "issue_cwe": {
+        "id": 89,
+        "link": "https://cwe.mitre.org/data/definitions/89.html"
+      },
+      "issue_severity": "MEDIUM",
+      "issue_text": "Possible SQL injection vector through string-based query construction.",
+      "line_number": 329,
+      "line_range": [
+        329,
+        330,
+        331,
+        332,
+        333,
+        334,
+        335,
+        336
+      ],
+      "more_info": "https://bandit.readthedocs.io/en/1.9.4/plugins/b608_hardcoded_sql_expressions.html",
+      "test_id": "B608",
+      "test_name": "hardcoded_sql_expressions"
+    },
+    {
+      "code": "393             rows = db.execute(\n394                 text(f\"\"\"\n395                     SELECT id, session_id, memory_type, content, metadata,\n396                            layer, created_at\n397                     FROM alx_memories\n398                     {where_clause}\n399                     ORDER BY created_at DESC\n400                     LIMIT :limit\n401                 \"\"\"),\n402                 params,\n",
+      "col_offset": 25,
+      "end_col_offset": 20,
+      "filename": "/Users/gclyle/GrowDirect/services/memory-bus/memory_bus/store.py",
+      "issue_confidence": "LOW",
+      "issue_cwe": {
+        "id": 89,
+        "link": "https://cwe.mitre.org/data/definitions/89.html"
+      },
+      "issue_severity": "MEDIUM",
+      "issue_text": "Possible SQL injection vector through string-based query construction.",
+      "line_number": 394,
+      "line_range": [
+        394,
+        395,
+        396,
+        397,
+        398,
+        399,
+        400,
+        401
+      ],
+      "more_info": "https://bandit.readthedocs.io/en/1.9.4/plugins/b608_hardcoded_sql_expressions.html",
+      "test_id": "B608",
+      "test_name": "hardcoded_sql_expressions"
+    },
+    {
+      "code": "586             rows = db.execute(\n587                 text(f\"\"\"\n588                     SELECT id, memory_type, content, metadata, created_at\n589                     FROM alx_memories\n590                     WHERE memory_type = 'context_block'\n591                         AND (\n592                             metadata->>'domain' = :domain\n593                             OR metadata->'domains' @> CAST(:domain_jsonb AS jsonb)\n594                         )\n595                         {type_filter}\n596                     ORDER BY created_at DESC\n597                 \"\"\"),\n598                 params,\n",
+      "col_offset": 25,
+      "end_col_offset": 24,
+      "filename": "/Users/gclyle/GrowDirect/services/memory-bus/memory_bus/store.py",
+      "issue_confidence": "LOW",
+      "issue_cwe": {
+        "id": 89,
+        "link": "https://cwe.mitre.org/data/definitions/89.html"
+      },
+      "issue_severity": "MEDIUM",
+      "issue_text": "Possible SQL injection vector through string-based query construction.",
+      "line_number": 587,
+      "line_range": [
+        587,
+        588,
+        589,
+        590,
+        591,
+        592,
+        593,
+        594,
+        595,
+        596,
+        597
+      ],
+      "more_info": "https://bandit.readthedocs.io/en/1.9.4/plugins/b608_hardcoded_sql_expressions.html",
+      "test_id": "B608",
+      "test_name": "hardcoded_sql_expressions"
+    },
+    {
+      "code": "8         config = Config()\n9         assert config.database_url == \"postgresql://test:test@localhost/test_db\"\n10 \n",
+      "col_offset": 8,
+      "end_col_offset": 80,
+      "filename": "/Users/gclyle/GrowDirect/services/memory-bus/tests/test_config.py",
+      "issue_confidence": "HIGH",
+      "issue_cwe": {
+        "id": 703,
+        "link": "https://cwe.mitre.org/data/definitions/703.html"
+      },
+      "issue_severity": "LOW",
+      "issue_text": "Use of assert detected. The enclosed code will be removed when compiling to optimised byte code.",
+      "line_number": 9,
+      "line_range": [
+        9
+      ],
+      "more_info": "https://bandit.readthedocs.io/en/1.9.4/plugins/b101_assert_used.html",
+      "test_id": "B101",
+      "test_name": "assert_used"
+    },
+    {
+      "code": "19         config = Config()\n20         assert config.ollama_url == \"http://growdirect_ollama:11434\"\n21 \n",
+      "col_offset": 8,
+      "end_col_offset": 68,
+      "filename": "/Users/gclyle/GrowDirect/services/memory-bus/tests/test_config.py",
+      "issue_confidence": "HIGH",
+      "issue_cwe": {
+        "id": 703,
+        "link": "https://cwe.mitre.org/data/definitions/703.html"
+      },
+      "issue_severity": "LOW",
+      "issue_text": "Use of assert detected. The enclosed code will be removed when compiling to optimised byte code.",
+      "line_number": 20,
+      "line_range": [
+        20
+      ],
+      "more_info": "https://bandit.readthedocs.io/en/1.9.4/plugins/b101_assert_used.html",
+      "test_id": "B101",
+      "test_name": "assert_used"
+    },
+    {
+      "code": "24         config = Config()\n25         assert config.embedding_model == \"qwen3-embedding:8b\"\n26 \n",
+      "col_offset": 8,
+      "end_col_offset": 61,
+      "filename": "/Users/gclyle/GrowDirect/services/memory-bus/tests/test_config.py",
+      "issue_confidence": "HIGH",
+      "issue_cwe": {
+        "id": 703,
+        "link": "https://cwe.mitre.org/data/definitions/703.html"
+      },
+      "issue_severity": "LOW",
+      "issue_text": "Use of assert detected. The enclosed code will be removed when compiling to optimised byte code.",
+      "line_number": 25,
+      "line_range": [
+        25
+      ],
+      "more_info": "https://bandit.readthedocs.io/en/1.9.4/plugins/b101_assert_used.html",
+      "test_id": "B101",
+      "test_name": "assert_used"
+    },
+    {
+      "code": "29         config = Config()\n30         assert config.port == 8003\n",
+      "col_offset": 8,
+      "end_col_offset": 34,
+      "filename": "/Users/gclyle/GrowDirect/services/memory-bus/tests/test_config.py",
+      "issue_confidence": "HIGH",
+      "issue_cwe": {
+        "id": 703,
+        "link": "https://cwe.mitre.org/data/definitions/703.html"
+      },
+      "issue_severity": "LOW",
+      "issue_text": "Use of assert detected. The enclosed code will be removed when compiling to optimised byte code.",
+      "line_number": 30,
+      "line_range": [
+        30
+      ],
+      "more_info": "https://bandit.readthedocs.io/en/1.9.4/plugins/b101_assert_used.html",
+      "test_id": "B101",
+      "test_name": "assert_used"
+    },
+    {
+      "code": "15             result = get_embedding(\"test text\", config)\n16             assert result is not None\n17             assert len(result) == 1024\n",
+      "col_offset": 12,
+      "end_col_offset": 37,
+      "filename": "/Users/gclyle/GrowDirect/services/memory-bus/tests/test_embeddings.py",
+      "issue_confidence": "HIGH",
+      "issue_cwe": {
+        "id": 703,
+        "link": "https://cwe.mitre.org/data/definitions/703.html"
+      },
+      "issue_severity": "LOW",
+      "issue_text": "Use of assert detected. The enclosed code will be removed when compiling to optimised byte code.",
+      "line_number": 16,
+      "line_range": [
+        16
+      ],
+      "more_info": "https://bandit.readthedocs.io/en/1.9.4/plugins/b101_assert_used.html",
+      "test_id": "B101",
+      "test_name": "assert_used"
+    },
+    {
+      "code": "16             assert result is not None\n17             assert len(result) == 1024\n18             assert all(isinstance(v, float) for v in result)\n",
+      "col_offset": 12,
+      "end_col_offset": 38,
+      "filename": "/Users/gclyle/GrowDirect/services/memory-bus/tests/test_embeddings.py",
+      "issue_confidence": "HIGH",
+      "issue_cwe": {
+        "id": 703,
+        "link": "https://cwe.mitre.org/data/definitions/703.html"
+      },
+      "issue_severity": "LOW",
+      "issue_text": "Use of assert detected. The enclosed code will be removed when compiling to optimised byte code.",
+      "line_number": 17,
+      "line_range": [
+        17
+      ],
+      "more_info": "https://bandit.readthedocs.io/en/1.9.4/plugins/b101_assert_used.html",
+      "test_id": "B101",
+      "test_name": "assert_used"
+    },
+    {
+      "code": "17             assert len(result) == 1024\n18             assert all(isinstance(v, float) for v in result)\n19 \n",
+      "col_offset": 12,
+      "end_col_offset": 60,
+      "filename": "/Users/gclyle/GrowDirect/services/memory-bus/tests/test_embeddings.py",
+      "issue_confidence": "HIGH",
+      "issue_cwe": {
+        "id": 703,
+        "link": "https://cwe.mitre.org/data/definitions/703.html"
+      },
+      "issue_severity": "LOW",
+      "issue_text": "Use of assert detected. The enclosed code will be removed when compiling to optimised byte code.",
+      "line_number": 18,
+      "line_range": [
+        18
+      ],
+      "more_info": "https://bandit.readthedocs.io/en/1.9.4/plugins/b101_assert_used.html",
+      "test_id": "B101",
+      "test_name": "assert_used"
+    },
+    {
+      "code": "23             result = get_embedding(\"test text\", config)\n24             assert result is None\n25 \n",
+      "col_offset": 12,
+      "end_col_offset": 33,
+      "filename": "/Users/gclyle/GrowDirect/services/memory-bus/tests/test_embeddings.py",
+      "issue_confidence": "HIGH",
+      "issue_cwe": {
+        "id": 703,
+        "link": "https://cwe.mitre.org/data/definitions/703.html"
+      },
+      "issue_severity": "LOW",
+      "issue_text": "Use of assert detected. The enclosed code will be removed when compiling to optimised byte code.",
+      "line_number": 24,
+      "line_range": [
+        24
+      ],
+      "more_info": "https://bandit.readthedocs.io/en/1.9.4/plugins/b101_assert_used.html",
+      "test_id": "B101",
+      "test_name": "assert_used"
+    },
+    {
+      "code": "35             sent_text = call_args[1][\"json\"][\"input\"]\n36             assert len(sent_text) <= config.max_text_length\n37 \n",
+      "col_offset": 12,
+      "end_col_offset": 59,
+      "filename": "/Users/gclyle/GrowDirect/services/memory-bus/tests/test_embeddings.py",
+      "issue_confidence": "HIGH",
+      "issue_cwe": {
+        "id": 703,
+        "link": "https://cwe.mitre.org/data/definitions/703.html"
+      },
+      "issue_severity": "LOW",
+      "issue_text": "Use of assert detected. The enclosed code will be removed when compiling to optimised byte code.",
+      "line_number": 36,
+      "line_range": [
+        36
+      ],
+      "more_info": "https://bandit.readthedocs.io/en/1.9.4/plugins/b101_assert_used.html",
+      "test_id": "B101",
+      "test_name": "assert_used"
+    },
+    {
+      "code": "46             result = get_embedding(\"test text\", config)\n47             assert len(result) == 1024\n",
+      "col_offset": 12,
+      "end_col_offset": 38,
+      "filename": "/Users/gclyle/GrowDirect/services/memory-bus/tests/test_embeddings.py",
+      "issue_confidence": "HIGH",
+      "issue_cwe": {
+        "id": 703,
+        "link": "https://cwe.mitre.org/data/definitions/703.html"
+      },
+      "issue_severity": "LOW",
+      "issue_text": "Use of assert detected. The enclosed code will be removed when compiling to optimised byte code.",
+      "line_number": 47,
+      "line_range": [
+        47
+      ],
+      "more_info": "https://bandit.readthedocs.io/en/1.9.4/plugins/b101_assert_used.html",
+      "test_id": "B101",
+      "test_name": "assert_used"
+    },
+    {
+      "code": "33             content_str = str(result.content)\n34             assert \"ballot\" in content_str.lower() or \"separation\" in content_str.lower()\n",
+      "col_offset": 12,
+      "end_col_offset": 89,
+      "filename": "/Users/gclyle/GrowDirect/services/memory-bus/tests/test_smoke.py",
+      "issue_confidence": "HIGH",
+      "issue_cwe": {
+        "id": 703,
+        "link": "https://cwe.mitre.org/data/definitions/703.html"
+      },
+      "issue_severity": "LOW",
+      "issue_text": "Use of assert detected. The enclosed code will be removed when compiling to optimised byte code.",
+      "line_number": 34,
+      "line_range": [
+        34
+      ],
+      "more_info": "https://bandit.readthedocs.io/en/1.9.4/plugins/b101_assert_used.html",
+      "test_id": "B101",
+      "test_name": "assert_used"
+    },
+    {
+      "code": "40         result = store.session_start(gro_issues=[\"GRO-999\"])\n41         assert \"session_id\" in result\n42         assert result[\"status\"] == \"active\"\n",
+      "col_offset": 8,
+      "end_col_offset": 37,
+      "filename": "/Users/gclyle/GrowDirect/services/memory-bus/tests/test_store.py",
+      "issue_confidence": "HIGH",
+      "issue_cwe": {
+        "id": 703,
+        "link": "https://cwe.mitre.org/data/definitions/703.html"
+      },
+      "issue_severity": "LOW",
+      "issue_text": "Use of assert detected. The enclosed code will be removed when compiling to optimised byte code.",
+      "line_number": 41,
+      "line_range": [
+        41
+      ],
+      "more_info": "https://bandit.readthedocs.io/en/1.9.4/plugins/b101_assert_used.html",
+      "test_id": "B101",
+      "test_name": "assert_used"
+    },
+    {
+      "code": "41         assert \"session_id\" in result\n42         assert result[\"status\"] == \"active\"\n43 \n",
+      "col_offset": 8,
+      "end_col_offset": 43,
+      "filename": "/Users/gclyle/GrowDirect/services/memory-bus/tests/test_store.py",
+      "issue_confidence": "HIGH",
+      "issue_cwe": {
+        "id": 703,
+        "link": "https://cwe.mitre.org/data/definitions/703.html"
+      },
+      "issue_severity": "LOW",
+      "issue_text": "Use of assert detected. The enclosed code will be removed when compiling to optimised byte code.",
+      "line_number": 42,
+      "line_range": [
+        42
+      ],
+      "more_info": "https://bandit.readthedocs.io/en/1.9.4/plugins/b101_assert_used.html",
+      "test_id": "B101",
+      "test_name": "assert_used"
+    },
+    {
+      "code": "48         result = store.session_close(sid, summary=\"Test session done\")\n49         assert result[\"status\"] == \"closed\"\n50         assert result[\"summary\"] == \"Test session done\"\n",
+      "col_offset": 8,
+      "end_col_offset": 43,
+      "filename": "/Users/gclyle/GrowDirect/services/memory-bus/tests/test_store.py",
+      "issue_confidence": "HIGH",
+      "issue_cwe": {
+        "id": 703,
+        "link": "https://cwe.mitre.org/data/definitions/703.html"
+      },
+      "issue_severity": "LOW",
+      "issue_text": "Use of assert detected. The enclosed code will be removed when compiling to optimised byte code.",
+      "line_number": 49,
+      "line_range": [
+        49
+      ],
+      "more_info": "https://bandit.readthedocs.io/en/1.9.4/plugins/b101_assert_used.html",
+      "test_id": "B101",
+      "test_name": "assert_used"
+    },
+    {
+      "code": "49         assert result[\"status\"] == \"closed\"\n50         assert result[\"summary\"] == \"Test session done\"\n51 \n",
+      "col_offset": 8,
+      "end_col_offset": 55,
+      "filename": "/Users/gclyle/GrowDirect/services/memory-bus/tests/test_store.py",
+      "issue_confidence": "HIGH",
+      "issue_cwe": {
+        "id": 703,
+        "link": "https://cwe.mitre.org/data/definitions/703.html"
+      },
+      "issue_severity": "LOW",
+      "issue_text": "Use of assert detected. The enclosed code will be removed when compiling to optimised byte code.",
+      "line_number": 50,
+      "line_range": [
+        50
+      ],
+      "more_info": "https://bandit.readthedocs.io/en/1.9.4/plugins/b101_assert_used.html",
+      "test_id": "B101",
+      "test_name": "assert_used"
+    },
+    {
+      "code": "66             )\n67         assert \"memory_id\" in result\n68 \n",
+      "col_offset": 8,
+      "end_col_offset": 36,
+      "filename": "/Users/gclyle/GrowDirect/services/memory-bus/tests/test_store.py",
+      "issue_confidence": "HIGH",
+      "issue_cwe": {
+        "id": 703,
+        "link": "https://cwe.mitre.org/data/definitions/703.html"
+      },
+      "issue_severity": "LOW",
+      "issue_text": "Use of assert detected. The enclosed code will be removed when compiling to optimised byte code.",
+      "line_number": 67,
+      "line_range": [
+        67
+      ],
+      "more_info": "https://bandit.readthedocs.io/en/1.9.4/plugins/b101_assert_used.html",
+      "test_id": "B101",
+      "test_name": "assert_used"
+    },
+    {
+      "code": "77         )\n78         assert \"error\" in result\n79 \n",
+      "col_offset": 8,
+      "end_col_offset": 32,
+      "filename": "/Users/gclyle/GrowDirect/services/memory-bus/tests/test_store.py",
+      "issue_confidence": "HIGH",
+      "issue_cwe": {
+        "id": 703,
+        "link": "https://cwe.mitre.org/data/definitions/703.html"
+      },
+      "issue_severity": "LOW",
+      "issue_text": "Use of assert detected. The enclosed code will be removed when compiling to optimised byte code.",
+      "line_number": 78,
+      "line_range": [
+        78
+      ],
+      "more_info": "https://bandit.readthedocs.io/en/1.9.4/plugins/b101_assert_used.html",
+      "test_id": "B101",
+      "test_name": "assert_used"
+    },
+    {
+      "code": "86         result = store.memory_recall(query=\"xyz123\", limit=5)\n87         assert \"matches\" in result\n88 \n",
+      "col_offset": 8,
+      "end_col_offset": 34,
+      "filename": "/Users/gclyle/GrowDirect/services/memory-bus/tests/test_store.py",
+      "issue_confidence": "HIGH",
+      "issue_cwe": {
+        "id": 703,
+        "link": "https://cwe.mitre.org/data/definitions/703.html"
+      },
+      "issue_severity": "LOW",
+      "issue_text": "Use of assert detected. The enclosed code will be removed when compiling to optimised byte code.",
+      "line_number": 87,
+      "line_range": [
+        87
+      ],
+      "more_info": "https://bandit.readthedocs.io/en/1.9.4/plugins/b101_assert_used.html",
+      "test_id": "B101",
+      "test_name": "assert_used"
+    },
+    {
+      "code": "95         result = store.context_assemble(topic=\"test\")\n96         assert isinstance(result, dict)\n",
+      "col_offset": 8,
+      "end_col_offset": 39,
+      "filename": "/Users/gclyle/GrowDirect/services/memory-bus/tests/test_store.py",
+      "issue_confidence": "HIGH",
+      "issue_cwe": {
+        "id": 703,
+        "link": "https://cwe.mitre.org/data/definitions/703.html"
+      },
+      "issue_severity": "LOW",
+      "issue_text": "Use of assert detected. The enclosed code will be removed when compiling to optimised byte code.",
+      "line_number": 96,
+      "line_range": [
+        96
+      ],
+      "more_info": "https://bandit.readthedocs.io/en/1.9.4/plugins/b101_assert_used.html",
+      "test_id": "B101",
+      "test_name": "assert_used"
+    }
+  ]
+}
