@@ -56,9 +56,9 @@ All must be true before first CTO-partner access is granted:
    clients, consulting engagements, current client-adjacent projects
    (Cove, Angel, Seacove), and the private HOA / Foundation work.
 5. Every SHOW-scope source file carries a GrowDirect LLC
-   confidentiality header (code) or frontmatter field (markdown). Every
-   SHOW-scope repo carries `NOTICE.md`, `ACKNOWLEDGMENT.md`, and
-   `SECURITY.md` at root.
+   confidentiality header (code) or frontmatter fields (markdown —
+   both `classification` and `owner`). Every SHOW-scope repo carries
+   `NOTICE.md`, `ACKNOWLEDGMENT.md`, and `SECURITY.md` at root.
 6. An enterprise-scale gap analysis exists per scope, documenting what
    we have, what the enterprise bar requires, and the honest delta —
    distinguishing gaps-by-roadmap from choices-by-design. Written
@@ -76,7 +76,11 @@ All must be true before first CTO-partner access is granted:
 10. Security audit has run: dependency vulnerability scan, SAST, full
     git-history secret scan, container/image scan, and a structured
     OWASP Top 10 code-level review. Findings are either resolved or
-    documented with disposition.
+    documented with disposition. **Committed secrets are a special
+    case: any secret discovered in git history must be rotated AND
+    purged from history (BFG or `git filter-repo`) before first
+    partner access is granted. "Documented" is not a sufficient
+    disposition for a committed secret.**
 11. A dry-run "cold CTO reader" verification pass has passed without
     regressions.
 
@@ -100,24 +104,38 @@ future session:
 
 ### SHOW scope (what the CTO partner may see under NDA or acknowledgment)
 
-| # | Artifact | Path |
-|---|---|---|
-| 1 | Canary app | `Canary/` (separate repo, remote `growdirectprez/growdirect-ops`) |
-| 7 | Shared devops | `GrowDirect/devops/` |
-| 8 | Platform services | `GrowDirect/services/` |
-| 9 | Content engine | `GrowDirect/content-engine/` |
-| 10 | GrowDirect platform plugin | `GrowDirect/growdirect-platform.plugin/` |
-| 11 | Canary App Brain + Platform-supporting Brain (scoped — see Brain MVP Split) | split from `GrowDirect/Brain/` |
-| 14 | Platform SDDs | `GrowDirect/docs/sdds/canary/`, `docs/sdds/platform/`, `docs/sdds/alx/` |
+| Artifact | Path |
+|---|---|
+| Canary app | `Canary/` (separate repo, remote `growdirectprez/canary` post-rename — see Resolved Naming Decisions) |
+| Shared devops | `GrowDirect/devops/` |
+| Platform services | `GrowDirect/services/` |
+| Content engine | `GrowDirect/content-engine/` |
+| GrowDirect platform plugin | `GrowDirect/growdirect-platform.plugin/` |
+| Canary App Brain + Platform-supporting Brain (scoped — see Brain MVP Split) | split from `GrowDirect/Brain/` |
+| Platform SDDs | `GrowDirect/docs/sdds/canary/`, `docs/sdds/platform/`, `docs/sdds/alx/` |
+| Platform-scoped specs and plans (post-split) | `GrowDirect/docs/superpowers/specs/` and `docs/superpowers/plans/` — non-Canary-scoped entries only |
+| Repo-root standards files | `NOTICE.md`, `ACKNOWLEDGMENT.md`, `SECURITY.md`, `CONTRIBUTING.md`, `CLAUDE.md`, `README.md` per SHOW'd repo |
 
-### HIDE scope (explicitly excluded)
+### HIDE scope (explicitly excluded — canonical list)
 
-Marketing site (`~/growdirectprez.github.io/`), Cove, Angel, Seacove,
-ownpalosverdes, `docs/sdds/arc/` (Seacove-related), `private/`, all
-Secure / prior retail LP IP archives, Linear, `Brain/raw/inbox/`, all
-timelogs / sales / team / Foundation / HOA / ocean-easement /
-reactivation material, all `docs/_archive/`, all non-Canary-non-Platform
-Brain content.
+The following are excluded from every SHOW artifact. This list is the
+canonical exclusion set; the Brain MVP Split section's "Explicitly
+excluded" list must remain consistent with this list.
+
+- Marketing site: `~/growdirectprez.github.io/`
+- Cove: `GrowDirect/Cove/`, `Brain/wiki/cove-*`, `Brain/projects/Cove.md`, `docs/sdds/cove/`
+- Angel: `GrowDirect/Angel/`, `Brain/wiki/angel-*`, `Brain/projects/Angel.md`, `docs/sdds/angel/`
+- Seacove: `GrowDirect/Seacove/`, `Brain/projects/Seacove.md`, `docs/sdds/arc/` (Seacove-related)
+- ownpalosverdes: `GrowDirect/ownpalosverdes/`, Brain content
+- Private: `GrowDirect/private/`
+- Prior retail LP IP: all `Brain/wiki/secure-*`, `Brain/projects/Secure.md`, external NAS archive
+- Linear (entirely — roadmap stays external)
+- Raw intake: `Brain/raw/inbox/` (all 119 files)
+- Personal operational Brain: timelogs, sales cards, team cards (`Brain/wiki/growdirect-timelog-*`, `growdirect-sales-*`, `Brain/wiki/canary-sales-strategy.md`, `Brain/wiki/growdirect-sales-square-opportunity.md`, team cards)
+- Foundation / HOA: `Brain/wiki/*dao*`, `Brain/wiki/*wpbca*`, Foundation three-entity material, ocean-easement content, reactivation-blitz content
+- Archives: `docs/_archive/` (all)
+- Non-Canary-non-Platform dispatches: `docs/superpowers/dispatches/` entries not Canary-scoped or Platform-scoped
+- All Cove/Angel/Seacove/ownpv `.claude/skills/` entries
 
 ### Case-by-case access
 
@@ -141,11 +159,11 @@ number, exact offending text, severity, and recommended action.
 | Orphan code | Functions, classes, files with no callers. Dead imports. Commented-out code blocks longer than three lines | **MEDIUM** — default action: remove |
 | Client / personal / sensitive names | Prior-client names, personal names from prior engagements, current adjacent-project names, specific addresses, sandbox credentials or IDs, merchant-specific PII | **CRITICAL** — any hit stops the show until scrubbed |
 | Confidentiality markings missing | Source files without GrowDirect LLC header; markdown without `classification: confidential` + `owner: GrowDirect LLC` frontmatter; repos without root `NOTICE.md` / `ACKNOWLEDGMENT.md` / `SECURITY.md` | **HIGH** |
-| SDD ↔ code drift | SDDs referencing features that don't exist in code; code modules with no SDD coverage; frontmatter `last-compiled` older than 30 days | **MEDIUM** — document in report, don't try to close drift this week |
+| SDD ↔ code drift | SDDs referencing features/endpoints/modules that don't exist in the codebase (search-verifiable); `factory-manifest.json`-listed modules without a corresponding SDD entry; frontmatter `last-compiled` older than 30 days | **MEDIUM** — document in report, don't try to close drift this week |
 | Doc quality | Empty sections, Lorem-ipsum placeholders, unresolved template brackets, `[TBD]`, `[TODO]`, broken internal links | **HIGH** |
 | Factory-process compliance | Code lacking SDD ancestry, specs without implementation plans, plans without execution evidence | **MEDIUM** — gap documented honestly |
 | Configuration hygiene | Hardcoded URLs / API keys / tokens, `DEBUG = True` in committed config, missing `.env.example`, `pdb.set_trace()` in committed code | **HIGH** |
-| Test coverage surface | Per-module existence of tests. Integration tests hit real Postgres / Valkey per project standard (no mocks for DB-bearing tests) | **LOW/MEDIUM** — document gap, don't try to close this week |
+| Test coverage surface | Per-module existence of tests (presence, not coverage percentage). Integration tests use real database fixtures (no DB mocking) — this is a project-level rule rooted in prior mock-divergence incident; codify in `CONTRIBUTING.md` during cleanup | **LOW/MEDIUM** — document gap, don't try to close this week |
 
 ### Security dimensions — automated
 
@@ -168,7 +186,7 @@ to `requirements.txt` or `package.json`.
 | Area | Checked for |
 |---|---|
 | **OWASP Top 10 (2021)** | Per-endpoint authz check, password hashing, token entropy / expiration / one-time-use, parameterized queries, Flask debug off in prod, cookie flags, magic-link flow, session fixation, Square OAuth state param, webhook signature verification, integrity checks, logging adequacy, SSRF |
-| **Multi-tenant isolation** | Every DB query scoped to tenant. No unsoped queries. Session state can't leak. Async jobs carry tenant context |
+| **Multi-tenant isolation** | Every DB query scoped to tenant. No unscoped queries. Session state can't leak. Async jobs carry tenant context |
 | **Auth flows** | Magic link token entropy + expiration + one-time-use. Password path algorithm (PBKDF2 / bcrypt / argon2). Session storage in Valkey with sane TTL. Square OAuth state + token storage |
 | **Webhook handling** | Signature verification, replay protection, idempotency |
 | **Data handling** | PII inventory, no PII in logs, audit log for admin actions, no real PII in test fixtures |
@@ -189,8 +207,8 @@ main until the user explicitly approves.
 doc looks half-baked, the default is one of:
 - Remove (if no caller depends on it).
 - Feature-flag off (default-disabled) if half-wired.
-- Move to `future/` directory if the user wants to preserve interface
-  shape as a future-proofing signal.
+- Convert to a thoughtful stub per Rule 3 if the interface shape is
+  worth preserving as a future-proofing signal.
 
 Never "try to make it better." Conservation means if it can't be told
 straight, don't show it.
@@ -251,7 +269,7 @@ names in artifacts):
 | Data retention tiering | Detail window + aggregated-metrics window |
 | Opinionated defaults | Pre-wired install, not a kit of parts |
 | Rule tuning for retailer patterns | Per-customer tunable rule engine |
-| Delivery organization scale | First-year enterprise subscription in the $500K–$1M+ range, 20–26 week deployment |
+| Delivery organization scale | Enterprise-tier deployments (6-figure first-year subscription, 4–6 month implementation windows) vs SMB self-serve — state Canary's positioning |
 | Adjacent-module pricing | Core product plus adjacent modules at independent pricing |
 
 Writing rules:
@@ -297,16 +315,27 @@ factory-process wiki, `docs/sdds/platform/`, `docs/sdds/alx/`, factory
 skills in `.claude/skills/factory-*` (5 files). Canary factory skills
 in `.claude/skills/canary-*` (14 files): decision on whether to move
 into Canary repo or keep centralized — defaulted to keep centralized
-for MVP; revisit.
+for MVP (see Open Question 1).
 
 ### Explicitly excluded from SHOW — stays in GrowDirect/Brain/ as implicit Personal/Ops
 
-All `secure-*` wiki (6 files) and `Brain/projects/Secure.md`; all
-Cove / Angel / Seacove / WPBCA / Foundation / DAO / ownpv material;
-timelog / sales / team / Jeffe cards; `Brain/raw/inbox/` (119 files);
-`canary-sales-strategy.md`, `growdirect-sales-square-opportunity.md`;
-`docs/sdds/cove/`, `docs/sdds/angel/`, `docs/sdds/arc/`;
-`docs/_archive/`; non-Canary `docs/superpowers/dispatches/`.
+This is a restatement. The canonical exclusion set is the HIDE scope
+in the Scope section above. Any divergence is a bug in this spec and
+the Scope section's HIDE list wins.
+
+- `Brain/wiki/secure-*.md` (6 files), `Brain/projects/Secure.md`
+- All Cove / Angel / Seacove / WPBCA / Foundation / DAO / ownpv
+  material across `Brain/wiki/` and `Brain/projects/`
+- Timelog / sales / team cards: `Brain/wiki/growdirect-timelog-*`,
+  `Brain/wiki/growdirect-sales-*`, `Brain/wiki/canary-sales-strategy.md`,
+  `Brain/wiki/growdirect-sales-square-opportunity.md`, team cards
+- Foundation / HOA: `Brain/wiki/wpbca-*`, `Brain/wiki/coac-*`, 
+  `Brain/wiki/growdirect-dao-*`, reactivation-blitz content,
+  ocean-easement content
+- `Brain/raw/inbox/` (119 files — raw prior-client material)
+- `docs/sdds/cove/`, `docs/sdds/angel/`, `docs/sdds/arc/` (Seacove)
+- `docs/_archive/`
+- Non-Canary, non-Platform `docs/superpowers/dispatches/`
 
 ### Obsidian linking
 
@@ -336,7 +365,7 @@ design session (2026-04-23).
 | 4 | 119 files in `Brain/raw/inbox/` — mix of ingested markdown and raw prior-client binaries | Personal Brain territory, HIDE from SHOW scope. Triage by user after meeting: process via `engine.py extract` + `ingest`, move to NAS archive, or delete if processed | Deferred |
 | 5 | Canary: 6 stale `claude/*` agent-generated branches | Audit each for merged / abandoned / in-flight status; produce per-branch disposition; user approves; delete | In cleanup dispatch |
 | 6 | Canary: `gro-386-fix-canary-login-*` branch | Check Linear GRO-386 status; evaluate merge / keep / delete | In cleanup dispatch |
-| 7 | Canary: `security/platform-hardening` branch | Evaluate contents. If unmerged security fixes, merge before security dispatch runs so findings reflect current state | In cleanup dispatch |
+| 7 | Canary: `security/platform-hardening` branch | Evaluate contents. If unmerged security fixes, merge before Phase 2 audit runs so findings reflect current state | Phase 0 bootstrap (pre-audit) |
 | 8 | Loose `dispatch-code-2026-04-23-abalonecove-regen.md` at GrowDirect root (created by active session) | Pattern violation — sweep in full cleanup pass | In cleanup dispatch |
 
 ### Enduring hygiene standards
@@ -372,7 +401,7 @@ Lives at `GrowDirect/docs/repo-sharing-matrix.md`. Template:
 
 | Repo | Classification | Default access | Instrument | Contains | Excluded |
 |---|---|---|---|---|---|
-| `growdirect-ops` (Canary) | Confidential | SHOW under NDA or acknowledgment | Reply-to-email Mechanism 1 default; formal NDA escalation available | Canary app + Canary brain | Cove, Angel, Secure, commercial strategy |
+| `canary` (renamed in Phase 7 from `growdirect-ops`; GitHub redirect preserves old URLs) | Confidential | SHOW under NDA or acknowledgment | Reply-to-email Mechanism 1 default; formal NDA escalation available | Canary app + Canary brain | Cove, Angel, Seacove, ownpv, Secure, commercial strategy |
 | GrowDirect monorepo | Confidential | SHOW under NDA or acknowledgment, scoped view | Same | Shared platform, method, factory, platform-supporting Brain | All HIDE items listed in Scope section |
 | `growdirectprez.github.io` | Public | Public | N/A | Marketing site only | N/A |
 | Future — Cove, Angel, Seacove, ownpalosverdes | Confidential (separate scope) | HIDE for current CTO partner; separate agreements if ever shown | Separate per scope | Per-project | N/A |
@@ -385,63 +414,103 @@ changes.
 Phases with parallel/serial markings. **[P]** = parallel-safe with
 other active sessions. **[S]** = serial, requires coordination.
 
-### Phase 0 — Finalize design [P]
+Total wall-clock estimate: ~2.5–3 hours across all subagent phases,
+plus user-review gate time between phases. See
+`docs/superpowers/plans/2026-04-23-cto-readiness-audit.md` for
+dispatch-prompt details (produced by the `writing-plans` skill
+invocation after this spec is approved).
+
+### Phase 0 — Finalize design + pre-audit bootstrap [S]
 
 - Write this design spec. (Current step.)
 - Run spec-document-reviewer loop; iterate until Approved.
 - User reviews spec file.
 - Invoke `writing-plans` skill → produces implementation plan with
   dispatchable prompts.
+- **Pre-audit bootstrap actions** (before Phase 1 runs):
+  - Evaluate Canary's `security/platform-hardening` branch. If it
+    contains unmerged security fixes, merge it into `main` (with user
+    approval) so the Phase 2 security audit sees current state, not
+    stale state. If it's already merged or abandoned, note disposition
+    and delete.
+  - Verify feature-session landing cadence on SHOW-scope files. Agree
+    with user on a cutoff: between Phase 2 (audit) and Phase 4
+    (cleanup), feature sessions should either freeze SHOW-scope
+    changes, OR the cleanup subagent re-runs the audit-dimension
+    check on its own branch immediately before producing its report.
+    This cutoff is documented in the plan.
 
-Touches: new files only. Duration: ~20 min.
+Touches: new spec file; possible `security/platform-hardening`
+merge with user approval. Duration: ~30 min.
 
-### Phase 1 — Audit dispatch [P — read-only]
+### Phase 1 — Brain MVP split [S]
 
-Five parallel subagents:
+Runs before audit so audit sees final structure.
+
+- Per Brain MVP Split section: `git mv` operations move
+  Canary-scoped Brain and docs content from GrowDirect repo to
+  Canary repo. Platform-supporting Brain stays in GrowDirect.
+- Two repo branches:
+  - `chore/brain-mvp-split-2026-04-23` in GrowDirect (records removals)
+  - `chore/brain-mvp-split-2026-04-23` in Canary (records additions)
+- Link hygiene pass across both vaults (resolve or remove broken
+  cross-vault wikilinks).
+- User reviews both branches, merges to `main` on each repo.
+
+After merge, the repo structure matches what the audit will see.
+Duration: ~30 min.
+
+### Phase 2 — Audit dispatch [P — read-only, parallel-safe]
+
+Five parallel subagents fire in a single message:
 
 | Subagent | Scope | Produces |
 |---|---|---|
-| `canary-audit` | Canary repo | `Canary/docs/audit-2026-04-23/canary.md` |
-| `platform-audit` | GrowDirect shared platform | `GrowDirect/docs/audit-2026-04-23/platform.md` |
-| `docs-brain-audit` | SHOW-scope docs + Brain | `GrowDirect/docs/audit-2026-04-23/docs-brain.md` |
-| `security-audit` | Cross-cutting | `docs/audit-2026-04-23/security.md` + `security-tool-output/` |
-| `enterprise-scale-gap` | Runs after findings summarize | `docs/audit-2026-04-23/enterprise-scale-gap-analysis.md` (sanitized) |
+| `canary-audit` | Canary repo (post-split) | `Canary/docs/audit-2026-04-23/canary.md` |
+| `platform-audit` | GrowDirect shared platform: `devops/`, `services/`, `content-engine/`, `growdirect-platform.plugin/` | `GrowDirect/docs/audit-2026-04-23/platform.md` |
+| `docs-brain-audit` | SHOW-scope docs + Brain (in both repos, post-split) | `GrowDirect/docs/audit-2026-04-23/docs-brain.md` (platform docs/Brain) and `Canary/docs/audit-2026-04-23/docs-brain.md` (Canary docs/Brain) |
+| `security-audit` | Cross-cutting; both repos' full git history | `Canary/docs/audit-2026-04-23/security.md` and `GrowDirect/docs/audit-2026-04-23/security.md` + `security-tool-output/` raw results in each repo |
+| `enterprise-scale-gap` | Runs after findings summarize; reads audit reports + source material for enterprise bar | `GrowDirect/docs/audit-2026-04-23/enterprise-scale-gap-analysis.md` (sanitized — no prior-client names) |
 
 No source file changes. Duration: 15–30 min wall clock.
 
-### Phase 2 — User reviews audit [S — gate]
+### Phase 3 — User reviews audit [S — gate]
 
 User reads reports. Approves cleanup scope. Flags judgment calls.
-Confirms or adjusts enterprise-gap framing.
+Confirms or adjusts enterprise-gap framing. Decides dispositions for
+committed-secret findings (if any) — either rotate-and-rewrite-history
+workstream or "not a real secret" disposition.
 
-### Phase 3 — Cleanup dispatch [P via git worktrees]
+### Phase 4 — Cleanup dispatch [P via git worktrees]
 
 Each affected repo gets a worktree on
 `chore/cto-readiness-audit-2026-04-23`. Subagents work inside
-worktrees; feature sessions continue in primary checkout untouched.
+worktrees; feature sessions continue in primary checkouts untouched.
 
 | Subagent | Worktree | Scope |
 |---|---|---|
-| `canary-cleanup` | `~/.worktrees/canary-cto-cleanup/` | TODO/stub cleanup, AI-voice scrub, name scrub, feature-flag sloppy functions, insert confidentiality headers |
-| `platform-cleanup` | `~/.worktrees/growdirect-cto-cleanup/` | Same dimensions, platform scope |
-| `docs-brain-cleanup` | Same worktree | Markdown cleanup, frontmatter additions, link hygiene |
-| `security-fix` | `chore/security-findings-2026-04-23` | Security high/critical findings on separate branch |
+| `canary-cleanup` | `~/.worktrees/canary-cto-cleanup/` (Canary repo) | TODO/stub cleanup, AI-voice scrub, name scrub, feature-flag sloppy functions, insert confidentiality headers on all Canary code + docs + Canary Brain |
+| `platform-cleanup` | `~/.worktrees/growdirect-cto-cleanup/` (GrowDirect repo) | Same dimensions, platform scope: shared code + SHOW-scope docs + Platform-supporting Brain |
+| `security-fix` | Separate branch `chore/security-findings-2026-04-23` on each affected repo | Security HIGH/CRITICAL findings, separate branch because rollback characteristics differ; CRITICAL committed-secret findings trigger history-rewrite as own workstream with user sign-off |
+
+Each subagent, before producing its cleanup report, re-runs the
+audit-dimension check on the worktree branch and compares against
+the Phase 2 baseline. Any new findings introduced by concurrent
+feature-session landings get folded into the cleanup scope or flagged
+as out-of-scope with user-surface.
 
 Each produces branch + `cleanup-report.md` documenting every file
-touched. No merges. Duration: 30–60 min.
+touched. Subagents do NOT merge — the user reviews and merges in
+Phase 5. Duration: 30–60 min.
 
-### Phase 4 — Brain MVP split [S]
+### Phase 5 — User reviews cleanup branches [S — gate]
 
-- `git mv` operations per Brain MVP Split section.
-- Link hygiene pass in both vaults.
-- Two repo branches receive corresponding changes.
-
-Duration: ~30 min.
-
-### Phase 5 — User reviews branches [S — gate]
-
-Merge order: cleanup → Brain split → security fixes (or as makes sense
-given feature-session landings).
+Merge order per repo: `chore/cto-readiness-audit-2026-04-23` first,
+then `chore/security-findings-2026-04-23` second. The
+`chore/brain-mvp-split-2026-04-23` branch was already merged in
+Phase 1 and does not appear in this phase. If a history-rewrite is
+required (committed-secret case), it runs between the two cleanup
+merges as its own workstream.
 
 ### Phase 6 — Dry-run cold-reader verification [P]
 
@@ -455,12 +524,16 @@ from README, navigates architecture → code → tests. Verifies:
 - Cross-doc links resolve.
 - Enterprise-gap analysis reads defensibly.
 
-Produces `docs/audit-2026-04-23/ready-to-show-confirmation.md` —
-either PASS or a regression list that needs one more cleanup pass.
+Produces `Canary/docs/audit-2026-04-23/ready-to-show-confirmation.md`
+and `GrowDirect/docs/audit-2026-04-23/ready-to-show-confirmation.md`
+— each either PASS or a regression list that needs one more cleanup
+pass.
 
 ### Phase 7 — Ready-to-share state [S]
 
 - Tag `cto-review-ready-2026-04-23` on each repo.
+- Execute Canary repo rename: `growdirectprez/growdirect-ops` →
+  `growdirectprez/canary` (GitHub preserves redirects).
 - `contact@growdirect.io` and `security@growdirect.io` receive mail
   (Fastmail setup — user action).
 - Repo-sharing matrix finalized.
