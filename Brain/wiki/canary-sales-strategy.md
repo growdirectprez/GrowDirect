@@ -53,7 +53,7 @@ When real merchant data flows, these confirmed patterns prove value for demos, c
 
 ## Related
 
-- [[Brain/wiki/canary-detection|Canary Detection Engine]] — Technical details on all 29 Chirp rules
+- [[Brain/wiki/canary-detection|Canary Detection Engine]] — Technical details on all 37 Chirp rules
 - [[Brain/wiki/canary-architecture|Canary Architecture]] — System design and data flow
 - [[Brain/projects/Canary|Canary MOC]] — Project hub
 

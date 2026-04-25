@@ -135,7 +135,7 @@ Each prod environment requires two non-prod siblings:
 
 ### What this teaches Canary
 
-- **Persistence decomposition** — 14 logical stores is probably too many for a multi-tenant SaaS, but the principle (case data separate from factboard-scratch separate from reference data separate from sales transactions) is sound. Canary has `app/sales/fox/metrics` schemas — fewer, but the same pattern.
+- **Persistence decomposition** — 14 logical stores is probably too many for a multi-tenant SaaS, but the principle (case data separate from factboard-scratch separate from reference data separate from sales transactions) is sound. Canary has `app` / `sales` / `metrics` PostgreSQL schemas with Fox tables grouped inside `app` — fewer separations, but the same pattern.
 - **CRDM abstraction layer** — a stable schema contract between "raw retailer data" and "detection logic" is the single most portable idea. Canary's multi-POS proof is solving the same problem; Secure's CRDM is prior art worth studying.
 - **Identity flexibility** — SAML + OIDC + manual-assignment as a three-way identity model is an enterprise pattern Canary can adopt later. Current Canary is correctly simpler for its SMB target.
 - **Factory philosophy** — ship opinionated defaults, not a la carte. Canary's Chirp pack defaults should be stronger.

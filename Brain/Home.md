@@ -50,7 +50,7 @@ The registry (`Brain/REGISTRY.json`) indexes all wiki articles and their topics.
 Legal framework, Lot H discovery, 0 Clipper threat, community history, property geology, governance operations, city position cross-reference, PV Corp declaration scheme, platform development. Plus the [[Cove/docs/site/narrative|Story of Abalone Cove]] narrative and mapping/engineering playbooks in `Cove/docs/archive/wiki/`.
 
 ### Canary — 4 wiki articles
-Architecture (16 services, MCP layer), detection engine (29 Chirp rules), data model (60+ models), sales strategy. Plus 50+ Atlas diagrams in `Canary/docs/atlas/`.
+Architecture (16 services, MCP layer), detection engine (37 Chirp rules), data model (60+ models), sales strategy. Plus 50+ Atlas diagrams in `Canary/docs/atlas/`.
 
 ### Angel — 32 wiki articles
 Architecture, data platform, content engine, market intelligence, Ninja Selling, brand & team, voice training, buyer/listing processes, transaction timeline, Compass Concierge, content archive index, weekly CRMLS pull, South Bay wiki architecture. Plus 19 neighborhood content profiles covering PVE, RPV, Rolling Hills, and South Bay.
