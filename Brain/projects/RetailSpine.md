@@ -1,14 +1,17 @@
 ---
-date: 2026-04-23
+date: 2026-04-24
 type: project-moc
 tags: [retail-spine, rbis, capability-matrix, moc]
 sources:
   - Brain/raw/inbox/retail-business-intelligence-solution-v7.md
   - Brain/raw/inbox/GAP/GAP BI/RBIS background/Retail Business Intelligence Solution V7.ppt
-status: v0.5
+  - Canary-Retail-Brain/modules/
+status: v0.6
 ---
 
 # RetailSpine — MOC
+
+> **Linear tracker:** [GRO-522 — Retail Spine Brain documentation pairs](https://linear.app/growdirect/issue/GRO-522/retail-spine-brain-documentation-pairs-canonical-catz-spec-private) (Canary project). v1 done (GRO-523); v2.C/D/F/J open as GRO-524/525/526/527; CATz shell-fill GRO-528; inbox sweep GRO-529.
 
 ## Summary
 
@@ -60,8 +63,9 @@ remains traceable.
    stay; the warehouse goes. Same answers, ~1/100th the infrastructure.
 2. **Capability-first, not schema-first.** The spine catalogs *what
    questions a retailer answers*, not what tables hold the answers. Schema
-   mapping (Canary's `app` / `sales` / `fox` / `metrics` plus any new
-   operational schemas) is a separate session.
+   mapping (Canary's `app` / `sales` / `metrics` plus any new
+   operational schemas — Fox tables live in `app`, despite the module
+   path) is a separate session.
 3. **Cells reference, they don't reproduce.** A BST cell links to source
    artifacts (Tesco interface IDs, Solex flows, Secure wiki cards). It does
    not reproduce them. The spine is the index, not the encyclopedia.
@@ -230,6 +234,81 @@ to artifacts elsewhere in the vault. The current cross-reference targets:
 
 ---
 
+## Canary module crosswalks
+
+The Differentiated-Five (T / R / N / A / Q) — the v1 modules that
+distinguish Canary from a vendor-bundled BI surface — each get a
+two-file pair: a vendor-neutral canonical article in
+`Canary-Retail-Brain/modules/` and a Canary-specific wiki crosswalk
+that maps the canonical spec to actual code (file paths, schema
+locations, table inventories, MCP tool surfaces, open questions).
+
+| Prefix | Module | Ring | Status | Ledger role | Canonical | Canary crosswalk |
+|---|---|---|---|---|---|---|
+| **T** | Transaction Pipeline | v1 | shipping | publisher (sale) | `Canary-Retail-Brain/modules/T-transaction-pipeline.md` | [[../wiki/canary-module-t-transactions\|canary-module-t-transactions]] |
+| **R** | Customer | v1 | shipping (minimal) | n/a (people side) | `Canary-Retail-Brain/modules/R-customer.md` | [[../wiki/canary-module-r-customer\|canary-module-r-customer]] |
+| **N** | Device | v1 | model shipping | n/a (thing side) | `Canary-Retail-Brain/modules/N-device.md` | [[../wiki/canary-module-n-device\|canary-module-n-device]] |
+| **A** | Asset Management (Bubble) | v1 | design — impl pending | n/a (anomaly engine over N) | `Canary-Retail-Brain/modules/A-asset-management.md` | [[../wiki/canary-module-a-asset-management\|canary-module-a-asset-management]] |
+| **Q** | Loss Prevention (Chirp+Fox) | v1 | shipping | reconciler (sale exceptions) | `Canary-Retail-Brain/modules/Q-loss-prevention.md` | [[../wiki/canary-module-q-loss-prevention\|canary-module-q-loss-prevention]] |
+| **C** | Commercial | v2 | design complete | publisher (cost-update); OTB co-owner | `Canary-Retail-Brain/modules/C-commercial.md` | [[../wiki/canary-module-c-commercial\|canary-module-c-commercial]] |
+| **D** | Distribution | v2 | design complete | **primary publisher** (6 verbs) | `Canary-Retail-Brain/modules/D-distribution.md` | [[../wiki/canary-module-d-distribution\|canary-module-d-distribution]] |
+| **F** | Finance | v2 | design complete | reconciler (3-way match) + publisher (GL) | `Canary-Retail-Brain/modules/F-finance.md` | [[../wiki/canary-module-f-finance\|canary-module-f-finance]] |
+| **J** | Forecast & Order | v2 | design complete | subscriber (history) + publisher (orders) | `Canary-Retail-Brain/modules/J-forecast-order.md` | [[../wiki/canary-module-j-forecast-order\|canary-module-j-forecast-order]] |
+| **S** | Space, Range, Display | v3 | design complete | subscriber + **gatekeeper** (ordering gate) | `Canary-Retail-Brain/modules/S-space-range-display.md` | [[../wiki/canary-module-s-space-range-display\|canary-module-s-space-range-display]] |
+| **P** | Pricing & Promotion | v3 | design complete | publisher (price/markdown events) | `Canary-Retail-Brain/modules/P-pricing-promotion.md` | [[../wiki/canary-module-p-pricing-promotion\|canary-module-p-pricing-promotion]] |
+| **L** | Labor & Workforce | v3 | design complete | publisher (time entries) + subscriber | `Canary-Retail-Brain/modules/L-labor-workforce.md` | [[../wiki/canary-module-l-labor-workforce\|canary-module-l-labor-workforce]] |
+| **W** | Work Execution | v3 | design complete | **reconciler + cross-domain** (capstone) | `Canary-Retail-Brain/modules/W-work-execution.md` | [[../wiki/canary-module-w-work-execution\|canary-module-w-work-execution]] |
+
+**Spine walk complete.** All 13 modules have canonical CATz spec + Brain wiki crosswalk as of 2026-04-24.
+
+## Substrate canonical layer (the spec the modules code against)
+
+Five CATz platform articles define the substrate the spine sits on:
+
+- `Canary-Retail-Brain/platform/stock-ledger.md` — perpetual-inventory movement ledger; verbs, invariants, publisher/subscriber/reconciler pattern. Backbone: [[../wiki/retek-rms-perpetual-inventory|Retek RMS Perpetual Inventory]].
+- `Canary-Retail-Brain/platform/retail-accounting-method.md` — RIM vs Cost Method, Open To Buy as planning constraint
+- `Canary-Retail-Brain/platform/satoshi-cost-accounting.md` — sub-cent unit cost on the ledger; the COGS-side foundation. Goose ([Linear GRO-117](https://linear.app/growdirect/issue/GRO-117) shipping) is the production proof.
+- `Canary-Retail-Brain/platform/satoshi-precision-operating-model.md` — **the top-down unifier.** Extends satoshi precision from COGS to CAC + SG&A + IoT-tracked movement. Every cost decomposed to its originating event with audit trail. Re-reads the 13 modules as instruments of cost decomposition.
+- `Canary-Retail-Brain/platform/perpetual-vs-period-boundary.md` — **the staged migration.** Phase 1 parallel observer (zero adoption friction); Phase 2 modular cutover at merchant pace; Phase 3 stock-ledger swap (the moat). Until the merchant swaps the stock ledger itself, every layer is independently cutoverable. Established by [[Canary-Retail-Brain/case-studies/canary-finance-architecture-options|v2.F ADR]].
+
+Plus two CATz shell-fill articles closing the v0.6 broken links:
+
+- `Canary-Retail-Brain/platform/arts-adoption.md` — POSLog/Customer/Device/Site standards alignment
+- `Canary-Retail-Brain/platform/differentiated-five-add-on.md` — T+R+N+A+Q positioning brief
+
+## Persona layer — the Virtual Store Manager
+
+- `.claude/skills/canary-vsm.md` — composed agent skill that knows the entire 13-module spine via Owl runtime. v1 today (T/R/N/Q tools); v2 as C/D/F/J ship; v3 as S/P/L/W ship.
+- `Canary-Retail-Brain/platform/module-manifest-schema.md` — machine-readable manifest format every module ships alongside its prose `.md`. First concrete example: `Canary-Retail-Brain/modules/T-transaction-pipeline.manifest.yaml`.
+
+## Viewpoint synthesis
+
+- [[../wiki/growdirect-viewpoint-virtual-store-manager|GrowDirect Viewpoint — VSM on a Perpetual Ledger]] — the integrated read tying capability spine + substrate + persona into the one-stop-shop SMB retail operating system pitch.
+
+**Drift surfaced and cleared by this pass:**
+
+- ✓ Chirp rule count corrected to **37** (was "29") across
+  [[../wiki/canary-architecture|canary-architecture]],
+  [[../wiki/canary-detection|canary-detection]],
+  [[../wiki/canary-platform-overview|canary-platform-overview]],
+  [[../wiki/canary-module-t-transactions|canary-module-t]],
+  [[../wiki/canary-sales-strategy|canary-sales-strategy]], and
+  [[Home|Brain Home]]
+- ✓ Schema count corrected to **3** (`app` / `sales` / `metrics`) in
+  [[../wiki/canary-data-model|canary-data-model]],
+  [[../wiki/canary-platform-overview|canary-platform-overview]],
+  [[Canary|Canary MOC]],
+  [[../wiki/secure-architecture|secure-architecture]], and
+  [[../wiki/canary-module-t-transactions|canary-module-t]] — Fox
+  tables live in `app` via `AppBase` inheritance, despite the
+  `models/fox/` Python module path
+- ✓ A status reframed to "v1 (design — implementation pending)" in
+  `Canary-Retail-Brain/platform/spine-13-prefix.md` — code shows
+  foundation infrastructure exists (baseline_calculator, metrics
+  risk schema, N's registry), the bubble layer itself is unbuilt
+
+---
+
 ## Open work
 
 This MOC is v0. The structure is complete; the cells are mostly empty.
@@ -267,14 +346,26 @@ The work of filling them is incremental, one source at a time:
   Prevention enrichment in [`Canary/docs/retail-capability-model.md`](../../Canary/docs/retail-capability-model.md)
   §4.1 Detection-and-notification pattern (fully vanilla — pattern
   named, no historical narrative or attribution). ✓
-- **v0.6** — Canary code crosswalk + schema-mapping pass. Each BST cell
-  gets a "current Canary table coverage" marker. New operational schemas
-  surface here (likely candidates: `customer`, `merch`, `vendor`,
-  `channel`).
-- **v0.7+** — Microservice slot per capability. Each cell carries a
-  "service this would live in" marker. The microservice index falls out
-  of the spine, not the other way around. Maps onto the canonical model
-  via system-role names from `Canary/docs/retail-capability-model.md` §8.
+- **v0.6** — Canary module crosswalks for the Differentiated-Five
+  (T / R / N / A / Q). Each module gets a canonical vendor-neutral
+  brain article plus a Canary-specific wiki crosswalk pinned to actual
+  code (file paths, schema locations, column inventories, MCP tool
+  surfaces). See [[#canary-module-crosswalks|Canary module crosswalks]]
+  above. Surfaced three documentation drifts (rule count, schema
+  count, A status) for cleanup. ✓
+- **v0.7** — BST-cell schema-mapping pass. Each BST cell gets a
+  "current Canary table coverage" marker tied to the modules above.
+  New operational schemas surface here as the v2 C / D / F / J
+  modules get their first code (likely candidates: `customer`,
+  `merch`, `vendor`, `channel` schemas to extend the current 3).
+  v2 module pairs (C / D / F / J) get the same two-file treatment.
+- **v0.8+** — Microservice slot per capability. Each cell carries a
+  "service this would live in" marker. The microservice-name index
+  is already seeded per module (each module article has a
+  service-name-markers table); v0.8 closes the loop by reverse-
+  mapping from BST cells back to the service slots. Maps onto the
+  canonical model via system-role names from
+  `Canary/docs/retail-capability-model.md` §8.
 
 ## Related
 
@@ -282,9 +373,10 @@ The work of filling them is incremental, one source at a time:
   spine grew out of
 - [[Brain/projects/Canary|Canary MOC]] — the current shipping product whose
   capability surface gets indexed against this spine
-- [[Brain/wiki/canary-data-model|Canary Data Model]] — current 4-schema
-  layout (`app` / `sales` / `fox` / `metrics`) that the schema-mapping
-  pass will extend
+- [[Brain/wiki/canary-data-model|Canary Data Model]] — current 3-schema
+  layout (`app` / `sales` / `metrics`) that the schema-mapping pass
+  will extend (the wiki article still says 4; it predates the
+  code-verified count and is queued for cleanup)
 - [[Brain/raw/inbox/retail-business-intelligence-solution-v7|RBIS V7
   full transcription]] — the source artifact
 

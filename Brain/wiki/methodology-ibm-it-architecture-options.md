@@ -203,10 +203,22 @@ article (e.g. 24,995 man-days, 111 man-years) are direct quotes from a
 public 2006 IBM deliverable and serve only as illustration of the
 estimation pattern.
 
+## SDD Codification and Worked Example
+
+This methodology has been codified as an SDD-driven artifact suite:
+
+- **SDD:** [[docs/sdds/consulting/SDD-morrisons-it-architecture-options-v2|SDD — Morrisons IT Architecture Options: Method as Executable Frame]] — the full structural specification, acceptance criteria, and mapping to the `consulting:it-architecture-options` skill.
+- **Worked case study:** [[case-studies/canary-finance-architecture-options|Case Study: Canary v2.F Finance — Architecture Options Evaluation]] — applies the Morrisons frame to a live Canary decision (GRO-526). Recommends Option C (Integrated Hybrid) over Legacy or Best-of-Breed, with full reasoning and resource plan.
+
+The case study demonstrates the durability of the Morrisons frame: even though Morrisons (2006) dealt with retail systems (EPOS, replenishment, merchandise finance) and Canary (2026) deals with loss prevention with a finance layer, the same eight-section skeleton and three-option evaluation pattern applies unchanged.
+
 ## Related
 
 - [[Brain/wiki/methodology-ibm-retail-diagnostic|Methodology · IBM Retail Diagnostic]]
 - [[docs/sdds/consulting/SDD-consulting-skills|SDD · Consulting Skills]]
+- [[docs/sdds/consulting/SDD-morrisons-it-architecture-options-v2|SDD · Morrisons Method (v2.0)]]
+- [[case-studies/canary-finance-architecture-options|Case Study: Canary v2.F (worked example)]]
 - [[Brain/projects/Method|Method MOC]]
 - [[Brain/projects/Secure|Secure]]
 - [[Brain/wiki/secure-retail-career-archive|Secure — retail career archive]]
+- [[Brain/wiki/canary-architecture-decisions-index|Canary Architecture Decisions Index]]
