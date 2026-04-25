@@ -11,23 +11,62 @@ companion: Brain/wiki/ncr-counterpoint-connection-runbook.md
 
 What GrowDirect needs to action to stand up a Counterpoint API sandbox for Phase 0 fixture testing. The connection runbook (`ncr-counterpoint-connection-runbook.md`) covers the technical bring-up; this article covers the **operator-facing prerequisites** that gate it — the things only the operator can do because they require human-in-the-loop NCR partner-channel interaction.
 
-## Three NCR-side credentials needed (separate requests)
+## Strategic context — NCR Voyix is a competitor
 
-### 1. Partner Portal access — `retailchannel.radiantsystems.com`
+**Important:** NCR Voyix competes with Canary in the back-office analytics + LP layer. Treat NCR-gated credentials as scarce and strategic, NOT as routine vendor onboarding. Per memory `project_ncr_voyix_is_competitor.md`:
 
-The "Partner Portal" is the legacy Radiant-era interface NCR still operates for Counterpoint VARs and partners. It gates: the API server installer (.exe download) AND the API-option-request flow for future customer deployments. Without it, you can't download the software.
+- APIKey applications are manually reviewed by NCR — competitive applicants can be rejected
+- Channel Partner / ISV applications expose competitive intelligence to NCR
+- The integration-access strategy routes through the customer (license holder), not via NCR partnership
+- Frame any NCR-facing communication neutrally (data access / connector), not as competitive LP/analytics positioning
 
-**Action:** apply for partner status. Two paths:
-- **Direct NCR Channel Partner application** — `https://www.ncrvoyix.com/company/become-a-channel-partner`. Channel Sales contact form. As GrowDirect LLC; frame the application as ISV / integration partner (not reseller — see `Brain/wiki/...` notes about ISV vs Channel-Partner distinction).
-- **Via an existing VAR** — any of the Counterpoint VARs (Rapid POS, AMS Retail, RCS, Mariner) can sponsor partner-portal access for a partner's application. Faster if the VAR sees a co-sell opportunity.
+The credentials below are listed in priority order. The single hard dependency on NCR is the **Developer APIKey** (#2). The other paths have customer-side workarounds that don't require NCR cooperation.
 
-**Time-to-credentials:** typical vendor ISV onboarding is 1-4 weeks. Could be faster via VAR sponsorship.
+## NCR-side credentials (in priority order)
 
-**Once approved you get:**
-- Partner Portal login
-- Counterpoint API server installer (.exe) download
-- API option request capability (for future customer-side enablement)
-- API Key application form access
+### 1. Partner Portal access — OPTIONAL (and competitively sensitive)
+
+The "Partner Portal" gates the API server installer download. **You don't need this if customers self-host their own Counterpoint API server (which they typically do)** — the customer's existing Counterpoint deployment already includes the API server installer through their VAR.
+
+**Recommendation:** **deprioritize the Partner Portal application.** It's a competitive-intelligence exposure with limited unique value. If you want the installer for sandbox stand-up specifically, request through a friendly VAR rather than direct.
+
+**If you do apply:**
+- Direct NCR Channel Partner application: `https://www.ncrvoyix.com/company/become-a-channel-partner`. Frame as ISV / data-access partner, not reseller. **Avoid emphasizing LP / fraud detection / analytics** in the application description (those are competitive surfaces; Voyix may decline).
+- Alternative: ask a Counterpoint VAR (Rapid POS, AMS Retail, RCS, Mariner) to provide installer access without partner-portal application.
+
+### 2. Developer API Key — REQUIRED, COMPETITIVELY GATED
+
+This is the **one NCR-side dependency you cannot work around** for production deployments. Almost every useful endpoint requires an APIKey header; without one, calls fail 403.
+
+**The risk:** NCR reviews applications manually. They CAN decline a competitor's application or one whose stated purpose competes with their portfolio.
+
+**Application form:** [`https://retailchannel.radiantsystems.com/api_request.htm`](https://retailchannel.radiantsystems.com/api_request.htm)
+
+**Framing for the application** — protective drafting (avoid lying; frame for what's defensible):
+- Company Name: `GrowDirect LLC`
+- Issued To: `Geoffrey C. Lyle`
+- Application Name: `Canary` (neutral; the brand; it is what it is)
+- Description: focus on **integration / data-access / connector** language. Example: "Canary is a data-integration platform that allows specialty SMB retailers to connect their Counterpoint data to downstream analytics, reporting, and operational tools. The Canary adapter reads Counterpoint via the public REST API on a per-customer basis under each customer's own API option license; the customer authorizes access on a per-tenant basis."
+- **Do NOT emphasize:** loss prevention, fraud detection, anomaly detection, employee monitoring, cash anomalies — these are NCR's competitive surfaces.
+- **Do emphasize:** read-only integration, customer-permissioned, per-tenant isolation, complements (not replaces) the customer's existing Counterpoint stack.
+
+**Mitigations if rejected:**
+1. **Customer's own APIKey route** — each customer applies for their own Developer Key for "internal Counterpoint integration"; Canary's adapter operates within their Key. Per-customer, doesn't scale, but works.
+2. **VAR partnership / acquisition** — VARs already have APIKeys; Canary becomes a value-add inside a VAR's offering. Strategic pivot.
+3. **Direct SQL fallback** — customer grants SQL Server access; Canary reads via SQL, not REST. Brittle, customer-permission-dependent, works.
+
+**Once approved (delivered via email, ~1-2 weeks):**
+- `Canary_key.txt` — plain-text key (embed in adapter)
+- `Canary_key.xml` — signed XML file (drop into `<install>/APIKeys/` on every Counterpoint API server Canary connects to)
+- Valid 2 years
+
+### 3. FTP credentials for `files165.cyberlynk.net` — DEFERRED
+
+Test database for sandbox. Useful for spec-vs-reality validation but **not required for Phase 0-4 work** (OpenAPI mocks suffice; see `Brain/wiki/ncr-counterpoint-connection-runbook.md` for the lightweight alternative path).
+
+**Recommendation:** defer. Don't request until Phase 5 cutover validation OR until customer-real-instance access is unavailable. Saves a competitive-intelligence ping to NCR and removes a non-blocking dependency.
+
+If needed: request via NCR Channel Sales OR your VAR.
 
 ### 2. Developer API Key — `https://retailchannel.radiantsystems.com/api_request.htm`
 
@@ -101,14 +140,33 @@ NCR Sales Ops processes the request and adds the option to the customer's `regis
 | Once API Key XML arrives (separate from partner — could come earlier) | Drop into APIKeys/ folder on the configured API server |
 | Phase 0 ready | Smoke-test with `GET /SystemInfo`; run first endpoint reads via Canary's TSP adapter |
 
-## Operator-action summary (do these now)
+## Operator-action summary (revised — NCR-as-competitor framing)
 
-- [ ] **Submit NCR Channel Partner application** (or contact a VAR for sponsorship): https://www.ncrvoyix.com/company/become-a-channel-partner
-- [ ] **Submit Developer API Key application**: https://retailchannel.radiantsystems.com/api_request.htm — needs Partner Portal login first OR can be submitted as a developer-only request (verify at submission time)
-- [ ] **Decide on sandbox host** — cloud Windows VM (recommended) vs local Mac Windows VM. Approximate cost: $30-60/month for a small Azure/AWS Windows VM
-- [ ] **Provision the sandbox host** — install Windows + .NET 4.5.2 + SQL Server Express, configure firewall for inbound HTTPS
-- [ ] **Once partner credentials arrive**: request FTP test DB credentials
-- [ ] **Confirm with the H&G chain (Phase 5+)**: do they currently have the API option enabled? If not, their VAR needs to request it.
+**Today / this week:**
+- [ ] **Submit Developer API Key application** with NEUTRAL framing (data-access/integration, NOT LP/analytics). Per the protective-drafting guidance in §"Developer API Key" above. This is the one NCR-side dependency that's hard to work around. 1-2 weeks NCR-side response.
+- [ ] **Skip Partner Portal application** unless VAR-sponsored and you have specific need for the installer. Competitive-intel exposure with limited unique value.
+- [ ] **Skip FTP / sandbox-host provisioning for now.** Phase 0-4 work runs against the OpenAPI mock / fixture path (see `Brain/wiki/ncr-counterpoint-connection-runbook.md` lightweight alternative). Saves cloud-VM cost + avoids NCR-side ping.
+
+**When APIKey arrives:**
+- [ ] Drop `Canary_key.xml` into a known-good location for distribution to customer Counterpoint installations
+- [ ] Document the renewal cycle (2-year validity) in operations runbook
+
+**For the H&G chain engagement (Phase 5+):**
+- [ ] Confirm customer has API option enabled in their `registration.ini` (their VAR requests)
+- [ ] Customer creates a Canary-specific service account on their Counterpoint API server
+- [ ] Customer installs `Canary_key.xml` in their `<install>/APIKeys/` folder
+- [ ] Customer-side firewall / Cloudflare Tunnel / VPN configured for Canary access
+- [ ] Smoke-test against the customer's actual Counterpoint API server
+
+**APIKey-rejection contingency** (if NCR declines the application):
+- [ ] Pivot to customer's-own-APIKey route (per-customer; tedious; works) OR
+- [ ] Pivot to VAR partnership (Canary inside a VAR's offering; strategic) OR
+- [ ] Pivot to direct SQL fallback (brittle but works)
+
+**What's no longer on the operator critical path:**
+- ~~Partner Portal application~~ (deprioritized; competitively risky)
+- ~~Sandbox host provisioning~~ (deferred; OpenAPI mocks suffice for development)
+- ~~FTP test DB request~~ (deferred; customer-real-instance is the realistic Phase 5 substrate)
 
 ## Open questions
 
