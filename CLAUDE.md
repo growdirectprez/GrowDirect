@@ -303,6 +303,25 @@ patch, append). Use `Read`/`Edit` for code files, not Brain content.
 the database, not flat files. Wiki articles capture structure, relationships,
 decisions, and context that can't be derived from code or queries.
 
+### Canary Brain projection
+
+`Canary/brain/` is a SHOW-scoped projection of `GrowDirect/Brain/` —
+refreshed manually before partner access. Live edits happen in
+`GrowDirect/Brain/`. The Canary repo is not the source of truth for
+Brain content; the platform vault is. Drift between the two is
+acceptable between projections.
+
+A refresh sync copies Canary-scoped wiki articles, project MOCs, and
+SDDs from `Brain/` and `docs/sdds/canary/` into the corresponding
+`Canary/brain/wiki/`, `Canary/brain/projects/`, and `Canary/docs/sdds/`
+paths. The sync runs before any CTO-partner or external-reviewer
+access window — see `docs/superpowers/plans/2026-04-24-cto-readiness-remaining.md`
+Phase G1 (option b: founder vault as superset).
+
+This is the MVP posture chosen 2026-04-24. A later session may move
+to a stricter source-of-truth model (full subtree split, or symlinks)
+once the founder workflow is settled.
+
 ---
 
 ## File Layout
