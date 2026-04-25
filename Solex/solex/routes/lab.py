@@ -4,10 +4,13 @@ from flask import Blueprint, render_template, request, redirect, url_for, abort,
 from flask_login import current_user
 from sqlalchemy import select
 
+from sqlalchemy.exc import IntegrityError
+from flask import session as flask_session, jsonify
+
 from solex.extensions import db
-from solex.routes.admin_utils import admin_required
+from solex.routes.admin_utils import admin_required, _load_admin_from_session
 from solex.services.scenarios import registry, prepare_context
-from solex.models import ScenarioRun, Order
+from solex.models import ScenarioRun, ScenarioRunFavorite, Order
 
 bp = Blueprint("lab", __name__, url_prefix="/admin/lab")
 
@@ -86,6 +89,34 @@ def run_detail(run_id):
         select(Order).where(Order.scenario_tag == tag)
     ).scalars().all()
     return render_template("admin/lab/run_detail.html", run=run, orders=tagged_orders)
+
+
+@bp.post("/runs/<uuid:run_id>/favorite")
+@admin_required
+def toggle_favorite(run_id):
+    run = db.session.get(ScenarioRun, run_id)
+    if run is None:
+        abort(404)
+    admin = _load_admin_from_session()
+    if admin is None:
+        abort(401)
+    existing = db.session.execute(
+        select(ScenarioRunFavorite).where(
+            ScenarioRunFavorite.admin_user_id == admin.id,
+            ScenarioRunFavorite.scenario_run_id == run.id,
+        )
+    ).scalar_one_or_none()
+    if existing is not None:
+        db.session.delete(existing)
+        db.session.commit()
+        return "", 204
+    fav = ScenarioRunFavorite(admin_user_id=admin.id, scenario_run_id=run.id)
+    db.session.add(fav)
+    try:
+        db.session.commit()
+    except IntegrityError:
+        db.session.rollback()  # raced; treat as already-favorited no-op
+    return "", 204
 
 
 def _coerce_form_to_params(schema_cls, raw: dict) -> dict:
