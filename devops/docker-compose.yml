@@ -14,7 +14,7 @@
 #   Network name:  growdirect
 #
 # DATABASES (created by init-db/01-create-databases.sql on first boot):
-#   canary, canary_test, cove, cove_test
+#   canary, canary_test, plus per-app DBs for other GrowDirect apps.
 #   All have pgvector extension enabled.
 #
 # ADD A NEW APP:
