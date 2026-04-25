@@ -10,7 +10,7 @@ from solex.models.refund import Refund
 from solex.models.ops import SquareWebhookEvent, EmailLog
 from solex.models.subscription import Subscription, SubscriptionCharge, SUBSCRIPTION_STATUSES
 from solex.models.returns import ReturnRequest, RETURN_STATUSES
-from solex.models.scenarios import ScenarioRun, SCENARIO_RUN_STATUSES
+from solex.models.scenarios import ScenarioRun, ScenarioRunFavorite, SCENARIO_RUN_STATUSES
 
 __all__ = [
     "BaseModel",
@@ -24,5 +24,5 @@ __all__ = [
     "SquareWebhookEvent", "EmailLog",
     "Subscription", "SubscriptionCharge", "SUBSCRIPTION_STATUSES",
     "ReturnRequest", "RETURN_STATUSES",
-    "ScenarioRun", "SCENARIO_RUN_STATUSES",
+    "ScenarioRun", "ScenarioRunFavorite", "SCENARIO_RUN_STATUSES",
 ]
