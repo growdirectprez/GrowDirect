@@ -1,0 +1,10 @@
+{
+  "SchemaVersion": 2,
+  "Trivy": {
+    "Version": "0.70.0"
+  },
+  "ReportID": "019dc324-c698-7111-9775-22d0de8ecba5",
+  "CreatedAt": "2026-04-24T22:37:40.504071-07:00",
+  "ArtifactName": "/Users/gclyle/GrowDirect/devops",
+  "ArtifactType": "filesystem"
+}
