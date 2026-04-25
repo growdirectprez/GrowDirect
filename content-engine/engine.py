@@ -1,3 +1,5 @@
+# GrowDirect LLC — Confidential & Proprietary
+# Copyright (c) 2026 GrowDirect LLC. All rights reserved.
 """Content Engine CLI — intake, deduplicate, flatten, index, triage, ingest.
 
 Reusable across GrowDirect projects. Two layers:
@@ -870,7 +872,7 @@ def triage(directory: str, batch: int, ext: str, output: str | None):
 
 @cli.command()
 @click.argument("filepath", type=click.Path(exists=True, dir_okay=False))
-@click.option("--project", "-p", default=None, help="Project tag (cove, canary, etc.)")
+@click.option("--project", "-p", default=None, help="Project tag (canary, etc.)")
 @click.option("--tags", "-t", default=None, help="Comma-separated tags")
 def ingest(filepath: str, project: str | None, tags: str | None):
     """Create a Brain raw-intake note from a file.

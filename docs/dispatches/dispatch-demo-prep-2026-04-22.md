@@ -1,3 +1,8 @@
+---
+classification: confidential
+owner: GrowDirect LLC
+---
+
 # Epic: Canary Goes Primetime
 ## Sprint window: 3–4 days (2026-04-22 → 2026-04-26)
 ## For: Claude Code sessions in GrowDirect/Canary/

@@ -1,3 +1,8 @@
+---
+classification: confidential
+owner: GrowDirect LLC
+---
+
 # Code Dispatch — April 22, 2026
 
 ## Subject

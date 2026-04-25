@@ -87,8 +87,10 @@ The following databases are created on first boot by `init-db/01-create-database
 | `canary_test` | Canary | Test runner database |
 | `growdirect_memory` | growdirect | Platform memory bus — ALX sessions + embeddings (GRO-172) |
 | `growdirect_memory_test` | growdirect | Memory bus test runner database |
-| `cove` | Cove | Production database |
-| `cove_test` | Cove | Test runner database |
+
+Additional per-app databases are created by the platform init-db
+script for each GrowDirect application. The set of provisioned
+databases evolves as apps are added.
 
 All databases have the `vector` extension enabled (pgvector).
 
@@ -136,6 +138,6 @@ growdirect network
 ├── growdirect_valkey     (valkey:6379)
 ├── growdirect_pgadmin
 ├── growdirect_ollama     (ollama:11434)
-├── canary_localhost_flask   (attached from Canary stack)
-└── cove_localhost_flask     (attached from Cove stack)
+└── canary_localhost_flask   (attached from Canary stack)
+    ... per-app stacks attach to this network as they boot
 ```

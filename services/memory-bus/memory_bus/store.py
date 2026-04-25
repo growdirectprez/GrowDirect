@@ -1,3 +1,5 @@
+# GrowDirect LLC — Confidential & Proprietary
+# Copyright (c) 2026 GrowDirect LLC. All rights reserved.
 import json
 import logging
 import uuid
@@ -18,7 +20,7 @@ VALID_MEMORY_TYPES = frozenset([
     "work_product", "team_profile", "foundation",
 ])
 
-VALID_LAYERS = frozenset(["corp", "canary", "cove", "shared"])
+VALID_LAYERS = frozenset(["corp", "canary", "shared"])
 
 VALID_DOMAINS = frozenset([
     "identity", "tsp", "chirp", "alert", "owl",
@@ -270,7 +272,7 @@ class MemoryStore:
         """Semantic search with fallback chain: vector -> full-text -> ILIKE.
 
         Args:
-            layer: Filter by memory layer (corp/canary/cove/shared).
+            layer: Filter by memory layer (corp/canary/shared).
                    None returns all layers.
         """
         embedding = get_embedding(query, self._config)

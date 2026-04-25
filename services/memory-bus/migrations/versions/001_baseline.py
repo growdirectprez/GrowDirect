@@ -1,3 +1,5 @@
+# GrowDirect LLC — Confidential & Proprietary
+# Copyright (c) 2026 GrowDirect LLC. All rights reserved.
 """001 — baseline: capture current growdirect_memory DDL.
 
 Revision ID: 001_baseline
