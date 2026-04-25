@@ -1,17 +1,19 @@
 ---
-date: 2026-04-10
+date: 2026-04-24
 type: wiki
 tags: [canary, database, models, postgresql, schemas]
-sources: [Canary/canary/models/, Canary/docs/atlas/infrastructure/]
-last-compiled: 2026-04-10
-needs-review: 2026-04-24
+sources: [Canary/canary/models/, Canary/canary/models/base.py, Canary/docs/atlas/infrastructure/]
+last-compiled: 2026-04-24
+needs-review: 2026-05-24
 ---
 
 # Canary Data Model
 
 ## Summary
 
-Canary uses PostgreSQL 17 with four schemas that separate concerns: `app` for core platform entities, `sales` for the Square CRDM (canonical relational data model), `fox` for case management with cryptographic evidence chains, and `metrics` for analytics dimensions and facts. The codebase has 60+ SQLAlchemy 2.0 models using `Mapped[]` annotations, UUID primary keys, and `created_at`/`updated_at` timestamps on every table.
+Canary uses PostgreSQL 17 with **three schemas** that separate concerns: `app` for core platform entities (including Fox case management), `sales` for the Square CRDM (canonical relational data model), and `metrics` for analytics dimensions and facts. The codebase has 60+ SQLAlchemy 2.0 models using `Mapped[]` annotations, UUID primary keys, and `created_at`/`updated_at` timestamps on every table.
+
+**Note on Fox.** The Python source tree has a `canary/models/fox/` directory and the SDDs frequently talk about "the fox schema," but `Canary/canary/models/base.py` defines only three SQLAlchemy `MetaData(schema=...)` instances — `app`, `sales`, `metrics`. Every Fox model class inherits from `AppBase`, so `fox_cases`, `fox_evidence`, `fox_subjects`, etc. all physically live in the `app` schema. The `fox` directory is a Python organizational convention, not a database schema. Treat any reference to a "fox schema" in older docs as shorthand for "Fox tables in the app schema."
 
 ## Schema: app (Core Platform)
 
@@ -45,15 +47,24 @@ The `sales` schema is the canonical representation of everything Square sends. I
 
 **Supporting tables**: tenders (payment methods per transaction), cash drawers, timecards, gift cards, loyalty events, inventory, invoices, payouts, disputes, devices, terminal records, order returns, order rewards, and inscription records (for Bitcoin anchoring).
 
-## Schema: fox (Case Management)
+## Fox tables (Case Management — within `app` schema)
 
-Fox is the investigation layer. Three tables with strict integrity rules:
+Fox is the investigation layer. The Python module `canary/models/fox/`
+groups its models for readability, but every class inherits from
+`AppBase`, which means every Fox table physically lives in the `app`
+schema. There is no separate `fox` schema. The seven Fox tables
+(`fox_cases`, `fox_case_alerts`, `fox_case_timeline`, `fox_case_actions`,
+`fox_subjects`, `fox_evidence`, `fox_evidence_access_log`) split into
+operational, append-only, and INSERT-only integrity tiers — see
+[[canary-fox-case-management|Fox Case Management]] for the full breakdown.
 
-**FoxCase** — Root investigation record. Status flow: open → investigating → pending_review → escalated → closed / referred_to_le. Classified by type (theft, fraud, policy_violation, cash_variance, return_abuse). Tracks priority, assigned investigator, aggregate loss amount, and resolution narrative.
+Selected highlights:
 
-**FoxEvidence** — INSERT-ONLY evidence chain. Each row stores a file reference with a SHA-256 content hash and a chain hash that links to the previous evidence record. This creates a cryptographic proof of insertion order and integrity — the chain of custody is the table itself. Evidence types: document, photo, video, receipt, screenshot, export.
+**FoxCase** (`fox_cases`) — Root investigation record. Status flow: open → investigating → pending_review → escalated → closed / referred_to_le. Classified by type (theft, fraud, policy_violation, cash_variance, return_abuse, transaction_review, other). Tracks priority, assigned investigator, aggregate loss amount, and resolution narrative.
 
-**FoxSubject** — People or entities of interest. Subject types: employee, customer, vendor, unknown. Soft-deletable for historical tracking. Links to the actual entity record (e.g., Square employee ID) when available.
+**FoxEvidence** (`fox_evidence`) — INSERT-ONLY evidence chain enforced at the PostgreSQL trigger layer. Each row stores a file reference with a SHA-256 content hash and a chain hash linking to the previous evidence record. Cryptographic proof of insertion order and integrity — the chain of custody is the table itself. Evidence types: document, photo, video, receipt, screenshot, export.
+
+**FoxSubject** (`fox_subjects`) — People or entities of interest. Subject types: employee, customer, vendor, unknown. Soft-deletable for historical tracking. Links to the actual entity record (e.g., Square employee ID) when available.
 
 ## Schema: metrics (Analytics)
 
@@ -65,7 +76,7 @@ Dimension tables and fact tables powering the merchant dashboard:
 
 ## Immutability Patterns
 
-Two tables enforce write-once semantics at the database level with triggers: `evidence_records` (sales schema) and `fox_evidence` (fox schema). Neither model exposes update() or delete() methods. Any attempt to modify or remove a row fails at the PostgreSQL trigger layer. This is a deliberate design decision for forensic integrity — loss prevention evidence must be tamper-proof.
+Two tables enforce write-once semantics at the database level with triggers: `evidence_records` (sales schema) and `fox_evidence` (app schema, despite the `models/fox/` module path). Neither model exposes update() or delete() methods. Any attempt to modify or remove a row fails at the PostgreSQL trigger layer. This is a deliberate design decision for forensic integrity — loss prevention evidence must be tamper-proof.
 
 ## Related
 
@@ -75,7 +86,7 @@ Two tables enforce write-once semantics at the database level with triggers: `ev
 
 ## Sources
 
-- `Canary/canary/models/` — All 60+ model files across 4 schema packages
+- `Canary/canary/models/` — All 60+ model files across 4 Python packages (`app/`, `sales/`, `fox/`, `metrics/`) but only 3 PostgreSQL schemas (`app`, `sales`, `metrics`); Fox models inherit from `AppBase`
 - `Canary/canary/models/base.py` — Base classes, mixins (TenantMixin, AuditMixin, SoftDeleteMixin)
 - `Canary/canary/models/app/detection.py` — Detection rules and alert models
 - `Canary/canary/models/sales/transactions.py` — Core transaction model

@@ -13,3 +13,8 @@ solex/static/catalog/images/*
 htmlcov/
 dist/
 build/
+/solex/static/js/vendor/
+
+# Photo inbox — drops are local-only; only the README is tracked
+/catalog/inbox/*
+!/catalog/inbox/README.md

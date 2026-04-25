@@ -1,0 +1,36 @@
+{
+  "name": "consulting",
+  "displayName": "Consulting — IBM BCS Methodology",
+  "version": "0.1.0",
+  "description": "Consulting skills from the IBM Business Consulting Services lineage (2006 era) — produce Big-4-grade Retail Diagnostic and IT Architecture Options deliverables by plugging client evidence into the preserved structural frame.",
+  "author": {
+    "name": "Geoffrey C. Lyle",
+    "org": "GrowDirect"
+  },
+  "provenance": {
+    "lineage": "IBM Business Consulting Services, 2006",
+    "custodian": "Geoffrey C. Lyle",
+    "source_artifacts": [
+      "Clarks Retail Diagnostic — Final v 1.0 (2006)",
+      "Morrisons IT Architecture — Final Deliverable v 1.0 (2006)"
+    ],
+    "methodology_preserved_in": [
+      "Brain/wiki/methodology-ibm-retail-diagnostic.md",
+      "Brain/wiki/methodology-ibm-it-architecture-options.md"
+    ]
+  },
+  "skills": [
+    {
+      "name": "retail-diagnostic",
+      "path": "skills/retail-diagnostic/SKILL.md"
+    },
+    {
+      "name": "it-architecture-options",
+      "path": "skills/it-architecture-options/SKILL.md"
+    }
+  ],
+  "commands": [],
+  "status": "v0.1-scaffold",
+  "related_sdd": "docs/sdds/consulting/SDD-consulting-skills.md",
+  "related_dispatch": "dispatches/2026-04-24-consulting-skills.md"
+}

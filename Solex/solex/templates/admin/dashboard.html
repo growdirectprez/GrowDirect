@@ -1,13 +1,20 @@
 {% extends "admin/_layout.html" %}
 {% block title %}Admin Dashboard — Solex{% endblock %}
 {% block admin_main %}
-<h1 class="text-xl font-semibold mb-4">Dashboard</h1>
-<ul class="space-y-2 text-sm">
-  <li><a href="/admin/catalog/">Catalog</a></li>
-  <li><a href="/admin/orders/">Orders</a></li>
-  <li><a href="/admin/inventory/">Inventory</a></li>
-  <li><a href="/admin/customers/">Customers</a></li>
-  <li><a href="/admin/subscriptions/">Subscriptions</a></li>
-  <li><a href="/admin/returns/">Returns</a></li>
-</ul>
+<p class="eyebrow mb-2">Admin</p>
+<h1 class="text-3xl font-display mb-8">Dashboard</h1>
+<div class="grid grid-cols-2 md:grid-cols-3 gap-4">
+  {% for label, value in [
+    ("Orders total", counts.orders_total),
+    ("Orders pending", counts.orders_pending),
+    ("Products active", counts.products_active),
+    ("Subs active", counts.subs_active),
+    ("Returns pending", counts.returns_pending),
+  ] %}
+  <div class="card p-5">
+    <p class="eyebrow mb-1">{{ label }}</p>
+    <p class="text-3xl font-display text-solex-ink">{{ value or 0 }}</p>
+  </div>
+  {% endfor %}
+</div>
 {% endblock %}

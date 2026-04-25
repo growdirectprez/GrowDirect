@@ -1,17 +1,17 @@
 ---
-date: 2026-04-10
+date: 2026-04-24
 type: wiki
 tags: [canary, chirp, detection, alerts, loss-prevention, rules]
 sources: [Canary/canary/services/chirp/rule_definitions.py, Canary/docs/atlas/decision/]
-last-compiled: 2026-04-10
-needs-review: 2026-04-24
+last-compiled: 2026-04-24
+needs-review: 2026-05-24
 ---
 
 # Canary Detection Engine
 
 ## Summary
 
-Chirp is Canary's real-time loss prevention rule engine. It evaluates Square merchant transactions against 29 detection rules across 8 categories and 3 execution tiers. Rules fire based on configurable thresholds that can be overridden per merchant. Violations produce alerts that enter a lifecycle managed by the Alerts service and can escalate into Fox cases.
+Chirp is Canary's real-time loss prevention rule engine. It evaluates Square merchant transactions against 37 detection rules across 10 categories and 3 execution tiers. Rules fire based on configurable thresholds that can be overridden per merchant. Violations produce alerts that enter a lifecycle managed by the Alerts service and can escalate into Fox cases.
 
 ## The Three-Tier Architecture
 
@@ -23,7 +23,7 @@ Rules are classified by the data they need to evaluate:
 
 **Tier 3 — Full** (database required). These rules need historical data from PostgreSQL — shift reconciliation, order aggregates, timecard cross-references. They are the most powerful but most expensive. Examples: C-001 (rapid refund, needs original sale lookup), C-301 (off-clock transaction, needs timecard data), C-204 (untendered order, needs order+payment cross-reference).
 
-## Rule Catalog (29 Rules, 8 Categories)
+## Rule Catalog (37 Rules, 10 Categories)
 
 **Payment** (11 rules, C-001 to C-011): The core loss prevention rules. Cover refund abuse, structuring patterns (round amounts, split tenders), card velocity, manual entry spikes, and Square-computed signals (delay holds, partial authorizations, no-sale events).
 
@@ -41,11 +41,15 @@ Rules are classified by the data they need to evaluate:
 
 **Composite** (1 rule, C-901): SRA (Shrink Risk Assessment) threshold breach — a batch-computed metric that fires when estimated shrink exceeds a percentage of net sales. This is the only period-level rule.
 
+**Dispute** (3 rules, C-D01 to C-D03): Dispute lifecycle — created, lost, and dispute velocity per merchant/cardholder. Lost disputes are direct revenue loss; velocity surfaces patterns that precede friendly-fraud spikes.
+
+**Invoice** (3 rules, C-I01 to C-I03): Invoice exceptions — overdue, charge failed, and high-value invoice unpaid. Most relevant for service-business and B2B Square merchants.
+
 ## Severity Distribution
 
-5 critical rules: C-009 (Square delay hold), C-104 (after-hours drawer), C-204 (untendered order), C-301 (off-clock transaction), C-502 (post-void), C-602 (gift card drain). These always warrant immediate investigation.
+6 critical rules: C-009 (Square delay hold), C-104 (after-hours drawer), C-204 (untendered order), C-301 (off-clock transaction), C-502 (post-void), C-602 (gift card drain). These always warrant immediate investigation and auto-escalate from Chirp alert into a Fox case.
 
-16 high-severity rules form the bulk of daily detection. 8 medium-severity rules are pattern indicators that contribute to risk scores but may not individually warrant alerts at default thresholds.
+The remaining 31 rules split across high-, medium-, and low-severity tiers and contribute to risk scores. Exact severity-tier counts shift as severity tunings land; for the authoritative breakdown query `RULE_CATALOG` directly.
 
 ## Threshold System
 
@@ -70,7 +74,7 @@ The Alerts service scores each alert for business impact (dollar exposure, patte
 
 ## Sources
 
-- `Canary/canary/services/chirp/rule_definitions.py` — Complete rule catalog (29 rules, frozen dataclasses)
+- `Canary/canary/services/chirp/rule_definitions.py` — Complete rule catalog (37 rules, frozen dataclasses)
 - `Canary/docs/atlas/decision/fig-d01-chirp-rule-evaluation.md` — Full evaluation flowchart
 - `Canary/docs/atlas/decision/fig-d02-risk-score-classification.md` — Risk scoring
 - `Canary/docs/atlas/decision/fig-d03-fox-case-escalation.md` — Case escalation logic
