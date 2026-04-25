@@ -19,7 +19,7 @@ The architecture has four layers, each with distinct responsibilities:
 
 **Ingestion Layer** — TSP (Triple Subscriber Pipeline), Parsers (18 Square entity parsers), and Onboarding (OAuth flow, initial sync, baseline establishment). Square webhooks arrive HMAC-signed, get validated at the TSP gateway, and are published to Valkey Streams. Three independent consumer groups (Sub 1: hash & seal, Sub 2: parse & route, Sub 3: merkle batcher) read from `canary:events` without coordinating. Sub 2's output feeds a detection stream consumed by Sub 4 (Chirp evaluation).
 
-**Detection Layer** — Chirp (rule engine with 29 rules across 3 tiers), Alerts (lifecycle management with impact scoring), and Metrics (dimension loading and ETL). Chirp evaluates every parsed transaction against its rule catalog and produces alert dicts that flow into the alert lifecycle.
+**Detection Layer** — Chirp (rule engine with 37 rules across 3 tiers), Alerts (lifecycle management with impact scoring), and Metrics (dimension loading and ETL). Chirp evaluates every parsed transaction against its rule catalog and produces alert dicts that flow into the alert lifecycle.
 
 **Intelligence Layer** — Owl (retail intelligence engine), Fox (case management and evidence collection), Vault (merchant memory locker), and Condor (external intelligence gateway). Fox escalates clusters of related alerts into cases. Owl synthesizes merchant-level intelligence. Vault stores per-merchant configuration, history, and risk profiles.
 

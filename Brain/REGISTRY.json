@@ -1,7 +1,7 @@
 {
-  "generated": "2026-04-24T00:15:35.523716+00:00",
-  "article_count": 251,
-  "topic_count": 3459,
+  "generated": "2026-04-24T21:44:01.574871+00:00",
+  "article_count": 259,
+  "topic_count": 3586,
   "articles": [
     {
       "path": "Brain/wiki/501c-advocacy-arm.md",
@@ -103,6 +103,76 @@
         "verified",
         "what",
         "what's"
+      ],
+      "type": "wiki"
+    },
+    {
+      "path": "Brain/wiki/academic-frame-1999-hbs.md",
+      "title": "The Academic Frame — HBS 9-599-101 (Moon, 1999) and the Third Branch",
+      "summary": "> **Provenance boundary.** This memo cites founder-operator experience (AE.com, BroadVision at Pitney Bowes / Stamps.com) as operator-side evidence against Moon's 1999 frameworks. That autobiographica",
+      "tags": [
+        "third-branch",
+        "academic-frame",
+        "hbs-moon",
+        "personalization",
+        "relationship-marketing",
+        "broadvision-era",
+        "pwc",
+        "1999"
+      ],
+      "keywords": [
+        "*not*",
+        "1999",
+        "2026",
+        "academic",
+        "academic-frame",
+        "acquisition",
+        "actually",
+        "branch",
+        "broadvision-era",
+        "channels",
+        "coming",
+        "communications",
+        "corpus",
+        "customer",
+        "customization",
+        "customized",
+        "differentiation",
+        "executive",
+        "exists",
+        "explicitly",
+        "frame",
+        "hbs",
+        "hbs-moon",
+        "iii.",
+        "inherits",
+        "knowledge",
+        "learning",
+        "lock",
+        "mass",
+        "memo",
+        "moon",
+        "must",
+        "name",
+        "named",
+        "personalization",
+        "pricing",
+        "product",
+        "pwc",
+        "relationship",
+        "relationship-marketing",
+        "said",
+        "sits",
+        "specific",
+        "summary",
+        "that",
+        "third",
+        "third-branch",
+        "this",
+        "translations",
+        "trilogy",
+        "what",
+        "where"
       ],
       "type": "wiki"
     },
@@ -3256,6 +3326,39 @@
         "sources",
         "summary",
         "yogasix"
+      ],
+      "type": "wiki"
+    },
+    {
+      "path": "Brain/wiki/cio-leave-behind-wedge.md",
+      "title": "The CIO Leave-Behind Wedge",
+      "summary": "Consulting leaves behind a deck, a roadmap, and a change-management",
+      "tags": [
+        "positioning",
+        "cio",
+        "go-to-market",
+        "leave-behind",
+        "growdirect-positioning",
+        "big-4-wedge"
+      ],
+      "keywords": [
+        "behind",
+        "big-4-wedge",
+        "card",
+        "cio",
+        "go-to-market",
+        "growdirect-positioning",
+        "honest",
+        "leave",
+        "leave-behind",
+        "moves",
+        "offer",
+        "positioning",
+        "reframe",
+        "this",
+        "three",
+        "wedge",
+        "what"
       ],
       "type": "wiki"
     },
@@ -11731,6 +11834,177 @@
       "type": "wiki"
     },
     {
+      "path": "Brain/wiki/intactix-canonical-validation.md",
+      "title": "Intactix 2006 — Canonical Validation of RetailSpine",
+      "summary": "> **Provenance boundary.** This memo cites founder-operator experience at Fred Meyer / F&E as the validation basis for RetailSpine's canonical shape. That operator lineage is private provenance and **",
+      "tags": [
+        "retailspine",
+        "intactix",
+        "jda",
+        "canonical-validation",
+        "interface-design",
+        "ikb",
+        "planogram",
+        "assortment",
+        "fred-meyer",
+        "founder-operator-era"
+      ],
+      "keywords": [
+        "2006",
+        "assortment",
+        "authoring",
+        "canonical",
+        "canonical-validation",
+        "codify",
+        "control",
+        "data",
+        "deepening",
+        "defined",
+        "dimensional",
+        "drawn",
+        "every",
+        "executive",
+        "factual",
+        "file",
+        "five",
+        "founder-operator-era",
+        "fred-meyer",
+        "from",
+        "graph",
+        "guide",
+        "guides",
+        "hierarchy",
+        "identifier",
+        "ii.a",
+        "ii.b",
+        "ii.c",
+        "ii.d",
+        "ii.e",
+        "ii.f",
+        "ii.g",
+        "iii.",
+        "ikb",
+        "implications",
+        "intactix",
+        "integration",
+        "interface",
+        "interface-design",
+        "inventory",
+        "jda",
+        "lifecycle",
+        "master",
+        "module",
+        "next",
+        "noun",
+        "nouns",
+        "object",
+        "operator",
+        "performance",
+        "plane",
+        "planogram",
+        "retailspine",
+        "should",
+        "static",
+        "steps",
+        "summary",
+        "surface",
+        "term",
+        "that",
+        "validation",
+        "what"
+      ],
+      "type": "wiki"
+    },
+    {
+      "path": "Brain/wiki/methodology-ibm-it-architecture-options.md",
+      "title": "Methodology · IBM IT Architecture Options (Morrisons pattern)",
+      "summary": "The structural pattern IBM Business Consulting Services used in 2006 to deliver",
+      "tags": [
+        "methodology",
+        "consulting",
+        "ibm-bcs",
+        "it-architecture",
+        "preserved-ip"
+      ],
+      "keywords": [
+        "applies",
+        "architecture",
+        "consulting",
+        "durable",
+        "eight",
+        "frame",
+        "ibm",
+        "ibm-bcs",
+        "it-architecture",
+        "makes",
+        "matters",
+        "methodology",
+        "morrisons",
+        "option",
+        "options",
+        "pattern",
+        "preserved-ip",
+        "provenance",
+        "related",
+        "section",
+        "seven",
+        "side",
+        "skeleton",
+        "skill",
+        "slide",
+        "source",
+        "summary",
+        "this",
+        "what"
+      ],
+      "type": "wiki"
+    },
+    {
+      "path": "Brain/wiki/methodology-ibm-retail-diagnostic.md",
+      "title": "Methodology · IBM Retail Diagnostic (Clarks pattern)",
+      "summary": "The structural pattern IBM Business Consulting Services used in 2006 to deliver",
+      "tags": [
+        "methodology",
+        "consulting",
+        "ibm-bcs",
+        "retail-diagnostic",
+        "preserved-ip"
+      ],
+      "keywords": [
+        "applies",
+        "clarks",
+        "consulting",
+        "diagnostic",
+        "drill",
+        "durable",
+        "frame",
+        "ibm",
+        "ibm-bcs",
+        "makes",
+        "matrix",
+        "matters",
+        "methodology",
+        "opportunity",
+        "pattern",
+        "preserved-ip",
+        "priorities",
+        "provenance",
+        "related",
+        "repeating",
+        "retail",
+        "retail-diagnostic",
+        "roadmap",
+        "section",
+        "seven",
+        "skill",
+        "source",
+        "theme",
+        "this",
+        "what"
+      ],
+      "type": "wiki"
+    },
+    {
       "path": "Brain/wiki/peninsula-gyms-fitness.md",
       "title": "Gyms & Fitness — Palos Verdes Peninsula & South Bay",
       "summary": "The peninsula has a range of fitness options from luxury clubs to budget gyms, with boutique studios concentrated in the Peninsula Center / Deep Valley corridor in Rolling Hills Estates. Nearby Torran",
@@ -13383,6 +13657,239 @@
       "type": "wiki"
     },
     {
+      "path": "Brain/wiki/srd-shelf-edge-label.md",
+      "title": "The Shelf-Edge Label — Compile Target of the SRD Canonical",
+      "summary": "> **Provenance boundary.** This memo cites the founder-operator era F&E / Kipa SRD implementation and the CRDM / Sysrepublic relationship as ground-truth evidence. That lineage is private provenance a",
+      "tags": [
+        "srd",
+        "shelf-edge-label",
+        "sel",
+        "retailspine",
+        "canonical-validation",
+        "ordering-gate",
+        "third-branch",
+        "crdm",
+        "sysrepublic",
+        "f-and-e",
+        "kipa",
+        "ikb",
+        "rms",
+        "storeline"
+      ],
+      "keywords": [
+        "bearing",
+        "beyond",
+        "branch",
+        "canonical",
+        "canonical-validation",
+        "closes",
+        "code",
+        "codify",
+        "compile",
+        "crdm",
+        "data",
+        "edge",
+        "executive",
+        "f-and-e",
+        "iii.",
+        "ikb",
+        "kipa",
+        "label",
+        "load",
+        "loop",
+        "machine",
+        "matters",
+        "ordering-gate",
+        "path",
+        "reason",
+        "retailspine",
+        "rms",
+        "sel",
+        "shelf",
+        "shelf-edge-label",
+        "should",
+        "srd",
+        "state",
+        "storeline",
+        "summary",
+        "sysrepublic",
+        "target",
+        "third",
+        "third-branch",
+        "what"
+      ],
+      "type": "wiki"
+    },
+    {
+      "path": "Brain/wiki/tesco-technical-library.md",
+      "title": "Tesco Technical Library — The Third Canonical Layer at F&E",
+      "summary": "> **Provenance boundary.** This article carries founder-operator lineage from",
+      "tags": [
+        "ttl",
+        "creations",
+        "redsky-it",
+        "fresh-and-easy",
+        "tesco-us",
+        "private-label",
+        "product-specification",
+        "nutrition-facts",
+        "allergen",
+        "pack-copy",
+        "tpnb",
+        "upc",
+        "canonical-validation",
+        "third-canonical-layer",
+        "canary",
+        "smb-grocer",
+        "founder-operator-era",
+        "founder-authored"
+      ],
+      "keywords": [
+        "addition",
+        "allergen",
+        "bearing",
+        "canary",
+        "canonical",
+        "canonical-validation",
+        "canonicals",
+        "care",
+        "compile",
+        "contains",
+        "context",
+        "copy",
+        "creations",
+        "executive",
+        "founder",
+        "founder-authored",
+        "founder-operator-era",
+        "fresh-and-easy",
+        "header",
+        "hierarchy",
+        "identifier",
+        "iii.",
+        "layer",
+        "library",
+        "load",
+        "matrix",
+        "missing",
+        "next",
+        "nutrition",
+        "nutrition-facts",
+        "operator",
+        "pack",
+        "pack-copy",
+        "packaging",
+        "private-label",
+        "product",
+        "product-specification",
+        "proposed",
+        "recipe",
+        "redsky-it",
+        "retailspine",
+        "should",
+        "smb-grocer",
+        "specification",
+        "steps",
+        "storage",
+        "summary",
+        "technical",
+        "tesco",
+        "tesco-us",
+        "third",
+        "third-canonical-layer",
+        "three",
+        "tpnb",
+        "ttl",
+        "upc",
+        "v0.7",
+        "vii.",
+        "what"
+      ],
+      "type": "wiki"
+    },
+    {
+      "path": "Brain/wiki/third-branch.md",
+      "title": "The Third Branch",
+      "summary": "> **Provenance boundary.** This article carries the full 25-year operator lineage (AE.com → BroadVision/PB → Auto-ID → Intactix/Fred Meyer → F&E SRD → Tesco International → WMT International canonical",
+      "tags": [
+        "positioning",
+        "thesis",
+        "founder-narrative",
+        "retailspine",
+        "canary",
+        "bubble",
+        "sats",
+        "broadvision",
+        "pwc",
+        "auto-id",
+        "asset-protection",
+        "loss-prevention",
+        "ae-com",
+        "pitney-bowes",
+        "intactix",
+        "fred-meyer",
+        "hbs-moon"
+      ],
+      "keywords": [
+        "accounting",
+        "actually",
+        "ae-com",
+        "agents",
+        "asset",
+        "asset-protection",
+        "auto-id",
+        "branch",
+        "branches",
+        "broadvision",
+        "bubble",
+        "build",
+        "canary",
+        "commercial",
+        "consulting",
+        "executive",
+        "first",
+        "founder",
+        "founder-narrative",
+        "fred-meyer",
+        "growdirect",
+        "hbs-moon",
+        "iii.",
+        "intactix",
+        "labor",
+        "loss-prevention",
+        "note",
+        "paragraph",
+        "personalization",
+        "pitney-bowes",
+        "platforms",
+        "positioning",
+        "primitive",
+        "protection",
+        "pwc",
+        "resubstration",
+        "retailspine",
+        "right",
+        "sats",
+        "sidestep",
+        "spine",
+        "strategy",
+        "substrate",
+        "summary",
+        "their",
+        "thesis",
+        "third",
+        "three",
+        "version",
+        "vii.",
+        "viii.",
+        "wedge",
+        "what",
+        "words",
+        "wrong"
+      ],
+      "type": "wiki"
+    },
+    {
       "path": "Brain/wiki/wpbca-compliance-framework.md",
       "title": "Community of Abalone Cove (formerly WPBCA) Compliance Framework — MOC",
       "summary": "This is the map-of-content for Community of Abalone Cove operational governance under California Davis-Stirling and the Nonprofit Mutual Benefit Corporation Law. Community of Abalone Cove (formerly We",
@@ -14352,6 +14859,12 @@
         "title": "xBR Replacement — Sysrepublic Functional Requirements Response (June 2016)"
       }
     ],
+    "*not*": [
+      {
+        "path": "Brain/wiki/academic-frame-1999-hbs.md",
+        "title": "The Academic Frame — HBS 9-599-101 (Moon, 1999) and the Third Branch"
+      }
+    ],
     "*phillippe": [
       {
         "path": "Brain/wiki/cove-case-law-lessons.md",
@@ -14688,6 +15201,12 @@
         "title": "COAC: RPV-Resident SCOTUS Petitions (1994, 1990s, 2001)"
       }
     ],
+    "1999": [
+      {
+        "path": "Brain/wiki/academic-frame-1999-hbs.md",
+        "title": "The Academic Frame — HBS 9-599-101 (Moon, 1999) and the Third Branch"
+      }
+    ],
     "2.0h": [
       {
         "path": "Brain/wiki/growdirect-timelog-jess-companion-guides-feb24.md",
@@ -14753,6 +15272,10 @@
       }
     ],
     "2006": [
+      {
+        "path": "Brain/wiki/intactix-canonical-validation.md",
+        "title": "Intactix 2006 — Canonical Validation of RetailSpine"
+      },
       {
         "path": "Brain/wiki/secure-dv-private-label-2006.md",
         "title": "Private Label Food Setup — US Design Validation Workshop (Aug 2006)"
@@ -15020,6 +15543,10 @@
       {
         "path": "Brain/wiki/abalonecove-org.md",
         "title": "abalonecove.org"
+      },
+      {
+        "path": "Brain/wiki/academic-frame-1999-hbs.md",
+        "title": "The Academic Frame — HBS 9-599-101 (Moon, 1999) and the Third Branch"
       },
       {
         "path": "Brain/wiki/angel-content-archive-index.md",
@@ -15544,6 +16071,10 @@
     ],
     "academic": [
       {
+        "path": "Brain/wiki/academic-frame-1999-hbs.md",
+        "title": "The Academic Frame — HBS 9-599-101 (Moon, 1999) and the Third Branch"
+      },
+      {
         "path": "Brain/wiki/angel-peninsula-school-guide.md",
         "title": "Peninsula School Guide — Content Pool (Raw)"
       },
@@ -15558,6 +16089,12 @@
       {
         "path": "Brain/wiki/peninsula-youth-sports-summer.md",
         "title": "Youth Sports, Summer & Enrichment — Palos Verdes Peninsula"
+      }
+    ],
+    "academic-frame": [
+      {
+        "path": "Brain/wiki/academic-frame-1999-hbs.md",
+        "title": "The Academic Frame — HBS 9-599-101 (Moon, 1999) and the Third Branch"
       }
     ],
     "academies": [
@@ -15652,6 +16189,10 @@
       {
         "path": "Brain/wiki/growdirect-the-pool.md",
         "title": "The Inscription Pool"
+      },
+      {
+        "path": "Brain/wiki/third-branch.md",
+        "title": "The Third Branch"
       }
     ],
     "accounts": [
@@ -15701,6 +16242,10 @@
       }
     ],
     "acquisition": [
+      {
+        "path": "Brain/wiki/academic-frame-1999-hbs.md",
+        "title": "The Academic Frame — HBS 9-599-101 (Moon, 1999) and the Third Branch"
+      },
       {
         "path": "Brain/wiki/cove-lrpmp-shoreline-park-parcel.md",
         "title": "LRPMP — Shoreline Park Parcel (APN 7573-007-900)"
@@ -15864,6 +16409,10 @@
     ],
     "actually": [
       {
+        "path": "Brain/wiki/academic-frame-1999-hbs.md",
+        "title": "The Academic Frame — HBS 9-599-101 (Moon, 1999) and the Third Branch"
+      },
+      {
         "path": "Brain/wiki/angel-peninsula-school-guide.md",
         "title": "Peninsula School Guide — Content Pool (Raw)"
       },
@@ -15886,6 +16435,10 @@
       {
         "path": "Brain/wiki/secure-retail-career-archive.md",
         "title": "Pre-Secure Retail Career Archive"
+      },
+      {
+        "path": "Brain/wiki/third-branch.md",
+        "title": "The Third Branch"
       }
     ],
     "adapter": [
@@ -15910,6 +16463,12 @@
       {
         "path": "Brain/wiki/growdirect-research-reference-library.md",
         "title": "Canary / GrowDirect — Project Reference Library"
+      }
+    ],
+    "addition": [
+      {
+        "path": "Brain/wiki/tesco-technical-library.md",
+        "title": "Tesco Technical Library — The Third Canonical Layer at F&E"
       }
     ],
     "additional": [
@@ -16224,6 +16783,12 @@
         "title": "YIMBY Opposition Landscape — Adversarial Network and Neutralization"
       }
     ],
+    "ae-com": [
+      {
+        "path": "Brain/wiki/third-branch.md",
+        "title": "The Third Branch"
+      }
+    ],
     "aesthetic": [
       {
         "path": "Brain/wiki/cove-rpv-safety-element-2018.md",
@@ -16336,6 +16901,10 @@
       {
         "path": "Brain/wiki/growdirect-workflow.md",
         "title": "GrowDirect Workflow"
+      },
+      {
+        "path": "Brain/wiki/third-branch.md",
+        "title": "The Third Branch"
       }
     ],
     "aggregate": [
@@ -16472,6 +17041,12 @@
       {
         "path": "Brain/wiki/angel-peninsula-school-guide.md",
         "title": "Peninsula School Guide — Content Pool (Raw)"
+      }
+    ],
+    "allergen": [
+      {
+        "path": "Brain/wiki/tesco-technical-library.md",
+        "title": "Tesco Technical Library — The Third Canonical Layer at F&E"
       }
     ],
     "allocation": [
@@ -17298,6 +17873,14 @@
       {
         "path": "Brain/wiki/cove-case-law-lessons.md",
         "title": "Case-Law Synthesis — Rules That Bind WPBCA"
+      },
+      {
+        "path": "Brain/wiki/methodology-ibm-it-architecture-options.md",
+        "title": "Methodology · IBM IT Architecture Options (Morrisons pattern)"
+      },
+      {
+        "path": "Brain/wiki/methodology-ibm-retail-diagnostic.md",
+        "title": "Methodology · IBM Retail Diagnostic (Clarks pattern)"
       }
     ],
     "apply": [
@@ -17542,6 +18125,10 @@
       {
         "path": "Brain/wiki/growdirect-white-paper-quant-peer-review.md",
         "title": "**Executive Summary: The Quant’s Verdict**"
+      },
+      {
+        "path": "Brain/wiki/methodology-ibm-it-architecture-options.md",
+        "title": "Methodology · IBM IT Architecture Options (Morrisons pattern)"
       },
       {
         "path": "Brain/wiki/seacove-arc-module.md",
@@ -17920,6 +18507,16 @@
       {
         "path": "Brain/wiki/growdirect-working-papers.md",
         "title": "GrowDirect Working Papers — Structure"
+      },
+      {
+        "path": "Brain/wiki/third-branch.md",
+        "title": "The Third Branch"
+      }
+    ],
+    "asset-protection": [
+      {
+        "path": "Brain/wiki/third-branch.md",
+        "title": "The Third Branch"
       }
     ],
     "asset:": [
@@ -17978,6 +18575,12 @@
       {
         "path": "Brain/wiki/peninsula-youth-sports-summer.md",
         "title": "Youth Sports, Summer & Enrichment — Palos Verdes Peninsula"
+      }
+    ],
+    "assortment": [
+      {
+        "path": "Brain/wiki/intactix-canonical-validation.md",
+        "title": "Intactix 2006 — Canonical Validation of RetailSpine"
       }
     ],
     "assurance": [
@@ -18106,6 +18709,12 @@
         "title": "Bitcoin-Native Infrastructure for Retail Loss Prevention"
       }
     ],
+    "authoring": [
+      {
+        "path": "Brain/wiki/intactix-canonical-validation.md",
+        "title": "Intactix 2006 — Canonical Validation of RetailSpine"
+      }
+    ],
     "authority": [
       {
         "path": "Brain/wiki/angel-content-engine.md",
@@ -18136,6 +18745,12 @@
       {
         "path": "Brain/wiki/foundation-bylaws.md",
         "title": "Foundation Bylaws"
+      }
+    ],
+    "auto-id": [
+      {
+        "path": "Brain/wiki/third-branch.md",
+        "title": "The Third Branch"
       }
     ],
     "availability": [
@@ -18426,6 +19041,16 @@
         "title": "Ice Cream & Frozen Treats — Palos Verdes Peninsula & South Bay"
       }
     ],
+    "bearing": [
+      {
+        "path": "Brain/wiki/srd-shelf-edge-label.md",
+        "title": "The Shelf-Edge Label — Compile Target of the SRD Canonical"
+      },
+      {
+        "path": "Brain/wiki/tesco-technical-library.md",
+        "title": "Tesco Technical Library — The Third Canonical Layer at F&E"
+      }
+    ],
     "beat": [
       {
         "path": "Brain/wiki/growdirect-the-demo.md",
@@ -18509,6 +19134,10 @@
       }
     ],
     "behind": [
+      {
+        "path": "Brain/wiki/cio-leave-behind-wedge.md",
+        "title": "The CIO Leave-Behind Wedge"
+      },
       {
         "path": "Brain/wiki/foundation-founders-narrative.md",
         "title": "Founder's Narrative (Private)"
@@ -18626,12 +19255,22 @@
       {
         "path": "Brain/wiki/growdirect-manifesto.md",
         "title": "GrowDirect Manifesto"
+      },
+      {
+        "path": "Brain/wiki/srd-shelf-edge-label.md",
+        "title": "The Shelf-Edge Label — Compile Target of the SRD Canonical"
       }
     ],
     "bicycle": [
       {
         "path": "Brain/wiki/angel-riviera-village-raw.md",
         "title": "Riviera Village — Content Pool (Raw)"
+      }
+    ],
+    "big-4-wedge": [
+      {
+        "path": "Brain/wiki/cio-leave-behind-wedge.md",
+        "title": "The CIO Leave-Behind Wedge"
       }
     ],
     "bike": [
@@ -19048,14 +19687,32 @@
     ],
     "branch": [
       {
+        "path": "Brain/wiki/academic-frame-1999-hbs.md",
+        "title": "The Academic Frame — HBS 9-599-101 (Moon, 1999) and the Third Branch"
+      },
+      {
         "path": "Brain/wiki/growdirect-chirp-udq-strategy.md",
         "title": "Chirp UDQ + Lightning Metering — Branch Strategy"
+      },
+      {
+        "path": "Brain/wiki/srd-shelf-edge-label.md",
+        "title": "The Shelf-Edge Label — Compile Target of the SRD Canonical"
+      },
+      {
+        "path": "Brain/wiki/third-branch.md",
+        "title": "The Third Branch"
       }
     ],
     "branch?": [
       {
         "path": "Brain/wiki/growdirect-chirp-udq-strategy.md",
         "title": "Chirp UDQ + Lightning Metering — Branch Strategy"
+      }
+    ],
+    "branches": [
+      {
+        "path": "Brain/wiki/third-branch.md",
+        "title": "The Third Branch"
       }
     ],
     "branching": [
@@ -19174,6 +19831,18 @@
         "title": "Community of Abalone Cove (formerly WPBCA) — Third-Director Recruitment"
       }
     ],
+    "broadvision": [
+      {
+        "path": "Brain/wiki/third-branch.md",
+        "title": "The Third Branch"
+      }
+    ],
+    "broadvision-era": [
+      {
+        "path": "Brain/wiki/academic-frame-1999-hbs.md",
+        "title": "The Academic Frame — HBS 9-599-101 (Moon, 1999) and the Third Branch"
+      }
+    ],
     "broken": [
       {
         "path": "Brain/wiki/coac-bylaws-moc.md",
@@ -19214,6 +19883,12 @@
         "title": "The Genesis Pool"
       }
     ],
+    "bubble": [
+      {
+        "path": "Brain/wiki/third-branch.md",
+        "title": "The Third Branch"
+      }
+    ],
     "budget": [
       {
         "path": "Brain/wiki/growdirect-timelog-token-analysis-feb20.md",
@@ -19240,6 +19915,10 @@
       {
         "path": "Brain/wiki/growdirect-white-paper.md",
         "title": "**1. The $112 Billion Problem**"
+      },
+      {
+        "path": "Brain/wiki/third-branch.md",
+        "title": "The Third Branch"
       }
     ],
     "buildable\"": [
@@ -19764,6 +20443,14 @@
         "title": "xBR Replacement — Sysrepublic Functional Requirements Response (June 2016)"
       },
       {
+        "path": "Brain/wiki/tesco-technical-library.md",
+        "title": "Tesco Technical Library — The Third Canonical Layer at F&E"
+      },
+      {
+        "path": "Brain/wiki/third-branch.md",
+        "title": "The Third Branch"
+      },
+      {
         "path": "Brain/projects/Canary.md",
         "title": "Canary"
       }
@@ -19850,8 +20537,40 @@
         "title": "The Notarization Service"
       },
       {
+        "path": "Brain/wiki/intactix-canonical-validation.md",
+        "title": "Intactix 2006 — Canonical Validation of RetailSpine"
+      },
+      {
         "path": "Brain/wiki/retail-integration-spine.md",
         "title": "Retail Integration Spine — Canonical Interface Catalog"
+      },
+      {
+        "path": "Brain/wiki/srd-shelf-edge-label.md",
+        "title": "The Shelf-Edge Label — Compile Target of the SRD Canonical"
+      },
+      {
+        "path": "Brain/wiki/tesco-technical-library.md",
+        "title": "Tesco Technical Library — The Third Canonical Layer at F&E"
+      }
+    ],
+    "canonical-validation": [
+      {
+        "path": "Brain/wiki/intactix-canonical-validation.md",
+        "title": "Intactix 2006 — Canonical Validation of RetailSpine"
+      },
+      {
+        "path": "Brain/wiki/srd-shelf-edge-label.md",
+        "title": "The Shelf-Edge Label — Compile Target of the SRD Canonical"
+      },
+      {
+        "path": "Brain/wiki/tesco-technical-library.md",
+        "title": "Tesco Technical Library — The Third Canonical Layer at F&E"
+      }
+    ],
+    "canonicals": [
+      {
+        "path": "Brain/wiki/tesco-technical-library.md",
+        "title": "Tesco Technical Library — The Third Canonical Layer at F&E"
       }
     ],
     "canyon": [
@@ -19960,6 +20679,10 @@
         "title": "YogaSix Rolling Hills"
       },
       {
+        "path": "Brain/wiki/cio-leave-behind-wedge.md",
+        "title": "The CIO Leave-Behind Wedge"
+      },
+      {
         "path": "Brain/wiki/growdirect-white-paper-quant-peer-review.md",
         "title": "**Executive Summary: The Quant’s Verdict**"
       },
@@ -20000,6 +20723,12 @@
       {
         "path": "Brain/wiki/wpbca-compliance-framework.md",
         "title": "Community of Abalone Cove (formerly WPBCA) Compliance Framework — MOC"
+      }
+    ],
+    "care": [
+      {
+        "path": "Brain/wiki/tesco-technical-library.md",
+        "title": "Tesco Technical Library — The Third Canonical Layer at F&E"
       }
     ],
     "career": [
@@ -20562,6 +21291,10 @@
     ],
     "channels": [
       {
+        "path": "Brain/wiki/academic-frame-1999-hbs.md",
+        "title": "The Academic Frame — HBS 9-599-101 (Moon, 1999) and the Third Branch"
+      },
+      {
         "path": "Brain/wiki/growdirect-research-bitcoin-architecture.md",
         "title": "Bitcoin-Native Infrastructure for Retail Loss Prevention"
       },
@@ -20854,6 +21587,12 @@
         "title": "Foundation Time Logging Policy"
       }
     ],
+    "cio": [
+      {
+        "path": "Brain/wiki/cio-leave-behind-wedge.md",
+        "title": "The CIO Leave-Behind Wedge"
+      }
+    ],
     "citation": [
       {
         "path": "Brain/wiki/cove-endangered-species-constraints.md",
@@ -21086,6 +21825,12 @@
         "title": "xBR Replacement — Sysrepublic Functional Requirements Response (June 2016)"
       }
     ],
+    "clarks": [
+      {
+        "path": "Brain/wiki/methodology-ibm-retail-diagnostic.md",
+        "title": "Methodology · IBM Retail Diagnostic (Clarks pattern)"
+      }
+    ],
     "class": [
       {
         "path": "Brain/wiki/angel-pv-dr-south-raw.md",
@@ -21292,6 +22037,10 @@
       {
         "path": "Brain/wiki/growdirect-fee-window.md",
         "title": "The Fee Window"
+      },
+      {
+        "path": "Brain/wiki/srd-shelf-edge-label.md",
+        "title": "The Shelf-Edge Label — Compile Target of the SRD Canonical"
       }
     ],
     "closest": [
@@ -21702,6 +22451,10 @@
       {
         "path": "Brain/wiki/growdirect-workflow.md",
         "title": "GrowDirect Workflow"
+      },
+      {
+        "path": "Brain/wiki/srd-shelf-edge-label.md",
+        "title": "The Shelf-Edge Label — Compile Target of the SRD Canonical"
       }
     ],
     "codecomply.ai": [
@@ -21720,6 +22473,16 @@
       {
         "path": "Brain/wiki/cove-permit-tech-landscape.md",
         "title": "Permit-Tech Landscape — April 2026"
+      }
+    ],
+    "codify": [
+      {
+        "path": "Brain/wiki/intactix-canonical-validation.md",
+        "title": "Intactix 2006 — Canonical Validation of RetailSpine"
+      },
+      {
+        "path": "Brain/wiki/srd-shelf-edge-label.md",
+        "title": "The Shelf-Edge Label — Compile Target of the SRD Canonical"
       }
     ],
     "coexistence": [
@@ -21860,6 +22623,10 @@
     ],
     "coming": [
       {
+        "path": "Brain/wiki/academic-frame-1999-hbs.md",
+        "title": "The Academic Frame — HBS 9-599-101 (Moon, 1999) and the Third Branch"
+      },
+      {
         "path": "Brain/wiki/angel-brand-and-team.md",
         "title": "Angel Brand & Team — AREA at Compass"
       },
@@ -21908,6 +22675,10 @@
       {
         "path": "Brain/wiki/secure-retail-operating-model-2006.md",
         "title": "Retail Operating Model — 2006 (IBM engagement, UK global grocer)"
+      },
+      {
+        "path": "Brain/wiki/third-branch.md",
+        "title": "The Third Branch"
       }
     ],
     "commission": [
@@ -21966,6 +22737,12 @@
       {
         "path": "Brain/wiki/wpbca-ocean-path-easement.md",
         "title": "Community of Abalone Cove (formerly WPBCA) — Ocean Path Easements — Private Governance Matter"
+      }
+    ],
+    "communications": [
+      {
+        "path": "Brain/wiki/academic-frame-1999-hbs.md",
+        "title": "The Academic Frame — HBS 9-599-101 (Moon, 1999) and the Third Branch"
       }
     ],
     "communities": [
@@ -22280,6 +23057,16 @@
       {
         "path": "Brain/wiki/growdirect-the-market.md",
         "title": "The Market"
+      }
+    ],
+    "compile": [
+      {
+        "path": "Brain/wiki/srd-shelf-edge-label.md",
+        "title": "The Shelf-Edge Label — Compile Target of the SRD Canonical"
+      },
+      {
+        "path": "Brain/wiki/tesco-technical-library.md",
+        "title": "Tesco Technical Library — The Third Canonical Layer at F&E"
       }
     ],
     "complaint": [
@@ -22848,8 +23635,20 @@
     ],
     "consulting": [
       {
+        "path": "Brain/wiki/methodology-ibm-it-architecture-options.md",
+        "title": "Methodology · IBM IT Architecture Options (Morrisons pattern)"
+      },
+      {
+        "path": "Brain/wiki/methodology-ibm-retail-diagnostic.md",
+        "title": "Methodology · IBM Retail Diagnostic (Clarks pattern)"
+      },
+      {
         "path": "Brain/wiki/secure-retail-career-archive.md",
         "title": "Pre-Secure Retail Career Archive"
+      },
+      {
+        "path": "Brain/wiki/third-branch.md",
+        "title": "The Third Branch"
       }
     ],
     "consumed": [
@@ -22906,6 +23705,10 @@
       {
         "path": "Brain/wiki/claim-lot-h-scope-correction.md",
         "title": "Claim: Lot H Declaration Contains Only Racial Exclusionary Language"
+      },
+      {
+        "path": "Brain/wiki/tesco-technical-library.md",
+        "title": "Tesco Technical Library — The Third Canonical Layer at F&E"
       }
     ],
     "content": [
@@ -23228,6 +24031,10 @@
       {
         "path": "Brain/wiki/secure-property-services-operating-model-2002.md",
         "title": "Property & Building Services Operating Model — 2002 (UK dept-store + grocery group)"
+      },
+      {
+        "path": "Brain/wiki/tesco-technical-library.md",
+        "title": "Tesco Technical Library — The Third Canonical Layer at F&E"
       }
     ],
     "contextual": [
@@ -23324,6 +24131,10 @@
       {
         "path": "Brain/wiki/growdirect-research-cannabis-retail-risk.md",
         "title": "Cannabis Retail Risk Dictionary & Integration Spec"
+      },
+      {
+        "path": "Brain/wiki/intactix-canonical-validation.md",
+        "title": "Intactix 2006 — Canonical Validation of RetailSpine"
       }
     ],
     "controlling": [
@@ -23434,6 +24245,10 @@
       {
         "path": "Brain/wiki/growdirect-symbiosis-thesis.md",
         "title": "THE SYMBIOSIS THESIS: WAR CHEST SOURCE 55"
+      },
+      {
+        "path": "Brain/wiki/tesco-technical-library.md",
+        "title": "Tesco Technical Library — The Third Canonical Layer at F&E"
       }
     ],
     "copyright": [
@@ -23569,6 +24384,10 @@
       }
     ],
     "corpus": [
+      {
+        "path": "Brain/wiki/academic-frame-1999-hbs.md",
+        "title": "The Academic Frame — HBS 9-599-101 (Moon, 1999) and the Third Branch"
+      },
       {
         "path": "Brain/wiki/retail-integration-spine.md",
         "title": "Retail Integration Spine — Canonical Interface Catalog"
@@ -24276,6 +25095,10 @@
       {
         "path": "Brain/wiki/secure-platform-overview.md",
         "title": "Secure Platform Overview"
+      },
+      {
+        "path": "Brain/wiki/srd-shelf-edge-label.md",
+        "title": "The Shelf-Edge Label — Compile Target of the SRD Canonical"
       }
     ],
     "cream": [
@@ -24302,6 +25125,12 @@
       {
         "path": "Brain/wiki/growdirect-manifesto.md",
         "title": "GrowDirect Manifesto"
+      }
+    ],
+    "creations": [
+      {
+        "path": "Brain/wiki/tesco-technical-library.md",
+        "title": "Tesco Technical Library — The Third Canonical Layer at F&E"
       }
     ],
     "credentials": [
@@ -24728,6 +25557,10 @@
     ],
     "customer": [
       {
+        "path": "Brain/wiki/academic-frame-1999-hbs.md",
+        "title": "The Academic Frame — HBS 9-599-101 (Moon, 1999) and the Third Branch"
+      },
+      {
         "path": "Brain/wiki/growdirect-research-cannabis-retail-risk.md",
         "title": "Cannabis Retail Risk Dictionary & Integration Spec"
       },
@@ -24762,6 +25595,18 @@
       {
         "path": "Brain/wiki/growdirect-competitive-landscape.md",
         "title": "War Chest Source 56: Competitive Landscape"
+      }
+    ],
+    "customization": [
+      {
+        "path": "Brain/wiki/academic-frame-1999-hbs.md",
+        "title": "The Academic Frame — HBS 9-599-101 (Moon, 1999) and the Third Branch"
+      }
+    ],
+    "customized": [
+      {
+        "path": "Brain/wiki/academic-frame-1999-hbs.md",
+        "title": "The Academic Frame — HBS 9-599-101 (Moon, 1999) and the Third Branch"
       }
     ],
     "cycle": [
@@ -24936,6 +25781,10 @@
         "title": "**Executive Summary: The Quant’s Verdict**"
       },
       {
+        "path": "Brain/wiki/intactix-canonical-validation.md",
+        "title": "Intactix 2006 — Canonical Validation of RetailSpine"
+      },
+      {
         "path": "Brain/wiki/retail-spine-solex-crosswalk.md",
         "title": "Retail Spine — E-commerce Worked Example Crosswalk"
       },
@@ -24954,6 +25803,10 @@
       {
         "path": "Brain/wiki/secure-omnichannel.md",
         "title": "Secure Omnichannel"
+      },
+      {
+        "path": "Brain/wiki/srd-shelf-edge-label.md",
+        "title": "The Shelf-Edge Label — Compile Target of the SRD Canonical"
       }
     ],
     "data**": [
@@ -25594,6 +26447,12 @@
         "title": "The Protocol — DAO Governance, Treasury, and Self-Sustaining Economics"
       }
     ],
+    "deepening": [
+      {
+        "path": "Brain/wiki/intactix-canonical-validation.md",
+        "title": "Intactix 2006 — Canonical Validation of RetailSpine"
+      }
+    ],
     "default": [
       {
         "path": "Brain/wiki/angel-peninsula-school-guide.md",
@@ -25668,6 +26527,12 @@
       {
         "path": "Brain/wiki/secure-retail-career-archive.md",
         "title": "Pre-Secure Retail Career Archive"
+      }
+    ],
+    "defined": [
+      {
+        "path": "Brain/wiki/intactix-canonical-validation.md",
+        "title": "Intactix 2006 — Canonical Validation of RetailSpine"
       }
     ],
     "definition": [
@@ -26266,6 +27131,12 @@
         "title": "1976 Palos Verdes Properties Development Pressure — The 50-Year Pattern"
       }
     ],
+    "diagnostic": [
+      {
+        "path": "Brain/wiki/methodology-ibm-retail-diagnostic.md",
+        "title": "Methodology · IBM Retail Diagnostic (Clarks pattern)"
+      }
+    ],
     "diagram": [
       {
         "path": "Brain/wiki/secure-customer-order-management-flow-2017.md",
@@ -26316,6 +27187,12 @@
         "title": "Canary Press Release v2.0 — Syd Revision"
       }
     ],
+    "differentiation": [
+      {
+        "path": "Brain/wiki/academic-frame-1999-hbs.md",
+        "title": "The Academic Frame — HBS 9-599-101 (Moon, 1999) and the Third Branch"
+      }
+    ],
     "digital": [
       {
         "path": "Brain/wiki/angel-listing-process.md",
@@ -26342,6 +27219,10 @@
       {
         "path": "Brain/wiki/growdirect-white-paper-quant-peer-review.md",
         "title": "**Executive Summary: The Quant’s Verdict**"
+      },
+      {
+        "path": "Brain/wiki/intactix-canonical-validation.md",
+        "title": "Intactix 2006 — Canonical Validation of RetailSpine"
       }
     ],
     "dining": [
@@ -27102,6 +27983,12 @@
         "title": "Canary Alerts — A Plain-English Guide"
       }
     ],
+    "drawn": [
+      {
+        "path": "Brain/wiki/intactix-canonical-validation.md",
+        "title": "Intactix 2006 — Canonical Validation of RetailSpine"
+      }
+    ],
     "dream\"": [
       {
         "path": "Brain/wiki/cove-vanderlip-memoir.md",
@@ -27118,6 +28005,12 @@
       {
         "path": "Brain/wiki/canary-tsp-pipeline.md",
         "title": "Canary TSP Pipeline"
+      }
+    ],
+    "drill": [
+      {
+        "path": "Brain/wiki/methodology-ibm-retail-diagnostic.md",
+        "title": "Methodology · IBM Retail Diagnostic (Clarks pattern)"
       }
     ],
     "drive": [
@@ -27236,6 +28129,16 @@
       {
         "path": "Brain/wiki/angel-content-archive-index.md",
         "title": "Angel Content Archive — Index & Catalog Plan"
+      }
+    ],
+    "durable": [
+      {
+        "path": "Brain/wiki/methodology-ibm-it-architecture-options.md",
+        "title": "Methodology · IBM IT Architecture Options (Morrisons pattern)"
+      },
+      {
+        "path": "Brain/wiki/methodology-ibm-retail-diagnostic.md",
+        "title": "Methodology · IBM Retail Diagnostic (Clarks pattern)"
       }
     ],
     "duration": [
@@ -27500,6 +28403,10 @@
       {
         "path": "Brain/wiki/growdirect-press-release-syd-revision.md",
         "title": "Canary Press Release v2.0 — Syd Revision"
+      },
+      {
+        "path": "Brain/wiki/srd-shelf-edge-label.md",
+        "title": "The Shelf-Edge Label — Compile Target of the SRD Canonical"
       }
     ],
     "editorial": [
@@ -27604,6 +28511,12 @@
       {
         "path": "Brain/wiki/growdirect-the-vision.md",
         "title": "The Vision"
+      }
+    ],
+    "eight": [
+      {
+        "path": "Brain/wiki/methodology-ibm-it-architecture-options.md",
+        "title": "Methodology · IBM IT Architecture Options (Morrisons pattern)"
       }
     ],
     "eir": [
@@ -28530,6 +29443,10 @@
       {
         "path": "Brain/wiki/growdirect-production-chain.md",
         "title": "GrowDirect Production Chain — v0.1"
+      },
+      {
+        "path": "Brain/wiki/intactix-canonical-validation.md",
+        "title": "Intactix 2006 — Canonical Validation of RetailSpine"
       }
     ],
     "everything": [
@@ -28688,6 +29605,10 @@
     ],
     "executive": [
       {
+        "path": "Brain/wiki/academic-frame-1999-hbs.md",
+        "title": "The Academic Frame — HBS 9-599-101 (Moon, 1999) and the Third Branch"
+      },
+      {
         "path": "Brain/wiki/growdirect-research-cannabis-retail-risk.md",
         "title": "Cannabis Retail Risk Dictionary & Integration Spec"
       },
@@ -28706,6 +29627,22 @@
       {
         "path": "Brain/wiki/growdirect-white-paper-micropayment.md",
         "title": "Executive Summary"
+      },
+      {
+        "path": "Brain/wiki/intactix-canonical-validation.md",
+        "title": "Intactix 2006 — Canonical Validation of RetailSpine"
+      },
+      {
+        "path": "Brain/wiki/srd-shelf-edge-label.md",
+        "title": "The Shelf-Edge Label — Compile Target of the SRD Canonical"
+      },
+      {
+        "path": "Brain/wiki/tesco-technical-library.md",
+        "title": "Tesco Technical Library — The Third Canonical Layer at F&E"
+      },
+      {
+        "path": "Brain/wiki/third-branch.md",
+        "title": "The Third Branch"
       }
     ],
     "exhibit": [
@@ -28751,6 +29688,10 @@
       }
     ],
     "exists": [
+      {
+        "path": "Brain/wiki/academic-frame-1999-hbs.md",
+        "title": "The Academic Frame — HBS 9-599-101 (Moon, 1999) and the Third Branch"
+      },
       {
         "path": "Brain/wiki/foundation-founders-narrative.md",
         "title": "Founder's Narrative (Private)"
@@ -28816,6 +29757,12 @@
       {
         "path": "Brain/wiki/foundation-bylaws.md",
         "title": "Foundation Bylaws"
+      }
+    ],
+    "explicitly": [
+      {
+        "path": "Brain/wiki/academic-frame-1999-hbs.md",
+        "title": "The Academic Frame — HBS 9-599-101 (Moon, 1999) and the Third Branch"
       }
     ],
     "export": [
@@ -28922,6 +29869,12 @@
       {
         "path": "Brain/wiki/secure-eagle-eye-fnr-2018.md",
         "title": "Eagle Eye — Functional & Non-Functional Requirements v4.0 (Feb 2018, NS Comments)"
+      }
+    ],
+    "f-and-e": [
+      {
+        "path": "Brain/wiki/srd-shelf-edge-label.md",
+        "title": "The Shelf-Edge Label — Compile Target of the SRD Canonical"
       }
     ],
     "f2pool": [
@@ -29154,6 +30107,12 @@
       {
         "path": "Brain/wiki/cove-baughey-1947.md",
         "title": "Baughey Article — Rancho Palos Verdes 1784–1947"
+      }
+    ],
+    "factual": [
+      {
+        "path": "Brain/wiki/intactix-canonical-validation.md",
+        "title": "Intactix 2006 — Canonical Validation of RetailSpine"
       }
     ],
     "failed": [
@@ -29546,6 +30505,10 @@
         "title": "GrowDirect Working Papers — Structure"
       },
       {
+        "path": "Brain/wiki/intactix-canonical-validation.md",
+        "title": "Intactix 2006 — Canonical Validation of RetailSpine"
+      },
+      {
         "path": "Brain/wiki/seacove-arc-module.md",
         "title": "Seacove → Cove ARC Module"
       }
@@ -29888,6 +30851,10 @@
       {
         "path": "Brain/wiki/growdirect-white-paper-competitive-landscape.md",
         "title": "Executive Summary"
+      },
+      {
+        "path": "Brain/wiki/third-branch.md",
+        "title": "The Third Branch"
       }
     ],
     "first-mover": [
@@ -29948,6 +30915,10 @@
       {
         "path": "Brain/wiki/growdirect-the-patent.md",
         "title": "The Patent"
+      },
+      {
+        "path": "Brain/wiki/intactix-canonical-validation.md",
+        "title": "Intactix 2006 — Canonical Validation of RetailSpine"
       },
       {
         "path": "Brain/wiki/retail-integration-spine.md",
@@ -30406,6 +31377,14 @@
         "title": "The Team"
       },
       {
+        "path": "Brain/wiki/tesco-technical-library.md",
+        "title": "Tesco Technical Library — The Third Canonical Layer at F&E"
+      },
+      {
+        "path": "Brain/wiki/third-branch.md",
+        "title": "The Third Branch"
+      },
+      {
         "path": "Brain/wiki/wpbca-ocean-path-easement.md",
         "title": "Community of Abalone Cove (formerly WPBCA) — Ocean Path Easements — Private Governance Matter"
       }
@@ -30430,6 +31409,28 @@
       {
         "path": "Brain/wiki/growdirect-manifesto.md",
         "title": "GrowDirect Manifesto"
+      }
+    ],
+    "founder-authored": [
+      {
+        "path": "Brain/wiki/tesco-technical-library.md",
+        "title": "Tesco Technical Library — The Third Canonical Layer at F&E"
+      }
+    ],
+    "founder-narrative": [
+      {
+        "path": "Brain/wiki/third-branch.md",
+        "title": "The Third Branch"
+      }
+    ],
+    "founder-operator-era": [
+      {
+        "path": "Brain/wiki/intactix-canonical-validation.md",
+        "title": "Intactix 2006 — Canonical Validation of RetailSpine"
+      },
+      {
+        "path": "Brain/wiki/tesco-technical-library.md",
+        "title": "Tesco Technical Library — The Third Canonical Layer at F&E"
       }
     ],
     "founder-story": [
@@ -30546,6 +31547,10 @@
     ],
     "frame": [
       {
+        "path": "Brain/wiki/academic-frame-1999-hbs.md",
+        "title": "The Academic Frame — HBS 9-599-101 (Moon, 1999) and the Third Branch"
+      },
+      {
         "path": "Brain/wiki/angel-peninsula-school-guide.md",
         "title": "Peninsula School Guide — Content Pool (Raw)"
       },
@@ -30556,6 +31561,14 @@
       {
         "path": "Brain/wiki/growdirect-dao-treasury-protocol.md",
         "title": "The Protocol — DAO Governance, Treasury, and Self-Sustaining Economics"
+      },
+      {
+        "path": "Brain/wiki/methodology-ibm-it-architecture-options.md",
+        "title": "Methodology · IBM IT Architecture Options (Morrisons pattern)"
+      },
+      {
+        "path": "Brain/wiki/methodology-ibm-retail-diagnostic.md",
+        "title": "Methodology · IBM Retail Diagnostic (Clarks pattern)"
       }
     ],
     "frames": [
@@ -30682,6 +31695,22 @@
       {
         "path": "Brain/wiki/growdirect-white-paper-micropayment.md",
         "title": "Executive Summary"
+      }
+    ],
+    "fred-meyer": [
+      {
+        "path": "Brain/wiki/intactix-canonical-validation.md",
+        "title": "Intactix 2006 — Canonical Validation of RetailSpine"
+      },
+      {
+        "path": "Brain/wiki/third-branch.md",
+        "title": "The Third Branch"
+      }
+    ],
+    "fresh-and-easy": [
+      {
+        "path": "Brain/wiki/tesco-technical-library.md",
+        "title": "Tesco Technical Library — The Third Canonical Layer at F&E"
       }
     ],
     "freshness": [
@@ -30864,6 +31893,10 @@
       {
         "path": "Brain/wiki/growdirect-the-network.md",
         "title": "The Network Effect"
+      },
+      {
+        "path": "Brain/wiki/intactix-canonical-validation.md",
+        "title": "Intactix 2006 — Canonical Validation of RetailSpine"
       },
       {
         "path": "Brain/wiki/secure-customer-order-management-flow-2017.md",
@@ -31416,6 +32449,10 @@
       {
         "path": "Brain/wiki/canary-sales-strategy.md",
         "title": "Canary Sales Strategy"
+      },
+      {
+        "path": "Brain/wiki/cio-leave-behind-wedge.md",
+        "title": "The CIO Leave-Behind Wedge"
       }
     ],
     "goal": [
@@ -31710,6 +32747,12 @@
       {
         "path": "Brain/wiki/cove-lrpmp.md",
         "title": "RPV Long-Range Property Management Plan (LRPMP)"
+      }
+    ],
+    "graph": [
+      {
+        "path": "Brain/wiki/intactix-canonical-validation.md",
+        "title": "Intactix 2006 — Canonical Validation of RetailSpine"
       }
     ],
     "grassroots": [
@@ -32134,8 +33177,18 @@
         "title": "GrowDirect Working Papers — Structure"
       },
       {
+        "path": "Brain/wiki/third-branch.md",
+        "title": "The Third Branch"
+      },
+      {
         "path": "Brain/projects/GrowDirect.md",
         "title": "GrowDirect"
+      }
+    ],
+    "growdirect-positioning": [
+      {
+        "path": "Brain/wiki/cio-leave-behind-wedge.md",
+        "title": "The CIO Leave-Behind Wedge"
       }
     ],
     "growdirect.io": [
@@ -32214,6 +33267,10 @@
         "title": "Session — Jess: Companion Guides v1.0 (Feb 24, 2026)"
       },
       {
+        "path": "Brain/wiki/intactix-canonical-validation.md",
+        "title": "Intactix 2006 — Canonical Validation of RetailSpine"
+      },
+      {
         "path": "Brain/wiki/reference-oracle-project-costing.md",
         "title": "Oracle Project Costing — User Guide, Release 11i (May 2005)"
       },
@@ -32226,6 +33283,10 @@
       {
         "path": "Brain/wiki/growdirect-timelog-jess-companion-guides-feb24.md",
         "title": "Session — Jess: Companion Guides v1.0 (Feb 24, 2026)"
+      },
+      {
+        "path": "Brain/wiki/intactix-canonical-validation.md",
+        "title": "Intactix 2006 — Canonical Validation of RetailSpine"
       }
     ],
     "gyms": [
@@ -32456,10 +33517,32 @@
         "title": "Zone 2 Geotechnical Study (LGC Valley, 2011)"
       }
     ],
+    "hbs": [
+      {
+        "path": "Brain/wiki/academic-frame-1999-hbs.md",
+        "title": "The Academic Frame — HBS 9-599-101 (Moon, 1999) and the Third Branch"
+      }
+    ],
+    "hbs-moon": [
+      {
+        "path": "Brain/wiki/academic-frame-1999-hbs.md",
+        "title": "The Academic Frame — HBS 9-599-101 (Moon, 1999) and the Third Branch"
+      },
+      {
+        "path": "Brain/wiki/third-branch.md",
+        "title": "The Third Branch"
+      }
+    ],
     "hcp": [
       {
         "path": "Brain/wiki/cove-endangered-species-constraints.md",
         "title": "Endangered Species Constraints — Species → Trigger → Project Map"
+      }
+    ],
+    "header": [
+      {
+        "path": "Brain/wiki/tesco-technical-library.md",
+        "title": "Tesco Technical Library — The Third Canonical Layer at F&E"
       }
     ],
     "health": [
@@ -32554,6 +33637,14 @@
       {
         "path": "Brain/wiki/growdirect-symbiosis-thesis.md",
         "title": "THE SYMBIOSIS THESIS: WAR CHEST SOURCE 55"
+      },
+      {
+        "path": "Brain/wiki/intactix-canonical-validation.md",
+        "title": "Intactix 2006 — Canonical Validation of RetailSpine"
+      },
+      {
+        "path": "Brain/wiki/tesco-technical-library.md",
+        "title": "Tesco Technical Library — The Third Canonical Layer at F&E"
       }
     ],
     "hierarchy:": [
@@ -32798,6 +33889,10 @@
     ],
     "honest": [
       {
+        "path": "Brain/wiki/cio-leave-behind-wedge.md",
+        "title": "The CIO Leave-Behind Wedge"
+      },
+      {
         "path": "Brain/wiki/growdirect-attack-plan.md",
         "title": "Canary LP — Attack Plan v3.0"
       }
@@ -33010,6 +34105,24 @@
       {
         "path": "Brain/wiki/growdirect-founders-case.md",
         "title": "The Founder's Case"
+      },
+      {
+        "path": "Brain/wiki/methodology-ibm-it-architecture-options.md",
+        "title": "Methodology · IBM IT Architecture Options (Morrisons pattern)"
+      },
+      {
+        "path": "Brain/wiki/methodology-ibm-retail-diagnostic.md",
+        "title": "Methodology · IBM Retail Diagnostic (Clarks pattern)"
+      }
+    ],
+    "ibm-bcs": [
+      {
+        "path": "Brain/wiki/methodology-ibm-it-architecture-options.md",
+        "title": "Methodology · IBM IT Architecture Options (Morrisons pattern)"
+      },
+      {
+        "path": "Brain/wiki/methodology-ibm-retail-diagnostic.md",
+        "title": "Methodology · IBM Retail Diagnostic (Clarks pattern)"
       }
     ],
     "ibm-consulting": [
@@ -33092,6 +34205,14 @@
       {
         "path": "Brain/wiki/growdirect-white-paper.md",
         "title": "**1. The $112 Billion Problem**"
+      },
+      {
+        "path": "Brain/wiki/intactix-canonical-validation.md",
+        "title": "Intactix 2006 — Canonical Validation of RetailSpine"
+      },
+      {
+        "path": "Brain/wiki/tesco-technical-library.md",
+        "title": "Tesco Technical Library — The Third Canonical Layer at F&E"
       }
     ],
     "identity": [
@@ -33210,6 +34331,70 @@
         "title": "GrowDirect Manifesto"
       }
     ],
+    "ii.a": [
+      {
+        "path": "Brain/wiki/intactix-canonical-validation.md",
+        "title": "Intactix 2006 — Canonical Validation of RetailSpine"
+      }
+    ],
+    "ii.b": [
+      {
+        "path": "Brain/wiki/intactix-canonical-validation.md",
+        "title": "Intactix 2006 — Canonical Validation of RetailSpine"
+      }
+    ],
+    "ii.c": [
+      {
+        "path": "Brain/wiki/intactix-canonical-validation.md",
+        "title": "Intactix 2006 — Canonical Validation of RetailSpine"
+      }
+    ],
+    "ii.d": [
+      {
+        "path": "Brain/wiki/intactix-canonical-validation.md",
+        "title": "Intactix 2006 — Canonical Validation of RetailSpine"
+      }
+    ],
+    "ii.e": [
+      {
+        "path": "Brain/wiki/intactix-canonical-validation.md",
+        "title": "Intactix 2006 — Canonical Validation of RetailSpine"
+      }
+    ],
+    "ii.f": [
+      {
+        "path": "Brain/wiki/intactix-canonical-validation.md",
+        "title": "Intactix 2006 — Canonical Validation of RetailSpine"
+      }
+    ],
+    "ii.g": [
+      {
+        "path": "Brain/wiki/intactix-canonical-validation.md",
+        "title": "Intactix 2006 — Canonical Validation of RetailSpine"
+      }
+    ],
+    "iii.": [
+      {
+        "path": "Brain/wiki/academic-frame-1999-hbs.md",
+        "title": "The Academic Frame — HBS 9-599-101 (Moon, 1999) and the Third Branch"
+      },
+      {
+        "path": "Brain/wiki/intactix-canonical-validation.md",
+        "title": "Intactix 2006 — Canonical Validation of RetailSpine"
+      },
+      {
+        "path": "Brain/wiki/srd-shelf-edge-label.md",
+        "title": "The Shelf-Edge Label — Compile Target of the SRD Canonical"
+      },
+      {
+        "path": "Brain/wiki/tesco-technical-library.md",
+        "title": "Tesco Technical Library — The Third Canonical Layer at F&E"
+      },
+      {
+        "path": "Brain/wiki/third-branch.md",
+        "title": "The Third Branch"
+      }
+    ],
     "iii.1": [
       {
         "path": "Brain/wiki/growdirect-manifesto.md",
@@ -33254,6 +34439,16 @@
       {
         "path": "Brain/wiki/growdirect-research-bitcoin-architecture.md",
         "title": "Bitcoin-Native Infrastructure for Retail Loss Prevention"
+      }
+    ],
+    "ikb": [
+      {
+        "path": "Brain/wiki/intactix-canonical-validation.md",
+        "title": "Intactix 2006 — Canonical Validation of RetailSpine"
+      },
+      {
+        "path": "Brain/wiki/srd-shelf-edge-label.md",
+        "title": "The Shelf-Edge Label — Compile Target of the SRD Canonical"
       }
     ],
     "image": [
@@ -33412,6 +34607,10 @@
       {
         "path": "Brain/wiki/cove-rpv-safety-element-2018.md",
         "title": "COAC: RPV 2018 Safety Element — Annotated for Cove"
+      },
+      {
+        "path": "Brain/wiki/intactix-canonical-validation.md",
+        "title": "Intactix 2006 — Canonical Validation of RetailSpine"
       }
     ],
     "import": [
@@ -33676,6 +34875,12 @@
         "title": "Declaration 100 Article II §5 — Self-Executing Reactivation Mechanism"
       }
     ],
+    "inherits": [
+      {
+        "path": "Brain/wiki/academic-frame-1999-hbs.md",
+        "title": "The Academic Frame — HBS 9-599-101 (Moon, 1999) and the Third Branch"
+      }
+    ],
     "initial": [
       {
         "path": "Brain/wiki/coac-aclad-partnership.md",
@@ -33896,6 +35101,16 @@
         "title": "Foundation Bylaws"
       }
     ],
+    "intactix": [
+      {
+        "path": "Brain/wiki/intactix-canonical-validation.md",
+        "title": "Intactix 2006 — Canonical Validation of RetailSpine"
+      },
+      {
+        "path": "Brain/wiki/third-branch.md",
+        "title": "The Third Branch"
+      }
+    ],
     "intake": [
       {
         "path": "Brain/wiki/document-management.md",
@@ -33976,6 +35191,10 @@
       {
         "path": "Brain/wiki/growdirect-timelog-jeremy-heartbeat-integration-feb27.md",
         "title": "Session — Jeremy: Heartbeat Integration Testing (Feb 27, 2026)"
+      },
+      {
+        "path": "Brain/wiki/intactix-canonical-validation.md",
+        "title": "Intactix 2006 — Canonical Validation of RetailSpine"
       },
       {
         "path": "Brain/wiki/retail-integration-spine.md",
@@ -34118,6 +35337,10 @@
         "title": "The Chirp"
       },
       {
+        "path": "Brain/wiki/intactix-canonical-validation.md",
+        "title": "Intactix 2006 — Canonical Validation of RetailSpine"
+      },
+      {
         "path": "Brain/wiki/retail-integration-spine.md",
         "title": "Retail Integration Spine — Canonical Interface Catalog"
       }
@@ -34126,6 +35349,12 @@
       {
         "path": "Brain/wiki/retail-integration-spine.md",
         "title": "Retail Integration Spine — Canonical Interface Catalog"
+      }
+    ],
+    "interface-design": [
+      {
+        "path": "Brain/wiki/intactix-canonical-validation.md",
+        "title": "Intactix 2006 — Canonical Validation of RetailSpine"
       }
     ],
     "interfaces": [
@@ -34262,6 +35491,10 @@
       {
         "path": "Brain/wiki/growdirect-timelog-week-feb16-24.md",
         "title": "Weekly Roll-Up — February 16–24, 2026"
+      },
+      {
+        "path": "Brain/wiki/intactix-canonical-validation.md",
+        "title": "Intactix 2006 — Canonical Validation of RetailSpine"
       },
       {
         "path": "Brain/wiki/secure-5-inventory.md",
@@ -34504,6 +35737,12 @@
         "title": "Reference — HOA Disclosure Documents (Sample, 2018)"
       }
     ],
+    "it-architecture": [
+      {
+        "path": "Brain/wiki/methodology-ibm-it-architecture-options.md",
+        "title": "Methodology · IBM IT Architecture Options (Morrisons pattern)"
+      }
+    ],
     "items": [
       {
         "path": "Brain/wiki/growdirect-attack-plan.md",
@@ -34596,6 +35835,12 @@
       {
         "path": "Brain/wiki/growdirect-glossary.md",
         "title": "Glossary"
+      }
+    ],
+    "jda": [
+      {
+        "path": "Brain/wiki/intactix-canonical-validation.md",
+        "title": "Intactix 2006 — Canonical Validation of RetailSpine"
       }
     ],
     "jeffe": [
@@ -34924,6 +36169,12 @@
         "title": "PV High School Drama — \"Best Entertainment Value in LA\""
       }
     ],
+    "kipa": [
+      {
+        "path": "Brain/wiki/srd-shelf-edge-label.md",
+        "title": "The Shelf-Edge Label — Compile Target of the SRD Canonical"
+      }
+    ],
     "know": [
       {
         "path": "Brain/wiki/angel-peninsula-school-guide.md",
@@ -34935,6 +36186,10 @@
       }
     ],
     "knowledge": [
+      {
+        "path": "Brain/wiki/academic-frame-1999-hbs.md",
+        "title": "The Academic Frame — HBS 9-599-101 (Moon, 1999) and the Third Branch"
+      },
       {
         "path": "Brain/wiki/angel-content-engine.md",
         "title": "Angel Content Engine"
@@ -35054,6 +36309,16 @@
       {
         "path": "Brain/wiki/secure-dv-private-label-2006.md",
         "title": "Private Label Food Setup — US Design Validation Workshop (Aug 2006)"
+      },
+      {
+        "path": "Brain/wiki/srd-shelf-edge-label.md",
+        "title": "The Shelf-Edge Label — Compile Target of the SRD Canonical"
+      }
+    ],
+    "labor": [
+      {
+        "path": "Brain/wiki/third-branch.md",
+        "title": "The Third Branch"
       }
     ],
     "lacrosse": [
@@ -35442,6 +36707,10 @@
       {
         "path": "Brain/wiki/growdirect-working-papers.md",
         "title": "GrowDirect Working Papers — Structure"
+      },
+      {
+        "path": "Brain/wiki/tesco-technical-library.md",
+        "title": "Tesco Technical Library — The Third Canonical Layer at F&E"
       }
     ],
     "layers": [
@@ -35524,6 +36793,10 @@
     ],
     "learning": [
       {
+        "path": "Brain/wiki/academic-frame-1999-hbs.md",
+        "title": "The Academic Frame — HBS 9-599-101 (Moon, 1999) and the Third Branch"
+      },
+      {
         "path": "Brain/wiki/angel-peninsula-school-guide.md",
         "title": "Peninsula School Guide — Content Pool (Raw)"
       },
@@ -35542,6 +36815,18 @@
       {
         "path": "Brain/wiki/cove-case-law-lessons.md",
         "title": "Case-Law Synthesis — Rules That Bind WPBCA"
+      }
+    ],
+    "leave": [
+      {
+        "path": "Brain/wiki/cio-leave-behind-wedge.md",
+        "title": "The CIO Leave-Behind Wedge"
+      }
+    ],
+    "leave-behind": [
+      {
+        "path": "Brain/wiki/cio-leave-behind-wedge.md",
+        "title": "The CIO Leave-Behind Wedge"
       }
     ],
     "leaving": [
@@ -35760,6 +37045,10 @@
       {
         "path": "Brain/wiki/seacove-arc-module.md",
         "title": "Seacove → Cove ARC Module"
+      },
+      {
+        "path": "Brain/wiki/tesco-technical-library.md",
+        "title": "Tesco Technical Library — The Third Canonical Layer at F&E"
       }
     ],
     "licensing": [
@@ -35800,6 +37089,10 @@
       {
         "path": "Brain/wiki/growdirect-workflow.md",
         "title": "GrowDirect Workflow"
+      },
+      {
+        "path": "Brain/wiki/intactix-canonical-validation.md",
+        "title": "Intactix 2006 — Canonical Validation of RetailSpine"
       }
     ],
     "lifeguard": [
@@ -36328,6 +37621,16 @@
         "title": "Bitcoin-Native Infrastructure for Retail Loss Prevention"
       }
     ],
+    "load": [
+      {
+        "path": "Brain/wiki/srd-shelf-edge-label.md",
+        "title": "The Shelf-Edge Label — Compile Target of the SRD Canonical"
+      },
+      {
+        "path": "Brain/wiki/tesco-technical-library.md",
+        "title": "Tesco Technical Library — The Third Canonical Layer at F&E"
+      }
+    ],
     "local": [
       {
         "path": "Brain/wiki/angel-peninsula-golf-guide.md",
@@ -36369,6 +37672,10 @@
       }
     ],
     "lock": [
+      {
+        "path": "Brain/wiki/academic-frame-1999-hbs.md",
+        "title": "The Academic Frame — HBS 9-599-101 (Moon, 1999) and the Third Branch"
+      },
       {
         "path": "Brain/wiki/coac-restated-declaration-blitz-plan.md",
         "title": "Restated Declaration — Blitz Execution Plan"
@@ -36488,6 +37795,10 @@
       {
         "path": "Brain/wiki/growdirect-the-glog.md",
         "title": "elJeffe"
+      },
+      {
+        "path": "Brain/wiki/srd-shelf-edge-label.md",
+        "title": "The Shelf-Edge Label — Compile Target of the SRD Canonical"
       }
     ],
     "lorna": [
@@ -36558,6 +37869,10 @@
       {
         "path": "Brain/wiki/secure-platform-overview.md",
         "title": "Secure Platform Overview"
+      },
+      {
+        "path": "Brain/wiki/third-branch.md",
+        "title": "The Third Branch"
       }
     ],
     "lot": [
@@ -36698,6 +38013,10 @@
       {
         "path": "Brain/wiki/growdirect-white-paper-quant-peer-review.md",
         "title": "**Executive Summary: The Quant’s Verdict**"
+      },
+      {
+        "path": "Brain/wiki/srd-shelf-edge-label.md",
+        "title": "The Shelf-Edge Label — Compile Target of the SRD Canonical"
       }
     ],
     "made": [
@@ -36752,6 +38071,14 @@
       {
         "path": "Brain/wiki/angel-architecture.md",
         "title": "Angel Architecture"
+      },
+      {
+        "path": "Brain/wiki/methodology-ibm-it-architecture-options.md",
+        "title": "Methodology · IBM IT Architecture Options (Morrisons pattern)"
+      },
+      {
+        "path": "Brain/wiki/methodology-ibm-retail-diagnostic.md",
+        "title": "Methodology · IBM Retail Diagnostic (Clarks pattern)"
       }
     ],
     "malaga": [
@@ -37164,6 +38491,10 @@
     ],
     "mass": [
       {
+        "path": "Brain/wiki/academic-frame-1999-hbs.md",
+        "title": "The Academic Frame — HBS 9-599-101 (Moon, 1999) and the Third Branch"
+      },
+      {
         "path": "Brain/wiki/coac-pv-endangered-species.md",
         "title": "COAC: Palos Verdes Endangered Species & Habitat — Scientific Foundation"
       }
@@ -37172,6 +38503,10 @@
       {
         "path": "Brain/wiki/cove-case-law-lessons.md",
         "title": "Case-Law Synthesis — Rules That Bind WPBCA"
+      },
+      {
+        "path": "Brain/wiki/intactix-canonical-validation.md",
+        "title": "Intactix 2006 — Canonical Validation of RetailSpine"
       }
     ],
     "master-source": [
@@ -37228,8 +38563,16 @@
         "title": "Endangered Species Constraints — Species → Trigger → Project Map"
       },
       {
+        "path": "Brain/wiki/methodology-ibm-retail-diagnostic.md",
+        "title": "Methodology · IBM Retail Diagnostic (Clarks pattern)"
+      },
+      {
         "path": "Brain/wiki/retail-spine-solex-crosswalk.md",
         "title": "Retail Spine — E-commerce Worked Example Crosswalk"
+      },
+      {
+        "path": "Brain/wiki/tesco-technical-library.md",
+        "title": "Tesco Technical Library — The Third Canonical Layer at F&E"
       }
     ],
     "matter": [
@@ -37340,6 +38683,14 @@
         "title": "The Protocol Pipe"
       },
       {
+        "path": "Brain/wiki/methodology-ibm-it-architecture-options.md",
+        "title": "Methodology · IBM IT Architecture Options (Morrisons pattern)"
+      },
+      {
+        "path": "Brain/wiki/methodology-ibm-retail-diagnostic.md",
+        "title": "Methodology · IBM Retail Diagnostic (Clarks pattern)"
+      },
+      {
         "path": "Brain/wiki/secure-5-inventory.md",
         "title": "Secure 5 Inventory"
       },
@@ -37390,6 +38741,10 @@
       {
         "path": "Brain/wiki/secure-us-property-it-scoping.md",
         "title": "US Property IT Requirements — Scoping Document (IBM, pre-Secure)"
+      },
+      {
+        "path": "Brain/wiki/srd-shelf-edge-label.md",
+        "title": "The Shelf-Edge Label — Compile Target of the SRD Canonical"
       },
       {
         "path": "Brain/wiki/wpbca-compliance-framework.md",
@@ -37608,6 +38963,12 @@
         "title": "Peninsula Golf Guide — Content Pool (Raw, Stub)"
       }
     ],
+    "memo": [
+      {
+        "path": "Brain/wiki/academic-frame-1999-hbs.md",
+        "title": "The Academic Frame — HBS 9-599-101 (Moon, 1999) and the Third Branch"
+      }
+    ],
     "memoir": [
       {
         "path": "Brain/wiki/cove-vanderlip-memoir.md",
@@ -37796,6 +39157,14 @@
       {
         "path": "Brain/wiki/growdirect-white-paper-quant-peer-review.md",
         "title": "**Executive Summary: The Quant’s Verdict**"
+      },
+      {
+        "path": "Brain/wiki/methodology-ibm-it-architecture-options.md",
+        "title": "Methodology · IBM IT Architecture Options (Morrisons pattern)"
+      },
+      {
+        "path": "Brain/wiki/methodology-ibm-retail-diagnostic.md",
+        "title": "Methodology · IBM Retail Diagnostic (Clarks pattern)"
       }
     ],
     "metrc": [
@@ -38006,6 +39375,10 @@
       {
         "path": "Brain/wiki/growdirect-production-chain.md",
         "title": "GrowDirect Production Chain — v0.1"
+      },
+      {
+        "path": "Brain/wiki/tesco-technical-library.md",
+        "title": "Tesco Technical Library — The Third Canonical Layer at F&E"
       }
     ],
     "mission": [
@@ -38324,6 +39697,10 @@
         "title": "RPV Redevelopment Agency Conveyance (2014)"
       },
       {
+        "path": "Brain/wiki/intactix-canonical-validation.md",
+        "title": "Intactix 2006 — Canonical Validation of RetailSpine"
+      },
+      {
         "path": "Brain/wiki/seacove-arc-module.md",
         "title": "Seacove → Cove ARC Module"
       }
@@ -38472,6 +39849,12 @@
         "title": "abalonecove.org"
       }
     ],
+    "moon": [
+      {
+        "path": "Brain/wiki/academic-frame-1999-hbs.md",
+        "title": "The Academic Frame — HBS 9-599-101 (Moon, 1999) and the Third Branch"
+      }
+    ],
     "mootness": [
       {
         "path": "Brain/wiki/cove-city-positions.md",
@@ -38516,6 +39899,12 @@
       {
         "path": "Brain/wiki/cove-vanderlip-memoir.md",
         "title": "Vanderlip's Memoir — In His Own Words"
+      }
+    ],
+    "morrisons": [
+      {
+        "path": "Brain/wiki/methodology-ibm-it-architecture-options.md",
+        "title": "Methodology · IBM IT Architecture Options (Morrisons pattern)"
       }
     ],
     "mortgage": [
@@ -38568,6 +39957,12 @@
       {
         "path": "Brain/wiki/growdirect-white-paper-competitive-landscape.md",
         "title": "Executive Summary"
+      }
+    ],
+    "moves": [
+      {
+        "path": "Brain/wiki/cio-leave-behind-wedge.md",
+        "title": "The CIO Leave-Behind Wedge"
       }
     ],
     "moving": [
@@ -38635,6 +40030,10 @@
       }
     ],
     "must": [
+      {
+        "path": "Brain/wiki/academic-frame-1999-hbs.md",
+        "title": "The Academic Frame — HBS 9-599-101 (Moon, 1999) and the Third Branch"
+      },
       {
         "path": "Brain/wiki/coac-bylaws-moc.md",
         "title": "CoAC Bylaws & Governing Instruments — MOC"
@@ -38704,6 +40103,10 @@
     ],
     "name": [
       {
+        "path": "Brain/wiki/academic-frame-1999-hbs.md",
+        "title": "The Academic Frame — HBS 9-599-101 (Moon, 1999) and the Third Branch"
+      },
+      {
         "path": "Brain/wiki/coac-bylaws-moc.md",
         "title": "CoAC Bylaws & Governing Instruments — MOC"
       },
@@ -38731,6 +40134,10 @@
       }
     ],
     "named": [
+      {
+        "path": "Brain/wiki/academic-frame-1999-hbs.md",
+        "title": "The Academic Frame — HBS 9-599-101 (Moon, 1999) and the Third Branch"
+      },
       {
         "path": "Brain/wiki/angel-peninsula-school-guide.md",
         "title": "Peninsula School Guide — Content Pool (Raw)"
@@ -39396,8 +40803,16 @@
         "title": "Executive Summary"
       },
       {
+        "path": "Brain/wiki/intactix-canonical-validation.md",
+        "title": "Intactix 2006 — Canonical Validation of RetailSpine"
+      },
+      {
         "path": "Brain/wiki/south-bay-wiki-architecture.md",
         "title": "South Bay Wiki — Content Architecture"
+      },
+      {
+        "path": "Brain/wiki/tesco-technical-library.md",
+        "title": "Tesco Technical Library — The Third Canonical Layer at F&E"
       }
     ],
     "nextdoor": [
@@ -39602,6 +41017,10 @@
         "title": "Canary LP — The Factory Process"
       },
       {
+        "path": "Brain/wiki/third-branch.md",
+        "title": "The Third Branch"
+      },
+      {
         "path": "Brain/wiki/wpbca-compliance-framework.md",
         "title": "Community of Abalone Cove (formerly WPBCA) Compliance Framework — MOC"
       },
@@ -39776,6 +41195,18 @@
         "title": "Heartbeat / Fireball (2002) — Essential Design"
       }
     ],
+    "noun": [
+      {
+        "path": "Brain/wiki/intactix-canonical-validation.md",
+        "title": "Intactix 2006 — Canonical Validation of RetailSpine"
+      }
+    ],
+    "nouns": [
+      {
+        "path": "Brain/wiki/intactix-canonical-validation.md",
+        "title": "Intactix 2006 — Canonical Validation of RetailSpine"
+      }
+    ],
     "novel": [
       {
         "path": "Brain/wiki/growdirect-first-mover.md",
@@ -39844,6 +41275,24 @@
       {
         "path": "Brain/wiki/growdirect-working-papers.md",
         "title": "GrowDirect Working Papers — Structure"
+      }
+    ],
+    "nutrition": [
+      {
+        "path": "Brain/wiki/tesco-technical-library.md",
+        "title": "Tesco Technical Library — The Third Canonical Layer at F&E"
+      }
+    ],
+    "nutrition-facts": [
+      {
+        "path": "Brain/wiki/tesco-technical-library.md",
+        "title": "Tesco Technical Library — The Third Canonical Layer at F&E"
+      }
+    ],
+    "object": [
+      {
+        "path": "Brain/wiki/intactix-canonical-validation.md",
+        "title": "Intactix 2006 — Canonical Validation of RetailSpine"
       }
     ],
     "objective": [
@@ -39944,6 +41393,10 @@
       {
         "path": "Brain/wiki/angel-peninsula-golf-guide.md",
         "title": "Peninsula Golf Guide — Content Pool (Raw, Stub)"
+      },
+      {
+        "path": "Brain/wiki/cio-leave-behind-wedge.md",
+        "title": "The CIO Leave-Behind Wedge"
       }
     ],
     "officers": [
@@ -40370,8 +41823,16 @@
     ],
     "operator": [
       {
+        "path": "Brain/wiki/intactix-canonical-validation.md",
+        "title": "Intactix 2006 — Canonical Validation of RetailSpine"
+      },
+      {
         "path": "Brain/wiki/secure-platform-overview.md",
         "title": "Secure Platform Overview"
+      },
+      {
+        "path": "Brain/wiki/tesco-technical-library.md",
+        "title": "Tesco Technical Library — The Third Canonical Layer at F&E"
       }
     ],
     "opportunity": [
@@ -40382,6 +41843,10 @@
       {
         "path": "Brain/wiki/growdirect-strategic-thesis.md",
         "title": "Canary LP — Strategic Thesis"
+      },
+      {
+        "path": "Brain/wiki/methodology-ibm-retail-diagnostic.md",
+        "title": "Methodology · IBM Retail Diagnostic (Clarks pattern)"
       }
     ],
     "opportunity**": [
@@ -40418,6 +41883,10 @@
         "title": "ACLAD Partnership — Same-Side Public-Private Defense"
       },
       {
+        "path": "Brain/wiki/methodology-ibm-it-architecture-options.md",
+        "title": "Methodology · IBM IT Architecture Options (Morrisons pattern)"
+      },
+      {
         "path": "Brain/wiki/wpbca-third-director-recruitment.md",
         "title": "Community of Abalone Cove (formerly WPBCA) — Third-Director Recruitment"
       }
@@ -40444,6 +41913,10 @@
       {
         "path": "Brain/wiki/angel-listing-process.md",
         "title": "Angel Listing Process"
+      },
+      {
+        "path": "Brain/wiki/methodology-ibm-it-architecture-options.md",
+        "title": "Methodology · IBM IT Architecture Options (Morrisons pattern)"
       },
       {
         "path": "Brain/wiki/peninsula-kids-water.md",
@@ -40518,6 +41991,12 @@
       {
         "path": "Brain/wiki/secure-retail-operating-model-2006.md",
         "title": "Retail Operating Model — 2006 (IBM engagement, UK global grocer)"
+      }
+    ],
+    "ordering-gate": [
+      {
+        "path": "Brain/wiki/srd-shelf-edge-label.md",
+        "title": "The Shelf-Edge Label — Compile Target of the SRD Canonical"
       }
     ],
     "orders": [
@@ -40932,6 +42411,16 @@
       {
         "path": "Brain/wiki/reference-hoa-disclosure-sample-2018.md",
         "title": "Reference — HOA Disclosure Documents (Sample, 2018)"
+      },
+      {
+        "path": "Brain/wiki/tesco-technical-library.md",
+        "title": "Tesco Technical Library — The Third Canonical Layer at F&E"
+      }
+    ],
+    "pack-copy": [
+      {
+        "path": "Brain/wiki/tesco-technical-library.md",
+        "title": "Tesco Technical Library — The Third Canonical Layer at F&E"
       }
     ],
     "packages": [
@@ -40948,6 +42437,10 @@
       {
         "path": "Brain/wiki/growdirect-how-we-build.md",
         "title": "How We Build"
+      },
+      {
+        "path": "Brain/wiki/tesco-technical-library.md",
+        "title": "Tesco Technical Library — The Third Canonical Layer at F&E"
       }
     ],
     "packet": [
@@ -41130,6 +42623,12 @@
       {
         "path": "Brain/wiki/growdirect-data-strategy.md",
         "title": "Canary Data Strategy — North Star"
+      }
+    ],
+    "paragraph": [
+      {
+        "path": "Brain/wiki/third-branch.md",
+        "title": "The Third Branch"
       }
     ],
     "parallel": [
@@ -41594,6 +43093,10 @@
         "title": "Patent Schematic — Rebuild & Recovery Path v1.0 (FIG. 6)"
       },
       {
+        "path": "Brain/wiki/srd-shelf-edge-label.md",
+        "title": "The Shelf-Edge Label — Compile Target of the SRD Canonical"
+      },
+      {
         "path": "Brain/wiki/wpbca-ocean-path-easement.md",
         "title": "Community of Abalone Cove (formerly WPBCA) — Ocean Path Easements — Private Governance Matter"
       },
@@ -41646,6 +43149,14 @@
       {
         "path": "Brain/wiki/growdirect-white-paper-quant-peer-review.md",
         "title": "**Executive Summary: The Quant’s Verdict**"
+      },
+      {
+        "path": "Brain/wiki/methodology-ibm-it-architecture-options.md",
+        "title": "Methodology · IBM IT Architecture Options (Morrisons pattern)"
+      },
+      {
+        "path": "Brain/wiki/methodology-ibm-retail-diagnostic.md",
+        "title": "Methodology · IBM Retail Diagnostic (Clarks pattern)"
       },
       {
         "path": "Brain/wiki/secure-dsd-ired-analytics.md",
@@ -41884,6 +43395,10 @@
       {
         "path": "Brain/wiki/growdirect-data-strategy.md",
         "title": "Canary Data Strategy — North Star"
+      },
+      {
+        "path": "Brain/wiki/intactix-canonical-validation.md",
+        "title": "Intactix 2006 — Canonical Validation of RetailSpine"
       }
     ],
     "performing": [
@@ -42030,6 +43545,16 @@
       {
         "path": "Brain/wiki/wpbca-ocean-path-easement.md",
         "title": "Community of Abalone Cove (formerly WPBCA) — Ocean Path Easements — Private Governance Matter"
+      }
+    ],
+    "personalization": [
+      {
+        "path": "Brain/wiki/academic-frame-1999-hbs.md",
+        "title": "The Academic Frame — HBS 9-599-101 (Moon, 1999) and the Third Branch"
+      },
+      {
+        "path": "Brain/wiki/third-branch.md",
+        "title": "The Third Branch"
       }
     ],
     "personally": [
@@ -42340,6 +43865,12 @@
         "title": "GrowDirect Investor Pitch — SPINE v0.4"
       }
     ],
+    "pitney-bowes": [
+      {
+        "path": "Brain/wiki/third-branch.md",
+        "title": "The Third Branch"
+      }
+    ],
     "place": [
       {
         "path": "Brain/wiki/cove-declaration-100.md",
@@ -42442,6 +43973,12 @@
         "title": "Permit-Tech Landscape — April 2026"
       }
     ],
+    "plane": [
+      {
+        "path": "Brain/wiki/intactix-canonical-validation.md",
+        "title": "Intactix 2006 — Canonical Validation of RetailSpine"
+      }
+    ],
     "planned": [
       {
         "path": "Brain/wiki/angel-data-platform.md",
@@ -42486,6 +44023,12 @@
       {
         "path": "Brain/wiki/secure-property-services-operating-model-2002.md",
         "title": "Property & Building Services Operating Model — 2002 (UK dept-store + grocery group)"
+      }
+    ],
+    "planogram": [
+      {
+        "path": "Brain/wiki/intactix-canonical-validation.md",
+        "title": "Intactix 2006 — Canonical Validation of RetailSpine"
       }
     ],
     "plat": [
@@ -42596,6 +44139,10 @@
       {
         "path": "Brain/wiki/growdirect-white-paper-competitive-landscape.md",
         "title": "Executive Summary"
+      },
+      {
+        "path": "Brain/wiki/third-branch.md",
+        "title": "The Third Branch"
       }
     ],
     "play": [
@@ -43046,6 +44593,10 @@
         "title": "Angel Brand & Team — AREA at Compass"
       },
       {
+        "path": "Brain/wiki/cio-leave-behind-wedge.md",
+        "title": "The CIO Leave-Behind Wedge"
+      },
+      {
         "path": "Brain/wiki/growdirect-data-strategy.md",
         "title": "Canary Data Strategy — North Star"
       },
@@ -43064,6 +44615,10 @@
       {
         "path": "Brain/wiki/secure-sysrepublic-xbr-2016.md",
         "title": "xBR Replacement — Sysrepublic Functional Requirements Response (June 2016)"
+      },
+      {
+        "path": "Brain/wiki/third-branch.md",
+        "title": "The Third Branch"
       }
     ],
     "positions": [
@@ -43390,6 +44945,16 @@
         "title": "Vanderlip's Memoir — In His Own Words"
       }
     ],
+    "preserved-ip": [
+      {
+        "path": "Brain/wiki/methodology-ibm-it-architecture-options.md",
+        "title": "Methodology · IBM IT Architecture Options (Morrisons pattern)"
+      },
+      {
+        "path": "Brain/wiki/methodology-ibm-retail-diagnostic.md",
+        "title": "Methodology · IBM Retail Diagnostic (Clarks pattern)"
+      }
+    ],
     "preserved.": [
       {
         "path": "Brain/wiki/cove-case-law-lessons.md",
@@ -43466,6 +45031,10 @@
     ],
     "pricing": [
       {
+        "path": "Brain/wiki/academic-frame-1999-hbs.md",
+        "title": "The Academic Frame — HBS 9-599-101 (Moon, 1999) and the Third Branch"
+      },
+      {
         "path": "Brain/wiki/angel-brand-and-team.md",
         "title": "Angel Brand & Team — AREA at Compass"
       },
@@ -43534,6 +45103,12 @@
         "title": "Baughey Article — Rancho Palos Verdes 1784–1947"
       }
     ],
+    "primitive": [
+      {
+        "path": "Brain/wiki/third-branch.md",
+        "title": "The Third Branch"
+      }
+    ],
     "principal": [
       {
         "path": "Brain/wiki/angel-brand-and-team.md",
@@ -43594,6 +45169,12 @@
       {
         "path": "Brain/wiki/secure-heartbeat-fireball-2002.md",
         "title": "Heartbeat / Fireball (2002) — Essential Design"
+      }
+    ],
+    "priorities": [
+      {
+        "path": "Brain/wiki/methodology-ibm-retail-diagnostic.md",
+        "title": "Methodology · IBM Retail Diagnostic (Clarks pattern)"
       }
     ],
     "priority": [
@@ -43694,6 +45275,10 @@
       {
         "path": "Brain/wiki/secure-dv-private-label-2006.md",
         "title": "Private Label Food Setup — US Design Validation Workshop (Aug 2006)"
+      },
+      {
+        "path": "Brain/wiki/tesco-technical-library.md",
+        "title": "Tesco Technical Library — The Third Canonical Layer at F&E"
       }
     ],
     "problem": [
@@ -43896,6 +45481,10 @@
     ],
     "product": [
       {
+        "path": "Brain/wiki/academic-frame-1999-hbs.md",
+        "title": "The Academic Frame — HBS 9-599-101 (Moon, 1999) and the Third Branch"
+      },
+      {
         "path": "Brain/wiki/angel-brand-and-team.md",
         "title": "Angel Brand & Team — AREA at Compass"
       },
@@ -43950,12 +45539,22 @@
       {
         "path": "Brain/wiki/secure-sysrepublic-xbr-2016.md",
         "title": "xBR Replacement — Sysrepublic Functional Requirements Response (June 2016)"
+      },
+      {
+        "path": "Brain/wiki/tesco-technical-library.md",
+        "title": "Tesco Technical Library — The Third Canonical Layer at F&E"
       }
     ],
     "product-line": [
       {
         "path": "Brain/wiki/secure-platform-overview.md",
         "title": "Secure Platform Overview"
+      }
+    ],
+    "product-specification": [
+      {
+        "path": "Brain/wiki/tesco-technical-library.md",
+        "title": "Tesco Technical Library — The Third Canonical Layer at F&E"
       }
     ],
     "product-variant": [
@@ -44290,6 +45889,10 @@
       {
         "path": "Brain/wiki/secure-merchandising-rfp-evant-response-2003.md",
         "title": "Merchandising System RFP — Evant Response (Sept 2003)"
+      },
+      {
+        "path": "Brain/wiki/tesco-technical-library.md",
+        "title": "Tesco Technical Library — The Third Canonical Layer at F&E"
       }
     ],
     "proposed:": [
@@ -44330,6 +45933,10 @@
       {
         "path": "Brain/wiki/growdirect-white-paper-micropayment.md",
         "title": "Executive Summary"
+      },
+      {
+        "path": "Brain/wiki/third-branch.md",
+        "title": "The Third Branch"
       }
     ],
     "protective": [
@@ -44430,6 +46037,14 @@
       {
         "path": "Brain/wiki/growdirect-the-crdm.md",
         "title": "The Data Model"
+      },
+      {
+        "path": "Brain/wiki/methodology-ibm-it-architecture-options.md",
+        "title": "Methodology · IBM IT Architecture Options (Morrisons pattern)"
+      },
+      {
+        "path": "Brain/wiki/methodology-ibm-retail-diagnostic.md",
+        "title": "Methodology · IBM Retail Diagnostic (Clarks pattern)"
       },
       {
         "path": "Brain/wiki/wpbca-compliance-framework.md",
@@ -44856,8 +46471,16 @@
     ],
     "pwc": [
       {
+        "path": "Brain/wiki/academic-frame-1999-hbs.md",
+        "title": "The Academic Frame — HBS 9-599-101 (Moon, 1999) and the Third Branch"
+      },
+      {
         "path": "Brain/wiki/secure-retail-career-archive.md",
         "title": "Pre-Secure Retail Career Archive"
+      },
+      {
+        "path": "Brain/wiki/third-branch.md",
+        "title": "The Third Branch"
       }
     ],
     "qualification": [
@@ -45464,6 +47087,12 @@
         "title": "COAC: Palos Verdes Endangered Species & Habitat — Scientific Foundation"
       }
     ],
+    "reason": [
+      {
+        "path": "Brain/wiki/srd-shelf-edge-label.md",
+        "title": "The Shelf-Edge Label — Compile Target of the SRD Canonical"
+      }
+    ],
     "reasonable": [
       {
         "path": "Brain/wiki/501c-advocacy-arm.md",
@@ -45578,6 +47207,12 @@
       {
         "path": "Brain/wiki/coac-rm-22-incompatibility.md",
         "title": "RM-22 Incompatibility — Peninsula Precedent Record"
+      }
+    ],
+    "recipe": [
+      {
+        "path": "Brain/wiki/tesco-technical-library.md",
+        "title": "Tesco Technical Library — The Third Canonical Layer at F&E"
       }
     ],
     "recital": [
@@ -45898,6 +47533,12 @@
         "title": "Riviera Village — Content Pool (Raw)"
       }
     ],
+    "redsky-it": [
+      {
+        "path": "Brain/wiki/tesco-technical-library.md",
+        "title": "Tesco Technical Library — The Third Canonical Layer at F&E"
+      }
+    ],
     "reference": [
       {
         "path": "Brain/wiki/angel-content-archive-index.md",
@@ -46021,6 +47662,10 @@
       }
     ],
     "reframe": [
+      {
+        "path": "Brain/wiki/cio-leave-behind-wedge.md",
+        "title": "The CIO Leave-Behind Wedge"
+      },
       {
         "path": "Brain/wiki/cove-permit-tech-landscape.md",
         "title": "Permit-Tech Landscape — April 2026"
@@ -46888,6 +48533,14 @@
         "title": "GrowDirect Working Papers — Structure"
       },
       {
+        "path": "Brain/wiki/methodology-ibm-it-architecture-options.md",
+        "title": "Methodology · IBM IT Architecture Options (Morrisons pattern)"
+      },
+      {
+        "path": "Brain/wiki/methodology-ibm-retail-diagnostic.md",
+        "title": "Methodology · IBM Retail Diagnostic (Clarks pattern)"
+      },
+      {
         "path": "Brain/wiki/reference-hoa-disclosure-sample-2018.md",
         "title": "Reference — HOA Disclosure Documents (Sample, 2018)"
       },
@@ -47028,6 +48681,10 @@
     ],
     "relationship": [
       {
+        "path": "Brain/wiki/academic-frame-1999-hbs.md",
+        "title": "The Academic Frame — HBS 9-599-101 (Moon, 1999) and the Third Branch"
+      },
+      {
         "path": "Brain/wiki/coac-negative-space-lot-h-boundary.md",
         "title": "Negative-Space Lot H Boundary — Technical Description"
       },
@@ -47054,6 +48711,12 @@
       {
         "path": "Brain/wiki/secure-heartbeat-fireball-2002.md",
         "title": "Heartbeat / Fireball (2002) — Essential Design"
+      }
+    ],
+    "relationship-marketing": [
+      {
+        "path": "Brain/wiki/academic-frame-1999-hbs.md",
+        "title": "The Academic Frame — HBS 9-599-101 (Moon, 1999) and the Third Branch"
       }
     ],
     "release": [
@@ -47182,6 +48845,12 @@
       {
         "path": "Brain/wiki/angel-client-reviews.md",
         "title": "Angelique Lyle — Client Reviews"
+      }
+    ],
+    "repeating": [
+      {
+        "path": "Brain/wiki/methodology-ibm-retail-diagnostic.md",
+        "title": "Methodology · IBM Retail Diagnostic (Clarks pattern)"
       }
     ],
     "replacement": [
@@ -47720,6 +49389,12 @@
         "title": "Case-Law Synthesis — Rules That Bind WPBCA"
       }
     ],
+    "resubstration": [
+      {
+        "path": "Brain/wiki/third-branch.md",
+        "title": "The Third Branch"
+      }
+    ],
     "results": [
       {
         "path": "Brain/wiki/growdirect-timelog-jeremy-heartbeat-integration-feb27.md",
@@ -47772,6 +49447,10 @@
       {
         "path": "Brain/wiki/growdirect-the-owl.md",
         "title": "The Owl — Analytics Oracle"
+      },
+      {
+        "path": "Brain/wiki/methodology-ibm-retail-diagnostic.md",
+        "title": "Methodology · IBM Retail Diagnostic (Clarks pattern)"
       },
       {
         "path": "Brain/wiki/retail-integration-spine.md",
@@ -47844,6 +49523,12 @@
         "title": "US Property IT Requirements — Scoping Document (IBM, pre-Secure)"
       }
     ],
+    "retail-diagnostic": [
+      {
+        "path": "Brain/wiki/methodology-ibm-retail-diagnostic.md",
+        "title": "Methodology · IBM Retail Diagnostic (Clarks pattern)"
+      }
+    ],
     "retail-hardlines": [
       {
         "path": "Brain/wiki/secure-integrated-maps-2003.md",
@@ -47901,6 +49586,22 @@
       }
     ],
     "retailspine": [
+      {
+        "path": "Brain/wiki/intactix-canonical-validation.md",
+        "title": "Intactix 2006 — Canonical Validation of RetailSpine"
+      },
+      {
+        "path": "Brain/wiki/srd-shelf-edge-label.md",
+        "title": "The Shelf-Edge Label — Compile Target of the SRD Canonical"
+      },
+      {
+        "path": "Brain/wiki/tesco-technical-library.md",
+        "title": "Tesco Technical Library — The Third Canonical Layer at F&E"
+      },
+      {
+        "path": "Brain/wiki/third-branch.md",
+        "title": "The Third Branch"
+      },
       {
         "path": "Brain/projects/RetailSpine.md",
         "title": "RetailSpine"
@@ -48188,6 +49889,10 @@
       {
         "path": "Brain/wiki/growdirect-data-strategy.md",
         "title": "Canary Data Strategy — North Star"
+      },
+      {
+        "path": "Brain/wiki/third-branch.md",
+        "title": "The Third Branch"
       }
     ],
     "right**": [
@@ -48340,6 +50045,12 @@
         "title": "RM-22 Incompatibility — Peninsula Precedent Record"
       }
     ],
+    "rms": [
+      {
+        "path": "Brain/wiki/srd-shelf-edge-label.md",
+        "title": "The Shelf-Edge Label — Compile Target of the SRD Canonical"
+      }
+    ],
     "road": [
       {
         "path": "Brain/wiki/angel-peninsula-school-guide.md",
@@ -48394,6 +50105,10 @@
       {
         "path": "Brain/wiki/growdirect-the-owl.md",
         "title": "The Owl — Analytics Oracle"
+      },
+      {
+        "path": "Brain/wiki/methodology-ibm-retail-diagnostic.md",
+        "title": "Methodology · IBM Retail Diagnostic (Clarks pattern)"
       }
     ],
     "roadmap**": [
@@ -48880,6 +50595,12 @@
         "title": "COAC: RPV 2018 Safety Element — Annotated for Cove"
       }
     ],
+    "said": [
+      {
+        "path": "Brain/wiki/academic-frame-1999-hbs.md",
+        "title": "The Academic Frame — HBS 9-599-101 (Moon, 1999) and the Third Branch"
+      }
+    ],
     "sale": [
       {
         "path": "Brain/wiki/growdirect-research-cannabis-retail-risk.md",
@@ -49010,6 +50731,12 @@
       {
         "path": "Brain/wiki/coac-declaration-100-article-ii-section-5.md",
         "title": "Declaration 100 Article II §5 — Self-Executing Reactivation Mechanism"
+      }
+    ],
+    "sats": [
+      {
+        "path": "Brain/wiki/third-branch.md",
+        "title": "The Third Branch"
       }
     ],
     "saturday": [
@@ -49508,6 +51235,14 @@
       {
         "path": "Brain/wiki/growdirect-research-reference-library.md",
         "title": "Canary / GrowDirect — Project Reference Library"
+      },
+      {
+        "path": "Brain/wiki/methodology-ibm-it-architecture-options.md",
+        "title": "Methodology · IBM IT Architecture Options (Morrisons pattern)"
+      },
+      {
+        "path": "Brain/wiki/methodology-ibm-retail-diagnostic.md",
+        "title": "Methodology · IBM Retail Diagnostic (Clarks pattern)"
       }
     ],
     "section-5": [
@@ -49692,6 +51427,12 @@
       {
         "path": "Brain/wiki/cove-zone2-geotech-2011.md",
         "title": "Zone 2 Geotechnical Study (LGC Valley, 2011)"
+      }
+    ],
+    "sel": [
+      {
+        "path": "Brain/wiki/srd-shelf-edge-label.md",
+        "title": "The Shelf-Edge Label — Compile Target of the SRD Canonical"
       }
     ],
     "selection": [
@@ -50092,6 +51833,14 @@
       {
         "path": "Brain/wiki/growdirect-the-crdm.md",
         "title": "The Data Model"
+      },
+      {
+        "path": "Brain/wiki/methodology-ibm-it-architecture-options.md",
+        "title": "Methodology · IBM IT Architecture Options (Morrisons pattern)"
+      },
+      {
+        "path": "Brain/wiki/methodology-ibm-retail-diagnostic.md",
+        "title": "Methodology · IBM Retail Diagnostic (Clarks pattern)"
       }
     ],
     "severity": [
@@ -50180,6 +51929,18 @@
       {
         "path": "Brain/wiki/cove-city-positions.md",
         "title": "City Positions Cross-Reference"
+      }
+    ],
+    "shelf": [
+      {
+        "path": "Brain/wiki/srd-shelf-edge-label.md",
+        "title": "The Shelf-Edge Label — Compile Target of the SRD Canonical"
+      }
+    ],
+    "shelf-edge-label": [
+      {
+        "path": "Brain/wiki/srd-shelf-edge-label.md",
+        "title": "The Shelf-Edge Label — Compile Target of the SRD Canonical"
       }
     ],
     "shield": [
@@ -50408,8 +52169,20 @@
         "title": "Angel — Compass Concierge"
       },
       {
+        "path": "Brain/wiki/intactix-canonical-validation.md",
+        "title": "Intactix 2006 — Canonical Validation of RetailSpine"
+      },
+      {
         "path": "Brain/wiki/reference-oracle-project-costing.md",
         "title": "Oracle Project Costing — User Guide, Release 11i (May 2005)"
+      },
+      {
+        "path": "Brain/wiki/srd-shelf-edge-label.md",
+        "title": "The Shelf-Edge Label — Compile Target of the SRD Canonical"
+      },
+      {
+        "path": "Brain/wiki/tesco-technical-library.md",
+        "title": "Tesco Technical Library — The Third Canonical Layer at F&E"
       },
       {
         "path": "Brain/wiki/wpbca-investment-policy.md",
@@ -50478,6 +52251,10 @@
       {
         "path": "Brain/wiki/cove-permit-tech-landscape.md",
         "title": "Permit-Tech Landscape — April 2026"
+      },
+      {
+        "path": "Brain/wiki/methodology-ibm-it-architecture-options.md",
+        "title": "Methodology · IBM IT Architecture Options (Morrisons pattern)"
       }
     ],
     "side\"": [
@@ -50502,6 +52279,12 @@
       {
         "path": "Brain/wiki/growdirect-manifesto.md",
         "title": "GrowDirect Manifesto"
+      }
+    ],
+    "sidestep": [
+      {
+        "path": "Brain/wiki/third-branch.md",
+        "title": "The Third Branch"
       }
     ],
     "sight": [
@@ -50630,6 +52413,10 @@
     ],
     "sits": [
       {
+        "path": "Brain/wiki/academic-frame-1999-hbs.md",
+        "title": "The Academic Frame — HBS 9-599-101 (Moon, 1999) and the Third Branch"
+      },
+      {
         "path": "Brain/wiki/growdirect-the-chirp.md",
         "title": "The Chirp"
       }
@@ -50672,10 +52459,26 @@
         "title": "The Market"
       }
     ],
+    "skeleton": [
+      {
+        "path": "Brain/wiki/methodology-ibm-it-architecture-options.md",
+        "title": "Methodology · IBM IT Architecture Options (Morrisons pattern)"
+      }
+    ],
     "sketchup": [
       {
         "path": "Brain/wiki/seacove-project.md",
         "title": "25 Seacove Drive — Project Overview"
+      }
+    ],
+    "skill": [
+      {
+        "path": "Brain/wiki/methodology-ibm-it-architecture-options.md",
+        "title": "Methodology · IBM IT Architecture Options (Morrisons pattern)"
+      },
+      {
+        "path": "Brain/wiki/methodology-ibm-retail-diagnostic.md",
+        "title": "Methodology · IBM Retail Diagnostic (Clarks pattern)"
       }
     ],
     "skills": [
@@ -50704,6 +52507,10 @@
       {
         "path": "Brain/wiki/cove-property-geology.md",
         "title": "Property & Geology"
+      },
+      {
+        "path": "Brain/wiki/methodology-ibm-it-architecture-options.md",
+        "title": "Methodology · IBM IT Architecture Options (Morrisons pattern)"
       }
     ],
     "slides": [
@@ -50748,6 +52555,12 @@
       {
         "path": "Brain/wiki/secure-lite.md",
         "title": "Secure Lite"
+      }
+    ],
+    "smb-grocer": [
+      {
+        "path": "Brain/wiki/tesco-technical-library.md",
+        "title": "Tesco Technical Library — The Third Canonical Layer at F&E"
       }
     ],
     "smeared": [
@@ -51018,6 +52831,14 @@
       {
         "path": "Brain/wiki/growdirect-working-papers.md",
         "title": "GrowDirect Working Papers — Structure"
+      },
+      {
+        "path": "Brain/wiki/methodology-ibm-it-architecture-options.md",
+        "title": "Methodology · IBM IT Architecture Options (Morrisons pattern)"
+      },
+      {
+        "path": "Brain/wiki/methodology-ibm-retail-diagnostic.md",
+        "title": "Methodology · IBM Retail Diagnostic (Clarks pattern)"
       },
       {
         "path": "Brain/wiki/retail-integration-spine.md",
@@ -51826,6 +53647,10 @@
     ],
     "specific": [
       {
+        "path": "Brain/wiki/academic-frame-1999-hbs.md",
+        "title": "The Academic Frame — HBS 9-599-101 (Moon, 1999) and the Third Branch"
+      },
+      {
         "path": "Brain/wiki/coac-1975-general-plan-eir.md",
         "title": "COAC: 1975 RPV General Plan + EIR — Annotated for Cove"
       },
@@ -51880,6 +53705,10 @@
       {
         "path": "Brain/wiki/secure-omnichannel.md",
         "title": "Secure Omnichannel"
+      },
+      {
+        "path": "Brain/wiki/tesco-technical-library.md",
+        "title": "Tesco Technical Library — The Third Canonical Layer at F&E"
       }
     ],
     "specification**": [
@@ -51914,6 +53743,10 @@
       {
         "path": "Brain/wiki/south-bay-wiki-architecture.md",
         "title": "South Bay Wiki — Content Architecture"
+      },
+      {
+        "path": "Brain/wiki/third-branch.md",
+        "title": "The Third Branch"
       }
     ],
     "sporting": [
@@ -52122,6 +53955,12 @@
       {
         "path": "Brain/wiki/growdirect-white-paper.md",
         "title": "**1. The $112 Billion Problem**"
+      }
+    ],
+    "srd": [
+      {
+        "path": "Brain/wiki/srd-shelf-edge-label.md",
+        "title": "The Shelf-Edge Label — Compile Target of the SRD Canonical"
       }
     ],
     "sso": [
@@ -52394,6 +54233,10 @@
         "title": "Executive Summary"
       },
       {
+        "path": "Brain/wiki/srd-shelf-edge-label.md",
+        "title": "The Shelf-Edge Label — Compile Target of the SRD Canonical"
+      },
+      {
         "path": "Brain/wiki/wpbca-compliance-framework.md",
         "title": "Community of Abalone Cove (formerly WPBCA) Compliance Framework — MOC"
       }
@@ -52426,6 +54269,12 @@
       {
         "path": "Brain/wiki/growdirect-white-paper-micropayment.md",
         "title": "Executive Summary"
+      }
+    ],
+    "static": [
+      {
+        "path": "Brain/wiki/intactix-canonical-validation.md",
+        "title": "Intactix 2006 — Canonical Validation of RetailSpine"
       }
     ],
     "station": [
@@ -52568,8 +54417,16 @@
         "title": "Executive Summary"
       },
       {
+        "path": "Brain/wiki/intactix-canonical-validation.md",
+        "title": "Intactix 2006 — Canonical Validation of RetailSpine"
+      },
+      {
         "path": "Brain/wiki/south-bay-wiki-architecture.md",
         "title": "South Bay Wiki — Content Architecture"
+      },
+      {
+        "path": "Brain/wiki/tesco-technical-library.md",
+        "title": "Tesco Technical Library — The Third Canonical Layer at F&E"
       },
       {
         "path": "Brain/wiki/wpbca-payments-platform.md",
@@ -52652,6 +54509,12 @@
         "title": "Ninja Selling — Sales Methodology for Angel"
       }
     ],
+    "storage": [
+      {
+        "path": "Brain/wiki/tesco-technical-library.md",
+        "title": "Tesco Technical Library — The Third Canonical Layer at F&E"
+      }
+    ],
     "store": [
       {
         "path": "Brain/wiki/growdirect-white-paper-micropayment.md",
@@ -52688,6 +54551,12 @@
       {
         "path": "Brain/wiki/secure-sysrepublic-xbr-2016.md",
         "title": "xBR Replacement — Sysrepublic Functional Requirements Response (June 2016)"
+      }
+    ],
+    "storeline": [
+      {
+        "path": "Brain/wiki/srd-shelf-edge-label.md",
+        "title": "The Shelf-Edge Label — Compile Target of the SRD Canonical"
       }
     ],
     "stores": [
@@ -52884,6 +54753,10 @@
       {
         "path": "Brain/wiki/south-bay-wiki-architecture.md",
         "title": "South Bay Wiki — Content Architecture"
+      },
+      {
+        "path": "Brain/wiki/third-branch.md",
+        "title": "The Third Branch"
       }
     ],
     "strategy**": [
@@ -53218,6 +55091,12 @@
         "title": "CoAC Bylaws & Governing Instruments — MOC"
       }
     ],
+    "substrate": [
+      {
+        "path": "Brain/wiki/third-branch.md",
+        "title": "The Third Branch"
+      }
+    ],
     "success": [
       {
         "path": "Brain/wiki/coac-2026-civic-problems-memorandum.md",
@@ -53269,6 +55148,10 @@
       }
     ],
     "summary": [
+      {
+        "path": "Brain/wiki/academic-frame-1999-hbs.md",
+        "title": "The Academic Frame — HBS 9-599-101 (Moon, 1999) and the Third Branch"
+      },
       {
         "path": "Brain/wiki/angel-architecture.md",
         "title": "Angel Architecture"
@@ -53454,6 +55337,14 @@
         "title": "GrowDirect Working Papers — Structure"
       },
       {
+        "path": "Brain/wiki/intactix-canonical-validation.md",
+        "title": "Intactix 2006 — Canonical Validation of RetailSpine"
+      },
+      {
+        "path": "Brain/wiki/methodology-ibm-it-architecture-options.md",
+        "title": "Methodology · IBM IT Architecture Options (Morrisons pattern)"
+      },
+      {
         "path": "Brain/wiki/reference-hoa-disclosure-sample-2018.md",
         "title": "Reference — HOA Disclosure Documents (Sample, 2018)"
       },
@@ -53548,6 +55439,18 @@
       {
         "path": "Brain/wiki/secure-us-property-it-scoping.md",
         "title": "US Property IT Requirements — Scoping Document (IBM, pre-Secure)"
+      },
+      {
+        "path": "Brain/wiki/srd-shelf-edge-label.md",
+        "title": "The Shelf-Edge Label — Compile Target of the SRD Canonical"
+      },
+      {
+        "path": "Brain/wiki/tesco-technical-library.md",
+        "title": "Tesco Technical Library — The Third Canonical Layer at F&E"
+      },
+      {
+        "path": "Brain/wiki/third-branch.md",
+        "title": "The Third Branch"
       }
     ],
     "summary:": [
@@ -53666,6 +55569,10 @@
       {
         "path": "Brain/wiki/cove-csudh-field-guide.md",
         "title": "CSUDH Palos Verdes Field Guide (McNulty, 2012)"
+      },
+      {
+        "path": "Brain/wiki/intactix-canonical-validation.md",
+        "title": "Intactix 2006 — Canonical Validation of RetailSpine"
       }
     ],
     "surfaces": [
@@ -53828,6 +55735,10 @@
       {
         "path": "Brain/wiki/secure-sysrepublic-xbr-2016.md",
         "title": "xBR Replacement — Sysrepublic Functional Requirements Response (June 2016)"
+      },
+      {
+        "path": "Brain/wiki/srd-shelf-edge-label.md",
+        "title": "The Shelf-Edge Label — Compile Target of the SRD Canonical"
       }
     ],
     "sysrepublic.com": [
@@ -54008,6 +55919,10 @@
       {
         "path": "Brain/wiki/growdirect-research-worm-exposure.md",
         "title": "WORM Exposure Sprint Deliverables"
+      },
+      {
+        "path": "Brain/wiki/srd-shelf-edge-label.md",
+        "title": "The Shelf-Edge Label — Compile Target of the SRD Canonical"
       },
       {
         "path": "Brain/wiki/wpbca-payments-platform.md",
@@ -54196,6 +56111,10 @@
       {
         "path": "Brain/wiki/south-bay-wiki-architecture.md",
         "title": "South Bay Wiki — Content Architecture"
+      },
+      {
+        "path": "Brain/wiki/tesco-technical-library.md",
+        "title": "Tesco Technical Library — The Third Canonical Layer at F&E"
       }
     ],
     "technique": [
@@ -54316,6 +56235,12 @@
         "title": "Youth Sports, Summer & Enrichment — Palos Verdes Peninsula"
       }
     ],
+    "term": [
+      {
+        "path": "Brain/wiki/intactix-canonical-validation.md",
+        "title": "Intactix 2006 — Canonical Validation of RetailSpine"
+      }
+    ],
     "terminal": [
       {
         "path": "Brain/wiki/growdirect-workflow.md",
@@ -54378,6 +56303,18 @@
       {
         "path": "Brain/wiki/growdirect-white-paper-competitive-landscape.md",
         "title": "Executive Summary"
+      }
+    ],
+    "tesco": [
+      {
+        "path": "Brain/wiki/tesco-technical-library.md",
+        "title": "Tesco Technical Library — The Third Canonical Layer at F&E"
+      }
+    ],
+    "tesco-us": [
+      {
+        "path": "Brain/wiki/tesco-technical-library.md",
+        "title": "Tesco Technical Library — The Third Canonical Layer at F&E"
       }
     ],
     "test": [
@@ -54454,6 +56391,10 @@
     ],
     "that": [
       {
+        "path": "Brain/wiki/academic-frame-1999-hbs.md",
+        "title": "The Academic Frame — HBS 9-599-101 (Moon, 1999) and the Third Branch"
+      },
+      {
         "path": "Brain/wiki/angel-peninsula-equestrian-guide.md",
         "title": "Peninsula Equestrian Guide — Content Pool (Raw, Stub)"
       },
@@ -54484,6 +56425,10 @@
       {
         "path": "Brain/wiki/growdirect-data-strategy.md",
         "title": "Canary Data Strategy — North Star"
+      },
+      {
+        "path": "Brain/wiki/intactix-canonical-validation.md",
+        "title": "Intactix 2006 — Canonical Validation of RetailSpine"
       }
     ],
     "the": [
@@ -54608,10 +56553,22 @@
         "title": "Angel Content Engine"
       }
     ],
+    "their": [
+      {
+        "path": "Brain/wiki/third-branch.md",
+        "title": "The Third Branch"
+      }
+    ],
     "them": [
       {
         "path": "Brain/wiki/cove-endangered-species-constraints.md",
         "title": "Endangered Species Constraints — Species → Trigger → Project Map"
+      }
+    ],
+    "theme": [
+      {
+        "path": "Brain/wiki/methodology-ibm-retail-diagnostic.md",
+        "title": "Methodology · IBM Retail Diagnostic (Clarks pattern)"
       }
     ],
     "themes": [
@@ -54676,6 +56633,10 @@
       {
         "path": "Brain/wiki/growdirect-symbiosis-thesis.md",
         "title": "THE SYMBIOSIS THESIS: WAR CHEST SOURCE 55"
+      },
+      {
+        "path": "Brain/wiki/third-branch.md",
+        "title": "The Third Branch"
       }
     ],
     "thesis**": [
@@ -54728,6 +56689,10 @@
     ],
     "third": [
       {
+        "path": "Brain/wiki/academic-frame-1999-hbs.md",
+        "title": "The Academic Frame — HBS 9-599-101 (Moon, 1999) and the Third Branch"
+      },
+      {
         "path": "Brain/wiki/angel-peninsula-school-guide.md",
         "title": "Peninsula School Guide — Content Pool (Raw)"
       },
@@ -54736,8 +56701,36 @@
         "title": "Canary Data Strategy — North Star"
       },
       {
+        "path": "Brain/wiki/srd-shelf-edge-label.md",
+        "title": "The Shelf-Edge Label — Compile Target of the SRD Canonical"
+      },
+      {
+        "path": "Brain/wiki/tesco-technical-library.md",
+        "title": "Tesco Technical Library — The Third Canonical Layer at F&E"
+      },
+      {
+        "path": "Brain/wiki/third-branch.md",
+        "title": "The Third Branch"
+      },
+      {
         "path": "Brain/wiki/wpbca-third-director-recruitment.md",
         "title": "Community of Abalone Cove (formerly WPBCA) — Third-Director Recruitment"
+      }
+    ],
+    "third-branch": [
+      {
+        "path": "Brain/wiki/academic-frame-1999-hbs.md",
+        "title": "The Academic Frame — HBS 9-599-101 (Moon, 1999) and the Third Branch"
+      },
+      {
+        "path": "Brain/wiki/srd-shelf-edge-label.md",
+        "title": "The Shelf-Edge Label — Compile Target of the SRD Canonical"
+      }
+    ],
+    "third-canonical-layer": [
+      {
+        "path": "Brain/wiki/tesco-technical-library.md",
+        "title": "Tesco Technical Library — The Third Canonical Layer at F&E"
       }
     ],
     "thirty": [
@@ -54754,6 +56747,10 @@
       {
         "path": "Brain/wiki/abalonecove-org.md",
         "title": "abalonecove.org"
+      },
+      {
+        "path": "Brain/wiki/academic-frame-1999-hbs.md",
+        "title": "The Academic Frame — HBS 9-599-101 (Moon, 1999) and the Third Branch"
       },
       {
         "path": "Brain/wiki/angel-architecture.md",
@@ -54778,6 +56775,10 @@
       {
         "path": "Brain/wiki/angel-peninsula-golf-guide.md",
         "title": "Peninsula Golf Guide — Content Pool (Raw, Stub)"
+      },
+      {
+        "path": "Brain/wiki/cio-leave-behind-wedge.md",
+        "title": "The CIO Leave-Behind Wedge"
       },
       {
         "path": "Brain/wiki/claim-lot-h-scope-correction.md",
@@ -54962,6 +56963,14 @@
       {
         "path": "Brain/wiki/growdirect-working-papers.md",
         "title": "GrowDirect Working Papers — Structure"
+      },
+      {
+        "path": "Brain/wiki/methodology-ibm-it-architecture-options.md",
+        "title": "Methodology · IBM IT Architecture Options (Morrisons pattern)"
+      },
+      {
+        "path": "Brain/wiki/methodology-ibm-retail-diagnostic.md",
+        "title": "Methodology · IBM Retail Diagnostic (Clarks pattern)"
       },
       {
         "path": "Brain/wiki/reference-oracle-project-costing.md",
@@ -55176,6 +57185,10 @@
         "title": "Canary Fox Case Management"
       },
       {
+        "path": "Brain/wiki/cio-leave-behind-wedge.md",
+        "title": "The CIO Leave-Behind Wedge"
+      },
+      {
         "path": "Brain/wiki/coac-reactivation-framework.md",
         "title": "CoAC Reactivation Framework — MOC"
       },
@@ -55258,6 +57271,14 @@
       {
         "path": "Brain/wiki/secure-platform-overview.md",
         "title": "Secure Platform Overview"
+      },
+      {
+        "path": "Brain/wiki/tesco-technical-library.md",
+        "title": "Tesco Technical Library — The Third Canonical Layer at F&E"
+      },
+      {
+        "path": "Brain/wiki/third-branch.md",
+        "title": "The Third Branch"
       }
     ],
     "three-hat": [
@@ -55922,6 +57943,12 @@
         "title": "Angelique Lyle — Client Reviews"
       }
     ],
+    "tpnb": [
+      {
+        "path": "Brain/wiki/tesco-technical-library.md",
+        "title": "Tesco Technical Library — The Third Canonical Layer at F&E"
+      }
+    ],
     "tracing": [
       {
         "path": "Brain/wiki/cove-1976-pvp-development-pressure.md",
@@ -56200,6 +58227,12 @@
         "title": "Peninsula School Guide — Content Pool (Raw)"
       }
     ],
+    "translations": [
+      {
+        "path": "Brain/wiki/academic-frame-1999-hbs.md",
+        "title": "The Academic Frame — HBS 9-599-101 (Moon, 1999) and the Third Branch"
+      }
+    ],
     "transmitter": [
       {
         "path": "Brain/wiki/growdirect-white-paper-micropayment.md",
@@ -56370,6 +58403,12 @@
         "title": "Endangered Species Constraints — Species → Trigger → Project Map"
       }
     ],
+    "trilogy": [
+      {
+        "path": "Brain/wiki/academic-frame-1999-hbs.md",
+        "title": "The Academic Frame — HBS 9-599-101 (Moon, 1999) and the Third Branch"
+      }
+    ],
     "triple": [
       {
         "path": "Brain/wiki/growdirect-first-mover.md",
@@ -56516,6 +58555,12 @@
       {
         "path": "Brain/wiki/growdirect-timelog-tsp-consolidated-review-feb27.md",
         "title": "Session — TSP Consolidated Review + Sprint 6 Kickoff (Feb 27, 2026)"
+      }
+    ],
+    "ttl": [
+      {
+        "path": "Brain/wiki/tesco-technical-library.md",
+        "title": "Tesco Technical Library — The Third Canonical Layer at F&E"
       }
     ],
     "tuning": [
@@ -56700,6 +58745,12 @@
       {
         "path": "Brain/wiki/angel-ninja-selling.md",
         "title": "Ninja Selling — Sales Methodology for Angel"
+      }
+    ],
+    "upc": [
+      {
+        "path": "Brain/wiki/tesco-technical-library.md",
+        "title": "Tesco Technical Library — The Third Canonical Layer at F&E"
       }
     ],
     "upcodes": [
@@ -56938,6 +58989,12 @@
         "title": "GrowDirect Investor Pitch — SPINE v0.4"
       }
     ],
+    "v0.7": [
+      {
+        "path": "Brain/wiki/tesco-technical-library.md",
+        "title": "Tesco Technical Library — The Third Canonical Layer at F&E"
+      }
+    ],
     "v1.0": [
       {
         "path": "Brain/wiki/growdirect-patent-visual-data-sovereignty.md",
@@ -57064,6 +59121,10 @@
       {
         "path": "Brain/wiki/growdirect-the-l402.md",
         "title": "The L402 Validation Gate"
+      },
+      {
+        "path": "Brain/wiki/intactix-canonical-validation.md",
+        "title": "Intactix 2006 — Canonical Validation of RetailSpine"
       },
       {
         "path": "Brain/wiki/secure-dv-private-label-2006.md",
@@ -57428,6 +59489,10 @@
       {
         "path": "Brain/wiki/growdirect-working-papers.md",
         "title": "GrowDirect Working Papers — Structure"
+      },
+      {
+        "path": "Brain/wiki/third-branch.md",
+        "title": "The Third Branch"
       }
     ],
     "vertical": [
@@ -57538,6 +59603,16 @@
         "title": "Montemalaga — Content Pool (Raw)"
       }
     ],
+    "vii.": [
+      {
+        "path": "Brain/wiki/tesco-technical-library.md",
+        "title": "Tesco Technical Library — The Third Canonical Layer at F&E"
+      },
+      {
+        "path": "Brain/wiki/third-branch.md",
+        "title": "The Third Branch"
+      }
+    ],
     "vii.1": [
       {
         "path": "Brain/wiki/growdirect-manifesto.md",
@@ -57576,6 +59651,12 @@
       {
         "path": "Brain/wiki/growdirect-manifesto.md",
         "title": "GrowDirect Manifesto"
+      }
+    ],
+    "viii.": [
+      {
+        "path": "Brain/wiki/third-branch.md",
+        "title": "The Third Branch"
       }
     ],
     "viii.1": [
@@ -58160,6 +60241,16 @@
         "title": "Angel Architecture"
       }
     ],
+    "wedge": [
+      {
+        "path": "Brain/wiki/cio-leave-behind-wedge.md",
+        "title": "The CIO Leave-Behind Wedge"
+      },
+      {
+        "path": "Brain/wiki/third-branch.md",
+        "title": "The Third Branch"
+      }
+    ],
     "week": [
       {
         "path": "Brain/wiki/angel-transaction-timeline.md",
@@ -58304,6 +60395,10 @@
         "title": "abalonecove.org"
       },
       {
+        "path": "Brain/wiki/academic-frame-1999-hbs.md",
+        "title": "The Academic Frame — HBS 9-599-101 (Moon, 1999) and the Third Branch"
+      },
+      {
         "path": "Brain/wiki/angel-architecture.md",
         "title": "Angel Architecture"
       },
@@ -58342,6 +60437,10 @@
       {
         "path": "Brain/wiki/canary-tsp-pipeline.md",
         "title": "Canary TSP Pipeline"
+      },
+      {
+        "path": "Brain/wiki/cio-leave-behind-wedge.md",
+        "title": "The CIO Leave-Behind Wedge"
       },
       {
         "path": "Brain/wiki/claim-lot-h-scope-correction.md",
@@ -58568,6 +60667,18 @@
         "title": "GrowDirect Workflow"
       },
       {
+        "path": "Brain/wiki/intactix-canonical-validation.md",
+        "title": "Intactix 2006 — Canonical Validation of RetailSpine"
+      },
+      {
+        "path": "Brain/wiki/methodology-ibm-it-architecture-options.md",
+        "title": "Methodology · IBM IT Architecture Options (Morrisons pattern)"
+      },
+      {
+        "path": "Brain/wiki/methodology-ibm-retail-diagnostic.md",
+        "title": "Methodology · IBM Retail Diagnostic (Clarks pattern)"
+      },
+      {
         "path": "Brain/wiki/peninsula-kids-water.md",
         "title": "Kids Water Activities — Palos Verdes Peninsula & South Bay"
       },
@@ -58626,6 +60737,18 @@
       {
         "path": "Brain/wiki/south-bay-wiki-architecture.md",
         "title": "South Bay Wiki — Content Architecture"
+      },
+      {
+        "path": "Brain/wiki/srd-shelf-edge-label.md",
+        "title": "The Shelf-Edge Label — Compile Target of the SRD Canonical"
+      },
+      {
+        "path": "Brain/wiki/tesco-technical-library.md",
+        "title": "Tesco Technical Library — The Third Canonical Layer at F&E"
+      },
+      {
+        "path": "Brain/wiki/third-branch.md",
+        "title": "The Third Branch"
       },
       {
         "path": "Brain/wiki/wpbca-compliance-framework.md",
@@ -58709,6 +60832,10 @@
       }
     ],
     "where": [
+      {
+        "path": "Brain/wiki/academic-frame-1999-hbs.md",
+        "title": "The Academic Frame — HBS 9-599-101 (Moon, 1999) and the Third Branch"
+      },
       {
         "path": "Brain/wiki/cove-case-law-lessons.md",
         "title": "Case-Law Synthesis — Rules That Bind WPBCA"
@@ -59028,6 +61155,10 @@
       {
         "path": "Brain/wiki/cove-vanderlip-memoir.md",
         "title": "Vanderlip's Memoir — In His Own Words"
+      },
+      {
+        "path": "Brain/wiki/third-branch.md",
+        "title": "The Third Branch"
       }
     ],
     "work": [
@@ -59356,6 +61487,12 @@
       {
         "path": "Brain/wiki/growdirect-lightning-two-phases.md",
         "title": "How Lightning Powers elJeffe — Two Phases, One Wallet"
+      }
+    ],
+    "wrong": [
+      {
+        "path": "Brain/wiki/third-branch.md",
+        "title": "The Third Branch"
       }
     ],
     "wyoming": [

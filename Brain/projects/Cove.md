@@ -90,6 +90,12 @@ Durable, cross-cutting articles that answer operational questions. Built 2026-04
 
 ---
 
+## Agents
+
+- [[Brain/agents/condor|Condor]] — Internal research agent for the Foundation / abalonecove work. Investigative discovery in front, calm legal register (modeled on the November 23, 2009 WPBCA objection letter) when he sits down to write. Not a public byline. Voice rules and triggers documented in the profile.
+
+---
+
 ## Mapping & Engineering Operations
 
 Project-specific playbooks and references in `Cove/docs/archive/wiki/`:

@@ -160,7 +160,7 @@ Enum validation is enforced as module-level `frozenset` constants in `case_servi
 
 - [[canary-chirp-rules|Canary Chirp Rules]] — What produces the alerts that become cases (including the six auto-case rules)
 - [[canary-tsp-pipeline|Canary TSP Pipeline]] — The other evidence chain (TSP seal path)
-- [[canary-data-model|Canary Data Model]] — Fox schema overview and mixins
+- [[canary-data-model|Canary Data Model]] — Fox tables (in `app` schema) and mixins
 - [[canary-architecture|Canary Architecture]] — Where Fox sits in the service mesh
 - [[Brain/projects/Canary|Canary MOC]]
 
