@@ -432,13 +432,13 @@ Program-level (see build plan §Acceptance criteria for full list):
 
 | # | Question | Status |
 |---|---|---|
-| 1 | Does Counterpoint expose ticket-line items as nested in Document or as separate endpoint? | **Open** — read GET_Document next; `POST_Document_Lines` exists, suggesting line items are queryable separately |
-| 2 | How does Counterpoint distinguish void-of-sale from return at the data-model level? | **Open** — read GET_Document; likely Document type code differentiates |
-| 3 | Customer-tier representation in CustomerControl — how many tiers, how named? | **Mostly answered** — tiers in CustomerControl + per-Customer fields. Read GET_CustomerControl + GET_Customer for exact field names |
-| 4 | Loyalty program data — separate endpoint or embedded in Customer? | **Open** — likely embedded in Customer record; verify via GET_Customer |
+| 1 | Does Counterpoint expose ticket-line items as nested in Document or as separate endpoint? | **ANSWERED — NESTED.** Lines are in `PS_DOC_LIN[]` array on the Document response (per `Brain/wiki/ncr-counterpoint-document-model.md`). `POST_Document_Lines` exists for adding lines but reads come whole. |
+| 2 | How does Counterpoint distinguish void-of-sale from return at the data-model level? | **Mostly answered** — Documents reference originating tickets via `PS_DOC_HDR_ORIG_DOC[]` array; return vs. void distinguished by DOC_TYP code (exact codes pending verification with non-sale samples) |
+| 3 | Customer-tier representation in CustomerControl — how many tiers, how named? | **ANSWERED.** Customer tier = `CATEG_COD` field on the Customer record (e.g., "MEMBERS"). User-defined codes; not enumerated at CustomerControl level. CustomerControl carries system-level customer config (aging periods, custom-field enablement, loyalty enabled flag) but not tier definitions. |
+| 4 | Loyalty program data — separate endpoint or embedded in Customer? | **ANSWERED — EMBEDDED.** Customer record has `LOY_PGM_COD`, `LOY_PTS_BAL`, `TOT_LOY_PTS_EARND`, `TOT_LOY_PTS_RDM`, `TOT_LOY_PTS_ADJ`, `LOY_CARD_NO`, `LST_LOY_EARN_TKT_DAT/TIM`, `LST_LOY_PTS_EARN`, `LST_LOY_EARN_TKT_NO`, `LST_LOY_PTS_RDM`, `LST_LOY_ADJ_DAT`, `LST_LOY_PTS_ADJ`. CustomerControl has `USE_LOY_PGMS: Y/N` system flag. |
 | 5 | Does Counterpoint expose timeclock via REST? | **ANSWERED — NO.** Module L cannot be sourced from Counterpoint REST. See §6.12 revised. |
 | 6 | Replenishment engine REST? | **Mostly answered** — likely UI-only; derive from VendorItem + Inventory_ByLocation |
-| 7 | Lawn/garden module's custom fields on Item | **Open** — read GET_Item to identify available custom fields; mix-and-match flat tracking may be UI-only |
+| 7 | Lawn/garden module's custom fields on Item | **Mostly answered.** Items have `CATEG_COD` + `SUBCAT_COD` (2-level), `ATTR_COD_1` + `ATTR_COD_2` (extensible attributes), `MIX_MATCH_COD` (mix-and-match group), `ITEM_TYP` (I/K/etc.), `IS_TXBL`, `IS_FOOD_STMP_ITEM`, ecommerce flags. Mix-and-match IS exposed via API as a code reference. Plant-specific custom fields likely use the attribute codes. Customer-level custom fields use 5×4 (alpha/code/date/number) profile slots enabled in CustomerControl. |
 | 8 | Promotion stacking + effective-dating semantics | **ANSWERED — N/A.** No Promotion endpoint exists; Module P is derived. See §6.11 revised. |
 | 9 | Multi-company addressing strategy | **ANSWERED.** `<CompanyAlias>.<UserName>` auth prefix; CRDM tenant_id × counterpoint_company_alias |
 | 10 | Workflow / task in Counterpoint | **ANSWERED — NO.** Module W not sourced from Counterpoint. See §6.13 revised. |
@@ -447,13 +447,19 @@ New questions surfaced post deep-dive:
 
 | # | Question | Status |
 |---|---|---|
-| 11 | What is `POST_NSPTransaction`? (Non-Standard Payment? specific use?) | Open — read endpoint doc |
-| 12 | What is `GET_Workgroup`? (store grouping for hierarchy / region?) | Open — read endpoint doc |
-| 13 | What does `GET_Document` payload look like? (line items, type codes, void/return semantics) | Open — read endpoint doc; resolves Q1 + Q2 |
-| 14 | What's in `GET_CustomerControl`? (tier definitions, customer-default fields) | Open — read endpoint doc; resolves Q3 |
-| 15 | Counterpoint Document type-code taxonomy — what types exist (sale, return, void, transfer, order)? | Open — needs endpoint reading + maybe sample data |
+| 11 | What is `POST_NSPTransaction`? | **ANSWERED.** Endpoint to record secure-pay transactions from **Monetra** (a payment processor / gateway). Used by Counterpoint customers using Monetra. NSP = Non-Standard Payment. Resulting payments still appear as Document_Payments in normal Documents — Canary doesn't need to touch NSPTransaction directly. |
+| 12 | What is `GET_Workgroup`? | **ANSWERED.** Workgroup is a **store / location grouping** concept (multi-store coordination). Each workgroup has next-number generators for transactions, transfers, POs, etc. Carries `THIS_LOC_ID`, `THIS_STR_ID`, `LOC_GRP_ID`. NOT a labor workgroup. Useful for Module N hierarchy + multi-store deployments. |
+| 13 | What does `GET_Document` payload look like? | **ANSWERED.** See `Brain/wiki/ncr-counterpoint-document-model.md`. PS_DOC_HDR + 11 nested arrays (lines, payments, taxes, audit, etc.). Document is omnibus: covers sales, returns, voids, transfers, POs, RTVs, GFC. |
+| 14 | What's in `GET_CustomerControl`? | **ANSWERED.** AR_CTL record: aging-period config (4 periods + messages), customer-profile field enablement (5 each of alpha/code/date/number), loyalty-program system flag, statement settings. Does NOT define tiers; tiers are user-defined codes on the Customer record's CATEG_COD field. |
+| 15 | Counterpoint Document type-code taxonomy | **Partially answered** — at minimum: `T` (ticket/sale), `XFER`, `RECVR`, `PO`, `PREQ`, `RTV`, `STC`, `EVENT`, `GFC`, `AR_DOC` (inferred from Workgroup's next-number generators). Need to read additional sample payloads to confirm exact DOC_TYP code strings. |
 
-These remaining open questions need Phase 0–1 reading to close.
+**Status summary post 2026-04-25 deep-dive:**
+
+- 9 of 10 original open questions ANSWERED or MOSTLY ANSWERED
+- 4 of 5 new questions ANSWERED
+- Remaining open: exhaustive DOC_TYP code list (Q15 partial), void-DOC_TYP-vs-return semantics edge cases, IS_OFFLINE / IS_DOC_COMMITTED behavior
+
+The SDD is sufficiently grounded for Phase 0–1 implementation. Remaining gaps surface during fixture-test development against an NCR sandbox.
 
 ## 12. Phasing dependencies + serialization gates
 
