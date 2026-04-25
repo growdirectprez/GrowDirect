@@ -1,0 +1,33 @@
+               
+               
+┌─────────────┐
+│ Scan Status │
+└─────────────┘
+  Scanning 169 files tracked by git with 548 Code rules:
+                                                                                                                        
+  Language      Rules   Files          Origin      Rules                                                                
+ ─────────────────────────────        ───────────────────                                                               
+  <multilang>       6     169          Community     548                                                                
+  python          151      85                                                                                           
+  html              1      53                                                                                           
+  js               65       4                                                                                           
+  yaml             19       2                                                                                           
+  json              3       2                                                                                           
+  dockerfile        4       1                                                                                           
+  bash              1       1                                                                                           
+                                                                                                                        
+                
+                
+┌──────────────┐
+│ Scan Summary │
+└──────────────┘
+✅ Scan completed successfully.
+ • Findings: 4 (4 blocking)
+ • Rules run: 250
+ • Targets scanned: 169
+ • Parsed lines: ~98.3%
+ • Scan skipped: 
+   ◦ Files matching .semgrepignore patterns: 73
+ • Scan was limited to files tracked by git
+ • For a detailed list of skipped files and lines, run semgrep with the --verbose flag
+Ran 250 rules on 169 files: 4 findings.
