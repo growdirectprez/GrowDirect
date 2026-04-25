@@ -24,6 +24,7 @@ def all_scenarios():
 
 def describe(name: str):
     """Structured metadata for a single scenario, or None if unknown."""
+    _import_all()
     cls = _registry.get(name)
     if cls is None:
         return None
