@@ -10,7 +10,10 @@ Sources:
   docs/team/*.md            → team_profile (corp layer)
   docs/decisions/*.md       → decision (corp layer)
   docs/research/*.md        → foundation (canary layer)
-  Cove governance config    → foundation (cove layer)
+
+Per-app SDD seeds for apps outside the platform repo live with each
+app's own seed runner. This script seeds only platform + canary +
+shared sources.
 
 Usage:
   # From host (needs DATABASE_URL):
@@ -57,12 +60,6 @@ SOURCES = [
         "metadata_extra": {"block_type": "domain_overview"},
     },
     {
-        "glob": "docs/sdds/cove/*.md",
-        "memory_type": "context_block",
-        "layer": "cove",
-        "metadata_extra": {"block_type": "domain_overview"},
-    },
-    {
         "glob": "docs/sdds/alx/*.md",
         "memory_type": "context_block",
         "layer": "shared",
@@ -88,13 +85,6 @@ SOURCES = [
         "memory_type": "foundation",
         "layer": "canary",
         "metadata_extra": {"domain": "chirp"},
-    },
-    # Cove governance config
-    {
-        "file": "Cove/cove/governance/wpbca-bylaws-config.json",
-        "memory_type": "foundation",
-        "layer": "cove",
-        "metadata_extra": {"domain": "governance"},
     },
 ]
 

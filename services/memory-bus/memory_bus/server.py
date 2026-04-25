@@ -88,7 +88,7 @@ def memory_recall(
 ) -> str:
     """Semantic search over memories. Falls back: vector -> full-text -> ILIKE.
 
-    Use layer to scope results: corp, canary, cove, or shared.
+    Use layer to scope results: corp, canary, or shared.
     """
     try:
         validate_api_key(api_key)
@@ -111,7 +111,7 @@ def memory_search(
 ) -> str:
     """Structured search by session, type, date, or layer.
 
-    Use layer to scope results: corp, canary, cove, or shared.
+    Use layer to scope results: corp, canary, or shared.
     """
     try:
         validate_api_key(api_key)
