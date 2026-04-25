@@ -311,10 +311,14 @@ For each module: **spine intent**, **Counterpoint endpoints**, **CRDM entities**
 - **Counterpoint endpoints (verified):** none
 - **CRDM entities:** `Workflows.tasks`, `Workflows.checklists` — must be sourced from upstream system other than Counterpoint
 - **ARTS:** N/A (not in core ARTS)
-- **Implication:** Module W is sourced from another system entirely (e.g., a task-management product, a custom store-ops tool, or Canary-internal task management). NOT covered by the NCR Counterpoint integration build plan; deferred to a separate work-execution build plan.
-- **MCP tool surface:** N/A (out of scope for this SDD)
+- **Implication options** (parallel to Module L's option set):
+  - **(a)** Source from a task-management / store-ops product (Beekeeper, YOOBIC, Foko Retail, etc.) feeding Canary directly — third-party tool, customer pays for two systems
+  - **(b)** Custom store-ops tool (customer-built) — customer cost, integration burden
+  - **(c)** Defer — Module W sits gappy in CRDM
+  - **(d) Canary-native work-execution module** — same one-stop-shop wedge framing as Module L. Native task management, daily-ops checklists, store-floor workflows inside Canary. Tradeoffs: store-ops UI is a real surface to build, mature competitors exist, Phase 6+ work not Phase 1. **Same product-strategic call as Module L; escalate to founder before committing roadmap scope.** See memory: `project_canary_native_labor_module_opportunity.md` (which covers the wedge logic generically).
+- **MCP tool surface:** N/A (out of scope for Counterpoint integration; lives in Module W's own product surface if option (d) chosen)
 - **TSP adapter:** N/A (no Counterpoint endpoints)
-- **Recommended scope adjustment:** **remove Module W from Phase 3 (operations modules)**. Phase 3 covers D + J only; W becomes a separate effort with its own SDD.
+- **Recommended scope adjustment:** **remove Module W from Phase 3** of the Counterpoint build plan. Phase 3 covers D + J only; W becomes a separate effort with its own SDD if/when it's prioritized.
 
 ### 6.12 Module L — Labor / Workforce
 
