@@ -258,20 +258,59 @@ For each module: **spine intent**, **Counterpoint endpoints**, **CRDM entities**
 
 ### 6.11 Module P — Pricing / Promotion
 
+> **REVISED 2026-04-25 post deep-dive:** Counterpoint's REST API has **no dedicated Pricing or Promotion endpoint family**. Module P is **derived**, not directly mapped. See `Brain/wiki/ncr-counterpoint-api-reference.md`.
+
 - **Spine intent:** pricing rules, promotions, multi-tier customer pricing
-- **Counterpoint endpoints:** Pricing* (verify), Promotion* (verify), `CustomerControl` (multi-tier customer pricing flags), Item* (base price fields)
-- **CRDM entities:** `Things.prices`, `Workflows.promotions`, `Workflows.pricing_tiers`
-- **ARTS:** Price / Promotion model
-- **MCP tool surface:**
-  - `get_active_promotions(date?, store?)`
-  - `get_pricing_tier(customer_tier, item_id)` — derived
-  - `get_price(item_id, customer_id?, store?)` — derived
-- **TSP adapter:** Pricing/Promotion endpoints + CustomerControl for tier mapping.
-- **H&G specifics:** multi-tier customer pricing (retail / landscaper / commercial) is critical for the Boutique H&G chain. Tier hierarchy must be modeled accurately.
-- **Open questions:**
-  - Promotion stacking rules
-  - Effective dating + override behavior
-  - Mix-and-match flat pricing (H&G-specific)
+- **Counterpoint endpoints (verified):**
+  - **No** Pricing* endpoints
+  - **No** Promotion* endpoints
+  - Item-level prices live in `GET_Item` payload (verify exact fields)
+  - Customer tier flags in `GET_CustomerControl` + per-Customer fields
+- **CRDM entities:** `Things.item_prices` (derived), `Things.customer_tiers` (derived)
+- **ARTS:** Price model (Promotion model: not applicable — Counterpoint doesn't expose promotion semantics at API level)
+- **MCP tool surface (revised — all derived computations):**
+  - `get_price(item_id, customer_id?, store?)` — derives from Item base price + CustomerControl tier + per-Customer tier flag
+  - `get_pricing_tier(customer_id)` — derives from CustomerControl
+  - ~~`get_active_promotions`~~ — N/A (no promotion endpoint)
+- **TSP adapter:** Item + CustomerControl + Customer endpoints. Pricing logic lives in the adapter / a CRDM materialization layer.
+- **H&G specifics:** multi-tier customer pricing (retail / landscaper / commercial) still critical, but model is "derive at consume time," not "sync a pricing rules table."
+- **Open questions (post deep-dive):**
+  - ~~Promotion stacking rules~~ — N/A (no promotion endpoint)
+  - Effective dating + override behavior — N/A at API level; managed in Counterpoint UI
+  - Mix-and-match flat pricing — likely a Counterpoint-internal feature not exposed via API; needs alternative ingestion (CSV export, direct DB read, or UI scraping if customer authorizes)
+  - Exact pricing fields on `GET_Item` — read endpoint doc to confirm available fields
+
+### 6.12 Module L — Labor / Workforce
+
+> **REVISED 2026-04-25 post deep-dive:** Counterpoint's REST API has **near-zero workforce coverage**. No Employee, Timeclock, Schedule, or Labor-cost endpoints exist. SDD's prior open question §6.12 (timeclock via REST) is answered: **NO**. Module L cannot be sourced from Counterpoint.
+
+- **Spine intent:** employees, time clock, labor cost, scheduling
+- **Counterpoint endpoints (verified):**
+  - **No** Employee* endpoints
+  - **No** Timeclock* endpoints
+  - **No** Schedule* endpoints
+  - The User/Role endpoints (`GET_Users`, `GET_Roles`, `GET_UserRoles`, etc.) are API-access-management surfaces, NOT workforce data
+- **CRDM entities:** `People.employees`, `Events.timeclock`, `Workflows.schedules` — must be sourced from upstream system other than Counterpoint REST
+- **ARTS:** Party model (when sourced from elsewhere)
+- **Implication:** Module L's full coverage requires either (a) a workforce-management product (Kronos, ADP, etc.) feeding Canary directly, (b) Counterpoint's underlying SQL database queried out-of-band (out of scope for the public REST API), or (c) deferred coverage until an alternative source is identified.
+- **MCP tool surface (degraded for Phase 1):**
+  - `get_api_users(company)` — derives from User/Role endpoints — operational user inventory only
+  - Full `get_employees`, `get_timeclock`, `get_labor_cost`: **DEFERRED** until alternative upstream identified
+- **TSP adapter:** Phase 1 implements only the User/Role surface. The full Module L is parked.
+- **Recommended scope adjustment:** **drop L from Phase 1 priority modules**; defer to a separate workforce-data dispatch.
+
+### 6.13 Module W — Work Execution
+
+> **REVISED 2026-04-25 post deep-dive:** Counterpoint's REST API has **no work-execution / task / checklist endpoints**. Module W is fully out of Counterpoint scope.
+
+- **Spine intent:** daily operating tasks, store-floor workflows, ops checklists
+- **Counterpoint endpoints (verified):** none
+- **CRDM entities:** `Workflows.tasks`, `Workflows.checklists` — must be sourced from upstream system other than Counterpoint
+- **ARTS:** N/A (not in core ARTS)
+- **Implication:** Module W is sourced from another system entirely (e.g., a task-management product, a custom store-ops tool, or Canary-internal task management). NOT covered by the NCR Counterpoint integration build plan; deferred to a separate work-execution build plan.
+- **MCP tool surface:** N/A (out of scope for this SDD)
+- **TSP adapter:** N/A (no Counterpoint endpoints)
+- **Recommended scope adjustment:** **remove Module W from Phase 3 (operations modules)**. Phase 3 covers D + J only; W becomes a separate effort with its own SDD.
 
 ### 6.12 Module L — Labor / Workforce
 
@@ -389,20 +428,32 @@ Program-level (see build plan §Acceptance criteria for full list):
 - **Card-on-file tokenization** — separate concern; see `TokenizationUtility.md`. Canary likely does NOT touch this, but adapter must avoid leaking PAN data
 - **Multi-company complexity** — one customer may have multiple Counterpoint companies (e.g., legal entities, store groupings); CRDM must accommodate without conflating
 
-## 11. Open questions (rolled up from per-module)
+## 11. Open questions (status updated 2026-04-25 post deep-dive)
 
-1. Does Counterpoint expose ticket-line items as nested in Document or as separate endpoint?
-2. How does Counterpoint distinguish void-of-sale from return at the data-model level?
-3. Customer-tier representation in CustomerControl — how many tiers, how named?
-4. Loyalty program data — separate endpoint or embedded in Customer?
-5. Does Counterpoint expose timeclock via REST, or only via a separate workforce module?
-6. Whether Counterpoint's replenishment engine is REST-accessible or UI-only
-7. Lawn/garden module's specific custom fields on Item — perishables, mix-and-match flats, dead-count tracking
-8. Promotion stacking + effective-dating semantics
-9. Multi-company addressing strategy at the CRDM tenant_id × company_id level
-10. Workflow / task representation (Module W) — does Counterpoint have any concept here, or do we source from elsewhere
+| # | Question | Status |
+|---|---|---|
+| 1 | Does Counterpoint expose ticket-line items as nested in Document or as separate endpoint? | **Open** — read GET_Document next; `POST_Document_Lines` exists, suggesting line items are queryable separately |
+| 2 | How does Counterpoint distinguish void-of-sale from return at the data-model level? | **Open** — read GET_Document; likely Document type code differentiates |
+| 3 | Customer-tier representation in CustomerControl — how many tiers, how named? | **Mostly answered** — tiers in CustomerControl + per-Customer fields. Read GET_CustomerControl + GET_Customer for exact field names |
+| 4 | Loyalty program data — separate endpoint or embedded in Customer? | **Open** — likely embedded in Customer record; verify via GET_Customer |
+| 5 | Does Counterpoint expose timeclock via REST? | **ANSWERED — NO.** Module L cannot be sourced from Counterpoint REST. See §6.12 revised. |
+| 6 | Replenishment engine REST? | **Mostly answered** — likely UI-only; derive from VendorItem + Inventory_ByLocation |
+| 7 | Lawn/garden module's custom fields on Item | **Open** — read GET_Item to identify available custom fields; mix-and-match flat tracking may be UI-only |
+| 8 | Promotion stacking + effective-dating semantics | **ANSWERED — N/A.** No Promotion endpoint exists; Module P is derived. See §6.11 revised. |
+| 9 | Multi-company addressing strategy | **ANSWERED.** `<CompanyAlias>.<UserName>` auth prefix; CRDM tenant_id × counterpoint_company_alias |
+| 10 | Workflow / task in Counterpoint | **ANSWERED — NO.** Module W not sourced from Counterpoint. See §6.13 revised. |
 
-These need answering during Phase 0–1 execution, not before.
+New questions surfaced post deep-dive:
+
+| # | Question | Status |
+|---|---|---|
+| 11 | What is `POST_NSPTransaction`? (Non-Standard Payment? specific use?) | Open — read endpoint doc |
+| 12 | What is `GET_Workgroup`? (store grouping for hierarchy / region?) | Open — read endpoint doc |
+| 13 | What does `GET_Document` payload look like? (line items, type codes, void/return semantics) | Open — read endpoint doc; resolves Q1 + Q2 |
+| 14 | What's in `GET_CustomerControl`? (tier definitions, customer-default fields) | Open — read endpoint doc; resolves Q3 |
+| 15 | Counterpoint Document type-code taxonomy — what types exist (sale, return, void, transfer, order)? | Open — needs endpoint reading + maybe sample data |
+
+These remaining open questions need Phase 0–1 reading to close.
 
 ## 12. Phasing dependencies + serialization gates
 
