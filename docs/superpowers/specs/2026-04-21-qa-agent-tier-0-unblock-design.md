@@ -1,4 +1,6 @@
 ---
+classification: confidential
+owner: GrowDirect LLC
 title: QA Agent Tier 0 — Unblock DB Context
 date: 2026-04-21
 project: Canary

@@ -1,3 +1,8 @@
+---
+classification: confidential
+owner: GrowDirect LLC
+---
+
 # Dispatch: Canary Technical Library — Narrative Docs Uplift
 ## For: Fresh VS Code Claude Code session
 ## Skill: `engineering:documentation` (load first)

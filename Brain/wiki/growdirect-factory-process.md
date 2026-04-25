@@ -1,4 +1,6 @@
 ---
+classification: confidential
+owner: GrowDirect LLC
 date: 2026-04-22
 type: wiki
 tags: [growdirect, factory, process, methodology]

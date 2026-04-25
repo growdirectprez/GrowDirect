@@ -1,4 +1,6 @@
 ---
+classification: confidential
+owner: GrowDirect LLC
 title: GrowDirect Method Initiative — Sprints A–E
 date: 2026-04-21
 type: brief

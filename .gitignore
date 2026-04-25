@@ -68,3 +68,5 @@ Angel/media/
 Brain/raw/inbox/
 Brain/raw/.extract/
 Brain/raw/.logs/
+# MCP server config — contains API keys, never commit
+.mcp.json
