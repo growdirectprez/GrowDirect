@@ -21,6 +21,12 @@ class Params(ScenarioParams):
 class RefundWave(Scenario):
     name = "refund_wave"
     description = "Issue a batch of refunds against prior paid orders."
+    category = "fraud"
+    expected_behaviors = [
+        "N most-recent paid orders refunded via Square + Refund rows persisted",
+        "Inventory restored on full refunds (re-stock adjustments)",
+        "REFUND_PATTERN rule fires when configured for refund-velocity detection",
+    ]
     params_schema = Params
 
     @classmethod

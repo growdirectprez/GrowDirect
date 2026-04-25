@@ -15,6 +15,12 @@ class Params(ScenarioParams):
 class RoundAmountCluster(Scenario):
     name = "round_amount_cluster"
     description = "Orders whose totals end in $0.00 — suspicious round-dollar clustering."
+    category = "fraud"
+    expected_behaviors = [
+        "Each generated order has total_cents divisible by 100",
+        "Free-shipping threshold cleared so shipping=0 (no rounding noise)",
+        "C-003 ROUND_AMOUNT rule should fire on the cluster",
+    ]
     params_schema = Params
 
     @classmethod
