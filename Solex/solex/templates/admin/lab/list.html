@@ -44,8 +44,8 @@
 <section class="mt-12">
   <div class="flex items-center justify-between mb-4">
     <h2 class="eyebrow text-solex-teal">Recent runs</h2>
-    {# Task 4 wires this to lab.list_runs. #}
-    <span class="text-xs text-solex-muted">Last 25</span>
+    <a href="{{ url_for('lab.list_runs') }}"
+       class="text-xs text-solex-muted hover:text-solex-ink">All runs →</a>
   </div>
   <table class="w-full text-sm border-collapse">
     <thead>
