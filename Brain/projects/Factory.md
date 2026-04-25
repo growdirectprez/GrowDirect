@@ -1,6 +1,8 @@
 ---
 type: project-moc
 status: operational
+classification: internal
+owner: GrowDirect LLC
 tags: [factory, method, pipeline, growdirect-method, orchestration]
 ---
 

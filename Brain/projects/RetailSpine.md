@@ -1,6 +1,8 @@
 ---
 date: 2026-04-23
 type: project-moc
+classification: internal
+owner: GrowDirect LLC
 tags: [retail-spine, rbis, capability-matrix, moc]
 sources:
   - Brain/raw/inbox/retail-business-intelligence-solution-v7.md

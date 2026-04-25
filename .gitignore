@@ -63,3 +63,5 @@ Angel/media/
 
 # Ignore Smart Environment folder
 .smart-env
+# MCP server config — contains API keys, never commit
+.mcp.json
