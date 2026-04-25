@@ -1,4 +1,6 @@
 ---
+classification: confidential
+owner: GrowDirect LLC
 title: Secure → Canary Handoff
 date: 2026-04-21
 type: brief

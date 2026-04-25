@@ -1,3 +1,5 @@
+# GrowDirect LLC — Confidential & Proprietary
+# Copyright (c) 2026 GrowDirect LLC. All rights reserved.
 """002 — drop seed_embeddings table (unused, not queried by any code).
 
 Revision ID: 002_drop_seed_embeddings

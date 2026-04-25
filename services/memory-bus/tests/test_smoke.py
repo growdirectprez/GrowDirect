@@ -1,3 +1,5 @@
+# GrowDirect LLC — Confidential & Proprietary
+# Copyright (c) 2026 GrowDirect LLC. All rights reserved.
 """End-to-end smoke test for memory bus MCP server.
 
 Requires: growdirect_memory_test database, Ollama running.
