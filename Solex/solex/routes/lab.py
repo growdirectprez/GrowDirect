@@ -17,22 +17,34 @@ bp = Blueprint("lab", __name__, url_prefix="/admin/lab")
 SYNC_THRESHOLD = 5  # runs bigger than this get enqueued
 
 
+CATEGORY_LABELS = {
+    "operations": "Operations",
+    "loss_prevention": "Loss prevention",
+    "fraud": "Fraud",
+    "customer_behavior": "Customer behavior",
+    "subscriptions": "Subscriptions",
+}
+CATEGORY_ORDER = ["operations", "loss_prevention", "fraud", "customer_behavior", "subscriptions"]
+
+
 @bp.get("/")
 @admin_required
 def list_scenarios():
-    registry._import_all()
-    scenarios = []
-    for name, cls in sorted(registry.all_scenarios().items()):
-        params = cls.params_schema()
-        scenarios.append({
-            "name": name,
-            "description": cls.description,
-            "expected_chirps": cls.expected_chirps(params),
+    grouped = registry.by_category()
+    categories = []
+    for key in CATEGORY_ORDER:
+        items = grouped.get(key, [])
+        if not items:
+            continue
+        categories.append({
+            "key": key,
+            "label": CATEGORY_LABELS[key],
+            "scenarios": items,
         })
     recent = db.session.execute(
         select(ScenarioRun).order_by(ScenarioRun.started_at.desc()).limit(25)
     ).scalars().all()
-    return render_template("admin/lab/list.html", scenarios=scenarios, recent=recent)
+    return render_template("admin/lab/list.html", categories=categories, recent=recent)
 
 
 @bp.route("/scenarios/<name>", methods=["GET", "POST"])
