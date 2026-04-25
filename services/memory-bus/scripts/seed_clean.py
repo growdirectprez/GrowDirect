@@ -1,4 +1,6 @@
 #!/usr/bin/env python3
+# GrowDirect LLC — Confidential & Proprietary
+# Copyright (c) 2026 GrowDirect LLC. All rights reserved.
 """Seed memory bus from the clean docs/ tree.
 
 Replaces all legacy seed scripts (seed_context_blocks, seed_memory_foundation,

@@ -1,3 +1,8 @@
+---
+classification: confidential
+owner: GrowDirect LLC
+---
+
 # Shared Infrastructure — AWS Target Architecture
 
 > **Status:** Production-grade ops contract (target state — not yet deployed)

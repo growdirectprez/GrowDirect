@@ -1,3 +1,8 @@
+---
+classification: confidential
+owner: GrowDirect LLC
+---
+
 # growdirect.io Portfolio Site
 
 **Date:** 2026-04-14

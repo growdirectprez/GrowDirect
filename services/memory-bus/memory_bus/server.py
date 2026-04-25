@@ -1,3 +1,5 @@
+# GrowDirect LLC — Confidential & Proprietary
+# Copyright (c) 2026 GrowDirect LLC. All rights reserved.
 """GrowDirect Memory Bus — MCP server for organizational knowledge."""
 import json
 import logging

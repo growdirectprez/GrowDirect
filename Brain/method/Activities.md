@@ -1,4 +1,6 @@
 ---
+classification: confidential
+owner: GrowDirect LLC
 date: 2026-04-21
 type: wiki
 tags: [method, activities, linear, gro, growdirect-method]
