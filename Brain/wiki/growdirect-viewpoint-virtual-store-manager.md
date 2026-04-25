@@ -74,6 +74,33 @@ every cost actually was, decomposed to its originating event, with
 audit trail. The full operating-model implication is named in
 [[../../Canary-Retail-Brain/platform/satoshi-precision-operating-model|Satoshi-Precision Operating Model]].
 
+## The prize, sized
+
+The Canary Retail Diagnostic produced for the archetype SMB specialty
+merchant ([[../../Canary-Retail-Brain/case-studies/canary-retail-diagnostic-archetype|case study]] —
+8 stores, £12m revenue, illustrative figures) quantified the prize the
+spine delivers, end to end:
+
+| Prize stack | Low | High | Spine ring it activates |
+|---|---|---|---|
+| Loss Prevention (Q v1) | £280k | £420k | v1 — wedge, in the door |
+| Inventory & Replenishment (D + J v2) | £1.2m | £1.8m | v2 — where merchants live |
+| **Cumulative annual EBIT uplift** | **£1.48m** | **£2.22m** | full v1+v2 in market |
+| **As a margin point** | **+12%** | **+18%** | on £12m revenue base |
+
+The prize asymmetry is load-bearing for the GTM story: **LP is the
+wedge that lets us in the door (4× smaller prize); inventory and
+replenishment is the ARR expansion (4× larger prize)**. v1 LP is what
+nobody else ships at SMB tier and what closes the first sale. v2 D + J
+is the renewal engine and the upsell. v3 S + P + L + W extends and
+deepens the ARR but is not what the merchant signed up for.
+
+Both prize sizes are anchored in real Chirp rule activations and real
+v2.D+J gap-closure scenarios — see the diagnostic case study for the
+math. They are illustrative for an archetype, not promises for any
+specific merchant; merchants will price their own prize when the VSM
+runs the diagnostic against their data in Phase 1 (zero-friction install).
+
 Everything below is the support structure for that sentence.
 
 ## The substrate: perpetual stock ledger as the integrity surface
