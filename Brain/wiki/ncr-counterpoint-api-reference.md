@@ -281,6 +281,96 @@ Plus new questions surfaced:
 
 Next reads to close these: GET_Document, GET_Customer, GET_CustomerControl, GET_Item, GET_Workgroup, POST_NSPTransaction.
 
+## Sandbox / test environment
+
+Per NCR README:
+
+- **Test database**: provided via FTP at `files165.cyberlynk.net` with NCR-issued credentials. Standard Counterpoint test database + TLD folder.
+- **Automated tests**: [github.com/NCRCounterpointAPI/APITests](https://github.com/NCRCounterpointAPI/APITests) — Postman collections that exercise the test DB; published as reference + community-contribution surface.
+- **Local stand-up**: install Counterpoint API server, point it at the downloaded test DB + TLD, hit endpoints from Canary's adapter against the local server.
+
+Operator action needed: request the FTP credentials from NCR (channel partner contact or developer relations).
+
+## Spine coverage summary (post 2026-04-25 deep-dive)
+
+| Coverage tier | Modules | Implementation pattern |
+|---|---|---|
+| **Direct REST endpoints** | T, R, N, S, F | Read endpoint family per module; map to CRDM |
+| **Via Document omnibus** | D (transfers), J (POs/RTVs), Q-substrate (audit log) | Type-route on DOC_TYP within Document polling loop |
+| **Derived from existing data** | A (item flags), C (Customer B2B fields), P (Item + CustomerControl) | Adapter computes at ingest or CRDM materializes |
+| **NOT covered (need external)** | L (Labor — no Employee/Timeclock), W (Work Execution) | Separate upstream system; deferred from this build plan |
+
+**11 of 13 spine modules reachable through Counterpoint.** Two need external upstream sources.
+
+## Line type taxonomy (LIN_TYP)
+
+From Store config (`PS_STR_CFG_PS.LIN_TYP_1` through `LIN_TYP_8`):
+
+| Code | Meaning | Notes |
+|---|---|---|
+| `S` | Sale | Standard sale line |
+| `R` | Return | Return line; PS_DOC_HDR_ORIG_DOC links to original |
+| `O` | Order | Open order line |
+| `B` | Backorder | Insufficient-quantity line type |
+| `P` | (TBD) | Likely "Pending" or "Pickup" — needs verification |
+| `L` | Layaway | Layaway line type |
+| `E` | (TBD) | Possibly "Estimate" — needs verification |
+| `D` | Dropship | Vendor-direct dropship line |
+
+## Category margin targets
+
+Each ItemCategory carries:
+
+- `MIN_PFT_PCT` — minimum acceptable profit % for the category
+- `TRGT_PFT_PCT` — target profit % for the category
+
+**Critical implication for Module Q:** margin-based fraud detection (markdown abuse, cost-write-off patterns, mis-priced sales) can use category-anchored thresholds out-of-the-box. No tribal-knowledge config needed for baseline rules — Counterpoint already encodes the targets.
+
+Sample (test DB):
+- APPAREL: min 50%, target 70%
+- FOOD: min 30%, target 50%
+- GOLF: min 50%, target 65%
+
+## Store config field richness (PS_STR_CFG_PS)
+
+`GET_Store/{StoreID}` returns store demographics + a substantial config object covering ~150 fields. Operationally relevant subset:
+
+**Fraud / loss prevention thresholds (Module Q substrate):**
+- `MAX_DISC_AMT`, `MAX_DISC_PCT` — store-level discount caps
+- `MIN_DISC_PCT_TO_PRT` — discount printing threshold
+- `RETAIN_CR_CARD_NO_HIST` — credit card history retention (PCI-relevant)
+- `USE_VOID_COMP_REAS` — require void/comp reason
+
+**Tax defaults:**
+- `AR_TAX_COD` — store's default tax code
+- `DFLT_TAX_COD_METH` — tax derivation method
+
+**Ticket / document numbering:**
+- `NXT_TKT_NO`, `NXT_HOLD_NO`, `NXT_QUOT_NO`, `NXT_ORD_NO`, `NXT_LWY_NO` — next-number generators
+- Per-type auto-increment flags
+
+**Cash drawer:**
+- `AUTO_DRW_ACTIV`, `AUTO_DRW_CNT`, `AUTO_DRW_RECON`, `ALLOW_DRW_REACTIV`
+- `USE_OPN_DRW_ALARM`
+
+**Customer profile field enablement:**
+- `USE_PROF_ALPHA_1..5`, `USE_PROF_COD_1..5`, `USE_PROF_DAT_1..5`, `USE_PROF_NO_1..5` — which custom-field slots are active per store
+
+**Workflow defaults:**
+- Order / Layaway / Backorder / Special-order config
+- Quote validity days
+- Order deposit minimums
+- Dropship config (separate workflow)
+
+**EDC (payment processor):**
+- `EDC_PROCESSOR`, `EDC_MERCH_NO`, `SERV_NAM_1`, `EDC_MODE`
+- AVS / CVV settings per store
+
+**Industry type:**
+- `INDUSTRY_TYP: "R"` (Retail) — likely differs in garden-center / nursery deployments
+
+This field-density means the Module N section of the SDD should treat Store config as a first-class data structure, not just store demographics.
+
 ## Source
 
 `Brain/raw/inbox/rapid-pos/ncr-counterpoint-api/` — full repo, 97 endpoint docs, Basics/, InstallationAndConfiguration/, Release_Notes/.
