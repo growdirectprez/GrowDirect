@@ -1,3 +1,8 @@
+---
+classification: confidential
+owner: GrowDirect LLC
+---
+
 # Canary Goes Primetime — Consolidated Dispatch
 ## Date: 2026-04-23
 ## Window: 3–4 days

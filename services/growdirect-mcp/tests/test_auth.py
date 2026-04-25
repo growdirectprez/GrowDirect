@@ -1,3 +1,5 @@
+# GrowDirect LLC — Confidential & Proprietary
+# Copyright (c) 2026 GrowDirect LLC. All rights reserved.
 """Tests for auth middleware — API key, JWT validation, and no-auth opt-in."""
 
 import os

@@ -1,3 +1,5 @@
+# GrowDirect LLC — Confidential & Proprietary
+# Copyright (c) 2026 GrowDirect LLC. All rights reserved.
 """003 — add HNSW index on alx_memories.embedding for vector search performance.
 
 Revision ID: 003_hnsw_index

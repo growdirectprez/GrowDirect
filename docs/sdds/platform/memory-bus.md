@@ -1,3 +1,8 @@
+---
+classification: confidential
+owner: GrowDirect LLC
+---
+
 # Memory Bus
 
 > **Status:** Production-grade ops contract

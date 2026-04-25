@@ -1,3 +1,8 @@
+---
+classification: confidential
+owner: GrowDirect LLC
+---
+
 # SDD Ops Upgrade — Production Readiness Code Review
 
 **Date:** 2026-04-13

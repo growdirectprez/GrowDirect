@@ -1,3 +1,5 @@
+# GrowDirect LLC — Confidential & Proprietary
+# Copyright (c) 2026 GrowDirect LLC. All rights reserved.
 """GrowDirectTool — SDK Tool wrapper with response envelope and error handling."""
 
 import asyncio

@@ -1,3 +1,8 @@
+---
+classification: confidential
+owner: GrowDirect LLC
+---
+
 # Dispatch: API Gateway Docs — Update Spec + Serve on /devops/api
 ## For: Fresh Claude Code session inside `~/GrowDirect/Canary/`
 ## Linear: GRO-169 (reopen + close)

@@ -1,6 +1,8 @@
 ---
 type: project-moc
 status: active
+classification: internal
+owner: GrowDirect LLC
 tags: [method, growdirect-method, methodology, navigation-moc]
 ---
 

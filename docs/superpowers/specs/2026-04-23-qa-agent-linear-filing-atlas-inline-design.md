@@ -1,4 +1,6 @@
 ---
+classification: confidential
+owner: GrowDirect LLC
 title: QA Agent Tier 1 — Linear bug filing + Atlas inline rendering
 date: 2026-04-23
 project: Canary

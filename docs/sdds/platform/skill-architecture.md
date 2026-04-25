@@ -1,3 +1,8 @@
+---
+classification: confidential
+owner: GrowDirect LLC
+---
+
 # GrowDirect Skill Architecture
 
 > **Type:** Platform Service
