@@ -1,4 +1,6 @@
 ---
+classification: confidential
+owner: GrowDirect LLC
 date: 2026-04-21
 type: wiki
 tags: [method, roles, agent-team, growdirect-method]

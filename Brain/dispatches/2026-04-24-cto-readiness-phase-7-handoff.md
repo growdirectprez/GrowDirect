@@ -1,4 +1,6 @@
 ---
+classification: confidential
+owner: GrowDirect LLC
 type: dispatch
 status: ready-for-handoff
 date: 2026-04-24

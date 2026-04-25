@@ -1,4 +1,6 @@
 ---
+classification: confidential
+owner: GrowDirect LLC
 title: Batch Inbox Intake — parse all queued corpora in one run
 date: 2026-04-24
 type: dispatch

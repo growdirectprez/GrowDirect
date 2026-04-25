@@ -1,3 +1,5 @@
+# GrowDirect LLC — Confidential & Proprietary
+# Copyright (c) 2026 GrowDirect LLC. All rights reserved.
 """Tests for the `method` CLI command group — queries over role/stage metadata."""
 import sys
 from pathlib import Path

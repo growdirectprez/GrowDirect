@@ -1,3 +1,5 @@
+# GrowDirect LLC — Confidential & Proprietary
+# Copyright (c) 2026 GrowDirect LLC. All rights reserved.
 """Tests for the stdio-HTTP bridge — IDE tool discovery across platform servers."""
 
 import json
