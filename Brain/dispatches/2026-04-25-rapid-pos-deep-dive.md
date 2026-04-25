@@ -34,13 +34,26 @@ This dispatch closes that gap.
 
 ## Scope — what to find and ingest
 
-### Layer 1 — RAPID POS
+### Layer 1 — RAPID POS + NCR ACE
 
 Brand: RAPID POS (used by hardware / home & garden / farm-feed-
-supply / specialty SMB retailers; vendor: Tri-Tech Systems).
-Verify before deeper search.
+supply / specialty SMB retailers; vendor relationship: Tri-Tech
+Systems / NCR-adjacent — verify NCR ownership/partnership
+status). Companion target: **NCR ACE** (Advanced Connectivity
+Engine), the middleware layer that aggregates and exports POS
+data in ARTS POSLog XML format.
 
-Targets:
+The likely integration shape for the H&G chain engagement:
+
+```
+RAPID POS at each store → NCR ACE → ARTS POSLog XML → Canary TSP
+```
+
+ACE produces the file-batch intake (vs Canary's existing Square
+webhook intake). TSP needs an ARTS POSLog XML parser + batch
+adapter for this shape.
+
+RAPID POS targets:
 - Public product documentation (features, modules, capabilities)
 - API documentation (REST endpoints, authentication, rate limits,
   pagination)
@@ -56,6 +69,22 @@ Targets:
   printers, cash drawers, scale integrations)
 - Typical deployment shapes (single-store, multi-store, on-
   premise vs cloud, network requirements)
+
+NCR ACE specific targets:
+- ACE deployment shapes (cloud-hosted, on-premise, hybrid)
+- ACE batch cadence at SMB scale (typical real-time vs 5-15 min
+  batches vs end-of-day push)
+- ACE export modalities (SFTP target, file-drop, scheduled HTTP
+  POST, message queue)
+- ARTS POSLog XML version ACE produces (v6 current; older
+  deployments may emit v4)
+- Authentication / auth model for ACE-to-platform integrations
+  (mutual TLS, API key, signed payloads)
+- Operational concerns (file naming convention, retry semantics,
+  duplicate handling, schema versioning)
+- ACE configuration cost / typical setup time
+- Whether ACE handles only POSLog or also Customer / Device /
+  Site ARTS exports
 
 ### Layer 2 — ARTS POS standards
 
