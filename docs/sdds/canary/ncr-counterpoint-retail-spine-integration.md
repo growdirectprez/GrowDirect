@@ -45,21 +45,20 @@ source-corpus: Brain/raw/inbox/rapid-pos/ncr-counterpoint-api/
 
 **Network:** Counterpoint API server is at the customer's site, on Windows. Canary's adapter polls / fetches from it over HTTPS using HTTP Basic auth + APIKey header. Customer-provided host or Canary-provided edge box is a per-deployment decision (see §10 Risks).
 
-**Omnichannel coverage.** Counterpoint operates as the system-of-record hub; ecommerce platforms (NCR Retail Online — NCR's native storefront — or third-party connectors like IceSync, Shopify integrations, etc.) operate as spokes. Ecommerce orders sync back into Counterpoint's Document family with EC flags / fields populated. **Canary's TSP adapter sees both physical-store and online transactions through one ingestion pathway** — no separate ecommerce integration required regardless of which storefront the customer uses. See `Brain/wiki/ncr-counterpoint-api-reference.md` §"Ecommerce surface" for the EC endpoints and fields.
-
-**Operating-reality variance.** Customers running Counterpoint span tech-sophistication ranges (single-location indie → regional chain → omnichannel destination retailer) and have vertical-specific operational realities. Garden centers in particular have an unusual vendor mix — large commercial nurseries (EDI-capable) alongside local specialty growers (cash, paper, no system) — that affects vendor-data-quality and Module Q detection rule design. See `Brain/wiki/garden-center-operating-reality.md` for the H&G-specific operating reality the integration must accommodate.
-
 ## 2. Source-of-truth references
 
 - **API spec** — `Brain/raw/inbox/rapid-pos/ncr-counterpoint-api/` (cloned from `github.com/NCRCounterpointAPI/APIGuide`)
   - `README.md` — entry point + endpoint chart
   - `Basics/Requests.md`, `Basics/Responses.md`, `Basics/DateFormats.md`
   - `InstallationAndConfiguration/Configuring.md`, `Licensing.md`, `TLS1.2.md`, `TokenizationUtility.md`
-  - `Endpoints/*.md` — 99 individual endpoint docs
+  - `Endpoints/*.md` — **95 documented endpoints** (97 files; 2 are header-only stubs: `GET_Customer_Address.md`, `GET_Customer_Note.md`. README chart correctly omits both. File-naming inconsistencies present: `PATCH_Customer_Address` (no extension), `POST_Document_Note.md.md` (stutter). Earlier drafts of this SDD said 99 — corrected against the file inventory 2026-04-25.)
   - `Release_Notes/API_2.{0,1,2,3,4}_Release_Notes.md`
 - **Spine wikis** — `Brain/wiki/canary-module-*.md` (one per module letter)
 - **Existing TSP** — `Brain/wiki/canary-tsp-pipeline.md`
 - **CRDM** — `Brain/wiki/canary-data-model.md`
+- **Derived spec** — `docs/sdds/canary/ncr-counterpoint-openapi.yaml` (OpenAPI 3.0; 71 paths, 95 operations, 49 schemas; validates)
+- **Endpoint × CRDM × Spine map** — `Brain/wiki/ncr-counterpoint-endpoint-spine-map.md` (full per-endpoint mapping; this SDD §4 is the class-level summary, that wiki is the per-endpoint detail)
+- **Stand-up runbook** — `Brain/wiki/ncr-counterpoint-connection-runbook.md`
 
 ## 3. Authentication + authorization
 
@@ -77,15 +76,21 @@ source-corpus: Brain/raw/inbox/rapid-pos/ncr-counterpoint-api/
 
 ## 4. CRDM alignment
 
-Canary's CRDM uses 5 entity classes (People × Places × Things × Events × Workflows). Counterpoint endpoints map across them:
+Canary's CRDM uses 5 entity classes (People × Places × Things × Events × Workflows). Counterpoint endpoints map across them. The table below is the class-level summary; per-endpoint detail lives in `Brain/wiki/ncr-counterpoint-endpoint-spine-map.md`.
 
 | CRDM class | Counterpoint endpoint groups | Spine modules |
 |---|---|---|
-| **People** | Customer*, Customer_Address, Customer_Note, Customer_OpenItems, AdminUser*, Roles | R, L (employees via Roles), C |
-| **Places** | Store*, Store_Station, InventoryLocations, Device_Config | N, D |
-| **Things** | Item*, ItemCategor*, ItemSerial*, Item_Images, Item_Inventory, Inventory*, GiftCard* | S, A, P |
-| **Events** | Document* (sales tickets/transactions), GiftCard transactions, returns/voids embedded in Document | T, F, Q |
+| **People** | Customer*, Customer_Address, Customer_Note, Customer_OpenItems | R, C |
+| **Places** | Store*, Store_Station, Device_Config; InventoryLocations | N (Store/Device); **D (InventoryLocations primary)** |
+| **Things** | Item*, ItemCategor*, ItemSerial*, Item_Images, Item_Inventory, Inventory*, GiftCard (code/template definitions only) | S, A |
+| **Events** | Document* (sales tickets/transactions); GiftCard* (transactions + tender activity); returns/voids embedded in Document | T, **F (GiftCard primary as tender)**, Q |
 | **Workflows** | EC (ecommerce), forecasting/ordering endpoints (per Endpoints/ — verify), tasks where supported | W, J, C |
+| **Platform / cross-cutting** | AdminUser*, Roles, RoleUsers, RoleEndpoints, APIKey, Database, SystemInfo, CACHE | platform (no spine letter — API server self-administration; out of CRDM) |
+
+**Mapping refinements vs draft-1 (recorded 2026-04-25 after per-endpoint extraction):**
+- **AdminUser/Roles → Platform.** Earlier draft put them under People (R/L/C). They are API-server self-administration, not customer or labor data. Moved off People, onto a new Platform row.
+- **GiftCard\* → Events / F primary.** Earlier draft put them under Things (S/A/P). Per-endpoint reading: gift card *codes/templates* are catalog entries (S, secondary), but the endpoint surface is dominantly transaction/tender (F, primary). The "P" attribution was not defensible.
+- **InventoryLocations → D primary.** Earlier draft listed N, D for the whole Places row. InventoryLocations is dominantly a Distribution concept (transfers, multi-location stock); Stores and Devices remain N. Both modules retained on the row, with D explicitly primary for InventoryLocations.
 
 Per-module mapping detail in §6 below.
 
@@ -242,12 +247,6 @@ For each module: **spine intent**, **Counterpoint endpoints**, **CRDM entities**
 - **Open questions:**
   - Whether Counterpoint exposes its replenishment engine via REST or only via UI
   - Vendor catalog vs item catalog separation
-- **Garden-center reality (per `Brain/wiki/garden-center-operating-reality.md`):**
-  - Vendor mix is heterogeneous: large commercial nurseries (EDI-capable) alongside local specialty growers (cash, paper, no system, hobbyist scale)
-  - Cash-paid vendor receipts are real and legitimate — adapter ingestion + Module Q detection rules must allow-list or differently classify them
-  - Manual paper-invoice entry produces data noise that's transcription error, not fraud
-  - Vendor-item relationships are loose; same plant from multiple growers may have multiple ITEM_NO records or one with multiple IM_VEND_ITEM rows — verify against real deployment
-  - Ad-hoc vendor onboarding mid-season is normal; new vendors get added without formal process
 
 ### 6.10 Module S — Space / Range / Display
 
@@ -440,7 +439,7 @@ Program-level (see build plan §Acceptance criteria for full list):
 - **Customer license gating** — `registration.ini` API user option (paid add-on)
 - **Windows-on-prem assumption** — Counterpoint API server requires Windows + .NET 4.5.2
 - **POSLog version drift** — 2.x primary, v4 backward, v6 forward
-- **Endpoint surface scope** — 99 endpoints; ~25 actually needed
+- **Endpoint surface scope** — 95 documented endpoints (97 files, 2 stubs); ~25 actually needed in steady state
 - **Multi-version Counterpoint** — must test v8.5 + v8.6
 - **API user option requirement** — bulk of endpoints require it; some "limited functions" work without it (per NCR README) — Canary's must-haves all fall in the requires-API-option bucket
 - **Card-on-file tokenization** — separate concern; see `TokenizationUtility.md`. Canary likely does NOT touch this, but adapter must avoid leaking PAN data
@@ -501,6 +500,9 @@ Phases 1, 2, 3 can run in parallel after Phase 0 if multiple sessions / engineer
 - `Brain/wiki/canary-data-model.md` — current CRDM
 - `Brain/wiki/canary-module-*.md` — per-module spine wikis
 - `Brain/raw/inbox/rapid-pos/ncr-counterpoint-api/` — source corpus
+- `docs/sdds/canary/ncr-counterpoint-openapi.yaml` — derived OpenAPI 3.0 spec (validates; 95 ops / 71 paths / 49 schemas)
+- `Brain/wiki/ncr-counterpoint-endpoint-spine-map.md` — per-endpoint × CRDM × spine mapping table + coverage gap report
+- `Brain/wiki/ncr-counterpoint-connection-runbook.md` — Windows-host stand-up + smoke tests + auth bootstrap
 - `CATz/method/phases/phase-2-select-and-implement.md` — CATz Phase II frame
 - `docs/audit-2026-04-23/secret-rotation-runbook.md` — secret-rotation procedure (relevant for per-customer Counterpoint creds)
 
