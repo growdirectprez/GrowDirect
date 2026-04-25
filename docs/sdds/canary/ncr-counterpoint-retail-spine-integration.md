@@ -292,7 +292,11 @@ For each module: **spine intent**, **Counterpoint endpoints**, **CRDM entities**
   - The User/Role endpoints (`GET_Users`, `GET_Roles`, `GET_UserRoles`, etc.) are API-access-management surfaces, NOT workforce data
 - **CRDM entities:** `People.employees`, `Events.timeclock`, `Workflows.schedules` — must be sourced from upstream system other than Counterpoint REST
 - **ARTS:** Party model (when sourced from elsewhere)
-- **Implication:** Module L's full coverage requires either (a) a workforce-management product (Kronos, ADP, etc.) feeding Canary directly, (b) Counterpoint's underlying SQL database queried out-of-band (out of scope for the public REST API), or (c) deferred coverage until an alternative source is identified.
+- **Implication:** Module L's full coverage requires one of:
+  - **(a)** A workforce-management product (Kronos, ADP, Homebase, When I Work, Deputy, etc.) feeding Canary directly — integration burden, customer pays for two systems
+  - **(b)** Counterpoint's underlying SQL database queried out-of-band — out of scope for the public REST API; brittle; customer-permission dependent
+  - **(c)** Deferred coverage until an alternative source is identified — Module L sits gappy in the CRDM
+  - **(d) Canary-native labor scheduling module** — treat the Counterpoint REST gap as a product wedge. Build Module L inside Canary as a one-stop-shop differentiator for SMB retailers. POS-data-native: schedule from sales velocity in CRDM, not generic forecasts. Tradeoffs: real compliance burden (overtime, breaks, jurisdiction-specific labor laws), crowded category (Homebase et al. are mature), Phase 6+ work not Phase 1. **This is a product-strategic option — escalate to founder before committing roadmap scope.** See memory: `project_canary_native_labor_module_opportunity.md`.
 - **MCP tool surface (degraded for Phase 1):**
   - `get_api_users(company)` — derives from User/Role endpoints — operational user inventory only
   - Full `get_employees`, `get_timeclock`, `get_labor_cost`: **DEFERRED** until alternative upstream identified
