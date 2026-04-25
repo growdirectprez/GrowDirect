@@ -1,0 +1,3138 @@
+openapi: 3.0.3
+info:
+  title: NCR Counterpoint API
+  version: "2.4"
+  description: |
+    OpenAPI 3.0 spec for the NCR Counterpoint REST API, derived from the
+    `github.com/NCRCounterpointAPI/APIGuide` v2.4 corpus checked into the
+    GrowDirect vault at `Brain/raw/inbox/rapid-pos/ncr-counterpoint-api/`.
+
+    This is a synthesis of 97 individual endpoint markdown files plus the
+    `Basics/`, `InstallationAndConfiguration/`, and `Release_Notes/` content.
+    Schemas use Counterpoint's native table prefixes (`AR_CUST`, `IM_ITEM`,
+    `PS_DOC_HDR`, `PS_STR`, `EC_*`, `SY_*`) so the spec round-trips to the
+    underlying database vocabulary without translation.
+
+    Where the source documents a sample payload but no strict schema, the
+    schema component is marked with `x-source: sample-derived`. Treat those
+    as the floor of what the response contains, not the ceiling — Counterpoint
+    payloads commonly include additional fields not shown in samples.
+
+    Authentication: HTTP Basic for all endpoints. System endpoints use a
+    sysadmin login (no company prefix); company endpoints use
+    `<company>.<username>:<password>`. Most endpoints additionally require
+    an `APIKey` header — see the per-operation `security` block.
+
+    Two known-stub source files (`GET_Customer_Address.md`, `GET_Customer_Note.md`)
+    are placeholder content only and are NOT modeled as paths here. See the
+    spine-map wiki for the full reconciliation.
+  contact:
+    name: NCR Counterpoint API support (upstream)
+    url: https://github.com/NCRCounterpointAPI/APIGuide
+  license:
+    name: Vendor documentation, all rights reserved by NCR Corporation
+servers:
+  - url: https://localhost:81
+    description: Local stand-up — default port per InstallationAndConfiguration/Installing.md (the installer defaults to 52000; samples use 81). Substitute the actual host:port for the customer's API server.
+  - url: https://{host}:{port}
+    description: Sandbox or production placeholder — fill in per-tenant.
+    variables:
+      host:
+        default: counterpoint-api.example.com
+        description: Customer Counterpoint API server hostname.
+      port:
+        default: "52000"
+        description: Counterpoint API service port (installer default 52000; commonly remapped to 81 or 443 behind a reverse proxy).
+
+security:
+  - basicAuth: []
+    apiKeyHeader: []
+
+tags:
+  - name: SystemAdmin
+    description: System-administration endpoints. Use sysadmin login (no company prefix). APIKey usually not required.
+  - name: APIKey
+    description: APIKey lifecycle. Sysadmin only.
+  - name: AdminUser
+    description: API server admin user lifecycle.
+  - name: CompanyAdmin
+    description: Per-company admin assignment.
+  - name: Database
+    description: Counterpoint company (database) registration with the API server.
+  - name: Role
+    description: Per-company endpoint authorization roles.
+  - name: User
+    description: Counterpoint user introspection and password updates.
+  - name: Company
+    description: Company-level metadata (SY_COMP / DB_CTL).
+  - name: Customer
+    description: AR_CUST (customer master), AR_SHIP_ADRS, AR_CUST_NOTE, AR_CUST_CARDS, open items.
+  - name: Document
+    description: PS_DOC_HDR (sales tickets, orders, layaways) plus contacts, notes, lines, payments.
+  - name: Item
+    description: IM_ITEM (item master), categories, serials, images, inventory by location.
+  - name: Inventory
+    description: Inventory snapshots by location and eCommerce inventory.
+  - name: Store
+    description: PS_STR (stores) plus stations and tokenization status.
+  - name: PayCode
+    description: Tender / payment-code master.
+  - name: TaxCode
+    description: TX_COD master.
+  - name: GiftCard
+    description: Gift card master and gift-card-code master.
+  - name: ECommerce
+    description: EC_* — eCommerce control, categories, inventory.
+  - name: Vendor
+    description: Vendor-item linkage.
+  - name: Workgroup
+    description: Counterpoint workgroup (template-customer / next-doc-number defaults).
+  - name: Tokenization
+    description: Card-on-file tokenization for Secure Pay stores.
+  - name: NSPTransaction
+    description: Monetra Secure Pay transaction post-back.
+  - name: DeviceConfig
+    description: Per-workstation device config. Undocumented in README chart.
+
+components:
+  securitySchemes:
+    basicAuth:
+      type: http
+      scheme: basic
+      description: |
+        HTTP Basic. Sysadmin: `admin:password`. Company: `<company>.<user>:<password>`.
+        Encoded value goes in `Authorization: Basic <base64>` per RFC 7617.
+    apiKeyHeader:
+      type: apiKey
+      in: header
+      name: APIKey
+      description: |
+        NCR-issued developer API key. The signed XML key file lives in the
+        Counterpoint API server's `APIKeys/` folder. The plaintext key value
+        is sent in the `APIKey` request header. Most company endpoints reject
+        with 403 if missing, invalid, or expired.
+
+  parameters:
+    Page:
+      name: Page
+      in: query
+      required: false
+      schema:
+        type: integer
+        minimum: 1
+      description: 1-indexed page number. Required together with `Rows` for pagination.
+    Rows:
+      name: Rows
+      in: query
+      required: false
+      schema:
+        type: integer
+        minimum: 1
+      description: Rows per page. Required together with `Page` for pagination.
+    StartDate:
+      name: StartDate
+      in: query
+      required: false
+      schema:
+        type: string
+        format: date-time
+      description: ISO 8601 lower bound on `RS_UTC_DT` for filtering. Either or both of StartDate/EndDate may be supplied.
+    EndDate:
+      name: EndDate
+      in: query
+      required: false
+      schema:
+        type: string
+        format: date-time
+      description: ISO 8601 upper bound on `RS_UTC_DT`. Must be greater than StartDate when both supplied.
+    ServerCacheHeader:
+      name: ServerCache
+      in: header
+      required: false
+      schema:
+        type: string
+        enum: [no-cache]
+      description: Set to `no-cache` to invalidate the company-scoped server cache for this call.
+
+  responses:
+    Unauthorized:
+      description: Authorization header missing or credentials invalid (including bad company prefix).
+      content:
+        application/json:
+          schema:
+            $ref: "#/components/schemas/ErrorEnvelope"
+    Forbidden:
+      description: APIKey missing/invalid/expired, or company lacks API option in registration.ini, or per-role access denied.
+      content:
+        application/json:
+          schema:
+            $ref: "#/components/schemas/ErrorEnvelope"
+    NotFound:
+      description: Resource not found.
+      content:
+        application/json:
+          schema:
+            $ref: "#/components/schemas/ErrorEnvelope"
+    BadRequest:
+      description: Malformed JSON or missing required fields.
+      content:
+        application/json:
+          schema:
+            $ref: "#/components/schemas/ErrorEnvelope"
+    InternalError:
+      description: Internal server error — bug, configuration issue, or unavailable database.
+      content:
+        application/json:
+          schema:
+            $ref: "#/components/schemas/ErrorEnvelope"
+
+  schemas:
+    ErrorCode:
+      type: string
+      description: Counterpoint ErrorCode enum (Basics/Responses.md).
+      enum:
+        - SUCCESS
+        - ERROR_MISSING_REQUIRED_DATA
+        - ERROR_RECORD_NOT_FOUND
+        - ERROR_UNKNOWN
+        - ERROR_DOCUMENT_ALREADY_COMPLETED
+        - ERROR_INVALID_APIKEY
+        - ERROR_DOCUMENT_NOT_FULLY_PAID
+        - ERROR_CARD_PAYMENT_FAILED
+        - ERROR_INVALID_GIFTCARD_PAYMENT
+        - ERROR_AR_PAYMENT_FAILED
+        - ERROR_INVALID_LIN_TYP
+        - ERROR_NOT_PURE_ORDER
+        - ERROR_DOCUMENT_HAS_SHIPPING_ADDRESS
+        - ERROR_DOCUMENT_HAS_BILLING_ADDRESS
+        - ERROR_INVALID_CONTACT_ID
+        - ERROR_DOCUMENT_BILLING_ADDRESS_NOT_FOUND
+        - ERROR_DOCUMENT_SHIPPING_ADDRESS_NOT_FOUND
+        - ERROR_INVALID_CONFIGURATION
+
+    ErrorEnvelope:
+      type: object
+      description: Standard error envelope returned on non-2xx responses. On success the envelope is merged with payload-specific fields and `Message` is omitted.
+      required: [ErrorCode]
+      properties:
+        ErrorCode:
+          $ref: "#/components/schemas/ErrorCode"
+        Message:
+          type: string
+          description: Human-readable detail. Omitted on SUCCESS.
+
+    Link:
+      type: object
+      description: HATEOAS-style follow-up reference returned on POST.
+      properties:
+        uri:
+          type: string
+          format: uri
+        method:
+          type: string
+          example: get
+
+    AR_CUST_NOTE:
+      type: object
+      x-source: sample-derived
+      description: Customer note (AR_CUST_NOTE table).
+      properties:
+        CUST_NO: {type: string}
+        NOTE_ID: {type: string}
+        NOTE_DAT: {type: string, format: date-time}
+        USR_ID: {type: string}
+        NOTE: {type: string, description: Raw RTF note body.}
+        NOTE_TXT: {type: string, description: Plain-text rendering of NOTE.}
+
+    AR_SHIP_ADRS:
+      type: object
+      x-source: sample-derived
+      description: Customer ship-to address (AR_SHIP_ADRS table).
+      properties:
+        CUST_NO: {type: string}
+        SHIP_ADRS_ID: {type: string}
+        NAM: {type: string}
+        NAM_UPR: {type: string}
+        ADRS_1: {type: string}
+        ADRS_2: {type: string}
+        ADRS_3: {type: string}
+        CITY: {type: string}
+        STATE: {type: string}
+        ZIP_COD: {type: string}
+        CNTRY: {type: string}
+        SHIP_NAM_TYP: {type: string, description: B = business, P = person.}
+
+    AR_CUST_CARD:
+      type: object
+      x-source: sample-derived
+      description: Customer card-on-file (AR_CUST_CARDS table). 8.5+ only.
+      properties:
+        CUST_NO: {type: string}
+        CARD_ID: {type: string}
+        PAY_COD: {type: string}
+        CR_CARD_NO: {type: string, description: Tokenized for Secure Pay; encrypted for CPG.}
+        CR_CARD_NAM: {type: string}
+        CR_CARD_EXP_DAT: {type: string, description: MM/YYYY.}
+
+    AR_CUST:
+      type: object
+      x-source: sample-derived
+      description: |
+        Customer master record (AR_CUST table) plus nested arrays for notes,
+        ship-to addresses, and cards on file. The full field set as observed in
+        GET_Customer.md sample. Most fields are optional on POST — Counterpoint
+        fills defaults from the workgroup template-customer.
+      properties:
+        CUST_NO: {type: string}
+        NAM: {type: string}
+        NAM_UPR: {type: string}
+        FST_NAM: {type: string}
+        FST_NAM_UPR: {type: string}
+        LST_NAM: {type: string}
+        LST_NAM_UPR: {type: string}
+        SALUTATION: {type: string}
+        CUST_TYP: {type: string, description: Defaults to "C" if not provided.}
+        ADRS_1: {type: string}
+        ADRS_2: {type: string}
+        ADRS_3: {type: string}
+        CITY: {type: string}
+        STATE: {type: string}
+        ZIP_COD: {type: string}
+        CNTRY: {type: string}
+        PHONE_1: {type: string}
+        PHONE_2: {type: string}
+        FAX_1: {type: string}
+        FAX_2: {type: string}
+        CONTCT_1: {type: string}
+        CONTCT_2: {type: string}
+        EMAIL_ADRS_1: {type: string}
+        EMAIL_ADRS_2: {type: string}
+        URL_1: {type: string}
+        URL_2: {type: string}
+        MBL_PHONE_1: {type: string}
+        MBL_PHONE_2: {type: string}
+        PROMPT_NAM_ADRS: {type: string}
+        SLS_REP: {type: string}
+        CATEG_COD: {type: string}
+        SHIP_VIA_COD: {type: string}
+        SHIP_ZONE_COD: {type: string}
+        STR_ID: {type: string}
+        STMNT_COD: {type: string}
+        TAX_COD: {type: string}
+        TERMS_COD: {type: string}
+        COMMNT: {type: string}
+        TAX_EXEMPT_NO: {type: string}
+        TAX_EXEMPT_DAT: {type: string, format: date-time}
+        ALLOW_AR_CHRG: {type: string}
+        ALLOW_TKTS: {type: string}
+        NO_CR_LIM: {type: string}
+        CR_LIM: {type: number}
+        CR_RATE: {type: string}
+        NO_MAX_CHK_AMT: {type: string}
+        MAX_CHK_AMT: {type: number}
+        UNPSTD_BAL: {type: number}
+        BAL_METH: {type: string}
+        AR_ACCT_NO: {type: string}
+        BAL: {type: number}
+        ORD_BAL: {type: number}
+        NO_OF_ORDS: {type: integer}
+        USE_ORD_SHIP_TO: {type: string}
+        ALLOW_ORDS: {type: string}
+        LWY_BAL: {type: number}
+        NO_OF_LWYS: {type: integer}
+        USE_LWY_SHIP_TO: {type: string}
+        ALLOW_LWYS: {type: string}
+        IS_ECOMM_CUST: {type: string}
+        DISC_PCT: {type: number}
+        LOY_PGM_COD: {type: string}
+        LOY_PTS_BAL: {type: number}
+        LOY_CARD_NO: {type: string}
+        FCH_COD: {type: string}
+        REQ_PO_NO: {type: string}
+        RS_UTC_DT: {type: string, format: date-time}
+        RS_STAT: {type: integer}
+        CUST_NAM_TYP: {type: string}
+        CUST_FST_LST_NAM: {type: string}
+        EMAIL_STATEMENT: {type: string}
+        INCLUDE_IN_MARKETING_MAILOUTS: {type: string}
+        MARKETING_MAILOUT_OPT_IN_DAT: {type: string, format: date-time}
+        RPT_EMAIL: {type: string}
+        LST_MAINT_DT: {type: string, format: date-time}
+        LST_MAINT_USR_ID: {type: string}
+        AR_CUST_NOTE:
+          type: array
+          items: {$ref: "#/components/schemas/AR_CUST_NOTE"}
+        AR_SHIP_ADRS:
+          type: array
+          items: {$ref: "#/components/schemas/AR_SHIP_ADRS"}
+        AR_CUST_CARDS:
+          type: array
+          items: {$ref: "#/components/schemas/AR_CUST_CARD"}
+
+    AR_OPN_ITEM:
+      type: object
+      x-source: sample-derived
+      description: AR open-item / invoice-aging line (AR_OPN_ITEM table).
+      properties:
+        CUST_NO: {type: string}
+        DOC_NO: {type: string}
+        DOC_DAT: {type: string, format: date-time}
+        DOC_TYP: {type: string}
+        AMT: {type: number}
+        BAL: {type: number}
+
+    PS_TAX:
+      type: object
+      x-source: sample-derived
+      description: Document-level tax aggregate (PS_TAX).
+      properties:
+        ORD_NORM_TAX_AMT: {type: number}
+        ORD_TAX_AMT: {type: number}
+
+    PS_DOC_TAX:
+      type: object
+      x-source: sample-derived
+      description: Per-authority/rule tax allocation (PS_DOC_TAX).
+      properties:
+        AUTH_COD: {type: string}
+        RUL_COD: {type: string}
+        TAX_DOC_PART: {type: string, description: O = order, T = ticket.}
+        LIN_AMT: {type: string}
+        TXBL_LIN_AMT: {type: string}
+        TXBL_QTY: {type: string}
+        TAX_AMT: {type: string}
+        TOT_TXBL_AMT: {type: string}
+
+    PS_DOC_LIN:
+      type: object
+      x-source: sample-derived
+      description: Document line item (PS_DOC_LIN).
+      properties:
+        LIN_TYP: {type: string, description: O = order line, S = sale, etc.}
+        ITEM_NO: {type: string}
+        DESCR: {type: string}
+        QTY_SOLD: {type: string}
+        PRC: {type: string}
+        USR_ENTD_PRC: {type: string, description: "Y means override price applies (per 2.4 release notes — supersedes HAS_PRC_OVRD)."}
+        HAS_PRC_OVRD: {type: string, description: Derived from USR_ENTD_PRC as of v2.4.}
+        EXT_PRC: {type: number}
+        DISC_AMT: {type: number}
+
+    PS_DOC_PMT_CR_CARD:
+      type: object
+      x-source: sample-derived
+      description: Credit-card detail nested under PS_DOC_PMT.
+      properties:
+        CR_CARD_NO: {type: string, description: Tokenized for Secure Pay stores; encrypted for CPG stores.}
+        CR_CARD_NAM: {type: string}
+        AVS_ZIP_COD: {type: string}
+        CR_CARD_EXP_DAT: {type: string, description: MM/YYYY.}
+
+    PS_DOC_PMT:
+      type: object
+      x-source: sample-derived
+      description: Document payment line (PS_DOC_PMT).
+      properties:
+        PAY_COD: {type: string}
+        AMT: {type: string}
+        FINAL_PMT: {type: string}
+        PMT_SEQ_NO: {type: integer}
+        PS_DOC_PMT_CR_CARD:
+          $ref: "#/components/schemas/PS_DOC_PMT_CR_CARD"
+
+    PS_DOC_NOTE:
+      type: object
+      x-source: sample-derived
+      description: Document note (PS_DOC_NOTE).
+      properties:
+        NOTE_ID: {type: string}
+        NOTE: {type: string}
+        NOTE_DAT: {type: string, format: date-time}
+
+    PS_DOC_CONTACT:
+      type: object
+      x-source: sample-derived
+      description: Document contact — bill-to or ship-to (PS_DOC_CONTACT / BILL_TO_CONTACT / SHIP_TO_CONTACT).
+      properties:
+        CONTACT_ID: {type: string}
+        FST_NAM: {type: string}
+        LST_NAM: {type: string}
+        ADRS_1: {type: string}
+        ADRS_2: {type: string}
+        CITY: {type: string}
+        STATE: {type: string}
+        ZIP_COD: {type: string}
+        PHONE_1: {type: string}
+        EMAIL_ADRS_1: {type: string}
+        NAM_TYP: {type: string, description: B = business, P = person.}
+
+    PS_DOC_HDR:
+      type: object
+      x-source: sample-derived
+      description: |
+        Sales document header (PS_DOC_HDR) — ticket, order, layaway. The body
+        of POST /Document and the response shape of GET /Document/{DocId}.
+      properties:
+        DOC_ID: {type: integer, format: int64}
+        STR_ID: {type: string}
+        STA_ID: {type: string}
+        DRW_ID: {type: string}
+        TKT_TYP: {type: string}
+        DOC_TYP: {type: string, description: T = ticket, O = order, L = layaway, etc.}
+        TKT_NO: {type: string}
+        USR_ID: {type: string}
+        TAX_COD: {type: string}
+        NORM_TAX_COD: {type: string}
+        CUST_NO: {type: string}
+        TOT: {type: number}
+        SUB_TOT: {type: number}
+        TAX_TOT: {type: number}
+        BILL_TO_CONTACT:
+          $ref: "#/components/schemas/PS_DOC_CONTACT"
+        SHIP_TO_CONTACT:
+          $ref: "#/components/schemas/PS_DOC_CONTACT"
+        PS_DOC_LIN:
+          type: array
+          items: {$ref: "#/components/schemas/PS_DOC_LIN"}
+        PS_DOC_PMT:
+          type: array
+          items: {$ref: "#/components/schemas/PS_DOC_PMT"}
+        PS_DOC_NOTE:
+          type: array
+          items: {$ref: "#/components/schemas/PS_DOC_NOTE"}
+        PS_DOC_TAX:
+          type: array
+          items: {$ref: "#/components/schemas/PS_DOC_TAX"}
+        PS_DOC_HDR_PROF:
+          type: object
+          additionalProperties: true
+          description: Profile fields — alpha/code/date/number tracks (PS_DOC_HDR_PROF).
+        PS_DOC_HDR_MISC_CHRG:
+          type: array
+          items:
+            type: object
+            properties:
+              TOT_TYP: {type: string}
+              MISC_CHRG_NO: {type: string}
+              MISC_TYP: {type: string}
+              MISC_AMT: {type: string}
+        PS_DOC_PKG_TRK_NO:
+          type: array
+          items:
+            type: object
+            properties:
+              PKG_TRK_NO: {type: string}
+
+    IM_ITEM_NOTE:
+      type: object
+      x-source: sample-derived
+      description: Item note (IM_ITEM_NOTE).
+      properties:
+        ITEM_NO: {type: string}
+        NOTE_ID: {type: string}
+        NOTE: {type: string}
+        NOTE_TXT: {type: string}
+
+    EC_ITEM_DESCR:
+      type: object
+      x-source: sample-derived
+      description: eCommerce item description block.
+      properties:
+        ITEM_NO: {type: string}
+        HTML_DESCR: {type: string}
+        LST_MAINT_DT: {type: string, format: date-time}
+        LST_MAINT_USR_ID: {type: string}
+
+    IM_ITEM:
+      type: object
+      x-source: sample-derived
+      description: Item master (IM_ITEM table) with eCommerce extension.
+      properties:
+        ITEM_NO: {type: string}
+        DESCR: {type: string}
+        DESCR_UPR: {type: string}
+        LONG_DESCR: {type: string}
+        SHORT_DESCR: {type: string}
+        ADDL_DESCR_1: {type: string}
+        ADDL_DESCR_2: {type: string}
+        ADDL_DESCR_3: {type: string}
+        ITEM_TYP: {type: string, description: I = inventory, N = non-inventory, etc.}
+        CATEG_COD: {type: string}
+        SUBCAT_COD: {type: string}
+        ACCT_COD: {type: string}
+        ATTR_COD_1: {type: string}
+        ATTR_COD_2: {type: string}
+        TRK_METH: {type: string}
+        STAT: {type: string}
+        STAT_DAT: {type: string, format: date-time}
+        IS_TXBL: {type: string}
+        QTY_DECS: {type: integer}
+        PRC_DECS: {type: integer}
+        STK_UNIT: {type: string}
+        ITEM_VEND_NO: {type: string}
+        IS_WEIGHED: {type: string}
+        PREF_UNIT: {type: string}
+        PRC_1: {type: number}
+        REG_PRC: {type: number}
+        LST_COST: {type: number}
+        LST_RECV_DAT: {type: string, format: date-time}
+        BARCOD: {type: string}
+        IS_ECOMM_ITEM: {type: string}
+        ECOMM_LST_PUB_STAT: {type: string}
+        MIX_MATCH_COD: {type: string, description: Garden-center-specific mix-and-match flat code.}
+        IS_ADM_TKT: {type: string}
+        IS_BOM_PAR: {type: string}
+        IS_KIT_PAR: {type: string}
+        CATEG_SUBCAT: {type: string}
+        IS_DISCNTBL: {type: string}
+        IS_FOOD_STMP_ITEM: {type: string}
+        RS_UTC_DT: {type: string, format: date-time}
+        RS_STAT: {type: integer}
+        LST_MAINT_DT: {type: string, format: date-time}
+        LST_MAINT_USR_ID: {type: string}
+        IM_ITEM_NOTE:
+          type: array
+          items: {$ref: "#/components/schemas/IM_ITEM_NOTE"}
+        EC_ITEM_DESCR:
+          $ref: "#/components/schemas/EC_ITEM_DESCR"
+
+    IM_INV:
+      type: object
+      x-source: sample-derived
+      description: Item-by-location inventory snapshot (IM_INV).
+      properties:
+        ITEM_NO: {type: string}
+        LOC_ID: {type: string}
+        QTY_ON_HND: {type: number}
+        QTY_AVAIL: {type: number}
+        QTY_ON_PO: {type: number}
+        QTY_COMMIT: {type: number}
+        MIN_STK: {type: number}
+        MAX_STK: {type: number}
+        AVG_COST: {type: number}
+        LST_COST: {type: number}
+
+    IM_CATEG:
+      type: object
+      x-source: sample-derived
+      description: Item category / subcategory (IM_CATEG).
+      properties:
+        CATEG_COD: {type: string}
+        DESCR: {type: string}
+        Subcategories:
+          type: array
+          items:
+            type: object
+            properties:
+              CATEG_COD: {type: string}
+              SUBCAT_COD: {type: string}
+              DESCR: {type: string}
+
+    SN_SER:
+      type: object
+      x-source: sample-derived
+      description: Serialized inventory record (SN_SER).
+      properties:
+        ITEM_NO: {type: string}
+        SER_NO: {type: string}
+        LOC_ID: {type: string}
+        STAT: {type: string}
+        RECV_DAT: {type: string, format: date-time}
+        SLD_DAT: {type: string, format: date-time}
+        COST: {type: number}
+
+    PS_STR:
+      type: object
+      x-source: sample-derived
+      description: Store master (PS_STR).
+      properties:
+        STR_ID: {type: string}
+        DESCR: {type: string}
+        ADRS_1: {type: string}
+        CITY: {type: string}
+        STATE: {type: string}
+        ZIP_COD: {type: string}
+        PHONE_1: {type: string}
+        TAX_COD: {type: string}
+        STR_TYP: {type: string}
+
+    PS_STA:
+      type: object
+      x-source: sample-derived
+      description: Station within a store (PS_STA).
+      properties:
+        STR_ID: {type: string}
+        STA_ID: {type: string}
+        DESCR: {type: string}
+        STA_TYP: {type: string}
+        WS_ID: {type: string}
+
+    PS_PAY_COD:
+      type: object
+      x-source: sample-derived
+      description: Pay-code / tender (PS_PAY_COD).
+      properties:
+        PAY_COD: {type: string}
+        DESCR: {type: string}
+        PAY_TYP: {type: string, description: Cash, credit, gift card, AR charge, etc.}
+        IS_ACTIVE: {type: string}
+        OPEN_DRWR: {type: string}
+        REQ_REF: {type: string}
+
+    TX_COD:
+      type: object
+      x-source: sample-derived
+      description: Tax code master (TX_COD).
+      properties:
+        TAX_COD: {type: string}
+        DESCR: {type: string}
+        DESCR_UPR: {type: string}
+        LST_MAINT_DT: {type: string, format: date-time}
+        LST_MAINT_USR_ID: {type: string}
+        RS_STAT: {type: integer}
+
+    SY_GFC:
+      type: object
+      x-source: sample-derived
+      description: Gift card (SY_GFC).
+      properties:
+        GFC_COD: {type: string}
+        GFC_NO: {type: string}
+        BAL: {type: number}
+        ISS_DAT: {type: string, format: date-time}
+        EXP_DAT: {type: string, format: date-time}
+        STAT: {type: string}
+
+    SY_GFC_COD:
+      type: object
+      x-source: sample-derived
+      description: Gift card code template (SY_GFC_COD).
+      properties:
+        GFC_COD: {type: string}
+        DESCR: {type: string}
+        INIT_BAL: {type: number}
+        IS_ACTIVE: {type: string}
+
+    EC_CTL:
+      type: object
+      x-source: sample-derived
+      description: eCommerce control block (EC_CTL).
+      properties:
+        IS_ENBL: {type: string}
+        SITE_NAM: {type: string}
+        DFLT_TAX_COD: {type: string}
+
+    EC_CATEG:
+      type: object
+      x-source: sample-derived
+      description: eCommerce category (EC_CATEG).
+      properties:
+        CATEG_COD: {type: string}
+        DESCR: {type: string}
+        PARENT_CATEG_COD: {type: string}
+
+    SY_COMP:
+      type: object
+      x-source: sample-derived
+      description: Company metadata (SY_COMP + DB_CTL).
+      properties:
+        COMP_ID: {type: string}
+        COMP_NAM: {type: string}
+        DB_VER: {type: string}
+        ADRS_1: {type: string}
+        CITY: {type: string}
+        STATE: {type: string}
+        ZIP_COD: {type: string}
+
+    AR_CUST_CTL:
+      type: object
+      x-source: sample-derived
+      description: Customer control block (AR_CUST_CTL).
+      properties:
+        DFLT_CUST_TYP: {type: string}
+        DFLT_TAX_COD: {type: string}
+        LOY_PGM_ENBL: {type: string}
+
+    IM_INV_CTL:
+      type: object
+      x-source: sample-derived
+      description: Inventory control block.
+      properties:
+        VAL_METH: {type: string, description: Valuation method — average, FIFO, etc.}
+        DFLT_LOC: {type: string}
+
+    IM_LOC:
+      type: object
+      x-source: sample-derived
+      description: Inventory location (IM_LOC).
+      properties:
+        LOC_ID: {type: string}
+        DESCR: {type: string}
+        STR_ID: {type: string}
+        IS_DFLT: {type: string}
+
+    Workgroup:
+      type: object
+      x-source: sample-derived
+      description: Counterpoint workgroup — defaults for new customers and document numbering.
+      properties:
+        WRKGRP_ID: {type: string}
+        DESCR: {type: string}
+        TMPL_CUST_NO: {type: string}
+        NEXT_CUST_NO: {type: string}
+
+    SystemInfo:
+      type: object
+      description: API server runtime info.
+      properties:
+        SystemDBCreatedDateTime: {type: string, format: date-time}
+        ServerLastStartedDateTime: {type: string, format: date-time}
+        ServerCodeVersion: {type: string}
+        ServerOS: {type: string}
+        Is64bitOS: {type: boolean}
+        ServerUser: {type: string}
+
+    Database:
+      type: object
+      x-source: sample-derived
+      description: A Counterpoint company registered with the API server.
+      properties:
+        Id: {type: integer}
+        Name: {type: string, description: Company alias.}
+        TLD: {type: string, description: UNC or local path to TLD.}
+        Server: {type: string, description: SQL Server host.}
+        Database: {type: string, description: SQL Server database name.}
+        IntegratedSecurity: {type: boolean}
+        SqlUser: {type: string}
+        IsEnabled: {type: boolean}
+
+    APIKeyRecord:
+      type: object
+      x-source: sample-derived
+      description: APIKey installed on the server.
+      properties:
+        AppName: {type: string}
+        IssuedTo: {type: string}
+        Company: {type: string}
+        Email1: {type: string}
+        Email2: {type: string}
+        ExpirationDate: {type: string, format: date-time}
+        IsValid: {type: boolean}
+
+    AdminUser:
+      type: object
+      x-source: sample-derived
+      description: API server sysadmin user.
+      properties:
+        UserId: {type: string}
+
+    CompanyAdmin:
+      type: object
+      x-source: sample-derived
+      description: Company-scoped admin assignment.
+      properties:
+        CompanyName: {type: string}
+        AdminUser: {type: string}
+
+    Role:
+      type: object
+      x-source: sample-derived
+      description: API authorization role.
+      properties:
+        RoleName: {type: string}
+        Endpoints:
+          type: array
+          items:
+            type: object
+            properties:
+              Path: {type: string}
+              Verb: {type: string}
+
+    RoleEndpointDef:
+      type: object
+      description: One available endpoint that can be granted to a role.
+      properties:
+        Path: {type: string}
+        Verb: {type: string}
+        Description: {type: string}
+
+    UserRecord:
+      type: object
+      x-source: sample-derived
+      description: Counterpoint user introspection record.
+      properties:
+        UserId: {type: string}
+        Company: {type: string}
+        Roles:
+          type: array
+          items: {type: string}
+
+    DeviceConfig:
+      type: object
+      x-source: sample-derived
+      description: Per-workstation device config (undocumented in README chart).
+      properties:
+        WorkstationID: {type: string}
+        STR_ID: {type: string}
+        STA_ID: {type: string}
+        Devices:
+          type: array
+          items:
+            type: object
+            additionalProperties: true
+
+    NSPTransaction:
+      type: object
+      x-source: sample-derived
+      description: Monetra Secure Pay transaction post-back payload.
+      properties:
+        TransactionId: {type: string}
+        Amount: {type: number}
+        Status: {type: string}
+        AuthCode: {type: string}
+        Timestamp: {type: string, format: date-time}
+
+    StoreTokenizeStatus:
+      type: object
+      x-source: sample-derived
+      properties:
+        STR_ID: {type: string}
+        TokenizedCount: {type: integer}
+        UntokenizedCount: {type: integer}
+        SecurePayEnabled: {type: boolean}
+
+    VendorItem:
+      type: object
+      x-source: sample-derived
+      description: Vendor-item linkage (IM_VEND_ITEM).
+      properties:
+        VEND_NO: {type: string}
+        ITEM_NO: {type: string}
+        VEND_ITEM_NO: {type: string}
+        VEND_DESCR: {type: string}
+        LST_COST: {type: number}
+        ORD_UNIT: {type: string}
+
+    DocumentCreatedResponse:
+      type: object
+      description: Response from POST /Document.
+      properties:
+        Documents:
+          type: array
+          items:
+            type: object
+            properties:
+              DOC_ID: {type: integer, format: int64}
+              reference: {type: string, description: Ticket / Order / Layaway etc.}
+              Link: {$ref: "#/components/schemas/Link"}
+              PaymentResponses:
+                type: array
+                items:
+                  type: object
+                  properties:
+                    PMT_SEQ_NO: {type: integer}
+                    Response: {type: string}
+        ErrorCode: {$ref: "#/components/schemas/ErrorCode"}
+
+    CustomerCreatedResponse:
+      type: object
+      description: Response from POST /Customer.
+      properties:
+        CUST_NO: {type: string}
+        reference: {type: string}
+        Link: {$ref: "#/components/schemas/Link"}
+        ErrorCode: {$ref: "#/components/schemas/ErrorCode"}
+        Message: {type: string}
+
+paths:
+
+  /SystemInfo:
+    get:
+      tags: [SystemAdmin]
+      summary: Get API server runtime info.
+      description: Sysadmin login required. APIKey not required. registration.ini API option not required.
+      security:
+        - basicAuth: []
+      responses:
+        "200":
+          description: OK
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  SystemInfo: {$ref: "#/components/schemas/SystemInfo"}
+                  ErrorCode: {$ref: "#/components/schemas/ErrorCode"}
+        "401": {$ref: "#/components/responses/Unauthorized"}
+        "500": {$ref: "#/components/responses/InternalError"}
+
+  /AdminUsers:
+    get:
+      tags: [AdminUser]
+      summary: List API server admin users.
+      security:
+        - basicAuth: []
+      responses:
+        "200":
+          description: OK
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  AdminUsers:
+                    type: array
+                    items: {$ref: "#/components/schemas/AdminUser"}
+                  ErrorCode: {$ref: "#/components/schemas/ErrorCode"}
+        "401": {$ref: "#/components/responses/Unauthorized"}
+        "500": {$ref: "#/components/responses/InternalError"}
+
+  /AdminUser/{UserId}:
+    delete:
+      tags: [AdminUser]
+      summary: Delete an admin user.
+      security:
+        - basicAuth: []
+      parameters:
+        - name: UserId
+          in: path
+          required: true
+          schema: {type: string}
+      responses:
+        "200":
+          description: Deleted.
+          content:
+            application/json:
+              schema: {$ref: "#/components/schemas/ErrorEnvelope"}
+        "401": {$ref: "#/components/responses/Unauthorized"}
+        "404": {$ref: "#/components/responses/NotFound"}
+        "500": {$ref: "#/components/responses/InternalError"}
+
+  /User/Admin:
+    post:
+      tags: [AdminUser]
+      summary: Add a new sysadmin user.
+      description: Source file POST_APIAdmin.md. Requires registration option per README chart.
+      security:
+        - basicAuth: []
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                UserId: {type: string}
+                Password: {type: string}
+      responses:
+        "201":
+          description: Created.
+          content:
+            application/json:
+              schema: {$ref: "#/components/schemas/ErrorEnvelope"}
+        "400": {$ref: "#/components/responses/BadRequest"}
+        "401": {$ref: "#/components/responses/Unauthorized"}
+        "500": {$ref: "#/components/responses/InternalError"}
+
+  /APIKey:
+    get:
+      tags: [APIKey]
+      summary: Get information on a single APIKey.
+      description: Source file is a stub at the time of this corpus snapshot — fields not exhaustively documented.
+      security:
+        - basicAuth: []
+      parameters:
+        - name: APIKey
+          in: query
+          required: true
+          schema: {type: string}
+          description: The API key value to introspect.
+      responses:
+        "200":
+          description: OK
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  APIKey: {$ref: "#/components/schemas/APIKeyRecord"}
+                  ErrorCode: {$ref: "#/components/schemas/ErrorCode"}
+        "401": {$ref: "#/components/responses/Unauthorized"}
+        "404": {$ref: "#/components/responses/NotFound"}
+    post:
+      tags: [APIKey]
+      summary: Install / update an APIKey on the server.
+      description: Posts a signed APIKey XML file and reloads the server's APIKey cache.
+      security:
+        - basicAuth: []
+      requestBody:
+        required: true
+        content:
+          application/xml:
+            schema:
+              type: string
+              description: Signed APIKey XML file content.
+      responses:
+        "201":
+          description: APIKey installed.
+          content:
+            application/json:
+              schema: {$ref: "#/components/schemas/ErrorEnvelope"}
+        "400": {$ref: "#/components/responses/BadRequest"}
+        "401": {$ref: "#/components/responses/Unauthorized"}
+
+  /APIKeys:
+    get:
+      tags: [APIKey]
+      summary: List all installed APIKeys (and reload the cache).
+      security:
+        - basicAuth: []
+      responses:
+        "200":
+          description: OK
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  APIKeys:
+                    type: array
+                    items: {$ref: "#/components/schemas/APIKeyRecord"}
+                  ErrorCode: {$ref: "#/components/schemas/ErrorCode"}
+        "401": {$ref: "#/components/responses/Unauthorized"}
+
+  /CompanyAdmin/{CompanyName}/{AdminUser}:
+    delete:
+      tags: [CompanyAdmin]
+      summary: Remove a company admin.
+      security:
+        - basicAuth: []
+      parameters:
+        - name: CompanyName
+          in: path
+          required: true
+          schema: {type: string}
+        - name: AdminUser
+          in: path
+          required: true
+          schema: {type: string}
+      responses:
+        "200":
+          description: Removed.
+          content:
+            application/json:
+              schema: {$ref: "#/components/schemas/ErrorEnvelope"}
+        "401": {$ref: "#/components/responses/Unauthorized"}
+        "404": {$ref: "#/components/responses/NotFound"}
+
+  /CompanyAdmins/{CompanyName}:
+    get:
+      tags: [CompanyAdmin]
+      summary: List company admins.
+      security:
+        - basicAuth: []
+      parameters:
+        - name: CompanyName
+          in: path
+          required: true
+          schema: {type: string}
+      responses:
+        "200":
+          description: OK
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  CompanyAdmins:
+                    type: array
+                    items: {$ref: "#/components/schemas/CompanyAdmin"}
+                  ErrorCode: {$ref: "#/components/schemas/ErrorCode"}
+        "401": {$ref: "#/components/responses/Unauthorized"}
+    post:
+      tags: [CompanyAdmin]
+      summary: Add company admins (additive).
+      security:
+        - basicAuth: []
+      parameters:
+        - name: CompanyName
+          in: path
+          required: true
+          schema: {type: string}
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: array
+              items:
+                type: object
+                properties:
+                  AdminUser: {type: string}
+      responses:
+        "201":
+          description: Added.
+          content:
+            application/json:
+              schema: {$ref: "#/components/schemas/ErrorEnvelope"}
+        "400": {$ref: "#/components/responses/BadRequest"}
+    put:
+      tags: [CompanyAdmin]
+      summary: Replace company-admin list (full set).
+      security:
+        - basicAuth: []
+      parameters:
+        - name: CompanyName
+          in: path
+          required: true
+          schema: {type: string}
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: array
+              items:
+                type: object
+                properties:
+                  AdminUser: {type: string}
+      responses:
+        "200":
+          description: Replaced.
+          content:
+            application/json:
+              schema: {$ref: "#/components/schemas/ErrorEnvelope"}
+
+  /Database/{Id}:
+    get:
+      tags: [Database]
+      summary: Get a registered Counterpoint company database.
+      security:
+        - basicAuth: []
+      parameters:
+        - name: Id
+          in: path
+          required: true
+          schema: {type: integer}
+      responses:
+        "200":
+          description: OK
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  Database: {$ref: "#/components/schemas/Database"}
+                  ErrorCode: {$ref: "#/components/schemas/ErrorCode"}
+        "401": {$ref: "#/components/responses/Unauthorized"}
+        "404": {$ref: "#/components/responses/NotFound"}
+    put:
+      tags: [Database]
+      summary: Update a registered company database.
+      security:
+        - basicAuth: []
+      parameters:
+        - name: Id
+          in: path
+          required: true
+          schema: {type: integer}
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema: {$ref: "#/components/schemas/Database"}
+      responses:
+        "200":
+          description: Updated.
+          content:
+            application/json:
+              schema: {$ref: "#/components/schemas/ErrorEnvelope"}
+    delete:
+      tags: [Database]
+      summary: Deregister a company database.
+      security:
+        - basicAuth: []
+      parameters:
+        - name: Id
+          in: path
+          required: true
+          schema: {type: integer}
+      responses:
+        "200":
+          description: Deleted.
+          content:
+            application/json:
+              schema: {$ref: "#/components/schemas/ErrorEnvelope"}
+
+  /Databases:
+    get:
+      tags: [Database]
+      summary: List registered company databases.
+      security:
+        - basicAuth: []
+      responses:
+        "200":
+          description: OK
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  Databases:
+                    type: array
+                    items: {$ref: "#/components/schemas/Database"}
+                  ErrorCode: {$ref: "#/components/schemas/ErrorCode"}
+    post:
+      tags: [Database]
+      summary: Register one or more new company databases.
+      security:
+        - basicAuth: []
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: array
+              items: {$ref: "#/components/schemas/Database"}
+      responses:
+        "201":
+          description: Registered.
+          content:
+            application/json:
+              schema: {$ref: "#/components/schemas/ErrorEnvelope"}
+
+  /Databases/ini:
+    get:
+      tags: [Database]
+      summary: List company aliases from a companies.ini file.
+      security:
+        - basicAuth: []
+      parameters:
+        - name: TLD
+          in: query
+          required: true
+          schema: {type: string}
+          description: UNC or local path to the TLD containing companies.ini.
+      responses:
+        "200":
+          description: OK
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  Aliases:
+                    type: array
+                    items: {type: string}
+                  ErrorCode: {$ref: "#/components/schemas/ErrorCode"}
+
+  /Role/Endpoints:
+    get:
+      tags: [Role]
+      summary: List all endpoint+verb combinations grantable to a role.
+      security:
+        - basicAuth: []
+      responses:
+        "200":
+          description: OK
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  Endpoints:
+                    type: array
+                    items: {$ref: "#/components/schemas/RoleEndpointDef"}
+                  ErrorCode: {$ref: "#/components/schemas/ErrorCode"}
+
+  /Role/{RoleName}:
+    get:
+      tags: [Role]
+      summary: Get role + assigned endpoints.
+      security:
+        - basicAuth: []
+      parameters:
+        - name: RoleName
+          in: path
+          required: true
+          schema: {type: string}
+      responses:
+        "200":
+          description: OK
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  Role: {$ref: "#/components/schemas/Role"}
+                  ErrorCode: {$ref: "#/components/schemas/ErrorCode"}
+        "404": {$ref: "#/components/responses/NotFound"}
+    put:
+      tags: [Role]
+      summary: Insert or update a role + its endpoint set.
+      security:
+        - basicAuth: []
+      parameters:
+        - name: RoleName
+          in: path
+          required: true
+          schema: {type: string}
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema: {$ref: "#/components/schemas/Role"}
+      responses:
+        "200":
+          description: Upserted.
+          content:
+            application/json:
+              schema: {$ref: "#/components/schemas/ErrorEnvelope"}
+    delete:
+      tags: [Role]
+      summary: Delete a role.
+      security:
+        - basicAuth: []
+      parameters:
+        - name: RoleName
+          in: path
+          required: true
+          schema: {type: string}
+      responses:
+        "200":
+          description: Deleted.
+          content:
+            application/json:
+              schema: {$ref: "#/components/schemas/ErrorEnvelope"}
+
+  /Role/{RoleName}/Users:
+    get:
+      tags: [Role]
+      summary: List users assigned to a role.
+      security:
+        - basicAuth: []
+      parameters:
+        - name: RoleName
+          in: path
+          required: true
+          schema: {type: string}
+      responses:
+        "200":
+          description: OK
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  Users:
+                    type: array
+                    items: {type: string}
+                  ErrorCode: {$ref: "#/components/schemas/ErrorCode"}
+    put:
+      tags: [Role]
+      summary: Replace the user-assignment list for a role.
+      security:
+        - basicAuth: []
+      parameters:
+        - name: RoleName
+          in: path
+          required: true
+          schema: {type: string}
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: array
+              items: {type: string}
+      responses:
+        "200":
+          description: Replaced.
+          content:
+            application/json:
+              schema: {$ref: "#/components/schemas/ErrorEnvelope"}
+
+  /Roles:
+    get:
+      tags: [Role]
+      summary: List roles with their endpoint grants.
+      security:
+        - basicAuth: []
+      responses:
+        "200":
+          description: OK
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  Roles:
+                    type: array
+                    items: {$ref: "#/components/schemas/Role"}
+                  ErrorCode: {$ref: "#/components/schemas/ErrorCode"}
+
+  /Roles/Names:
+    get:
+      tags: [Role]
+      summary: List role names only (lightweight).
+      security:
+        - basicAuth: []
+      responses:
+        "200":
+          description: OK
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  RoleNames:
+                    type: array
+                    items: {type: string}
+                  ErrorCode: {$ref: "#/components/schemas/ErrorCode"}
+
+  /Roles/Users:
+    get:
+      tags: [Role]
+      summary: List all roles with permissions and assigned users.
+      security:
+        - basicAuth: []
+      responses:
+        "200":
+          description: OK
+          content:
+            application/json:
+              schema:
+                type: object
+                additionalProperties: true
+                description: Roles with embedded user assignments.
+
+  /User/Password:
+    put:
+      tags: [User]
+      summary: Update the authenticated user's password.
+      security:
+        - basicAuth: []
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                OldPassword: {type: string}
+                NewPassword: {type: string}
+      responses:
+        "200":
+          description: Updated.
+          content:
+            application/json:
+              schema: {$ref: "#/components/schemas/ErrorEnvelope"}
+        "401": {$ref: "#/components/responses/Unauthorized"}
+
+  /User/{UserID}:
+    get:
+      tags: [User]
+      summary: Get information on a User.
+      security:
+        - basicAuth: []
+        - basicAuth: []
+          apiKeyHeader: []
+      parameters:
+        - name: UserID
+          in: path
+          required: true
+          schema: {type: string}
+      responses:
+        "200":
+          description: OK
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  User: {$ref: "#/components/schemas/UserRecord"}
+                  ErrorCode: {$ref: "#/components/schemas/ErrorCode"}
+        "404": {$ref: "#/components/responses/NotFound"}
+
+  /User/{UserID}/Roles:
+    get:
+      tags: [User]
+      summary: List roles assigned to a user.
+      security:
+        - basicAuth: []
+      parameters:
+        - name: UserID
+          in: path
+          required: true
+          schema: {type: string}
+      responses:
+        "200":
+          description: OK
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  Roles:
+                    type: array
+                    items: {type: string}
+                  ErrorCode: {$ref: "#/components/schemas/ErrorCode"}
+    put:
+      tags: [User]
+      summary: Replace a user's role assignments.
+      security:
+        - basicAuth: []
+      parameters:
+        - name: UserID
+          in: path
+          required: true
+          schema: {type: string}
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: array
+              items: {type: string}
+      responses:
+        "200":
+          description: Replaced.
+          content:
+            application/json:
+              schema: {$ref: "#/components/schemas/ErrorEnvelope"}
+    delete:
+      tags: [User]
+      summary: Clear a user's role assignments.
+      security:
+        - basicAuth: []
+      parameters:
+        - name: UserID
+          in: path
+          required: true
+          schema: {type: string}
+      responses:
+        "200":
+          description: Cleared.
+          content:
+            application/json:
+              schema: {$ref: "#/components/schemas/ErrorEnvelope"}
+
+  /Users:
+    get:
+      tags: [User]
+      summary: List all users.
+      security:
+        - basicAuth: []
+      responses:
+        "200":
+          description: OK
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  Users:
+                    type: array
+                    items: {$ref: "#/components/schemas/UserRecord"}
+                  ErrorCode: {$ref: "#/components/schemas/ErrorCode"}
+
+  /Users/{CompanyName}:
+    get:
+      tags: [User]
+      summary: List users for the given company (sysadmin login only).
+      security:
+        - basicAuth: []
+      parameters:
+        - name: CompanyName
+          in: path
+          required: true
+          schema: {type: string}
+      responses:
+        "200":
+          description: OK
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  Users:
+                    type: array
+                    items: {$ref: "#/components/schemas/UserRecord"}
+                  ErrorCode: {$ref: "#/components/schemas/ErrorCode"}
+
+  /Users/Roles:
+    get:
+      tags: [User]
+      summary: List users with their assigned roles.
+      security:
+        - basicAuth: []
+      responses:
+        "200":
+          description: OK
+          content:
+            application/json:
+              schema:
+                type: object
+                additionalProperties: true
+
+  /Company:
+    get:
+      tags: [Company]
+      summary: Get information on the authenticated company (SY_COMP + DB_CTL).
+      security:
+        - basicAuth: []
+          apiKeyHeader: []
+      responses:
+        "200":
+          description: OK
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  SY_COMP: {$ref: "#/components/schemas/SY_COMP"}
+                  ErrorCode: {$ref: "#/components/schemas/ErrorCode"}
+        "401": {$ref: "#/components/responses/Unauthorized"}
+        "403": {$ref: "#/components/responses/Forbidden"}
+
+  /CustomerControl:
+    get:
+      tags: [Customer]
+      summary: Get customer control block.
+      security:
+        - basicAuth: []
+          apiKeyHeader: []
+      responses:
+        "200":
+          description: OK
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  AR_CUST_CTL: {$ref: "#/components/schemas/AR_CUST_CTL"}
+                  ErrorCode: {$ref: "#/components/schemas/ErrorCode"}
+
+  /Customer:
+    post:
+      tags: [Customer]
+      summary: Add a new customer.
+      security:
+        - basicAuth: []
+          apiKeyHeader: []
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                Workgroup: {type: string, description: WRKGRP_ID for defaults; falls back to user's default.}
+                AR_CUST: {$ref: "#/components/schemas/AR_CUST"}
+      responses:
+        "201":
+          description: Customer created.
+          content:
+            application/json:
+              schema: {$ref: "#/components/schemas/CustomerCreatedResponse"}
+        "401": {$ref: "#/components/responses/Unauthorized"}
+        "403": {$ref: "#/components/responses/Forbidden"}
+        "500": {$ref: "#/components/responses/InternalError"}
+
+  /Customer/{CustNo}:
+    get:
+      tags: [Customer]
+      summary: Get customer by CUST_NO (with notes, ship-to, cards).
+      security:
+        - basicAuth: []
+          apiKeyHeader: []
+      parameters:
+        - name: CustNo
+          in: path
+          required: true
+          schema: {type: string}
+        - $ref: "#/components/parameters/ServerCacheHeader"
+      responses:
+        "200":
+          description: OK
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  AR_CUST: {$ref: "#/components/schemas/AR_CUST"}
+                  ErrorCode: {$ref: "#/components/schemas/ErrorCode"}
+        "401": {$ref: "#/components/responses/Unauthorized"}
+        "403": {$ref: "#/components/responses/Forbidden"}
+        "404": {$ref: "#/components/responses/NotFound"}
+    patch:
+      tags: [Customer]
+      summary: Partial update of a customer.
+      security:
+        - basicAuth: []
+          apiKeyHeader: []
+      parameters:
+        - name: CustNo
+          in: path
+          required: true
+          schema: {type: string}
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                AR_CUST: {$ref: "#/components/schemas/AR_CUST"}
+      responses:
+        "200":
+          description: Updated.
+          content:
+            application/json:
+              schema: {$ref: "#/components/schemas/ErrorEnvelope"}
+
+  /Customer/{CustNo}/Address:
+    post:
+      tags: [Customer]
+      summary: Add a ship-to address.
+      security:
+        - basicAuth: []
+          apiKeyHeader: []
+      parameters:
+        - name: CustNo
+          in: path
+          required: true
+          schema: {type: string}
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema: {$ref: "#/components/schemas/AR_SHIP_ADRS"}
+      responses:
+        "201":
+          description: Created.
+          content:
+            application/json:
+              schema: {$ref: "#/components/schemas/ErrorEnvelope"}
+    patch:
+      tags: [Customer]
+      summary: Update a ship-to address.
+      security:
+        - basicAuth: []
+          apiKeyHeader: []
+      parameters:
+        - name: CustNo
+          in: path
+          required: true
+          schema: {type: string}
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema: {$ref: "#/components/schemas/AR_SHIP_ADRS"}
+      responses:
+        "200":
+          description: Updated.
+          content:
+            application/json:
+              schema: {$ref: "#/components/schemas/ErrorEnvelope"}
+    delete:
+      tags: [Customer]
+      summary: Delete a ship-to address.
+      security:
+        - basicAuth: []
+          apiKeyHeader: []
+      parameters:
+        - name: CustNo
+          in: path
+          required: true
+          schema: {type: string}
+        - name: ShipAdrsId
+          in: query
+          required: true
+          schema: {type: string}
+          description: SHIP_ADRS_ID of the address to remove.
+      responses:
+        "200":
+          description: Deleted.
+          content:
+            application/json:
+              schema: {$ref: "#/components/schemas/ErrorEnvelope"}
+
+  /Customer/{CustNo}/Card:
+    post:
+      tags: [Customer]
+      summary: Add a card-on-file (Secure Pay tokenizes; CPG encrypts).
+      security:
+        - basicAuth: []
+          apiKeyHeader: []
+      parameters:
+        - name: CustNo
+          in: path
+          required: true
+          schema: {type: string}
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema: {$ref: "#/components/schemas/AR_CUST_CARD"}
+      responses:
+        "201":
+          description: Created.
+          content:
+            application/json:
+              schema: {$ref: "#/components/schemas/ErrorEnvelope"}
+    patch:
+      tags: [Customer]
+      summary: Update a card-on-file (e.g., expiration date).
+      security:
+        - basicAuth: []
+          apiKeyHeader: []
+      parameters:
+        - name: CustNo
+          in: path
+          required: true
+          schema: {type: string}
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema: {$ref: "#/components/schemas/AR_CUST_CARD"}
+      responses:
+        "200":
+          description: Updated.
+          content:
+            application/json:
+              schema: {$ref: "#/components/schemas/ErrorEnvelope"}
+    delete:
+      tags: [Customer]
+      summary: Delete a card-on-file.
+      security:
+        - basicAuth: []
+          apiKeyHeader: []
+      parameters:
+        - name: CustNo
+          in: path
+          required: true
+          schema: {type: string}
+        - name: CardId
+          in: query
+          required: true
+          schema: {type: string}
+      responses:
+        "200":
+          description: Deleted.
+          content:
+            application/json:
+              schema: {$ref: "#/components/schemas/ErrorEnvelope"}
+
+  /Customer/{CustNo}/Note:
+    post:
+      tags: [Customer]
+      summary: Add a customer note.
+      security:
+        - basicAuth: []
+          apiKeyHeader: []
+      parameters:
+        - name: CustNo
+          in: path
+          required: true
+          schema: {type: string}
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema: {$ref: "#/components/schemas/AR_CUST_NOTE"}
+      responses:
+        "201":
+          description: Created.
+          content:
+            application/json:
+              schema: {$ref: "#/components/schemas/ErrorEnvelope"}
+    patch:
+      tags: [Customer]
+      summary: Update a customer note.
+      security:
+        - basicAuth: []
+          apiKeyHeader: []
+      parameters:
+        - name: CustNo
+          in: path
+          required: true
+          schema: {type: string}
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema: {$ref: "#/components/schemas/AR_CUST_NOTE"}
+      responses:
+        "200":
+          description: Updated.
+          content:
+            application/json:
+              schema: {$ref: "#/components/schemas/ErrorEnvelope"}
+    delete:
+      tags: [Customer]
+      summary: Delete a customer note.
+      security:
+        - basicAuth: []
+          apiKeyHeader: []
+      parameters:
+        - name: CustNo
+          in: path
+          required: true
+          schema: {type: string}
+        - name: NoteId
+          in: query
+          required: true
+          schema: {type: string}
+      responses:
+        "200":
+          description: Deleted.
+          content:
+            application/json:
+              schema: {$ref: "#/components/schemas/ErrorEnvelope"}
+
+  /Customer/{CustNo}/OpenItems:
+    get:
+      tags: [Customer]
+      summary: Get AR open items (invoice aging) for a customer.
+      security:
+        - basicAuth: []
+          apiKeyHeader: []
+      parameters:
+        - name: CustNo
+          in: path
+          required: true
+          schema: {type: string}
+      responses:
+        "200":
+          description: OK
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  AR_OPN_ITEM:
+                    type: array
+                    items: {$ref: "#/components/schemas/AR_OPN_ITEM"}
+                  ErrorCode: {$ref: "#/components/schemas/ErrorCode"}
+
+  /Customers:
+    get:
+      tags: [Customer]
+      summary: List customers (paginated, RS_UTC_DT-filterable).
+      security:
+        - basicAuth: []
+          apiKeyHeader: []
+      parameters:
+        - $ref: "#/components/parameters/Page"
+        - $ref: "#/components/parameters/Rows"
+        - $ref: "#/components/parameters/StartDate"
+        - $ref: "#/components/parameters/EndDate"
+      responses:
+        "200":
+          description: OK
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  Customers:
+                    type: array
+                    items: {$ref: "#/components/schemas/AR_CUST"}
+                  ErrorCode: {$ref: "#/components/schemas/ErrorCode"}
+
+  /Customers/EC:
+    get:
+      tags: [Customer, ECommerce]
+      summary: List eCommerce-flagged customers (paginated).
+      security:
+        - basicAuth: []
+          apiKeyHeader: []
+      parameters:
+        - $ref: "#/components/parameters/Page"
+        - $ref: "#/components/parameters/Rows"
+        - $ref: "#/components/parameters/StartDate"
+        - $ref: "#/components/parameters/EndDate"
+      responses:
+        "200":
+          description: OK
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  Customers:
+                    type: array
+                    items: {$ref: "#/components/schemas/AR_CUST"}
+                  ErrorCode: {$ref: "#/components/schemas/ErrorCode"}
+
+  /Document:
+    post:
+      tags: [Document]
+      summary: Add a completed document (sale, order, layaway).
+      description: |
+        Posts a PS_DOC_HDR with line items, payments, taxes, contacts, notes.
+        Secure Pay stores process credit payments in real time; CPG stores
+        store encrypted card data and process on release. Per the v2.4
+        release notes, `USR_ENTD_PRC=Y` (not `HAS_PRC_OVRD`) is the price-
+        override trigger.
+      security:
+        - basicAuth: []
+          apiKeyHeader: []
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                PS_DOC_HDR: {$ref: "#/components/schemas/PS_DOC_HDR"}
+                PS_TAX: {$ref: "#/components/schemas/PS_TAX"}
+      responses:
+        "201":
+          description: Created.
+          content:
+            application/json:
+              schema: {$ref: "#/components/schemas/DocumentCreatedResponse"}
+        "400": {$ref: "#/components/responses/BadRequest"}
+        "401": {$ref: "#/components/responses/Unauthorized"}
+        "403": {$ref: "#/components/responses/Forbidden"}
+        "500": {$ref: "#/components/responses/InternalError"}
+
+  /Document/{DocId}:
+    get:
+      tags: [Document]
+      summary: Get a document (unposted ticket / order).
+      security:
+        - basicAuth: []
+          apiKeyHeader: []
+      parameters:
+        - name: DocId
+          in: path
+          required: true
+          schema: {type: string, description: PS_DOC_HDR.DOC_ID — int64.}
+      responses:
+        "200":
+          description: OK
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  PS_DOC_HDR: {$ref: "#/components/schemas/PS_DOC_HDR"}
+                  ErrorCode: {$ref: "#/components/schemas/ErrorCode"}
+        "404": {$ref: "#/components/responses/NotFound"}
+
+  /Document/{DocId}/Contact:
+    post:
+      tags: [Document]
+      summary: Add a bill-to / ship-to contact to a document.
+      security:
+        - basicAuth: []
+          apiKeyHeader: []
+      parameters:
+        - name: DocId
+          in: path
+          required: true
+          schema: {type: string}
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema: {$ref: "#/components/schemas/PS_DOC_CONTACT"}
+      responses:
+        "201":
+          description: Created.
+          content:
+            application/json:
+              schema: {$ref: "#/components/schemas/ErrorEnvelope"}
+    put:
+      tags: [Document]
+      summary: Update a document contact (note README chart labels this PATCH; the file is PUT).
+      security:
+        - basicAuth: []
+          apiKeyHeader: []
+      parameters:
+        - name: DocId
+          in: path
+          required: true
+          schema: {type: string}
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema: {$ref: "#/components/schemas/PS_DOC_CONTACT"}
+      responses:
+        "200":
+          description: Updated.
+          content:
+            application/json:
+              schema: {$ref: "#/components/schemas/ErrorEnvelope"}
+    delete:
+      tags: [Document]
+      summary: Delete a document contact.
+      security:
+        - basicAuth: []
+          apiKeyHeader: []
+      parameters:
+        - name: DocId
+          in: path
+          required: true
+          schema: {type: string}
+        - name: ContactId
+          in: query
+          required: true
+          schema: {type: string}
+      responses:
+        "200":
+          description: Deleted.
+          content:
+            application/json:
+              schema: {$ref: "#/components/schemas/ErrorEnvelope"}
+
+  /Document/{DocId}/Lines:
+    post:
+      tags: [Document]
+      summary: Add line items to an existing document.
+      security:
+        - basicAuth: []
+          apiKeyHeader: []
+      parameters:
+        - name: DocId
+          in: path
+          required: true
+          schema: {type: string}
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                PS_DOC_LIN:
+                  type: array
+                  items: {$ref: "#/components/schemas/PS_DOC_LIN"}
+      responses:
+        "201":
+          description: Created.
+          content:
+            application/json:
+              schema: {$ref: "#/components/schemas/ErrorEnvelope"}
+
+  /Document/{DocId}/Note:
+    post:
+      tags: [Document]
+      summary: Add a document note.
+      security:
+        - basicAuth: []
+          apiKeyHeader: []
+      parameters:
+        - name: DocId
+          in: path
+          required: true
+          schema: {type: string}
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema: {$ref: "#/components/schemas/PS_DOC_NOTE"}
+      responses:
+        "201":
+          description: Created.
+          content:
+            application/json:
+              schema: {$ref: "#/components/schemas/ErrorEnvelope"}
+    put:
+      tags: [Document]
+      summary: Update a document note.
+      security:
+        - basicAuth: []
+          apiKeyHeader: []
+      parameters:
+        - name: DocId
+          in: path
+          required: true
+          schema: {type: string}
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema: {$ref: "#/components/schemas/PS_DOC_NOTE"}
+      responses:
+        "200":
+          description: Updated.
+          content:
+            application/json:
+              schema: {$ref: "#/components/schemas/ErrorEnvelope"}
+    delete:
+      tags: [Document]
+      summary: Delete a document note.
+      security:
+        - basicAuth: []
+          apiKeyHeader: []
+      parameters:
+        - name: DocId
+          in: path
+          required: true
+          schema: {type: string}
+        - name: NoteId
+          in: query
+          required: true
+          schema: {type: string}
+      responses:
+        "200":
+          description: Deleted.
+          content:
+            application/json:
+              schema: {$ref: "#/components/schemas/ErrorEnvelope"}
+
+  /Document/{DocId}/Payments:
+    post:
+      tags: [Document]
+      summary: Add payments to an existing document.
+      security:
+        - basicAuth: []
+          apiKeyHeader: []
+      parameters:
+        - name: DocId
+          in: path
+          required: true
+          schema: {type: string}
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                PS_DOC_PMT:
+                  type: array
+                  items: {$ref: "#/components/schemas/PS_DOC_PMT"}
+      responses:
+        "201":
+          description: Created.
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  PaymentResponses:
+                    type: array
+                    items:
+                      type: object
+                      properties:
+                        PMT_SEQ_NO: {type: integer}
+                        Response: {type: string}
+                  ErrorCode: {$ref: "#/components/schemas/ErrorCode"}
+
+  /EC:
+    get:
+      tags: [ECommerce]
+      summary: Get eCommerce control settings.
+      security:
+        - basicAuth: []
+          apiKeyHeader: []
+      responses:
+        "200":
+          description: OK
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  EC_CTL: {$ref: "#/components/schemas/EC_CTL"}
+                  ErrorCode: {$ref: "#/components/schemas/ErrorCode"}
+
+  /ECCategories:
+    get:
+      tags: [ECommerce]
+      summary: Get eCommerce categories and items.
+      security:
+        - basicAuth: []
+          apiKeyHeader: []
+      responses:
+        "200":
+          description: OK
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  EC_CATEG:
+                    type: array
+                    items: {$ref: "#/components/schemas/EC_CATEG"}
+                  ErrorCode: {$ref: "#/components/schemas/ErrorCode"}
+
+  /Inventory/EC:
+    get:
+      tags: [Inventory, ECommerce]
+      summary: Get eCommerce inventory snapshot.
+      security:
+        - basicAuth: []
+          apiKeyHeader: []
+      responses:
+        "200":
+          description: OK
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  Inventory:
+                    type: array
+                    items: {$ref: "#/components/schemas/IM_INV"}
+                  ErrorCode: {$ref: "#/components/schemas/ErrorCode"}
+
+  /Inventory/{LocId}:
+    get:
+      tags: [Inventory]
+      summary: Get inventory for all items at a location.
+      security:
+        - basicAuth: []
+          apiKeyHeader: []
+      parameters:
+        - name: LocId
+          in: path
+          required: true
+          schema: {type: string}
+        - name: CategCod
+          in: query
+          required: false
+          schema: {type: string}
+        - name: SubcatCod
+          in: query
+          required: false
+          schema: {type: string}
+        - $ref: "#/components/parameters/Page"
+        - $ref: "#/components/parameters/Rows"
+      responses:
+        "200":
+          description: OK
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  Inventory:
+                    type: array
+                    items: {$ref: "#/components/schemas/IM_INV"}
+                  ErrorCode: {$ref: "#/components/schemas/ErrorCode"}
+
+  /InventoryControl:
+    get:
+      tags: [Inventory]
+      summary: Get inventory control block.
+      security:
+        - basicAuth: []
+          apiKeyHeader: []
+      responses:
+        "200":
+          description: OK
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  IM_INV_CTL: {$ref: "#/components/schemas/IM_INV_CTL"}
+                  ErrorCode: {$ref: "#/components/schemas/ErrorCode"}
+
+  /Inventory/Locations:
+    get:
+      tags: [Inventory]
+      summary: List inventory locations.
+      description: Source file (GET_InventoryLocations.md) is light on description; URL inferred from README chart and file content.
+      security:
+        - basicAuth: []
+          apiKeyHeader: []
+      responses:
+        "200":
+          description: OK
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  Locations:
+                    type: array
+                    items: {$ref: "#/components/schemas/IM_LOC"}
+                  ErrorCode: {$ref: "#/components/schemas/ErrorCode"}
+
+  /Item/Images/{Filename}:
+    get:
+      tags: [Item]
+      summary: Get a specific item image binary.
+      security:
+        - basicAuth: []
+          apiKeyHeader: []
+      parameters:
+        - name: Filename
+          in: path
+          required: true
+          schema: {type: string}
+      responses:
+        "200":
+          description: Image bytes.
+          content:
+            image/*:
+              schema:
+                type: string
+                format: binary
+        "404": {$ref: "#/components/responses/NotFound"}
+
+  /Item/{ItemNo}:
+    get:
+      tags: [Item]
+      summary: Get an item.
+      security:
+        - basicAuth: []
+          apiKeyHeader: []
+      parameters:
+        - name: ItemNo
+          in: path
+          required: true
+          schema: {type: string}
+      responses:
+        "200":
+          description: OK
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  IM_ITEM: {$ref: "#/components/schemas/IM_ITEM"}
+                  ErrorCode: {$ref: "#/components/schemas/ErrorCode"}
+        "404": {$ref: "#/components/responses/NotFound"}
+
+  /Item/{ItemNo}/Images:
+    get:
+      tags: [Item]
+      summary: List image filenames available for an item.
+      security:
+        - basicAuth: []
+          apiKeyHeader: []
+      parameters:
+        - name: ItemNo
+          in: path
+          required: true
+          schema: {type: string}
+      responses:
+        "200":
+          description: OK
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  Filenames:
+                    type: array
+                    items: {type: string}
+                  ErrorCode: {$ref: "#/components/schemas/ErrorCode"}
+
+  /Item/{ItemNo}/Inventory/{LocId}:
+    get:
+      tags: [Item, Inventory]
+      summary: Get inventory for one item at one location.
+      security:
+        - basicAuth: []
+          apiKeyHeader: []
+      parameters:
+        - name: ItemNo
+          in: path
+          required: true
+          schema: {type: string}
+        - name: LocId
+          in: path
+          required: true
+          schema: {type: string}
+      responses:
+        "200":
+          description: OK
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  IM_INV: {$ref: "#/components/schemas/IM_INV"}
+                  ErrorCode: {$ref: "#/components/schemas/ErrorCode"}
+
+  /Item/{ItemNo}/InventoryCost/{LocId}:
+    get:
+      tags: [Item, Inventory]
+      summary: Get inventory-cost detail for one item at one location.
+      security:
+        - basicAuth: []
+          apiKeyHeader: []
+      parameters:
+        - name: ItemNo
+          in: path
+          required: true
+          schema: {type: string}
+        - name: LocId
+          in: path
+          required: true
+          schema: {type: string}
+      responses:
+        "200":
+          description: OK
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  IM_INV: {$ref: "#/components/schemas/IM_INV"}
+                  ErrorCode: {$ref: "#/components/schemas/ErrorCode"}
+
+  /Item/{ItemNo}/Serial/{SerialNo}:
+    get:
+      tags: [Item]
+      summary: Get a serial record for an item.
+      security:
+        - basicAuth: []
+          apiKeyHeader: []
+      parameters:
+        - name: ItemNo
+          in: path
+          required: true
+          schema: {type: string}
+        - name: SerialNo
+          in: path
+          required: true
+          schema: {type: string}
+      responses:
+        "200":
+          description: OK
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  SN_SER: {$ref: "#/components/schemas/SN_SER"}
+                  ErrorCode: {$ref: "#/components/schemas/ErrorCode"}
+
+  /Item/{ItemNo}/Serials/Location/{LocId}:
+    get:
+      tags: [Item]
+      summary: List active serials for an item at a location.
+      security:
+        - basicAuth: []
+          apiKeyHeader: []
+      parameters:
+        - name: ItemNo
+          in: path
+          required: true
+          schema: {type: string}
+        - name: LocId
+          in: path
+          required: true
+          schema: {type: string}
+      responses:
+        "200":
+          description: OK
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  Serials:
+                    type: array
+                    items: {$ref: "#/components/schemas/SN_SER"}
+                  ErrorCode: {$ref: "#/components/schemas/ErrorCode"}
+
+  /ItemCategories:
+    get:
+      tags: [Item]
+      summary: List item categories with subcategories (hierarchical).
+      security:
+        - basicAuth: []
+          apiKeyHeader: []
+      responses:
+        "200":
+          description: OK
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  IM_CATEG:
+                    type: array
+                    items: {$ref: "#/components/schemas/IM_CATEG"}
+                  ErrorCode: {$ref: "#/components/schemas/ErrorCode"}
+
+  /ItemCategory/{CategoryCode}:
+    get:
+      tags: [Item]
+      summary: Get one item category and its subcategories.
+      security:
+        - basicAuth: []
+          apiKeyHeader: []
+      parameters:
+        - name: CategoryCode
+          in: path
+          required: true
+          schema: {type: string}
+      responses:
+        "200":
+          description: OK
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  IM_CATEG: {$ref: "#/components/schemas/IM_CATEG"}
+                  ErrorCode: {$ref: "#/components/schemas/ErrorCode"}
+
+  /Items:
+    get:
+      tags: [Item]
+      summary: List items (paginated, filterable by category/subcategory and RS_UTC_DT).
+      security:
+        - basicAuth: []
+          apiKeyHeader: []
+      parameters:
+        - name: CategCod
+          in: query
+          required: false
+          schema: {type: string}
+        - name: SubcatCod
+          in: query
+          required: false
+          schema: {type: string}
+        - $ref: "#/components/parameters/Page"
+        - $ref: "#/components/parameters/Rows"
+        - $ref: "#/components/parameters/StartDate"
+        - $ref: "#/components/parameters/EndDate"
+      responses:
+        "200":
+          description: OK
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  Items:
+                    type: array
+                    items: {$ref: "#/components/schemas/IM_ITEM"}
+                  ErrorCode: {$ref: "#/components/schemas/ErrorCode"}
+
+  /Items/{LocId}:
+    get:
+      tags: [Item]
+      summary: List items for a location (paginated, filterable).
+      security:
+        - basicAuth: []
+          apiKeyHeader: []
+      parameters:
+        - name: LocId
+          in: path
+          required: true
+          schema: {type: string}
+        - name: CategCod
+          in: query
+          required: false
+          schema: {type: string}
+        - name: SubcatCod
+          in: query
+          required: false
+          schema: {type: string}
+        - $ref: "#/components/parameters/Page"
+        - $ref: "#/components/parameters/Rows"
+        - $ref: "#/components/parameters/StartDate"
+        - $ref: "#/components/parameters/EndDate"
+      responses:
+        "200":
+          description: OK
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  Items:
+                    type: array
+                    items: {$ref: "#/components/schemas/IM_ITEM"}
+                  ErrorCode: {$ref: "#/components/schemas/ErrorCode"}
+
+  /VendorItem/{VendorNo}/Item/{ItemNo}:
+    get:
+      tags: [Vendor]
+      summary: Get vendor-item linkage.
+      security:
+        - basicAuth: []
+          apiKeyHeader: []
+      parameters:
+        - name: VendorNo
+          in: path
+          required: true
+          schema: {type: string}
+        - name: ItemNo
+          in: path
+          required: true
+          schema: {type: string}
+      responses:
+        "200":
+          description: OK
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  VendorItem: {$ref: "#/components/schemas/VendorItem"}
+                  ErrorCode: {$ref: "#/components/schemas/ErrorCode"}
+
+  /PayCode/{Paycode}:
+    get:
+      tags: [PayCode]
+      summary: Get a paycode.
+      security:
+        - basicAuth: []
+          apiKeyHeader: []
+      parameters:
+        - name: Paycode
+          in: path
+          required: true
+          schema: {type: string}
+      responses:
+        "200":
+          description: OK
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  PS_PAY_COD: {$ref: "#/components/schemas/PS_PAY_COD"}
+                  ErrorCode: {$ref: "#/components/schemas/ErrorCode"}
+    patch:
+      tags: [PayCode]
+      summary: Update a paycode (README chart labels PATCH; source file is PUT).
+      security:
+        - basicAuth: []
+          apiKeyHeader: []
+      parameters:
+        - name: Paycode
+          in: path
+          required: true
+          schema: {type: string}
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema: {$ref: "#/components/schemas/PS_PAY_COD"}
+      responses:
+        "200":
+          description: Updated.
+          content:
+            application/json:
+              schema: {$ref: "#/components/schemas/ErrorEnvelope"}
+
+  /PayCodes:
+    get:
+      tags: [PayCode]
+      summary: List paycodes.
+      security:
+        - basicAuth: []
+          apiKeyHeader: []
+      responses:
+        "200":
+          description: OK
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  PayCodes:
+                    type: array
+                    items: {$ref: "#/components/schemas/PS_PAY_COD"}
+                  ErrorCode: {$ref: "#/components/schemas/ErrorCode"}
+
+  /TaxCodes:
+    get:
+      tags: [TaxCode]
+      summary: List tax codes.
+      security:
+        - basicAuth: []
+          apiKeyHeader: []
+      responses:
+        "200":
+          description: OK
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  TaxCodes:
+                    type: array
+                    items: {$ref: "#/components/schemas/TX_COD"}
+                  ErrorCode: {$ref: "#/components/schemas/ErrorCode"}
+
+  /Store/{StoreID}:
+    get:
+      tags: [Store]
+      summary: Get store info.
+      security:
+        - basicAuth: []
+          apiKeyHeader: []
+      parameters:
+        - name: StoreID
+          in: path
+          required: true
+          schema: {type: string}
+      responses:
+        "200":
+          description: OK
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  PS_STR: {$ref: "#/components/schemas/PS_STR"}
+                  ErrorCode: {$ref: "#/components/schemas/ErrorCode"}
+
+  /Store/{StoreID}/Station/{StationID}:
+    get:
+      tags: [Store]
+      summary: Get station info.
+      security:
+        - basicAuth: []
+          apiKeyHeader: []
+      parameters:
+        - name: StoreID
+          in: path
+          required: true
+          schema: {type: string}
+        - name: StationID
+          in: path
+          required: true
+          schema: {type: string}
+      responses:
+        "200":
+          description: OK
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  PS_STA: {$ref: "#/components/schemas/PS_STA"}
+                  ErrorCode: {$ref: "#/components/schemas/ErrorCode"}
+
+  /Store/{StoreId}/Tokenize:
+    get:
+      tags: [Tokenization, Store]
+      summary: Get tokenization status for a store.
+      security:
+        - basicAuth: []
+      parameters:
+        - name: StoreId
+          in: path
+          required: true
+          schema: {type: string}
+      responses:
+        "200":
+          description: OK
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  Status: {$ref: "#/components/schemas/StoreTokenizeStatus"}
+                  ErrorCode: {$ref: "#/components/schemas/ErrorCode"}
+    post:
+      tags: [Tokenization, Store]
+      summary: Tokenize all cards-on-file for a Secure Pay store.
+      security:
+        - basicAuth: []
+      parameters:
+        - name: StoreId
+          in: path
+          required: true
+          schema: {type: string}
+      responses:
+        "200":
+          description: Tokenization run completed (synchronous or async per server config).
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  Status: {$ref: "#/components/schemas/StoreTokenizeStatus"}
+                  ErrorCode: {$ref: "#/components/schemas/ErrorCode"}
+
+  /Stores/Tokenized:
+    get:
+      tags: [Tokenization, Store]
+      summary: Per-store tokenized-card counts across all Secure Pay stores.
+      security:
+        - basicAuth: []
+      responses:
+        "200":
+          description: OK
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  Stores:
+                    type: array
+                    items: {$ref: "#/components/schemas/StoreTokenizeStatus"}
+                  ErrorCode: {$ref: "#/components/schemas/ErrorCode"}
+
+  /GiftCard/{GiftCardNo}:
+    get:
+      tags: [GiftCard]
+      summary: Get a gift card by number.
+      security:
+        - basicAuth: []
+          apiKeyHeader: []
+      parameters:
+        - name: GiftCardNo
+          in: path
+          required: true
+          schema: {type: string}
+      responses:
+        "200":
+          description: OK
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  SY_GFC: {$ref: "#/components/schemas/SY_GFC"}
+                  ErrorCode: {$ref: "#/components/schemas/ErrorCode"}
+
+  /GiftCardCode/{GiftCardCode}:
+    get:
+      tags: [GiftCard]
+      summary: Get gift card code template.
+      security:
+        - basicAuth: []
+          apiKeyHeader: []
+      parameters:
+        - name: GiftCardCode
+          in: path
+          required: true
+          schema: {type: string}
+      responses:
+        "200":
+          description: OK
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  SY_GFC_COD: {$ref: "#/components/schemas/SY_GFC_COD"}
+                  ErrorCode: {$ref: "#/components/schemas/ErrorCode"}
+
+  /GiftCardCodes:
+    get:
+      tags: [GiftCard]
+      summary: List gift card codes.
+      security:
+        - basicAuth: []
+          apiKeyHeader: []
+      responses:
+        "200":
+          description: OK
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  GiftCardCodes:
+                    type: array
+                    items: {$ref: "#/components/schemas/SY_GFC_COD"}
+                  ErrorCode: {$ref: "#/components/schemas/ErrorCode"}
+
+  /GiftCards:
+    get:
+      tags: [GiftCard]
+      summary: List gift cards (paginated).
+      security:
+        - basicAuth: []
+          apiKeyHeader: []
+      parameters:
+        - $ref: "#/components/parameters/Page"
+        - $ref: "#/components/parameters/Rows"
+      responses:
+        "200":
+          description: OK
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  GiftCards:
+                    type: array
+                    items: {$ref: "#/components/schemas/SY_GFC"}
+                  ErrorCode: {$ref: "#/components/schemas/ErrorCode"}
+
+  /Workgroup/{WorkgroupID}:
+    get:
+      tags: [Workgroup]
+      summary: Get a workgroup (template-customer + numbering defaults).
+      security:
+        - basicAuth: []
+          apiKeyHeader: []
+      parameters:
+        - name: WorkgroupID
+          in: path
+          required: true
+          schema: {type: string}
+      responses:
+        "200":
+          description: OK
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  Workgroup: {$ref: "#/components/schemas/Workgroup"}
+                  ErrorCode: {$ref: "#/components/schemas/ErrorCode"}
+
+  /DeviceConfig/{WorkstationID}:
+    get:
+      tags: [DeviceConfig, Store]
+      summary: Get device config for a workstation. Not in README endpoint chart.
+      description: |
+        Source file (GET_Device_Config.md) documents the path as
+        `/DeviceConfig/{WorkstationID}` even though README chart does not list it
+        and the README sidebar uses `/Device_Config`. README is the discrepancy;
+        the file is the authority.
+      security:
+        - basicAuth: []
+          apiKeyHeader: []
+      parameters:
+        - name: WorkstationID
+          in: path
+          required: true
+          schema: {type: string}
+      responses:
+        "200":
+          description: OK
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  DeviceConfig: {$ref: "#/components/schemas/DeviceConfig"}
+                  ErrorCode: {$ref: "#/components/schemas/ErrorCode"}
+
+  /NSPTransaction:
+    post:
+      tags: [NSPTransaction]
+      summary: Post Monetra Secure Pay transactions back to Counterpoint.
+      description: No APIKey, no registration option; used by the NSP integration loop.
+      security:
+        - basicAuth: []
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: array
+              items: {$ref: "#/components/schemas/NSPTransaction"}
+      responses:
+        "201":
+          description: Posted.
+          content:
+            application/json:
+              schema: {$ref: "#/components/schemas/ErrorEnvelope"}

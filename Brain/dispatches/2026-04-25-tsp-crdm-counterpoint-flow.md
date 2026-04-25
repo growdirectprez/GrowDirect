@@ -1,23 +1,29 @@
 ---
 type: dispatch
-status: ready-for-alxjr
+status: ready-for-execution
 date: 2026-04-25
-target: claude-code-session on Mac mini (ALXjr namespace = ALX, Canary Retail Ops Agent)
+target: laptop-side Claude Code (this conversation OR a fresh laptop session)
 priority: high
-unblocks: Canary Counterpoint integration; Boutique H&G chain (Engagement 2) deployment readiness
-parallel-with: 2026-04-25-secure-engagement-archive-deep-dive.md (still running on laptop)
+phase: 0 (foundation) of 5 in NCR Counterpoint retail spine integration
+unblocks: Phase 1+ (priority modules T R F L N), Phase 2 (catalog), Phase 3 (operations), Phase 4 (tertiary), Phase 5 (cutover)
+sdd: docs/sdds/canary/ncr-counterpoint-retail-spine-integration.md
+build-plan: docs/superpowers/plans/2026-04-25-ncr-counterpoint-spine-build.md
 inputs:
-  - /Users/gclyle/GrowDirect/Brain/raw/inbox/rapid-pos/ncr-counterpoint-api/ — public Counterpoint REST API repo (cloned 2026-04-25, 99 endpoints + 21K README + Basics + Installation docs)
-  - /Users/gclyle/GrowDirect/Brain/wiki/canary-tsp-pipeline.md — current TSP architecture (Square source)
-  - /Users/gclyle/GrowDirect/Brain/wiki/canary-data-model.md — current CRDM entity definitions
-tags: [canary, tsp, crdm, counterpoint, integration, mini-dispatch, dispatch-driven]
+  - Brain/raw/inbox/rapid-pos/ncr-counterpoint-api/ — public Counterpoint REST API repo (cloned 2026-04-25, 99 endpoints + 21K README + Basics + Installation docs)
+  - Brain/wiki/canary-tsp-pipeline.md — current TSP architecture (Square source)
+  - Brain/wiki/canary-data-model.md — current CRDM entity definitions
+tags: [canary, tsp, crdm, counterpoint, integration, phase-0, ssh-driven]
 ---
 
-# Dispatch — Rebuild TSP + CRDM for Counterpoint; Flow Data to CRDM First
+# Dispatch — Rebuild TSP + CRDM for Counterpoint; Flow Data to CRDM First (Phase 0)
 
 ## Operational discipline (read first)
 
-This dispatch executes on the Mac mini under the production-dispatch-driven discipline. The mini's ALX does not do free-form work. This document is the programmed instruction. If anything is ambiguous, surface it for founder decision and wait — do not improvise.
+Executes on the laptop. The mini is the eventual production hosting target — but this dispatch is engineering work on Canary code, which lives in the Canary repo on the laptop. SSH-to-mini is only for production deployment validation, which is Phase 5, not Phase 0.
+
+If anything is ambiguous, surface it for founder decision and wait — do not improvise. Each phase output is reviewed before the next phase begins.
+
+This is the **Phase 0 foundation** of the NCR Counterpoint retail spine integration. All later phases (priority modules, catalog, operations, tertiary, cutover) depend on this completing.
 
 ## Why this exists
 
