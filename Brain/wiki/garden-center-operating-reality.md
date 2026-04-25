@@ -43,6 +43,25 @@ For specialty / unusual plants (heirlooms, native species, rare cultivars, unusu
 - **Item code drift** — a single plant may exist as multiple `ITEM_NO` records in Counterpoint over time as different intakes get coded differently
 - **Mid-season ad-hoc additions** — the catalog is not stable. New items get added during a season as new shipments arrive. Old items get retired. Item lifecycle is short.
 
+### Alternative payment rails — opportunity for digital trail on cash-heavy vendor payments
+
+The cash-out-of-pocket pattern at the back door is operationally normal but produces poor data trails (no record beyond a paper receipt) and creates tax-compliance friction. Digital P2P wallets — **Zelle, Venmo, Cash App, Bitcoin Lightning** — substitute cleanly for cash-in-hand and produce a digital record automatically.
+
+**Counterpoint coverage today:**
+- `PayCode` taxonomy is flexible — a customer can define paycodes for any tender (Zelle, Venmo, Cash App, BTC, Lightning) and record vendor payments / customer transactions against them. **Manual recording is already supported.**
+- **Native integration** with these wallets (auto-capture from the wallet's API, auto-reconcile) is NOT in the standard Counterpoint surface. Recording is manual unless a connector is built.
+- For customer-side card-not-present and NFC tenders (Apple Pay, Google Pay), Counterpoint's existing EDC payment-processor integration handles them. No extra work.
+
+**Where the opportunity is:**
+- **Vendor-side payment integration** is the high-leverage gap. Pulling Zelle / Venmo / Cash App / Lightning payment events into CRDM (vendor-paid records, with timestamp + amount + counterparty) turns cash payments into observable + auditable transactions. Helps Module Q (LP) detection rules + tax compliance + accounting.
+- **Bitcoin Lightning specifically** — Strike, OpenNode, Voltage, Cash App Lightning offer instant settlement + low fees + programmable APIs. For ad-hoc small vendor payments in cash-heavy specialty retail, Lightning is a real fit. Programmable webhooks make integration tractable.
+
+**Canary-native option (parallel to Module L / W wedge logic):**
+
+Add alternative-payment-rails capture as a Canary value-add. POS-agnostic (works with Counterpoint, Square, Lightspeed, etc.). Pulls payment events from wallet APIs into CRDM. Rationalizes vendor-payment data the customer otherwise loses to cash. Tradeoffs: each wallet has its own API surface and rate limits, compliance / KYC for B2B wallet flows, customer's wallet account onboarding burden.
+
+This is **option (e) in the playbook** — alongside (d) Canary-native modules for L/W, this is "Canary fills a payment-rail integration gap that no POS vendor covers natively." Same product-strategic logic; same escalation rule (founder decides before scoping).
+
 ### What this means for Canary
 
 Module Q (Loss Prevention) detection rules built for grocery / restaurant / general retail will misfire on garden centers if not aware of this:
