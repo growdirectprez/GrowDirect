@@ -88,6 +88,31 @@ SOURCES = [
         "layer": "canary",
         "metadata_extra": {"domain": "chirp"},
     },
+    # Brain dispatches — operating instructions / decisions on what to do
+    # Added 2026-04-25 (resolves memory_bus.cli drift identified during the
+    # 2026-04-25 RAPID + Secure dispatch runs; extends seed_clean.py
+    # additively rather than building the full memory_bus.cli surface).
+    {
+        "glob": "Brain/dispatches/*.md",
+        "memory_type": "dispatch",
+        "layer": "corp",
+        "metadata_extra": {"source_kind": "operating_instruction"},
+    },
+    # Brain wiki — synthesis layer (module specs, project context, founder
+    # context articles, integration mappings)
+    {
+        "glob": "Brain/wiki/*.md",
+        "memory_type": "wiki_article",
+        "layer": "corp",
+        "metadata_extra": {"source_kind": "synthesis"},
+    },
+    # Build plans — operational plans companion to SDDs
+    {
+        "glob": "docs/superpowers/plans/*.md",
+        "memory_type": "build_plan",
+        "layer": "corp",
+        "metadata_extra": {"source_kind": "operational_plan"},
+    },
 ]
 
 
