@@ -63,6 +63,35 @@ The Morrisons pattern (Sell/Plan/Move/Buy frame + three-option heat-map evaluati
 
 ---
 
+### GRO-560: Canary NCR Product-Line Decision — Architecture Decision Record
+
+**Decision:** Canary's first NCR product-line integration is **Option B — Counterpoint first.**
+
+**Why:** Closest merchant-profile fit to Canary's existing Square SMB sweet-spot. Specialty retail vertical where Canary's loss-prevention and store-ops substrate already produces value. Real first customer (Boutique Home & Garden chain) is in front of us. Friendly VAR channel (Bart Monahan / Rapid POS) is a Counterpoint reseller. Public API documentation already extracted into validated OpenAPI spec. ~80% Q-rule portability from Square. Customer-routed access strategy sidesteps NCR-Voyix-as-competitor friction.
+
+**ADR Link:** [[../../Canary-Retail-Brain/case-studies/canary-ncr-product-line-decision|Case Study: Canary NCR Product-Line Decision — Architecture Options]]
+
+**Sequence:** Counterpoint Q3 2026 → Voyix re-eval Q2 2027 → Aloha as separate restaurant-vertical motion only when independently funded.
+
+**Why not Aloha first:** ~58 adapter eng-weeks (vs Counterpoint's ~26). Vertical mismatch — restaurants need a net-new Q rule family + CRDM extensions for modifiers/checks/tip pools. Different merchant motion.
+
+**Why not Voyix first:** Smallest installed base today. NCR Voyix is the direct SMB-analytics competitor — partnership friction is highest of the three. Re-evaluate Q2 2027 when API maturity and installed base catch up.
+
+**Phasing:**
+- **Q3 2026:** Phase 0 substrate (in flight under GRO-558) + Phase 1 priority modules (T R F L N)
+- **Q4 2026:** Phase 2 catalog modules (P S — H&G-critical)
+- **Q1 2027:** Phase 3 operations modules (D J; W out of scope per SDD §6.13)
+- **Q2 2027:** Phase 4 tertiary (A C Q) + Voyix product-line re-eval gate
+
+**Acceptance gates:**
+- Post-Phase-0: substrate scaffolds shipped, Square pipeline untouched, ~25 priority endpoints adapter-covered
+- Post-MVP: first Boutique H&G chain deployment completes Phases 0–4 successfully
+- Pre-Voyix-re-eval (Q2 2027): Counterpoint adapter has ≥3 production deployments with ≥80% Q-rule portability proven
+
+**Status:** Decision recorded 2026-04-25. Implementation in flight (mini's `feat/pos-substrate` branch shipped Cycle 7 / 7.2 + 7.3 — POS adapter substrate scaffold + contract test suite).
+
+---
+
 ## How to Use the Morrisons Frame
 
 When Canary faces a decision between competing architecture approaches:
