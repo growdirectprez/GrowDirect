@@ -35,6 +35,8 @@ class ScenarioContext:
 class Scenario(ABC):
     name: ClassVar[str]
     description: ClassVar[str] = ""
+    category: ClassVar[str] = ""
+    expected_behaviors: ClassVar[list[str]] = []
     params_schema: ClassVar[Type[ScenarioParams]] = ScenarioParams
 
     @classmethod

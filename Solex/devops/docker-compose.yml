@@ -31,7 +31,7 @@ services:
     build:
       context: ..
       dockerfile: devops/Dockerfile
-    command: ["rq", "worker", "--url", "redis://growdirect_valkey:6379/2", "solex-default"]
+    command: ["sh", "-c", "rq worker --url \"$$VALKEY_URL\" solex-default"]
     env_file: ../.env
     volumes:
       - ../solex:/app/solex

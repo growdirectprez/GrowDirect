@@ -145,6 +145,66 @@ Organize and optimize as we go; precedent is the Secure/Kroger sprint (Apr 2026,
 
 ---
 
+## Dispatch Protocol
+
+Operational instructions to any Claude instance — laptop, mini, or future
+machines — are **Linear issues in the Dispatch project**. Not chat messages.
+Not files in a network share. Linear is the control plane; the repo is the
+data plane.
+
+**Project:** `Dispatch` on the Growdirect Linear team. Each issue is one
+dispatch.
+
+**Labels:**
+
+- `Target/mini`, `Target/laptop`, `Target/any` — which machine should pick up
+- `Agent/ALX`, `Agent/ALXjr`, `Agent/Canary Builder`, `Agent/Cove Builder`,
+  `Agent/Jeffe` — which agent identity executes (ALXjr is mini-resident)
+
+**Priority:** Linear's native field (Urgent / High / Normal / Low). No
+priority labels.
+
+**Lifecycle:**
+
+1. Founder (or an upstream agent) creates the dispatch as a Linear issue —
+   status `Todo`, `Target/<machine>` label, optional `Agent/<name>` label,
+   priority set, description carries the full brief
+2. On the target machine, Claude lists open dispatches matching itself:
+   `list_issues({project: "Dispatch", labels: ["mini"], status: "Todo"})`
+3. On pickup: status → `In Progress`, comment confirming pickup + ETA
+4. Execute — outputs land in the repo per the dispatch's named target path
+   (`docs/superpowers/specs/`, `docs/superpowers/plans/`, `docs/sdds/<scope>/`,
+   etc.). Commit and push.
+5. On completion: status → `Done`, comment listing artifact paths, commit
+   SHA, one-paragraph summary, and any GRO tickets recommended for filing
+6. Failures: status → `Cancelled` with a reason comment
+
+**Pickup model (current):** human-confirmed. Founder creates the issue;
+founder triggers pickup on the target machine. Auto-pickup via cron is a
+graduation, not the start.
+
+**Title style:** imperative phrases (`mini self-review and hardening`), no
+date prefixes — Linear handles ordering.
+
+**Why this and not the alternatives:**
+
+- *Chat as dispatch* → ephemeral, no audit trail, no version
+- *File share as dispatch* → new infra to harden, drift risk, single point
+  of failure (mini offline = laptop blocked)
+- *Specs/plans carrying imperatives* → confuses control plane with data
+  plane; specs are artifacts, not instructions
+
+Linear already exists, has the lifecycle states, supports comments for
+mid-flight conversation, gives multi-instance coordination via labels, and
+works from anywhere with internet. Putting dispatches anywhere else creates
+a parallel control plane.
+
+**What stays in the repo:** specs, plans, SDDs, Brain, code, all artifacts
+a dispatch produces. Linear references repo paths; the repo doesn't track
+Linear status.
+
+---
+
 ## Projects
 
 | Project | Directory | Status | What it is |

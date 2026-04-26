@@ -24,3 +24,20 @@ class ScenarioRun(BaseModel):
         Index("ix_scenario_runs_name", "scenario_name"),
         Index("ix_scenario_runs_status", "status"),
     )
+
+
+class ScenarioRunFavorite(BaseModel):
+    __tablename__ = "scenario_run_favorites"
+    admin_user_id: Mapped[uuid.UUID] = mapped_column(
+        UUID(as_uuid=True), ForeignKey("admin_users.id", ondelete="CASCADE"), nullable=False,
+    )
+    scenario_run_id: Mapped[uuid.UUID] = mapped_column(
+        UUID(as_uuid=True), ForeignKey("scenario_runs.id", ondelete="CASCADE"), nullable=False,
+    )
+    __table_args__ = (
+        Index(
+            "uq_scenario_run_favorites_admin_run",
+            "admin_user_id", "scenario_run_id",
+            unique=True,
+        ),
+    )

@@ -87,7 +87,39 @@ Branch: `gclyle/gro-549-solex-c2-productionize-scenario-runner-ux` (ahead of ori
 
 ## Phase 0 ready-to-go
 
-TSP rebuild → CRDM → adapter shell. Runbook gives auth bootstrap; OpenAPI gives surface; spine-map tells you which 25 endpoints matter in steady state. **Pick up at `Brain/dispatches/2026-04-25-tsp-crdm-counterpoint-flow.md`.**
+TSP rebuild → CRDM → adapter shell. Runbook gives auth bootstrap; OpenAPI gives surface; spine-map tells you which 25 endpoints matter in steady state. **Pick up at `Brain/dispatches/2026-04-25-tsp-crdm-counterpoint-flow.md`** — but read the strategic refinement below first; the original dispatch was reshaped on 2026-04-25.
+
+## 2026-04-25 strategic refinement (added end-of-day)
+
+Phase 0 was reshaped during scoping. The original dispatch ("rebuild TSP for Counterpoint") implied invasive surgery on the working Square pipeline. Today's posture is **surgical, not architectural**: leave Square as-is (the working baseline / proof case); generalize the downstream consumers so Counterpoint plugs in alongside.
+
+**Phase 0 is now three sub-phases:**
+
+| Sub-phase | Title | Status | Deliverable |
+|---|---|---|---|
+| 0a | Square-coupling audit | **complete 2026-04-25** | `docs/sdds/canary/ncr-counterpoint-square-coupling-audit.md` — registry of 18 Layer 1 + 25 Layer 2 + 12 Layer 3 touchpoints, with severity, effort, and proposed generalization for each |
+| 0b | Generalize app-layer touchpoints | **in progress** | Source-aware ingress, dispatch, validators, resolvers; `external_identities`-mediated lookups; per-source schema-drift fingerprinting |
+| 0c | Counterpoint adapter (the original Phase A) | not started | Polling worker + Counterpoint parsers + fixtures; plugs into now-source-aware downstream |
+
+**"Park Square" decision:** the existing Square pipeline (`webhooks_tsp.py`, `validators/square.py`, `enrichers/square.py`, `square_oauth_wired.py`, `square_oauth_tokens` table, 17 Square parser modules) stays untouched. Counterpoint gets parallel files. Don't refactor Square.
+
+**Modular monolith, not microservice — yet.** Counterpoint adapter ships as a standalone Python package inside the Canary repo, with Canary as its first import. When consumer #2 surfaces (Cove, Angel, future Foundation app), the package becomes a service with minimal refactoring. Don't extract framework-from-product before there's a second caller.
+
+**Critical insight from the audit:** Canary already has the source-agnostic bones — `source_systems`, `external_identities` (built per GRO-267), `merchant_sources`, namespaced enrichers, `payload_normalizer(source, ...)`. **The runtime paths bypass them.** So Phase 0b is largely "make the runtime use what we already designed," not "design something new." That's a meaningfully smaller lift than original-dispatch framing implied.
+
+**Top-3 concerning audit findings (high-blast-radius):**
+1. Chirp engine + `sub2_parse` read `Employee.square_employee_id` / `Location.square_location_id` directly across 12+ modules, bypassing the existing `external_identities` bridge
+2. `_check_schema_fingerprint` will spuriously fire drift alerts on every Counterpoint event (different payload shape); `SchemaFingerprint` has no `source` column
+3. Multi-company-per-tenant (Counterpoint `<company-alias>.<user>`) is incompatible with `Merchant.source_merchant_id UNIQUE` — data-model decision required before adapter writes any rows
+
+**Top-3 quickest wins (Phase 0b first slice):**
+1. Insert `'counterpoint'` row in `source_systems`; extend `external_identities.entity_type` CHECK constraint
+2. Add `'counterpoint': counterpoint_validator` entry to `SOURCE_VALIDATORS` / `SOURCE_SIGNATURE_HEADERS` / `REGISTERED_SOURCES`
+3. Generalize the stateless Chirp gate from `source == "square"` to per-rule `applicable_sources`
+
+**Phase 0b ordering (9 steps):** (1) register source + CHECK constraints; (2) credentials table + multi-company decision; (3) `external_identities`-mediated resolvers; (4) `source_code` on `sales.transactions`; (5) per-source dispatch tables; (6) per-rule source applicability; (7) Counterpoint poller as sibling ingress; (8) Counterpoint validators/parsers; (9) source-aware drift detection.
+
+**The audit ratifies the strategic shift.** Coupling intensity is MEDIUM-HIGH but bounded — the Square parsers, validators, OAuth wiring, and OAuth-shaped tables can all stay Square-only forever. Counterpoint gets sibling files. The cross-cutting work is in the resolvers and the schema-drift fingerprinting, not in the parsers or validators.
 
 ## Companion artifacts (Monday call prep + research)
 
