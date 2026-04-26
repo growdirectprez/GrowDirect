@@ -5,7 +5,7 @@ sub-type: relationship-profile
 date: 2026-04-26
 last-compiled: 2026-04-26
 needs-review: 2026-06-26
-source: Grok team update 2026-04-26 (SaaS PM — Canary / RapidPOS L&G Initiative)
+source: Grok team updates 2026-04-26 ×2 (SaaS PM — Canary / RapidPOS L&G Initiative)
 companion: Brain/wiki/voyix-counterpoint-rapid-pos-engagement-context.md
 companion: Brain/wiki/ncr-counterpoint-rapid-pos-relationship.md
 ---
@@ -29,8 +29,8 @@ Primary VAR contact and decision-maker for any partnership bundling Canary as th
 ## Background
 
 - **Tenure.** Owner since ~April 2007 — 18+ years in the role. Long-tenured operator, not a recent hire or a pivot exec.
-- **Education.** Texas A&M University.
-- **Prior work.** Business management and consulting background before Rapid POS.
+- **Education.** Texas A&M University (~1992).
+- **Prior work.** **ex-Nordstrom** before Rapid POS — retail enterprise experience on the customer side of a large specialty retailer, not just the VAR side. Also business management and consulting background.
 - **Track record.** Has produced training content (EMV webinars, Counterpoint University adjacent). Credible inside the Counterpoint ecosystem — not just a reseller, but a practitioner who teaches it.
 - **Company scale.** 11-50 employees. Rapid POS founded 1985; green-industry vertical focus under the Rapid Garden POS brand.
 
@@ -66,12 +66,21 @@ Bart controls the full VAR bundle: hardware, implementation, training, and suppo
 | Distribution recommendations (D module) | Rebalancing stock across 3-8 locations is a whiteboard exercise for Rapid Garden POS customers today |
 | B2B commercial intelligence (C module) | Landscaper / wholesale / project-tier accounts are 20-40% of revenue; Counterpoint doesn't surface B2B risk or credit posture |
 
-## Monday call agenda relevance
+## Monday call agenda (2026-04-27 1:00 PM PST)
 
-Two load-bearing questions for the Bart call (per dispatch `2026-04-26-spine-functional-decomposition-remaining.md`):
+Call is confirmed. Agenda has two layers:
 
+**VAR partnership layer (the commercial conversation):**
+1. Current L&G customer count and top accounts
+2. Interest in bundling Canary (perpetual ledger + LP + VSM)
+3. Sandbox / APIKey access for prototype
+4. Any proprietary tables or garden-specific Counterpoint extensions to map
+
+**Assumption-resolution layer (the build-plan conversation):**
 1. **L and W strategic decision** — Does Bart's customer base want native labor scheduling or do they pay separately for Homebase / Deputy / TimeForge? His answer shapes whether L is a ★ Canary-native build or a ◯ vendor-integration cell.
-2. **Assumption-resolution agenda** — 71 assumption markers across 11 completed module cards; highest-priority gaps needing real-customer input: transfer workflow conventions (ASSUMPTION-D-03/04), AR module usage (ASSUMPTION-C-05), live-goods write-off Document type (ASSUMPTION-J-12), buyer tolerance for "plan in Canary, execute in Counterpoint" UX (ASSUMPTION-J-08).
+2. **Highest-leverage assumption gaps** — 71 markers across 11 completed module cards; real-customer input needed on: transfer workflow conventions (ASSUMPTION-D-03/04), AR module usage (ASSUMPTION-C-05), live-goods write-off Document type (ASSUMPTION-J-12), buyer tolerance for "plan in Canary, execute in Counterpoint" UX (ASSUMPTION-J-08).
+
+**Note on Grok rec ("schedule a call this week"):** superseded — call already on calendar for Monday.
 
 ## Positioning for the call
 
