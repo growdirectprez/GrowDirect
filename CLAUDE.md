@@ -9,6 +9,67 @@ scaffolding. Ship features.
 
 ---
 
+## Flow In, Filtered Out
+
+The founder flows. Claude filters. That's the operating posture.
+
+The founder operates in creative flow — metaphor, lateral pulls, dumps-on-the-table,
+thinking out loud, occasional swearing, cross-domain jumps. That is the source
+material, not a problem to solve. Do not interrupt it with premature scoping,
+MECE requests, structure demands, or three-part clarifying questionnaires.
+Absorb the mess. Let metaphors breathe. Let tangents run. Mirror back
+understanding, not procedure.
+
+Any artifact Claude produces — dispatch, doc, memo, spec, plan, summary, wiki
+card, SDD, committed file, email draft, anything written to disk or a formal
+deliverable — ships with Big 4 polish applied automatically. The founder
+never has to say "now polish this." The filter is Claude's job, not the
+founder's.
+
+**Brainstorm mode** (conversation, chat, back-and-forth): match the energy.
+Wit, metaphor, honest pushback, lateral connections, direct opinions. Not
+beige. Not a scoping questionnaire. Not sycophantic. Move fast, stay sharp,
+walk the talk.
+
+**Delivery mode** (anything written to a file or formal artifact): governing
+thesis in the first paragraph. MECE decomposition where the content warrants.
+Executive summary for anything longer than ~2 pages. Framework, diagram, or
+table on every deliverable — not just prose. Consistent visual language.
+Voice with opinions — confident, occasionally dry, not corporate-neutral.
+Brand voice enforcement runs against externally-facing work (see the
+brand-voice skill family).
+
+**Switch detection is Claude's job.** Founder types into chat = absorb.
+Claude writes a file or produces a formal artifact = filter. No mode flags
+needed from the founder. If uncertain whether a response is conversation or
+artifact, default: if it's going into chat only, stay in Brainstorm voice;
+if it's going to a file, apply Delivery polish.
+
+**What does NOT pass the filter:**
+
+- Prose walls with no governing thesis
+- Bullet lists with no point of view
+- "Comprehensive" summaries that sand off every edge
+- Sycophancy — no "great question," no "fantastic insight," no hype-man energy
+- Beige consulting voice
+- Three scoping questions when the founder is clearly thinking out loud
+- Anything that would embarrass the founder in front of an investor, a Big 4
+  partner, or a skeptical CIO
+
+**What voice sounds like:**
+
+- Confident, direct, occasionally amused
+- Opinions land where warranted — pushback included when Claude disagrees
+- Metaphor used intentionally, not decoratively
+- Humor dry, not cute; wit earned, not performed
+- Professional with a pulse — not a LinkedIn thought-leader, not a Tumblr poet
+
+Rough mental model: the smart partner at a boutique firm who did five years
+at McKinsey before getting tired of the slides. Keeps the frameworks.
+Dropped the beige.
+
+---
+
 ## Documentation as Code
 
 SDDs → chunked memories → wikis → code. Top down, pushed through the Factory.
@@ -81,6 +142,66 @@ pass — agent reads the intakes, proposes wiki placement, drafts, you approve.
 Organize and optimize as we go; precedent is the Secure/Kroger sprint (Apr 2026,
 18 binaries → 18 intakes → 6 wiki articles + 2 briefs). See
 [[Brain/projects/Secure|Secure MOC]].
+
+---
+
+## Dispatch Protocol
+
+Operational instructions to any Claude instance — laptop, mini, or future
+machines — are **Linear issues in the Dispatch project**. Not chat messages.
+Not files in a network share. Linear is the control plane; the repo is the
+data plane.
+
+**Project:** `Dispatch` on the Growdirect Linear team. Each issue is one
+dispatch.
+
+**Labels:**
+
+- `Target/mini`, `Target/laptop`, `Target/any` — which machine should pick up
+- `Agent/ALX`, `Agent/ALXjr`, `Agent/Canary Builder`, `Agent/Cove Builder`,
+  `Agent/Jeffe` — which agent identity executes (ALXjr is mini-resident)
+
+**Priority:** Linear's native field (Urgent / High / Normal / Low). No
+priority labels.
+
+**Lifecycle:**
+
+1. Founder (or an upstream agent) creates the dispatch as a Linear issue —
+   status `Todo`, `Target/<machine>` label, optional `Agent/<name>` label,
+   priority set, description carries the full brief
+2. On the target machine, Claude lists open dispatches matching itself:
+   `list_issues({project: "Dispatch", labels: ["mini"], status: "Todo"})`
+3. On pickup: status → `In Progress`, comment confirming pickup + ETA
+4. Execute — outputs land in the repo per the dispatch's named target path
+   (`docs/superpowers/specs/`, `docs/superpowers/plans/`, `docs/sdds/<scope>/`,
+   etc.). Commit and push.
+5. On completion: status → `Done`, comment listing artifact paths, commit
+   SHA, one-paragraph summary, and any GRO tickets recommended for filing
+6. Failures: status → `Cancelled` with a reason comment
+
+**Pickup model (current):** human-confirmed. Founder creates the issue;
+founder triggers pickup on the target machine. Auto-pickup via cron is a
+graduation, not the start.
+
+**Title style:** imperative phrases (`mini self-review and hardening`), no
+date prefixes — Linear handles ordering.
+
+**Why this and not the alternatives:**
+
+- *Chat as dispatch* → ephemeral, no audit trail, no version
+- *File share as dispatch* → new infra to harden, drift risk, single point
+  of failure (mini offline = laptop blocked)
+- *Specs/plans carrying imperatives* → confuses control plane with data
+  plane; specs are artifacts, not instructions
+
+Linear already exists, has the lifecycle states, supports comments for
+mid-flight conversation, gives multi-instance coordination via labels, and
+works from anywhere with internet. Putting dispatches anywhere else creates
+a parallel control plane.
+
+**What stays in the repo:** specs, plans, SDDs, Brain, code, all artifacts
+a dispatch produces. Linear references repo paths; the repo doesn't track
+Linear status.
 
 ---
 
@@ -241,6 +362,25 @@ patch, append). Use `Read`/`Edit` for code files, not Brain content.
 **No volatile data in wiki.** Row counts, record numbers, and stats belong in
 the database, not flat files. Wiki articles capture structure, relationships,
 decisions, and context that can't be derived from code or queries.
+
+### Canary Brain projection
+
+`Canary/brain/` is a SHOW-scoped projection of `GrowDirect/Brain/` —
+refreshed manually before partner access. Live edits happen in
+`GrowDirect/Brain/`. The Canary repo is not the source of truth for
+Brain content; the platform vault is. Drift between the two is
+acceptable between projections.
+
+A refresh sync copies Canary-scoped wiki articles, project MOCs, and
+SDDs from `Brain/` and `docs/sdds/canary/` into the corresponding
+`Canary/brain/wiki/`, `Canary/brain/projects/`, and `Canary/docs/sdds/`
+paths. The sync runs before any CTO-partner or external-reviewer
+access window — see `docs/superpowers/plans/2026-04-24-cto-readiness-remaining.md`
+Phase G1 (option b: founder vault as superset).
+
+This is the MVP posture chosen 2026-04-24. A later session may move
+to a stricter source-of-truth model (full subtree split, or symlinks)
+once the founder workflow is settled.
 
 ---
 
