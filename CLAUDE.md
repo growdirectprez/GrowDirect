@@ -221,7 +221,7 @@ task lists or priorities here — check Linear for what's next.
 
 ## Tech Stack
 
-- Python 3.12 (`python3`, never `python`)
+- Python 3.12+ (`python3`, never `python`)
 - Flask 3+ with Jinja2 templates — server-rendered, not SPA
 - SQLAlchemy 2.0 with `Mapped[]` syntax — no `Column()`
 - PostgreSQL 17 with pgvector — no SQLite
@@ -344,6 +344,39 @@ These rules exist because past sessions created sprawl. Follow them.
 ---
 
 ## Brain — Domain Knowledge
+
+---
+
+## External Vaults — Clone on Demand
+
+Two public vaults serve as the external face of GrowDirect. They are **not cloned locally** on laptop or mini. GrowDirect is the sole factory; content flows outward via transient clone cycles.
+
+| Vault | Repo | Audience | Published site |
+|---|---|---|---|
+| CATz | `growdirect-llc/catz` | Partners / clients / investors | https://growdirect-llc.github.io/catz/ |
+| Canary Retail Brain | `growdirect-llc/canary-retail-brain` | Prospects / partners / investors | https://growdirect-llc.github.io/canary-retail-brain/ |
+
+**Rule: no persistent local clone.** Do not `cd ~/CATz` or `cd ~/Canary-Retail-Brain`. Those directories should not exist on this machine.
+
+**To read CATz or CRB content** (agent research pass):
+```bash
+gh repo clone growdirect-llc/catz /tmp/catz-$$ && cat /tmp/catz-$$/method/... && rm -rf /tmp/catz-$$
+```
+
+**To publish GrowDirect → CATz or CRB** (curated content push):
+```bash
+gh repo clone growdirect-llc/catz /tmp/catz-$$
+# copy curated files from GrowDirect/Brain/ into /tmp/catz-$$/
+git -C /tmp/catz-$$ add -A && git -C /tmp/catz-$$ commit -m "content: ..." && git -C /tmp/catz-$$ push
+rm -rf /tmp/catz-$$
+```
+
+The rendered sites are the canonical surface for human reading. The `growdirectprez/GrowDirect` repo (this one) is the source of truth; the public repos are downstream.
+
+**Architecture rationale:** `Brain/dispatches/2026-04-26-three-vault-jekyll-pages-architecture.md` · GRO-606 · memory `project_three_vault_architecture.md`
+
+**Project MOCs:** [[Brain/projects/CATz]] · [[Brain/projects/CanaryRetailBrain]]
+
 
 GrowDirect/ is the Obsidian vault. Brain/ holds the curated knowledge.
 
