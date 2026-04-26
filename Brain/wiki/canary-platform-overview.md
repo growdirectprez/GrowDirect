@@ -30,7 +30,7 @@ Canary is a multi-module platform. Each module addresses a distinct phase of the
 
 | Module | Function | Description |
 |--------|----------|-------------|
-| **[[canary-detection\|Chirp]]** | Detection Engine | Real-time detection of suspicious patterns. 29 rules across 3 severity tiers with plain-language alerts. The core product. |
+| **[[canary-detection\|Chirp]]** | Detection Engine | Real-time detection of suspicious patterns. 37 rules across 3 severity tiers with plain-language alerts. The core product. |
 | **Fox** | Case Management | Structured incident reporting, evidence locker with immutable chain-of-custody, case timeline, and resolution tracking. Built for HR, legal, and law enforcement use. |
 | **Goose** | Bitcoin & Lightning | BTCPay Server integration for Lightning Network payment acceptance, LNURL-auth passwordless login, sat-denominated subscription billing. |
 | **[[canary-architecture\|Owl]]** | Analytics Oracle | Total Retail Loss dashboard aggregating shrink, fraud, and operational loss. Benchmarked against industry averages. AI-powered analysis via Ollama. |
@@ -88,13 +88,13 @@ See [[canary-architecture|Architecture wiki]] and [[canary-data-model|Data Model
 | Layer | Technology | Detail |
 |-------|-----------|--------|
 | Backend | Python 3.12 / Flask | REST API, webhook ingestion, detection engine, multi-tenant RBAC, audit logging |
-| Database | PostgreSQL 17 | Single database, 4 schemas: app, sales, fox, metrics. 60+ models. |
+| Database | PostgreSQL 17 | Single database, 3 schemas: `app`, `sales`, `metrics`. 60+ models. (Fox tables live in `app`.) |
 | Square | Square Python SDK | OAuth 2.0, Payments API, Webhooks API with HMAC-SHA256 |
 | Frontend | Tailwind CSS + Alpine.js | Merchant dashboard, case management UI, alert detail views |
 | Infrastructure | Docker Compose | Gunicorn, PostgreSQL, Valkey 8, Ollama |
 | Auth | Flask-Login + RBAC | Five roles: owner, admin, manager, analyst, viewer. Permission enforcement at API layer. |
 
-**Three-schema architecture:** Canary separates operational data (`app`), transaction records (`sales`), investigation data (`fox`), and analytics (`metrics`). High-volume webhook ingestion does not compete with dashboard queries. The transaction log maintains INSERT-only integrity for evidentiary purposes.
+**Three-schema architecture:** Canary separates operational data — including Fox case management — (`app`), transaction records (`sales`), and analytics (`metrics`). High-volume webhook ingestion does not compete with dashboard queries. Evidence tables (`evidence_records` in `sales`, `fox_evidence` in `app`) maintain INSERT-only integrity for evidentiary purposes via PostgreSQL trigger enforcement.
 
 ## Security
 
@@ -140,6 +140,6 @@ Canary will be released as open source. Transparency is the brand. Expertise and
 ## Related
 
 - [[canary-architecture|Architecture]] — 16 services, MCP layer, data flow
-- [[canary-detection|Detection Engine]] — 29 Chirp rules, threshold system, alert pipeline
-- [[canary-data-model|Data Model]] — 60+ models across 4 schemas
+- [[canary-detection|Detection Engine]] — 37 Chirp rules, threshold system, alert pipeline
+- [[canary-data-model|Data Model]] — 60+ models across 3 schemas (`app` / `sales` / `metrics`)
 - [[canary-sales-strategy|Sales Strategy]] — Gold list rules, adoption ladder

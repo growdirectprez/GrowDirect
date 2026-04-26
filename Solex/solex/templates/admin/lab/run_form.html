@@ -1,17 +1,32 @@
 {% extends "admin/_layout.html" %}
 {% block admin_main %}
-<h1 class="text-2xl font-semibold mb-2">{{ name }}</h1>
-<p class="text-stone-500 mb-6">{{ cls.description }}</p>
-<form method="post" class="max-w-md space-y-3">
+<header class="mb-6">
+  <p class="eyebrow">Lab</p>
+  <h1 class="text-3xl font-display text-solex-ink mb-1">{{ name }}</h1>
+  <p class="text-solex-body">{{ cls.description }}</p>
+  {% if cls.expected_behaviors %}
+  <ul class="text-sm text-solex-muted space-y-1 mt-3 max-w-2xl">
+    {% for b in cls.expected_behaviors %}
+    <li class="before:content-['—'] before:mr-2 before:text-solex-muted">{{ b }}</li>
+    {% endfor %}
+  </ul>
+  {% endif %}
+</header>
+
+<form method="post" class="max-w-md space-y-4 border border-solex-line rounded-md bg-white p-5">
   <input type="hidden" name="csrf_token" value="{{ csrf_token() }}">
   {% for fname, field in cls.params_schema.model_fields.items() %}
   <label class="block">
-    <span class="text-sm">{{ fname }}</span>
+    <span class="eyebrow text-solex-muted block mb-1">{{ fname }}</span>
     <input type="text" name="{{ fname }}"
            value="{{ form.get(fname, field.default if field.default is not none else '') }}"
-           class="w-full border p-2">
+           class="input w-full">
   </label>
   {% endfor %}
-  <button type="submit" class="bg-stone-900 text-white px-4 py-2">Run</button>
+  <div class="flex items-center justify-between pt-2">
+    <a href="{{ url_for('lab.list_scenarios') }}"
+       class="text-sm text-solex-muted hover:text-solex-ink">← Cancel</a>
+    <button type="submit" class="btn-primary">Run</button>
+  </div>
 </form>
 {% endblock %}

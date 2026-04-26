@@ -1,15 +1,39 @@
 {% extends "base.html" %}
+{% block title %}Sign in — Solex{% endblock %}
 {% block main %}
-<h1 class="text-2xl font-semibold mb-6">Admin sign in</h1>
-{% if error %}<p class="text-red-600 mb-4">Invalid credentials.</p>{% endif %}
-<form method="post" action="{{ url_for('admin_auth.login_submit') }}" class="max-w-sm space-y-4">
-  <input name="email" type="email" placeholder="Email" required class="w-full border p-2">
-  <input name="password" type="password" placeholder="Password" required class="w-full border p-2">
-  <button type="submit" class="bg-stone-900 text-white px-4 py-2">Sign in</button>
-</form>
-<hr class="my-6">
-<form method="post" action="{{ url_for('admin_auth.request_magic') }}" class="max-w-sm space-y-4">
-  <input name="email" type="email" placeholder="Email for magic link" required class="w-full border p-2">
-  <button type="submit" class="border px-4 py-2">Email me a magic link</button>
-</form>
+<section class="container-narrow py-16 max-w-md">
+  <p class="eyebrow mb-2">{% if audience == "customer" %}Account{% else %}Admin{% endif %}</p>
+  <h1 class="text-3xl font-display mb-6">Sign in</h1>
+  {% if error %}
+  <p class="mb-4 rounded-brand bg-solex-clay/10 px-4 py-2 text-solex-clay text-sm">Invalid credentials.</p>
+  {% endif %}
+
+  <form method="post" action="{% if audience == 'customer' %}{{ url_for('account_auth.login') }}{% else %}{{ url_for('admin_auth.login_submit') }}{% endif %}" class="space-y-4">
+    <input type="hidden" name="csrf_token" value="{{ csrf_token() }}">
+    <label class="block">
+      <span class="eyebrow block mb-1">Email</span>
+      <input name="email" type="email" required class="input" autocomplete="email">
+    </label>
+    <label class="block">
+      <span class="eyebrow block mb-1">Password</span>
+      <input name="password" type="password" required class="input" autocomplete="current-password">
+    </label>
+    <button type="submit" class="btn-primary w-full">Sign in</button>
+  </form>
+
+  <div class="my-8 flex items-center gap-3">
+    <hr class="flex-1 border-solex-line">
+    <span class="text-xs uppercase tracking-wider text-solex-muted">or</span>
+    <hr class="flex-1 border-solex-line">
+  </div>
+
+  <form method="post" action="{% if audience == 'customer' %}{{ url_for('account_auth.request_magic') }}{% else %}{{ url_for('admin_auth.request_magic') }}{% endif %}" class="space-y-4">
+    <input type="hidden" name="csrf_token" value="{{ csrf_token() }}">
+    <label class="block">
+      <span class="eyebrow block mb-1">Email for magic link</span>
+      <input name="email" type="email" required class="input" autocomplete="email">
+    </label>
+    <button type="submit" class="btn-secondary w-full">Email me a magic link</button>
+  </form>
+</section>
 {% endblock %}

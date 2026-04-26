@@ -1,5 +1,9 @@
 {% extends "base.html" %}
+{% block title %}Check your email — Solex{% endblock %}
 {% block main %}
-<h1 class="text-xl font-semibold">Check your email</h1>
-<p>If an account exists for that email, a sign-in link is on its way.</p>
+<section class="container-narrow py-16 max-w-lg">
+  <p class="eyebrow mb-2">Sign in</p>
+  <h1 class="text-3xl font-display mb-4">Check your email</h1>
+  <p class="text-solex-body">If an account exists for that email, a sign-in link is on its way. It expires in 20 minutes.</p>
+</section>
 {% endblock %}

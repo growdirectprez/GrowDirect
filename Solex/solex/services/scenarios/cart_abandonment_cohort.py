@@ -17,6 +17,12 @@ class Params(ScenarioParams):
 class CartAbandonmentCohort(Scenario):
     name = "cart_abandonment_cohort"
     description = "Creates stale carts belonging to synth customers; abandonment sweep can nudge them."
+    category = "customer_behavior"
+    expected_behaviors = [
+        "N idle Cart rows aged hours_idle behind now (stale activity)",
+        "No Order rows produced (carts never check out)",
+        "Abandonment-recovery email sweep can pick up these carts",
+    ]
     params_schema = Params
 
     @classmethod

@@ -19,6 +19,12 @@ class Params(ScenarioParams):
 class NormalRetailDay(Scenario):
     name = "normal_retail_day"
     description = "Baseline small-basket retail purchases across business hours. No chirps expected."
+    category = "operations"
+    expected_behaviors = [
+        "Small cohort of paid orders distributed across daytime hours",
+        "No detection rule should fire (clean baseline traffic)",
+        "Inventory decrements track normal sale velocity",
+    ]
     params_schema = Params
 
     @classmethod

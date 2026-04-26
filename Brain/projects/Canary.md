@@ -13,9 +13,9 @@ Beta / Early Release Candidate
 
 ## Wiki Articles
 - [[Brain/wiki/canary-platform-overview|Platform Overview]] — What Canary is, Square integration, modules, security, roadmap
-- [[Brain/wiki/canary-architecture|Architecture Overview]] — 16 services, MCP layer, data flow, 4 schemas
+- [[Brain/wiki/canary-architecture|Architecture Overview]] — 16 services, MCP layer, data flow, 3 schemas (`app` / `sales` / `metrics`)
 - [[Brain/wiki/canary-detection|Detection Engine]] — 37 Chirp rules across 10 categories, 3 tiers, threshold system, alert pipeline
-- [[Brain/wiki/canary-data-model|Data Model]] — 60+ models across app, sales, fox, metrics schemas
+- [[Brain/wiki/canary-data-model|Data Model]] — 60+ models across `app`, `sales`, `metrics` schemas (Fox tables live in `app` despite the `models/fox/` module path)
 - [[Brain/wiki/canary-sales-strategy|Sales Strategy]] — Gold list rules, adoption ladder, signal-over-noise philosophy
 - [[Brain/wiki/canary-tsp-pipeline|TSP Pipeline]] — Webhook ingestion, 4 stream consumers, HMAC validation, hash chain, Merkle batching
 - [[Brain/wiki/canary-chirp-rules|Chirp Rules]] — 37-rule catalog (10 categories), 3 evaluation tiers, threshold resolution, risk scoring, auto-casing

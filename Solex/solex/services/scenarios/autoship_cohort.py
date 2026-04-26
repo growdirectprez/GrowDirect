@@ -21,6 +21,12 @@ class Params(ScenarioParams):
 class AutoshipCohort(Scenario):
     name = "autoship_cohort"
     description = "Cohort of saved-card customers on autoship; runs one charge cycle."
+    category = "subscriptions"
+    expected_behaviors = [
+        "N Subscription rows with saved Square card_on_file, status=active",
+        "One charge cycle runs immediately and produces autoship Order rows",
+        "REPEAT_CARD_ON_FILE rule fires when configured for card-on-file detection",
+    ]
     params_schema = Params
 
     @classmethod
