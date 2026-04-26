@@ -1,3 +1,5 @@
+# GrowDirect LLC — Confidential & Proprietary
+# Copyright (c) 2026 GrowDirect LLC. All rights reserved.
 """Tests for engine._extract_file and the `extract` CLI command."""
 import json
 import subprocess

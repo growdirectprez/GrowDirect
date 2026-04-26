@@ -17,6 +17,12 @@ class Params(ScenarioParams):
 class AfterHoursBurst(Scenario):
     name = "after_hours_burst"
     description = "Small cohort of orders between 22:00 and 02:00."
+    category = "operations"
+    expected_behaviors = [
+        "Orders placed in late-night / early-morning window",
+        "C-002 AFTER_HOURS rule should fire on aggregate window count",
+        "Useful for verifying time-of-day detection coverage",
+    ]
     params_schema = Params
 
     @classmethod

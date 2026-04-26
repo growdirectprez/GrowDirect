@@ -1,3 +1,5 @@
+# GrowDirect LLC — Confidential & Proprietary
+# Copyright (c) 2026 GrowDirect LLC. All rights reserved.
 """GrowDirectRegistry — SDK Server wrapper with tool registration and dispatch."""
 
 import json

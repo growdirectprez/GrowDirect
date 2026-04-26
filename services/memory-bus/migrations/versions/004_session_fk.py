@@ -1,3 +1,5 @@
+# GrowDirect LLC — Confidential & Proprietary
+# Copyright (c) 2026 GrowDirect LLC. All rights reserved.
 """004 — backfill orphan session records + add session_id FK to alx_memories.
 
 Revision ID: 004_session_fk

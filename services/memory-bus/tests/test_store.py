@@ -1,3 +1,5 @@
+# GrowDirect LLC — Confidential & Proprietary
+# Copyright (c) 2026 GrowDirect LLC. All rights reserved.
 """Tests for MemoryStore — exercises actual memory_bus service operations."""
 
 import json

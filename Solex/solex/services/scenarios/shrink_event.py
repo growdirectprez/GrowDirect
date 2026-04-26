@@ -16,6 +16,12 @@ class Params(ScenarioParams):
 class ShrinkEvent(Scenario):
     name = "shrink_event"
     description = "Inventory shrink across several SKUs with no offsetting sales."
+    category = "loss_prevention"
+    expected_behaviors = [
+        "Negative InventoryAdjustment rows with reason=shrink across N SKUs",
+        "No offsetting Order rows (shrink is loss, not sale)",
+        "GRO-297 SHRINK_EVENT rule should fire on aggregate negative delta",
+    ]
     params_schema = Params
 
     @classmethod

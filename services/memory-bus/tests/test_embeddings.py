@@ -1,3 +1,5 @@
+# GrowDirect LLC — Confidential & Proprietary
+# Copyright (c) 2026 GrowDirect LLC. All rights reserved.
 from unittest.mock import patch, MagicMock
 from memory_bus.embeddings import get_embedding
 from memory_bus.config import Config

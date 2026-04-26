@@ -1,4 +1,6 @@
 #!/usr/bin/env python3
+# GrowDirect LLC — Confidential & Proprietary
+# Copyright (c) 2026 GrowDirect LLC. All rights reserved.
 """Seed memory bus from the clean docs/ tree.
 
 Replaces all legacy seed scripts (seed_context_blocks, seed_memory_foundation,
@@ -10,7 +12,10 @@ Sources:
   docs/team/*.md            → team_profile (corp layer)
   docs/decisions/*.md       → decision (corp layer)
   docs/research/*.md        → foundation (canary layer)
-  Cove governance config    → foundation (cove layer)
+
+Per-app SDD seeds for apps outside the platform repo live with each
+app's own seed runner. This script seeds only platform + canary +
+shared sources.
 
 Usage:
   # From host (needs DATABASE_URL):
@@ -57,12 +62,6 @@ SOURCES = [
         "metadata_extra": {"block_type": "domain_overview"},
     },
     {
-        "glob": "docs/sdds/cove/*.md",
-        "memory_type": "context_block",
-        "layer": "cove",
-        "metadata_extra": {"block_type": "domain_overview"},
-    },
-    {
         "glob": "docs/sdds/alx/*.md",
         "memory_type": "context_block",
         "layer": "shared",
@@ -89,12 +88,30 @@ SOURCES = [
         "layer": "canary",
         "metadata_extra": {"domain": "chirp"},
     },
-    # Cove governance config
+    # Brain dispatches — operating instructions / decisions on what to do
+    # Added 2026-04-25 (resolves memory_bus.cli drift identified during the
+    # 2026-04-25 RAPID + Secure dispatch runs; extends seed_clean.py
+    # additively rather than building the full memory_bus.cli surface).
     {
-        "file": "Cove/cove/governance/wpbca-bylaws-config.json",
-        "memory_type": "foundation",
-        "layer": "cove",
-        "metadata_extra": {"domain": "governance"},
+        "glob": "Brain/dispatches/*.md",
+        "memory_type": "dispatch",
+        "layer": "corp",
+        "metadata_extra": {"source_kind": "operating_instruction"},
+    },
+    # Brain wiki — synthesis layer (module specs, project context, founder
+    # context articles, integration mappings)
+    {
+        "glob": "Brain/wiki/*.md",
+        "memory_type": "wiki_article",
+        "layer": "corp",
+        "metadata_extra": {"source_kind": "synthesis"},
+    },
+    # Build plans — operational plans companion to SDDs
+    {
+        "glob": "docs/superpowers/plans/*.md",
+        "memory_type": "build_plan",
+        "layer": "corp",
+        "metadata_extra": {"source_kind": "operational_plan"},
     },
 ]
 

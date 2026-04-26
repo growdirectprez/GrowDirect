@@ -1,29 +1,84 @@
 {% extends "admin/_layout.html" %}
 {% block admin_main %}
-<h1 class="text-2xl font-semibold mb-6">Lab</h1>
-<h2 class="font-semibold mb-3">Scenarios</h2>
-<ul class="divide-y mb-8">
-  {% for s in scenarios %}
-  <li class="py-3">
-    <div class="flex justify-between">
-      <div>
-        <a href="{{ url_for('lab.run_form', name=s.name) }}" class="font-medium">{{ s.name }}</a>
-        <p class="text-sm text-stone-500">{{ s.description }}</p>
-        {% if s.expected_chirps %}<p class="text-xs text-stone-400">Expects: {{ s.expected_chirps | join(', ') }}</p>{% endif %}
+<header class="mb-8">
+  <p class="eyebrow">Lab</p>
+  <h1 class="text-3xl font-display text-solex-ink mb-2">Scenario runner</h1>
+  <p class="text-solex-muted text-sm max-w-2xl">
+    Synthesize Square sandbox transactions to exercise Canary detection rules.
+    Each scenario runs against the seeded merchant; orders are tagged with the
+    run id so you can trace what happened.
+  </p>
+</header>
+
+{% for category in categories %}
+<section class="mb-10">
+  <h2 class="eyebrow text-solex-teal mb-4">{{ category.label }}</h2>
+  <div class="grid sm:grid-cols-2 gap-4">
+    {% for s in category.scenarios %}
+    <a href="{{ url_for('lab.run_form', name=s.name) }}"
+       class="block border border-solex-line rounded-md bg-white p-4 hover:border-solex-teal transition">
+      <div class="flex items-start justify-between mb-2">
+        <h3 class="font-semibold text-solex-ink">{{ s.name }}</h3>
+        <span class="text-xs text-solex-muted">Run →</span>
       </div>
-      <a href="{{ url_for('lab.run_form', name=s.name) }}" class="text-sm underline">Run →</a>
-    </div>
-  </li>
-  {% endfor %}
-</ul>
-<h2 class="font-semibold mb-3">Recent runs</h2>
-<table class="w-full text-sm">
-  <thead><tr class="border-b text-left"><th>Scenario</th><th>Started</th><th>Status</th></tr></thead>
-  <tbody>
-    {% for r in recent %}
-    <tr class="border-b"><td class="py-2"><a href="{{ url_for('lab.run_detail', run_id=r.id) }}" class="underline">{{ r.scenario_name }}</a></td>
-      <td>{{ r.started_at.strftime('%Y-%m-%d %H:%M') }}</td><td>{{ r.status }}</td></tr>
+      <p class="text-sm text-solex-body mb-3">{{ s.description }}</p>
+      {% if s.expected_behaviors %}
+      <ul class="text-xs text-solex-muted space-y-1 mb-2">
+        {% for b in s.expected_behaviors %}
+        <li class="before:content-['—'] before:mr-2">{{ b }}</li>
+        {% endfor %}
+      </ul>
+      {% endif %}
+      {% if s.expected_chirps %}
+      <p class="text-xs text-solex-gold">
+        <span class="eyebrow text-solex-gold">Expects</span>
+        {{ s.expected_chirps | join(', ') }}
+      </p>
+      {% endif %}
+    </a>
     {% endfor %}
-  </tbody>
-</table>
+  </div>
+</section>
+{% endfor %}
+
+<section class="mt-12">
+  <div class="flex items-center justify-between mb-4">
+    <h2 class="eyebrow text-solex-teal">Recent runs</h2>
+    <a href="{{ url_for('lab.list_runs') }}"
+       class="text-xs text-solex-muted hover:text-solex-ink">All runs →</a>
+  </div>
+  <table class="w-full text-sm border-collapse">
+    <thead>
+      <tr class="border-b border-solex-line text-left text-solex-muted">
+        <th class="py-2 pr-4 font-normal">Scenario</th>
+        <th class="py-2 pr-4 font-normal">Started</th>
+        <th class="py-2 pr-4 font-normal">Status</th>
+      </tr>
+    </thead>
+    <tbody>
+      {% for r in recent %}
+      <tr class="border-b border-solex-line">
+        <td class="py-2 pr-4">
+          <a href="{{ url_for('lab.run_detail', run_id=r.id) }}"
+             class="text-solex-teal hover:text-solex-ink underline-offset-2 hover:underline">
+            {{ r.scenario_name }}
+          </a>
+        </td>
+        <td class="py-2 pr-4 text-solex-body">{{ r.started_at.strftime('%Y-%m-%d %H:%M') }}</td>
+        <td class="py-2 pr-4">
+          <span class="inline-block px-2 py-0.5 rounded text-xs
+            {% if r.status == 'succeeded' %}bg-solex-leaf/20 text-solex-leaf
+            {% elif r.status == 'failed' %}bg-solex-clay/20 text-solex-clay
+            {% elif r.status == 'partial' %}bg-solex-gold/20 text-solex-gold
+            {% else %}bg-solex-sand text-solex-body{% endif %}">
+            {{ r.status }}
+          </span>
+        </td>
+      </tr>
+      {% else %}
+      <tr><td colspan="3" class="py-4 text-solex-muted italic">No runs yet.</td></tr>
+      {% endfor %}
+    </tbody>
+  </table>
+</section>
 {% endblock %}

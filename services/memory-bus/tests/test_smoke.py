@@ -1,3 +1,5 @@
+# GrowDirect LLC — Confidential & Proprietary
+# Copyright (c) 2026 GrowDirect LLC. All rights reserved.
 """End-to-end smoke test for memory bus MCP server.
 
 Requires: growdirect_memory_test database, Ollama running.
@@ -20,15 +22,15 @@ class TestSmoke:
 
             # Store with layer
             await session.call_tool("memory_store", arguments={
-                "content": "Secret ballot separation is required by Davis-Stirling Civil Code 5100",
+                "content": "Detection rules use exponential decay for recency weighting",
                 "memory_type": "decision",
-                "layer": "cove",
+                "layer": "canary",
             })
 
             # Recall
             result = await session.call_tool("memory_recall", arguments={
-                "query": "secret ballot separation",
+                "query": "exponential decay recency",
             })
 
             content_str = str(result.content)
-            assert "ballot" in content_str.lower() or "separation" in content_str.lower()
+            assert "decay" in content_str.lower() or "recency" in content_str.lower()
