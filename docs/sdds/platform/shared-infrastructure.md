@@ -1,3 +1,8 @@
+---
+classification: confidential
+owner: GrowDirect LLC
+---
+
 # Shared Infrastructure — Dev Stack
 
 > **Status:** Production-grade ops contract

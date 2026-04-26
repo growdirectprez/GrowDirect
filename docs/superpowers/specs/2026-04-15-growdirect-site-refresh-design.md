@@ -1,3 +1,8 @@
+---
+classification: confidential
+owner: GrowDirect LLC
+---
+
 # GrowDirect.io Site Package Refresh — Design Spec
 
 **Date:** 2026-04-15

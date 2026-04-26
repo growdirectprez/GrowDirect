@@ -1,3 +1,8 @@
+---
+classification: confidential
+owner: GrowDirect LLC
+---
+
 # Design Spec: GrowDirect Workflow Wiki Article
 
 **Date:** 2026-04-11

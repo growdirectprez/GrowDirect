@@ -1,3 +1,8 @@
+---
+classification: confidential
+owner: GrowDirect LLC
+---
+
 # Dispatch: Static Site Updates — 2026-04-22
 ## For: Claude Code session in growdirectprez.github.io repo
 
