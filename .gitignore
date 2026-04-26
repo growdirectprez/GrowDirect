@@ -68,3 +68,5 @@ Angel/media/
 Brain/raw/inbox/
 Brain/raw/.extract/
 Brain/raw/.logs/
+# GRO-553: shared infra creds
+devops/.env
