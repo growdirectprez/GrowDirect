@@ -8,6 +8,9 @@
 # Bypass:  git commit --no-verify
 set -euo pipefail
 
+# Prefer Homebrew Python over macOS system stub (/usr/bin/python3 = 3.9).
+export PATH="/opt/homebrew/bin:$PATH"
+
 repo_root="$(git rev-parse --show-toplevel)"
 cd "$repo_root"
 

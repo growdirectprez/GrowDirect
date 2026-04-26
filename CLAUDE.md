@@ -114,6 +114,13 @@ The `memory-bus` MCP server is registered in `.mcp.json` (Claude Code
 sessions) and `claude_desktop_config.json` (Cowork/desktop sessions).
 It runs at `http://127.0.0.1:8003/mcp` — requires Docker stack up.
 
+**Keeping it current** — run after any Brain/wiki or SDD additions:
+```bash
+python3 services/memory-bus/scripts/seed_standalone.py
+```
+Incremental by default: skips files whose mtime predates the last seed,
+only embeds new and modified files. Full reseed: add `--drop-first`.
+
 **When to call it:** any time you're starting work on a domain topic and
 want ground truth from the vault rather than guessing. Call before reading
 files, not after. The result surfaces the exact wiki article or SDD chunk
