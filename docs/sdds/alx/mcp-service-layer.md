@@ -1,3 +1,8 @@
+---
+classification: confidential
+owner: GrowDirect LLC
+---
+
 # MCP Service Layer (Platform SDK)
 
 > **Status:** Production review — upgraded from design spec

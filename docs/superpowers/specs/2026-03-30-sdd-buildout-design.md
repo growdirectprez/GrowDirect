@@ -1,3 +1,8 @@
+---
+classification: confidential
+owner: GrowDirect LLC
+---
+
 # SDD Build-Out — Full Platform Documentation Pass
 
 > **Date:** 2026-03-30

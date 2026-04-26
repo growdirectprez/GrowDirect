@@ -1,3 +1,8 @@
+---
+classification: confidential
+owner: GrowDirect LLC
+---
+
 # MCP Consolidation — Platform SDK, ALX Extraction, Full Sweep
 
 > **Date:** 2026-03-30

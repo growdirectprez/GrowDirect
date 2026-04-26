@@ -1,3 +1,8 @@
+---
+classification: confidential
+owner: GrowDirect LLC
+---
+
 # GrowDirect.io Services Page — Design Spec
 
 **Date:** 2026-04-20

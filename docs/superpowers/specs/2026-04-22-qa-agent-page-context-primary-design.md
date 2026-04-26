@@ -1,4 +1,6 @@
 ---
+classification: confidential
+owner: GrowDirect LLC
 title: QA Agent — Page Context as Primary Grounding
 date: 2026-04-22
 project: Canary

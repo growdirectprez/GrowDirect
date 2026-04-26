@@ -1,3 +1,8 @@
+---
+classification: confidential
+owner: GrowDirect LLC
+---
+
 # Factory Pipeline
 
 > **Status:** Operational — code-reviewed 2026-04-13
