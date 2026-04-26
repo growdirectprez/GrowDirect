@@ -148,6 +148,32 @@ The C3/C4 cycles re-purpose to "surface in admin/customer UX" rather than "build
 - [[docs/superpowers/specs/2026-04-23-solex-commerce-mockup-design|Solex commerce mockup spec]] — section 4 (the spec authority)
 - [[docs/dispatches/dispatch-solex-2026-04-24|Original GRO-536 dispatch]] — superseded by the audit-corrected scope; kept as historical artifact
 
+## C2 update (2026-04-25) — scenario runner UX productionized
+
+GRO-549 closed. The lab transitioned from a developer tool to an operator surface.
+
+**Scenario metadata schema.** Each `Scenario` subclass now declares `category: ClassVar[str]` (one of `operations`, `loss_prevention`, `fraud`, `customer_behavior`, `subscriptions`) and `expected_behaviors: ClassVar[list[str]]` (1-3 short descriptions of what an operator should observe). The registry exposes `describe(name)` and `by_category()` helpers.
+
+**Routes added.**
+- `/admin/lab/` — categorized card grid (5 sections, 9 cards), each card surfaces description + expected_behaviors + expected_chirps. Replaces the flat dropdown.
+- `/admin/lab/runs/` — filterable history. Query params: `scenario`, `status`, `from`, `to`, `favorites`. Capped at 200 rows. Form auto-submits on change via Alpine.
+- `/admin/lab/runs/<id>/favorite` POST — per-admin-user toggle. New `scenario_run_favorites` table (Alembic 0005) with composite-unique-index on `(admin_user_id, scenario_run_id)`.
+- `/admin/lab/runs/<id>/status.json` — JSON polled by the run detail page every 2s while status is pending/running. Returns `{id, status, started_at, completed_at, summary_keys}`.
+
+**Run detail rebuild.** No more `<pre>{{ summary_json }}</pre>`. Structured panels: scenario header (description + behaviors + chirps), parameters list, error panel (only when present), orders table (links to `/admin/orders/<id>`), inventory adjustments grouped by reason, refunds table. Live status badge updates from the polling endpoint.
+
+**Brand-token sweep complete.** `text-stone-*` / `bg-stone-*` / `border-stone-*` no longer appear anywhere under `Solex/solex/templates/admin/lab/`. The lingering `run_form.html` cosmetic regression flagged in PR #8 is closed.
+
+**Decision logged: inline class attributes, not external YAML.** Scenario metadata stays on the class definition. Co-located with code, no second source of truth, no separate file to keep in sync. The trade-off is that adding metadata fields means touching 9 files; that's been fine in practice and matches how `params_schema` and `expected_chirps` are already wired.
+
+**Decision logged: Alpine polling, not SSE.** Run progress fetches `/runs/<id>/status.json` every 2s while not completed; on completion it `window.location.reload()`s to surface the final structured panels (orders + adjustments + refunds). No streaming infra needed.
+
+**Decision logged: per-admin-user favorites.** A composite-unique join table (`scenario_run_favorites`) keyed by `(admin_user_id, scenario_run_id)`. Trivial to query for "this admin's favorites" and trivial to extend if scenarios ever need ratings or notes per-admin.
+
+**Test surface added:** 22 new unit/integration tests across `test_scenario_metadata.py` (6), `test_lab_favorites.py` (5), `test_routes_lab.py` (+2), `test_lab_runs_list.py` (6), `test_lab_run_detail.py` (5). Full suite: **267 passed, 3 deselected**. Sandbox-live regression: **3/3 PASS** in 7.40s — the live pipeline is unbroken by C2.
+
+**Catalog import flake** still surfaces intermittently when the full suite runs in pathological ordering — passes in isolation and on second run. Logged as a low-priority follow-up; not a regression introduced by this cycle.
+
 ## Sources
 
 - `Solex/solex/services/square_client.py` (cycle-current)

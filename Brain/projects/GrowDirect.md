@@ -1,6 +1,8 @@
 ---
 type: project-moc
 status: active
+classification: internal
+owner: GrowDirect LLC
 tags: [growdirect, company, working-papers, ip-vault, strategy]
 ---
 
