@@ -16,6 +16,12 @@ class Params(ScenarioParams):
 class HighValueSale(Scenario):
     name = "high_value_sale"
     description = "Orders totaling >= $500 — high-value transaction cluster."
+    category = "fraud"
+    expected_behaviors = [
+        "One or more orders with total_cents >= min_total_cents",
+        "Square charges succeed; payment_token = card-nonce-ok",
+        "Inventory decrements on the top-priced active product",
+    ]
     params_schema = Params
 
     @classmethod

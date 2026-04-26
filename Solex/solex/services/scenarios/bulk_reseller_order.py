@@ -17,6 +17,12 @@ class Params(ScenarioParams):
 class BulkResellerOrder(Scenario):
     name = "bulk_reseller_order"
     description = "1–2 baskets with 10–30 line items — MLM reseller-to-reseller order flavor."
+    category = "customer_behavior"
+    expected_behaviors = [
+        "Small number of orders, each with 10-30 distinct OrderItem lines",
+        "Inventory decrements concentrated across many SKUs at once",
+        "VOLUME_ANOMALY rule fires when configured for line-count outliers",
+    ]
     params_schema = Params
 
     @classmethod
