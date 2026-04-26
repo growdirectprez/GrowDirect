@@ -27,8 +27,8 @@ services:
     image: pgvector/pgvector:pg17
     container_name: growdirect_postgres
     environment:
-      POSTGRES_USER: growdirect
-      POSTGRES_PASSWORD: growdirect_dev
+      POSTGRES_USER: ${POSTGRES_USER:-growdirect}
+      POSTGRES_PASSWORD: ${POSTGRES_PASSWORD:?set in devops/.env}
       POSTGRES_DB: growdirect
     ports:
       - "127.0.0.1:5432:5432"
@@ -45,13 +45,13 @@ services:
   valkey:
     image: valkey/valkey:8-alpine
     container_name: growdirect_valkey
-    command: ["valkey-server", "--requirepass", "valkey_dev"]
+    command: ["valkey-server", "--requirepass", "${VALKEY_PASSWORD:?set in devops/.env}"]
     ports:
       - "127.0.0.1:6379:6379"
     volumes:
       - valkey_data:/data
     healthcheck:
-      test: ["CMD", "valkey-cli", "-a", "valkey_dev", "ping"]
+      test: ["CMD", "valkey-cli", "-a", "${VALKEY_PASSWORD}", "ping"]
       interval: 5s
       retries: 5
     restart: unless-stopped
@@ -60,8 +60,8 @@ services:
     image: dpage/pgadmin4:latest
     container_name: growdirect_pgadmin
     environment:
-      PGADMIN_DEFAULT_EMAIL: admin@growdirect.com
-      PGADMIN_DEFAULT_PASSWORD: admin
+      PGADMIN_DEFAULT_EMAIL: ${PGADMIN_DEFAULT_EMAIL:-admin@growdirect.com}
+      PGADMIN_DEFAULT_PASSWORD: ${PGADMIN_DEFAULT_PASSWORD:?set in devops/.env}
       PGADMIN_LISTEN_PORT: 80
       PGADMIN_CONFIG_SERVER_MODE: "False"
       PGADMIN_CONFIG_MASTER_PASSWORD_REQUIRED: "True"
@@ -130,3 +130,4 @@ volumes:
 networks:
   default:
     name: growdirect
+    external: true
