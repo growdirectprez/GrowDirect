@@ -27,7 +27,7 @@ Two modules. One governing thesis.
 A 2015 production LPMS from a large specialty sporting goods retailer (NFR deployment archetype; client references scrubbed) was analyzed as the primary design input. The dataset contains:
 
 - **65 incident types** across 4 classes: Critical Smart Alert (17), External (7), Internal (30 with DE/PV classification), Incident (9)
-- **14 resolution action codes** across two tracks: Internal (9) and External (5)
+- **15 resolution action codes** across two tracks: Internal (9) and External (6)
 - **30+ sources of information** spanning CCTV/LPTV, EBR variants, GLI variants, tip variants, cycle counts, implication, and observation
 - Wizard-driven form templates — one per incident type — enforcing required fields at data entry time
 
@@ -155,11 +155,11 @@ hawk_cases
   opened_by         UUID FK → app.users
   assigned_to       UUID FK → app.users
   source_id         UUID FK → hawk_sources
-  fox_case_id       UUID FK → fox.fox_cases NULL  -- populated if incident_class='EBR'
+  fox_case_id       UUID FK → app.fox_cases NULL  -- populated if incident_class='EBR'
   chirp_alert_id    UUID NULL  -- originating Chirp alert if system-initiated
   bull_exception_id UUID NULL  -- originating Bull exception if vendor case
   narrative         TEXT
-  card_id           UUID FK → hawk_cards
+  card_id           UUID NULL FK → hawk_cards  -- nullable; card generated post-wizard completion
   created_at        TIMESTAMPTZ
   updated_at        TIMESTAMPTZ
 
@@ -193,6 +193,7 @@ hawk_subjects
   subject_type      TEXT  -- 'employee' | 'customer' | 'vendor' | 'unknown'
   employee_id       UUID NULL FK → app.employees
   vendor_id         UUID NULL FK → app.vendors
+  vendor_entity_id  TEXT NULL  -- free-text vendor ref; app.vendors does not yet exist (deferred lookup table)
   external_name     TEXT NULL
   external_dob      DATE NULL
   external_id_type  TEXT NULL
@@ -253,13 +254,21 @@ source_codes: [EBR, TIP_MANAGER]
 
 **Internal track** (9 codes): `CLOSED_UNFOUNDED`, `CORRECTIVE_ACTION`, `INTERVIEWED_NO_CASE`, `QUIT_BEFORE_INTERVIEW`, `QUIT_DURING_INTERVIEW`, `REPORTED_TO_ATF`, `TERMINATED_PROSECUTED`, `TERMINATED_RELEASED`, `UNDER_INVESTIGATION`
 
-**External track** (5 codes): `CLOSED_UNFOUNDED`, `PROSECUTED`, `RELEASED_ADULT`, `RELEASED_TO_GUARDIAN`, `RELEASED_TO_POLICE`, `UNDER_INVESTIGATION`
+**External track** (6 codes): `CLOSED_UNFOUNDED`, `PROSECUTED`, `RELEASED_ADULT`, `RELEASED_TO_GUARDIAN`, `RELEASED_TO_POLICE`, `UNDER_INVESTIGATION`
+
+`CLOSED_UNFOUNDED` and `UNDER_INVESTIGATION` appear in both tracks. They carry the same semantic but are tracked separately per case record — the track is determined by `incident_class`, not the action code itself.
 
 Action track is determined by `incident_class`. Internal classes use the internal track. External classes use the external track. Incident class cases may use either depending on compliance obligations.
 
 ### 3.5 Evidence Chain
 
-Hawk uses the existing Fox evidence infrastructure. `fox_evidence` and `fox_evidence_access_log` are shared across schema. Hash chain computed by PostgreSQL trigger, not application code. All Hawk case classes with evidentiary significance (`fox_case_id` populated) share the same hash chain; EBR cases carry forward existing Fox evidence records.
+Hawk uses the existing Fox evidence infrastructure. Hash chain computed by PostgreSQL trigger, not application code.
+
+**EBR cases:** `fox_case_id` is populated. Evidence records link directly through the existing `app.fox_evidence → app.fox_cases` FK chain. Nothing changes in Fox.
+
+**Non-EBR evidentiary cases** (e.g., shoplifting apprehension with CCTV, liability with incident footage): `fox_evidence` gains a nullable `hawk_case_id UUID FK → hawk.hawk_cases` column. Non-EBR Hawk cases attach evidence directly without a synthetic `fox_cases` row. The hash chain trigger fires on both FK paths. This is a Phase 2 migration addition to the Fox evidence table — Phase 1 Hawk (no Fox bridge) does not require it.
+
+`fox_evidence_access_log` is unchanged — it logs by `evidence_id` regardless of which case type originated the evidence record.
 
 ### 3.6 Wizard-Driven Intake
 
@@ -298,7 +307,7 @@ bull_vendor_scores
   score_id          UUID PK
   merchant_id       UUID FK → app.merchants
   location_id       UUID FK → app.locations NULL  -- NULL = merchant-level aggregate
-  vendor_id         UUID FK → app.vendors
+  vendor_entity_id  TEXT  -- free-text vendor ref; deferred FK when app.vendors is created
   period_start      DATE
   period_end        DATE
   delivery_count    INTEGER
@@ -325,7 +334,7 @@ bull_exceptions
   exception_id      UUID PK
   merchant_id       UUID FK → app.merchants
   location_id       UUID FK → app.locations NULL
-  vendor_id         UUID FK → app.vendors
+  vendor_entity_id  TEXT  -- free-text vendor ref; deferred FK
   exception_type    TEXT  -- 'HIGH_CREDIT_RATIO' | 'VARIANT_RATIO_BREACH' | 'DUPLICATE_INVOICE' | etc.
   exception_severity TEXT  -- 'low' | 'medium' | 'high' | 'critical'
   detected_at       TIMESTAMPTZ
@@ -348,7 +357,7 @@ bull_chirp_signals
 
 ### 4.4 Upstream Data Sources
 
-Bull reads these D/T/F interfaces at compute time (batch or on-demand):
+Bull reads these D/T/F interfaces at compute time (batch or on-demand). **Note: Module D tables (`stock_movements`, `movement_audit_log`, etc.) are designed but not yet built** — they exist as decomposition artifacts, not live schema. Bull Phase 3 is gated on Module D implementation completing first.
 
 | Source | Interface | Purpose |
 |--------|-----------|---------|
@@ -410,6 +419,8 @@ CCTV and device anomaly incidents under Hawk Facilities class are the natural ho
 - **Option B**: Module A = Bubble (device-anomaly). Device events become a Chirp source that opens Hawk Facilities cases automatically. Item-asset-management moves to a Module D subtype.
 
 This does not block Hawk development. Facilities case intake works without the detection dependency. Flag for founder decision before Q3 planning.
+
+**Implementation assumption:** The Hawk Facilities case wizard (CCTV Installation, Equipment Repair, device-anomaly incident types) is being built against **Option A** (Module A = item-asset-management only; device anomaly detection routes through Chirp rules, not a Module A dependency). If Option B is selected, the Facilities case intake will require rework to wire device-anomaly auto-case-open logic. Scope of rework: one new Chirp rule family + one auto-open pathway in the Hawk wizard state machine.
 
 ---
 
