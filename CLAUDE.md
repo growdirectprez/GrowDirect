@@ -213,6 +213,22 @@ Linear status.
 | Cove | `Cove/` | **Early dev** | HOA governance platform for WPBCA (81 lots, Abalone Cove, RPV). |
 | Angel | `Cove/cove/angel/` + `Angel/` | **Active (Cove module)** | Real estate intelligence + lead gen for Compass agents. Code in Cove, knowledge in Angel/. |
 | Seacove | `Seacove/` | **Standalone** | SketchUp model-building pipeline for 25 Seacove Drive. Not connected to platform infra. |
+| NCR Companion Vault | `~/GrowDirect-NCR/` (sibling repo) | **Active** | Vendor-specific Canary co-sell site for NCR Counterpoint VARs. Projection of Brain/wiki/ content. |
+
+### Companion Vaults
+
+All three companion vaults are curated Brain projections published at
+`*.growdirect.io`. Never edit companion vault content directly — update Brain,
+re-seed the memory bus, then push the vault file.
+
+| Vault | Domain | Audience | URL |
+|-------|--------|----------|-----|
+| CATz | Co-sell toolkit | Partners, prospects | `catz.growdirect.io` |
+| CRB | Canary Retail Brain | Internal + partners | `crb.growdirect.io` |
+| NCR | Canary for NCR Counterpoint | NCR Counterpoint VARs | `ncr.growdirect.io` |
+
+NCR is the first vendor-specific vault. Future vendor vaults follow the same
+pattern: Brain → gap analysis → back-fill → seed → CLAUDE.md → publish.
 
 **Roadmap and backlog live in Linear** (GRO-prefixed issues). Don't duplicate
 task lists or priorities here — check Linear for what's next.

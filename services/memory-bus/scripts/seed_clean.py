@@ -259,10 +259,22 @@ def close_seed_session(engine):
         conn.commit()
 
 
+def get_existing_source_files(engine) -> set[str]:
+    """Return set of source_file paths already in alx_memories."""
+    from sqlalchemy import text
+    with engine.connect() as conn:
+        rows = conn.execute(
+            text("SELECT metadata->>'source_file' FROM alx_memories WHERE metadata->>'source_file' IS NOT NULL")
+        ).fetchall()
+    return {r[0] for r in rows}
+
+
 def main():
     parser = argparse.ArgumentParser(description="Seed memory bus from clean docs/")
     parser.add_argument("--dry-run", action="store_true", help="Print what would be seeded")
     parser.add_argument("--drop-first", action="store_true", help="Drop all existing memories first")
+    parser.add_argument("--incremental", action="store_true",
+                        help="Skip files already seeded (by source_file metadata)")
     args = parser.parse_args()
 
     config = Config()
@@ -274,11 +286,17 @@ def main():
         count = drop_all_memories(engine)
         print(f"Dropped {count} existing memories")
 
+    existing_files: set[str] = set()
+    if args.incremental:
+        existing_files = get_existing_source_files(engine)
+        print(f"Incremental mode: {len(existing_files)} files already seeded")
+
     if not args.dry_run:
         ensure_seed_session(engine)
 
     total = 0
     embedded = 0
+    skipped = 0
 
     for source in SOURCES:
         files = collect_files(source)
@@ -288,13 +306,18 @@ def main():
             continue
 
         for path in files:
+            rel = path.relative_to(GROWDIRECT_ROOT)
+
+            if args.incremental and str(rel) in existing_files:
+                skipped += 1
+                continue
+
             content = read_content(path)
             metadata = build_metadata(path, source)
             layer = source["layer"]
             mtype = source["memory_type"]
 
             if args.dry_run:
-                rel = path.relative_to(GROWDIRECT_ROOT)
                 print(f"  DRY: {rel} → {mtype} [{layer}] ({len(content)} chars)")
                 total += 1
                 continue
@@ -302,7 +325,6 @@ def main():
             mid, has_emb = insert_memory(
                 engine, config, content, mtype, layer, metadata,
             )
-            rel = path.relative_to(GROWDIRECT_ROOT)
             status = "+" if has_emb else "~"
             print(f"  {status} {rel} → {mtype} [{layer}]")
             total += 1
@@ -311,6 +333,8 @@ def main():
 
     action = "Would seed" if args.dry_run else "Seeded"
     print(f"\n{action}: {total} memories ({embedded} with embeddings)")
+    if skipped:
+        print(f"Skipped (already seeded): {skipped}")
 
     if not args.dry_run:
         close_seed_session(engine)
