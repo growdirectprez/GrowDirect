@@ -48,6 +48,7 @@ Rules are grouped by what they detect:
 8. **Tax-and-compliance** — multi-authority tax mismatches, exempt-customer abuse
 9. **Customer-tier abuse** — wholesale tier on retail-buying customer, tier reassignments
 10. **Mix-and-match abuse** — flat pricing exploited beyond intended bundle structure (garden-center-specific)
+11. **Compliance** — regulatory exposure on restricted-item sales (Prop 65, EPA pesticides/herbicides, age-restricted, bulk-chemical state regs)
 
 ## Per-rule definitions
 
@@ -288,6 +289,49 @@ Logic: mix-match code applied to a line whose item isn't part of the group — m
 Parameters: none (any mismatch).
 Allow-list: documented merchandising decisions.
 Severity: medium.
+
+### Compliance
+
+**Q-RESTRICTED-ITEM-SALE — Restricted-item sale without override**
+
+Substrate: `Events.transaction_lines` joined to `Things.items` (item-side restricted flags), cross-referenced against `Events.audit_log_entries` for transaction-level override.
+Logic: on transaction commit, any line whose item carries a restricted-item flag (`prop_65`, `epa_pesticide`, `epa_herbicide`, `restricted_chemical`, `age_restricted`) sells without a `restricted_items_authorized` override on the transaction. The override IS the forensic record — its absence on a restricted-item line is the detection.
+
+```
+on transaction.commit:
+  for line_item in transaction.line_items:
+    if item.has_flag('restricted_item')
+       and not transaction.has_override('restricted_items_authorized'):
+      emit detection {
+        rule_id: 'Q-RESTRICTED-ITEM-SALE',
+        transaction_id: transaction.id,
+        item_id: item.id,
+        store_id: transaction.store_id,
+        employee_id: transaction.employee_id,
+        timestamp: transaction.created_at,
+        severity: P1,
+        evidence: {
+          item_name: item.name,
+          restricted_classifications: item.restricted_flags,
+          required_override: 'restricted_items_authorized'
+        }
+      }
+```
+
+Restricted-item flag taxonomy:
+
+| Flag | Meaning |
+|---|---|
+| `prop_65` | California Prop 65 — cancer / reproductive harm warning items |
+| `epa_pesticide` | EPA-registered pesticide |
+| `epa_herbicide` | EPA-registered herbicide |
+| `restricted_chemical` | Bulk fertilizer / soil amendment subject to state regulations |
+| `age_restricted` | Pyrotechnics, certain bulk chemicals (18+ states) |
+
+Parameters: `flag_set_active` (per-store; e.g., California stores activate `prop_65`), `override_code` (default `restricted_items_authorized`), `evidence_retention_days` (default 2555 / 7 years for regulatory exposure).
+Allow-list: store-level flag activation (a Tennessee store doesn't activate `prop_65`); documented training transactions.
+Severity: P1 — regulatory exposure. Garden centers carry many EPA-registered pesticides and herbicides; in California, Prop 65 affects a wide swath of plant amendments and fertilizers. The manager-override workflow needs a paper trail because the override IS the forensic record demonstrating informed sale.
+
 
 ## Garden-center allow-list framework
 
