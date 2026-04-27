@@ -119,6 +119,30 @@ Beta / Early Release Candidate
 - [[docs/sdds/canary/qa-agent|QA Agent]] — QA orchestration, 30+ MCP tools
 - [[docs/sdds/canary/multi-pos-architecture-proof|Multi-POS Proof]] — Multi-source adapter pattern
 
+### NCR Counterpoint Integration
+- [[docs/sdds/canary/canary-counterpoint-solution-guide|Solution Guide]] — Frame/People/Agents/Model/Blueprint across all 6 Phase 1 modules ← start here
+- [[docs/sdds/canary/pos-adapter-substrate|POS Adapter Substrate]] — POSAdapter ABC, CanonicalEvent, Fixture, PollResult, adapter registry, pos_tenant_credentials
+- [[docs/sdds/canary/ncr-counterpoint-auth-adapter|Module A — Auth]] — CounterpointBasicAuthFlow, HTTP client wrapper, credential lifecycle
+- [[docs/sdds/canary/ncr-counterpoint-merchant-onboarding|Module O — Onboarding]] — Phase A→B→C activation orchestrator, wizard UI, vertical profile seeding
+- [[docs/sdds/canary/ncr-counterpoint-store-station-adapter|Module S — Store & Station]] — cp_store_config, cp_station_config, walk-in sentinel, timezone lookup
+- [[docs/sdds/canary/ncr-counterpoint-customer-adapter|Module R — Customer]] — AR_CUST → external_identities + cp_customer_profiles, PII strip
+- [[docs/sdds/canary/ncr-counterpoint-item-catalog-adapter|Module I — Item Catalog]] — IM_ITEM → cp_item_catalog + cp_item_categories, Module Q margin substrates
+- [[docs/sdds/canary/ncr-counterpoint-paycode-adapter|Module F — PayCode]] — PAY_TYP taxonomy, tender normalization, Q-TM/Q-DS substrates
+- [[docs/sdds/canary/ncr-counterpoint-inventory-adapter|Module D — Inventory]] — cp_inventory_snapshots, Q-IS shrinkage substrates
+- [[docs/sdds/canary/ncr-counterpoint-tsp-adapter|Module T — TSP (Documents)]] — PS_DOC pipeline, DOC_TYP routing, Sub2 compound dispatch
+- [[docs/sdds/canary/ncr-counterpoint-module-q-chirp-wiring|Module Q — Chirp Wiring]] — C-1001+ rule scheme, garden-center allow-lists, dry-run deployment
+- [[docs/sdds/canary/ncr-counterpoint-open-questions|Open Questions Register]] — 30+ questions triaged for Bart call / sandbox / deferred
+
+### NCR Counterpoint — Brain Wiki
+- [[Brain/wiki/ncr-counterpoint-api-reference|API Reference]] — Endpoint catalog, auth scheme, pagination, error codes
+- [[Brain/wiki/ncr-counterpoint-document-model|Document Model]] — PS_DOC structure, DOC_TYP taxonomy, payment and line item fields
+- [[Brain/wiki/ncr-counterpoint-endpoint-spine-map|Endpoint Spine Map]] — Entity-to-endpoint mapping across all modules
+- [[Brain/wiki/ncr-counterpoint-connection-runbook|Connection Runbook]] — Server setup, API console, test steps
+- [[Brain/wiki/ncr-counterpoint-sandbox-setup-checklist|Sandbox Setup Checklist]] — Pre-flight checklist before first API call
+- [[Brain/wiki/ncr-counterpoint-phase-0-context-brief|Phase 0 Context Brief]] — Engagement background, Rapid POS relationship, go/no-go criteria
+- [[Brain/wiki/ncr-counterpoint-rapid-pos-relationship|Rapid POS Relationship]] — VAR structure, Bart partnership context, whitelabel dynamics
+- [[Brain/wiki/canary-module-q-counterpoint-rule-catalog|Module Q — Counterpoint Rule Catalog]] — Full C-1001+ rule catalog with garden-center vertical annotations
+
 ## Strategy
 - [[Canary/docs/Canary-Blue-Ocean-Strategy-Analysis|Blue Ocean Strategy Analysis]]
 
