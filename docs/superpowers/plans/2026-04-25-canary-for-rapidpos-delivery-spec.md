@@ -28,20 +28,20 @@ Operational invariants:
 
 ## The substrate problem (recap from L3B audit)
 
-| Finding | What's wrong | Where (file) |
-|---|---|---|
-| L3B-01 | `webhook_dispatch.py` keys parsers by event type alone — no provider in the key | `canary/services/webhook_dispatch.py` |
-| L3B-02 | TSP `sub2_parse` calls Square parsers directly — no dispatch by `source_code` | `canary/services/tsp/consumers/sub2_parse.py` |
-| L3B-03 | Chirp rule engine has `_resolve_square_ids` — Square-specific lookup | `canary/services/chirp/rule_engine.py` |
-| L3B-04 | Chirp lab + merchant simulator use Square-shaped fixtures | `canary/services/health_check/chirp_lab.py`, `canary/services/health_check/merchant_simulator.py` |
-| L3B-05 | (Open — confirm scope) | TBD |
-| L3B-06 | (Open — confirm scope) | TBD |
-| L3B-07 | `transactions` table carries raw `square_*_id` columns | `canary/models/sales/transactions.py` |
-| L3B-08 | `terminal` table carries raw `square_*_id` columns | `canary/models/sales/terminal.py` |
-| L3B-09 | (Open — confirm scope) | TBD |
-| L3B-10 | (Open — confirm scope) | TBD |
+| Finding | What's wrong | Where (file) | Severity | Blast radius if RapidPOS launches without fixing |
+|---|---|---|---|---|
+| L3B-01 | `webhook_dispatch.py` keys parsers by event type alone — no provider in the key (~145 entries, all Square event types) | `canary/services/webhook_dispatch.py` | P1 | **Critical.** Counterpoint webhooks would need a parallel routing dict; the two diverge silently as Square evolves. |
+| L3B-02 | TSP `sub2_parse` parses Square-shaped events: `square_employee_id`, `square_location_id`, `assigned_locations`. Field names are Square's, not abstracted. Does carry `source_code="square"` (line 136) — the existing seam, but it's not used to dispatch. | `canary/services/tsp/consumers/sub2_parse.py` | P1 | **Critical.** Sub 2 is the data-ingest hot path. RapidPOS without abstraction means a parallel sub2 file or massive if/elif. |
+| L3B-03 | Rule engine calls `_resolve_square_ids(alerts, merchant_id, session)` to translate Square employee/location IDs → app UUIDs before insert. Hardcodes `Employee.square_employee_id` and `Location.square_location_id` as join keys. | `canary/services/chirp/rule_engine.py:67-135` | P1 | **Critical.** Chirp is the LP core. Counterpoint detection alerts will hit this code, fail to resolve, and silently drop or crash. |
+| L3B-04 | Test fixtures and simulators built on Square payload shapes. CI passes for Square; gives no signal for any other provider. | `canary/services/health_check/chirp_lab.py` (73 hits), `canary/services/health_check/merchant_simulator.py` (66 hits) | P1 | High. Fixture lock-in to one provider means our tests cannot tell us if the substrate works for a second. |
+| L3B-05 | Square OAuth flow is the only OAuth path on the entire platform. URL shape `/oauth/...` implies Square-only. NCR Counterpoint is HTTP Basic + APIKey (not OAuth at all), so this file stays Square-specific — but the **naming** signals "no other provider exists," which a substrate audit must call out. | `canary/blueprints/square_oauth_wired.py` (85 hits, 9 routes) | P1 | Medium. RapidPOS's auth flow is different enough that this file may stay specific; the architectural concern is naming + provider-agnostic OAuth URL shape for any future OAuth-style provider. |
+| L3B-06 | Owl search builds queries against Square-shaped fields (denormalized payment IDs, location IDs, etc.). | `canary/services/owl/search/builder.py` (16 hits) | P1 | Medium. Owl is read-side analytics; Counterpoint data wouldn't appear in search results without parallel work. |
+| L3B-07 | Sales schema models reach into Square fields directly. CRDM design intent is provider-neutral canonical tables with provider-specific raw payloads in raw-event tables — schema reality has drifted. | `canary/models/sales/transactions.py` (16 hits) | P1 | Medium-high. Schema-level coupling is the most expensive to fix. |
+| L3B-08 | Terminal model carries Square device shape (square_device_id, square_*_id columns). | `canary/models/sales/terminal.py` (22 hits) | P1 | Medium. Devices are referenced from detection rules; failures cascade through Chirp. |
+| L3B-09 | Parsers directory is named `parsers/` but every one of the 18 files is `square_*`. Naming hides the provider seam. | `canary/services/parsers/square_*.py` (18 files) | P2 | Low (refactor cost only). Move to `canary/services/pos/square/parsers/` and add `canary/services/pos/counterpoint/parsers/` makes the seam visible. |
+| L3B-10 | Onboarding sync is Square-only. Customer-zero install for a non-Square merchant fails. | `canary/services/onboarding/initial_sync.py` (36 hits) | P2 | Medium. The first Counterpoint tenant install path is a parallel build until this is abstracted. |
 
-L3B-05/06/09/10 are listed in GRO-558 but not enumerated above — first task in cycle 7 is to read the audit and fill these rows. The substrate plan must address all ten findings or we ship a half-decoupled system.
+All ten L3B findings now enumerated (filled in 2026-04-26 from the GRO-551 audit Lens B section, sub-issue 7.1). The substrate plan in cycle 7 sub-issues 7.2–7.9 addresses every row. L3B-11 ("templates already provider-neutral, zero hits") in the audit is intentionally omitted here — it's not a fix item, it's a positive signal that the UI layer is already where we want the rest of the codebase to be.
 
 ## Counterpoint architectural reality
 
