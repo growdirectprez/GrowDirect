@@ -28,6 +28,7 @@ from collections import defaultdict
 from datetime import datetime, timezone
 from difflib import SequenceMatcher
 from pathlib import Path
+from typing import Optional
 
 # ── Helpers ──────────────────────────────────────────────────────────────
 
@@ -42,7 +43,7 @@ BRAIN_RAW_INBOX = "Brain/raw/inbox"
 BRAIN_REGISTRY = "Brain/REGISTRY.json"
 
 
-def _find_growdirect_root(start: Path) -> Path | None:
+def _find_growdirect_root(start: Path) -> Optional[Path]:
     """Walk up from start to find the GrowDirect root (has CLAUDE.md + Brain/)."""
     current = start.resolve()
     for _ in range(10):
