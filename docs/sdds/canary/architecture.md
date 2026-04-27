@@ -11,9 +11,20 @@
 
 ## Purpose
 
-Canary LP is a 7-layer distributed system for AI-powered loss prevention, built on 11 bounded service domains exposed through 12 MCP servers (84 tools total). The platform processes Square webhook events in real time, evaluates transactions against 26 detection rules, and surfaces actionable insights to merchants through an AI-powered assistant.
+Canary LP is a 7-layer distributed system for AI-powered loss prevention, built on 12+ bounded service domains exposed through MCP servers. The platform processes POS events from multiple providers — Square via webhook push, NCR Counterpoint via poll-based REST — evaluates transactions against detection rules (37 Square-era + 25+ Counterpoint-specific), and surfaces actionable insights through an AI-powered assistant.
 
 This is the **Canary index SDD** -- it documents the platform topology, startup order, service dependencies, cross-boundary data flows, and links to all domain-specific SDDs. Individual domain behavior is documented in its own SDD.
+
+### Hawk + Bull Additions (Phase 1+)
+
+Two new service domains join the architecture in Hawk Phase 1:
+
+| Domain | SDD | Sits on | Purpose |
+|---|---|---|---|
+| **Hawk** | [[docs/sdds/canary/hawk\|Hawk]] | Q.5.4 (Fox case workflow) | Incident-typed case management with wizard FSM, dual-track action codes, card factory. Supersedes Fox's flat case lifecycle. |
+| **Bull** | [[docs/sdds/canary/bull\|Bull]] | D.4 + D.5 (transfer-loss, distribution recs) | Phase 3 stub — Canary-native Module D intelligence. Gated on Module D substrate. |
+
+Fox remains operational as the evidence-chain backbone (INSERT-only tables, hash-chain triggers). Hawk cases link to Fox via `hawk_cases.fox_case_id` for evidentiary operations.
 
 ---
 
@@ -201,7 +212,8 @@ Response envelope: `{"tool": name, "ok": true/false, "result"|"error": ..., "tim
 | 3 | Chirp | `/chirp` | 10 | [[docs/sdds/canary/chirp|Chirp]] | Detection rules, threshold config, sensitivity presets |
 | 4 | Alert | `/alert` | 6 | [[docs/sdds/canary/alert|Alert]] | Alert lifecycle, history, impact scoring, notifications |
 | 5 | Owl | `/owl` | 8 | [[docs/sdds/canary/owl|Owl]] | AI chat, personalities, MCP tools, merchant memory |
-| 6 | Fox | `/fox` | 8 | [[docs/sdds/canary/fox|Fox]] | Case management, evidence locker, hash-chained timeline |
+| 6 | Fox | `/fox` | 8 | [[docs/sdds/canary/fox|Fox]] | Evidence locker, hash-chained timeline (EBR class inside Hawk) |
+| 6b | Hawk | `/hawk` | 9 | [[docs/sdds/canary/hawk|Hawk]] | Incident-typed case management, wizard FSM, card factory |
 | 7 | Analytics | `/analytics` | 7 | [[docs/sdds/canary/analytics|Analytics]] | Dashboard metrics, heatmaps, velocity baselines |
 | 8 | ALX | `/alx` | 7 | [[docs/sdds/canary/alx|ALX]] | Institutional memory (pgvector, 954+ memories) |
 | 9 | RaaS | `/raas` | 7 | [[docs/sdds/canary/raas|RaaS]] | Namespace resolution, merchant onboarding |
