@@ -75,3 +75,6 @@ Brain/raw/.logs/
 # CTO-readiness audit output — committed on chore/cto-readiness-audit-2026-04-24
 # Contains literal secret values from gitleaks/trufflehog output; never propagate.
 docs/audit-2026-04-23/
+
+# GRO-553: shared infra creds
+devops/.env
