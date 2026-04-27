@@ -76,11 +76,11 @@ L4 (Implementation detail)      Canary-Retail-Brain/modules/A-asset-management.m
 
 | ID | L3 process | Source | Notes |
 |---|---|---|---|
-| A.1.1 | Read `IM_ITEM.ITEM_TYP` per item from S's item master | S's item-master publication | `I` = inventory (saleable), `N` = non-inventory (asset, non-saleable); A reads this classification from S |
-| A.1.2 | Read `IM_ITEM.STAT` (item status) alongside ITEM_TYP | S's item-master publication | Active vs. discontinued; A is only interested in active non-inventory items |
-| A.1.3 | Maintain Canary-side asset-item registry | A's own classification projection | Per-merchant list of items classified as non-saleable assets; updated when S detects ITEM_TYP changes |
-| A.1.4 | Detect ITEM_TYP reclassification events | S event stream — when an item changes from `I` to `N` or vice versa | Reclassification events propagate to downstream consumers (Q allow-list, J replenishment exclusion, C OTB exclusion) |
-| A.1.5 | Surface asset-item registry to downstream consumers | A's substrate contract (§A.3) | Q, J, and C each consume the asset-item list for their own filtering; A is the single source of classification truth |
+| A.1.1 | Read `IM_ITEM.ITEM_TYP` per item from S's item master | S's item-master publication | `I` = inventory (saleable), `N` = non-inventory (asset, non-saleable); A reads this classification from S → TBD: L4 implementation detail pending |
+| A.1.2 | Read `IM_ITEM.STAT` (item status) alongside ITEM_TYP | S's item-master publication | Active vs. discontinued; A is only interested in active non-inventory items → TBD: L4 implementation detail pending |
+| A.1.3 | Maintain Canary-side asset-item registry | A's own classification projection | Per-merchant list of items classified as non-saleable assets; updated when S detects ITEM_TYP changes → TBD: L4 implementation detail pending |
+| A.1.4 | Detect ITEM_TYP reclassification events | S event stream — when an item changes from `I` to `N` or vice versa | Reclassification events propagate to downstream consumers (Q allow-list, J replenishment exclusion, C OTB exclusion) → TBD: L4 implementation detail pending |
+| A.1.5 | Surface asset-item registry to downstream consumers | A's substrate contract (§A.3) | Q, J, and C each consume the asset-item list for their own filtering; A is the single source of classification truth → TBD: L4 implementation detail pending |
 
 ### User stories
 
@@ -98,10 +98,10 @@ L4 (Implementation detail)      Canary-Retail-Brain/modules/A-asset-management.m
 
 | ID | L3 process | Source | Notes |
 |---|---|---|---|
-| A.2.1 | Read D's movement records filtered to asset-item registry | D.6.1 SOH + D.6.3 TRANSFER-VARIANCE | Movement history for non-inventory items; tells the story of where a fixture has been |
-| A.2.2 | Track per-asset location history | A's projection over D's movements | Where is each asset right now, and where has it been? Low-cost view — movement records already exist |
-| A.2.3 | Detect unexpected movement on asset items | Canary-native flag | An adjustment or variance on a non-inventory item is operationally unusual; may indicate misclassification or loss of a fixture |
-| A.2.4 | Flag high-value asset disposal via RTV-type movement | D.6.3 RTV records filtered to asset registry | If a high-value asset (display case, cooler) is disposed via an RTV-type movement, flag for finance review |
+| A.2.1 | Read D's movement records filtered to asset-item registry | D.6.1 SOH + D.6.3 TRANSFER-VARIANCE | Movement history for non-inventory items; tells the story of where a fixture has been → TBD: L4 implementation detail pending |
+| A.2.2 | Track per-asset location history | A's projection over D's movements | Where is each asset right now, and where has it been? Low-cost view — movement records already exist → TBD: L4 implementation detail pending |
+| A.2.3 | Detect unexpected movement on asset items | Canary-native flag | An adjustment or variance on a non-inventory item is operationally unusual; may indicate misclassification or loss of a fixture → TBD: L4 implementation detail pending |
+| A.2.4 | Flag high-value asset disposal via RTV-type movement | D.6.3 RTV records filtered to asset registry | If a high-value asset (display case, cooler) is disposed via an RTV-type movement, flag for finance review → TBD: L4 implementation detail pending |
 
 ### User stories
 
@@ -116,6 +116,8 @@ L4 (Implementation detail)      Canary-Retail-Brain/modules/A-asset-management.m
 | ID | Contract | Owner downstream | What A promises |
 |---|---|---|---|
 | A.3.1 | Asset-item registry (list of non-saleable item IDs) | Q (allow-list for detection rules), J (replenishment exclusion), C (OTB exclusion) | Current list of items with `ITEM_TYP=N`; updated within one S-poll cycle of any reclassification |
+
+> **Reciprocal dependency:** Q.2 detection rules consume A.3.1 asset-item registry as allow-list filtering input. Q must not flag items classified as non-inventory assets. See canary-module-q-functional-decomposition §Q.2.
 | A.3.2 | ITEM_TYP reclassification events | Q, J, C (downstream filter updates) | Reclassification events published with item_id, old_type, new_type, effective_date |
 | A.3.3 | Asset location history (per asset per location) | Finance (asset audit), Operator (fixture management) | Location history derived from D's movement records; does not require independent polling |
 | A.3.4 | High-value asset disposal flags | Finance (write-off review) | RTV-type movements on items with cost > configurable threshold; configurable threshold defaults to $500 (ASSUMPTION-A-04) |
@@ -125,6 +127,8 @@ L4 (Implementation detail)      Canary-Retail-Brain/modules/A-asset-management.m
 - *As Q's Detection Engine, I want A's asset-item registry injected as an allow-list exclusion so Q-DM-01/02/03 (discount and markdown rules) don't fire on fixture markdowns or non-inventory item adjustments.*
 - *As J's Replenishment Engine, I want non-inventory items excluded from replenishment calculation — Canary should never recommend ordering more display stands.*
 - *As C's OTB Calculator, I want non-inventory items excluded from OTB budget consumption, so fixture purchases don't reduce the buyer's merchandise open-to-buy.*
+- *As a store manager, I need to reassign an asset (fixture/equipment) from one zone to another within the same location so that the asset registry reflects current physical placement.*
+- *As a loss prevention analyst, I need Canary to detect when an item flagged as a non-inventory asset (ITEM_TYP = N) is sold at retail price, so I can investigate unauthorized merchandise conversion.*
 
 ## Assumptions requiring real-customer validation
 
