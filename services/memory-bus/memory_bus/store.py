@@ -295,10 +295,10 @@ class MemoryStore:
                     text(f"""
                         SELECT id, session_id, memory_type, content, metadata,
                                layer, created_at,
-                               1 - (embedding <=> :embedding::vector) AS similarity
+                               1 - (embedding <=> CAST(:embedding AS vector)) AS similarity
                         FROM alx_memories
                         WHERE embedding IS NOT NULL {extra_where}
-                        ORDER BY embedding <=> :embedding::vector
+                        ORDER BY embedding <=> CAST(:embedding AS vector)
                         LIMIT :limit
                     """),
                     {"embedding": str(embedding), "limit": limit, **filter_params},
