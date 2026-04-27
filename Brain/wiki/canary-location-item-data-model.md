@@ -1,6 +1,7 @@
 ---
 classification: internal
 type: wiki
+status: active
 date: 2026-04-26
 last-compiled: 2026-04-26
 needs-review: 2026-05-10
@@ -12,7 +13,7 @@ related:
   - Canary-Retail-Brain/case-studies/lawn-and-garden-rapidpos-suite.md
   - Canary-Retail-Brain/case-studies/lawn-and-garden-catz-phase1-diagnostic.md
   - docs/sdds/canary/ncr-counterpoint-retail-spine-integration.md
----
+----
 
 # Canary Location & Item Data Model
 

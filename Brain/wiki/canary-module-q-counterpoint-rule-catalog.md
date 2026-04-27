@@ -1,13 +1,14 @@
 ---
 classification: internal
 type: wiki
+status: active
 date: 2026-04-25
 last-compiled: 2026-04-25
 needs-review: 2026-05-09
 companion-modules: Brain/wiki/canary-module-q-loss-prevention.md
 companion-substrate: Brain/wiki/ncr-counterpoint-document-model.md
 companion-context: Brain/wiki/garden-center-operating-reality.md
----
+----
 
 # Canary Module Q — Counterpoint Rule Catalog
 

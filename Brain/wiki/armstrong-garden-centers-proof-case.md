@@ -1,13 +1,14 @@
 ---
 date: 2026-04-27
 type: wiki
+status: active
 tags: [canary, target, lawn-garden, armstrong, mcp, vsm, counterpoint, vertical]
 sources: [GrowDirect-NCR/verticals/armstrong.md]
 last-compiled: 2026-04-27
 needs-review: 2026-05-11
 method-role: Writer
 method-stage: close
----
+----
 
 
 **Wiki:** [[Brain/Home|Home]]

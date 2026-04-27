@@ -1,11 +1,12 @@
 ---
 classification: internal
 type: wiki
+status: active
 date: 2026-04-25
 last-compiled: 2026-04-25
 needs-review: 2026-05-09
 source: public-web research; methodology section in body
----
+----
 
 # Rapid POS / NCR Counterpoint — User Pain Points + FAQs
 

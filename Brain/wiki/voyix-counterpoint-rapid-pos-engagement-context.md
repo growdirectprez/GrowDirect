@@ -1,13 +1,14 @@
 ---
 classification: internal
 type: wiki
+status: active
 date: 2026-04-25
 last-compiled: 2026-04-25
 needs-review: 2026-05-09
 source-archive: web research (NCR Voyix corporate site, PYMNTS, Wikipedia, Rapid POS / Counterpoint University, Software Advice, G2, Capterra)
 provenance: Brain/wiki/founder-context-secure-engagement-archive.md
 handoff: ALXjr-on-mini — project sandbox + methodology war room build
----
+----
 
 # Voyix / Counterpoint / Rapid POS — Engagement Context
 

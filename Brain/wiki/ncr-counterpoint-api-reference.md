@@ -1,12 +1,13 @@
 ---
 classification: internal
 type: wiki
+status: active
 date: 2026-04-25
 last-compiled: 2026-04-25
 needs-review: 2026-05-09
 source: github.com/NCRCounterpointAPI/APIGuide v2.4 (cloned 2026-04-25 into Brain/raw/inbox/rapid-pos/ncr-counterpoint-api/)
 companion-sdd: docs/sdds/canary/ncr-counterpoint-retail-spine-integration.md
----
+----
 
 # NCR Counterpoint API Reference
 
