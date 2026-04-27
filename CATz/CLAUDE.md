@@ -53,7 +53,7 @@ When asked to sync, refresh, or update this vault:
 last-sync: 2026-04-27
 ```
 
-**last-sync: 2026-04-27
+**last-sync: 2026-04-27**
 
 ---
 
