@@ -9,7 +9,22 @@
 
 ## Purpose
 
-Chirp is Canary's stateless detection rule engine. It evaluates Square merchant transactions, cash drawer shifts, gift card activities, loyalty events, disputes, and invoices against a catalog of 37 detection rules across 10 categories. When a rule fires, Chirp produces an alert with a contextual risk score (0-100), writes it to `canary_app`, and optionally auto-creates a Fox investigation case for 6 critical-severity rules. Chirp never mutates source transaction data.
+Chirp is Canary's stateless detection rule engine. It evaluates merchant transactions, cash drawer shifts, gift card activities, loyalty events, disputes, and invoices against a catalog of detection rules. When a rule fires, Chirp produces an alert with a contextual risk score (0-100), writes it to `canary_app`, and optionally auto-creates an investigation case (Fox/Hawk) for critical-severity rules. Chirp never mutates source transaction data.
+
+### Multi-POS Rule Substrate
+
+Chirp's 37 production rules were built against Square's data model. The Counterpoint adapter (see `ncr-counterpoint-module-q-chirp-wiring.md`) introduces additional rule families that exploit Counterpoint's richer audit surface:
+
+| Substrate | Square (v1) | Counterpoint (Phase 1+) |
+|---|---|---|
+| Tender taxonomy | Payment.tender_type | PS_DOC_PMT.PAY_COD → canonical tender type (F module) |
+| Drawer session | CashDrawerShift events | PS_DOC_AUDIT_LOG + DRW_SESSION_ID correlation |
+| Audit log | Not available | PS_DOC_AUDIT_LOG — ACTIV codes + LOG_ENTRY strings |
+| Pricing decisions | Payment.total vs catalog | PS_DOC_LIN_PRICE — per-line pricing rule justification |
+| Margin targets | Not available | IM_CATEG_COD.MIN_PFT_PCT / TRGT_PFT_PCT |
+| Tax compliance | Not available | PS_DOC_TAX — multi-authority jurisdiction stack |
+
+Counterpoint rules are documented in the Q module rule catalog (`Brain/wiki/canary-module-q-counterpoint-rule-catalog.md`) — 25+ rules across 12 families including compliance (Q-RESTRICTED-ITEM-SALE) and commercial/B2B (Q-C-01 through Q-C-05) families that have no Square analog. These rules evaluate against CRDM fields populated by the Counterpoint adapter, not Counterpoint-native fields directly. Provider attribution on each CanonicalEvent (`source=counterpoint`) enables per-provider rule applicability.
 
 ## Dependencies
 
