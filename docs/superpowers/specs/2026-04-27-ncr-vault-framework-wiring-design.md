@@ -142,3 +142,74 @@ Steps 1 and 2 can run concurrently, but the step 1 success criterion (count ≥ 
 - Formalizing the vendor vault pattern as a reusable method (deferred — do this after running the pattern once)
 - CATz or CRB gap analysis (separate session if needed)
 - NCR vault content authoring (content is already in place)
+
+---
+
+## Runtime Lessons (added 2026-04-27 during execution)
+
+Feedback for the agent that authored this spec — fixes that would have made it
+run faster next time.
+
+### 1. Seed command is wrong
+
+The spec says:
+```bash
+docker exec growdirect_memory_bus python3 scripts/seed_clean.py --drop-first
+```
+
+This does not work. The `scripts/` directory is not volume-mounted into the
+container, and running from host fails because `httpx`/`sqlalchemy`/`psycopg2`
+are not in the system Python. The actual working command is:
+
+```bash
+docker run --rm \
+  --network growdirect \
+  -v ~/GrowDirect:/repo \
+  -e DATABASE_URL=postgresql://growdirect:growdirect_dev@growdirect_postgres:5432/growdirect_memory \
+  -e OLLAMA_URL=http://growdirect_ollama:11434 \
+  -e EMBEDDING_MODEL=qwen3-embedding:8b \
+  -w /app \
+  growdirect-memory-bus \
+  python3 /repo/services/memory-bus/scripts/seed_clean.py --drop-first
+```
+
+The `seed_clean.py` docstring is also stale — it advertises the broken
+`docker exec` shorthand. Fix the docstring too.
+
+**Cost:** ~15 minutes of debugging to discover the volume mount gap.
+
+### 2. Dry-run first
+
+Always run `--dry-run` before `--drop-first`. The dry-run confirms file count
+instantly (< 1 second). The full embed run takes 10+ minutes. Discovering a
+manifest problem after 10 minutes of embedding is expensive.
+
+Spec should have included a dry-run verification step before the full seed.
+
+### 3. Seed takes ~15 minutes per run
+
+Embedding 437 files through Ollama takes substantial time. The spec's sequence
+calls for two seed runs (steps 1 and 5). If the gap analysis finds Missing
+items (it did — 3), both runs are mandatory. Budget 30 minutes of seed time.
+
+**Optimization for future specs:** If back-fill articles are known to be few
+(< 10), consider skipping step 1 entirely and running a single seed after all
+writes are complete. The freshness-baseline-first approach only matters if you
+need to verify the seed manifest is correct before doing other work.
+
+### 4. NCR vault module file inventory was accurate
+
+The spec's file listing in Deliverable 2 was correct. All 16 module files,
+6 verticals, and all index files existed as described. The `canary-module-*`
+functional decomposition articles in Brain backed every module. No surprises.
+
+### 5. Three back-fill articles needed
+
+Gap analysis found 3 Missing items (not zero):
+- `canary-mcp-stack-architecture.md` — MCP 5-layer stack (agents/architecture.md had no Brain equivalent)
+- `canary-agent-roadmap-batch-to-realtime.md` — Phase 1–4 progression (agents/roadmap.md had no Brain equivalent)
+- `armstrong-garden-centers-proof-case.md` — Proof case (verticals/armstrong.md had no Brain equivalent)
+
+All three were content that existed only in the NCR vault with no generic Brain
+backing. The spec correctly anticipated this possibility and scoped
+Deliverable 3 for it.
