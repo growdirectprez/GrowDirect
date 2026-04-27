@@ -94,7 +94,7 @@ SOURCES = [
     # additively rather than building the full memory_bus.cli surface).
     {
         "glob": "Brain/dispatches/*.md",
-        "memory_type": "dispatch",
+        "memory_type": "procedure",
         "layer": "corp",
         "metadata_extra": {"source_kind": "operating_instruction"},
     },
@@ -102,14 +102,14 @@ SOURCES = [
     # context articles, integration mappings)
     {
         "glob": "Brain/wiki/*.md",
-        "memory_type": "wiki_article",
+        "memory_type": "context_block",
         "layer": "corp",
         "metadata_extra": {"source_kind": "synthesis"},
     },
     # Build plans — operational plans companion to SDDs
     {
         "glob": "docs/superpowers/plans/*.md",
-        "memory_type": "build_plan",
+        "memory_type": "work_product",
         "layer": "corp",
         "metadata_extra": {"source_kind": "operational_plan"},
     },
