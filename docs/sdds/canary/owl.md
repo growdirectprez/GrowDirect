@@ -308,6 +308,18 @@ Returns 200 if Ollama is reachable (GET `/api/tags` with 3s timeout), 503 if off
 
 ---
 
+## Phase 4 Stub — Hawk Card Corpus Integration
+
+When Hawk card generation is operational (see `docs/sdds/canary/hawk.md` §Card Factory), Owl's recall surface expands to include the Hawk card corpus. Each `hawk_cards` row carries a `vector` column (pgvector 1024-dim, populated asynchronously by the memory bus via Ollama `qwen3-embedding:8b`).
+
+**Integration point:** Owl's `_get_memory_context()` method adds a recall window sourcing from `hawk_cards` where `invalidated_at IS NULL` (current version only). Card frontmatter (`incident_class`, `de_pv_flag`, `subject_types`) enables filtered recall — e.g., "show me all internal-DE cases involving cash theft" retrieves relevant card bodies ranked by embedding similarity.
+
+**Token budget:** ~500 tokens per recalled card (card_body is Markdown, typically 300-600 tokens). Owl's 4-window context assembly gains a fifth window for Hawk cards when available. When unavailable (no cards generated yet), the window returns empty — no degradation of existing Owl functionality.
+
+**Not yet implemented.** This section documents the expected interface so the Hawk card pipeline and Owl recall surface can be wired independently.
+
+---
+
 ## Deployment
 
 ### Docker Service Definition
