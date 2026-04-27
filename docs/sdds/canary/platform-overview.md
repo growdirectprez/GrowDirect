@@ -19,11 +19,11 @@ Use this document when you need to understand **why** Canary exists and **what**
 
 ## Product Definition
 
-Canary LP is a loss prevention platform built exclusively for Square merchants. It brings enterprise-grade fraud detection, case management, and loss analytics to independent sellers at a price and complexity level appropriate for one or two locations.
+Canary LP is a POS-agnostic loss prevention and store operations platform for small and mid-size specialty retailers. It brings enterprise-grade fraud detection, case management, and loss analytics to independent sellers at a price and complexity level appropriate for one to thirty locations.
 
-**Core value proposition:** The independent merchant who can't afford enterprise loss prevention gets the same detection, investigation, and documentation capabilities — running entirely on Square APIs, through the Square Marketplace.
+**Core value proposition:** The independent merchant who can't afford enterprise loss prevention gets the same detection, investigation, and documentation capabilities — running on the POS they already have. Square was the first connector (live, Marketplace-certified). NCR Counterpoint is the primary engagement path via Rapid POS and other Counterpoint VARs. The canonical retail data model (CRDM) abstracts the POS; adapters are translation layers.
 
-**Target users:** Small and mid-size Square merchants (1–5 locations). Owner-operators who manage everything from inventory to payroll, often from a single device.
+**Target users:** Small and mid-size specialty retailers (1–31 locations). Square merchants via Marketplace. NCR Counterpoint merchants via VAR co-sell (Rapid POS for garden centers, with gun, feed-tack, beverage, wine verticals in development). Owner-operators who manage everything from inventory to payroll, often from a single device.
 
 ---
 
@@ -39,10 +39,12 @@ The most common preventable loss for Square merchants is refund fraud: employees
 
 | Module | Function | Status | Description |
 |--------|----------|--------|-------------|
-| **Chirp** | Detection Engine | **MVP** | Real-time detection via 29 rules across 3 severity tiers. Plain-language alerts with transaction evidence and employee attribution. See [[chirp\|Chirp SDD]]. |
-| **Fox** | Case Management | **MVP** | Structured investigation workflow. INSERT-only evidence locker, SHA-256 hashed, append-only timeline. Built to evidentiary standards for HR/legal/law enforcement. See [[fox\|Fox SDD]]. |
+| **Chirp** | Detection Engine | **MVP** | Real-time detection via 37 Square rules + 25+ Counterpoint rules across 12 families. Plain-language alerts with transaction evidence and employee attribution. See [[chirp\|Chirp SDD]]. |
+| **Fox** | Evidence Chain | **MVP** | INSERT-only evidence locker, SHA-256 hash-chained, append-only timeline. EBR class inside Hawk. See [[fox\|Fox SDD]]. |
+| **Hawk** | Case Management | **Phase 1** | Incident-typed investigation workflow with wizard FSM, dual-track action codes (DE/PV), compliance obligations, card factory. Supersedes Fox flat case lifecycle. See [[hawk\|Hawk SDD]]. |
+| **Bull** | Distribution Intel | **Phase 3 stub** | Transfer-loss reconciliation + multi-store distribution recommendations. Gated on Module D. See [[bull\|Bull SDD]]. |
 | **Goose** | Bitcoin & Lightning | **Phase 2** | BTCPay Server, Lightning Network payments, LNURL-auth passwordless login, sat-denominated billing. See [[goose\|Goose SDD]]. |
-| **Owl** | Analytics Oracle | **Phase 2** | Total Retail Loss dashboard, industry benchmarks, AI-powered analysis via Ollama. See [[owl\|Owl SDD]]. |
+| **Owl** | Analytics Oracle | **Phase 2** | Total Retail Loss dashboard, industry benchmarks, AI-powered analysis via Ollama. Hawk card corpus as Phase 4 recall surface. See [[owl\|Owl SDD]]. |
 
 ---
 
