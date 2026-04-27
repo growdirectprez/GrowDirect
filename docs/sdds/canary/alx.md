@@ -243,6 +243,25 @@ Managed by Alembic in `services/memory-bus/migrations/`:
 | `003_hnsw_index` | HNSW index on `alx_memories.embedding` for vector search |
 | `004_session_fk` | Backfills orphan sessions, adds FK from `alx_memories.session_id` to `alx_sessions.session_id` |
 
+## Hawk Case Context Integration
+
+ALX's recall surface includes Hawk card bodies via the `hawk_cards.vector` column (pgvector 1024-dim). When an agent session queries `memory_recall("loss prevention cases at Store B")`, the recall tiers search across both `alx_memories` (institutional knowledge) and `hawk_cards` (investigation summaries). Card frontmatter fields (`incident_class`, `de_pv_flag`, `subject_types`) enable filtered recall.
+
+**Not yet wired.** The Hawk card table lives in the `canary` database (`app` schema), not the `growdirect_memory` database. Cross-database recall requires either: (a) a federated query via `dblink` / foreign data wrapper, or (b) a sync job that copies card embeddings into `alx_memories` with `memory_type=hawk_card`. Option (b) is preferred — it keeps the Memory Bus self-contained and avoids cross-database coupling. See `docs/sdds/canary/hawk.md` §Card Factory and `docs/sdds/canary/owl.md` §Phase 4 Stub.
+
+## Multi-POS Awareness
+
+ALX's knowledge store is POS-agnostic — memories, decisions, and context blocks carry no provider attribution. However, when ALX serves as the VSM (Virtual Store Manager) diagnostic agent, the interaction model varies by POS substrate:
+
+| Dimension | Square tenant | Counterpoint tenant |
+|---|---|---|
+| Data freshness | Real-time (webhook push, sub-second) | Near-real-time (poll cadence, 60s steady-state) |
+| Audit trail depth | Limited (no per-document audit log) | Rich (PS_DOC_AUDIT_LOG with ACTIV codes) |
+| Drawer session model | CashDrawerShift events | DRW_SESSION_ID correlation via audit log |
+| Cutover status | Live (v1 production) | Scaffold/Seed phase (Hawk Phase 1) |
+
+The VSM diagnostic frame (described in `Brain/wiki/canary-vsm-diagnostic-mode-requirement.md`) must be cutover-aware: ALX suppresses diagnostic queries that depend on Counterpoint-specific substrates (audit log depth, margin targets, multi-authority tax) when the tenant's POS source is Square-only. Provider attribution on `CanonicalEvent.provider` is the runtime signal; ALX reads it from the CRDM, not from configuration.
+
 ## Code Review Findings
 
 ### P0 — Blocks Production
