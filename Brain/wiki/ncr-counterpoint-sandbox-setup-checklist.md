@@ -1,11 +1,12 @@
 ---
 classification: internal
 type: wiki
+status: active
 date: 2026-04-25
 last-compiled: 2026-04-25
 needs-review: 2026-05-09
 companion: Brain/wiki/ncr-counterpoint-connection-runbook.md
----
+----
 
 # NCR Counterpoint Sandbox Setup — Operator Action Checklist
 

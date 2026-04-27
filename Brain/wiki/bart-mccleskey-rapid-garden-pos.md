@@ -1,6 +1,7 @@
 ---
 classification: internal
 type: wiki
+status: active
 sub-type: relationship-profile
 date: 2026-04-26
 last-compiled: 2026-04-26
@@ -8,7 +9,7 @@ needs-review: 2026-06-26
 source: Grok team updates 2026-04-26 ×2 (SaaS PM — Canary / RapidPOS L&G Initiative)
 companion: Brain/wiki/voyix-counterpoint-rapid-pos-engagement-context.md
 companion: Brain/wiki/ncr-counterpoint-rapid-pos-relationship.md
----
+----
 
 # Bart McCleskey — Rapid Garden POS (Relationship Profile)
 

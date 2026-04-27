@@ -1,11 +1,12 @@
 ---
 classification: internal
 type: wiki
+status: active
 date: 2026-04-25
 last-compiled: 2026-04-25
 needs-review: 2026-05-09
 source: github.com/NCRCounterpointAPI/APIGuide v2.4 (cloned)
----
+----
 
 # NCR Counterpoint API — Endpoint × CRDM × Spine Map
 

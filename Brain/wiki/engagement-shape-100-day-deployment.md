@@ -1,12 +1,13 @@
 ---
 classification: internal
 type: wiki
+status: active
 date: 2026-04-25
 last-compiled: 2026-04-25
 needs-review: 2026-05-09
 source-archive: /Volumes/My Passport/CLIENTS/DELIVERY/ + /Volumes/My Passport/macpro/Users/geoff/Documents/ (sanitized)
 provenance: Brain/wiki/founder-context-secure-engagement-archive.md
----
+----
 
 # Engagement Shape — 100-Day Deployment
 

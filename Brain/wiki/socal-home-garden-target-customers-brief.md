@@ -1,12 +1,13 @@
 ---
 classification: internal
 type: wiki
+status: active
 date: 2026-04-25
 last-compiled: 2026-04-25
 needs-review: 2026-05-09
 purpose: Monday Bart call — SoCal H&G target customer landscape + positioning answers
 companion: Brain/wiki/voyix-counterpoint-rapid-pos-engagement-context.md
----
+----
 
 # SoCal Home & Garden Target Customers — Brief for Monday Bart Call
 

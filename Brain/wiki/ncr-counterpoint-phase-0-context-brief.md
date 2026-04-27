@@ -1,11 +1,12 @@
 ---
 classification: internal
 type: wiki
+status: active
 date: 2026-04-25
 last-compiled: 2026-04-25
 needs-review: 2026-05-09
 purpose: paste at the start of a fresh session for instant Phase 0 NCR Counterpoint context
----
+----
 
 # NCR Counterpoint Phase 0 — Session Context Brief
 

@@ -1,13 +1,14 @@
 ---
 date: 2026-04-24
 type: wiki
+status: active
 tags: [solex, square, integration, factory-cycle, gro-536]
 sources: [Solex/solex/services/square_client.py, Solex/solex/services/checkout.py, Solex/solex/services/webhooks.py, Solex/solex/routes/api.py, Solex/solex/routes/lab.py, docs/dispatches/dispatch-solex-2026-04-24.md, docs/superpowers/specs/2026-04-23-solex-commerce-mockup-design.md]
 last-compiled: 2026-04-24
 needs-review: 2026-05-08
 method-role: Writer
 method-stage: close
----
+----
 
 
 **Wiki:** [[Brain/Home|Home]]
