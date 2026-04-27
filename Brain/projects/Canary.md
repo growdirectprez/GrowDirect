@@ -21,6 +21,24 @@ Beta / Early Release Candidate
 - [[Brain/wiki/canary-chirp-rules|Chirp Rules]] — 37-rule catalog (10 categories), 3 evaluation tiers, threshold resolution, risk scoring, auto-casing
 - [[Brain/wiki/canary-fox-case-management|Fox Case Management]] — Case lifecycle, evidence hash chain, append-only timeline, DB-enforced immutability
 
+## Functional Decomposition (Retail Spine — Module-Level)
+
+L1–L4 decomposition of the 13-module Retail Spine on the NCR Counterpoint / RapidPOS backbone. These are the canonical cross-reference cards for the NCR vault's `modules/` section.
+
+- [[Brain/wiki/canary-module-a-functional-decomposition|Module A — Asset Management (Functional Decomp)]]
+- [[Brain/wiki/canary-module-c-functional-decomposition|Module C — Commercial / B2B (Functional Decomp)]]
+- [[Brain/wiki/canary-module-d-functional-decomposition|Module D — Distribution (Functional Decomp)]]
+- [[Brain/wiki/canary-module-f-functional-decomposition|Module F — Finance / Tenders / Tax (Functional Decomp)]]
+- [[Brain/wiki/canary-module-j-functional-decomposition|Module J — Forecast & Order (Functional Decomp)]]
+- [[Brain/wiki/canary-module-n-functional-decomposition|Module N — Device / Store Config (Functional Decomp)]]
+- [[Brain/wiki/canary-module-p-functional-decomposition|Module P — Pricing & Promotion (Functional Decomp)]]
+- [[Brain/wiki/canary-module-q-functional-decomposition|Module Q — Loss Prevention (Functional Decomp)]]
+- [[Brain/wiki/canary-module-q-counterpoint-rule-catalog|Module Q — Counterpoint Rule Catalog]]
+- [[Brain/wiki/canary-module-r-functional-decomposition|Module R — Customer (Functional Decomp)]]
+- [[Brain/wiki/canary-module-s-functional-decomposition|Module S — Space, Range, Display (Functional Decomp)]]
+- [[Brain/wiki/canary-module-t-functional-decomposition|Module T — Transaction Pipeline (Functional Decomp)]]
+- [[Brain/wiki/canary-ej-spine-and-sales-audit|EJ Spine + Sales Audit]] — Canary-native naming for the perpetual layer
+
 ## User Guides
 - [[Brain/wiki/canary-alerts-guide|Alerts Guide]] — Plain-English reference for all 37 rules, tuning dials, throttling controls, and the recommended onboarding sequence
 
@@ -121,6 +139,9 @@ Beta / Early Release Candidate
 
 ## Strategy
 - [[Canary/docs/Canary-Blue-Ocean-Strategy-Analysis|Blue Ocean Strategy Analysis]]
+- [[Brain/wiki/prototype-prep-master-dispatch|Prototype Prep Master Dispatch]] — pre-prototype session coordination
+- [[Brain/wiki/socal-home-garden-target-customers-brief|SoCal Home & Garden Target Customers]] — sales brief for Rapid Garden POS channel
+- [[Brain/wiki/video-integration-solution-pattern|Video Integration Solution Pattern]] — LP video evidence integration reference
 
 ## Prior-Art Lineage
 

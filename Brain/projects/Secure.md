@@ -39,6 +39,7 @@ All entries abstracted to deployment archetypes per `feedback_scrub_client_names
 ### Pre-Secure Retail Career Archive (IBM era)
 
 - [[Brain/wiki/secure-retail-career-archive|Pre-Secure Retail Career Archive]] — top-level index (expand via child cards below)
+- [[Brain/wiki/founder-context-secure-engagement-archive|Founder Context — Secure Engagement Archive]] — founder-perspective context on the Sysrepublic / 2017-era Secure engagement history
 - [[Brain/wiki/secure-retail-operating-model-2006|Retail Operating Model 2006]] — 8-deck Target Operating Model engagement at UK global grocer (Commercial, Finance, Supply Chain, Retail Ops, Space/Range/Display, Forecast/Ordering, People, Property)
 - [[Brain/wiki/secure-property-services-operating-model-2002|Property Services Operating Model (2002)]] — UK dept-store + grocery group P&BS operating model + DS process workshops
 - [[Brain/wiki/secure-us-property-it-scoping|US Property IT Scoping]] — IBM-and-Client-Confidential scoping document for US property IT

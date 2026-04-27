@@ -6,14 +6,60 @@ needs-review: 2026-05-10
 
 # GrowDirect Public Sites — Deployment
 
-Four sites live under `growdirect-llc` on GitHub Pages. DNS is GoDaddy with CNAMEs pointing to `growdirect-llc.github.io`.
+Five sites on GitHub Pages across two orgs (`growdirect-llc` and `growdirectprez`). DNS is GoDaddy.
 
-| Repo | Domain | Type |
+| Repo | Domain | Type | CNAME target |
+|---|---|---|---|
+| `growdirect-llc/proposal` | proposal.growdirect.io | Static HTML (single file) | `growdirect-llc.github.io` |
+| `growdirect-llc/ncr` | ncr.growdirect.io | Quartz v4 vault | `growdirect-llc.github.io` |
+| `growdirect-llc/canary-retail-brain` | crb.growdirect.io | Quartz v4 vault | `growdirect-llc.github.io` |
+| `growdirect-llc/catz` | catz.growdirect.io | Quartz v4 vault | `growdirect-llc.github.io` |
+| `growdirectprez/canary-site` | canary.growdirect.io | Static HTML (multi-page) | `growdirectprez.github.io` |
+
+---
+
+## Canary Site (canary.growdirect.io)
+
+Multi-page static HTML site. Branch-served from `main`, root `/`. No Actions build step — Pages deploys directly.
+
+**Repo:** `growdirectprez/canary-site`
+**Root:** `canary.growdirect.io/` — existing Canary product landing page
+**RapidPOS section:** `canary.growdirect.io/rapidpos/` — 7-page technical site
+
+### Pages under /rapidpos/
+
+| File | URL | Purpose |
 |---|---|---|
-| `growdirect-llc/proposal` | proposal.growdirect.io | Static HTML (single file) |
-| `growdirect-llc/ncr` | ncr.growdirect.io | Quartz v4 vault |
-| `growdirect-llc/canary-retail-brain` | crb.growdirect.io | Quartz v4 vault |
-| `growdirect-llc/catz` | catz.growdirect.io | Quartz v4 vault |
+| `rapidpos/index.html` | `/rapidpos/` | Overview — RapidPOS, 3-layer pitch |
+| `rapidpos/architecture.html` | `/rapidpos/architecture` | CRDM + MCP technical deep-dive |
+| `rapidpos/endpoints.html` | `/rapidpos/endpoints` | MCP tool reference |
+| `rapidpos/integrate.html` | `/rapidpos/integrate` | VAR Quickstart |
+| `rapidpos/store-2030.html` | `/rapidpos/store-2030` | Store of the Future 2030 pitch |
+| `rapidpos/armstrong.html` | `/rapidpos/armstrong` | Armstrong applied pitch |
+| `rapidpos/wiki-template.html` | `/rapidpos/wiki-template` | Reusable wiki page shell |
+
+**Design brief:** `GrowDirect/docs/superpowers/specs/2026-04-26-rapidpos-site-design-brief.md`
+
+**To deploy an update:**
+```bash
+TMPDIR=/tmp/canary-site-$$
+gh repo clone growdirectprez/canary-site $TMPDIR
+# edit files...
+git -C $TMPDIR add -A
+git -C $TMPDIR commit -m "your message"
+git -C $TMPDIR push
+rm -rf $TMPDIR
+```
+
+**Verify:**
+```bash
+gh api repos/growdirectprez/canary-site/actions/runs \
+  --jq '.workflow_runs[0]|{status,conclusion}'
+```
+
+### Planned: Dynamic vault integration
+
+Vault content (NCR, CRB, CATz) to be rendered inline under `/rapidpos/ncr/`, `/rapidpos/crb/`, `/rapidpos/catz/` using the `wiki-template.html` design system. Architecture decision pending — Eleventy + git submodules (recommended) vs. Quartz CSS override. See GRO-606 follow-on.
 
 ---
 
@@ -109,13 +155,16 @@ gh api repos/growdirect-llc/ncr/actions/runs \
 # expect: {"status":"completed","conclusion":"success","name":"Deploy Quartz site to GitHub Pages"}
 ```
 
-**Check all four at once:**
+**Check all sites at once:**
 ```bash
 for repo in proposal ncr canary-retail-brain catz; do
-  echo "=== $repo ==="
+  echo "=== growdirect-llc/$repo ==="
   gh api repos/growdirect-llc/$repo/actions/runs \
     --jq '.workflow_runs[0]|{status,conclusion}' 2>/dev/null
 done
+echo "=== growdirectprez/canary-site ==="
+gh api repos/growdirectprez/canary-site/actions/runs \
+  --jq '.workflow_runs[0]|{status,conclusion}' 2>/dev/null
 ```
 
 ---

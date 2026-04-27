@@ -129,6 +129,15 @@ Active. Manifesto v1.2 is the master source. War Chest v3.x is the current IP tr
 ### Team
 
 - [[Brain/wiki/growdirect-team-jeffe-quotes|Jeffe Quotes]] — curated quote bank for press, investor, marketing
+- [[Brain/wiki/tim-mooney-maonach-group|Tim Mooney — The Maonach Group]] — advisor profile; retail strategy and channel expertise
+
+### Infrastructure & Deployment
+
+- [[Brain/wiki/growdirect-public-sites-deployment|GrowDirect Public Sites — Deployment]] — five GitHub Pages sites (proposal, NCR, CRB, CATz, canary.growdirect.io), DNS map, CNAME config
+
+### Solex (Payments Channel)
+
+- [[Brain/wiki/solex-square-integration-notes|Solex — Square Integration Notes]] — Square integration notes for the Solex payments channel layer
 
 ### Timelogs — named session captures
 

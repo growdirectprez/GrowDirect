@@ -55,6 +55,22 @@ See `Brain/dispatches/2026-04-26-three-vault-jekyll-pages-architecture.md` and `
 
 27 research cards from a Cowork session covering NCR overview, financials, leadership, roadmap, tech debt, competitors, RapidPOS full profile, POS market, and more. To be ingested into Brain/wiki/ and then curated into the NCR vault via a synthesis pass.
 
+## Wiki Articles
+
+### Integration & Sandbox
+- [[Brain/wiki/ncr-counterpoint-api-reference|NCR Counterpoint API Reference]] — endpoint families, authentication, Document omnibus
+- [[Brain/wiki/ncr-counterpoint-document-model|NCR Counterpoint Document Model]] — API Document object taxonomy
+- [[Brain/wiki/ncr-counterpoint-endpoint-spine-map|Endpoint × CRDM × Spine Map]] — 200+ endpoints cross-referenced to Canary data model
+- [[Brain/wiki/ncr-counterpoint-connection-runbook|Connection Runbook]] — step-by-step setup for sandbox and production API access
+- [[Brain/wiki/ncr-counterpoint-sandbox-setup-checklist|Sandbox Setup Checklist]] — operator action checklist for standing up the NCR sandbox
+- [[Brain/wiki/ncr-counterpoint-phase-0-context-brief|Phase 0 Context Brief]] — session context brief for the NCR Counterpoint integration sprint
+
+### Engagement Context
+- [[Brain/wiki/voyix-counterpoint-rapid-pos-engagement-context|Voyix / Counterpoint / Rapid POS Engagement Context]] — channel partner background
+- [[Brain/wiki/bart-mccleskey-rapid-garden-pos|Bart McCleskey — Rapid Garden POS]] — lead VAR contact profile
+- [[Brain/wiki/rapid-pos-counterpoint-market-research-tam|RapidPOS / Counterpoint Market Research + TAM]] — market sizing and TAM analysis
+- [[Brain/wiki/rapid-pos-counterpoint-user-pain-points|RapidPOS / Counterpoint User Pain Points]] — user pain points and FAQs
+
 ## Related
 
 - [[Brain/projects/CATz]] — method vault (how GrowDirect works)

@@ -4,7 +4,7 @@ type: wiki
 tags: [cove, legal, ccrs, wpbca, lot-h]
 sources: [Cove/docs/admin/research/briefs/legal-brief-0-clipper, Cove/docs/admin/research/briefs/lot-h-community-action-brief, Cove/docs/admin/research/risk/legal-risk-assessment]
 last-compiled: 2026-04-10
-needs-review: 2026-04-24
+needs-review: 2026-05-26
 ---
 
 # Cove Legal Framework

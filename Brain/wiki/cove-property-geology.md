@@ -4,7 +4,7 @@ type: wiki
 tags: [cove, geology, landslide, property, parcels]
 sources: [Cove/docs/archive/property/rpv-zone2-landslide-eir-geology, Cove/docs/archive/property/laca-parcel-maps-tract-14649]
 last-compiled: 2026-04-10
-needs-review: 2026-04-24
+needs-review: 2026-05-26
 ---
 
 # Property & Geology
