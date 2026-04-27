@@ -32,6 +32,16 @@ Counterpoint's catalog surface is **the richest of any spine module** — 17 end
 
 S is **● Full direct** in every Counterpoint Solution Map cell, but the cell hides three real architectural concerns that don't show up in simpler retail verticals: (1) **item lifecycle is short and seasonal** — the catalog churns mid-season, item-code drift across intakes is normal not anomalous, (2) **the ecommerce catalog runs in parallel** with separate publish flags + state machine + control table, and (3) **per-customer naming conventions for multi-name fields** vary across Rapid POS deployments — there is no universal mapping for which `ADDL_DESCR_N` slot holds which language.
 
+## Counterpoint Endpoint Substrate
+
+| Counterpoint Endpoint | CRDM Entity | L2 Process Area |
+|---|---|---|
+| IM_ITEM (location flags) | Item-location assignment | S.1 (Range definition), S.2 (Display catalog) |
+| Items_ByLocation | Location-item catalog | S.1 (Location range audit) |
+| Inventory_ByLocation | SOH by location | S.3 (Space utilization: stock vs. allocated facing) |
+| PS_DOC_LIN | Transaction line detail | S.4 (Sales velocity by display position) |
+| IM_ITEM.ITEM_TYP | Item classification | S.1 (Asset-item exclusion from range, sourced from A) |
+
 ## Executive summary
 
 | Dimension | Count | Source |
@@ -77,13 +87,13 @@ L4 (Implementation detail)      Lives in SDDs + module specs
 
 | ID | L3 process | Substrate | Notes |
 |---|---|---|---|
-| S.1.1 | Full-row enrichment from `GET /Item/{ItemNo}` | `IM_ITEM` master | Called when single-item enrichment needed (price update, attribute change) |
-| S.1.2 | Incremental sync via `GET /Items` | Paginated, category/subcategory-filterable | Items metadata is **cached server-side 24h** — `ServerCache: no-cache` for first poll of each cycle |
-| S.1.3 | Per-location item enrichment via `GET /Items/{LocId}` | Per-`LocId` view | Cross-cuts D (per-location inventory); same item can have per-location flags |
-| S.1.4 | Item image references via `GET /Item/{ItemNo}/Images` | Filename list | Image binaries fetched on-demand via `GET /Item/Images/{Filename}` — never bulk-cached |
-| S.1.5 | Serial number tracking via `GET /Item/{ItemNo}/Serial/{SerialNo}` | `SN_SER` lookup | Per-serial metadata; substrate for high-fashion / asset-tracking patterns (less relevant for L&G) |
-| S.1.6 | Per-location serial enumeration | `GET /Item/{ItemNo}/Serials/Location/{LocId}` | Active serials at a location; cross-cuts D |
-| S.1.7 | Vendor-item linkage via `GET /VendorItem/{VendorNo}/Item/{ItemNo}` | `IM_VEND_ITEM` | Substrate for J's vendor-master + supplier-scorecard |
+| S.1.1 | Full-row enrichment from `GET /Item/{ItemNo}` | `IM_ITEM` master | Called when single-item enrichment needed (price update, attribute change) → TBD: L4 implementation detail pending |
+| S.1.2 | Incremental sync via `GET /Items` | Paginated, category/subcategory-filterable | Items metadata is **cached server-side 24h** — `ServerCache: no-cache` for first poll of each cycle → TBD: L4 implementation detail pending |
+| S.1.3 | Per-location item enrichment via `GET /Items/{LocId}` | Per-`LocId` view | Cross-cuts D (per-location inventory); same item can have per-location flags → TBD: L4 implementation detail pending |
+| S.1.4 | Item image references via `GET /Item/{ItemNo}/Images` | Filename list | Image binaries fetched on-demand via `GET /Item/Images/{Filename}` — never bulk-cached → TBD: L4 implementation detail pending |
+| S.1.5 | Serial number tracking via `GET /Item/{ItemNo}/Serial/{SerialNo}` | `SN_SER` lookup | Per-serial metadata; substrate for high-fashion / asset-tracking patterns (less relevant for L&G) → TBD: L4 implementation detail pending |
+| S.1.6 | Per-location serial enumeration | `GET /Item/{ItemNo}/Serials/Location/{LocId}` | Active serials at a location; cross-cuts D → TBD: L4 implementation detail pending |
+| S.1.7 | Vendor-item linkage via `GET /VendorItem/{VendorNo}/Item/{ItemNo}` | `IM_VEND_ITEM` | Substrate for J's vendor-master + supplier-scorecard → TBD: L4 implementation detail pending |
 
 ### User stories
 
@@ -102,12 +112,12 @@ L4 (Implementation detail)      Lives in SDDs + module specs
 
 | ID | L3 process | Substrate | Notes |
 |---|---|---|---|
-| S.2.1 | Category hierarchy ingestion | `GET /ItemCategories` | Hierarchical list; cached 24h |
-| S.2.2 | Per-category detail enrichment | `GET /ItemCategory/{CategoryCode}` | Includes `MIN_PFT_PCT` + `TRGT_PFT_PCT` per category |
-| S.2.3 | Category-margin-target surfacing to Q | Direct surface on every item join | Q-ME-01 substrate (below-category-target margin detection) |
-| S.2.4 | Category-history-of-assignment tracking | Effective-dated category assignments per item | Plan-vs-actual comparisons cross hierarchy reorganizations cleanly (per J.1.5) |
-| S.2.5 | Subcategory rollup | `IM_ITEM.SUBCAT_COD` to category | Hierarchy traversal for analytics + dashboard rollups |
-| S.2.6 | Per-category assortment plan substrate | Reads cross-cut with P (which categories carry seasonal plans) | Substrate for P; not authored by S |
+| S.2.1 | Category hierarchy ingestion | `GET /ItemCategories` | Hierarchical list; cached 24h → TBD: L4 implementation detail pending |
+| S.2.2 | Per-category detail enrichment | `GET /ItemCategory/{CategoryCode}` | Includes `MIN_PFT_PCT` + `TRGT_PFT_PCT` per category → TBD: L4 implementation detail pending |
+| S.2.3 | Category-margin-target surfacing to Q | Direct surface on every item join | Q-ME-01 substrate (below-category-target margin detection) → TBD: L4 implementation detail pending |
+| S.2.4 | Category-history-of-assignment tracking | Effective-dated category assignments per item | Plan-vs-actual comparisons cross hierarchy reorganizations cleanly (per J.1.5) → TBD: L4 implementation detail pending |
+| S.2.5 | Subcategory rollup | `IM_ITEM.SUBCAT_COD` to category | Hierarchy traversal for analytics + dashboard rollups → TBD: L4 implementation detail pending |
+| S.2.6 | Per-category assortment plan substrate | Reads cross-cut with P (which categories carry seasonal plans) | Substrate for P; not authored by S → TBD: L4 implementation detail pending |
 
 ### User stories
 
@@ -126,11 +136,11 @@ L4 (Implementation detail)      Lives in SDDs + module specs
 
 | ID | L3 process | Substrate | Notes |
 |---|---|---|---|
-| S.3.1 | Item-side mix-and-match group identification | `IM_ITEM.MIX_MATCH_COD` | Membership in a bundle group; same code across items in the group |
-| S.3.2 | Bundle pricing rule surfacing | Where the bundle price lives (likely separate config; **ASSUMPTION-S-04**) | Per-bundle target price and qualification rules |
-| S.3.3 | Per-line bundle attribution at sale time | Cross-cut with T — `PS_DOC_LIN.MIX_MATCH_COD` + `MIX_MATCH_CONTRIB` + `MIX_MATCH_PRC_BASED_ON` | T flattens these per line; S provides the group context for interpretation |
-| S.3.4 | Bundle integrity audit | Cross-cut with Q — Q-MM-02 detects mix-match code on a line whose item isn't in the group | S supplies the group-membership check |
-| S.3.5 | Bundle-margin computation | Per-bundle realized vs target | Substrate for Q-MM-01 (bundle producing below-cost line — flag at bundle level not line level) |
+| S.3.1 | Item-side mix-and-match group identification | `IM_ITEM.MIX_MATCH_COD` | Membership in a bundle group; same code across items in the group → TBD: L4 implementation detail pending |
+| S.3.2 | Bundle pricing rule surfacing | Where the bundle price lives (likely separate config; **ASSUMPTION-S-04**) | Per-bundle target price and qualification rules → TBD: L4 implementation detail pending |
+| S.3.3 | Per-line bundle attribution at sale time | Cross-cut with T — `PS_DOC_LIN.MIX_MATCH_COD` + `MIX_MATCH_CONTRIB` + `MIX_MATCH_PRC_BASED_ON` | T flattens these per line; S provides the group context for interpretation → TBD: L4 implementation detail pending |
+| S.3.4 | Bundle integrity audit | Cross-cut with Q — Q-MM-02 detects mix-match code on a line whose item isn't in the group | S supplies the group-membership check → TBD: L4 implementation detail pending |
+| S.3.5 | Bundle-margin computation | Per-bundle realized vs target | Substrate for Q-MM-01 (bundle producing below-cost line — flag at bundle level not line level) → TBD: L4 implementation detail pending |
 
 ### User stories
 
@@ -149,11 +159,11 @@ L4 (Implementation detail)      Lives in SDDs + module specs
 
 | ID | L3 process | Substrate | Notes |
 |---|---|---|---|
-| S.4.1 | Preferred unit identification | `IM_ITEM.PREF_UNIT_NUMER/DENOM/NAM` | The buyer-set "default" unit for sale (e.g., "single plant" vs "flat of 18") |
-| S.4.2 | Stock unit identification | `IM_ITEM.STK_UNIT` | The unit inventory is counted in (typically the larger/parent unit) |
-| S.4.3 | Per-line fractional quantity surfacing | Cross-cut with T — `PS_DOC_LIN.QTY_NUMER/QTY_DENOM/QTY_UNIT/SELL_UNIT` | T flattens fractional quantities; S provides the unit-conversion context |
-| S.4.4 | Inventory deduction at fractional scale | Cross-cut with D — selling 1/18th of a flat decrements 1/18th of a stock unit | D handles the math; S provides the conversion factor |
-| S.4.5 | Fractional-unit-aware analytics | Aggregate sales + margin computed in stock-unit-equivalents | Owl queries return consistent units for cross-item rollups |
+| S.4.1 | Preferred unit identification | `IM_ITEM.PREF_UNIT_NUMER/DENOM/NAM` | The buyer-set "default" unit for sale (e.g., "single plant" vs "flat of 18") → TBD: L4 implementation detail pending |
+| S.4.2 | Stock unit identification | `IM_ITEM.STK_UNIT` | The unit inventory is counted in (typically the larger/parent unit) → TBD: L4 implementation detail pending |
+| S.4.3 | Per-line fractional quantity surfacing | Cross-cut with T — `PS_DOC_LIN.QTY_NUMER/QTY_DENOM/QTY_UNIT/SELL_UNIT` | T flattens fractional quantities; S provides the unit-conversion context → TBD: L4 implementation detail pending |
+| S.4.4 | Inventory deduction at fractional scale | Cross-cut with D — selling 1/18th of a flat decrements 1/18th of a stock unit | D handles the math; S provides the conversion factor → TBD: L4 implementation detail pending |
+| S.4.5 | Fractional-unit-aware analytics | Aggregate sales + margin computed in stock-unit-equivalents | Owl queries return consistent units for cross-item rollups → TBD: L4 implementation detail pending |
 
 ### User stories
 
@@ -171,12 +181,12 @@ L4 (Implementation detail)      Lives in SDDs + module specs
 
 | ID | L3 process | Substrate | Notes |
 |---|---|---|---|
-| S.5.1 | Item status surfacing | `IM_ITEM.STAT` (active / discontinued / etc.) | Substrate for end-of-life clearance recognition + retired-item filtering |
-| S.5.2 | Multi-name field surfacing | `IM_ITEM.ADDL_DESCR_1/2/3` + `ATTR_COD_1/2` | Convention-dependent (**ASSUMPTION-S-07**); per-customer mapping captured at onboarding |
-| S.5.3 | Item-code drift handling | Same plant under multiple `ITEM_NO`s across intakes | S surfaces drift-tolerance metadata; downstream rules apply tolerance bands (per garden-center allow-list framework) |
-| S.5.4 | Mid-season catalog addition | New `ITEM_NO` appears between full poll cycles | S's incremental poll picks up new items via `RS_UTC_DT` filter; like-item forecasting (J.1.6) bridges the no-history gap |
-| S.5.5 | Retired-item handling | `STAT='D'` discontinued | Soft-retire in CRDM; preserve historical references; exclude from future replenishment recommendations |
-| S.5.6 | Manual-entry-error tolerance | Hand-typed item creation by buyers at intake | Flag-and-ingest, not reject — per garden-center wiki posture |
+| S.5.1 | Item status surfacing | `IM_ITEM.STAT` (active / discontinued / etc.) | Substrate for end-of-life clearance recognition + retired-item filtering → TBD: L4 implementation detail pending |
+| S.5.2 | Multi-name field surfacing | `IM_ITEM.ADDL_DESCR_1/2/3` + `ATTR_COD_1/2` | Convention-dependent (**ASSUMPTION-S-07**); per-customer mapping captured at onboarding → TBD: L4 implementation detail pending |
+| S.5.3 | Item-code drift handling | Same plant under multiple `ITEM_NO`s across intakes | S surfaces drift-tolerance metadata; downstream rules apply tolerance bands (per garden-center allow-list framework) → TBD: L4 implementation detail pending |
+| S.5.4 | Mid-season catalog addition | New `ITEM_NO` appears between full poll cycles | S's incremental poll picks up new items via `RS_UTC_DT` filter; like-item forecasting (J.1.6) bridges the no-history gap → TBD: L4 implementation detail pending |
+| S.5.5 | Retired-item handling | `STAT='D'` discontinued | Soft-retire in CRDM; preserve historical references; exclude from future replenishment recommendations → TBD: L4 implementation detail pending |
+| S.5.6 | Manual-entry-error tolerance | Hand-typed item creation by buyers at intake | Flag-and-ingest, not reject — per garden-center wiki posture → TBD: L4 implementation detail pending |
 
 ### User stories
 
@@ -195,12 +205,12 @@ L4 (Implementation detail)      Lives in SDDs + module specs
 
 | ID | L3 process | Substrate | Notes |
 |---|---|---|---|
-| S.6.1 | eCommerce control read at tenant bootstrap | `GET /EC` | EC_CTL config; cached 24h |
-| S.6.2 | eCommerce category hierarchy ingestion | `GET /ECCategories` | EC_CATEG; parallel to Item categories (may share or diverge per tenant) |
-| S.6.3 | Per-item EC flag surfacing | `IM_ITEM.IS_ECOMM_ITEM`, `ECOMM_LST_PUB_STAT`, `ECOMM_TXBL_*`, `ECOMM_NEW`, `ECOMM_ON_SPECL`, `ECOMM_CHRG_FRT`, `ECOMM_DISC_ON_SAL`, `ECOMM_ITEM_IS_DISCNTBL` | The full EC field set per item |
-| S.6.4 | EC-inventory snapshot | `GET /Inventory/EC` | Separate from physical-store inventory state (held-for-fulfillment subset) |
-| S.6.5 | HTML description surfacing | `EC_ITEM_DESCR.HTML_DESCR` | Storefront display content; S surfaces, doesn't curate |
-| S.6.6 | EC publish-state-machine tracking | `ECOMM_NXT_PUB_UPDT` / `ECOMM_NXT_PUB_FULL` / `ECOMM_LST_IMP_TYP` | Substrate for monitoring sync failure (which Q.eCommerce-monitoring rules consume) |
+| S.6.1 | eCommerce control read at tenant bootstrap | `GET /EC` | EC_CTL config; cached 24h → TBD: L4 implementation detail pending |
+| S.6.2 | eCommerce category hierarchy ingestion | `GET /ECCategories` | EC_CATEG; parallel to Item categories (may share or diverge per tenant) → TBD: L4 implementation detail pending |
+| S.6.3 | Per-item EC flag surfacing | `IM_ITEM.IS_ECOMM_ITEM`, `ECOMM_LST_PUB_STAT`, `ECOMM_TXBL_*`, `ECOMM_NEW`, `ECOMM_ON_SPECL`, `ECOMM_CHRG_FRT`, `ECOMM_DISC_ON_SAL`, `ECOMM_ITEM_IS_DISCNTBL` | The full EC field set per item → TBD: L4 implementation detail pending |
+| S.6.4 | EC-inventory snapshot | `GET /Inventory/EC` | Separate from physical-store inventory state (held-for-fulfillment subset) → TBD: L4 implementation detail pending |
+| S.6.5 | HTML description surfacing | `EC_ITEM_DESCR.HTML_DESCR` | Storefront display content; S surfaces, doesn't curate → TBD: L4 implementation detail pending |
+| S.6.6 | EC publish-state-machine tracking | `ECOMM_NXT_PUB_UPDT` / `ECOMM_NXT_PUB_FULL` / `ECOMM_LST_IMP_TYP` | Substrate for monitoring sync failure (which Q.eCommerce-monitoring rules consume) → TBD: L4 implementation detail pending |
 
 ### User stories
 
@@ -216,23 +226,35 @@ L4 (Implementation detail)      Lives in SDDs + module specs
 
 | ID | Contract | Owner downstream | What S promises |
 |---|---|---|---|
-| S.7.1 | `IM_ITEM` field-set preservation | T (item-ref join), Q (margin context), J (forecast context) | Every Item field surfaced verbatim; no normalization of attribute or descriptor fields |
-| S.7.2 | Category margin targets on every item join | Q (Q-ME-01) | `MIN_PFT_PCT` + `TRGT_PFT_PCT` joined to every transaction line at parse time |
-| S.7.3 | Mix-and-match group identity | Q (Q-MM-01, Q-MM-02), P (bundle pricing observations) | `MIX_MATCH_COD` exposed per item; bundle-membership table queryable |
-| S.7.4 | Fractional unit conversion factors | T (line surface), D (inventory deduction), Owl (analytics rollup) | `STK_UNIT`, `PREF_UNIT_NUMER/DENOM/NAM` available per item |
-| S.7.5 | Multi-name field convention per tenant | Owl (multi-language search), C (B2B catalog views) | Per-tenant convention captured at onboarding; surfaced via metadata table |
-| S.7.6 | Item lifecycle signals | J (replenishment exclusion for retired), Q (drift-tolerance in margin rules) | `STAT` + drift-suspicion flag |
-| S.7.7 | EC publish state | Q (sync-monitoring), Owl (omnichannel performance queries) | Per-item EC flag set + state-machine values surfaced |
-| S.7.8 | Vendor-item linkage | J (supplier scorecard) | `IM_VEND_ITEM` available without re-call to Counterpoint |
-| S.7.9 | Per-location item attribution | D (per-location inventory), J (per-location forecast) | `Items_ByLocation` materialized into CRDM, not re-fetched per query |
-| S.7.10 | Category-history-of-assignment | J (plan-vs-actual across hierarchy reorgs), P (seasonal-plan continuity) | Effective-dated category assignments per item |
-| S.7.11 | Cache-discipline metadata | All | `last_polled_at` per item-cache entity so consumers can suppress stale-substrate alerts (mirrors Q.1 freshness contract) |
+| S.7.1 | `IM_ITEM` field-set preservation | T (item-ref join), Q (margin context), J (forecast context) | Every Item field surfaced verbatim; no normalization of attribute or descriptor fields → TBD: L4 implementation detail pending |
+| S.7.2 | Category margin targets on every item join | Q (Q-ME-01) | `MIN_PFT_PCT` + `TRGT_PFT_PCT` joined to every transaction line at parse time → TBD: L4 implementation detail pending |
+| S.7.3 | Mix-and-match group identity | Q (Q-MM-01, Q-MM-02), P (bundle pricing observations) | `MIX_MATCH_COD` exposed per item; bundle-membership table queryable → TBD: L4 implementation detail pending |
+| S.7.4 | Fractional unit conversion factors | T (line surface), D (inventory deduction), Owl (analytics rollup) | `STK_UNIT`, `PREF_UNIT_NUMER/DENOM/NAM` available per item → TBD: L4 implementation detail pending |
+| S.7.5 | Multi-name field convention per tenant | Owl (multi-language search), C (B2B catalog views) | Per-tenant convention captured at onboarding; surfaced via metadata table → TBD: L4 implementation detail pending |
+| S.7.6 | Item lifecycle signals | J (replenishment exclusion for retired), Q (drift-tolerance in margin rules) | `STAT` + drift-suspicion flag → TBD: L4 implementation detail pending |
+| S.7.7 | EC publish state | Q (sync-monitoring), Owl (omnichannel performance queries) | Per-item EC flag set + state-machine values surfaced → TBD: L4 implementation detail pending |
+| S.7.8 | Vendor-item linkage | J (supplier scorecard) | `IM_VEND_ITEM` available without re-call to Counterpoint → TBD: L4 implementation detail pending |
+| S.7.9 | Per-location item attribution | D (per-location inventory), J (per-location forecast) | `Items_ByLocation` materialized into CRDM, not re-fetched per query → TBD: L4 implementation detail pending |
+| S.7.10 | Category-history-of-assignment | J (plan-vs-actual across hierarchy reorgs), P (seasonal-plan continuity) | Effective-dated category assignments per item → TBD: L4 implementation detail pending |
+| S.7.11 | Cache-discipline metadata | All | `last_polled_at` per item-cache entity so consumers can suppress stale-substrate alerts (mirrors Q.1 freshness contract) → TBD: L4 implementation detail pending |
 
 ### User stories
 
 - *As S, I want every contract in S.7 enforced via the contract test suite — adding a third POS adapter requires it to surface every S.7 field or it doesn't pass conformance.*
 - *As Q, I want to assert at boot that S surfaces all contracted fields including `MIN_PFT_PCT` and mix-and-match group identity, so a silent S contract break shows up at startup not at first detection-miss.*
 - *As J, I want vendor-item linkage on every item record so my recommendation generation never blocks waiting for a separate VendorItem call.*
+
+## Canary Detection Hooks
+
+| S Process | → Detection Surface | Signal Description |
+|---|---|---|
+| S.3 (Space utilization anomaly) | Q-IS rule family | Persistent out-of-stock in a planogram position (SKU allocated but zero SOH) is an accumulation signal for Q-IS shrink investigation |
+| S.4 (Sales velocity by display) | Q-DM rule family | Unexpected velocity spikes in a specific display position (e.g., end-cap) not correlated with a promotion feed Q-DM-03 discount/manipulation detection |
+| S.5.2 (Owl eCommerce integration) | Owl investigator surface | S.5.2 data surfaces in Owl's eCommerce investigation view. Explicitly: S feeds Owl's range-vs-online-availability display (investigator-surface L2), not a Chirp rule input |
+
+## Additional User Stories
+
+- *As a loss prevention analyst using Owl, I need to see which planogram positions are chronically out-of-stock relative to online availability so I can identify potential diversion at the display level.*
 
 ## Assumptions requiring real-customer validation
 

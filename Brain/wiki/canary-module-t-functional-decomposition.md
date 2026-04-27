@@ -31,6 +31,17 @@ For a Counterpoint-shaped tenant, T's functional surface is dominated by **two a
 
 T is **● Full direct** in every Counterpoint Solution Map cell, but the cell hides real architectural difficulty: poll cadence discipline, type-routing on `DOC_TYP`, watermark management per `(tenant, entity)`, multi-company-per-tenant identity, and the Document-omnibus pattern that lights up D and J modules from the same poll loop that lights up T.
 
+## Counterpoint Endpoint Substrate
+
+| Counterpoint Endpoint | CRDM Entity | L2 Process Area |
+|---|---|---|
+| PS_DOC_HDR | Transaction header | T.1 (Document ingestion), T.2 (Document type routing) |
+| PS_DOC_LIN | Transaction line | T.1 (Line-item ingestion), T.3 (Tender decomposition) |
+| PS_DOC_LIN_PRICE | Line price | T.3 (Price-realized capture — sourced to P) |
+| PS_DOC_PMT | Payment records | T.4 (Tender capture — sourced to F) |
+| Events.transactions | Transaction event stream | T.1 (EJ spine ingestion — see canary-ej-spine-and-sales-audit) |
+| Store/{StoreId}/Transactions | Store transaction list | T.1 (Polling substrate) |
+
 ## Executive summary
 
 | Dimension | Count | Source |
@@ -77,16 +88,16 @@ L4 (Implementation detail)      Lives in SDDs + module specs
 
 | ID | L3 process | Provider scope | Notes |
 |---|---|---|---|
-| T.1.1 | Webhook receipt + HMAC validation | Square | Existing; signature key per merchant rotated at onboarding |
-| T.1.2 | Webhook idempotency check | Square | Valkey DB 3 dedupe by `(merchant_id, source_event_id)`, 24h TTL |
-| T.1.3 | Poll worker per `(tenant, entity_type)` | Counterpoint (today); future Aloha | Reads adapter's `poll_intervals()`; respects per-entity cadence |
-| T.1.4 | Watermark management per poll cursor | Counterpoint | Stored as `(tenant_id, company_alias, entity_type) → last_RS_UTC_DT`; advances on successful page consume |
-| T.1.5 | Poll authentication injection | Counterpoint | HTTP Basic `<CompanyAlias>.<UserName>:password` + APIKey header per request; credentials read from `pos_tenant_credentials` |
-| T.1.6 | Multi-company-per-tenant routing | Counterpoint | Single Canary tenant may have N Counterpoint companies; poll loop iterates over all `company_alias` per tenant |
-| T.1.7 | Server-cache discipline | Counterpoint | `ServerCache: no-cache` for first poll of each cycle on cached entities; never on Documents (transactional, uncached server-side) |
-| T.1.8 | Rate-limit / 429 backoff | Counterpoint | Exponential backoff; per-tenant poll budget |
-| T.1.9 | On-prem reachability handling | Counterpoint | Customer's API server may be on-prem with no public IP; fall back to customer-side agent or document the constraint at onboarding |
-| T.1.10 | Backfill ingress (one-shot) | All | At tenant install, walk the relevant entity surface from epoch via paginated GET; same downstream pipeline; tag rows `source_type=BATCH` |
+| T.1.1 | Webhook receipt + HMAC validation | Square | Existing; signature key per merchant rotated at onboarding → TBD: L4 implementation detail pending |
+| T.1.2 | Webhook idempotency check | Square | Valkey DB 3 dedupe by `(merchant_id, source_event_id)`, 24h TTL → TBD: L4 implementation detail pending |
+| T.1.3 | Poll worker per `(tenant, entity_type)` | Counterpoint (today); future Aloha | Reads adapter's `poll_intervals()`; respects per-entity cadence → TBD: L4 implementation detail pending |
+| T.1.4 | Watermark management per poll cursor | Counterpoint | Stored as `(tenant_id, company_alias, entity_type) → last_RS_UTC_DT`; advances on successful page consume → TBD: L4 implementation detail pending |
+| T.1.5 | Poll authentication injection | Counterpoint | HTTP Basic `<CompanyAlias>.<UserName>:password` + APIKey header per request; credentials read from `pos_tenant_credentials` → TBD: L4 implementation detail pending |
+| T.1.6 | Multi-company-per-tenant routing | Counterpoint | Single Canary tenant may have N Counterpoint companies; poll loop iterates over all `company_alias` per tenant → TBD: L4 implementation detail pending |
+| T.1.7 | Server-cache discipline | Counterpoint | `ServerCache: no-cache` for first poll of each cycle on cached entities; never on Documents (transactional, uncached server-side) → TBD: L4 implementation detail pending |
+| T.1.8 | Rate-limit / 429 backoff | Counterpoint | Exponential backoff; per-tenant poll budget → TBD: L4 implementation detail pending |
+| T.1.9 | On-prem reachability handling | Counterpoint | Customer's API server may be on-prem with no public IP; fall back to customer-side agent or document the constraint at onboarding → TBD: L4 implementation detail pending |
+| T.1.10 | Backfill ingress (one-shot) | All | At tenant install, walk the relevant entity surface from epoch via paginated GET; same downstream pipeline; tag rows `source_type=BATCH` → TBD: L4 implementation detail pending |
 
 ### User stories
 
@@ -106,12 +117,12 @@ L4 (Implementation detail)      Lives in SDDs + module specs
 
 | ID | L3 process | Notes |
 |---|---|---|
-| T.2.1 | Raw-bytes hash | SHA-256 over the unparsed payload as it crossed the ingress boundary |
-| T.2.2 | Per-tenant chain hash | `SHA-256(previous_chain_hash || event_hash)`; serialized via `pg_advisory_xact_lock(merchant_id)` |
-| T.2.3 | Evidence record write | `evidence_records` row with provider, tenant, raw bytes, hash, chain hash, ingest timestamp |
-| T.2.4 | Per-event ingestion-log lifecycle | `ingestion_log` tracks received → sealed → parsed → published → completed/failed transitions |
-| T.2.5 | Source-type marker | Every evidence row carries `source_type ∈ {WEBHOOK, POLLING, BATCH}` so downstream can disambiguate without inspecting bytes |
-| T.2.6 | Provider marker | Every evidence row carries `provider ∈ {square, counterpoint, ...}` — the substrate-decoupling load-bearing field |
+| T.2.1 | Raw-bytes hash | SHA-256 over the unparsed payload as it crossed the ingress boundary → TBD: L4 implementation detail pending |
+| T.2.2 | Per-tenant chain hash | `SHA-256(previous_chain_hash || event_hash)`; serialized via `pg_advisory_xact_lock(merchant_id)` → TBD: L4 implementation detail pending |
+| T.2.3 | Evidence record write | `evidence_records` row with provider, tenant, raw bytes, hash, chain hash, ingest timestamp → TBD: L4 implementation detail pending |
+| T.2.4 | Per-event ingestion-log lifecycle | `ingestion_log` tracks received → sealed → parsed → published → completed/failed transitions → TBD: L4 implementation detail pending |
+| T.2.5 | Source-type marker | Every evidence row carries `source_type ∈ {WEBHOOK, POLLING, BATCH}` so downstream can disambiguate without inspecting bytes → TBD: L4 implementation detail pending |
+| T.2.6 | Provider marker | Every evidence row carries `provider ∈ {square, counterpoint, ...}` — the substrate-decoupling load-bearing field → TBD: L4 implementation detail pending |
 
 ### User stories
 
@@ -129,18 +140,18 @@ L4 (Implementation detail)      Lives in SDDs + module specs
 
 | ID | L3 process | Provider scope | Notes |
 |---|---|---|---|
-| T.3.1 | Provider/source-code dispatch | All | `webhook_dispatch.py` and `tsp/consumers/sub2_parse.py` lookup by `(provider, event_type/entity_type)` |
-| T.3.2 | Document type-routing on `DOC_TYP` | Counterpoint | T-routes to `transaction.created`; XFER → `transfer.created` (D); PO/PREQ/RECVR/RTV → J events; GFC → `gift_card.activity` (F) |
-| T.3.3 | Document line flattening | Counterpoint | `PS_DOC_LIN[]` → `Events.transaction_lines` rows; per-line `LIN_TYP` (S/R/O/B/L/etc.) preserved |
-| T.3.4 | Document payment flattening | Counterpoint | `PS_DOC_PMT[]` → `Events.payments`; PII-sensitive fields (`SIG_IMG`, `SIG_IMG_VECTOR`) **redacted at parser, never persisted** |
-| T.3.5 | Document tax flattening | Counterpoint | `PS_DOC_TAX[]` → `Events.transaction_taxes`; multi-authority preserved (city + county + state stack) |
-| T.3.6 | Document audit-log flattening | Counterpoint | `PS_DOC_AUDIT_LOG[]` → `Events.audit_log_entries`; **`ACTIV` and `LOG_ENTRY` preserved verbatim** for Q rule pattern-matching |
-| T.3.7 | Pricing-decision flattening | Counterpoint | `PS_DOC_LIN_PRICE[]` → `Events.pricing_decisions`; per-line pricing rule applied (Q + P-derived substrate) |
-| T.3.8 | Original-document reference resolution | Counterpoint | `PS_DOC_HDR_ORIG_DOC[]` → `Events.original_doc_refs`; links return → original sale, void → original sale |
-| T.3.9 | Square-shaped legacy parsing | Square | 16 existing parser modules; refactored into `services/pos/square/parsers/` per Cycle 7; behavior unchanged |
-| T.3.10 | Idempotency on parse | All | Keyed on `(provider, tenant, external_id)`; parsing the same sealed event twice produces the same canonical rows |
-| T.3.11 | Parse-failure quarantine | All | Failed parses do NOT block the seal chain; logged + dead-lettered for inspection; re-runnable via Replay-tool |
-| T.3.12 | Schema-drift fingerprinting | All | Per-source `SchemaFingerprint`; Counterpoint payloads compute against Counterpoint baseline, never Square — fixes the L3B-04 cross-provider drift-alert bug |
+| T.3.1 | Provider/source-code dispatch | All | `webhook_dispatch.py` and `tsp/consumers/sub2_parse.py` lookup by `(provider, event_type/entity_type)` → TBD: L4 implementation detail pending |
+| T.3.2 | Document type-routing on `DOC_TYP` | Counterpoint | T-routes to `transaction.created`; XFER → `transfer.created` (D); PO/PREQ/RECVR/RTV → J events; GFC → `gift_card.activity` (F) → TBD: L4 implementation detail pending |
+| T.3.3 | Document line flattening | Counterpoint | `PS_DOC_LIN[]` → `Events.transaction_lines` rows; per-line `LIN_TYP` (S/R/O/B/L/etc.) preserved → TBD: L4 implementation detail pending |
+| T.3.4 | Document payment flattening | Counterpoint | `PS_DOC_PMT[]` → `Events.payments`; PII-sensitive fields (`SIG_IMG`, `SIG_IMG_VECTOR`) **redacted at parser, never persisted** → TBD: L4 implementation detail pending |
+| T.3.5 | Document tax flattening | Counterpoint | `PS_DOC_TAX[]` → `Events.transaction_taxes`; multi-authority preserved (city + county + state stack) → TBD: L4 implementation detail pending |
+| T.3.6 | Document audit-log flattening | Counterpoint | `PS_DOC_AUDIT_LOG[]` → `Events.audit_log_entries`; **`ACTIV` and `LOG_ENTRY` preserved verbatim** for Q rule pattern-matching → TBD: L4 implementation detail pending |
+| T.3.7 | Pricing-decision flattening | Counterpoint | `PS_DOC_LIN_PRICE[]` → `Events.pricing_decisions`; per-line pricing rule applied (Q + P-derived substrate) → TBD: L4 implementation detail pending |
+| T.3.8 | Original-document reference resolution | Counterpoint | `PS_DOC_HDR_ORIG_DOC[]` → `Events.original_doc_refs`; links return → original sale, void → original sale → TBD: L4 implementation detail pending |
+| T.3.9 | Square-shaped legacy parsing | Square | 16 existing parser modules; refactored into `services/pos/square/parsers/` per Cycle 7; behavior unchanged → TBD: L4 implementation detail pending |
+| T.3.10 | Idempotency on parse | All | Keyed on `(provider, tenant, external_id)`; parsing the same sealed event twice produces the same canonical rows → TBD: L4 implementation detail pending |
+| T.3.11 | Parse-failure quarantine | All | Failed parses do NOT block the seal chain; logged + dead-lettered for inspection; re-runnable via Replay-tool → TBD: L4 implementation detail pending |
+| T.3.12 | Schema-drift fingerprinting | All | Per-source `SchemaFingerprint`; Counterpoint payloads compute against Counterpoint baseline, never Square — fixes the L3B-04 cross-provider drift-alert bug → TBD: L4 implementation detail pending |
 
 ### User stories
 
@@ -158,14 +169,14 @@ L4 (Implementation detail)      Lives in SDDs + module specs
 
 | ID | L3 process | Consumer module | Notes |
 |---|---|---|---|
-| T.4.1 | Publish to `canary:detection` stream | Q | Every transaction-related CanonicalEvent; Q's chirp engine subscribes |
-| T.4.2 | Publish to R-relevant subscribers | R | New customer references trigger upserts; transaction velocity feeds R's projections |
-| T.4.3 | Publish device telemetry to N | N | Per-`STR_ID/STA_ID/DRW_ID` telemetry; drawer-session correlation substrate |
-| T.4.4 | Publish line items to S consumers | S | Item identity references; sales velocity feeds S projections |
-| T.4.5 | Publish tender + tax to F consumers | F | Per-Document tender mix and per-authority tax detail |
-| T.4.6 | Publish transfer events to D | D | DOC_TYP=XFER routes here; source/dest store reconciliation |
-| T.4.7 | Publish PO/RECVR/RTV events to J | J | DOC_TYP=PO/PREQ/RECVR/RTV routes here; vendor reconciliation substrate |
-| T.4.8 | Per-consumer subscription ack tracking | All | Confirm each consumer processed; expose lag per consumer |
+| T.4.1 | Publish to `canary:detection` stream | Q | Every transaction-related CanonicalEvent; Q's chirp engine subscribes → TBD: L4 implementation detail pending |
+| T.4.2 | Publish to R-relevant subscribers | R | New customer references trigger upserts; transaction velocity feeds R's projections → TBD: L4 implementation detail pending |
+| T.4.3 | Publish device telemetry to N | N | Per-`STR_ID/STA_ID/DRW_ID` telemetry; drawer-session correlation substrate → TBD: L4 implementation detail pending |
+| T.4.4 | Publish line items to S consumers | S | Item identity references; sales velocity feeds S projections → TBD: L4 implementation detail pending |
+| T.4.5 | Publish tender + tax to F consumers | F | Per-Document tender mix and per-authority tax detail → TBD: L4 implementation detail pending |
+| T.4.6 | Publish transfer events to D | D | DOC_TYP=XFER routes here; source/dest store reconciliation → TBD: L4 implementation detail pending |
+| T.4.7 | Publish PO/RECVR/RTV events to J | J | DOC_TYP=PO/PREQ/RECVR/RTV routes here; vendor reconciliation substrate → TBD: L4 implementation detail pending |
+| T.4.8 | Per-consumer subscription ack tracking | All | Confirm each consumer processed; expose lag per consumer → TBD: L4 implementation detail pending |
 
 ### User stories
 
@@ -182,12 +193,12 @@ L4 (Implementation detail)      Lives in SDDs + module specs
 
 | ID | L3 process | Notes |
 |---|---|---|
-| T.5.1 | Inscription pool accumulation | Sealed event hashes accumulate in `inscription_pool` per tenant per cadence window |
-| T.5.2 | Merkle tree construction | Deterministic tree over the pool window; root is the anchor commitment |
-| T.5.3 | Per-event inclusion proof | `event_inscriptions` rows carry the path from event hash to root for each batched event |
-| T.5.4 | Anchor handoff (mock today) | v1: mock anchor with deterministic-but-fake commitment; v2: Bitcoin ordinal inscription |
-| T.5.5 | Cadence policy | Per-tenant or platform-wide; needs commitment (per-batch / per-day / per-100k-events) |
-| T.5.6 | Proof retrieval surface | Operator can fetch per-event inclusion proof and verify against anchor |
+| T.5.1 | Inscription pool accumulation | Sealed event hashes accumulate in `inscription_pool` per tenant per cadence window → TBD: L4 implementation detail pending |
+| T.5.2 | Merkle tree construction | Deterministic tree over the pool window; root is the anchor commitment → TBD: L4 implementation detail pending |
+| T.5.3 | Per-event inclusion proof | `event_inscriptions` rows carry the path from event hash to root for each batched event → TBD: L4 implementation detail pending |
+| T.5.4 | Anchor handoff (mock today) | v1: mock anchor with deterministic-but-fake commitment; v2: Bitcoin ordinal inscription → TBD: L4 implementation detail pending |
+| T.5.5 | Cadence policy | Per-tenant or platform-wide; needs commitment (per-batch / per-day / per-100k-events) → TBD: L4 implementation detail pending |
+| T.5.6 | Proof retrieval surface | Operator can fetch per-event inclusion proof and verify against anchor → TBD: L4 implementation detail pending |
 
 ### User stories
 
@@ -203,13 +214,13 @@ L4 (Implementation detail)      Lives in SDDs + module specs
 
 | ID | L3 process | Notes |
 |---|---|---|
-| T.6.1 | Parse-only replay | Re-run T.3 against sealed bytes; does NOT re-seal, does NOT re-anchor |
-| T.6.2 | Per-tenant backfill at install | One-shot historical pull from epoch (or tenant-specified start); same downstream pipeline; `source_type=BATCH` marker |
-| T.6.3 | Backfill SLA per tenant | Published completion target per entity type; 1d for Documents-from-90d-ago is reasonable; longer history = longer SLA |
-| T.6.4 | Idempotency at every stage | T.1 ingress (dedup), T.2 seal (per-event hash idempotent), T.3 parse (per-canonical-row idempotent) |
-| T.6.5 | Retroactive parser-change reclassification handling | When a parser change retroactively changes event type (e.g., `PAID_OUT` → `POST_VOID`), downstream Q rules may double-fire — needs explicit policy |
-| T.6.6 | Per-event reprocess-on-demand | Operator can target a specific `(provider, tenant, external_id)` and force re-parse; useful for one-off bugfix verification |
-| T.6.7 | Backfill progress observability | Per-tenant completion %, per-entity-type, with rate estimate |
+| T.6.1 | Parse-only replay | Re-run T.3 against sealed bytes; does NOT re-seal, does NOT re-anchor → TBD: L4 implementation detail pending |
+| T.6.2 | Per-tenant backfill at install | One-shot historical pull from epoch (or tenant-specified start); same downstream pipeline; `source_type=BATCH` marker → TBD: L4 implementation detail pending |
+| T.6.3 | Backfill SLA per tenant | Published completion target per entity type; 1d for Documents-from-90d-ago is reasonable; longer history = longer SLA → TBD: L4 implementation detail pending |
+| T.6.4 | Idempotency at every stage | T.1 ingress (dedup), T.2 seal (per-event hash idempotent), T.3 parse (per-canonical-row idempotent) → TBD: L4 implementation detail pending |
+| T.6.5 | Retroactive parser-change reclassification handling | When a parser change retroactively changes event type (e.g., `PAID_OUT` → `POST_VOID`), downstream Q rules may double-fire — needs explicit policy → TBD: L4 implementation detail pending |
+| T.6.6 | Per-event reprocess-on-demand | Operator can target a specific `(provider, tenant, external_id)` and force re-parse; useful for one-off bugfix verification → TBD: L4 implementation detail pending |
+| T.6.7 | Backfill progress observability | Per-tenant completion %, per-entity-type, with rate estimate → TBD: L4 implementation detail pending |
 
 ### User stories
 
@@ -227,24 +238,37 @@ L4 (Implementation detail)      Lives in SDDs + module specs
 
 | ID | Contract | Owner downstream | What T promises |
 |---|---|---|---|
-| T.7.1 | Audit-log verbatim preservation | Q (Q.1.5) | `ACTIV` and `LOG_ENTRY` strings preserved exactly — no normalization, no trimming |
-| T.7.2 | Original-doc-ref array always present | Q (Q.2.2) | Empty array means "no link"; missing array means "T didn't populate" — distinguishable |
-| T.7.3 | Pricing-decision per-line snapshot | Q (Q.1.6), P (derived) | `PS_DOC_LIN_PRICE` flattened with `PRC_JUST_STR`, `PRC_RUL_SEQ_NO`, `UNIT_PRC` per line |
-| T.7.4 | Multi-authority tax preservation | Q (Q.2.8), F | `PS_DOC_TAX[]` rows preserved per authority; not summed |
-| T.7.5 | Drawer-session linkage | Q (Q.2.4), N | Every transaction carries `DRW_ID + DRW_SESSION_ID + USR_ID` for drawer-shrinkage rule chains |
-| T.7.6 | DOC_TYP type-routing completeness | D, J, F | Every documented `DOC_TYP` routes to a CanonicalEvent type; unknown DOC_TYP routes to a quarantine event with full payload |
-| T.7.7 | Customer reference upsert | R | Every `CUST_NO` reference triggers an R upsert before the transaction event publishes (or at the same time, with R catching up async per its T-card-defined posture) |
-| T.7.8 | Item reference resolution | S, P-derived | Every `ITEM_NO` on a line carries enough context (category, mix-match group, vendor) for downstream joins without re-hitting Counterpoint |
-| T.7.9 | Substrate freshness signal | Q, every consumer | Every CanonicalEvent carries `polled_at` so consumers can suppress stale-substrate alerts |
-| T.7.10 | PII redaction at parse | All | `SIG_IMG`, `SIG_IMG_VECTOR`, raw PAN, raw CVV — never reach `evidence_records` past the parser; redacted in-flight |
-| T.7.11 | Provider attribution | All | Every CanonicalEvent carries `provider` so consumer-side rule applicability (e.g., Square-only rules vs Counterpoint-only) is enforceable |
-| T.7.12 | Tenant + company alias attribution | All | Every CanonicalEvent carries `(tenant_id, company_alias)` so multi-company-per-tenant Counterpoint deployments don't bleed events across companies |
+| T.7.1 | Audit-log verbatim preservation | Q (Q.1.5) | `ACTIV` and `LOG_ENTRY` strings preserved exactly — no normalization, no trimming → TBD: L4 implementation detail pending |
+| T.7.2 | Original-doc-ref array always present | Q (Q.2.2) | Empty array means "no link"; missing array means "T didn't populate" — distinguishable → TBD: L4 implementation detail pending |
+| T.7.3 | Pricing-decision per-line snapshot | Q (Q.1.6), P (derived) | `PS_DOC_LIN_PRICE` flattened with `PRC_JUST_STR`, `PRC_RUL_SEQ_NO`, `UNIT_PRC` per line → TBD: L4 implementation detail pending |
+| T.7.4 | Multi-authority tax preservation | Q (Q.2.8), F | `PS_DOC_TAX[]` rows preserved per authority; not summed → TBD: L4 implementation detail pending |
+| T.7.5 | Drawer-session linkage | Q (Q.2.4), N | Every transaction carries `DRW_ID + DRW_SESSION_ID + USR_ID` for drawer-shrinkage rule chains → TBD: L4 implementation detail pending |
+| T.7.6 | DOC_TYP type-routing completeness | D, J, F | Every documented `DOC_TYP` routes to a CanonicalEvent type; unknown DOC_TYP routes to a quarantine event with full payload → TBD: L4 implementation detail pending |
+| T.7.7 | Customer reference upsert | R | Every `CUST_NO` reference triggers an R upsert before the transaction event publishes (or at the same time, with R catching up async per its T-card-defined posture) → TBD: L4 implementation detail pending |
+| T.7.8 | Item reference resolution | S, P-derived | Every `ITEM_NO` on a line carries enough context (category, mix-match group, vendor) for downstream joins without re-hitting Counterpoint → TBD: L4 implementation detail pending |
+| T.7.9 | Substrate freshness signal | Q, every consumer | Every CanonicalEvent carries `polled_at` so consumers can suppress stale-substrate alerts → TBD: L4 implementation detail pending |
+| T.7.10 | PII redaction at parse | All | `SIG_IMG`, `SIG_IMG_VECTOR`, raw PAN, raw CVV — never reach `evidence_records` past the parser; redacted in-flight → TBD: L4 implementation detail pending |
+| T.7.11 | Provider attribution | All | Every CanonicalEvent carries `provider` so consumer-side rule applicability (e.g., Square-only rules vs Counterpoint-only) is enforceable → TBD: L4 implementation detail pending |
+| T.7.12 | Tenant + company alias attribution | All | Every CanonicalEvent carries `(tenant_id, company_alias)` so multi-company-per-tenant Counterpoint deployments don't bleed events across companies → TBD: L4 implementation detail pending |
 
 ### User stories
 
 - *As Q, I want to assert at boot that all 12 T.7 contracts hold against the current T deployment, so a silent contract break shows up at startup, not at first detection-miss.*
 - *As R, I want T's contract to upsert a Customer reference before the transaction event publishes — even if the upsert is "shell row, more data coming" — so my projections never reference unknown customers.*
 - *As Canary's Product Owner, I want a contract-test suite (per Cycle 7 §7.3 in the delivery spec) that runs every contract in T.7 against every registered provider's adapter — Square, Counterpoint, future Aloha.*
+
+## Canary Detection Hooks
+
+| T Process | → Detection Surface | Signal Description |
+|---|---|---|
+| T.2 (Document type routing) | All downstream modules | T is the spine — every detection rule in Q, D, F, P, R depends on T's type-routing being correct. T does not itself fire Chirp rules; it is the ingest substrate |
+| T.3 (Tender decomposition) | Q-TM rule family | Tender-mix anomalies detected during T.3 decomposition (e.g., unusual split-tender patterns, voided tenders) are published as Q-TM-01/02 signals |
+| T.4.7 (XFER routing to D) | D detection pipeline | T.4.7 routes XFER-type documents to D's transfer-loss detection pipeline. T is the upstream source; D.3 is the consumer |
+| T.5 (Return/void processing) | Q-IS rule family | Returns and voids routed through T.5 are accumulation inputs for Q-IS-02 (return-fraud pattern) and Q-IS-04 (void accumulation) |
+
+## Additional User Stories
+
+- *As a store manager, I need Canary to correctly ingest and classify transactions captured in offline mode (when the Counterpoint station was disconnected) so that my LP and sales reports are not understated for offline periods.*
 
 ## Assumptions requiring real-customer validation
 

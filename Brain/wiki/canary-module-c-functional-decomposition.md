@@ -48,6 +48,15 @@ The derived-module shape is the load-bearing design constraint. C cannot fire wi
 
 **Posture:** first fully-derived module in this decomposition pass. C contributes no own Counterpoint polling; all substrate comes from R and F. The B2B classification and credit-posture L2s are Canary-native intelligence built on top of R's customer substrate and F's AR ledger. Garden-center vertical context — landscaper tiers, project-PO billing, municipality accounts — shapes every L2.
 
+## Counterpoint Endpoint Substrate
+
+| Counterpoint Endpoint | CRDM Entity | L2 Process Area |
+|---|---|---|
+| AR_CUST | Customer master | C.1 (Classification), C.5 (Credit posture) |
+| Customer_OpenItems | Open AR items | C.2 (Payment velocity), C.3 (AR aging) |
+| AR_CUST_CTL | Credit control | C.1 (Tier derivation), C.5 (Credit limit) |
+| PS_DOC_HDR / PS_DOC_LIN | Transaction history | C.2 (Behavioral pattern routing) |
+
 ## L1 → L2 → L3 framework
 
 ```
@@ -79,12 +88,12 @@ L4 (Implementation detail)      Canary-Retail-Brain/modules/C-commercial.md
 
 | ID | L3 process | Source | Notes |
 |---|---|---|---|
-| C.1.1 | Read `AR_CUST.CATEG_COD` per customer from R's substrate | R's customer publication (R.2) | Account category code; Canary maps customer-configured codes to B2B tier (e.g., "LAND" = landscaper, "WHOLE" = wholesale) |
-| C.1.2 | Read `AR_CUST_CTL` multi-tier pricing flags | R's customer publication | `AR_CUST_CTL` controls which price tier the customer accesses (Price 1/2/3); tier access is the strongest B2B signal in Counterpoint |
-| C.1.3 | Detect commercial-account indicator via credit terms | R.3 — `AR_CUST.NO_CR_LIM` / `CR_RATE` presence | Cash customers have no credit config; commercial accounts have credit terms; credit existence = commercial strong-signal |
-| C.1.4 | Derive B2B classification score per customer | C.1.1 (category code match) + C.1.2 (price-tier access) + C.1.3 (credit terms) + T's average-order-value pattern | Multi-signal derivation; merchant-configurable weight; outputs B2B_CLASS: retail / commercial / wholesale / project-tier |
-| C.1.5 | Handle unclassified accounts (no category code, no credit terms, default tier) | Canary-native fallback | Default classification based on T's behavioral pattern alone; flagged as CLASSIFICATION-UNCERTAIN |
-| C.1.6 | Reclassification on CATEG_COD change | R event stream — when R detects CATEG_COD update | Classification must update within one R-poll cycle; downstream C.2/C.3 consumers notified |
+| C.1.1 | Read `AR_CUST.CATEG_COD` per customer from R's substrate | R's customer publication (R.2) | Account category code; Canary maps customer-configured codes to B2B tier (e.g., "LAND" = landscaper, "WHOLE" = wholesale) → TBD: L4 implementation detail pending |
+| C.1.2 | Read `AR_CUST_CTL` multi-tier pricing flags | R's customer publication | `AR_CUST_CTL` controls which price tier the customer accesses (Price 1/2/3); tier access is the strongest B2B signal in Counterpoint → TBD: L4 implementation detail pending |
+| C.1.3 | Detect commercial-account indicator via credit terms | R.3 — `AR_CUST.NO_CR_LIM` / `CR_RATE` presence | Cash customers have no credit config; commercial accounts have credit terms; credit existence = commercial strong-signal → TBD: L4 implementation detail pending |
+| C.1.4 | Derive B2B classification score per customer | C.1.1 (category code match) + C.1.2 (price-tier access) + C.1.3 (credit terms) + T's average-order-value pattern | Multi-signal derivation; merchant-configurable weight; outputs B2B_CLASS: retail / commercial / wholesale / project-tier → TBD: L4 implementation detail pending |
+| C.1.5 | Handle unclassified accounts (no category code, no credit terms, default tier) | Canary-native fallback | Default classification based on T's behavioral pattern alone; flagged as CLASSIFICATION-UNCERTAIN → TBD: L4 implementation detail pending |
+| C.1.6 | Reclassification on CATEG_COD change | R event stream — when R detects CATEG_COD update | Classification must update within one R-poll cycle; downstream C.2/C.3 consumers notified → TBD: L4 implementation detail pending |
 
 ### User stories
 
@@ -103,12 +112,12 @@ L4 (Implementation detail)      Canary-Retail-Brain/modules/C-commercial.md
 
 | ID | L3 process | Source | Notes |
 |---|---|---|---|
-| C.2.1 | Read credit limit and current balance from `AR_CUST` via R.3 | R's AR surface | `AR_CUST.NO_CR_LIM` (unlimited credit flag), `AR_CUST.CR_RATE` (credit rating), `AR_CUST.BAL` (current balance) |
-| C.2.2 | Calculate credit utilization per commercial account | `AR_CUST.BAL` / `AR_CUST.CRDLIM` | Utilization = current balance / credit limit; high utilization is an account health signal |
-| C.2.3 | Read aging buckets from `Customer_OpenItems` via R.3 | R's AR aging surface | Current / 30 / 60 / 90+ day aging; F.6's cross-cut surfaces the same data from the finance side |
-| C.2.4 | Derive payment velocity per account | Trailing payment pattern from `Customer_OpenItems` close dates | Fast-paying accounts vs. chronic-slow accounts; velocity is a C-native signal not in Counterpoint |
-| C.2.5 | Produce per-account credit posture signal | C.2.2 utilization + C.2.3 aging + C.2.4 velocity | Output: `CREDIT_POSTURE` enum: current / watch / past-due / at-limit; drives C.4 Q-rule eligibility |
-| C.2.6 | Trigger credit-hold flag on AT-LIMIT accounts | C.2.5 → alert → account manager | Credit holds in Counterpoint are operator-set; Canary surfaces the signal, doesn't write back to Counterpoint |
+| C.2.1 | Read credit limit and current balance from `AR_CUST` via R.3 | R's AR surface | `AR_CUST.NO_CR_LIM` (unlimited credit flag), `AR_CUST.CR_RATE` (credit rating), `AR_CUST.BAL` (current balance) → TBD: L4 implementation detail pending |
+| C.2.2 | Calculate credit utilization per commercial account | `AR_CUST.BAL` / `AR_CUST.CRDLIM` | Utilization = current balance / credit limit; high utilization is an account health signal → TBD: L4 implementation detail pending |
+| C.2.3 | Read aging buckets from `Customer_OpenItems` via R.3 | R's AR aging surface | Current / 30 / 60 / 90+ day aging; F.6's cross-cut surfaces the same data from the finance side → TBD: L4 implementation detail pending |
+| C.2.4 | Derive payment velocity per account | Trailing payment pattern from `Customer_OpenItems` close dates | Fast-paying accounts vs. chronic-slow accounts; velocity is a C-native signal not in Counterpoint → TBD: L4 implementation detail pending |
+| C.2.5 | Produce per-account credit posture signal | C.2.2 utilization + C.2.3 aging + C.2.4 velocity | Output: `CREDIT_POSTURE` enum: current / watch / past-due / at-limit; drives C.4 Q-rule eligibility → TBD: L4 implementation detail pending |
+| C.2.6 | Trigger credit-hold flag on AT-LIMIT accounts | C.2.5 → alert → account manager | Credit holds in Counterpoint are operator-set; Canary surfaces the signal, doesn't write back to Counterpoint → TBD: L4 implementation detail pending |
 
 ### User stories
 
@@ -127,11 +136,11 @@ L4 (Implementation detail)      Canary-Retail-Brain/modules/C-commercial.md
 
 | ID | L3 process | Source | Notes |
 |---|---|---|---|
-| C.3.1 | Read per-account open items from F.6 publication | F.6's AR ledger surface | Open invoices, amounts, due dates; C reads from F's AR publication, not directly from Counterpoint |
-| C.3.2 | Aggregate open items into per-account AR summary | C's account-management projection over F.6 | Total outstanding, oldest open item date, count of past-due items — account-management view |
-| C.3.3 | Track payment history per account | F.6's payment-event stream | Payments recorded in `Customer_OpenItems` close events; C tracks payment pattern (amount, timing, method) |
-| C.3.4 | Surface AR aging calendar per commercial account | C's account-management surface | 0-30-60-90+ day aging per account; visible to account managers and sales reps in Owl |
-| C.3.5 | Detect anomalous payment patterns | C.3.3 payment history vs. C.2.4 velocity baseline | A normally-fast-paying landscaper who starts paying slowly is a C.4 input signal |
+| C.3.1 | Read per-account open items from F.6 publication | F.6's AR ledger surface | Open invoices, amounts, due dates; C reads from F's AR publication, not directly from Counterpoint → TBD: L4 implementation detail pending |
+| C.3.2 | Aggregate open items into per-account AR summary | C's account-management projection over F.6 | Total outstanding, oldest open item date, count of past-due items — account-management view → TBD: L4 implementation detail pending |
+| C.3.3 | Track payment history per account | F.6's payment-event stream | Payments recorded in `Customer_OpenItems` close events; C tracks payment pattern (amount, timing, method) → TBD: L4 implementation detail pending |
+| C.3.4 | Surface AR aging calendar per commercial account | C's account-management surface | 0-30-60-90+ day aging per account; visible to account managers and sales reps in Owl → TBD: L4 implementation detail pending |
+| C.3.5 | Detect anomalous payment patterns | C.3.3 payment history vs. C.2.4 velocity baseline | A normally-fast-paying landscaper who starts paying slowly is a C.4 input signal → TBD: L4 implementation detail pending |
 
 ### User stories
 
@@ -149,17 +158,27 @@ L4 (Implementation detail)      Canary-Retail-Brain/modules/C-commercial.md
 
 | ID | L3 process | Trigger | Notes |
 |---|---|---|---|
-| C.4.1 | B2B-CREDIT-01: At-limit account continues transacting | C.2.5 AT-LIMIT + T's transaction stream | A commercial account at credit limit making new purchases — alert to account manager |
-| C.4.2 | B2B-CREDIT-02: Rapid credit consumption before going dark | C.2.2 utilization velocity spike | Account that has been at <20% utilization suddenly consuming 80% in two weeks is a collections risk signal |
-| C.4.3 | B2B-AR-01: Past-due balance crosses threshold | C.2.3 aging bucket transition to 60+ | Threshold configurable; default 60-day past-due triggers account manager alert |
-| C.4.4 | B2B-TIER-01: Transaction price inconsistent with B2B tier | T's transaction price-level vs. C.1.2 tier assignment | A wholesale account being sold at retail price (or vice versa) is an account-setup inconsistency |
-| C.4.5 | B2B-PATTERN-01: Commercial account transacting outside business hours | T's transaction timestamp vs. account classification | A flagged-commercial account transacting at 9pm Sunday may indicate account-sharing (ASSUMPTION-C-06) |
+| C.4.1 | B2B-CREDIT-01: At-limit account continues transacting | C.2.5 AT-LIMIT + T's transaction stream | A commercial account at credit limit making new purchases — alert to account manager → TBD: L4 implementation detail pending |
+| C.4.2 | B2B-CREDIT-02: Rapid credit consumption before going dark | C.2.2 utilization velocity spike | Account that has been at <20% utilization suddenly consuming 80% in two weeks is a collections risk signal → TBD: L4 implementation detail pending |
+| C.4.3 | B2B-AR-01: Past-due balance crosses threshold | C.2.3 aging bucket transition to 60+ | Threshold configurable; default 60-day past-due triggers account manager alert → TBD: L4 implementation detail pending |
+| C.4.4 | B2B-TIER-01: Transaction price inconsistent with B2B tier | T's transaction price-level vs. C.1.2 tier assignment | A wholesale account being sold at retail price (or vice versa) is an account-setup inconsistency → TBD: L4 implementation detail pending |
+| C.4.5 | B2B-PATTERN-01: Commercial account transacting outside business hours | T's transaction timestamp vs. account classification | A flagged-commercial account transacting at 9pm Sunday may indicate account-sharing (ASSUMPTION-C-06) → TBD: L4 implementation detail pending |
+
+### Canary Detection Hooks
+
+- **C.4.1** (payment-velocity anomaly) feeds **Q-TM-02** tender-mix rule family via B2B payment routing context.
+- **C.4.2** (credit-tier mismatch) feeds **Q-DM-03** discount-manipulation rule family.
+- **C.4.3–C.4.5** (AR aging, duplicate B2B) are owned by C; flagged for the Q-IS rule family as accumulation signals.
+- **Note:** B2B-CREDIT-01 and B2B-AR-01 are C-native rules surfaced through Q's Chirp engine; they are not Q-rule-catalog entries.
 
 ### User stories
 
 - *As Q's Detection Engine (C-rule family), I want C.4.1 B2B-CREDIT-01 to fire an alert to the account manager — not a fraud alert — when an at-limit commercial account attempts a new purchase. The operator decides whether to override the credit hold.*
 - *As an Account Manager in Owl, I want C.4.2 (rapid credit-consumption spike) surfaced as a proactive alert before the account hits the formal past-due threshold — the signal should arrive when the account is still recoverable.*
 - *As C's Rule Engine, I want B2B-TIER-01 (price-tier mismatch) to fire as a data-quality flag, not a fraud detection — it most likely means the account was set up incorrectly in Counterpoint, not that someone is gaming the system.*
+- *As a store manager, I need to reclassify a customer from retail to wholesale tier during the spring landscape-contractor season so that their pricing reflects their current purchase volume.*
+- *As an account manager, I need to approve a one-time credit-hold override for a trusted B2B account that is temporarily over-limit so that they can complete a critical end-of-season order.*
+- *As a loss prevention analyst, I need to detect when a customer's current tier (WHOLESALE) conflicts with their historical transactions (RETAIL pricing) so I can flag potential retroactive pricing abuse.*
 
 ## C.5 — Cross-module substrate contracts
 
@@ -167,12 +186,12 @@ L4 (Implementation detail)      Canary-Retail-Brain/modules/C-commercial.md
 
 | ID | Contract | Owner downstream | What C promises |
 |---|---|---|---|
-| C.5.1 | B2B classification per customer (`B2B_CLASS` enum) | Q (rule eligibility), Owl (account-management surface), J (wholesale-tier replenishment context) | Updated within one R-poll cycle of any CATEG_COD or price-tier change |
-| C.5.2 | `CREDIT_POSTURE` signal per commercial account | Q (C.4 rules), Account manager (Owl alert) | Recalculated after each payment event or balance change; history preserved |
-| C.5.3 | AR summary per commercial account (total outstanding, aging, velocity) | F.6 (cross-cut, symmetric), Owl (account management) | C reads from F.6's AR publication; C.5.3 is the account-management projection of F.6's finance-side view |
-| C.5.4 | B2B-specific alert events (C.4.1–C.4.5) | Q's alert pipeline, Account manager (Owl) | B2B alerts are distinct from Q's transaction-level fraud alerts; classified as account-management alerts, not LP alerts |
-| C.5.5 | Price-tier assignment per commercial account | T's transaction pipeline (for price-level validation), J (PO recommendation tier context) | C's price-tier read from `AR_CUST_CTL` is surfaced to T's transaction validation and J's recommendation engine |
-| C.5.6 | CLASSIFICATION-UNCERTAIN flag roster | Operator onboarding queue | Unresolved accounts flagged for human classification decision at onboarding or periodic review |
+| C.5.1 | B2B classification per customer (`B2B_CLASS` enum) | Q (rule eligibility), Owl (account-management surface), J (wholesale-tier replenishment context) | Updated within one R-poll cycle of any CATEG_COD or price-tier change → TBD: L4 implementation detail pending |
+| C.5.2 | `CREDIT_POSTURE` signal per commercial account | Q (C.4 rules), Account manager (Owl alert) | Recalculated after each payment event or balance change; history preserved → TBD: L4 implementation detail pending |
+| C.5.3 | AR summary per commercial account (total outstanding, aging, velocity) | F.6 (cross-cut, symmetric), Owl (account management) | C reads from F.6's AR publication; C.5.3 is the account-management projection of F.6's finance-side view → TBD: L4 implementation detail pending |
+| C.5.4 | B2B-specific alert events (C.4.1–C.4.5) | Q's alert pipeline, Account manager (Owl) | B2B alerts are distinct from Q's transaction-level fraud alerts; classified as account-management alerts, not LP alerts → TBD: L4 implementation detail pending |
+| C.5.5 | Price-tier assignment per commercial account | T's transaction pipeline (for price-level validation), J (PO recommendation tier context) | C's price-tier read from `AR_CUST_CTL` is surfaced to T's transaction validation and J's recommendation engine → TBD: L4 implementation detail pending |
+| C.5.6 | CLASSIFICATION-UNCERTAIN flag roster | Operator onboarding queue | Unresolved accounts flagged for human classification decision at onboarding or periodic review → TBD: L4 implementation detail pending |
 
 ### User stories
 

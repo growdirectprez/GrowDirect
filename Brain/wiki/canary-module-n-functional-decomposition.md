@@ -201,6 +201,20 @@ L4 (Implementation detail)      Lives in SDDs + module specs
 - *As N, I want every contract in N.6 enforced via the contract test suite, so a silent break (e.g., LP thresholds dropped from join) shows up at conformance test.*
 - *As Q, I want to assert at boot that N surfaces all `PS_STR_CFG_PS` LP-threshold fields, so a contract break shows up at startup not at first Q-DM-01 false-negative.*
 - *As Canary's Product Owner, I want N's per-store config delivered uniformly across all stores in a multi-store tenant, with per-store drift surfaced as an operational signal not a silent inconsistency.*
+- *As an IT administrator, I need to enroll multiple workstations and map each to its assigned station in a single onboarding workflow so that a new store location is fully configured before opening day.*
+- *As a multi-store operations manager, I need Canary to alert me when a store's device configuration drifts from the approved template (e.g., unauthorized station added or removed) so I can remediate before it affects LP thresholds.*
+
+## Canary Detection Hooks
+
+N is a foundational substrate module. Its direct detection contribution routes through N.4 (LP threshold configuration) and N.5 (drawer-session context) — N does not fire detections itself, but its substrate gates which Q rules fire and at what sensitivity.
+
+**N detection hooks:**
+
+- **N.4 (LP threshold substrate) → Q.1.4 store-config context:** N.4 publishes drawer-count thresholds, cash-over/short limits, and variance bands consumed by Q.1.4. Any change to N.4 thresholds requires Q rule re-evaluation.
+- **N.4 (drawer session config) → Q-DM rule family:** N's drawer-session parameters gate which Q-DM rules fire. Drawer open/close context from N feeds Q-DM-01 (drawer reactivation) trigger evaluation.
+- **N.5 (store-demographic config) → Q-IS rule family:** N.5 store config (location type, hours, tenant profile) provides the spatial + operational context that Q-IS accumulation rules use to set baseline expectations.
+
+---
 
 ## Assumptions requiring real-customer validation
 

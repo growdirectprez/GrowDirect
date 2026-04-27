@@ -48,6 +48,24 @@ This architecture has an important implication for J: **J.8a's promotional-deman
 
 **Posture:** derived observer for the price-tier structure; Canary-native for promotion lifecycle, markdown management, and elasticity. The P.2 promotional-calendar build from transaction evidence (rather than from an explicit Counterpoint promotion API) is the most architecturally novel aspect of this module — it inverts the usual order of operations (normally you read rules and verify against transactions; here you infer rules from transaction evidence).
 
+## Counterpoint Endpoint Substrate
+
+| Counterpoint Endpoint | CRDM Entity | L2 Process Area |
+|---|---|---|
+| IM_ITEM (price fields) | Item price master | P.1 (Price catalog ingestion), P.4 (Elasticity baseline) |
+| IM_ITEM (promo flags) | Promotional item flags | P.2 (Promotional window inference) |
+| PS_DOC_LIN_PRICE | Transaction line price | P.2 (Price-realized vs. catalog), P.3 (Price-change detection) |
+| PS_PRC_GRP | Price group / tier | P.1 (Tier-based pricing), P.5 (Linked-item deps) |
+| IM_ITEM_ADD (vendor cost) | Vendor cost layer | P.4 (Margin-floor constraint on elasticity) |
+
+## Canary Detection Hooks
+
+P does not own detection rules — that is Q's surface. However, P is a first-class upstream signal supplier to several Q rule families and one J demand-isolation process. The hooks below document what P publishes and where it lands.
+
+- **P.2.6 (Undeclared promotions) → Q-DM-03:** Undeclared promotional pricing events (price drop without a PS_PRC_GRP promotion record) are published as Q-DM-03 discount-manipulation signals to Chirp.
+- **P.4.1 (Elasticity signal) → J.1.4:** P's elasticity coefficient for a SKU is published to J.1.4 as promotional-demand lift factor. This is a J dependency, not a Chirp signal — P does not directly write to Chirp.
+- **P.3 (Price-change audit) → Q-IS rule family:** Bulk price changes (≥N items in a single session) are flagged as Q-IS accumulation signals, surfaced via Chirp's investigation queue.
+
 ## L1 → L2 → L3 framework
 
 ```
@@ -106,7 +124,7 @@ L4 (Implementation detail)      Canary-Retail-Brain/modules/P-pricing-promotion.
 
 | ID | L3 process | Source | Notes |
 |---|---|---|---|
-| P.2.1 | Infer promotional windows from T's transaction price variance | `PS_DOC_LIN_PRICE` vs. P.1.1 PRC_1 | When actual-price-charged < list-price on >N% of transactions for an item in a date window, flag as LIKELY-PROMOTION |
+| P.2.1 | Infer promotional windows from T's transaction price variance | `PS_DOC_LIN_PRICE` vs. P.1.1 PRC_1 | When actual-price-charged < list-price on >N% of transactions for an item in a date window, flag as LIKELY-PROMOTION. → TBD: L4 — promotional window inference algorithm: sliding-window price-change detection on IM_ITEM history; SDD crosswalk to canary-module-p-pricing-engine.md §P.2.1 (to be authored). |
 | P.2.2 | Buyer confirms or creates promotion definition | Canary-native promotion builder (Owl/MCP) | Buyer converts LIKELY-PROMOTION flag into a formal promotion record: name, period, target items/categories, discount mechanism |
 | P.2.3 | Support promotion types: fixed-price, percent-off, bundle, BOGO, threshold | Canary-native rule engine | All mechanics are Canary-internal; Counterpoint's POS executes the actual discount; Canary observes the outcome |
 | P.2.4 | Publish promotion calendar to J and Q | P.6.3 promotion calendar contract | J.8a reads P's calendar for promotional-demand isolation; Q-DM family reads for discount-context validation |
@@ -161,7 +179,7 @@ L4 (Implementation detail)      Canary-Retail-Brain/modules/P-pricing-promotion.
 | P.4.2 | Classify items by elasticity tier | P.4.1 coefficient | Elastic (coefficient > 1.0), inelastic (< 0.5), unit-elastic; classification drives markdown strategy guidance |
 | P.4.3 | Surface elasticity signals to J's demand forecast | P.6.5 elasticity contract to J | J.1.4 consumes per-item elasticity tier to weight promotional-period demand appropriately |
 | P.4.4 | Track category-level elasticity | P.4.1 aggregated to S's category hierarchy | Category-level elasticity is more stable than per-item; useful for new-item forecasting (J.1.6 like-item) |
-| P.4.5 | Cold-start elasticity (insufficient markdown history) | Canary-native fallback | New items or items with < minimum markdown observations default to category-average elasticity (ASSUMPTION-P-07) |
+| P.4.5 | Cold-start elasticity (insufficient markdown history) | Canary-native fallback | New items or items with < minimum markdown observations default to category-average elasticity. → TBD L4 — cold-start fallback: use category-median elasticity coefficient as prior; update with first 4 weeks of actuals via Bayesian update. See ASSUMPTION-P-07. |
 
 ### User stories
 
@@ -181,16 +199,21 @@ L4 (Implementation detail)      Canary-Retail-Brain/modules/P-pricing-promotion.
 |---|---|---|---|
 | P.5.1 | Detect bulk price-change events (N items changed in one S-poll cycle) | S event stream — multiple IM_ITEM price changes with shared CATEG_COD or supplier_id | Distinguishes individual price corrections from bulk supplier-cost-passthrough events |
 | P.5.2 | Flag bulk changes for buyer review before margin-impact propagation | Canary-native bulk-change review queue | Bulk price increase on category may erode commercial-tier margins below threshold; surface before execution |
-| P.5.3 | Track linked-item price dependencies | Canary-native — items sold as bundles or sets whose bundle price depends on individual pricing | When PRC_1 on a component item changes, Canary flags that the bundle price may be inconsistent (ASSUMPTION-P-08) |
+| P.5.3 | Track linked-item price dependencies | Canary-native — items sold as bundles or sets whose bundle price depends on individual pricing | When PRC_1 on a component item changes, Canary flags that the bundle price may be inconsistent (ASSUMPTION-P-08). → TBD: L4 — bundle price reconciliation schema: parent-item price drives child-item constraints; delta propagated via CRDM PriceEvent; conflict resolution: parent wins, child flagged for review. |
 
 ### User stories
 
 - *As P's Bulk Change Detector, I want a single supplier cost passthrough that updates 200 items in Counterpoint recognized as a single bulk-change event — not 200 individual price-change events that flood the alert queue.*
 - *As a Buyer, I want bulk price changes that erode commercial-tier margins below the configured floor (e.g., PRC_3 wholesale margin < 15%) flagged before they execute — so I can reprice the commercial tier before the next commercial-account transaction.*
+- *As a buyer, I need Canary to detect when two active promotions apply to the same item and their combined discount exceeds the margin floor so that I can resolve the conflict before the transaction is processed.*
+- *As a merchandising manager, I need to see when a buy-2-of-category-A-get-discount-on-category-B promotion produces unexpected cross-category margin erosion so I can adjust the promotion parameters.*
+- *As a loss prevention analyst, I need Canary to detect when a buyer reverts a markdown in Counterpoint after it has already been applied to transactions so I can assess whether transactions occurred at the erroneous price.*
 
 ## P.6 — Cross-module substrate contracts
 
 **Purpose.** P's most critical downstream contract is to J.8a — the promotional-demand isolation that prevents promotional lift from contaminating base forecasts. If P.6.3 fails, J's forecasts are wrong. The contracts below make this dependency explicit and testable.
+
+**J.8a dependency (load-bearing, reciprocal):** P.6.3 promotion calendar contract is architecturally load-bearing to J demand forecasting (J.8a). P must publish promotion calendar records before J computes baseline demand. Failure of P.6.3 degrades J forecast accuracy.
 
 | ID | Contract | Owner downstream | What P promises |
 |---|---|---|---|

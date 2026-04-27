@@ -31,6 +31,16 @@ R holds a deliberate **inversion of the dominant industry default**: the Canary 
 
 R is **● Full direct** in every Counterpoint Solution Map cell, but the cell hides three real architectural decisions: (1) multi-company-per-tenant customer namespace handling, (2) the privacy-posture reconciliation just described, and (3) tier-code conventions that vary per-VAR and per-customer (every Counterpoint deployment uses CATEG_COD differently — there is no universal taxonomy).
 
+## Counterpoint Endpoint Substrate
+
+| Counterpoint Endpoint | CRDM Entity | L2 Process Area |
+|---|---|---|
+| AR_CUST | Customer master | R.1 (Customer identity), R.5 (Credit posture) |
+| Customer/{CustNo}/OpenItems | Open AR items | R.3 (AR aging), R.4 (Payment history) |
+| AR_CUST_CTL | Credit control | R.5 (Credit limit / tier) |
+| PS_DOC_HDR (customer-linked) | Transaction headers | R.2 (Behavioral pattern), R.3 (Purchase history) |
+| AR_CUST.IS_TAX_EXEMPT | Tax exemption flag | R.1 (Customer tax classification — sourced to F.2) |
+
 ## Executive summary
 
 | Dimension | Count | Source |
@@ -74,14 +84,14 @@ L4 (Implementation detail)      Lives in SDDs + module specs
 
 | ID | L3 process | Substrate | Notes |
 |---|---|---|---|
-| R.1.1 | Shell-row upsert from T's reference | T's `transaction.created` carrying `CUST_NO` | Triggered before R has polled the customer record; row created with `CUST_NO`, `merchant_id`, `company_alias`, `db_status='pending_enrichment'` |
-| R.1.2 | Full-row enrichment from `GET /Customer/{CustNo}` | `AR_CUST` + nested `AR_CUST_NOTE` / `AR_SHIP_ADRS` / `AR_CUST_CARDS` | Called when shell row needs enrichment OR on poll cadence |
-| R.1.3 | Incremental sync via `GET /Customers` | `RS_UTC_DT`-filtered paginated workhorse | Counterpoint-recommended incremental path; respects watermark per `(tenant, company_alias)` |
-| R.1.4 | EC-flagged customer enrichment | `GET /Customers/EC` | Online-customer subset; same registry, separate poll cadence |
-| R.1.5 | CustomerControl read at tenant bootstrap | `GET /CustomerControl` | Tier definitions + loyalty enable + customer-default fields; **cached server-side 24h**; T.1.7 cache discipline applies |
-| R.1.6 | Workgroup template read | `GET /Workgroup/{WorkgroupID}` | Numbering defaults + tier defaults that drive `POST /Customer` from the Counterpoint side |
-| R.1.7 | Soft-delete on customer archival | `db_status='archived'` rather than DELETE | Preserves audit trail; re-activated on return, never duplicated |
-| R.1.8 | Multi-company namespace isolation | Per-`(tenant_id, company_alias)` registry partition | One Canary tenant with N Counterpoint companies has N independent customer namespaces — never bleed across |
+| R.1.1 | Shell-row upsert from T's reference | T's `transaction.created` carrying `CUST_NO` | Triggered before R has polled the customer record; row created with `CUST_NO`, `merchant_id`, `company_alias`, `db_status='pending_enrichment'` → TBD: L4 implementation detail pending |
+| R.1.2 | Full-row enrichment from `GET /Customer/{CustNo}` | `AR_CUST` + nested `AR_CUST_NOTE` / `AR_SHIP_ADRS` / `AR_CUST_CARDS` | Called when shell row needs enrichment OR on poll cadence → TBD: L4 implementation detail pending |
+| R.1.3 | Incremental sync via `GET /Customers` | `RS_UTC_DT`-filtered paginated workhorse | Counterpoint-recommended incremental path; respects watermark per `(tenant, company_alias)` → TBD: L4 implementation detail pending |
+| R.1.4 | EC-flagged customer enrichment | `GET /Customers/EC` | Online-customer subset; same registry, separate poll cadence → TBD: L4 implementation detail pending |
+| R.1.5 | CustomerControl read at tenant bootstrap | `GET /CustomerControl` | Tier definitions + loyalty enable + customer-default fields; **cached server-side 24h**; T.1.7 cache discipline applies → TBD: L4 implementation detail pending |
+| R.1.6 | Workgroup template read | `GET /Workgroup/{WorkgroupID}` | Numbering defaults + tier defaults that drive `POST /Customer` from the Counterpoint side → TBD: L4 implementation detail pending |
+| R.1.7 | Soft-delete on customer archival | `db_status='archived'` rather than DELETE | Preserves audit trail; re-activated on return, never duplicated → TBD: L4 implementation detail pending |
+| R.1.8 | Multi-company namespace isolation | Per-`(tenant_id, company_alias)` registry partition | One Canary tenant with N Counterpoint companies has N independent customer namespaces — never bleed across → TBD: L4 implementation detail pending |
 
 ### User stories
 
@@ -100,13 +110,13 @@ L4 (Implementation detail)      Lives in SDDs + module specs
 
 | ID | L3 process | Substrate | Notes |
 |---|---|---|---|
-| R.2.1 | Surface `CATEG_COD` per customer | `AR_CUST.CATEG_COD` | Preserved verbatim; no normalization (different tenants use different code conventions) |
-| R.2.2 | Tier-code → tier-meaning mapping per tenant | Tenant config table; populated at onboarding | E.g., `WHL → wholesale`, `LSC → landscaper`, `MBR → member`, `RET → retail` |
-| R.2.3 | Tier-change audit on customer record | `AR_CUST.LST_MAINT_DT` + `LST_MAINT_USR_ID` deltas | Substrate for Q.2.9 (Q-CT-02 pre-purchase tier upgrade rule) |
-| R.2.4 | Multi-tier pricing flag surfacing | `AR_CUST_CTL` (CustomerControl) multi-tier flags | Substrate for P-derived pricing rule observations |
-| R.2.5 | Open-AR balance per customer | `GET /Customer/{CustNo}/OpenItems` | AR aging; substrate for C-derived B2B classification + Q-TC-02 (tax-exempt abuse adjacent) |
-| R.2.6 | Customer credit posture | `AR_CUST.CR_RATE`, `NO_CR_LIM`, `BAL` | Substrate for C and risk-adjacent rules |
-| R.2.7 | B2B vs retail derivation hooks | Pattern-detect over R.2.1 + R.2.5 + transaction shape | Feeds C-derived B2B classification; the C module is "derived from R" per Solution Map |
+| R.2.1 | Surface `CATEG_COD` per customer | `AR_CUST.CATEG_COD` | Preserved verbatim; no normalization (different tenants use different code conventions) → TBD: L4 implementation detail pending |
+| R.2.2 | Tier-code → tier-meaning mapping per tenant | Tenant config table; populated at onboarding | E.g., `WHL → wholesale`, `LSC → landscaper`, `MBR → member`, `RET → retail` → TBD: L4 implementation detail pending |
+| R.2.3 | Tier-change audit on customer record | `AR_CUST.LST_MAINT_DT` + `LST_MAINT_USR_ID` deltas | Substrate for Q.2.9 (Q-CT-02 pre-purchase tier upgrade rule) → TBD: L4 implementation detail pending |
+| R.2.4 | Multi-tier pricing flag surfacing | `AR_CUST_CTL` (CustomerControl) multi-tier flags | Substrate for P-derived pricing rule observations → TBD: L4 implementation detail pending |
+| R.2.5 | Open-AR balance per customer | `GET /Customer/{CustNo}/OpenItems` | AR aging; substrate for C-derived B2B classification + Q-TC-02 (tax-exempt abuse adjacent) → TBD: L4 implementation detail pending |
+| R.2.6 | Customer credit posture | `AR_CUST.CR_RATE`, `NO_CR_LIM`, `BAL` | Substrate for C and risk-adjacent rules → TBD: L4 implementation detail pending |
+| R.2.7 | B2B vs retail derivation hooks | Pattern-detect over R.2.1 + R.2.5 + transaction shape | Feeds C-derived B2B classification; the C module is "derived from R" per Solution Map → TBD: L4 implementation detail pending |
 
 ### User stories
 
@@ -124,12 +134,12 @@ L4 (Implementation detail)      Lives in SDDs + module specs
 
 | ID | L3 process | Substrate | Notes |
 |---|---|---|---|
-| R.3.1 | Surface loyalty enrollment | `AR_CUST.LOY_PGM_COD` + `LOY_CARD_NO` (existence flags only — not card values) | R stores the enrolled-yes/no flag, not the card number |
-| R.3.2 | Surface loyalty balance | `AR_CUST.LOY_PTS_BAL` (numeric only) | Integer; safe to persist; substrate for repeat-purchase detection |
-| R.3.3 | Surface loyalty redemption events | Document line items with loyalty-redemption indicator | Substrate for Q-related redemption-pattern rules; loyalty redemption captured in T's transaction stream |
-| R.3.4 | Surface AR-customer flag | `AR_CUST.IS_AR_CUST` or equivalent (**ASSUMPTION-R-04**) | Distinguishes AR-charge-eligible customers from cash-only |
-| R.3.5 | Surface open AR aging | `Customer_OpenItems` aging buckets | Substrate for F (AR collection workflows downstream) and C (B2B credit posture) |
-| R.3.6 | AR-charge-vs-cash transaction posture | Pattern-detect over R.3.4 + transaction tender mix | Feeds Q-TM-01 (cash-only register pattern) — wholesale customers paying AR shift expected tender mix |
+| R.3.1 | Surface loyalty enrollment | `AR_CUST.LOY_PGM_COD` + `LOY_CARD_NO` (existence flags only — not card values) | R stores the enrolled-yes/no flag, not the card number → TBD: L4 implementation detail pending |
+| R.3.2 | Surface loyalty balance | `AR_CUST.LOY_PTS_BAL` (numeric only) | Integer; safe to persist; substrate for repeat-purchase detection → TBD: L4 implementation detail pending |
+| R.3.3 | Surface loyalty redemption events | Document line items with loyalty-redemption indicator | Substrate for Q-related redemption-pattern rules; loyalty redemption captured in T's transaction stream → TBD: L4 implementation detail pending |
+| R.3.4 | Surface AR-customer flag | `AR_CUST.IS_AR_CUST` or equivalent (**ASSUMPTION-R-04**) | Distinguishes AR-charge-eligible customers from cash-only → TBD: L4 implementation detail pending |
+| R.3.5 | Surface open AR aging | `Customer_OpenItems` aging buckets | Substrate for F (AR collection workflows downstream) and C (B2B credit posture) → TBD: L4 implementation detail pending |
+| R.3.6 | AR-charge-vs-cash transaction posture | Pattern-detect over R.3.4 + transaction tender mix | Feeds Q-TM-01 (cash-only register pattern) — wholesale customers paying AR shift expected tender mix → TBD: L4 implementation detail pending |
 
 ### User stories
 
@@ -148,12 +158,12 @@ L4 (Implementation detail)      Lives in SDDs + module specs
 
 | ID | L3 process | Substrate | Notes |
 |---|---|---|---|
-| R.4.1 | Schema-enforced PII absence | `customers` table has no string columns for personal data | Hard constraint at the DDL layer; can't be bypassed at application layer |
-| R.4.2 | Read-through to Counterpoint at query time | When workflow demands name / email / address: parser fetches from `GET /Customer/{CustNo}` per request | No caching beyond request scope; never persisted |
-| R.4.3 | Card-fingerprint storage (opaque) | `card_profiles` holds Counterpoint's tokenized fingerprint (`AR_CUST_CARDS` token) | Token, not PAN; not reversible in Canary |
-| R.4.4 | PII-redaction-at-parse contract | T.3.4 + T.7.10 redact `SIG_IMG`, `SIG_IMG_VECTOR`, raw PAN; R asserts compliance | R never receives those bytes; T-side redaction is pre-condition |
-| R.4.5 | GDPR/CCPA right-to-be-forgotten | Soft-delete on R + vendor-side deletion request | Single soft-delete suffices on Canary side; vendor (Counterpoint) handles its own |
-| R.4.6 | Profile-extension opt-in (future / per-merchant flag) | Per-tenant feature flag + extension table | Default off; enabling requires explicit data-handling agreement; out of v1 |
+| R.4.1 | Schema-enforced PII absence | `customers` table has no string columns for personal data | Hard constraint at the DDL layer; can't be bypassed at application layer → TBD: L4 implementation detail pending |
+| R.4.2 | Read-through to Counterpoint at query time | When workflow demands name / email / address: parser fetches from `GET /Customer/{CustNo}` per request | No caching beyond request scope; never persisted → TBD: L4 implementation detail pending |
+| R.4.3 | Card-fingerprint storage (opaque) | `card_profiles` holds Counterpoint's tokenized fingerprint (`AR_CUST_CARDS` token) | Token, not PAN; not reversible in Canary → TBD: L4 implementation detail pending |
+| R.4.4 | PII-redaction-at-parse contract | T.3.4 + T.7.10 redact `SIG_IMG`, `SIG_IMG_VECTOR`, raw PAN; R asserts compliance | R never receives those bytes; T-side redaction is pre-condition → TBD: L4 implementation detail pending |
+| R.4.5 | GDPR/CCPA right-to-be-forgotten | Soft-delete on R + vendor-side deletion request | Single soft-delete suffices on Canary side; vendor (Counterpoint) handles its own → TBD: L4 implementation detail pending |
+| R.4.6 | Profile-extension opt-in (future / per-merchant flag) | Per-tenant feature flag + extension table | Default off; enabling requires explicit data-handling agreement; out of v1 → TBD: L4 implementation detail pending |
 
 ### User stories
 
@@ -171,11 +181,11 @@ L4 (Implementation detail)      Lives in SDDs + module specs
 
 | ID | L3 process | Scope | Notes |
 |---|---|---|---|
-| R.5.1 | Per-`(tenant, company_alias)` namespace isolation | Counterpoint multi-company today | Same as R.1.8; no auto-merge across companies |
-| R.5.2 | `external_identities` link table | Cross-namespace identity scaffold | Exists in Canary already (per GRO-267); links opt-in, never auto-derived |
-| R.5.3 | Manual identity link surface | Operator MCP tool | "Link Counterpoint customer X in companyA to Counterpoint customer Y in companyB"; audit-logged, soft-revocable |
-| R.5.4 | Cross-vendor identity resolution (v2) | Square + Counterpoint same-customer matching | Matching policy undecided: deterministic (email match) / probabilistic / customer-confirmed; out of v1 |
-| R.5.5 | Customer-side ID assertion (future) | Customer logs into Canary-merchant portal, asserts identity link | Future surface; out of v1 |
+| R.5.1 | Per-`(tenant, company_alias)` namespace isolation | Counterpoint multi-company today | Same as R.1.8; no auto-merge across companies → TBD: L4 implementation detail pending |
+| R.5.2 | `external_identities` link table | Cross-namespace identity scaffold | Exists in Canary already (per GRO-267); links opt-in, never auto-derived → TBD: L4 implementation detail pending |
+| R.5.3 | Manual identity link surface | Operator MCP tool | "Link Counterpoint customer X in companyA to Counterpoint customer Y in companyB"; audit-logged, soft-revocable → TBD: L4 implementation detail pending |
+| R.5.4 | Cross-vendor identity resolution (v2) | Square + Counterpoint same-customer matching | Matching policy undecided: deterministic (email match) / probabilistic / customer-confirmed; out of v1 → TBD: L4 implementation detail pending |
+| R.5.5 | Customer-side ID assertion (future) | Customer logs into Canary-merchant portal, asserts identity link | Future surface; out of v1 → TBD: L4 implementation detail pending |
 
 ### User stories
 
@@ -191,25 +201,25 @@ L4 (Implementation detail)      Lives in SDDs + module specs
 
 | ID | L3 process | Surface | Actor |
 |---|---|---|---|
-| R.6.1 | Customer lookup by `CUST_NO` | `canary-identity` MCP tool, read-only | LP Analyst, Investigator |
-| R.6.2 | Customer lookup by card fingerprint | Same MCP, opaque token only | Investigator |
-| R.6.3 | Customer transaction history projection | LTV / count / temporal bounds; aggregates derived from T | LP Analyst, Store GM |
-| R.6.4 | Owl natural-language Q&A over customers | "Show me top wholesale customers by YTD revenue" | Store GM, Exec |
-| R.6.5 | Read-through-to-Counterpoint for PII-bearing fields | At click time in Fox case view | Investigator (audit-logged) |
-| R.6.6 | Cohort projection (segment-by-tier, segment-by-LTV) | Aggregates from R.2 + R.3 | Marketing-adjacent (out of v1, deferred to v3) |
+| R.6.1 | Customer lookup by `CUST_NO` | `canary-identity` MCP tool, read-only | LP Analyst, Investigator → TBD: L4 implementation detail pending |
+| R.6.2 | Customer lookup by card fingerprint | Same MCP, opaque token only | Investigator → TBD: L4 implementation detail pending |
+| R.6.3 | Customer transaction history projection | LTV / count / temporal bounds; aggregates derived from T | LP Analyst, Store GM → TBD: L4 implementation detail pending |
+| R.6.4 | Owl natural-language Q&A over customers | "Show me top wholesale customers by YTD revenue" | Store GM, Exec → TBD: L4 implementation detail pending |
+| R.6.5 | Read-through-to-Counterpoint for PII-bearing fields | At click time in Fox case view | Investigator (audit-logged) → TBD: L4 implementation detail pending |
+| R.6.6 | Cohort projection (segment-by-tier, segment-by-LTV) | Aggregates from R.2 + R.3 | Marketing-adjacent (out of v1, deferred to v3) → TBD: L4 implementation detail pending |
 
 ### L3 contracts (substrate registry — symmetric to T.7)
 
 | ID | Contract | Owner downstream | What R promises |
 |---|---|---|---|
-| R.6.7 | Tier code surfaced verbatim | Q (Q.2.9), C (derived) | `AR_CUST.CATEG_COD` preserved exactly; tier-meaning mapping available per-tenant |
-| R.6.8 | Tier-change audit | Q (Q-CT-02) | Tier deltas with timestamp + actor available as event substrate |
-| R.6.9 | Loyalty enrollment + balance | Q, repeat-purchase rules | Integer balance + enrolled flag; no card numbers |
-| R.6.10 | Open AR aging buckets | F, C | Per-customer aging without round-trip to Counterpoint |
-| R.6.11 | Multi-tier pricing flag | P (derived) | `AR_CUST_CTL` multi-tier indicators surfaced for pricing-rule observation |
-| R.6.12 | Tax-exempt customer flag | Q (Q-TC-02) | `AR_CUST.IS_TAX_EXEMPT` or equivalent (**ASSUMPTION-R-06**) surfaced as boolean |
-| R.6.13 | Customer-namespace attribution | All | Every R reference carries `(tenant_id, company_alias)` — never bleed across companies |
-| R.6.14 | PII-absence guarantee | All | Downstream consumers cannot pull PII from R; must read-through to Counterpoint via R.4.2 with audit |
+| R.6.7 | Tier code surfaced verbatim | Q (Q.2.9), C (derived) | `AR_CUST.CATEG_COD` preserved exactly; tier-meaning mapping available per-tenant → TBD: L4 implementation detail pending |
+| R.6.8 | Tier-change audit | Q (Q-CT-02) | Tier deltas with timestamp + actor available as event substrate → TBD: L4 implementation detail pending |
+| R.6.9 | Loyalty enrollment + balance | Q, repeat-purchase rules | Integer balance + enrolled flag; no card numbers → TBD: L4 implementation detail pending |
+| R.6.10 | Open AR aging buckets | F, C | Per-customer aging without round-trip to Counterpoint → TBD: L4 implementation detail pending |
+| R.6.11 | Multi-tier pricing flag | P (derived) | `AR_CUST_CTL` multi-tier indicators surfaced for pricing-rule observation → TBD: L4 implementation detail pending |
+| R.6.12 | Tax-exempt customer flag | Q (Q-TC-02) | `AR_CUST.IS_TAX_EXEMPT` or equivalent (**ASSUMPTION-R-06**) surfaced as boolean → TBD: L4 implementation detail pending |
+| R.6.13 | Customer-namespace attribution | All | Every R reference carries `(tenant_id, company_alias)` — never bleed across companies → TBD: L4 implementation detail pending |
+| R.6.14 | PII-absence guarantee | All | Downstream consumers cannot pull PII from R; must read-through to Counterpoint via R.4.2 with audit → TBD: L4 implementation detail pending |
 
 ### User stories
 
@@ -218,6 +228,19 @@ L4 (Implementation detail)      Lives in SDDs + module specs
 - *As Q (Q.6.x vertical pack), I want to assert at boot that R surfaces tier code, tier-meaning mapping, AR aging, and tax-exempt flag for the active tenant — failing fast if the substrate contract is broken.*
 - *As a Store GM in Owl, I want to ask "show me wholesale customers I haven't seen in 60 days" and get a per-customer drilldown without leaving the conversation.*
 - *As Marketing (deferred v3), I want cohort projections by tier × LTV available as a queryable surface — but only when the profile-extension opt-in (R.4.6) is enabled and the data-handling agreement is in place.*
+
+## Canary Detection Hooks
+
+| R Process | → Detection Surface | Signal Description |
+|---|---|---|
+| R.2 (Behavioral pattern routing) | Q-IS rule family | Customer behavioral anomalies (velocity spikes, unusual return patterns, cross-location activity) are published as Q-IS accumulation signals |
+| R.5.3 (Cross-company customer collision) | Q-DM-03 | Customers detected under multiple company IDs with shared PAN or contact data are flagged to Q-DM-03 for identity-manipulation review |
+| R.4 (Payment history) | Q-TM rule family | Unusual payment velocity or tender-mix for a known customer feeds Q-TM tender-monitoring rules |
+
+## Additional User Stories
+
+- *As a loss prevention analyst, I need to detect when the same customer appears under two different company IDs with matching contact information so I can investigate potential account manipulation.*
+- *As a store manager, I need customer profile extensions (loyalty tier, spend band) to be available in Canary reporting even before v3 enrichment, so I can filter investigation queues by customer segment.*
 
 ## Assumptions requiring real-customer validation
 

@@ -68,6 +68,46 @@ L4 (Implementation detail)      Lives in SDDs + module specs
                                    docs/sdds/canary/ncr-counterpoint-retail-spine-integration.md §6.3)
 ```
 
+## L4 implementation stubs
+
+All L3 processes below are stub-pending at L4. Until an SDD section or module spec covers a process explicitly, treat the following as open:
+
+| L3 ID | L4 stub |
+|---|---|
+| F.1.1 | → TBD: L4 implementation detail pending |
+| F.1.2 | → TBD: L4 implementation detail pending |
+| F.1.3 | → TBD: L4 implementation detail pending |
+| F.1.4 | → TBD: L4 implementation detail pending |
+| F.1.5 | → TBD: L4 implementation detail pending |
+| F.2.1 | → TBD: L4 implementation detail pending |
+| F.2.2 | → TBD: L4 implementation detail pending |
+| F.2.3 | → TBD: L4 implementation detail pending |
+| F.2.4 | → TBD: L4 implementation detail pending |
+| F.3.1 | → TBD: L4 implementation detail pending |
+| F.3.2 | → TBD: L4 implementation detail pending |
+| F.3.3 | → TBD: L4 implementation detail pending |
+| F.3.4 | → TBD: L4 implementation detail pending |
+| F.3.5 | → TBD: L4 implementation detail pending |
+| F.3.6 | → TBD: L4 implementation detail pending |
+| F.4.1 | → TBD: L4 implementation detail pending |
+| F.4.2 | → TBD: L4 implementation detail pending |
+| F.4.3 | → TBD: L4 implementation detail pending |
+| F.4.4 | → TBD: L4 implementation detail pending |
+| F.4.5 | → TBD: L4 implementation detail pending |
+| F.4.6 | → TBD: L4 implementation detail pending |
+| F.5.1 | → TBD: L4 implementation detail pending |
+| F.5.2 | → TBD: L4 implementation detail pending |
+| F.5.3 | → TBD: L4 implementation detail pending |
+| F.5.4 | → TBD: L4 implementation detail pending |
+| F.5.5 | → TBD: L4 implementation detail pending |
+| F.6.1 | → TBD: L4 implementation detail pending |
+| F.6.2 | → TBD: L4 implementation detail pending |
+| F.6.3 | → TBD: L4 implementation detail pending |
+| F.6.4 | → TBD: L4 implementation detail pending |
+| F.6.5 | → TBD: L4 implementation detail pending |
+
+---
+
 ## F.1 — Tender taxonomy (PayCode)
 
 **Purpose.** Counterpoint's `PayCode` is the customer-defined tender taxonomy. Every distinct tender (CASH, VISA, MC, AMEX, CHECK, AR, GIFTCARD, custom alternative-payment-rail entries) is a row. F surfaces the taxonomy at tenant bootstrap and re-syncs on cache invalidation.
@@ -228,6 +268,27 @@ L4 (Implementation detail)      Lives in SDDs + module specs
 - *As Q, I want to assert at boot that F surfaces all contracted fields including the per-store expected jurisdiction stack and the multi-authority preservation, so a contract break shows up at startup.*
 - *As Canary's Compliance Story, I want the PII-redaction guarantee (F.7.4) audit-testable — periodic checks confirm `SIG_IMG` and raw PAN are not present anywhere in CRDM.*
 
+## Counterpoint Endpoint Substrate
+
+The following Counterpoint endpoints are the direct API surface for Module F's L3 processes. Each row maps to the CRDM entity F materializes and the L2 process area that owns it.
+
+| Counterpoint Endpoint | CRDM Entity | L2 Process Area |
+|---|---|---|
+| PayCodes | PayCode registry | F.1 (Tender classification) |
+| PayCode/{PayCode} | Individual PayCode | F.1 (PayCode detail) |
+| TaxCodes | Tax code registry | F.2 (Tax classification) |
+| GiftCards | Gift card registry | F.3 (Gift card lifecycle) |
+| GiftCard/{GiftCardNo} | Individual gift card | F.3 (Balance / redemption) |
+| GiftCardCodes | Gift card code registry | F.3 (Code validation) |
+| Store/{StoreId}/Tokenize | PAN tokenization | F.5 (PII redaction) |
+| Store/{StoreId}/TokenizeInfo | Token metadata | F.5 (Token audit) |
+| NSPTransaction | NSP transaction log | F.5 (Network transaction substrate) |
+| Customer/{CustNo}/OpenItems | AR open items | F.6 (AR aging) |
+| AR_CUST | Customer AR master | F.6 (Credit posture) |
+| PS_STR_CFG_PS | Store tax defaults | F.2 (Default tax-code context from N) |
+
+---
+
 ## Assumptions requiring real-customer validation
 
 | ID | Assumption | What it blocks | Resolution path |
@@ -267,6 +328,18 @@ ASSUMPTION resolutions:
   ASSUMPTION-F-NN: resolved as <answer>; source: <evidence>
   ...
 ```
+
+## Additional user stories
+
+The following user stories expand F's coverage across onboarding, override workflows, split-tender redemption, AR currency, and gift-card recovery scenarios. They supplement the per-L2 stories above.
+
+- *As a store admin, I need to add a new PayCode during onboarding (after initial bootstrap) so that a non-standard tender type accepted at this location is properly classified from day one.*
+- *As a cashier supervisor, I need to override the system-defaulted tax code on a specific line item so that a tax-exempt product sold with a regular receipt is correctly classified.*
+- *As a customer, I need to apply a gift card to a purchase where the card balance is less than the purchase total so that the partial balance is applied and the remainder charged to another tender.*
+- *As an accounts receivable manager, I need to view AR aging in local currency for a Canadian B2B customer so that I can assess credit posture without manual currency conversion.*
+- *As a store manager, I need to reassign the balance from a lost or damaged gift card to a replacement card so that the customer's stored value is preserved.*
+
+---
 
 ## Operating notes
 

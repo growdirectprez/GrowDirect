@@ -70,6 +70,10 @@ L4 (Implementation detail)      Lives in SDDs + module specs
 
 **Dependency posture.** Q is a **read-only consumer** of every other in-scope module. Any field Q needs must be exposed by the upstream module's adapter; Q does not write back into substrate.
 
+**A.3.1 dependency (load-bearing):** Q.2 detection rules depend on A.3.1 asset-item registry as allow-list input. Items classified as non-inventory assets (ITEM_TYP = N or fixture class) must be excluded from Q detection rule evaluation. Q.2 must consume A.3.1 before firing inventory-discrepancy rules.
+
+**N.5 upstream contract:** Q.1.4 store-config threshold context is sourced from N.5 (store-demographic config + LP threshold publication). N.5 must hold for Q.1.4 baseline expectations to be accurate. Changes to N.4 thresholds require Q rule re-evaluation.
+
 ### L3 processes
 
 | ID | L3 process | Substrate read | Owning upstream module | Notes |

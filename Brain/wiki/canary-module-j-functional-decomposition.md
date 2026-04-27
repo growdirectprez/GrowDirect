@@ -87,7 +87,7 @@ L4 (Implementation detail)      Canary-Retail-Brain/modules/J-forecast-order.md
 | J.1.3 | Calculate demand variance (stable / variable / volatile classification) | Movement history variance | Drives safety-stock decision in J.2 |
 | J.1.4 | Produce 13-week rolling forecast per item per location | Velocity + variance + (later) seasonal model | Stationary at v2; seasonal at v2.1 |
 | J.1.5 | Hierarchy-volatility-aware forecasting | S's category hierarchy + history-of-hierarchy-assignments | Per retail-planning § "hierarchy reorganizations break historical comparability" — when a style moves categories mid-season, history must be restated |
-| J.1.6 | Like-item forecasting for new SKUs | C's item attributes + S's category for like-item lookup | New garden-center items mid-season have no history; use category-average velocity scaled by attributes |
+| J.1.6 | Like-item forecasting for new SKUs | C's item attributes + S's category for like-item lookup | New garden-center items mid-season have no history; use category-average velocity scaled by attributes. → TBD: L4 — like-item lookup algorithm: weighted average of comparables by category + velocity band; comparables selection criteria TBD per L4 spec. |
 | J.1.7 | Per-channel demand attribution | T's transaction `EC` flag + Document `EC` indicators | Online vs in-store demand split for omnichannel forecast |
 | J.1.8 | Forecast accuracy tracking (MAPE, bias) | Prior forecasts vs actual sales | Per `forecast_results` schema; feeds parameter retuning |
 
@@ -114,7 +114,7 @@ L4 (Implementation detail)      Canary-Retail-Brain/modules/J-forecast-order.md
 | J.2.3 | Calculate Safety Stock per `(item, location)` | Demand variance (J.1.3) + lead-time variance + service-level target | Higher for volatile-demand items + variable-lead-time vendors |
 | J.2.4 | Maintain Weeks-of-Supply target per category | Buyer-set per category | Drives ROP and safety stock jointly per retail-planning §  |
 | J.2.5 | Counter stock exclusion | Per-store buyer-specified counter stock quantity | Excluded from "available SOH" for replenishment calc — display fixtures, testers, seasonal displays |
-| J.2.6 | Lead-time variance modeling | Supplier consistency tracking per vendor | v2.1 — until then use average; flag high-variability vendors for human review |
+| J.2.6 | Lead-time variance modeling | Supplier consistency tracking per vendor | → v2.1 deferred: L4 — lead-time variance model (exponential smoothing with seasonal adjustment); fallback: rolling 13-week average lead time per vendor. See ASSUMPTION-J-04. |
 | J.2.7 | Pre-pack-aware EOQ | Vendor pre-pack assortment definition | Order quantities round to pre-pack multiples for branded-vendor items |
 
 ### User stories
@@ -284,6 +284,11 @@ L4 (Implementation detail)      Canary-Retail-Brain/modules/J-forecast-order.md
 | J.8.9 | Receiver→PO match status | F (three-way match), Q (Q-IS-01) | Match outcome (deterministic / heuristic / unmatched) preserved per receiver event |
 | J.8.10 | Lead-time-variance per supplier | J.2.6 self-feedback + supplier scorecard | Aggregated across receivers; updated per receipt event |
 | J.8.11 | Demand-forecast snapshot for accuracy tracking | J.1.8 self-feedback | Per `(item, location, period)` forecast-vs-actual preserved indefinitely |
+
+**Cross-module dependency notes (load-bearing):**
+
+- **F.5.2 dependency (load-bearing):** J replenishment costing reads PO cost-flow data from F.5.2. F must publish cost-flow records before J can produce cost-accurate replenishment recommendations.
+- **P.6.3 dependency (load-bearing per J.8a):** J demand forecasting requires P.6.3 promotion calendar contract to hold. Promotional demand must be isolated before baseline forecast is computed. See Module P §P.6.3.
 
 ### User stories
 
