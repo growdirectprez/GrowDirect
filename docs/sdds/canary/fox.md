@@ -9,6 +9,10 @@
 
 Fox is Canary's case management and evidence locker domain -- "The Vault" in the mobile UX. It bridges automated anomaly detection (Chirp alerts) and human investigation workflows. When a merchant decides an alert warrants investigation, Fox creates a case, links originating alerts, tracks subjects of interest, stores evidence with cryptographic chain-of-custody integrity, and maintains an append-only audit timeline. Fox handles sensitive investigation data including employee identifiers, investigation narratives, and uploaded evidentiary files.
 
+### Hawk Positioning (Phase 1+)
+
+Fox is an **evidence-based record (EBR)** class inside the Hawk ops-contract system, not a standalone surface. Hawk introduces a card-based investigation model with a wizard FSM, structured card pipeline, and multi-entity tracking that supersedes Fox's flat case lifecycle; Fox's INSERT-only evidence chain, hash-chain integrity, and access-logging disciplines carry forward unchanged as the evidentiary backbone of every Hawk card. See `docs/sdds/canary/hawk.md` for the full ops-contract specification.
+
 ## Dependencies
 
 | Dependency | Type | Required | Purpose |
