@@ -192,8 +192,7 @@ hawk_subjects
   case_id           UUID FK → hawk_cases
   subject_type      TEXT  -- 'employee' | 'customer' | 'vendor' | 'unknown'
   employee_id       UUID NULL FK → app.employees
-  vendor_id         UUID NULL FK → app.vendors
-  vendor_entity_id  TEXT NULL  -- free-text vendor ref; app.vendors does not yet exist (deferred lookup table)
+  vendor_entity_id  TEXT NULL  -- Counterpoint vendor code (from C008/F012 vendor master); app.vendors is a deferred FK target
   external_name     TEXT NULL
   external_dob      DATE NULL
   external_id_type  TEXT NULL
@@ -307,7 +306,7 @@ bull_vendor_scores
   score_id          UUID PK
   merchant_id       UUID FK → app.merchants
   location_id       UUID FK → app.locations NULL  -- NULL = merchant-level aggregate
-  vendor_entity_id  TEXT  -- free-text vendor ref; deferred FK when app.vendors is created
+  vendor_entity_id  TEXT  -- Counterpoint vendor code (C008/F012 vendor master); deferred FK when app.vendors is created
   period_start      DATE
   period_end        DATE
   delivery_count    INTEGER
@@ -436,7 +435,7 @@ Phase 1 — Hawk core (unblocked):
 
 Phase 2 — Fox bridge:
 7. EBR alert → Hawk case routing (replaces direct Fox case open)
-8. Fox evidence chain wiring for Hawk evidentiary classes
+8. Fox evidence chain wiring: Alembic migration adding `hawk_case_id UUID NULL FK → hawk.hawk_cases` to `fox_evidence`; application-layer routing for non-EBR Hawk evidentiary case classes
 9. Hawk investigator UI Fox evidence panel
 
 Phase 3 — Bull (requires Module D substrate):
