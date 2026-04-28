@@ -152,6 +152,9 @@ and team profiles. 385+ documents embedded with qwen3-embedding:8b.
 memory_recall("NCR Counterpoint endpoint mapping")
 memory_recall("CATz Phase I workstreams")
 memory_recall("OTB open-to-buy allocation")
+memory_recall("platform thesis accountability rails meter model")
+memory_recall("local market agent signal feeds geography")
+memory_recall("retailer lifecycle test financial plan")
 context_assemble(topic="canary retail spine")
 domain_context(domain="canary", topic="purchase orders", token_budget=4000)
 ```
@@ -159,6 +162,8 @@ domain_context(domain="canary", topic="purchase orders", token_budget=4000)
 The `memory-bus` MCP server is registered in `.mcp.json` (Claude Code
 sessions) and `claude_desktop_config.json` (Cowork/desktop sessions).
 It runs at `http://127.0.0.1:8003/mcp` — requires Docker stack up.
+
+Post-commit hook installed: Brain/wiki/ changes auto-trigger incremental seed. Hook at `.git/hooks/post-commit` — reinstall if repo is re-cloned.
 
 **Keeping it current** — run after any Brain/wiki or SDD additions:
 ```bash
@@ -189,7 +194,7 @@ curl -s http://127.0.0.1:8003/mcp \
 | Project MOCs | [[Brain/projects/Canary|Canary]] · [[Brain/projects/Cove|Cove]] · [[Brain/projects/Angel|Angel]] |
 | Shared infra | `devops/docker-compose.yml` |
 | Canary entry point | `Canary/wsgi.py` (Guardian-protected) |
-| Canary SDDs | `Canary/docs/sdds/v2/` (16 files) |
+| Canary Go SDDs | `docs/sdds/go-handoff/` (19 files) |
 | Content engine CLI | `content-engine/engine.py` |
 | Factory manifest | `factory-manifest.json` |
 
@@ -281,7 +286,8 @@ Linear status.
 
 | Project | Directory | Status | What it is |
 |---------|-----------|--------|------------|
-| Canary | `Canary/` | **Near-beta** | Loss prevention analytics for Square merchants. |
+| Canary | `Canary/` | **Frozen** (v0-python-prototype) | Loss prevention analytics for Square merchants. Do not extend — Python prototype only. |
+| Canary Go | `CanaryGo/` | **Active build** | Go/GCP · 13-module spine · RapidPOS channel delivery. |
 | Cove | `Cove/` | **Early dev** | HOA governance platform for WPBCA (81 lots, Abalone Cove, RPV). |
 | Angel | `Cove/cove/angel/` + `Angel/` | **Active (Cove module)** | Real estate intelligence + lead gen for Compass agents. Code in Cove, knowledge in Angel/. |
 | Seacove | `Seacove/` | **Standalone** | SketchUp model-building pipeline for 25 Seacove Drive. Not connected to platform infra. |
@@ -361,8 +367,9 @@ Valkey: DB 0 = Canary, DB 1 = Cove + Angel
 
 | Service | Port |
 |---------|------|
-| Canary Flask | 5001 |
+| Canary Flask (Python, frozen) | 5001 |
 | Cove Flask (includes Angel) | 5002 |
+| Canary Go (port assignments TBD) | see `docs/sdds/go-handoff/go-module-layout.md` |
 | Angel Agent sidecar | 8004 |
 | Cove MailHog SMTP / Web | 1026 / 8026 |
 
