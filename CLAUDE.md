@@ -70,6 +70,49 @@ Dropped the beige.
 
 ---
 
+## Session Types — Church and State
+
+Two session modes. Never mixed. The mode is the accountability mechanism.
+
+**Church (laptop default):**
+Strategic, architectural, brainstorming. Produces Brain/wiki cards, design docs,
+specs, plans. Never touches `Canary/`, `Cove/`, or any service code directory.
+No Linear dispatch required. The `/church` skill invokes this mode. A `/church`
+moment inside a state session is a brief ad hoc card or wiki capture — not a
+full brainstorm. Return to state when done.
+
+**State (mini default, laptop when executing a dispatch):**
+Dispatch-driven only. Session opens by listing open Linear dispatches. Strict
+delivery posture — no free-form exploration, no architectural tangents. Commits
+on completion, closes the dispatch. The `/state` skill invokes this mode.
+
+**Rule:** If you are in state mode and the founder starts flowing architecturally,
+capture it as a `/church` note and redirect. Do not let state sessions drift into
+design. Do not let church sessions drift into code.
+
+**Mini is always state.** The laptop is church by default but may run state
+sessions for urgent dispatches.
+
+---
+
+## Platform Mission
+
+> *This model keeps you on track, meets your customers where they're going,
+> and gives them back the power to actually serve them — instead of worrying
+> about ops and tech.*
+
+**Three accountability rails:** Operational (no unknown loss) · Financial
+(L402-gated OTB) · Evidentiary (L2 blockchain hash anchoring).
+
+**ICP:** Private retail business, up to ~$50M annual sales, wearing every hat.
+
+**Governing docs:**
+- `Brain/wiki/cards/platform-thesis.md` — mission, ICP, meter model
+- `docs/superpowers/specs/2026-04-28-canary-go-agent-pmo-architecture-design.md` — agent PMO architecture
+- `Brain/wiki/agent-card-format.md` — knowledge card format and index
+
+---
+
 ## Documentation as Code
 
 SDDs → chunked memories → wikis → code. Top down, pushed through the Factory.
@@ -86,14 +129,17 @@ See [[Brain/projects/Method|Method MOC]] · [[docs/sdds/platform/factory-pipelin
 
 If you just landed in this repo, read in this order:
 
-1. **[[Brain/projects/Method|Method MOC]]** — the Factory, how we build, the roles
-2. **[[Brain/wiki/canary-platform-overview|Canary Platform Overview]]** — the first shipping product
-3. **[[Brain/wiki/canary-architecture|Canary Architecture]]** — how the pieces fit
-4. **A single SDD** — pick one from `Canary/docs/sdds/v2/` that matches your focus area
+1. **`Brain/wiki/cards/platform-thesis.md`** — what this platform is and why
+2. **`docs/superpowers/specs/2026-04-28-canary-go-agent-pmo-architecture-design.md`** — agent PMO network, module spine, lifecycle model
+3. **`Brain/wiki/canary-go-portal.md`** — project portal, SDD index, Linear links
+4. **`Brain/wiki/agent-card-format.md`** — the card network and knowledge substrate
+5. **One SDD** — pick one from `docs/sdds/go-handoff/` that matches your module
 
-Then look at the code under `Canary/canary/`. The SDDs were written first; the
-code implements them. If they disagree, the code is the authority — but file
-a note on what drifted.
+**Active build:** Canary Go — Go/GCP, 13-module spine, ARTS-native. Python prototype
+is frozen (`v0-python-prototype` tag on GRO-629). Do not extend it.
+
+**Canary Go Docker:** Own stack, own databases (`canary_go` / `canary_go_test`).
+No shared state with the Python Canary stack. Clean break.
 
 ### Memory bus
 
