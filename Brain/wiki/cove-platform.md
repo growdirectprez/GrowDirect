@@ -4,7 +4,7 @@ type: wiki
 tags: [cove, platform, development, flask, architecture]
 sources: [docs/sdds/cove/architecture, Cove/docs/plans/2026-03-24-foundation-rebuild]
 last-compiled: 2026-04-10
-needs-review: 2026-04-24
+needs-review: 2026-05-26
 ---
 
 # Cove Platform Development

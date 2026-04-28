@@ -50,6 +50,7 @@ The how-to library. Each skill is an executable technique — not documentation 
 Deliverable templates. What agents produce when they work.
 
 - [[Brain/method/WorkProducts|Work Products Index]] — Brain templates, SDD templates, plan template, brief template, spec template
+- [[Brain/wiki/solution-description-document-template|SDD Template]] — canonical solution description document template
 
 Current Brain templates: card, claim, daily-note, decision, meeting, raw-intake, wiki-article.
 
@@ -81,6 +82,15 @@ Client-facing and cross-agent artifact structures.
 - **Skills are executable techniques.** A technique isn't complete until it's a skill file; a skill file isn't complete until it runs in a Cowork/Claude Code session.
 - **Brain templates are WP specs.** A WP template isn't complete until it's in `Brain/templates/` and used by at least one Linear issue's output.
 - **SDDs are CommDocs.** Each SDD is a cross-agent communication artifact; they collectively describe the platform.
+
+## Delivery Framework References
+
+Engagement-level knowledge that spans the Method but lives at the delivery layer:
+
+- [[Brain/wiki/delivery-framework-cross-engagement|Delivery Framework — Cross-Engagement Discipline]] — cross-engagement delivery standards and discipline
+- [[Brain/wiki/dispatch-coordination-protocol|Dispatch Coordination Protocol]] — agent dispatch lifecycle, Linear issue patterns, pickup model
+- [[Brain/wiki/engagement-resource-model-fte-by-week|Engagement Resource Model — FTE × Week]] — staffing and resourcing model for structured engagements
+- [[Brain/wiki/engagement-shape-100-day-deployment|Engagement Shape — 100-Day Deployment]] — 100-day deployment arc and milestones
 
 ## Sprint history
 

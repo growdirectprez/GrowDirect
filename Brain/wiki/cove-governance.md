@@ -4,7 +4,7 @@ type: wiki
 tags: [cove, governance, wpbca, 501c3, organization]
 sources: [Cove/docs/admin/research/governance/2012-bylaws, Cove/docs/admin/research/briefs/501c3-strategy]
 last-compiled: 2026-04-10
-needs-review: 2026-04-24
+needs-review: 2026-05-26
 ---
 
 # Governance & Operations

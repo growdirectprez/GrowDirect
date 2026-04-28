@@ -1,7 +1,7 @@
 {
-  "generated": "2026-04-26T14:53:12.962571+00:00",
-  "article_count": 312,
-  "topic_count": 4085,
+  "generated": "2026-04-27T00:08:10.154969+00:00",
+  "article_count": 327,
+  "topic_count": 4118,
   "articles": [
     {
       "path": "Brain/wiki/501c-advocacy-arm.md",
@@ -2655,6 +2655,39 @@
       "type": "wiki"
     },
     {
+      "path": "Brain/wiki/bart-mccleskey-rapid-garden-pos.md",
+      "title": "Bart McCleskey — Rapid Garden POS (Relationship Profile)",
+      "summary": "Primary VAR contact and decision-maker for any partnership bundling Canary as the enterprise backend layer for Rapid POS's lawn & garden customer base. **Monday call: 2026-04-27 1:00 PM PST.**",
+      "tags": [],
+      "keywords": [
+        "1:00",
+        "2026",
+        "actually",
+        "agenda",
+        "background",
+        "bart",
+        "base",
+        "call",
+        "canary",
+        "customer",
+        "does",
+        "garden",
+        "identity",
+        "mccleskey",
+        "monday",
+        "person",
+        "pos",
+        "positioning",
+        "profile",
+        "rapid",
+        "related",
+        "relationship",
+        "right",
+        "what"
+      ],
+      "type": "wiki"
+    },
+    {
       "path": "Brain/wiki/bp-consulting-library-1997-1999.md",
       "title": "BP Consulting Library — 1997–1999",
       "summary": "**Governing thesis.** The `BP/` folder is a three-cluster consulting reference corpus from the late-1990s Big Five retail practice that triangulates Branch B of the [[third-branch]] thesis in a way Br",
@@ -3121,176 +3154,6 @@
       "type": "wiki"
     },
     {
-      "path": "Brain/wiki/canary-module-Q-functional-decomposition.md",
-      "title": "Module Q (Loss Prevention) — Functional Decomposition",
-      "summary": "Q is the only spine module that is **★ Canary native in every Counterpoint Solution Map**, because Counterpoint exposes the substrate (audit logs, drawer sessions, void-comp reasons, pricing decisions",
-      "tags": [],
-      "keywords": [
-        "allow",
-        "analyst",
-        "asserted",
-        "assumptions",
-        "canary",
-        "center",
-        "configuration",
-        "contracts",
-        "cross",
-        "customer",
-        "cutover",
-        "cutting",
-        "decomposition",
-        "deployment",
-        "detection",
-        "execution",
-        "executive",
-        "families",
-        "family",
-        "framework",
-        "functional",
-        "garden",
-        "governing",
-        "ingestion",
-        "investigator",
-        "lifecycle",
-        "list",
-        "lists",
-        "loss",
-        "management",
-        "module",
-        "notes",
-        "operating",
-        "overrides",
-        "pack",
-        "phases",
-        "phasing",
-        "prevention",
-        "processes",
-        "real",
-        "related",
-        "requiring",
-        "rule",
-        "specific",
-        "stories",
-        "substrate",
-        "summary",
-        "surface",
-        "tenant",
-        "thesis",
-        "tuning",
-        "user",
-        "validation",
-        "vertical"
-      ],
-      "type": "wiki"
-    },
-    {
-      "path": "Brain/wiki/canary-module-R-functional-decomposition.md",
-      "title": "Module R (Customer) — Functional Decomposition",
-      "summary": "R owns the **People entity** in CRDM, specifically the customer subset. Counterpoint exposes the richest People surface of any spine module — **17 endpoints** covering AR_CUST + addresses + notes + ca",
-      "tags": [],
-      "keywords": [
-        "assumptions",
-        "canary",
-        "company",
-        "context",
-        "contracts",
-        "cross",
-        "customer",
-        "decomposition",
-        "downstream",
-        "executive",
-        "framework",
-        "functional",
-        "future",
-        "governing",
-        "identity",
-        "investigator",
-        "ledger",
-        "loyalty",
-        "module",
-        "multi",
-        "notes",
-        "operating",
-        "overrides",
-        "posture",
-        "pricing",
-        "privacy",
-        "processes",
-        "real",
-        "registry",
-        "related",
-        "requiring",
-        "resolution",
-        "rest",
-        "specific",
-        "stories",
-        "substrate",
-        "summary",
-        "surface",
-        "surfacing",
-        "symmetric",
-        "thesis",
-        "tier",
-        "upsert",
-        "user",
-        "validation",
-        "vendor"
-      ],
-      "type": "wiki"
-    },
-    {
-      "path": "Brain/wiki/canary-module-T-functional-decomposition.md",
-      "title": "Module T (Transaction Pipeline) — Functional Decomposition",
-      "summary": "T is the **inbound edge of every spine module**. Every detection (Q), every customer projection (R), every device telemetry signal (N), every margin computation (P-derived), every transfer reconciliat",
-      "tags": [],
-      "keywords": [
-        "adapter",
-        "anchoring",
-        "assumptions",
-        "backfill",
-        "canary",
-        "canonical",
-        "contracts",
-        "cross",
-        "customer",
-        "decomposition",
-        "event",
-        "executive",
-        "framework",
-        "functional",
-        "governing",
-        "idempotency",
-        "ingress",
-        "integrity",
-        "keyed",
-        "merkle",
-        "module",
-        "notes",
-        "operating",
-        "overrides",
-        "parsing",
-        "pipeline",
-        "processes",
-        "provider",
-        "publication",
-        "real",
-        "registry",
-        "related",
-        "replay",
-        "requiring",
-        "sealing",
-        "specific",
-        "stories",
-        "substrate",
-        "summary",
-        "thesis",
-        "transaction",
-        "user",
-        "validation"
-      ],
-      "type": "wiki"
-    },
-    {
       "path": "Brain/wiki/canary-module-a-asset-management.md",
       "title": "Canary Module — A (Asset Management / \"Bubble\")",
       "summary": "A — codenamed **Bubble** — is multivariate anomaly detection over",
@@ -3330,6 +3193,46 @@
         "today",
         "what",
         "where"
+      ],
+      "type": "wiki"
+    },
+    {
+      "path": "Brain/wiki/canary-module-a-functional-decomposition.md",
+      "title": "Module A (Asset Management) — Functional Decomposition",
+      "summary": "> **Artifact layer.** Third of three Canary module artifact layers:",
+      "tags": [],
+      "keywords": [
+        "asset",
+        "assumptions",
+        "canary",
+        "contracts",
+        "cross",
+        "customer",
+        "decomposition",
+        "executive",
+        "framework",
+        "functional",
+        "governing",
+        "identification",
+        "item",
+        "lifecycle",
+        "management",
+        "module",
+        "notes",
+        "operating",
+        "overrides",
+        "processes",
+        "real",
+        "related",
+        "requiring",
+        "specific",
+        "stories",
+        "substrate",
+        "summary",
+        "thesis",
+        "tracking",
+        "user",
+        "validation"
       ],
       "type": "wiki"
     },
@@ -3375,6 +3278,50 @@
       "type": "wiki"
     },
     {
+      "path": "Brain/wiki/canary-module-c-functional-decomposition.md",
+      "title": "Module C (Commercial / B2B) — Functional Decomposition",
+      "summary": "> **Artifact layer.** Third of three Canary module artifact layers:",
+      "tags": [],
+      "keywords": [
+        "assumptions",
+        "canary",
+        "classification",
+        "commercial",
+        "contracts",
+        "credit",
+        "cross",
+        "customer",
+        "decomposition",
+        "derivation",
+        "detection",
+        "executive",
+        "framework",
+        "functional",
+        "governing",
+        "ledger",
+        "module",
+        "notes",
+        "operating",
+        "overrides",
+        "posture",
+        "processes",
+        "real",
+        "related",
+        "requiring",
+        "rules",
+        "specific",
+        "stories",
+        "substrate",
+        "summary",
+        "surface",
+        "thesis",
+        "user",
+        "validation",
+        "with"
+      ],
+      "type": "wiki"
+    },
+    {
       "path": "Brain/wiki/canary-module-d-distribution.md",
       "title": "Canary Module — D (Distribution)",
       "summary": "D (Distribution) owns inventory movement across the retail organization: receipts from suppliers, transfers between locations, returns to vendors, and inventory adjustments/cycle counts. **Design-only",
@@ -3412,6 +3359,55 @@
         "transfers",
         "v2",
         "where"
+      ],
+      "type": "wiki"
+    },
+    {
+      "path": "Brain/wiki/canary-module-d-functional-decomposition.md",
+      "title": "Module D (Distribution) — Functional Decomposition",
+      "summary": "> **Artifact layer.** Third of three Canary module artifact layers:",
+      "tags": [],
+      "keywords": [
+        "assumptions",
+        "attribution",
+        "canary",
+        "contracts",
+        "cross",
+        "customer",
+        "decomposition",
+        "detection",
+        "distribution",
+        "executive",
+        "framework",
+        "functional",
+        "governing",
+        "ingestion",
+        "inventory",
+        "item",
+        "location",
+        "loss",
+        "module",
+        "multi",
+        "notes",
+        "operating",
+        "overrides",
+        "processes",
+        "real",
+        "recommendations",
+        "reconciliation",
+        "related",
+        "requiring",
+        "snapshot",
+        "specific",
+        "store",
+        "stories",
+        "substrate",
+        "summary",
+        "thesis",
+        "transfer",
+        "typ=xfer",
+        "user",
+        "validation"
       ],
       "type": "wiki"
     },
@@ -3457,6 +3453,60 @@
       "type": "wiki"
     },
     {
+      "path": "Brain/wiki/canary-module-f-functional-decomposition.md",
+      "title": "Module F (Finance — Tenders / Tax / Gift Cards) — Functional Decomposition",
+      "summary": "> **Artifact layer.** Third of three Canary module artifact layers:",
+      "tags": [],
+      "keywords": [
+        "assumptions",
+        "canary",
+        "card",
+        "cards",
+        "code",
+        "contracts",
+        "cross",
+        "customer",
+        "decomposition",
+        "document",
+        "executive",
+        "finance",
+        "flattening",
+        "framework",
+        "functional",
+        "gift",
+        "governing",
+        "ledger",
+        "module",
+        "notes",
+        "nsptransaction",
+        "operating",
+        "overrides",
+        "paycode",
+        "payment",
+        "processes",
+        "real",
+        "registry",
+        "related",
+        "requiring",
+        "secure",
+        "specific",
+        "stories",
+        "substrate",
+        "summary",
+        "surface",
+        "surfacing",
+        "taxonomy",
+        "tender",
+        "tenders",
+        "thesis",
+        "tokenization",
+        "user",
+        "validation",
+        "with"
+      ],
+      "type": "wiki"
+    },
+    {
       "path": "Brain/wiki/canary-module-j-forecast-order.md",
       "title": "Canary Module — J (Forecast & Order)",
       "summary": "J (Forecast & Order) owns demand forecasting, replenishment-point calculation, and automated purchase-order recommendation. **Design-only at this point — no Canary code yet.** This wiki article is the",
@@ -3493,6 +3543,68 @@
         "this",
         "v2",
         "where"
+      ],
+      "type": "wiki"
+    },
+    {
+      "path": "Brain/wiki/canary-module-j-functional-decomposition.md",
+      "title": "Module J (Forecast & Order) — Functional Decomposition",
+      "summary": "> **Artifact layer.** Third of three Canary module artifact layers:",
+      "tags": [],
+      "keywords": [
+        "approval",
+        "assumptions",
+        "calculation",
+        "canary",
+        "contract",
+        "contracts",
+        "cross",
+        "customer",
+        "decomposition",
+        "demand",
+        "executive",
+        "forecast",
+        "forecasting",
+        "framework",
+        "functional",
+        "generation",
+        "governing",
+        "handling",
+        "isolation",
+        "j.8a",
+        "j.8b",
+        "management",
+        "match",
+        "module",
+        "notes",
+        "open",
+        "operating",
+        "order",
+        "overrides",
+        "parameter",
+        "processes",
+        "promotional",
+        "real",
+        "receiving",
+        "recommendation",
+        "registry",
+        "related",
+        "replenishment",
+        "requiring",
+        "ship",
+        "short",
+        "specific",
+        "stories",
+        "substrate",
+        "summary",
+        "symmetric",
+        "thesis",
+        "three",
+        "transmission",
+        "user",
+        "validation",
+        "with",
+        "workflow"
       ],
       "type": "wiki"
     },
@@ -3581,6 +3693,109 @@
       "type": "wiki"
     },
     {
+      "path": "Brain/wiki/canary-module-n-functional-decomposition.md",
+      "title": "Module N (Device — Stores / Stations / Per-Store Config) — Functional Decomposition",
+      "summary": "> **Artifact layer.** Third of three Canary module artifact layers:",
+      "tags": [],
+      "keywords": [
+        "assumptions",
+        "bearing",
+        "bootstrap",
+        "canary",
+        "config",
+        "contracts",
+        "correlation",
+        "cross",
+        "customer",
+        "decomposition",
+        "defaults",
+        "device",
+        "drawer",
+        "executive",
+        "framework",
+        "functional",
+        "governing",
+        "ingestion",
+        "load",
+        "master",
+        "module",
+        "notes",
+        "operating",
+        "overrides",
+        "processes",
+        "real",
+        "registry",
+        "related",
+        "requiring",
+        "session",
+        "specific",
+        "station",
+        "stations",
+        "store",
+        "stores",
+        "stories",
+        "substrate",
+        "substrate;",
+        "summary",
+        "tenant",
+        "thesis",
+        "thresholds",
+        "user",
+        "validation",
+        "workgroup"
+      ],
+      "type": "wiki"
+    },
+    {
+      "path": "Brain/wiki/canary-module-p-functional-decomposition.md",
+      "title": "Module P (Pricing & Promotion) — Functional Decomposition",
+      "summary": "> **Artifact layer.** Third of three Canary module artifact layers:",
+      "tags": [],
+      "keywords": [
+        "assumptions",
+        "canary",
+        "contracts",
+        "cross",
+        "customer",
+        "decomposition",
+        "derivation",
+        "elasticity",
+        "executive",
+        "framework",
+        "functional",
+        "governing",
+        "items",
+        "lifecycle",
+        "linked",
+        "maintenance",
+        "management",
+        "markdown",
+        "mass",
+        "module",
+        "multi",
+        "notes",
+        "operating",
+        "overrides",
+        "price",
+        "pricing",
+        "processes",
+        "promotion",
+        "real",
+        "related",
+        "requiring",
+        "specific",
+        "stories",
+        "substrate",
+        "summary",
+        "thesis",
+        "tier",
+        "tracking",
+        "user",
+        "validation"
+      ],
+      "type": "wiki"
+    },
+    {
       "path": "Brain/wiki/canary-module-p-pricing-promotion.md",
       "title": "Canary Module — P (Pricing & Promotion)",
       "summary": "P (Pricing & Promotion) owns the promotion engine, markdown management, elasticity tracking, and multi-channel price reconciliation. **v3 design — implementation deferred.** This wiki article is the C",
@@ -3618,6 +3833,121 @@
         "this",
         "v3",
         "where"
+      ],
+      "type": "wiki"
+    },
+    {
+      "path": "Brain/wiki/canary-module-q-counterpoint-rule-catalog.md",
+      "title": "Canary Module Q — Counterpoint Rule Catalog",
+      "summary": "Loss-prevention rule catalog for Canary's Module Q operating against NCR Counterpoint substrate. Counterpoint exposes a richer event surface than Square (audit logs per Document, multi-authority tax b",
+      "tags": [],
+      "keywords": [
+        "abuse",
+        "allow",
+        "anomalies",
+        "audit",
+        "canary",
+        "catalog",
+        "center",
+        "compliance",
+        "counterpoint",
+        "customer",
+        "definitions",
+        "deployment",
+        "discount",
+        "drawer",
+        "erosion",
+        "framework",
+        "from",
+        "garden",
+        "inventory",
+        "list",
+        "margin",
+        "markdown",
+        "match",
+        "module",
+        "open",
+        "operator",
+        "phasing",
+        "questions",
+        "reads",
+        "related",
+        "return",
+        "rule",
+        "session",
+        "shrink",
+        "specific",
+        "substrate",
+        "surface",
+        "taxonomy",
+        "tender",
+        "tier",
+        "trail",
+        "void",
+        "what"
+      ],
+      "type": "wiki"
+    },
+    {
+      "path": "Brain/wiki/canary-module-q-functional-decomposition.md",
+      "title": "Module Q (Loss Prevention) — Functional Decomposition",
+      "summary": "> **Artifact layer.** Third of three Canary module artifact layers:",
+      "tags": [],
+      "keywords": [
+        "allow",
+        "analyst",
+        "asserted",
+        "assumptions",
+        "canary",
+        "center",
+        "configuration",
+        "contracts",
+        "cross",
+        "customer",
+        "cutover",
+        "cutting",
+        "decomposition",
+        "deployment",
+        "detection",
+        "execution",
+        "executive",
+        "families",
+        "family",
+        "framework",
+        "functional",
+        "garden",
+        "governing",
+        "ingestion",
+        "investigator",
+        "lifecycle",
+        "list",
+        "lists",
+        "loss",
+        "management",
+        "module",
+        "notes",
+        "operating",
+        "overrides",
+        "pack",
+        "phases",
+        "phasing",
+        "prevention",
+        "processes",
+        "real",
+        "related",
+        "requiring",
+        "rule",
+        "specific",
+        "stories",
+        "substrate",
+        "summary",
+        "surface",
+        "tenant",
+        "thesis",
+        "tuning",
+        "user",
+        "validation",
+        "vertical"
       ],
       "type": "wiki"
     },
@@ -3712,6 +4042,123 @@
       "type": "wiki"
     },
     {
+      "path": "Brain/wiki/canary-module-r-functional-decomposition.md",
+      "title": "Module R (Customer) — Functional Decomposition",
+      "summary": "> **Artifact layer.** Third of three Canary module artifact layers:",
+      "tags": [],
+      "keywords": [
+        "assumptions",
+        "canary",
+        "company",
+        "context",
+        "contracts",
+        "cross",
+        "customer",
+        "decomposition",
+        "downstream",
+        "executive",
+        "framework",
+        "functional",
+        "future",
+        "governing",
+        "identity",
+        "investigator",
+        "ledger",
+        "loyalty",
+        "module",
+        "multi",
+        "notes",
+        "operating",
+        "overrides",
+        "posture",
+        "pricing",
+        "privacy",
+        "processes",
+        "real",
+        "registry",
+        "related",
+        "requiring",
+        "resolution",
+        "rest",
+        "specific",
+        "stories",
+        "substrate",
+        "summary",
+        "surface",
+        "surfacing",
+        "symmetric",
+        "thesis",
+        "tier",
+        "upsert",
+        "user",
+        "validation",
+        "vendor"
+      ],
+      "type": "wiki"
+    },
+    {
+      "path": "Brain/wiki/canary-module-s-functional-decomposition.md",
+      "title": "Module S (Space, Range, Display — Items / Catalog) — Functional Decomposition",
+      "summary": "> **Artifact layer.** Third of three Canary module artifact layers:",
+      "tags": [],
+      "keywords": [
+        "assumptions",
+        "canary",
+        "catalog",
+        "category",
+        "center",
+        "contracts",
+        "cross",
+        "customer",
+        "decomposition",
+        "display",
+        "distinctive",
+        "drift",
+        "ecommerce",
+        "executive",
+        "fractional",
+        "framework",
+        "functional",
+        "garden",
+        "governing",
+        "group",
+        "handling",
+        "hierarchy",
+        "ingestion",
+        "item",
+        "items",
+        "lifecycle",
+        "margin",
+        "master",
+        "match",
+        "modeling",
+        "module",
+        "notes",
+        "operating",
+        "overrides",
+        "processes",
+        "range",
+        "real",
+        "registry",
+        "related",
+        "requiring",
+        "space",
+        "specific",
+        "stories",
+        "substrate",
+        "summary",
+        "surface",
+        "surfacing",
+        "sync",
+        "targets",
+        "thesis",
+        "unit",
+        "user",
+        "validation"
+      ],
+      "type": "wiki"
+    },
+    {
       "path": "Brain/wiki/canary-module-s-space-range-display.md",
       "title": "Canary Module — S (Space, Range, Display)",
       "summary": "S (Space, Range, Display) owns planograms, fixture inventory, shelf-edge label compilation, and the ordering gate that prevents items from being purchased until they have a physical place on the shelf",
@@ -3754,6 +4201,58 @@
         "this",
         "v3",
         "where"
+      ],
+      "type": "wiki"
+    },
+    {
+      "path": "Brain/wiki/canary-module-t-functional-decomposition.md",
+      "title": "Module T (Transaction Pipeline) — Functional Decomposition",
+      "summary": "> **Artifact layer.** Third of three Canary module artifact layers:",
+      "tags": [],
+      "keywords": [
+        "adapter",
+        "anchoring",
+        "assumptions",
+        "backfill",
+        "canary",
+        "canonical",
+        "contracts",
+        "cross",
+        "customer",
+        "decomposition",
+        "event",
+        "executive",
+        "framework",
+        "functional",
+        "governing",
+        "idempotency",
+        "ingress",
+        "integrity",
+        "keyed",
+        "merkle",
+        "module",
+        "notes",
+        "operating",
+        "overrides",
+        "parsing",
+        "pipeline",
+        "processes",
+        "provider",
+        "publication",
+        "real",
+        "registry",
+        "related",
+        "replay",
+        "requiring",
+        "sealing",
+        "specific",
+        "stories",
+        "substrate",
+        "summary",
+        "thesis",
+        "transaction",
+        "user",
+        "validation"
       ],
       "type": "wiki"
     },
@@ -14321,6 +14820,55 @@
       "type": "wiki"
     },
     {
+      "path": "Brain/wiki/prototype-prep-master-dispatch.md",
+      "title": "Prototype Prep Master Dispatch",
+      "summary": "Governing thesis: Canary is the non-disruptive enterprise layer on top of Counterpoint. It doesn't replace Rapid Garden POS — it adds the perpetual ledger, LP rules, OTB enforcement, and distribution ",
+      "tags": [],
+      "keywords": [
+        "advisors",
+        "assumption",
+        "bart",
+        "baseline",
+        "call",
+        "canary",
+        "complete",
+        "dispatch",
+        "engagement",
+        "first",
+        "garden",
+        "gate",
+        "gating",
+        "group",
+        "highest",
+        "initiative",
+        "leverage",
+        "maonach",
+        "markers",
+        "master",
+        "mccleskey",
+        "module",
+        "mooney",
+        "open",
+        "partners",
+        "phase",
+        "pilot",
+        "post",
+        "prep",
+        "project",
+        "prototype",
+        "rapid",
+        "related",
+        "results",
+        "sandbox",
+        "shape",
+        "ship",
+        "spine",
+        "state",
+        "week"
+      ],
+      "type": "wiki"
+    },
+    {
       "path": "Brain/wiki/pwc-ebiz-web-implementation-guide.md",
       "title": "PwC eBusiness Web Implementation Guide (Definition / Design / Development)",
       "summary": "**Governing thesis.** The PwC eBusiness Web Implementation Guide, dated circa September–October 2000, is the formal artifact-form of [[third-branch|Branch B]] — the \"strategy consulting got the questi",
@@ -16633,6 +17181,29 @@
       "type": "wiki"
     },
     {
+      "path": "Brain/wiki/tim-mooney-maonach-group.md",
+      "title": "Tim Mooney — The Maonach Group (Advisor Profile)",
+      "summary": "Potential advisor for the Canary + Rapid Garden POS initiative. Org design and facilitation lens; no visible domain experience in SMB retail or POS vertical — domain fit to confirm in first conversati",
+      "tags": [],
+      "keywords": [
+        "advisor",
+        "background",
+        "canary",
+        "engage",
+        "garden",
+        "group",
+        "identity",
+        "maonach",
+        "mooney",
+        "profile",
+        "rapid",
+        "related",
+        "status",
+        "tim"
+      ],
+      "type": "wiki"
+    },
+    {
       "path": "Brain/wiki/video-integration-solution-pattern.md",
       "title": "Video Integration — Solution Pattern",
       "summary": "The reusable architectural pattern for integrating a third-party video surveillance system (DVR-based) into a loss-prevention or transaction-analytics platform. The reference implementation uses exacq",
@@ -16994,12 +17565,32 @@
       "type": "project-moc"
     },
     {
+      "path": "Brain/projects/CATz.md",
+      "title": "CATz",
+      "summary": "status: active",
+      "tags": [],
+      "keywords": [
+        "catz"
+      ],
+      "type": "project-moc"
+    },
+    {
       "path": "Brain/projects/Canary.md",
       "title": "Canary",
       "summary": "status: beta",
       "tags": [],
       "keywords": [
         "canary"
+      ],
+      "type": "project-moc"
+    },
+    {
+      "path": "Brain/projects/CanaryRetailBrain.md",
+      "title": "CanaryRetailBrain",
+      "summary": "status: active",
+      "tags": [],
+      "keywords": [
+        "canaryretailbrain"
       ],
       "type": "project-moc"
     },
@@ -17040,6 +17631,16 @@
       "tags": [],
       "keywords": [
         "method"
+      ],
+      "type": "project-moc"
+    },
+    {
+      "path": "Brain/projects/NCR.md",
+      "title": "NCR",
+      "summary": "status: active",
+      "tags": [],
+      "keywords": [
+        "ncr"
       ],
       "type": "project-moc"
     },
@@ -18155,6 +18756,12 @@
         "title": "BroadVision 1999–2000 — the Platform Architecture"
       }
     ],
+    "1:00": [
+      {
+        "path": "Brain/wiki/bart-mccleskey-rapid-garden-pos.md",
+        "title": "Bart McCleskey — Rapid Garden POS (Relationship Profile)"
+      }
+    ],
     "2.0h": [
       {
         "path": "Brain/wiki/growdirect-timelog-jess-companion-guides-feb24.md",
@@ -18593,6 +19200,10 @@
       {
         "path": "Brain/wiki/angel-weekly-crmls-pull.md",
         "title": "Angel Weekly CRMLS Pull — Process Definition"
+      },
+      {
+        "path": "Brain/wiki/bart-mccleskey-rapid-garden-pos.md",
+        "title": "Bart McCleskey — Rapid Garden POS (Relationship Profile)"
       },
       {
         "path": "Brain/wiki/coac-1984-gp-amendment-14-eastview.md",
@@ -19109,6 +19720,12 @@
         "title": "Heartbeat / Fireball (2002) — Essential Design"
       }
     ],
+    "abuse": [
+      {
+        "path": "Brain/wiki/canary-module-q-counterpoint-rule-catalog.md",
+        "title": "Canary Module Q — Counterpoint Rule Catalog"
+      }
+    ],
     "academic": [
       {
         "path": "Brain/wiki/academic-frame-1999-hbs.md",
@@ -19499,6 +20116,10 @@
         "title": "Peninsula School Guide — Content Pool (Raw)"
       },
       {
+        "path": "Brain/wiki/bart-mccleskey-rapid-garden-pos.md",
+        "title": "Bart McCleskey — Rapid Garden POS (Relationship Profile)"
+      },
+      {
         "path": "Brain/wiki/canary-ej-spine-and-sales-audit.md",
         "title": "Canary EJ Spine + Sales Audit — the Canary-Native Naming for the Perpetual Layer"
       },
@@ -19537,7 +20158,7 @@
     ],
     "adapter": [
       {
-        "path": "Brain/wiki/canary-module-T-functional-decomposition.md",
+        "path": "Brain/wiki/canary-module-t-functional-decomposition.md",
         "title": "Module T (Transaction Pipeline) — Functional Decomposition"
       },
       {
@@ -19807,6 +20428,16 @@
       {
         "path": "Brain/wiki/foundation-three-hat-compensation.md",
         "title": "Foundation Three-Hat Compensation Model"
+      },
+      {
+        "path": "Brain/wiki/tim-mooney-maonach-group.md",
+        "title": "Tim Mooney — The Maonach Group (Advisor Profile)"
+      }
+    ],
+    "advisors": [
+      {
+        "path": "Brain/wiki/prototype-prep-master-dispatch.md",
+        "title": "Prototype Prep Master Dispatch"
       }
     ],
     "advisory-synthesis": [
@@ -20018,6 +20649,10 @@
       }
     ],
     "agenda": [
+      {
+        "path": "Brain/wiki/bart-mccleskey-rapid-garden-pos.md",
+        "title": "Bart McCleskey — Rapid Garden POS (Relationship Profile)"
+      },
       {
         "path": "Brain/wiki/secure-dv-private-label-2006.md",
         "title": "Private Label Food Setup — US Design Validation Workshop (Aug 2006)"
@@ -20291,7 +20926,11 @@
     ],
     "allow": [
       {
-        "path": "Brain/wiki/canary-module-Q-functional-decomposition.md",
+        "path": "Brain/wiki/canary-module-q-counterpoint-rule-catalog.md",
+        "title": "Canary Module Q — Counterpoint Rule Catalog"
+      },
+      {
+        "path": "Brain/wiki/canary-module-q-functional-decomposition.md",
         "title": "Module Q (Loss Prevention) — Functional Decomposition"
       }
     ],
@@ -20539,7 +21178,7 @@
     ],
     "analyst": [
       {
-        "path": "Brain/wiki/canary-module-Q-functional-decomposition.md",
+        "path": "Brain/wiki/canary-module-q-functional-decomposition.md",
         "title": "Module Q (Loss Prevention) — Functional Decomposition"
       },
       {
@@ -20611,7 +21250,7 @@
     ],
     "anchoring": [
       {
-        "path": "Brain/wiki/canary-module-T-functional-decomposition.md",
+        "path": "Brain/wiki/canary-module-t-functional-decomposition.md",
         "title": "Module T (Transaction Pipeline) — Functional Decomposition"
       },
       {
@@ -21031,6 +21670,10 @@
     ],
     "anomalies": [
       {
+        "path": "Brain/wiki/canary-module-q-counterpoint-rule-catalog.md",
+        "title": "Canary Module Q — Counterpoint Rule Catalog"
+      },
+      {
         "path": "Brain/wiki/coac-1984-gp-amendment-14-eastview.md",
         "title": "COAC: 1984 GP Amendment 14 — Eastview Annexation (Jurisdictional-Continuity Precedent)"
       }
@@ -21258,6 +21901,10 @@
       }
     ],
     "approval": [
+      {
+        "path": "Brain/wiki/canary-module-j-functional-decomposition.md",
+        "title": "Module J (Forecast & Order) — Functional Decomposition"
+      },
       {
         "path": "Brain/wiki/cove-lrpmp.md",
         "title": "RPV Long-Range Property Management Plan (LRPMP)"
@@ -21877,7 +22524,7 @@
     ],
     "asserted": [
       {
-        "path": "Brain/wiki/canary-module-Q-functional-decomposition.md",
+        "path": "Brain/wiki/canary-module-q-functional-decomposition.md",
         "title": "Module Q (Loss Prevention) — Functional Decomposition"
       }
     ],
@@ -21953,6 +22600,10 @@
       {
         "path": "Brain/wiki/canary-module-a-asset-management.md",
         "title": "Canary Module — A (Asset Management / \"Bubble\")"
+      },
+      {
+        "path": "Brain/wiki/canary-module-a-functional-decomposition.md",
+        "title": "Module A (Asset Management) — Functional Decomposition"
       },
       {
         "path": "Brain/wiki/growdirect-canary.md",
@@ -22077,21 +22728,57 @@
     ],
     "assumption": [
       {
+        "path": "Brain/wiki/prototype-prep-master-dispatch.md",
+        "title": "Prototype Prep Master Dispatch"
+      },
+      {
         "path": "Brain/wiki/rapid-pos-counterpoint-market-research-tam.md",
         "title": "Rapid POS / NCR Counterpoint — Market Research + TAM"
       }
     ],
     "assumptions": [
       {
-        "path": "Brain/wiki/canary-module-Q-functional-decomposition.md",
+        "path": "Brain/wiki/canary-module-a-functional-decomposition.md",
+        "title": "Module A (Asset Management) — Functional Decomposition"
+      },
+      {
+        "path": "Brain/wiki/canary-module-c-functional-decomposition.md",
+        "title": "Module C (Commercial / B2B) — Functional Decomposition"
+      },
+      {
+        "path": "Brain/wiki/canary-module-d-functional-decomposition.md",
+        "title": "Module D (Distribution) — Functional Decomposition"
+      },
+      {
+        "path": "Brain/wiki/canary-module-f-functional-decomposition.md",
+        "title": "Module F (Finance — Tenders / Tax / Gift Cards) — Functional Decomposition"
+      },
+      {
+        "path": "Brain/wiki/canary-module-j-functional-decomposition.md",
+        "title": "Module J (Forecast & Order) — Functional Decomposition"
+      },
+      {
+        "path": "Brain/wiki/canary-module-n-functional-decomposition.md",
+        "title": "Module N (Device — Stores / Stations / Per-Store Config) — Functional Decomposition"
+      },
+      {
+        "path": "Brain/wiki/canary-module-p-functional-decomposition.md",
+        "title": "Module P (Pricing & Promotion) — Functional Decomposition"
+      },
+      {
+        "path": "Brain/wiki/canary-module-q-functional-decomposition.md",
         "title": "Module Q (Loss Prevention) — Functional Decomposition"
       },
       {
-        "path": "Brain/wiki/canary-module-R-functional-decomposition.md",
+        "path": "Brain/wiki/canary-module-r-functional-decomposition.md",
         "title": "Module R (Customer) — Functional Decomposition"
       },
       {
-        "path": "Brain/wiki/canary-module-T-functional-decomposition.md",
+        "path": "Brain/wiki/canary-module-s-functional-decomposition.md",
+        "title": "Module S (Space, Range, Display — Items / Catalog) — Functional Decomposition"
+      },
+      {
+        "path": "Brain/wiki/canary-module-t-functional-decomposition.md",
         "title": "Module T (Transaction Pipeline) — Functional Decomposition"
       }
     ],
@@ -22183,6 +22870,12 @@
         "title": "Los Verdes — Content Pool (Raw)"
       }
     ],
+    "attribution": [
+      {
+        "path": "Brain/wiki/canary-module-d-functional-decomposition.md",
+        "title": "Module D (Distribution) — Functional Decomposition"
+      }
+    ],
     "audience": [
       {
         "path": "Brain/wiki/solution-description-document-template.md",
@@ -22197,6 +22890,10 @@
       {
         "path": "Brain/wiki/canary-fox-case-management.md",
         "title": "Canary Fox Case Management"
+      },
+      {
+        "path": "Brain/wiki/canary-module-q-counterpoint-rule-catalog.md",
+        "title": "Canary Module Q — Counterpoint Rule Catalog"
       },
       {
         "path": "Brain/wiki/growdirect-research-worm-exposure.md",
@@ -22441,7 +23138,7 @@
         "title": "Angel Weekly CRMLS Pull — Process Definition"
       },
       {
-        "path": "Brain/wiki/canary-module-T-functional-decomposition.md",
+        "path": "Brain/wiki/canary-module-t-functional-decomposition.md",
         "title": "Module T (Transaction Pipeline) — Functional Decomposition"
       },
       {
@@ -22453,6 +23150,14 @@
       {
         "path": "Brain/wiki/angel-voice-training.md",
         "title": "Angel Voice Training"
+      },
+      {
+        "path": "Brain/wiki/bart-mccleskey-rapid-garden-pos.md",
+        "title": "Bart McCleskey — Rapid Garden POS (Relationship Profile)"
+      },
+      {
+        "path": "Brain/wiki/tim-mooney-maonach-group.md",
+        "title": "Tim Mooney — The Maonach Group (Advisor Profile)"
       }
     ],
     "backstory": [
@@ -22507,11 +23212,23 @@
     ],
     "bart": [
       {
+        "path": "Brain/wiki/bart-mccleskey-rapid-garden-pos.md",
+        "title": "Bart McCleskey — Rapid Garden POS (Relationship Profile)"
+      },
+      {
+        "path": "Brain/wiki/prototype-prep-master-dispatch.md",
+        "title": "Prototype Prep Master Dispatch"
+      },
+      {
         "path": "Brain/wiki/socal-home-garden-target-customers-brief.md",
         "title": "SoCal Home & Garden Target Customers — Brief for Monday Bart Call"
       }
     ],
     "base": [
+      {
+        "path": "Brain/wiki/bart-mccleskey-rapid-garden-pos.md",
+        "title": "Bart McCleskey — Rapid Garden POS (Relationship Profile)"
+      },
       {
         "path": "Brain/wiki/growdirect-research-bitcoin-architecture.md",
         "title": "Bitcoin-Native Infrastructure for Retail Loss Prevention"
@@ -22539,6 +23256,10 @@
       {
         "path": "Brain/wiki/cove-coastal-setback-regime-2006-2009.md",
         "title": "Coastal Setback Regime — 2006–2009"
+      },
+      {
+        "path": "Brain/wiki/prototype-prep-master-dispatch.md",
+        "title": "Prototype Prep Master Dispatch"
       }
     ],
     "baseline;": [
@@ -22642,6 +23363,10 @@
       }
     ],
     "bearing": [
+      {
+        "path": "Brain/wiki/canary-module-n-functional-decomposition.md",
+        "title": "Module N (Device — Stores / Stations / Per-Store Config) — Functional Decomposition"
+      },
       {
         "path": "Brain/wiki/ncr-counterpoint-phase-0-context-brief.md",
         "title": "NCR Counterpoint Phase 0 — Session Context Brief"
@@ -23212,6 +23937,10 @@
       }
     ],
     "bootstrap": [
+      {
+        "path": "Brain/wiki/canary-module-n-functional-decomposition.md",
+        "title": "Module N (Device — Stores / Stations / Per-Store Config) — Functional Decomposition"
+      },
       {
         "path": "Brain/wiki/ncr-counterpoint-connection-runbook.md",
         "title": "NCR Counterpoint API — Connection Runbook"
@@ -23971,6 +24700,12 @@
         "title": "PV Drive North — Content Pool (Raw)"
       }
     ],
+    "calculation": [
+      {
+        "path": "Brain/wiki/canary-module-j-functional-decomposition.md",
+        "title": "Module J (Forecast & Order) — Functional Decomposition"
+      }
+    ],
     "calculations\"": [
       {
         "path": "Brain/wiki/coac-rm-22-incompatibility.md",
@@ -24027,12 +24762,20 @@
     ],
     "call": [
       {
+        "path": "Brain/wiki/bart-mccleskey-rapid-garden-pos.md",
+        "title": "Bart McCleskey — Rapid Garden POS (Relationship Profile)"
+      },
+      {
         "path": "Brain/wiki/ncr-counterpoint-connection-runbook.md",
         "title": "NCR Counterpoint API — Connection Runbook"
       },
       {
         "path": "Brain/wiki/ncr-counterpoint-phase-0-context-brief.md",
         "title": "NCR Counterpoint Phase 0 — Session Context Brief"
+      },
+      {
+        "path": "Brain/wiki/prototype-prep-master-dispatch.md",
+        "title": "Prototype Prep Master Dispatch"
       },
       {
         "path": "Brain/wiki/socal-home-garden-target-customers-brief.md",
@@ -24111,6 +24854,10 @@
     ],
     "canary": [
       {
+        "path": "Brain/wiki/bart-mccleskey-rapid-garden-pos.md",
+        "title": "Bart McCleskey — Rapid Garden POS (Relationship Profile)"
+      },
+      {
         "path": "Brain/wiki/canary-alerts-guide.md",
         "title": "Canary Alerts — A Plain-English Guide"
       },
@@ -24143,36 +24890,44 @@
         "title": "Canary Fox Case Management"
       },
       {
-        "path": "Brain/wiki/canary-module-Q-functional-decomposition.md",
-        "title": "Module Q (Loss Prevention) — Functional Decomposition"
-      },
-      {
-        "path": "Brain/wiki/canary-module-R-functional-decomposition.md",
-        "title": "Module R (Customer) — Functional Decomposition"
-      },
-      {
-        "path": "Brain/wiki/canary-module-T-functional-decomposition.md",
-        "title": "Module T (Transaction Pipeline) — Functional Decomposition"
-      },
-      {
         "path": "Brain/wiki/canary-module-a-asset-management.md",
         "title": "Canary Module — A (Asset Management / \"Bubble\")"
+      },
+      {
+        "path": "Brain/wiki/canary-module-a-functional-decomposition.md",
+        "title": "Module A (Asset Management) — Functional Decomposition"
       },
       {
         "path": "Brain/wiki/canary-module-c-commercial.md",
         "title": "Canary Module — C (Commercial)"
       },
       {
+        "path": "Brain/wiki/canary-module-c-functional-decomposition.md",
+        "title": "Module C (Commercial / B2B) — Functional Decomposition"
+      },
+      {
         "path": "Brain/wiki/canary-module-d-distribution.md",
         "title": "Canary Module — D (Distribution)"
+      },
+      {
+        "path": "Brain/wiki/canary-module-d-functional-decomposition.md",
+        "title": "Module D (Distribution) — Functional Decomposition"
       },
       {
         "path": "Brain/wiki/canary-module-f-finance.md",
         "title": "Canary Module — F (Finance)"
       },
       {
+        "path": "Brain/wiki/canary-module-f-functional-decomposition.md",
+        "title": "Module F (Finance — Tenders / Tax / Gift Cards) — Functional Decomposition"
+      },
+      {
         "path": "Brain/wiki/canary-module-j-forecast-order.md",
         "title": "Canary Module — J (Forecast & Order)"
+      },
+      {
+        "path": "Brain/wiki/canary-module-j-functional-decomposition.md",
+        "title": "Module J (Forecast & Order) — Functional Decomposition"
       },
       {
         "path": "Brain/wiki/canary-module-l-labor-workforce.md",
@@ -24183,8 +24938,24 @@
         "title": "Canary Module — N (Device)"
       },
       {
+        "path": "Brain/wiki/canary-module-n-functional-decomposition.md",
+        "title": "Module N (Device — Stores / Stations / Per-Store Config) — Functional Decomposition"
+      },
+      {
+        "path": "Brain/wiki/canary-module-p-functional-decomposition.md",
+        "title": "Module P (Pricing & Promotion) — Functional Decomposition"
+      },
+      {
         "path": "Brain/wiki/canary-module-p-pricing-promotion.md",
         "title": "Canary Module — P (Pricing & Promotion)"
+      },
+      {
+        "path": "Brain/wiki/canary-module-q-counterpoint-rule-catalog.md",
+        "title": "Canary Module Q — Counterpoint Rule Catalog"
+      },
+      {
+        "path": "Brain/wiki/canary-module-q-functional-decomposition.md",
+        "title": "Module Q (Loss Prevention) — Functional Decomposition"
       },
       {
         "path": "Brain/wiki/canary-module-q-loss-prevention.md",
@@ -24195,8 +24966,20 @@
         "title": "Canary Module — R (Customer)"
       },
       {
+        "path": "Brain/wiki/canary-module-r-functional-decomposition.md",
+        "title": "Module R (Customer) — Functional Decomposition"
+      },
+      {
+        "path": "Brain/wiki/canary-module-s-functional-decomposition.md",
+        "title": "Module S (Space, Range, Display — Items / Catalog) — Functional Decomposition"
+      },
+      {
         "path": "Brain/wiki/canary-module-s-space-range-display.md",
         "title": "Canary Module — S (Space, Range, Display)"
+      },
+      {
+        "path": "Brain/wiki/canary-module-t-functional-decomposition.md",
+        "title": "Module T (Transaction Pipeline) — Functional Decomposition"
       },
       {
         "path": "Brain/wiki/canary-module-t-transactions.md",
@@ -24331,6 +25114,10 @@
         "title": "Counterpoint vs Rapid Garden POS — Relationship + What This Means for Canary"
       },
       {
+        "path": "Brain/wiki/prototype-prep-master-dispatch.md",
+        "title": "Prototype Prep Master Dispatch"
+      },
+      {
         "path": "Brain/wiki/rapid-pos-counterpoint-market-research-tam.md",
         "title": "Rapid POS / NCR Counterpoint — Market Research + TAM"
       },
@@ -24393,6 +25180,10 @@
       {
         "path": "Brain/wiki/third-branch.md",
         "title": "The Third Branch"
+      },
+      {
+        "path": "Brain/wiki/tim-mooney-maonach-group.md",
+        "title": "Tim Mooney — The Maonach Group (Advisor Profile)"
       },
       {
         "path": "Brain/wiki/video-integration-solution-pattern.md",
@@ -24463,6 +25254,12 @@
         "title": "Canary VSM — Diagnostic Mode Requirement"
       }
     ],
+    "canaryretailbrain": [
+      {
+        "path": "Brain/projects/CanaryRetailBrain.md",
+        "title": "CanaryRetailBrain"
+      }
+    ],
     "cancelled": [
       {
         "path": "Brain/wiki/dispatch-coordination-protocol.md",
@@ -24509,7 +25306,7 @@
     ],
     "canonical": [
       {
-        "path": "Brain/wiki/canary-module-T-functional-decomposition.md",
+        "path": "Brain/wiki/canary-module-t-functional-decomposition.md",
         "title": "Module T (Transaction Pipeline) — Functional Decomposition"
       },
       {
@@ -24643,6 +25440,10 @@
         "title": "Peninsula Golf Guide — Content Pool (Raw, Stub)"
       },
       {
+        "path": "Brain/wiki/canary-module-f-functional-decomposition.md",
+        "title": "Module F (Finance — Tenders / Tax / Gift Cards) — Functional Decomposition"
+      },
+      {
         "path": "Brain/wiki/card-coach-ken-taylor.md",
         "title": "Coach Ken Taylor — Junior Lifeguard Prep"
       },
@@ -24711,6 +25512,10 @@
       {
         "path": "Brain/wiki/canary-alerts-guide.md",
         "title": "Canary Alerts — A Plain-English Guide"
+      },
+      {
+        "path": "Brain/wiki/canary-module-f-functional-decomposition.md",
+        "title": "Module F (Finance — Tenders / Tax / Gift Cards) — Functional Decomposition"
       },
       {
         "path": "Brain/wiki/coac-reactivation-framework.md",
@@ -24917,8 +25722,16 @@
         "title": "Canary Detection Engine"
       },
       {
+        "path": "Brain/wiki/canary-module-q-counterpoint-rule-catalog.md",
+        "title": "Canary Module Q — Counterpoint Rule Catalog"
+      },
+      {
         "path": "Brain/wiki/canary-module-q-loss-prevention.md",
         "title": "Canary Module — Q (Loss Prevention) — Chirp + Fox"
+      },
+      {
+        "path": "Brain/wiki/canary-module-s-functional-decomposition.md",
+        "title": "Module S (Space, Range, Display — Items / Catalog) — Functional Decomposition"
       },
       {
         "path": "Brain/wiki/growdirect-research-reference-library.md",
@@ -24965,6 +25778,10 @@
         "title": "Angel Content Archive — Index & Catalog Plan"
       },
       {
+        "path": "Brain/wiki/canary-module-s-functional-decomposition.md",
+        "title": "Module S (Space, Range, Display — Items / Catalog) — Functional Decomposition"
+      },
+      {
         "path": "Brain/wiki/growdirect-manifesto.md",
         "title": "GrowDirect Manifesto"
       },
@@ -24991,6 +25808,10 @@
       {
         "path": "Brain/wiki/founder-context-secure-engagement-archive.md",
         "title": "Founder Context — Secure Engagement Archive (Sysrepublic / 2017 era)"
+      },
+      {
+        "path": "Brain/projects/CATz.md",
+        "title": "CATz"
       }
     ],
     "caught": [
@@ -25129,8 +25950,16 @@
         "title": "Silver Spur — Content Pool (Raw)"
       },
       {
-        "path": "Brain/wiki/canary-module-Q-functional-decomposition.md",
+        "path": "Brain/wiki/canary-module-q-counterpoint-rule-catalog.md",
+        "title": "Canary Module Q — Counterpoint Rule Catalog"
+      },
+      {
+        "path": "Brain/wiki/canary-module-q-functional-decomposition.md",
         "title": "Module Q (Loss Prevention) — Functional Decomposition"
+      },
+      {
+        "path": "Brain/wiki/canary-module-s-functional-decomposition.md",
+        "title": "Module S (Space, Range, Display — Items / Catalog) — Functional Decomposition"
       },
       {
         "path": "Brain/wiki/garden-center-operating-reality.md",
@@ -25993,6 +26822,12 @@
         "title": "Retail Merchandise Planning and Open-to-Buy"
       }
     ],
+    "classification": [
+      {
+        "path": "Brain/wiki/canary-module-c-functional-decomposition.md",
+        "title": "Module C (Commercial / B2B) — Functional Decomposition"
+      }
+    ],
     "claude": [
       {
         "path": "Brain/wiki/cove-permit-tech-landscape.md",
@@ -26637,6 +27472,10 @@
         "title": "Canary Module — F (Finance)"
       },
       {
+        "path": "Brain/wiki/canary-module-f-functional-decomposition.md",
+        "title": "Module F (Finance — Tenders / Tax / Gift Cards) — Functional Decomposition"
+      },
+      {
         "path": "Brain/wiki/canary-module-j-forecast-order.md",
         "title": "Canary Module — J (Forecast & Order)"
       },
@@ -26975,6 +27814,10 @@
         "title": "Canary Module — C (Commercial)"
       },
       {
+        "path": "Brain/wiki/canary-module-c-functional-decomposition.md",
+        "title": "Module C (Commercial / B2B) — Functional Decomposition"
+      },
+      {
         "path": "Brain/wiki/retail-integration-spine.md",
         "title": "Retail Integration Spine — Canonical Interface Catalog"
       },
@@ -27233,7 +28076,7 @@
     ],
     "company": [
       {
-        "path": "Brain/wiki/canary-module-R-functional-decomposition.md",
+        "path": "Brain/wiki/canary-module-r-functional-decomposition.md",
         "title": "Module R (Customer) — Functional Decomposition"
       },
       {
@@ -27473,6 +28316,10 @@
       {
         "path": "Brain/wiki/growdirect-canary.md",
         "title": "The Play"
+      },
+      {
+        "path": "Brain/wiki/prototype-prep-master-dispatch.md",
+        "title": "Prototype Prep Master Dispatch"
       }
     ],
     "completed": [
@@ -27502,6 +28349,10 @@
       }
     ],
     "compliance": [
+      {
+        "path": "Brain/wiki/canary-module-q-counterpoint-rule-catalog.md",
+        "title": "Canary Module Q — Counterpoint Rule Catalog"
+      },
       {
         "path": "Brain/wiki/coac-article-v-equity-modernization.md",
         "title": "Article V Equity / Vote-Share Modernization"
@@ -27781,13 +28632,17 @@
     ],
     "config": [
       {
+        "path": "Brain/wiki/canary-module-n-functional-decomposition.md",
+        "title": "Module N (Device — Stores / Stations / Per-Store Config) — Functional Decomposition"
+      },
+      {
         "path": "Brain/wiki/ncr-counterpoint-api-reference.md",
         "title": "NCR Counterpoint API Reference"
       }
     ],
     "configuration": [
       {
-        "path": "Brain/wiki/canary-module-Q-functional-decomposition.md",
+        "path": "Brain/wiki/canary-module-q-functional-decomposition.md",
         "title": "Module Q (Loss Prevention) — Functional Decomposition"
       },
       {
@@ -28493,7 +29348,7 @@
         "title": "Canary Fox Case Management"
       },
       {
-        "path": "Brain/wiki/canary-module-R-functional-decomposition.md",
+        "path": "Brain/wiki/canary-module-r-functional-decomposition.md",
         "title": "Module R (Customer) — Functional Decomposition"
       },
       {
@@ -28571,6 +29426,10 @@
         "title": "Angel Buyer Process"
       },
       {
+        "path": "Brain/wiki/canary-module-j-functional-decomposition.md",
+        "title": "Module J (Forecast & Order) — Functional Decomposition"
+      },
+      {
         "path": "Brain/wiki/cove-document-retention.md",
         "title": "Document Retention — CoAC / WPBCA"
       },
@@ -28593,15 +29452,47 @@
     ],
     "contracts": [
       {
-        "path": "Brain/wiki/canary-module-Q-functional-decomposition.md",
+        "path": "Brain/wiki/canary-module-a-functional-decomposition.md",
+        "title": "Module A (Asset Management) — Functional Decomposition"
+      },
+      {
+        "path": "Brain/wiki/canary-module-c-functional-decomposition.md",
+        "title": "Module C (Commercial / B2B) — Functional Decomposition"
+      },
+      {
+        "path": "Brain/wiki/canary-module-d-functional-decomposition.md",
+        "title": "Module D (Distribution) — Functional Decomposition"
+      },
+      {
+        "path": "Brain/wiki/canary-module-f-functional-decomposition.md",
+        "title": "Module F (Finance — Tenders / Tax / Gift Cards) — Functional Decomposition"
+      },
+      {
+        "path": "Brain/wiki/canary-module-j-functional-decomposition.md",
+        "title": "Module J (Forecast & Order) — Functional Decomposition"
+      },
+      {
+        "path": "Brain/wiki/canary-module-n-functional-decomposition.md",
+        "title": "Module N (Device — Stores / Stations / Per-Store Config) — Functional Decomposition"
+      },
+      {
+        "path": "Brain/wiki/canary-module-p-functional-decomposition.md",
+        "title": "Module P (Pricing & Promotion) — Functional Decomposition"
+      },
+      {
+        "path": "Brain/wiki/canary-module-q-functional-decomposition.md",
         "title": "Module Q (Loss Prevention) — Functional Decomposition"
       },
       {
-        "path": "Brain/wiki/canary-module-R-functional-decomposition.md",
+        "path": "Brain/wiki/canary-module-r-functional-decomposition.md",
         "title": "Module R (Customer) — Functional Decomposition"
       },
       {
-        "path": "Brain/wiki/canary-module-T-functional-decomposition.md",
+        "path": "Brain/wiki/canary-module-s-functional-decomposition.md",
+        "title": "Module S (Space, Range, Display — Items / Catalog) — Functional Decomposition"
+      },
+      {
+        "path": "Brain/wiki/canary-module-t-functional-decomposition.md",
         "title": "Module T (Transaction Pipeline) — Functional Decomposition"
       },
       {
@@ -28973,6 +29864,12 @@
         "title": "Retek RMS — the Perpetual-Inventory Movement Ledger"
       }
     ],
+    "correlation": [
+      {
+        "path": "Brain/wiki/canary-module-n-functional-decomposition.md",
+        "title": "Module N (Device — Stores / Stations / Per-Store Config) — Functional Decomposition"
+      }
+    ],
     "correspondence": [
       {
         "path": "Brain/wiki/cove-city-positions.md",
@@ -29122,6 +30019,10 @@
       }
     ],
     "counterpoint": [
+      {
+        "path": "Brain/wiki/canary-module-q-counterpoint-rule-catalog.md",
+        "title": "Canary Module Q — Counterpoint Rule Catalog"
+      },
       {
         "path": "Brain/wiki/catz-method.md",
         "title": "CATz — Counterpoint Architecture & Transformation Method"
@@ -29867,6 +30768,12 @@
         "title": "ACLAD Partnership — Same-Side Public-Private Defense"
       }
     ],
+    "credit": [
+      {
+        "path": "Brain/wiki/canary-module-c-functional-decomposition.md",
+        "title": "Module C (Commercial / B2B) — Functional Decomposition"
+      }
+    ],
     "credit-invoice": [
       {
         "path": "Brain/wiki/secure-dsd-ired-analytics.md",
@@ -30047,15 +30954,47 @@
         "title": "BP Consulting Library — 1997–1999"
       },
       {
-        "path": "Brain/wiki/canary-module-Q-functional-decomposition.md",
+        "path": "Brain/wiki/canary-module-a-functional-decomposition.md",
+        "title": "Module A (Asset Management) — Functional Decomposition"
+      },
+      {
+        "path": "Brain/wiki/canary-module-c-functional-decomposition.md",
+        "title": "Module C (Commercial / B2B) — Functional Decomposition"
+      },
+      {
+        "path": "Brain/wiki/canary-module-d-functional-decomposition.md",
+        "title": "Module D (Distribution) — Functional Decomposition"
+      },
+      {
+        "path": "Brain/wiki/canary-module-f-functional-decomposition.md",
+        "title": "Module F (Finance — Tenders / Tax / Gift Cards) — Functional Decomposition"
+      },
+      {
+        "path": "Brain/wiki/canary-module-j-functional-decomposition.md",
+        "title": "Module J (Forecast & Order) — Functional Decomposition"
+      },
+      {
+        "path": "Brain/wiki/canary-module-n-functional-decomposition.md",
+        "title": "Module N (Device — Stores / Stations / Per-Store Config) — Functional Decomposition"
+      },
+      {
+        "path": "Brain/wiki/canary-module-p-functional-decomposition.md",
+        "title": "Module P (Pricing & Promotion) — Functional Decomposition"
+      },
+      {
+        "path": "Brain/wiki/canary-module-q-functional-decomposition.md",
         "title": "Module Q (Loss Prevention) — Functional Decomposition"
       },
       {
-        "path": "Brain/wiki/canary-module-R-functional-decomposition.md",
+        "path": "Brain/wiki/canary-module-r-functional-decomposition.md",
         "title": "Module R (Customer) — Functional Decomposition"
       },
       {
-        "path": "Brain/wiki/canary-module-T-functional-decomposition.md",
+        "path": "Brain/wiki/canary-module-s-functional-decomposition.md",
+        "title": "Module S (Space, Range, Display — Items / Catalog) — Functional Decomposition"
+      },
+      {
+        "path": "Brain/wiki/canary-module-t-functional-decomposition.md",
         "title": "Module T (Transaction Pipeline) — Functional Decomposition"
       },
       {
@@ -30393,20 +31332,60 @@
         "title": "The Academic Frame — HBS 9-599-101 (Moon, 1999) and the Third Branch"
       },
       {
-        "path": "Brain/wiki/canary-module-Q-functional-decomposition.md",
+        "path": "Brain/wiki/bart-mccleskey-rapid-garden-pos.md",
+        "title": "Bart McCleskey — Rapid Garden POS (Relationship Profile)"
+      },
+      {
+        "path": "Brain/wiki/canary-module-a-functional-decomposition.md",
+        "title": "Module A (Asset Management) — Functional Decomposition"
+      },
+      {
+        "path": "Brain/wiki/canary-module-c-functional-decomposition.md",
+        "title": "Module C (Commercial / B2B) — Functional Decomposition"
+      },
+      {
+        "path": "Brain/wiki/canary-module-d-functional-decomposition.md",
+        "title": "Module D (Distribution) — Functional Decomposition"
+      },
+      {
+        "path": "Brain/wiki/canary-module-f-functional-decomposition.md",
+        "title": "Module F (Finance — Tenders / Tax / Gift Cards) — Functional Decomposition"
+      },
+      {
+        "path": "Brain/wiki/canary-module-j-functional-decomposition.md",
+        "title": "Module J (Forecast & Order) — Functional Decomposition"
+      },
+      {
+        "path": "Brain/wiki/canary-module-n-functional-decomposition.md",
+        "title": "Module N (Device — Stores / Stations / Per-Store Config) — Functional Decomposition"
+      },
+      {
+        "path": "Brain/wiki/canary-module-p-functional-decomposition.md",
+        "title": "Module P (Pricing & Promotion) — Functional Decomposition"
+      },
+      {
+        "path": "Brain/wiki/canary-module-q-counterpoint-rule-catalog.md",
+        "title": "Canary Module Q — Counterpoint Rule Catalog"
+      },
+      {
+        "path": "Brain/wiki/canary-module-q-functional-decomposition.md",
         "title": "Module Q (Loss Prevention) — Functional Decomposition"
-      },
-      {
-        "path": "Brain/wiki/canary-module-R-functional-decomposition.md",
-        "title": "Module R (Customer) — Functional Decomposition"
-      },
-      {
-        "path": "Brain/wiki/canary-module-T-functional-decomposition.md",
-        "title": "Module T (Transaction Pipeline) — Functional Decomposition"
       },
       {
         "path": "Brain/wiki/canary-module-r-customer.md",
         "title": "Canary Module — R (Customer)"
+      },
+      {
+        "path": "Brain/wiki/canary-module-r-functional-decomposition.md",
+        "title": "Module R (Customer) — Functional Decomposition"
+      },
+      {
+        "path": "Brain/wiki/canary-module-s-functional-decomposition.md",
+        "title": "Module S (Space, Range, Display — Items / Catalog) — Functional Decomposition"
+      },
+      {
+        "path": "Brain/wiki/canary-module-t-functional-decomposition.md",
+        "title": "Module T (Transaction Pipeline) — Functional Decomposition"
       },
       {
         "path": "Brain/wiki/engagement-resource-model-fte-by-week.md",
@@ -30509,7 +31488,7 @@
     ],
     "cutover": [
       {
-        "path": "Brain/wiki/canary-module-Q-functional-decomposition.md",
+        "path": "Brain/wiki/canary-module-q-functional-decomposition.md",
         "title": "Module Q (Loss Prevention) — Functional Decomposition"
       },
       {
@@ -30525,7 +31504,7 @@
     ],
     "cutting": [
       {
-        "path": "Brain/wiki/canary-module-Q-functional-decomposition.md",
+        "path": "Brain/wiki/canary-module-q-functional-decomposition.md",
         "title": "Module Q (Loss Prevention) — Functional Decomposition"
       },
       {
@@ -31425,15 +32404,47 @@
     ],
     "decomposition": [
       {
-        "path": "Brain/wiki/canary-module-Q-functional-decomposition.md",
+        "path": "Brain/wiki/canary-module-a-functional-decomposition.md",
+        "title": "Module A (Asset Management) — Functional Decomposition"
+      },
+      {
+        "path": "Brain/wiki/canary-module-c-functional-decomposition.md",
+        "title": "Module C (Commercial / B2B) — Functional Decomposition"
+      },
+      {
+        "path": "Brain/wiki/canary-module-d-functional-decomposition.md",
+        "title": "Module D (Distribution) — Functional Decomposition"
+      },
+      {
+        "path": "Brain/wiki/canary-module-f-functional-decomposition.md",
+        "title": "Module F (Finance — Tenders / Tax / Gift Cards) — Functional Decomposition"
+      },
+      {
+        "path": "Brain/wiki/canary-module-j-functional-decomposition.md",
+        "title": "Module J (Forecast & Order) — Functional Decomposition"
+      },
+      {
+        "path": "Brain/wiki/canary-module-n-functional-decomposition.md",
+        "title": "Module N (Device — Stores / Stations / Per-Store Config) — Functional Decomposition"
+      },
+      {
+        "path": "Brain/wiki/canary-module-p-functional-decomposition.md",
+        "title": "Module P (Pricing & Promotion) — Functional Decomposition"
+      },
+      {
+        "path": "Brain/wiki/canary-module-q-functional-decomposition.md",
         "title": "Module Q (Loss Prevention) — Functional Decomposition"
       },
       {
-        "path": "Brain/wiki/canary-module-R-functional-decomposition.md",
+        "path": "Brain/wiki/canary-module-r-functional-decomposition.md",
         "title": "Module R (Customer) — Functional Decomposition"
       },
       {
-        "path": "Brain/wiki/canary-module-T-functional-decomposition.md",
+        "path": "Brain/wiki/canary-module-s-functional-decomposition.md",
+        "title": "Module S (Space, Range, Display — Items / Catalog) — Functional Decomposition"
+      },
+      {
+        "path": "Brain/wiki/canary-module-t-functional-decomposition.md",
         "title": "Module T (Transaction Pipeline) — Functional Decomposition"
       },
       {
@@ -31498,6 +32509,10 @@
       }
     ],
     "defaults": [
+      {
+        "path": "Brain/wiki/canary-module-n-functional-decomposition.md",
+        "title": "Module N (Device — Stores / Stations / Per-Store Config) — Functional Decomposition"
+      },
       {
         "path": "Brain/wiki/ncr-counterpoint-endpoint-spine-map.md",
         "title": "NCR Counterpoint API — Endpoint × CRDM × Spine Map"
@@ -31591,6 +32606,12 @@
       {
         "path": "Brain/wiki/pwc-ebiz-web-implementation-guide.md",
         "title": "PwC eBusiness Web Implementation Guide (Definition / Design / Development)"
+      }
+    ],
+    "definitions": [
+      {
+        "path": "Brain/wiki/canary-module-q-counterpoint-rule-catalog.md",
+        "title": "Canary Module Q — Counterpoint Rule Catalog"
       }
     ],
     "delays:": [
@@ -31747,6 +32768,10 @@
     ],
     "demand": [
       {
+        "path": "Brain/wiki/canary-module-j-functional-decomposition.md",
+        "title": "Module J (Forecast & Order) — Functional Decomposition"
+      },
+      {
         "path": "Brain/wiki/coac-yimby-opposition-landscape.md",
         "title": "YIMBY Opposition Landscape — Adversarial Network and Neutralization"
       },
@@ -31877,7 +32902,11 @@
     ],
     "deployment": [
       {
-        "path": "Brain/wiki/canary-module-Q-functional-decomposition.md",
+        "path": "Brain/wiki/canary-module-q-counterpoint-rule-catalog.md",
+        "title": "Canary Module Q — Counterpoint Rule Catalog"
+      },
+      {
+        "path": "Brain/wiki/canary-module-q-functional-decomposition.md",
         "title": "Module Q (Loss Prevention) — Functional Decomposition"
       },
       {
@@ -31941,6 +32970,16 @@
       {
         "path": "Brain/wiki/socal-home-garden-target-customers-brief.md",
         "title": "SoCal Home & Garden Target Customers — Brief for Monday Bart Call"
+      }
+    ],
+    "derivation": [
+      {
+        "path": "Brain/wiki/canary-module-c-functional-decomposition.md",
+        "title": "Module C (Commercial / B2B) — Functional Decomposition"
+      },
+      {
+        "path": "Brain/wiki/canary-module-p-functional-decomposition.md",
+        "title": "Module P (Pricing & Promotion) — Functional Decomposition"
       }
     ],
     "derived": [
@@ -32177,7 +33216,15 @@
         "title": "Canary Detection Engine"
       },
       {
-        "path": "Brain/wiki/canary-module-Q-functional-decomposition.md",
+        "path": "Brain/wiki/canary-module-c-functional-decomposition.md",
+        "title": "Module C (Commercial / B2B) — Functional Decomposition"
+      },
+      {
+        "path": "Brain/wiki/canary-module-d-functional-decomposition.md",
+        "title": "Module D (Distribution) — Functional Decomposition"
+      },
+      {
+        "path": "Brain/wiki/canary-module-q-functional-decomposition.md",
         "title": "Module Q (Loss Prevention) — Functional Decomposition"
       },
       {
@@ -32331,6 +33378,10 @@
       {
         "path": "Brain/wiki/canary-module-n-device.md",
         "title": "Canary Module — N (Device)"
+      },
+      {
+        "path": "Brain/wiki/canary-module-n-functional-decomposition.md",
+        "title": "Module N (Device — Stores / Stations / Per-Store Config) — Functional Decomposition"
       },
       {
         "path": "Brain/wiki/ncr-counterpoint-api-reference.md",
@@ -32693,6 +33744,10 @@
     ],
     "discount": [
       {
+        "path": "Brain/wiki/canary-module-q-counterpoint-rule-catalog.md",
+        "title": "Canary Module Q — Counterpoint Rule Catalog"
+      },
+      {
         "path": "Brain/wiki/growdirect-white-paper-quant-peer-review.md",
         "title": "**Executive Summary: The Quant’s Verdict**"
       },
@@ -32765,6 +33820,10 @@
         "title": "Session — ALX Cowork Dispatch (Feb 26, 2026)"
       },
       {
+        "path": "Brain/wiki/prototype-prep-master-dispatch.md",
+        "title": "Prototype Prep Master Dispatch"
+      },
+      {
         "path": "Brain/wiki/solex-square-integration-notes.md",
         "title": "Solex — Square Integration Notes"
       }
@@ -32782,6 +33841,10 @@
       }
     ],
     "display": [
+      {
+        "path": "Brain/wiki/canary-module-s-functional-decomposition.md",
+        "title": "Module S (Space, Range, Display — Items / Catalog) — Functional Decomposition"
+      },
       {
         "path": "Brain/wiki/canary-module-s-space-range-display.md",
         "title": "Canary Module — S (Space, Range, Display)"
@@ -32817,6 +33880,12 @@
         "title": "YIMBY Opposition Landscape — Adversarial Network and Neutralization"
       }
     ],
+    "distinctive": [
+      {
+        "path": "Brain/wiki/canary-module-s-functional-decomposition.md",
+        "title": "Module S (Space, Range, Display — Items / Catalog) — Functional Decomposition"
+      }
+    ],
     "distributed": [
       {
         "path": "Brain/wiki/retail-po-from-plan.md",
@@ -32835,6 +33904,10 @@
       {
         "path": "Brain/wiki/canary-module-d-distribution.md",
         "title": "Canary Module — D (Distribution)"
+      },
+      {
+        "path": "Brain/wiki/canary-module-d-functional-decomposition.md",
+        "title": "Module D (Distribution) — Functional Decomposition"
       },
       {
         "path": "Brain/wiki/coac-2026-civic-problems-memorandum.md",
@@ -32961,6 +34034,10 @@
       {
         "path": "Brain/wiki/angel-transaction-timeline.md",
         "title": "Angel Transaction Timeline"
+      },
+      {
+        "path": "Brain/wiki/canary-module-f-functional-decomposition.md",
+        "title": "Module F (Finance — Tenders / Tax / Gift Cards) — Functional Decomposition"
       },
       {
         "path": "Brain/wiki/coac-1967-portuguese-bend-clay-mineralogy.md",
@@ -33138,6 +34215,10 @@
       }
     ],
     "does": [
+      {
+        "path": "Brain/wiki/bart-mccleskey-rapid-garden-pos.md",
+        "title": "Bart McCleskey — Rapid Garden POS (Relationship Profile)"
+      },
       {
         "path": "Brain/wiki/canary-chirp-rules.md",
         "title": "Canary Chirp Rules"
@@ -33341,7 +34422,7 @@
     ],
     "downstream": [
       {
-        "path": "Brain/wiki/canary-module-R-functional-decomposition.md",
+        "path": "Brain/wiki/canary-module-r-functional-decomposition.md",
         "title": "Module R (Customer) — Functional Decomposition"
       },
       {
@@ -33407,6 +34488,14 @@
       {
         "path": "Brain/wiki/canary-alerts-guide.md",
         "title": "Canary Alerts — A Plain-English Guide"
+      },
+      {
+        "path": "Brain/wiki/canary-module-n-functional-decomposition.md",
+        "title": "Module N (Device — Stores / Stations / Per-Store Config) — Functional Decomposition"
+      },
+      {
+        "path": "Brain/wiki/canary-module-q-counterpoint-rule-catalog.md",
+        "title": "Canary Module Q — Counterpoint Rule Catalog"
       }
     ],
     "drawn": [
@@ -33428,6 +34517,10 @@
       }
     ],
     "drift": [
+      {
+        "path": "Brain/wiki/canary-module-s-functional-decomposition.md",
+        "title": "Module S (Space, Range, Display — Items / Catalog) — Functional Decomposition"
+      },
       {
         "path": "Brain/wiki/canary-tsp-pipeline.md",
         "title": "Canary TSP Pipeline"
@@ -33809,6 +34902,10 @@
         "title": "BroadVision 1999–2000 — the Platform Architecture"
       },
       {
+        "path": "Brain/wiki/canary-module-s-functional-decomposition.md",
+        "title": "Module S (Space, Range, Display — Items / Catalog) — Functional Decomposition"
+      },
+      {
         "path": "Brain/wiki/ncr-counterpoint-api-reference.md",
         "title": "NCR Counterpoint API Reference"
       },
@@ -34058,6 +35155,10 @@
       }
     ],
     "elasticity": [
+      {
+        "path": "Brain/wiki/canary-module-p-functional-decomposition.md",
+        "title": "Module P (Pricing & Promotion) — Functional Decomposition"
+      },
       {
         "path": "Brain/wiki/canary-module-p-pricing-promotion.md",
         "title": "Canary Module — P (Pricing & Promotion)"
@@ -34317,6 +35418,10 @@
       {
         "path": "Brain/wiki/growdirect-research-worm-exposure.md",
         "title": "WORM Exposure Sprint Deliverables"
+      },
+      {
+        "path": "Brain/wiki/tim-mooney-maonach-group.md",
+        "title": "Tim Mooney — The Maonach Group (Advisor Profile)"
       }
     ],
     "engagement": [
@@ -34347,6 +35452,10 @@
       {
         "path": "Brain/wiki/katz-scm-2003-archetype.md",
         "title": "Mid-Market Drug/Pharmacy SCM Engagement, 2003 — Branch B Archetype"
+      },
+      {
+        "path": "Brain/wiki/prototype-prep-master-dispatch.md",
+        "title": "Prototype Prep Master Dispatch"
       },
       {
         "path": "Brain/wiki/secure-client-top5-grocery-chain.md",
@@ -34701,6 +35810,12 @@
         "title": "Tennis & Pickleball — Palos Verdes Peninsula"
       }
     ],
+    "erosion": [
+      {
+        "path": "Brain/wiki/canary-module-q-counterpoint-rule-catalog.md",
+        "title": "Canary Module Q — Counterpoint Rule Catalog"
+      }
+    ],
     "erp": [
       {
         "path": "Brain/wiki/reference-oracle-project-costing.md",
@@ -34965,7 +36080,7 @@
     ],
     "event": [
       {
-        "path": "Brain/wiki/canary-module-T-functional-decomposition.md",
+        "path": "Brain/wiki/canary-module-t-functional-decomposition.md",
         "title": "Module T (Transaction Pipeline) — Functional Decomposition"
       },
       {
@@ -35269,7 +36384,7 @@
     ],
     "execution": [
       {
-        "path": "Brain/wiki/canary-module-Q-functional-decomposition.md",
+        "path": "Brain/wiki/canary-module-q-functional-decomposition.md",
         "title": "Module Q (Loss Prevention) — Functional Decomposition"
       },
       {
@@ -35313,15 +36428,47 @@
         "title": "The Academic Frame — HBS 9-599-101 (Moon, 1999) and the Third Branch"
       },
       {
-        "path": "Brain/wiki/canary-module-Q-functional-decomposition.md",
+        "path": "Brain/wiki/canary-module-a-functional-decomposition.md",
+        "title": "Module A (Asset Management) — Functional Decomposition"
+      },
+      {
+        "path": "Brain/wiki/canary-module-c-functional-decomposition.md",
+        "title": "Module C (Commercial / B2B) — Functional Decomposition"
+      },
+      {
+        "path": "Brain/wiki/canary-module-d-functional-decomposition.md",
+        "title": "Module D (Distribution) — Functional Decomposition"
+      },
+      {
+        "path": "Brain/wiki/canary-module-f-functional-decomposition.md",
+        "title": "Module F (Finance — Tenders / Tax / Gift Cards) — Functional Decomposition"
+      },
+      {
+        "path": "Brain/wiki/canary-module-j-functional-decomposition.md",
+        "title": "Module J (Forecast & Order) — Functional Decomposition"
+      },
+      {
+        "path": "Brain/wiki/canary-module-n-functional-decomposition.md",
+        "title": "Module N (Device — Stores / Stations / Per-Store Config) — Functional Decomposition"
+      },
+      {
+        "path": "Brain/wiki/canary-module-p-functional-decomposition.md",
+        "title": "Module P (Pricing & Promotion) — Functional Decomposition"
+      },
+      {
+        "path": "Brain/wiki/canary-module-q-functional-decomposition.md",
         "title": "Module Q (Loss Prevention) — Functional Decomposition"
       },
       {
-        "path": "Brain/wiki/canary-module-R-functional-decomposition.md",
+        "path": "Brain/wiki/canary-module-r-functional-decomposition.md",
         "title": "Module R (Customer) — Functional Decomposition"
       },
       {
-        "path": "Brain/wiki/canary-module-T-functional-decomposition.md",
+        "path": "Brain/wiki/canary-module-s-functional-decomposition.md",
+        "title": "Module S (Space, Range, Display — Items / Catalog) — Functional Decomposition"
+      },
+      {
+        "path": "Brain/wiki/canary-module-t-functional-decomposition.md",
         "title": "Module T (Transaction Pipeline) — Functional Decomposition"
       },
       {
@@ -35959,7 +37106,7 @@
     ],
     "families": [
       {
-        "path": "Brain/wiki/canary-module-Q-functional-decomposition.md",
+        "path": "Brain/wiki/canary-module-q-functional-decomposition.md",
         "title": "Module Q (Loss Prevention) — Functional Decomposition"
       },
       {
@@ -35973,7 +37120,7 @@
         "title": "Peninsula Center — Content Pool (Raw)"
       },
       {
-        "path": "Brain/wiki/canary-module-Q-functional-decomposition.md",
+        "path": "Brain/wiki/canary-module-q-functional-decomposition.md",
         "title": "Module Q (Loss Prevention) — Functional Decomposition"
       },
       {
@@ -36475,6 +37622,10 @@
         "title": "Canary Module — F (Finance)"
       },
       {
+        "path": "Brain/wiki/canary-module-f-functional-decomposition.md",
+        "title": "Module F (Finance — Tenders / Tax / Gift Cards) — Functional Decomposition"
+      },
+      {
         "path": "Brain/wiki/ncr-counterpoint-api-reference.md",
         "title": "NCR Counterpoint API Reference"
       },
@@ -36735,6 +37886,10 @@
         "title": "NCR Counterpoint API — Connection Runbook"
       },
       {
+        "path": "Brain/wiki/prototype-prep-master-dispatch.md",
+        "title": "Prototype Prep Master Dispatch"
+      },
+      {
         "path": "Brain/wiki/third-branch.md",
         "title": "The Third Branch"
       }
@@ -36949,6 +38104,10 @@
     ],
     "flattening": [
       {
+        "path": "Brain/wiki/canary-module-f-functional-decomposition.md",
+        "title": "Module F (Finance — Tenders / Tax / Gift Cards) — Functional Decomposition"
+      },
+      {
         "path": "Brain/wiki/retek-rms-perpetual-inventory.md",
         "title": "Retek RMS — the Perpetual-Inventory Movement Ledger"
       }
@@ -37115,6 +38274,10 @@
         "title": "Canary Module — J (Forecast & Order)"
       },
       {
+        "path": "Brain/wiki/canary-module-j-functional-decomposition.md",
+        "title": "Module J (Forecast & Order) — Functional Decomposition"
+      },
+      {
         "path": "Brain/wiki/ncr-counterpoint-api-reference.md",
         "title": "NCR Counterpoint API Reference"
       },
@@ -37124,6 +38287,10 @@
       }
     ],
     "forecasting": [
+      {
+        "path": "Brain/wiki/canary-module-j-functional-decomposition.md",
+        "title": "Module J (Forecast & Order) — Functional Decomposition"
+      },
       {
         "path": "Brain/wiki/growdirect-the-owl.md",
         "title": "The Owl — Analytics Oracle"
@@ -37567,6 +38734,12 @@
         "title": "Case-Law Synthesis — Rules That Bind WPBCA"
       }
     ],
+    "fractional": [
+      {
+        "path": "Brain/wiki/canary-module-s-functional-decomposition.md",
+        "title": "Module S (Space, Range, Display — Items / Catalog) — Functional Decomposition"
+      }
+    ],
     "fracture": [
       {
         "path": "Brain/wiki/cove-coastal-setback-regime-2006-2009.md",
@@ -37619,15 +38792,51 @@
     ],
     "framework": [
       {
-        "path": "Brain/wiki/canary-module-Q-functional-decomposition.md",
+        "path": "Brain/wiki/canary-module-a-functional-decomposition.md",
+        "title": "Module A (Asset Management) — Functional Decomposition"
+      },
+      {
+        "path": "Brain/wiki/canary-module-c-functional-decomposition.md",
+        "title": "Module C (Commercial / B2B) — Functional Decomposition"
+      },
+      {
+        "path": "Brain/wiki/canary-module-d-functional-decomposition.md",
+        "title": "Module D (Distribution) — Functional Decomposition"
+      },
+      {
+        "path": "Brain/wiki/canary-module-f-functional-decomposition.md",
+        "title": "Module F (Finance — Tenders / Tax / Gift Cards) — Functional Decomposition"
+      },
+      {
+        "path": "Brain/wiki/canary-module-j-functional-decomposition.md",
+        "title": "Module J (Forecast & Order) — Functional Decomposition"
+      },
+      {
+        "path": "Brain/wiki/canary-module-n-functional-decomposition.md",
+        "title": "Module N (Device — Stores / Stations / Per-Store Config) — Functional Decomposition"
+      },
+      {
+        "path": "Brain/wiki/canary-module-p-functional-decomposition.md",
+        "title": "Module P (Pricing & Promotion) — Functional Decomposition"
+      },
+      {
+        "path": "Brain/wiki/canary-module-q-counterpoint-rule-catalog.md",
+        "title": "Canary Module Q — Counterpoint Rule Catalog"
+      },
+      {
+        "path": "Brain/wiki/canary-module-q-functional-decomposition.md",
         "title": "Module Q (Loss Prevention) — Functional Decomposition"
       },
       {
-        "path": "Brain/wiki/canary-module-R-functional-decomposition.md",
+        "path": "Brain/wiki/canary-module-r-functional-decomposition.md",
         "title": "Module R (Customer) — Functional Decomposition"
       },
       {
-        "path": "Brain/wiki/canary-module-T-functional-decomposition.md",
+        "path": "Brain/wiki/canary-module-s-functional-decomposition.md",
+        "title": "Module S (Space, Range, Display — Items / Catalog) — Functional Decomposition"
+      },
+      {
+        "path": "Brain/wiki/canary-module-t-functional-decomposition.md",
         "title": "Module T (Transaction Pipeline) — Functional Decomposition"
       },
       {
@@ -37939,6 +39148,10 @@
         "title": "Canary Fox Case Management"
       },
       {
+        "path": "Brain/wiki/canary-module-q-counterpoint-rule-catalog.md",
+        "title": "Canary Module Q — Counterpoint Rule Catalog"
+      },
+      {
         "path": "Brain/wiki/cove-baughey-1947.md",
         "title": "Baughey Article — Rancho Palos Verdes 1784–1947"
       },
@@ -38087,15 +39300,47 @@
     ],
     "functional": [
       {
-        "path": "Brain/wiki/canary-module-Q-functional-decomposition.md",
+        "path": "Brain/wiki/canary-module-a-functional-decomposition.md",
+        "title": "Module A (Asset Management) — Functional Decomposition"
+      },
+      {
+        "path": "Brain/wiki/canary-module-c-functional-decomposition.md",
+        "title": "Module C (Commercial / B2B) — Functional Decomposition"
+      },
+      {
+        "path": "Brain/wiki/canary-module-d-functional-decomposition.md",
+        "title": "Module D (Distribution) — Functional Decomposition"
+      },
+      {
+        "path": "Brain/wiki/canary-module-f-functional-decomposition.md",
+        "title": "Module F (Finance — Tenders / Tax / Gift Cards) — Functional Decomposition"
+      },
+      {
+        "path": "Brain/wiki/canary-module-j-functional-decomposition.md",
+        "title": "Module J (Forecast & Order) — Functional Decomposition"
+      },
+      {
+        "path": "Brain/wiki/canary-module-n-functional-decomposition.md",
+        "title": "Module N (Device — Stores / Stations / Per-Store Config) — Functional Decomposition"
+      },
+      {
+        "path": "Brain/wiki/canary-module-p-functional-decomposition.md",
+        "title": "Module P (Pricing & Promotion) — Functional Decomposition"
+      },
+      {
+        "path": "Brain/wiki/canary-module-q-functional-decomposition.md",
         "title": "Module Q (Loss Prevention) — Functional Decomposition"
       },
       {
-        "path": "Brain/wiki/canary-module-R-functional-decomposition.md",
+        "path": "Brain/wiki/canary-module-r-functional-decomposition.md",
         "title": "Module R (Customer) — Functional Decomposition"
       },
       {
-        "path": "Brain/wiki/canary-module-T-functional-decomposition.md",
+        "path": "Brain/wiki/canary-module-s-functional-decomposition.md",
+        "title": "Module S (Space, Range, Display — Items / Catalog) — Functional Decomposition"
+      },
+      {
+        "path": "Brain/wiki/canary-module-t-functional-decomposition.md",
         "title": "Module T (Transaction Pipeline) — Functional Decomposition"
       },
       {
@@ -38149,7 +39394,7 @@
         "title": "Angel Content Engine"
       },
       {
-        "path": "Brain/wiki/canary-module-R-functional-decomposition.md",
+        "path": "Brain/wiki/canary-module-r-functional-decomposition.md",
         "title": "Module R (Customer) — Functional Decomposition"
       },
       {
@@ -38231,8 +39476,20 @@
     ],
     "garden": [
       {
-        "path": "Brain/wiki/canary-module-Q-functional-decomposition.md",
+        "path": "Brain/wiki/bart-mccleskey-rapid-garden-pos.md",
+        "title": "Bart McCleskey — Rapid Garden POS (Relationship Profile)"
+      },
+      {
+        "path": "Brain/wiki/canary-module-q-counterpoint-rule-catalog.md",
+        "title": "Canary Module Q — Counterpoint Rule Catalog"
+      },
+      {
+        "path": "Brain/wiki/canary-module-q-functional-decomposition.md",
         "title": "Module Q (Loss Prevention) — Functional Decomposition"
+      },
+      {
+        "path": "Brain/wiki/canary-module-s-functional-decomposition.md",
+        "title": "Module S (Space, Range, Display — Items / Catalog) — Functional Decomposition"
       },
       {
         "path": "Brain/wiki/garden-center-operating-reality.md",
@@ -38241,6 +39498,10 @@
       {
         "path": "Brain/wiki/ncr-counterpoint-rapid-pos-relationship.md",
         "title": "Counterpoint vs Rapid Garden POS — Relationship + What This Means for Canary"
+      },
+      {
+        "path": "Brain/wiki/prototype-prep-master-dispatch.md",
+        "title": "Prototype Prep Master Dispatch"
       },
       {
         "path": "Brain/wiki/rapid-pos-counterpoint-market-research-tam.md",
@@ -38253,6 +39514,10 @@
       {
         "path": "Brain/wiki/socal-home-garden-target-customers-brief.md",
         "title": "SoCal Home & Garden Target Customers — Brief for Monday Bart Call"
+      },
+      {
+        "path": "Brain/wiki/tim-mooney-maonach-group.md",
+        "title": "Tim Mooney — The Maonach Group (Advisor Profile)"
       }
     ],
     "gartner": [
@@ -38301,6 +39566,10 @@
       {
         "path": "Brain/wiki/growdirect-the-l402.md",
         "title": "The L402 Validation Gate"
+      },
+      {
+        "path": "Brain/wiki/prototype-prep-master-dispatch.md",
+        "title": "Prototype Prep Master Dispatch"
       }
     ],
     "gated": [
@@ -38351,6 +39620,10 @@
       {
         "path": "Brain/wiki/bp-consulting-library-1997-1999.md",
         "title": "BP Consulting Library — 1997–1999"
+      },
+      {
+        "path": "Brain/wiki/prototype-prep-master-dispatch.md",
+        "title": "Prototype Prep Master Dispatch"
       }
     ],
     "gdpr": [
@@ -38401,6 +39674,10 @@
       {
         "path": "Brain/wiki/canary-fox-case-management.md",
         "title": "Canary Fox Case Management"
+      },
+      {
+        "path": "Brain/wiki/canary-module-j-functional-decomposition.md",
+        "title": "Module J (Forecast & Order) — Functional Decomposition"
       },
       {
         "path": "Brain/wiki/growdirect-timelog-token-analysis-feb20.md",
@@ -38571,6 +39848,10 @@
       {
         "path": "Brain/wiki/canary-alerts-guide.md",
         "title": "Canary Alerts — A Plain-English Guide"
+      },
+      {
+        "path": "Brain/wiki/canary-module-f-functional-decomposition.md",
+        "title": "Module F (Finance — Tenders / Tax / Gift Cards) — Functional Decomposition"
       },
       {
         "path": "Brain/wiki/foundation-crypto-donations.md",
@@ -38923,15 +40204,47 @@
     ],
     "governing": [
       {
-        "path": "Brain/wiki/canary-module-Q-functional-decomposition.md",
+        "path": "Brain/wiki/canary-module-a-functional-decomposition.md",
+        "title": "Module A (Asset Management) — Functional Decomposition"
+      },
+      {
+        "path": "Brain/wiki/canary-module-c-functional-decomposition.md",
+        "title": "Module C (Commercial / B2B) — Functional Decomposition"
+      },
+      {
+        "path": "Brain/wiki/canary-module-d-functional-decomposition.md",
+        "title": "Module D (Distribution) — Functional Decomposition"
+      },
+      {
+        "path": "Brain/wiki/canary-module-f-functional-decomposition.md",
+        "title": "Module F (Finance — Tenders / Tax / Gift Cards) — Functional Decomposition"
+      },
+      {
+        "path": "Brain/wiki/canary-module-j-functional-decomposition.md",
+        "title": "Module J (Forecast & Order) — Functional Decomposition"
+      },
+      {
+        "path": "Brain/wiki/canary-module-n-functional-decomposition.md",
+        "title": "Module N (Device — Stores / Stations / Per-Store Config) — Functional Decomposition"
+      },
+      {
+        "path": "Brain/wiki/canary-module-p-functional-decomposition.md",
+        "title": "Module P (Pricing & Promotion) — Functional Decomposition"
+      },
+      {
+        "path": "Brain/wiki/canary-module-q-functional-decomposition.md",
         "title": "Module Q (Loss Prevention) — Functional Decomposition"
       },
       {
-        "path": "Brain/wiki/canary-module-R-functional-decomposition.md",
+        "path": "Brain/wiki/canary-module-r-functional-decomposition.md",
         "title": "Module R (Customer) — Functional Decomposition"
       },
       {
-        "path": "Brain/wiki/canary-module-T-functional-decomposition.md",
+        "path": "Brain/wiki/canary-module-s-functional-decomposition.md",
+        "title": "Module S (Space, Range, Display — Items / Catalog) — Functional Decomposition"
+      },
+      {
+        "path": "Brain/wiki/canary-module-t-functional-decomposition.md",
         "title": "Module T (Transaction Pipeline) — Functional Decomposition"
       },
       {
@@ -39087,6 +40400,10 @@
     ],
     "group": [
       {
+        "path": "Brain/wiki/canary-module-s-functional-decomposition.md",
+        "title": "Module S (Space, Range, Display — Items / Catalog) — Functional Decomposition"
+      },
+      {
         "path": "Brain/wiki/coac-restated-declaration-blitz-plan.md",
         "title": "Restated Declaration — Blitz Execution Plan"
       },
@@ -39095,8 +40412,16 @@
         "title": "RPV Redevelopment Agency Conveyance (2014)"
       },
       {
+        "path": "Brain/wiki/prototype-prep-master-dispatch.md",
+        "title": "Prototype Prep Master Dispatch"
+      },
+      {
         "path": "Brain/wiki/secure-property-services-operating-model-2002.md",
         "title": "Property & Building Services Operating Model — 2002 (UK dept-store + grocery group)"
+      },
+      {
+        "path": "Brain/wiki/tim-mooney-maonach-group.md",
+        "title": "Tim Mooney — The Maonach Group (Advisor Profile)"
       }
     ],
     "growdirect": [
@@ -39639,6 +40964,14 @@
         "title": "Canary Chirp Rules"
       },
       {
+        "path": "Brain/wiki/canary-module-j-functional-decomposition.md",
+        "title": "Module J (Forecast & Order) — Functional Decomposition"
+      },
+      {
+        "path": "Brain/wiki/canary-module-s-functional-decomposition.md",
+        "title": "Module S (Space, Range, Display — Items / Catalog) — Functional Decomposition"
+      },
+      {
         "path": "Brain/wiki/canary-tsp-pipeline.md",
         "title": "Canary TSP Pipeline"
       },
@@ -39973,6 +41306,10 @@
     ],
     "hierarchy": [
       {
+        "path": "Brain/wiki/canary-module-s-functional-decomposition.md",
+        "title": "Module S (Space, Range, Display — Items / Catalog) — Functional Decomposition"
+      },
+      {
         "path": "Brain/wiki/coac-bylaws-moc.md",
         "title": "CoAC Bylaws & Governing Instruments — MOC"
       },
@@ -40027,6 +41364,12 @@
       {
         "path": "Brain/wiki/solution-description-document-template.md",
         "title": "Solution Description — Document Template"
+      }
+    ],
+    "highest": [
+      {
+        "path": "Brain/wiki/prototype-prep-master-dispatch.md",
+        "title": "Prototype Prep Master Dispatch"
       }
     ],
     "highlight": [
@@ -40585,7 +41928,7 @@
     ],
     "idempotency": [
       {
-        "path": "Brain/wiki/canary-module-T-functional-decomposition.md",
+        "path": "Brain/wiki/canary-module-t-functional-decomposition.md",
         "title": "Module T (Transaction Pipeline) — Functional Decomposition"
       },
       {
@@ -40594,6 +41937,10 @@
       }
     ],
     "identification": [
+      {
+        "path": "Brain/wiki/canary-module-a-functional-decomposition.md",
+        "title": "Module A (Asset Management) — Functional Decomposition"
+      },
       {
         "path": "Brain/wiki/coac-15-owner-network.md",
         "title": "15-Owner Network — Parcel Identification and Owner Recruitment"
@@ -40691,12 +42038,16 @@
         "title": "Valmonte — Content Pool (Raw)"
       },
       {
-        "path": "Brain/wiki/canary-module-R-functional-decomposition.md",
-        "title": "Module R (Customer) — Functional Decomposition"
+        "path": "Brain/wiki/bart-mccleskey-rapid-garden-pos.md",
+        "title": "Bart McCleskey — Rapid Garden POS (Relationship Profile)"
       },
       {
         "path": "Brain/wiki/canary-module-r-customer.md",
         "title": "Canary Module — R (Customer)"
+      },
+      {
+        "path": "Brain/wiki/canary-module-r-functional-decomposition.md",
+        "title": "Module R (Customer) — Functional Decomposition"
       },
       {
         "path": "Brain/wiki/growdirect-manifesto.md",
@@ -40713,6 +42064,10 @@
       {
         "path": "Brain/wiki/secure-platform-overview.md",
         "title": "Secure Platform Overview"
+      },
+      {
+        "path": "Brain/wiki/tim-mooney-maonach-group.md",
+        "title": "Tim Mooney — The Maonach Group (Advisor Profile)"
       }
     ],
     "identity:": [
@@ -41403,8 +42758,20 @@
         "title": "Angel Data Platform"
       },
       {
-        "path": "Brain/wiki/canary-module-Q-functional-decomposition.md",
+        "path": "Brain/wiki/canary-module-d-functional-decomposition.md",
+        "title": "Module D (Distribution) — Functional Decomposition"
+      },
+      {
+        "path": "Brain/wiki/canary-module-n-functional-decomposition.md",
+        "title": "Module N (Device — Stores / Stations / Per-Store Config) — Functional Decomposition"
+      },
+      {
+        "path": "Brain/wiki/canary-module-q-functional-decomposition.md",
         "title": "Module Q (Loss Prevention) — Functional Decomposition"
+      },
+      {
+        "path": "Brain/wiki/canary-module-s-functional-decomposition.md",
+        "title": "Module S (Space, Range, Display — Items / Catalog) — Functional Decomposition"
       },
       {
         "path": "Brain/wiki/canary-tsp-pipeline.md",
@@ -41413,7 +42780,7 @@
     ],
     "ingress": [
       {
-        "path": "Brain/wiki/canary-module-T-functional-decomposition.md",
+        "path": "Brain/wiki/canary-module-t-functional-decomposition.md",
         "title": "Module T (Transaction Pipeline) — Functional Decomposition"
       }
     ],
@@ -41437,6 +42804,12 @@
       {
         "path": "Brain/wiki/foundation-ca-formation.md",
         "title": "Foundation California Formation"
+      }
+    ],
+    "initiative": [
+      {
+        "path": "Brain/wiki/prototype-prep-master-dispatch.md",
+        "title": "Prototype Prep Master Dispatch"
       }
     ],
     "initiatives": [
@@ -41827,7 +43200,7 @@
         "title": "Canary Fox Case Management"
       },
       {
-        "path": "Brain/wiki/canary-module-T-functional-decomposition.md",
+        "path": "Brain/wiki/canary-module-t-functional-decomposition.md",
         "title": "Module T (Transaction Pipeline) — Functional Decomposition"
       },
       {
@@ -42109,8 +43482,16 @@
         "title": "Angel Data Platform"
       },
       {
+        "path": "Brain/wiki/canary-module-d-functional-decomposition.md",
+        "title": "Module D (Distribution) — Functional Decomposition"
+      },
+      {
         "path": "Brain/wiki/canary-module-n-device.md",
         "title": "Canary Module — N (Device)"
+      },
+      {
+        "path": "Brain/wiki/canary-module-q-counterpoint-rule-catalog.md",
+        "title": "Canary Module Q — Counterpoint Rule Catalog"
       },
       {
         "path": "Brain/wiki/canary-module-r-customer.md",
@@ -42207,11 +43588,11 @@
     ],
     "investigator": [
       {
-        "path": "Brain/wiki/canary-module-Q-functional-decomposition.md",
+        "path": "Brain/wiki/canary-module-q-functional-decomposition.md",
         "title": "Module Q (Loss Prevention) — Functional Decomposition"
       },
       {
-        "path": "Brain/wiki/canary-module-R-functional-decomposition.md",
+        "path": "Brain/wiki/canary-module-r-functional-decomposition.md",
         "title": "Module R (Customer) — Functional Decomposition"
       }
     ],
@@ -42405,6 +43786,10 @@
     ],
     "isolation": [
       {
+        "path": "Brain/wiki/canary-module-j-functional-decomposition.md",
+        "title": "Module J (Forecast & Order) — Functional Decomposition"
+      },
+      {
         "path": "Brain/wiki/growdirect-data-strategy.md",
         "title": "Canary Data Strategy — North Star"
       }
@@ -42451,6 +43836,18 @@
     ],
     "item": [
       {
+        "path": "Brain/wiki/canary-module-a-functional-decomposition.md",
+        "title": "Module A (Asset Management) — Functional Decomposition"
+      },
+      {
+        "path": "Brain/wiki/canary-module-d-functional-decomposition.md",
+        "title": "Module D (Distribution) — Functional Decomposition"
+      },
+      {
+        "path": "Brain/wiki/canary-module-s-functional-decomposition.md",
+        "title": "Module S (Space, Range, Display — Items / Catalog) — Functional Decomposition"
+      },
+      {
         "path": "Brain/wiki/ncr-counterpoint-endpoint-spine-map.md",
         "title": "NCR Counterpoint API — Endpoint × CRDM × Spine Map"
       }
@@ -42459,6 +43856,14 @@
       {
         "path": "Brain/wiki/canary-module-c-commercial.md",
         "title": "Canary Module — C (Commercial)"
+      },
+      {
+        "path": "Brain/wiki/canary-module-p-functional-decomposition.md",
+        "title": "Module P (Pricing & Promotion) — Functional Decomposition"
+      },
+      {
+        "path": "Brain/wiki/canary-module-s-functional-decomposition.md",
+        "title": "Module S (Space, Range, Display — Items / Catalog) — Functional Decomposition"
       },
       {
         "path": "Brain/wiki/growdirect-attack-plan.md",
@@ -42539,6 +43944,18 @@
       {
         "path": "Brain/wiki/growdirect-manifesto.md",
         "title": "GrowDirect Manifesto"
+      }
+    ],
+    "j.8a": [
+      {
+        "path": "Brain/wiki/canary-module-j-functional-decomposition.md",
+        "title": "Module J (Forecast & Order) — Functional Decomposition"
+      }
+    ],
+    "j.8b": [
+      {
+        "path": "Brain/wiki/canary-module-j-functional-decomposition.md",
+        "title": "Module J (Forecast & Order) — Functional Decomposition"
       }
     ],
     "jack": [
@@ -42857,7 +44274,7 @@
     ],
     "keyed": [
       {
-        "path": "Brain/wiki/canary-module-T-functional-decomposition.md",
+        "path": "Brain/wiki/canary-module-t-functional-decomposition.md",
         "title": "Module T (Transaction Pipeline) — Functional Decomposition"
       }
     ],
@@ -43673,7 +45090,15 @@
     ],
     "ledger": [
       {
-        "path": "Brain/wiki/canary-module-R-functional-decomposition.md",
+        "path": "Brain/wiki/canary-module-c-functional-decomposition.md",
+        "title": "Module C (Commercial / B2B) — Functional Decomposition"
+      },
+      {
+        "path": "Brain/wiki/canary-module-f-functional-decomposition.md",
+        "title": "Module F (Finance — Tenders / Tax / Gift Cards) — Functional Decomposition"
+      },
+      {
+        "path": "Brain/wiki/canary-module-r-functional-decomposition.md",
         "title": "Module R (Customer) — Functional Decomposition"
       },
       {
@@ -43881,6 +45306,12 @@
         "title": "Community of Abalone Cove (formerly WPBCA) — Ocean Path Easements — Private Governance Matter"
       }
     ],
+    "leverage": [
+      {
+        "path": "Brain/wiki/prototype-prep-master-dispatch.md",
+        "title": "Prototype Prep Master Dispatch"
+      }
+    ],
     "liability": [
       {
         "path": "Brain/wiki/coac-rm-22-incompatibility.md",
@@ -43959,8 +45390,20 @@
         "title": "Canary Fox Case Management"
       },
       {
-        "path": "Brain/wiki/canary-module-Q-functional-decomposition.md",
+        "path": "Brain/wiki/canary-module-a-functional-decomposition.md",
+        "title": "Module A (Asset Management) — Functional Decomposition"
+      },
+      {
+        "path": "Brain/wiki/canary-module-p-functional-decomposition.md",
+        "title": "Module P (Pricing & Promotion) — Functional Decomposition"
+      },
+      {
+        "path": "Brain/wiki/canary-module-q-functional-decomposition.md",
         "title": "Module Q (Loss Prevention) — Functional Decomposition"
+      },
+      {
+        "path": "Brain/wiki/canary-module-s-functional-decomposition.md",
+        "title": "Module S (Space, Range, Display — Items / Catalog) — Functional Decomposition"
       },
       {
         "path": "Brain/wiki/dispatch-coordination-protocol.md",
@@ -44343,6 +45786,10 @@
     ],
     "linked": [
       {
+        "path": "Brain/wiki/canary-module-p-functional-decomposition.md",
+        "title": "Module P (Pricing & Promotion) — Functional Decomposition"
+      },
+      {
         "path": "Brain/wiki/retail-promotion-workflow.md",
         "title": "Retail Promotion and Pricing Workflow"
       }
@@ -44381,7 +45828,11 @@
         "title": "Ninja Selling — Sales Methodology for Angel"
       },
       {
-        "path": "Brain/wiki/canary-module-Q-functional-decomposition.md",
+        "path": "Brain/wiki/canary-module-q-counterpoint-rule-catalog.md",
+        "title": "Canary Module Q — Counterpoint Rule Catalog"
+      },
+      {
+        "path": "Brain/wiki/canary-module-q-functional-decomposition.md",
         "title": "Module Q (Loss Prevention) — Functional Decomposition"
       },
       {
@@ -44431,7 +45882,7 @@
     ],
     "lists": [
       {
-        "path": "Brain/wiki/canary-module-Q-functional-decomposition.md",
+        "path": "Brain/wiki/canary-module-q-functional-decomposition.md",
         "title": "Module Q (Loss Prevention) — Functional Decomposition"
       }
     ],
@@ -44563,6 +46014,10 @@
     ],
     "load": [
       {
+        "path": "Brain/wiki/canary-module-n-functional-decomposition.md",
+        "title": "Module N (Device — Stores / Stations / Per-Store Config) — Functional Decomposition"
+      },
+      {
         "path": "Brain/wiki/ncr-counterpoint-phase-0-context-brief.md",
         "title": "NCR Counterpoint Phase 0 — Session Context Brief"
       },
@@ -44604,6 +46059,10 @@
       }
     ],
     "location": [
+      {
+        "path": "Brain/wiki/canary-module-d-functional-decomposition.md",
+        "title": "Module D (Distribution) — Functional Decomposition"
+      },
       {
         "path": "Brain/wiki/document-management.md",
         "title": "Document Management Strategy"
@@ -44803,7 +46262,11 @@
     ],
     "loss": [
       {
-        "path": "Brain/wiki/canary-module-Q-functional-decomposition.md",
+        "path": "Brain/wiki/canary-module-d-functional-decomposition.md",
+        "title": "Module D (Distribution) — Functional Decomposition"
+      },
+      {
+        "path": "Brain/wiki/canary-module-q-functional-decomposition.md",
         "title": "Module Q (Loss Prevention) — Functional Decomposition"
       },
       {
@@ -44915,7 +46378,7 @@
         "title": "Canary Alerts — A Plain-English Guide"
       },
       {
-        "path": "Brain/wiki/canary-module-R-functional-decomposition.md",
+        "path": "Brain/wiki/canary-module-r-functional-decomposition.md",
         "title": "Module R (Customer) — Functional Decomposition"
       }
     ],
@@ -45037,6 +46500,10 @@
     ],
     "maintenance": [
       {
+        "path": "Brain/wiki/canary-module-p-functional-decomposition.md",
+        "title": "Module P (Pricing & Promotion) — Functional Decomposition"
+      },
+      {
         "path": "Brain/wiki/cove-endangered-species-constraints.md",
         "title": "Endangered Species Constraints — Species → Trigger → Project Map"
       },
@@ -45123,12 +46590,24 @@
         "title": "Canary Fox Case Management"
       },
       {
-        "path": "Brain/wiki/canary-module-Q-functional-decomposition.md",
-        "title": "Module Q (Loss Prevention) — Functional Decomposition"
-      },
-      {
         "path": "Brain/wiki/canary-module-a-asset-management.md",
         "title": "Canary Module — A (Asset Management / \"Bubble\")"
+      },
+      {
+        "path": "Brain/wiki/canary-module-a-functional-decomposition.md",
+        "title": "Module A (Asset Management) — Functional Decomposition"
+      },
+      {
+        "path": "Brain/wiki/canary-module-j-functional-decomposition.md",
+        "title": "Module J (Forecast & Order) — Functional Decomposition"
+      },
+      {
+        "path": "Brain/wiki/canary-module-p-functional-decomposition.md",
+        "title": "Module P (Pricing & Promotion) — Functional Decomposition"
+      },
+      {
+        "path": "Brain/wiki/canary-module-q-functional-decomposition.md",
+        "title": "Module Q (Loss Prevention) — Functional Decomposition"
       },
       {
         "path": "Brain/wiki/canary-module-q-loss-prevention.md",
@@ -45315,6 +46794,16 @@
         "title": "Eagle Eye — Functional & Non-Functional Requirements v4.0 (Feb 2018, NS Comments)"
       }
     ],
+    "maonach": [
+      {
+        "path": "Brain/wiki/prototype-prep-master-dispatch.md",
+        "title": "Prototype Prep Master Dispatch"
+      },
+      {
+        "path": "Brain/wiki/tim-mooney-maonach-group.md",
+        "title": "Tim Mooney — The Maonach Group (Advisor Profile)"
+      }
+    ],
     "map": [
       {
         "path": "Brain/wiki/ncr-counterpoint-endpoint-spine-map.md",
@@ -45407,6 +46896,14 @@
     ],
     "margin": [
       {
+        "path": "Brain/wiki/canary-module-q-counterpoint-rule-catalog.md",
+        "title": "Canary Module Q — Counterpoint Rule Catalog"
+      },
+      {
+        "path": "Brain/wiki/canary-module-s-functional-decomposition.md",
+        "title": "Module S (Space, Range, Display — Items / Catalog) — Functional Decomposition"
+      },
+      {
         "path": "Brain/wiki/growdirect-dao-treasury-protocol.md",
         "title": "The Protocol — DAO Governance, Treasury, and Self-Sustaining Economics"
       },
@@ -45441,8 +46938,16 @@
     ],
     "markdown": [
       {
+        "path": "Brain/wiki/canary-module-p-functional-decomposition.md",
+        "title": "Module P (Pricing & Promotion) — Functional Decomposition"
+      },
+      {
         "path": "Brain/wiki/canary-module-p-pricing-promotion.md",
         "title": "Canary Module — P (Pricing & Promotion)"
+      },
+      {
+        "path": "Brain/wiki/canary-module-q-counterpoint-rule-catalog.md",
+        "title": "Canary Module Q — Counterpoint Rule Catalog"
       },
       {
         "path": "Brain/wiki/retail-promotion-workflow.md",
@@ -45453,6 +46958,10 @@
       {
         "path": "Brain/wiki/growdirect-working-papers.md",
         "title": "GrowDirect Working Papers — Structure"
+      },
+      {
+        "path": "Brain/wiki/prototype-prep-master-dispatch.md",
+        "title": "Prototype Prep Master Dispatch"
       }
     ],
     "market": [
@@ -45587,11 +47096,23 @@
         "title": "The Academic Frame — HBS 9-599-101 (Moon, 1999) and the Third Branch"
       },
       {
+        "path": "Brain/wiki/canary-module-p-functional-decomposition.md",
+        "title": "Module P (Pricing & Promotion) — Functional Decomposition"
+      },
+      {
         "path": "Brain/wiki/coac-pv-endangered-species.md",
         "title": "COAC: Palos Verdes Endangered Species & Habitat — Scientific Foundation"
       }
     ],
     "master": [
+      {
+        "path": "Brain/wiki/canary-module-n-functional-decomposition.md",
+        "title": "Module N (Device — Stores / Stations / Per-Store Config) — Functional Decomposition"
+      },
+      {
+        "path": "Brain/wiki/canary-module-s-functional-decomposition.md",
+        "title": "Module S (Space, Range, Display — Items / Catalog) — Functional Decomposition"
+      },
       {
         "path": "Brain/wiki/cove-case-law-lessons.md",
         "title": "Case-Law Synthesis — Rules That Bind WPBCA"
@@ -45599,6 +47120,10 @@
       {
         "path": "Brain/wiki/intactix-canonical-validation.md",
         "title": "Intactix 2006 — Canonical Validation of RetailSpine"
+      },
+      {
+        "path": "Brain/wiki/prototype-prep-master-dispatch.md",
+        "title": "Prototype Prep Master Dispatch"
       }
     ],
     "master-source": [
@@ -45614,6 +47139,18 @@
       }
     ],
     "match": [
+      {
+        "path": "Brain/wiki/canary-module-j-functional-decomposition.md",
+        "title": "Module J (Forecast & Order) — Functional Decomposition"
+      },
+      {
+        "path": "Brain/wiki/canary-module-q-counterpoint-rule-catalog.md",
+        "title": "Canary Module Q — Counterpoint Rule Catalog"
+      },
+      {
+        "path": "Brain/wiki/canary-module-s-functional-decomposition.md",
+        "title": "Module S (Space, Range, Display — Items / Catalog) — Functional Decomposition"
+      },
       {
         "path": "Brain/wiki/cove-rpv-redevelopment-conveyance.md",
         "title": "RPV Redevelopment Agency Conveyance (2014)"
@@ -45873,6 +47410,16 @@
       {
         "path": "Brain/wiki/growdirect-manifesto.md",
         "title": "GrowDirect Manifesto"
+      }
+    ],
+    "mccleskey": [
+      {
+        "path": "Brain/wiki/bart-mccleskey-rapid-garden-pos.md",
+        "title": "Bart McCleskey — Rapid Garden POS (Relationship Profile)"
+      },
+      {
+        "path": "Brain/wiki/prototype-prep-master-dispatch.md",
+        "title": "Prototype Prep Master Dispatch"
       }
     ],
     "mcnulty": [
@@ -46221,7 +47768,7 @@
     ],
     "merkle": [
       {
-        "path": "Brain/wiki/canary-module-T-functional-decomposition.md",
+        "path": "Brain/wiki/canary-module-t-functional-decomposition.md",
         "title": "Module T (Transaction Pipeline) — Functional Decomposition"
       },
       {
@@ -46921,6 +48468,10 @@
     ],
     "modeling": [
       {
+        "path": "Brain/wiki/canary-module-s-functional-decomposition.md",
+        "title": "Module S (Space, Range, Display — Items / Catalog) — Functional Decomposition"
+      },
+      {
         "path": "Brain/wiki/retail-promotion-workflow.md",
         "title": "Retail Promotion and Pricing Workflow"
       }
@@ -46989,36 +48540,44 @@
         "title": "BP Consulting Library — 1997–1999"
       },
       {
-        "path": "Brain/wiki/canary-module-Q-functional-decomposition.md",
-        "title": "Module Q (Loss Prevention) — Functional Decomposition"
-      },
-      {
-        "path": "Brain/wiki/canary-module-R-functional-decomposition.md",
-        "title": "Module R (Customer) — Functional Decomposition"
-      },
-      {
-        "path": "Brain/wiki/canary-module-T-functional-decomposition.md",
-        "title": "Module T (Transaction Pipeline) — Functional Decomposition"
-      },
-      {
         "path": "Brain/wiki/canary-module-a-asset-management.md",
         "title": "Canary Module — A (Asset Management / \"Bubble\")"
+      },
+      {
+        "path": "Brain/wiki/canary-module-a-functional-decomposition.md",
+        "title": "Module A (Asset Management) — Functional Decomposition"
       },
       {
         "path": "Brain/wiki/canary-module-c-commercial.md",
         "title": "Canary Module — C (Commercial)"
       },
       {
+        "path": "Brain/wiki/canary-module-c-functional-decomposition.md",
+        "title": "Module C (Commercial / B2B) — Functional Decomposition"
+      },
+      {
         "path": "Brain/wiki/canary-module-d-distribution.md",
         "title": "Canary Module — D (Distribution)"
+      },
+      {
+        "path": "Brain/wiki/canary-module-d-functional-decomposition.md",
+        "title": "Module D (Distribution) — Functional Decomposition"
       },
       {
         "path": "Brain/wiki/canary-module-f-finance.md",
         "title": "Canary Module — F (Finance)"
       },
       {
+        "path": "Brain/wiki/canary-module-f-functional-decomposition.md",
+        "title": "Module F (Finance — Tenders / Tax / Gift Cards) — Functional Decomposition"
+      },
+      {
         "path": "Brain/wiki/canary-module-j-forecast-order.md",
         "title": "Canary Module — J (Forecast & Order)"
+      },
+      {
+        "path": "Brain/wiki/canary-module-j-functional-decomposition.md",
+        "title": "Module J (Forecast & Order) — Functional Decomposition"
       },
       {
         "path": "Brain/wiki/canary-module-l-labor-workforce.md",
@@ -47029,8 +48588,24 @@
         "title": "Canary Module — N (Device)"
       },
       {
+        "path": "Brain/wiki/canary-module-n-functional-decomposition.md",
+        "title": "Module N (Device — Stores / Stations / Per-Store Config) — Functional Decomposition"
+      },
+      {
+        "path": "Brain/wiki/canary-module-p-functional-decomposition.md",
+        "title": "Module P (Pricing & Promotion) — Functional Decomposition"
+      },
+      {
         "path": "Brain/wiki/canary-module-p-pricing-promotion.md",
         "title": "Canary Module — P (Pricing & Promotion)"
+      },
+      {
+        "path": "Brain/wiki/canary-module-q-counterpoint-rule-catalog.md",
+        "title": "Canary Module Q — Counterpoint Rule Catalog"
+      },
+      {
+        "path": "Brain/wiki/canary-module-q-functional-decomposition.md",
+        "title": "Module Q (Loss Prevention) — Functional Decomposition"
       },
       {
         "path": "Brain/wiki/canary-module-q-loss-prevention.md",
@@ -47041,8 +48616,20 @@
         "title": "Canary Module — R (Customer)"
       },
       {
+        "path": "Brain/wiki/canary-module-r-functional-decomposition.md",
+        "title": "Module R (Customer) — Functional Decomposition"
+      },
+      {
+        "path": "Brain/wiki/canary-module-s-functional-decomposition.md",
+        "title": "Module S (Space, Range, Display — Items / Catalog) — Functional Decomposition"
+      },
+      {
         "path": "Brain/wiki/canary-module-s-space-range-display.md",
         "title": "Canary Module — S (Space, Range, Display)"
+      },
+      {
+        "path": "Brain/wiki/canary-module-t-functional-decomposition.md",
+        "title": "Module T (Transaction Pipeline) — Functional Decomposition"
       },
       {
         "path": "Brain/wiki/canary-module-t-transactions.md",
@@ -47075,6 +48662,10 @@
       {
         "path": "Brain/wiki/ncr-counterpoint-endpoint-spine-map.md",
         "title": "NCR Counterpoint API — Endpoint × CRDM × Spine Map"
+      },
+      {
+        "path": "Brain/wiki/prototype-prep-master-dispatch.md",
+        "title": "Prototype Prep Master Dispatch"
       },
       {
         "path": "Brain/wiki/rapid-pos-counterpoint-market-research-tam.md",
@@ -47239,6 +48830,10 @@
     ],
     "monday": [
       {
+        "path": "Brain/wiki/bart-mccleskey-rapid-garden-pos.md",
+        "title": "Bart McCleskey — Rapid Garden POS (Relationship Profile)"
+      },
+      {
         "path": "Brain/wiki/growdirect-timelog-week-feb16-24.md",
         "title": "Weekly Roll-Up — February 16–24, 2026"
       },
@@ -47385,6 +48980,16 @@
         "title": "The Academic Frame — HBS 9-599-101 (Moon, 1999) and the Third Branch"
       }
     ],
+    "mooney": [
+      {
+        "path": "Brain/wiki/prototype-prep-master-dispatch.md",
+        "title": "Prototype Prep Master Dispatch"
+      },
+      {
+        "path": "Brain/wiki/tim-mooney-maonach-group.md",
+        "title": "Tim Mooney — The Maonach Group (Advisor Profile)"
+      }
+    ],
     "mootness": [
       {
         "path": "Brain/wiki/cove-city-positions.md",
@@ -47517,7 +49122,15 @@
     ],
     "multi": [
       {
-        "path": "Brain/wiki/canary-module-R-functional-decomposition.md",
+        "path": "Brain/wiki/canary-module-d-functional-decomposition.md",
+        "title": "Module D (Distribution) — Functional Decomposition"
+      },
+      {
+        "path": "Brain/wiki/canary-module-p-functional-decomposition.md",
+        "title": "Module P (Pricing & Promotion) — Functional Decomposition"
+      },
+      {
+        "path": "Brain/wiki/canary-module-r-functional-decomposition.md",
         "title": "Module R (Customer) — Functional Decomposition"
       },
       {
@@ -47923,6 +49536,10 @@
       {
         "path": "Brain/wiki/ncr-counterpoint-sandbox-setup-checklist.md",
         "title": "NCR Counterpoint Sandbox Setup — Operator Action Checklist"
+      },
+      {
+        "path": "Brain/projects/NCR.md",
+        "title": "NCR"
       }
     ],
     "near": [
@@ -48737,15 +50354,47 @@
         "title": "West Palos Verdes — Content Pool (Raw)"
       },
       {
-        "path": "Brain/wiki/canary-module-Q-functional-decomposition.md",
+        "path": "Brain/wiki/canary-module-a-functional-decomposition.md",
+        "title": "Module A (Asset Management) — Functional Decomposition"
+      },
+      {
+        "path": "Brain/wiki/canary-module-c-functional-decomposition.md",
+        "title": "Module C (Commercial / B2B) — Functional Decomposition"
+      },
+      {
+        "path": "Brain/wiki/canary-module-d-functional-decomposition.md",
+        "title": "Module D (Distribution) — Functional Decomposition"
+      },
+      {
+        "path": "Brain/wiki/canary-module-f-functional-decomposition.md",
+        "title": "Module F (Finance — Tenders / Tax / Gift Cards) — Functional Decomposition"
+      },
+      {
+        "path": "Brain/wiki/canary-module-j-functional-decomposition.md",
+        "title": "Module J (Forecast & Order) — Functional Decomposition"
+      },
+      {
+        "path": "Brain/wiki/canary-module-n-functional-decomposition.md",
+        "title": "Module N (Device — Stores / Stations / Per-Store Config) — Functional Decomposition"
+      },
+      {
+        "path": "Brain/wiki/canary-module-p-functional-decomposition.md",
+        "title": "Module P (Pricing & Promotion) — Functional Decomposition"
+      },
+      {
+        "path": "Brain/wiki/canary-module-q-functional-decomposition.md",
         "title": "Module Q (Loss Prevention) — Functional Decomposition"
       },
       {
-        "path": "Brain/wiki/canary-module-R-functional-decomposition.md",
+        "path": "Brain/wiki/canary-module-r-functional-decomposition.md",
         "title": "Module R (Customer) — Functional Decomposition"
       },
       {
-        "path": "Brain/wiki/canary-module-T-functional-decomposition.md",
+        "path": "Brain/wiki/canary-module-s-functional-decomposition.md",
+        "title": "Module S (Space, Range, Display — Items / Catalog) — Functional Decomposition"
+      },
+      {
+        "path": "Brain/wiki/canary-module-t-functional-decomposition.md",
         "title": "Module T (Transaction Pipeline) — Functional Decomposition"
       },
       {
@@ -48891,6 +50540,12 @@
       {
         "path": "Brain/wiki/secure-eagle-eye-fnr-2018.md",
         "title": "Eagle Eye — Functional & Non-Functional Requirements v4.0 (Feb 2018, NS Comments)"
+      }
+    ],
+    "nsptransaction": [
+      {
+        "path": "Brain/wiki/canary-module-f-functional-decomposition.md",
+        "title": "Module F (Finance — Tenders / Tax / Gift Cards) — Functional Decomposition"
       }
     ],
     "number": [
@@ -49247,6 +50902,10 @@
         "title": "Canary Module — J (Forecast & Order)"
       },
       {
+        "path": "Brain/wiki/canary-module-j-functional-decomposition.md",
+        "title": "Module J (Forecast & Order) — Functional Decomposition"
+      },
+      {
         "path": "Brain/wiki/canary-module-l-labor-workforce.md",
         "title": "Canary Module — L (Labor & Workforce)"
       },
@@ -49257,6 +50916,10 @@
       {
         "path": "Brain/wiki/canary-module-p-pricing-promotion.md",
         "title": "Canary Module — P (Pricing & Promotion)"
+      },
+      {
+        "path": "Brain/wiki/canary-module-q-counterpoint-rule-catalog.md",
+        "title": "Canary Module Q — Counterpoint Rule Catalog"
       },
       {
         "path": "Brain/wiki/canary-module-q-loss-prevention.md",
@@ -49383,6 +51046,10 @@
         "title": "NCR Counterpoint Sandbox Setup — Operator Action Checklist"
       },
       {
+        "path": "Brain/wiki/prototype-prep-master-dispatch.md",
+        "title": "Prototype Prep Master Dispatch"
+      },
+      {
         "path": "Brain/wiki/rapid-pos-counterpoint-market-research-tam.md",
         "title": "Rapid POS / NCR Counterpoint — Market Research + TAM"
       },
@@ -49473,15 +51140,47 @@
         "title": "Angel Content Engine"
       },
       {
-        "path": "Brain/wiki/canary-module-Q-functional-decomposition.md",
+        "path": "Brain/wiki/canary-module-a-functional-decomposition.md",
+        "title": "Module A (Asset Management) — Functional Decomposition"
+      },
+      {
+        "path": "Brain/wiki/canary-module-c-functional-decomposition.md",
+        "title": "Module C (Commercial / B2B) — Functional Decomposition"
+      },
+      {
+        "path": "Brain/wiki/canary-module-d-functional-decomposition.md",
+        "title": "Module D (Distribution) — Functional Decomposition"
+      },
+      {
+        "path": "Brain/wiki/canary-module-f-functional-decomposition.md",
+        "title": "Module F (Finance — Tenders / Tax / Gift Cards) — Functional Decomposition"
+      },
+      {
+        "path": "Brain/wiki/canary-module-j-functional-decomposition.md",
+        "title": "Module J (Forecast & Order) — Functional Decomposition"
+      },
+      {
+        "path": "Brain/wiki/canary-module-n-functional-decomposition.md",
+        "title": "Module N (Device — Stores / Stations / Per-Store Config) — Functional Decomposition"
+      },
+      {
+        "path": "Brain/wiki/canary-module-p-functional-decomposition.md",
+        "title": "Module P (Pricing & Promotion) — Functional Decomposition"
+      },
+      {
+        "path": "Brain/wiki/canary-module-q-functional-decomposition.md",
         "title": "Module Q (Loss Prevention) — Functional Decomposition"
       },
       {
-        "path": "Brain/wiki/canary-module-R-functional-decomposition.md",
+        "path": "Brain/wiki/canary-module-r-functional-decomposition.md",
         "title": "Module R (Customer) — Functional Decomposition"
       },
       {
-        "path": "Brain/wiki/canary-module-T-functional-decomposition.md",
+        "path": "Brain/wiki/canary-module-s-functional-decomposition.md",
+        "title": "Module S (Space, Range, Display — Items / Catalog) — Functional Decomposition"
+      },
+      {
+        "path": "Brain/wiki/canary-module-t-functional-decomposition.md",
         "title": "Module T (Transaction Pipeline) — Functional Decomposition"
       },
       {
@@ -49661,6 +51360,10 @@
     ],
     "operator": [
       {
+        "path": "Brain/wiki/canary-module-q-counterpoint-rule-catalog.md",
+        "title": "Canary Module Q — Counterpoint Rule Catalog"
+      },
+      {
         "path": "Brain/wiki/intactix-canonical-validation.md",
         "title": "Intactix 2006 — Canonical Validation of RetailSpine"
       },
@@ -49839,6 +51542,10 @@
       {
         "path": "Brain/wiki/canary-module-j-forecast-order.md",
         "title": "Canary Module — J (Forecast & Order)"
+      },
+      {
+        "path": "Brain/wiki/canary-module-j-functional-decomposition.md",
+        "title": "Module J (Forecast & Order) — Functional Decomposition"
       },
       {
         "path": "Brain/wiki/growdirect-production-chain.md",
@@ -50279,15 +51986,47 @@
     ],
     "overrides": [
       {
-        "path": "Brain/wiki/canary-module-Q-functional-decomposition.md",
+        "path": "Brain/wiki/canary-module-a-functional-decomposition.md",
+        "title": "Module A (Asset Management) — Functional Decomposition"
+      },
+      {
+        "path": "Brain/wiki/canary-module-c-functional-decomposition.md",
+        "title": "Module C (Commercial / B2B) — Functional Decomposition"
+      },
+      {
+        "path": "Brain/wiki/canary-module-d-functional-decomposition.md",
+        "title": "Module D (Distribution) — Functional Decomposition"
+      },
+      {
+        "path": "Brain/wiki/canary-module-f-functional-decomposition.md",
+        "title": "Module F (Finance — Tenders / Tax / Gift Cards) — Functional Decomposition"
+      },
+      {
+        "path": "Brain/wiki/canary-module-j-functional-decomposition.md",
+        "title": "Module J (Forecast & Order) — Functional Decomposition"
+      },
+      {
+        "path": "Brain/wiki/canary-module-n-functional-decomposition.md",
+        "title": "Module N (Device — Stores / Stations / Per-Store Config) — Functional Decomposition"
+      },
+      {
+        "path": "Brain/wiki/canary-module-p-functional-decomposition.md",
+        "title": "Module P (Pricing & Promotion) — Functional Decomposition"
+      },
+      {
+        "path": "Brain/wiki/canary-module-q-functional-decomposition.md",
         "title": "Module Q (Loss Prevention) — Functional Decomposition"
       },
       {
-        "path": "Brain/wiki/canary-module-R-functional-decomposition.md",
+        "path": "Brain/wiki/canary-module-r-functional-decomposition.md",
         "title": "Module R (Customer) — Functional Decomposition"
       },
       {
-        "path": "Brain/wiki/canary-module-T-functional-decomposition.md",
+        "path": "Brain/wiki/canary-module-s-functional-decomposition.md",
+        "title": "Module S (Space, Range, Display — Items / Catalog) — Functional Decomposition"
+      },
+      {
+        "path": "Brain/wiki/canary-module-t-functional-decomposition.md",
         "title": "Module T (Transaction Pipeline) — Functional Decomposition"
       }
     ],
@@ -50399,7 +52138,7 @@
         "title": "BP Consulting Library — 1997–1999"
       },
       {
-        "path": "Brain/wiki/canary-module-Q-functional-decomposition.md",
+        "path": "Brain/wiki/canary-module-q-functional-decomposition.md",
         "title": "Module Q (Loss Prevention) — Functional Decomposition"
       },
       {
@@ -50671,6 +52410,12 @@
         "title": "Article V Equity / Vote-Share Modernization"
       }
     ],
+    "parameter": [
+      {
+        "path": "Brain/wiki/canary-module-j-functional-decomposition.md",
+        "title": "Module J (Forecast & Order) — Functional Decomposition"
+      }
+    ],
     "parcel": [
       {
         "path": "Brain/wiki/coac-15-owner-network.md",
@@ -50845,7 +52590,7 @@
     ],
     "parsing": [
       {
-        "path": "Brain/wiki/canary-module-T-functional-decomposition.md",
+        "path": "Brain/wiki/canary-module-t-functional-decomposition.md",
         "title": "Module T (Transaction Pipeline) — Functional Decomposition"
       }
     ],
@@ -50927,6 +52672,10 @@
       {
         "path": "Brain/wiki/cove-coastal-specific-plan-s4.md",
         "title": "Coastal Specific Plan — Subregion 4"
+      },
+      {
+        "path": "Brain/wiki/prototype-prep-master-dispatch.md",
+        "title": "Prototype Prep Master Dispatch"
       }
     ],
     "partnership": [
@@ -51273,10 +53022,20 @@
         "title": "Solex — Square Integration Notes"
       }
     ],
+    "paycode": [
+      {
+        "path": "Brain/wiki/canary-module-f-functional-decomposition.md",
+        "title": "Module F (Finance — Tenders / Tax / Gift Cards) — Functional Decomposition"
+      }
+    ],
     "payment": [
       {
         "path": "Brain/wiki/canary-alerts-guide.md",
         "title": "Canary Alerts — A Plain-English Guide"
+      },
+      {
+        "path": "Brain/wiki/canary-module-f-functional-decomposition.md",
+        "title": "Module F (Finance — Tenders / Tax / Gift Cards) — Functional Decomposition"
       },
       {
         "path": "Brain/wiki/garden-center-operating-reality.md",
@@ -51649,6 +53408,10 @@
         "title": "Angel Content Engine"
       },
       {
+        "path": "Brain/wiki/bart-mccleskey-rapid-garden-pos.md",
+        "title": "Bart McCleskey — Rapid Garden POS (Relationship Profile)"
+      },
+      {
         "path": "Brain/wiki/cove-community-history.md",
         "title": "Community History"
       },
@@ -51807,6 +53570,10 @@
         "title": "NCR Counterpoint Sandbox Setup — Operator Action Checklist"
       },
       {
+        "path": "Brain/wiki/prototype-prep-master-dispatch.md",
+        "title": "Prototype Prep Master Dispatch"
+      },
+      {
         "path": "Brain/wiki/pwc-ebiz-web-implementation-guide.md",
         "title": "PwC eBusiness Web Implementation Guide (Definition / Design / Development)"
       },
@@ -51839,7 +53606,7 @@
     ],
     "phases": [
       {
-        "path": "Brain/wiki/canary-module-Q-functional-decomposition.md",
+        "path": "Brain/wiki/canary-module-q-functional-decomposition.md",
         "title": "Module Q (Loss Prevention) — Functional Decomposition"
       },
       {
@@ -51879,7 +53646,11 @@
     ],
     "phasing": [
       {
-        "path": "Brain/wiki/canary-module-Q-functional-decomposition.md",
+        "path": "Brain/wiki/canary-module-q-counterpoint-rule-catalog.md",
+        "title": "Canary Module Q — Counterpoint Rule Catalog"
+      },
+      {
+        "path": "Brain/wiki/canary-module-q-functional-decomposition.md",
         "title": "Module Q (Loss Prevention) — Functional Decomposition"
       }
     ],
@@ -51961,6 +53732,10 @@
         "title": "Cannabis Retail Risk Dictionary & Integration Spec"
       },
       {
+        "path": "Brain/wiki/prototype-prep-master-dispatch.md",
+        "title": "Prototype Prep Master Dispatch"
+      },
+      {
         "path": "Brain/wiki/secure-heartbeat-fireball-2002.md",
         "title": "Heartbeat / Fireball (2002) — Essential Design"
       }
@@ -51993,7 +53768,7 @@
         "title": "Canary Detection Engine"
       },
       {
-        "path": "Brain/wiki/canary-module-T-functional-decomposition.md",
+        "path": "Brain/wiki/canary-module-t-functional-decomposition.md",
         "title": "Module T (Transaction Pipeline) — Functional Decomposition"
       },
       {
@@ -52895,6 +54670,10 @@
     ],
     "pos": [
       {
+        "path": "Brain/wiki/bart-mccleskey-rapid-garden-pos.md",
+        "title": "Bart McCleskey — Rapid Garden POS (Relationship Profile)"
+      },
+      {
         "path": "Brain/wiki/ncr-counterpoint-rapid-pos-relationship.md",
         "title": "Counterpoint vs Rapid Garden POS — Relationship + What This Means for Canary"
       },
@@ -52951,6 +54730,10 @@
       {
         "path": "Brain/wiki/angel-brand-and-team.md",
         "title": "Angel Brand & Team — AREA at Compass"
+      },
+      {
+        "path": "Brain/wiki/bart-mccleskey-rapid-garden-pos.md",
+        "title": "Bart McCleskey — Rapid Garden POS (Relationship Profile)"
       },
       {
         "path": "Brain/wiki/broadvision-1999-2000-platform.md",
@@ -53041,6 +54824,10 @@
         "title": "NCR Counterpoint API Reference"
       },
       {
+        "path": "Brain/wiki/prototype-prep-master-dispatch.md",
+        "title": "Prototype Prep Master Dispatch"
+      },
+      {
         "path": "Brain/wiki/retail-po-from-plan.md",
         "title": "Retail Purchase Order Generation from Plan"
       }
@@ -53053,7 +54840,11 @@
     ],
     "posture": [
       {
-        "path": "Brain/wiki/canary-module-R-functional-decomposition.md",
+        "path": "Brain/wiki/canary-module-c-functional-decomposition.md",
+        "title": "Module C (Commercial / B2B) — Functional Decomposition"
+      },
+      {
+        "path": "Brain/wiki/canary-module-r-functional-decomposition.md",
         "title": "Module R (Customer) — Functional Decomposition"
       },
       {
@@ -53313,6 +55104,10 @@
       {
         "path": "Brain/wiki/peninsula-youth-sports-summer.md",
         "title": "Youth Sports, Summer & Enrichment — Palos Verdes Peninsula"
+      },
+      {
+        "path": "Brain/wiki/prototype-prep-master-dispatch.md",
+        "title": "Prototype Prep Master Dispatch"
       }
     ],
     "preparation": [
@@ -53445,7 +55240,7 @@
     ],
     "prevention": [
       {
-        "path": "Brain/wiki/canary-module-Q-functional-decomposition.md",
+        "path": "Brain/wiki/canary-module-q-functional-decomposition.md",
         "title": "Module Q (Loss Prevention) — Functional Decomposition"
       },
       {
@@ -53473,6 +55268,10 @@
       {
         "path": "Brain/wiki/angel-market-intelligence.md",
         "title": "Angel Market Intelligence"
+      },
+      {
+        "path": "Brain/wiki/canary-module-p-functional-decomposition.md",
+        "title": "Module P (Pricing & Promotion) — Functional Decomposition"
       },
       {
         "path": "Brain/wiki/rapid-pos-counterpoint-user-pain-points.md",
@@ -53507,12 +55306,16 @@
         "title": "Angel Market Intelligence"
       },
       {
-        "path": "Brain/wiki/canary-module-R-functional-decomposition.md",
-        "title": "Module R (Customer) — Functional Decomposition"
+        "path": "Brain/wiki/canary-module-p-functional-decomposition.md",
+        "title": "Module P (Pricing & Promotion) — Functional Decomposition"
       },
       {
         "path": "Brain/wiki/canary-module-p-pricing-promotion.md",
         "title": "Canary Module — P (Pricing & Promotion)"
+      },
+      {
+        "path": "Brain/wiki/canary-module-r-functional-decomposition.md",
+        "title": "Module R (Customer) — Functional Decomposition"
       },
       {
         "path": "Brain/wiki/growdirect-research-cannabis-retail-risk.md",
@@ -53707,7 +55510,7 @@
         "title": "Rolling Hills — Content Pool (Raw)"
       },
       {
-        "path": "Brain/wiki/canary-module-R-functional-decomposition.md",
+        "path": "Brain/wiki/canary-module-r-functional-decomposition.md",
         "title": "Module R (Customer) — Functional Decomposition"
       },
       {
@@ -53975,15 +55778,47 @@
     ],
     "processes": [
       {
-        "path": "Brain/wiki/canary-module-Q-functional-decomposition.md",
+        "path": "Brain/wiki/canary-module-a-functional-decomposition.md",
+        "title": "Module A (Asset Management) — Functional Decomposition"
+      },
+      {
+        "path": "Brain/wiki/canary-module-c-functional-decomposition.md",
+        "title": "Module C (Commercial / B2B) — Functional Decomposition"
+      },
+      {
+        "path": "Brain/wiki/canary-module-d-functional-decomposition.md",
+        "title": "Module D (Distribution) — Functional Decomposition"
+      },
+      {
+        "path": "Brain/wiki/canary-module-f-functional-decomposition.md",
+        "title": "Module F (Finance — Tenders / Tax / Gift Cards) — Functional Decomposition"
+      },
+      {
+        "path": "Brain/wiki/canary-module-j-functional-decomposition.md",
+        "title": "Module J (Forecast & Order) — Functional Decomposition"
+      },
+      {
+        "path": "Brain/wiki/canary-module-n-functional-decomposition.md",
+        "title": "Module N (Device — Stores / Stations / Per-Store Config) — Functional Decomposition"
+      },
+      {
+        "path": "Brain/wiki/canary-module-p-functional-decomposition.md",
+        "title": "Module P (Pricing & Promotion) — Functional Decomposition"
+      },
+      {
+        "path": "Brain/wiki/canary-module-q-functional-decomposition.md",
         "title": "Module Q (Loss Prevention) — Functional Decomposition"
       },
       {
-        "path": "Brain/wiki/canary-module-R-functional-decomposition.md",
+        "path": "Brain/wiki/canary-module-r-functional-decomposition.md",
         "title": "Module R (Customer) — Functional Decomposition"
       },
       {
-        "path": "Brain/wiki/canary-module-T-functional-decomposition.md",
+        "path": "Brain/wiki/canary-module-s-functional-decomposition.md",
+        "title": "Module S (Space, Range, Display — Items / Catalog) — Functional Decomposition"
+      },
+      {
+        "path": "Brain/wiki/canary-module-t-functional-decomposition.md",
         "title": "Module T (Transaction Pipeline) — Functional Decomposition"
       }
     ],
@@ -54185,8 +56020,16 @@
         "title": "Angel Voice Training"
       },
       {
+        "path": "Brain/wiki/bart-mccleskey-rapid-garden-pos.md",
+        "title": "Bart McCleskey — Rapid Garden POS (Relationship Profile)"
+      },
+      {
         "path": "Brain/wiki/growdirect-research-cannabis-retail-risk.md",
         "title": "Cannabis Retail Risk Dictionary & Integration Spec"
+      },
+      {
+        "path": "Brain/wiki/tim-mooney-maonach-group.md",
+        "title": "Tim Mooney — The Maonach Group (Advisor Profile)"
       }
     ],
     "profiles": [
@@ -54271,6 +56114,10 @@
         "title": "Canary / GrowDirect — Project Reference Library"
       },
       {
+        "path": "Brain/wiki/prototype-prep-master-dispatch.md",
+        "title": "Prototype Prep Master Dispatch"
+      },
+      {
         "path": "Brain/wiki/reference-oracle-project-costing.md",
         "title": "Oracle Project Costing — User Guide, Release 11i (May 2005)"
       },
@@ -54347,6 +56194,10 @@
     ],
     "promotion": [
       {
+        "path": "Brain/wiki/canary-module-p-functional-decomposition.md",
+        "title": "Module P (Pricing & Promotion) — Functional Decomposition"
+      },
+      {
         "path": "Brain/wiki/canary-module-p-pricing-promotion.md",
         "title": "Canary Module — P (Pricing & Promotion)"
       },
@@ -54360,6 +56211,10 @@
       }
     ],
     "promotional": [
+      {
+        "path": "Brain/wiki/canary-module-j-functional-decomposition.md",
+        "title": "Module J (Forecast & Order) — Functional Decomposition"
+      },
       {
         "path": "Brain/wiki/retail-po-from-plan.md",
         "title": "Retail Purchase Order Generation from Plan"
@@ -54605,6 +56460,12 @@
         "title": "The Protocol Pipe"
       }
     ],
+    "prototype": [
+      {
+        "path": "Brain/wiki/prototype-prep-master-dispatch.md",
+        "title": "Prototype Prep Master Dispatch"
+      }
+    ],
     "prototypes": [
       {
         "path": "Brain/wiki/angel-content-archive-index.md",
@@ -54681,7 +56542,7 @@
     ],
     "provider": [
       {
-        "path": "Brain/wiki/canary-module-T-functional-decomposition.md",
+        "path": "Brain/wiki/canary-module-t-functional-decomposition.md",
         "title": "Module T (Transaction Pipeline) — Functional Decomposition"
       }
     ],
@@ -54823,7 +56684,7 @@
         "title": "abalonecove.org"
       },
       {
-        "path": "Brain/wiki/canary-module-T-functional-decomposition.md",
+        "path": "Brain/wiki/canary-module-t-functional-decomposition.md",
         "title": "Module T (Transaction Pipeline) — Functional Decomposition"
       },
       {
@@ -55297,6 +57158,10 @@
         "title": "Canary Module — P (Pricing & Promotion)"
       },
       {
+        "path": "Brain/wiki/canary-module-q-counterpoint-rule-catalog.md",
+        "title": "Canary Module Q — Counterpoint Rule Catalog"
+      },
+      {
         "path": "Brain/wiki/canary-module-q-loss-prevention.md",
         "title": "Canary Module — Q (Loss Prevention) — Chirp + Fox"
       },
@@ -55541,6 +57406,10 @@
         "title": "Angel Market Intelligence"
       },
       {
+        "path": "Brain/wiki/canary-module-s-functional-decomposition.md",
+        "title": "Module S (Space, Range, Display — Items / Catalog) — Functional Decomposition"
+      },
+      {
         "path": "Brain/wiki/canary-module-s-space-range-display.md",
         "title": "Canary Module — S (Space, Range, Display)"
       },
@@ -55595,8 +57464,16 @@
     ],
     "rapid": [
       {
+        "path": "Brain/wiki/bart-mccleskey-rapid-garden-pos.md",
+        "title": "Bart McCleskey — Rapid Garden POS (Relationship Profile)"
+      },
+      {
         "path": "Brain/wiki/ncr-counterpoint-rapid-pos-relationship.md",
         "title": "Counterpoint vs Rapid Garden POS — Relationship + What This Means for Canary"
+      },
+      {
+        "path": "Brain/wiki/prototype-prep-master-dispatch.md",
+        "title": "Prototype Prep Master Dispatch"
       },
       {
         "path": "Brain/wiki/rapid-pos-counterpoint-market-research-tam.md",
@@ -55609,6 +57486,10 @@
       {
         "path": "Brain/wiki/socal-home-garden-target-customers-brief.md",
         "title": "SoCal Home & Garden Target Customers — Brief for Monday Bart Call"
+      },
+      {
+        "path": "Brain/wiki/tim-mooney-maonach-group.md",
+        "title": "Tim Mooney — The Maonach Group (Advisor Profile)"
       },
       {
         "path": "Brain/wiki/voyix-counterpoint-rapid-pos-engagement-context.md",
@@ -55799,6 +57680,12 @@
         "title": "LLC Rescue Status (Existing California LLC)"
       }
     ],
+    "reads": [
+      {
+        "path": "Brain/wiki/canary-module-q-counterpoint-rule-catalog.md",
+        "title": "Canary Module Q — Counterpoint Rule Catalog"
+      }
+    ],
     "ready": [
       {
         "path": "Brain/wiki/angel-data-platform.md",
@@ -55925,15 +57812,47 @@
         "title": "Canary Chirp Rules"
       },
       {
-        "path": "Brain/wiki/canary-module-Q-functional-decomposition.md",
+        "path": "Brain/wiki/canary-module-a-functional-decomposition.md",
+        "title": "Module A (Asset Management) — Functional Decomposition"
+      },
+      {
+        "path": "Brain/wiki/canary-module-c-functional-decomposition.md",
+        "title": "Module C (Commercial / B2B) — Functional Decomposition"
+      },
+      {
+        "path": "Brain/wiki/canary-module-d-functional-decomposition.md",
+        "title": "Module D (Distribution) — Functional Decomposition"
+      },
+      {
+        "path": "Brain/wiki/canary-module-f-functional-decomposition.md",
+        "title": "Module F (Finance — Tenders / Tax / Gift Cards) — Functional Decomposition"
+      },
+      {
+        "path": "Brain/wiki/canary-module-j-functional-decomposition.md",
+        "title": "Module J (Forecast & Order) — Functional Decomposition"
+      },
+      {
+        "path": "Brain/wiki/canary-module-n-functional-decomposition.md",
+        "title": "Module N (Device — Stores / Stations / Per-Store Config) — Functional Decomposition"
+      },
+      {
+        "path": "Brain/wiki/canary-module-p-functional-decomposition.md",
+        "title": "Module P (Pricing & Promotion) — Functional Decomposition"
+      },
+      {
+        "path": "Brain/wiki/canary-module-q-functional-decomposition.md",
         "title": "Module Q (Loss Prevention) — Functional Decomposition"
       },
       {
-        "path": "Brain/wiki/canary-module-R-functional-decomposition.md",
+        "path": "Brain/wiki/canary-module-r-functional-decomposition.md",
         "title": "Module R (Customer) — Functional Decomposition"
       },
       {
-        "path": "Brain/wiki/canary-module-T-functional-decomposition.md",
+        "path": "Brain/wiki/canary-module-s-functional-decomposition.md",
+        "title": "Module S (Space, Range, Display — Items / Catalog) — Functional Decomposition"
+      },
+      {
+        "path": "Brain/wiki/canary-module-t-functional-decomposition.md",
         "title": "Module T (Transaction Pipeline) — Functional Decomposition"
       },
       {
@@ -56055,6 +57974,10 @@
       {
         "path": "Brain/wiki/angel-transaction-timeline.md",
         "title": "Angel Transaction Timeline"
+      },
+      {
+        "path": "Brain/wiki/canary-module-j-functional-decomposition.md",
+        "title": "Module J (Forecast & Order) — Functional Decomposition"
       }
     ],
     "recent": [
@@ -56175,6 +58098,10 @@
     ],
     "recommendation": [
       {
+        "path": "Brain/wiki/canary-module-j-functional-decomposition.md",
+        "title": "Module J (Forecast & Order) — Functional Decomposition"
+      },
+      {
         "path": "Brain/wiki/growdirect-white-paper-competitive-landscape.md",
         "title": "Executive Summary"
       },
@@ -56184,6 +58111,10 @@
       }
     ],
     "recommendations": [
+      {
+        "path": "Brain/wiki/canary-module-d-functional-decomposition.md",
+        "title": "Module D (Distribution) — Functional Decomposition"
+      },
       {
         "path": "Brain/wiki/foundation-blockchain-proof-layer.md",
         "title": "Foundation Blockchain Proof Layer"
@@ -56220,6 +58151,10 @@
       }
     ],
     "reconciliation": [
+      {
+        "path": "Brain/wiki/canary-module-d-functional-decomposition.md",
+        "title": "Module D (Distribution) — Functional Decomposition"
+      },
       {
         "path": "Brain/wiki/growdirect-research-cannabis-retail-risk.md",
         "title": "Cannabis Retail Risk Dictionary & Integration Spec"
@@ -56733,11 +58668,27 @@
     ],
     "registry": [
       {
-        "path": "Brain/wiki/canary-module-R-functional-decomposition.md",
+        "path": "Brain/wiki/canary-module-f-functional-decomposition.md",
+        "title": "Module F (Finance — Tenders / Tax / Gift Cards) — Functional Decomposition"
+      },
+      {
+        "path": "Brain/wiki/canary-module-j-functional-decomposition.md",
+        "title": "Module J (Forecast & Order) — Functional Decomposition"
+      },
+      {
+        "path": "Brain/wiki/canary-module-n-functional-decomposition.md",
+        "title": "Module N (Device — Stores / Stations / Per-Store Config) — Functional Decomposition"
+      },
+      {
+        "path": "Brain/wiki/canary-module-r-functional-decomposition.md",
         "title": "Module R (Customer) — Functional Decomposition"
       },
       {
-        "path": "Brain/wiki/canary-module-T-functional-decomposition.md",
+        "path": "Brain/wiki/canary-module-s-functional-decomposition.md",
+        "title": "Module S (Space, Range, Display — Items / Catalog) — Functional Decomposition"
+      },
+      {
+        "path": "Brain/wiki/canary-module-t-functional-decomposition.md",
         "title": "Module T (Transaction Pipeline) — Functional Decomposition"
       },
       {
@@ -56965,6 +58916,10 @@
         "title": "West Palos Verdes — Content Pool (Raw)"
       },
       {
+        "path": "Brain/wiki/bart-mccleskey-rapid-garden-pos.md",
+        "title": "Bart McCleskey — Rapid Garden POS (Relationship Profile)"
+      },
+      {
         "path": "Brain/wiki/canary-architecture-decisions-index.md",
         "title": "Canary Architecture Decisions Index"
       },
@@ -56993,36 +58948,44 @@
         "title": "Canary Fox Case Management"
       },
       {
-        "path": "Brain/wiki/canary-module-Q-functional-decomposition.md",
-        "title": "Module Q (Loss Prevention) — Functional Decomposition"
-      },
-      {
-        "path": "Brain/wiki/canary-module-R-functional-decomposition.md",
-        "title": "Module R (Customer) — Functional Decomposition"
-      },
-      {
-        "path": "Brain/wiki/canary-module-T-functional-decomposition.md",
-        "title": "Module T (Transaction Pipeline) — Functional Decomposition"
-      },
-      {
         "path": "Brain/wiki/canary-module-a-asset-management.md",
         "title": "Canary Module — A (Asset Management / \"Bubble\")"
+      },
+      {
+        "path": "Brain/wiki/canary-module-a-functional-decomposition.md",
+        "title": "Module A (Asset Management) — Functional Decomposition"
       },
       {
         "path": "Brain/wiki/canary-module-c-commercial.md",
         "title": "Canary Module — C (Commercial)"
       },
       {
+        "path": "Brain/wiki/canary-module-c-functional-decomposition.md",
+        "title": "Module C (Commercial / B2B) — Functional Decomposition"
+      },
+      {
         "path": "Brain/wiki/canary-module-d-distribution.md",
         "title": "Canary Module — D (Distribution)"
+      },
+      {
+        "path": "Brain/wiki/canary-module-d-functional-decomposition.md",
+        "title": "Module D (Distribution) — Functional Decomposition"
       },
       {
         "path": "Brain/wiki/canary-module-f-finance.md",
         "title": "Canary Module — F (Finance)"
       },
       {
+        "path": "Brain/wiki/canary-module-f-functional-decomposition.md",
+        "title": "Module F (Finance — Tenders / Tax / Gift Cards) — Functional Decomposition"
+      },
+      {
         "path": "Brain/wiki/canary-module-j-forecast-order.md",
         "title": "Canary Module — J (Forecast & Order)"
+      },
+      {
+        "path": "Brain/wiki/canary-module-j-functional-decomposition.md",
+        "title": "Module J (Forecast & Order) — Functional Decomposition"
       },
       {
         "path": "Brain/wiki/canary-module-l-labor-workforce.md",
@@ -57033,8 +58996,24 @@
         "title": "Canary Module — N (Device)"
       },
       {
+        "path": "Brain/wiki/canary-module-n-functional-decomposition.md",
+        "title": "Module N (Device — Stores / Stations / Per-Store Config) — Functional Decomposition"
+      },
+      {
+        "path": "Brain/wiki/canary-module-p-functional-decomposition.md",
+        "title": "Module P (Pricing & Promotion) — Functional Decomposition"
+      },
+      {
         "path": "Brain/wiki/canary-module-p-pricing-promotion.md",
         "title": "Canary Module — P (Pricing & Promotion)"
+      },
+      {
+        "path": "Brain/wiki/canary-module-q-counterpoint-rule-catalog.md",
+        "title": "Canary Module Q — Counterpoint Rule Catalog"
+      },
+      {
+        "path": "Brain/wiki/canary-module-q-functional-decomposition.md",
+        "title": "Module Q (Loss Prevention) — Functional Decomposition"
       },
       {
         "path": "Brain/wiki/canary-module-q-loss-prevention.md",
@@ -57045,8 +59024,20 @@
         "title": "Canary Module — R (Customer)"
       },
       {
+        "path": "Brain/wiki/canary-module-r-functional-decomposition.md",
+        "title": "Module R (Customer) — Functional Decomposition"
+      },
+      {
+        "path": "Brain/wiki/canary-module-s-functional-decomposition.md",
+        "title": "Module S (Space, Range, Display — Items / Catalog) — Functional Decomposition"
+      },
+      {
         "path": "Brain/wiki/canary-module-s-space-range-display.md",
         "title": "Canary Module — S (Space, Range, Display)"
+      },
+      {
+        "path": "Brain/wiki/canary-module-t-functional-decomposition.md",
+        "title": "Module T (Transaction Pipeline) — Functional Decomposition"
       },
       {
         "path": "Brain/wiki/canary-module-t-transactions.md",
@@ -57697,6 +59688,10 @@
         "title": "NCR Counterpoint Sandbox Setup — Operator Action Checklist"
       },
       {
+        "path": "Brain/wiki/prototype-prep-master-dispatch.md",
+        "title": "Prototype Prep Master Dispatch"
+      },
+      {
         "path": "Brain/wiki/rapid-pos-counterpoint-market-research-tam.md",
         "title": "Rapid POS / NCR Counterpoint — Market Research + TAM"
       },
@@ -57837,6 +59832,10 @@
         "title": "South Bay Wiki — Content Architecture"
       },
       {
+        "path": "Brain/wiki/tim-mooney-maonach-group.md",
+        "title": "Tim Mooney — The Maonach Group (Advisor Profile)"
+      },
+      {
         "path": "Brain/wiki/wpbca-compliance-framework.md",
         "title": "Community of Abalone Cove (formerly WPBCA) Compliance Framework — MOC"
       },
@@ -57867,6 +59866,10 @@
       {
         "path": "Brain/wiki/academic-frame-1999-hbs.md",
         "title": "The Academic Frame — HBS 9-599-101 (Moon, 1999) and the Third Branch"
+      },
+      {
+        "path": "Brain/wiki/bart-mccleskey-rapid-garden-pos.md",
+        "title": "Bart McCleskey — Rapid Garden POS (Relationship Profile)"
       },
       {
         "path": "Brain/wiki/coac-negative-space-lot-h-boundary.md",
@@ -58057,7 +60060,7 @@
     ],
     "replay": [
       {
-        "path": "Brain/wiki/canary-module-T-functional-decomposition.md",
+        "path": "Brain/wiki/canary-module-t-functional-decomposition.md",
         "title": "Module T (Transaction Pipeline) — Functional Decomposition"
       },
       {
@@ -58069,6 +60072,10 @@
       {
         "path": "Brain/wiki/canary-module-j-forecast-order.md",
         "title": "Canary Module — J (Forecast & Order)"
+      },
+      {
+        "path": "Brain/wiki/canary-module-j-functional-decomposition.md",
+        "title": "Module J (Forecast & Order) — Functional Decomposition"
       },
       {
         "path": "Brain/wiki/retail-po-from-plan.md",
@@ -58263,15 +60270,47 @@
     ],
     "requiring": [
       {
-        "path": "Brain/wiki/canary-module-Q-functional-decomposition.md",
+        "path": "Brain/wiki/canary-module-a-functional-decomposition.md",
+        "title": "Module A (Asset Management) — Functional Decomposition"
+      },
+      {
+        "path": "Brain/wiki/canary-module-c-functional-decomposition.md",
+        "title": "Module C (Commercial / B2B) — Functional Decomposition"
+      },
+      {
+        "path": "Brain/wiki/canary-module-d-functional-decomposition.md",
+        "title": "Module D (Distribution) — Functional Decomposition"
+      },
+      {
+        "path": "Brain/wiki/canary-module-f-functional-decomposition.md",
+        "title": "Module F (Finance — Tenders / Tax / Gift Cards) — Functional Decomposition"
+      },
+      {
+        "path": "Brain/wiki/canary-module-j-functional-decomposition.md",
+        "title": "Module J (Forecast & Order) — Functional Decomposition"
+      },
+      {
+        "path": "Brain/wiki/canary-module-n-functional-decomposition.md",
+        "title": "Module N (Device — Stores / Stations / Per-Store Config) — Functional Decomposition"
+      },
+      {
+        "path": "Brain/wiki/canary-module-p-functional-decomposition.md",
+        "title": "Module P (Pricing & Promotion) — Functional Decomposition"
+      },
+      {
+        "path": "Brain/wiki/canary-module-q-functional-decomposition.md",
         "title": "Module Q (Loss Prevention) — Functional Decomposition"
       },
       {
-        "path": "Brain/wiki/canary-module-R-functional-decomposition.md",
+        "path": "Brain/wiki/canary-module-r-functional-decomposition.md",
         "title": "Module R (Customer) — Functional Decomposition"
       },
       {
-        "path": "Brain/wiki/canary-module-T-functional-decomposition.md",
+        "path": "Brain/wiki/canary-module-s-functional-decomposition.md",
+        "title": "Module S (Space, Range, Display — Items / Catalog) — Functional Decomposition"
+      },
+      {
+        "path": "Brain/wiki/canary-module-t-functional-decomposition.md",
         "title": "Module T (Transaction Pipeline) — Functional Decomposition"
       }
     ],
@@ -58513,7 +60552,7 @@
         "title": "Canary Chirp Rules"
       },
       {
-        "path": "Brain/wiki/canary-module-R-functional-decomposition.md",
+        "path": "Brain/wiki/canary-module-r-functional-decomposition.md",
         "title": "Module R (Customer) — Functional Decomposition"
       },
       {
@@ -58613,7 +60652,7 @@
     ],
     "rest": [
       {
-        "path": "Brain/wiki/canary-module-R-functional-decomposition.md",
+        "path": "Brain/wiki/canary-module-r-functional-decomposition.md",
         "title": "Module R (Customer) — Functional Decomposition"
       }
     ],
@@ -58721,6 +60760,10 @@
       {
         "path": "Brain/wiki/growdirect-timelog-jeremy-heartbeat-integration-feb27.md",
         "title": "Session — Jeremy: Heartbeat Integration Testing (Feb 27, 2026)"
+      },
+      {
+        "path": "Brain/wiki/prototype-prep-master-dispatch.md",
+        "title": "Prototype Prep Master Dispatch"
       }
     ],
     "resume": [
@@ -59075,6 +61118,10 @@
     ],
     "return": [
       {
+        "path": "Brain/wiki/canary-module-q-counterpoint-rule-catalog.md",
+        "title": "Canary Module Q — Counterpoint Rule Catalog"
+      },
+      {
         "path": "Brain/wiki/growdirect-fee-window.md",
         "title": "The Fee Window"
       }
@@ -59356,6 +61403,10 @@
       }
     ],
     "right": [
+      {
+        "path": "Brain/wiki/bart-mccleskey-rapid-garden-pos.md",
+        "title": "Bart McCleskey — Rapid Garden POS (Relationship Profile)"
+      },
       {
         "path": "Brain/wiki/cove-arc-posture.md",
         "title": "WPBCA ARC Posture — Concierge + Transparency, Not Reviewer"
@@ -59941,7 +61992,11 @@
         "title": "Canary Detection Engine"
       },
       {
-        "path": "Brain/wiki/canary-module-Q-functional-decomposition.md",
+        "path": "Brain/wiki/canary-module-q-counterpoint-rule-catalog.md",
+        "title": "Canary Module Q — Counterpoint Rule Catalog"
+      },
+      {
+        "path": "Brain/wiki/canary-module-q-functional-decomposition.md",
         "title": "Module Q (Loss Prevention) — Functional Decomposition"
       },
       {
@@ -59981,6 +62036,10 @@
       {
         "path": "Brain/wiki/canary-detection.md",
         "title": "Canary Detection Engine"
+      },
+      {
+        "path": "Brain/wiki/canary-module-c-functional-decomposition.md",
+        "title": "Module C (Commercial / B2B) — Functional Decomposition"
       },
       {
         "path": "Brain/wiki/canary-module-q-loss-prevention.md",
@@ -60301,6 +62360,10 @@
       {
         "path": "Brain/wiki/ncr-counterpoint-sandbox-setup-checklist.md",
         "title": "NCR Counterpoint Sandbox Setup — Operator Action Checklist"
+      },
+      {
+        "path": "Brain/wiki/prototype-prep-master-dispatch.md",
+        "title": "Prototype Prep Master Dispatch"
       },
       {
         "path": "Brain/wiki/voyix-counterpoint-rapid-pos-engagement-context.md",
@@ -60923,7 +62986,7 @@
     ],
     "sealing": [
       {
-        "path": "Brain/wiki/canary-module-T-functional-decomposition.md",
+        "path": "Brain/wiki/canary-module-t-functional-decomposition.md",
         "title": "Module T (Transaction Pipeline) — Functional Decomposition"
       }
     ],
@@ -61060,6 +63123,10 @@
       }
     ],
     "secure": [
+      {
+        "path": "Brain/wiki/canary-module-f-functional-decomposition.md",
+        "title": "Module F (Finance — Tenders / Tax / Gift Cards) — Functional Decomposition"
+      },
       {
         "path": "Brain/wiki/founder-context-secure-engagement-archive.md",
         "title": "Founder Context — Secure Engagement Archive (Sysrepublic / 2017 era)"
@@ -61557,6 +63624,14 @@
         "title": "Angel Content Archive — Index & Catalog Plan"
       },
       {
+        "path": "Brain/wiki/canary-module-n-functional-decomposition.md",
+        "title": "Module N (Device — Stores / Stations / Per-Store Config) — Functional Decomposition"
+      },
+      {
+        "path": "Brain/wiki/canary-module-q-counterpoint-rule-catalog.md",
+        "title": "Canary Module Q — Counterpoint Rule Catalog"
+      },
+      {
         "path": "Brain/wiki/cove-coastal-specific-plan-s4.md",
         "title": "Coastal Specific Plan — Subregion 4"
       },
@@ -61759,6 +63834,10 @@
         "title": "Mid-Market Drug/Pharmacy SCM Engagement, 2003 — Branch B Archetype"
       },
       {
+        "path": "Brain/wiki/prototype-prep-master-dispatch.md",
+        "title": "Prototype Prep Master Dispatch"
+      },
+      {
         "path": "Brain/wiki/secure-platform-overview.md",
         "title": "Secure Platform Overview"
       },
@@ -61853,12 +63932,20 @@
     ],
     "ship": [
       {
+        "path": "Brain/wiki/canary-module-j-functional-decomposition.md",
+        "title": "Module J (Forecast & Order) — Functional Decomposition"
+      },
+      {
         "path": "Brain/wiki/growdirect-factory-process.md",
         "title": "Canary LP — The Factory Process"
       },
       {
         "path": "Brain/wiki/growdirect-how-we-build.md",
         "title": "How We Build"
+      },
+      {
+        "path": "Brain/wiki/prototype-prep-master-dispatch.md",
+        "title": "Prototype Prep Master Dispatch"
       },
       {
         "path": "Brain/wiki/rapid-pos-counterpoint-user-pain-points.md",
@@ -62035,6 +64122,10 @@
         "title": "Silver Spur — Content Pool (Raw)"
       },
       {
+        "path": "Brain/wiki/canary-module-j-functional-decomposition.md",
+        "title": "Module J (Forecast & Order) — Functional Decomposition"
+      },
+      {
         "path": "Brain/wiki/cove-colyear-2024.md",
         "title": "Colyear v. Rolling Hills Community Association (2024)"
       },
@@ -62139,6 +64230,10 @@
       {
         "path": "Brain/wiki/canary-alerts-guide.md",
         "title": "Canary Alerts — A Plain-English Guide"
+      },
+      {
+        "path": "Brain/wiki/canary-module-q-counterpoint-rule-catalog.md",
+        "title": "Canary Module Q — Counterpoint Rule Catalog"
       },
       {
         "path": "Brain/wiki/secure-5-inventory.md",
@@ -62600,6 +64695,10 @@
       }
     ],
     "snapshot": [
+      {
+        "path": "Brain/wiki/canary-module-d-functional-decomposition.md",
+        "title": "Module D (Distribution) — Functional Decomposition"
+      },
       {
         "path": "Brain/wiki/growdirect-sales-socal-lead-database.md",
         "title": "Canary SoCal Lead Database v1.0"
@@ -63697,6 +65796,10 @@
     ],
     "space": [
       {
+        "path": "Brain/wiki/canary-module-s-functional-decomposition.md",
+        "title": "Module S (Space, Range, Display — Items / Catalog) — Functional Decomposition"
+      },
+      {
         "path": "Brain/wiki/canary-module-s-space-range-display.md",
         "title": "Canary Module — S (Space, Range, Display)"
       },
@@ -63825,36 +65928,44 @@
         "title": "The Academic Frame — HBS 9-599-101 (Moon, 1999) and the Third Branch"
       },
       {
-        "path": "Brain/wiki/canary-module-Q-functional-decomposition.md",
-        "title": "Module Q (Loss Prevention) — Functional Decomposition"
-      },
-      {
-        "path": "Brain/wiki/canary-module-R-functional-decomposition.md",
-        "title": "Module R (Customer) — Functional Decomposition"
-      },
-      {
-        "path": "Brain/wiki/canary-module-T-functional-decomposition.md",
-        "title": "Module T (Transaction Pipeline) — Functional Decomposition"
-      },
-      {
         "path": "Brain/wiki/canary-module-a-asset-management.md",
         "title": "Canary Module — A (Asset Management / \"Bubble\")"
+      },
+      {
+        "path": "Brain/wiki/canary-module-a-functional-decomposition.md",
+        "title": "Module A (Asset Management) — Functional Decomposition"
       },
       {
         "path": "Brain/wiki/canary-module-c-commercial.md",
         "title": "Canary Module — C (Commercial)"
       },
       {
+        "path": "Brain/wiki/canary-module-c-functional-decomposition.md",
+        "title": "Module C (Commercial / B2B) — Functional Decomposition"
+      },
+      {
         "path": "Brain/wiki/canary-module-d-distribution.md",
         "title": "Canary Module — D (Distribution)"
+      },
+      {
+        "path": "Brain/wiki/canary-module-d-functional-decomposition.md",
+        "title": "Module D (Distribution) — Functional Decomposition"
       },
       {
         "path": "Brain/wiki/canary-module-f-finance.md",
         "title": "Canary Module — F (Finance)"
       },
       {
+        "path": "Brain/wiki/canary-module-f-functional-decomposition.md",
+        "title": "Module F (Finance — Tenders / Tax / Gift Cards) — Functional Decomposition"
+      },
+      {
         "path": "Brain/wiki/canary-module-j-forecast-order.md",
         "title": "Canary Module — J (Forecast & Order)"
+      },
+      {
+        "path": "Brain/wiki/canary-module-j-functional-decomposition.md",
+        "title": "Module J (Forecast & Order) — Functional Decomposition"
       },
       {
         "path": "Brain/wiki/canary-module-l-labor-workforce.md",
@@ -63865,8 +65976,24 @@
         "title": "Canary Module — N (Device)"
       },
       {
+        "path": "Brain/wiki/canary-module-n-functional-decomposition.md",
+        "title": "Module N (Device — Stores / Stations / Per-Store Config) — Functional Decomposition"
+      },
+      {
+        "path": "Brain/wiki/canary-module-p-functional-decomposition.md",
+        "title": "Module P (Pricing & Promotion) — Functional Decomposition"
+      },
+      {
         "path": "Brain/wiki/canary-module-p-pricing-promotion.md",
         "title": "Canary Module — P (Pricing & Promotion)"
+      },
+      {
+        "path": "Brain/wiki/canary-module-q-counterpoint-rule-catalog.md",
+        "title": "Canary Module Q — Counterpoint Rule Catalog"
+      },
+      {
+        "path": "Brain/wiki/canary-module-q-functional-decomposition.md",
+        "title": "Module Q (Loss Prevention) — Functional Decomposition"
       },
       {
         "path": "Brain/wiki/canary-module-q-loss-prevention.md",
@@ -63877,8 +66004,20 @@
         "title": "Canary Module — R (Customer)"
       },
       {
+        "path": "Brain/wiki/canary-module-r-functional-decomposition.md",
+        "title": "Module R (Customer) — Functional Decomposition"
+      },
+      {
+        "path": "Brain/wiki/canary-module-s-functional-decomposition.md",
+        "title": "Module S (Space, Range, Display — Items / Catalog) — Functional Decomposition"
+      },
+      {
         "path": "Brain/wiki/canary-module-s-space-range-display.md",
         "title": "Canary Module — S (Space, Range, Display)"
+      },
+      {
+        "path": "Brain/wiki/canary-module-t-functional-decomposition.md",
+        "title": "Module T (Transaction Pipeline) — Functional Decomposition"
       },
       {
         "path": "Brain/wiki/canary-module-t-transactions.md",
@@ -64053,6 +66192,10 @@
       {
         "path": "Brain/wiki/ncr-counterpoint-phase-0-context-brief.md",
         "title": "NCR Counterpoint Phase 0 — Session Context Brief"
+      },
+      {
+        "path": "Brain/wiki/prototype-prep-master-dispatch.md",
+        "title": "Prototype Prep Master Dispatch"
       },
       {
         "path": "Brain/wiki/retail-integration-spine.md",
@@ -64595,6 +66738,10 @@
         "title": "Executive Summary"
       },
       {
+        "path": "Brain/wiki/prototype-prep-master-dispatch.md",
+        "title": "Prototype Prep Master Dispatch"
+      },
+      {
         "path": "Brain/wiki/retail-merchandise-planning-otb.md",
         "title": "Retail Merchandise Planning and Open-to-Buy"
       },
@@ -64645,11 +66792,19 @@
     ],
     "station": [
       {
+        "path": "Brain/wiki/canary-module-n-functional-decomposition.md",
+        "title": "Module N (Device — Stores / Stations / Per-Store Config) — Functional Decomposition"
+      },
+      {
         "path": "Brain/wiki/cove-coastal-specific-plan-s4.md",
         "title": "Coastal Specific Plan — Subregion 4"
       }
     ],
     "stations": [
+      {
+        "path": "Brain/wiki/canary-module-n-functional-decomposition.md",
+        "title": "Module N (Device — Stores / Stations / Per-Store Config) — Functional Decomposition"
+      },
       {
         "path": "Brain/wiki/ncr-counterpoint-api-reference.md",
         "title": "NCR Counterpoint API Reference"
@@ -64731,6 +66886,10 @@
       {
         "path": "Brain/wiki/south-bay-wiki-architecture.md",
         "title": "South Bay Wiki — Content Architecture"
+      },
+      {
+        "path": "Brain/wiki/tim-mooney-maonach-group.md",
+        "title": "Tim Mooney — The Maonach Group (Advisor Profile)"
       }
     ],
     "statutory": [
@@ -64951,6 +67110,14 @@
     ],
     "store": [
       {
+        "path": "Brain/wiki/canary-module-d-functional-decomposition.md",
+        "title": "Module D (Distribution) — Functional Decomposition"
+      },
+      {
+        "path": "Brain/wiki/canary-module-n-functional-decomposition.md",
+        "title": "Module N (Device — Stores / Stations / Per-Store Config) — Functional Decomposition"
+      },
+      {
         "path": "Brain/wiki/growdirect-viewpoint-virtual-store-manager.md",
         "title": "GrowDirect Viewpoint — The Virtual Store Manager on a Perpetual Ledger"
       },
@@ -65019,6 +67186,10 @@
     ],
     "stores": [
       {
+        "path": "Brain/wiki/canary-module-n-functional-decomposition.md",
+        "title": "Module N (Device — Stores / Stations / Per-Store Config) — Functional Decomposition"
+      },
+      {
         "path": "Brain/wiki/ncr-counterpoint-api-reference.md",
         "title": "NCR Counterpoint API Reference"
       },
@@ -65033,15 +67204,47 @@
     ],
     "stories": [
       {
-        "path": "Brain/wiki/canary-module-Q-functional-decomposition.md",
+        "path": "Brain/wiki/canary-module-a-functional-decomposition.md",
+        "title": "Module A (Asset Management) — Functional Decomposition"
+      },
+      {
+        "path": "Brain/wiki/canary-module-c-functional-decomposition.md",
+        "title": "Module C (Commercial / B2B) — Functional Decomposition"
+      },
+      {
+        "path": "Brain/wiki/canary-module-d-functional-decomposition.md",
+        "title": "Module D (Distribution) — Functional Decomposition"
+      },
+      {
+        "path": "Brain/wiki/canary-module-f-functional-decomposition.md",
+        "title": "Module F (Finance — Tenders / Tax / Gift Cards) — Functional Decomposition"
+      },
+      {
+        "path": "Brain/wiki/canary-module-j-functional-decomposition.md",
+        "title": "Module J (Forecast & Order) — Functional Decomposition"
+      },
+      {
+        "path": "Brain/wiki/canary-module-n-functional-decomposition.md",
+        "title": "Module N (Device — Stores / Stations / Per-Store Config) — Functional Decomposition"
+      },
+      {
+        "path": "Brain/wiki/canary-module-p-functional-decomposition.md",
+        "title": "Module P (Pricing & Promotion) — Functional Decomposition"
+      },
+      {
+        "path": "Brain/wiki/canary-module-q-functional-decomposition.md",
         "title": "Module Q (Loss Prevention) — Functional Decomposition"
       },
       {
-        "path": "Brain/wiki/canary-module-R-functional-decomposition.md",
+        "path": "Brain/wiki/canary-module-r-functional-decomposition.md",
         "title": "Module R (Customer) — Functional Decomposition"
       },
       {
-        "path": "Brain/wiki/canary-module-T-functional-decomposition.md",
+        "path": "Brain/wiki/canary-module-s-functional-decomposition.md",
+        "title": "Module S (Space, Range, Display — Items / Catalog) — Functional Decomposition"
+      },
+      {
+        "path": "Brain/wiki/canary-module-t-functional-decomposition.md",
         "title": "Module T (Transaction Pipeline) — Functional Decomposition"
       }
     ],
@@ -65643,15 +67846,51 @@
         "title": "Canary EJ Spine + Sales Audit — the Canary-Native Naming for the Perpetual Layer"
       },
       {
-        "path": "Brain/wiki/canary-module-Q-functional-decomposition.md",
+        "path": "Brain/wiki/canary-module-a-functional-decomposition.md",
+        "title": "Module A (Asset Management) — Functional Decomposition"
+      },
+      {
+        "path": "Brain/wiki/canary-module-c-functional-decomposition.md",
+        "title": "Module C (Commercial / B2B) — Functional Decomposition"
+      },
+      {
+        "path": "Brain/wiki/canary-module-d-functional-decomposition.md",
+        "title": "Module D (Distribution) — Functional Decomposition"
+      },
+      {
+        "path": "Brain/wiki/canary-module-f-functional-decomposition.md",
+        "title": "Module F (Finance — Tenders / Tax / Gift Cards) — Functional Decomposition"
+      },
+      {
+        "path": "Brain/wiki/canary-module-j-functional-decomposition.md",
+        "title": "Module J (Forecast & Order) — Functional Decomposition"
+      },
+      {
+        "path": "Brain/wiki/canary-module-n-functional-decomposition.md",
+        "title": "Module N (Device — Stores / Stations / Per-Store Config) — Functional Decomposition"
+      },
+      {
+        "path": "Brain/wiki/canary-module-p-functional-decomposition.md",
+        "title": "Module P (Pricing & Promotion) — Functional Decomposition"
+      },
+      {
+        "path": "Brain/wiki/canary-module-q-counterpoint-rule-catalog.md",
+        "title": "Canary Module Q — Counterpoint Rule Catalog"
+      },
+      {
+        "path": "Brain/wiki/canary-module-q-functional-decomposition.md",
         "title": "Module Q (Loss Prevention) — Functional Decomposition"
       },
       {
-        "path": "Brain/wiki/canary-module-R-functional-decomposition.md",
+        "path": "Brain/wiki/canary-module-r-functional-decomposition.md",
         "title": "Module R (Customer) — Functional Decomposition"
       },
       {
-        "path": "Brain/wiki/canary-module-T-functional-decomposition.md",
+        "path": "Brain/wiki/canary-module-s-functional-decomposition.md",
+        "title": "Module S (Space, Range, Display — Items / Catalog) — Functional Decomposition"
+      },
+      {
+        "path": "Brain/wiki/canary-module-t-functional-decomposition.md",
         "title": "Module T (Transaction Pipeline) — Functional Decomposition"
       },
       {
@@ -65669,6 +67908,12 @@
       {
         "path": "Brain/wiki/growdirect-viewpoint-virtual-store-manager.md",
         "title": "GrowDirect Viewpoint — The Virtual Store Manager on a Perpetual Ledger"
+      }
+    ],
+    "substrate;": [
+      {
+        "path": "Brain/wiki/canary-module-n-functional-decomposition.md",
+        "title": "Module N (Device — Stores / Stations / Per-Store Config) — Functional Decomposition"
       }
     ],
     "success": [
@@ -65785,36 +68030,44 @@
         "title": "Canary Fox Case Management"
       },
       {
-        "path": "Brain/wiki/canary-module-Q-functional-decomposition.md",
-        "title": "Module Q (Loss Prevention) — Functional Decomposition"
-      },
-      {
-        "path": "Brain/wiki/canary-module-R-functional-decomposition.md",
-        "title": "Module R (Customer) — Functional Decomposition"
-      },
-      {
-        "path": "Brain/wiki/canary-module-T-functional-decomposition.md",
-        "title": "Module T (Transaction Pipeline) — Functional Decomposition"
-      },
-      {
         "path": "Brain/wiki/canary-module-a-asset-management.md",
         "title": "Canary Module — A (Asset Management / \"Bubble\")"
+      },
+      {
+        "path": "Brain/wiki/canary-module-a-functional-decomposition.md",
+        "title": "Module A (Asset Management) — Functional Decomposition"
       },
       {
         "path": "Brain/wiki/canary-module-c-commercial.md",
         "title": "Canary Module — C (Commercial)"
       },
       {
+        "path": "Brain/wiki/canary-module-c-functional-decomposition.md",
+        "title": "Module C (Commercial / B2B) — Functional Decomposition"
+      },
+      {
         "path": "Brain/wiki/canary-module-d-distribution.md",
         "title": "Canary Module — D (Distribution)"
+      },
+      {
+        "path": "Brain/wiki/canary-module-d-functional-decomposition.md",
+        "title": "Module D (Distribution) — Functional Decomposition"
       },
       {
         "path": "Brain/wiki/canary-module-f-finance.md",
         "title": "Canary Module — F (Finance)"
       },
       {
+        "path": "Brain/wiki/canary-module-f-functional-decomposition.md",
+        "title": "Module F (Finance — Tenders / Tax / Gift Cards) — Functional Decomposition"
+      },
+      {
         "path": "Brain/wiki/canary-module-j-forecast-order.md",
         "title": "Canary Module — J (Forecast & Order)"
+      },
+      {
+        "path": "Brain/wiki/canary-module-j-functional-decomposition.md",
+        "title": "Module J (Forecast & Order) — Functional Decomposition"
       },
       {
         "path": "Brain/wiki/canary-module-l-labor-workforce.md",
@@ -65825,8 +68078,20 @@
         "title": "Canary Module — N (Device)"
       },
       {
+        "path": "Brain/wiki/canary-module-n-functional-decomposition.md",
+        "title": "Module N (Device — Stores / Stations / Per-Store Config) — Functional Decomposition"
+      },
+      {
+        "path": "Brain/wiki/canary-module-p-functional-decomposition.md",
+        "title": "Module P (Pricing & Promotion) — Functional Decomposition"
+      },
+      {
         "path": "Brain/wiki/canary-module-p-pricing-promotion.md",
         "title": "Canary Module — P (Pricing & Promotion)"
+      },
+      {
+        "path": "Brain/wiki/canary-module-q-functional-decomposition.md",
+        "title": "Module Q (Loss Prevention) — Functional Decomposition"
       },
       {
         "path": "Brain/wiki/canary-module-q-loss-prevention.md",
@@ -65837,8 +68102,20 @@
         "title": "Canary Module — R (Customer)"
       },
       {
+        "path": "Brain/wiki/canary-module-r-functional-decomposition.md",
+        "title": "Module R (Customer) — Functional Decomposition"
+      },
+      {
+        "path": "Brain/wiki/canary-module-s-functional-decomposition.md",
+        "title": "Module S (Space, Range, Display — Items / Catalog) — Functional Decomposition"
+      },
+      {
         "path": "Brain/wiki/canary-module-s-space-range-display.md",
         "title": "Canary Module — S (Space, Range, Display)"
+      },
+      {
+        "path": "Brain/wiki/canary-module-t-functional-decomposition.md",
+        "title": "Module T (Transaction Pipeline) — Functional Decomposition"
       },
       {
         "path": "Brain/wiki/canary-module-t-transactions.md",
@@ -66255,16 +68532,12 @@
     ],
     "surface": [
       {
-        "path": "Brain/wiki/canary-module-Q-functional-decomposition.md",
-        "title": "Module Q (Loss Prevention) — Functional Decomposition"
-      },
-      {
-        "path": "Brain/wiki/canary-module-R-functional-decomposition.md",
-        "title": "Module R (Customer) — Functional Decomposition"
-      },
-      {
         "path": "Brain/wiki/canary-module-c-commercial.md",
         "title": "Canary Module — C (Commercial)"
+      },
+      {
+        "path": "Brain/wiki/canary-module-c-functional-decomposition.md",
+        "title": "Module C (Commercial / B2B) — Functional Decomposition"
       },
       {
         "path": "Brain/wiki/canary-module-d-distribution.md",
@@ -66273,6 +68546,10 @@
       {
         "path": "Brain/wiki/canary-module-f-finance.md",
         "title": "Canary Module — F (Finance)"
+      },
+      {
+        "path": "Brain/wiki/canary-module-f-functional-decomposition.md",
+        "title": "Module F (Finance — Tenders / Tax / Gift Cards) — Functional Decomposition"
       },
       {
         "path": "Brain/wiki/canary-module-j-forecast-order.md",
@@ -66291,12 +68568,28 @@
         "title": "Canary Module — P (Pricing & Promotion)"
       },
       {
+        "path": "Brain/wiki/canary-module-q-counterpoint-rule-catalog.md",
+        "title": "Canary Module Q — Counterpoint Rule Catalog"
+      },
+      {
+        "path": "Brain/wiki/canary-module-q-functional-decomposition.md",
+        "title": "Module Q (Loss Prevention) — Functional Decomposition"
+      },
+      {
         "path": "Brain/wiki/canary-module-q-loss-prevention.md",
         "title": "Canary Module — Q (Loss Prevention) — Chirp + Fox"
       },
       {
         "path": "Brain/wiki/canary-module-r-customer.md",
         "title": "Canary Module — R (Customer)"
+      },
+      {
+        "path": "Brain/wiki/canary-module-r-functional-decomposition.md",
+        "title": "Module R (Customer) — Functional Decomposition"
+      },
+      {
+        "path": "Brain/wiki/canary-module-s-functional-decomposition.md",
+        "title": "Module S (Space, Range, Display — Items / Catalog) — Functional Decomposition"
       },
       {
         "path": "Brain/wiki/canary-module-s-space-range-display.md",
@@ -66363,8 +68656,16 @@
     ],
     "surfacing": [
       {
-        "path": "Brain/wiki/canary-module-R-functional-decomposition.md",
+        "path": "Brain/wiki/canary-module-f-functional-decomposition.md",
+        "title": "Module F (Finance — Tenders / Tax / Gift Cards) — Functional Decomposition"
+      },
+      {
+        "path": "Brain/wiki/canary-module-r-functional-decomposition.md",
         "title": "Module R (Customer) — Functional Decomposition"
+      },
+      {
+        "path": "Brain/wiki/canary-module-s-functional-decomposition.md",
+        "title": "Module S (Space, Range, Display — Items / Catalog) — Functional Decomposition"
       }
     ],
     "surfing": [
@@ -66483,7 +68784,11 @@
     ],
     "symmetric": [
       {
-        "path": "Brain/wiki/canary-module-R-functional-decomposition.md",
+        "path": "Brain/wiki/canary-module-j-functional-decomposition.md",
+        "title": "Module J (Forecast & Order) — Functional Decomposition"
+      },
+      {
+        "path": "Brain/wiki/canary-module-r-functional-decomposition.md",
         "title": "Module R (Customer) — Functional Decomposition"
       }
     ],
@@ -66491,6 +68796,12 @@
       {
         "path": "Brain/wiki/growdirect-symbiosis-thesis.md",
         "title": "THE SYMBIOSIS THESIS: WAR CHEST SOURCE 55"
+      }
+    ],
+    "sync": [
+      {
+        "path": "Brain/wiki/canary-module-s-functional-decomposition.md",
+        "title": "Module S (Space, Range, Display — Items / Catalog) — Functional Decomposition"
       }
     ],
     "synchronization": [
@@ -66799,6 +69110,10 @@
     ],
     "targets": [
       {
+        "path": "Brain/wiki/canary-module-s-functional-decomposition.md",
+        "title": "Module S (Space, Range, Display — Items / Catalog) — Functional Decomposition"
+      },
+      {
         "path": "Brain/wiki/coac-2026-civic-problems-memorandum.md",
         "title": "2026 Civic Problems Memorandum — Viral Campaign Parallel to 1939 PVE Booklet"
       },
@@ -66836,6 +69151,14 @@
       }
     ],
     "taxonomy": [
+      {
+        "path": "Brain/wiki/canary-module-f-functional-decomposition.md",
+        "title": "Module F (Finance — Tenders / Tax / Gift Cards) — Functional Decomposition"
+      },
+      {
+        "path": "Brain/wiki/canary-module-q-counterpoint-rule-catalog.md",
+        "title": "Canary Module Q — Counterpoint Rule Catalog"
+      },
       {
         "path": "Brain/wiki/growdirect-research-cannabis-retail-risk.md",
         "title": "Cannabis Retail Risk Dictionary & Integration Spec"
@@ -67125,7 +69448,11 @@
     ],
     "tenant": [
       {
-        "path": "Brain/wiki/canary-module-Q-functional-decomposition.md",
+        "path": "Brain/wiki/canary-module-n-functional-decomposition.md",
+        "title": "Module N (Device — Stores / Stations / Per-Store Config) — Functional Decomposition"
+      },
+      {
+        "path": "Brain/wiki/canary-module-q-functional-decomposition.md",
         "title": "Module Q (Loss Prevention) — Functional Decomposition"
       }
     ],
@@ -67137,11 +69464,23 @@
     ],
     "tender": [
       {
+        "path": "Brain/wiki/canary-module-f-functional-decomposition.md",
+        "title": "Module F (Finance — Tenders / Tax / Gift Cards) — Functional Decomposition"
+      },
+      {
+        "path": "Brain/wiki/canary-module-q-counterpoint-rule-catalog.md",
+        "title": "Canary Module Q — Counterpoint Rule Catalog"
+      },
+      {
         "path": "Brain/wiki/ncr-counterpoint-endpoint-spine-map.md",
         "title": "NCR Counterpoint API — Endpoint × CRDM × Spine Map"
       }
     ],
     "tenders": [
+      {
+        "path": "Brain/wiki/canary-module-f-functional-decomposition.md",
+        "title": "Module F (Finance — Tenders / Tax / Gift Cards) — Functional Decomposition"
+      },
       {
         "path": "Brain/wiki/ncr-counterpoint-api-reference.md",
         "title": "NCR Counterpoint API Reference"
@@ -67575,15 +69914,47 @@
     ],
     "thesis": [
       {
-        "path": "Brain/wiki/canary-module-Q-functional-decomposition.md",
+        "path": "Brain/wiki/canary-module-a-functional-decomposition.md",
+        "title": "Module A (Asset Management) — Functional Decomposition"
+      },
+      {
+        "path": "Brain/wiki/canary-module-c-functional-decomposition.md",
+        "title": "Module C (Commercial / B2B) — Functional Decomposition"
+      },
+      {
+        "path": "Brain/wiki/canary-module-d-functional-decomposition.md",
+        "title": "Module D (Distribution) — Functional Decomposition"
+      },
+      {
+        "path": "Brain/wiki/canary-module-f-functional-decomposition.md",
+        "title": "Module F (Finance — Tenders / Tax / Gift Cards) — Functional Decomposition"
+      },
+      {
+        "path": "Brain/wiki/canary-module-j-functional-decomposition.md",
+        "title": "Module J (Forecast & Order) — Functional Decomposition"
+      },
+      {
+        "path": "Brain/wiki/canary-module-n-functional-decomposition.md",
+        "title": "Module N (Device — Stores / Stations / Per-Store Config) — Functional Decomposition"
+      },
+      {
+        "path": "Brain/wiki/canary-module-p-functional-decomposition.md",
+        "title": "Module P (Pricing & Promotion) — Functional Decomposition"
+      },
+      {
+        "path": "Brain/wiki/canary-module-q-functional-decomposition.md",
         "title": "Module Q (Loss Prevention) — Functional Decomposition"
       },
       {
-        "path": "Brain/wiki/canary-module-R-functional-decomposition.md",
+        "path": "Brain/wiki/canary-module-r-functional-decomposition.md",
         "title": "Module R (Customer) — Functional Decomposition"
       },
       {
-        "path": "Brain/wiki/canary-module-T-functional-decomposition.md",
+        "path": "Brain/wiki/canary-module-s-functional-decomposition.md",
+        "title": "Module S (Space, Range, Display — Items / Catalog) — Functional Decomposition"
+      },
+      {
+        "path": "Brain/wiki/canary-module-t-functional-decomposition.md",
         "title": "Module T (Transaction Pipeline) — Functional Decomposition"
       },
       {
@@ -68311,6 +70682,10 @@
         "title": "Canary Fox Case Management"
       },
       {
+        "path": "Brain/wiki/canary-module-j-functional-decomposition.md",
+        "title": "Module J (Forecast & Order) — Functional Decomposition"
+      },
+      {
         "path": "Brain/wiki/cio-leave-behind-wedge.md",
         "title": "The CIO Leave-Behind Wedge"
       },
@@ -68475,6 +70850,10 @@
         "title": "Canary Chirp Rules"
       },
       {
+        "path": "Brain/wiki/canary-module-n-functional-decomposition.md",
+        "title": "Module N (Device — Stores / Stations / Per-Store Config) — Functional Decomposition"
+      },
+      {
         "path": "Brain/wiki/growdirect-manifesto.md",
         "title": "GrowDirect Manifesto"
       }
@@ -68553,7 +70932,15 @@
         "title": "Canary Detection Engine"
       },
       {
-        "path": "Brain/wiki/canary-module-R-functional-decomposition.md",
+        "path": "Brain/wiki/canary-module-p-functional-decomposition.md",
+        "title": "Module P (Pricing & Promotion) — Functional Decomposition"
+      },
+      {
+        "path": "Brain/wiki/canary-module-q-counterpoint-rule-catalog.md",
+        "title": "Canary Module Q — Counterpoint Rule Catalog"
+      },
+      {
+        "path": "Brain/wiki/canary-module-r-functional-decomposition.md",
         "title": "Module R (Customer) — Functional Decomposition"
       },
       {
@@ -68629,6 +71016,12 @@
       {
         "path": "Brain/wiki/angel-market-intelligence.md",
         "title": "Angel Market Intelligence"
+      }
+    ],
+    "tim": [
+      {
+        "path": "Brain/wiki/tim-mooney-maonach-group.md",
+        "title": "Tim Mooney — The Maonach Group (Advisor Profile)"
       }
     ],
     "time": [
@@ -69009,6 +71402,10 @@
     ],
     "tokenization": [
       {
+        "path": "Brain/wiki/canary-module-f-functional-decomposition.md",
+        "title": "Module F (Finance — Tenders / Tax / Gift Cards) — Functional Decomposition"
+      },
+      {
         "path": "Brain/wiki/ncr-counterpoint-endpoint-spine-map.md",
         "title": "NCR Counterpoint API — Endpoint × CRDM × Spine Map"
       }
@@ -69221,6 +71618,14 @@
     ],
     "tracking": [
       {
+        "path": "Brain/wiki/canary-module-a-functional-decomposition.md",
+        "title": "Module A (Asset Management) — Functional Decomposition"
+      },
+      {
+        "path": "Brain/wiki/canary-module-p-functional-decomposition.md",
+        "title": "Module P (Pricing & Promotion) — Functional Decomposition"
+      },
+      {
         "path": "Brain/wiki/growdirect-timelog-week-feb16-24.md",
         "title": "Weekly Roll-Up — February 16–24, 2026"
       },
@@ -69311,6 +71716,10 @@
         "title": "Valmonte — Content Pool (Raw)"
       },
       {
+        "path": "Brain/wiki/canary-module-q-counterpoint-rule-catalog.md",
+        "title": "Canary Module Q — Counterpoint Rule Catalog"
+      },
+      {
         "path": "Brain/wiki/coac-1975-general-plan-eir.md",
         "title": "COAC: 1975 RPV General Plan + EIR — Annotated for Cove"
       },
@@ -69399,7 +71808,7 @@
         "title": "Angel Transaction Timeline"
       },
       {
-        "path": "Brain/wiki/canary-module-T-functional-decomposition.md",
+        "path": "Brain/wiki/canary-module-t-functional-decomposition.md",
         "title": "Module T (Transaction Pipeline) — Functional Decomposition"
       },
       {
@@ -69495,6 +71904,10 @@
       {
         "path": "Brain/wiki/angel-peninsula-school-guide.md",
         "title": "Peninsula School Guide — Content Pool (Raw)"
+      },
+      {
+        "path": "Brain/wiki/canary-module-d-functional-decomposition.md",
+        "title": "Module D (Distribution) — Functional Decomposition"
       }
     ],
     "transfers": [
@@ -69523,6 +71936,12 @@
       {
         "path": "Brain/wiki/academic-frame-1999-hbs.md",
         "title": "The Academic Frame — HBS 9-599-101 (Moon, 1999) and the Third Branch"
+      }
+    ],
+    "transmission": [
+      {
+        "path": "Brain/wiki/canary-module-j-functional-decomposition.md",
+        "title": "Module J (Forecast & Order) — Functional Decomposition"
       }
     ],
     "transmitter": [
@@ -69875,7 +72294,7 @@
         "title": "Canary Alerts — A Plain-English Guide"
       },
       {
-        "path": "Brain/wiki/canary-module-Q-functional-decomposition.md",
+        "path": "Brain/wiki/canary-module-q-functional-decomposition.md",
         "title": "Module Q (Loss Prevention) — Functional Decomposition"
       }
     ],
@@ -69911,6 +72330,12 @@
       {
         "path": "Brain/wiki/growdirect-lightning-two-phases.md",
         "title": "How Lightning Powers elJeffe — Two Phases, One Wallet"
+      }
+    ],
+    "typ=xfer": [
+      {
+        "path": "Brain/wiki/canary-module-d-functional-decomposition.md",
+        "title": "Module D (Distribution) — Functional Decomposition"
       }
     ],
     "type": [
@@ -70068,6 +72493,10 @@
       }
     ],
     "unit": [
+      {
+        "path": "Brain/wiki/canary-module-s-functional-decomposition.md",
+        "title": "Module S (Space, Range, Display — Items / Catalog) — Functional Decomposition"
+      },
       {
         "path": "Brain/wiki/growdirect-revenue.md",
         "title": "The Financial Model"
@@ -70263,7 +72692,7 @@
     ],
     "upsert": [
       {
-        "path": "Brain/wiki/canary-module-R-functional-decomposition.md",
+        "path": "Brain/wiki/canary-module-r-functional-decomposition.md",
         "title": "Module R (Customer) — Functional Decomposition"
       }
     ],
@@ -70327,15 +72756,47 @@
     ],
     "user": [
       {
-        "path": "Brain/wiki/canary-module-Q-functional-decomposition.md",
+        "path": "Brain/wiki/canary-module-a-functional-decomposition.md",
+        "title": "Module A (Asset Management) — Functional Decomposition"
+      },
+      {
+        "path": "Brain/wiki/canary-module-c-functional-decomposition.md",
+        "title": "Module C (Commercial / B2B) — Functional Decomposition"
+      },
+      {
+        "path": "Brain/wiki/canary-module-d-functional-decomposition.md",
+        "title": "Module D (Distribution) — Functional Decomposition"
+      },
+      {
+        "path": "Brain/wiki/canary-module-f-functional-decomposition.md",
+        "title": "Module F (Finance — Tenders / Tax / Gift Cards) — Functional Decomposition"
+      },
+      {
+        "path": "Brain/wiki/canary-module-j-functional-decomposition.md",
+        "title": "Module J (Forecast & Order) — Functional Decomposition"
+      },
+      {
+        "path": "Brain/wiki/canary-module-n-functional-decomposition.md",
+        "title": "Module N (Device — Stores / Stations / Per-Store Config) — Functional Decomposition"
+      },
+      {
+        "path": "Brain/wiki/canary-module-p-functional-decomposition.md",
+        "title": "Module P (Pricing & Promotion) — Functional Decomposition"
+      },
+      {
+        "path": "Brain/wiki/canary-module-q-functional-decomposition.md",
         "title": "Module Q (Loss Prevention) — Functional Decomposition"
       },
       {
-        "path": "Brain/wiki/canary-module-R-functional-decomposition.md",
+        "path": "Brain/wiki/canary-module-r-functional-decomposition.md",
         "title": "Module R (Customer) — Functional Decomposition"
       },
       {
-        "path": "Brain/wiki/canary-module-T-functional-decomposition.md",
+        "path": "Brain/wiki/canary-module-s-functional-decomposition.md",
+        "title": "Module S (Space, Range, Display — Items / Catalog) — Functional Decomposition"
+      },
+      {
+        "path": "Brain/wiki/canary-module-t-functional-decomposition.md",
         "title": "Module T (Transaction Pipeline) — Functional Decomposition"
       },
       {
@@ -70579,15 +73040,47 @@
         "title": "Canary Fox Case Management"
       },
       {
-        "path": "Brain/wiki/canary-module-Q-functional-decomposition.md",
+        "path": "Brain/wiki/canary-module-a-functional-decomposition.md",
+        "title": "Module A (Asset Management) — Functional Decomposition"
+      },
+      {
+        "path": "Brain/wiki/canary-module-c-functional-decomposition.md",
+        "title": "Module C (Commercial / B2B) — Functional Decomposition"
+      },
+      {
+        "path": "Brain/wiki/canary-module-d-functional-decomposition.md",
+        "title": "Module D (Distribution) — Functional Decomposition"
+      },
+      {
+        "path": "Brain/wiki/canary-module-f-functional-decomposition.md",
+        "title": "Module F (Finance — Tenders / Tax / Gift Cards) — Functional Decomposition"
+      },
+      {
+        "path": "Brain/wiki/canary-module-j-functional-decomposition.md",
+        "title": "Module J (Forecast & Order) — Functional Decomposition"
+      },
+      {
+        "path": "Brain/wiki/canary-module-n-functional-decomposition.md",
+        "title": "Module N (Device — Stores / Stations / Per-Store Config) — Functional Decomposition"
+      },
+      {
+        "path": "Brain/wiki/canary-module-p-functional-decomposition.md",
+        "title": "Module P (Pricing & Promotion) — Functional Decomposition"
+      },
+      {
+        "path": "Brain/wiki/canary-module-q-functional-decomposition.md",
         "title": "Module Q (Loss Prevention) — Functional Decomposition"
       },
       {
-        "path": "Brain/wiki/canary-module-R-functional-decomposition.md",
+        "path": "Brain/wiki/canary-module-r-functional-decomposition.md",
         "title": "Module R (Customer) — Functional Decomposition"
       },
       {
-        "path": "Brain/wiki/canary-module-T-functional-decomposition.md",
+        "path": "Brain/wiki/canary-module-s-functional-decomposition.md",
+        "title": "Module S (Space, Range, Display — Items / Catalog) — Functional Decomposition"
+      },
+      {
+        "path": "Brain/wiki/canary-module-t-functional-decomposition.md",
         "title": "Module T (Transaction Pipeline) — Functional Decomposition"
       },
       {
@@ -70777,7 +73270,7 @@
     ],
     "vendor": [
       {
-        "path": "Brain/wiki/canary-module-R-functional-decomposition.md",
+        "path": "Brain/wiki/canary-module-r-functional-decomposition.md",
         "title": "Module R (Customer) — Functional Decomposition"
       },
       {
@@ -71091,7 +73584,7 @@
     ],
     "vertical": [
       {
-        "path": "Brain/wiki/canary-module-Q-functional-decomposition.md",
+        "path": "Brain/wiki/canary-module-q-functional-decomposition.md",
         "title": "Module Q (Loss Prevention) — Functional Decomposition"
       },
       {
@@ -71525,6 +74018,12 @@
       {
         "path": "Brain/wiki/wpbca-ocean-path-easement.md",
         "title": "Community of Abalone Cove (formerly WPBCA) — Ocean Path Easements — Private Governance Matter"
+      }
+    ],
+    "void": [
+      {
+        "path": "Brain/wiki/canary-module-q-counterpoint-rule-catalog.md",
+        "title": "Canary Module Q — Counterpoint Rule Catalog"
       }
     ],
     "void/cancel": [
@@ -72021,6 +74520,10 @@
         "title": "Weekly Roll-Up — February 16–24, 2026"
       },
       {
+        "path": "Brain/wiki/prototype-prep-master-dispatch.md",
+        "title": "Prototype Prep Master Dispatch"
+      },
+      {
         "path": "Brain/wiki/secure-lpms-case-management-2015.md",
         "title": "LPMS Case Management — Sporting-Goods Chain Deployment (2015)"
       }
@@ -72175,6 +74678,10 @@
         "title": "Angel Weekly CRMLS Pull — Process Definition"
       },
       {
+        "path": "Brain/wiki/bart-mccleskey-rapid-garden-pos.md",
+        "title": "Bart McCleskey — Rapid Garden POS (Relationship Profile)"
+      },
+      {
         "path": "Brain/wiki/canary-architecture-decisions-index.md",
         "title": "Canary Architecture Decisions Index"
       },
@@ -72193,6 +74700,10 @@
       {
         "path": "Brain/wiki/canary-module-a-asset-management.md",
         "title": "Canary Module — A (Asset Management / \"Bubble\")"
+      },
+      {
+        "path": "Brain/wiki/canary-module-q-counterpoint-rule-catalog.md",
+        "title": "Canary Module Q — Counterpoint Rule Catalog"
       },
       {
         "path": "Brain/wiki/canary-raas-positioning.md",
@@ -73007,6 +75518,18 @@
         "title": "Peninsula Sports Guide — Content Pool (Raw)"
       },
       {
+        "path": "Brain/wiki/canary-module-c-functional-decomposition.md",
+        "title": "Module C (Commercial / B2B) — Functional Decomposition"
+      },
+      {
+        "path": "Brain/wiki/canary-module-f-functional-decomposition.md",
+        "title": "Module F (Finance — Tenders / Tax / Gift Cards) — Functional Decomposition"
+      },
+      {
+        "path": "Brain/wiki/canary-module-j-functional-decomposition.md",
+        "title": "Module J (Forecast & Order) — Functional Decomposition"
+      },
+      {
         "path": "Brain/wiki/coac-15-owner-network.md",
         "title": "15-Owner Network — Parcel Identification and Owner Recruitment"
       },
@@ -73251,6 +75774,10 @@
     ],
     "workflow": [
       {
+        "path": "Brain/wiki/canary-module-j-functional-decomposition.md",
+        "title": "Module J (Forecast & Order) — Functional Decomposition"
+      },
+      {
         "path": "Brain/wiki/growdirect-workflow.md",
         "title": "GrowDirect Workflow"
       },
@@ -73278,6 +75805,10 @@
       }
     ],
     "workgroup": [
+      {
+        "path": "Brain/wiki/canary-module-n-functional-decomposition.md",
+        "title": "Module N (Device — Stores / Stations / Per-Store Config) — Functional Decomposition"
+      },
       {
         "path": "Brain/wiki/ncr-counterpoint-endpoint-spine-map.md",
         "title": "NCR Counterpoint API — Endpoint × CRDM × Spine Map"

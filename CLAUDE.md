@@ -97,16 +97,42 @@ a note on what drifted.
 
 ### Memory bus
 
-A pgvector-backed search surface over Brain + curated engineering notes.
-Lives at `services/memory-bus/`, queried from agents via the `alx` MCP
-server. Canary agents call `memory_recall("your topic")` and get back
-the most relevant chunks (SDDs, decisions, wiki cards) with citations.
+A pgvector-backed semantic search surface over Brain wiki, SDDs, plans,
+and team profiles. 385+ documents embedded with qwen3-embedding:8b.
 
-Humans query it via the Owl UI at `/owl/search` on a running Canary app,
-or directly:
+**Agent usage (required at session start for domain work):**
+
+```
+memory_recall("NCR Counterpoint endpoint mapping")
+memory_recall("CATz Phase I workstreams")
+memory_recall("OTB open-to-buy allocation")
+context_assemble(topic="canary retail spine")
+domain_context(domain="canary", topic="purchase orders", token_budget=4000)
+```
+
+The `memory-bus` MCP server is registered in `.mcp.json` (Claude Code
+sessions) and `claude_desktop_config.json` (Cowork/desktop sessions).
+It runs at `http://127.0.0.1:8003/mcp` — requires Docker stack up.
+
+**Keeping it current** — run after any Brain/wiki or SDD additions:
+```bash
+python3 services/memory-bus/scripts/seed_standalone.py
+```
+Incremental by default: skips files whose mtime predates the last seed,
+only embeds new and modified files. Full reseed: add `--drop-first`.
+
+**When to call it:** any time you're starting work on a domain topic and
+want ground truth from the vault rather than guessing. Call before reading
+files, not after. The result surfaces the exact wiki article or SDD chunk
+with a citation you can follow.
+
+**CLI query (host, requires Docker stack):**
 
 ```bash
-cd services/memory-bus && python3 -m memory_bus.cli recall "detection rules"
+curl -s http://127.0.0.1:8003/mcp \
+  -H "Content-Type: application/json" \
+  -H "X-API-Key: growdirect-memory-dev-key" \
+  -d '{"method":"tools/call","params":{"name":"memory_recall","arguments":{"query":"detection rules","limit":5}}}'
 ```
 
 ### Key entry points
@@ -237,7 +263,7 @@ task lists or priorities here — check Linear for what's next.
 
 ## Tech Stack
 
-- Python 3.12 (`python3`, never `python`)
+- Python 3.12+ (`python3`, never `python`)
 - Flask 3+ with Jinja2 templates — server-rendered, not SPA
 - SQLAlchemy 2.0 with `Mapped[]` syntax — no `Column()`
 - PostgreSQL 17 with pgvector — no SQLite
@@ -360,6 +386,40 @@ These rules exist because past sessions created sprawl. Follow them.
 ---
 
 ## Brain — Domain Knowledge
+
+---
+
+## External Vaults — Clone on Demand
+
+Three public vaults serve as the external face of GrowDirect. They are **not cloned locally** on laptop or mini. GrowDirect is the sole factory; content flows outward via transient clone cycles.
+
+| Vault | Repo | Audience | Published site |
+|---|---|---|---|
+| CATz | `growdirect-llc/catz` | Partners / clients / investors | https://catz.growdirect.io |
+| Canary Retail Brain | `growdirect-llc/canary-retail-brain` | Prospects / partners / investors | https://crb.growdirect.io |
+| NCR | `growdirect-llc/ncr` | NCR Counterpoint VARs (Rapid Garden POS + channel) | https://ncr.growdirect.io |
+
+**Rule: no persistent local clone.** Do not `cd ~/CATz` or `cd ~/Canary-Retail-Brain` or `cd ~/ncr`. Those directories should not exist on this machine.
+
+**To read CATz or CRB content** (agent research pass):
+```bash
+gh repo clone growdirect-llc/catz /tmp/catz-$$ && cat /tmp/catz-$$/method/... && rm -rf /tmp/catz-$$
+```
+
+**To publish GrowDirect → CATz or CRB** (curated content push):
+```bash
+gh repo clone growdirect-llc/catz /tmp/catz-$$
+# copy curated files from GrowDirect/Brain/ into /tmp/catz-$$/
+git -C /tmp/catz-$$ add -A && git -C /tmp/catz-$$ commit -m "content: ..." && git -C /tmp/catz-$$ push
+rm -rf /tmp/catz-$$
+```
+
+The rendered sites are the canonical surface for human reading. The `growdirectprez/GrowDirect` repo (this one) is the source of truth; the public repos are downstream.
+
+**Architecture rationale:** `Brain/dispatches/2026-04-26-three-vault-jekyll-pages-architecture.md` · GRO-606 · memory `project_three_vault_architecture.md`
+
+**Project MOCs:** [[Brain/projects/CATz]] · [[Brain/projects/CanaryRetailBrain]]
+
 
 GrowDirect/ is the Obsidian vault. Brain/ holds the curated knowledge.
 

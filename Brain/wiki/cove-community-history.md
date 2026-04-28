@@ -4,7 +4,7 @@ type: wiki
 tags: [cove, history, wpbca, abalone-cove, vanderlip, tongva]
 sources: [Cove/docs/site/narrative, Cove/docs/archive/shore-club/1972-karshner-proposal]
 last-compiled: 2026-04-10
-needs-review: 2026-04-24
+needs-review: 2026-05-26
 ---
 
 # Community History

@@ -58,6 +58,7 @@ These articles synthesize the full archive into navigable knowledge:
 | [[Brain/wiki/coac-reactivation-framework|CoAC Reactivation Framework]] | Strategic 3-phase reactivation of Declaration 100 Article II §5 |
 | [[Brain/wiki/coac-declaration-100-article-ii-section-5|Declaration 100 Article II §5]] | Self-executing reactivation clause, 90-day condition, 15-owner threshold |
 | [[Brain/wiki/coac-negative-space-lot-h-boundary|Negative-Space Lot H Boundary]] | Boundary forensics for the original Declaration 100 area |
+| [[Brain/wiki/coac-position-paper-article-ii-section-5-DRAFT|Position Paper — Article II §5 (DRAFT)]] | Status of recorded covenants and procedural mechanisms — draft position paper |
 
 ## Cross-Cutting Synthesis (2026)
 

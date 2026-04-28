@@ -5,8 +5,8 @@ status: active
 tags: [canary, architecture, mcp, services]
 sources: [Canary/docs/atlas/INDEX.md, Canary/canary/services/, Canary/canary/blueprints/]
 last-compiled: 2026-04-10
-needs-review: 2026-05-25
-----
+needs-review: 2026-05-26
+---
 
 # Canary Architecture
 
