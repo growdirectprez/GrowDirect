@@ -102,7 +102,7 @@ Cross-cutting agents that operate beneath and across all domain agents.
 | **DBA** | Data | Schema migrations, query optimization, index health, vacuum/maintenance, query contract enforcement |
 | **Storage** | Data | Object storage lifecycle, block storage, backup/restore, data tiering — GCP Cloud Storage + Persistent Disk |
 | **Data Governance** | Compliance | PII inventory, hash-chain integrity, data residency, retention policy, right-to-delete, GDPR/CCPA posture |
-| **Legal & Compliance** | Compliance | Contract lifecycle, regulatory obligations (PCI DSS, GDPR, CCPA, Prop 65), audit trail authority, VAR agreement compliance |
+| **Legal & Compliance** | Compliance | Contract lifecycle, regulatory obligations (PCI DSS, GDPR, CCPA, Prop 65), audit trail authority, VAR agreement compliance, blockchain evidence anchoring (L2 hash publication for Fox case chain) |
 | **Security** | Compliance | Access control, encryption-at-rest key management, audit trail, threat detection, service-to-service auth |
 | **Accountant** | Finance | Business financial layer — cloud spend vs revenue, unit economics, margin per module, P&L |
 | **CPA** | Finance | Cost-per-action billing intelligence — GCP transfer metering, egress spend monitoring, cost anomaly alerting |

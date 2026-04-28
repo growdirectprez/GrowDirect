@@ -31,7 +31,7 @@ The agent card format is the standard for knowledge units that agents consume vi
 
 | Field | Type | Values |
 |-------|------|--------|
-| `card-type` | enum | `signal-feed` · `agent-profile` · `org-layer` · `field-hierarchy` · `role-binding` · `domain-module` · `lifecycle-gate` · `format-spec` |
+| `card-type` | enum | `signal-feed` · `agent-profile` · `org-layer` · `field-hierarchy` · `role-binding` · `domain-module` · `lifecycle-gate` · `infra-capability` · `format-spec` |
 | `card-id` | string | kebab-case unique identifier, stable across versions |
 | `card-version` | integer | Increment on any substantive change |
 | `domain` | enum | `lp` · `merchandising` · `finance` · `labor` · `platform` · `local-market` · `cross-cutting` |
@@ -131,3 +131,4 @@ All agent cards live in `Brain/wiki/cards/`. Subdirectories are permitted for la
 | [Signal: Civil Services](cards/signal-civil-services.md) | signal-civil-services | signal-feed |
 | [Signal: Community Intelligence](cards/signal-community-intel.md) | signal-community-intel | signal-feed |
 | [Signal: Property & Landlord](cards/signal-property-landlord.md) | signal-property-landlord | signal-feed |
+| [Infra: Blockchain Evidence Anchor](cards/infra-blockchain-evidence-anchor.md) | infra-blockchain-evidence-anchor | infra-capability |
