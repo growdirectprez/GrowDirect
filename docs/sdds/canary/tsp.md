@@ -14,7 +14,18 @@
 
 ## Purpose
 
-The Transaction Stream Processor is Canary's core data ingestion pipeline. It receives Square webhook events via HTTP, validates HMAC signatures, computes content-addressable SHA-256 hashes from raw bytes before any parsing, publishes events to a Valkey stream, and fans them out to four independent consumer groups. Each consumer is documented in its own SDD.
+The Transaction Stream Processor is Canary's core data ingestion pipeline. It receives POS events from multiple providers — Square via webhook push, NCR Counterpoint via poll-based REST ingestion — validates authenticity (HMAC for webhooks, credential-based for polls), computes content-addressable SHA-256 hashes from raw bytes before any parsing, publishes events to a Valkey stream, and fans them out to four independent consumer groups. Each consumer is documented in its own SDD.
+
+### Multi-POS Ingress Model
+
+TSP supports two ingress shapes that coexist on the same downstream pipeline:
+
+| Ingress | Provider | Mechanism | SDD |
+|---|---|---|---|
+| Webhook push | Square | `POST /webhooks/square` → HMAC validate → XADD | This document |
+| Poll pull | NCR Counterpoint | `CounterpointPoller` → watermark cursor → XADD | `ncr-counterpoint-tsp-adapter.md` |
+
+Both ingress paths produce identically-shaped messages on `canary:events` with a `source` field (`square` or `counterpoint`) that enables provider-keyed dispatch in Sub 2. Sub 1 (seal), Sub 3 (merkle), and Sub 4 (detect) are source-agnostic — they process sealed bytes regardless of origin. See `pos-adapter-substrate.md` for the adapter abstraction layer.
 
 ## Sub-Consumer SDDs
 
@@ -33,8 +44,11 @@ The Transaction Stream Processor is Canary's core data ingestion pipeline. It re
 |------------|------|----------|
 | `growdirect_postgres:5432` | `canary` database (schemas: `canary_sales`, `canary_app`) | Yes |
 | `growdirect_valkey:6379` | DB 3: dedup keys (TTL 24h); DB 4: streams (`canary:events`, `canary:detection`, `canary:dead_letter`, `canary:batch:current`, `canary:heartbeat:*`) | Yes |
-| Square Webhooks | Event source -- POSTs to `/webhooks/square` | Yes |
+| Square Webhooks | Event source -- POSTs to `/webhooks/square` | Yes (Square tenants) |
 | Square Orders API | Synchronous enrichment for `order.*` events | Optional (graceful fallback) |
+| NCR Counterpoint REST API | Event source -- poll-based ingestion via `CounterpointPoller` | Yes (Counterpoint tenants) |
+| `pos-adapter-substrate.md` | Multi-provider adapter abstraction | Reference SDD |
+| `ncr-counterpoint-tsp-adapter.md` | Counterpoint-specific adapter, poll loop, DOC_TYP routing | Reference SDD |
 | `SQUARE_WEBHOOK_SIGNATURE_KEY` | Per-subscription HMAC key from Square Developer Dashboard | Yes (prod) |
 | `SQUARE_NOTIFICATION_URL` | Registered webhook URL -- must match for HMAC computation | Yes (prod) |
 | Chirp Rule Engine | Sub 4 depends on `canary.services.chirp.rule_engine` | Yes (Sub 4 only) |
@@ -46,21 +60,28 @@ The Transaction Stream Processor is Canary's core data ingestion pipeline. It re
 ### Architecture Diagram
 
 ```
-Square Webhooks
-      |
-      v
-[ POST /webhooks/<source> ]   (Flask -- webhooks_tsp.py)
-      |
-      | 1. HMAC-SHA256 validate
-      | 2. SHA-256 hash raw bytes (patent-critical: hash BEFORE parse)
-      | 3. JSON parse + enrich (order events call Square Orders API)
-      | 4. Stateless Chirp (Tier 1) -- no DB access
-      | 5. Idempotency check (Valkey DB 3, TTL 24h)
-      | 6. XADD -> canary:events (Valkey DB 4)
-      | 7. INSERT ingestion_log
-      |
-      v
- canary:events (Valkey Stream DB 4)
+Square Webhooks                    NCR Counterpoint REST API
+      |                                    |
+      v                                    v
+[ POST /webhooks/square ]          [ CounterpointPoller ]
+(Flask -- webhooks_tsp.py)         (poll loop per tenant/entity)
+      |                                    |
+      | 1. HMAC-SHA256 validate            | 1. Credential-based auth
+      | 2. SHA-256 hash raw bytes          | 2. SHA-256 hash raw bytes
+      |    (patent-critical: hash          |    (same hash-before-parse)
+      |     BEFORE parse)                  | 3. Watermark advance
+      | 3. JSON parse + enrich             | 4. Idempotency check
+      | 4. Stateless Chirp (Tier 1)        | 5. XADD -> canary:events
+      | 5. Idempotency check               |    (source=counterpoint)
+      |    (Valkey DB 3, TTL 24h)          |
+      | 6. XADD -> canary:events           |
+      |    (source=square)                 |
+      | 7. INSERT ingestion_log            |
+      |                                    |
+      +------------------+-----------------+
+                         |
+                         v
+ canary:events (Valkey Stream DB 4, source-attributed)
       |
       +----------+-----------+
       |          |           |

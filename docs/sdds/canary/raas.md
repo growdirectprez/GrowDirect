@@ -191,6 +191,20 @@ Query: "sunrise-coffee.jeffe"
 
 **Payload normalizer:** `normalize_payload()` (`canary/services/raas/payload_normalizer.py`) sits between TSP Sub2's JSON parse and parser dispatch. It canonicalizes source-specific merchant IDs to our internal UUIDs, preserving originals as `_source_merchant_id` for audit. Idempotent -- skips already-normalized payloads.
 
+### Multi-Source Namespace Model
+
+A merchant's `raas:{merchant_id}` namespace can span multiple POS sources simultaneously. The `merchant_sources` table holds one row per `(merchant_id, source_code)` pair. The `register_source()` MCP tool accepts any `source_code` — not just Square.
+
+| Scenario | merchant_sources rows | Valkey key pattern |
+|---|---|---|
+| Single POS (Square) | 1 row: `source_code=square` | `raas:m-001:chirp:velocity:emp-123` |
+| Single POS (Counterpoint) | 1 row: `source_code=counterpoint` | Same pattern — source is transparent to consumers |
+| Multi-POS (Square + Counterpoint) | 2 rows | Same namespace, both sources feed CRDM; consumers see unified data |
+
+**Source-transparent consumption:** Downstream consumers (Chirp, Owl, Fox/Hawk) query the CRDM via the `raas:{merchant_id}` namespace without knowing which POS populated the data. Provider attribution lives on `CanonicalEvent.provider` for rule-applicability filtering (some Chirp rules are Counterpoint-only), but the namespace itself is source-agnostic.
+
+**Counterpoint onboarding:** Unlike Square's OAuth flow, Counterpoint onboarding uses credential-based registration (API key + company alias). The onboarding coordinator's Step 1 (webhook registration) is Square-specific; Counterpoint tenants skip it and proceed to poll-loop initialization. See `ncr-counterpoint-merchant-onboarding.md` for the Counterpoint-specific onboarding sequence.
+
 ---
 
 ## Onboarding Pipeline

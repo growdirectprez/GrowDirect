@@ -542,6 +542,19 @@ The 14 metrics shown on the dashboard summary card are hardcoded in
 `dashboard.py`. `DashboardConfig` has a `layout` JSON column that could drive
 this, but it's not wired.
 
+## Phase 3 — Bull Distribution Analytics
+
+When Bull ships (see `docs/sdds/canary/bull.md`), the analytics domain expands to include distribution intelligence metrics:
+
+| Metric | Source | Aggregation |
+|---|---|---|
+| Transfer-loss rate by route | `bull_transfer_variances` | Per (from_location, to_location), rolling 90d |
+| Unattributed inventory movements | `bull_unattributed_movements` | Per (location, item), daily |
+| Distribution recommendation acceptance rate | `bull_distribution_recommendations` | Per merchant, per buyer, weekly |
+| Transfer cost vs replenishment cost savings | `bull_distribution_recommendations` | Per accepted recommendation |
+
+Bull analytics are **gated on Module D substrate** — `bull_transfer_variances` requires D.3 (XFER document detection) and D.4 (loss reconciliation) to be operational. Until then, these metrics return empty. The analytics rollup pipeline will add Bull-specific rollup jobs when the tables exist (migration detection, not configuration flag).
+
 ## Production Readiness Checklist
 
 - [ ] PII encrypted at rest (P0-ANA-1: employee names in `app.employees`)

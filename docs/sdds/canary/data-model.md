@@ -237,6 +237,32 @@ This is the authoritative PII inventory for Canary. All other SDDs reference thi
 | `fox_evidence_access_log` | id, evidence_id (FK), accessed_by, access_type, ip_address | INSERT-only | -- | ip_address is PII. |
 | `fox_subjects` | id, merchant_id, case_id (FK), subject_type, entity_id, name | CRUD | TenantMixin, AuditMixin, SoftDeleteMixin | name is PII. |
 
+#### Hawk Domain (8 tables — migration `hawk_a00001`)
+
+Hawk supersedes Fox's flat case model with incident-typed investigations, dual-track action codes, compliance obligations, and a card factory. Fox evidence tables remain the evidentiary backbone. See `docs/sdds/canary/hawk.md`.
+
+| Table | Key Columns | Access Pattern | Notes |
+|-------|------------|----------------|-------|
+| `hawk_incident_types` | type_code (PK), incident_class, de_pv_flag, wizard_template (JSONB), resolution_track | Read-only (seed) | 63 incident types across 5 classes. Seed data. |
+| `hawk_sources` | id, source_code (UNIQUE), source_class, display_name | Read-only (seed) | 31 investigation sources (CCTV, EBR_*, TIP_*, AUDIT_*). |
+| `hawk_cases` | id, merchant_id, location_id, incident_class, incident_type (FK), case_status, card_id (FK), fox_case_id (FK) | CRUD | Root investigation record. Links to Fox for evidence chain. |
+| `hawk_subjects` | id, case_id (FK), subject_type, employee_id, vendor_entity_id, external_name, notes | CRUD | Exactly-one-identifier constraint (employee OR vendor OR external). |
+| `hawk_actions` | id, case_id (FK), action_code, action_track, actioned_by, actioned_at, notes | Append-only | Coded actions validated against incident class action track. |
+| `hawk_timeline` | id, case_id (FK), merchant_id (FK), event_type, actor_id, description, event_data (JSONB), occurred_at | Append-only | INSERT-only discipline inherited from Fox pattern. |
+| `hawk_compliance_obligations` | id, case_id (FK), obligation_type, due_date, filed_at, notes | CRUD | Regulatory/policy obligations with filing status. |
+| `hawk_cards` | id, case_id (FK), card_body (Text), frontmatter (JSONB), card_version, generated_at, invalidated_at, vector (pgvector 1024) | Append (versioned) | Structured case summaries. Previous versions invalidated, not deleted. |
+
+#### Bull Domain (Phase 3 stub — no migration yet)
+
+Bull covers Canary-native Module D intelligence: transfer-loss reconciliation (D.4) and multi-store distribution recommendations (D.5). Schema will be added when Phase 3 development begins. See `docs/sdds/canary/bull.md`.
+
+| Table (planned) | Key Columns | Purpose |
+|-------|------------|---------|
+| `bull_transfer_variances` | id, xfer_doc_id, recvr_doc_id, item_id, initiated_qty, received_qty, variance, match_confidence | Per-XFER-item variance with deterministic/heuristic match flag |
+| `bull_unattributed_movements` | id, merchant_id, location_id, item_id, snapshot_before, snapshot_after, delta, attributed | SOH deltas not explained by known Documents |
+| `bull_distribution_recommendations` | id, merchant_id, from_location, to_location, item_id, excess_qty, deficit_qty, transfer_cost, score | Rebalancing suggestions ranked by savings |
+| `bull_transfer_costs` | id, merchant_id, from_location, to_location, cost_per_unit | Per-route configurable transfer costs |
+
 #### Webhook Pipeline Domain (3 tables)
 
 | Table | Key Columns | Access Pattern | Mixins | Notes |
