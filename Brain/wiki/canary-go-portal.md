@@ -52,6 +52,23 @@ All specs in `docs/sdds/go-handoff/`. Read in this order:
 
 ---
 
+## Agent Knowledge Substrate
+
+Cards in `Brain/wiki/cards/` are the semantic knowledge layer for the platform. Agents recall them via the memory bus.
+
+**Platform thesis and mission:** `Brain/wiki/cards/platform-thesis.md`
+**Format spec and full index:** `Brain/wiki/agent-card-format.md`
+**Key cards:** merchant-org-hierarchy · geography-hierarchy · category-hierarchy · role-binding-model · local-market-agent · platform-retailer-lifecycle-test
+
+**Recall at session start:**
+```
+memory_recall("platform thesis accountability meter model")
+memory_recall("canary go architecture agent PMO spine")
+context_assemble(topic="canary go platform")
+```
+
+---
+
 ## 13-Module Spine
 
 All manifests in `GrowDirect-CRB/modules/`. Each has a `.manifest.yaml` (design spec) and a `.md` (narrative).
