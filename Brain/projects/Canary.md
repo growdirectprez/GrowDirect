@@ -21,6 +21,9 @@ Beta / Early Release Candidate
 - [[Brain/wiki/canary-chirp-rules|Chirp Rules]] — 37-rule catalog (10 categories), 3 evaluation tiers, threshold resolution, risk scoring, auto-casing
 - [[Brain/wiki/canary-fox-case-management|Fox Case Management]] — Case lifecycle, evidence hash chain, append-only timeline, DB-enforced immutability
 
+## Platform Concepts
+- [[Brain/wiki/canary-closed-loop-cost-attribution|Closed Loop — Cycle Count as Accountability Clearing]] — The closed-loop model: cycle count as GC across physical, data, network, and compute layers; proportional charging; the full offender taxonomy. Grounds Rail 1 of the platform thesis.
+
 ## Functional Decomposition (Retail Spine — Module-Level)
 
 L1–L4 decomposition of the 13-module Retail Spine on the NCR Counterpoint / RapidPOS backbone. These are the canonical cross-reference cards for the NCR vault's `modules/` section.

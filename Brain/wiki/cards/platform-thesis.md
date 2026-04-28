@@ -36,6 +36,8 @@ Shrink either has a Fox case, a forecast variance, or a receiving discrepancy. I
 
 **Closing statement:** If it happened in the store, it is in the model. If it is in the model, it is measured. If it is measured, someone is accountable for it.
 
+**Operational mechanism:** [[Brain/wiki/canary-closed-loop-cost-attribution|Closed Loop — Cycle Count as Accountability Clearing]] — how the closed-loop model distributes loss attribution across physical, data, network, and compute layers, with proportional charging to the responsible node.
+
 ### Rail 2 — Financial: No Unauthorized Spend
 
 OTB is not a number in a database. It is a funded Lightning wallet. A commercial agent commits spend by calling an MCP tool gated by L402 — the payment is the authorization. The wallet is the constraint. The agent cannot overspend OTB because it cannot pay for the tool call that would authorize it.
@@ -122,6 +124,7 @@ This model removes every one of those escape routes. Not punitively — structur
 - [[infra-l402-otb-settlement]] — Rail 2 technical implementation
 - [[local-market-agent]] — closes the external alibi gap in Rail 1
 - [[merchant-org-hierarchy]] — the org layer that maps entities to their meter type
+- [[Brain/wiki/canary-closed-loop-cost-attribution|Closed Loop — Cycle Count as Accountability Clearing]] — Rail 1 operational mechanism; proportional charging across physical, data, network, and compute layers
 
 
 ---
