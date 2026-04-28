@@ -203,6 +203,123 @@ Agent profiles are seeded documents, not ad-hoc prompts. Each contains: module i
 
 ---
 
+## Merchant Org Hierarchy
+
+SMB retail operates across seven operational layers. Every agent that reasons about users, access, or data must be aware of which layer a principal occupies and which hierarchy axis that layer belongs to.
+
+| Layer | Description |
+|-------|-------------|
+| **Sales Floor** | Store associates — scanning, receiving, customer-facing ops |
+| **Backroom** | Receiving, stock management, shrink reconciliation |
+| **Store** | Store manager — single-location P&L, scheduling, LP |
+| **Head Office** | Buying, merchandising, finance, HR, LP coordination |
+| **Merchants** | Category/brand owners — range, promotion, OTB authority |
+| **Supply Chain** | Distribution, forecasting, replenishment |
+| **Org** | Legal entity top — multi-banner, holding, franchise parent |
+
+Platform participants above the retailer:
+
+| Layer | Role |
+|-------|------|
+| **VAR** | RapidPOS delivery, channel, onboarding — operates in multi-tenant scope |
+| **GrowDirect** | Platform PMO and domain authority — no access to retailer operational data |
+
+---
+
+## Multi-Dimensional Field Hierarchies
+
+The same store node exists simultaneously in two independent hierarchies. Role assignment binds to a hierarchy type + node, not just a person.
+
+### Geography Hierarchy (LP & Operations)
+
+```
+Region
+  └─ District
+       └─ Store
+            └─ Department (physical zone)
+```
+
+Governs: LP alerting zones, incident escalation paths, shrink benchmarking, civil services routing.
+
+### Category Hierarchy (Merchandising)
+
+```
+Division
+  └─ Department
+       └─ Category
+            └─ Sub-category
+                 └─ SKU
+```
+
+Governs: OTB allocation, range planning, price promotion, forecast buckets, space/display assignments.
+
+### Role Binding Model
+
+A user_role record binds a principal to a node in a named hierarchy:
+
+```
+user_role(principal_id, hierarchy_type, hierarchy_node_id, role)
+```
+
+`hierarchy_type` ∈ `{ GEOGRAPHY | CATEGORY | LEGAL_ENTITY }`
+
+A store manager holds a GEOGRAPHY role at Store node. A buyer holds a CATEGORY role at Department node. The CRDM agent owns the hierarchy tables and node-type taxonomy. Interface changes require an SI cycle for all consuming modules.
+
+---
+
+## Local Market Intelligence Agents
+
+A class of agents that operates below the domain PMO layer, feeding real-time external context into the LP (Q), Commercial (C), and Distribution (D) modules. One agent per geography node (Region or District level, depending on signal density).
+
+### Signal Feeds
+
+| Feed | Signal | Primary Consumer |
+|------|--------|-----------------|
+| **Seasonality** | Seasonal demand calendars, event windows, holiday curve overlays | J (Forecast), P (Pricing), C (Commercial) |
+| **Weather** | Up-to-the-minute zone weather — impacts footfall, shrink risk, cold-chain — and SEO surface for zone-specific search intent | T (Transaction), J (Forecast), SEO/content layer |
+| **Social Threat Detection** | Social media monitoring for ORC signals — flash mob coordination, stolen product resale listings on eBay/Facebook Marketplace, fencing network patterns | Q (Loss Prevention), Fox Case Management |
+| **Civil Services Liaison** | LP communication channel to local law enforcement, transit police, city services — incident reporting, warrant/BOLO relay, coordinated response | Q (Loss Prevention), Legal & Compliance |
+| **Community Intelligence** | Chamber of Commerce bulletins, BBB reports, community notice boards — early warning on neighborhood incidents, new competitor openings, local business alerts | C (Commercial), Q (Loss Prevention) |
+
+### ORC Resale Detection
+
+The eBay/social marketplace signal is a first-class LP intelligence feed. The local market agent monitors for:
+
+- Product listings matching in-stock SKUs at prices below cost
+- Seller location signals within the district footprint
+- Listing velocity spikes correlated with store shrink events
+
+Fox Case Management receives the signal as a flagged lead, not a confirmed case. Human LP investigates before any civil services communication.
+
+### Civil Services Routing
+
+LP agents do not communicate directly with law enforcement systems. The Legal & Compliance infrastructure agent governs what information can be shared and in what format. The routing chain:
+
+```
+Local Market Agent → Q (Loss Prevention) → Fox Case Management → Legal & Compliance → Civil Services
+```
+
+This preserves liability boundaries. No PII or unverified incident data reaches civil services without Legal & Compliance sign-off.
+
+### Property & Landlord Coordination
+
+For store locations in malls, shopping centers, or landlord-managed properties, the local market agent extends into the property relationship:
+
+| Signal | Channel | Consumer |
+|--------|---------|----------|
+| **Mall/property security** | Shared incident protocols, CCTV access agreements, shared radio channels | Q (Loss Prevention), Fox |
+| **Landlord security bulletins** | Property-level threat advisories, event notifications that affect footfall or access | Q (Loss Prevention), J (Forecast) |
+| **Tenant improvement (TI) tracking** | TI allowance drawdown, construction timelines, CAM reconciliation, lease renewal windows | A (Asset Management), F (Finance), C (Commercial) |
+| **CAM & operating cost intelligence** | Common area maintenance charge forecasts and actuals, lease escalation triggers | F (Finance), C (Commercial) |
+
+TI and CAM data lives in Asset Management (A) and Finance (F). The local market agent surfaces the external property signals; the domain agents own the internal accounting treatment. Lease terms and renewal triggers are Legal & Compliance territory.
+
+### SEO + Weather
+
+Weather context feeds a zone-specific SEO surface — search intent shifts with weather (rain gear, cold-weather staples, outdoor equipment). The local market agent surfaces this to the Commercial (C) module as a content/promotion signal. This is distinct from operational weather impact on footfall.
+
+---
+
 ## What This Replaces
 
 The SI model depends on consulting teams to hold context across phases — business analysts, architects, developers, and support engineers who hand off to each other with inevitable fidelity loss at every boundary.
