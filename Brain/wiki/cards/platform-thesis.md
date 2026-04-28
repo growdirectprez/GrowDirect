@@ -122,3 +122,30 @@ This model removes every one of those escape routes. Not punitively — structur
 - [[infra-l402-otb-settlement]] — Rail 2 technical implementation
 - [[local-market-agent]] — closes the external alibi gap in Rail 1
 - [[merchant-org-hierarchy]] — the org layer that maps entities to their meter type
+
+
+---
+
+## SMB ICP Positioning
+
+**Target:** Private retail business, up to ~$50M in annual sales. One to a few people wearing every hat — buyer, LP manager, store operator, finance lead, workforce scheduler — simultaneously.
+
+The enterprise retailer has a department for every one of these functions. The SMB retailer has one person switching context 40 times a day, making decisions on gut because there is no time to pull the data. The platform is the department they cannot afford to hire. The agents are the team they do not have.
+
+### The Four Beats
+
+**1. Keeps them on track.**
+The meter model provides accountability without overhead. Every entity — store, module, cost center, profit center, agent — operates under a performance contract that runs without anyone watching it. Budget adherence, shrink rate, forecast accuracy, labor efficiency: all measured, all surfaced when they drift. The owner does not have to chase the numbers. The numbers surface themselves.
+
+**2. Meets their customers where they're going.**
+The local market intelligence layer gives the retailer a forward signal tuned to their specific geography and category mix. Seasonality curves, weather shifts, social trends, community events — the same signals the retailer senses as a consumer themselves, now confirmed and quantified before the window closes. Amazon has this at scale. This model delivers it at community scale, hyper-local, in real time.
+
+**3. Operates above their weight class.**
+The agent network carries analytical and operational work that would otherwise require a full team. LP monitoring, forecast adjustment, commercial signal surfacing, compliance tracking, evidence anchoring — agents handle these continuously. The retailer gets the output, not the overhead.
+
+**4. Gives them back the power to actually serve the customer — instead of worrying about ops and tech.**
+This is why any of it gets built. The SMB retailer opened a store because they know their product, their community, and their customers. The operational weight took that away — the meters became the job, the customers became the interruption. The platform inverts that. When the agents carry the operational weight, the retailer walks the floor instead of running reports. They talk to the customer standing in front of them instead of auditing receiving. They are a merchant again.
+
+### The Sentence
+
+> *This model keeps you on track, meets your customers where they're going, and gives you back the power to actually serve them — instead of worrying about ops and tech.*
