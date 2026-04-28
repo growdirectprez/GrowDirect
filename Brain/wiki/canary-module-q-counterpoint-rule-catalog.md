@@ -294,7 +294,7 @@ Severity: medium.
 
 ### Compliance
 
-**Q-RESTRICTED-ITEM-SALE — Restricted-item sale without override**
+**Q-CP-01 — Restricted-item sale without override**
 
 Substrate: `Events.transaction_lines` joined to `Things.items` (item-side restricted flags), cross-referenced against `Events.audit_log_entries` for transaction-level override.
 Logic: on transaction commit, any line whose item carries a restricted-item flag (`prop_65`, `epa_pesticide`, `epa_herbicide`, `restricted_chemical`, `age_restricted`) sells without a `restricted_items_authorized` override on the transaction. The override IS the forensic record — its absence on a restricted-item line is the detection.
@@ -305,7 +305,7 @@ on transaction.commit:
     if item.has_flag('restricted_item')
        and not transaction.has_override('restricted_items_authorized'):
       emit detection {
-        rule_id: 'Q-RESTRICTED-ITEM-SALE',
+        rule_id: 'Q-CP-01',
         transaction_id: transaction.id,
         item_id: item.id,
         store_id: transaction.store_id,
