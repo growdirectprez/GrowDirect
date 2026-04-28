@@ -329,36 +329,6 @@ For each module: **spine intent**, **Counterpoint endpoints**, **CRDM entities**
 - **TSP adapter:** N/A (no Counterpoint endpoints)
 - **Recommended scope adjustment:** **remove Module W from Phase 3** of the Counterpoint build plan. Phase 3 covers D + J only; W becomes a separate effort with its own SDD if/when it's prioritized.
 
-### 6.12 Module L — Labor / Workforce
-
-- **Spine intent:** employees, time clock, labor cost, scheduling
-- **Counterpoint endpoints:** Employee* (verify), `Roles`, `RoleUsers`, `RolesUsers`, `RoleEndpoints` (these are API-level roles, not labor-level — need to verify if Counterpoint has separate Employee endpoints)
-- **CRDM entities:** `People.employees`, `Events.timeclock`, `Workflows.schedules`
-- **ARTS:** Party model (employees as parties)
-- **MCP tool surface:**
-  - `get_employees(active?, store?)` — paginated
-  - `get_employee(employee_id)` — single
-  - `get_timeclock(employee_id, date_range?)` — paginated
-  - `get_labor_cost(date_range, store?)` — aggregate
-- **TSP adapter:** Employee* + timeclock endpoints (verify availability — Counterpoint may not expose timeclock via REST).
-- **Open questions:**
-  - Whether Counterpoint exposes timeclock via REST (often a separate workforce module)
-  - Manager hierarchy / reports-to relationships
-
-### 6.13 Module W — Work Execution
-
-- **Spine intent:** daily operating tasks, store-floor workflows, ops checklists
-- **Counterpoint endpoints:** likely none directly — work execution typically not in POS scope. May leverage Document* for task-document types if Counterpoint has them.
-- **CRDM entities:** `Workflows.tasks`, `Workflows.checklists`
-- **ARTS:** N/A (not in core ARTS)
-- **MCP tool surface:**
-  - `get_tasks(store, date?, status?)`
-  - `get_open_tasks(store)`
-- **TSP adapter:** investigate whether Counterpoint exposes any workflow / task structures. If not, this module is sourced from a different system or is Canary-internal.
-- **Open questions:**
-  - Whether Counterpoint has any task / workflow concept exposed via REST
-  - May need a different upstream system for full W coverage
-
 ## 7. Cross-cutting concerns
 
 ### 7.1 Idempotency
@@ -485,7 +455,7 @@ Phase 0 (foundation) ──┬─→ Phase 1 (T R F L N) ──┬─→ Phase 4
                        │                          │
                        └─→ Phase 2 (P S) ─────────┘
                        │                          │
-                       └─→ Phase 3 (D W J) ───────┘
+                       └─→ Phase 3 (D J) ──────────┘
                                                   │
                                                   └─→ Phase 5 (cutover)
 ```
