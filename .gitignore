@@ -67,11 +67,6 @@ Angel/media/
 # MCP server config — contains API keys, never commit
 .mcp.json
 
-# Brain intake working dirs — raw source binaries, extraction scratch, logs
-Brain/raw/inbox/
-Brain/raw/.extract/
-Brain/raw/.logs/
-
 # CTO-readiness audit output — committed on chore/cto-readiness-audit-2026-04-24
 # Contains literal secret values from gitleaks/trufflehog output; never propagate.
 docs/audit-2026-04-23/
