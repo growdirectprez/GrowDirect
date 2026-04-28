@@ -98,3 +98,68 @@ When Phase 5 cutover-validation begins (or if we get sandbox access from Rapid P
 - Lawn Garden Marketing — Rapid Garden POS as NCR Partner Network: https://www.lawngardenmarketing.org/rapid-garden-pos-NCRcounterpoint.aspx
 - NCR Voyix Counterpoint product page: https://www.ncrvoyix.com/retail/counterpoint
 - NCR Counterpoint API repo: https://github.com/NCRCounterpointAPI/APIGuide
+
+---
+
+## Hub-and-Spoke Distributed Agent Model
+
+The Canary agent network mirrors how human LP organizations are actually structured — store lead, regional manager, LP director. Each tier operates with independent decision authority; higher tiers set policy, lower tiers execute.
+
+```
+┌─────────────────────────────────────┐
+│          Cloud ALX (LP Director)    │
+│  Cross-chain pattern detection      │
+│  Model updates + fleet telemetry    │
+│  Sees all stores, not individual    │
+│  transactions                       │
+└──────────────┬──────────────────────┘
+               │ policy down / patterns up
+    ┌──────────┴──────────┐
+    │                     │
+┌───▼────────┐     ┌──────▼──────┐
+│ Store ALX  │     │ Store ALX   │   ← one per location
+│ (LP Lead)  │     │  (LP Lead)  │
+│ Local infer│     │ Local infer │
+│ Real-time  │     │ Real-time   │
+│ alerts     │     │ alerts      │
+│ Offline OK │     │ Offline OK  │
+└────────────┘     └─────────────┘
+```
+
+**Phase 2 addition — Regional ALX (LP Manager):** Aggregates 5–15 stores. Detects cross-store patterns (organized retail crime, vendor fraud across a district) that neither the store agent nor the cloud director would see alone. Regional tier sits between store and cloud; same independent-decision-authority model.
+
+| Tier | Scope | Primary job | Offline behavior |
+|------|-------|------------|-----------------|
+| Store ALX | Single location | Real-time detection, local Fox cases, associate dispatch | Fully autonomous — runs on local Counterpoint SQL Server |
+| Regional ALX (Phase 2) | 5–15 stores | Cross-store pattern detection, regional LP analytics | Degrades to store-level isolation; syncs on reconnect |
+| Cloud ALX | Full chain | Fleet telemetry, model updates, chain-wide LP direction | Aggregates when stores reconnect |
+
+**Design rule:** A store agent that cannot make a decision without cloud confirmation has failed its design contract. Cloud connectivity is enhancement, not dependency.
+
+---
+
+## VAR Fleet Deployment Pattern
+
+A Counterpoint VAR who has RMM (remote monitoring/management) infrastructure already in place — standard for managed-services VARs — can deploy the Canary edge agent across their entire fleet in a single motion. Docker install via RMM removes the per-store manual deployment step.
+
+**Deployment sequence for a VAR-led rollout:**
+
+| Step | Actor | Action |
+|------|-------|--------|
+| 1 | VAR | Canary added to standard Counterpoint install bundle |
+| 2 | VAR | Docker image pushed via RMM to existing store Windows Server |
+| 3 | Edge agent | Connects to local Counterpoint SQL Server directly |
+| 4 | Edge agent | Runs in shadow mode (read-only) for 7+ days |
+| 5 | Cloud ALX | Validates detection baseline against shadow data |
+| 6 | VAR + retailer | Sign-off on shadow run quality → LP alerts go live |
+
+**Commercial structure:** Canary pricing rides on top of the VAR's margin structure. The VAR owns the customer relationship and bundles Canary into their recurring services revenue. GrowDirect is the platform layer; the VAR is the delivery and support channel.
+
+**Pilot path (single-VAR launch):**
+- VAR sandbox environment → 48-hour diagnostic run
+- Single pilot store → shadow mode → detection live
+- Full chain rollout → weeks, not months (RMM fleet deploy)
+
+The VAR's existing Counterpoint expertise removes the integration consulting burden from GrowDirect. The VAR knows the schema quirks, the customer's configuration, and the edge cases in their vertical. Canary provides the detection intelligence; the VAR provides the deployment capability.
+
+**last-compiled:** 2026-04-28

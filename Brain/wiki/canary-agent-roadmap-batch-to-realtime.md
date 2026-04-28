@@ -72,3 +72,52 @@ ALX develops a store-level demand model from streaming history. Predictive inven
 ## Sources
 
 - NCR companion vault `agents/roadmap.md` (2026-04-27 back-fill from gap analysis)
+
+---
+
+## Edge Agent Deployment Pattern (NCR Counterpoint)
+
+The edge agent is a Go binary that runs on the retailer's existing Windows Server — the same machine running Counterpoint. No new hardware required. It connects directly to the Counterpoint SQL Server on the local network.
+
+**Core components:**
+
+| Component | Technology | Purpose |
+|-----------|-----------|---------|
+| Counterpoint adapter (Module T) | Go + direct SQL | Reads PS_DOC transaction stream from local Counterpoint DB |
+| Local event store | SQLite (append-only) | Transaction queue — survives connectivity loss |
+| Local embeddings | Ollama (qwen3-embedding:8b) | On-device vector search for Owl/risk context |
+| NATS JetStream | LAN-local | Event bus between edge components |
+| Sync daemon | Go | Batch push to cloud ALX when connectivity available, delta-only |
+| Heartbeat emitter | Go | Signed node heartbeat every 3–5s; auto-Fox-case on silence >30s |
+
+**Offline resilience contract:** The store must run without internet. SQLite buffers all events locally. The sync daemon handles reconnection and delta push. Cloud ALX receives events in order; gaps are detectable as sequence breaks, not silent data loss.
+
+**Shadow mode discipline:** 7+ days parallel run before cutting LP alerts live. The cloud ALX validates the detection baseline against shadow data. No alert fires until shadow run quality is confirmed. This is the Digital Plumber discipline applied to edge deployment — prove it matches reality before it makes noise.
+
+**Deployment target:** Existing store hardware. No new servers, no new network gear. The edge agent is a Docker container on the Windows Server already running Counterpoint.
+
+---
+
+## NCR Counterpoint Migration Path (Phase 0–4)
+
+Five phases from first connection to full LP pipeline. Each phase has a clear entry criterion and a clear exit criterion. No phase starts until the previous phase's exit criterion is met.
+
+| Phase | Name | Entry | Exit criterion |
+|-------|------|-------|---------------|
+| **0** | Discovery | Sandbox or test environment access confirmed | CPAPI validated, schema mapped, adapter builds against real endpoint |
+| **1** | Shadow | Phase 0 complete, production access granted | 7+ day shadow run with no data integrity failures; baseline detection rate established |
+| **2** | Sync | Phase 1 baseline confirmed | Cloud ALX receiving, pgvector memory bus seeded, Chirp rules calibrating against real data |
+| **3** | Detection | Chirp calibration complete, false-positive rate at or below threshold | LP alerts live, Fox cases opening, cloud-store bidirectional confirmed |
+| **4** | Retire | Phase 3 stable for 30+ days | Legacy polling/export workflows sunset; edge agent is sole data path |
+
+**Phase 0 — Discovery:** Connect to sandbox or test Counterpoint environment. Validate CPAPI access (authentication, rate limits, endpoint availability). Map the PS_DOC transaction schema against the Canary Module T data model. Identify any VAR-specific schema extensions.
+
+**Phase 1 — Shadow:** Edge agent reads live Counterpoint data with no writes and no alerts. Runs in parallel with the retailer's existing LP workflow. Cloud ALX receives the shadow stream and builds the detection baseline. Exit: 7+ days clean, baseline established.
+
+**Phase 2 — Sync:** Cloud ALX receiving full stream. pgvector memory bus seeded with store history. Chirp detection rules running against live data — results visible in Canary dashboard but not yet surfaced to the retailer as alerts. Calibration period: rules tuned to the store's actual transaction patterns before going live.
+
+**Phase 3 — Detection:** LP alerts live. Fox cases open automatically. Retailer LP team receives alerts via Module W work dispatch. Cloud-store bidirectional confirmed — store agent receives policy updates from cloud ALX, cloud ALX receives Fox case evidence from store.
+
+**Phase 4 — Retire:** Legacy export/polling workflows shut down. The edge agent is the sole transaction data path. All historical data migrated to the Canary data model. The store is fully on Canary Go.
+
+**last-compiled:** 2026-04-28

@@ -117,3 +117,48 @@ For ALXjr's sandbox + war room build on the mini, the priority pre-stages are:
 7. **Rapid POS partnership briefing.** A one-pager the proposal can attach: how GrowDirect plugs into Rapid POS's existing delivery model without disrupting it.
 
 The sandbox and war room are the methodology made executable. The 5 archive-derived wikis are the methodology made textual. The next phase is to make the methodology run.
+
+---
+
+## Store as Mini Data Center
+
+An NCR Counterpoint deployment is on-premise by default. The store runs Counterpoint on a Windows Server inside the building — the same server that holds the POS database, the transaction history, the inventory ledger, and the customer records. There is no mandatory cloud dependency for the core retail operation.
+
+This is Canary's deployment advantage. The edge agent runs on hardware that already exists, connects to a database that is already running, and operates on a network that is already in place. No new infrastructure budget required. No cloud migration required. The store is already a mini data center — Canary plugs in.
+
+**What the store hardware typically includes:**
+
+| Component | Typical spec | Canary use |
+|-----------|-------------|-----------|
+| Windows Server (on-prem) | 2016/2019, 16–32 GB RAM | Edge agent Docker container |
+| Counterpoint SQL Server | SQL Server 2016+ | Module T direct adapter |
+| NAS or local storage | 2–8 TB | SQLite event buffer + local Fox evidence store |
+| Camera system | DVR/NVR, 4–16 cameras | Module Q video feed (Phase 2+) |
+| Store LAN | 1 Gbps | NATS JetStream local event bus |
+| WAN / internet | Variable quality | Sync path to cloud ALX — degradation-tolerant |
+
+**The offline contract:** The store must run without internet. Counterpoint does. Canary must also. Cloud connectivity enables fleet telemetry, model updates, and cross-chain LP patterns — but the store-level detection, Fox case creation, and work dispatch all run locally. Internet outage is a sync delay, not an outage.
+
+**Counterpoint's REST API surface (CPAPI):** The public API is the clean integration path. The Module T adapter reads the PS_DOC transaction schema directly from the local SQL Server — faster and richer than the REST API, and available offline. The REST API is used for cloud-side operations (account management, remote config, audit) where latency is acceptable.
+
+---
+
+## Field Org Framing — Agent Hierarchy Mirrors LP Reality
+
+The Canary agent hierarchy is not an abstract technical design. It is the digital mirror of how LP organizations are actually structured in multi-store retail.
+
+| Human LP role | Agent equivalent | Scope | Primary signal |
+|--------------|-----------------|-------|---------------|
+| Store LP Lead | Store ALX (edge) | Single location | Real-time transaction anomalies, known offender patterns, local Fox cases |
+| Regional LP Manager | Regional ALX (Phase 2) | 5–15 stores | Cross-store patterns, organized retail crime, vendor fraud across a district |
+| LP Director / VP LP | Cloud ALX | Full chain | Fleet telemetry, chain-wide shrink benchmarks, model updates, strategic LP policy |
+
+**The insight for the retailer:** The store LP lead knows every cashier, every SKU, every shrink pattern in their store. They do not need to call the director every time a void happens. They make the call themselves. That is what the store agent does — it has the local context to act without escalation.
+
+The director sees patterns the store lead cannot — an organized ring working three stores in a district simultaneously. That is what the cloud agent does — it aggregates the signal the store agents cannot see individually.
+
+**The SMB version:** A 5-store specialty retailer cannot afford an LP director, a regional manager, and a store lead at each location. They have one person wearing all three hats. The agent hierarchy gives that one person the full LP organization as software — store-level real-time detection, regional pattern recognition, and chain-wide LP direction, all running without headcount.
+
+**Why this framing matters for the VAR conversation:** The VAR has sold Counterpoint to hundreds of specialty retailers. Most of them have zero dedicated LP staff. Framing Canary as "the LP team you cannot afford to hire" lands immediately — it maps to a real pain point every Counterpoint VAR customer has, regardless of vertical.
+
+**last-compiled:** 2026-04-28
