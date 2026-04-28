@@ -116,3 +116,36 @@ Reference: [[docs/sdds/consulting/SDD-morrisons-it-architecture-options-v2|SDD �
 - **Method MOC:** [[Brain/projects/Method|Method MOC]]
 - **Canary project MOC:** [[Brain/projects/Canary|Canary MOC]]
 
+
+---
+
+### GRO-629: Canary Go — Clean Break from Python Prototype
+
+**Decision:** Canary Go is a greenfield Go stack. The Python prototype is frozen at `v0-python-prototype` tag and is reference-only.
+
+**Why:** The RapidPOS partner team operates Go-only — this is a channel mandate, not a technology preference. A Python→Go migration on the existing prototype would carry all the Square-coupling technical debt forward. A clean break lets the Go stack implement the ARTS-native architecture correctly from the start.
+
+**What changed:**
+- Own Docker stack: `canary_go` / `canary_go_test` databases. No shared state with Python Canary.
+- Own Go module layout: 19-service monorepo, Chi router, pgx + sqlc, golang-migrate, Valkey
+- POS-first adapter: Bull (NCR Counterpoint REST) as Phase I target; Hawk (Square) as reference implementation
+- Agent PMO architecture: Controller + 27 domain PMO agents + infra agents; MCP connective tissue
+
+**ADR Link:** [[Brain/wiki/canary-go-portal|Canary Go Portal]] · [[docs/superpowers/specs/2026-04-28-canary-go-agent-pmo-architecture-design|Agent PMO Architecture SDD]]
+
+**Status:** Decision recorded 2026-04-28. Active build.
+
+---
+
+### 2026-04-28: Open Decision — Edge Architecture Scope for Phase I
+
+**Decision:** Open. Edge fabric (MAP agents on store LAN, NATS JetStream, Temporal, signed heartbeats, shelf-edge Nano inference) is architecturally designed and carded. Phase I scope vs. Phase 2+ scope not yet formally bounded.
+
+**Reference cards:**
+- [[Brain/wiki/cards/edge-fabric-overview|Edge Fabric Overview]]
+- [[Brain/wiki/cards/shelf-edge-demand-heartbeat|Shelf Edge Demand Heartbeat]]
+- [[Brain/wiki/cards/map-agent-l3|MAP Agent L3]]
+
+**Target resolution:** M4 (Module Spine) planning session — determine which edge components ship with M1–M3 vs. M4+.
+
+**last-compiled: 2026-04-28**

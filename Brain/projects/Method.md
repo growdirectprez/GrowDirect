@@ -106,3 +106,17 @@ Engagement-level knowledge that spans the Method but lives at the delivery layer
 - [[Brain/projects/Cove|Cove]], [[Brain/projects/Angel|Angel]], [[Brain/projects/Seacove|Seacove]], [[Brain/projects/Secure|Secure]] — other project MOCs
 - [[docs/sdds/platform/factory-pipeline|Factory Pipeline SDD]] — authoritative factory spec
 - [[docs/sdds/platform/skill-architecture|Skill Architecture SDD]] — skill composition rules
+
+---
+
+## Platform Foundation
+
+The method runs on top of a platform thesis. These cards are the governing context for all Canary Go work — read them before any domain session.
+
+- [[Brain/wiki/cards/platform-thesis|Platform Thesis — Every Entity Has a Meter]] — three accountability rails; meter model; SMB ICP; the sentence. Approved 2026-04-28.
+- [[Brain/wiki/canary-go-portal|Canary Go Portal]] — the active build reference; SDD index; Linear links
+- [[Brain/wiki/cards/platform-retailer-lifecycle-test|Retailer Lifecycle Test Methodology]] — canonical burn-in; 16-step sequence; every module exercises the spine
+
+**CATz as proof case:** The Canary Go build is the live demonstration of the CATz Phase I/II method applied to a real SMB retail platform. The three accountability rails are the CATz method made structural — not a consulting framework, a running system. The platform thesis card is the governing document; [[Brain/wiki/catz-method|CATz Method]] is the delivery method that produced it.
+
+**last-compiled: 2026-04-28**

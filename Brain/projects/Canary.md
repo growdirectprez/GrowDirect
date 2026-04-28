@@ -195,3 +195,36 @@ All referenced cards use deployment-archetype language per `feedback_scrub_clien
 ## Sprint Prompts
 - [[Canary/devops/prompts/00_README|Prompt Library Index]]
 - [[Canary/devops/prompts/sprint2/00_README_Sprint2|Sprint 2 Index]]
+
+---
+
+## Platform Architecture — Canary Go (Active Build)
+
+**Status as of 2026-04-28:** Clean break from Python prototype. Go stack, GCP, ARTS-native, NCR Counterpoint-first. Python prototype frozen at `v0-python-prototype` tag. All active development is Canary Go.
+
+- [[Brain/wiki/canary-go-portal|Canary Go Portal]] — project portal, SDD index, Linear links. Start here.
+- [[Brain/wiki/cards/platform-thesis|Platform Thesis — Every Entity Has a Meter]] — three accountability rails (Operational / Financial / Evidentiary), meter model, SMB ICP positioning, the sentence
+- [[docs/superpowers/specs/2026-04-28-canary-go-agent-pmo-architecture-design|Agent PMO Architecture]] — Controller + 27 domain PMO agents + infra agents; MCP connective tissue; SI gate
+
+### Edge Architecture (2026-04-28)
+
+- [[Brain/wiki/cards/edge-fabric-overview|Edge Fabric Overview]] — IoT heartbeat layer, MAP agents on LAN, NATS JetStream, Temporal mesh. Closes the closed graph at the physical device.
+- [[Brain/wiki/cards/map-agent-l3|MAP Agent — L3 Domain Expert at the Edge]] — Go binary on store LAN; dual authority; self-metering; identical card format to cloud agents
+- [[Brain/wiki/cards/heartbeat-protocol|Heartbeat Protocol]] — signed node heartbeat every 3–5s; auto Fox case on silence >30s
+- [[Brain/wiki/cards/shelf-edge-demand-heartbeat|Shelf Edge Demand Heartbeat]] — Nano inference at shelf; demand signal IS the heartbeat; feeds Module S + J directly
+- [[Brain/wiki/cards/temporal-retail-mesh|Temporal Retail Mesh]] — durable workflows at intersecting retail decision points; N+Q+W first
+- [[Brain/wiki/cards/packet-cost-tracking|Packet Cost Tracking]] — atomic cost accounting at every event; eliminates shrink alibi
+- [[Brain/wiki/cards/edge-fox-case|Edge Fox Case]] — LP lifecycle at physical speed; <500ms detection-to-case
+- [[Brain/wiki/cards/agent-gitops-autonomy|Agent Gitops Autonomy]] — self-sustaining operational model; the agent that built it runs it
+
+### Origin
+
+- [[Brain/wiki/cards/fireball-demand-signal-origin|Fireball — Origin of the Demand Signal Architecture]] — PwC + Microsoft + M&S + P&G, 2001. The thesis Canary Go completes. Source: `Brain/raw/inbox/Heartbeat/`
+
+### Hub-and-Spoke Agent Model
+
+- [[Brain/wiki/ncr-counterpoint-rapid-pos-relationship|NCR Counterpoint / Rapid POS Relationship]] — includes hub-and-spoke LP org (store / regional / cloud ALX), VAR fleet deployment pattern
+- [[Brain/wiki/voyix-counterpoint-rapid-pos-engagement-context|Voyix / Counterpoint Engagement Context]] — includes store-as-mini-data-center, field org framing
+- [[Brain/wiki/canary-agent-roadmap-batch-to-realtime|Agent Roadmap — Batch to Real-Time]] — includes edge agent deployment pattern, NCR migration path Phase 0–4
+
+**last-compiled: 2026-04-28**

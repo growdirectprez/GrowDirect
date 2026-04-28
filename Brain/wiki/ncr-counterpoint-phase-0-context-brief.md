@@ -139,3 +139,22 @@ Phase 0 was reshaped during scoping. The original dispatch ("rebuild TSP for Cou
 Paste the body of this article (everything below the frontmatter, above this line) into a new Claude Code session. The session will have full context to pick up Phase 0 work, validate adapter design, or extend any of the dispatches.
 
 For external-facing communication (Bart, partners, VARs), use the canonical positioning lines from §"Strategic context"; do NOT paste the full brief — it's internal.
+
+---
+
+## 2026-04-28 Progress Entry
+
+**Canary Go clean break confirmed.** Python prototype frozen at `v0-python-prototype`. All active development is the Go stack. Own Docker / own databases. See [[Brain/wiki/canary-go-portal|Canary Go Portal]] and [[docs/superpowers/specs/2026-04-28-canary-go-agent-pmo-architecture-design|Agent PMO Architecture SDD]].
+
+**Edge architecture carded.** The MAP agent / NATS / Temporal / signed heartbeat layer is fully designed and committed to `Brain/wiki/cards/`. Key cards:
+- [[Brain/wiki/cards/edge-fabric-overview|Edge Fabric Overview]] — closes the closed graph at the physical device
+- [[Brain/wiki/cards/shelf-edge-demand-heartbeat|Shelf Edge Demand Heartbeat]] — demand signal IS the heartbeat; Nano inference at the shelf
+- [[Brain/wiki/cards/map-agent-l3|MAP Agent L3]] — Go binary on store LAN; identical format to cloud agents; self-metering
+
+**Hub-and-spoke LP org model written.** Store ALX / Regional ALX (Phase 2) / Cloud ALX tiers documented. VAR fleet deployment pattern (RMM Docker install, shadow mode, commercial structure) written into [[Brain/wiki/ncr-counterpoint-rapid-pos-relationship|NCR Counterpoint / Rapid POS Relationship]].
+
+**NCR migration path Phase 0–4 written.** Discovery → Shadow → Sync → Detection → Retire sequence with entry/exit criteria committed to [[Brain/wiki/canary-agent-roadmap-batch-to-realtime|Agent Roadmap]].
+
+**Fireball origin documented.** [[Brain/wiki/cards/fireball-demand-signal-origin|Fireball — Origin of the Demand Signal Architecture]] — PwC + Microsoft + M&S + P&G, 2001. The demand signal thesis Canary Go completes. Source materials in `Brain/raw/inbox/Heartbeat/`.
+
+**Memory bus seeded** on commit 7b1d13c. All new cards embedded.
