@@ -135,3 +135,4 @@ All agent cards live in `Brain/wiki/cards/`. Subdirectories are permitted for la
 | [Infra: L402 OTB Settlement](cards/infra-l402-otb-settlement.md) | infra-l402-otb-settlement | infra-capability |
 | [Platform Thesis](cards/platform-thesis.md) | platform-thesis | platform-thesis |
 | [Platform: Retailer Lifecycle Test](cards/platform-retailer-lifecycle-test.md) | platform-retailer-lifecycle-test | infra-capability |
+| [Platform: ALX as VSM](cards/platform-alx-vsm.md) | platform-alx-vsm | platform-thesis |
