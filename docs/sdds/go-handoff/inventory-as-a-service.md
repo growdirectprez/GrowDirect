@@ -21,6 +21,10 @@ copyright: "Copyright (c) 2026 GrowDirect LLC"
 
 IaaS is the shared inventory position engine for the Canary platform. It is not a module embedded in ecom-channel or store ops — it is infrastructure. Every service that needs to know "how many units are available, where, and for which channel" calls this service. The governing insight: a physical store location is simultaneously a retail store and a virtual warehouse. The same units on the backroom shelf serve walk-in customers, BOPIS holds, and online shoppers. Without a unified real-time position service, those channels compete against each other on stale counts and oversell becomes inevitable.
 
+**Multi-tenant context.** IaaS tables (`inventory_positions`, `inventory_ledger`, `cart_reservations`, `bopis_holds`) live per-tenant in `tenant_{merchant_id}`. Every position read and write is scoped to a single merchant via `SET search_path`. Cross-tenant inventory analytics (platform-wide fill rate benchmarks, category turnover) flow through `analytics` schema rollups. See `architecture.md` "Multi-Tenant Isolation".
+
+**Optional Features posture.** IaaS operates with all Optional Features (per `platform-overview.md`) disabled — position tracking, ledger writes, reservation semantics all work entirely on internal records. When `ILDWAC_ENABLED=true`, ledger entries carry the five-dimension provenance fields (`device_id`, `mcp_tool`, `pos_port`) that ILDWAC consumes for cost attribution — when off, those fields are nullable and the standard ILWAC cost surface (item × location × WAC) operates from the same ledger via the existing MAC infrastructure. When `BLOCKCHAIN_ANCHOR_ENABLED=true`, inventory event chain hashes are eligible for public anchoring; failures are non-blocking.
+
 ---
 
 ## Business

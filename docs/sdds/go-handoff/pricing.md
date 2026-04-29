@@ -21,6 +21,10 @@ copyright: "Copyright (c) 2026 GrowDirect LLC"
 
 Pricing is the single source of truth for what an item costs a customer at any given moment. This sounds obvious but is where most retail analytics break down — a markdown event, a promotional override, and a loyalty discount can all hit the same transaction, and if the system cannot reconstruct what price applied when, margin analysis is fiction. Canary's pricing module maintains a full history of every price that was ever active, with `effective_from`/`effective_to` timestamps, so every past transaction can be repriced accurately. The `effective_price_at` tool is the canonical query: given an item and a timestamp, return the price that was in effect. No other service is permitted to make this determination.
 
+**Multi-tenant context.** Pricing tables (`prices`, `price_history`, `promotions`, `markdowns`, `price_zones`) live per-tenant in `tenant_{merchant_id}`. Every price decision is merchant-scoped; cross-tenant pricing analytics (industry markdown rate benchmarks) flow through `analytics` schema rollups. See `architecture.md` "Multi-Tenant Isolation".
+
+**Optional Features posture.** Pricing operates with all Optional Features (per `platform-overview.md`) disabled. The `effective_price_at` tool, price history, markdown lifecycle, and zone-based price authority all run on internal records. When `ILDWAC_ENABLED=true`, price events are joined with cost packets at margin computation time across the five-dimension provenance — when off, standard ILWAC margin computation applies. When `BLOCKCHAIN_ANCHOR_ENABLED=true`, price change events are eligible for public anchoring (regulatory audit defense for advertised vs. rung price disputes); failures are non-blocking.
+
 ---
 
 ## Business

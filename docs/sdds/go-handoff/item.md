@@ -25,6 +25,10 @@ The item master is the canonical source of truth for what a merchant sells. With
 
 > **Assortment metadata is part of the item master.** Each item carries per-store assortment tier — `store`, `warehouse`, or `expanded` (special order) — that governs how IaaS computes availability and how ecom-channel routes fulfillment. This is the data backbone for the multi-tier assortment model: a store carries its regular SKUs (store tier), can ship from a central warehouse for items it does not stock (warehouse tier), and can special-order vendor items it does not carry at all (expanded tier). The item record owns the tier mapping; IaaS owns the stock; commercial owns the vendor-can-drop-ship promise. See inventory-as-a-service.md → "Multi-Tier Assortment Model" for the full contract.
 
+**Multi-tenant context.** Item master tables (`items`, `item_attributes`, `item_assortment_tiers`, `item_substitutes`) live per-tenant in `tenant_{merchant_id}`. Every merchant has their own catalog; the same physical SKU sold by two merchants on the platform appears as separate item records. Cross-tenant catalog analytics (category penetration benchmarks) flow through `analytics` schema rollups. See `architecture.md` "Multi-Tenant Isolation".
+
+**Optional Features posture.** The item master operates with all Optional Features (per `platform-overview.md`) disabled. Item lifecycle, assortment tier mapping, and downstream propagation work entirely on internal records. When `ILDWAC_ENABLED=true`, item activation creates the cost basis seed for the five-dimension provenance ledger — when off, the standard ILWAC cost basis applies via existing MAC infrastructure. When `VENDOR_CONTRACTS_ENABLED=true`, item activation deploys the agreed cost / allowance terms to the vendor's smart contract on the AVAX private subnet. Multi-tier assortment routing operates regardless of flag state — the data lives in the item record either way.
+
 ---
 
 ## Business

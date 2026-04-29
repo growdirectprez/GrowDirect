@@ -21,6 +21,10 @@ copyright: "Copyright (c) 2026 GrowDirect LLC"
 
 Commercial is the vendor relationship layer. It tracks contracts, payment terms, rebates, and chargebacks — the financial obligations that sit between a purchase order and a paid invoice. Without it, merchants have no systematic way to claim money they are owed (vendor rebates, markdown allowances, co-op advertising funds) or to contest money vendors are claiming (overcharges, unauthorized deductions). At $5–15M annual sales, unclaimed rebates and uncontested chargebacks represent 0.5–1.5% of revenue — real money for a thin-margin retailer who rarely has a dedicated AP clerk watching these exposures.
 
+**Multi-tenant context.** Commercial tables (`vendors`, `vendor_contracts`, `chargebacks`, `rebate_accruals`, `coop_claims`) live per-tenant in `tenant_{merchant_id}`. Vendor records are merchant-scoped; the same vendor connected to multiple merchants on the platform appears as separate vendor records in each merchant's schema. Cross-tenant vendor performance benchmarking flows through `analytics` schema rollups. See `architecture.md` "Multi-Tenant Isolation".
+
+**Optional Features posture.** Commercial operates with all Optional Features (per `platform-overview.md`) disabled — chargeback workflows, rebate accruals, and contract tracking work entirely with internal database records. When `VENDOR_CONTRACTS_ENABLED=true`, vendor compliance terms are deployed as smart contracts on the AVAX private vendor subnet (per the chain-of-record split in `blockchain-anchor.md`); chargebacks become contract events with on-chain references. When the flag is off, contracts and disputes live in the database only — fully functional, just not externally verifiable on a vendor-facing chain.
+
 ---
 
 ## Business

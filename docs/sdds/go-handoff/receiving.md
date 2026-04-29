@@ -21,6 +21,10 @@ copyright: "Copyright (c) 2026 GrowDirect LLC"
 
 Receiving is where vendor promises meet physical reality. A PO is a contract; the ASN is the vendor's claim; the dock scan is the truth. The gap between them — short shipments, damaged goods, substitutions — is the primary source of inventory shrink that merchants can't see in their POS data. Without a disciplined receiving module, shrink from the receiving dock surfaces as "mystery shrink" in LP reports weeks later, after the vendor's dispute window has closed. Canary's receiving module closes that window at the dock, not in hindsight.
 
+**Multi-tenant context.** Receiving tables (`purchase_orders`, `asn_documents`, `receipts`, `receipt_discrepancies`, `disposition_events`) live per-tenant in `tenant_{merchant_id}`. Every receiving event is scoped to a single merchant; cross-tenant analytics on receiving performance (vendor fill rate benchmarks across the platform) flow through `analytics` schema rollups. See `architecture.md` "Multi-Tenant Isolation".
+
+**Optional Features posture.** Receiving operates with all Optional Features (per `platform-overview.md`) disabled. The PO and receipt workflow runs entirely on internal records and the standard three-way match (PO + ASN + dock scan). When `L402_ENABLED=true`, OTB wallet debit on PO commitment is enforced per `l402-otb.md` — when off, OTB is tracked but not Lightning-settled. When `ILDWAC_ENABLED=true`, receipt events populate the five-dimension cost packet (Item × Location × Device × MCP × Port × WAC) in addition to standard ILWAC. Smart-contract receipt clearance (vendor subnet) requires `VENDOR_CONTRACTS_ENABLED=true`.
+
 ---
 
 ## Business
