@@ -327,7 +327,11 @@ ecom-channel appends three event types to the RaaS chain. All use the `ecom` nam
 | `ecom.order.fulfilled` | Fulfillment confirmed (tracking number set) | `order_id`, `tracking_number`, `fulfilled_at` |
 | `ecom.order.refunded` | Refund processed | `order_id`, `refund_amount_cents`, `refund_reason` |
 
-**`customer_email_hash`** is SHA-256 of the customer email — included in the chain event for cross-channel correlation without embedding raw PII in the immutable chain.
+**`customer_email_hash`** is `HMAC-SHA256(EMAIL_HASH_KEY, normalize(email))` — included in the chain event for cross-channel correlation without embedding raw PII in the immutable chain. Plain SHA-256 is prohibited: the email plaintext domain is enumerable for any specific customer base (an attacker who has a list of candidate emails can hash each one and match against `customer_email_hash`), and the immutable-chain placement makes any post-hoc rehashing impossible. The keyed hash blocks offline brute force without compromising the cross-channel determinism the chain relies on.
+
+**Email normalization (input to HMAC):** lowercase, strip whitespace, no Punycode rewrites. Normalization is required so that `Customer@example.com` and `customer@example.com` collapse to one hash for correlation purposes. Done before HMAC, never after.
+
+**Key rotation in an immutable chain.** `EMAIL_HASH_KEY` rotation produces a new hash for the same email going forward — past chain events are sealed and cannot be re-hashed. Cross-channel correlation across a key-rotation boundary requires a key-version index alongside `customer_email_hash` in the chain payload (`{key_version: 2, hash: <bytes>}`). The `EMAIL_HASH_KEY` rotation procedure must keep all prior key versions available for verification queries — old keys are never deleted, only retired from new-write use. Key class definition lives in `go-security.md` → "PII Hashing Keys".
 
 RaaS sequence numbers are written back to `ecom_orders.raas_sequence_num` after the event is appended. This provides a direct reference from any order row to its position in the evidentiary chain.
 
@@ -576,7 +580,7 @@ Canary is the master. Square Online is the downstream.
 | `card_token_ciphertext` | `ecom_subscriptions` | **PCI DSS** | AES-256-GCM encrypted; key rotated on card update via key-versioning envelope |
 | `credentials_ciphertext` | `ecom_channels` | **Sensitive** | AES-256-GCM encrypted; contains OAuth tokens and API keys |
 | `raw_payload` | `ecom_webhook_events`, `ecom_orders` | **Restricted — classify per event type** | Some event types (payment.*) may contain cardholder data; redact BIN, last4, expiry before storage; hash card fingerprints |
-| `customer_email_hash` | RaaS chain events | **Internal** | SHA-256 of email; included in chain for correlation without raw PII in immutable record |
+| `customer_email_hash` | RaaS chain events | **Internal** | `HMAC-SHA256(EMAIL_HASH_KEY, normalize(email))` (keyed) — included in chain for correlation without raw PII in immutable record. Plain SHA-256 prohibited (enumerable domain). Chain payload carries `{key_version, hash}` so rotation does not break historical verification. See `go-security.md` → "PII Hashing Keys". |
 
 ### PCI DSS Scope
 

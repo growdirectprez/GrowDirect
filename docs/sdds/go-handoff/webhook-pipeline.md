@@ -90,7 +90,7 @@ Square sends `POST /webhooks/square` with:
 | `card_last4` | `payment.card_details.card.last_4` | **internal** | Plaintext in `transactions.card_last4`, `transaction_tenders.card_last4` | Last 4 digits of card |
 | `card_bin` | `payment.card_details.card.bin` | **sensitive** | Plaintext in `transactions.card_bin` | First 6 digits — identifies issuing bank |
 | `card_exp_month/year` | `payment.card_details.card.exp_month/year` | **internal** | Plaintext in `transactions` | Card expiration |
-| `phone_number` | `loyalty_account.mapping.phone_number` | **sensitive** | **Hashed** (SHA-256) in `loyalty_accounts.phone_hash` | Only PII field with protection applied in prototype |
+| `phone_number` | `loyalty_account.mapping.phone_number` | **sensitive** | **HMAC-SHA256 keyed hash** with `PHONE_HASH_KEY` in `loyalty_accounts.phone_hash` (Go build) | Prototype used plain SHA-256; Go build mandates HMAC because phone domain (NANP ≈ 10¹⁰) is brute-forceable for unkeyed hashes. See `go-security.md` → "PII Hashing Keys". |
 | `employee_id` | Multiple event types | **internal** | Plaintext in multiple CRDM tables | Square team_member_id — identifies individual employees |
 | `customer_id` | `payment.customer_id` | **internal** | Plaintext in `transactions.customer_id` | Square customer reference |
 | `ip_address` | Request metadata | **sensitive** | Plaintext in `ingestion_log.ip_address` | Source IP of webhook POST (Square infrastructure IP) |
@@ -569,7 +569,7 @@ Columns: `activity_type`, `balance_after_cents`, `amount_cents`.
 
 **loyalty_accounts**
 
-Columns: `square_loyalty_id`, `phone_hash` (SHA-256 of phone), `points_balance`, `lifetime_points`.
+Columns: `square_loyalty_id`, `phone_hash` (BYTEA — `HMAC-SHA256(PHONE_HASH_KEY, normalize(phone))`), `points_balance`, `lifetime_points`.
 
 **loyalty_events**
 
@@ -641,7 +641,7 @@ Types: `WEBHOOK`, `INITIAL_SYNC`, `DAILY_REFRESH`, `BACKFILL`. Lifecycle: `runni
 **Square parser suite (pure functions):**
 - `square_payment_parser` — payments and refunds
 - `square_order_parser` — orders, line items, and tenders
-- `square_loyalty_parser` — loyalty accounts and events (phone → SHA-256 before storage)
+- `square_loyalty_parser` — loyalty accounts and events (phone → `HMAC-SHA256(PHONE_HASH_KEY, normalize(phone))` before storage)
 - `square_payout_parser` — payouts
 - `square_dispute_parser` — disputes
 - `square_auxiliary_parsers` — cash drawer shifts/events, timecards, inventory, gift cards

@@ -146,7 +146,7 @@ Square sends webhook POST requests containing transaction, order, payment, refun
 | `card_exp_month/year` | `transactions` | sensitive | NONE (P0) | Card expiration date. |
 | `employee_id` | Multiple CRDM tables | internal | NONE | Square team_member_id — maps to employee names. |
 | `customer_id` | `transactions` | internal | NONE | Square customer_id — links to customer PII. |
-| `phone_hash` | `loyalty_accounts` | sensitive | SHA-256 (one-way) | Phone number hashed before storage. |
+| `phone_hash` | `loyalty_accounts` | sensitive | HMAC-SHA256 with `PHONE_HASH_KEY` (keyed one-way) | Phone number HMAC'd before storage. Plain SHA-256 was rejected — the phone-number domain is too low-entropy (NANP ≈ 10¹⁰) and would be brute-forceable from any read access to the column. Keyed hash blocks offline recovery while preserving dedup determinism. Key class defined in `go-security.md` → "PII Hashing Keys". |
 | `ip_address` | `ingestion_log`, `devices` | sensitive | **NONE (P0)** | Source IP of webhook, device IP. |
 | `wifi_network_name` | `devices` | internal | NONE | WiFi SSID — location-identifying. |
 | `serial_number` | `devices` | internal | NONE | Device serial number. |
@@ -413,7 +413,7 @@ Each pipeline stage operates as an independent consumer group on the same stream
 **Square parser suite (pure functions, no side effects):**
 - `square_payment_parser` — payments and refunds
 - `square_order_parser` — orders, line items, and tenders
-- `square_loyalty_parser` — loyalty accounts and events (phone number hashed SHA-256 before storage)
+- `square_loyalty_parser` — loyalty accounts and events (phone number → `HMAC-SHA256(PHONE_HASH_KEY, normalize(phone))` before storage; see `go-security.md` → "PII Hashing Keys")
 - `square_payout_parser` — payouts
 - `square_dispute_parser` — disputes
 - `square_auxiliary_parsers` — cash drawer shifts/events, timecards, inventory, gift cards

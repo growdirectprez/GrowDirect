@@ -136,12 +136,16 @@ All parsers are pure functions: `(raw_payload []byte) → (CRDMModel, error)`. N
 |--------|-------|--------|--------------------|
 | `square_payment_parser` | Payment/refund webhook JSON | `Transaction`, optional `RefundLink` | `card_last4`, `card_fingerprint`, `card_bin`, `card_exp_month/year` (P0 encrypt) |
 | `square_order_parser` | Order webhook JSON + enriched order data | `Transaction`, `TransactionLineItems[]`, `TransactionTenders[]` | `customer_id`, card fields |
-| `square_loyalty_parser` | Loyalty event webhook JSON | `LoyaltyEvent`, `LoyaltyAccount` | `phone` → SHA-256 hash before storage |
+| `square_loyalty_parser` | Loyalty event webhook JSON | `LoyaltyEvent`, `LoyaltyAccount` | `phone` → HMAC-SHA256(`PHONE_HASH_KEY`, normalized_phone) before storage |
 | `square_payout_parser` | Payout webhook JSON | `Payout` | None |
 | `square_dispute_parser` | Dispute webhook JSON | `Dispute` | None |
 | `square_auxiliary_parsers` | Cash drawer / gift card / inventory / timecard / device JSON | Various | `employee_id`, `email`, `employee_name` (P0 encrypt) |
 
-**Phone number hashing:** The loyalty parser hashes phone numbers with SHA-256 before writing to `loyalty_accounts.phone_hash`. The plaintext phone number is never stored. The hash is one-way — used for deduplication and cross-reference, not for lookup of the original number.
+**Phone number hashing:** The loyalty parser hashes phone numbers with `HMAC-SHA256(PHONE_HASH_KEY, normalize(phone))` before writing to `loyalty_accounts.phone_hash`. The plaintext phone number is never stored. The hash is one-way against the keyed input space — used for deduplication and cross-reference, not for lookup of the original number.
+
+> **Why keyed (HMAC), not plain SHA-256.** The phone number domain is low-entropy (NANP ≈ 10¹⁰; global mobile < 10¹³). A plain SHA-256 over that domain is exhaustively brute-forceable on commodity GPU hardware in under an hour, which would render every `phone_hash` row trivially recoverable to anyone with read access to the table (DBA, replica reader, leaked backup, breached column). HMAC with a server-side secret blocks offline brute force without compromising determinism — the same phone always produces the same hash given the same key, preserving the dedup/cross-reference property. `PHONE_HASH_KEY` is loaded from Secrets Manager and rotated independently from `CANARY_ENCRYPTION_KEY`. Key class definition lives in `go-security.md` → "PII Hashing Keys".
+
+**Phone normalization (input to HMAC):** strip non-digit characters, prepend `+` and country code if missing (default `+1` for US/CA merchants per merchant settings), reject inputs that do not parse to a valid E.164 number. Normalization is required so that `(415) 555-0100`, `415-555-0100`, and `+14155550100` all collapse to one hash. Normalization happens before HMAC, never after.
 
 ### Detection Routing Envelope
 
@@ -300,7 +304,7 @@ CREATE TABLE canary_sales.loyalty_accounts (
     merchant_id     TEXT NOT NULL,
     external_id     TEXT NOT NULL,
     source          TEXT NOT NULL,
-    phone_hash      TEXT,                            -- SHA-256 one-way hash; plaintext never stored
+    phone_hash      BYTEA,                           -- HMAC-SHA256(PHONE_HASH_KEY, normalized_phone); 32 bytes; plaintext never stored
     points_balance  BIGINT,
     created_at      TIMESTAMPTZ NOT NULL DEFAULT now(),
     updated_at      TIMESTAMPTZ NOT NULL DEFAULT now(),
@@ -387,7 +391,7 @@ Stats are derived from `canary_sales.ingestion_log` queries. No real-time stream
 | `payload` (transaction forensic copy) | Restricted | Encrypt or remove — evidence_records already holds the sealed original (P0-TSP-02) |
 | `employee_name`, `email` | Sensitive | AES-256-GCM encrypt (P0-TSP-04) |
 | `ip_address` (ingestion_log) | Sensitive | HMAC hash with rotating key (P0-TSP-05) |
-| `phone` (loyalty) | Sensitive | SHA-256 one-way hash — plaintext never stored |
+| `phone` (loyalty) | Sensitive | HMAC-SHA256 with `PHONE_HASH_KEY` — keyed one-way hash; plaintext never stored. Plain SHA-256 is prohibited (low-entropy domain) — see `go-security.md` → "PII Hashing Keys" |
 | `primary_recipient` (invoices JSONB) | Sensitive | Encrypt entire JSONB blob (P0-TSP-06) |
 
 ### Patent Scope

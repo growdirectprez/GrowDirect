@@ -145,6 +145,54 @@ func VerifyWebhookHMAC(payload []byte, signature string, secret string) bool {
 
 **The `hmac.Equal` requirement is non-negotiable.** Using `==` or `strings.Compare` for signature comparison is a timing attack: the comparison short-circuits on the first differing byte, and an attacker can measure response times to determine where the signature differs from the expected value — eventually recovering the correct signature without the secret. `hmac.Equal` compares in constant time regardless of where the first difference occurs.
 
+### PII Hashing Keys
+
+Some PII fields are stored as keyed hashes rather than encrypted ciphertext — when the field needs to be queryable for deduplication or cross-reference (e.g., loyalty phone lookup) but the plaintext must never round-trip back. Keyed hashing — HMAC-SHA256 with a server-side secret — is the correct primitive for this case. **Plain SHA-256 is prohibited for any PII whose plaintext domain is small enough to enumerate.**
+
+```go
+// internal/security/pii_hash.go
+
+// HashPII produces a keyed one-way hash of a normalized PII value.
+// The same input always produces the same output for a given key,
+// preserving deduplication and cross-reference semantics.
+//
+// Input MUST be normalized before this call — normalization rules
+// are field-specific (E.164 for phone, lowercase + trim for email).
+//
+// Use HashPII when the plaintext domain is small enough to enumerate
+// (phone numbers, emails, ZIP codes) and the field needs equality lookup.
+// Use MustEncryptString when the plaintext must round-trip.
+func HashPII(normalized string, key []byte) []byte {
+    mac := hmac.New(sha256.New, key)
+    mac.Write([]byte(normalized))
+    return mac.Sum(nil)
+}
+```
+
+**Key classes:**
+
+| Key | Domain | Used by |
+|-----|--------|---------|
+| `PHONE_HASH_KEY` | Phone numbers (loyalty, customer contact) | `tsp-parse.md` loyalty parser → `loyalty_accounts.phone_hash` |
+| `EMAIL_HASH_KEY` | Email addresses (when stored as a lookup hash rather than encrypted plaintext) | `ecom-channel.md` → `customer_email_hash` written into RaaS chain events for cross-channel correlation. Chain payload carries `{key_version, hash}` so rotation does not break historical verification — old key versions are retired from new writes but never deleted. |
+
+**Why per-domain keys, not one master key:**
+
+A compromised key invalidates every hash produced under it. Per-domain keys contain blast radius — a leaked `PHONE_HASH_KEY` exposes phone numbers but not emails. Per-domain keys also rotate independently: phone-number hashes can be re-hashed during a phone-key rotation without touching email hashes.
+
+**Key management rules (apply to every PII hash key):**
+
+| Rule | Rationale |
+|------|-----------|
+| Each PII hash key is loaded from Secrets Manager, exposed as its own env var (`PHONE_HASH_KEY`, `EMAIL_HASH_KEY`, etc.) | Same isolation rationale as `CANARY_ENCRYPTION_KEY` — never in DB, config files, or code |
+| Each key must be exactly 32 bytes (256-bit) — same constraint as the encryption key | Match HMAC-SHA256's optimal key length; same generation procedure (`openssl rand -hex 32`) |
+| PII hash keys MUST NOT be reused for any other purpose | A key reused for both HMAC-PII and JWT-signing creates a cross-protocol attack surface |
+| Rotation: store new-key-hash alongside old-key-hash for the rotation window, then drop the old column | There is no in-place rotation — the column doubles during the window so live writes go to both, and queries can match either |
+
+**Why these are not the same as `CANARY_ENCRYPTION_KEY`:**
+
+`CANARY_ENCRYPTION_KEY` is for AES-256-GCM (reversible — plaintext can be recovered with the key). PII hash keys are for HMAC-SHA256 (irreversible — the original plaintext cannot be recovered even with the key, only equality-tested against a candidate). Using the same key for both creates two failure modes from one compromise; separating them keeps the blast radius bounded to one primitive.
+
 ### Role Permission Matrix
 
 Authoritative definition is in `store-brain.md` (`sessionToolPermissions`). This table is a summary for quick reference. Any discrepancy between this table and `store-brain.md` is a bug — fix both.
@@ -181,8 +229,10 @@ if !security.HasAnyRole(claims, "owner", "admin", "lp_officer") {
 
 - `CANARY_ENCRYPTION_KEY` is present and exactly 32 bytes
 - `JWT_SECRET` is present and at least 32 bytes
+- `PHONE_HASH_KEY` is present and exactly 32 bytes (required by services that handle loyalty: `tsp` Stage 2, any service reading `loyalty_accounts.phone_hash`)
+- `EMAIL_HASH_KEY` is present and exactly 32 bytes (required by `ecom-channel` and any service that reads or writes `customer_email_hash` in RaaS chain events)
 
-Fatal if either validation fails — a service running with an invalid or missing key is a security misconfiguration, not a degraded-mode scenario.
+Fatal if any required validation fails — a service running with an invalid or missing key is a security misconfiguration, not a degraded-mode scenario. Services that do not handle PII-hash fields skip the corresponding key's validation; the `runtime.InitSecurity()` caller passes the list of required keys.
 
 ### Key Rotation Procedure
 

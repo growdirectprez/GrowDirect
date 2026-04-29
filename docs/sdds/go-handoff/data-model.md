@@ -151,7 +151,7 @@ This is the authoritative PII inventory for Canary. All other SDDs reference thi
 | `transactions` | `employee_id` | internal | NO | Source system employee ID (cross-reference) |
 | `transactions` | `customer_id` | internal | NO | Source system customer ID (cross-reference) |
 | `transaction_tenders` | `card_last4` | internal | NO | Last 4 digits (PCI-safe) |
-| `loyalty_accounts` | `phone_hash` | internal | NO | SHA-256 of phone (properly hashed) |
+| `loyalty_accounts` | `phone_hash` | internal | NO | `HMAC-SHA256(PHONE_HASH_KEY, normalize(phone))` — keyed hash; plain SHA-256 prohibited (phone domain too low-entropy). See `go-security.md` → "PII Hashing Keys" |
 | `cash_drawer_shifts` | `employee_id` | internal | NO | Employee who opened drawer |
 | `cash_drawer_events` | `employee_id` | internal | NO | Employee who initiated event |
 | `disputes` | `payment_id` | internal | NO | Cross-reference to disputed payment |
@@ -1614,7 +1614,7 @@ Indexes:
 | Table | Key Columns | Notes |
 |-------|------------|-------|
 | `sales.gift_card_activities` | id, merchant_id, gift_card_id (TEXT), activity_type, amount_cents, balance_after_cents | Feeds detection rules C-601/C-602. Immutable. |
-| `sales.loyalty_accounts` | id, merchant_id, square_loyalty_id, phone_hash (SHA-256), points_balance, lifetime_points | **Exception: updatable** (balance updates). phone_hash is properly hashed. |
+| `sales.loyalty_accounts` | id, merchant_id, square_loyalty_id, phone_hash (HMAC-SHA256 with `PHONE_HASH_KEY`, BYTEA), points_balance, lifetime_points | **Exception: updatable** (balance updates). phone_hash uses keyed HMAC — plain SHA-256 was rejected as brute-forceable on a phone-number domain. See `go-security.md` → "PII Hashing Keys". |
 | `sales.loyalty_events` | id, merchant_id, loyalty_account_id (FK), event_type, points | Feeds detection rules C-801..C-804. Immutable. |
 
 ---
