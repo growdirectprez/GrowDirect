@@ -25,6 +25,18 @@ The dataset has one job: make every Canary Go module testable against realistic,
 
 **Critical constraint:** This dataset lives exclusively in `canary_go_test`. No real merchant data. No production database contact. Any seed script that could reach a production database is a defect, not a feature.
 
+**Multi-tenant test scope.** The lifecycle dataset materializes three test merchants under the schema-per-tenant pattern (per `architecture.md` "Multi-Tenant Isolation"). Each merchant gets a dedicated `tenant_{merchant_uuid}_test` schema. The seeder runs the full operational migration set against each tenant schema and populates per-merchant operational tables. The `public` schema holds shared reference data (source systems, role definitions, detection rule library); the `audit` and `analytics` schemas exist as test fixtures with empty initial state. Cross-tenant test scenarios verify that the schema-per-tenant boundary holds — a query without `SET search_path` resolves no tenant rows, and cross-tenant data leakage in either direction is a test failure.
+
+**Optional Features test coverage.** The dataset exercises every module both with Optional Features enabled and disabled (per `platform-overview.md` "Optional Features"). Each test merchant runs in a different feature-flag profile:
+
+| Test merchant | L402 | ILDWAC | Anchor | Vendor contracts | Profile purpose |
+|---|---|---|---|---|---|
+| MerchantA (Square, single-location) | off | off | off | off | Required-core baseline — proves platform operates with all flags off |
+| MerchantB (Counterpoint, 5-location) | off | on | off | off | ILDWAC five-dim provenance under multi-location load |
+| MerchantC (Square + Shopify dual-channel) | on | on | on | off | Full Bitcoin-standard / anchor / Lightning operation; vendor contracts off |
+
+Test scenarios assert the correct behavior in each profile — the same operational sequence (PO → ASN → receipt → MAC update → sale → return) produces internal-only records in MerchantA and chain-anchored, ILDWAC-attributed, L402-settled records in MerchantC.
+
 ---
 
 ## Dependencies
