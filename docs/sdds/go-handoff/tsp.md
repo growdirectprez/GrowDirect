@@ -1,9 +1,10 @@
 ---
-spec-version: 1.0
+spec-version: 1.1
 target-implementation: Go
 stack: PostgreSQL 17 + pgx + sqlc | Chi HTTP | REST | go-redis | pgvector-go
 source: Curated from Canary Python prototype SDDs (GRO-617)
 status: handoff-ready
+updated: 2026-04-28
 ---
 
 # Transaction Stream Processor (TSP) — Pipeline Overview
@@ -11,6 +12,9 @@ status: handoff-ready
 > **Type:** App Service (Canary) — Pipeline Coordinator
 > **Status:** Production Readiness Review — 2026-04-13
 > **Patent:** Application #63/991,596 (hash-before-parse, chain hash, Merkle inscription)
+
+**Owns:** TSP orchestration (Sub1–Sub4).
+**Feeds:** Chirp engine, stock ledger.
 
 ---
 
@@ -243,6 +247,50 @@ Messages published to `canary:detection` carry a 5-field envelope:
 | `event_type` | string | Yes | Original provider event type |
 | `event_id` | ULID string | Yes | Original gateway event_id |
 | `detection_type` | string | Yes | Routing key: `transaction`, `cash_drawer`, `gift_card`, or `loyalty` |
+
+---
+
+## [ARCHITECTURAL DIRECTION — not yet implemented] ILDWAC Pass-Through Fields
+
+TSP message envelopes carry two ILDWAC input dimensions as pass-through fields. These fields are set by the POS adapter (Hawk for Square, Bull for Counterpoint) and preserved unchanged through the TSP pipeline. TSP does not process, validate, or transform them — they are opaque strings forwarded to downstream consumers.
+
+### Extended Envelope Fields (ILDWAC Dimensions)
+
+| Field | Type | Set By | TSP Role | ILDWAC Dimension |
+|---|---|---|---|---|
+| `pos_port` | string | POS adapter | Pass-through | Port |
+| `device_id` | string or null | POS adapter (from POS payload) | Pass-through | Device |
+
+These fields extend the existing 9-field `canary:events` envelope. When present, they appear as additional string fields in the Valkey stream message. When `device_id` is null, it is omitted from the stream message or transmitted as the empty string `""` — downstream consumers must treat both as absent.
+
+**TSP invariant:** TSP must not modify, normalize, or default these fields. The adapter is the authoritative source. A null `device_id` from the adapter means the POS did not report a device for this event — TSP must not substitute a value.
+
+### Downstream Consumer Contract
+
+The stock ledger (Module V, ILDWAC recalculation engine) is the primary consumer of these fields. Future consumers include the cost attribution service. Both expect `pos_port` and `device_id` to be available in the `canary:events` stream message if the originating adapter populated them.
+
+Stage 1 (Hash & Seal), Stage 2 (Parse & Route), Stage 3 (Merkle Batcher), and Stage 4 (Chirp Detection) do not consume these fields — they pass through the envelope unchanged.
+
+### MCP Dimension — Not Captured Here
+
+The MCP dimension of ILDWAC (which MCP tool call authorized a cost-affecting action) is NOT captured in TSP or the webhook pipeline. It is captured when an MCP tool call authorizes an action — recorded by the MCP authorization middleware at invocation time. The pipeline carries `pos_port` and `device_id` only.
+
+---
+
+## [ARCHITECTURAL DIRECTION — not yet implemented] Pipeline Stage Smart Contracts
+
+TSP's four pipeline stages (Sub1–Sub4) each carry an implicit contract governing their interaction with the rest of the system. These contracts are the precondition for the agent-attribution model: every cost-affecting action that passes through the pipeline has a defined input schema, output schema, idempotency guarantee, and failure mode.
+
+### Stage Contract Summary
+
+| Stage | Input Schema | Output Schema | Idempotency Guarantee | Failure Mode |
+|---|---|---|---|---|
+| Sub1 — Hash & Seal | 9-field `canary:events` envelope | One row in `evidence_records` | `ON CONFLICT (merchant_id, event_id) DO NOTHING` | No-ACK → PEL redelivery; 10 consecutive errors → self-terminate |
+| Sub2 — Parse & Route | 9-field `canary:events` envelope | One+ rows in `canary_sales`; optional detection event | `ON CONFLICT (merchant_id, external_id) DO NOTHING` on CRDM tables | No-ACK; stale ref → silent ACK |
+| Sub3 — Merkle Batcher | `event_hash` from `canary:events` | One row `inscription_pool` + N rows `event_inscriptions` | Existence check on `batch_id` before INSERT | No-ACK on DB failure; all pending IDs stay in PEL |
+| Sub4 — Chirp Detection | 5-field `canary:detection` envelope | Zero or more rows in `canary_app.alerts` | `ON CONFLICT (merchant_id, event_id, rule_id) DO NOTHING` | No-ACK; missing record → silent ACK |
+
+The full agent-contract pattern for these stage interactions — including which agent nodes are authorized to trigger replays, how the Controller escalates on stage failure, and how MCP tool calls are attributed to pipeline outputs — is documented in `agent-contracts.md` (to be authored separately).
 
 ---
 

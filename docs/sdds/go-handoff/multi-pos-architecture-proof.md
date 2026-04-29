@@ -1,9 +1,10 @@
 ---
-spec-version: 1.0
+spec-version: 1.1
 target-implementation: Go
 stack: PostgreSQL 17 + pgx + sqlc | Chi HTTP | REST | go-redis | pgvector-go
 source: Curated from Canary Python prototype SDDs (GRO-617)
 status: handoff-ready
+updated: 2026-04-28
 ---
 
 # Multi-POS Architecture — Abstraction Layer & Adapter Pattern
@@ -481,6 +482,49 @@ Parser function lookup performs a fresh import/resolution on every event.
 - [x] Idempotency — Valkey dedup cache + DB unique constraint implemented
 - [x] Signature validation — Timing-safe HMAC-SHA256 implemented for Square
 - [x] Graceful degradation — JSON parse failure, enrichment failure, and stateless chirp failure all handled without blocking pipeline
+
+---
+
+## RaaS — Namespace Layer for Multi-POS Events
+
+RaaS (Resolution as a Service) is the identity bridge that ties merchant data across POS systems. It is excluded from the Go corpus and will be rebuilt separately, but the Go multi-POS layer depends on its interface contract.
+
+### Why multi-POS requires RaaS
+
+When the same merchant has both a Square connection and a Counterpoint connection, events from both sources flow through the same `canary:events` stream. The CRDM records need to resolve to a single merchant identity — but Square uses its own merchant IDs and Counterpoint uses its own company alias. RaaS is the layer that normalizes both to `raas:{merchant_id}`.
+
+Without RaaS, multi-POS queries require joining through `external_identities` on every read. With RaaS, the namespace is the resolution surface — all Valkey keys, all CRDM records, and all cross-service calls use `raas:{merchant_id}` as the canonical identifier.
+
+### RaaS interface contract for the multi-POS adapter
+
+| Call | When to call | What it returns |
+|---|---|---|
+| `resolve_namespace(merchant_id)` | On any cross-POS query that needs to confirm active sources | `{namespace, resolved}` — confirms merchant has at least one active source |
+| `get_sources(merchant_id)` | When building a multi-POS aggregated query | `{sources[], count}` — list of active `source_code` values for this merchant |
+| `register_source(merchant_id, source_code, external_merchant_id)` | During POS onboarding / connection | `{namespace, source_code, status}` |
+| `build_key(merchant_id, parts[])` | Before writing any Valkey key | `{key}` — canonical `raas:{merchant_id}:{domain}:{key}` |
+
+### Source-transparent consumption
+
+Downstream consumers (Chirp, Owl, Fox) query via `raas:{merchant_id}` without knowing which POS populated the data. Source attribution lives on `CanonicalEvent.provider` for rule-applicability filtering (some Chirp rules are Counterpoint-only). The namespace is source-agnostic; the event record is source-annotated.
+
+**Full RaaS SDD:** `docs/sdds/canary/raas.md` — 7 MCP tools, JWT-gated, REST internally.
+
+---
+
+## ILDWAC and the Port Dimension
+
+The POS connector (Port) is a cost dimension in the extended ILDWAC model. Every event that flows through the multi-POS adapter layer carries a `source_code` that becomes the Port dimension when ILDWAC is implemented.
+
+> **Status: architectural direction, not yet implemented.**
+
+What this means for the adapter layer design decisions today:
+
+- The `source_code` column on `sales.transactions` is not optional (P1-4 in the findings section). It is the Port dimension. It must be present before ILDWAC can be computed.
+- Events from Square and events from Counterpoint will produce different provenance signatures even when the item, location, and cost are identical. This is the design intent — the cost carries its audit trail as a dimension, not as an attached note.
+- The dedup cache key should be `(source_code, event_id)` — not bare `event_id` — to avoid collisions between POS systems that may generate non-unique event IDs in isolation.
+
+When ILDWAC is formally designed (a separate GRO ticket), the `source_code` field already on the transaction record is the Port input. No schema migration will be needed if P1-4 is resolved now.
 
 ---
 

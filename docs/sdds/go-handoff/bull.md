@@ -1,12 +1,16 @@
 ---
-spec-version: 1.0
+spec-version: 1.1
 target-implementation: Go
 stack: PostgreSQL 17 + pgx + sqlc | Chi HTTP | REST | go-redis | pgvector-go
 source: Curated from Canary Python prototype SDDs (GRO-617)
 status: handoff-ready
+updated: 2026-04-28
 ---
 
 # Bull — NCR Counterpoint Adapter (Reference Implementation of the POS Adapter Substrate) — Distribution Intelligence Layer
+
+**Implements:** pos-adapter-substrate.
+**Feeds:** TSP (polled CRDM, no native webhooks).
 
 > **Role in the system:** Bull is Canary's native intelligence layer for Module D (Distribution). It implements the POS Adapter Substrate contract for NCR Counterpoint — a poll-only adapter using REST API key authentication — and adds the analysis layer that Counterpoint does not provide: transfer-loss reconciliation (D.4) and multi-store distribution recommendations (D.5).
 
@@ -166,6 +170,38 @@ Counterpoint on-premise installations have no documented rate limit. Hosted Coun
 | 5 | `inventory_snapshot` | Initial SOH baseline for Bull D.4 |
 
 Transactions are not seeded — they flow through the poll loop.
+
+---
+
+## [ARCHITECTURAL DIRECTION — not yet implemented] ILDWAC Dimension Mapping — Counterpoint Payload Fields
+
+Bull (Counterpoint adapter) is responsible for populating the `pos_port` and `device_id` envelope fields defined in the POS Adapter Substrate SDD. These are the Port and Device dimensions of the IL(Device/MCP/Port/)WAC cost model.
+
+### Counterpoint → ILDWAC Field Map
+
+| ILDWAC Dimension | Envelope Field | Counterpoint Source Field | Notes |
+|---|---|---|---|
+| Port | `pos_port` | — (hardcoded) | Always `"counterpoint"` for all events from this adapter |
+| Device | `device_id` | `WS_ID` (workstation identifier) | Counterpoint workstation/terminal ID; present on transaction and drawer events |
+
+### Counterpoint Payload Field Details
+
+| Entity Type | Device Field | Notes |
+|---|---|---|
+| `transaction` | `WS_ID` | Counterpoint workstation (register) identifier; set as `device_id` |
+| `xfer_document` | `WS_ID` (transfer initiation workstation) | Set if present; null if document was created without a workstation context |
+| `inventory_snapshot` | — | No device context — set `device_id = null` |
+| `customer`, `item`, `store`, `item_categories` | — | Reference data; no device context — set `device_id = null` |
+
+**Extraction rule:** Counterpoint `WS_ID` is a string workstation code (e.g., `"REG01"`, `"MGR"`). If absent or empty, set `device_id = null`.
+
+### Poll-Based Device Attribution
+
+Because Counterpoint is poll-only (no native webhooks), every event in a polled batch carries the workstation that originated the transaction in Counterpoint — not the device that called the Canary API. This is correct behavior: `device_id` tracks the POS hardware endpoint, not the polling agent. The polling agent dimension is captured separately via the MCP tool call that authorized the poll action.
+
+### Why This Matters
+
+A transaction processed on workstation `REG01` at store `STR001` through the Counterpoint connector produces a different ILDWAC provenance signature than the same transaction processed via Square. The cost model records the Port (`"counterpoint"`) and Device (`"REG01"`) independently, enabling cross-channel cost attribution at the workstation level. See `Brain/wiki/cards/ilwac-extended-bitcoin-standard.md`.
 
 ---
 

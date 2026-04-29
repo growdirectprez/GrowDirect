@@ -1,5 +1,6 @@
 ---
-spec-version: 1.0
+spec-version: 1.1
+updated: 2026-04-28
 target-implementation: Go
 stack: PostgreSQL 17 + pgx + sqlc | Chi HTTP | REST | go-redis | pgvector-go
 source: Curated from Canary Python prototype SDDs (GRO-617)
@@ -594,6 +595,133 @@ If triggers are missing: `healthy: false`, `triggers: "MISSING — evidence inte
 | Evidence file too large | Memory/OOM risk | Reject at HTTP layer before reading body. Return 413. |
 | Concurrent case creation for same merchant/year | Potential duplicate case_number from count-based generation | Use PostgreSQL sequence. Unique index catches any race — return 409, log and surface to caller. |
 | Object storage unavailable | Evidence files not persisted | Return 503. Do not write `fox_evidence` row if file_path cannot be populated — partial evidence records are worse than a failed upload. |
+
+---
+
+## ILDWAC Evidence in Fox Cases
+
+> **Architectural direction — not current implementation.** The `cost_provenance_snapshot` field and the ILDWAC evidence vector are reserved for a future implementation pass tied to the `ledger.ilwac_positions` table. No GRO ticket exists for this yet.
+
+When a Fox case is opened against an alert that originated from an ILDWAC cost anomaly (Chirp Category 11), the cost provenance chain is part of the evidence record. The ILDWAC vector — which device, which MCP tool, which POS port contributed to the cost anomaly — must be captured at case-open time, not reconstructed later.
+
+### ILDWAC Evidence Schema Extension
+
+The `fox_evidence` table gains a companion JSONB snapshot column on `fox_cases`:
+
+```sql
+-- New column on fox_cases (architectural direction — not yet in migration)
+ALTER TABLE app.fox_cases
+  ADD COLUMN cost_provenance_snapshot JSONB;
+```
+
+The `cost_provenance_snapshot` captures the ILDWAC vector at the moment the case is opened:
+
+```json
+{
+  "captured_at": "2026-04-28T10:30:00Z",
+  "alert_id": "<uuid>",
+  "item_id": "<uuid>",
+  "location_id": "<uuid>",
+  "device_id": "<device identifier>",
+  "mcp_tool": "<tool name that authorized the cost event>",
+  "pos_port": "counterpoint | square | lightspeed",
+  "wac_satoshis": 125000,
+  "wac_fiat_cents": 4237,
+  "fiat_exchange_rate_at_event": 0.03389,
+  "baseline_wac_satoshis": 98000,
+  "deviation_sigma": 2.7,
+  "rib_batch_hash": "<SHA-256 hex of the RIB batch that produced this WAC>",
+  "rib_batch_domain": "M"
+}
+```
+
+### ILDWAC Evidence Workflow (architectural direction)
+
+When a case is opened from a `COST_ANOMALY` alert type:
+
+1. Read the ILDWAC vector from `ledger.ilwac_positions` WHERE `(item_id, location_id)` matches the alert's source record.
+2. Capture the current snapshot into `fox_cases.cost_provenance_snapshot` at case-open time. This snapshot is **immutable after write** — it records the cost state at investigation initiation, not at any later time.
+3. The RIB batch hash (`rib_batch_hash`) must be verified against the SHA-256 of the originating batch before the snapshot is committed. If the hash does not match, the snapshot is flagged as `integrity_check_failed`.
+4. The `fox_case_timeline` entry for `created` event must include `cost_provenance_snapshot` in its `meta_data` field when the case type is cost-anomaly.
+
+### ILDWAC Evidence in the Hash Chain
+
+The cost provenance snapshot is referenced in the Fox evidence hash chain the same way any other evidence is referenced. The snapshot JSONB is serialized deterministically (keys sorted) before being included in the `chain_hash` input. This ensures the provenance chain is as tamper-evident as the file evidence chain.
+
+---
+
+## Agent-Driven Investigation Lifecycle
+
+The Fox Case Management agent owns the investigation from open to close. Human involvement is the exception — the HIL gate fires only when evidence is incomplete or the agent determines that civil services referral is warranted.
+
+### Agent Authority
+
+| Phase | Agent Action | Human Required? |
+|---|---|---|
+| Case open | Agent opens case from COST_ANOMALY or behavioral alert; populates initial evidence via MCP tool calls | No |
+| Evidence assembly | Agent calls `link_alert`, `add_subject`, uploads evidence via Fox MCP tools | No |
+| Pattern analysis | Agent cross-references subjects and evidence against historical Fox cases via Owl semantic search | No |
+| Recommendation | Agent writes recommendation to `fox_case_timeline` with `meta_data.recommendation` | No |
+| Human escalation | Agent cannot resolve — evidence incomplete, subject is a protected employee class, or civil referral threshold met | Yes — HIL gate |
+| Case close | Agent closes the case with `resolution` and `total_loss_cents` populated | No (unless civil referral) |
+
+### Evidence Chain Authorship
+
+The evidence chain is append-only and agent-authored. Every MCP tool call that writes to `fox_evidence` or `fox_case_timeline` must record the MCP tool call as the author:
+
+- `uploaded_by` / `actor_id`: use the pattern `agent:fox-<module>` (e.g., `agent:fox-lp`)
+- `meta_data.mcp_tool_call`: the tool name that produced the evidence entry (e.g., `link_alert`, `create_case`)
+
+This makes the evidence chain auditable at the tool-call level — not just at the user level.
+
+### Escalation Path
+
+```
+Fox Case Management Agent
+  → Q (Loss Prevention) module agent — domain review
+    → Controller — cross-module coordination
+      → Founder (HIL) — final authority on civil referrals and protected-class actions
+```
+
+The agent escalates to a human LP investigator when:
+- Evidence is incomplete after exhausting available MCP data sources
+- The subject is flagged in `fox_subjects` as requiring protected-class review
+- The recommendation is `civil_referral` — civil services referrals always require human sign-off
+
+For all other outcomes (`close` or `human_review`), the agent has final authority.
+
+### Service Introduction Gate
+
+Case closure by the agent is not a Service Introduction gate. The Fox Case Management agent operates post-SI — it runs in the support lifecycle phase. The SI gate for the Fox domain is the acceptance of the Go Fox service itself (see agent-contracts.md — to be authored separately for the full contract schema).
+
+---
+
+## Agent-LP Smart Contract
+
+The Fox case lifecycle is a formal contract between the Loss Prevention agent and the LP department. The contract governs investigation SLAs, output format, and escalation conditions.
+
+### Contract Schema
+
+| Field | Value |
+|---|---|
+| **Input** | `alert_id` (required), `evidence_type` (behavioral \| cost_anomaly \| composite), `escalation_threshold` (confidence score below which the agent escalates, default 0.70) |
+| **Output** | `case_id`, `evidence_chain_hash` (SHA-256 of final chain head), `recommendation` (one of: `close` \| `human_review` \| `civil_referral`) |
+| **SLA — triage** | Agent must open case and write initial evidence within 15 minutes of alert open |
+| **SLA — resolution** | If no recommendation is written within 4 hours of case open, the agent automatically writes `recommendation: human_review` and escalates |
+| **Escalation chain** | → Q (Loss Prevention) module agent → Controller → Founder (HIL) |
+
+### SLA Enforcement
+
+The SLA is enforced by the scheduling agent (infra layer). Two scheduled checks per case:
+
+1. **T+15m**: Has the agent written at least one `fox_evidence` row? If not, escalate immediately to `human_review`.
+2. **T+4h**: Has the agent written a recommendation? If not, write `recommendation: human_review` to the timeline and escalate.
+
+Both checks write to `fox_case_timeline` with `actor_id = "system:sla"` and `event_type = "escalated"`.
+
+### Contract Reference
+
+The full agent contract schema — including input/output type definitions, error conditions, retry policy, and MCP tool authorization scope — will be authored in `agent-contracts.md` (a separate SDD in this corpus). This section captures the operational parameters. The full schema is the authoritative source.
 
 ---
 

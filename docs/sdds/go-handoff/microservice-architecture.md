@@ -1,9 +1,10 @@
 ---
-spec-version: 1.0
+spec-version: 1.1
 target-implementation: Go
 stack: PostgreSQL 17 + pgx + sqlc | Chi HTTP | REST | go-redis | pgvector-go
 source: GRO-617 — Canary Go rebuild
 status: handoff-ready
+updated: 2026-04-28
 ---
 
 # Canary — Microservice Architecture
@@ -388,6 +389,70 @@ POST /merchants/:id/sync/pull   — Force immediate poll
 **Tables owned:** `app.bull_api_credentials`, `app.bull_poll_watermarks`, `app.bull_merchant_config`, `app.bull_event_log`
 
 **Dependencies:** NCR Counterpoint REST API (external), canary-gateway (POST /webhooks/counterpoint), canary-identity (merchant lookup), PostgreSQL
+
+---
+
+## Business Process → Go Subsystem Mapping
+
+This table traces the chain from business process through detection rule to Go microservice to primary database tables. Every engineer implementing a service should be able to trace their module back to the retail operation it represents. Every agent reasoning about a business failure should be able to trace forward to which service owns the data.
+
+This mapping is the authoritative process decomposition for the Canary Go build. The module dependency graph determines build order: a module that feeds into another must be in Support mode before the downstream module advances to Service Introduction.
+
+| Business Process Domain | Detection / Business Rule | Go Microservice | Primary Tables | Feeds Into |
+|---|---|---|---|---|
+| **Transaction processing — sale, tender, refund** | Chirp rules: C-001 to C-037 (Square era), 25+ Counterpoint rules | `canary-tsp` (ingest) → `canary-chirp` (evaluate) | `sales.transactions`, `sales.refund_links`, `app.detection_rules` | `canary-alert`, `canary-fox` |
+| **Device identity — which terminal processed the event** | Device attribution on every transaction; N module feeds T | `canary-tsp` (device field normalization) | `sales.transactions.device_id`, `app.devices` (Module N scope) | `canary-chirp` (rule evaluation), ILDWAC Device dimension |
+| **Loss prevention case — evidence assembly, investigation** | Fox evidence chain; Hawk incident workflow | `canary-fox`, `canary-hawk` | `app.fox_cases`, `app.fox_evidence`, `app.fox_timeline`, `app.hawk_cases` | `canary-owl` (analysis), Civil Services (Legal & Compliance gate) |
+| **Alert lifecycle — detection to resolution** | Alert state machine: OPEN → ACKNOWLEDGED → INVESTIGATING → ESCALATED / DISMISSED | `canary-alert` | `app.alerts`, `app.alert_history` | `canary-fox` (on ESCALATED) |
+| **Inventory receiving — PO, vendor, cost posting** | Receiving discrepancy rules; ILDWAC WAC update trigger | `canary-receiving` (Module V scope) | `sales.transactions` (receipt type), Module V tables | Module F (Finance), ILDWAC recalculation |
+| **Stock management — on-hand, adjustments, cycle counts** | Inventory variance rules; shrink rate baseline | `canary-inventory` | `app.inventory_positions`, `app.inventory_adjustments` | Module Q (LP), Module J (Forecast) |
+| **Pricing and promotion — rules, markdowns, exceptions** | Price override rules; unauthorized markdown detection | `canary-pricing` | `app.price_rules`, `app.promotion_events` | Module T (transaction validation), Module C (Commercial) |
+| **Customer identity — loyalty, purchase history** | Customer velocity rules; multi-card profiling | `canary-customer` | `app.customers`, `app.loyalty_accounts` | Module T (transaction enrichment), Module R scope |
+| **Employee records — roles, schedules, access** | Employee attribution on transactions; labor ratio | `canary-employee` | `app.employees`, `app.schedules` | Module T (employee attribution), Module L (Labor) |
+| **Returns and refunds — authorization, fraud detection** | Return fraud rules; refund-to-different-card | `canary-returns` | `app.return_authorizations`, `sales.refund_links` | Module Q (LP), Module F (Finance) |
+| **Inter-store transfers — distribution, reconciliation** | Transfer-loss reconciliation; distribution recs | `canary-transfer` + `canary-bull` | `app.transfer_orders`, `app.transfer_lines` | Module D (Distribution), Module F (Finance) |
+| **Semantic search and risk scoring** | Owl pgvector search; EJ Spine entity resolution; risk dictionary | `canary-owl` | `app.owl_chunks`, `app.risk_scores` | All consuming services (read-only) |
+| **Metric rollups and risk baselines** | Hourly / daily rollups; entity risk scores; baseline computation | `canary-analytics` | `metrics.*` (all metrics schema tables) | Owl (analysis), Chirp (threshold calibration) |
+| **Merchant identity and POS connections** | Namespace resolution; source registration; onboarding | RaaS (separate rebuild, REST interface) | `app.namespace_registrations`, `app.merchant_sources` | All services (Valkey key construction, merchant context) |
+
+### Module dependency graph — build order
+
+The graph below governs Service Introduction sequencing. A module cannot advance to Service Introduction until all modules it depends on are in Support mode.
+
+| Module | Receives data from | Feeds data into |
+|---|---|---|
+| T — Transaction Pipeline | N (device identity), P (price values) | Q, R, F, A |
+| N — Device | — | T |
+| Q — Loss Prevention | T, A | Fox, Owl |
+| R — Customer | T | P (loyalty earn rules) |
+| P — Pricing & Promotion | R, C | T, C |
+| C — Commercial | S, P | D, F |
+| S — Space, Range & Display | — | C, J |
+| D — Distribution | C, J | A, F |
+| J — Forecast & Order | S, D | C, D |
+| F — Finance | T, C, D, A | — |
+| A — Asset Management | T, D, Q | F |
+| L — Labor & Workforce | — | W |
+| W — Work Execution | L | All modules (execution dispatch) |
+
+Foundation dependency: all 13 modules depend on CRDM/Data Model, Identity/Auth, and Multi-POS Substrate. CRDM is the schema authority — cross-module schema changes require CRDM agent sign-off before consuming modules advance.
+
+---
+
+## Agent Smart Contracts — Interface Pattern
+
+Every Go microservice boundary maps to an agent-to-module interface contract. The pattern is named here because it governs how domain agents extend, modify, and hand off modules across the Service Introduction lifecycle.
+
+Each agent-to-module contract defines four elements:
+
+| Contract element | Description |
+|---|---|
+| **Inputs** | Events, API calls, or escalations the service/agent accepts |
+| **Outputs** | Artifacts produced: alerts, case records, metric writes, REST responses |
+| **SLA** | Response time commitment per lifecycle phase |
+| **Escalation path** | What happens when the service cannot resolve — always routes to Controller before surfacing to founder |
+
+Full contract definitions will be written in `agent-contracts.md` (separate SDD, forthcoming). This pattern applies to every service in the map above.
 
 ---
 

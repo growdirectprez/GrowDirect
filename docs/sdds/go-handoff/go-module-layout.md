@@ -1,5 +1,5 @@
 ---
-spec-version: 1.0
+spec-version: 1.1
 target-implementation: Go
 stack: PostgreSQL 17 + pgx + sqlc | Chi HTTP | REST | go-redis | pgvector-go
 status: active-build-spec
@@ -168,9 +168,76 @@ The edge agent is a separate deployment target from the Cloud Run services. It i
 
 ---
 
+## Agent Lifecycle and Module Boundaries
+
+Each `cmd/<service>/` binary corresponds to a domain PMO agent in the Canary Go agent network. The agent owns the service across its full lifecycle: Spec → Build → VAR Delivery → Hardening → Service Introduction → Support.
+
+**Service Introduction** is the only Human-in-the-Loop gate. It is the moment the platform partner formally accepts operational ownership of that module. Before SI: the domain agent holds context. After SI: the ops team holds operational ownership; the domain agent shifts to support mode.
+
+### Milestone-to-binary mapping
+
+| Milestone | Binaries | PMO Agent(s) |
+|---|---|---|
+| M1 — Foundation | `identity`, CRDM package, Multi-POS substrate | Identity & Auth agent, CRDM agent |
+| M2 — Detection Core | `tsp`, `chirp`, `fox` | TSP agent, Chirp agent, Fox/Hawk agent |
+| M3 — Intelligence Layer | `owl`, `analytics` | Owl agent, Analytics agent |
+| M4 — Module Spine | `hawk`, `bull`, `asset`, `item`, `inventory`, `receiving`, `transfer`, `pricing`, `employee`, `customer`, `returns`, `report` | 13 spine agents (T, R, N, A, Q, C, D, F, J, S, P, L, W) |
+| M5 — VAR Delivery | `edge`, Bull NCR connector | Bull agent, Edge agent |
+| M6 — Hardening / SI | All services | Controller + all domain agents |
+
+Service Introduction gates fire in dependency order: Foundation first, Detection Core second, then spine modules in the dependency sequence (N before T, T before Q, etc.). The ops team receives modules as they clear — not a monolithic handoff.
+
+Full lifecycle model and gate criteria: `docs/superpowers/specs/2026-04-28-canary-go-agent-pmo-architecture-design.md`
+
+---
+
+## Agent Smart Contract Pattern
+
+Every `cmd/<service>/` boundary is an agent-to-module smart contract. The pattern applies uniformly:
+
+| Contract element | Where it lives |
+|---|---|
+| **Inputs** | REST API contract documented in `microservice-architecture.md` per service |
+| **Outputs** | Table writes documented in database ownership table; REST calls to downstream services |
+| **SLA** | Baselined during Hardening phase; accepted at Service Introduction |
+| **Escalation path** | Domain agent → Controller → founder (Human-in-the-Loop) |
+
+Full contract definitions will be written in `agent-contracts.md` (forthcoming). This layout document establishes the structural correspondence: one binary = one agent contract.
+
+---
+
+## CRDM Package — Source and Cost Dimensions
+
+The `internal/crdm/` package is the single source of truth for canonical retail data types. Two fields that affect multiple future layers must be present on the `TransactionHeader` from the start:
+
+| Field | Type | Why it matters |
+|---|---|---|
+| `SourceCode` | `string` | Multi-POS source attribution (Square, Counterpoint, etc.). This is the Port dimension in the ILDWAC model. Required for compound dispatch keys and source-aware Chirp rule confidence tiers. |
+| `DeviceID` | `string` (ARTS WorkstationID) | Device attribution. This is the Device dimension in the ILDWAC model. Required for per-terminal cost accounting when ILDWAC is implemented. |
+
+Both fields should be populated by the POS adapter (Hawk for Square, Bull/Edge for Counterpoint) before the CRDM record is written to `sales.transactions`. Leaving them null eliminates the provenance trail that ILDWAC and forensic investigation both require.
+
+> **ILDWAC status: architectural direction, not yet implemented.** Including these fields now is a low-cost design decision that avoids a schema migration and a data backfill later.
+
+---
+
+## RaaS — Not in This Repo
+
+RaaS (Resolution as a Service) is excluded from the `GrowDirect-RapidPOS` monorepo. It will be rebuilt as a separate service. However, every binary in `cmd/` that resolves a merchant namespace or constructs a Valkey key must call RaaS via REST — not build its own key construction logic.
+
+**Key construction rule:** Use `raas.build_key(merchant_id, parts...)`. The pattern is `raas:{merchant_id}:{domain}:{key}`. No service constructs keys independently.
+
+**Namespace resolution rule:** Use `raas.resolve_namespace(merchant_id)` to confirm active sources before any cross-POS query. `raas.ensure_namespace(merchant_id)` for pure string construction when no DB check is needed.
+
+**Full interface contract:** `docs/sdds/canary/raas.md` — 7 MCP tools, JWT-gated, REST internally.
+
+---
+
 ## Related SDDs
 
-- **microservice-architecture.md** — inter-service call graph, REST API per service
-- **platform-overview.md** — product context, ARTS-native data contract, VAR distribution model
+- **microservice-architecture.md** — inter-service call graph, REST API per service, process→service mapping
+- **platform-overview.md** — product context, ARTS-native data contract, VAR distribution model, ILDWAC direction
 - **data-model.md** — all 82+ tables, schema contracts, sqlc query targets
 - **pos-adapter-substrate.md** — adapter interface all POS connectors implement
+- **Agent PMO Architecture** — `docs/superpowers/specs/2026-04-28-canary-go-agent-pmo-architecture-design.md`
+- **RaaS SDD** — `docs/sdds/canary/raas.md`

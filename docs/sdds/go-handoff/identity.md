@@ -1,5 +1,6 @@
 ---
-spec-version: 1.0
+spec-version: 1.1
+updated: 2026-04-28
 target-implementation: Go
 stack: PostgreSQL 17 + pgx + sqlc | Chi HTTP | REST | go-redis | pgvector-go
 source: Curated from Canary Python prototype SDDs (GRO-617)
@@ -353,6 +354,89 @@ Every protected handler receives an authenticated merchant context injected by m
 Roles are seeded at startup into `app.roles`. Not tenant-scoped — the role catalog is global. Assignments are tenant-scoped via `app.user_roles`.
 
 ---
+
+### Merchant Org Hierarchy — Role Binding Model
+
+The Canary Go platform supports a seven-layer operational hierarchy derived from the agent PMO architecture. This hierarchy maps to the role binding model: a user can hold a role scoped to a specific node in any of the three hierarchy trees (geography, category, legal entity). This extends the flat `app.user_roles` model to support multi-location chains where a regional manager holds authority over a subtree, not a single merchant.
+
+**Seven operational layers:**
+
+| Layer | Description | Hierarchy Type |
+|-------|-------------|----------------|
+| Sales Floor | Individual POS terminal / department floor | GEOGRAPHY (DEPARTMENT) |
+| Backroom | Receiving, stockroom, prep | GEOGRAPHY (STORE) |
+| Store | Full store unit | GEOGRAPHY (STORE) |
+| Head Office | Regional or district management | GEOGRAPHY (REGION / DISTRICT) |
+| Merchants | Multi-location merchant organization | LEGAL_ENTITY |
+| Supply Chain | Distribution centers, vendor-side | GEOGRAPHY or CATEGORY |
+| Org | Parent franchisor or holding company | LEGAL_ENTITY |
+
+**Platform participants** (not merchant employees):
+- VAR (e.g., Rapid POS / Bart's team) — access via VAR-scoped API key, not user_roles
+- GrowDirect — platform admin access via `CANARY_ADMIN_MERCHANTS` elevation
+
+**Role binding:** `user_roles(principal_id, hierarchy_type, hierarchy_node_id, role)` where `hierarchy_type ∈ {GEOGRAPHY | CATEGORY | LEGAL_ENTITY}`. A user with GEOGRAPHY role at a REGION node implicitly holds that role for all DISTRICT and STORE nodes below it. Inheritance is enforced at query time, not by duplicating rows.
+
+### Extended Data Model — Hierarchy Tables
+
+These tables extend the Identity domain to support the org hierarchy role binding. They live in the `app` schema alongside the existing identity tables.
+
+#### app.geography_nodes
+
+Hierarchical location tree for a merchant. Represents physical geography: region → district → store → department.
+
+| Column | Type | Constraints | Description |
+|--------|------|-------------|-------------|
+| `id` | UUID | PRIMARY KEY, DEFAULT gen_random_uuid() | |
+| `merchant_id` | UUID | NOT NULL, FK → app.merchants.id | Tenant scope |
+| `node_type` | TEXT | NOT NULL, CHECK IN ('REGION','DISTRICT','STORE','DEPARTMENT') | Hierarchy level |
+| `parent_id` | UUID | NULLABLE, FK → app.geography_nodes.id | Self-referential; NULL at root |
+| `name` | TEXT | NOT NULL | Display name |
+| `location_id` | UUID | NULLABLE, FK → app.locations.id | If this node maps to a physical location |
+| `created_at` | TIMESTAMPTZ | NOT NULL, DEFAULT now() | |
+| `updated_at` | TIMESTAMPTZ | NOT NULL, DEFAULT now() | |
+
+Indexes:
+- `idx_geography_nodes_merchant_id ON (merchant_id)`
+- `idx_geography_nodes_parent_id ON (parent_id)`
+- `idx_geography_nodes_location_id ON (location_id)`
+
+#### app.category_nodes
+
+Hierarchical category tree for a merchant. Represents merchandising hierarchy: division → department → category → subcategory → SKU.
+
+| Column | Type | Constraints | Description |
+|--------|------|-------------|-------------|
+| `id` | UUID | PRIMARY KEY, DEFAULT gen_random_uuid() | |
+| `merchant_id` | UUID | NOT NULL, FK → app.merchants.id | Tenant scope |
+| `node_type` | TEXT | NOT NULL, CHECK IN ('DIVISION','DEPARTMENT','CATEGORY','SUBCATEGORY','SKU') | Hierarchy level |
+| `parent_id` | UUID | NULLABLE, FK → app.category_nodes.id | Self-referential; NULL at root |
+| `name` | TEXT | NOT NULL | Display name |
+| `product_id` | UUID | NULLABLE, FK → app.products.id | If this node maps to a catalog item |
+| `created_at` | TIMESTAMPTZ | NOT NULL, DEFAULT now() | |
+| `updated_at` | TIMESTAMPTZ | NOT NULL, DEFAULT now() | |
+
+Indexes:
+- `idx_category_nodes_merchant_id ON (merchant_id)`
+- `idx_category_nodes_parent_id ON (parent_id)`
+
+#### app.user_roles (extended)
+
+The existing `app.user_roles` table is extended with hierarchy-scoped columns. The original `role_id` FK remains for backward compatibility. New rows use `hierarchy_type` + `hierarchy_node_id` for scoped role bindings.
+
+New columns added to `app.user_roles`:
+
+| Column | Type | Constraints | Description |
+|--------|------|-------------|-------------|
+| `hierarchy_type` | TEXT | NULLABLE, CHECK IN ('GEOGRAPHY','CATEGORY','LEGAL_ENTITY') | Which hierarchy tree this role is scoped to |
+| `hierarchy_node_id` | UUID | NULLABLE | FK to `geography_nodes.id` or `category_nodes.id` depending on `hierarchy_type`; NULL means merchant-wide scope |
+
+**Backward compatibility:** Existing rows with `hierarchy_type IS NULL` and `hierarchy_node_id IS NULL` represent merchant-wide role assignments — behavior unchanged from the current model.
+
+**LEGAL_ENTITY scope:** When `hierarchy_type = 'LEGAL_ENTITY'`, `hierarchy_node_id` is NULL and the role applies to the merchant as a legal entity (equivalent to merchant-wide). This type exists to distinguish organizational authority (e.g., owner of the legal entity) from geographic authority (e.g., manager of a region).
+
+Indexes (additions):
+- `idx_user_roles_hierarchy ON (merchant_id, hierarchy_type, hierarchy_node_id)` — for hierarchy-scoped role lookups
 
 ### Token Encryption Contract
 

@@ -1,5 +1,6 @@
 ---
-spec-version: 1.0
+spec-version: 1.1
+updated: 2026-04-28
 target-implementation: Go
 stack: PostgreSQL 17 + pgx + sqlc | Chi HTTP | REST | go-redis | pgvector-go
 source: Curated from Canary Python prototype SDDs (GRO-617)
@@ -470,6 +471,71 @@ Week 53 maps to P13 — the last period absorbs the extra week.
 
 ---
 
+## ILDWAC Cost Anomaly Metrics
+
+> **Architectural direction — not current implementation.** The metrics described here depend on `ledger.ilwac_positions` and the five-dimension WAC recalculation engine, neither of which exists yet. This section defines the analytics contract for when those layers are in place. No GRO ticket for implementation exists at this time.
+
+ILDWAC introduces a cost provenance dimension to the analytics domain. When the extended WAC model is operational, Analytics gains a new metric family: cost anomaly signals derived from WAC deviation across the five ILDWAC dimensions.
+
+### Baseline WAC Computation
+
+Analytics is responsible for computing and maintaining the baseline WAC against which ILDWAC dimension deviations are measured.
+
+| Baseline | Grain | Table | Computation |
+|---|---|---|---|
+| Item-location WAC baseline | Per (item_id, location_id) | `metrics.metric_baselines` | Rolling weighted average across all (device, mcp_tool, pos_port) combinations; recomputed on each RIB batch commit |
+| Device WAC baseline | Per (item_id, location_id, device_id) | `metrics.metric_baselines` | WAC restricted to events from that device; updated on each RIB batch that includes the device |
+| Port WAC baseline | Per (item_id, location_id, pos_port) | `metrics.metric_baselines` | WAC restricted to events from that connector (Square, Counterpoint, Lightspeed) |
+| MCP tool WAC baseline | Per (item_id, location_id, mcp_tool) | `metrics.metric_baselines` | WAC restricted to events authorized by that MCP tool call |
+
+The item-location baseline is the reference value. Dimension-level baselines are computed for the top N most active (item, location) pairs per merchant (configurable, default N=50).
+
+### Anomaly Detection by Dimension
+
+The velocity anomaly engine (z-score / sigma threshold) is reused for ILDWAC deviation detection. The same `detect_velocity()` function applies; the input vector is a sequence of WAC values by RIB batch commit rather than transaction event.
+
+| Signal | Detection Method | Chirp Rule | Severity |
+|---|---|---|---|
+| Device WAC outlier | Z-score of device WAC vs store-level WAC distribution | C-1101 DEVICE_WAC_OUTLIER | high |
+| Port WAC mismatch | Percentage deviation between Square WAC and Counterpoint WAC for same (item, location) | C-1102 PORT_WAC_MISMATCH | high |
+| MCP tool cost attribution gap | Presence of MCP authorization event without corresponding RIB batch | C-1103 MCP_COST_ATTRIBUTION_GAP | critical |
+
+When a WAC deviation exceeds the configured sigma threshold for any dimension, Analytics writes a `COST_ANOMALY` metric event to `metrics.daily_metrics` (future column: `cost_anomaly_count`) and feeds the signal to Chirp for rule evaluation.
+
+### Satoshi-Denominated Shrink Cost
+
+Every inventory loss event reported through the Analytics domain is expressed in both satoshis and fiat cents. The satoshi value is the native unit; fiat is computed at presentation time using the exchange rate at the event timestamp.
+
+**Reporting convention:**
+
+```json
+{
+  "metric": "SHRINK_COST",
+  "period": "P3 FY2026",
+  "shrink_amount_cents": 185000,
+  "shrink_amount_satoshis": 5462800,
+  "fiat_exchange_rate_at_period_close": 0.03389,
+  "satoshi_source": "ledger.ilwac_positions"
+}
+```
+
+The `shrink_amount_satoshis` field is populated only when `ledger.ilwac_positions` is operational. Until then, the field is `null` and the fiat value remains the sole reporting unit. No existing metric is changed — this is an additive field.
+
+**Dashboard impact:** The analytics dashboard gains a `satoshi_shrink_cost` card in the ILDWAC implementation pass. Until then, the dashboard renders fiat-only as today.
+
+### ILDWAC Metric Feed to Chirp
+
+The Analytics → Chirp signal path for cost anomalies:
+
+1. RIB batch commits to `ledger.ilwac_positions` (future)
+2. Analytics computes WAC deviation per dimension against baselines
+3. If deviation exceeds threshold, Analytics writes anomaly signal to `metrics.daily_metrics.cost_anomaly_count`
+4. Chirp batch sweep reads `cost_anomaly_count` > 0 and evaluates Category 11 rules (C-1101/C-1102/C-1103)
+5. If rule fires, Chirp writes `COST_ANOMALY` alert to `app.alerts`
+6. Analytics dashboard reflects the alert in the `anomaly_count` and `top_concern` fields
+
+---
+
 ## Phase 3 — Bull Distribution Analytics
 
 When Bull ships (see `bull.md`), Analytics gains distribution intelligence metrics. These are **gated on Module D substrate** — the tables must exist (migration detection, not configuration flag). Until D.3 transfer detection is operational, these metrics return empty.
@@ -500,3 +566,30 @@ When Bull ships (see `bull.md`), Analytics gains distribution intelligence metri
 - [ ] Dashboard caching in Valkey — 60s TTL, invalidate on aggregation (P1-ANA-6)
 - [ ] Name lookup batching — single IN query for up to 10 entities, not N+1 (P2-ANA-4)
 - [ ] Trend aggregation — GROUP BY or pass location_id for multi-location merchants (P2-ANA-1)
+
+---
+
+## Why This Resolution Level Is New
+
+Legacy LP analytics tools operate on daily batch extracts, fiat-only cost models, mutable evidence stores, and flat entity identifiers. The granularity they can achieve is bounded by the coarsest element in that stack — the daily batch.
+
+The combination of capabilities in this system produces a structurally different resolution level:
+
+| Capability | This System | Legacy LP Tools |
+|---|---|---|
+| Event capture | Per-event webhook (no polling delay) | Daily batch extract; events arrive 12–24h after they occur |
+| Cost provenance | Five-dimension ILDWAC: Item × Location × Device × MCP × Port × WAC in satoshis | Single fiat WAC per item-location; no device, channel, or agent attribution |
+| Entity resolution | pgvector semantic matching (OWL EJ Spine) across POS sources via RaaS namespace | Flat employee ID match within a single POS; cross-source deduplication is manual |
+| Evidence integrity | Append-only merkle evidence chain (Fox) with PostgreSQL-level INSERT-ONLY triggers | Mutable database records; evidence can be modified or deleted after the fact |
+
+This is not a feature comparison. It is a structural difference in what the system can see.
+
+**Per-event capture** means the analytics layer receives every transaction, void, refund, and drawer event within seconds of it occurring — not summarized at end of day. Velocity anomalies that develop and resolve within a shift are visible. In a batch system, they are invisible.
+
+**Five-dimension cost provenance** means a WAC deviation is traceable to the specific device, connector, and MCP tool that produced it. A legacy WAC is a single number with no audit trail. The ILDWAC vector is auditable at the event level — the hash chain behind each RIB batch ensures the provenance is tamper-evident.
+
+**Semantic entity resolution** means an employee recognized under two different identifiers in Square and Counterpoint is treated as one subject across both sources. Legacy systems match on exact ID — the same person appearing under different logins in different systems is invisible as a unified pattern.
+
+**Append-only evidence** means the evidence record cannot be altered after the fact. In a mutable evidence store, records can be edited, deleted, or backdated. The Fox hash chain makes post-hoc tampering detectable and blocks it at the database trigger level.
+
+The resolution level that results from this combination is not achievable by adding features to a legacy LP tool. It requires that every layer of the stack — capture, cost model, entity resolution, evidence integrity — be designed for this resolution from the start.

@@ -1,9 +1,10 @@
 ---
-spec-version: 1.0
+spec-version: 1.1
 target-implementation: Go
 stack: PostgreSQL 17 + pgx + sqlc | Chi HTTP | REST | go-redis | pgvector-go
 source: Curated from Canary Python prototype SDDs (GRO-617)
 status: handoff-ready
+updated: 2026-04-28
 ---
 
 # Webhook Pipeline
@@ -11,11 +12,48 @@ status: handoff-ready
 > **Type:** External Integration — Ingestion Gateway
 > **Last reviewed:** 2026-04-13 (code review + ops upgrade)
 
+**Owns:** Webhook receipt → HMAC verify → namespace resolve → queue.
+**Feeds:** TSP.
+
 ---
 
 ## Purpose
 
 The Webhook Pipeline is Canary's data ingestion front door. Every external event entering the system passes through this service: HMAC-validated, hashed, deduplicated, and published to a Valkey stream for downstream consumer processing. It is the only externally-accessible write endpoint in the Canary platform.
+
+---
+
+## RaaS Namespace Resolution
+
+**RaaS namespace resolution is the first processing step after HMAC validation.**
+
+After the signature is verified, the pipeline makes a synchronous REST call to the RaaS (Resolution as a Service) service to resolve the `raas:{merchant_id}` namespace for the incoming event. This namespace is the canonical identity token that ties the merchant across POS systems and is the routing key for the TSP stream.
+
+### Resolution Contract
+
+| Step | Description |
+|---|---|
+| 1. HMAC validation passes | Signature verified; raw bytes preserved |
+| 2. `merchant_id` extracted from payload | Via JSON parse or source-specific extraction |
+| 3. REST call to RaaS | `GET /raas/resolve/{merchant_id}` (or equivalent) |
+| 4a. Resolution success | RaaS returns canonical namespace; pipeline continues |
+| 4b. Resolution failure — merchant not onboarded | Pipeline rejects event with **404 Not Found**; event is NOT queued |
+
+**Critical:** A 404 from RaaS means the merchant is not onboarded. The event is rejected, not dead-lettered and not queued. Square will retry, but the event will continue to be rejected until the merchant completes onboarding. This is correct behavior — events from unknown merchants must not enter the pipeline.
+
+The namespace returned by RaaS is the canonical `raas:{merchant_id}` token. It is included in the stream envelope as the routing key for TSP consumers. See `docs/sdds/canary/raas.md` for the full RaaS service specification.
+
+---
+
+## [ARCHITECTURAL DIRECTION — not yet implemented] ILDWAC Dimension Capture
+
+The webhook pipeline is where the `pos_port` and `device_id` ILDWAC dimensions enter the system for webhook-based POS integrations.
+
+**`pos_port`** is derived from the `{pos-type}` path segment in `POST /webhooks/{pos-type}` — it is the registered adapter identifier (`"square"`, `"counterpoint"`, etc.).
+
+**`device_id`** is extracted from the POS payload by the adapter's `ParseWebhook()` function and included in the emitted CanonicalEvent. See the Hawk SDD (Square mapping) and Bull SDD (Counterpoint mapping) for the specific field paths per event type.
+
+**The MCP dimension of ILDWAC is NOT captured in the webhook pipeline.** It is captured when an MCP tool call authorizes a cost-affecting action. The pipeline only carries `pos_port` and `device_id` as pass-through fields in the stream envelope. The MCP authorization middleware records the tool call context independently, at invocation time, for later attribution to the stock ledger's ILDWAC vector.
 
 ---
 
@@ -216,6 +254,13 @@ Request arrives at POST /webhooks/{pos-type}
 5. Verify HMAC-SHA256 signature (timing-safe).
    → 400 if invalid.
    → 503 if signature key or notification URL is not configured.
+
+5a. RaaS namespace resolution.
+    Parse merchant_id from raw bytes (lightweight extraction, not full parse).
+    Call RaaS: GET /raas/resolve/{merchant_id}.
+    → 404 if merchant not onboarded. Event rejected, not queued.
+    → 503 if RaaS is unreachable (treat as hard failure; reject event).
+    On success: canonical namespace attached to event envelope as routing key.
 
 6. JSON parse raw bytes to extract merchant_id and event_type.
    If parse fails, set parse_failed=true. Continue — do not reject.
@@ -759,6 +804,14 @@ Post-OAuth, the onboarding coordinator registers 27 webhook event types, pulls 9
 
 ---
 
+## Agent Attribution and the MCP Dimension
+
+The webhook pipeline produces events that become cost-affecting actions in the stock ledger. Every such action will eventually carry an ILDWAC vector that includes the MCP dimension — the specific MCP tool call that authorized the action. This attribution is not captured in the pipeline itself.
+
+The agent network (documented in `docs/superpowers/specs/2026-04-28-canary-go-agent-pmo-architecture-design.md`) assigns 27 domain PMO agents to Canary's module spine. Each agent exposes its context and capabilities via MCP. When an agent node authorizes an inventory-affecting action — receiving goods, processing a return, executing a transfer — the MCP middleware records the tool call context: which agent, which server, which tool, which merchant. This becomes the MCP dimension in the ILDWAC vector, binding pipeline output to agent attribution. The full agent topology and contract model is documented in `agent-contracts.md` (to be authored separately).
+
+---
+
 ## Production Readiness Checklist
 
 - [ ] PII encrypted at rest (P0-2: `raw_payload`, card fields, IP address)
@@ -777,6 +830,20 @@ Post-OAuth, the onboarding coordinator registers 27 webhook event types, pulls 9
 - [ ] Key rotation procedure (P2-1)
 - [ ] Observability instrumentation (P2-2)
 - [ ] Persistent connection pool for dedup client (P1-4)
+
+---
+
+## Event Attribution Capabilities — Pipeline Contribution
+
+The combination of capabilities assembled at the webhook pipeline entry point produces an event attribution depth that is structurally impossible with batch-polling legacy LP systems:
+
+- **Real-time webhook capture** eliminates the polling gap — events arrive within seconds of the POS transaction, not at the next batch window.
+- **HMAC-sealed payloads** authenticate the source at the byte level before any processing occurs.
+- **Hash-before-parse ordering** (patent application #63/991,596) ensures the content hash is computed over unmodified bytes — the evidence is sealed before the system has touched the data.
+- **Merkle inscription chain** anchors batches of sealed events to the Bitcoin blockchain, producing a tamper-evident public record of the event sequence.
+- **ILDWAC dimension tagging at the pipeline entry point** — `pos_port` and `device_id` captured at the adapter boundary — means every cost-affecting event carries its provenance signature from the moment it enters the system.
+
+Together these produce an evidentiary record where the cost of a unit of inventory is not a number — it is a vector: hashed, chain-linked, adapter-attributed, device-stamped, and agent-authorized. No legacy LP system has this. Batch polling systems cannot achieve it because the event metadata (device, connector, timing) is lost in aggregation.
 
 ---
 

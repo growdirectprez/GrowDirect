@@ -1,12 +1,16 @@
 ---
-spec-version: 1.0
+spec-version: 1.1
 target-implementation: Go
 stack: PostgreSQL 17 + pgx + sqlc | Chi HTTP | REST | go-redis | pgvector-go
 source: Curated from Canary Python prototype SDDs (GRO-617)
 status: handoff-ready
+updated: 2026-04-28
 ---
 
 # Hawk — Square POS Adapter (Reference Implementation of the POS Adapter Substrate)
+
+**Implements:** pos-adapter-substrate.
+**Feeds:** webhook-pipeline (events), TSP (parsed CRDM).
 
 > **Role in the system:** Hawk is Canary's ops-contract case management system and card factory. It is also the go-to reference for how a complete, production-grade service is wired into the Canary platform: data model in four tiers, MCP tool surface, REST endpoints, FSM enforcement, and pgvector-backed recall. Square adapter implementation is covered in the POS Adapter Substrate SDD.
 
@@ -42,6 +46,35 @@ Fox's INSERT-only evidence tables (`fox_evidence`, `fox_evidence_access_log`), h
 | JWT middleware | Yes | Authentication and RBAC |
 | MCP tool registry | Yes | Tool registration and endpoint generation |
 | Embedding service (HTTP API) | Soft | Card embedding — async, non-blocking |
+
+---
+
+## [ARCHITECTURAL DIRECTION — not yet implemented] ILDWAC Dimension Mapping — Square Payload Fields
+
+Hawk (Square adapter) is responsible for populating the `pos_port` and `device_id` envelope fields defined in the POS Adapter Substrate SDD. These fields are the Port and Device dimensions of the IL(Device/MCP/Port/)WAC cost model.
+
+### Square → ILDWAC Field Map
+
+| ILDWAC Dimension | Envelope Field | Square Source Field | Notes |
+|---|---|---|---|
+| Port | `pos_port` | — (hardcoded) | Always `"square"` for all events from this adapter |
+| Device | `device_id` | `payment.device_details.device_id` | Present on payment events; null for events without device context (loyalty, disputes, payouts) |
+
+### Square Payload Field Details
+
+| Square Event Type | Device Field Path | Notes |
+|---|---|---|
+| `payment.created`, `payment.updated` | `data.object.payment.device_details.device_id` | Square Reader or Terminal device ID; present when card-present transaction |
+| `order.created`, `order.updated` | `data.object.order.fulfillments[].pickup_details.placed_at` | No device_id in order events — set `device_id = null` |
+| `refund.created` | `data.object.refund.device_id` | Present if refund initiated on device; may be null for manual refunds |
+| `cash_drawer.shift.closed` | `data.object.cash_drawer_shift.device_name` | Device name, not device_id — do NOT use as `device_id`; set `device_id = null` |
+| All other event types | — | Set `device_id = null` |
+
+**Extraction rule:** If `device_id` is absent from the payload or resolves to an empty string, set the envelope field to null — never an empty string.
+
+### Why This Matters
+
+A payment processed on a fixed Square Terminal (`device_id = "TERMINAL_ABC123"`) authorized by the `register_source` MCP tool produces a distinct ILDWAC provenance signature from the same item processed on a Square Reader mobile device. The cost model can attribute inventory adjustments to specific hardware endpoints. See `Brain/wiki/cards/ilwac-extended-bitcoin-standard.md`.
 
 ---
 

@@ -1,5 +1,5 @@
 ---
-spec-version: 1.0
+spec-version: 1.1
 target-implementation: Go
 stack: PostgreSQL 17 + pgx + sqlc | Chi HTTP | REST | go-redis | pgvector-go
 source: Curated from Canary Python prototype SDDs (GRO-617)
@@ -141,6 +141,90 @@ Canary will be released as open source. Transparency is the brand; expertise and
 
 ---
 
+## Granularity Enabled by Technology
+
+Canary can see things legacy LP tools cannot. The combination of pgvector, RIB-batched cost accounting, ILDWAC satoshi precision, and the merkle evidence chain produces resolution of detail that is structurally impossible with conventional retail analytics.
+
+| Technology layer | What it enables |
+|---|---|
+| **pgvector semantic search** | Owl can retrieve past case facts, detection patterns, and policy precedents by meaning — not keyword match. An LP investigator asking "suspicious refunds at closing time" retrieves all structurally similar historical patterns, not just exact-string matches. |
+| **RIB batch domain organization** | Cost events carry their domain origin (T, V, M, D). A WAC recalculation knows whether an adjustment came from a receiving event, a transfer, or a sale — not just that it happened. Domain attribution is embedded in the cost, not appended as metadata. |
+| **ILDWAC satoshi precision** | Weighted average cost is denominated in satoshis — no fiat rounding, no period-end currency conversion, no embedded exchange rate risk. The cost model operates at sub-cent precision. When provenance dimensions (Device, MCP, Port) are added, the cost carries its own audit trail as dimensions, not as attached notes. See the ILDWAC section below. |
+| **Merkle evidence chain** | SHA-256 sealed batches mean any tampering with the cost or event record is cryptographically detectable. The evidence chain is not an audit log you can edit — it is a mathematical proof of what happened and when. |
+
+The product differentiator is not any single capability. It is the stack: every layer is precise, every record is sealed, and the system can answer questions about provenance that no conventional LP platform can even form.
+
+Legacy LP tools aggregate. Canary traces.
+
+---
+
+## ILDWAC — Extended Cost Model (Architectural Direction)
+
+> **Status: architectural direction, not yet implemented.** No current code declares a dependency on this model. A formal design pass will produce GRO tickets before implementation begins.
+
+Standard ILWAC (Item × Location × Weighted Average Cost) is the retail industry baseline. Canary's architectural direction extends this to IL(Device/MCP/Port/)WAC — adding three provenance dimensions — and denominates the calculation in satoshis.
+
+### Extended dimension schema
+
+| Dimension | Standard ILWAC | Extended ILDWAC |
+|---|---|---|
+| **Item** | SKU | SKU — unchanged |
+| **Location** | Store / warehouse | Store / warehouse — unchanged |
+| **Device** | (absent) | Terminal or mobile device that processed the originating event |
+| **MCP** | (absent) | MCP tool call that authorized the action — which agent, which server, which tool |
+| **Port** | (absent) | POS connector: Square, Counterpoint, Lightspeed, or any registered source |
+| **WAC** | Fiat currency | Weighted average cost denominated in satoshis |
+
+### Satoshi standard
+
+All cost accounting at the system level runs in satoshis. Fiat amounts displayed in the UI are computed at the presentation layer using the exchange rate at event time — the same pattern used in every Bitcoin-standard accounting system. This matters because:
+
+- L402 Lightning payments are already denominated in satoshis. The payment loop and the cost loop close in the same unit — no currency conversion at the system level.
+- OTB wallets are Lightning wallet balances. Overspending is mathematically impossible, not merely prohibited by policy.
+- COGS postings to Module F run in satoshis. Fiat equivalents are a display transformation, not an accounting transformation.
+
+### RIB batch inputs
+
+Cost recalculation is batch-driven, not event-driven. Each domain module (T, V, M, D, etc.) produces structured JSON RIB (Retail Inventory Batch) messages for its inventory adjustment events. Each batch is SHA-256 sealed before it reaches the WAC engine. The domain origin is preserved as an attribute — a receiving event from Module M carries different provenance than a transfer from Module D or a sale from Module T.
+
+### Cost center cross-charge
+
+Each endpoint dimension (Device, MCP tool call, Port connector) carries a fee denominated in satoshis, settled immediately via L402 at the moment the event occurs. The cost center is an L402 wallet — its balance is the real-time P&L position for that cost center, with no period close required.
+
+| Endpoint dimension | Fee mechanism | Settlement |
+|---|---|---|
+| Device | Per-call or per-transaction terminal fee | L402 → cost center wallet, immediate |
+| MCP | Per-agent-action compute cost | L402 → cost center wallet, immediate |
+| Port | Per-event connector license cost | L402 → cost center wallet, immediate |
+
+### What does not exist yet
+
+The Device, MCP, and Port dimensions are not yet added to the WAC calculation. Satoshi denomination at the accounting level is not yet implemented (fiat is current, satoshi is a parallel substrate). The unified ILDWAC recalculation engine has not been built. This section records the architectural direction before implementation begins.
+
+**Related:** `Brain/wiki/cards/ilwac-extended-bitcoin-standard.md` — full founder intent note · `docs/sdds/canary/goose.md` — L402 payment middleware
+
+---
+
+## Agent Network and MCP Ethos
+
+Canary Go is operated by an autonomous agent network. Understanding this architecture is prerequisite to understanding how the platform runs without a dedicated LP staff.
+
+**Three layers:**
+
+| Layer | Description |
+|---|---|
+| **Controller** | Single agent with full network view. Founder interface. Sequences Service Introduction gates. Escalation terminus for all domain agents. |
+| **27 Domain (L3) PMO Agents** | One per subsystem. Dual authority: business domain knowledge + technical module ownership. Each carries SDD, Go service contract, sqlc queries, data model, and upstream/downstream API surface. |
+| **Infrastructure Agents** | Cross-cutting: DBA, Security, Data Governance, Legal & Compliance, Accountant, CPA, Network, Scheduling, MCP fabric. |
+
+**MCP is the crossover between the event bus and technology.** Every agent exposes its context and capabilities as MCP tools. The MCP infrastructure agent routes context between agents and across sessions. An agent's memory is not a prompt — it is a seeded pgvector document, callable at any session via `memory_recall()`.
+
+**Service Introduction** is the only Human-in-the-Loop gate. All other lifecycle phases (Spec → Build → VAR Delivery → Hardening → Support) are agent-owned. The founder signs off at Service Introduction; this is the moment the platform partner formally accepts operational ownership.
+
+Full topology, node inventory, and lifecycle model: `docs/superpowers/specs/2026-04-28-canary-go-agent-pmo-architecture-design.md`
+
+---
+
 ## Related SDDs
 
 - **Architecture** — Service mesh, startup order, dependencies
@@ -151,3 +235,5 @@ Canary will be released as open source. Transparency is the brand; expertise and
 - **Identity-Square** — Square OAuth, token storage
 - **Webhook Pipeline** — Ingestion, HMAC validation
 - **Data Model** — 60+ models, PII map
+- **Agent PMO Architecture** — `docs/superpowers/specs/2026-04-28-canary-go-agent-pmo-architecture-design.md`
+- **RaaS** — Namespace resolution, merchant onboarding, source registration

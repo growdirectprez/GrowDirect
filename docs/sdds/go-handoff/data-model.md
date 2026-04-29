@@ -1,5 +1,6 @@
 ---
-spec-version: 1.0
+spec-version: 1.1
+updated: 2026-04-28
 target-implementation: Go
 stack: PostgreSQL 17 + pgx + sqlc | Chi HTTP | REST | go-redis | pgvector-go
 source: Curated from Canary Python prototype SDDs (GRO-617)
@@ -1871,6 +1872,165 @@ External POS system IDs (Square, Clover, Toast) are translated to Canary interna
 | PostgreSQL | RDS for PostgreSQL 17 | Multi-AZ, encrypted at rest |
 | Encryption keys | Secrets Manager | `CANARY_ENCRYPTION_KEY` — not in environment files |
 | Backups | RDS automated snapshots | 7-day retention, point-in-time recovery |
+
+---
+
+## Agent Memory Boundary
+
+Agent profiles for the Canary Go PMO network are seeded documents stored in the `growdirect_memory` database (schema: `memory`, tables: `alx_memories`, `alx_sessions`). This is a separate database from `canary` and operates under a separate Docker service (`growdirect_ollama` for embeddings, `growdirect_postgres` for persistence).
+
+**Data model boundary — critical:** Agent memory is NOT in the `canary` app/sales/metrics schemas. Do not create agent-related tables in the `canary` database. The boundary is enforced by database separation.
+
+| Concern | Location | Notes |
+|---------|----------|-------|
+| Agent profiles and domain context | `growdirect_memory.alx_memories` | Seeded documents, 1024-dim pgvector embeddings |
+| Session state and context snapshots | `growdirect_memory.alx_sessions` | One row per agent session |
+| Merchant operational data | `canary` (app/sales/metrics schemas) | All Canary business data |
+| Agent authorization records | `canary.app.audit_log` | Agent API key access logged here |
+
+Agent session instantiation uses `memory_recall()` / `context_assemble()` calls against the memory bus at `http://127.0.0.1:8003/mcp`. Canary Go services call the memory bus via the same REST interface — they do not query `growdirect_memory` directly.
+
+---
+
+## ILDWAC Stock Ledger — Architectural Direction (not yet implemented)
+
+**What this is:** IL(Device/MCP/Port/)WAC extends the retail industry standard ILWAC (Item × Location × Weighted Average Cost) with three provenance dimensions: the Device that processed the event, the MCP tool call that authorized it, and the POS Port (connector) it came through. Cost is denominated in satoshis — fiat values are the display layer. This section specifies the target schema so a future builder has the tables and can execute a formal GRO design pass without reconstructing intent.
+
+**Status:** Architectural direction only. No migration exists. No Go service targets these tables yet. Do not declare a hard dependency on this schema until a GRO ticket formalizes the design.
+
+**Source:** `Brain/wiki/cards/ilwac-extended-bitcoin-standard.md` — read before implementing.
+
+### Why ILDWAC
+
+Standard ILWAC is device-agnostic, channel-blind, and agent-invisible. A sale through the Square connector on a mobile device authorized by an MCP agent produces an identical WAC input as a receipt through NCR Counterpoint on a fixed terminal. IL(Device/MCP/Port/)WAC records all three dimensions, seals each batch with SHA-256, and denominates cost in satoshis. The result: a cost basis that carries its own audit trail — not appended as metadata, but embedded as dimensions in the calculation itself.
+
+| Dimension | Captures |
+|-----------|---------|
+| **Item** | SKU — unchanged from standard ILWAC |
+| **Location** | Store or warehouse — unchanged from standard ILWAC |
+| **Device** | Terminal, mobile device, or hardware that processed the originating event |
+| **MCP** | MCP tool call that authorized the action — which agent, which server, which tool |
+| **Port** | POS connector — `square`, `counterpoint`, `lightspeed`, or any future source |
+| **WAC** | Weighted average cost, recalculated per RIB batch, denominated in satoshis |
+
+### RIB Batches
+
+RIB (Retail Inventory Batch) messages are domain-organized JSON batches of inventory adjustment events. Each domain in the module spine (T, V, M, D, etc.) produces structured batches. The domain origin is preserved. SHA-256 seals each batch before it touches the cost model, producing a tamper-evident input to the WAC recalculation.
+
+### Target Schema — `ledger` Schema (new schema, not yet created)
+
+These tables belong in a new `ledger` schema in the `canary` database, separate from `app`, `sales`, and `metrics`.
+
+#### ledger.rib_batches
+
+One row per sealed batch. A batch groups all inventory adjustment events from a single domain in a single processing run.
+
+| Column | Type | Constraints | Description |
+|--------|------|-------------|-------------|
+| `id` | UUID | PRIMARY KEY, DEFAULT gen_random_uuid() | |
+| `merchant_id` | UUID | NOT NULL, FK → app.merchants.id | Tenant scope |
+| `domain` | TEXT | NOT NULL | Module domain origin: `T`, `V`, `M`, `D`, or other spine module code |
+| `batch_seq` | BIGINT | NOT NULL | Monotonically increasing per (merchant_id, domain) |
+| `event_count` | INT | NOT NULL | Number of ledger entries in this batch |
+| `batch_hash` | TEXT | NOT NULL | SHA-256 of all entries in batch — tamper-evident seal |
+| `sealed_at` | TIMESTAMPTZ | NOT NULL | When the batch was sealed |
+| `created_at` | TIMESTAMPTZ | NOT NULL, DEFAULT now() | |
+
+Constraints:
+- `uq_rib_batches_merchant_domain_seq` UNIQUE (merchant_id, domain, batch_seq)
+
+Indexes:
+- `idx_rib_batches_merchant_id ON (merchant_id)`
+- `idx_rib_batches_merchant_domain ON (merchant_id, domain, batch_seq DESC)`
+
+#### ledger.stock_ledger_entries
+
+One row per inventory adjustment event. The five provenance dimensions (item, location, device, MCP, port) are all recorded. Cost is in satoshis at the time of the event. The fiat equivalent is a display-layer snapshot at event time.
+
+| Column | Type | Constraints | Description |
+|--------|------|-------------|-------------|
+| `id` | UUID | PRIMARY KEY, DEFAULT gen_random_uuid() | |
+| `merchant_id` | UUID | NOT NULL, FK → app.merchants.id | Tenant scope |
+| `item_id` | UUID | NOT NULL, FK → app.products.id | Item (SKU) |
+| `location_id` | UUID | NOT NULL, FK → app.locations.id | Store or warehouse |
+| `device_id` | UUID | NULLABLE | Terminal or mobile device UUID (FK → app.devices when Device module is live) |
+| `mcp_tool_call` | TEXT | NULLABLE | MCP tool name that authorized this event (e.g., `register_source`, `process_receipt`) |
+| `pos_port` | TEXT | NOT NULL | POS connector: `square`, `counterpoint`, `lightspeed`, etc. |
+| `event_type` | TEXT | NOT NULL, CHECK IN ('sale','receipt','transfer','adjustment') | Inventory event classification |
+| `rib_batch_id` | UUID | NOT NULL, FK → ledger.rib_batches.id | Batch that sealed this entry |
+| `domain` | TEXT | NOT NULL | Module domain origin — must match `rib_batches.domain` |
+| `quantity_delta` | NUMERIC | NOT NULL | Positive = stock increase, negative = stock decrease |
+| `cost_satoshis` | BIGINT | NOT NULL | Cost basis in satoshis at event time |
+| `fiat_equivalent` | NUMERIC | NULLABLE | Fiat amount at event time — display layer only |
+| `fiat_currency` | TEXT | NOT NULL, DEFAULT 'USD' | ISO 4217 currency code for fiat_equivalent |
+| `hash` | TEXT | NOT NULL | SHA-256 of the RIB batch containing this entry (denormalized from rib_batches.batch_hash for fast verification) |
+| `created_at` | TIMESTAMPTZ | NOT NULL, DEFAULT now() | |
+
+Access: INSERT-only. No UPDATE or DELETE. Corrections use compensating INSERTs.
+
+Indexes:
+- `idx_sle_merchant_item_location ON (merchant_id, item_id, location_id)`
+- `idx_sle_rib_batch ON (rib_batch_id)`
+- `idx_sle_merchant_created ON (merchant_id, created_at DESC)`
+
+#### ledger.ilwac_positions
+
+Current ILDWAC position per (item, location, device, MCP, port) vector. Recalculated on every RIB batch seal. One row per unique provenance combination per merchant. The WAC for an item at a location is not one number — it is a vector: one value per (Device, MCP, Port) combination that has contributed to the cost basis.
+
+| Column | Type | Constraints | Description |
+|--------|------|-------------|-------------|
+| `id` | UUID | PRIMARY KEY, DEFAULT gen_random_uuid() | |
+| `merchant_id` | UUID | NOT NULL, FK → app.merchants.id | Tenant scope |
+| `item_id` | UUID | NOT NULL, FK → app.products.id | Item (SKU) |
+| `location_id` | UUID | NOT NULL, FK → app.locations.id | Store or warehouse |
+| `device_id` | UUID | NULLABLE | Terminal or mobile device UUID |
+| `mcp_tool_call` | TEXT | NULLABLE | MCP tool name — provenance dimension |
+| `pos_port` | TEXT | NOT NULL | POS connector — provenance dimension |
+| `quantity_on_hand` | NUMERIC | NOT NULL | Current stock quantity for this provenance vector |
+| `wac_satoshis` | NUMERIC | NOT NULL | Weighted average cost in satoshis for this vector |
+| `wac_fiat` | NUMERIC | NULLABLE | WAC expressed in fiat — display layer |
+| `last_rib_batch_id` | UUID | NOT NULL, FK → ledger.rib_batches.id | Last batch that updated this position |
+| `computed_at` | TIMESTAMPTZ | NOT NULL | When this position was last recalculated |
+| `created_at` | TIMESTAMPTZ | NOT NULL, DEFAULT now() | |
+| `updated_at` | TIMESTAMPTZ | NOT NULL, DEFAULT now() | |
+
+Constraints:
+- `uq_ilwac_positions_vector` UNIQUE (merchant_id, item_id, location_id, COALESCE(device_id, '00000000-0000-0000-0000-000000000000'::uuid), COALESCE(mcp_tool_call, ''), pos_port) — enforces one row per unique provenance vector
+
+Indexes:
+- `idx_ilwac_positions_merchant_item_location ON (merchant_id, item_id, location_id)`
+- `idx_ilwac_positions_last_batch ON (last_rib_batch_id)`
+
+### What Exists Today
+
+| Component | Status | Location |
+|-----------|--------|---------|
+| ILWAC (Item × Location × WAC) | Functional | Module V — `Canary/docs/sdds/v2/module-v.md` |
+| SHA-256 hash chain | Functional | Sub 1 webhook pipeline — `Canary/docs/sdds/v2/webhook-pipeline.md` |
+| RaaS namespace resolution | Functional | `docs/sdds/canary/raas.md` |
+| L402 middleware (Goose) | Documented | `docs/sdds/canary/goose.md` |
+| Device, MCP, Port dimensions in WAC | **Not implemented** | Requires formal GRO design pass |
+| Batched JSON RIB message format | **Not implemented** | Requires formal GRO design pass |
+| Satoshi denomination at accounting level | **Not implemented** | Currently fiat with satoshi as parallel substrate |
+| `ledger` schema | **Not implemented** | Migrations not yet created |
+
+---
+
+## Agent-to-Module Smart Contracts
+
+Each agent-to-module interaction in the Canary Go PMO network follows a contract pattern: defined inputs, defined outputs, SLA targets, and an escalation path. These contracts are not ad-hoc — they are the authority surface for cross-module coordination. The formal specification for agent contracts is `agent-contracts.md` (to be authored separately). This data model SDD defers contract content to that document; the data model provides the substrate (memory bus, audit log, `mcp_tool_call` column on ledger entries) that makes contracts observable and enforceable.
+
+---
+
+## Granularity Enabled by Technology
+
+The five-dimension ILDWAC vector — Item × Location × Device × MCP × Port — produces a resolution of cost and event attribution that is structurally impossible with any legacy retail database. Prior systems record what happened and to what item; this system records what happened, to what item, through which channel, by which agent action, on which device, sealed by which batch.
+
+pgvector in-database enables semantic search over the evidence record: Fox case investigators can retrieve related events by conceptual similarity, not just exact-match query. Cost anomalies surface through vector proximity rather than manual rule construction.
+
+SHA-256 sealed RIB batches and the Merkle evidence chain (inherited from the TSP webhook pipeline) produce a cost basis that is not just a number — it is a hashed, domain-attributed, provenance-stamped value anchored to the event that created it. The chain is verifiable at any point without trusting the application layer.
+
+Together these three layers — provenance-dimensional cost, in-database vector search, and cryptographic event sealing — produce an audit and investigation capability that no retail analytics platform currently offers in a single system.
 
 ---
 

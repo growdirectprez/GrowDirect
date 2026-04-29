@@ -1,9 +1,10 @@
 ---
-spec-version: 1.0
+spec-version: 1.1
 target-implementation: Go
 stack: PostgreSQL 17 + pgx + sqlc | Chi HTTP | REST | go-redis | pgvector-go
 source: Curated from Canary Python prototype SDDs (GRO-617)
 status: handoff-ready
+updated: 2026-04-28
 ---
 
 # Canary Architecture
@@ -379,6 +380,90 @@ Test gates: unit tests block merge, integration tests block QA push, smoke tests
 | LLM Inference | Owl AI, ALX embeddings | None | AI features unavailable, detection rules continue | Minutes (model reload) |
 | Reverse Proxy | External HTTPS access | None | External users cannot connect | Seconds (restart), direct port still works |
 | Memory Bus | ALX memory recall, session memory | None (separate DB) | AI responses lack institutional context | Seconds (restart) |
+
+---
+
+## RaaS — Interface Contract for Go Services
+
+RaaS (Resolution as a Service) owns namespace resolution, source registration, and merchant onboarding orchestration. It is **excluded from the Go corpus** — INDEX.md designates it for separate rebuild — but every Go service that resolves a merchant identity or constructs a Valkey key depends on the RaaS interface contract documented here.
+
+### What RaaS resolves
+
+RaaS answers one fundamental question: given a `merchant_id`, which data sources are currently active for that merchant, and what is the canonical namespace for cross-source key construction?
+
+The RaaS namespace (`raas:{merchant_id}`) is the token that lets Canary see across POS sources without being the system of record for any of them. Canary is a lens, not a database.
+
+### How Go services call RaaS
+
+All Go services call RaaS via REST (internally). RaaS exposes 7 MCP tools at `/raas/tools/<name>`. All invocations require a JWT in the `Authorization` header.
+
+| Tool | Go service usage | What it returns |
+|---|---|---|
+| `resolve_namespace` | Any service that needs to confirm a merchant has active sources | `{namespace: "raas:{merchant_id}", resolved: bool}` |
+| `ensure_namespace` | Pure string construction — no DB call | `{namespace: "raas:{merchant_id}"}` |
+| `register_source` | Identity / onboarding flow | `{namespace, source_code, status}` |
+| `get_sources` | Any service building a cross-POS query | `{sources[], count}` |
+| `disconnect_source` | Admin / lifecycle management | `{disconnected: bool}` |
+| `build_key` | All Valkey consumers (Chirp, Owl, Fox, etc.) | `{key: "raas:{merchant_id}:{domain}:{key}"}` |
+| `link_jeffe` | Identity bridge to Bitcoin Ordinals namespace | `{raas_namespace, jeffe_name, jeffe_guid, bridge_status}` |
+
+### Data model boundary
+
+RaaS owns these tables in the `app` schema:
+
+| Table | Purpose |
+|---|---|
+| `namespace_registrations` | One row per merchant — namespace GUID, inscription ID, Avalanche address |
+| `namespace_aliases` | N aliases per merchant — multi-location chain support |
+| `merchant_sources` | One row per `(merchant_id, source_code)` — active POS connections |
+
+Tables owned by Identity that RaaS reads/writes during onboarding: `merchants`, `merchant_settings`, `square_oauth_tokens`.
+
+### Valkey key convention
+
+All Valkey keys for a merchant follow `raas:{merchant_id}:{domain}:{key}`. No Go service should construct its own key pattern — call `build_key()`.
+
+| Example key | Meaning |
+|---|---|
+| `raas:m-001:chirp:velocity:emp-123` | Chirp velocity cache for an employee |
+| `raas:m-001:score:location:loc-456` | Risk score for a location |
+| `raas:m-001:owl:cache:query-hash` | Owl response cache |
+
+### Multi-source namespace model
+
+A single `raas:{merchant_id}` namespace spans multiple POS sources simultaneously. The `merchant_sources` table holds one row per `(merchant_id, source_code)` pair. Source is transparent to downstream consumers — Chirp, Owl, and Fox query via the namespace without knowing which POS populated the data.
+
+**Full RaaS SDD:** `docs/sdds/canary/raas.md`
+
+---
+
+## Agent Network and Smart Contracts Between Agents
+
+Canary Go is operated by an autonomous agent network. The architecture has three layers: a Controller (full network view), 27 L3 domain PMO agents (one per subsystem), and infrastructure agents (DBA, Security, Data Governance, Legal & Compliance, MCP fabric, and others).
+
+Each domain agent carries dual authority: business domain knowledge and technical module ownership. Every agent-to-module interface is a **smart contract** — defined inputs, outputs, SLA, and escalation path. This pattern is named explicitly because it governs how agents extend, modify, and hand off modules across the lifecycle.
+
+### Agent contract pattern
+
+| Contract element | Description |
+|---|---|
+| **Inputs** | What the agent accepts from upstream modules or the Controller — events, API calls, escalations |
+| **Outputs** | What the agent produces — Go service artifacts, SDD updates, alert signals, Linear issues |
+| **SLA** | Response time commitment within the lifecycle phase (Build, VAR Delivery, Hardening, Support) |
+| **Escalation path** | What happens when the agent cannot resolve a situation — always terminates at the Controller before surfacing to the founder |
+
+The full contract definitions live in a dedicated SDD that will be written separately: `agent-contracts.md`. This section establishes the pattern name and reference point.
+
+### MCP as connective tissue
+
+MCP is the crossover between the message/event bus and technology. Every agent exposes its context and capabilities as MCP tools. The MCP infrastructure agent routes context between agents and across sessions. An agent's persistent state is a seeded pgvector document in `growdirect_memory` — not a live prompt. Session instantiation for any domain agent:
+
+```
+memory_recall("Module Q agent context")
+memory_recall("Module Q dependency surface")
+```
+
+**Full agent PMO architecture:** `docs/superpowers/specs/2026-04-28-canary-go-agent-pmo-architecture-design.md`
 
 ---
 

@@ -1,12 +1,16 @@
 ---
-spec-version: 1.0
+spec-version: 1.1
 target-implementation: Go
 stack: PostgreSQL 17 + pgx + sqlc | Chi HTTP | REST | go-redis | pgvector-go
 source: Curated from Canary Python prototype SDDs (GRO-617)
 status: handoff-ready
+updated: 2026-04-28
 ---
 
 # Canary — POS Adapter Substrate (Multi-POS Architecture)
+
+**Owns:** Adapter interface contract.
+**Implemented by:** Hawk (Square), Bull (NCR Counterpoint).
 
 The substrate that makes Canary genuinely multi-POS. Every POS integration — current (Square, NCR Counterpoint) and future — is implemented as an adapter that satisfies this contract. From Sub1 onward, no downstream component knows or cares which POS produced the event.
 
@@ -603,6 +607,46 @@ pos/
 **AC-POS-06 — Credential error halt:** Three consecutive failed `Poll()` calls transition `pos_tenant_credentials.status` to `credential_error`. Subsequent poll loop iterations skip this credential. A notification event is emitted.
 
 **AC-POS-07 — Multi-company:** A single merchant with two Counterpoint company aliases (`MAINCO` + `REGIONCO`) has two rows in `pos_tenant_credentials`. The poll consumer polls each independently with the correct alias. Events from both companies reach the `canary:events` stream with distinct `company_alias` values.
+
+---
+
+## [ARCHITECTURAL DIRECTION — not yet implemented] ILDWAC Dimension Fields in Event Envelopes
+
+Every event envelope emitted by a POS adapter MUST include two ILDWAC input dimensions as part of the canonical event envelope passed to the TSP pipeline. These fields are captured at the adapter boundary — the only point in the system that knows the source connector and the originating device.
+
+### Required Envelope Fields
+
+| Field | Type | Required | Source | ILDWAC Dimension |
+|---|---|:---:|---|---|
+| `pos_port` | string | YES | Adapter identity — hardcoded per adapter | Port |
+| `device_id` | string or null | NO | POS payload (terminal/device identifier if present) | Device |
+
+### Field Contracts
+
+**`pos_port`** — The adapter identifier string. Set by the adapter implementation, not extracted from the payload. This is a stable, system-assigned code:
+
+| Adapter | `pos_port` value |
+|---|---|
+| Hawk (Square) | `"square"` |
+| Bull (NCR Counterpoint) | `"counterpoint"` |
+| Future adapters | Defined at registration time in `app.source_systems.source_code` |
+
+**`device_id`** — The terminal or mobile device identifier, extracted from the POS payload if present. Null if the POS does not provide a device identifier for this event type, or if the event is a poll-derived batch that has no single device origin.
+
+### Purpose
+
+These fields are ILDWAC input dimensions. IL(Device/MCP/Port/)WAC extends the standard Item × Location × Weighted Average Cost model with three provenance dimensions: Device, MCP, and Port. The adapter layer is where Port and Device are first known; they must be preserved in the envelope so the stock ledger can populate the full ILDWAC vector. See `Brain/wiki/cards/ilwac-extended-bitcoin-standard.md` for the full model.
+
+The MCP dimension (which MCP tool call authorized the cost-affecting action) is NOT captured in the adapter or pipeline layers — it is captured by the MCP authorization middleware at the time of tool invocation.
+
+### Adapter Contract Test Addition
+
+The existing contract test suite (see `[SPEC ADDITION — not in prototype] POS Adapter Contract Tests`) must be extended with:
+
+| Test | Assertion |
+|---|---|
+| `TestEnvelopePosPort` | `pos_port` field is a non-empty string on every emitted CanonicalEvent |
+| `TestEnvelopeDeviceIdType` | `device_id` field is a string or null — never an empty string |
 
 ---
 

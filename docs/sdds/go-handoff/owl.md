@@ -1,5 +1,6 @@
 ---
-spec-version: 1.0
+spec-version: 1.1
+updated: 2026-04-28
 target-implementation: Go
 stack: PostgreSQL 17 + pgx + sqlc | Chi HTTP | REST | go-redis | pgvector-go
 source: Curated from Canary Python prototype SDDs (GRO-617)
@@ -16,6 +17,24 @@ status: handoff-ready
 ## Purpose
 
 Owl is Canary's AI intelligence layer. It provides personality-routed chat, context-aware health-check reports, natural language data search, and an MCP tool registry that any client can discover and invoke. Every insight, report, and recommendation a merchant sees flows through Owl. When the LLM backend is unavailable, every path falls back to deterministic logic — Owl never returns an error to the merchant.
+
+---
+
+## RaaS Namespace Integration
+
+OWL's entity resolution — the EJ Spine that links cross-source entities (employees, cards, devices, locations) into a unified subject graph — uses the **RaaS namespace as the canonical merchant identifier** when resolving cross-source entities.
+
+OWL does not call RaaS directly. It reads the `raas_namespace` field from `merchant_sources` (already populated by RaaS during merchant onboarding). The namespace token (`raas:{merchant_id}`) is the lens through which OWL resolves entity identities across POS sources.
+
+| OWL Operation | RaaS Dependency |
+|---|---|
+| Entity resolution in semantic search | Reads `merchant_sources.raas_namespace` — no direct RaaS call |
+| Evidence reference construction | Uses `raas:{merchant_id}:{source_table}:{source_id}` format (see Closed-Loop Action Flow) |
+| Cross-source subject matching | Resolves entities via `raas_namespace` as the tenant token — not merchant name or internal UUID |
+
+**Why this matters:** A merchant with both Square and Counterpoint connected has two `merchant_sources` rows sharing one `raas_namespace`. OWL's entity resolution unifies subjects across both sources using the namespace as the join key. Without the RaaS namespace, a Square employee and their Counterpoint counterpart appear as separate entities — deduplication is impossible.
+
+The RaaS service (see `docs/sdds/canary/raas.md`) populates `raas_namespace` during onboarding and owns its lifecycle. OWL is a read-only consumer of this field.
 
 ---
 

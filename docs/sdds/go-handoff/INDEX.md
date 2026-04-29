@@ -1,5 +1,5 @@
 ---
-spec-version: 1.0
+spec-version: 1.1
 target-implementation: Go
 stack: PostgreSQL 17 + pgx + sqlc | Chi HTTP | REST | go-redis | pgvector-go
 source: Curated from Canary Python prototype SDDs (GRO-617)
@@ -87,13 +87,42 @@ Key additions:
 
 ---
 
+### 8. Agent layer
+
+- **[agent-contracts.md](agent-contracts.md)** — Agent smart contract schema and four reference contracts (alert triage, Fox investigation, analytics baseline, Service Introduction gate). Read before implementing any agent-driven workflow.
+
+---
+
+## v1.1 additions (GRO-668 — 2026-04-28)
+
+Six conceptual layers were woven into the corpus in this pass:
+
+| Layer | Primary SDDs updated |
+|---|---|
+| ILDWAC — IL(Device/MCP/Port/)WAC on Bitcoin standard | platform-overview, data-model, analytics, fox, chirp, pos-adapter-substrate, hawk, bull, go-module-layout |
+| RaaS interface contract | external-identities, microservice-architecture, architecture, multi-pos-architecture-proof, webhook-pipeline, owl |
+| Agent nodes and MCP ethos | platform-overview, architecture, microservice-architecture, alert, fox, go-module-layout |
+| Process decomp → Go subsystem mapping | microservice-architecture, chirp, webhook-pipeline, tsp, pos-adapter-substrate, hawk, bull |
+| Agent smart contracts | fox, alert, tsp, architecture, agent-contracts (new) |
+| Granularity enabled by technology | platform-overview, analytics, webhook-pipeline, fox |
+
+**New SDD:** `agent-contracts.md` — agent smart contract schema and reference implementations.
+
+**pgvector seed status:** This corpus seeds `growdirect_memory` after this commit. Every `##` section is chunk-ready — self-contained, specific header, table-preferred.
+
+---
+
 ## What is NOT in this corpus
 
-These are intentionally excluded — internal tooling, not part of the Go rebuild:
+These are intentionally excluded — internal tooling that requires its own SDD before the relevant Go service can be built:
 
-- Agent memory system (ALX) — rebuild separately
-- Namespace resolution (RaaS) — rebuild separately
-- Ops console — rebuild separately
-- Payment middleware (Goose) — rebuild separately
-- MCP server layer — rebuild separately
-- Python prototype-specific infra (Docker Compose, Gunicorn config, Alembic scripts)
+| Excluded service | Status | Blocks |
+|---|---|---|
+| Agent memory system (ALX) | Rebuild separately | M3+ agent workflows |
+| Namespace resolution (RaaS) | `raas-go.md` needed — Python SDD exists at `docs/sdds/canary/raas.md` | GRO-639, GRO-642 |
+| Payment middleware (Goose / L402) | `goose-go.md` needed | Phase 4+ L402-gated spend |
+| ILDWAC stock ledger engine | `ildwac-go.md` needed — architectural direction only | Phase 4 Module V/F cost model |
+| elJeffe Bitcoin anchor | `eljeffe-anchor-go.md` needed | Phase 5+ evidentiary rail |
+| Agent topology catalog | `agent-topology.md` needed | All agent-driven sessions |
+| Ops console | Rebuild separately | M6 ops handoff |
+| Python prototype infra | Not applicable | — |

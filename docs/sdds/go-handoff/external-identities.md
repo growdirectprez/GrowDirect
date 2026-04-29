@@ -1,5 +1,6 @@
 ---
-spec-version: 1.0
+spec-version: 1.1
+updated: 2026-04-28
 target-implementation: Go
 stack: PostgreSQL 17 + pgx + sqlc | Chi HTTP | REST | go-redis | pgvector-go
 source: Curated from Canary Python prototype SDDs (GRO-617)
@@ -302,6 +303,72 @@ A third-party verifying a receipt does not need to know which POS system generat
 ### Device Attestation
 
 When `include_device: true`, the source-specific device ID in the receipt is resolved through `external_identities` to the Canary device entity, and the device's attestation status is returned. The attestation is bound to the canonical device, not to any particular POS system's identifier.
+
+---
+
+## RaaS Service Interface — Go Service Contract
+
+RaaS (Resolution as a Service) is a separate Python service that owns namespace registration, source registration, and merchant onboarding orchestration. The Canary Go services are **consumers** of RaaS — they call it via REST. They must never query the RaaS database directly.
+
+**Implementation status:** RaaS is functional in the Python prototype (`docs/sdds/canary/raas.md`). It is **excluded from the Go rebuild** — rebuild separately per the architecture decision. This section specifies the interface contract so Go services know how to call it.
+
+### Data Model Boundary
+
+These tables belong to different systems and must not be conflated:
+
+| Table | Owner | Location | Purpose |
+|-------|-------|----------|---------|
+| `app.namespace_registrations` | RaaS service | `canary` DB, `app` schema | Canonical namespace records — written by RaaS only |
+| `app.namespace_aliases` | RaaS service | `canary` DB, `app` schema | Alias resolution cache — written by RaaS only |
+| `app.merchant_sources` | Identity domain (shared) | `canary` DB, `app` schema | POS connection status — written by both Identity and RaaS |
+| `app.external_identities` | External Identities domain (Go) | `canary` DB, `app` schema | Entity UUID bridge — written by Go parsers |
+
+They join on `merchant_id`. A Go service resolves a namespace to a `merchant_id` by calling RaaS; it then uses that `merchant_id` to look up `external_identities` directly.
+
+### How a Go Service Resolves a Namespace
+
+A Go service that receives a human-readable namespace string (e.g., `"sunrise-coffee.jeffe"`) and needs the corresponding `merchant_id` must call RaaS via REST.
+
+**Endpoint:** `GET {RAAS_SERVICE_URL}/raas/tools/resolve_namespace` (MCP tool invoke pattern)
+
+**Method:** `POST {RAAS_SERVICE_URL}/raas/tools/resolve_namespace`
+
+**Request:**
+```json
+{
+  "merchant_id": "<uuid>"
+}
+```
+
+**Response:**
+```json
+{
+  "namespace": "raas:<merchant_uuid>",
+  "resolved": true
+}
+```
+
+When `resolved` is `false`, the merchant has no active namespace. The calling Go service must treat this as a non-fatal condition — the merchant may be onboarding or may have no registered sources yet.
+
+### What Go Services Must NOT Do
+
+| Prohibited | Reason |
+|-----------|--------|
+| Query `app.namespace_registrations` directly | RaaS owns that table; direct reads bypass RaaS cache and consistency guarantees |
+| Query `app.namespace_aliases` directly | Alias resolution logic lives in RaaS, not in the alias table |
+| Write to `app.namespace_registrations` or `app.namespace_aliases` | RaaS is the sole writer; any other writer creates split-brain |
+| Cache namespace → merchant_id mappings indefinitely | Namespaces can be transferred or reassigned; use short TTL if caching at all |
+
+### Configuration
+
+| Env Var | Purpose |
+|---------|---------|
+| `RAAS_SERVICE_URL` | Base URL for the RaaS service (e.g., `http://canary-raas:5001`) |
+| `RAAS_API_KEY` | JWT or API key for authenticating RaaS MCP tool calls |
+
+### Failure Behavior
+
+If RaaS is unreachable, Go services that require namespace resolution must fail the request and return a 503. They must not fall back to direct database queries. Log the failure with the merchant context so RaaS availability issues surface in monitoring.
 
 ---
 

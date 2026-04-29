@@ -1,5 +1,6 @@
 ---
-spec-version: 1.0
+spec-version: 1.1
+updated: 2026-04-28
 target-implementation: Go
 stack: PostgreSQL 17 + pgx + sqlc | Chi HTTP | REST | go-redis | pgvector-go
 source: Curated from Canary Python prototype SDDs (GRO-617)
@@ -517,6 +518,52 @@ The health check must verify DB connectivity — not just return a static respon
 | Valkey down | Session auth (browser) fails; JWT auth still works | No rate limiting on notifications — skip cap check rather than blocking delivery. |
 | SMS/email provider unavailable | Notifications not delivered | Log failure to notification_log. Alert creation unaffected. |
 | Alert creation fails mid-transaction | Alert not created | Chirp pipeline rolls back. Transaction data preserved. |
+
+## Agent-Driven Alert Triage
+
+The domain agent for Loss Prevention (Module Q) is the first consumer of every new alert. Human operators receive escalations, not raw alert feeds. The alert state machine supports an `AGENT_REVIEWING` intermediate state to make the agent's triage window explicit and auditable.
+
+### Agent Triage Posture
+
+When an alert enters `new` status, the Q agent evaluates it automatically before any human notification is dispatched:
+
+| Triage Outcome | Agent Action | Resulting State |
+|---|---|---|
+| Noise — rule fired but pattern is known-benign for this merchant | Dismiss with reason | `dismissed` (terminal) |
+| Signal — pattern is anomalous, isolated, no prior case | Mark for human review | `HUMAN_ESCALATED` |
+| Pattern — same employee/location flagged across multiple recent alerts | Aggregate and open Fox case | `case_opened` (terminal) |
+| Outlier — novel pattern, insufficient evidence to classify | Hold in AGENT_REVIEWING; request additional data | `AGENT_REVIEWING` |
+
+### State Machine Extension
+
+The existing state machine gains one intermediate state:
+
+```
+new ──► AGENT_REVIEWING ──► investigating ──► resolved [TERMINAL]
+  │          │                    │
+  │          ├──► dismissed [TERMINAL]
+  │          ├──► case_opened [TERMINAL]
+  │          └──► HUMAN_ESCALATED ──► investigating ──► resolved [TERMINAL]
+  │                                              └──► case_opened [TERMINAL]
+  └── (existing transitions unchanged)
+```
+
+**`AGENT_REVIEWING`**: The Q agent has claimed the alert. No human notification is dispatched while in this state. The agent must resolve or escalate within its SLA window (see agent-contracts.md for the full contract schema — to be authored separately).
+
+**`HUMAN_ESCALATED`**: The agent has determined that human judgment is required. The standard notification pipeline fires. The `changed_by` field must record the agent's identifier (e.g., `agent:q-lp`) as the actor, not "system".
+
+### State Machine Implementation Notes
+
+- Add `AGENT_REVIEWING` and `HUMAN_ESCALATED` to the `alert_history.status` enum.
+- The `changed_by` field on `alert_history` rows written by the agent must use the pattern `agent:<module>-<role>` (e.g., `agent:q-lp`). This is distinct from the existing `system:ttl` actor pattern.
+- Add `actor_type` column to `alert_history` with values: `user` / `system` / `agent`. The agent actor type enables audit queries that distinguish human-touched from agent-touched alerts.
+- Agent triage SLA: the Q agent must resolve `AGENT_REVIEWING` alerts within 15 minutes. If the agent does not act within 15 minutes, the scheduler promotes the alert to `HUMAN_ESCALATED` automatically.
+
+### Notification Gating
+
+While an alert is in `AGENT_REVIEWING`, the notification pipeline is suppressed. When the agent escalates to `HUMAN_ESCALATED`, notification dispatch resumes using the standard `dispatch_notification()` path with the alert's original severity and category. No special notification path for agent-escalated alerts — the existing schedule rules apply.
+
+---
 
 ## Monitoring
 

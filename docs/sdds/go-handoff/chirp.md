@@ -1,5 +1,6 @@
 ---
-spec-version: 1.0
+spec-version: 1.1
+updated: 2026-04-28
 target-implementation: Go
 stack: PostgreSQL 17 + pgx + sqlc | Chi HTTP | REST | go-redis | pgvector-go
 source: Curated from Canary Python prototype SDDs (GRO-617)
@@ -7,6 +8,26 @@ status: handoff-ready
 ---
 
 # Chirp Detection Engine
+
+## Detection Category → Go Service Mapping
+
+Every Chirp detection category maps to its Go service owner and data owner. The ILDWAC row is architectural direction — the table and alert type are reserved for a future implementation pass.
+
+| Category | Go Service | Data Owner (tables) | Alert Type |
+|---|---|---|---|
+| Refund abuse | Chirp Engine | `sales.transactions`, `sales.refund_links` | `REFUND_ABUSE` |
+| Discount abuse | Chirp Engine | `sales.transactions`, `sales.transaction_line_items` | `DISCOUNT_ABUSE` |
+| Void / void-after-close | Chirp Engine | `sales.transactions` (void types) | `VOID_ABUSE` |
+| Cash drawer | Chirp Engine | `sales.cash_drawer_shifts`, `sales.cash_drawer_events` | `CASH_DRAWER` |
+| Employee velocity | Chirp Engine | `sales.transactions` | `EMPLOYEE_VELOCITY` |
+| Time-of-day anomaly | Chirp Engine | `sales.transactions` | `TIME_ANOMALY` |
+| Basket anomaly | Chirp Engine | `sales.transactions`, `sales.transaction_line_items` | `BASKET_ANOMALY` |
+| Item-level anomaly | Chirp Engine | `sales.transaction_line_items`, `app.items` | `ITEM_ANOMALY` |
+| Cross-location anomaly | Chirp Engine | `sales.transactions` | `CROSS_LOCATION` |
+| Threshold manipulation | Chirp Engine | `sales.transactions` | `THRESHOLD_MANIP` |
+| ILDWAC cost anomaly *(architectural direction)* | Chirp Engine | `ledger.ilwac_positions` *(future)* | `COST_ANOMALY` |
+
+---
 
 ## Purpose
 
@@ -1174,6 +1195,59 @@ Industry-specific threshold profiles: `retail_standard`, `food_service`, `high_v
 | Threshold cache hit rate | < 50% = Valkey issue or excessive invalidation |
 | Batch sweep duration | > 60s for < 1000 transactions = query performance issue |
 | Risk update failures | Any = metrics schema issue |
+
+## ILDWAC-Triggered Chirp Rules
+
+> **Architectural direction — not current implementation.** The rule stubs below define Category 11 (ILDWAC cost anomaly) as a reserved rule family. No GRO ticket exists for implementation yet. These rules will be activated after a formal design pass produces the `ledger.ilwac_positions` table and the five-dimension WAC recalculation engine.
+
+The existing 10 rule categories (Categories 1–10) cover behavioral signals derived from transaction events. Category 11 adds a cost-provenance signal layer: anomalies that appear only when the weighted average cost is tracked across the IL(Device/MCP/Port/) dimensions.
+
+### Category 11 — ILDWAC Cost Anomaly Rules
+
+| Rule ID | Name | Category | Severity | Trigger | Status |
+|---|---|---|---|---|---|
+| C-1101 | DEVICE_WAC_OUTLIER | cost_anomaly | high | WAC for an item on a specific terminal deviates > N sigma from the store-level baseline WAC for that item | Stub — architectural direction |
+| C-1102 | PORT_WAC_MISMATCH | cost_anomaly | high | Same item has divergent WAC across Square vs Counterpoint connectors at the same location | Stub — architectural direction |
+| C-1103 | MCP_COST_ATTRIBUTION_GAP | cost_anomaly | critical | Cost events authorized by an MCP tool call have no corresponding RIB batch in `ledger.ilwac_positions` | Stub — architectural direction |
+
+#### C-1101 — DEVICE_WAC_OUTLIER *(stub)*
+
+The WAC for a given (item, location, device) triple deviates more than N standard deviations from the merchant's baseline WAC for that (item, location) pair. Indicates a cost event was processed through a terminal with anomalous pricing authority — e.g., a receiving event keyed on a mobile device with a different cost basis than the fixed POS.
+
+**Threshold:** `sigma` — default 2.0 (configurable per merchant via `merchant_rule_config`).
+**Data source (future):** `ledger.ilwac_positions` WHERE `(item_id, location_id, device_id)` compared to aggregate over all device_ids.
+**Alert type:** `COST_ANOMALY`
+**Auto-case creation:** No (reserved for implementation pass).
+
+#### C-1102 — PORT_WAC_MISMATCH *(stub)*
+
+Same item and location, but WAC differs across POS connector (Square vs Counterpoint). Signals that cost events are being routed through connectors with inconsistent cost authorization — the canonical cost basis is ambiguous. This is a structural data quality signal as much as a fraud signal.
+
+**Threshold:** `variance_pct` — default 5.0 (percent difference in WAC across ports triggers the rule).
+**Data source (future):** `ledger.ilwac_positions` WHERE `(item_id, location_id)` GROUP BY `pos_port`.
+**Alert type:** `COST_ANOMALY`
+
+#### C-1103 — MCP_COST_ATTRIBUTION_GAP *(stub)*
+
+A cost-affecting event was authorized by an MCP tool call (recorded in the ILDWAC provenance vector), but no corresponding RIB batch exists in `ledger.ilwac_positions` for that (item, location, mcp_tool, period) combination. The cost was authorized but not posted — an evidentiary gap in the cost chain.
+
+**Threshold:** None — fires on any unmatched MCP authorization event.
+**Data source (future):** Cross-reference `mcp_authorization_log` with `ledger.ilwac_positions` by `mcp_tool_call_id`.
+**Alert type:** `COST_ANOMALY`
+**Severity:** `critical` — a missing RIB batch breaks the hash chain provenance and must be investigated.
+
+### Implementation Prerequisites for Category 11
+
+Before any C-1101/C-1102/C-1103 rule can be activated, the following must be in place:
+
+1. `ledger.ilwac_positions` table created with columns: `item_id`, `location_id`, `device_id`, `mcp_tool`, `pos_port`, `wac_satoshis`, `rib_batch_hash`, `effective_at`
+2. RIB batch pipeline producing JSON batches per domain with SHA-256 seals
+3. ILDWAC recalculation engine that updates `ledger.ilwac_positions` on each batch commit
+4. Baseline WAC computation (item × location aggregate) seeded in `metrics.metric_baselines`
+
+These prerequisites are tracked under the broader ILDWAC design pass. See `Brain/wiki/cards/ilwac-extended-bitcoin-standard.md` for the full architectural direction.
+
+---
 
 ## Known Security Findings (Prototype)
 
