@@ -36,6 +36,7 @@ SOURCES = [
     {"glob": "docs/sdds/canary/*.md", "memory_type": "context_block", "layer": "canary"},
     {"glob": "docs/sdds/platform/*.md", "memory_type": "context_block", "layer": "corp"},
     {"glob": "docs/sdds/alx/*.md", "memory_type": "context_block", "layer": "shared"},
+    {"glob": "docs/sdds/go-handoff/*.md", "memory_type": "context_block", "layer": "canary-go"},
     {"glob": "docs/team/*.md", "memory_type": "team_profile", "layer": "corp"},
     {"glob": "docs/decisions/*.md", "memory_type": "decision", "layer": "corp"},
     {"glob": "docs/superpowers/plans/*.md", "memory_type": "build_plan", "layer": "corp"},
@@ -55,8 +56,8 @@ def get_embedding(text: str) -> list[float] | None:
     try:
         r = httpx.post(
             f"{OLLAMA_URL}/api/embed",
-            json={"model": EMBEDDING_MODEL, "input": text[:MAX_TEXT]},
-            timeout=120.0,
+            json={"model": EMBEDDING_MODEL, "input": text[:MAX_TEXT], "keep_alive": -1},
+            timeout=300.0,
         )
         r.raise_for_status()
         return [float(v) for v in r.json()["embeddings"][0][:EMBEDDING_DIM]]
