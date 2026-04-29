@@ -1,8 +1,9 @@
 ---
 spec-version: 1.0
 target-implementation: Go
+stack: PostgreSQL 17 + pgx + sqlc | Chi HTTP | REST | go-redis | pgvector-go
 status: handoff-ready
-updated: 2026-04-28
+updated: 2026-04-29
 license: Apache-2.0
 copyright: "Copyright (c) 2026 GrowDirect LLC"
 ---
@@ -18,6 +19,10 @@ An **agent smart contract** is the formal answer to that question for any given 
 This SDD defines the contract schema, four reference contracts covering Canary's core workflows, the enforcement model, and the MCP tool pattern that activates each contract.
 
 **What this SDD is not:** a topology map of the full agent network, a spec for the RaaS namespace resolver, or a Go implementation guide for L402 middleware. Those are forward-referenced at the end of this document.
+
+**Tenant context.** Every contract execution operates within a single tenant scope. Contracts carry `merchant_id` in the `actor_type` audit trail; DB writes happen in the contracted tenant's schema (`tenant_{merchant_id}`); cross-tenant contract execution is forbidden. See `architecture.md` "Multi-Tenant Isolation" for the canonical schema-per-tenant pattern.
+
+**Optional features.** Contract execution is independent of L402, ILDWAC, blockchain anchoring, and vendor smart contracts. The contract schema below describes the audit trail every execution produces; when Optional Features (per `platform-overview.md`) are enabled, additional fields appear on the audit trail (L402 macaroon hash, ILDWAC cost packet ID, anchor receipt hash) — but the contract itself does not depend on those features being on.
 
 ---
 
@@ -624,3 +629,18 @@ The following SDDs must be authored before the full agent network described in t
 | Goose Go | `goose-go.md` | L402 payment middleware Go implementation. Required before agent-to-agent contract activations can be metered and billed. |
 
 Until these SDDs exist, implement contract activation using static routing (hardcoded MCP endpoint URLs per agent) and skip L402 gating. Flag any static routing with a `// TODO(GRO-668): replace with RaaS lookup` comment so the migration surface is visible.
+
+---
+
+## Related
+
+- [[go-runtime]] — `actor_type` middleware that stamps every contract execution
+- [[go-security]] — JWT issuance for agent identities; per-agent scoped roles
+- [[go-observability]] — contract execution metrics, audit log fields
+- [[architecture.md]] — multi-tenant isolation model that contract execution operates within
+- [[microservice-architecture.md]] — service mesh that hosts contract executors
+- [[platform-overview.md]] — Optional Features canonical section
+- [[raas.md]] — namespace resolution that contract activations consume
+- [[identity.md]] — agent JWT issuance and L402 macaroon (optional) layer
+- [[l402-otb.md]] — financial gate for paid contract activations (optional)
+- `docs/superpowers/specs/2026-04-28-canary-go-agent-pmo-architecture-design.md` — full agent network topology

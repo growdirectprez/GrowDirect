@@ -25,6 +25,8 @@ The Document Factory Pipeline is the knowledge ingestion layer for the Canary pl
 
 The pipeline is not a document management system. It does not index or search raw files. Its job is permanent knowledge extraction: pull the signal, discard the container, embed the result.
 
+**Tenant scope: platform-level, not per-merchant.** The factory pipeline is platform-internal infrastructure — it processes the GrowDirect knowledge corpus (Brain wiki, SDDs, dispatches), not merchant data. The `factory.documents` table lives in the `public` schema (or a dedicated platform schema), not in tenant schemas. Memory bus embeddings produced from this pipeline are queryable by all platform-internal services and agents; they are not exposed in tenant-scoped MCP surfaces.
+
 ---
 
 ## Dependencies
@@ -404,3 +406,17 @@ Synthesis approvals should be logged (who approved, timestamp, diff hash). Curre
 - [ ] Multi-sheet XLSX handling (P1-2)
 - [ ] Health check at `/factory/health`
 - [ ] `FACTORY_API_KEY` in Secrets Manager (not environment file)
+
+---
+
+## Related
+
+- [[go-runtime]] — service lifecycle, middleware stack, health endpoints
+- [[go-module-layout]] — `cmd/factory` binary location
+- [[go-security]] — `FACTORY_API_KEY` handling, secret loading
+- [[go-observability]] — pipeline stage metrics
+- [[data-model.md]] — `factory.documents` schema
+- [[platform-overview.md]] — top-level product context
+- `Brain/wiki/cards/runbook-memory-bus-seed.md` — the seeder this pipeline triggers
+- `Brain/wiki/cards/runbook-brain-wiki-commit.md` — the commit workflow that completes the pipeline
+- `content-engine/engine.py` — Python prototype reference

@@ -21,6 +21,10 @@ copyright: "Copyright (c) 2026 GrowDirect LLC"
 
 RaaS is the namespace authority for the entire platform. It assigns every merchant a canonical identity token (`raas:{merchant_id}`) that persists regardless of which POS systems come and go, and maintains the append-only hash-chained event log that makes every retail event in the system tamper-evident and point-in-time reconstructible. Two function groups — namespace resolution and receipt chain — share one service because they share one invariant: the namespace is the key under which all receipts are chained.
 
+**Required core, not an optional feature.** RaaS is foundational. The receipt chain — SHA-256 sealing, sequence integrity, append-only event log — operates **independently of L402, ILDWAC, blockchain anchoring, and vendor smart contracts**. With every Optional Feature env flag off (per `platform-overview.md` "Optional Features"), the chain still runs, still hashes, still sequences, still rejects out-of-order events, still produces verifiable receipts. The blockchain anchor (when `BLOCKCHAIN_ANCHOR_ENABLED=true`) takes the chain root asynchronously and inscribes it on a public L2 — anchor failures are non-blocking and the internal chain proceeds regardless. L402 (when `L402_ENABLED=true`) gates paid MCP tool calls on top of the chain — chain entry itself does not require Lightning settlement.
+
+**Multi-tenant context.** RaaS namespace tables (`raas_namespaces`, `raas_source_registrations`) live in the global `public` schema — they are the routing layer that maps a merchant to their tenant schema. The receipt chain tables (`raas_events`, `raas_chain_state`) live per-tenant in `tenant_{merchant_id}` — every merchant's chain is isolated to their own schema. Cross-tenant chain queries are not permitted; cross-tenant analytics over the chain are produced via scheduled rollups into the `analytics` schema. See `architecture.md` "Multi-Tenant Isolation" for the canonical pattern.
+
 ---
 
 ## Business
