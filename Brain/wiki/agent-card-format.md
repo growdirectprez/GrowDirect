@@ -1,7 +1,7 @@
 ---
 card-type: format-spec
 card-id: agent-card-format
-card-version: 1
+card-version: 2
 domain: platform
 layer: cross-cutting
 status: approved
@@ -187,3 +187,7 @@ All agent cards live in `Brain/wiki/cards/`. Subdirectories are permitted for la
 | [Platform: Performance NFRs](cards/platform-performance-nfrs.md) | platform-performance-nfrs | platform-thesis |
 | [Platform: PwC Benchmarks](cards/platform-pwc-benchmarks.md) | platform-pwc-benchmarks | platform-thesis |
 | [Store: Network Integrity Monitoring](cards/store-network-integrity.md) | store-network-integrity | platform-thesis |
+| [Platform: PII Hashing](cards/platform-pii-hashing.md) | platform-pii-hashing | platform-thesis |
+| [Platform: Multi-Tier Assortment](cards/platform-multi-tier-assortment.md) | platform-multi-tier-assortment | platform-thesis |
+| [Platform: Cryptographic Erasure](cards/platform-cryptographic-erasure.md) | platform-cryptographic-erasure | platform-thesis |
+| [Platform: Data Classification](cards/platform-data-classification.md) | platform-data-classification | platform-thesis |
