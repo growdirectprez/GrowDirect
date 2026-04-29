@@ -5,7 +5,7 @@ stack: PostgreSQL 17 + pgx + sqlc | Chi HTTP | REST | go-redis | pgvector-go
 status: handoff-ready
 updated: 2026-04-29
 binary: device-contracts
-port: 8095
+port: 9083
 mcp-server: canary-devices
 license: Apache-2.0
 copyright: "Copyright (c) 2026 GrowDirect LLC"
@@ -14,7 +14,7 @@ copyright: "Copyright (c) 2026 GrowDirect LLC"
 # Device Contracts — Smart Contract Enforcement for Cost and Profit Center Devices
 
 **Type:** Infrastructure Service — Device SLA Enforcement + Cost Allocation  
-**Binary:** `cmd/device-contracts` → `:8095`  
+**Binary:** `cmd/device-contracts` → `:9083`  
 **MCP server:** `canary-devices` (8 tools)  
 **Depends on:** `inventory-as-a-service` (device registry), `identity` (merchant existence), `raas` (chain hash primitive), `l402-otb` (wallet balances)  
 **Feeds:** `ildwac` (SLA status + penalty packets), `hawk-case-management` (breach events as LP evidence), `receiving` (sensor SLA affects receiving cost accuracy)

@@ -5,7 +5,7 @@ stack: PostgreSQL 17 + pgx + sqlc | Chi HTTP | REST | go-redis
 status: handoff-ready
 updated: 2026-04-29
 binary: blockchain-anchor
-port: 8085
+port: 9086
 mcp-server: canary-anchor
 license: Apache-2.0
 copyright: "Copyright (c) 2026 GrowDirect LLC"
@@ -15,7 +15,7 @@ patent: "Application #63/991,596"
 # Blockchain Anchor
 
 **Type:** Infrastructure Service — External Verifiability Layer  
-**Binary:** `cmd/blockchain-anchor` → `:8085`  
+**Binary:** `cmd/blockchain-anchor` → `:9086`  
 **MCP server:** `canary-anchor` (6 tools)  
 **Depends on:** `raas` (chain hash events), `ildwac` (RIB batch seals)  
 **Feeds:** nothing — terminal consumer

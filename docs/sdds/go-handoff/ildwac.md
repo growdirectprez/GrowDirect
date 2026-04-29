@@ -5,7 +5,7 @@ stack: PostgreSQL 17 + pgx + sqlc | Chi HTTP | REST | go-redis | pgvector-go
 status: handoff-ready
 updated: 2026-04-29
 binary: ildwac
-port: 8096
+port: 9082
 mcp-server: canary-ildwac
 license: Apache-2.0
 copyright: "Copyright (c) 2026 GrowDirect LLC"
@@ -14,7 +14,7 @@ copyright: "Copyright (c) 2026 GrowDirect LLC"
 # ILDWAC — Item × Location × Device × MCP × Port × Weighted Average Cost
 
 **Type:** Infrastructure Service — Provenance-Weighted Cost Model  
-**Binary:** `cmd/ildwac` → `:8096`  
+**Binary:** `cmd/ildwac` → `:9082`  
 **MCP server:** `canary-ildwac` (9 tools)  
 **Depends on:** `inventory` (event source via `inventory_ledger`), `identity` (merchant/location existence), `raas` (chain hash primitive)  
 **Feeds:** `l402-otb` (profit-center device WAC → OTB wallet), `hawk-case-management` (serial unit cost records for LP evidence), `tsp` (sales-driven WAC recalculation), `receiving` (receipt cost → initial WAC)

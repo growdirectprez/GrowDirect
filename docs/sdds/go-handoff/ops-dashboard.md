@@ -5,7 +5,7 @@ stack: PostgreSQL 17 + pgx + sqlc | Chi HTTP | REST + SSE | go-redis | pgvector-
 status: handoff-ready
 updated: 2026-04-29
 binary: ops-dashboard
-port: 8094
+port: 9084
 mcp-server: canary-ops
 license: Apache-2.0
 copyright: "Copyright (c) 2026 GrowDirect LLC"
@@ -14,10 +14,12 @@ copyright: "Copyright (c) 2026 GrowDirect LLC"
 # Ops Dashboard — Store NOC Interface
 
 **Type:** Operational Service — Real-Time Device Health + MCP Observability Surface  
-**Binary:** `cmd/ops-dashboard` → `:8094`  
+**Binary:** `cmd/ops-dashboard` → `:9084`  
 **MCP server:** `canary-ops` (7 tools)  
 **Depends on:** `raas` (chain events), `device-contracts` (device registry + SLA state), `ildwac` (wallet state), `identity` (merchant/location)  
 **Feeds:** `canary-chirp` (alert escalation), all MCP servers (probed on 10s interval)
+
+> **Solex is illustrative for the merchant admin surface:** Solex's `solex/routes/admin_*.py` (8 admin routes — catalog, customers, inventory, orders, returns, subscriptions, utils, auth) is a working example of the merchant-facing operational console this dashboard is designed to be. The controls a merchant operator needs over catalog, customers, inventory, orders, returns, and subscriptions are already enumerated and exercised there. The Go ops-dashboard exposes these over REST + SSE rather than Flask templates, but the surface area Solex proves out is the surface area ops-dashboard surfaces to merchants. See ecom-channel.md → "Solex Asset Reuse Beyond ecom-channel" for the full cross-module map.
 
 The Ops Dashboard is the platform's Network Operations Center surface — the single pane of glass where every device in a merchant's store is visible, every MCP server's health is live, and every SLA breach is tracked to resolution. It has two audiences sharing one interface: the service technician who needs device logs and breach timelines, and the store manager who needs to know which problems are costing money and which jobs are in flight.
 

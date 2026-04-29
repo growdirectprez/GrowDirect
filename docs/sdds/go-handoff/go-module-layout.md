@@ -50,6 +50,20 @@ GrowDirect-RapidPOS/
 │   ├── customer/   main.go     # :8096  Customer Data / Loyalty
 │   ├── returns/    main.go     # :8097  Return Management / Refund Authorization
 │   ├── report/     main.go     # :8098  Standard Reports / Scheduled Exports
+│   ├── raas/       main.go     # :8099  Resolution as a Service — namespace + chain hash backbone
+│   │
+│   ├── ecom-channel/             main.go     # :9080  Ecommerce channel adapter (Square Online, Shopify V2)
+│   ├── inventory-as-a-service/   main.go     # :9081  Real-time inventory position engine (IaaS)
+│   ├── ildwac/                   main.go     # :9082  Provenance-weighted cost model (Item × Location × Device × MCP × Port × WAC)
+│   ├── device-contracts/         main.go     # :9083  Smart contract enforcement for cost/profit-center devices
+│   ├── ops-dashboard/            main.go     # :9084  Store NOC interface, real-time device health + MCP observability
+│   ├── store-brain/              main.go     # :9085  In-store AI context manager — presence resolution, session governance
+│   ├── blockchain-anchor/        main.go     # :9086  Bitcoin L2 hash anchoring — external verifiability layer
+│   ├── field-capture/            main.go     # :9087  Semantic field mapping — pgvector-backed registry
+│   ├── store-network-integrity/  main.go     # :9088  Multi-store cross-location anomaly detection
+│   ├── commercial/               main.go     # :9089  Vendor relationship layer — finance, rebates, chargebacks
+│   ├── l402-otb/                 main.go     # :9090  L402-gated open-to-buy budget enforcement
+│   │
 │   └── edge/       main.go     # (no port) Counterpoint poller — deploys on-prem
 │
 ├── internal/                   # Private to this module — not importable externally
@@ -93,7 +107,28 @@ GrowDirect-RapidPOS/
 | 8096 | customer | Customer data, loyalty, purchase history |
 | 8097 | returns | Return management, refund authorization |
 | 8098 | report | Standard retail reports, scheduled exports |
+| 8099 | raas | Resolution as a Service — namespace resolution, chain hash primitive |
 | —    | edge | Counterpoint poller — on-prem, no inbound port |
+
+### Extended Service Block (post-spine)
+
+The 9080–9099 block is reserved for services that extend the original 13-module spine. These are SDD'd separately and run on the same Cloud Run topology. SDDs live in `docs/sdds/go-handoff/`.
+
+| Port | Service | Domain |
+|------|---------|--------|
+| 9080 | ecom-channel | Ecommerce channel adapter (Square Online V1; Shopify, WooCommerce V2+) |
+| 9081 | inventory-as-a-service | Real-time inventory position engine — superset of the spine `inventory` slot |
+| 9082 | ildwac | Provenance-weighted cost model on Bitcoin standard (patent #63/991,596) |
+| 9083 | device-contracts | Smart contract enforcement — cost/profit-center device SLAs |
+| 9084 | ops-dashboard | Store NOC interface — device health + MCP observability (REST + SSE) |
+| 9085 | store-brain | In-store AI context manager — presence resolution, session governance |
+| 9086 | blockchain-anchor | Bitcoin L2 hash anchoring — external verifiability layer (patent #63/991,596) |
+| 9087 | field-capture | Semantic field mapping — pgvector-backed schema registry |
+| 9088 | store-network-integrity | Multi-store cross-location anomaly detection |
+| 9089 | commercial | Vendor relationship layer — finance, rebates, chargebacks, deductions |
+| 9090 | l402-otb | L402-gated open-to-buy budget enforcement |
+
+> **Reconciliation note (2026-04-29):** The extended-block services were initially drafted with port assignments overlapping the 8080–8098 spine. The 9080+ block is the canonical assignment. SDD frontmatter and inline binary references have been aligned to this table.
 
 ---
 

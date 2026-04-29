@@ -64,7 +64,45 @@ The implementation is Go. Stack decisions are final:
 - **[bull.md](bull.md)** — NCR Counterpoint adapter. Reference implementation. REST API key auth, polling model (no native webhooks).
 
 ### 8. Ecommerce channel
-- **[ecom-channel.md](ecom-channel.md)** — Ecommerce channel integration service. Channel adapter pattern (Square Online V1; Shopify/WooCommerce V2+), order ingest into RaaS, catalog sync (Canary-master conflict resolution), subscription/autoship management, and channel webhook processing. Port 8098. 7 MCP tools. Reference implementation: `/Users/gclyle/GrowDirect/Solex/`.
+- **[ecom-channel.md](ecom-channel.md)** — Ecommerce channel integration service. Channel adapter pattern (Square Online V1; Shopify/WooCommerce V2+), order ingest into RaaS, catalog sync (Canary-master conflict resolution), subscription/autoship management, multi-tier fulfillment routing, and channel webhook processing. Port 9080. 7 MCP tools. Solex (`/Users/gclyle/GrowDirect/Solex/`) is the illustrative reference, not a literal port target.
+
+### 9. Pipeline stages (TSP sub-modules)
+- **[tsp-seal.md](tsp-seal.md)** — Stage 1: Hash & Seal — write-once evidence sealing with chain hashes. Patent-critical primitives.
+- **[tsp-parse.md](tsp-parse.md)** — Stage 2: Parse & Route — CRDM record creation, source-agnostic routing.
+- **[tsp-merkle.md](tsp-merkle.md)** — Stage 3: Merkle Batcher — batch accumulation and blockchain inscription.
+- **[tsp-detect.md](tsp-detect.md)** — Stage 4: Chirp Detection — real-time exception engine.
+
+### 10. Resolution and identity backbone
+- **[raas.md](raas.md)** — Resolution as a Service — namespace resolution, chain hash primitive. Port 8099. 9 MCP tools.
+- **[external-identities.md](external-identities.md)** — POS-native ID → Canary canonical ID mapping.
+
+### 11. Inventory, item, and pricing spine
+- **[item.md](item.md)** — Item master, per-store assortment metadata. Port 8090.
+- **[inventory-as-a-service.md](inventory-as-a-service.md)** — Real-time inventory position engine, multi-tier assortment model. Port 9081.
+- **[receiving.md](receiving.md)** — Dock control + inventory intake. Port 8092.
+- **[returns.md](returns.md)** — Return processing + fraud detection. Port 8097.
+- **[pricing.md](pricing.md)** — Price history + promotion engine. Port 8094.
+- **[three-way-match.md](three-way-match.md)** — PO-receipt-invoice reconciliation.
+
+### 12. Cost, finance, and accountability
+- **[ildwac.md](ildwac.md)** — Provenance-weighted cost model on Bitcoin standard (patent #63/991,596). Port 9082.
+- **[l402-otb.md](l402-otb.md)** — L402-gated open-to-buy budget enforcement. Port 9090.
+- **[commercial.md](commercial.md)** — Vendor relationship layer — finance, rebates, chargebacks. Port 9089.
+- **[blockchain-anchor.md](blockchain-anchor.md)** — Bitcoin L2 hash anchoring (patent #63/991,596). Port 9086.
+
+### 13. Devices, presence, and ops surface
+- **[device-contracts.md](device-contracts.md)** — Smart contract enforcement for cost/profit-center devices. Port 9083.
+- **[store-brain.md](store-brain.md)** — In-store AI context manager — presence resolution, session governance. Port 9085.
+- **[ops-dashboard.md](ops-dashboard.md)** — Store NOC interface, device health + MCP observability. Port 9084.
+- **[field-capture.md](field-capture.md)** — Semantic field mapping, pgvector-backed registry. Port 9087.
+
+### 14. Multi-store integrity and case management
+- **[store-network-integrity.md](store-network-integrity.md)** — Multi-store cross-location anomaly detection. Port 9088.
+- **[hawk-case-management.md](hawk-case-management.md)** — LP case lifecycle, incident types, wizard FSM, compliance.
+
+### 15. Test data and architectural proofs
+- **[retail-lifecycle-test-data.md](retail-lifecycle-test-data.md)** — Integration testing dataset spanning the full retail lifecycle.
+- **[multi-pos-architecture-proof.md](multi-pos-architecture-proof.md)** — Empirical demonstration of POS-agnostic design.
 
 ---
 

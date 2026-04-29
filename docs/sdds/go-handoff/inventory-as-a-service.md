@@ -5,7 +5,7 @@ stack: PostgreSQL 17 + pgx + sqlc | Chi HTTP | REST | go-redis | pgvector-go
 status: handoff-ready
 updated: 2026-04-29
 binary: inventory
-port: 8097
+port: 9081
 mcp-server: canary-inventory
 license: Apache-2.0
 copyright: "Copyright (c) 2026 GrowDirect LLC"
@@ -14,7 +14,7 @@ copyright: "Copyright (c) 2026 GrowDirect LLC"
 # IaaS — Inventory as a Service
 
 **Type:** Infrastructure Service — Real-Time Inventory Position Engine  
-**Binary:** `cmd/inventory` → `:8097`  
+**Binary:** `cmd/inventory` → `:9081`  
 **MCP server:** `canary-inventory` (10 tools)  
 **Depends on:** `identity` (merchant/location existence), `raas` (appends inventory events to chain)  
 **Feeds:** `ecom-channel` (available_online position), `tsp` (transaction-time inventory decrement), `receiving` (receipt events), `fox` (fulfillment routing), `owl` (searchable inventory), `bull` (replenishment triggers)
@@ -30,6 +30,8 @@ IaaS is the shared inventory position engine for the Canary platform. It is not 
 The traditional retail inventory problem is not accuracy — it is latency. Inventory counts are accurate at the moment they are taken and stale within the hour. A physical count says "200 units" at 6am; by noon, 47 have sold in-store, 12 are reserved in online carts, 8 are on BOPIS hold, and 3 are missing. The system still shows 200. An online customer buys what is not there.
 
 IaaS solves this by making every inventory-moving event — POS sale, receiving dock scan, cart reservation, BOPIS pickup — a synchronous write to the ledger and the snapshot. Position is not a count; it is a running balance updated in real time by the events that change it. The storefront reads from Valkey (sub-millisecond); the Valkey entry is invalidated on every ledger write. The number the customer sees when they click "add to cart" is the number that matters — not the number from last night's batch job.
+
+> **Solex is illustrative:** The cart-reservation and BOPIS-hold semantics that make this engine necessary are illustrated in `Solex/solex/services/inventory.py` and `cart.py`. Solex is single-channel and single-location — its inventory model is a simplified case, useful for grounding the operational invariants (reservation expiry, decrement on payment, restock on cancel) but not a literal port target. IaaS generalizes those patterns into the multi-channel, multi-location, real-time engine this SDD specifies. See ecom-channel.md → "Solex Port-Forward Inventory" for the full map.
 
 ### The Store-as-Warehouse Insight
 
@@ -86,6 +88,34 @@ available_online    = (shelf_qty - floor_stock_min) + backroom_qty - cart_reserv
 available_instore   = shelf_qty + backroom_qty - bopis_commitments
 total_on_hand       = shelf_qty + backroom_qty + hold_qty
 ```
+
+### Multi-Tier Assortment Model
+
+A store's relationship to the catalog is not binary. Each store-item pair has an assortment tier that governs what the storefront offers, how the order is fulfilled, and how IaaS computes availability. Three tiers, ordered by physical proximity:
+
+| Tier | Stock pool | Fulfillment paths | Availability source |
+|---|---|---|---|
+| **Store assortment** | This store's on-hand (`shelf` + `backroom`) | BOPIS pickup, ship-from-store, in-store walk-in | `inventory_positions` for this `(store_id, item_id)` |
+| **Warehouse assortment** | Centralized warehouse on-hand (separate `location_id` of type `warehouse`) | Ship-to-customer from warehouse, store-replenishment transfer | `inventory_positions` for the warehouse location |
+| **Expanded assortment** | Not stocked anywhere — available via vendor drop-ship or special order | Vendor-direct ship, special order at the counter, in-store ring-up with vendor PO | Vendor capability registry (not a stock pool — a drop-ship promise) |
+
+**The store-level catalog is a projection.** Every store has a regular assortment (the SKUs it actively carries), a fulfillment-extended assortment (SKUs it does not stock but the warehouse does), and an expanded assortment (SKUs the merchant can special-order from a vendor on demand). The same item appears differently in each:
+
+- A bottle of supplement carried locally → store assortment, on-shelf availability, BOPIS-in-an-hour
+- A device the merchant stocks centrally but not at this location → warehouse assortment, ship-in-3-days, no BOPIS at this store
+- A discontinued but vendor-orderable variant → expanded assortment, special-order-only, 5-10 day vendor lead time
+
+**Fulfillment routing decision:** when an ecom order is placed against a specific store, IaaS evaluates options in tier order — store first (BOPIS/ship-from-store), then warehouse (ship-to-customer), then expanded (special order). The first tier that has the item in sufficient quantity wins. Ties (e.g., warehouse and store both have it; warehouse is closer to the customer's ship-to address) are broken by `fulfillment_routes` heuristics.
+
+**Catalog data model implications:**
+
+- Items carry assortment metadata per store: `(store_id, item_id, tier, active)` — owned by `cmd/item`, read by IaaS for assortment-aware availability
+- The expanded assortment is keyed off vendor capability, not stock — `cmd/commercial` owns the vendor-can-drop-ship registry
+- Special-order-only items have NULL on-hand at every location and are still purchasable; the order routes to vendor PO automatically
+
+**Why this matters operationally:** the merchant wants to sell what the customer wants without losing margin to oversell or stocking out a slow-mover. The three-tier model keeps the store storefront expansive (broader catalog than the store physically carries) without breaking the trust model on the BOPIS path. A customer who picks BOPIS sees only store-assortment-on-hand items as one-hour-pickup; everything else routes to ship.
+
+**Solex limitation:** Solex is single-store and treats inventory as a single pool keyed only by item. The multi-tier assortment model is a Canary-Go addition; do not look for it in Solex.
 
 ---
 

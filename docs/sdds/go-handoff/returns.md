@@ -5,7 +5,7 @@ stack: PostgreSQL 17 + pgx + sqlc | Chi HTTP | REST | go-redis | pgvector-go
 status: handoff-ready
 updated: 2026-04-29
 binary: returns
-port: 8087
+port: 8097
 mcp-server: canary-returns
 license: Apache-2.0
 copyright: "Copyright (c) 2026 GrowDirect LLC"
@@ -14,7 +14,7 @@ copyright: "Copyright (c) 2026 GrowDirect LLC"
 # Returns — Return Processing and Fraud Detection
 
 **Type:** Domain Service — Return Lifecycle + LP Signal Feed  
-**Binary:** `cmd/returns` → `:8087`  
+**Binary:** `cmd/returns` → `:8097`  
 **MCP server:** `canary-returns` (9 tools)  
 **Depends on:** `raas` (`return_eligible` check; return events appended to chain), `inventory-as-a-service` (restocking on approved returns), `ildwac` (cost adjustment on returned items), `pricing` (`effective_price_at` for refund amount at original purchase timestamp)  
 **Feeds:** `hawk` (return fraud signals, auto-flag on score ≥ 70), `fox` (ecom return routing and status)

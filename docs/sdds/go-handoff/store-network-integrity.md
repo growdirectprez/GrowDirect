@@ -5,7 +5,7 @@ stack: PostgreSQL 17 + pgx + sqlc | Chi HTTP | REST | go-redis
 status: handoff-ready
 updated: 2026-04-29
 binary: store-network-integrity
-port: 8083
+port: 9088
 mcp-server: canary-sni
 license: Apache-2.0
 copyright: "Copyright (c) 2026 GrowDirect LLC"
@@ -14,7 +14,7 @@ copyright: "Copyright (c) 2026 GrowDirect LLC"
 # Store Network Integrity
 
 **Type:** Analytics Service — Multi-Store Cross-Location Anomaly Detection  
-**Binary:** `cmd/store-network-integrity` → `:8083`  
+**Binary:** `cmd/store-network-integrity` → `:9088`  
 **MCP server:** `canary-sni` (6 tools)  
 **Depends on:** `tsp` (transaction data), `chirp` (alert generation), `hawk` (case linkage)  
 **Feeds:** `hawk` (cases with `hawk_case_id`), `chirp` (cross-store alert signals)

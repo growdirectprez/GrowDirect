@@ -5,7 +5,7 @@ stack: PostgreSQL 17 + pgx + sqlc | Chi HTTP | REST | go-redis | pgvector-go
 status: handoff-ready
 updated: 2026-04-29
 binary: commercial
-port: 8089
+port: 9089
 mcp-server: canary-commercial
 license: Apache-2.0
 copyright: "Copyright (c) 2026 GrowDirect LLC"
@@ -14,7 +14,7 @@ copyright: "Copyright (c) 2026 GrowDirect LLC"
 # Commercial — Vendor Relationship Layer
 
 **Type:** Domain Service — Vendor Finance  
-**Binary:** `cmd/commercial` → `:8089`  
+**Binary:** `cmd/commercial` → `:9089`  
 **MCP server:** `canary-commercial` (7 tools)  
 **Depends on:** `identity` (merchant + vendor existence), `raas` (chain events for contract milestones), `ildwac` (cost basis for rebate qualification)  
 **Feeds:** `hawk` (chargeback dispute signals), `three-way-match` (invoice deduction reconciliation), `owl` (vendor performance analytics)

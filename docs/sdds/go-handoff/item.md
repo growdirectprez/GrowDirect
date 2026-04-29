@@ -21,6 +21,10 @@ copyright: "Copyright (c) 2026 GrowDirect LLC"
 
 The item master is the canonical source of truth for what a merchant sells. Without it, every system holds its own version of a product — the POS has one SKU, the website has another, the receiving dock has a third. Canary's item master is the single record that all modules reference. When an item changes — price, UPC, category — it changes once here and propagates everywhere. The item service is the least glamorous module in the spine and the one whose absence breaks everything else.
 
+> **Solex is illustrative:** The catalog ingestion model in `Solex/` is one concrete realization of an item master — `solex/services/catalog_import.py` (loads `catalog/products.yaml`), `catalog.py`, `catalog_sync.py`, and the `admin_catalog` routes. The product YAML at `Solex/catalog/products.yaml` (4 categories, full SKU/slug/price/image/weight/inventory shape) shows what one item record looks like in practice. Read it for the operational shape, not as a copy target — Solex is single-tenant single-channel; `cmd/item` is the platform item master. See ecom-channel.md → "Solex Port-Forward Inventory" for the full map.
+
+> **Assortment metadata is part of the item master.** Each item carries per-store assortment tier — `store`, `warehouse`, or `expanded` (special order) — that governs how IaaS computes availability and how ecom-channel routes fulfillment. This is the data backbone for the multi-tier assortment model: a store carries its regular SKUs (store tier), can ship from a central warehouse for items it does not stock (warehouse tier), and can special-order vendor items it does not carry at all (expanded tier). The item record owns the tier mapping; IaaS owns the stock; commercial owns the vendor-can-drop-ship promise. See inventory-as-a-service.md → "Multi-Tier Assortment Model" for the full contract.
+
 ---
 
 ## Business

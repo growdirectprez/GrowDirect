@@ -5,7 +5,7 @@ stack: PostgreSQL 17 + pgx + sqlc | Chi HTTP | REST | go-redis | pgvector-go
 status: handoff-ready
 updated: 2026-04-29
 binary: l402-otb
-port: 8086
+port: 9090
 mcp-server: canary-otb
 license: Apache-2.0
 copyright: "Copyright (c) 2026 GrowDirect LLC"
@@ -14,7 +14,7 @@ copyright: "Copyright (c) 2026 GrowDirect LLC"
 # L402-OTB — Open-to-Buy Budget Enforcement
 
 **Type:** Infrastructure Service — Financial Constraint Layer  
-**Binary:** `cmd/l402-otb` → `:8086`  
+**Binary:** `cmd/l402-otb` → `:9090`  
 **MCP server:** `canary-otb` (8 tools)  
 **Depends on:** `identity` (merchant and location existence), `settings` (feature flags: `feature.l402_enforcement_enabled`), `ildwac` (WAC cost basis feeds OTB position calculation)  
 **Feeds:** `purchasing` (OTB balance check before PO creation), `hawk` (budget exhaustion signals), `owl` (OTB trend analytics)

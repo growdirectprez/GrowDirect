@@ -5,7 +5,7 @@ stack: PostgreSQL 17 + pgx + sqlc | Chi HTTP | REST | go-redis | pgvector-go
 status: handoff-ready
 updated: 2026-04-29
 binary: store-brain
-port: 8093
+port: 9085
 mcp-server: canary-brain
 license: Apache-2.0
 copyright: "Copyright (c) 2026 GrowDirect LLC"
@@ -14,10 +14,12 @@ copyright: "Copyright (c) 2026 GrowDirect LLC"
 # Store Brain — In-Store AI Context Manager
 
 **Type:** Infrastructure Service — Presence Resolution + Session Governance  
-**Binary:** `cmd/store-brain` → `:8093`  
+**Binary:** `cmd/store-brain` → `:9085`  
 **MCP server:** `canary-brain` (9 tools)  
 **Depends on:** `identity` (merchant/location), `raas` (session chain events), `device-contracts` (entry sensor events), `inventory-as-a-service` (in-stock context), `ecom-channel` (BOPIS holds)  
 **Feeds:** All MCP servers (session context + tool permission gating), `ops-dashboard` (occupancy data), `canary-chirp` (greeting delivery)
+
+> **Catalog and cart are cross-channel primitives:** Solex's `solex/services/cart.py` + `checkout.py` were built for online ordering, but the same primitives power in-store ordering — kiosk flows, associate-assisted special orders, BOPIS extensions, on-the-floor cart entry. Store-brain reuses the catalog read-path (via `cmd/item`) and the inventory reservation contract (via `cmd/inventory-as-a-service`) that ecom-channel exercises; only the UX surface and channel attribution differ. The "online order" and the "associate-rung special order" share backing primitives. See ecom-channel.md → "Solex Asset Reuse Beyond ecom-channel" for the full cross-module map.
 
 The Store Brain is the context-setting infrastructure layer that fires before any other interaction in a Canary-connected store. Its governing thesis: the MCP greets first. When a customer walks through the door, when an associate starts their shift, when a device boots — the brain fires `presence_detected`, assembles everything the store knows about that subject in parallel, creates a scoped session, and publishes the result to Valkey before any associate speaks, any kiosk renders, or any POS transaction begins. Every MCP tool call that follows runs inside that session's permission scope.
 

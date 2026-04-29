@@ -5,7 +5,7 @@ stack: PostgreSQL 17 + pgx + sqlc | Chi HTTP | REST | go-redis | pgvector-go
 status: handoff-ready
 updated: 2026-04-29
 binary: pricing
-port: 8088
+port: 8094
 mcp-server: canary-pricing
 license: Apache-2.0
 copyright: "Copyright (c) 2026 GrowDirect LLC"
@@ -14,7 +14,7 @@ copyright: "Copyright (c) 2026 GrowDirect LLC"
 # Pricing — Price History and Promotion Engine
 
 **Type:** Domain Service — Pricing Authority  
-**Binary:** `cmd/pricing` → `:8088`  
+**Binary:** `cmd/pricing` → `:8094`  
 **MCP server:** `canary-pricing` (8 tools)  
 **Depends on:** `identity` (merchant and location existence), `raas` (`price_changed` events appended to chain)  
 **Feeds:** `ildwac` (effective price at transaction time for margin computation), `hawk` (price anomaly signals), `fox` (ecom price display), `tsp-seal` (price snapshot at transaction moment)

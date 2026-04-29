@@ -5,7 +5,7 @@ stack: PostgreSQL 17 + pgx + sqlc | Chi HTTP | REST | go-redis | pgvector-go
 status: handoff-ready
 updated: 2026-04-29
 binary: receiving
-port: 8091
+port: 8092
 mcp-server: canary-receiving
 license: Apache-2.0
 copyright: "Copyright (c) 2026 GrowDirect LLC"
@@ -14,7 +14,7 @@ copyright: "Copyright (c) 2026 GrowDirect LLC"
 # Receiving
 
 **Type:** Operational Module — Dock Control + Inventory Intake  
-**Binary:** `cmd/receiving` → `:8091`  
+**Binary:** `cmd/receiving` → `:8092`  
 **MCP server:** `canary-receiving` (8 tools)  
 **Depends on:** `identity`, `raas`, `inventory-as-a-service`, `three-way-match`  
 **Feeds:** `inventory-as-a-service` (quantity updates), `ildwac` (cost basis events), `hawk` (discrepancy alerts)

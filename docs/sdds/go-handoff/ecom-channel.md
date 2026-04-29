@@ -12,7 +12,7 @@ copyright: "Copyright (c) 2026 GrowDirect LLC"
 # Ecom Channel — Ecommerce Channel Integration Service
 
 > **Type:** Channel Integration — Order & Catalog Gateway
-> **Binary:** `cmd/ecom-channel` → port **8098**
+> **Binary:** `cmd/ecom-channel` → port **9080**
 > **MCP server:** `canary-ecom` (7 tools)
 > **Last reviewed:** 2026-04-29
 
@@ -41,15 +41,66 @@ ecom-channel owns five distinct capabilities, each of which has real LP conseque
 
 **Order ingest.** Every ecom order enters the RaaS chain as a typed event: `ecom.order.placed`, `ecom.order.fulfilled`, `ecom.order.refunded`. An ecom return that circumvents the in-store process is a return fraud vector. Without the order event in the chain, Hawk's return fraud detection is blind to it.
 
+**Multi-tier fulfillment routing.** An ecom store is attached to a physical store location and inherits that store's regular assortment for BOPIS pickup, but it is not constrained to it. Three assortment tiers are surfaced through the storefront and routed at order time: store assortment (on-hand at the attached store, BOPIS-eligible), warehouse assortment (centralized stock, ship-to-customer from warehouse, no BOPIS), and expanded assortment (special-order via vendor drop-ship for items not stocked anywhere). The merchant offers a richer catalog than the store physically carries without breaking the BOPIS trust model — only store-tier items show "pickup in an hour"; warehouse-tier items show "ships in 3 days"; expanded-tier items show "special order, 5–10 days". Routing logic and availability formulas are owned by `cmd/inventory-as-a-service` (see "Multi-Tier Assortment Model"). ecom-channel surfaces tier-aware availability at cart, calls IaaS for the routing decision at checkout, and emits the routed fulfillment plan as part of `ecom.order.placed`.
+
 **Catalog sync.** Canary's item master is the source of truth. Square Online is the downstream. When prices diverge — because someone edited the Square catalog directly without going through Canary — the discrepancy is a shrink opportunity. Catalog sync catches it. The pull direction (Square → Canary) is a soft alert path; the push direction (Canary → Square) is authoritative.
 
 **Subscription / autoship management.** Recurring charge scheduling is more than a billing convenience. Autoship cadence is a predictive signal — a gap in expected recurring revenue often precedes or coincides with a supply chain anomaly or a fulfillment discrepancy. Canary feeds this signal into predictive analytics. The subscription status machine (active → paused → cancelled) and charge failure history are the inputs.
 
 **Webhook processing.** Channel webhooks arrive here, not at the general webhook-pipeline service. ecom-channel owns its own webhook receiver for channel-sourced events (order updates, catalog changes, payment events from Square Online). The general webhook-pipeline handles POS adapter events (Square Point of Sale, NCR Counterpoint). ecom-channel handles ecommerce channel events. The distinction is maintained deliberately — the data shapes, signature methods, and processing semantics differ between POS and ecom channel providers.
 
-### Solex Is the Proof
+### Solex Is Illustrative
 
-Every claim above is grounded in working code. Solex (`/Users/gclyle/GrowDirect/Solex/`) is a production-grade Flask ecommerce implementation covering checkout, subscriptions, and catalog management against the Square API. The Go implementation in ecom-channel is a formalization and platformization of what Solex demonstrated — not a greenfield design.
+Canary Go is a clean codebase. It pulls patterns from many sources — the Python Canary prototype (frozen at `v0-python-prototype`), the SDD corpus in this directory, the agent PMO architecture spec, patent #63/991,596 disclosures, and Solex. None of those is the source of truth on its own; the SDD library is. Each illustrative source informs a different region of the design.
+
+Solex (`/Users/gclyle/GrowDirect/Solex/`) is the illustrative reference for ecom-channel — a production-grade Flask ecommerce implementation covering checkout, subscriptions, and catalog management against the Square API. It is one concrete realization of the patterns this SDD specifies, not a literal port target. Solex was built single-channel (Square only) and single-tenant; ecom-channel generalizes those patterns into the multi-channel, multi-tenant, agent-driven contract this document defines.
+
+**How to use Solex:** when the SDD specifies what the platform needs, Solex shows what it can look like when the rubber meets the road. Read it for proven behavior — failure recovery sequencing, idempotency keys, webhook ordering, cart fingerprinting — patterns that are easier to grok from working code than from spec prose. Where the SDD and Solex diverge, the SDD wins; Solex was a useful narrowing, not a constraint on the platform.
+
+#### Solex Port-Forward Inventory
+
+The table below maps Solex sources to the Go modules they inform. It is a starting map for the build dispatch, not a literal copy-list — Solex is one example, not the only model.
+
+| Solex source (Python) | Go target | Port-forward note |
+|---|---|---|
+| `solex/services/checkout.py` | `cmd/ecom-channel/checkout.go` | The Square-API-before-DB invariant, idempotency key shape, and orphan-recovery sequencing all originate here |
+| `solex/services/cart.py` | `internal/ecom/cart` | Cart fingerprinting and line-item snapshot logic |
+| `solex/services/catalog.py` + `catalog_sync.py` + `catalog_import.py` | `cmd/ecom-channel/catalog_*.go` | Canary-master conflict resolution, Square push direction, soft-alert pull direction |
+| `solex/services/subscriptions.py` | `cmd/ecom-channel/subscriptions.go` | Subscription state machine (active → paused → cancelled), recurring charge cadence, predictive signal feed |
+| `solex/services/refunds.py` + `returns.py` | `cmd/ecom-channel/returns_handoff.go` (delegates to `cmd/returns`) | Ecom returns route to the dedicated `returns` service after channel-side normalization |
+| `solex/services/abandonment.py` | `cmd/ecom-channel/abandonment.go` | Abandoned-cart recovery — predictive signal, not just a marketing artifact |
+| `solex/services/webhooks.py` | `cmd/ecom-channel/webhook.go` | Channel webhook receiver — owns its own signature verification, distinct from the POS webhook-pipeline |
+| `solex/services/inventory.py` | RaaS query layer — call `cmd/inventory-as-a-service` | Local inventory views in Solex become IaaS reads in Go |
+| `solex/services/fulfillment.py` | `cmd/ecom-channel/fulfillment.go` | Fulfillment state, BOPIS hold semantics, shipping handoff |
+| `solex/services/shipping.py` + `tax.py` + `addresses.py` | `internal/ecom/shipping` etc. | Pure-function utilities; straight ports |
+| `solex/services/square_client.py` | `internal/ecom/adapters/square` | Becomes the V1 concrete `ChannelAdapter` implementation |
+| `solex/services/email.py` | Out of scope for ecom-channel | Email is a platform concern; route through the platform notifier service |
+| `solex/services/auth.py` | Out of scope | Customer auth is owned by `identity` |
+| `solex/services/scenarios/` | Test fixtures | Becomes integration test data under `cmd/ecom-channel/testdata/` |
+| `solex/routes/admin_*.py` (8 admin routes) | `cmd/ops-dashboard` integration | Admin surfaces consolidate into ops-dashboard, not ecom-channel |
+| `solex/routes/account_*.py` (5 account routes) | `cmd/ecom-channel/account_*.go` | Storefront-facing account surfaces stay with ecom-channel |
+| `solex/routes/storefront.py` + `pages.py` + `cart.py` + `checkout.py` | Storefront templates remain Flask/HTML; Go serves the API | The Go ecom-channel is API-first; the storefront UI does not move into Go |
+| `solex/models/*.py` (14 models) | `internal/ecom/models` (sqlc-generated) | SQLAlchemy models map to sqlc structs — schemas in `data-model.md` already reflect this |
+| `alembic/versions/` | `deploy/migrations/ecom-channel/` | Convert Alembic to golang-migrate sequentially; do not collapse history |
+
+**Build dispatch posture:** the engineer building `cmd/ecom-channel` reads Solex alongside the SDD — the SDD specifies the contract; Solex illustrates one proven realization. Where Solex got something right that the SDD leaves implicit (failure sequencing, idempotency shape, webhook ordering), port the behavior forward. Where the SDD calls for something Solex did not need (multi-channel adapter, multi-tenant isolation, RaaS chain integration), the SDD governs. No part of this is a literal port; Solex is illustrative.
+
+#### Solex Asset Reuse Beyond ecom-channel
+
+Solex is not a single-purpose source for ecom-channel. Several of its assets carry into other modules in the Canary Go spine — the build dispatches for those modules should treat Solex as illustrative for their domain too.
+
+| Solex asset | Beyond-ecom reuse | Target Go module |
+|---|---|---|
+| `solex/routes/admin_*.py` (8 admin routes — catalog, customers, inventory, orders, returns, subscriptions, utils, auth) | Merchant-facing operational console; the admin surface area Solex proves out is exactly the surface area `ops-dashboard` is meant to expose. The Flask admin pages illustrate the controls the Go ops-dashboard surfaces over REST + SSE. | `cmd/ops-dashboard` |
+| `solex/services/catalog.py` + `catalog_import.py` + `catalog_sync.py` + `catalog/products.yaml` | Catalog ingestion and the YAML product shape inform the item master, not just ecom-channel | `cmd/item` (primary) + `cmd/ecom-channel` (consumer) |
+| `solex/services/cart.py` + `checkout.py` | In-store ordering: kiosk flows, associate-assisted ordering, and BOPIS extensions all reuse the same cart-and-checkout invariants. The "online order" abstraction is one shape; an associate ringing up a special order is another shape with the same backing primitives. | `cmd/store-brain` (in-store ordering UX) + `cmd/ecom-channel` (online ordering) |
+| `solex/services/inventory.py` | Cart reservation and BOPIS hold semantics inform IaaS regardless of whether the order originates online or in-store | `cmd/inventory-as-a-service` |
+| `solex/services/subscriptions.py` | Recurring-charge cadence as a predictive signal — relevant to analytics and to customer-lifecycle agents, not just the online subscription flow | `cmd/ecom-channel` (primary) + `cmd/analytics` (predictive consumer) |
+| `solex/templates/*` + `solex/static/*` | The customer-facing storefront UI stays in Flask — Go is API-first. But the visual primitives and Tailwind config inform how the ops-dashboard and merchant admin surfaces look in the Canary platform. | Reference for `cmd/ops-dashboard` UI |
+
+**The catalog-in-store-orders thread:** Solex's catalog + cart + checkout were built for the online channel, but the same primitives power in-store ordering use cases — POS-side special orders, kiosk-assisted ordering, associate-driven order entry, BOPIS extension flows. The store-brain agent uses the same catalog read-path and the same inventory reservation contract; only the UX surface and the channel attribution differ. The build should treat "the catalog" and "the cart" as platform primitives shared across channels, not as ecom-only structures.
+
+**The ops-dashboard / devops-console thread:** the Solex admin route surface is a working example of the merchant-facing operational console that `ops-dashboard` is designed to be. When the ops-dashboard build dispatch fires, those Flask admin pages are the closest illustrative reference — the controls the merchant operator needs over catalog, customers, inventory, orders, returns, and subscriptions are already enumerated and exercised there.
 
 ---
 
@@ -470,7 +521,7 @@ Canary is the master. Square Online is the downstream.
 3. Register channel adapter implementations (Square Online) in the adapter registry.
 4. Start orphan_recovery goroutine on `ECOM_ORPHAN_RECOVERY_INTERVAL_SECONDS` ticker.
 5. Start subscription charge scheduler goroutine — polls `ecom_subscriptions` where `status = 'active' AND next_charge_at <= now()` on a 60-second tick.
-6. Start HTTP server on port 8098. Serve `/ecom/health` before all other routes initialize.
+6. Start HTTP server on port 9080. Serve `/ecom/health` before all other routes initialize.
 
 ### Health Checks
 

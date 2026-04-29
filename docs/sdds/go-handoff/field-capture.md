@@ -5,7 +5,7 @@ stack: PostgreSQL 17 + pgx + sqlc | Chi HTTP | REST | go-redis | pgvector-go
 status: handoff-ready
 updated: 2026-04-29
 binary: field-capture
-port: 8084
+port: 9087
 mcp-server: canary-field-capture
 license: Apache-2.0
 copyright: "Copyright (c) 2026 GrowDirect LLC"
@@ -14,7 +14,7 @@ copyright: "Copyright (c) 2026 GrowDirect LLC"
 # Field Capture
 
 **Type:** Infrastructure Service — Semantic Field Mapping  
-**Binary:** `cmd/field-capture` → `:8084`  
+**Binary:** `cmd/field-capture` → `:9087`  
 **MCP server:** `canary-field-capture` (6 tools)  
 **Depends on:** `ollama` (embeddings), `field_registry_entries` table (pgvector)  
 **Feeds:** factory-pipeline document ingestion, POS adapter normalization
