@@ -155,6 +155,7 @@ All agent cards live in `Brain/wiki/cards/`. Subdirectories are permitted for la
 | [Runbook: Docker Startup](cards/runbook-docker-startup.md) | runbook-docker-startup | runbook |
 | [Runbook: Brain Wiki Commit](cards/runbook-brain-wiki-commit.md) | runbook-brain-wiki-commit | runbook |
 | [Runbook: Create a Runbook](cards/runbook-create-runbook.md) | runbook-create-runbook | runbook |
+| [Runbook: Vault Publish](cards/runbook-vault-publish.md) | runbook-vault-publish | runbook |
 | [Retail: Vendor Lifecycle](cards/retail-vendor-lifecycle.md) | retail-vendor-lifecycle | domain-module |
 | [Retail: Vendor Compliance Standards](cards/retail-vendor-compliance-standards.md) | retail-vendor-compliance-standards | domain-module |
 | [Retail: Vendor Scorecard](cards/retail-vendor-scorecard.md) | retail-vendor-scorecard | domain-module |
