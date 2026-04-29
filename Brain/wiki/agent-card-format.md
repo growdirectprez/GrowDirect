@@ -179,3 +179,10 @@ All agent cards live in `Brain/wiki/cards/`. Subdirectories are permitted for la
 | [Retail: Item Authorization](cards/retail-item-authorization.md) | retail-item-authorization | domain-module |
 | [RaaS: Receipt as a Service](cards/raas-receipt-as-a-service.md) | raas-receipt-as-a-service | infra-capability |
 | [Platform: Enterprise Document Services](cards/platform-enterprise-document-services.md) | platform-enterprise-document-services | platform-thesis |
+| [ICP: Murdoch's Reference Implementation](cards/icp-murdochs-reference.md) | icp-murdochs-reference | platform-thesis |
+| [Platform: Proof Case](cards/platform-proof-case.md) | platform-proof-case | platform-thesis |
+| [Platform: Wyoming Ecosystem](cards/platform-wyoming-ecosystem.md) | platform-wyoming-ecosystem | platform-thesis |
+| [Platform: Field Capture](cards/platform-field-capture.md) | platform-field-capture | platform-thesis |
+| [Platform: Performance NFRs](cards/platform-performance-nfrs.md) | platform-performance-nfrs | platform-thesis |
+| [Platform: PwC Benchmarks](cards/platform-pwc-benchmarks.md) | platform-pwc-benchmarks | platform-thesis |
+| [Store: Network Integrity Monitoring](cards/store-network-integrity.md) | store-network-integrity | platform-thesis |
