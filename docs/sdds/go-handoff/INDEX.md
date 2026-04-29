@@ -61,6 +61,9 @@ The implementation is Go. Stack decisions are final:
 - **[hawk.md](hawk.md)** — Square adapter. Reference implementation of the substrate. 8 tables.
 - **[bull.md](bull.md)** — NCR Counterpoint adapter. Reference implementation. REST API key auth, polling model (no native webhooks).
 
+### 8. Ecommerce channel
+- **[ecom-channel.md](ecom-channel.md)** — Ecommerce channel integration service. Channel adapter pattern (Square Online V1; Shopify/WooCommerce V2+), order ingest into RaaS, catalog sync (Canary-master conflict resolution), subscription/autoship management, and channel webhook processing. Port 8098. 7 MCP tools. Reference implementation: `/Users/gclyle/GrowDirect/Solex/`.
+
 ---
 
 ## Key invariants — never violate these
@@ -87,7 +90,7 @@ Key additions:
 
 ---
 
-### 8. Agent layer
+### 9. Agent layer
 
 - **[agent-contracts.md](agent-contracts.md)** — Agent smart contract schema and four reference contracts (alert triage, Fox investigation, analytics baseline, Service Introduction gate). Read before implementing any agent-driven workflow.
 
