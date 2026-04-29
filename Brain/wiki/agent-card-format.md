@@ -155,3 +155,20 @@ All agent cards live in `Brain/wiki/cards/`. Subdirectories are permitted for la
 | [Runbook: Docker Startup](cards/runbook-docker-startup.md) | runbook-docker-startup | runbook |
 | [Runbook: Brain Wiki Commit](cards/runbook-brain-wiki-commit.md) | runbook-brain-wiki-commit | runbook |
 | [Runbook: Create a Runbook](cards/runbook-create-runbook.md) | runbook-create-runbook | runbook |
+| [Retail: Vendor Lifecycle](cards/retail-vendor-lifecycle.md) | retail-vendor-lifecycle | domain-module |
+| [Retail: Vendor Compliance Standards](cards/retail-vendor-compliance-standards.md) | retail-vendor-compliance-standards | domain-module |
+| [Retail: Vendor Scorecard](cards/retail-vendor-scorecard.md) | retail-vendor-scorecard | domain-module |
+| [Retail: Chargeback Matrix](cards/retail-chargeback-matrix.md) | retail-chargeback-matrix | domain-module |
+| [Retail: Purchase Order Model](cards/retail-purchase-order-model.md) | retail-purchase-order-model | domain-module |
+| [Retail: Three-Way Match](cards/retail-three-way-match.md) | retail-three-way-match | domain-module |
+| [Retail: Receiving Disposition](cards/retail-receiving-disposition.md) | retail-receiving-disposition | domain-module |
+| [Retail: Inventory Valuation / MAC](cards/retail-inventory-valuation-mac.md) | retail-inventory-valuation-mac | domain-module |
+| [Retail: Inventory Audit](cards/retail-inventory-audit.md) | retail-inventory-audit | domain-module |
+| [Retail: Merchandise Financial Planning](cards/retail-merchandise-financial-planning.md) | retail-merchandise-financial-planning | domain-module |
+| [Retail: Demand Forecasting](cards/retail-demand-forecasting.md) | retail-demand-forecasting | domain-module |
+| [Retail: Replenishment Model](cards/retail-replenishment-model.md) | retail-replenishment-model | domain-module |
+| [Retail: AP / Vendor Terms](cards/retail-ap-vendor-terms.md) | retail-ap-vendor-terms | domain-module |
+| [Retail: Merchandise Hierarchy](cards/retail-merchandise-hierarchy.md) | retail-merchandise-hierarchy | domain-module |
+| [Retail: Site Management](cards/retail-site-management.md) | retail-site-management | domain-module |
+| [Retail: Event Management](cards/retail-event-management.md) | retail-event-management | domain-module |
+| [Retail: Operations KPIs](cards/retail-operations-kpis.md) | retail-operations-kpis | domain-module |
