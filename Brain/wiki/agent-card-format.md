@@ -154,3 +154,4 @@ All agent cards live in `Brain/wiki/cards/`. Subdirectories are permitted for la
 | [Runbook: Memory Bus Seed](cards/runbook-memory-bus-seed.md) | runbook-memory-bus-seed | runbook |
 | [Runbook: Docker Startup](cards/runbook-docker-startup.md) | runbook-docker-startup | runbook |
 | [Runbook: Brain Wiki Commit](cards/runbook-brain-wiki-commit.md) | runbook-brain-wiki-commit | runbook |
+| [Runbook: Create a Runbook](cards/runbook-create-runbook.md) | runbook-create-runbook | runbook |
