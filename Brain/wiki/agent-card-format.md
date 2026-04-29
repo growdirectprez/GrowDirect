@@ -1,7 +1,7 @@
 ---
 card-type: format-spec
 card-id: agent-card-format
-card-version: 2
+card-version: 3
 domain: platform
 layer: cross-cutting
 status: approved
@@ -191,3 +191,6 @@ All agent cards live in `Brain/wiki/cards/`. Subdirectories are permitted for la
 | [Platform: Multi-Tier Assortment](cards/platform-multi-tier-assortment.md) | platform-multi-tier-assortment | platform-thesis |
 | [Platform: Cryptographic Erasure](cards/platform-cryptographic-erasure.md) | platform-cryptographic-erasure | platform-thesis |
 | [Platform: Data Classification](cards/platform-data-classification.md) | platform-data-classification | platform-thesis |
+| [Platform: Stack Commitment](cards/platform-stack-commitment.md) | platform-stack-commitment | platform-thesis |
+| [Platform: Architectural Continuity](cards/platform-architectural-continuity.md) | platform-architectural-continuity | platform-thesis |
+| [Platform: L402 + ILDWAC Moat](cards/platform-l402-ildwac-moat.md) | platform-l402-ildwac-moat | platform-thesis |
