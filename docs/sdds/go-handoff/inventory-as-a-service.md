@@ -125,6 +125,8 @@ CREATE INDEX idx_inv_pos_merchant_item ON inventory_positions(merchant_id, item_
 CREATE INDEX idx_inv_pos_location_item ON inventory_positions(location_id, item_id);
 ```
 
+Device-level position is derived from `inventory_ledger` grouped by `device_id` — there is no `device_id` column on `inventory_positions` because position is maintained at the location/sub_location granularity. Device WAC computation (item × location × device) is owned by the ILDWAC service — see `ildwac.md`.
+
 **Invariant:** `qty` never goes negative. The DB `CHECK` constraint is the final backstop. The Valkey atomic decrement is the first line of defense.
 
 #### `inventory_reservations`
@@ -167,6 +169,9 @@ CREATE TABLE inventory_ledger (
     reference_type  TEXT,            -- 'purchase_order' | 'ecom_order' | 'lp_case' | 'count_sheet' | 'bopis_hold'
     actor_id        TEXT NOT NULL,
     actor_type      TEXT NOT NULL,   -- 'human' | 'agent' | 'system'
+    device_id       UUID REFERENCES inventory_devices(id),  -- null for location-level events
+    mcp_tool        TEXT,           -- MCP tool name if agent-triggered: "append_event", "record_adjustment"
+    pos_port        TEXT,           -- POS connector: "square" | "counterpoint" | "rapidpos" | "manual"
     raas_sequence   BIGINT,          -- chain sequence for this event (null for non-chain events)
     occurred_at     TIMESTAMPTZ NOT NULL,
     created_at      TIMESTAMPTZ NOT NULL DEFAULT now()
@@ -175,6 +180,7 @@ CREATE TABLE inventory_ledger (
 CREATE INDEX idx_inv_ledger_location_item ON inventory_ledger(location_id, item_id, occurred_at);
 CREATE INDEX idx_inv_ledger_reason ON inventory_ledger(reason, occurred_at);
 CREATE INDEX idx_inv_ledger_reference ON inventory_ledger(reference_type, reference_id);
+CREATE INDEX idx_inv_ledger_device ON inventory_ledger(device_id, occurred_at) WHERE device_id IS NOT NULL;
 ```
 
 #### `bopis_holds`
@@ -216,6 +222,38 @@ CREATE TABLE fulfillment_routes (
     UNIQUE(merchant_id, item_id, channel)
 );
 ```
+
+#### `inventory_devices`
+
+```sql
+-- Stock-holding devices (sub-location granularity below shelf/backroom/hold)
+CREATE TABLE inventory_devices (
+    id              UUID PRIMARY KEY DEFAULT gen_random_uuid(),
+    merchant_id     UUID NOT NULL REFERENCES merchants(id),
+    location_id     UUID NOT NULL REFERENCES locations(id),
+    sub_location    TEXT NOT NULL,  -- shelf | backroom | hold | in_transit
+    device_type     TEXT NOT NULL,  -- bin | shelf | peg | barrel | chip | serial
+    device_code     TEXT NOT NULL,  -- human-readable: "A3", "B2-TOP", "PEG-47"
+    device_category TEXT NOT NULL DEFAULT 'cost_center',  -- cost_center | profit_center
+    active          BOOLEAN NOT NULL DEFAULT true,
+    l402_wallet_id  TEXT,           -- non-null if feature.l402_enforcement_enabled and profit_center
+    created_at      TIMESTAMPTZ NOT NULL DEFAULT now(),
+    updated_at      TIMESTAMPTZ NOT NULL DEFAULT now(),
+    UNIQUE(location_id, sub_location, device_code)
+);
+
+CREATE INDEX idx_inv_devices_location ON inventory_devices(location_id) WHERE active = true;
+```
+
+Device types:
+- `bin` — container bin (warehouse picking, stockroom bin locations)
+- `shelf` — shelf section (specific section of a shelf run, assigned to one or more SKUs)
+- `peg` — peg hook (one peg = one SKU, qty by count of units on hook)
+- `barrel` — bulk display (loose items sold by count; qty is an approximation until next count)
+- `chip` — chip/card display (gift cards, SIM cards, game tokens — face-value tracked)
+- `serial` — serialized unit (each physical item tracked by serial number; qty is always 1)
+
+Profit-center devices generate revenue from their position. They have their own WAC and optionally an L402 wallet for OTB tracking. Cost-center devices hold stock without directly generating revenue at the device level.
 
 ### Reservation Protocol — Oversell Protection
 
@@ -497,3 +535,4 @@ Corrections are new ledger entries (e.g., a correction adjustment entry). The or
 - `owl.md` — reads inventory positions for search-layer inventory availability signals
 - `raas.md` — IaaS appends inventory events to the RaaS receipt chain for inventory-moving operations that require evidentiary integrity
 - `settings.md` — `floor_stock_min` and `safety_stock` per location per item are settings-managed; IaaS reads and applies them but does not own them
+- `ildwac.md` — Device-level WAC computation. Reads `inventory_ledger` (with `device_id`, `mcp_tool`, `pos_port` dimensions) to maintain the five-dimension cost model. Serialized items (`device_type=serial`) get unit-level WAC. Profit-center devices contribute to OTB wallet balance.
