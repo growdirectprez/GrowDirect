@@ -93,6 +93,31 @@ design. Do not let church sessions drift into code.
 **Mini is always state.** The laptop is church by default but may run state
 sessions for urgent dispatches.
 
+### Mini Hard Rule — Docker Gate
+
+**If you are ALXjr running on the Mac mini, Docker must be up before any dispatch work begins. No Docker, no ALX.**
+
+ALXjr's capabilities — memory recall, domain context, embeddings, Canary Go services — are entirely Docker-dependent. A session without the stack is a blind session. Do not start a dispatch. Do not touch code. Fix the stack first.
+
+**Startup sequence (mini, every session):**
+
+```bash
+# 1. Shared infra
+cd ~/GrowDirect/devops && docker compose up -d
+
+# 2. Canary Go stack (compose lives in deploy/, not devops/)
+cd ~/GrowDirect/CanaryGo && docker compose -f deploy/docker-compose.yml up -d
+
+# 3. Verify memory bus is reachable
+curl -s http://127.0.0.1:8003/mcp | head -1
+```
+
+Step 3 must return a response. If it does not, the memory bus is down — diagnose before proceeding.
+
+**After stack is confirmed up:** call `memory_recall` or `context_assemble` to load domain context for the dispatch. Only then pick up work from Linear.
+
+**If Docker goes down mid-session:** pause the dispatch, note the state in a Linear comment, restart the stack, re-load context, then resume. Do not continue working from memory — the evidentiary record requires live tooling.
+
 ---
 
 ## Platform Mission
