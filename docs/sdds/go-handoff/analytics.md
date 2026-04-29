@@ -20,7 +20,11 @@ copyright: "Copyright (c) 2026 GrowDirect LLC"
 
 Analytics is Canary's read-heavy metrics domain. It owns KPI dashboard orchestration, heatmap band scoring, velocity anomaly detection, period aggregation (NRF 4-5-4 fiscal calendar), and risk entity ranking. The domain answers "how is this merchant doing?" by combining pre-computed period aggregates with two statistical scoring engines (heatmap + velocity).
 
-No external API dependencies. Analytics reads entirely from `canary_metrics` and `canary_app` schemas and serves data to REST endpoints, MCP tools, and the Owl AI engine.
+No external API dependencies. Analytics reads entirely from tenant operational schemas and serves data to REST endpoints, MCP tools, and the Owl AI engine.
+
+**Multi-tenant context.** Per-merchant rollups live in `tenant_{merchant_id}.metrics_*` tables. Analytics is also the **owner of the cross-tenant `analytics` schema** — it runs the scheduled jobs that populate cross-tenant materialized views (industry benchmarks, platform-wide KPI comparisons, anonymized peer rollups). The cross-tenant rollups never expose row-level tenant data; they expose aggregates only. Admin queries hit the `analytics` schema for benchmarks; merchant queries hit their own tenant schema for their KPIs. See `architecture.md` "Multi-Tenant Isolation".
+
+**Optional Features posture.** Analytics operates with all Optional Features (per `platform-overview.md`) disabled. KPI computation, heatmap scoring, velocity detection all run on standard receipt-event data. When `ILDWAC_ENABLED=true`, additional analytics surfaces become available — cost-per-action by Device, MCP, and Port dimensions; device-level profitability; agent-attributed cost accounting. When `BLOCKCHAIN_ANCHOR_ENABLED=true`, KPI rollup outputs are eligible for public anchoring as merchant performance attestations. Neither is required for the core KPI dashboard to function.
 
 ---
 

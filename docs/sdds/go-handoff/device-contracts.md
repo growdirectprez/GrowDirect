@@ -21,6 +21,10 @@ copyright: "Copyright (c) 2026 GrowDirect LLC"
 
 Device Contracts is the smart contract enforcement layer for all cost and profit center devices in the Canary platform. The governing insight: a device that fails silently is a hidden cost — it produces bad data, mis-receives inventory, and inflates shrink without leaving a traceable cause. Device Contracts makes the failure visible, attributable, and cost-bearing. Every device has a contract. Every breach has a penalty. Every penalty is a packet in the ILDWAC cost ledger.
 
+**Status: opt-in architectural direction.** Device Contracts is one of several optional features per `platform-overview.md` "Optional Features" — gated by `ILDWAC_ENABLED` (cost packet generation) and optionally `VENDOR_CONTRACTS_ENABLED` (vendor-supplied device terms on the smart contract layer). The schema for `device_contracts`, `device_breach_events`, and `device_penalty_packets` exists at tenant onboarding; writes happen when the flags are on, remain empty when off. With both flags off, devices still register and emit health signals (per `ops-dashboard.md`), but no contract enforcement or penalty cost allocation occurs.
+
+**Multi-tenant context.** Device Contracts tables live per-tenant in `tenant_{merchant_id}`. Each merchant's device fleet is isolated; cross-tenant device performance benchmarking (across the platform) flows through `analytics` schema rollups. See `architecture.md` "Multi-Tenant Isolation".
+
 ---
 
 ## Business

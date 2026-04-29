@@ -21,6 +21,10 @@ copyright: "Copyright (c) 2026 GrowDirect LLC"
 
 Returns are the most fraud-prone transaction in retail. A cashier can process a return with no receipt, an incorrect item, an inflated price, or for a friend. An ecom customer can claim non-delivery, return an empty box, or substitute a cheaper item. Return fraud costs US retailers approximately $25B annually — and at the SMB scale Canary serves, it is almost entirely invisible because the merchant has no system to surface the pattern. Canary's returns module addresses this by requiring every return to pass through `raas.return_eligible` (which checks the original transaction chain), applying configurable return policies per merchant, computing a fraud score on every request, and flagging anomalous patterns to hawk automatically.
 
+**Multi-tenant context.** Returns tables (`returns`, `return_authorizations`, `return_fraud_scores`, `return_policy_configs`) live per-tenant in `tenant_{merchant_id}`. Return policies are merchant-specific; fraud scoring uses tenant-scoped customer history. Cross-tenant return fraud pattern detection (organized return-fraud rings operating across multiple merchants) flows through `analytics` schema rollups, surfaced through the Local Market Agent's social-threat signal feed. See `architecture.md` "Multi-Tenant Isolation".
+
+**Optional Features posture.** Returns operates with all Optional Features (per `platform-overview.md`) disabled. The `raas.return_eligible` check, fraud scoring, and policy enforcement all run on internal records. When `BLOCKCHAIN_ANCHOR_ENABLED=true`, return-authorization events are anchored asynchronously, making return decisions externally verifiable for fraud disputes. When `L402_ENABLED=true`, premium return-fraud detection capabilities (real-time pattern correlation across stores) may be paid MCP tools — the core return processing does not depend on Lightning settlement.
+
 ---
 
 ## Business

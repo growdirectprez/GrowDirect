@@ -23,6 +23,10 @@ copyright: "Copyright (c) 2026 GrowDirect LLC"
 
 The Ops Dashboard is the platform's Network Operations Center surface — the single pane of glass where every device in a merchant's store is visible, every MCP server's health is live, and every SLA breach is tracked to resolution. It has two audiences sharing one interface: the service technician who needs device logs and breach timelines, and the store manager who needs to know which problems are costing money and which jobs are in flight.
 
+**Multi-tenant context.** Ops Dashboard is per-merchant — every operator views only their own merchant's devices, MCP servers, and SLA state. Tables (`device_status_snapshots`, `mcp_health_log`, `sla_breach_events`, `oncall_assignments`) live per-tenant in `tenant_{merchant_id}`. Platform-wide ops health (across all merchants, for the GrowDirect platform team) flows through a separate platform-admin dashboard that reads from the `analytics` schema, never via cross-tenant queries from this service. See `architecture.md` "Multi-Tenant Isolation".
+
+**Optional Features posture.** Ops Dashboard operates with all Optional Features (per `platform-overview.md`) disabled — device health monitoring, MCP probe results, SLA tracking all run on standard internal records. When `L402_ENABLED=true`, the wallet state widget surfaces L402 OTB balance per `l402-otb.md`. When `ILDWAC_ENABLED=true`, the device profitability widget shows per-device cost attribution. When the flags are off, those widgets render their respective "feature not enabled" states without errors.
+
 ---
 
 ## UI Layout
