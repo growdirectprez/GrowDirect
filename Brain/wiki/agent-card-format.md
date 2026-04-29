@@ -177,3 +177,5 @@ All agent cards live in `Brain/wiki/cards/`. Subdirectories are permitted for la
 | [Retail: Import Management](cards/retail-import-management.md) | retail-import-management | domain-module |
 | [Retail: Space, Range & Display](cards/retail-space-range-management.md) | retail-space-range-management | domain-module |
 | [Retail: Item Authorization](cards/retail-item-authorization.md) | retail-item-authorization | domain-module |
+| [RaaS: Receipt as a Service](cards/raas-receipt-as-a-service.md) | raas-receipt-as-a-service | infra-capability |
+| [Platform: Enterprise Document Services](cards/platform-enterprise-document-services.md) | platform-enterprise-document-services | platform-thesis |

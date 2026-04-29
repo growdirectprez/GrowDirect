@@ -55,7 +55,7 @@ The AP/Finance module uses LC data to manage bank obligations and duty payment. 
 
 **MCP surface.** `lc_status(vendor_id)` returns open LCs with expiry dates, document status, and PO references. `import_pipeline(period)` returns shipments in transit with ETA, customs entry status, and estimated landed cost. `obligations_balance(period)` returns total in-transit financial obligations by category (LC, duty, freight). `landed_cost(po_id)` returns estimated vs. actual landed cost and reconciliation status. Single-call, agent-readable.
 
-**RaaS tier.** Import PO management and manual LC tracking is available at all subscription tiers. Automated LC expiry monitoring and customs entry status feeds require the Trade Integration tier. Smart contract LC settlement requires the Verified Vendor tier plus the Bitcoin-native tier. Operations Agent continuous import pipeline monitoring is Operations Agent — Standard tier.
+**RaaS.** Import lifecycle events — PO issuance, LC issuance, shipment booking, customs entry filing, customs liquidation, landed cost settlement — are sequenced receipt-class records. The chain from purchase order to actual landed cost must be traceable event by event; an estimated cost that is not reconciled to actual after customs liquidation is a permanent error in MAC. Landed cost settlement events must be sequenced after customs liquidation — out-of-order settlement produces incorrect cost basis. `import_pipeline(period)` from SQL indexed on (vessel_eta, customs_status); `landed_cost(po_id)` from SQL with joined cost components. Import lifecycle records append-only; obligations balance computable from open events without full-scan. Import data exportable for customs broker, bank (LC reconciliation), AP, and financial audit.
 
 ## Related
 

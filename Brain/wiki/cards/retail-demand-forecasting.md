@@ -64,7 +64,7 @@ The Replenishment module reads the approved forecast as the primary input to sug
 
 **MCP surface.** `demand_forecast(sku, site, horizon)` returns the forward demand estimate by week. `forecast_accuracy(dept_or_sku, period)` returns MAPE and bias metrics. `new_item_profile(like_item_id)` returns the reference demand profile for new item setup. `promo_lift(event_id, item_id)` returns expected promotional demand uplift for a planned event. Single-call, agent-readable.
 
-**RaaS tier.** Statistical demand forecasting is available at all subscription tiers. AI-native continuous forecasting with market signal integration is Operations Agent — Standard tier. Collaborative forecast MCP data exchange with vendors requires the Verified Vendor tier. Cross-merchant demand signal benchmarking is Operations Agent — Premium tier.
+**RaaS.** Forecast inputs derive from receipt events — sales history from validated, audited POS data. Forecast accuracy is only meaningful when built on a complete and correctly sequenced receipt record; forecasts built on unaudited or out-of-order data inherit those errors. `demand_forecast(sku, site, horizon)` is pre-computed and cached (sub-200ms per SKU/site/horizon tuple). Ad hoc forecast queries across all SKUs in a department must be batch-friendly — not real-time joins over raw transactions. Forecast outputs in SQL indexed on (item_id, site_id, forecast_date). Model inputs must be portable for retraining; the same input sequence must produce the same forecast.
 
 ## Related
 

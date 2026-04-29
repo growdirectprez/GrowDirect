@@ -77,7 +77,7 @@ The Forecasting module reads the promotional event calendar to compute promotion
 
 **MCP surface.** `event_calendar(period)` returns planned promotional events with item list, pricing, and vendor funding status. `event_performance(event_id)` returns actual vs. planned lift, sell-through rate, and co-op ROI. `coop_pipeline(vendor_id)` returns accrued co-op, claimed amount, pending claims, and deadline dates. `sellthrough_alert(event_id)` returns items in an active event tracking toward stockout before event end.
 
-**RaaS tier.** Event planning and promotional calendar management is available at all subscription tiers. Operations Agent real-time sell-through monitoring during active events is Operations Agent — Standard tier. Finance Agent automated co-op claim submission is Operations Agent — Standard tier. Vendor MCP endpoint co-op claim data exchange requires the Verified Vendor tier.
+**RaaS.** Event performance data — sales lift, redemption counts, co-op accruals — derives from receipt events attributed to the event window at ingestion time, not retroactively. An event that ends at midnight must attribute receipts to the correct side of that boundary; retroactive attribution corrupts both event performance measurement and co-op claim accuracy. `event_performance(event_id)` must be pre-aggregated — a real-time join over all transactions × all events × attribution window is prohibitive at scale. Event records in SQL indexed on (start_date, end_date); event-receipt attribution table indexed on (event_id, transaction_date). Co-op accrual data exportable for vendor claim filing; attribution data exportable for marketing effectiveness analysis.
 
 ## Related
 

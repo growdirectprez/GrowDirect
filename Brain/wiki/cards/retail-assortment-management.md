@@ -82,7 +82,7 @@ The Replenishment module reads active listings to determine which items to order
 
 **MCP surface.** `item_status(item_id)` returns current lifecycle status and listing count by site. `assortment(site_id, dept)` returns active listings for a location and department. `new_item_pipeline(buyer_id)` returns items in setup workflow with missing data fields flagged. `underperforming_items(dept, threshold_weeks)` returns active items below velocity threshold — the assortment rationalization queue. Single-call, agent-readable.
 
-**RaaS tier.** Item master management and manual listing control is available at all subscription tiers. Smart contract item initialization at vendor setup is Verified Vendor tier. Operations Agent continuous assortment health monitoring is Operations Agent — Standard tier. AI-assisted assortment optimization (item selection recommendations based on peer merchant sell-through data) is Operations Agent — Premium tier.
+**RaaS.** Item lifecycle transitions — new, active, discontinued — are sequenced events. Listing changes triggered by planogram publication must be sequenced after the planogram event that caused them; a listing change that cannot be attributed to a planogram event is a process failure. `item_status(item_id)` from Valkey hot cache (sub-10ms; called on every replenishment check). `assortment(site_id, dept)` from SQL indexed on (site_id, dept, status). Item master in SQL (relational — items link to hierarchy, vendors, sites); listing event log append-only. Item master exportable for vendor collaboration, POS configuration, and space planning system synchronisation.
 
 ## Related
 

@@ -59,7 +59,7 @@ The Replenishment module generates suggested orders that become POs. The Receivi
 
 **MCP surface.** `open_orders(vendor_id)` returns open POs with age, ASN status, and expected receipt date. `otb_balance(dept, period)` returns available OTB before PO creation. `po_exceptions()` returns POs past ship-not-after date, ASN-less, or OTB-breached. Agent-readable, single-call.
 
-**RaaS tier.** PO management and OTB gating are available at all subscription tiers. L402-denominated OTB with cryptographic gating requires the Bitcoin-native tier. Smart contract PO event emission requires the Verified Vendor tier. Continuous Operations Agent exception monitoring is Operations Agent — Standard tier.
+**RaaS.** PO creation, amendment, and receipt confirmation are sequenced receipt-class commitment events. OTB is the L402 wallet balance; the OTB decrement on PO creation must be sequenced before any subsequent OTB query sees the updated balance — a race condition here produces double-spend on the OTB bucket. `open_orders(vendor_id)` resolves from indexed SQL on (vendor_id, status); `otb_balance(dept, period)` from Valkey hot cache (sub-100ms, called before every PO creation). PO records are append-only; amendments are new events referencing the original PO. PO history exportable for AP reconciliation, receiving, and customs (import POs).
 
 ## Related
 

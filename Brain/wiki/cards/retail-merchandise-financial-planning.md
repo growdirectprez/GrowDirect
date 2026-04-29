@@ -75,7 +75,7 @@ The Buyer uses OTB as the gate before committing to a purchase order. The Replen
 
 **MCP surface.** `otb_balance(dept, period)` returns current L402 wallet balance — open-to-buy at cost. `plan_variance(dept, period)` returns actuals vs. plan for sales, receipts, and gross margin. `weeks_supply(sku_or_dept)` returns current weeks-on-hand at actual rate-of-sale. These are the inputs Business Agent uses when preparing buyer briefings, negotiation prep, and rationalization recommendations. Single-call, low-token, agent-readable.
 
-**RaaS tier.** Basic OTB calculation and PO gating is available at all subscription tiers. L402-denominated OTB with cryptographic PO gating requires the Bitcoin-native feature tier. Continuous Operations Agent variance monitoring and automatic revision triggering is Operations Agent — Standard tier. Cross-department OTB optimization analytics is Operations Agent — Premium tier.
+**RaaS.** OTB wallet transactions — plan commitment, PO decrement, receipt, markdown adjustment — are sequenced financial events. Concurrent PO creation against the same OTB bucket is a race condition; the wallet layer must serialise decrements to prevent overdraft. `otb_balance(dept, period)` from Valkey hot cache (sub-100ms; called before every PO creation — the hottest read in the buying workflow). Variance computation joins plan vs. actuals — at scale (many departments × many periods × many sites) this join must be pre-aggregated, not computed real-time on the MCP call. OTB and plan history exportable for period-end financial reporting and external planning sessions.
 
 ## Related
 

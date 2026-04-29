@@ -66,7 +66,7 @@ The Inventory module applies adjustment transactions from reconciled counts and 
 
 **MCP surface.** `shrink_rate(site_id, dept, period)` returns shrink rate trend by site and department. `phantom_inventory_alerts(site_id)` returns items flagged as probable phantom stock. `audit_schedule(site_id)` returns upcoming counts and last-count dates. `inventory_accuracy(site_id)` returns perpetual accuracy score from the most recent cycle count. Low-token, agent-consumable.
 
-**RaaS tier.** Physical inventory scheduling and count management is available at all subscription tiers. Continuous Operations Agent phantom inventory and shrink signal monitoring is Operations Agent — Standard tier. POS exception pattern analysis for employee theft detection is Operations Agent — Premium tier.
+**RaaS.** Physical count events and inventory adjustment records are receipt-class data — timestamped, immutable after posting. Adjustment events are new records referencing the count event that generated them; retroactive modification of a count record is a control failure. `shrink_rate(site_id, dept, period)` is a range aggregate indexed on (site_id, dept, count_date) — rolling 52-week queries are common and must not full-scan. `phantom_inventory_alerts(site_id)` requires near-real-time comparison of book on-hand (SQL) against sales and receipt signals (Valkey). Count history exportable for insurance claims, financial audit, and LP investigation.
 
 ## Related
 

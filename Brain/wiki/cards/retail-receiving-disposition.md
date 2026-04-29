@@ -81,7 +81,7 @@ The Receiving module posts the exception and reads the disposition matrix to iss
 
 **MCP surface.** `disposition_matrix(vendor_id, reason_code, item_id)` returns the applicable disposition for a given exception. `pending_credits(vendor_id)` returns open vendor credit claims with contract reference and aging. `disposition_exceptions(site_id, period)` returns receiving exceptions where human override was required — a compliance audit tool.
 
-**RaaS tier.** Manual disposition matrix lookup and debit memo generation is available at all subscription tiers. Smart contract disposition encoding and automatic credit accrual require the Verified Vendor tier. Operations Agent real-time exception monitoring is Operations Agent — Standard tier.
+**RaaS.** Every DC receipt is a receipt event — quantity received, quality disposition, and vendor attribution captured exactly as they occurred. This is the chain-of-custody anchor for inventory and financial records; a receipt event that is wrong or out of sequence corrupts MAC, replenishment, and the three-way match simultaneously. Receipt events must be sequenced before MAC updates, before replenishment adjustments, and before match events. `disposition_matrix(vendor_id, reason_code, item_id)` resolves from Valkey hot cache or indexed SQL in sub-50ms to support DC throughput. Receipt records are append-only; ASN data feeds from vendor as pre-receipt events. Receipt history exportable for customs (import), AP audit, and inventory reconciliation.
 
 ## Related
 

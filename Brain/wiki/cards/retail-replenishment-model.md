@@ -71,7 +71,7 @@ The Replenishment module generates the SOQ list and presents it for buyer review
 
 **MCP surface.** `replenishment_exceptions(buyer_id)` returns SOQs requiring human review with reason code. `soq(sku, site)` returns the current suggested order quantity and calculation basis. `replenishment_pipeline(dept, period)` returns all auto-approved orders in flight with OTB impact. `safety_stock_health(dept)` returns items where safety stock is below minimum — stockout risk signal.
 
-**RaaS tier.** Manual SOQ review and PO creation is available at all subscription tiers. Auto-approval within OTB and Operations Agent exception surfacing is Operations Agent — Standard tier. L402-denominated OTB wallet auto-decrements on PO creation require the Bitcoin-native tier.
+**RaaS.** Replenishment order creation is a sequenced event that must follow OTB wallet confirmation — a PO generated before the OTB decrement is confirmed creates a double-spend risk. `soq(sku, site)` is the highest-volume MCP call in the platform: at 10K active SKUs × 100 sites, the replenishment cycle generates ~1M calls; must resolve from Valkey hot cache in sub-50ms. `replenishment_exceptions(buyer_id)` from SQL indexed on (buyer_id, exception_type, created_at) — the buyer dashboard must not trigger a full-scan. Replenishment order records append-only. Replenishment pipeline data exportable for vendor collaboration and supply chain audit.
 
 ## Related
 

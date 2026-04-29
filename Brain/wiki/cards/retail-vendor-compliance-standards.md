@@ -67,7 +67,7 @@ The Receiving module compares inbound shipments against documented standards to 
 
 **MCP surface.** `compliance_status(vendor_id)` returns active compliance clauses with current compliance rate per dimension. `compliance_violations(vendor_id, period)` returns the violation log by clause with occurrence count and financial exposure. Single-call, agent-readable without fetching the full vendor record.
 
-**RaaS tier.** Documented compliance standards and scorecard-based enforcement are available at all subscription tiers. Smart contract clause encoding and real-time violation detection require the Verified Vendor tier. Operations Agent continuous compliance stream monitoring is Operations Agent — Standard tier.
+**RaaS.** Compliance audit results and violation records are receipt-class events — timestamped, immutable after posting, sequenced. The compliance status of a vendor at any prior date must be reconstructible from the event log, required for chargeback disputes and audit defence. `compliance_status(vendor_id)` resolves from indexed SQL on (vendor_id, effective_date); `compliance_violations(vendor_id, period)` is a range query — index on (vendor_id, violation_date) mandatory to avoid full-scan at scale. Violation records are append-only; corrections are new events referencing the original. Compliance history exportable over rolling 3-year window for AP audit and vendor negotiation.
 
 ## Related
 

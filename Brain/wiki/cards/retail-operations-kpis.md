@@ -88,7 +88,7 @@ The Operations Agent is the primary consumer of this framework — it monitors a
 
 **MCP surface.** `kpi_dashboard(merchant_id)` returns current values for all KPIs against their thresholds in a single call. `kpi_trend(kpi_name, period)` returns the time series with threshold bands. `kpi_alerts(merchant_id)` returns active threshold breaches sorted by severity. `benchmark(kpi_name, merchant_profile)` returns anonymized peer benchmarks for context. All calls return structured data optimized for agent consumption — numbers and classification, not narrative.
 
-**RaaS tier.** KPI threshold alerts are available at all subscription tiers. Continuous trend monitoring and leading-indicator correlation is Operations Agent — Standard tier. Cross-merchant benchmarking is Operations Agent — Premium tier. L402-denominated financial KPIs (OTB wallet utilization, Lightning settlement efficiency) require the Bitcoin-native tier.
+**RaaS.** All KPIs derive from receipt events; KPI integrity is a direct function of receipt event completeness and sequencing. A missing or out-of-order receipt event produces a wrong KPI, and wrong KPIs produce wrong decisions. KPI computation must operate on the audited, sequenced receipt record — not raw POS data; monitoring on unaudited data produces values that diverge from financial actuals once sales audit closes. `kpi_dashboard(merchant_id)` pre-aggregated and Valkey-cached (sub-200ms full dashboard load). `kpi_trend(kpi_name, period)` from SQL indexed on (merchant_id, kpi_name, period_date) — rolling N-period queries must not full-scan. KPI aggregates are pre-computed views over the receipt event log, not real-time joins. KPI history exportable for investor reporting and period-end financial review.
 
 ## Related
 

@@ -72,7 +72,7 @@ The Finance module executes payment runs on approved, matched invoices. The AP A
 
 **MCP surface.** `payment_status(vendor_id)` returns current invoice queue, pending deductions, and wallet balance. `discount_capture(period)` returns early-payment discount availability vs. captured — the primary AP efficiency KPI. `settlement_log(vendor_id, period)` returns subsequent settlement events (rebates, allowances) with contract references. Single-call, Finance Agent-readable.
 
-**RaaS tier.** Traditional EDI AP matching and debit memo processing is available at all subscription tiers. L402 wallet-based settlement with automatic deduction application is Verified Vendor tier. Lightning payment settlement requires the Bitcoin-native tier. Automated subsequent settlement via smart contract events requires Verified Vendor and Bitcoin-native tiers together.
+**RaaS.** Payment events — invoice approval, discount capture, settlement confirmation — are the terminal events in the receipt chain; they close the loop from PO commitment to cash out. Sequence is critical: payment must follow match confirmation; early-payment discount capture depends on invoice receipt timestamp being correctly recorded — a sequencing error that shifts the receipt date loses the discount window permanently. `payment_status(vendor_id)` indexed on (vendor_id, due_date, status); `discount_capture(period)` is a period-end batch aggregate indexed on (discount_due_date, status) — must not full-scan the invoice table. Settlement log append-only; exportable for vendor remittance and AP audit.
 
 ## Related
 

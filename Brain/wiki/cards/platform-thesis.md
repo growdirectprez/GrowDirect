@@ -1,7 +1,7 @@
 ---
 card-type: platform-thesis
 card-id: platform-thesis
-card-version: 1
+card-version: 2
 domain: platform
 layer: cross-cutting
 agent: controller
@@ -16,7 +16,7 @@ receives:
   - infra-l402-otb-settlement
 tags: [thesis, accountability, otb, loss-prevention, p&l, cost-center, profit-center, meter, platform]
 status: approved
-last-compiled: 2026-04-28
+last-compiled: 2026-04-29
 needs-review: false
 ---
 
@@ -134,6 +134,26 @@ This model removes every one of those escape routes. Not punitively — structur
 **Target:** Private retail business, up to ~$50M in annual sales. One to a few people wearing every hat — buyer, LP manager, store operator, finance lead, workforce scheduler — simultaneously.
 
 The enterprise retailer has a department for every one of these functions. The SMB retailer has one person switching context 40 times a day, making decisions on gut because there is no time to pull the data. The platform is the department they cannot afford to hire. The agents are the team they do not have.
+
+### The Infrastructure Displacement
+
+Before the four beats, there is a prerequisite displacement that makes the platform affordable to the ICP: the elimination of the backoffice infrastructure liability.
+
+The $10M–$50M retailer is almost always running a server room nobody talks about. An aging rack or tower under someone's desk — Windows Server 2016, a SQL Server license, a Retek or Counterpoint backoffice that the IT contractor touches once a quarter and hopes nothing breaks. The support contract on that stack, if it exists at all, runs 18–22% of original license cost annually on software with no meaningful development roadmap. Add the MSP contract: $2–6K/month to keep aging hardware from falling over. Add the POS hardware refresh cycle every 3–5 years. Add the UPS, the server room electricity, the one person internally who knows how it works and is a single point of failure for the entire operation.
+
+That is not a technology decision. It is a liability sitting in a closet, compounding quietly.
+
+When the platform replaces that stack, the cost displacement is direct and immediate:
+
+- **Backoffice server eliminated** — the event log and canonical document state live in the platform; there is no local server to maintain, license, or replace
+- **SQL Server license eliminated** — replaced by cloud-native append-only event storage that scales with transaction volume, not with a per-core seat count
+- **MSP contract scope reduced** — the complexity that required managed IT support (server patching, backup jobs, database maintenance) no longer exists on-premise
+- **Hardware refresh cycle ends** — the POS endpoint becomes a thin client; the intelligence is in the platform, not in the terminal
+- **Single point of failure eliminated** — the "guy who knows how it works" is no longer between the retailer and their own operational data
+
+The conversion from capital expenditure to operating expense is the CFO argument. The elimination of the infrastructure single point of failure is the ops argument. The fact that receipt history, PO records, and inventory positions are now verifiable by lenders and auditors without a separate engagement is the financing argument. All three are direct consequences of moving from a local database-of-record to a hash-verified, MCP-queryable document service layer.
+
+**The sentence for this beat:** *We replace the server room liability with a platform that costs less, does more, and makes your data trustworthy to anyone who needs to verify it.*
 
 ### The Four Beats
 

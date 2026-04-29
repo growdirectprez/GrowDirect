@@ -74,7 +74,7 @@ The Replenishment module uses site groupings and merchandise categories to apply
 
 **MCP surface.** `hierarchy_path(item_id)` returns the full formal hierarchy for an item. `site_groups(site_id)` returns all informal group memberships for a location. `hierarchy_members(level, id)` returns all items or sites belonging to a hierarchy node — the filter list for mass maintenance or query scoping. These are context assembly calls made before domain queries to keep those queries narrow and low-token.
 
-**RaaS tier.** Merchandise and site hierarchy management is available at all subscription tiers. Automated hierarchy-change impact propagation (OTB wallet reallocation, parameter re-inheritance) is Operations Agent — Standard tier.
+**RaaS.** Hierarchy changes — reclassification, new nodes, restructuring — are sequenced events. The hierarchy version in effect at the time of any transaction must be reconstructible: a sale must be attributable to the node in effect when it occurred, not the current hierarchy. Historical reporting breaks when hierarchy changes are not versioned. `hierarchy_path(item_id)` from Valkey hot cache (sub-10ms; called on every transaction for classification). `hierarchy_members(level, id)` from SQL indexed on (level, parent_id). Hierarchy change log append-only. Full hierarchy exportable for external reporting and period-over-period comparison when structure has changed.
 
 ## Related
 

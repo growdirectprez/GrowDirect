@@ -64,7 +64,7 @@ Buyers use the scorecard in negotiation sessions and purchase allocation decisio
 
 **MCP surface.** `scorecard(vendor_id)` returns current composite score and all dimension scores in a single call. `scorecard_trend(vendor_id, n_periods)` returns composite and dimension trend data — the input for negotiation preparation. `rationalization_candidates()` returns vendors below composite threshold with dimension breakdown. Low-bandwidth, agent-optimized.
 
-**RaaS tier.** Period-based scorecard computation is available at all subscription tiers. Live contract-state scorecard is Verified Vendor tier. Continuous Operations Agent dimension monitoring and trend-based alerting is Operations Agent — Standard tier.
+**RaaS.** Scorecard inputs — fill rate, on-time delivery, ASN accuracy — are derived from receipt events (receiving confirmations, PO completions, ASN matches). The scorecard is a computed view over an append-only event log, not a mutable record. Sequence matters: a fill rate calculation that uses out-of-order receipt events produces a wrong numerator. `scorecard(vendor_id)` should be a pre-aggregated view, not a real-time join over raw events — at scale (many vendors × many periods × many line items) real-time join cost is prohibitive. Scorecard history exportable by period for vendor negotiation and rationalization analysis.
 
 ## Related
 

@@ -85,7 +85,7 @@ The Finance module computes COGS from MAC at each sale. The Inventory module mai
 
 **MCP surface.** `mac_lookup(sku, site)` returns current MAC for a given item-location. `mac_history(sku, site, n_periods)` returns the MAC time series with transaction-level audit trail. `cost_basis_delta(sku, site)` returns the gap between fiat MAC and satoshi cost basis — the signal for Bitcoin-native profitability analysis. These are low-bandwidth calls — a single MCP round-trip returns cost basis context for an agent that is making a pricing or ordering decision. Agents do not recompute MAC; they query it.
 
-**RaaS tier.** Fiat MAC with standard trigger rules is available at all subscription tiers. Satoshi cost basis dual-ledger requires the Bitcoin-native feature tier. Continuous MAC anomaly monitoring is Operations Agent — Standard tier. Historical cost basis analytics and drift reporting are Operations Agent — Premium tier.
+**RaaS.** MAC updates are triggered by receipt events — cost basis at any point in time is derivable only from the correctly ordered sequence of receipt events. This is the accounting definition of the perpetual inventory method; it works only if event sequence is preserved. Out-of-order processing produces an incorrect cost basis that compounds across every subsequent sale and margin calculation. `mac(item_id, site_id)` from Valkey hot cache (sub-100ms; called on every transaction for margin computation). Dual storage: Valkey for current MAC, SQL append-only event log for MAC history enabling point-in-time reconstruction for period-end audit. MAC history exportable for financial audit and period-end reporting.
 
 ## Related
 

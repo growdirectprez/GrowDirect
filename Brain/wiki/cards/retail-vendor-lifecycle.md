@@ -60,7 +60,7 @@ The Vendor Agent uses lifecycle state to gate PO creation — a vendor in discon
 
 **MCP surface.** `vendor_status(vendor_id)` returns lifecycle stage, current scorecard composite, open compliance failures, and wallet balance in a single low-token call. `vendor_rationalization_queue()` returns the current list of vendors flagged for review with reason codes. Agents use these for planning without reading the full vendor record.
 
-**RaaS tier.** Basic vendor lifecycle management (setup, setup, scorecard at period close) is available at all tiers. Smart contract provisioning and continuous Operations Agent monitoring require the Verified Vendor tier add-on.
+**RaaS.** Vendor lifecycle events — onboarding, status transitions, contract amendments — are sequenced receipt-class records. The vendor's status at the time of any PO, receipt, or payment must be reconstructible from the event log; a vendor that was suspended at the time of a shipment cannot be retroactively cleared. `vendor_status(vendor_id)` resolves from Valkey hot cache (sub-100ms); the underlying event log is SQL, append-only, indexed on (vendor_id, effective_date). Ad hoc queries over vendor history (all status changes for a vendor over 3 years for audit) must not full-scan — partial index on active vendors covers the common path. Vendor lifecycle history is exportable for AP audit, compliance review, and onboarding reconciliation.
 
 ## Related
 

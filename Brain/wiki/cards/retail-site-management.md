@@ -72,7 +72,7 @@ The Replenishment module reads DC assignments and delivery schedules to route su
 
 **MCP surface.** `site_config(site_id)` returns site master data including hierarchy position, group memberships, DC assignment, and delivery schedule — the full agent configuration for a location. `site_health(site_id)` returns Operations Agent's current assessment: KPI status, open exceptions, and replenishment pipeline. `site_group_members(group_id)` returns all sites in a given pricing zone, climate zone, or competition cluster — the scoping filter for zone-level operations.
 
-**RaaS tier.** Site master management and configuration is available at all subscription tiers. Technical Agent-orchestrated site setup workflow is Operations Agent — Standard tier. Continuous Operations Agent site health monitoring is Operations Agent — Standard tier.
+**RaaS.** Site configuration changes — format, cluster, regulatory zone, fixture data — are sequenced events. The configuration of a site at the time of any transaction must be reconstructible: a planogram reset must be timestamped against the reset date; a regulatory zone update must be effective from a specific date, not retroactively applied. `site_config(site_id)` from Valkey hot cache (sub-10ms; called on every agent operation for context). `site_group_members(group_id)` from SQL indexed on group_id. Site configuration change log append-only. Site master exportable for space planning system sync and regulatory zone mapping.
 
 ## Related
 

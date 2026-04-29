@@ -69,7 +69,7 @@ The Finance/AP module executes the match and holds invoices on discrepancy. The 
 
 **MCP surface.** `match_status(po_id)` returns PO/ASN/receipt reconciliation state and any pending exceptions. `match_exceptions(vendor_id, period)` returns unresolved discrepancies with age and financial exposure. `match_rate(vendor_id)` returns first-pass match rate — the primary AP efficiency KPI. Single-call, low-token.
 
-**RaaS tier.** Manual three-way match with human work queue is available at all subscription tiers. Automated match via smart contract state machine is Verified Vendor tier. Real-time Operations Agent match stream monitoring is Operations Agent — Standard tier. Automated payment release via Lightning on confirmed match is Bitcoin-native tier.
+**RaaS.** The three-way match event — PO, receipt, and invoice aligned — is the most critical receipt event in the financial chain; it authorises payment. Match events must be sequenced strictly after their constituent events: receipt event must precede the match event, match event must precede the payment event. An out-of-sequence match (payment before confirmed receipt) is a financial control failure. `match_status(po_id)` indexed on po_id; must resolve in <200ms to support same-day payment processing. Match records are append-only; exceptions are new events against the match record. Match history exportable for AP audit; exception records must support ad hoc query by vendor, period, and exception type without full-scan.
 
 ## Related
 

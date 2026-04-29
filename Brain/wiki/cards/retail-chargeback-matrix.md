@@ -81,7 +81,7 @@ The AP module generates debit memos from chargeback events and applies them at i
 
 **MCP surface.** `chargeback_balance(vendor_id)` returns pending deductions by type. `chargeback_history(vendor_id, period)` returns occurrence counts by clause. `chargeback_rate(vendor_id)` returns deduction as % of purchase value — the primary rationalization input. Single-call, low-token, agent-readable.
 
-**RaaS tier.** Manual debit memo process is baseline. Smart contract chargeback automation requires the Verified Vendor tier. Real-time Operations Agent monitoring of chargeback trends is Operations Standard tier.
+**RaaS.** Each chargeback event — issuance, vendor response, dispute, resolution, credit — is a sequenced receipt-class financial event. The chargeback chain must be traceable from the originating receipt event (the delivery or invoice that triggered the violation) through to final credit. Resolution credits are new events against the chargeback record, not overwrites. `chargeback_status(vendor_id)` indexed on (vendor_id, status, created_at); dispute timeline queries must resolve without full-scan. Chargeback history exportable for AP audit and vendor negotiation; the event log is the evidentiary record in any vendor dispute.
 
 ## Related
 
