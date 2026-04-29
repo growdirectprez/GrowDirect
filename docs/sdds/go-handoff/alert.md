@@ -17,6 +17,10 @@ The Alert domain is the terminal consumer of Canary's detection pipeline. Chirp 
 
 **Core principle: APPEND-ONLY.** The `alerts` row is immutable after creation. All state changes are new `alert_history` rows. Current status is derived by reading the latest history entry per alert (no history row = status "new").
 
+**Multi-tenant context.** Alert tables (`alerts`, `alert_history`, `notification_log`, `notification_schedule`) live per-tenant in `tenant_{merchant_id}`. Notifications are tenant-scoped — a notification preference is per merchant. Cross-tenant alert analytics (which rule families fire most across the platform) flow through `analytics` schema rollups, never direct cross-tenant queries. See `architecture.md` "Multi-Tenant Isolation".
+
+**Optional Features posture.** Alert lifecycle operates independently of L402, ILDWAC, blockchain anchor, and vendor smart contracts (per `platform-overview.md` "Optional Features"). When `BLOCKCHAIN_ANCHOR_ENABLED=true`, alert state transitions are eligible for anchoring as an evidentiary signal — anchor failures are non-blocking. When `L402_ENABLED=true`, premium alert capabilities (e.g., expanded notification channels, real-time SMS) may be gated as paid MCP tools — the core alert lifecycle does not depend on Lightning settlement.
+
 ## Dependencies
 
 | Dependency | Type | Required | Purpose |

@@ -20,6 +20,10 @@ copyright: "Copyright (c) 2026 GrowDirect LLC"
 
 Owl is Canary's AI intelligence layer. It provides personality-routed chat, context-aware health-check reports, natural language data search, and an MCP tool registry that any client can discover and invoke. Every insight, report, and recommendation a merchant sees flows through Owl. When the LLM backend is unavailable, every path falls back to deterministic logic — Owl never returns an error to the merchant.
 
+**Multi-tenant context.** Owl operates per-tenant — every chat session, semantic search query, and report generation is scoped to a single merchant via `SET search_path TO tenant_{merchant_id}, public`. Owl tables (`owl_chunks`, `owl_sessions`, `risk_scores`, `risk_score_history`) live in the tenant schema. The pgvector embeddings indexed by Owl never cross tenant boundaries — a query on Merchant A's namespace will not surface chunks from Merchant B regardless of similarity. Cross-tenant analytics (industry benchmarks, platform-wide patterns) flow through the `analytics` schema, populated by scheduled rollup jobs. See `architecture.md` "Multi-Tenant Isolation".
+
+**Optional Features posture.** Owl's chat, search, and report generation operate with all Optional Features (per `platform-overview.md`) disabled. When `L402_ENABLED=true`, premium Owl tools (e.g., expanded analytical depth, cross-merchant benchmarks at the highest tier) may be gated as paid MCP calls — the core conversation flow does not depend on Lightning settlement. When `ILDWAC_ENABLED=true`, Owl's cost-attribution analysis surfaces additional dimensions (device, MCP, port) — until then, standard ILWAC (item × location × WAC) is the cost surface Owl reads.
+
 ---
 
 ## RaaS Namespace Integration

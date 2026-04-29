@@ -33,7 +33,11 @@ Every Chirp detection category maps to its Go service owner and data owner. The 
 
 ## Purpose
 
-Chirp is Canary's stateless detection rule engine. It evaluates merchant transactions, cash drawer shifts, gift card activities, loyalty events, disputes, and invoices against a catalog of detection rules. When a rule fires, Chirp produces an alert with a contextual risk score (0–100), writes it to the `app` schema, and optionally auto-creates an investigation case (Fox/Hawk) for critical-severity rules. Chirp never mutates source transaction data.
+Chirp is Canary's stateless detection rule engine. It evaluates merchant transactions, cash drawer shifts, gift card activities, loyalty events, disputes, and invoices against a catalog of detection rules. When a rule fires, Chirp produces an alert with a contextual risk score (0–100), writes it to the tenant's operational schema, and optionally auto-creates an investigation case (Fox/Hawk) for critical-severity rules. Chirp never mutates source transaction data.
+
+**Multi-tenant context.** Chirp operates per-tenant — every detection cycle is scoped to a single merchant via `SET search_path TO tenant_{merchant_id}, public`. Detection rule reads (`detection_rules`, `merchant_rule_configs`, `location_rule_configs`) and alert writes happen inside the tenant schema. Cross-tenant pattern correlation (organized retail crime detection across stores) flows through scheduled rollups into the `analytics` schema, not direct cross-tenant scans. See `architecture.md` "Multi-Tenant Isolation" for the canonical pattern.
+
+**Optional Features posture.** Chirp's core detection engine operates with all Optional Features (per `platform-overview.md`) disabled. The asset registry filter (excluding asset-class items from shrink-rule candidates per Module A) is required core. When `ILDWAC_ENABLED=true`, the cost-anomaly rule family becomes active — until then, those rule rows are inactive in the catalog. When `BLOCKCHAIN_ANCHOR_ENABLED=true`, alert events are anchored asynchronously per `blockchain-anchor.md` — chain integrity holds either way.
 
 ### Multi-POS Rule Substrate
 

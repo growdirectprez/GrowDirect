@@ -25,6 +25,10 @@ copyright: "Copyright (c) 2026 GrowDirect LLC"
 
 Hawk introduces incident-typed case management where Fox had generic cases. The additions over Fox:
 
+**Multi-tenant context.** Hawk tables (`hawk_cases`, `hawk_subjects`, `hawk_actions`, `hawk_compliance_obligations`, `hawk_cards`) live per-tenant in `tenant_{merchant_id}`. Cases are merchant-scoped; the wizard FSM, card factory, and compliance obligation tracking all operate within tenant boundaries. Cross-tenant compliance reporting (e.g., platform-wide regulatory submissions) flows through `analytics` schema rollups. See `architecture.md` "Multi-Tenant Isolation".
+
+**Optional Features posture.** Hawk operates with all Optional Features (per `platform-overview.md`) disabled. When `BLOCKCHAIN_ANCHOR_ENABLED=true`, every card generation and case status transition is anchored to a public L2 (per `infra-blockchain-evidence-anchor` Brain wiki and `blockchain-anchor.md` SDD) — making the case timeline externally verifiable for court / insurer / regulator. Anchor failures are non-blocking. When the flag is off, the case timeline remains internally hash-chained via the underlying Fox evidence locker.
+
 | Dimension | Fox | Hawk |
 |---|---|---|
 | Case typing | Generic `case_type` enum | 63 incident types across 5 classes with wizard templates |

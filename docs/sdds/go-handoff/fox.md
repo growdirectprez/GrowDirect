@@ -15,6 +15,10 @@ copyright: "Copyright (c) 2026 GrowDirect LLC"
 
 Fox is Canary's case management and evidence locker domain — "The Vault." It bridges automated anomaly detection (Chirp alerts) and human investigation workflows. When a merchant decides an alert warrants investigation, Fox creates a case, links originating alerts, tracks subjects of interest, stores evidence with cryptographic chain-of-custody integrity, and maintains an append-only audit timeline.
 
+**Multi-tenant context.** Fox tables (`fox_cases`, `fox_subjects`, `fox_evidence`, `fox_timeline`, `fox_evidence_access_log`) live per-tenant in `tenant_{merchant_id}`. Evidence chain integrity is per-tenant — every merchant's chain is isolated. Cross-tenant ORC pattern correlation surfaces through the Local Market Agent and `signal-social-threat` (per the Brain wiki cards), not via cross-tenant Fox queries. See `architecture.md` "Multi-Tenant Isolation".
+
+**Optional Features posture.** Fox's hash-chained evidence locker is required core — chain integrity is the platform's evidentiary backbone (per `raas.md`) and operates independently of all Optional Features. When `BLOCKCHAIN_ANCHOR_ENABLED=true`, every case's chain hash is anchored asynchronously to a public L2 (per `blockchain-anchor.md`) — making the case timeline externally verifiable for court / insurer / auditor without trusting the platform. When the flag is off, the chain remains internally verifiable. Failures of the anchor service are non-blocking by design.
+
 ### Hawk Positioning (Phase 1+)
 
 Fox is an **evidence-based record (EBR)** class inside the Hawk ops-contract system. Hawk introduces a card-based investigation model with a wizard FSM, structured card pipeline, and multi-entity tracking that supersedes Fox's flat case lifecycle. Fox's INSERT-only evidence chain, hash-chain integrity, and access-logging disciplines carry forward unchanged as the evidentiary backbone of every Hawk card. See `docs/sdds/go-handoff/hawk.md` for the full ops-contract specification.
