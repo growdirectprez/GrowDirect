@@ -3,6 +3,8 @@ spec-version: 1.0
 target-implementation: Go
 status: handoff-ready
 updated: 2026-04-28
+license: Apache-2.0
+copyright: "Copyright (c) 2026 GrowDirect LLC"
 ---
 
 # Agent Smart Contracts

@@ -7,6 +7,8 @@ updated: 2026-04-29
 binary: ildwac
 port: 8096
 mcp-server: canary-ildwac
+license: Apache-2.0
+copyright: "Copyright (c) 2026 GrowDirect LLC"
 ---
 
 # ILDWAC — Item × Location × Device × MCP × Port × Weighted Average Cost

@@ -5,6 +5,8 @@ target-implementation: Go
 stack: PostgreSQL 17 + pgx + sqlc | Chi HTTP | REST | go-redis | pgvector-go
 source: Curated from Canary Python prototype SDDs (GRO-617)
 status: handoff-ready
+license: Apache-2.0
+copyright: "Copyright (c) 2026 GrowDirect LLC"
 ---
 
 # Chirp Detection Engine

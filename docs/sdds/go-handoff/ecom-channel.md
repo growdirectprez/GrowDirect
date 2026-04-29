@@ -5,6 +5,8 @@ stack: PostgreSQL 17 + pgx + sqlc | Chi HTTP | REST | go-redis | pgvector-go
 source: Solex reference implementation + Canary Go platform architecture
 status: handoff-ready
 updated: 2026-04-29
+license: Apache-2.0
+copyright: "Copyright (c) 2026 GrowDirect LLC"
 ---
 
 # Ecom Channel — Ecommerce Channel Integration Service

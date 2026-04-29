@@ -5,6 +5,8 @@ target-implementation: Go
 stack: PostgreSQL 17 + pgx + sqlc | math/rand (deterministic seed) | canary_go_test DB only
 source: Solex scenario runner (Canary Python prototype) + platform test data requirements
 status: handoff-ready
+license: Apache-2.0
+copyright: "Copyright (c) 2026 GrowDirect LLC"
 ---
 
 # Retail Lifecycle Test Dataset

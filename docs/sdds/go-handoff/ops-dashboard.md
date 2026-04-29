@@ -7,6 +7,8 @@ updated: 2026-04-29
 binary: ops-dashboard
 port: 8094
 mcp-server: canary-ops
+license: Apache-2.0
+copyright: "Copyright (c) 2026 GrowDirect LLC"
 ---
 
 # Ops Dashboard — Store NOC Interface

@@ -5,6 +5,8 @@ stack: PostgreSQL 17 + pgx + sqlc | Chi HTTP | REST | go-redis | pgvector-go
 source: GRO-617 — Canary Go rebuild
 status: handoff-ready
 updated: 2026-04-28
+license: Apache-2.0
+copyright: "Copyright (c) 2026 GrowDirect LLC"
 ---
 
 # Canary — Microservice Architecture

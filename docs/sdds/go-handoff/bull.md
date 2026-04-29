@@ -5,6 +5,8 @@ stack: PostgreSQL 17 + pgx + sqlc | Chi HTTP | REST | go-redis | pgvector-go
 source: Curated from Canary Python prototype SDDs (GRO-617)
 status: handoff-ready
 updated: 2026-04-28
+license: Apache-2.0
+copyright: "Copyright (c) 2026 GrowDirect LLC"
 ---
 
 # Bull — NCR Counterpoint Adapter (Reference Implementation of the POS Adapter Substrate) — Distribution Intelligence Layer

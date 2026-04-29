@@ -5,6 +5,8 @@ target-implementation: Go
 stack: PostgreSQL 17 + pgx + sqlc | Chi HTTP | Valkey queue | Ollama qwen3-embedding:8b | pandoc + pdftotext
 source: content-engine/engine.py (Python prototype) + platform intake protocol (CLAUDE.md)
 status: handoff-ready
+license: Apache-2.0
+copyright: "Copyright (c) 2026 GrowDirect LLC"
 ---
 
 # Document Factory Pipeline

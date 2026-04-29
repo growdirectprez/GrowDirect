@@ -7,6 +7,8 @@ updated: 2026-04-29
 binary: inventory
 port: 8097
 mcp-server: canary-inventory
+license: Apache-2.0
+copyright: "Copyright (c) 2026 GrowDirect LLC"
 ---
 
 # IaaS — Inventory as a Service

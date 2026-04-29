@@ -7,6 +7,8 @@ updated: 2026-04-29
 binary: store-brain
 port: 8093
 mcp-server: canary-brain
+license: Apache-2.0
+copyright: "Copyright (c) 2026 GrowDirect LLC"
 ---
 
 # Store Brain — In-Store AI Context Manager

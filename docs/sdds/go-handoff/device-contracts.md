@@ -7,6 +7,8 @@ updated: 2026-04-29
 binary: device-contracts
 port: 8095
 mcp-server: canary-devices
+license: Apache-2.0
+copyright: "Copyright (c) 2026 GrowDirect LLC"
 ---
 
 # Device Contracts — Smart Contract Enforcement for Cost and Profit Center Devices

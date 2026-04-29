@@ -7,6 +7,8 @@ updated: 2026-04-29
 binary: raas
 port: 8099
 mcp-server: canary-raas
+license: Apache-2.0
+copyright: "Copyright (c) 2026 GrowDirect LLC"
 ---
 
 # RaaS — Resolution as a Service
