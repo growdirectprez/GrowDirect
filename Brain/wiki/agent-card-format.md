@@ -31,7 +31,7 @@ The agent card format is the standard for knowledge units that agents consume vi
 
 | Field | Type | Values |
 |-------|------|--------|
-| `card-type` | enum | `signal-feed` · `agent-profile` · `org-layer` · `field-hierarchy` · `role-binding` · `domain-module` · `lifecycle-gate` · `infra-capability` · `platform-thesis` · `format-spec` |
+| `card-type` | enum | `signal-feed` · `agent-profile` · `org-layer` · `field-hierarchy` · `role-binding` · `domain-module` · `lifecycle-gate` · `infra-capability` · `platform-thesis` · `runbook` · `format-spec` |
 | `card-id` | string | kebab-case unique identifier, stable across versions |
 | `card-version` | integer | Increment on any substantive change |
 | `domain` | enum | `lp` · `merchandising` · `finance` · `labor` · `platform` · `local-market` · `cross-cutting` |
@@ -77,6 +77,21 @@ Where the data comes from. External systems, feeds, human inputs.
 
 ## Routing
 How it flows through the agent network. Show the chain explicitly.
+
+## When to run
+**Runbook cards only.** The trigger condition — what state means this procedure is needed. Be specific: "Docker stack is down and dispatch work is about to begin" not "whenever you need to restart Docker."
+
+## Preconditions
+**Runbook cards only.** What must be true before starting. Ordered list. If a precondition is not met, the procedure must not proceed.
+
+## Canonical steps
+**Runbook cards only.** Exact commands in order, with expected output noted inline. No paraphrasing — copy-paste fidelity is the standard.
+
+## Verification
+**Runbook cards only.** How to confirm the procedure succeeded. A query, a health check, a curl — something observable that produces a pass/fail signal.
+
+## Failure modes
+**Runbook cards only.** Known failure patterns with recovery steps. Each mode: symptom → cause → fix. No speculation — only confirmed failures.
 
 ## Invariants
 Hard constraints. What must always be true. What must never happen. Agents enforce these.
@@ -136,3 +151,6 @@ All agent cards live in `Brain/wiki/cards/`. Subdirectories are permitted for la
 | [Platform Thesis](cards/platform-thesis.md) | platform-thesis | platform-thesis |
 | [Platform: Retailer Lifecycle Test](cards/platform-retailer-lifecycle-test.md) | platform-retailer-lifecycle-test | infra-capability |
 | [Platform: ALX as VSM](cards/platform-alx-vsm.md) | platform-alx-vsm | platform-thesis |
+| [Runbook: Memory Bus Seed](cards/runbook-memory-bus-seed.md) | runbook-memory-bus-seed | runbook |
+| [Runbook: Docker Startup](cards/runbook-docker-startup.md) | runbook-docker-startup | runbook |
+| [Runbook: Brain Wiki Commit](cards/runbook-brain-wiki-commit.md) | runbook-brain-wiki-commit | runbook |

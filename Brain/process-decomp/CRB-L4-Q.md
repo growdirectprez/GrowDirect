@@ -149,16 +149,21 @@ Tier 3 L4 pattern (applies to all Tier 3 rules):
 **Source:** `fox/case_service.py`, `fox/tools.py`  
 **Key invariant:** chain_hash computed by PostgreSQL trigger `compute_entry_hash()` BEFORE INSERT (P0-3, B-001). Application code MUST NOT set chain_hash or previous_chain_hash.
 
-### Data Model (from VALID_* frozensets)
+**⚠️ GO SCHEMA NOTE — unified model:** The Python prototype implemented separate `fox_cases`, `fox_subjects`, `fox_case_actions`, `fox_timeline`, and `fox_evidence` tables as a build-speed shortcut. **CanaryGO does not use these tables.** Fox (`cmd/fox`) is the LP-specific case creation pathway into the unified Hawk schema. All Fox tools write to `hawk_cases`, `hawk_subjects`, `hawk_actions`, `hawk_timeline`. The LP-to-Hawk link is the `chirp_alert_id` FK on `hawk_cases`. Fox case types are `incident_type` rows in `hawk_incident_types` (theft, return_abuse, cash_variance, etc.). The L4 function behaviors documented below are behaviorally accurate; only the table names change. See CRB-L4-W.md §"W Module vs Q Module" for the full Fox/Hawk ownership map.
+
+### Data Model (Python prototype VALID_* frozensets → Go: Hawk schema equivalents)
 
 ```
 Case statuses:    open → investigating → pending_review → escalated → closed
                                                                      → referred_to_le
 Case types:       theft | fraud | policy_violation | cash_variance | return_abuse | transaction_review | other
+                  (CanaryGO: rows in hawk_incident_types with incident_class=internal)
 Case priorities:  low | medium | high | critical
-Subject types:    employee | customer | vendor | unknown
+Subject types:    employee | customer | vendor | unknown  (hawk_subjects.subject_type)
 Action types:     investigate | interview | suspend | terminate | refer_to_le | refer_to_hr | coaching | no_action | status_change
+                  (CanaryGO: INTERNAL_ACTION_CODES in HawkCaseService)
 Timeline events:  created | status_change | note_added | evidence_added | assigned | escalated | closed | action_added
+                  (hawk_timeline.event_type)
 ```
 
 Timeline metadata schema:
@@ -169,29 +174,33 @@ Timeline metadata schema:
 
 ### FoxCaseService Methods (L4 Activities)
 
+> Python prototype uses FoxCase/FoxSubject models. CanaryGO equivalent operates on HawkCase/HawkSubject with chirp_alert_id set on LP-originating cases.
+
 | L4 ID | Method | Inputs | Behavior |
 |-------|--------|--------|----------|
-| Q.3.1.1 | `get_cases(merchant_id, status, created_after, page, limit)` | merchant_id required; status/created_after optional filters | Query FoxCase, desc by opened_at, paginated; returns (cases, pagination) |
-| Q.3.1.2 | `get_case_by_id(case_id, merchant_id)` | case_id + merchant_id | `.one()` — raises NoResultFound if not found |
-| Q.3.2.1 | `add_subject(case_id, subject_type, entity_id, name, role)` | subject_type in VALID_SUBJECT_TYPES | Validate subject_type; `resolve_entity()` for employee type (checks Employee table); INSERT FoxSubject; flush |
-| Q.3.2.2 | `add_action(case_id, action_type, description, user_id)` | action_type in VALID_ACTION_TYPES | INSERT FoxCaseAction; INSERT FoxCaseTimeline event_type="action_added"; flush |
+| Q.3.1.1 | `get_cases(merchant_id, status, created_after, page, limit)` | merchant_id required; status/created_after optional filters | Query FoxCase (→ hawk_cases), desc by opened_at, paginated; returns (cases, pagination) |
+| Q.3.1.2 | `get_case_by_id(case_id, merchant_id)` | case_id + merchant_id | `.one()` — raises NoResultFound if not found (Hawk equivalent uses `.first()` + caller handles None — see W.3.1.2) |
+| Q.3.2.1 | `add_subject(case_id, subject_type, entity_id, name, role)` | subject_type in VALID_SUBJECT_TYPES | Validate subject_type; `resolve_entity()` for employee type (checks Employee table); INSERT FoxSubject (→ hawk_subjects); flush |
+| Q.3.2.2 | `add_action(case_id, action_type, description, user_id)` | action_type in VALID_ACTION_TYPES | INSERT FoxCaseAction (→ hawk_actions); INSERT FoxCaseTimeline (→ hawk_timeline) event_type="action_added"; flush |
 | Q.3.3.1 | `get_case_evidence(case_id)` | case_id | Query FoxEvidence ordered by uploaded_at ASC |
 | Q.3.3.2 | `get_evidence_by_id(evidence_id, case_id)` | both IDs | `.one()` |
 | Q.3.4.1 | `validate_timeline_metadata(event_type, metadata)` | event_type string; metadata dict or JSON string | Validate required keys per _TIMELINE_METADATA_REQUIRED; raises ValueError on violation |
 | Q.3.5.1 | `resolve_entity(db_session, subject_type, entity_id)` | subject_type="employee" | Query Employee.id; raises ValueError if not found |
 
-### Q.3 MCP Tool Surface (from fox/tools.py)
+### Q.3 MCP Tool Surface (from fox/tools.py → CanaryGO cmd/fox)
+
+> cmd/fox provides LP-specific case creation tools. All writes land in Hawk tables. cmd/hawk owns the full case management surface (CRUD, workflow, card generation). Fox tools are LP alert→case entry points.
 
 | Tool | Handler | Purpose |
 |------|---------|---------|
-| create_case | `_handle_create_case` | Open new case; requires merchant_id + title |
+| create_case | `_handle_create_case` | Open new LP case (sets chirp_alert_id on hawk_cases if alert-linked) |
 | get_case | `_handle_get_case` | Get case details by ID |
 | list_cases | `_handle_list_cases` | List cases with status/date filters |
 | update_case_status | `_handle_update_case_status` | Transition status (validates state machine) |
 | add_subject | `_handle_add_subject` | Link employee/vendor/party to case |
 | get_timeline | `_handle_get_timeline` | Get append-only hash-chained audit trail |
 | verify_chain | `_handle_verify_chain` | Verify evidence hash chain integrity |
-| link_alert | `_handle_link_alert` | Link alert to existing case |
+| link_alert | `_handle_link_alert` | Link alert to existing case (sets chirp_alert_id FK) |
 
 ---
 
@@ -297,6 +306,8 @@ Full MCP tool manifest for the Go `cmd/chirp` + `cmd/fox` + `cmd/alert` servers:
 4. **C-502 self-refund boost is a scoring modifier, not a separate rule.** The +10 score boost for same-employee sale+refund is applied inside the C-502 handler, not as a separate alert.
 
 5. **Rule catalog is a compile-time constant.** RULE_CATALOG is a frozen list of frozen dataclasses. It should NOT be DB-backed in Go — it's code, not config. Merchant-specific changes are all in the threshold layer on top.
+
+6. **Fox writes to Hawk tables (no fox_cases in Go).** The Python prototype's separate fox_* tables are prototype debt. In CanaryGO, cmd/fox tools operate on hawk_cases, hawk_subjects, hawk_actions, hawk_timeline. The LP-specific field is chirp_alert_id FK on hawk_cases. LP incident types are rows in hawk_incident_types. Fox case vocabulary maps directly to HawkIncidentType.incident_class=internal rows.
 
 ---
 

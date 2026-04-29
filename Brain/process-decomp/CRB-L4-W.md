@@ -161,28 +161,35 @@ Full tool manifest:
 
 ---
 
-## Module W Data Model
+## Module W Data Model — Unified Case Schema
 
-Tables (from hawk/ models):
-- `hawk_cases` — primary case record (status, incident_class, incident_type, de_pv_flag, opened_by, closed_at, chirp_alert_id, card_id)
-- `hawk_incident_types` — catalog of valid incident types with display_name, incident_class, de_pv_flag
-- `hawk_sources` — source code catalog (e.g., CHIRP_ALERT, MANUAL, DEVICE_ALERT)
-- `hawk_subjects` — case subjects (employee_id, vendor_entity_id, external_name, subject_type)
-- `hawk_actions` — resolution actions (action_code, actor_id, notes)
+**One schema. Fox writes into Hawk tables.** The `chirp_alert_id` field on `hawk_cases` is the tell — the design always intended LP cases to live in the Hawk schema. The Python prototype implemented separate Fox tables as a build-speed shortcut; that is prototype debt. CanaryGO uses the unified schema.
+
+Tables:
+- `hawk_cases` — ALL cases, all domains. Fields: status, incident_class, incident_type, de_pv_flag, opened_by, closed_at, **chirp_alert_id** (FK to LP alert — present only on Fox-created cases), card_id
+- `hawk_incident_types` — catalog of valid incident types with display_name, incident_class, de_pv_flag. LP types (theft, void_abuse, cash_variance, return_abuse, etc.) are rows in this table.
+- `hawk_sources` — source code catalog (CHIRP_ALERT, MANUAL, DEVICE_ALERT, etc.)
+- `hawk_subjects` — case subjects across all domains (employee_id, vendor_entity_id, external_name, subject_type)
+- `hawk_actions` — resolution actions with track-validated action codes
 - `hawk_timeline` — append-only audit trail (event_type, actor_id, description, event_data JSONB)
 - `hawk_cards` — versioned narrative cards (card_body, frontmatter JSONB, card_version, invalidated_at)
 
 ---
 
-## W Module vs Q Module: Fox Inheritance Model (Resolves OVERLAP #4 from Lint Report)
+## W Module vs Q Module: Fox is the LP Pathway INTO Hawk (Resolves OVERLAP #4 from Lint Report)
 
-The lint report flagged OVERLAP #4 — Q.3 Fox vs W case management. The correct interpretation based on code inspection:
+**Hawk is the unified case management system. Fox is the LP alert-to-case creation pathway.** Fox does not own tables — it writes into Hawk tables.
 
-**Hawk is a parallel implementation, not a wrapper of Fox.** Hawk follows Fox's patterns (session-injected service, frozenset validation, timeline entries) but has its own tables (`hawk_cases` vs `fox_cases`) and its own ORM models (`HawkCase` vs `FoxCase`).
+| | Fox (Q.3) | Hawk (W.3) |
+|---|---|---|
+| **What it is** | LP alert → case creation pathway + LP-specific MCP tools | Unified case management system and investigator surface |
+| **Tables** | None — writes to `hawk_cases` via chirp_alert_id | Owns all case tables |
+| **Case creation trigger** | LP rule fires → alert → investigator creates case | Manual, cross-domain exception, device alert, any source |
+| **incident_type** | LP types from hawk_incident_types catalog | All types across all domains |
+| **UI surface** | Alert notification → case-from-alert flow | Full case management interface, cross-domain views |
+| **MCP tools** | LP-specific tools (create_case_from_alert, link_alert, etc.) operating on Hawk tables | Full case CRUD, advance_workflow, generate_card, etc. |
 
-The relationship is architectural inheritance, not code inheritance. Hawk generalizes the Fox pattern to new domains with richer incident taxonomy and narrative card output. Fox tables are NOT consumed by Hawk.
-
-**Go implementation decision:** `cmd/fox` and `cmd/hawk` are separate services with separate schemas. Shared behavior (advisory lock pattern, timeline entry pattern) is extracted into shared utility packages — NOT by having Hawk call Fox.
+**Go implementation:** `cmd/fox` provides LP-specific case creation tools. `cmd/hawk` owns the unified schema and full case management surface. No `fox_cases` table. The distinction is in tooling and UX, not data ownership.
 
 ---
 
