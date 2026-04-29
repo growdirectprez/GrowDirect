@@ -22,6 +22,16 @@ patent: "Application #63/991,596"
 
 Blockchain Anchor is a non-blocking consumer of RaaS chain hashes and ILDWAC RIB batch seals. It publishes them to an L2 blockchain (Bitcoin via OP_RETURN, or a compatible L2), making the tamper-evidence chain externally verifiable. Any party with a chain hash can verify against a public blockchain without trusting Canary's servers.
 
+**Status: opt-in architectural direction.** Blockchain anchoring is one of several optional features per `platform-overview.md` "Optional Features" — gated by `BLOCKCHAIN_ANCHOR_ENABLED` env flag (default `false`). When the flag is off, the internal SHA-256 hash chain operates normally, receipts are still hash-verified internally, and merchant chain integrity holds — only the public L2 anchoring queue is dormant. The internal chain is the required core (per `raas.md`); the public anchor is the optional extension that converts internal verifiability into externally verifiable evidence.
+
+**Chain-of-record split.** Two chains, two purposes (resolves the open question from the Wave 2 dispatch):
+- **Public evidence anchor** (this SDD) — Base or Polygon PoS for decentralization, externally verifiable, sub-cent inscription cost
+- **Vendor smart contracts** (per `agent-contracts.md`) — AVAX private subnet for vendor-only contracts, low-cost EVM, private to the vendor relationship
+
+Both gated by their respective env flags. Neither is required for platform operation.
+
+**Multi-tenant context.** Anchor receipt tables (`anchor_receipts`, `anchor_queue`) live per-tenant in `tenant_{merchant_id}` — every merchant's chain hashes are anchored under their own tenant scope. The on-chain inscription itself is public, but it contains only the chain root hash — no merchant-identifiable content. See `architecture.md` "Multi-Tenant Isolation".
+
 ---
 
 ## Critical Platform Rule

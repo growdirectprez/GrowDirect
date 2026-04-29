@@ -21,6 +21,12 @@ copyright: "Copyright (c) 2026 GrowDirect LLC"
 
 ILDWAC is the provenance-weighted cost model for the Canary platform. It extends the standard retail ILWAC (item × location WAC) with three additional provenance dimensions — device, MCP tool, and POS port — that make every cost record self-auditing. No reconstruction is needed to dispute a cost figure: the audit trail is encoded in the dimensions themselves. Every WAC entry knows not just what it costs, but where the stock sits, which tool moved it, and which POS system reported the event.
 
+**Status: opt-in architectural direction.** ILDWAC is one of several optional features per `platform-overview.md` "Optional Features" — gated by `ILDWAC_ENABLED` env flag (default `false`). When the flag is off, the platform operates with standard ILWAC (item × location × WAC) using fiat denomination via the existing MAC infrastructure (per `retail-inventory-valuation-mac` and `data-model.md` MAC schema). The five-dimension provenance schema described below exists in the data model in either mode — tables are created at tenant onboarding and accept writes when the flag is on, remain empty otherwise. A merchant can opt in later without a schema migration.
+
+**IP scope.** Patent application **#63/991,596** covers the algorithm that combines hash-chain anchoring, WAC computation with provenance weighting, and Bitcoin denomination for retail evidence. This SDD describes the implementation; patent scope is documented in Compliance below.
+
+**Multi-tenant context.** ILDWAC tables (`ildwac_packets`, `rib_batches`, `endpoint_fees`, `ildwac_positions`, `ildwac_serial_units`) live per-tenant in `tenant_{merchant_id}`. Cost packets are merchant-scoped; cross-tenant cost analytics flow through scheduled rollups into the `analytics` schema, never via direct cross-tenant queries. See `architecture.md` "Multi-Tenant Isolation".
+
 ---
 
 ## Business
