@@ -1,7 +1,7 @@
 ---
 card-type: domain-module
 card-id: retail-site-management
-card-version: 1
+card-version: 2
 domain: merchandising
 layer: domain
 status: approved
@@ -61,6 +61,18 @@ The Replenishment module reads DC assignments and delivery schedules to route su
 - Every store must be assigned to exactly one primary DC and one pricing zone. Missing or duplicate assignments corrupt replenishment routing and pricing.
 - Site group memberships must be maintained when business conditions change. A store still assigned to a "mild climate" group after moving to a "cold climate" market receives wrong replenishment parameters for seasonal items.
 - Model-site inheritance is a starting point, not a permanent configuration. New sites must be reviewed and overridden where the model site's characteristics differ from the new site's reality.
+
+## Platform (2030)
+
+**Agent mandate:** Technical Agent owns site master provisioning — it configures site parameters, DC assignments, replenishment defaults, and POS integration at site setup. Operations Agent monitors site operational health continuously: new-site demand patterns, sites with unusual KPI behavior, and sites approaching capacity constraints. Business Agent reads site configuration for assortment and pricing decisions.
+
+**Site master as agent configuration.** In traditional retail systems, site master data is a database table queried by humans. In Canary Go, site master data is the configuration layer that governs agent behavior per location. Operations Agent behavior at a given store is parameterized by: site group memberships (which determine which seasonality signals and competitive signals apply), DC assignments (which determine replenishment routing), pricing zone (which determines which price rule applies), and competition cluster (which determines relevant market benchmarks). The site master is not just a record — it is the configuration that makes per-location agent intelligence possible without embedding location-specific logic in the agent itself.
+
+**Site setup as Technical Agent workflow.** Opening a new site is a Technical Agent-orchestrated workflow: provision site master record → assign hierarchy position and group memberships → configure DC assignment and delivery schedule → load replenishment parameters from model site → provision POS integration credentials → activate site in the platform → notify Operations Agent to begin monitoring. Technical Agent confirms prerequisites before advancing each step. A site is not live until the workflow is complete — not when a single table row is inserted.
+
+**MCP surface.** `site_config(site_id)` returns site master data including hierarchy position, group memberships, DC assignment, and delivery schedule — the full agent configuration for a location. `site_health(site_id)` returns Operations Agent's current assessment: KPI status, open exceptions, and replenishment pipeline. `site_group_members(group_id)` returns all sites in a given pricing zone, climate zone, or competition cluster — the scoping filter for zone-level operations.
+
+**RaaS tier.** Site master management and configuration is available at all subscription tiers. Technical Agent-orchestrated site setup workflow is Operations Agent — Standard tier. Continuous Operations Agent site health monitoring is Operations Agent — Standard tier.
 
 ## Related
 

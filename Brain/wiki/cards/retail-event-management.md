@@ -1,7 +1,7 @@
 ---
 card-type: domain-module
 card-id: retail-event-management
-card-version: 1
+card-version: 2
 domain: merchandising
 layer: domain
 status: approved
@@ -66,6 +66,18 @@ The Forecasting module reads the promotional event calendar to compute promotion
 - Promotional demand must be flagged in the forecasting system. Promotions that inflate the baseline forecast cause over-ordering in subsequent non-promotional weeks.
 - Co-op claims must be submitted before the vendor's claim deadline. Missed deadlines forfeit earned funds — the deadline is a hard business constraint, not a soft one.
 - Promotional pricing changes must be communicated to stores with sufficient lead time (defined per event type). Last-minute price changes that hit stores the same day the ad drops cause POS and customer service failures.
+
+## Platform (2030)
+
+**Agent mandate:** Business Agent owns promotional calendar management — event planning, item and price selection, vendor commitment tracking, and post-event evaluation. Finance Agent manages co-op accrual and claim submission. Operations Agent monitors sell-through velocity in real time during active events and alerts when stockout risk is developing before the event ends. No agent modifies promotional pricing at POS without merchant authorization.
+
+**Event calendar as forecasting signal.** The promotional event calendar is a data source, not just a planning document. Business Agent publishes upcoming events to the forecasting model as structured data — event dates, item list, expected lift by prior event performance. The forecasting model computes the promotional demand component automatically, without manual uplift adjustments by a replenishment analyst. Promotional demand isolation is algorithmic: if the event calendar is current, the forecast is correct. If it isn't, the model has no signal and defaults to baseline — which understates demand and leads to stockouts during the event.
+
+**Co-op claim automation.** Traditional co-op management requires Finance staff to track accrual deadlines, assemble documentation, and submit claims manually. Finance Agent automates this: when a promotional event closes, Finance Agent computes the earned co-op amount against the vendor's co-op terms, assembles the claim package (sell-through data, event documentation), and submits the claim via the vendor's co-op portal or MCP endpoint. Unclaimed co-op approaching a vendor deadline surfaces as an Operations Agent alert — a hard-dollar recovery opportunity that has historically slipped through in manual processes.
+
+**MCP surface.** `event_calendar(period)` returns planned promotional events with item list, pricing, and vendor funding status. `event_performance(event_id)` returns actual vs. planned lift, sell-through rate, and co-op ROI. `coop_pipeline(vendor_id)` returns accrued co-op, claimed amount, pending claims, and deadline dates. `sellthrough_alert(event_id)` returns items in an active event tracking toward stockout before event end.
+
+**RaaS tier.** Event planning and promotional calendar management is available at all subscription tiers. Operations Agent real-time sell-through monitoring during active events is Operations Agent — Standard tier. Finance Agent automated co-op claim submission is Operations Agent — Standard tier. Vendor MCP endpoint co-op claim data exchange requires the Verified Vendor tier.
 
 ## Related
 

@@ -1,7 +1,7 @@
 ---
 card-type: domain-module
 card-id: retail-vendor-compliance-standards
-card-version: 1
+card-version: 2
 domain: merchandising
 layer: domain
 status: approved
@@ -56,6 +56,18 @@ The Receiving module compares inbound shipments against documented standards to 
 - All compliance standards must be agreed and recorded at vendor setup, before the first PO is issued. Post-hoc documentation has no chargeback standing.
 - Compliance standards are set per vendor, not as retailer-wide defaults. Individual vendor agreements may vary; the system must support this.
 - Every chargeback must trace to a specific documented compliance clause. Chargebacks without a compliance basis are commercially indefensible.
+
+## Platform (2030)
+
+**Agent mandate:** Technical Agent encodes compliance clauses as smart contract terms at vendor setup. Operations Agent monitors the live compliance event stream and detects violations before the scorecard period closes. Business Agent uses compliance data in negotiation preparation and vendor rationalization analysis.
+
+**Compliance as Solidity.** Each compliance clause in the matrix — fill rate threshold, ASN timing requirement, carton marking standard, co-op usage rule — is encoded as a clause in the vendor's smart contract on the AVAX vendor subnet at setup. The contract IS the compliance agreement, not a PDF. When a compliance event occurs (ASN mismatch at receipt scan, short shipment confirmed by three-way match), the event is submitted to the contract as a transaction. The contract evaluates the clause, records the violation, computes the financial consequence, and updates the occurrence counter — all without human intervention. The vendor sees the same contract state the retailer sees; there is no dispute about what was agreed or whether it happened.
+
+**Real-time violation detection.** Traditional compliance monitoring is period-based: the scorecard runs at month-end and reveals that a vendor has been non-compliant for four weeks. Operations Agent processes compliance events in real time from the receipt event stream. A fill rate declining across three consecutive shipments surfaces as an alert before it becomes a scorecard failure — when intervention is still possible.
+
+**MCP surface.** `compliance_status(vendor_id)` returns active compliance clauses with current compliance rate per dimension. `compliance_violations(vendor_id, period)` returns the violation log by clause with occurrence count and financial exposure. Single-call, agent-readable without fetching the full vendor record.
+
+**RaaS tier.** Documented compliance standards and scorecard-based enforcement are available at all subscription tiers. Smart contract clause encoding and real-time violation detection require the Verified Vendor tier. Operations Agent continuous compliance stream monitoring is Operations Agent — Standard tier.
 
 ## Related
 

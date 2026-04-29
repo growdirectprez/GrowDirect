@@ -1,7 +1,7 @@
 ---
 card-type: domain-module
 card-id: retail-replenishment-model
-card-version: 1
+card-version: 2
 domain: merchandising
 layer: domain
 status: approved
@@ -60,6 +60,18 @@ The Replenishment module generates the SOQ list and presents it for buyer review
 - DC replenishment is driven by aggregated store forecasts — not by DC consumption history alone. Using DC consumption history without store-level visibility misses demand signal and creates artificial demand smoothing.
 - Minimum order quantities and rounding rules must be applied after the net need calculation, not before. Applying them before distorts the underlying demand signal.
 - Replenishment simulation must not affect production on-hand or on-order balances. Simulations are planning tools only.
+
+## Platform (2030)
+
+**Agent mandate:** Operations Agent owns replenishment execution for non-exception items — SOQ generation, auto-approval within OTB, and exception surfacing. Business Agent reviews replenishment exceptions and adjusts parameters. The goal is to reduce the human decision surface to only the cases that genuinely require judgment; everything within parameters runs automatically.
+
+**Auto-replenishment within L402 OTB.** Traditional replenishment requires buyer review of every SOQ. In Canary Go, SOQs that are within OTB (L402 wallet balance check) and within configured exception bounds auto-convert to purchase orders without buyer review. The buyer's attention is reserved for exceptions: SOQs that exceed OTB, items where the SOQ deviates significantly from prior orders, items approaching stockout faster than the model anticipated, and new items without established parameters. The goal is to remove human review from the 80% of replenishment decisions that are routine.
+
+**Real-time OTB feedback loop.** As SOQs auto-convert to POs, the L402 OTB wallet balance decrements in real time. Business Agent monitoring OTB balance can see the replenishment pipeline consuming OTB as it runs — not at end of day. If auto-replenishment is consuming OTB faster than expected (demand running above forecast), Business Agent surfaces this before the wallet is exhausted and replenishment is blocked, rather than discovering the blockage after the fact.
+
+**MCP surface.** `replenishment_exceptions(buyer_id)` returns SOQs requiring human review with reason code. `soq(sku, site)` returns the current suggested order quantity and calculation basis. `replenishment_pipeline(dept, period)` returns all auto-approved orders in flight with OTB impact. `safety_stock_health(dept)` returns items where safety stock is below minimum — stockout risk signal.
+
+**RaaS tier.** Manual SOQ review and PO creation is available at all subscription tiers. Auto-approval within OTB and Operations Agent exception surfacing is Operations Agent — Standard tier. L402-denominated OTB wallet auto-decrements on PO creation require the Bitcoin-native tier.
 
 ## Related
 

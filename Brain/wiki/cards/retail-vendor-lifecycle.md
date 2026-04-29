@@ -1,7 +1,7 @@
 ---
 card-type: domain-module
 card-id: retail-vendor-lifecycle
-card-version: 1
+card-version: 2
 domain: merchandising
 layer: domain
 status: approved
@@ -47,6 +47,20 @@ The Vendor Agent uses lifecycle state to gate PO creation — a vendor in discon
 - Vendor compliance standards must be recorded in vendor master, not in email or informal agreements. Chargebacks are only defensible if terms were documented at setup.
 - Rationalization decisions must be driven by vendor profitability, not vendor revenue. A high-volume vendor with poor margins is a rationalization candidate.
 - Scorecard dimensions and weighting factors must be established before evaluation begins — not reverse-engineered from a desired outcome.
+
+## Platform (2030)
+
+**Agent mandate:** Business Agent owns the vendor relationship layer — qualification scoring, scorecard review, negotiation preparation, rationalization recommendations. Operations Agent monitors lifecycle state and alerts on vendors approaching rationalization thresholds or with open compliance failures that have not been resolved. Technical Agent handles system-side vendor onboarding: provisioning vendor MCP credentials, configuring EDI endpoints, deploying the vendor's smart contract on the AVAX vendor subnet.
+
+**Smart contract provisioning at setup.** In the traditional model, compliance standards are recorded in a database and enforced manually. In the Canary Go model, when a vendor's compliance standards are finalized, a smart contract is deployed on the AVAX vendor private subnet encoding those terms. The contract is the vendor agreement — not a PDF filed in a shared drive. Compliance events (receipt failures, ASN mismatches, late deliveries) are submitted to the contract as transactions. The contract computes the financial consequence automatically. The vendor sees the same contract state the retailer sees — no dispute about what was agreed.
+
+**L402 wallet provisioned at activation.** Each active vendor relationship has an associated L402 wallet in the vendor wallet tier of the hierarchy. Vendor payments flow through this wallet. Chargeback deductions are applied to the wallet balance before settlement. The wallet balance at any point is the net amount owed to the vendor after all deductions — real-time, not at invoice date.
+
+**Exception-based rationalization.** The Operations Agent does not wait for a periodic vendor review. It monitors vendor scorecard health continuously and surfaces rationalization candidates when: scorecard composite falls below threshold for two consecutive measurement periods, chargeback rate as a percentage of purchase value exceeds the defined ceiling, or vendor fill rate drops below the critical threshold for more than three consecutive weeks. The recommendation is queued to the merchant as an exception, not buried in a periodic report.
+
+**MCP surface.** `vendor_status(vendor_id)` returns lifecycle stage, current scorecard composite, open compliance failures, and wallet balance in a single low-token call. `vendor_rationalization_queue()` returns the current list of vendors flagged for review with reason codes. Agents use these for planning without reading the full vendor record.
+
+**RaaS tier.** Basic vendor lifecycle management (setup, setup, scorecard at period close) is available at all tiers. Smart contract provisioning and continuous Operations Agent monitoring require the Verified Vendor tier add-on.
 
 ## Related
 

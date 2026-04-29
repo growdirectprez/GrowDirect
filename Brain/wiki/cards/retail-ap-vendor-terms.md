@@ -1,7 +1,7 @@
 ---
 card-type: domain-module
 card-id: retail-ap-vendor-terms
-card-version: 1
+card-version: 2
 domain: finance
 layer: domain
 status: approved
@@ -61,6 +61,18 @@ The Finance module executes payment runs on approved, matched invoices. The AP A
 - No invoice is released for payment without a completed three-way match. The match is the gate, not a recommendation.
 - All deductions must be itemized on the remittance advice with the originating event reference. Unexplained deductions generate vendor disputes regardless of their legitimacy.
 - Discount window timing starts from invoice date, not receipt date. AP must track both to ensure discount capture.
+
+## Platform (2030)
+
+**Agent mandate:** Finance Agent owns AP execution — invoice matching, deduction application, and payment release. Operations Agent monitors AP efficiency KPIs (discount capture rate, invoice exception rate, hold aging) continuously. For smart-contract-native vendors, Finance Agent's role shifts from execution to exception handling: the contract handles matched invoices automatically; humans handle only disputes about whether a contract clause was correctly configured.
+
+**Lightning settlement replaces AP for smart-contract vendors.** Traditional AP is a multi-step process: invoice arrives → match runs → deductions applied → debit memos generated → payment released → ACH sent → vendor posts cash. For smart-contract-native vendors in the Canary Go model: receipt confirmed → contract computes match → pending chargeback deductions applied against L402 wallet → wallet balance = net payment amount → Lightning transaction for the net amount, settled in seconds. No invoice processing cycle time. No early-payment discount window to track — payment is instant, terms are encoded in the contract. The AP function for these vendors is monitoring and dispute resolution, not transaction processing.
+
+**Subsequent settlement automation.** Volume rebates, promotional allowances, and markdown allowance credits — the items most likely to be missed in traditional AP — are smart contract events. When a measurement period closes, the contract computes the earned rebate, emits the settlement event, and the credit posts to the vendor's L402 wallet automatically. Finance Agent monitors the settlement event log to confirm credits posted correctly; it does not initiate them. The "we sent you a credit memo but it never got applied" category of dispute does not exist in a contract-native settlement model.
+
+**MCP surface.** `payment_status(vendor_id)` returns current invoice queue, pending deductions, and wallet balance. `discount_capture(period)` returns early-payment discount availability vs. captured — the primary AP efficiency KPI. `settlement_log(vendor_id, period)` returns subsequent settlement events (rebates, allowances) with contract references. Single-call, Finance Agent-readable.
+
+**RaaS tier.** Traditional EDI AP matching and debit memo processing is available at all subscription tiers. L402 wallet-based settlement with automatic deduction application is Verified Vendor tier. Lightning payment settlement requires the Bitcoin-native tier. Automated subsequent settlement via smart contract events requires Verified Vendor and Bitcoin-native tiers together.
 
 ## Related
 

@@ -1,7 +1,7 @@
 ---
 card-type: domain-module
 card-id: retail-operations-kpis
-card-version: 1
+card-version: 2
 domain: cross-cutting
 layer: cross-cutting
 status: approved
@@ -77,6 +77,18 @@ The Operations Agent is the primary consumer of this framework — it monitors a
 - KPI thresholds must be defined before the measurement period begins. Retroactive threshold adjustment to make performance look better is analytically worthless and commercially misleading.
 - Leading indicators (in-stock rate, forecast accuracy, ASN compliance) predict lagging indicators (gross margin, shrink, turnover). The Operations Agent monitors both. Monitoring only lagging indicators produces slow reaction times.
 - Benchmarks are reference points, not universal targets. A margin-optimized specialty retailer and a volume-driven mass merchant have different targets for the same KPIs. Benchmark calibration by merchant profile is required.
+
+## Platform (2030)
+
+**Agent mandate:** Operations Agent IS the KPI monitoring system. This card is the Operations Agent's monitoring specification. Every KPI in this framework is monitored continuously — not at period end, not in a weekly dashboard meeting. Operations Agent computes leading indicators first (in-stock rate, forecast accuracy, ASN compliance) because they predict lagging indicators (gross margin, shrink, turnover) with sufficient lead time to intervene. The Operations Agent's primary output is exception alerts; normal performance generates no noise.
+
+**From batch reporting to continuous exception surfacing.** Traditional retail KPI monitoring is a reporting function: an analyst pulls a dashboard weekly, operations leadership reviews it in a meeting, decisions are made two weeks after the data was generated. In Canary Go, every KPI in this framework has a defined threshold and a monitoring rule in Operations Agent. When a KPI breaches threshold — or when its trajectory suggests breach within N periods — an alert surfaces to the merchant dashboard immediately. The merchant sees only the exceptions that require human attention. Operations Agent handles the monitoring; merchants handle the decisions.
+
+**L402-gated analytics depth.** Operations Agent provides two tiers of KPI access. At baseline, all merchants see threshold alerts and current-period KPI values. At Operations Standard tier, merchants access trend analytics, multi-period comparison, and the inter-KPI correlation surface — how declining forecast accuracy is tracking against in-stock rate degradation, or how fill rate decline is leading chargeback rate growth. At Premium tier, cross-merchant benchmarking compares a given merchant's KPIs against anonymized peer performance, converting a 92% in-stock rate from an ambiguous number into "you're 3 points below comparable merchants in your category."
+
+**MCP surface.** `kpi_dashboard(merchant_id)` returns current values for all KPIs against their thresholds in a single call. `kpi_trend(kpi_name, period)` returns the time series with threshold bands. `kpi_alerts(merchant_id)` returns active threshold breaches sorted by severity. `benchmark(kpi_name, merchant_profile)` returns anonymized peer benchmarks for context. All calls return structured data optimized for agent consumption — numbers and classification, not narrative.
+
+**RaaS tier.** KPI threshold alerts are available at all subscription tiers. Continuous trend monitoring and leading-indicator correlation is Operations Agent — Standard tier. Cross-merchant benchmarking is Operations Agent — Premium tier. L402-denominated financial KPIs (OTB wallet utilization, Lightning settlement efficiency) require the Bitcoin-native tier.
 
 ## Related
 

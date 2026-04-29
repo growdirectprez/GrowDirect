@@ -1,7 +1,7 @@
 ---
 card-type: domain-module
 card-id: retail-three-way-match
-card-version: 1
+card-version: 2
 domain: finance
 layer: domain
 status: approved
@@ -58,6 +58,18 @@ The Finance/AP module executes the match and holds invoices on discrepancy. The 
 - Every invoice payment must be gated on a completed three-way match. Paying on invoice alone removes all chargeback leverage.
 - Discrepancy tolerance thresholds (acceptable quantity variance %) are maintained in vendor management, not set ad hoc by the receiving team.
 - All three documents must reference the same PO number as the common key. Orphaned receipts (no PO) and phantom invoices (no receipt) are exception alerts, not normal process outcomes.
+
+## Platform (2030)
+
+**Agent mandate:** Operations Agent executes three-way match automatically in real time when receipt events arrive. Finance Agent triggers automatic payment release for matched invoices and holds for exceptions. Neither agent makes discretionary payment decisions — the contract and match logic execute; agents surface exceptions and initiate authorized flows.
+
+**Match as contract state machine.** In the traditional model, three-way match is a batch job: AP runs a match program at invoice processing time, exceptions go to a work queue. In the Canary Go model, the vendor's smart contract is the match engine. PO issuance writes PO state. ASN arrival updates ASN state. Receipt confirmation triggers match evaluation automatically. For smart-contract-native vendors, the contract produces one of three outcomes: (1) matched within tolerance → automatic payment release signal; (2) short shipment → automatic chargeback event computed against the chargeback matrix; (3) no-ASN receipt → automatic ASN non-compliance event. No manual match steps. No AP work queue for compliant vendors.
+
+**Real-time discrepancy surfacing.** Operations Agent monitors the match stream in real time. Systematic match failures by vendor — high invoice exception rate, repeated short shipments, recurring ASN inaccuracies — surface as vendor performance signals before the scorecard period closes. An exception that takes 30 days to resolve in the traditional model often costs more in AP handling time than the chargeback value; Operations Agent identifies these patterns and flags vendors for smart contract enrollment or compliance remediation.
+
+**MCP surface.** `match_status(po_id)` returns PO/ASN/receipt reconciliation state and any pending exceptions. `match_exceptions(vendor_id, period)` returns unresolved discrepancies with age and financial exposure. `match_rate(vendor_id)` returns first-pass match rate — the primary AP efficiency KPI. Single-call, low-token.
+
+**RaaS tier.** Manual three-way match with human work queue is available at all subscription tiers. Automated match via smart contract state machine is Verified Vendor tier. Real-time Operations Agent match stream monitoring is Operations Agent — Standard tier. Automated payment release via Lightning on confirmed match is Bitcoin-native tier.
 
 ## Related
 

@@ -1,7 +1,7 @@
 ---
 card-type: domain-module
 card-id: retail-vendor-scorecard
-card-version: 1
+card-version: 2
 domain: merchandising
 layer: domain
 status: approved
@@ -53,6 +53,18 @@ Buyers use the scorecard in negotiation sessions and purchase allocation decisio
 - Scorecard dimensions and weights must be agreed with the vendor before the measurement period begins. Retroactive reweighting is not permitted.
 - The scorecard must be run on a consistent schedule — monthly at minimum, with seasonal and annual aggregates. Irregular scoring destroys its credibility in negotiation.
 - Purchases linked to cross-period receipts must use a defined methodology (receipt date or PO close date) applied consistently. The methodology must be documented.
+
+## Platform (2030)
+
+**Agent mandate:** Operations Agent computes scorecard dimensions continuously — not at period close. Business Agent reads the current scorecard composite in vendor negotiation preparation. Neither agent makes chargeback decisions based on the scorecard; the chargeback matrix and the smart contract engine execute those automatically.
+
+**Live scorecard from live contract state.** Traditional scorecards are period-close computations: query transaction history at month-end, produce a report. In the Canary Go model, the vendor's smart contract IS the scorecard. Each compliance event submitted to the contract updates the relevant dimension counter in real time. Operations Agent reads contract state continuously — the scorecard composite is always current, not a snapshot. The vendor can query their own contract state at any time to see their current performance, eliminating the "we didn't know we were below threshold" dispute category.
+
+**Exception-first alerting.** Operations Agent does not generate periodic scorecard reports. It monitors the trend on each dimension and alerts only when: (1) a dimension composite crosses below the chargeback trigger threshold; (2) the rate of decline suggests threshold breach within N periods; (3) the overall composite drops below the rationalization candidate threshold. Alerts surface to the merchant dashboard with one-click context. Normal performance generates no noise.
+
+**MCP surface.** `scorecard(vendor_id)` returns current composite score and all dimension scores in a single call. `scorecard_trend(vendor_id, n_periods)` returns composite and dimension trend data — the input for negotiation preparation. `rationalization_candidates()` returns vendors below composite threshold with dimension breakdown. Low-bandwidth, agent-optimized.
+
+**RaaS tier.** Period-based scorecard computation is available at all subscription tiers. Live contract-state scorecard is Verified Vendor tier. Continuous Operations Agent dimension monitoring and trend-based alerting is Operations Agent — Standard tier.
 
 ## Related
 

@@ -1,7 +1,7 @@
 ---
 card-type: domain-module
 card-id: retail-purchase-order-model
-card-version: 1
+card-version: 2
 domain: merchandising
 layer: domain
 status: approved
@@ -48,6 +48,18 @@ The Replenishment module generates suggested orders that become POs. The Receivi
 - All external interface feeds (UPC database, vendor pricing) must be validated before a PO is created. A PO with bad item or cost data corrupts the entire downstream chain.
 - Base order quantities are in eaches/units. Mixed units of measure are not permitted on a single PO line.
 - Vendor PO changes are routed through vendor management — buyers do not accept verbal change requests directly into the PO system.
+
+## Platform (2030)
+
+**Agent mandate:** Operations Agent monitors open PO exceptions — past-window orders, unmatched ASNs, OTB overruns — continuously and surfaces them to the merchant. Business Agent uses open PO data for vendor conversation preparation. Technical Agent provisions EDI endpoints and vendor MCP credentials at onboarding. No agent auto-creates POs above OTB without merchant authorization.
+
+**OTB gate as L402 wallet check.** Traditional OTB gating compares a planned field in the merchandise system. In the Canary Go model, the OTB gate is a cryptographic wallet check: before a PO is committed, the system calls `otb_balance(dept, period)` and compares PO cost to available L402 wallet balance. If insufficient, the PO is blocked — no override without a signed wallet increment authorization. This creates an unbreakable audit trail: every PO was either within OTB at creation or has an attached authorization record explaining the exception.
+
+**PO as smart contract event.** When a PO is issued to a smart-contract-native vendor, the PO emission is also a contract event on the AVAX vendor subnet. The contract records the PO, its terms, and the compliance obligations that apply to this order. When the ASN arrives, the contract validates it against the PO. When the receipt is posted, the contract computes the match. The traditional cycle — PO → email → ship → receive → match → settle — compresses to: PO event → ASN event → receipt event → automatic settlement signal. No disputes about what was ordered, because it's on-chain.
+
+**MCP surface.** `open_orders(vendor_id)` returns open POs with age, ASN status, and expected receipt date. `otb_balance(dept, period)` returns available OTB before PO creation. `po_exceptions()` returns POs past ship-not-after date, ASN-less, or OTB-breached. Agent-readable, single-call.
+
+**RaaS tier.** PO management and OTB gating are available at all subscription tiers. L402-denominated OTB with cryptographic gating requires the Bitcoin-native tier. Smart contract PO event emission requires the Verified Vendor tier. Continuous Operations Agent exception monitoring is Operations Agent — Standard tier.
 
 ## Related
 

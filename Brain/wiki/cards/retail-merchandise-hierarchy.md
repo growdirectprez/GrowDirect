@@ -1,7 +1,7 @@
 ---
 card-type: domain-module
 card-id: retail-merchandise-hierarchy
-card-version: 1
+card-version: 2
 domain: merchandising
 layer: domain
 status: approved
@@ -63,6 +63,18 @@ The Replenishment module uses site groupings and merchandise categories to apply
 - An item belongs to exactly one path in the formal merchandise hierarchy (one department, one class, one category). Formal hierarchy membership is exclusive.
 - Informal groupings are additive — an item can belong to any number of informal groups simultaneously without hierarchy conflict.
 - Hierarchy restructuring (e.g., redefining class boundaries) must carry historical sales and inventory data into the new structure. A hierarchy change that breaks historical reporting is a business continuity event.
+
+## Platform (2030)
+
+**Agent mandate:** Hierarchy is infrastructure — it is not owned by one agent; it is consumed by all of them. Business Agent uses hierarchy for assortment planning and buyer performance reporting. Operations Agent uses hierarchy for KPI aggregation and exception scoping. Technical Agent maintains hierarchy configuration as system-of-record data and processes hierarchy changes as controlled events.
+
+**Hierarchy as MCP filter context.** Every agent query in the Canary Go platform is hierarchy-scoped. When Operations Agent asks for shrink rate, the query specifies department and site group. When Business Agent asks for OTB balance, it specifies department and period. When a vendor receives a forecast, it is scoped to the relevant buyer and category. The hierarchy is the universal filter — not fetched once and cached in an agent's context, but passed as query parameters on every tool call. This keeps context windows narrow and enables precise agent scoping without loading the full merchant data model into memory on every query.
+
+**Hierarchy changes as controlled events.** Traditional hierarchy restructuring is a DBA operation with unpredictable downstream effects. In Canary Go, hierarchy changes (moving a class to a new department, splitting a category) are controlled events: they carry historical data into the new structure, update active replenishment parameters and OTB wallets, and emit a hierarchy-change event that Business Agent uses to flag any downstream items needing buyer review. Technical Agent handles the structural change; Business Agent handles the business consequence.
+
+**MCP surface.** `hierarchy_path(item_id)` returns the full formal hierarchy for an item. `site_groups(site_id)` returns all informal group memberships for a location. `hierarchy_members(level, id)` returns all items or sites belonging to a hierarchy node — the filter list for mass maintenance or query scoping. These are context assembly calls made before domain queries to keep those queries narrow and low-token.
+
+**RaaS tier.** Merchandise and site hierarchy management is available at all subscription tiers. Automated hierarchy-change impact propagation (OTB wallet reallocation, parameter re-inheritance) is Operations Agent — Standard tier.
 
 ## Related
 

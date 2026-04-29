@@ -1,7 +1,7 @@
 ---
 card-type: domain-module
 card-id: retail-receiving-disposition
-card-version: 1
+card-version: 2
 domain: merchandising
 layer: domain
 status: approved
@@ -70,6 +70,18 @@ The Receiving module posts the exception and reads the disposition matrix to iss
 - Dispositions are determined by the matrix — not by the receiving associate or store manager. Manual disposition overrides require buyer authorization and audit log.
 - Destruction of recalled product must be documented with a disposal record. Recalls require a hazardous recall flag on the item master that blocks any sale attempt at POS.
 - The disposition matrix must be maintained in vendor management, not in a spreadsheet. Spreadsheet-driven disposition creates untraceable manual decisions.
+
+## Platform (2030)
+
+**Agent mandate:** Operations Agent monitors receiving exceptions in real time and validates that disposition decisions match the configured matrix. Technical Agent provisions the disposition matrix in the vendor smart contract at setup. Neither agent makes disposition decisions — the matrix decides; agents confirm and alert on overrides.
+
+**Disposition matrix as smart contract logic.** In traditional systems, the disposition matrix is a database lookup: receiving system queries, displays the instruction. In the Canary Go model, the disposition matrix for smart-contract-native vendors is encoded as Solidity. When a receiving exception event is submitted with reason code and item attributes, the contract evaluates the matrix and returns the disposition instruction with an on-chain record. The retailer's claim to a vendor credit does not depend on an AP staff member generating a debit memo weeks later — the contract record IS the credit claim, with a verifiable timestamp and immutable audit trail.
+
+**Automatic credit accrual.** When a disposition triggers a vendor credit claim (RTV, defective allowance), the contract records the pending credit against the vendor's L402 wallet as a receivable. At settlement, the credit offsets the vendor's payment — the retailer does not chase credits through a separate AP workflow. For destroy/donate dispositions, the contract records the allowance claim and computes the applicable chargeback rate automatically. The entire credit cycle from receiving exception to settlement becomes a chain of contract events with no manual handoffs.
+
+**MCP surface.** `disposition_matrix(vendor_id, reason_code, item_id)` returns the applicable disposition for a given exception. `pending_credits(vendor_id)` returns open vendor credit claims with contract reference and aging. `disposition_exceptions(site_id, period)` returns receiving exceptions where human override was required — a compliance audit tool.
+
+**RaaS tier.** Manual disposition matrix lookup and debit memo generation is available at all subscription tiers. Smart contract disposition encoding and automatic credit accrual require the Verified Vendor tier. Operations Agent real-time exception monitoring is Operations Agent — Standard tier.
 
 ## Related
 

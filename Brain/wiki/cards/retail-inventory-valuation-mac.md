@@ -1,7 +1,7 @@
 ---
 card-type: domain-module
 card-id: retail-inventory-valuation-mac
-card-version: 1
+card-version: 2
 domain: finance
 layer: domain
 status: approved
@@ -72,6 +72,20 @@ The Finance module computes COGS from MAC at each sale. The Inventory module mai
 - MAC is always maintained at minimum three decimal places for calculation. Rounding to fewer decimals mid-transaction compounds errors across high-volume items.
 - A transaction that would produce a negative MAC must not be posted without manual review and override. Negative MAC is always a data integrity signal.
 - Freight estimation method (by weight, cube, value, or units) is set per PO and cannot be changed after the PO is receipted. Consistency is required for variance tracking.
+
+## Platform (2030)
+
+**Agent mandate:** Operations Agent owns MAC health monitoring. Business Agent reads MAC for gross margin planning and pricing decisions. Neither agent writes MAC directly — MAC is updated by the transaction engine; agents observe and alert.
+
+**Dual cost basis — MAC + Satoshi.** Traditional MAC (fiat, local currency) is required for GAAP compliance and is fully supported. Canary Go runs MAC in parallel with a satoshi-denominated full cost basis per the ILDWAC extended Bitcoin standard. The satoshi cost basis tracks what each unit of inventory cost in Bitcoin-equivalent terms at time of receipt. This is not a replacement for GAAP MAC — it is an additional cost dimension that enables Bitcoin-native vendor settlement, L402-denominated OTB, and inflation-adjusted profitability analysis that fiat-only MAC cannot provide. When a vendor is paid via Lightning settlement, the satoshi cost of that payment is recorded against the relevant POs and updates the satoshi cost layer. Two cost ledgers run side by side. Merchants who don't use Bitcoin see only the fiat MAC. Merchants in the Bitcoin-native flow see both.
+
+**Smart contract layer.** Vendor allowance credits and subsequent settlement adjustments — the events that most frequently corrupt MAC in traditional systems — are smart contract events on the AVAX vendor subnet. When a volume rebate accrues, the contract emits an event. When the settlement period closes, the contract executes the credit automatically. The event feeds the MAC adjustment workflow with a verifiable on-chain reference, eliminating the "we sent you a credit but the system never got it" category of disputes. Freight variance settlement follows the same pattern for smart-contract-enrolled carriers.
+
+**Real-time anomaly detection.** Traditional MAC monitoring is batch: an analyst runs a report at period end and finds that MAC has drifted on 40 items. The Canary Go Operations Agent monitors MAC continuously. Alert triggers: (1) MAC changes by more than N% in a single transaction on a high-volume item — signals a bad receipt cost; (2) manual MAC adjustment volume exceeds baseline — signals systemic data quality failure; (3) freight variance magnitude exceeds the defined tolerance — signals the freight estimation method needs recalibration. Alerts surface to the merchant dashboard and to the Operations Agent incident queue in real time, not at month end.
+
+**MCP surface.** `mac_lookup(sku, site)` returns current MAC for a given item-location. `mac_history(sku, site, n_periods)` returns the MAC time series with transaction-level audit trail. `cost_basis_delta(sku, site)` returns the gap between fiat MAC and satoshi cost basis — the signal for Bitcoin-native profitability analysis. These are low-bandwidth calls — a single MCP round-trip returns cost basis context for an agent that is making a pricing or ordering decision. Agents do not recompute MAC; they query it.
+
+**RaaS tier.** Fiat MAC with standard trigger rules is available at all subscription tiers. Satoshi cost basis dual-ledger requires the Bitcoin-native feature tier. Continuous MAC anomaly monitoring is Operations Agent — Standard tier. Historical cost basis analytics and drift reporting are Operations Agent — Premium tier.
 
 ## Related
 

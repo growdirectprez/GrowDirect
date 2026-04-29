@@ -1,7 +1,7 @@
 ---
 card-type: domain-module
 card-id: retail-chargeback-matrix
-card-version: 1
+card-version: 2
 domain: finance
 layer: domain
 status: approved
@@ -66,6 +66,22 @@ The AP module generates debit memos from chargeback events and applies them at i
 - Every chargeback must trace to a documented compliance clause agreed at vendor setup. The matrix is enforced, not invented post-hoc.
 - Occurrence escalation applies within a defined measurement period (typically 12 months rolling). Occurrence counts reset at period close.
 - Chargeback rights survive vendor termination for events that occurred during the active relationship.
+
+## Platform (2030)
+
+**Agent mandate:** Operations Agent owns chargeback monitoring — it detects compliance failures in real time and generates chargeback events automatically. Business Agent reviews chargeback trends in negotiation preparation. Neither agent makes discretionary chargeback decisions; they enforce the matrix as defined.
+
+**Smart contract as the chargeback engine.** The traditional chargeback process is: compliance failure occurs → someone notices → debit memo is generated → vendor disputes → finance resolves → net settlement weeks later. In the Canary Go smart contract model, the AVAX vendor subnet contract is the chargeback engine. Each chargeback type in the matrix is encoded as a Solidity clause with its trigger condition, fee schedule, and occurrence escalation logic. When a compliance event is submitted to the contract — a short shipment receipt, a late ASN, a failed carton scan — the contract evaluates it against the clause, computes the financial consequence, and records it as an immutable ledger entry. The retailer doesn't generate a debit memo. The vendor doesn't dispute whether the event happened. It's on-chain. The deduction is applied to the vendor's L402 wallet balance automatically at settlement.
+
+**L402 wallet deductions.** Chargeback amounts are held as pending debits against the vendor's L402 wallet. At invoice settlement, the wallet balance (invoice amount minus pending debits) determines the net payment. For lightning-settled vendors, the net payment is a Lightning transaction for the balance amount. No AP human intervention required for matched, contract-covered chargebacks. Human review is only for disputes about whether the compliance clause itself was correctly configured.
+
+**Occurrence escalation in real time.** The contract tracks occurrence count within the rolling measurement period. The escalation tier changes automatically when occurrence thresholds are crossed — no manual tracking, no end-of-period calculation that surprises the vendor. The vendor can query their own contract state at any time to see their current occurrence count and pending deductions.
+
+**Exception surfacing.** Operations Agent surfaces: (1) vendors where chargeback rate as % of purchases is rising quarter-over-quarter — rationalization signal; (2) chargeback types where the deduction is being disputed at high frequency — contract clause ambiguity signal; (3) vendors where chargeback deductions have exceeded invoice value — operational breakdown signal requiring immediate escalation.
+
+**MCP surface.** `chargeback_balance(vendor_id)` returns pending deductions by type. `chargeback_history(vendor_id, period)` returns occurrence counts by clause. `chargeback_rate(vendor_id)` returns deduction as % of purchase value — the primary rationalization input. Single-call, low-token, agent-readable.
+
+**RaaS tier.** Manual debit memo process is baseline. Smart contract chargeback automation requires the Verified Vendor tier. Real-time Operations Agent monitoring of chargeback trends is Operations Standard tier.
 
 ## Related
 

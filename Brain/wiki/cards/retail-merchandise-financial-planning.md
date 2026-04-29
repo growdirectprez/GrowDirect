@@ -1,7 +1,7 @@
 ---
 card-type: domain-module
 card-id: retail-merchandise-financial-planning
-card-version: 1
+card-version: 2
 domain: finance
 layer: domain
 status: approved
@@ -64,6 +64,18 @@ The Buyer uses OTB as the gate before committing to a purchase order. The Replen
 - OTB is a hard constraint on PO creation for planned purchases. Buyers may not exceed OTB without buyer-level authorization. The authorization creates an audit trail.
 - Rebates must be figured into gross margin planning at the buyer level, not just at the company financial roll-up. A buyer who ignores vendor rebates in their plan is understating their true margin.
 - Plan components must be consistent with the retail accounting method in use (cost method or retail method). Mixing accounting methods within a plan produces meaningless margin metrics.
+
+## Platform (2030)
+
+**Agent mandate:** Business Agent owns plan management — OTB maintenance, plan revision cadence, and variance escalation. Operations Agent monitors OTB utilization by department continuously and alerts on under-utilization (lost sales signal) or over-utilization (excess inventory risk). Finance Agent reads plan components for period-end gross margin reporting. No agent creates POs — agents gate and inform; humans and the PO model execute.
+
+**OTB as L402 wallet balance.** Traditional OTB is a planned field in a merchandise system, reconciled manually. In the Canary Go model, OTB IS the L402 wallet balance at the department × buyer level. The wallet balance at any point reflects: initial open-to-buy, minus committed purchase orders (encumbered), minus received receipts (consumed). A PO creation call is blocked if the wallet balance is insufficient — the gating mechanism is cryptographic, not a spreadsheet check. Buyers don't informally approve OTB overrides; they submit signed authorization requests that increment the wallet balance through an on-chain transaction, creating a permanent audit trail.
+
+**Continuous plan revision.** Traditional MFP revises on a calendar cadence — monthly reforecast, seasonal update. Canary Go Business Agent triggers a plan revision whenever actual-to-plan variance on sales, receipts, or inventory exceeds the configured threshold, not because it's Tuesday. The revision recomputes OTB, proposes wallet balance adjustments, and queues for merchant approval. Calendar-triggered revisions still exist for seasonal milestones; they are not the primary revision mechanism.
+
+**MCP surface.** `otb_balance(dept, period)` returns current L402 wallet balance — open-to-buy at cost. `plan_variance(dept, period)` returns actuals vs. plan for sales, receipts, and gross margin. `weeks_supply(sku_or_dept)` returns current weeks-on-hand at actual rate-of-sale. These are the inputs Business Agent uses when preparing buyer briefings, negotiation prep, and rationalization recommendations. Single-call, low-token, agent-readable.
+
+**RaaS tier.** Basic OTB calculation and PO gating is available at all subscription tiers. L402-denominated OTB with cryptographic PO gating requires the Bitcoin-native feature tier. Continuous Operations Agent variance monitoring and automatic revision triggering is Operations Agent — Standard tier. Cross-department OTB optimization analytics is Operations Agent — Premium tier.
 
 ## Related
 

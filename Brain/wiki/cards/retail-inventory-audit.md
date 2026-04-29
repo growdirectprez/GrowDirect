@@ -1,7 +1,7 @@
 ---
 card-type: domain-module
 card-id: retail-inventory-audit
-card-version: 1
+card-version: 2
 domain: lp
 layer: domain
 status: approved
@@ -55,6 +55,18 @@ The Inventory module applies adjustment transactions from reconciled counts and 
 - The article snapshot must be frozen before counting begins. Counting against a live on-hand record produces reconciliation errors as transactions post during the count.
 - Physical inventory adjustments require documented authorization above a defined threshold — they are not a mechanism for fixing purchasing or receiving errors without an audit trail.
 - Shrink accrual and physical count results must use consistent accounting treatment. Mixing accrual methods between count cycles produces meaningless variance analysis.
+
+## Platform (2030)
+
+**Agent mandate:** Operations Agent owns perpetual inventory health monitoring — it is not waiting for the next physical count. It monitors POS exception patterns, empty-shelf audit results, and receiving discrepancy rates continuously to detect inventory accuracy degradation between physical counts. Physical counts are an accounting compliance requirement; they are not the primary inventory accuracy mechanism.
+
+**Continuous shrink detection vs. periodic reconciliation.** Traditional shrink management is a count exercise: count twice a year, reconcile to book, post the adjustment. Operations Agent monitors three leading shrink indicators in real time: (1) items with positive book inventory but zero recent sales velocity — phantom stock candidates; (2) receiving discrepancy patterns at specific sites — over-receiving or under-recording signals; (3) POS exception patterns (frequent voids, high return rates at specific terminals, no-sale transactions) — potential employee theft signals. These surface before the annual count, when intervention is still possible.
+
+**Physical counts for accounting, not operations.** Physical inventory remains required for GAAP compliance and shrink true-up. But in a well-instrumented Canary Go store, the physical count result should not be a surprise — Operations Agent has been tracking the expected shrink trajectory and the count should confirm the accrual estimate within a tight range. A large count variance is a signal that continuous monitoring missed something — an investigation trigger, not just an accounting entry.
+
+**MCP surface.** `shrink_rate(site_id, dept, period)` returns shrink rate trend by site and department. `phantom_inventory_alerts(site_id)` returns items flagged as probable phantom stock. `audit_schedule(site_id)` returns upcoming counts and last-count dates. `inventory_accuracy(site_id)` returns perpetual accuracy score from the most recent cycle count. Low-token, agent-consumable.
+
+**RaaS tier.** Physical inventory scheduling and count management is available at all subscription tiers. Continuous Operations Agent phantom inventory and shrink signal monitoring is Operations Agent — Standard tier. POS exception pattern analysis for employee theft detection is Operations Agent — Premium tier.
 
 ## Related
 

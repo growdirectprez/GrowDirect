@@ -1,7 +1,7 @@
 ---
 card-type: domain-module
 card-id: retail-demand-forecasting
-card-version: 1
+card-version: 2
 domain: merchandising
 layer: domain
 status: approved
@@ -53,6 +53,18 @@ The Replenishment module reads the approved forecast as the primary input to sug
 - Promotional demand must be isolated from baseline forecasting. Allowing promotional events to inflate the baseline is the most common cause of post-promotional inventory excess.
 - Forecast simulations must not affect production data. Simulation is a planning tool, not a production process.
 - New item forecasting must use a designated like-item profile until sufficient history accumulates (typically 13+ weeks). Forecasting a new item with zero history and no reference produces a zero or noise forecast.
+
+## Platform (2030)
+
+**Agent mandate:** Business Agent runs and reviews the demand forecast. Operations Agent monitors forecast accuracy (MAPE) by category and site continuously, and alerts when accuracy degrades below threshold. Business Agent manages like-item assignments for new items and coordinates collaborative forecast data exchange with enrolled vendors.
+
+**AI-native forecasting vs. rule-based statistics.** Traditional retail forecasting uses statistical time-series models (exponential smoothing, moving averages) with manual seasonal profiles and promotional uplift tables maintained by replenishment analysts. Canary Go Business Agent runs AI-native demand forecasting: the model ingests historical sell-through, promotional history, seasonality signals, weather zone data, and market-level competitive signals to produce item-site-week demand estimates. The model updates continuously as new sales data arrives — weekly batch recalculation is replaced by incremental updates. Promotional demand isolation is automatic: the model identifies promotional vs. non-promotional periods from the event calendar without manual flagging.
+
+**Collaborative forecast via MCP.** Vendors enrolled in collaborative forecasting receive a machine-readable forecast via an MCP endpoint — not a spreadsheet. The vendor submits their own forward availability estimate via a corresponding endpoint. Collaborative forecasting becomes a real-time data exchange, not a quarterly meeting. Vendor forecast submission is a scored compliance dimension; a vendor who commits to collaborative forecasting and misses the submission window is recorded as a compliance event.
+
+**MCP surface.** `demand_forecast(sku, site, horizon)` returns the forward demand estimate by week. `forecast_accuracy(dept_or_sku, period)` returns MAPE and bias metrics. `new_item_profile(like_item_id)` returns the reference demand profile for new item setup. `promo_lift(event_id, item_id)` returns expected promotional demand uplift for a planned event. Single-call, agent-readable.
+
+**RaaS tier.** Statistical demand forecasting is available at all subscription tiers. AI-native continuous forecasting with market signal integration is Operations Agent — Standard tier. Collaborative forecast MCP data exchange with vendors requires the Verified Vendor tier. Cross-merchant demand signal benchmarking is Operations Agent — Premium tier.
 
 ## Related
 
