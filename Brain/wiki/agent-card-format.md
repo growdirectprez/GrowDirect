@@ -5,7 +5,7 @@ card-version: 1
 domain: platform
 layer: cross-cutting
 status: approved
-last-compiled: 2026-04-28
+last-compiled: 2026-04-29
 needs-review: false
 ---
 
@@ -172,3 +172,8 @@ All agent cards live in `Brain/wiki/cards/`. Subdirectories are permitted for la
 | [Retail: Site Management](cards/retail-site-management.md) | retail-site-management | domain-module |
 | [Retail: Event Management](cards/retail-event-management.md) | retail-event-management | domain-module |
 | [Retail: Operations KPIs](cards/retail-operations-kpis.md) | retail-operations-kpis | domain-module |
+| [Retail: Assortment Management](cards/retail-assortment-management.md) | retail-assortment-management | domain-module |
+| [Retail: Sales Audit](cards/retail-sales-audit.md) | retail-sales-audit | domain-module |
+| [Retail: Import Management](cards/retail-import-management.md) | retail-import-management | domain-module |
+| [Retail: Space, Range & Display](cards/retail-space-range-management.md) | retail-space-range-management | domain-module |
+| [Retail: Item Authorization](cards/retail-item-authorization.md) | retail-item-authorization | domain-module |
