@@ -3,7 +3,10 @@
 
 Reads Brain/wiki/*.md, Brain/wiki/cards/*.md, docs/sdds/**/*.md,
 docs/superpowers/plans/*.md, docs/superpowers/specs/*.md
-and seeds seed_embeddings via direct psycopg2 + Ollama REST calls.
+and seeds alx_memories via direct psycopg2 + Ollama REST calls.
+
+Rows are written with session_id='seed-standalone' so they surface
+through memory_recall() exactly like seed_clean.py content.
 
 Default mode is INCREMENTAL: only embeds files that are new or have been
 modified since their last seed. Use --drop-first for a full reseed.
@@ -35,17 +38,22 @@ LOCK_FILE = Path("/tmp/growdirect-seed.lock")
 
 GROWDIRECT_ROOT = Path(__file__).resolve().parent.parent.parent.parent
 
+SEED_SESSION_ID = "seed-standalone"
+
+# memory_type must be one of: decision, finding, context, architecture,
+#   session_summary, procedure, context_block, work_product, team_profile, foundation
+# layer must be one of: corp, canary, cove, shared
 SOURCES = [
-    {"glob": "Brain/wiki/*.md", "memory_type": "wiki_article", "layer": "corp"},
-    {"glob": "Brain/wiki/cards/*.md", "memory_type": "wiki_article", "layer": "corp"},
+    {"glob": "Brain/wiki/*.md", "memory_type": "context_block", "layer": "corp"},
+    {"glob": "Brain/wiki/cards/*.md", "memory_type": "context_block", "layer": "corp"},
     {"glob": "docs/sdds/canary/*.md", "memory_type": "context_block", "layer": "canary"},
     {"glob": "docs/sdds/platform/*.md", "memory_type": "context_block", "layer": "corp"},
     {"glob": "docs/sdds/alx/*.md", "memory_type": "context_block", "layer": "shared"},
-    {"glob": "docs/sdds/go-handoff/*.md", "memory_type": "context_block", "layer": "canary-go"},
+    {"glob": "docs/sdds/go-handoff/*.md", "memory_type": "context_block", "layer": "canary"},
     {"glob": "docs/team/*.md", "memory_type": "team_profile", "layer": "corp"},
     {"glob": "docs/decisions/*.md", "memory_type": "decision", "layer": "corp"},
-    {"glob": "docs/superpowers/plans/*.md", "memory_type": "build_plan", "layer": "corp"},
-    {"glob": "docs/superpowers/specs/*.md", "memory_type": "build_plan", "layer": "corp"},
+    {"glob": "docs/superpowers/plans/*.md", "memory_type": "work_product", "layer": "corp"},
+    {"glob": "docs/superpowers/specs/*.md", "memory_type": "work_product", "layer": "corp"},
 ]
 
 OLLAMA_URL = os.environ.get("OLLAMA_URL", "http://127.0.0.1:11434")
@@ -81,9 +89,12 @@ def collect_files() -> list[tuple[Path, dict]]:
 
 
 def load_seeded_mtimes(cur) -> dict[str, datetime]:
-    """Return {source_file: updated_at} for all rows currently in the table."""
-    cur.execute("SELECT source_file, updated_at FROM seed_embeddings")
-    return {row[0]: row[1] for row in cur.fetchall()}
+    """Return {source_file: updated_at} for all seed-standalone rows in alx_memories."""
+    cur.execute(
+        "SELECT metadata->>'source_file', updated_at FROM alx_memories WHERE session_id = %s",
+        (SEED_SESSION_ID,),
+    )
+    return {row[0]: row[1] for row in cur.fetchall() if row[0]}
 
 
 def file_mtime(path: Path) -> datetime:
@@ -124,9 +135,9 @@ def main():
     cur = conn.cursor()
 
     if args.drop_first:
-        cur.execute("TRUNCATE TABLE seed_embeddings")
+        cur.execute("DELETE FROM alx_memories WHERE session_id = %s", (SEED_SESSION_ID,))
         conn.commit()
-        print("Truncated seed_embeddings — full reseed")
+        print(f"Deleted all session_id='{SEED_SESSION_ID}' rows from alx_memories — full reseed")
         seeded_mtimes = {}
     else:
         seeded_mtimes = load_seeded_mtimes(cur)
@@ -168,25 +179,39 @@ def main():
             print("FAILED")
             continue
 
-        meta = {"memory_type": src["memory_type"], "layer": src["layer"], "source_file": rel}
+        meta = {
+            "source_file": rel,
+            "seeded_at": datetime.now(tz=timezone.utc).isoformat(),
+            "seeded_by": "seed_standalone.py",
+            "source_kind": src.get("source_kind", "document"),
+        }
 
         if is_update:
             cur.execute(
                 """
-                UPDATE seed_embeddings
+                UPDATE alx_memories
                 SET content = %s, embedding = %s::vector, metadata = %s, updated_at = now()
-                WHERE source_file = %s
+                WHERE session_id = %s AND metadata->>'source_file' = %s
                 """,
-                (content, str(embedding), json.dumps(meta), rel),
+                (content, str(embedding), json.dumps(meta), SEED_SESSION_ID, rel),
             )
             updated += 1
         else:
             cur.execute(
                 """
-                INSERT INTO seed_embeddings (id, source_file, section_path, content, embedding, metadata)
-                VALUES (%s, %s, %s, %s, %s::vector, %s)
+                INSERT INTO alx_memories
+                    (id, session_id, memory_type, content, embedding, metadata, layer, created_at, updated_at)
+                VALUES (%s, %s, %s, %s, %s::vector, %s, %s, now(), now())
                 """,
-                (str(uuid.uuid4()), rel, rel, content, str(embedding), json.dumps(meta)),
+                (
+                    str(uuid.uuid4()),
+                    SEED_SESSION_ID,
+                    src["memory_type"],
+                    content,
+                    str(embedding),
+                    json.dumps(meta),
+                    src["layer"],
+                ),
             )
             inserted += 1
 
