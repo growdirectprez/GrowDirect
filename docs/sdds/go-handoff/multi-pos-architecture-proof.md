@@ -27,6 +27,10 @@ This SDD documents the abstraction layer that enables multi-POS support, the
 adapter pattern each new POS must implement, and the current production state
 of the architecture with code review findings.
 
+**Multi-tenant context.** The CRDM lives in `public` schema as global reference; tenant-scoped event tables that adapter output lands into live in `tenant_{merchant_id}` per `architecture.md` "Multi-Tenant Isolation". Per-merchant adapter credentials are stored encrypted at rest in tenant schemas (per `go-security` AES-256-GCM standard).
+
+**Optional Features posture.** The multi-POS abstraction is required core — it operates regardless of any Optional Feature flag state. The adapter pattern is foundational. POS port attribution is one of the five ILDWAC dimensions; when `ILDWAC_ENABLED=true`, the adapter populates the Port dimension automatically — when off, the dimension is recorded but not consumed by cost computation.
+
 ---
 
 ## Dependencies

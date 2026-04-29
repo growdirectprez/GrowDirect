@@ -21,6 +21,10 @@ copyright: "Copyright (c) 2026 GrowDirect LLC"
 
 Field Capture is the intelligence layer that maps arbitrary inbound field names to canonical Canary field registry names using pgvector semantic search. It solves the retail data heterogeneity problem: "Retail Price," "Unit Sell Price," and "MSRP" all resolve to `item.default_retail_price_sats` without hardcoding mappings or maintaining synonym dictionaries.
 
+**Tenant scope: platform-level.** Field Capture is platform-internal infrastructure. The `field_registry_entries` table (pgvector-indexed canonical field names) lives in the `public` schema as global reference data — every tenant maps inbound fields to the same canonical registry. Per-tenant override mappings, if any, live in `tenant_{merchant_id}.field_overrides` for cases where a specific merchant needs custom resolution. See `architecture.md` "Multi-Tenant Isolation".
+
+**Optional Features posture.** Field Capture is required core — it operates regardless of any Optional Feature flag state (per `platform-overview.md`). Semantic field resolution is foundational to ingestion of any source data into the canonical schema. No L402 / ILDWAC / blockchain anchor dependency.
+
 ---
 
 ## Business

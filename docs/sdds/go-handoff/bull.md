@@ -16,6 +16,10 @@ copyright: "Copyright (c) 2026 GrowDirect LLC"
 
 > **Role in the system:** Bull is Canary's native intelligence layer for Module D (Distribution). It implements the POS Adapter Substrate contract for NCR Counterpoint — a poll-only adapter using REST API key authentication — and adds the analysis layer that Counterpoint does not provide: transfer-loss reconciliation (D.4) and multi-store distribution recommendations (D.5).
 
+**Multi-tenant context.** Bull operates per-tenant — every poll cycle, credential rotation, and watermark advance is scoped to a single merchant. Bull tables (`bull_api_credentials`, `bull_poll_watermarks`, `bull_merchant_config`, `bull_event_log`) live per-tenant in `tenant_{merchant_id}`. Cross-tenant Counterpoint observability (platform-wide adapter health) flows through `analytics` schema rollups. See `architecture.md` "Multi-Tenant Isolation".
+
+**Optional Features posture.** Bull operates with all Optional Features (per `platform-overview.md`) disabled. The poll loop, CRDM normalization, and event emission run entirely on internal records. When `BLOCKCHAIN_ANCHOR_ENABLED=true`, Bull-emitted events flow into the standard receipt chain and are eligible for asynchronous public anchoring per `blockchain-anchor.md`. When `ILDWAC_ENABLED=true`, Bull-emitted receipt events populate the five-dimension provenance (Counterpoint as the Port dimension).
+
 **Status:** Phase 3 — design complete. Implementation is **gated on Module D substrate prerequisites** (see Phase Gating). Schema is a stub; no migration exists yet.
 
 ---

@@ -33,6 +33,10 @@ This is where retail analytics traditionally breaks down. Canary's ecom-channel 
 
 The architecture makes a deliberate choice: ecommerce orders flow into the same RaaS event chain as POS transactions. Not a parallel stream. Not a separate database. The same chain. This means Canary can write detection rules that correlate across channels — an ecom refund against an in-store purchase, a catalog price discrepancy between Square Online and Counterpoint, an autoship cadence gap that precedes an in-store theft spike. None of those correlations are possible if the data lives in separate systems.
 
+**Multi-tenant context.** Ecom-channel tables (`ecom_channels`, `ecom_orders`, `ecom_subscriptions`, `ecom_webhook_events`) live per-tenant in `tenant_{merchant_id}`. Each merchant configures their own channels (Square Online, Shopify, etc.) with merchant-scoped credentials. Cross-tenant ecom benchmarks (channel performance comparisons) flow through `analytics` schema rollups. Cryptographic erasure for `customer_email` and `customer_name` (per `platform-cryptographic-erasure`) operates per-merchant, with the per-subject DEK pattern keeping chain integrity intact across erasure events. See `architecture.md` "Multi-Tenant Isolation".
+
+**Optional Features posture.** Ecom-channel operates with all Optional Features (per `platform-overview.md`) disabled. Order ingest, catalog sync, subscription lifecycle, and channel webhook processing all run on internal records. When `BLOCKCHAIN_ANCHOR_ENABLED=true`, order placement events anchor to a public L2 — making cross-channel return correlation externally verifiable. When `L402_ENABLED=true`, premium channel features (real-time inventory broadcast, multi-channel reconciliation) may be paid MCP tools. The multi-tier assortment fulfillment routing (store / warehouse / expanded) operates regardless of flag state — it is required core for any merchant with multiple fulfillment surfaces.
+
 ### Five Capabilities, One Service
 
 ecom-channel owns five distinct capabilities, each of which has real LP consequence:
