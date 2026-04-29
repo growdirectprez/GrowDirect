@@ -18,6 +18,12 @@ copyright: "Copyright (c) 2026 GrowDirect LLC"
 **Owns:** TSP orchestration (Sub1–Sub4).
 **Feeds:** Chirp engine, stock ledger.
 
+> **Note:** This document covers the TSP pipeline overview. Each stage has its own engineering SDD:
+> - Stage 1 (Hash & Seal): `tsp-seal.md`
+> - Stage 2 (Parse & Route): `tsp-parse.md`
+> - Stage 3 (Merkle Batcher): `tsp-merkle.md`
+> - Stage 4 (Detection Engine): `tsp-detect.md`
+
 ---
 
 ## Purpose
