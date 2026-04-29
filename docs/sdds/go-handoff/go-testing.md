@@ -262,3 +262,15 @@ Synthetic test data must never be promoted to the production database. The test 
 ### Chain Vector Custody
 
 `StandardVectors()` is a frozen constant set derived from a Python reference implementation. Adding a vector requires running the Python script, reviewing the output independently of the Go implementation, and committing both the script run output and the Go constant update in the same commit. Vectors must not be derived by running the Go implementation and copying its output — that is testing that code is self-consistent, not correct.
+
+---
+
+## Related
+
+- [[go-runtime]] — services under test import `internal/runtime`; `MustConnectDB` and `MustConnectValkey` are the connection points integration tests assert against
+- [[go-module-layout]] — `internal/testutil/` package location; CI pipeline structure
+- [[go-security]] — `TEST_ENCRYPTION_KEY`, `TEST_JWT_SECRET`, `TEST_PHONE_HASH_KEY`, `TEST_EMAIL_HASH_KEY` are the test-only key constants integration tests use
+- [[go-observability]] — log assertions in tests use the standard field names defined here
+- [[go-errors]] — error-path coverage requirement consumes the error model
+- [[retail-lifecycle-test-data]] — the lifecycle test methodology that this test infrastructure supports
+- [[platform-overview]] — top-level testing posture and quality bar

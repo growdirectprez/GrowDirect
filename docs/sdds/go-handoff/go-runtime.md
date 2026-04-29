@@ -14,7 +14,7 @@ copyright: "Copyright (c) 2026 GrowDirect LLC"
 
 **Package:** `internal/runtime`  
 **Imported by:** Every Canary Go service binary (`cmd/raas`, `cmd/inventory`, `cmd/tsp`, `cmd/owl`, `cmd/fox`, `cmd/hawk`, `cmd/identity`, `cmd/returns`, `cmd/webhook-pipeline`, `cmd/store-brain`, `cmd/analytics`, `cmd/notifications`, `cmd/bopis`)  
-**Depends on:** stdlib only (`context`, `net/http`, `os/signal`, `syscall`, `runtime/debug`, `log/slog`)
+**Depends on:** stdlib (`context`, `net/http`, `os/signal`, `syscall`, `runtime/debug`, `log/slog`) plus `pgx`, `go-redis`, and `chi` for the type signatures on the lifecycle functions. No business-domain imports.
 
 This library is the platform's shared lifecycle contract. Without it, every service re-implements shutdown, health checks, request IDs, panic recovery, and timeout handling independently — and they drift. `internal/runtime` is the place where that drift is impossible: one implementation, thirteen importers, one set of invariants.
 
@@ -35,6 +35,10 @@ A fleet of microservices that each handle SIGTERM differently is an ops liabilit
 - Request IDs that don't propagate consistently, making distributed traces useless for cross-service debugging
 - Panics that aren't recovered, crashing a service pod instead of returning a 500
 - p99 latency jitter on heap-heavy services that didn't tune GC parameters
+
+### Uniform Treatment of Human and Agent Traffic
+
+Every Canary service handles both human-driven and agent-driven requests through the same middleware. The runtime stamps `ActorType` on every request — `human`, `agent`, or `system` — and propagates it through context, logs, and traces. This is what makes the agent accountability model auditable: every agent action is attributable, every human action is attributable, and the platform treats them as the same shape of event. A divergent middleware stack for agents would produce two parallel observability surfaces and break the meter model on which the platform thesis depends.
 
 ---
 
@@ -134,7 +138,7 @@ Applied in this order on every service router. Order is not configurable per-ser
 1. RequestIDMiddleware    — generate or propagate X-Request-ID; inject into context
 2. TimeoutMiddleware(d)   — cancel context after d; return 503 on timeout
 3. RecoveryMiddleware     — recover panics; log stack trace; return 500
-4. LoggingMiddleware      — log: method, path, status, duration_ms, request_id, merchant_id
+4. LoggingMiddleware      — log: method, path, status, duration_ms, request_id, merchant_id, actor_id, actor_type
 5. AuthMiddleware         — JWT validation (delegates to internal/security)
 ```
 
@@ -206,3 +210,15 @@ runtime.Run(ctx, srv, pool, redis, runtime.ShutdownTimeout(cfg))
 ### Health Endpoint Security
 
 `/healthz` and `/readyz` are unauthed by design: the load balancer's health-check agent does not carry a JWT. These endpoints must expose no merchant data, no DB schema details, and no configuration values. The current implementation returns only `{"status": "ok"}` or `{"status": "unavailable", "reason": "db"}`. Adding diagnostic detail to these endpoints is prohibited.
+
+---
+
+## Related
+
+- [[go-module-layout]] — package layout, port assignments, binary naming conventions
+- [[go-security]] — auth, encryption, secret loading, PII hashing primitives consumed by `AuthMiddleware`
+- [[go-observability]] — slog conventions, trace propagation, metrics naming consumed by `LoggingMiddleware`
+- [[go-testing]] — test harness conventions for services importing this runtime
+- [[go-errors]] — error model emitted by `RecoveryMiddleware` and `AuthMiddleware`
+- [[microservice-architecture]] — service mesh, startup order, and lifecycle gates this runtime implements
+- [[platform-overview]] — top-level product context for the services that import this runtime

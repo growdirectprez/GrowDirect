@@ -13,7 +13,22 @@ copyright: "Copyright (c) 2026 GrowDirect LLC"
 
 **Linear:** GRO-267
 **Parent domain:** Identity
-**Related:** `identity.md` (entity models), `data-model.md` (full schema reference)
+**Related:** `identity.md` (entity models, user federation modes), `data-model.md` (full schema reference)
+
+---
+
+## Scope Disambiguation
+
+**This SDD covers POS-system entity resolution** — the canonical mapping between Canary's internal UUIDs and the identifiers used by each connected source system (Square's `TM5_NpkYj2BsDrbt`, Clover's `CLV-456`, etc.) for entities like employees, locations, devices, products, and customers.
+
+**It does not cover IdP federation for human user authentication** (Okta, Azure AD, Google Workspace, SAML IdPs, LDAP). User federation is a different concern — it lives in `identity.md` under "User Federation Modes." The two share the word "external identity" but solve different problems:
+
+| Concern | Subject | Lives in |
+|---|---|---|
+| POS entity bridging | Employees, locations, devices, products, customers in source POS systems | This SDD |
+| IdP user federation | Human users authenticating via the customer's identity provider | `identity.md` |
+
+Both produce stable Canary-native identifiers from external sources, but the protocols, lifecycle, and consumers are distinct.
 
 ---
 

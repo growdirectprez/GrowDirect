@@ -160,6 +160,31 @@ Legacy LP tools aggregate. Canary traces.
 
 ---
 
+## Optional Features — Architectural Direction
+
+The following features are **opt-in architectural direction**, not platform-required. Schema and SDD design exist; runtime behavior is gated by environment flags. The platform operates correctly with **all of these disabled** — every module's core function works without any Bitcoin / Lightning / blockchain / smart-contract dependency.
+
+| Feature | Env flag | Default | What's affected when off |
+|---|---|---|---|
+| **L402 enforcement** (Lightning settlement gates on paid tool calls) | `L402_ENABLED` | `false` | Agent MCP calls authenticate via platform JWT only; OTB tracked but not Lightning-settled |
+| **L402 OTB hard-enforcement** (PO blocking when wallet exhausted) | `feature.l402_enforcement_enabled` (per-merchant setting) | `false` (tracking-only) | OTB drift surfaces as alerts; never blocks PO creation |
+| **ILDWAC five-dimension cost model** (Item × Location × Device × MCP × Port × WAC) | `ILDWAC_ENABLED` | `false` | Standard ILWAC (Item × Location × WAC) runs; provenance dimensions are not captured at cost calculation |
+| **Satoshi denomination at accounting layer** | `BITCOIN_STANDARD_ENABLED` | `false` | Fiat MAC is the canonical accounting unit; satoshi remains parallel substrate (not the source of truth) |
+| **Blockchain evidence anchoring** (publishing chain hashes to a public L2) | `BLOCKCHAIN_ANCHOR_ENABLED` | `false` | Internal SHA-256 hash chain still operates; public anchoring queue is dormant; merchant receipts remain hash-verified internally |
+| **Vendor smart contracts** (private subnet vendor agreements) | `VENDOR_CONTRACTS_ENABLED` | `false` | Vendor compliance enforced via standard chargeback workflow; clauses live in DB, not on-chain |
+
+**The closed-loop economy degrades gracefully.** With all flags off:
+
+```
+SHA-256 seals receipt → receipt records the event → RaaS owns the namespace
+```
+
+That's the required loop. L402 and the blockchain anchor are extensions to it, enabled per merchant when both the merchant and the regulatory environment are ready. The SDDs below describe the schema and the optional runtime behavior; the runtime is opt-in.
+
+**Schema stays in either mode.** Tables for `otb_wallets`, `otb_transactions`, `ildwac_packets`, `blockchain_anchor_receipts` exist in the data model regardless of flag state. Disabling a feature stops the writes; it does not drop the tables. This means a merchant can opt in later without a schema migration.
+
+---
+
 ## ILDWAC — Extended Cost Model (Architectural Direction)
 
 > **Status: architectural direction, not yet implemented.** No current code declares a dependency on this model. A formal design pass will produce GRO tickets before implementation begins.

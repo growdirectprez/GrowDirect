@@ -357,6 +357,130 @@ Roles are seeded at startup into `app.roles`. Not tenant-scoped — the role cat
 
 ---
 
+### User Federation Modes — Home-Grown Identity Service
+
+Canary identity is home-grown. The platform does not depend on Identity Platform, Auth0, or any external IdP-as-a-service. Federation happens at the perimeter via standard protocol libraries; claim mapping and platform JWT issuance are platform-owned.
+
+| Mode | Customer setup | Identity service does | Library (buy) |
+|---|---|---|---|
+| **Canary-native** | None — magic link or password | Issues platform JWT directly | stdlib `crypto/rand` + `crypto/bcrypt` |
+| **OIDC federation** | Customer registers their IdP (Okta, Azure AD, Google Workspace, Auth0, custom OIDC) per merchant | Validates federated ID token via discovery + JWKS, maps claims to platform roles, issues platform JWT | `coreos/go-oidc/v3` + `golang.org/x/oauth2` |
+| **SAML federation** | Customer registers their SAML IdP per merchant | Accepts SAML assertion, validates, maps attributes to platform roles, issues platform JWT | `crewjam/saml` |
+| **LDAP / AD direct bind** | Customer's LDAP directory | LDAP search and bind. Recommend the customer front LDAP with Authentik or Keycloak; direct bind is supported but discouraged | `go-ldap/ldap/v3` |
+| **SCIM provisioning** | Customer's IdP pushes user lifecycle events | User and group records created / updated automatically; role mapping applies | `elimity-com/scim` |
+
+**Why home-grown, not Identity Platform:**
+
+1. Actor accountability binding — every platform JWT carries `actor_type` (`human` / `agent` / `system`). External IdP-as-a-service products have no native equivalent.
+2. L402 macaroon issuance — agent MCP calls authorize via L402 (HTTP 402 + macaroon + Lightning preimage). The identity service holds both ends of token issuance and Lightning settlement.
+3. Sovereignty — when the merchant leaves, their identity model goes with them. Nothing stays at GCP we couldn't migrate.
+
+**Per-merchant claim-to-role mapping** is the platform's domain logic. The mapping is configuration the merchant owns:
+
+```yaml
+# Example: Acme Corp federated via Okta
+idp_group_to_canary_role:
+  "Retail-Managers":  "store_manager"
+  "Loss-Prevention":  "lp_officer"
+  "Buyers":           "buyer"
+  "Finance":          "admin"
+```
+
+This config lives per `merchant_id` in `app.federation_configs` (see Data Model — Federation Tables below). The mapping applies after federated-token validation, before platform JWT issuance.
+
+---
+
+### Platform JWT Claims Structure
+
+The internal platform JWT (HS256, signed with `JWT_SECRET`) is the post-federation token everyone consumes. Per `go-security`:
+
+```go
+type Claims struct {
+    MerchantID uuid.UUID `json:"merchant_id"`
+    ActorID    string    `json:"actor_id"`
+    ActorType  string    `json:"actor_type"` // "human" | "agent" | "system"
+    Roles      []string  `json:"roles"`
+    SessionID  uuid.UUID `json:"session_id"` // store-brain session; uuid.Nil if not present
+    jwt.RegisteredClaims
+}
+```
+
+`actor_type` is non-negotiable. Every token carries it. Logs, traces, and metrics distinguish human-driven from agent-driven traffic on the basis of this claim alone — making the agent accountability model auditable across the entire platform surface.
+
+---
+
+### Agent Authorization — Default JWT, Optional L402
+
+Agents authenticate with the same platform JWT that humans use, with `actor_type: "agent"` and per-agent scoped roles. This is the **default mode** and the only mode required for the platform to operate.
+
+L402 (HTTP 402 + macaroon + Lightning preimage) is an **opt-in architectural direction**, not a current requirement. It is one of several Bitcoin / Lightning / smart-contract features documented in `platform-overview.md` "Optional Features" — all gated by environment flags, all default `false`. The platform must run correctly with every one of them disabled — no module's core function depends on any of them. The schema for L402 wallets, ILDWAC cost packets, and blockchain anchor receipts exists; the runtime enforcement is opt-in.
+
+**Configuration:**
+
+| Variable | Default | Description |
+|---|---|---|
+| `L402_ENABLED` | `false` | Master switch. When `false`, all paid-tool gates are bypassed; agent MCP calls authenticate via platform JWT only |
+| `L402_LIGHTNING_NODE_URL` | — | LND or LSP endpoint. Required when `L402_ENABLED=true`; ignored otherwise |
+| `L402_MACAROON_KEY` | — | HMAC key for macaroon issuance. Required when `L402_ENABLED=true` |
+| `L402_DEFAULT_PRICE_SATS` | `0` | Default per-call price; tool-specific overrides supersede |
+
+**When `L402_ENABLED=false` (default):**
+
+- Agent calls go through `AuthMiddleware` and present a platform JWT
+- Tool handlers proceed without macaroon checks
+- No Lightning dependency
+- ILDWAC cost packets that reference an `mcp_call_id` carry a `payment_method: "off"` marker for clarity
+
+**When `L402_ENABLED=true` (opt-in):**
+
+1. Agent calls a paid MCP tool (e.g., `cmd/receiving.create_purchase_order`)
+2. Service responds with HTTP 402 + `WWW-Authenticate` header containing macaroon and Lightning invoice
+3. Agent settles the invoice via Lightning
+4. Agent retries with `Authorization: L402 <macaroon>:<preimage>`
+5. Identity service verifies preimage matches invoice payment hash and validates macaroon caveats (expiry, amount, action scope)
+
+Macaroon caveats bind the authorization tightly: time-bounded ("expires in 1 hour"), amount-bounded ("good for 1000 sats of API"), action-bounded ("only authorizes inventory reads"). Third-party attenuation works without the issuer being involved.
+
+**Why optional:**
+
+- Lightning operations introduce real-time external dependency. Customers in regulatory environments where Lightning is uncomfortable, in early-stage pilots, or running offline must be able to operate without it.
+- Cost attribution can run in fiat-only mode (per existing MAC) when L402 is off. ILDWAC's satoshi denomination becomes parallel substrate, not the active accounting layer.
+- The whole closed-loop economy (SHA-256 → L402 → receipt → RaaS) degrades gracefully to (SHA-256 → receipt → RaaS) when L402 is off — the chain integrity is preserved; only the financial-rail enforcement layer is bypassed.
+
+L402 is enabled in default-on environments only after the merchant explicitly opts in. See `l402-otb.md` for the OTB enforcement layer that consumes these macaroons when the switch is on.
+
+---
+
+### Membership Boundary — Identity Service vs Application Layer
+
+The identity service is the **authority on identity claims**. The application layer is the **interface that consumes them via API**.
+
+**Identity service owns:**
+
+- User record (`app.users` — id, email, password hash, federation source)
+- Role assignment (`app.user_roles`, hierarchy-scoped)
+- Token issuance (platform JWT + L402 macaroons)
+- Federation flow (OIDC / SAML / LDAP / SCIM via the library stack above)
+- Audit trail of authentication events
+- Multi-merchant association (one user can belong to many merchants — per ADR-001 organization → merchant model)
+- Lifecycle states (invite, active, suspend, terminate)
+
+**Application layer owns:**
+
+- Profile UI (display name, avatar, bio)
+- "Forgot password" UX (calls identity service `POST /identity/password-reset`)
+- Account settings page
+- Theme / locale / vocabulary preferences (per ADR-PLA-001)
+- MFA enrollment UI (calls identity service `POST /identity/mfa/enroll`, `verify`)
+- Onboarding wizard
+- Cross-merchant context switcher (calls identity service `POST /identity/sessions/switch`)
+
+**Pattern for membership operations triggered from UI:** identity service exposes the APIs; app layer initiates them. The app never stores user records, never holds password hashes, never inspects federated tokens directly.
+
+**Domain user state — owned by the domain modules, not by identity:** user-keyed data such as Fox case favorites, dashboard widget layout, vendor watchlist subscriptions, saved KPI views are domain data scoped by `actor_id`. Each domain module (`cmd/fox`, `cmd/ops-dashboard`, `cmd/commercial`, `cmd/analytics`) owns its own user-keyed tables. Identity service is queried for the actor context; domain modules never duplicate that data.
+
+---
+
 ### Merchant Org Hierarchy — Role Binding Model
 
 The Canary Go platform supports a seven-layer operational hierarchy derived from the agent PMO architecture. This hierarchy maps to the role binding model: a user can hold a role scoped to a specific node in any of the three hierarchy trees (geography, category, legal entity). This extends the flat `app.user_roles` model to support multi-location chains where a regional manager holds authority over a subtree, not a single merchant.
@@ -532,13 +656,15 @@ Toggle exposed via `PUT /api/merchants/settings`.
 
 ### Production Infrastructure Target
 
+Per `platform-stack-commitment` — GCP-native end to end.
+
 | Component | Service | Notes |
 |-----------|---------|-------|
-| Application | ECS/Fargate | Single container; Identity routes included |
-| PostgreSQL | RDS PostgreSQL 17 | `canary` database, `app` schema |
-| Valkey | ElastiCache (Redis-compatible) | DB 0 for sessions + rate limiter |
-| Secrets | Secrets Manager | `CANARY_ENCRYPTION_KEY`, `SECRET_KEY`, Square credentials |
-| OAuth callback | ALB + Route 53 | HTTPS endpoint for Square redirect |
+| Application | Cloud Run | Single container per service; Identity routes included |
+| PostgreSQL | Cloud SQL Postgres 17 | `canary` database, `app` schema |
+| Valkey | Memorystore (Valkey/Redis-compatible) | DB 0 for sessions + rate limiter |
+| Secrets | GCP Secret Manager | `CANARY_ENCRYPTION_KEY`, `JWT_SECRET`, `PHONE_HASH_KEY`, `EMAIL_HASH_KEY`, IdP client secrets, Square credentials |
+| OAuth + federation callbacks | Cloud Load Balancing + Cloud DNS | HTTPS endpoints for Square OAuth redirect and IdP SSO callbacks |
 
 ---
 
@@ -548,9 +674,9 @@ Toggle exposed via `PUT /api/merchants/settings`.
 
 **P0-1: Production JWT authentication not implemented**
 
-In the prototype, production mode rejects all Bearer tokens with 401. The Go implementation must implement JWT RS256 validation against an IdP JWKS endpoint before production. All `/api/*` endpoints are inaccessible via Bearer token in the prototype's production mode.
+In the prototype, production mode rejects all Bearer tokens with 401. The Go implementation must implement the home-grown HS256 platform JWT (per `go-security`) plus federation-mode token validation (OIDC ID token via JWKS, SAML assertion, LDAP bind result, SCIM-provisioned user) before production. All `/api/*` endpoints are inaccessible via Bearer token in the prototype's production mode.
 
-Fix: Implement JWT RS256 validation against a configurable JWKS endpoint, or formalize API key authentication as the production mechanism with proper per-agent scoping, key management, and rotation.
+Fix: Implement the federation broker described in the User Federation Modes section above. Platform JWT issuance is HS256 with `JWT_SECRET` from Secret Manager. Federated tokens are validated against the merchant's configured IdP and translated into platform JWTs via the claim-to-role mapping. API key authentication for agents is L402-gated (per `l402-otb.md`), not a static shared secret.
 
 **P0-2: User email stored plaintext**
 

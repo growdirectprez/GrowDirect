@@ -16,6 +16,10 @@ copyright: "Copyright (c) 2026 GrowDirect LLC"
 
 The substrate that makes Canary genuinely multi-POS. Every POS integration — current (Square, NCR Counterpoint) and future — is implemented as an adapter that satisfies this contract. From Sub1 onward, no downstream component knows or cares which POS produced the event.
 
+**Tenant context.** Every adapter operates within a single tenant scope per call. The adapter does not cross tenant boundaries — credentials are per-merchant, polling and webhook handlers carry the merchant context, and emitted `CanonicalEvent` values carry `tenant_id`. The TSP pipeline routes events into the correct tenant schema (`tenant_{merchant_id}`) based on this field. See `architecture.md` "Multi-Tenant Isolation" for the canonical schema-per-tenant model.
+
+**Optional features posture.** This SDD describes the adapter substrate. It does not depend on L402, ILDWAC, blockchain anchoring, or vendor smart contracts — adapters operate identically with all of those flags off. Where downstream services consume adapter events under those features, the cost-attribution and anchoring layers add fields to the chain payload but do not change the adapter contract.
+
 ---
 
 ## Architecture Context

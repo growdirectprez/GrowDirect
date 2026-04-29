@@ -324,20 +324,36 @@ Key behavioral requirements:
 
 6 services: HTTP service + 4 pipeline consumers + test runner (profile). No reverse proxy (direct access). No Owl MCP or QA Agent in QA yet.
 
-### AWS Target Architecture
+### GCP Target Architecture
 
-| Component | Dev/Current | AWS Target |
+Per `platform-stack-commitment` — single primary cloud, GCP-native end to end. No AWS. Walmart/Target/Kroger anti-Amazon posture: every dollar paid to AWS funds Amazon's retail operations, which compete with the merchants Canary serves.
+
+| Component | Dev/Current | GCP Target |
 |-----------|-------------|-----------|
-| HTTP Service | Local container | ECS Fargate (1 vCPU, 512MB) |
-| Pipeline consumers (TSP) | Local containers | ECS Fargate (4 tasks) |
-| PostgreSQL | Shared local instance | RDS PostgreSQL 17 (db.t4g.micro) |
-| Valkey | Shared local instance | ElastiCache Valkey (cache.t4g.micro) |
-| LLM Inference | Local container | Mac Studio (local) or Bedrock fallback |
-| Secrets | Environment files | AWS Secrets Manager |
-| TLS | Cloudflare Tunnel | ALB + ACM |
-| DNS | Cloudflare | Route 53 + Cloudflare CDN |
+| Compute (per service) | Local container | Cloud Run — autoscaling, request-driven |
+| PostgreSQL | Shared local instance | Cloud SQL Postgres 17 (HA, regional) + 2 read replicas |
+| Connection pooling | Direct DB | PgBouncer on Cloud Run (transaction-mode, max 200 clients per service) |
+| Valkey / Redis | Shared local instance | Memorystore (Valkey-compatible) |
+| LLM inference + embeddings | Local Ollama | Vertex AI (Anthropic Claude + embedding endpoints) |
+| Secrets | Environment files | GCP Secret Manager |
+| TLS / DNS / edge | Cloudflare Tunnel | Cloud Load Balancing + Certificate Manager + Cloud DNS + Cloud Armor (DDoS + WAF) |
+| Object storage | Local disk | Cloud Storage (CMEK via Cloud KMS) |
+| Async / events | Direct REST | Pub/Sub + Cloud Tasks + Eventarc |
+| CI/CD | Local scripts | Cloud Build → Artifact Registry → Cloud Run |
+| Observability | stdlog | Cloud Logging + Monitoring + Trace + Profiler + Error Reporting |
+| Network perimeter | Open | VPC + VPC Service Controls perimeter around Cloud SQL, Memorystore, Cloud Storage, Vertex AI, Secret Manager |
 
-Infrastructure phases: Phase 1 (local lab, ~$10/mo), Phase 2 (hybrid: RDS + local inference, ~$100-150/mo), Phase 3 (full AWS: ECS Fargate + Bedrock, ~$205/mo).
+**Cloud SQL posture:**
+- Private IP only — public IP is never enabled in production
+- CMEK with Cloud KMS — customer-managed encryption keys
+- PITR enabled, 7-day continuous recovery window
+- Daily automated backups, 35-day retention
+- Cross-region read replica for DR (RPO 5 min, RTO 30 min)
+
+**IAM posture:**
+- Per-service Cloud Run service accounts with least-privilege bindings
+- IAM database authentication for human admin access
+- No service has cross-tenant default access — cross-tenant grants are explicit, audited, time-bounded
 
 ### CI/CD
 
@@ -352,22 +368,40 @@ Test gates: unit tests block merge, integration tests block QA push, smoke tests
 
 ## Multi-Tenant Isolation
 
-### Current State
+**The canonical isolation boundary is schema-per-tenant.** Each merchant gets a dedicated Postgres schema (`tenant_<merchant_uuid>`). Application code calls `SET search_path TO tenant_<merchant_id>, public` at the start of every request based on the JWT `merchant_id` claim. This produces strong isolation at the database layer — a query without a tenant context resolves nothing in tenant-scoped tables (only the `public` schema for shared reference data).
+
+### Schema Layout
+
+| Schema | Scope | Contents | Write authority |
+|---|---|---|---|
+| `public` | Global reference | `source_systems`, `roles`, `detection_rule_definitions`, embedding model registry — read-mostly seed data | Platform admin only |
+| `tenant_{merchant_id}` | Per-merchant operational data | Operational tables (alerts, cases, employees, products, locations, transactions, etc.) | Service account scoped to that tenant via `SET search_path` |
+| `audit` | Cross-cutting append-only audit log | Every authentication event, role change, cross-tenant query, key rotation | Audit-only role; reads gated by admin role |
+| `analytics` | Cross-tenant materialized analytics | Rollups produced by scheduled jobs; never queried tenant-real-time | Analytics service only |
+
+### Isolation Layers
 
 | Layer | Mechanism | Enforcement |
 |-------|-----------|-------------|
-| Application | `merchant_id` on every model (VARCHAR(36), indexed) | 18 models require merchant_id; `merchant_id` set from JWT/session on every request |
-| Database (RLS) | `set_current_merchant(:mid)` called at transaction start | Pool event listener on connection `begin` |
-| Cache (Valkey) | Key prefix includes `{merchant_id}` | e.g. `chirp:thresholds:{merchant_id}:{rule_id}` |
-| Session | `session["merchant_id"]` set after OAuth | Session store (Valkey), 1-hour TTL |
-| MCP tools | `context["merchant_id"]` injected from JWT | MCP handler injects from request context |
+| Database (primary) | Schema-per-tenant + `SET search_path` per request | Connection pool event listener sets search path from JWT `merchant_id`; tenant tables not visible without it |
+| Database (within tenant) | Row-Level Security optional, used for finer-grained constraints | Per ADR-001 array-aware merchant_id session var supports the multi-merchant organization model |
+| Database (column-level) | Postgres GRANT/REVOKE per column for the few cases where it matters | Restricted-class fields require explicit grant beyond default tenant role |
+| Application | `merchant_id` claim from JWT validated on every request | Middleware sets search path; handler code uses tenant-scoped table names |
+| Cache (Valkey) | Key prefix `raas:{merchant_id}:{domain}:{key}` (per `raas.md`) | RaaS `build_key()` enforces; no service constructs keys independently |
+| Session | `merchant_id` in session payload | Identity service issues platform JWT with claim |
+| MCP tools | `merchant_id` injected from JWT into tool handler context | `internal/runtime` middleware injects |
 
-### Gaps
+### Cross-Tenant Admin Queries
 
-- RLS policies exist in the database but application code does not enforce them consistently — some queries bypass the `merchant_id` filter.
-- Pipeline consumers process events for all merchants in a single consumer group — no per-tenant stream isolation.
-- Message queue streams (`canary:events`) are shared across all tenants — a high-volume merchant could starve others.
-- No tenant-aware rate limiting — all merchants share the same IP-based rate limits.
+A dedicated admin role with `USAGE` on all tenant schemas + `audit` + `analytics`. Cross-tenant queries use schema-qualified names (`tenant_a.table` JOIN `tenant_b.table`). Every cross-tenant query is logged in the `audit` schema with the actor identity, query fingerprint, and merchant scope touched.
+
+For analytics use cases that span tenants (industry benchmarks, platform-level KPIs), the rollup service writes to the `analytics` schema. Admin queries hit those materializations rather than scanning tenant schemas in real time — avoids lock contention and enforces a privacy boundary (analytics tables hold aggregate data, not row-level tenant content).
+
+### Sharding Posture
+
+- **V1** — Cloud SQL Postgres primary + 2 read replicas. Comfortable to ~5,000 tenants on a single regional instance with proper schema-level partitioning.
+- **V2 trigger** — When tenant count exceeds 5,000 OR p95 query latency on the largest tenant exceeds 500ms, evaluate AlloyDB for Postgres. Drop-in compatibility with Postgres 16/17, columnar read engine, better horizontal scaling.
+- **V3 trigger** — When AlloyDB read replicas no longer suffice, application-level sharding by `org_id` range. Schemas physically distribute across multiple primaries; the identity service holds the routing layer.
 
 ---
 

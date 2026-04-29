@@ -17,7 +17,58 @@ copyright: "Copyright (c) 2026 GrowDirect LLC"
 
 ## Purpose
 
-Cross-schema reference document covering all tables across Canary's three PostgreSQL schemas (`app`, `sales`, `metrics`) plus the separate `growdirect_memory` database. One database (`canary`) hosts three schemas; the memory service lives in `growdirect_memory`. This document is the PII map anchor — all other Canary SDDs reference it for field-level data classification.
+Cross-schema reference document covering all tables across the Canary platform. This document is the PII map anchor — all other Canary SDDs reference it for field-level data classification.
+
+---
+
+## Schema Strategy — Schema-per-Tenant
+
+**Multi-tenant isolation in Canary Go is schema-per-tenant.** The DDL below describes the shape of every table; tenant onboarding instantiates the operational tables inside a dedicated Postgres schema named `tenant_{merchant_uuid}`. Application code sets `SET search_path TO tenant_{merchant_id}, public` at the start of every request based on the JWT `merchant_id` claim. See `architecture.md` "Multi-Tenant Isolation" for the canonical pattern.
+
+### Schema Inventory
+
+| Schema | Cardinality | Contents | Write authority |
+|---|---|---|---|
+| `public` | One global | Reference data: `source_systems`, `roles`, `detection_rule_definitions`, embedding model registry, country / state / currency lookups | Platform admin only |
+| `tenant_{merchant_id}` | One per merchant | All operational tables — alerts, cases, employees, products, locations, transactions, evidence, ingestion log | Tenant role only (via `SET search_path`) |
+| `audit` | One global, append-only | Authentication events, role changes, cross-tenant query audit, key rotations, encryption key operations | Audit-only role |
+| `analytics` | One global, materialized | Cross-tenant rollups produced by scheduled jobs — never queried tenant-real-time | Analytics service only |
+| `growdirect_memory` (separate DB) | One global | pgvector embeddings for memory bus | Memory bus only |
+
+### Tenant Onboarding — Schema Materialization
+
+When a merchant onboards, the identity service:
+
+1. Creates the `tenant_{merchant_uuid}` schema in the `canary` database
+2. Runs the operational migration set against that schema (creates all tables documented in the DDL below)
+3. Grants `USAGE` and the appropriate role on the schema to the per-merchant service account
+4. Records the schema name in `public.merchants.tenant_schema_name` for the routing layer
+
+A separate per-tenant migration runner advances each tenant's schema independently. Schema versioning is per-tenant — a backfill or migration can run against one merchant at a time without locking the platform.
+
+### Cross-Tenant Admin Queries
+
+A dedicated admin role with `USAGE` on all `tenant_*` schemas. Cross-tenant queries use schema-qualified names and are logged to `audit.cross_tenant_query_log` with the actor identity, query fingerprint, and merchant scope touched. Cross-tenant analytics use the `analytics` schema (materialized rollups), not direct cross-tenant scans.
+
+### Within-Tenant Refinement (Optional)
+
+Within a tenant schema, Row-Level Security (RLS) is available for finer-grained constraints — typically used for the multi-merchant organization model per ADR-001 (one organization owns N merchants, combined-view query needs an array-aware merchant filter). Column-level GRANT/REVOKE handles the cases where specific Restricted-class fields require explicit grant beyond default tenant role.
+
+### Legacy Note
+
+The DDL below was originally drafted with shared schemas (`app`, `sales`, `metrics`) plus a `merchant_id` column on every operational table. The shape of the tables is the same under schema-per-tenant — what changes is **where** they live (per-tenant schema, no `merchant_id` column on operational tables, the column is implicit in the schema name). Reference data stays in `public` unchanged.
+
+For migration: tenant tables do not need `merchant_id` columns once they live in tenant schemas (the schema IS the tenant scope). Cross-schema joins between `public` reference data and `tenant_X` operational data happen via natural keys (e.g., `source_code` joining `public.source_systems` to a tenant table).
+
+### Optional Features Schema Note
+
+Tables that back optional features (per `platform-overview.md` "Optional Features") exist regardless of flag state — the schema is created at tenant onboarding even when the runtime flag is off. This means a merchant can opt in later without a schema migration. Specifically: `otb_wallets`, `otb_transactions`, `otb_alerts`, `ildwac_packets`, `blockchain_anchor_receipts`, `vendor_contract_events` all live in `tenant_{merchant_id}` and accept writes when their respective env flag is on; otherwise they remain empty and are not queried.
+
+---
+
+## Legacy Schema Reference
+
+The DDL below is grouped by the legacy schema names (`app`, `sales`, `metrics`) for ease of reading. Under schema-per-tenant, every table previously in `app` and `sales` lives in `tenant_{merchant_id}`; `metrics` rollups are split between `tenant_{merchant_id}.metrics_*` (per-tenant rollups) and `analytics.*` (cross-tenant rollups). The memory service lives in `growdirect_memory`.
 
 ## Dependencies
 

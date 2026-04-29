@@ -209,3 +209,15 @@ Go's standard approach to rich error handling is multiple concrete types with `e
 ### Audit Trail
 
 Every `ErrChainViolation` and `ErrSLABreach` is logged at `slog.LevelError` with `request_id`, `merchant_id`, and the full `Fields` payload. These log lines are the platform's primary signal for detecting chain integrity attacks and SLA degradation. Log lines must not be suppressed, sampled, or rate-limited for these two error codes.
+
+---
+
+## Related
+
+- [[go-runtime]] — `RecoveryMiddleware` and `AuthMiddleware` produce `ErrInternal` and `ErrUnauthorized` errors via this taxonomy
+- [[go-module-layout]] — `internal/errors/` package location
+- [[go-security]] — `ErrUnauthorized` and `ErrForbidden` issued by JWT validation
+- [[go-observability]] — error codes feed the `status` label on metrics; structured fields feed log payloads
+- [[go-testing]] — error-path coverage requirement consumes this taxonomy
+- [[microservice-architecture]] — REST contract uses the client-facing error body defined here
+- [[platform-overview]] — top-level API contract posture

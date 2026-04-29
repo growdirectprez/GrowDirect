@@ -3,7 +3,9 @@ spec-version: 1.1
 target-implementation: Go
 stack: PostgreSQL 17 + pgx + sqlc | Chi HTTP | REST | go-redis | pgvector-go
 status: active-build-spec
-updated: 2026-04-28
+updated: 2026-04-29
+license: Apache-2.0
+copyright: "Copyright (c) 2026 GrowDirect LLC"
 ---
 
 # Go Module Layout & Service Conventions

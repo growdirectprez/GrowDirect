@@ -21,7 +21,9 @@ copyright: "Copyright (c) 2026 GrowDirect LLC"
 
 Open-to-buy (OTB) is the budget a merchant has available to purchase new inventory in a given period. Traditional OTB is a spreadsheet exercise done monthly by a buyer who may or may not be the same person writing the checks. Canary's L402-OTB module makes it a live constraint enforced at the PO creation moment — the wallet balance is the uncommitted OTB; each PO debits the wallet; returns and cancellations credit it back. The L402 Lightning wallet is the enforcement mechanism, but the mechanics are abstractions: what the merchant sees is a budget gauge, not a cryptographic protocol.
 
-**Governing rule: L402 enforcement NEVER blocks store operations.** The wallet balance is tracked and flagged. A zero-balance wallet is an alert, not a gate. `feature.l402_enforcement_enabled` defaults to false — merchants opt in per node. Even when enabled, enforcement means flagging and alerting, not hard-blocking transactions. The one exception is `hard_enforce` mode, which requires explicit merchant opt-in and manager override capability at all times.
+**Governing rule: L402 is opt-in architectural direction.** The entire L402 / Lightning settlement layer is gated by the system-wide `L402_ENABLED` flag (default `false`, see `platform-overview.md` "Optional Features"). When `L402_ENABLED=false`, this service runs in pure tracking mode — wallet balances are recorded, debits and credits post, but no Lightning settlement occurs and no PO is ever blocked. The schema (`otb_wallets`, `otb_transactions`, `otb_alerts`) is created either way; the writes happen either way; only the Lightning-settled enforcement layer is conditionally active.
+
+**Even when `L402_ENABLED=true`, enforcement NEVER blocks store operations by default.** The per-merchant `feature.l402_enforcement_enabled` flag (managed by the `settings` service) controls per-node enforcement posture and defaults to `false`. A zero-balance wallet is an alert, not a gate. The one exception is `hard_enforce` mode, which requires explicit merchant opt-in and manager override capability at all times.
 
 ---
 

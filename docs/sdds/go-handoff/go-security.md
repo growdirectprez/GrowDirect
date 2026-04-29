@@ -283,3 +283,16 @@ The per-subject key pattern (documented in `raas.md`) is implemented using the e
 - API responses to unauthorized callers
 
 The RaaS service is the only service that decrypts this field. Other services receive the canonical `raas:{merchant_id}` namespace and never see the external ID.
+
+---
+
+## Related
+
+- [[go-runtime]] — `AuthMiddleware` and `RecoveryMiddleware` consume primitives from this package
+- [[go-module-layout]] — `internal/security/` package location
+- [[go-observability]] — log fields that must redact secret values
+- [[go-errors]] — `ErrUnauthorized`, `ErrForbidden`, and `ErrInternal` error model
+- [[data-classification-inventory]] — Restricted / Sensitive / Internal / Public tier definitions that drive encryption posture
+- [[raas]] — per-subject DEK pattern for cryptographic erasure
+- [[external-identities]] — JWT claims structure and namespace identity flow
+- [[platform-overview]] — top-level security and compliance posture

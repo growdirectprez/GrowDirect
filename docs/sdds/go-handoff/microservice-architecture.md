@@ -15,6 +15,10 @@ copyright: "Copyright (c) 2026 GrowDirect LLC"
 
 Each microservice is an independently deployable Go binary. It owns its domain, exposes a REST API, reads and writes only its own tables, and communicates with peers via HTTP. No shared in-process state. No direct cross-service database reads. The pipeline is event-driven via Valkey streams; the rest of the system is request/response REST.
 
+**Multi-tenant isolation is schema-per-tenant** — see `architecture.md` "Multi-Tenant Isolation" for the canonical model. Every service operates inside a tenant's schema via `SET search_path` from the JWT `merchant_id` claim. Cross-tenant data flow is forbidden except through the dedicated admin role with audit logging.
+
+**Optional architectural features** — L402 enforcement, ILDWAC five-dimension cost model, blockchain anchoring, vendor smart contracts — are env-gated, default off. The service contracts in this SDD describe how services interact when those features are enabled; the contracts hold equally well when disabled (services skip the relevant calls). See `platform-overview.md` "Optional Features" for the canonical env-flag pattern. No service blocks store operations on any of those features being unavailable.
+
 ---
 
 ## Service map
@@ -567,10 +571,65 @@ Each service is a standalone Go binary. Deployment target: containerized (one co
 ## Environment variables (required by all services)
 
 ```
-DATABASE_URL          postgresql://user:pass@host:5432/canary
-VALKEY_URL            redis://host:6379
-INTERNAL_SERVICE_SECRET  <shared secret for service-to-service JWTs>
+DATABASE_URL          postgresql://...    # Cloud SQL via private IP only — never public
+                                          # Use Cloud SQL Auth Proxy or PgBouncer sidecar
+VALKEY_URL            rediss://...        # TLS required in production (rediss://, not redis://)
+INTERNAL_SERVICE_SECRET  <from Secret Manager>  # service-to-service JWT signing
+JWT_SECRET            <from Secret Manager>     # platform JWT signing per go-security
+CANARY_ENCRYPTION_KEY <from Secret Manager>     # AES-256-GCM, 32 bytes, per go-security
+PHONE_HASH_KEY        <from Secret Manager>     # HMAC-SHA256 for PII lookup
+EMAIL_HASH_KEY        <from Secret Manager>     # HMAC-SHA256 for PII lookup
 LOG_LEVEL             info
+
+# Optional Features — all default false (per platform-overview.md "Optional Features")
+L402_ENABLED                  false
+ILDWAC_ENABLED                false
+BLOCKCHAIN_ANCHOR_ENABLED     false
+VENDOR_CONTRACTS_ENABLED      false
+BITCOIN_STANDARD_ENABLED      false
 ```
 
+All production secrets are sourced from GCP Secret Manager via the runtime — never from `.env` files in production. Development secrets live in `.env` files that are git-ignored.
+
 Service-specific vars are documented in each service's section above and in the individual SDDs.
+
+---
+
+## Production posture (GCP-native)
+
+Per `platform-stack-commitment` and the Wave 2 dispatch, the production deployment posture is GCP-native:
+
+| Component | Service | Notes |
+|---|---|---|
+| Compute | Cloud Run | Autoscaling per service; no fixed instance count |
+| DB | Cloud SQL Postgres 17 (HA, regional) | Primary + 2 read replicas; PITR 7-day; cross-region replica for DR |
+| Connection pooling | PgBouncer | Transaction-mode; deployed as a Cloud Run sidecar OR a dedicated service per tier |
+| Cache | Memorystore (Valkey) | Private IP only; AUTH + TLS in production |
+| Async | Pub/Sub + Cloud Tasks + Eventarc | Replaces Valkey streams for V2 multi-region |
+| Secrets | GCP Secret Manager | All env-var secrets sourced at startup |
+| Observability | Cloud Logging + Monitoring + Trace | Per `go-observability` |
+| Edge | Cloud Load Balancing + Cloud Armor | Only public ingress point; internal services on private IP |
+
+**SLA tiers** (per Wave 2 dispatch):
+- Platform overall: 99.95% uptime, RPO 5 min, RTO 30 min
+- POS write path (`canary-tsp`, `canary-gateway`): 99.95%, mission-critical
+- Customer-facing API: 99.9%
+- Internal services (analytics, reporting): 99.5%
+- Audit log ingestion: 99.99%
+
+---
+
+## Related
+
+- `architecture.md` — platform topology, multi-tenant isolation model, GCP target architecture
+- `platform-overview.md` — Optional Features canonical section, product context, agent network
+- `go-runtime.md` — service lifecycle, middleware stack, actor type discrimination
+- `go-module-layout.md` — port registry, package layout, binary naming
+- `go-security.md` — JWT validation, AES-256-GCM, HMAC, PII hashing
+- `go-observability.md` — slog, Prometheus, OTel hooks
+- `go-errors.md` — error taxonomy
+- `data-model.md` — schema-per-tenant data model, full DDL
+- `pos-adapter-substrate.md` — multi-POS abstraction this topology depends on
+- `agent-contracts.md` — agent-to-module smart contract pattern (forthcoming)
+- `raas.md` — namespace resolution and Valkey key construction
+- `identity.md` — federation modes, membership boundary, JWT issuance

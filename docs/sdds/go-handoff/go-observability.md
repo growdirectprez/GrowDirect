@@ -67,6 +67,8 @@ The `service` field is set at logger construction, not per log call. All log lin
 | `service` | string | Set at logger init |
 | `request_id` | string | `runtime.RequestID(ctx)` |
 | `merchant_id` | string | `runtime.MerchantID(ctx)` — omitted if unauthenticated |
+| `actor_id` | string | `runtime.ActorID(ctx)` — the user, agent, or system identifier from the JWT |
+| `actor_type` | string | `runtime.ActorType(ctx)` — `human`, `agent`, or `system`. Required for the agent accountability model — every log line distinguishes human-driven from agent-driven traffic |
 | `method` | string | `r.Method` |
 | `path` | string | `r.URL.Path` — never `r.URL.RawQuery` (query strings may contain credentials) |
 | `status` | int | Response status code |
@@ -251,3 +253,16 @@ Log lines are written to stdout. Container log collection routes them to Cloud L
 Prometheus metric labels must not contain merchant IDs, user IDs, or any tenant-identifying values. Labels are stored in-process in Prometheus histograms for the full lifecycle of the process — a high-cardinality label set containing merchant IDs would constitute PII retention in process memory.
 
 `RequestDuration` and `RequestCount` use `service`, `method`, `path` (route pattern only), and `status` as labels. None of these carry PII.
+
+`actor_type` (`human` / `agent` / `system`) is added as a label on `RequestCount` only — its cardinality is bounded at three values, well below the cardinality threshold. This enables agent traffic share monitoring without per-actor identity exposure.
+
+---
+
+## Related
+
+- [[go-runtime]] — `LoggingMiddleware` emits the standard fields defined here; `MustConnectDB` registers the DB pool metrics goroutine
+- [[go-module-layout]] — `internal/observability/` package location
+- [[go-security]] — log sanitization rules for secret values, JWT tokens, and Restricted fields
+- [[go-errors]] — error model whose codes feed the `status` label on metrics
+- [[microservice-architecture]] — service mesh whose call graph the trace_id propagation supports
+- [[platform-overview]] — top-level observability posture
