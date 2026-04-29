@@ -1,7 +1,8 @@
 #!/usr/bin/env python3
 """Standalone memory bus seeder — no memory_bus package dependency.
 
-Reads Brain/wiki/*.md, docs/sdds/**/*.md, docs/superpowers/plans/*.md
+Reads Brain/wiki/*.md, Brain/wiki/cards/*.md, docs/sdds/**/*.md,
+docs/superpowers/plans/*.md, docs/superpowers/specs/*.md
 and seeds seed_embeddings via direct psycopg2 + Ollama REST calls.
 
 Default mode is INCREMENTAL: only embeds files that are new or have been
@@ -19,6 +20,7 @@ Usage:
 """
 
 import argparse
+import fcntl
 import json
 import os
 import sys
@@ -29,10 +31,13 @@ from pathlib import Path
 import httpx
 import psycopg2
 
+LOCK_FILE = Path("/tmp/growdirect-seed.lock")
+
 GROWDIRECT_ROOT = Path(__file__).resolve().parent.parent.parent.parent
 
 SOURCES = [
     {"glob": "Brain/wiki/*.md", "memory_type": "wiki_article", "layer": "corp"},
+    {"glob": "Brain/wiki/cards/*.md", "memory_type": "wiki_article", "layer": "corp"},
     {"glob": "docs/sdds/canary/*.md", "memory_type": "context_block", "layer": "canary"},
     {"glob": "docs/sdds/platform/*.md", "memory_type": "context_block", "layer": "corp"},
     {"glob": "docs/sdds/alx/*.md", "memory_type": "context_block", "layer": "shared"},
@@ -40,6 +45,7 @@ SOURCES = [
     {"glob": "docs/team/*.md", "memory_type": "team_profile", "layer": "corp"},
     {"glob": "docs/decisions/*.md", "memory_type": "decision", "layer": "corp"},
     {"glob": "docs/superpowers/plans/*.md", "memory_type": "build_plan", "layer": "corp"},
+    {"glob": "docs/superpowers/specs/*.md", "memory_type": "build_plan", "layer": "corp"},
 ]
 
 OLLAMA_URL = os.environ.get("OLLAMA_URL", "http://127.0.0.1:11434")
@@ -89,6 +95,22 @@ def main():
     parser.add_argument("--dry-run", action="store_true")
     parser.add_argument("--drop-first", action="store_true")
     args = parser.parse_args()
+
+    # --- Exclusive lock: only one seed process at a time ---
+    if not args.dry_run:
+        lock_fh = open(LOCK_FILE, "w")
+        try:
+            fcntl.flock(lock_fh, fcntl.LOCK_EX | fcntl.LOCK_NB)
+        except BlockingIOError:
+            print(
+                f"ERROR: Another seed process is already running (lock held at {LOCK_FILE}).\n"
+                "Kill it first: pkill -f seed_standalone.py",
+                file=sys.stderr,
+            )
+            sys.exit(1)
+        lock_fh.write(str(os.getpid()))
+        lock_fh.flush()
+    # -------------------------------------------------------
 
     all_files = collect_files()
 
