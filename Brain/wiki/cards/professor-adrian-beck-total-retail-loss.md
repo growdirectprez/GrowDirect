@@ -183,3 +183,46 @@ An agent reasoning about a merchant's shrinkage problem that does not have Beck'
 ## Note on Archive.org
 
 The physical book ("New Loss Prevention," 2009) was scanned during early archive parsing sessions. The Kindle edition is available for purchase and is the canonical reference going forward. Beck's ECR papers are freely available at ecrloss.com and ResearchGate — no archive needed for the framework papers.
+
+
+---
+
+## The Practitioner Network — Fakety → McCarrek → Kroger
+
+Beck's framework traveled through a specific practitioner chain into the two largest engagements in the grocery portfolio.
+
+### Dan Fakety — Southeastern Grocers / BI-LO
+LP leadership at SEG. The SEG Secure Store EBR implementation operationalized Beck's TRL categories directly — the loss detection model, audit trail requirements, and category structure reflect his framework. Fakety was the practitioner who understood the academic logic and knew what it needed to look like in a production LP system at a multi-banner regional grocer.
+
+### Chris McCarrek — SEG → Kroger
+Came out of Fakety's team at SEG. Moved to Kroger. The DSD analytics work at Kroger — the IRED (Inbound Receiving Exception Detection) model, the vendor-level exception scoring, the DSD accountability layer in the Secure Store architecture — carries the same intellectual lineage. McCarrek brought the SEG implementation experience into Kroger's LP program.
+
+**What this means for the Kroger engagement record:**
+
+The DSD analytics architecture Lyle built at Kroger was not developed in isolation. It was built in dialogue with practitioners who had already operationalized Beck's framework at a comparable grocery chain. The detection logic, the loss category mapping, the vendor accountability model — all of it has this provenance. The Kroger Secure Store RFP, SOW, and DSD requirements artifacts in the MyPassport archive are the deliverable record of this knowledge chain in production.
+
+---
+
+## Provenance Chain — From Theory to Vault
+
+```
+Beck (Leicester)
+  ↓ Total Retail Loss framework — 33 categories, known/unknown distinction
+Fakety (SEG/BI-LO LP)
+  ↓ Operationalized TRL at a Tier-1 regional grocer
+  ↓ Secure Store EBR implementation — loss categories in production
+McCarrek (SEG → Kroger LP)
+  ↓ Carried the implementation model into Kroger
+  ↓ DSD analytics — IRED, vendor exception scoring, inbound accountability
+Lyle (Sysrepublic / RTI)
+  ↓ Architected the systems: Secure Store EBR, RTI integration backbone, DSD SOW
+  ↓ Kroger, SEG, TFM, Schnucks, Safeway, Wegmans, WinCo — the full US grocery roster
+CATz / Canary Go
+  ↓ The same framework formalized as methodology, then rebuilt as a platform
+  ↓ Three accountability rails = Beck's TRL operationalized as software invariants
+CRB / NCR Vault
+  ↓ Agent knowledge base — Beck's math embedded as reasoning primitives
+  ↓ Every detection rule, loss category, and audit requirement traces to this chain
+```
+
+This is the chain the NCR vault agents run on. It is not derived from the book alone — it is the book, implemented at two of the largest US grocery chains, then formalized into a methodology, then rebuilt as a cloud-native platform.
