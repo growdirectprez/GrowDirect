@@ -49,10 +49,10 @@ RTI is the predecessor to what Lyle is building today: **Canary Go**, a Go/GCP i
 
 | Client | Nature of engagement |
 |---|---|
-| **Kroger** | Secure Store EBR implementation — RFP, architecture, SOW, POS baseline, DSD requirements; Retek project |
+| **Kroger** | LP influence across all Kroger divisions — Secure Store EBR and RTI rolled out division-wide for near-real-time POS data analysis; RFP, architecture, SOW, POS baseline, DSD requirements; Retek project. Engagement was LP-scoped (not enterprise IT), but divisional coverage was complete. |
 | **Safeway** | Secure Store SOW; implementation planning |
 | **Albertsons / Fred Meyer** | Analytics and LP engagement |
-| **Southeastern Grocers (SEG) / BI-LO** | Secure Store implementation |
+| **Southeastern Grocers (SEG) / BI-LO** | Secure Store implementation — LP program designed with SEG LP leadership; Beck Total Retail Loss framework operationalized in production |
 | **Schnucks** | CCTV-integrated LP analytics (Salient CCTV SOW) |
 | **The Fresh Market (TFM)** | Secure Store implementation — RFP, SOW, implementation schedule |
 | **WinCo Foods** | LP analytics engagement |

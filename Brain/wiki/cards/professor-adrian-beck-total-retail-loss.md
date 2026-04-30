@@ -216,7 +216,8 @@ McCarrek (SEG → Kroger LP)
   ↓ DSD analytics — IRED, vendor exception scoring, inbound accountability
 Lyle (Sysrepublic / RTI)
   ↓ Architected the systems: Secure Store EBR, RTI integration backbone, DSD SOW
-  ↓ Kroger, SEG, TFM, Schnucks, Safeway, Wegmans, WinCo — the full US grocery roster
+  ↓ Kroger: RTI + Secure Store rolled to all divisions — near-real-time POS analysis at federation scale (LP-scoped, not enterprise IT)
+  ↓ SEG, TFM, Schnucks, Safeway, Wegmans, WinCo — the full US grocery roster
 CATz / Canary Go
   ↓ The same framework formalized as methodology, then rebuilt as a platform
   ↓ Three accountability rails = Beck's TRL operationalized as software invariants
