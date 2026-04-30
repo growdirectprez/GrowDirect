@@ -116,7 +116,8 @@ The method runs on top of a platform thesis. These cards are the governing conte
 - [[Brain/wiki/cards/platform-thesis|Platform Thesis — Every Entity Has a Meter]] — three accountability rails; meter model; SMB ICP; the sentence. Approved 2026-04-28.
 - [[Brain/wiki/canary-go-portal|Canary Go Portal]] — the active build reference; SDD index; Linear links
 - [[Brain/wiki/cards/platform-retailer-lifecycle-test|Retailer Lifecycle Test Methodology]] — canonical burn-in; 16-step sequence; every module exercises the spine
+- [[Brain/wiki/cards/platform-inventory-2026-04|Platform Inventory — Current State (April 2026)]] — read-only audit of identity, DNS, GitHub, GCP, secrets state on the eve of GCP rebaseline; gap analysis driving Wave 1 dispatches. Filed under [GRO-703](https://linear.app/growdirect/issue/GRO-703).
 
 **CATz as proof case:** The Canary Go build is the live demonstration of the CATz Phase I/II method applied to a real SMB retail platform. The three accountability rails are the CATz method made structural — not a consulting framework, a running system. The platform thesis card is the governing document; [[Brain/wiki/catz-method|CATz Method]] is the delivery method that produced it.
 
-**last-compiled: 2026-04-28**
+**last-compiled: 2026-04-30**
