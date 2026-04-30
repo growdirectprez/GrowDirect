@@ -15,9 +15,11 @@ companion: Brain/wiki/catz-method.md
 
 # Counterpoint Modernization — Without the Rip-and-Replace
 
-NCR Counterpoint customers don't need to migrate off Counterpoint to get cloud-native, AI-native, multi-store enterprise capabilities. The right path is incremental: an observer layer first, a spine of record second, an agentic interface third, modules taken over fourth, front-end replacement only at the end — and only when the customer is ready. The VAR collects services revenue at every phase. The customer never sees a migration; they see capability arriving. That's the platform thesis behind Canary.
+NCR Counterpoint customers can get cloud, mobile, AI, and multi-store capabilities without migrating off Counterpoint. The path is incremental: observer layer first, spine of record second, agentic interface third, modules taken over fourth, front-end replacement only at the end and only when the customer asks for it. The VAR keeps the customer relationship and bills services at every phase.
 
-This article is for the NCR Counterpoint VAR principal asking three questions at once. *How do I give my customers the cloud-native modernization they're asking for, without forcing a register-UI rip-and-replace I can't sell? Where does my services revenue come from in that transition? And what's my answer when a customer asks "can my AI assistant query my POS?"*
+For the NCR Counterpoint VAR principal facing three questions:
+
+*How do I give my customers the modernization they're asking for without forcing a register-UI rip-and-replace I can't sell? Where does my services revenue come from in that transition? And what's my answer when a customer asks "can my AI assistant query my POS?"*
 
 ## The pressure VARs are absorbing right now
 
@@ -29,23 +31,21 @@ This article is for the NCR Counterpoint VAR principal asking three questions at
 | License-cliff anxiety | Voyix renewal conversations | "Is there a path forward that isn't paying NCR more?" |
 | Modernization roadmap drag | Voyix's own NextGen roadmap is paced for enterprise, not SMB | "We can't wait three years" |
 
-Every one of these pressures is solvable today. The hard part has been finding a path that doesn't ask the VAR to become a platform vendor or the customer to become a migration project. **That's the gap Canary fills.**
+Each of these has an answer today. The hard part has been finding a path that doesn't turn the VAR into a platform vendor or the customer into a migration project.
 
 ## The principle — Counterpoint stays as the edge node
 
 NCR's own Voyix Connected Services architecture says it explicitly: **inference at the edge, intelligence in the cloud, fleet management between them.** Counterpoint already runs on a Windows Server in-store. It already is the edge node. It already does the fast, offline-capable, register-side work the architecture calls for. The piece NCR hasn't shipped fast enough is the cloud spine that wraps the edge.
 
-Canary is the cloud spine. The register stays where it is. The Windows Server stays where it is. The customer's cashiers don't retrain. The customer's IT team doesn't migrate. The cloud capabilities arrive around the existing footprint, not on top of it. **The only thing that gets replaced — eventually, optionally, under VAR control — is the back-office surface, and only when the customer asks for it.**
+Canary is the cloud spine. The register stays. The Windows Server stays. No cashier retraining, no IT migration project. Cloud capabilities arrive around the existing footprint, not on top of it. The back-office surface eventually gets replaced — under VAR control, when the customer asks for it.
 
 ## The wedge — an MCP layer the customer's agents call first
 
 The technical entry is not an API gateway, a database connector, or a data warehouse. It's a **Model Context Protocol (MCP) layer** — the AI-callable surface that customers' agents (Claude, ChatGPT, Cursor, in-house copilots) need a real retail backend to talk to.
 
-Three things make MCP the right wedge:
-
-1. **It's non-disruptive.** Counterpoint's REST API stays as it is. The customer's existing integrations stay. MCP is additive — a new surface for new consumers.
-2. **It's customer-pulled.** Customers are already asking for AI-callable retail data; if the VAR doesn't deliver an answer, the customer finds one elsewhere. Canary has the answer on the shelf.
-3. **It becomes the API gateway one abstraction up.** Once the customer's humans and agents both call Canary MCP for retail truth, the source-of-truth question is decided. The platform shift happens without ever calling itself a platform shift.
+- **Non-disruptive.** Counterpoint's REST API stays as it is. The customer's existing integrations stay. MCP is additive — a new surface for new consumers.
+- **Customer-pulled.** Customers are already asking for AI-callable retail data. If the VAR doesn't deliver an answer, the customer finds one elsewhere.
+- **It becomes the API gateway one abstraction up.** Once humans and agents both call Canary MCP for retail truth, the source-of-truth question is decided.
 
 ## The five phases — observer to spine to platform
 
@@ -57,7 +57,7 @@ Three things make MCP the right wedge:
 | **3 — Module takeover** | Months 18-30 | Catalog, CRM, Purchasing, Forecast, Pricing fully native; Labor and Work Execution built where Counterpoint and adjacent platforms have no answer | Reduced to register transactions and edge-side execution | "We've stopped logging into Counterpoint for back-office work. Voyix renewal becomes optional." |
 | **4 — Front-end replacement** | Months 30-42 | Full platform end-to-end | Decommissioned, optionally; or kept as a register UI on a Canary backend if customer prefers | "We're on Canary. Counterpoint was the bridge, not the destination." |
 
-Each phase ships standalone value. Each phase is a billable VAR engagement. **No big-bang risk; no go-live cliff; no customer training crisis.**
+Each phase delivers standalone value and is a billable VAR engagement. No big-bang cutover.
 
 ## CRB module activation across the phases
 
@@ -79,7 +79,7 @@ The Canary Retail Brain spine (13 modules — A, C, D, F, J, L, N, P, Q, R, S, T
 | L (labor) | Phase 3 | Native scheduling, time, compliance — the gap Counterpoint and adjacent platforms leave open |
 | W (work execution) | Phase 3-4 | Generalized detection-and-case-management across operations, capstone of the spine |
 
-The five-module gap most VARs feel today (Q, J, D, L, W) is the gap the customer is asking the VAR to fill. **That's where the value capture sits.** Canary's spine fills it.
+The five-module gap most VARs feel today (Q, J, D, L, W) is the gap the customer is asking the VAR to fill. Canary's spine fills it.
 
 ## What the VAR sees — services revenue across the phases
 
@@ -93,7 +93,7 @@ Each phase is an engagement, with a distinct services profile:
 | 3 | Native module deployment, Labor build, Work Execution rollout | Long engagement, multi-team training, subscription tier upgrade |
 | 4 | Counterpoint decommission, register UI cutover, Voyix license sunset planning | Significant migration engagement, multi-year platform subscription |
 
-**Total customer LTV across 36 months is meaningfully larger than a static Counterpoint VAR relationship**, because each phase opens a new services scope. The customer doesn't churn; they expand.
+Each phase opens a new services scope. Customer LTV across 36 months runs above a single-implementation Counterpoint engagement.
 
 ## The accountability rails — what makes this defensible
 
@@ -105,7 +105,7 @@ Three rails run through the platform end-to-end. They are why a customer trusts 
 | **Financial** | Open-to-buy is gated, not just reported. Spend constraints are enforced at the moment of decision, not after the fact |
 | **Evidentiary** | Critical state changes are anchored to a tamper-evident record. Audit conversations become reads, not investigations |
 
-A commodity competitor — a Counterpoint replacement, a generic ERP, a single-store cloud POS — provides none of these. They are intentional design choices in Canary's spine, not commodity primitives.
+A Counterpoint replacement, a generic ERP, or a single-store cloud POS provides none of these. They are deliberate design choices, not commodity defaults.
 
 ## What this is not
 
@@ -117,7 +117,7 @@ A commodity competitor — a Counterpoint replacement, a generic ERP, a single-s
 
 ## What we'd want to know to start a conversation
 
-If a VAR principal is reading this and the shape resonates:
+If a VAR principal is reading this and the approach makes sense:
 
 1. **Top three customers asking the modernization question.** Vertical, store count, current Counterpoint footprint, what specifically they're asking for.
 2. **The VAR's services revenue mix today.** Where the implementation, training, and support dollars currently come from. Phase 0 has to fit inside that mix to be a real engagement.
