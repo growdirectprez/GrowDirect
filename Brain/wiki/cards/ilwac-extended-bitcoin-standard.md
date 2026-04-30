@@ -98,59 +98,13 @@ Every step is hashed. Every authorization is paid. Every cost is receipted. Ever
 
 ---
 
-## Cost Center Cross-Charge — Immediate Settlement
+## Commercial Implications
 
-Each endpoint dimension — Device, MCP tool call, Port/connector — carries a fee denominated in satoshis. When a cost center uses an endpoint, the L402 payment settles immediately. No invoice batch. No period-end cost allocation. The payment is the authorization; the authorization is the charge; the charge flows directly into that cost center's dimension on the WAC.
+The IL(Device/MCP/Port/)WAC model generates three downstream commercial mechanisms. Each has its own standalone card:
 
-This is structurally different from every existing cost allocation system: cross-charges are not a separate accounting layer applied after the fact. They are embedded in the event at the moment it happens.
-
-| Endpoint dimension | Fee mechanism | Settlement |
-|---|---|---|
-| Device | Per-call or per-transaction terminal fee | L402 → cost center wallet, immediate |
-| MCP | Per-agent-action compute cost | L402 → cost center wallet, immediate |
-| Port | Per-event connector license cost | L402 → cost center wallet, immediate |
-
-**The cost center is an L402 wallet.** Balance is the real-time P&L position. No period close required for internal cross-charges.
-
-**Endpoint fee = internal transfer pricing.** Want to model a department's true cost of shared infrastructure? Price the endpoint. Want to incentivize adoption? Price it low for the first 90 days. The fee schedule is the pricing policy.
-
-**Franchisor application:** A franchisor mandating Canary sets the endpoint fee schedule as a brand standard. Franchisee associations control the schedule on behalf of members. Individual units pay per use. The power spectrum that determines who holds the mandate also determines who sets the price.
-
----
-
-## IT Project Self-Funding — The ROI Problem Solved
-
-The persistent failure of retail IT justification: project costs are estimated before the work, results are measured (if at all) six months after go-live in a separate system, and the ROI model is a spreadsheet built to justify the decision retroactively. Everyone knows it. No one has fixed it.
-
-With L402 endpoint fees + IL(Device/MCP/Port/)WAC, project costs and project results are in the same unit, on the same system, sealed by the same hash chain.
-
-**Project costs are in satoshis from day one.** Every MCP call, every agent action, every endpoint used during implementation debits the project wallet. No invoices. No time-tracking reconciliation. The wallet balance is the project cost — live, sealed, auditable.
-
-**Results are in satoshis from the same system.** Recovered inventory value, prevented shrink, OTB savings — all measured through the ILWAC layer and the Fox case evidence chain. Same unit, same sealing, same source.
-
-**Net position is real-time.** Project wallet outflows = endpoint fees (cost). Project wallet inflows = results credited (return). The ROI model is not a deck — it is a wallet balance with a hash chain behind every line.
-
-This becomes the SI firm's differentiation: run a transformation project on Canary and the client sees real-time ROI, not a post-hoc justification. Cost and return in the same unit, sealed, not reconstructable after the fact.
-
----
-
-## Token Plan and Budget — The Meter Model
-
-Every account receives a token plan (a fixed allocation) and a budget ceiling (the L402 wallet). The base tier is predictable and plannable — the merchant knows their cost floor before a single endpoint is called.
-
-**The meter — variable billing above the base plan — runs on one ratio: payroll to revenue.**
-
-Not transactions processed. Not API calls. Not seats. The ratio that defines whether a retail operation is healthy or bleeding. When payroll/revenue improves — fewer labor hours per dollar of sales, tighter scheduling, better shrink recovery, tighter OTB — the meter earns. When the ratio does not move, the meter does not run hard.
-
-**Why payroll-to-revenue:**
-
-- It is the one ratio that touches every module. Labor scheduling (L), shrink recovery (Q), OTB efficiency (M), margin on receipts (V) — every module's work either improves or degrades the ratio.
-- It aligns Canary's revenue with merchant operational efficiency. The platform only wins when the merchant wins.
-- It is the metric the CIO and CFO can both read. The CIO controls the endpoint spend; the CFO tracks the ratio. They are now looking at the same ledger.
-
-**The token budget enforces discipline.** Accounts cannot infinitely call agents and endpoints. The budget makes every MCP call a real economic decision. A cost center burning token budget on low-value queries surfaces as a signal — the same as unnecessary labor hours on the schedule.
-
-**The franchise application:** Franchisors set the payroll/revenue target as a brand standard. The meter enforces it commercially. Units that hit the target pay the base plan. Units that beat it earn credits. Units that miss it pay the overage. The fee schedule is the brand standard.
+- **[[Brain/wiki/cards/canary-cost-center-cross-charge|Cost Center Cross-Charge]]** — each endpoint dimension carries a satoshi-denominated fee that settles immediately via L402. Cost center = L402 wallet. Balance is real-time P&L. No period-end allocation.
+- **IT Project Self-Funding** — covered in [[Brain/wiki/cards/canary-meter-model-token-plan|Token Plan and Meter Model]]. Project costs (endpoint fees) and project results (ILWAC improvements, Fox recoveries) are in the same unit, on the same system, sealed by the same hash chain. The ROI model is a wallet balance.
+- **[[Brain/wiki/cards/canary-meter-model-token-plan|Token Plan and Meter Model]]** — every account gets a fixed token allocation and L402 budget ceiling. The variable meter runs on one ratio only: payroll to revenue. Platform revenue is aligned with merchant operational efficiency.
 
 ---
 
@@ -199,6 +153,8 @@ The combination does not exist in any retail cost model in production today.
 
 - [[Brain/wiki/cards/portable-store-founder-intent|Portable Store — Founder Intent]] — the vision this cost model serves
 - [[Brain/wiki/cards/platform-thesis|Platform Thesis — Every Entity Has a Meter]] — the accountability model
+- [[Brain/wiki/cards/canary-cost-center-cross-charge|Cost Center Cross-Charge]] — endpoint fee → immediate L402 settlement; cost center as wallet
+- [[Brain/wiki/cards/canary-meter-model-token-plan|Token Plan and Meter Model]] — account-level billing; payroll/revenue meter; IT project self-funding
 - [[Brain/wiki/canary-raas-positioning|Canary RaaS — Positioning Guardrail]] — audit constraints on cryptographic claims
 - `Canary/docs/sdds/v2/module-v.md` — current ILWAC implementation (Item × Location)
 - `Canary/docs/sdds/v2/module-i.md` — Item master; vendor cost as input to V (I.9.2)
