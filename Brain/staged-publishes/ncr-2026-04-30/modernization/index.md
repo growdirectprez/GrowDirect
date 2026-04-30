@@ -1,5 +1,6 @@
 ---
 title: Counterpoint Modernization — Without the Rip-and-Replace
+tags: [modernization, counterpoint, var, positioning, mcp]
 nav_order: 30
 audience: NCR Counterpoint VARs
 last-updated: 2026-04-30
