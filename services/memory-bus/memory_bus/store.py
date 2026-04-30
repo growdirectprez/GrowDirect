@@ -20,7 +20,12 @@ VALID_MEMORY_TYPES = frozenset([
     "work_product", "team_profile", "foundation",
 ])
 
-VALID_LAYERS = frozenset(["corp", "canary", "shared"])
+VALID_LAYERS = frozenset(["corp", "canary", "cove", "shared"])
+
+VALID_ENGINES = frozenset([
+    "loyalty", "voting", "store-ops", "web-store",
+    "operations", "geospatial", "platform",
+])
 
 VALID_DOMAINS = frozenset([
     "identity", "tsp", "chirp", "alert", "owl",
@@ -191,12 +196,24 @@ class MemoryStore:
         memory_type: str = "context",
         metadata: Optional[dict[str, Any]] = None,
         layer: str = "shared",
+        engines: Optional[list[str]] = None,
     ) -> dict[str, Any]:
-        """Persist a memory with optional embedding and layer tag."""
+        """Persist a memory with optional embedding, layer tag, and engine applicability.
+
+        engines: list of engine primitives this memory applies to. Defaults to
+        ['platform']. See docs/sdds/platform/memory-bus.md §11 for the
+        canonical taxonomy.
+        """
         if memory_type not in VALID_MEMORY_TYPES:
             return {"error": f"Invalid memory_type: {memory_type}. Valid: {sorted(VALID_MEMORY_TYPES)}"}
         if layer not in VALID_LAYERS:
             return {"error": f"Invalid layer: {layer}. Valid: {sorted(VALID_LAYERS)}"}
+
+        if engines is None:
+            engines = ["platform"]
+        invalid_engines = [e for e in engines if e not in VALID_ENGINES]
+        if invalid_engines:
+            return {"error": f"Invalid engines: {invalid_engines}. Valid: {sorted(VALID_ENGINES)}"}
 
         memory_id = str(uuid.uuid4())
         now = datetime.now(timezone.utc)
@@ -216,10 +233,10 @@ class MemoryStore:
                     text("""
                         INSERT INTO alx_memories
                             (id, session_id, memory_type, content, metadata,
-                             embedding, layer, created_at, updated_at)
+                             embedding, layer, engines, created_at, updated_at)
                         VALUES
                             (:id, :sid, :mtype, :content, :meta,
-                             :embedding, :layer, :now, :now)
+                             :embedding, :layer, :engines, :now, :now)
                     """),
                     {
                         "id": memory_id,
@@ -229,6 +246,7 @@ class MemoryStore:
                         "meta": json.dumps(metadata or {}),
                         "embedding": str(embedding),
                         "layer": layer,
+                        "engines": engines,
                         "now": now,
                     },
                 )
@@ -237,10 +255,10 @@ class MemoryStore:
                     text("""
                         INSERT INTO alx_memories
                             (id, session_id, memory_type, content, metadata,
-                             layer, created_at, updated_at)
+                             layer, engines, created_at, updated_at)
                         VALUES
                             (:id, :sid, :mtype, :content, :meta,
-                             :layer, :now, :now)
+                             :layer, :engines, :now, :now)
                     """),
                     {
                         "id": memory_id,
@@ -249,6 +267,7 @@ class MemoryStore:
                         "content": content,
                         "meta": json.dumps(metadata or {}),
                         "layer": layer,
+                        "engines": engines,
                         "now": now,
                     },
                 )
@@ -258,6 +277,7 @@ class MemoryStore:
             "memory_id": memory_id,
             "memory_type": memory_type,
             "layer": layer,
+            "engines": engines,
             "has_embedding": embedding is not None,
             "created_at": now.isoformat(),
         }
@@ -268,12 +288,16 @@ class MemoryStore:
         limit: int = 10,
         memory_type: Optional[str] = None,
         layer: Optional[str] = None,
+        engines: Optional[list[str]] = None,
     ) -> dict[str, Any]:
         """Semantic search with fallback chain: vector -> full-text -> ILIKE.
 
         Args:
-            layer: Filter by memory layer (corp/canary/shared).
+            layer: Legacy partition filter (corp/canary/cove/shared).
                    None returns all layers.
+            engines: Engine-applicability filter (overlap semantics — row matches
+                   if any of its engines is in the requested list). Canonical
+                   filter per docs/sdds/platform/memory-bus.md §11.
         """
         embedding = get_embedding(query, self._config)
 
@@ -286,6 +310,9 @@ class MemoryStore:
         if layer:
             filters.append("AND layer = :layer")
             filter_params["layer"] = layer
+        if engines:
+            filters.append("AND engines && CAST(:engines AS text[])")
+            filter_params["engines"] = engines
         extra_where = " ".join(filters)
 
         with self._session() as db:
@@ -371,8 +398,9 @@ class MemoryStore:
         since: Optional[str] = None,
         layer: Optional[str] = None,
         limit: int = 20,
+        engines: Optional[list[str]] = None,
     ) -> dict[str, Any]:
-        """Structured search by session, type, date, or layer."""
+        """Structured search by session, type, date, layer, or engine applicability."""
         with self._session() as db:
             conditions = []
             params: dict[str, Any] = {"limit": limit}
@@ -389,6 +417,9 @@ class MemoryStore:
             if layer:
                 conditions.append("layer = :layer")
                 params["layer"] = layer
+            if engines:
+                conditions.append("engines && CAST(:engines AS text[])")
+                params["engines"] = engines
 
             where_clause = f"WHERE {' AND '.join(conditions)}" if conditions else ""
 

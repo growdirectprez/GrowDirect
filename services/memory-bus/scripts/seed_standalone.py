@@ -42,19 +42,67 @@ SEED_SESSION_ID = "seed-standalone"
 
 # memory_type must be one of: decision, finding, context, architecture,
 #   session_summary, procedure, context_block, work_product, team_profile, foundation
-# layer must be one of: corp, canary, cove, shared
+# layer must be one of: corp, canary, cove, shared (legacy partition; retained for
+#   backward compat — engines is the canonical applicability filter per
+#   docs/sdds/platform/memory-bus.md §11)
+# engines is a list. Valid values: loyalty, voting, store-ops, web-store,
+#   operations, geospatial, platform. Per-glob defaults below; frontmatter
+#   `engines: [list]` in any source file overrides the default.
 SOURCES = [
-    {"glob": "Brain/wiki/*.md", "memory_type": "context_block", "layer": "corp"},
-    {"glob": "Brain/wiki/cards/*.md", "memory_type": "context_block", "layer": "corp"},
-    {"glob": "docs/sdds/canary/*.md", "memory_type": "context_block", "layer": "canary"},
-    {"glob": "docs/sdds/platform/*.md", "memory_type": "context_block", "layer": "corp"},
-    {"glob": "docs/sdds/alx/*.md", "memory_type": "context_block", "layer": "shared"},
-    {"glob": "docs/sdds/go-handoff/*.md", "memory_type": "context_block", "layer": "canary"},
-    {"glob": "docs/team/*.md", "memory_type": "team_profile", "layer": "corp"},
-    {"glob": "docs/decisions/*.md", "memory_type": "decision", "layer": "corp"},
-    {"glob": "docs/superpowers/plans/*.md", "memory_type": "work_product", "layer": "corp"},
-    {"glob": "docs/superpowers/specs/*.md", "memory_type": "work_product", "layer": "corp"},
+    {"glob": "Brain/wiki/*.md",            "memory_type": "context_block", "layer": "corp",   "engines": ["platform"]},
+    {"glob": "Brain/wiki/cards/*.md",      "memory_type": "context_block", "layer": "corp",   "engines": ["platform"]},
+    {"glob": "docs/sdds/canary/*.md",      "memory_type": "context_block", "layer": "canary", "engines": ["operations"]},
+    {"glob": "docs/sdds/platform/*.md",    "memory_type": "context_block", "layer": "corp",   "engines": ["platform"]},
+    {"glob": "docs/sdds/alx/*.md",         "memory_type": "context_block", "layer": "shared", "engines": ["platform"]},
+    {"glob": "docs/sdds/go-handoff/*.md",  "memory_type": "context_block", "layer": "canary", "engines": ["operations"]},
+    {"glob": "docs/team/*.md",             "memory_type": "team_profile",  "layer": "corp",   "engines": ["platform"]},
+    {"glob": "docs/decisions/*.md",        "memory_type": "decision",      "layer": "corp",   "engines": ["platform"]},
+    {"glob": "docs/superpowers/plans/*.md","memory_type": "work_product",  "layer": "corp",   "engines": ["platform"]},
+    {"glob": "docs/superpowers/specs/*.md","memory_type": "work_product",  "layer": "corp",   "engines": ["platform"]},
 ]
+
+VALID_ENGINES = {"loyalty", "voting", "store-ops", "web-store",
+                 "operations", "geospatial", "platform"}
+
+
+def parse_frontmatter_engines(content: str) -> list[str] | None:
+    """Extract `engines:` from YAML frontmatter, if present and valid.
+
+    Supports list shorthand ([a, b, c]) and YAML list block (- a\n- b).
+    Returns None if no engines key found, or if any value is not in VALID_ENGINES.
+    """
+    if not content.startswith("---"):
+        return None
+    end = content.find("\n---", 3)
+    if end == -1:
+        return None
+    frontmatter = content[3:end]
+    for line in frontmatter.split("\n"):
+        line = line.strip()
+        if not line.startswith("engines:"):
+            continue
+        rest = line[len("engines:"):].strip()
+        # inline list: engines: [a, b, c]
+        if rest.startswith("["):
+            inner = rest.strip("[]")
+            values = [v.strip().strip("'\"") for v in inner.split(",") if v.strip()]
+        else:
+            # YAML block list — collect subsequent `- value` lines
+            values = []
+            after = frontmatter.split("engines:", 1)[1]
+            for ln in after.split("\n")[1:]:
+                ln = ln.rstrip()
+                if ln.startswith("- "):
+                    values.append(ln[2:].strip().strip("'\""))
+                elif ln and not ln.startswith(" "):
+                    break
+        values = [v for v in values if v]
+        if not values:
+            return None
+        if all(v in VALID_ENGINES for v in values):
+            return values
+        return None
+    return None
 
 OLLAMA_URL = os.environ.get("OLLAMA_URL", "http://127.0.0.1:11434")
 DATABASE_URL = os.environ.get(
@@ -164,14 +212,20 @@ def main():
     inserted = updated = skipped = failed = 0
 
     for i, (path, src, rel) in enumerate(to_process, 1):
-        content = path.read_text(encoding="utf-8", errors="replace")[:MAX_TEXT]
+        full_content = path.read_text(encoding="utf-8", errors="replace")
+        content = full_content[:MAX_TEXT]
         if not content.strip():
             skipped += 1
             continue
 
+        # Engine applicability: frontmatter override or source-glob default
+        engines_override = parse_frontmatter_engines(full_content)
+        engines = engines_override if engines_override else src.get("engines", ["platform"])
+
         is_update = rel in seeded_mtimes
         label = "update" if is_update else "new"
-        print(f"[{i:3d}/{len(to_process)}] [{label:6s}] {rel} ...", end=" ", flush=True)
+        engines_label = ",".join(engines)
+        print(f"[{i:3d}/{len(to_process)}] [{label:6s}] [{engines_label}] {rel} ...", end=" ", flush=True)
 
         embedding = get_embedding(content)
         if embedding is None:
@@ -184,24 +238,27 @@ def main():
             "seeded_at": datetime.now(tz=timezone.utc).isoformat(),
             "seeded_by": "seed_standalone.py",
             "source_kind": src.get("source_kind", "document"),
+            "engines_source": "frontmatter" if engines_override else "source_default",
         }
 
         if is_update:
             cur.execute(
                 """
                 UPDATE alx_memories
-                SET content = %s, embedding = %s::vector, metadata = %s, updated_at = now()
+                SET content = %s, embedding = %s::vector, metadata = %s,
+                    engines = %s, updated_at = now()
                 WHERE session_id = %s AND metadata->>'source_file' = %s
                 """,
-                (content, str(embedding), json.dumps(meta), SEED_SESSION_ID, rel),
+                (content, str(embedding), json.dumps(meta), engines, SEED_SESSION_ID, rel),
             )
             updated += 1
         else:
             cur.execute(
                 """
                 INSERT INTO alx_memories
-                    (id, session_id, memory_type, content, embedding, metadata, layer, created_at, updated_at)
-                VALUES (%s, %s, %s, %s, %s::vector, %s, %s, now(), now())
+                    (id, session_id, memory_type, content, embedding, metadata,
+                     layer, engines, created_at, updated_at)
+                VALUES (%s, %s, %s, %s, %s::vector, %s, %s, %s, now(), now())
                 """,
                 (
                     str(uuid.uuid4()),
@@ -211,6 +268,7 @@ def main():
                     str(embedding),
                     json.dumps(meta),
                     src["layer"],
+                    engines,
                 ),
             )
             inserted += 1

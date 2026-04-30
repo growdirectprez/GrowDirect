@@ -5,14 +5,14 @@ owner: GrowDirect LLC
 
 # Memory Bus
 
-> **Status:** Production-grade ops contract
+> **Status:** Production-grade ops contract (single-pool); engine-applicability extension specified §11, not yet implemented
 > **Service type:** MCP Server (Platform)
 > **Namespace:** platform
-> **Last updated:** 2026-04-13
+> **Last updated:** 2026-04-30
 > **Code location (MCP server):** `services/memory-bus/`
 > **Code location (platform SDK):** `services/growdirect-mcp/`
 > **Code location (DDL):** `devops/init-db/02-create-memory-db.sql`
-> **Migrations:** `services/memory-bus/migrations/` (Alembic, 4 revisions)
+> **Migrations:** `services/memory-bus/migrations/` (Alembic, 5 revisions)
 > **Docker service:** `growdirect_memory_bus` (port 8003)
 > **Author role:** [[docs/team/Architect|Architect]] · **Operator role:** [[docs/team/DevOps|DevOps]]
 
@@ -330,8 +330,8 @@ additional auth beyond container access.
 Database: `growdirect_memory` (PostgreSQL 17)
 Extensions: `vector`, `pgcrypto`, `uuid-ossp`
 Test database: `growdirect_memory_test`
-Migrations: Alembic (4 revisions -- baseline, drop seed_embeddings, HNSW index,
-session FK)
+Migrations: Alembic (5 revisions -- baseline, drop seed_embeddings, HNSW index,
+session FK, drop layer CHECK)
 
 ### Table: `alx_sessions`
 
@@ -361,7 +361,7 @@ Indexes: `idx_sessions_status`, `idx_sessions_started`
 | `content` | `TEXT` | NOT NULL | Up to 6000 chars used for embedding |
 | `metadata` | `JSONB` | DEFAULT `'{}'` | domain, block_type, source_file, etc. |
 | `embedding` | `vector(1024)` | nullable | NULL when Ollama unavailable at write time |
-| `layer` | `TEXT` | NOT NULL, DEFAULT `'shared'`, CHECK IN (`corp`, `canary`, `cove`, `shared`) | |
+| `layer` | `TEXT` | NOT NULL, DEFAULT `'shared'` | CHECK constraint dropped in migration 005. App-side validation via `VALID_LAYERS` in `store.py` (currently `corp`, `canary`, `shared` -- `cove` was removed and is being reinstated as part of §11 engine model migration). Treated as legacy partition column; superseded by `engines: text[]` in §11. |
 | `created_at` | `TIMESTAMPTZ` | NOT NULL, DEFAULT NOW() | |
 | `updated_at` | `TIMESTAMPTZ` | NOT NULL, DEFAULT NOW() | Auto-updated by trigger |
 
@@ -554,26 +554,41 @@ OLLAMA_URL=http://localhost:11434 \
 python3 -m pytest tests/test_smoke.py -v
 ```
 
-### Seed script
+### Seed scripts
 
-`services/memory-bus/scripts/seed_clean.py` populates `alx_memories` from
-platform documents. Idempotent with `--drop-first`, additive without it.
+Two seed scripts coexist with distinct roles:
+
+| Script | Role | Trigger |
+|--------|------|---------|
+| `services/memory-bus/scripts/seed_clean.py` | Initial bulk-seed of platform documents (SDDs, team, decisions, foundations). Idempotent with `--drop-first`, additive without it. | One-shot, run when standing up a fresh memory bus |
+| `services/memory-bus/scripts/seed_standalone.py` | Incremental seeder driven by file mtime. Walks an expanded source list (Brain wiki + cards + SDDs + plans + specs + team + decisions). Default mode: only embeds files modified since their last seed. | Production — invoked by post-commit hook on every Brain/wiki commit |
+
+The post-commit hook `.git/hooks/post-commit` calls `seed_standalone.py` automatically on Brain/wiki commits. `seed_clean.py` is operator-invoked.
 
 ```bash
-# Inside Docker
+# Initial bulk seed (operator)
 docker exec growdirect_memory_bus python3 scripts/seed_clean.py --drop-first
+
+# Incremental (called by post-commit hook; can also be invoked manually)
+python3 services/memory-bus/scripts/seed_standalone.py
 ```
 
-| Source | Memory type | Layer |
-|--------|------------|-------|
-| `docs/sdds/platform/*.md` | `context_block` | `corp` |
+`seed_standalone.py` SOURCES (10 globs as of 2026-04-30):
+
+| Source glob | Memory type | Layer (legacy) |
+|-------------|-------------|----------------|
+| `Brain/wiki/*.md` | `context_block` | `corp` |
+| `Brain/wiki/cards/*.md` | `context_block` | `corp` |
 | `docs/sdds/canary/*.md` | `context_block` | `canary` |
-| `docs/sdds/cove/*.md` | `context_block` | `cove` |
+| `docs/sdds/platform/*.md` | `context_block` | `corp` |
 | `docs/sdds/alx/*.md` | `context_block` | `shared` |
+| `docs/sdds/go-handoff/*.md` | `context_block` | `canary` |
 | `docs/team/*.md` | `team_profile` | `corp` |
 | `docs/decisions/*.md` | `decision` | `corp` |
-| `docs/research/lp-dashboard-pattern-catalog.md` | `foundation` | `canary` |
-| `Cove/cove/governance/wpbca-bylaws-config.json` | `foundation` | `cove` |
+| `docs/superpowers/plans/*.md` | `work_product` | `corp` |
+| `docs/superpowers/specs/*.md` | `work_product` | `corp` |
+
+Globs not yet seeded (gap, to address as part of §11 work): `docs/sdds/cove/*`, `docs/sdds/angel/*`, `docs/sdds/arc/*`, `docs/sdds/consulting/*`, `Brain/dispatches/*`, `Brain/process-decomp/*`, `Brain/method/*`, `Brain/projects/*`, `Brain/playbooks/*`, `Brain/agents/*`.
 
 ---
 
@@ -754,6 +769,120 @@ layer can be completely circumvented by anyone with `docker exec` access.
 | `002_drop_seed_embeddings` | 2026-03-30 | Drop unused `seed_embeddings` table |
 | `003_hnsw_index` | 2026-03-30 | Add HNSW index on `alx_memories.embedding` |
 | `004_session_fk` | 2026-03-30 | Backfill orphan sessions, add FK constraint `alx_memories.session_id -> alx_sessions.session_id` |
+| `005_drop_layer_check` | 2026-04-24 | Drop CHECK constraint on `alx_memories.layer`. Validation moves to app boundary (`VALID_LAYERS` in `store.py`); supports the §11 engine-applicability migration without DDL friction. |
+| `006_add_engines` (planned) | 2026-04-30 | Add `engines: text[]` column to `alx_memories` per §11. Backfill from `layer`. Add GIN index. `layer` retained for backward compat. |
+
+---
+
+## §11 — Engine Applicability and the Ingestion-to-Vault Pipeline
+
+> **Status:** Specified, not yet implemented. Migration `006_add_engines` planned. This section describes the forward direction; current code uses the legacy `layer` column (see Data Model section). The engine model is additive — `layer` stays in place for backward compatibility during transition.
+
+### The component model GrowDirect serves
+
+GrowDirect is a platform for the **solo Main Street operator wearing every hat** — the SMB heart of the American economy. Products (Canary, Cove, OwnPV, Solex, future) are vertical configurations of a six-engine component library. The memory bus partitions knowledge by **engine applicability**, not by product silo.
+
+**The six engines:**
+
+| Engine | Primitive | Today's instance |
+|---|---|---|
+| Loyalty | Member relationships, dues, benefits, status, governance | Cove (WPBCA HOA) |
+| Voting | Proposals, ballots, audit — *consensus or compliance* (one engine, two policy modes) | Cove board, COAC reactivation, agentic HIL gates, evidentiary rail attestation |
+| Store-Ops | Operator SOPs, manuals, knowledge base | Own (OwnPV territory operating manual) |
+| Web-Store | Customer-facing storefront, cart, checkout | Solex |
+| Operations | Multi-store accountability — perpetual ledger, LP rules, OTB, distribution | Canary (L&G specialty retail) |
+| Geospatial | Store mapping, geofencing, parcel polygons, war-room visualization | Canary LP command center, Cove parcel/easement governance, OwnPV territory polygons |
+
+Plus `platform` substrate: identity, CRDM data model, MCP server, vendor stack (Stripe, GCP, Cloudflare, Postgres, Ollama), CATz delivery method.
+
+**Architectural test for new content:** *"Does this serve some part of what a Main Street solo operator needs?"* If yes, it's platform / engine applicability. If it's vertical-only (live-goods write-offs, HOA bylaws, parcel polygons for one territory), it's vertical config sitting on top — tag the engines it composes onto.
+
+**Walmart-scale upper bound:** the same six-engine architecture serves the solo operator and the enterprise LP director (Walmart-scale). Engines lit dim vs lit at fleet scale; multi-jurisdiction is i18n on top of Voting (compliance) + Operations (regulatory rules) + Geospatial (boundary) + Store-Ops (jurisdictional SOPs).
+
+### Schema change
+
+```sql
+-- migration 006_add_engines
+ALTER TABLE alx_memories
+  ADD COLUMN engines text[] NOT NULL DEFAULT '{platform}';
+
+CREATE INDEX idx_alx_memories_engines ON alx_memories USING gin (engines);
+
+-- backfill from legacy layer column
+UPDATE alx_memories SET engines = '{platform}'  WHERE layer IN ('corp', 'shared');
+UPDATE alx_memories SET engines = '{operations}' WHERE layer = 'canary';
+UPDATE alx_memories SET engines = '{loyalty,voting}' WHERE layer = 'cove';
+```
+
+App-side `VALID_ENGINES` frozenset (in `memory_bus/store.py`):
+```python
+VALID_ENGINES = frozenset([
+    "loyalty", "voting", "store-ops", "web-store",
+    "operations", "geospatial", "platform",
+])
+```
+
+`VALID_LAYERS` is reinstated to include `cove` for backward-compat (it was inadvertently dropped). `layer` remains a partition column on the row but is no longer the canonical applicability filter — `engines` is.
+
+### MCP tool surface change
+
+`memory_recall`, `memory_search`, `memory_store` gain an optional `engines: list[str]` parameter. Filter semantics: row matches if `engines && :requested_engines` (PostgreSQL array overlap). Default: no engine filter (returns all).
+
+Authoring surface for new cards: frontmatter `engines: [list]` overrides the seeder's per-glob default.
+
+### Ingestion-to-vault pipeline
+
+The agentic intake-to-publish flow composes engines:
+
+```
+new info (any lane: drop, paste, meeting, web, IDE, mini, laptop)
+   ↓
+INTAKE              — Brain/raw/inbox/ landing; markitdown / pandoc extraction; no ceremony
+   ↓
+DOMAIN ASSIGNMENT   — agent classifies engines: text[] from content. Defaults to ['platform'] if uncertain.
+   ↓
+SIGNIFICANCE GRADE  — agent grades passing | moderate | load-bearing
+   ↓
+HIL CHECKPOINT      — Voting engine, consensus mode, single-voter (founder).
+                      Active session: in-chat approval. Background lane: queued in Brain/raw/proposed/.
+   ↓
+UPDATE GENERATOR    — wiki card draft, dependency check, optional new synthesis card
+   ↓
+BRAIN VAULT COMMIT  — markdown to Brain/wiki/, post-commit hook fires
+   ↓
+EMBEDDING           — seed_standalone.py picks up the new file, embeds, writes alx_memories with engines applicability
+   ↓ (loop: synthesis card may itself trigger a new intake — capped at one recursion per intake event)
+```
+
+### Audience-pool publishes — filtered queries, not separate stores
+
+Vault publishes (CRB, NCR, CATz) become **scripted filtered queries** at publish time over the engine-tagged corpus. No separate schemas. No separate MCP tools. Allowlist files in `services/memory-bus/curation/<vault>.yaml` declare:
+
+- Engine filter (e.g., NCR pool: `engines: [operations, platform]`)
+- Path allowlist for explicit inclusion
+- Frontmatter classification gate (`audience: ncr-public` or similar)
+- Transform rules (frontmatter normalization, IP-strip checks, internal-only redactions)
+
+The publish operation reads the allowlist, queries `alx_memories` (and disk), transforms per the rules, stages the payload, and pushes via the transient-clone pattern from CLAUDE.md. **No memory in the database is exclusive to one audience** — public and internal facets are policy filters at publish time.
+
+### Recursion limit
+
+A synthesis card produced by the pipeline may itself become an intake event. Cap: **one recursion per intake**. The synthesis card's downstream synthesis (if any) waits for the next session-bounded intake to potentially cascade further. Otherwise infinite cards.
+
+### Implementation scope
+
+Small. Forward work covered by §11:
+
+| Work | Files | Estimate |
+|------|-------|----------|
+| Migration 006 (engines column + GIN index + backfill) | `services/memory-bus/migrations/versions/006_add_engines.py` | ~50 lines |
+| `VALID_ENGINES` + tool param threading | `memory_bus/store.py`, `memory_bus/server.py` | ~80 lines |
+| Seeder engines field + frontmatter override | `seed_standalone.py` | ~50 lines |
+| Reinstate `cove` in `VALID_LAYERS` | `memory_bus/store.py` | 1 line |
+| Curation allowlist + dry-run script | `services/memory-bus/curation/*.yaml` + `scripts/stage_publish.py` | ~150 lines |
+| Tests | existing test files extended | ~50 lines |
+
+Total: ~400 lines of additions. No data loss, no breaking changes, no service downtime.
 
 ---
 

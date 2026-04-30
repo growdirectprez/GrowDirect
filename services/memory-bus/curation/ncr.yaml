@@ -1,0 +1,95 @@
+# NCR Vault Curation Allowlist
+#
+# Source: GrowDirect/Brain/wiki + docs/sdds/canary
+# Target: growdirect-llc/ncr (ncr.growdirect.io)
+# Audience: NCR Counterpoint VARs (principals, lead architects, engagement leads)
+# Per docs/sdds/platform/memory-bus.md §11 — audience-pool publish via filtered query
+#
+# Selection rule:
+#   include if (engines && [operations, platform])
+#     AND (path matches paths.allow OR frontmatter.audience contains 'ncr-public')
+#     AND (path NOT in paths.deny)
+#     AND (frontmatter.classification != 'confidential')
+
+engines:
+  - operations
+  - platform
+
+paths:
+  allow:
+    # Brain/wiki — VAR-publishable positioning
+    - Brain/wiki/ncr-counterpoint-modernization-path.md
+    - Brain/wiki/ncr-counterpoint-rapid-pos-relationship.md
+    - Brain/wiki/voyix-counterpoint-rapid-pos-engagement-context.md
+    - Brain/wiki/catz-method.md
+    - Brain/wiki/canary-module-*.md  # 13-module spine cards (already in vault as projections)
+
+    # docs/sdds — public-safe architecture references
+    - docs/sdds/canary/ncr-counterpoint-api-reference.md
+    - docs/sdds/canary/ncr-counterpoint-document-model.md
+    - docs/sdds/canary/ncr-counterpoint-endpoint-spine-map.md
+    - docs/sdds/platform/memory-bus.md  # public-safe section subset only — see transforms
+
+  deny:
+    # Internal-only: confidential source material from Bart's Azure DevOps
+    - Brain/wiki/rapidpos-driftpos-platform-brief.md
+    - Brain/raw/inbox/driftpos-summary.docx
+    - Brain/raw/inbox/architecture-modules-and-customization.odt
+    - Brain/raw/.extract/rapidpos-2026-04-30/**
+
+    # Internal stakeholder profiles
+    - Brain/wiki/bart-mccleskey-rapid-garden-pos.md  # phone, email — internal only
+    - Brain/wiki/founder-context-secure-engagement-archive.md
+
+    # Internal alignment / audit notes (not partner-facing)
+    - Brain/wiki/ncr-rapidpos-alignment-notes.md
+    - Brain/wiki/catz-rapidpos-alignment-notes.md
+    - Brain/wiki/crb-rapidpos-alignment-notes.md
+    - Brain/wiki/ncr-vault-gap-ledger.md
+
+  # IP-protected core — explicitly excluded even if engines match
+  ip_protected:
+    - "**/L402*.md"
+    - "**/satoshi-cost-accounting*.md"
+    - "**/ilwac*.md"
+
+frontmatter:
+  # When projecting to NCR vault, normalize to this minimal frontmatter
+  project_to:
+    title: required  # carry from source title or h1
+    nav_order: assign-by-section
+    audience: NCR Counterpoint VARs
+    last-updated: today
+  # Strip these on projection — internal-only fields
+  strip:
+    - classification
+    - source-evidence
+    - companion
+    - projects-to
+    - source
+
+vault_layout:
+  # How sources map to NCR vault paths
+  - source: Brain/wiki/ncr-counterpoint-modernization-path.md
+    target: modernization/index.md
+    section: modernization
+    nav_order: 30
+
+transform:
+  ip_strip:
+    # Soft-strip references to protected IP — replace with generic phrasing
+    - pattern: "L402-gated"
+      replacement: "policy-gated"
+    - pattern: "satoshi-precision"
+      replacement: "high-precision"
+    - pattern: "L2 anchoring"
+      replacement: "tamper-evident anchoring"
+  redact_internal_names:
+    # Internal stakeholder names should never appear in public projections
+    - "Bart McCleskey"
+    - "D'Orin Ayres"
+    - "Tim Mooney"
+    - "Matt Wells"
+    - "Chris (RapidPOS)"
+    - "Geoffrey"
+    # Replace with generic role refs at publish time
