@@ -136,3 +136,50 @@ Priority reading order:
 - [[Brain/wiki/cards/ilwac-extended-bitcoin-standard|IL(Device/MCP/Port/)WAC — Extended Cost Model]]
 - [[Brain/wiki/canary-market-positioning|Canary Market Positioning]]
 - ECR Community Retail Loss Group: [ecrloss.com](https://ecrloss.com)
+
+
+---
+
+## Practitioner Connection — SEG / BI-LO Implementation
+
+Beck's Total Retail Loss framework was not just read — it was implemented operationally.
+
+**Southeastern Grocers / BI-LO engagement** (Secure Store EBR implementation) included working with **Dan Fakety**, SEG's loss prevention leadership, to operationalize the TRL framework specifically. The logical design of the Secure Store implementation at SEG — the loss categories, the detection model structure, the audit trail requirements — reflects Beck's taxonomy applied to a live Tier-1 regional grocery chain.
+
+This is not advisory work that referenced the framework. It is the framework implemented in a production exception-based reporting system across a multi-banner grocery operator.
+
+**Why this matters for the recruiter brief:** The connection runs from academic framework (Beck) → practitioner (Dan Fakety at SEG) → systems architect (Lyle, Secure Store EBR) → platform (RTI integration backbone) → today (Canary Go, 13-module retail spine). It is a 20-year evidence chain from theory to running code.
+
+**Why this matters for the NCR vault:** The NCR vault is the commercial expression of this same logic. The detection rules, loss category definitions, and accountability model in the CRB and NCR vault are grounded in Beck's TRL typology — operationalized through real grocery implementations, not derived from the book alone.
+
+---
+
+## Agent Training Significance
+
+This is the math the agents need to reason from.
+
+Beck's framework provides the business logic substrate for agent reasoning on retail loss. Specifically:
+
+| Beck concept | Agent reasoning surface |
+|---|---|
+| 33 TRL categories | Fox case classification — which loss category does this event map to? |
+| Known vs. unknown loss | Operational rail closure — is this gap in the evidentiary record or in the detection model? |
+| Total Retail Loss as % of sales | Financial rail — what is the merchant's true loss exposure, not just their shrinkage line? |
+| Loss across the full enterprise (not just store) | Module spine coverage — every module (T, V, M, D, Q, E...) contributes to or prevents a TRL category |
+| Operational excellence as the loss lever | CATz delivery posture — the method is operational, not security-spend-based |
+
+**The three accountability rails in CATz are a formalization of Beck's TRL typology:**
+
+- **Operational rail** = Beck's "unknown loss" — the inventory gap that has no explanation
+- **Financial rail** = Beck's enterprise/digital fraud categories — authorized spend only, OTB constraint
+- **Evidentiary rail** = Beck's call for consistent, auditable measurement — every record hashed, traceable, portable
+
+An agent reasoning about a merchant's shrinkage problem that does not have Beck's framework embedded will produce surface-level recommendations. An agent that has internalized the TRL typology will ask the right diagnostic questions: *which of the 33 categories is driving this? Is it known or unknown? What is the detection gap?*
+
+**Priority for CRB and NCR vault seeding:** Beck's TRL framework — specifically the category typology and the known/unknown distinction — should be embedded as a core reasoning primitive in the agent knowledge base, not just referenced as a source.
+
+---
+
+## Note on Archive.org
+
+The physical book ("New Loss Prevention," 2009) was scanned during early archive parsing sessions. The Kindle edition is available for purchase and is the canonical reference going forward. Beck's ECR papers are freely available at ecrloss.com and ResearchGate — no archive needed for the framework papers.
