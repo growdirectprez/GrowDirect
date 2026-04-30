@@ -1,0 +1,196 @@
+{
+  "source": "Live network observation via Claude-in-Chrome MCP on bonsall browser",
+  "extracted_at": "2026-04-29",
+  "scope": "PDP (lawn-garden sprayer/mister), /stores/ home, /products/lawn-garden/ PLP. Auth-walled flows (cart, checkout, account) NOT observed.",
+  "classification_legend": {
+    "TERMINATE": "Canary Go gateway answers this — storefront calls our spine for the data",
+    "FORWARD": "Vendor or Murdoch's existing service still owns this — gateway proxies",
+    "REPLACE": "Murdoch's owns today; we'd swap implementation but preserve contract during migration",
+    "KEEP": "Tracking/analytics/marketing — leave alone, not in our spine's domain"
+  },
+  "endpoints": [
+    {
+      "endpoint": "Constructor.io behavioral_action API",
+      "host": "ac.cnstrc.com",
+      "path_pattern": "/v2/behavioral_action/{action}",
+      "observed_actions": ["item_detail_load"],
+      "inferred_actions": ["browse", "search", "filter", "autocomplete", "recommendation"],
+      "method": "GET / POST",
+      "auth": "API key in query (key=key_eN0Z5gklJfTKN3qm)",
+      "first_seen_on": "PDP",
+      "purpose": "Search engine, faceted browse, recommendations, behavioral tracking",
+      "vendor": "Constructor.io",
+      "gateway_classification": "FORWARD",
+      "rationale": "Constructor.io is Murdoch's contracted search/discovery vendor. Their indexing of catalog data would need to ingest from our spine post-migration, but the runtime API stays vendor-managed."
+    },
+    {
+      "endpoint": "Anti-bot beacon",
+      "host": "portal.brandlock.io",
+      "path_pattern": "/?hit=<encoded_payload>",
+      "method": "GET",
+      "first_seen_on": "PDP",
+      "purpose": "Bot detection, fingerprint scoring, session validation",
+      "vendor": "BrandLock",
+      "gateway_classification": "FORWARD",
+      "rationale": "Vendor-managed security layer. Independent of catalog/inventory."
+    },
+    {
+      "endpoint": "Listrak personalization rule fetch",
+      "host": "t.lt02.net",
+      "path_pattern": "/pf/{tenant_id}/{rule_id}.json",
+      "method": "GET",
+      "observed_count": 3,
+      "first_seen_on": "PDP",
+      "purpose": "Email/lifecycle personalization rules (e.g. 'Get 10% Off' floating CTA, browse-abandonment triggers)",
+      "vendor": "Listrak",
+      "gateway_classification": "FORWARD"
+    },
+    {
+      "endpoint": "Listrak activity beacon",
+      "host": "webcontent-activity.listrak.com",
+      "path_pattern": "/Activity/{contact_token}",
+      "method": "POST",
+      "first_seen_on": "PDP",
+      "purpose": "Lifecycle activity tracking (page views, browse signals)",
+      "vendor": "Listrak",
+      "gateway_classification": "FORWARD"
+    },
+    {
+      "endpoint": "CookieYes consent service",
+      "hosts": ["cdn-cookieyes.com", "log.cookieyes.com", "directory.cookieyes.com"],
+      "path_patterns": ["/client_data/{tenant}/banner.js", "/client_data/{tenant}/config/<id>.json", "/api/v1/log", "/api/v1/ip"],
+      "method": "GET / POST",
+      "first_seen_on": "/stores/",
+      "purpose": "GDPR/CCPA cookie consent management",
+      "vendor": "CookieYes",
+      "gateway_classification": "FORWARD"
+    },
+    {
+      "endpoint": "Internal Murdoch's events service",
+      "host": "mbzaubiphz.us-west-2.awsapprunner.com",
+      "path_pattern": "/events/{hash}",
+      "method": "POST",
+      "observed_response": "503",
+      "first_seen_on": "/stores/",
+      "purpose": "Unknown. Custom Murdoch's-built service running in AWS App Runner (us-west-2). Hostname is anonymous/random, suggests internal-only. POST events, returns 503 — possibly deliberate (fire-and-forget event ingest with empty body response).",
+      "vendor": "Murdoch's (internal)",
+      "gateway_classification": "REPLACE",
+      "rationale": "First-party service of unknown purpose. If it's behavioral telemetry, our spine's observability covers it. If it's an order/loyalty/wallet service, would need investigation. Worth chasing — the AWS App Runner anonymous hostname is the only first-party Murdoch's-branded API surface I observed.",
+      "open_question": "What does this service actually do? Single endpoint observed, anonymous host, response 503. Could be a health probe, telemetry sink, or something more material. Recommend deeper investigation."
+    },
+    {
+      "endpoint": "Maps API",
+      "host": "maps.googleapis.com",
+      "path_pattern": "/maps-api-v3/api/js/64/9c/*.js",
+      "method": "GET",
+      "first_seen_on": "PDP (lazy-loaded for store-locator dialog)",
+      "purpose": "Google Maps JS for the store-locator dialog map view",
+      "vendor": "Google Maps",
+      "gateway_classification": "FORWARD"
+    },
+    {
+      "endpoint": "Live chat widget",
+      "host": "downloads-global.3cx.com",
+      "path_pattern": "/downloads/livechatandtalk/v1/callus.js",
+      "method": "GET",
+      "first_seen_on": "PDP, /stores/",
+      "purpose": "3CX live chat / call-us widget",
+      "vendor": "3CX",
+      "gateway_classification": "FORWARD"
+    },
+    {
+      "endpoint": "Tracking — GA4 enhanced ecommerce",
+      "hosts": ["analytics.google.com", "merchant-center-analytics.goog"],
+      "path_patterns": ["/g/collect", "/mc/collect"],
+      "method": "POST",
+      "first_seen_on": "PDP, /stores/, PLP",
+      "purpose": "Google Analytics 4 page/event tracking + Google Merchant Center conversion",
+      "key_intel": "GA4 view_item event leaks pr1=idFOGR_190424 — vendor/manufacturer code, distinct from JSON-LD's POS SKU 9390357. Confirms dual-keyed item master.",
+      "vendor": "Google",
+      "gateway_classification": "KEEP"
+    },
+    {
+      "endpoint": "Tracking — ad/marketing tags",
+      "hosts": [
+        "googleads.g.doubleclick.net",
+        "google.com/pagead",
+        "google.com/rmkt",
+        "google.com/ccm",
+        "ad.doubleclick.net",
+        "bat.bing.com (Bing UET)",
+        "facebook.com/tr (Facebook Pixel)",
+        "log.pinterest.com",
+        "insight.adsrvr.org (TheTradeDesk)",
+        "pixel.quantserve.com (Quantcast)",
+        "rules.quantcount.com"
+      ],
+      "first_seen_on": "all pages",
+      "purpose": "Programmatic ad networks, retargeting, conversion attribution",
+      "gateway_classification": "KEEP"
+    },
+    {
+      "endpoint": "Tracking — observability / heatmaps",
+      "hosts": ["j.clarity.ms (Microsoft Clarity)", "scripts.clarity.ms", "dc.services.visualstudio.com (Application Insights)"],
+      "first_seen_on": "all pages",
+      "purpose": "Session replay, heatmaps, server-side telemetry",
+      "gateway_classification": "KEEP"
+    },
+    {
+      "endpoint": "Store list (no XHR — embedded in HTML)",
+      "host": "www.murdochs.com",
+      "path": "/stores/ — inline <script> with var svmObj = {stores: [...]}",
+      "method": "SSR (no XHR)",
+      "purpose": "All 47 stores embedded as JS object literal in /stores/ page. No store-list API exists in the request stream — it's pure SSR.",
+      "vendor": "Murdoch's (Episerver)",
+      "gateway_classification": "TERMINATE",
+      "rationale": "Canary Go owns store master. Even though Murdoch's serves it via SSR (not XHR), our spine becomes the source of truth. Their Episerver template fetches from us at render time."
+    },
+    {
+      "endpoint": "BOPIS / inventory-by-store API",
+      "host": "www.murdochs.com",
+      "path_pattern": "(not directly captured this session)",
+      "method": "presumed XHR",
+      "first_seen_on": "PDP store-locator dialog",
+      "purpose": "Real-time per-store inventory check for the SKU on a PDP, drives the 'Find in a Murdoch's store' workflow",
+      "evidence": "inferred (workflow exists in UI; XHR did not surface in network monitor — possible service-worker interception or full-page nav model)",
+      "vendor": "Murdoch's (first-party)",
+      "gateway_classification": "TERMINATE",
+      "rationale": "Inventory authority shifts to Canary Go spine. Module D + Module S join. Critical to capture in a follow-up session — currently the highest-value first-party API and we don't have a packet on it yet."
+    },
+    {
+      "endpoint": "Cart API",
+      "host": "www.murdochs.com",
+      "path_pattern": "(not observed — auth-walled)",
+      "method": "presumed POST/PUT",
+      "purpose": "Add to cart, modify cart, checkout init",
+      "vendor": "Murdoch's (first-party)",
+      "gateway_classification": "FORWARD",
+      "rationale": "Cart is a transactional surface tied to checkout/payment flow. Out of Canary Go scope (Counterpoint owns transactional). Forward."
+    },
+    {
+      "endpoint": "Search engine catalog feed",
+      "host": "ac.cnstrc.com",
+      "purpose": "Constructor.io ingests Murdoch's catalog for search indexing",
+      "evidence": "inferred (Constructor.io requires a feed)",
+      "gateway_classification": "TERMINATE_FEED",
+      "rationale": "Today the catalog feed presumably comes from Murdoch's Episerver/PIM. Post-migration, the feed source becomes our Canary Go catalog API. Constructor.io stays the runtime."
+    }
+  ],
+  "summary_counts": {
+    "third_party_vendors_observed": 14,
+    "first_party_endpoints_observed": 1,
+    "first_party_endpoints_inferred": 3,
+    "TERMINATE_classifications": 3,
+    "FORWARD_classifications": 7,
+    "REPLACE_classifications": 1,
+    "KEEP_classifications": 3
+  },
+  "open_questions": [
+    "What is mbzaubiphz.us-west-2.awsapprunner.com? Anonymous AWS App Runner service. Single observed endpoint. Could be telemetry, loyalty, or something material.",
+    "Inventory-by-store API contract: not captured this session. Need a follow-up where we open the store-locator dialog, type a zip, click Find, and inspect the network panel manually.",
+    "Reviews: page is wired for reviews ('0 stars / Write a review' visible) but no review XHR observed. Likely BazaarVoice or PowerReviews. Worth confirming.",
+    "BOPIS fulfillment: 'SHIP IT' button + 'Find in a Murdoch's store' link on PDP. Two-fulfillment model confirmed but logic flow not captured.",
+    "Cart persistence: anonymous vs. logged-in cookie behavior unobserved.",
+    "MAP pricing: window.clickToViewPriceCuratedProduct global suggests some SKUs hide price until click. Logic and trigger unobserved."
+  ]
+}

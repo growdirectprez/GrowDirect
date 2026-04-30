@@ -1,0 +1,108 @@
+{
+  "source": "Live observation via Claude-in-Chrome MCP, browser='bonsall', UA=user's normal Chrome",
+  "extracted_at": "2026-04-29",
+  "method": "Navigate to representative URL, read network requests, inspect DOM globals via JS, capture screenshots",
+  "evidence_basis": "observed = directly captured via browser tools; inferred = visible patterns suggest but not directly observed; not_observed = listed for completeness, not visited this session",
+  "page_types": [
+    {
+      "page_type": "Home",
+      "example_urls": ["https://www.murdochs.com/"],
+      "purpose": "Top-of-funnel: category nav, promotional tiles, weekly ad lead-in, store selector",
+      "rendering": "SSR (Episerver/Optimizely), Yottaa CDN in front",
+      "evidence": "observed",
+      "evidence_notes": "Initial home fetch via Bash curl with custom UA. 296KB HTML. 12 top-level dept nav links visible plus utility nav (Garden Centers, Equipment Repair, Propane, Find a Store, Help, Rewards, Gift Cards, The Dirt blog).",
+      "key_interactions": ["dept_nav_hover", "store_selector_click", "search_typeahead", "newsletter_signup"]
+    },
+    {
+      "page_type": "Department/Category landing",
+      "example_urls": ["https://www.murdochs.com/category/lawn-garden/", "https://www.murdochs.com/category/farm-ranch-supplies/"],
+      "purpose": "CMS-curated department pages with feature tiles, seasonal promos, links into PLPs",
+      "rendering": "SSR, Episerver content blocks",
+      "evidence": "inferred",
+      "evidence_notes": "Pattern visible in homepage nav links. URL pattern /category/<slug>/ separate from /products/<slug>/. Not directly visited this session."
+    },
+    {
+      "page_type": "PLP (Product List Page)",
+      "example_urls": ["https://www.murdochs.com/products/lawn-garden/", "https://www.murdochs.com/products/clothing-footwear-accessories/mens-clothing/jeans/"],
+      "purpose": "Browse and filter SKUs within a category. Faceted search with brand/special/style/gender filters.",
+      "rendering": "SSR shell, hydrated by Constructor.io React SDK for product grid + facets",
+      "evidence": "observed",
+      "evidence_notes": "Visited /products/lawn-garden/. 31 product cards rendered. Every facet element has cio-* class prefix (Constructor.io React SDK). Window globals include catalogCategoryName, headerSearchServerSideViewModel, triggerProductBrowseActivity, clickToViewPriceCuratedProduct.",
+      "key_interactions": ["facet_filter_apply", "facet_filter_remove", "sort_change", "pagination", "product_card_click", "load_more"],
+      "data_dependencies": ["catalog (Constructor.io index)", "pricing", "inventory_by_store", "MAP_pricing_flag"],
+      "observed_classes": ["cio-filters", "cio-filter-group", "cio-filter-multiple-option", "cio-filter-option-name", "cio-filter-option-count", "search__filters__sort-by"],
+      "third_party": ["Constructor.io (search engine + facets)"]
+    },
+    {
+      "page_type": "PDP (Product Detail Page)",
+      "example_urls": ["https://www.murdochs.com/products/lawn-garden/garden-center/landscaping-supplies/spot-sprayers/grab-go-sprayer-mister/"],
+      "purpose": "Single SKU detail with pricing, variants, store inventory check, ship-to-home, BOPIS",
+      "rendering": "SSR, Episerver. JSON-LD Product schema embedded. og:image meta tags carry real image URLs.",
+      "evidence": "observed",
+      "evidence_notes": "Visited and captured. JSON-LD has @type=Product with name/brand/description/offers[]. Real fields: SKU=9390357, MPN=190424, name, brand 'Grab & Go', price $14.99 USD, availability InStock. UI shows TWO product IDs: SKU# (POS) and MPN# (manufacturer part number) — dual-keyed item master confirmed in production.",
+      "schema_quirk": "JSON-LD 'image' field returns the .NET ToString() of their ImageModel class instead of a URL. Real images are in og:image meta tags. Parser-side workaround needed.",
+      "key_interactions": ["variant_select", "qty_change", "ship_it_click", "find_in_store_click", "store_search", "add_to_cart"],
+      "observed_third_party_calls": [
+        "Constructor.io behavioral_action/item_detail_load (PDP view tracking)",
+        "Listrak personalization rule fetch (3 rule files)",
+        "BrandLock anti-bot beacon",
+        "GA4 enhanced ecommerce view_item with item_id=FOGR_190424 (vendor code, not POS SKU)",
+        "Bing UET, Pinterest, TheTradeDesk, Facebook Pixel"
+      ]
+    },
+    {
+      "page_type": "Store finder (/stores/)",
+      "example_urls": ["https://www.murdochs.com/stores/"],
+      "purpose": "Browse all 47 stores, search by ZIP/city, link into per-store detail pages",
+      "rendering": "SSR with full store data injected as JS object literal in inline <script>",
+      "evidence": "observed",
+      "evidence_notes": "47 stores in window.stores array. Every store has number, storeName, address, city/state/zip, phone, lat/lng, comingSoon flag, storeDetailsLink, facebookStorePage. Also window.chooseAStoreServerSideViewModel with storeUpdateMessage, selectedStoreNumber, murdochsRegionDistanceThreshold (300mi), freeInStoreComingSoon. No XHR needed — entire dataset embedded server-side.",
+      "key_interactions": ["geolocation_request", "zip_search", "store_select"],
+      "observed_third_party_calls": [
+        "CookieYes consent banner (full audit table loaded)",
+        "Quantcast, Facebook Pixel, DoubleClick floodlight",
+        "GA4, Bing UET, Application Insights, Microsoft Clarity",
+        "Custom internal AWS App Runner service: mbzaubiphz.us-west-2.awsapprunner.com/events/* — POST events, 503 in observation but 503 may be deliberate response (event captured, no body needed)"
+      ]
+    },
+    {
+      "page_type": "Store detail (per-store)",
+      "example_urls": ["https://www.murdochs.com/stores/bozeman/", "https://www.murdochs.com/stores/<slug>/"],
+      "purpose": "Per-store hours, amenities (fuel, propane, feed dock, boots), manager, services, store-specific events",
+      "rendering": "SSR (inferred Episerver, same template family)",
+      "evidence": "not_observed",
+      "evidence_notes": "Linked from /stores/ via store.storeDetailsLink field. 47 detail pages exist. Hours and amenities are NOT in the /stores/ window.stores payload — they live on the per-store page. A separate per-store crawl would be needed for full location master detail."
+    },
+    {
+      "page_type": "Search results",
+      "example_urls": ["https://www.murdochs.com/search/?q=<query>"],
+      "purpose": "Cross-category text search results",
+      "rendering": "SSR shell hydrated by Constructor.io React SDK (same as PLP)",
+      "evidence": "inferred",
+      "evidence_notes": "/search/ is in robots.txt Disallow list; not visited. Window globals on PLP include searchUrl='/search/'. Search engine is Constructor.io based on the cio-* class footprint observed on PLP."
+    },
+    {
+      "page_type": "Weekly ad / flyer",
+      "example_urls": ["https://www.murdochs.com/sale-flyer/", "https://www.murdochs.com/go/sale-flyer/"],
+      "purpose": "Weekly promotional flyer (PDF or interactive)",
+      "rendering": "Unknown — both /sale-flyer and /go/sale-flyer are in robots.txt Disallow list",
+      "evidence": "not_observed",
+      "evidence_notes": "Robots.txt explicitly disallows. Internal-only or proprietary flyer rendering. Likely third-party flyer vendor."
+    },
+    {
+      "page_type": "Customer service / The Dirt blog",
+      "example_urls": ["https://www.murdochs.com/customer-service/", "https://www.murdochs.com/the-dirt/"],
+      "purpose": "FAQs, returns, shipping, blog/lifestyle content",
+      "rendering": "SSR Episerver",
+      "evidence": "not_observed"
+    },
+    {
+      "page_type": "Cart / Checkout / Account",
+      "example_urls": ["https://www.murdochs.com/shopping-cart/", "https://www.murdochs.com/checkout/", "https://www.murdochs.com/account/*"],
+      "purpose": "Auth-walled cart, multi-step checkout, account management",
+      "rendering": "Unknown",
+      "evidence": "not_observed",
+      "evidence_notes": "Out of scope per dispatch. Robots.txt also disallows."
+    }
+  ]
+}
