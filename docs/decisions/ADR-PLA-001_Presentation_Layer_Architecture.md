@@ -13,7 +13,7 @@ updated: 2026-03-19
 **Status:** APPROVED (Jeffe directive, February 25, 2026)
 **Author:** ALX
 **Decision Maker:** Jeffe
-**Affects:** Tom (architecture), Jeremy (implementation), Art (design system), Condor (blueprint refactor), PhD (investor narrative)
+**Affects:** Architect (architecture), Engineer (implementation), UX (design system), Condor (blueprint refactor), PhD (investor narrative)
 
 ---
 
@@ -32,7 +32,7 @@ Additionally, locale and merchant metadata labeling must be architected from day
 The presentation stack is a four-layer architecture:
 
 ```
-LAYER 1: HARD CORE (Jeremy's build — never changes fast, never should)
+LAYER 1: HARD CORE (Engineer's build — never changes fast, never should)
   CRDM + Immutability Triggers + Hash Chain + Detection Engine + REST APIs
   
 LAYER 2: FUNCTIONAL BLUEPRINT (Condor — brand-agnostic, locale-agnostic)
@@ -41,7 +41,7 @@ LAYER 2: FUNCTIONAL BLUEPRINT (Condor — brand-agnostic, locale-agnostic)
   Contains NO display strings — only token keys (e.g., {{chirp.hero.title}})
   Contains NO visual specifications — only structural layout semantics.
 
-LAYER 3a: THEME PACK (Art / agency / merchant — swappable)
+LAYER 3a: THEME PACK (UX / agency / merchant — swappable)
   Color tokens, typography, spacing, border radius, shadows,
   icon set, layout preferences (nav position, card style),
   mascot/avatar, animation preferences.
@@ -91,7 +91,7 @@ The backend performs resolution (it knows the merchant's language and vocabulary
 Triangulation/
   Canary_Functional_Blueprint_v2.0.md        ← Layer 2 (no display strings, no visual specs)
   ThemePacks/
-    canary_default_v1.0.json                 ← Art's dark theme, animal icons
+    canary_default_v1.0.json                 ← UX's dark theme, animal icons
     canary_light_v1.0.json                   ← Light mode variant (future)
     white_label_template_v1.0.json           ← Blank for agencies
   LocalePacks/
@@ -154,15 +154,15 @@ Settings → Currency & Formatting
 
 | Item | Sprint | Owner |
 |---|---|---|
-| March 3 demo uses v1.0 blueprint as-is (no refactor needed) | Sprint 5 | Jeremy |
+| March 3 demo uses v1.0 blueprint as-is (no refactor needed) | Sprint 5 | Engineer |
 | Token-key all display strings in Functional Blueprint v2.0 | Sprint 6 | Condor |
-| Default `en-US.json` locale file | Sprint 6 | Condor + Jess |
-| Default `vocabulary.json` with Canary standard terms | Sprint 6 | Condor + Tom |
-| Extract Theme Pack from blueprint into separate file | Sprint 6 | Condor + Art |
-| Bolt.diy accepts 3 separate inputs (blueprint + theme + locale) | Sprint 7 | Jeremy |
-| Vocabulary Pack editor in merchant settings UI | Sprint 7+ | Jeremy + Art |
-| Second locale (`es-MX`) | Sprint 8+ | Jess + external translator |
-| Agency white-label workflow documentation | Sprint 8+ | Condor + Syd |
+| Default `en-US.json` locale file | Sprint 6 | Condor + Writer |
+| Default `vocabulary.json` with Canary standard terms | Sprint 6 | Condor + Architect |
+| Extract Theme Pack from blueprint into separate file | Sprint 6 | Condor + UX |
+| Bolt.diy accepts 3 separate inputs (blueprint + theme + locale) | Sprint 7 | Engineer |
+| Vocabulary Pack editor in merchant settings UI | Sprint 7+ | Engineer + UX |
+| Second locale (`es-MX`) | Sprint 8+ | Writer + external translator |
+| Agency white-label workflow documentation | Sprint 8+ | Condor + Legal |
 
 ---
 
@@ -178,4 +178,4 @@ Settings → Currency & Formatting
 ---
 
 *ADR approved by Jeffe — February 25, 2026*
-*Routes to: Tom (architecture), Jeremy (implementation), Art (theming system), Condor (blueprint refactor), PhD (investor narrative)*
+*Routes to: Architect (architecture), Engineer (implementation), UX (theming system), Condor (blueprint refactor), PhD (investor narrative)*

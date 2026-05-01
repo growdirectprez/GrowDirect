@@ -97,6 +97,9 @@ sessions for urgent dispatches.
 
 **If you are ALXjr running on the Mac mini, Docker must be up before any dispatch work begins. No Docker, no ALX.**
 
+> [!warning] Relaxed during GRO-700 execution (2026-05-01 → mini wipe)
+> Per **GRO-700 v2** (mini becomes a dev workstation; production load moves to GCP), the mini's Docker stack is being torn down. The Mini Docker Gate is **suspended** until Phase 5 brings the memory bus up on Cloud SQL pgvector. ALXjr can pick up dispatches without the local stack during this window.
+
 ALXjr's capabilities — memory recall, domain context, embeddings, Canary Go services — are entirely Docker-dependent. A session without the stack is a blind session. Do not start a dispatch. Do not touch code. Fix the stack first.
 
 **Startup sequence (mini, every session):**
@@ -162,6 +165,9 @@ If you just landed in this repo, read in this order:
 
 **Active build:** Canary Go — Go/GCP, 13-module spine, ARTS-native. Python prototype
 is frozen (`v0-python-prototype` tag on GRO-629). Do not extend it.
+
+**SDD corpus:** `docs/sdds/go-handoff/` holds ~53 SDDs covering the Canary Go module
+spine, contracts, and infra. Audit them when changing scope or adding modules.
 
 **Canary Go Docker:** Own stack, own databases (`canary_go` / `canary_go_test`).
 No shared state with the Python Canary stack. Clean break.

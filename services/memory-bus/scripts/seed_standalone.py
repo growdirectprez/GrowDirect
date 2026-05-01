@@ -1,8 +1,8 @@
 #!/usr/bin/env python3
 """Standalone memory bus seeder — no memory_bus package dependency.
 
-Reads Brain/wiki/*.md, Brain/wiki/cards/*.md, docs/sdds/**/*.md,
-docs/superpowers/plans/*.md, docs/superpowers/specs/*.md
+Reads Brain/wiki/*.md, Brain/wiki/cards/*.md, Brain/dispatches/*.md,
+docs/sdds/**/*.md, docs/superpowers/plans/*.md, docs/superpowers/specs/*.md
 and seeds alx_memories via direct psycopg2 + Ollama REST calls.
 
 Rows are written with session_id='seed-standalone' so they surface
@@ -51,6 +51,7 @@ SEED_SESSION_ID = "seed-standalone"
 SOURCES = [
     {"glob": "Brain/wiki/*.md",            "memory_type": "context_block", "layer": "corp",   "engines": ["platform"]},
     {"glob": "Brain/wiki/cards/*.md",      "memory_type": "context_block", "layer": "corp",   "engines": ["platform"]},
+    {"glob": "Brain/dispatches/*.md",      "memory_type": "work_product",  "layer": "corp",   "engines": ["platform"]},
     {"glob": "docs/sdds/canary/*.md",      "memory_type": "context_block", "layer": "canary", "engines": ["operations"]},
     {"glob": "docs/sdds/platform/*.md",    "memory_type": "context_block", "layer": "corp",   "engines": ["platform"]},
     {"glob": "docs/sdds/alx/*.md",         "memory_type": "context_block", "layer": "shared", "engines": ["platform"]},

@@ -3,14 +3,17 @@ classification: confidential
 owner: GrowDirect LLC
 ---
 
-# Shared Infrastructure — Dev Stack
+# Shared Infrastructure — Local Dev Stack
 
-> **Status:** Production-grade ops contract
-> **Type:** Platform Service
+> [!warning] Scope: local development only
+> Per **GRO-700 v2** and `Brain/wiki/cards/platform-stack-commitment.md`, the production substrate is **GCP** (Cloud Run + Cloud SQL + Memorystore + Pub/Sub + Vertex AI + Identity Platform). The Docker Compose stack documented below is the **local dev environment only** — it does not describe production. Do not extend this doc with production claims; production runtime topology lives in `Brain/wiki/cards/gcp-foundation-runbook.md` and (forthcoming) `docs/sdds/platform/gcp-target-architecture.md`.
+
+> **Status:** Local dev contract
+> **Type:** Platform Service (dev environment)
 > **Namespace:** platform
-> **Last updated:** 2026-04-13
+> **Last updated:** 2026-05-01 (scope retitled per GRO-700 v2)
 > **Code location:** `devops/docker-compose.yml`, `devops/init-db/`
-> **AWS target:** See [[docs/sdds/platform/aws-target-architecture|AWS Target Architecture]]
+> **Production substrate:** GCP — see `Brain/wiki/cards/gcp-foundation-runbook.md`
 > **Author role:** [[docs/team/DevOps|DevOps]] · **Operator role:** [[docs/team/Engineer|Engineer]]
 
 **Wiki:** [[Brain/wiki/growdirect-workflow|GrowDirect Workflow]] · [[Brain/projects/Canary|Canary MOC]] · [[Brain/projects/Cove|Cove MOC]] · [[Brain/projects/Angel|Angel MOC]]

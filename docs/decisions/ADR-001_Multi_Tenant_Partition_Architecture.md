@@ -11,7 +11,7 @@ updated: 2026-03-19
 
 **Status:** Accepted (Jeffe, 2026-03-04)
 **Date:** 2026-03-04
-**Deciders:** Jeffe (CEO), Tom (Systems Architect), Syd (Legal — FCRA)
+**Deciders:** Jeffe (CEO), Architect (Systems Architect), Legal (Legal — FCRA)
 **Linear:** GRO-18
 **Supersedes:** N/A
 **Relates to:** GRO-74 (Integration Wallet), GRO-96 (Phase 0 DB Foundation), GRO-93 (Square BTC Treasury)
@@ -217,11 +217,11 @@ Option B solves a problem we don't have (many-to-many grouping) and adds complex
 
 ---
 
-## FCRA Opinion Request (Syd)
+## FCRA Opinion Request (Legal)
 
 Data isolation is **maintained at the merchant level**. The combined view is an aggregation privilege granted to users within the same organization — it does not weaken RLS. Each merchant's data is individually protected by PostgreSQL RLS policies. The organization layer is an access control concept, not a data partition change.
 
-**Question for Syd:** Does the combined view (org owner seeing data from two merchant_ids they own) create any FCRA or data privacy concerns, given that both merchant accounts are under the same legal entity?
+**Question for Legal:** Does the combined view (org owner seeing data from two merchant_ids they own) create any FCRA or data privacy concerns, given that both merchant accounts are under the same legal entity?
 
 ---
 
@@ -302,13 +302,13 @@ To validate multi-tenant in dev:
 
 ## Action Items
 
-1. [ ] **Tom:** Review architecture — confirm org → merchant parent-child is sound
-2. [ ] **Syd:** FCRA opinion on combined view across merchant_ids within one org
-3. [ ] **Jeremy:** Create Alembic migration for `organizations` table + `merchants.organization_id` FK
+1. [ ] **Architect:** Review architecture — confirm org → merchant parent-child is sound
+2. [ ] **Legal:** FCRA opinion on combined view across merchant_ids within one org
+3. [ ] **Engineer:** Create Alembic migration for `organizations` table + `merchants.organization_id` FK
 4. [ ] **ALX:** Update `level_b_demo.py` — create org, assign demo merchant, seed merchant #2
 5. [ ] **ALX:** Update RLS policy in `level_b_demo.py` to use `ANY(string_to_array(...))`
 6. [ ] **ALX:** Update `jwt_auth.py` middleware — `g.merchant_ids` (list), `g.organization_id`
-7. [ ] **Jim:** QA test plan — single view, combined view, cross-tenant isolation verification
+7. [ ] **QA:** QA test plan — single view, combined view, cross-tenant isolation verification
 8. [ ] **Jeffe:** Approve architecture before code begins
 
 ---
