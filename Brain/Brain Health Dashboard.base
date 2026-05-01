@@ -1,0 +1,181 @@
+filters:
+  and:
+    - 'file.inFolder("Brain/wiki")'
+
+formulas:
+  days_overdue: 'if(needs-review, (today() - date(needs-review)).days, "")'
+  days_since_update: 'if(last-compiled, (today() - date(last-compiled)).days, "")'
+  days_old: '(today() - file.ctime).days'
+
+properties:
+  formula.days_overdue:
+    displayName: "Days overdue"
+  formula.days_since_update:
+    displayName: "Days since update"
+  formula.days_old:
+    displayName: "Days old"
+  needs-review:
+    displayName: "Review due"
+  last-compiled:
+    displayName: "Compiled"
+
+views:
+  - type: table
+    name: "Overdue reviews"
+    limit: 50
+    filters:
+      and:
+        - 'needs-review != null'
+        - 'date(needs-review) < today()'
+    order:
+      - file.name
+      - needs-review
+      - formula.days_overdue
+      - status
+      - type
+
+  - type: table
+    name: "Recently updated (last 14 days)"
+    limit: 25
+    filters:
+      and:
+        - 'last-compiled != null'
+        - 'date(last-compiled) >= (today() - duration("14 days"))'
+    order:
+      - file.name
+      - last-compiled
+      - formula.days_since_update
+      - status
+      - type
+
+  - type: table
+    name: "Missing frontmatter — no last-compiled"
+    limit: 50
+    filters:
+      and:
+        - 'last-compiled == null'
+    order:
+      - file.name
+      - file.ctime
+      - status
+      - type
+
+  - type: table
+    name: "Missing frontmatter — no status"
+    limit: 50
+    filters:
+      and:
+        - 'status == null'
+    order:
+      - file.name
+      - file.ctime
+      - type
+
+  - type: table
+    name: "Stale (no update in 30+ days)"
+    limit: 50
+    filters:
+      and:
+        - 'last-compiled != null'
+        - 'date(last-compiled) < (today() - duration("30 days"))'
+    order:
+      - file.name
+      - last-compiled
+      - formula.days_since_update
+      - status
+
+  - type: table
+    name: "Engine applicability — operations engine"
+    limit: 50
+    filters:
+      and:
+        - 'engines != null'
+        - 'engines.contains("operations")'
+    order:
+      - file.name
+      - status
+      - last-compiled
+      - engines
+
+  - type: table
+    name: "Engine applicability — loyalty engine"
+    limit: 50
+    filters:
+      and:
+        - 'engines != null'
+        - 'engines.contains("loyalty")'
+    order:
+      - file.name
+      - status
+      - last-compiled
+
+  - type: cards
+    name: "Active services"
+    limit: 30
+    filters:
+      and:
+        - 'type == "service"'
+        - 'status == "active"'
+    order:
+      - file.name
+      - service-id
+      - owner
+      - last-deployed
+      - public-domain
+
+  - type: table
+    name: "Active incidents"
+    limit: 50
+    filters:
+      and:
+        - 'type == "incident"'
+        - 'status == "active"'
+    order:
+      - severity
+      - file.name
+      - service
+      - environment
+      - opened-at
+      - root-cause
+
+  - type: table
+    name: "Recent deployments (last 7 days)"
+    limit: 50
+    filters:
+      and:
+        - 'type == "deployment"'
+        - 'date(released-at) >= (today() - duration("7 days"))'
+    order:
+      - released-at
+      - service
+      - environment
+      - version
+      - released-by
+
+  - type: table
+    name: "Runbook coverage — needs verification"
+    limit: 50
+    filters:
+      and:
+        - 'type == "runbook"'
+        - 'last-verified != null'
+        - 'date(last-verified) < (today() - duration("90 days"))'
+    order:
+      - file.name
+      - last-verified
+      - service
+      - owner
+
+  - type: table
+    name: "All review-overdue (not just wiki)"
+    limit: 100
+    filters:
+      and:
+        - 'needs-review != null'
+        - 'date(needs-review) < today()'
+    order:
+      - file.name
+      - file.folder
+      - needs-review
+      - formula.days_overdue
+      - status

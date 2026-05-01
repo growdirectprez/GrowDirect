@@ -463,6 +463,21 @@ These rules exist because past sessions created sprawl. Follow them.
 
 ---
 
+## Obsidian Method (kepano-aligned)
+
+GrowDirect's vault discipline follows **[Steph Ango's obsidian-skills method](https://github.com/kepano/obsidian-skills)** — vendored at `Brain/external-skills/obsidian-skills/`. Five skills cover Obsidian Markdown conventions, Bases (YAML-defined database views over markdown frontmatter), JSON Canvas, the `obsidian` CLI, and defuddle (web-page-to-markdown).
+
+**What this means for authoring:**
+
+- **Bases over Dataview** for new dashboards. Define views as `.base` YAML files; `Brain/Brain Health Dashboard.base` is the canonical example. Existing markdown Dataview queries continue to work but are no longer the default.
+- **Wikilinks, embeds, callouts** per the obsidian-markdown skill. Frontmatter is structured (typed `type:` + status + dates + engine applicability + ownership).
+- **Six entity templates** in `Brain/templates/`: `service`, `environment`, `deployment`, `incident`, `runbook`, `person`. These are the spine of the Brain knowledge graph for DevOps + continuous deployment. Cards of these types get queried by Bases for the at-a-glance views (active deployments, open incidents, runbook coverage, engineer assignment).
+- **The Brain becomes the surface** for DevOps and CD operations until something purpose-built replaces it. A support engineer or on-call agent picking up a Linear ticket gets the full landscape — root cause, customer impact, recent deployments, related runbooks — through Bases queries over the wiki, no separate tool.
+
+**Context for agents:** before authoring or editing Brain content, the `obsidian-markdown` and `obsidian-bases` skills (vendored) are the canonical reference. Read `Brain/external-skills/obsidian-skills/skills/<skill>/SKILL.md` for the spec.
+
+---
+
 ## Brain — Domain Knowledge
 
 ---
