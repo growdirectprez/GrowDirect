@@ -1,0 +1,51 @@
+# cloudbuild.yaml
+#
+# Drop-zone CI/CD pipeline for the GrowDirect monorepo.
+# Triggered by the Cloud Build GitHub trigger on push to main.
+#
+# Currently builds and deploys the cmd/hello smoke-test service.
+# Pattern is the same for any cmd/<service>: build → push → deploy.
+#
+# See GRO-700 v3 for the dispatch context.
+
+steps:
+  # 1 — build the hello image
+  - id: build-hello
+    name: gcr.io/cloud-builders/docker
+    args:
+      - build
+      - -t
+      - us-central1-docker.pkg.dev/$PROJECT_ID/canary-go/hello:$SHORT_SHA
+      - -t
+      - us-central1-docker.pkg.dev/$PROJECT_ID/canary-go/hello:latest
+      - -f
+      - CanaryGo/deploy/Dockerfile.hello
+      - CanaryGo
+
+  # 2 — push the image to Artifact Registry
+  - id: push-hello
+    name: gcr.io/cloud-builders/docker
+    args:
+      - push
+      - --all-tags
+      - us-central1-docker.pkg.dev/$PROJECT_ID/canary-go/hello
+
+  # 3 — deploy to Cloud Run
+  - id: deploy-hello
+    name: gcr.io/google.com/cloudsdktool/cloud-sdk
+    entrypoint: gcloud
+    args:
+      - run
+      - deploy
+      - hello
+      - --image=us-central1-docker.pkg.dev/$PROJECT_ID/canary-go/hello:$SHORT_SHA
+      - --region=us-central1
+      - --platform=managed
+      - --allow-unauthenticated
+      - --port=8080
+
+images:
+  - us-central1-docker.pkg.dev/$PROJECT_ID/canary-go/hello
+
+options:
+  logging: CLOUD_LOGGING_ONLY
