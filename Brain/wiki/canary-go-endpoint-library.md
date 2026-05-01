@@ -296,24 +296,26 @@ Each merchant configures outbound webhook destinations through `/merchants/:id/w
 
 Two dimensions: per-service status, and per-tier completeness.
 
-### Per-service status
+### Per-service status (as of 2026-04-30, post-Phase-2 contracts)
 
 | Status | Services | Endpoints |
 |---|---|---|
-| ✅ Documented | 11 | ~61 |
-| ⚪ Undocumented (tier-shaped families proposed) | 21 | ~110 patterns |
+| ✅ Documented | 32 | ~250 patterns across 5 tiers |
+| ⚪ Undocumented | 0 | — |
 
-### Per-tier coverage gaps (Canary as of 2026-04-30)
+All 32 services in the spine + extended block now have published endpoint contracts in `docs/sdds/go-handoff/microservice-architecture.md`. The library tables here are the partner-facing summary; full request/response/error contracts and state machines live in the SDD.
+
+### Per-tier coverage (Canary as of 2026-04-30)
 
 | Tier | Coverage | Notes |
 |---|---|---|
-| Stream | Partial | Webhook receivers ✅ · SSE streams mostly ⚪ |
-| Change-feed | Partial | Adapter polling ✅ · Resource tail-feeds mostly ⚪ |
-| Daily batch | Sparse | Only `analytics` rollups documented |
-| Bulk window | **Largely empty — load-bearing gap** | Bulk-import (Axis A) and `/exports` (Axis B) both ⚪ |
-| Reference | Partial | Identity ✅ · Owl ✅ · Compliance ⚪ · most masters ⚪ |
+| Stream | Substantial | Webhook receivers ✅, SSE streams ✅ (`alerts`, `transactions`, `inventory`, `analytics`, `ops-dashboard`, `store-brain`), state-transition mutations ✅ |
+| Change-feed | Substantial | Adapter polling ✅, resource tail-feeds ✅ (cursor-paginated lists across all 32 services) |
+| Daily batch | Substantial | `analytics` rollups ✅, `inventory` reconciliation ✅, `commercial` reconciliation ✅, `store-network-integrity` correlations ✅, `report` schedule runs ✅ |
+| Bulk window | Substantial | Bulk-import landing zone ✅ (Axis A — `/imports/{kind}` for items, customers, employees, vendors, invoices, regulatory-zones); `/exports/{kind}` ✅ (Axis B — transactions, inventory positions, returns, compliance attestations) |
+| Reference | Substantial | Identity ✅, Owl ✅, Compliance ✅, all masters ✅, accountability rails ✅ |
 
-**The bulk-window gap is the largest.** It is one of the two tiers most directly required for enterprise integration (alongside change-feed). Closing it requires both the bulk-import landing zone (Axis A) and a generic `/exports/{kind}` family (Axis B).
+**Status: tier-balanced.** The original bulk-window gap is closed. The library's structural completeness shifts from "21 undocumented services" to "32 services contracted across all 5 tiers." Next phase of work is partner-facing CRB curation — selecting which subset of these 250 patterns is appropriate for the public partner site versus internal-only.
 
 ## Conventions
 
