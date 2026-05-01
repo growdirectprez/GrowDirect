@@ -90,8 +90,8 @@ spine delivers, end to end:
 
 The prize asymmetry is load-bearing for the GTM story: **LP is the
 wedge that lets us in the door (4× smaller prize); inventory and
-replenishment is the ARR expansion (4× larger prize)**. v1 LP is what
-nobody else ships at SMB tier and what closes the first sale. v2 D + J
+replenishment is the ARR expansion (4× larger prize)**. v1 LP is the
+opening sale — full LP detection isn't shipped at SMB tier today. v2 D + J
 is the renewal engine and the upsell. v3 S + P + L + W extends and
 deepens the ARR but is not what the merchant signed up for.
 

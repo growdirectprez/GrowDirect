@@ -63,13 +63,14 @@ This is not a drift issue — the vault explicitly positions this as the co-sell
 
 ## Finding 6: NCR Context Page Has Strong Competitive Claims
 
-`ncr-context/index.md` makes specific competitive claims:
+`ncr-context/index.md` makes sourced competitive claims:
 - NCR stock down 40% since December 2025
 - Revenue declining 13-18% (2026 guidance)
-- "No enterprise physical retail POS has a native MCP endpoint as of April 2026"
 - NCR's Voyix Commerce Platform is "microservices on top of legacy data models"
 
 These claims are sourced but dated (April 2026). They're defensible as of the vault creation date. The SDDs don't make competitive claims — correctly, SDDs are technical specs, not positioning.
+
+**Scrub note (2026-05-01):** an MCP-firsts boast claim ("No enterprise physical retail POS has a native MCP endpoint as of April 2026") was previously listed here and in the NCR vault; removed during sales-claims scrub. See commit log.
 
 **The vault and SDDs have clean separation:** competitive positioning lives in the vault (`ncr-context/`, `why-canary/`); technical spec lives in the SDDs. No bleed between them.
 
