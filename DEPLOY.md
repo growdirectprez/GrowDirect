@@ -58,24 +58,33 @@ revision is preserved (rollback via traffic split, not redeploy).
 
 ---
 
-## Hello smoke-test service
+## Smoke-test services
 
-`CanaryGo/cmd/hello` is a dependency-free Go binary used to verify the
-pipeline. It has no domain logic. Receiving team should delete
-`cmd/hello/`, `deploy/Dockerfile.hello`, and the deploy steps in
-`cloudbuild.yaml` once real services are deploying.
+Two services prove the drop-zone pipeline. Receiving team should delete
+both once real services are deploying cleanly.
 
-Endpoints:
+### `cmd/hello` — pipeline shape
+
+Zero-dep Go binary. Proves git → Cloud Build → Artifact Registry →
+Cloud Run.
+
 - `GET /` → 200 "hello from canary-rapidpos drop zone"
 - `GET /health` → 200 "ok"
+- URL: `https://hello-7n7bal6q7a-uc.a.run.app` (auth required)
 
-(Note: `/healthz` is reserved by Cloud Run's Knative activator — use
-`/health` for service health probes.)
+### `cmd/dbcheck` — Cloud SQL data path
 
-Live URL (authenticated only):
-```
-https://hello-7n7bal6q7a-uc.a.run.app
-```
+Connects to Cloud SQL Postgres 17 via the unix socket Cloud Run mounts
+when `--add-cloudsql-instances` is set. Reads `DATABASE_URL` from
+Secret Manager (`db-url`). Runs `CREATE EXTENSION IF NOT EXISTS vector`
+on startup to self-bootstrap pgvector.
+
+- `GET /` → 200 "dbcheck — connect ok"
+- `GET /health` → 200 with Postgres version + pgvector status
+- URL: `https://dbcheck-7n7bal6q7a-uc.a.run.app` (auth required)
+
+Note: `/healthz` is reserved by Cloud Run's Knative activator — use
+`/health` for service health probes.
 
 ---
 
@@ -85,11 +94,23 @@ The pattern is the same for any `cmd/<service>`:
 
 1. Write the Go service at `CanaryGo/cmd/<service>/main.go`
 2. Create `CanaryGo/deploy/Dockerfile.<service>` (mirror
-   `Dockerfile.identity` or `Dockerfile.hello`)
+   `Dockerfile.hello` for stateless or `Dockerfile.dbcheck` if it
+   needs Cloud SQL)
 3. Append three steps to `cloudbuild.yaml` (`build-<service>`,
    `push-<service>`, `deploy-<service>`)
 4. Append the image to the `images:` section
 5. Push to `main` — Cloud Build builds and deploys automatically
+
+If the service needs Cloud SQL, add to the deploy step:
+```yaml
+- --add-cloudsql-instances=canary-rapidpos:us-central1:canary-rapidpos-db
+- --set-secrets=DATABASE_URL=db-url:latest
+```
+
+If the service needs a different secret, create it (`gcloud secrets
+create ...`) and grant the runtime SA
+(`515966226071-compute@developer.gserviceaccount.com`)
+`roles/secretmanager.secretAccessor` on it.
 
 ---
 
@@ -161,7 +182,11 @@ https://console.cloud.google.com/cloud-build/builds?project=canary-rapidpos
 | Region | `us-central1` |
 | Cloud Build trigger | `deploy-main` (1st gen, GitHub: `growdirectprez/GrowDirect`, branch `^main$`, config `/cloudbuild.yaml`) |
 | Artifact Registry repo | `us-central1-docker.pkg.dev/canary-rapidpos/canary-go` (Docker format) |
-| Cloud Run service | `hello` (smoke test) |
+| Cloud Run services | `hello` · `dbcheck` (smoke tests) |
+| Cloud SQL instance | `canary-rapidpos-db` (Postgres 17, db-f1-micro, us-central1, ~10GB SSD, ~$8/mo) |
+| Cloud SQL connection name | `canary-rapidpos:us-central1:canary-rapidpos-db` |
+| Database | `canary_go` (with pgvector extension installed) |
+| Secret Manager secrets | `db-url` (Postgres connection string for `postgres` superuser) |
 | Build / deploy SA | `canary-deploy@canary-rapidpos.iam.gserviceaccount.com` (the trigger runs as this SA) |
 | Runtime SA (default) | `515966226071-compute@developer.gserviceaccount.com` |
 | Enabled APIs | Cloud Run, Cloud SQL Admin, Secret Manager, Artifact Registry, Cloud Build, Pub/Sub |
@@ -173,8 +198,14 @@ https://console.cloud.google.com/cloud-build/builds?project=canary-rapidpos
 - `roles/run.admin` — deploy Cloud Run services
 - `roles/iam.serviceAccountUser` — act-as the runtime SA when deploying
 - `roles/logging.logWriter` — write Cloud Build logs to Cloud Logging
-- `roles/cloudsql.client` — connect to Cloud SQL (when added)
-- `roles/secretmanager.secretAccessor` — read secrets (when added)
+- `roles/cloudsql.client` — connect to Cloud SQL
+- `roles/secretmanager.secretAccessor` — read secrets
+
+### Runtime SA roles (default Compute SA)
+
+- `roles/cloudsql.client` — connect to Cloud SQL from Cloud Run
+- `roles/secretmanager.secretAccessor` (on specific secrets) — read
+  mounted secrets at runtime
 
 ### Org policy quirks the receiving team should know
 
@@ -201,3 +232,11 @@ Per **GRO-700 v3** (out of scope for this drop zone):
 - Multi-region deployment, prod org policies, scaled billing alerts
 - Cloud Workstations cluster (laptop + gcloud is sufficient for solo
   dev today)
+- Cloud SQL HA (this drop zone is zonal; receiving team picks regional /
+  HA tier in prod)
+- Database migrations framework (dbcheck self-bootstraps pgvector
+  inline; receiving team should move to a proper migration tool —
+  goose, atlas, sqlc with migration support, etc.)
+- VPC peering / private IP for Cloud SQL (drop zone uses the unix
+  socket via Cloud Run's `--add-cloudsql-instances`; in prod,
+  receiving team likely wants private IP + Cloud SQL Auth Proxy)
