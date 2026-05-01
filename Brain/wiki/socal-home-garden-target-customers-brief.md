@@ -118,7 +118,7 @@ NCR Voyix has TWO platform layers worth distinguishing:
 | Module | Counterpoint coverage | Phase |
 |---|---|---|
 | T (Transactions) | Direct via Document family | Phase 1 |
-| R (Customer) | Direct via Customer family | Phase 1 |
+| C (Customer) | Direct via Customer family | Phase 1 |
 | N (Device / Stores) | Direct via Store / Station / Workgroup / Device_Config | Phase 1 |
 | F (Finance / Tenders) | Direct via PayCode / Tax / GiftCard / Document_Payments | Phase 1 |
 | S (Items / Catalog) | Direct via Item / Inventory family | Phase 2 |

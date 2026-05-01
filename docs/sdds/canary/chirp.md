@@ -24,7 +24,7 @@ Chirp's 37 production rules were built against Square's data model. The Counterp
 | Margin targets | Not available | IM_CATEG_COD.MIN_PFT_PCT / TRGT_PFT_PCT |
 | Tax compliance | Not available | PS_DOC_TAX — multi-authority jurisdiction stack |
 
-Counterpoint rules are documented in the Q module rule catalog (`Brain/wiki/canary-module-q-counterpoint-rule-catalog.md`) — 25+ rules across 12 families including compliance (Q-RESTRICTED-ITEM-SALE) and commercial/B2B (Q-C-01 through Q-C-05) families that have no Square analog. These rules evaluate against CRDM fields populated by the Counterpoint adapter, not Counterpoint-native fields directly. Provider attribution on each CanonicalEvent (`source=counterpoint`) enables per-provider rule applicability.
+Counterpoint rules are documented in the Q module rule catalog (`Brain/wiki/canary-module-q-counterpoint-rule-catalog.md`) — 25+ rules across 12 families including compliance (Q-RESTRICTED-ITEM-SALE) and commercial/B2B (Q-M-01 through Q-M-05) families that have no Square analog. These rules evaluate against CRDM fields populated by the Counterpoint adapter, not Counterpoint-native fields directly. Provider attribution on each CanonicalEvent (`source=counterpoint`) enables per-provider rule applicability.
 
 ## Dependencies
 

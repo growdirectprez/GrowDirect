@@ -10,8 +10,8 @@ related:
   - "[[canary-module-p-pricing-promotion]]"
   - "[[canary-module-d-distribution]]"
   - "[[canary-module-q-loss-prevention]]"
-  - "[[canary-module-j-forecast-order]]"
-  - "[[canary-module-s-space-range-display]]"
+  - "[[canary-module-o-orders]]"
+  - "[[canary-module-s-space]]"
   - "[[canary-market-positioning]]"
   - "[[retail-spine-secure-crosswalk]]"
   - "[[retek-rms-perpetual-inventory]]"
@@ -159,7 +159,7 @@ From [[crb-fresh-product-support]], the current state:
 
 The three gaps that block credible fresh claims are the same three capabilities that store-of-the-future technology delivers for enterprise. Canary delivers them without sensors, without a $2M infrastructure investment, running on the Square webhook already connected.
 
-**What closes the gap:** a three-function module addition — replenishment trigger, markdown rule engine, waste ledger verb — described in detail in [[crb-fresh-product-support]] Section IV. Not a rearchitecture. A well-scoped extension to Module D, Module P, and Module J.
+**What closes the gap:** a three-function module addition — replenishment trigger, markdown rule engine, waste ledger verb — described in detail in [[crb-fresh-product-support]] Section IV. Not a rearchitecture. A well-scoped extension to Module D, Module P, and Module O.
 
 ---
 
@@ -212,7 +212,7 @@ Store of the future technology at the enterprise level generates this provenance
 
 ## VII. Open Questions
 
-1. **Afresh as a direct competitor or a partner?** Afresh Technologies (Series B, $55M) is fresh-specific, SMB-accessible, and integrates with Square and Lightspeed. They have the replenishment trigger that Canary lacks. Do they compete with Module J, or is there a data-share / API relationship that accelerates Canary's fresh claims?
+1. **Afresh as a direct competitor or a partner?** Afresh Technologies (Series B, $55M) is fresh-specific, SMB-accessible, and integrates with Square and Lightspeed. They have the replenishment trigger that Canary lacks. Do they compete with Module O, or is there a data-share / API relationship that accelerates Canary's fresh claims?
 
 2. **Crisp data network.** Crisp (DSD optimization) has supplier-side data from 900+ CPG brands — the upstream demand signal that makes demand sensing work. Does Canary's fresh module need a Crisp partnership to get accurate DSD lead times and promotional calendars, or does the SMB retailer's supplier relationship cover this?
 
@@ -229,10 +229,10 @@ Store of the future technology at the enterprise level generates this provenance
 - [[secure-dsd-ired-analytics]] — DSD invoice/receipt/exception analytics; Vendor Compliance prior art
 - [[secure-5-inventory]] — inventory analytics; shrink + slow-moving + days-of-supply
 - [[canary-module-d-distribution]] — DSD receipt, RTV, inventory adjustment
-- [[canary-module-j-forecast-order]] — replenishment trigger; GFO surface
+- [[canary-module-o-orders]] — replenishment trigger; GFO surface
 - [[canary-module-p-pricing-promotion]] — markdown rule engine; ESL analog
 - [[canary-module-q-loss-prevention]] — shrink detection; waste reason-code family
-- [[canary-module-s-space-range-display]] — shelf capacity as order ceiling
+- [[canary-module-s-space]] — shelf capacity as order ceiling
 - [[canary-market-positioning]] — competitive landscape; IBM, Blue Yonder, Afresh positioning
 - [[retek-rms-perpetual-inventory]] — the original fresh planning architecture Canary instantiates
 - [[retail-spine-secure-crosswalk]] — how Secure prior art maps to the module surface

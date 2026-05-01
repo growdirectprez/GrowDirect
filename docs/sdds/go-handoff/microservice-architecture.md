@@ -1803,9 +1803,9 @@ This mapping is the authoritative process decomposition for the Canary Go build.
 | **Loss prevention case — evidence assembly, investigation** | Fox evidence chain; Hawk incident workflow | `canary-fox`, `canary-hawk` | `app.fox_cases`, `app.fox_evidence`, `app.fox_timeline`, `app.hawk_cases` | `canary-owl` (analysis), Civil Services (Legal & Compliance gate) |
 | **Alert lifecycle — detection to resolution** | Alert state machine: OPEN → ACKNOWLEDGED → INVESTIGATING → ESCALATED / DISMISSED | `canary-alert` | `app.alerts`, `app.alert_history` | `canary-fox` (on ESCALATED) |
 | **Inventory receiving — PO, vendor, cost posting** | Receiving discrepancy rules; ILDWAC WAC update trigger | `canary-receiving` (Module V scope) | `sales.transactions` (receipt type), Module V tables | Module F (Finance), ILDWAC recalculation |
-| **Stock management — on-hand, adjustments, cycle counts** | Inventory variance rules; shrink rate baseline | `canary-inventory` | `app.inventory_positions`, `app.inventory_adjustments` | Module Q (LP), Module J (Forecast) |
-| **Pricing and promotion — rules, markdowns, exceptions** | Price override rules; unauthorized markdown detection | `canary-pricing` | `app.price_rules`, `app.promotion_events` | Module T (transaction validation), Module C (Commercial) |
-| **Customer identity — loyalty, purchase history** | Customer velocity rules; multi-card profiling | `canary-customer` | `app.customers`, `app.loyalty_accounts` | Module T (transaction enrichment), Module R scope |
+| **Stock management — on-hand, adjustments, cycle counts** | Inventory variance rules; shrink rate baseline | `canary-inventory` | `app.inventory_positions`, `app.inventory_adjustments` | Module Q (LP), Module O (Forecast) |
+| **Pricing and promotion — rules, markdowns, exceptions** | Price override rules; unauthorized markdown detection | `canary-pricing` | `app.price_rules`, `app.promotion_events` | Module T (transaction validation), Module M (Merchandising) |
+| **Customer identity — loyalty, purchase history** | Customer velocity rules; multi-card profiling | `canary-customer` | `app.customers`, `app.loyalty_accounts` | Module T (transaction enrichment), Module C scope |
 | **Employee records — roles, schedules, access** | Employee attribution on transactions; labor ratio | `canary-employee` | `app.employees`, `app.schedules` | Module T (employee attribution), Module L (Labor) |
 | **Returns and refunds — authorization, fraud detection** | Return fraud rules; refund-to-different-card | `canary-returns` | `app.return_authorizations`, `sales.refund_links` | Module Q (LP), Module F (Finance) |
 | **Inter-store transfers — distribution, reconciliation** | Transfer-loss reconciliation; distribution recs | `canary-transfer` + `canary-bull` | `app.transfer_orders`, `app.transfer_lines` | Module D (Distribution), Module F (Finance) |
@@ -1822,16 +1822,16 @@ The graph below governs Service Introduction sequencing. A module cannot advance
 | T — Transaction Pipeline | N (device identity), P (price values) | Q, R, F, A |
 | N — Device | — | T |
 | Q — Loss Prevention | T, A | Fox, Owl |
-| R — Customer | T | P (loyalty earn rules) |
+| C — Customer | T | P (loyalty earn rules) |
 | P — Pricing & Promotion | R, C | T, C |
-| C — Commercial | S, P | D, F |
+| M — Merchandising | S, P | D, F |
 | S — Space, Range & Display | — | C, J |
 | D — Distribution | C, J | A, F |
-| J — Forecast & Order | S, D | C, D |
+| O — Orders | S, D | C, D |
 | F — Finance | T, C, D, A | — |
 | A — Asset Management | T, D, Q | F |
-| L — Labor & Workforce | — | W |
-| W — Work Execution | L | All modules (execution dispatch) |
+| L — Labor | — | W |
+| E — Execution | L | All modules (execution dispatch) |
 
 Foundation dependency: all 13 modules depend on CRDM/Data Model, Identity/Auth, and Multi-POS Substrate. CRDM is the schema authority — cross-module schema changes require CRDM agent sign-off before consuming modules advance.
 

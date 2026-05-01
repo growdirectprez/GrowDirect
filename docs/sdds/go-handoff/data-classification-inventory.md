@@ -249,7 +249,7 @@ Patent application covers hash-before-parse, chain hash, Merkle inscription, ILD
 
 ## Section C — Gap Analysis
 
-### C.1 Encryption Gaps — Fields Classified Sensitive/Restricted with No At-Rest Encryption Today
+### M.1 Encryption Gaps — Fields Classified Sensitive/Restricted with No At-Rest Encryption Today
 
 The SDD library is honest about this: it documents the gap as a P0 punch list inside `data-model.md` L2042–2057 and replicates it in service-level SDDs. The gaps remain open as of the spec's `updated: 2026-04-29` date.
 
@@ -272,7 +272,7 @@ The SDD library is honest about this: it documents the gap as a P0 punch list in
 | Alert details plaintext | alert.md L585 | `alerts.details` (#20) |
 | Settings label overrides plaintext | settings.md L479 | `merchant_label_overrides.label`, `merchant_field_overrides.label_override` (#60) |
 
-### C.2 Retention Windows Not Declared
+### M.2 Retention Windows Not Declared
 
 Several services state retention windows; many do not. Where retention is silent, GDPR storage-limitation principle defaults to "no longer than necessary" which is unenforceable without a stated window.
 
@@ -294,7 +294,7 @@ Several services state retention windows; many do not. Where retention is silent
 | `app.fox_evidence_access_log` | data-model.md | INSERT-only | OK (LP evidence) |
 | `app.hawk_*` tables | data-model.md | None specified | Gap — investigation records |
 
-### C.3 MCP Tools That Expose PII Without the SDD Calling It Out
+### M.3 MCP Tools That Expose PII Without the SDD Calling It Out
 
 | Tool | Server | Fields exposed | SDD coverage |
 |---|---|---|---|
@@ -311,11 +311,11 @@ Several services state retention windows; many do not. Where retention is silent
 
 **Most MCP tools have JWT + merchant-scope gating specified.** The systemic gap is access auditing: P1-1 in `identity.md` (line 571), P1 in `analytics.md` (line 71), P1 in `owl.md` (line 230). Today, MCP tool invocations that expose PII are not consistently logged.
 
-### C.4 Cross-SDD Inconsistencies
+### M.4 Cross-SDD Inconsistencies
 
 See Section D for the full table.
 
-### C.5 Missing Cryptographic-Erasure Paths for GDPR Right to Deletion
+### M.5 Missing Cryptographic-Erasure Paths for GDPR Right to Deletion
 
 | Domain | Erasure path stated | Gap |
 |---|---|---|
@@ -333,7 +333,7 @@ See Section D for the full table.
 
 The append-only / right-to-deletion conflict is the platform's structural compliance challenge. **The spec partially addresses it** (per-subject keys in raas.md / ecom-channel.md), but does not provide a unified pattern. Any merchant onboarding an EU/UK consumer who later requests erasure will hit unspecified behavior in audit_log, transactions, evidence_records, and webhook_events.
 
-### C.6 Missing DPA-Style Fields and Process
+### M.6 Missing DPA-Style Fields and Process
 
 | Concern | Status |
 |---|---|
@@ -345,7 +345,7 @@ The append-only / right-to-deletion conflict is the platform's structural compli
 | Audit rights (customer right to audit Canary) | Not specified |
 | Breach-notification SLA (to merchant, then merchant to consumer) | Not specified |
 
-### C.7 Other Concrete Gaps
+### M.7 Other Concrete Gaps
 
 | Gap | Source |
 |---|---|
@@ -442,7 +442,7 @@ The Canary platform exposes 15+ MCP servers. The table below lists every MCP too
 | RaaS events (`raas_events`) | 7 yr | Per-subject key tombstoning (key destroyed) | **OK** — raas.md L416–445 | Append-only is the design; cryptographic erasure preserves chain integrity |
 | Audit log (`app.audit_log`) | 24 mo proposed | None today; would archive to cold storage | **Conflict** — append-only + hash chain forbids row delete or update. **No documented erasure path.** | Hard conflict; needs per-subject-key encryption pattern |
 | Webhook events (`webhook_events`) | 12 mo proposed | None today | **Conflict** — payload contains PII; append-only | Hard conflict |
-| Sales `transactions` and `evidence_records` | 7 yr (financial) | None today | **Conflict** — immutable trigger; payload contains PII | Hard conflict — see C.5 |
+| Sales `transactions` and `evidence_records` | 7 yr (financial) | None today | **Conflict** — immutable trigger; payload contains PII | Hard conflict — see M.5 |
 | Dead letter queue (`dead_letter_queue`) | 90 d proposed | Time-based purge | OK (purge handles erasure incidentally if within 90 d) | Bounded by retention; if request comes in <90 d, must crypto-erase |
 | Notification log (`notification_log`) | 12 mo proposed | None today | Conflict — recipient PII; append-only | Hard conflict |
 | Fox / Hawk cases and evidence | 7 yr (LP) | INSERT-only; no delete path | **Conflict** — investigation records vs. consumer right-to-erasure | Conflict; arguably overridden by legitimate-interest + legal-hold under GDPR Art. 17(3)(e) |

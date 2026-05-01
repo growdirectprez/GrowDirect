@@ -66,7 +66,7 @@ Operations modules cover multi-store + workflow surfaces that move beyond single
 3. TSP adapter: type-route on Document polling to detect PO/PREQ/RECVR/RTV → respective Workflows entities. VendorItem polled daily. **No replenishment-engine endpoint** — replenishment recommendations stay UI-only or external.
 4. MCP tool surface: `get_open_purchase_orders(vendor?, status?)`, `get_receivers(date_range)`, `get_vendor(vendor_id)`, `get_vendor_items(vendor_id)`, `get_pending_returns_to_vendor()`
 5. Test: fixture suite covering vendor-document workflows + ad-hoc vendor onboarding + cash-vendor-receipt classification
-6. Wiki: update `Brain/wiki/canary-module-j-forecast-order.md`
+6. Wiki: update `Brain/wiki/canary-module-o-orders.md`
 7. Founder review gate
 
 ## Cross-cutting work (within this phase)
@@ -77,7 +77,7 @@ Operations modules cover multi-store + workflow surfaces that move beyond single
 
 ## Out of scope
 
-- Module W (Work Execution) — confirmed absent from Counterpoint REST per SDD §6.13. Separate effort.
+- Module E (Execution) — confirmed absent from Counterpoint REST per SDD §6.13. Separate effort.
 - Replenishment-engine integration — UI-only in Counterpoint; if customers need automated replenishment, license a forecasting tool (external) or build native (Canary option d future).
 - Vendor portal / vendor-side communication — Counterpoint's API doesn't expose vendor-facing surfaces; out of scope.
 

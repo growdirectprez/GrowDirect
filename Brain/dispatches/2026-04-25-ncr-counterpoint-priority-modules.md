@@ -176,7 +176,7 @@ Phase-level:
 - `docs/superpowers/plans/2026-04-25-ncr-counterpoint-spine-build.md` — Phase 1 row in the build plan
 - `Brain/dispatches/2026-04-25-tsp-crdm-counterpoint-flow.md` — Phase 0 foundation (prerequisite)
 - `Brain/raw/inbox/rapid-pos/ncr-counterpoint-api/` — source corpus
-- `Brain/wiki/canary-module-n-device.md`, `canary-module-r-customer.md`, `canary-module-f-finance.md`, `canary-module-l-labor-workforce.md` — per-module wikis (verify Module T wiki exists; create if missing)
+- `Brain/wiki/canary-module-n-device.md`, `canary-module-r-customer.md`, `canary-module-f-finance.md`, `canary-module-l-labor.md` — per-module wikis (verify Module T wiki exists; create if missing)
 - `docs/audit-2026-04-23/secret-rotation-runbook.md` — per-customer credential rotation procedure
 
 ---

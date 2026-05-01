@@ -2,22 +2,22 @@
 date: 2026-04-24
 type: wiki
 status: active
-tags: [canary, retail-spine, module-c, commercial, items, otb, suppliers, v2]
+tags: [canary, retail-spine, module-m, commercial, items, otb, suppliers, v2]
 sources:
-  - Canary-Retail-Brain/modules/C-commercial.md
+  - Canary-Retail-Brain/modules/M-merchandising.md
   - Canary-Retail-Brain/platform/retail-accounting-method.md
   - Canary-Retail-Brain/platform/stock-ledger.md
 last-compiled: 2026-04-24
 needs-review: 2026-05-24
 ----
 
-# Canary Module — C (Commercial)
+# Canary Module — M (Merchandising)
 
 ## Summary
 
-C (Commercial) owns the item catalog, merchandising hierarchy, supplier relationships, and Open-to-Buy allocation. **Design-only at this point — no Canary code yet.** This wiki article is the Canary-specific crosswalk for the v2 C module. The canonical, vendor-neutral module spec lives at `Canary-Retail-Brain/modules/C-commercial.md`.
+M (Merchandising) owns the item catalog, merchandising hierarchy, supplier relationships, and Open-to-Buy allocation. **Design-only at this point — no Canary code yet.** This wiki article is the Canary-specific crosswalk for the v2 M module. The canonical, vendor-neutral module spec lives at `Canary-Retail-Brain/modules/M-merchandising.md`.
 
-C is a v2 module that closes the merchandising gap left by v1. Once T (Transaction Pipeline) is shipping, the next retailer ask is almost always "can you handle our buying and inventory?" C answers that by owning the item master, department hierarchy, supplier catalog, and OTB enforcement at the buyer level.
+M is a v2 module that closes the merchandising gap left by v1. Once T (Transaction Pipeline) is shipping, the next retailer ask is almost always "can you handle our buying and inventory?" M answers that by owning the item master, department hierarchy, supplier catalog, and OTB enforcement at the buyer level.
 
 ## Code surface
 
@@ -33,41 +33,41 @@ C is a v2 module that closes the merchandising gap left by v1. Once T (Transacti
 
 ## Schema crosswalk
 
-C would write to the `app` schema (configuration and master data, not transactional). Anticipated tables:
+M would write to the `app` schema (configuration and master data, not transactional). Anticipated tables:
 
 | Table | Owner | Purpose |
 |---|---|---|
-| `items` | C | One row per SKU per merchant; fields: sku, upc, item_name, cost_method, cost_basis_cents, retail_price_cents, supplier_id, hierarchy_path, active_flag |
-| `departments` | C | Hierarchy tree: id, parent_id, dept_name, level (division/dept/class/subclass), cost_method |
-| `suppliers` | C | Vendor master: id, supplier_name, payment_terms, invoice_tolerance_pct, lead_time_days |
-| `item_suppliers` | C | Junction: item_id, supplier_id, supplier_sku, supplier_cost_cents, min_order_qty |
-| `otb_budgets` | C | Buyer level: id, merchant_id, buyer_id, department_id, period, otb_retail_cents (if RIM) or otb_cost_cents (if Cost Method), consumed_amount, remaining_headroom |
-| `cost_update_events` | C | Audit trail: id, item_id, reason (supplier-price-change / variance-resolution / tariff), old_cost_cents, new_cost_cents, effective_date, posted_by |
+| `items` | M | One row per SKU per merchant; fields: sku, upc, item_name, cost_method, cost_basis_cents, retail_price_cents, supplier_id, hierarchy_path, active_flag |
+| `departments` | M | Hierarchy tree: id, parent_id, dept_name, level (division/dept/class/subclass), cost_method |
+| `suppliers` | M | Vendor master: id, supplier_name, payment_terms, invoice_tolerance_pct, lead_time_days |
+| `item_suppliers` | M | Junction: item_id, supplier_id, supplier_sku, supplier_cost_cents, min_order_qty |
+| `otb_budgets` | M | Buyer level: id, merchant_id, buyer_id, department_id, period, otb_retail_cents (if RIM) or otb_cost_cents (if Cost Method), consumed_amount, remaining_headroom |
+| `cost_update_events` | M | Audit trail: id, item_id, reason (supplier-price-change / variance-resolution / tariff), old_cost_cents, new_cost_cents, effective_date, posted_by |
 
-C reads from (no write):
+M reads from (no write):
 
 | Table | Owner | Why |
 |---|---|---|
-| `sales.transactions` (via D stream) | T | C tracks sales velocity per item per location to validate OTB forecast assumptions |
-| `sales.inventory_movements` (projected) | D | C reads receipt velocity to validate OTB consumption and replenishment headroom |
+| `sales.transactions` (via D stream) | T | M tracks sales velocity per item per location to validate OTB forecast assumptions |
+| `sales.inventory_movements` (projected) | D | M reads receipt velocity to validate OTB consumption and replenishment headroom |
 
 ## SDD crosswalk
 
-No v2 SDDs exist yet for C. Canary's current SDDs only cover v1 modules (T, Q, architecture, data-model). C's SDD would be drafted after this wiki article is validated.
+No v2 SDDs exist yet for M. Canary's current SDDs only cover v1 modules (T, Q, architecture, data-model). M's SDD would be drafted after this wiki article is validated.
 
 Projected SDD structure (future):
 - `Canary/docs/sdds/v2/commercial.md` — item master schema, department hierarchy design, supplier catalog, OTB calculation and enforcement, cost-method designation
 - Section: Ledger relationship (cost-update events, OTB co-ownership with F/J)
-- Section: OTB integration with D/F/J (D checks C before posting receipts; F validates cost-method; J reads OTB headroom)
+- Section: OTB integration with D/F/J (D checks M before posting receipts; F validates cost-method; J reads OTB headroom)
 
 ## Where this module fits on the spine
 
 | Axis | Cell | Notes |
 |---|---|---|
-| [[../projects/RetailSpine\|Retail Spine]] | v2 Commercial-Financial | C is part of the CRDM expansion ring alongside D, F, J |
-| [[../projects/RetailSpine\|Retail Spine]] Ledger roles | Publisher (cost-update) + Co-analyst (OTB) | C publishes cost-update events; C and F and J collaborate on OTB |
-| Upstream feeder | C reads sales history (T) and receipt history (D) to validate forecasts | |
-| Downstream consumer | D reads C's item master before posting receipts; F reads C's cost-method designation for period close; J reads C's supplier/lead-time data to generate PO recommendations | |
+| [[../projects/RetailSpine\|Retail Spine]] | v2 Commercial-Financial | M is part of the CRDM expansion ring alongside D, F, J |
+| [[../projects/RetailSpine\|Retail Spine]] Ledger roles | Publisher (cost-update) + Co-analyst (OTB) | M publishes cost-update events; M and F and J collaborate on OTB |
+| Upstream feeder | M reads sales history (T) and receipt history (D) to validate forecasts | |
+| Downstream consumer | D reads M's item master before posting receipts; F reads M's cost-method designation for period close; J reads M's supplier/lead-time data to generate PO recommendations | |
 
 ## Open Canary-specific questions
 
@@ -81,16 +81,16 @@ Projected SDD structure (future):
 - [[../projects/RetailSpine|Retail Spine MOC]]
 - [[canary-module-d-distribution|D (Distribution)]]
 - [[canary-module-f-finance|F (Finance)]]
-- [[canary-module-j-forecast-order|J (Forecast & Order)]]
+- [[canary-module-o-orders|J (Forecast & Order)]]
 - [[../projects/RetailSpine|Retail Spine — Ledger relationships]]
 - [[../platform/stock-ledger|Stock Ledger — Perpetual-Inventory Movement Ledger]]
 - [[../platform/retail-accounting-method|Retail Accounting Method — RIM, Cost Method, Open To Buy]]
 
 ## Sources
 
-- `Canary-Retail-Brain/modules/C-commercial.md` — canonical module spec
+- `Canary-Retail-Brain/modules/M-merchandising.md` — canonical module spec
 - `Canary/docs/sdds/v2/data-model.md` — projected schema overview (placeholder; not yet written)
 
 ---
 
-**Status:** Canary module C is design-phase. No code yet. Ready for SDD drafting and schema design when v2 development cycle begins. Expected integration points: D (receipt validation), F (cost-method), J (OTB headroom).
+**Status:** Canary module M is design-phase. No code yet. Ready for SDD drafting and schema design when v2 development cycle begins. Expected integration points: D (receipt validation), F (cost-method), J (OTB headroom).

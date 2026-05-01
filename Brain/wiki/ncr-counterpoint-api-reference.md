@@ -116,9 +116,9 @@ CRDM mapping: `Places.stores`, `Places.stations`, `Places.devices`, `Places.work
 
 CRDM mapping: `Events.transactions`, `Events.transaction_lines`, `Events.payments`, `Events.contacts`, `Events.notes`.
 
-**Document is the omnibus container.** "Documents" in Counterpoint includes sales tickets, orders, transfers, returns, voids — all expressed as Document records with different type codes. **This means Module T, Module D (transfers), and possibly Module J (orders) all flow through the same endpoint family**, distinguished by Document type. Critical for adapter design.
+**Document is the omnibus container.** "Documents" in Counterpoint includes sales tickets, orders, transfers, returns, voids — all expressed as Document records with different type codes. **This means Module T, Module D (transfers), and possibly Module O (orders) all flow through the same endpoint family**, distinguished by Document type. Critical for adapter design.
 
-### Spine Module R — Customer (17 endpoints)
+### Spine Module C — Customer (17 endpoints)
 
 - `GET_Customer`, `GET_Customers`, `GET_Customers_EC` (ecommerce customers), `POST_Customer`, `PATCH_Customer`
 - `GET_CustomerControl` — system-level customer config (tier definitions, defaults). **Cached.**
@@ -191,7 +191,7 @@ What it DOES expose:
 
 **Transfers** (the workflow side of Distribution) likely flow through `POST_Document` with a transfer-type code, not a separate endpoint. Confirms SDD §6.7 hypothesis that Document is the omnibus.
 
-### Spine Module J — Forecast / Order (sparse)
+### Spine Module O — Forecast / Order (sparse)
 
 - `GET_VendorItem` — vendor item info (touches J)
 - Order-type Documents (via POST_Document with order type) — verify
@@ -234,7 +234,7 @@ Pre-built Phase 1+ assumptions to revise based on this finding:
 
 1. **Module L** — needs external upstream (workforce-management vendor)
 2. **Module P** — derived, not direct; SDD §6.11 needs rework
-3. **Module W** — out of Counterpoint scope entirely; alternative upstream needed if W is on the roadmap
+3. **Module E** — out of Counterpoint scope entirely; alternative upstream needed if W is on the roadmap
 
 These three findings should be folded into the SDD's per-module sections and the Phase 1 dispatch's scope clarification questions.
 

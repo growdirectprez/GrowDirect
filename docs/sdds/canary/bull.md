@@ -44,10 +44,10 @@ Bull is **not buildable** until the following prerequisites are operational:
 | Interface | Description |
 |---|---|
 | **Input:** D.1 per-location SOH | Current stock position per (item, location) |
-| **Input:** J.2 ROP + safety stock targets | Demand-derived reorder points |
+| **Input:** O.2 ROP + safety stock targets | Demand-derived reorder points |
 | **Output:** Excess/deficit matching | Location pairs where transfer is cheaper than new PO |
 | **Output:** Transfer recommendations with OTB context | Scored by transfer-cost vs replenishment-cost |
-| **Output:** Buyer review queue | Same approval UX pattern as J.4 PO recommendations |
+| **Output:** Buyer review queue | Same approval UX pattern as O.4 PO recommendations |
 
 ### MCP Tools (planned — `canary-bull` server)
 

@@ -126,7 +126,7 @@ For each module: **spine intent**, **Counterpoint endpoints**, **CRDM entities**
   - Void-of-sale vs return distinction in Counterpoint's data model
   - Tender / payment-method coverage via PayCode endpoints
 
-### 6.2 Module R — Customer
+### 6.2 Module C — Customer
 
 - **Spine intent:** customer entity, contact info, history, segmentation, B2B vs retail distinction
 - **Counterpoint endpoints:** `Customer*`, `Customers`, `Customers_EC` (ecommerce), `Customer_Address`, `Customer_Note`, `Customer_OpenItems`, `Customer_Card` (delete/manage card-on-file), `CustomerControl`
@@ -187,7 +187,7 @@ For each module: **spine intent**, **Counterpoint endpoints**, **CRDM entities**
 - **Open questions:**
   - Counterpoint-specific fraud patterns (different from Square — e.g., voided-tender patterns, employee discount abuse via PayCodes)
 
-### 6.6 Module C — Commercial
+### 6.6 Module M — Merchandising
 
 - **Spine intent:** B2B / account customer flows — landscapers, contractors, multi-PO accounts
 - **Counterpoint endpoints:** `Customer*` with B2B flag, `Customer_OpenItems` for AR balances. PayCode* for B2B-specific tenders (purchase orders, account charges). Document* with customer-account ticket types.
@@ -233,7 +233,7 @@ For each module: **spine intent**, **Counterpoint endpoints**, **CRDM entities**
   - Tax authority + rate detail level
   - Day-end close vs continuous reconciliation
 
-### 6.9 Module J — Forecast / Order
+### 6.9 Module O — Forecast / Order
 
 - **Spine intent:** demand forecasting, replenishment ordering, vendor PO
 - **Counterpoint endpoints:** verify in Endpoints/ — likely Vendor*, PO*, ReplenishmentOrder* (need to scan full endpoint list)
@@ -312,9 +312,9 @@ For each module: **spine intent**, **Counterpoint endpoints**, **CRDM entities**
 - **TSP adapter:** Phase 1 implements only the User/Role surface. The full Module L is parked.
 - **Recommended scope adjustment:** **drop L from Phase 1 priority modules**; defer to a separate workforce-data dispatch.
 
-### 6.13 Module W — Work Execution
+### 6.13 Module E — Execution
 
-> **REVISED 2026-04-25 post deep-dive:** Counterpoint's REST API has **no work-execution / task / checklist endpoints**. Module W is fully out of Counterpoint scope.
+> **REVISED 2026-04-25 post deep-dive:** Counterpoint's REST API has **no work-execution / task / checklist endpoints**. Module E is fully out of Counterpoint scope.
 
 - **Spine intent:** daily operating tasks, store-floor workflows, ops checklists
 - **Counterpoint endpoints (verified):** none
@@ -323,11 +323,11 @@ For each module: **spine intent**, **Counterpoint endpoints**, **CRDM entities**
 - **Implication options** (parallel to Module L's option set):
   - **(a)** Source from a task-management / store-ops product (Beekeeper, YOOBIC, Foko Retail, etc.) feeding Canary directly — third-party tool, customer pays for two systems
   - **(b)** Custom store-ops tool (customer-built) — customer cost, integration burden
-  - **(c)** Defer — Module W sits gappy in CRDM
+  - **(c)** Defer — Module E sits gappy in CRDM
   - **(d) Canary-native work-execution module** — same one-stop-shop wedge framing as Module L. Native task management, daily-ops checklists, store-floor workflows inside Canary. Tradeoffs: store-ops UI is a real surface to build, mature competitors exist, Phase 6+ work not Phase 1. **Same product-strategic call as Module L; escalate to founder before committing roadmap scope.** See memory: `project_canary_native_labor_module_opportunity.md` (which covers the wedge logic generically).
-- **MCP tool surface:** N/A (out of scope for Counterpoint integration; lives in Module W's own product surface if option (d) chosen)
+- **MCP tool surface:** N/A (out of scope for Counterpoint integration; lives in Module E's own product surface if option (d) chosen)
 - **TSP adapter:** N/A (no Counterpoint endpoints)
-- **Recommended scope adjustment:** **remove Module W from Phase 3** of the Counterpoint build plan. Phase 3 covers D + J only; W becomes a separate effort with its own SDD if/when it's prioritized.
+- **Recommended scope adjustment:** **remove Module E from Phase 3** of the Counterpoint build plan. Phase 3 covers D + J only; W becomes a separate effort with its own SDD if/when it's prioritized.
 
 ## 7. Cross-cutting concerns
 
@@ -428,7 +428,7 @@ Program-level (see build plan §Acceptance criteria for full list):
 | 7 | Lawn/garden module's custom fields on Item | **Mostly answered.** Items have `CATEG_COD` + `SUBCAT_COD` (2-level), `ATTR_COD_1` + `ATTR_COD_2` (extensible attributes), `MIX_MATCH_COD` (mix-and-match group), `ITEM_TYP` (I/K/etc.), `IS_TXBL`, `IS_FOOD_STMP_ITEM`, ecommerce flags. Mix-and-match IS exposed via API as a code reference. Plant-specific custom fields likely use the attribute codes. Customer-level custom fields use 5×4 (alpha/code/date/number) profile slots enabled in CustomerControl. |
 | 8 | Promotion stacking + effective-dating semantics | **ANSWERED — N/A.** No Promotion endpoint exists; Module P is derived. See §6.11 revised. |
 | 9 | Multi-company addressing strategy | **ANSWERED.** `<CompanyAlias>.<UserName>` auth prefix; CRDM tenant_id × counterpoint_company_alias |
-| 10 | Workflow / task in Counterpoint | **ANSWERED — NO.** Module W not sourced from Counterpoint. See §6.13 revised. |
+| 10 | Workflow / task in Counterpoint | **ANSWERED — NO.** Module E not sourced from Counterpoint. See §6.13 revised. |
 
 New questions surfaced post deep-dive:
 

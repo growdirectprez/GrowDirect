@@ -11,7 +11,7 @@ companion-cards-completed:
   - Brain/wiki/canary-module-q-functional-decomposition.md (★ Canary native — canonical example)
   - Brain/wiki/canary-module-t-functional-decomposition.md (● Full direct, substrate)
   - Brain/wiki/canary-module-r-functional-decomposition.md (● Full direct, with privacy posture L2)
-  - Brain/wiki/canary-module-j-functional-decomposition.md (◐ Partial — partial-coverage exemplar)
+  - Brain/wiki/canary-module-o-functional-decomposition.md (◐ Partial — partial-coverage exemplar)
   - Brain/wiki/canary-module-s-functional-decomposition.md (● Full direct, vertical-distinctive)
   - Brain/wiki/canary-module-f-functional-decomposition.md (● Full direct, cross-cutting)
   - Brain/wiki/canary-module-n-functional-decomposition.md (● Full direct, dense-config)
@@ -57,10 +57,10 @@ Verify with: `grep -in -E "SAP|RBIS|Oracle Retail|Retek|prior-art|canonical reta
 
 | Module | L1 cell | Template card to start from | Notes |
 |---|---|---|---|
-| **D** — Distribution | ◐ Partial (Document XFER + per-location inventory direct; transfer logic Canary-native) | `canary-module-j-functional-decomposition.md` | Partial-coverage shape; tag Canary-native vs substrate-supplied per L2 |
-| **C** — Commercial / B2B | ◐ Derived (from R + AR + Customer fields + OpenItems) | `canary-module-j-functional-decomposition.md` | Derived module — first of its kind. May want to invent a "derived module" sub-template here. Most L3s read from R + F substrate; minimal own-data; light L2 set (4-5 likely) |
-| **P** — Pricing / Promotion | ◐ Derived (from Item prices + CustomerControl multi-tier flags + per-line PS_DOC_LIN_PRICE) | `canary-module-j-functional-decomposition.md` | Derived module. Cross-cuts heavily with J (J.8 promotional-isolation) and Q (Q-DM family). Source: companion `Brain/wiki/retail-promotion-workflow.md` for promotion lifecycle (use as companion, NOT lineage) |
-| **A** — Asset Management | ◐ Derived (from Item flags — ITEM_TYP, asset/non-saleable indicators) | `canary-module-j-functional-decomposition.md` | Lightest derived module; small L2 set (3-4 likely). Per Solution Map: SMB scale rarely needs deep asset coverage — keep scope honest |
+| **D** — Distribution | ◐ Partial (Document XFER + per-location inventory direct; transfer logic Canary-native) | `canary-module-o-functional-decomposition.md` | Partial-coverage shape; tag Canary-native vs substrate-supplied per L2 |
+| **C** — Commercial / B2B | ◐ Derived (from R + AR + Customer fields + OpenItems) | `canary-module-o-functional-decomposition.md` | Derived module — first of its kind. May want to invent a "derived module" sub-template here. Most L3s read from R + F substrate; minimal own-data; light L2 set (4-5 likely) |
+| **P** — Pricing / Promotion | ◐ Derived (from Item prices + CustomerControl multi-tier flags + per-line PS_DOC_LIN_PRICE) | `canary-module-o-functional-decomposition.md` | Derived module. Cross-cuts heavily with J (J.8 promotional-isolation) and Q (Q-DM family). Source: companion `Brain/wiki/retail-promotion-workflow.md` for promotion lifecycle (use as companion, NOT lineage) |
+| **A** — Asset Management | ◐ Derived (from Item flags — ITEM_TYP, asset/non-saleable indicators) | `canary-module-o-functional-decomposition.md` | Lightest derived module; small L2 set (3-4 likely). Per Solution Map: SMB scale rarely needs deep asset coverage — keep scope honest |
 | **L** — Labor / Workforce | ✗ → ★ Canary-native option (d) OR ◯ External vendor (Homebase/Deputy/etc) | `canary-module-q-functional-decomposition.md` IF building ★; new template needed IF ◯ | **STRATEGIC DECISION REQUIRED before drafting.** Bart Monday call (2026-04-27 1pm PST) is the natural surface for this. Memory `project_canary_native_labor_module_opportunity.md` holds prior thinking. Flag in dispatch comment if you proceed without the decision. |
 | **W** — Work Execution | ✗ → ★ Canary-native option (d) OR ◯ External vendor (Beekeeper/YOOBIC/etc) | Same as L | Same strategic decision. L and W are likely answered together. |
 
@@ -85,7 +85,7 @@ Below — for each remaining module — the source artifacts the new functional-
 - **Companion cards:** `garden-center-operating-reality.md` (landscaper / wholesale / project tier reality)
 - **R cross-cuts:** Inherits R.2 (tier identity), R.3 (loyalty + AR), R.6 (investigator surface)
 - **F cross-cuts:** Inherits F.6 (AR ledger), F.6.5 (B2B credit decisioning hooks)
-- **Existing Canary wiki:** `Brain/wiki/canary-module-c-commercial.md`
+- **Existing Canary wiki:** `Brain/wiki/canary-module-m-merchandising.md`
 
 ### P — Pricing / Promotion
 

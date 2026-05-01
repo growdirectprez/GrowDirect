@@ -2,9 +2,9 @@
 date: 2026-04-24
 type: wiki
 status: active
-tags: [canary, retail-spine, module-r, customer, identity, arts]
+tags: [canary, retail-spine, module-c, customer, identity, arts]
 sources:
-  - Canary-Retail-Brain/modules/R-customer.md
+  - Canary-Retail-Brain/modules/C-customer.md
   - Canary/canary/models/app/customers.py
   - Canary/canary/services/identity/
   - Canary/docs/sdds/v2/identity.md
@@ -12,20 +12,20 @@ last-compiled: 2026-04-24
 needs-review: 2026-05-24
 ----
 
-# Canary Module — R (Customer)
+# Canary Module — C (Customer)
 
 ## Summary
 
-R is Canary's customer registry — the People-side curation module on
+C is Canary's customer registry — the People-side curation module on
 the [[../projects/RetailSpine|Retail Spine]]. The v1 implementation
 is deliberately minimal: vendor customer ID + derived aggregates +
 soft-delete state. **No PII at rest.** Names, emails, phones, and
 addresses live in Square; Canary reads through at query time when a
 workflow demands it.
 
-This wiki article is the Canary-specific crosswalk for R. The
+This wiki article is the Canary-specific crosswalk for C. The
 canonical, vendor-neutral spec lives at
-`Canary-Retail-Brain/modules/R-customer.md`.
+`Canary-Retail-Brain/modules/C-customer.md`.
 
 ## Code surface
 
@@ -40,7 +40,7 @@ canonical, vendor-neutral spec lives at
 
 ## Schema crosswalk
 
-R writes to the `app` schema.
+C writes to the `app` schema.
 
 **Owns (write):**
 
@@ -82,25 +82,25 @@ privacy-first posture, not a missing feature.
 
 ## SDD crosswalk
 
-| SDD | Path | R's relationship |
+| SDD | Path | C's relationship |
 |---|---|---|
 | identity | `Canary/docs/sdds/v2/identity.md` | Primary spec — merchant registration, user auth, RBAC, OAuth |
 | external-identities | `Canary/docs/sdds/v2/external-identities.md` | Cross-DB customer identity linking (v2 design) |
 | data-model | `Canary/docs/sdds/v2/data-model.md` | App schema customer table definition |
 
-## Where R fits on the spine
+## Where C fits on the spine
 
-R is one of the [[../projects/RetailSpine|Retail Spine]] Differentiated-Five
+C is one of the [[../projects/RetailSpine|Retail Spine]] Differentiated-Five
 modules. Per the [[../projects/RetailSpine#1-customer-management|Customer
-Management § BST inventory]], R is the primary owner of:
+Management § BST inventory]], C is the primary owner of:
 
-- **Customer Profile Analysis** (R *is* the profile)
+- **Customer Profile Analysis** (C *is* the profile)
 - **Customer Lifetime Value Analysis** (`lifetime_value_cents`)
 - **Customer Movement Dynamics** (`first_seen_at`, `last_seen_at`)
 
-R is the FK provider for many other Customer-Management BSTs (Purchase
+C is the FK provider for many other Customer-Management BSTs (Purchase
 Profiles, Customer Loyalty, Cross Purchase Behavior, etc.) — those
-projections compute from T's tables joined through R's identity.
+projections compute from T's tables joined through C's identity.
 
 ## MCP tool surface
 
@@ -128,10 +128,10 @@ processing transactions.
    agreement template.
 3. **Customer Complaints projection.** Refund reasons live in T
    (`refund_links.reason`) and should populate Customer Complaints
-   Analysis. R has no projection for this yet — small gap.
+   Analysis. C has no projection for this yet — small gap.
 4. **No customer-side anomaly rule.** Q has card-velocity rules but
    no rule that fires on customer-profile drift (geographic shift,
-   dormancy reactivation). Belongs in Q with R as the FK source.
+   dormancy reactivation). Belongs in Q with C as the FK source.
 
 ## Related
 
@@ -143,7 +143,7 @@ processing transactions.
 
 ## Sources
 
-- `Canary-Retail-Brain/modules/R-customer.md` — canonical vendor-neutral spec
+- `Canary-Retail-Brain/modules/C-customer.md` — canonical vendor-neutral spec
 - `Canary/canary/models/app/customers.py` — Customer model
 - `Canary/canary/models/app/card_profiles.py` — opaque card-fingerprint store
 - `Canary/canary/models/app/external_identities.py` — cross-DB link scaffold

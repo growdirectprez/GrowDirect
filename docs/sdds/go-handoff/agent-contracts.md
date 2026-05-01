@@ -135,7 +135,7 @@ Alert row created in `app.alerts` with status `new`. The Chirp pipeline writes t
 | Field | Type | Constraints |
 |---|---|---|
 | `alert_id` | uuid | Must exist in `app.alerts` |
-| `rule_code` | string | Must match a known Chirp rule family (e.g. `R.002`, `E.101`) |
+| `rule_code` | string | Must match a known Chirp rule family (e.g. `C.002`, `E.101`) |
 | `severity` | string | Enum: `low` / `medium` / `high` / `critical` |
 | `merchant_id` | uuid | Must exist in `app.merchant_sources` |
 | `evidence_ids` | uuid[] | One or more records in `app.alert_evidence`; minimum 1 |

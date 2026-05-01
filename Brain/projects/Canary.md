@@ -29,16 +29,16 @@ Beta / Early Release Candidate
 L1–L4 decomposition of the 13-module Retail Spine on the NCR Counterpoint / RapidPOS backbone. These are the canonical cross-reference cards for the NCR vault's `modules/` section.
 
 - [[Brain/wiki/canary-module-a-functional-decomposition|Module A — Asset Management (Functional Decomp)]]
-- [[Brain/wiki/canary-module-c-functional-decomposition|Module C — Commercial / B2B (Functional Decomp)]]
+- [[Brain/wiki/canary-module-m-functional-decomposition|Module M — Merchandising (Functional Decomp)]]
 - [[Brain/wiki/canary-module-d-functional-decomposition|Module D — Distribution (Functional Decomp)]]
 - [[Brain/wiki/canary-module-f-functional-decomposition|Module F — Finance / Tenders / Tax (Functional Decomp)]]
-- [[Brain/wiki/canary-module-j-functional-decomposition|Module J — Forecast & Order (Functional Decomp)]]
+- [[Brain/wiki/canary-module-o-functional-decomposition|Module O — Orders (Functional Decomp)]]
 - [[Brain/wiki/canary-module-n-functional-decomposition|Module N — Device / Store Config (Functional Decomp)]]
 - [[Brain/wiki/canary-module-p-functional-decomposition|Module P — Pricing & Promotion (Functional Decomp)]]
 - [[Brain/wiki/canary-module-q-functional-decomposition|Module Q — Loss Prevention (Functional Decomp)]]
 - [[Brain/wiki/canary-module-q-counterpoint-rule-catalog|Module Q — Counterpoint Rule Catalog]]
-- [[Brain/wiki/canary-module-r-functional-decomposition|Module R — Customer (Functional Decomp)]]
-- [[Brain/wiki/canary-module-s-functional-decomposition|Module S — Space, Range, Display (Functional Decomp)]]
+- [[Brain/wiki/canary-module-c-functional-decomposition|Module C — Customer (Functional Decomp)]]
+- [[Brain/wiki/canary-module-s-functional-decomposition|Module S — Space (Functional Decomp)]]
 - [[Brain/wiki/canary-module-t-functional-decomposition|Module T — Transaction Pipeline (Functional Decomp)]]
 - [[Brain/wiki/canary-ej-spine-and-sales-audit|EJ Spine + Sales Audit]] — Canary-native naming for the perpetual layer
 
@@ -146,7 +146,7 @@ L1–L4 decomposition of the 13-module Retail Spine on the NCR Counterpoint / Ra
 - [[docs/sdds/canary/ncr-counterpoint-auth-adapter|Module A — Auth]] — CounterpointBasicAuthFlow, HTTP client wrapper, credential lifecycle
 - [[docs/sdds/canary/ncr-counterpoint-merchant-onboarding|Module O — Onboarding]] — Phase A→B→C activation orchestrator, wizard UI, vertical profile seeding
 - [[docs/sdds/canary/ncr-counterpoint-store-station-adapter|Module S — Store & Station]] — cp_store_config, cp_station_config, walk-in sentinel, timezone lookup
-- [[docs/sdds/canary/ncr-counterpoint-customer-adapter|Module R — Customer]] — AR_CUST → external_identities + cp_customer_profiles, PII strip
+- [[docs/sdds/canary/ncr-counterpoint-customer-adapter|Module C — Customer]] — AR_CUST → external_identities + cp_customer_profiles, PII strip
 - [[docs/sdds/canary/ncr-counterpoint-item-catalog-adapter|Module I — Item Catalog]] — IM_ITEM → cp_item_catalog + cp_item_categories, Module Q margin substrates
 - [[docs/sdds/canary/ncr-counterpoint-paycode-adapter|Module F — PayCode]] — PAY_TYP taxonomy, tender normalization, Q-TM/Q-DS substrates
 - [[docs/sdds/canary/ncr-counterpoint-inventory-adapter|Module D — Inventory]] — cp_inventory_snapshots, Q-IS shrinkage substrates

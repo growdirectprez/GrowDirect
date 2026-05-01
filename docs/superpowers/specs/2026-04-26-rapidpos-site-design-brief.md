@@ -556,7 +556,7 @@ canary.growdirect.io/rapidpos/
   <div class="wiki-section">
     <div class="wiki-section-label">Modules</div>
     <a href="/rapidpos/ncr/modules/T-transaction-pipeline" class="wiki-nav-link active">T — Transaction Pipeline</a>
-    <a href="/rapidpos/ncr/modules/R-customer" class="wiki-nav-link">R — Customer</a>
+    <a href="/rapidpos/ncr/modules/R-customer" class="wiki-nav-link">C — Customer</a>
     <!-- ... -->
   </div>
 </nav>

@@ -248,18 +248,18 @@ locations, table inventories, MCP tool surfaces, open questions).
 | Prefix | Module | Ring | Status | Ledger role | Canonical | Canary crosswalk |
 |---|---|---|---|---|---|---|
 | **T** | Transaction Pipeline | v1 | shipping | publisher (sale) | `Canary-Retail-Brain/modules/T-transaction-pipeline.md` | [[../wiki/canary-module-t-transactions\|canary-module-t-transactions]] |
-| **R** | Customer | v1 | shipping (minimal) | n/a (people side) | `Canary-Retail-Brain/modules/R-customer.md` | [[../wiki/canary-module-r-customer\|canary-module-r-customer]] |
+| **R** | Customer | v1 | shipping (minimal) | n/a (people side) | `Canary-Retail-Brain/modules/C-customer.md` | [[../wiki/canary-module-c-customer\|canary-module-c-customer]] |
 | **N** | Device | v1 | model shipping | n/a (thing side) | `Canary-Retail-Brain/modules/N-device.md` | [[../wiki/canary-module-n-device\|canary-module-n-device]] |
 | **A** | Asset Management (Bubble) | v1 | design — impl pending | n/a (anomaly engine over N) | `Canary-Retail-Brain/modules/A-asset-management.md` | [[../wiki/canary-module-a-asset-management\|canary-module-a-asset-management]] |
 | **Q** | Loss Prevention (Chirp+Fox) | v1 | shipping | reconciler (sale exceptions) | `Canary-Retail-Brain/modules/Q-loss-prevention.md` | [[../wiki/canary-module-q-loss-prevention\|canary-module-q-loss-prevention]] |
-| **C** | Commercial | v2 | design complete | publisher (cost-update); OTB co-owner | `Canary-Retail-Brain/modules/C-commercial.md` | [[../wiki/canary-module-c-commercial\|canary-module-c-commercial]] |
+| **C** | Commercial | v2 | design complete | publisher (cost-update); OTB co-owner | `Canary-Retail-Brain/modules/M-merchandising.md` | [[../wiki/canary-module-m-merchandising\|canary-module-m-merchandising]] |
 | **D** | Distribution | v2 | design complete | **primary publisher** (6 verbs) | `Canary-Retail-Brain/modules/D-distribution.md` | [[../wiki/canary-module-d-distribution\|canary-module-d-distribution]] |
 | **F** | Finance | v2 | design complete | reconciler (3-way match) + publisher (GL) | `Canary-Retail-Brain/modules/F-finance.md` | [[../wiki/canary-module-f-finance\|canary-module-f-finance]] |
-| **J** | Forecast & Order | v2 | design complete | subscriber (history) + publisher (orders) | `Canary-Retail-Brain/modules/J-forecast-order.md` | [[../wiki/canary-module-j-forecast-order\|canary-module-j-forecast-order]] |
-| **S** | Space, Range, Display | v3 | design complete | subscriber + **gatekeeper** (ordering gate) | `Canary-Retail-Brain/modules/S-space-range-display.md` | [[../wiki/canary-module-s-space-range-display\|canary-module-s-space-range-display]] |
+| **J** | Forecast & Order | v2 | design complete | subscriber (history) + publisher (orders) | `Canary-Retail-Brain/modules/O-orders.md` | [[../wiki/canary-module-o-orders\|canary-module-o-orders]] |
+| **S** | Space, Range, Display | v3 | design complete | subscriber + **gatekeeper** (ordering gate) | `Canary-Retail-Brain/modules/S-space.md` | [[../wiki/canary-module-s-space\|canary-module-s-space]] |
 | **P** | Pricing & Promotion | v3 | design complete | publisher (price/markdown events) | `Canary-Retail-Brain/modules/P-pricing-promotion.md` | [[../wiki/canary-module-p-pricing-promotion\|canary-module-p-pricing-promotion]] |
-| **L** | Labor & Workforce | v3 | design complete | publisher (time entries) + subscriber | `Canary-Retail-Brain/modules/L-labor-workforce.md` | [[../wiki/canary-module-l-labor-workforce\|canary-module-l-labor-workforce]] |
-| **W** | Work Execution | v3 | design complete | **reconciler + cross-domain** (capstone) | `Canary-Retail-Brain/modules/W-work-execution.md` | [[../wiki/canary-module-w-work-execution\|canary-module-w-work-execution]] |
+| **L** | Labor & Workforce | v3 | design complete | publisher (time entries) + subscriber | `Canary-Retail-Brain/modules/L-labor.md` | [[../wiki/canary-module-l-labor\|canary-module-l-labor]] |
+| **W** | Work Execution | v3 | design complete | **reconciler + cross-domain** (capstone) | `Canary-Retail-Brain/modules/E-execution.md` | [[../wiki/canary-module-e-execution\|canary-module-e-execution]] |
 
 **Spine walk complete.** All 13 modules have canonical CATz spec + Brain wiki crosswalk as of 2026-04-24.
 

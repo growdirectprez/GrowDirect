@@ -106,7 +106,7 @@ Each line carries:
 | `LIN_SEQ_NO` | Position |
 | `LIN_TYP` | "S" sale, "R" return, others (kit parts? service?) |
 | `ITEM_NO`, `DESCR`, `CATEG_COD`, `SUBCAT_COD` | Item identity + classification |
-| `ITEM_VEND_NO` | Vendor (for vendor analysis / Module J) |
+| `ITEM_VEND_NO` | Vendor (for vendor analysis / Module O) |
 | `QTY_SOLD`, `QTY_NUMER`, `QTY_DENOM`, `QTY_UNIT` | Quantity in fractional form (e.g., 1/4 lb) |
 | `PRC`, `REG_PRC`, `CALC_PRC`, `EXT_PRC`, `EXT_COST` | Multiple price + cost views |
 | `MIX_MATCH_COD`, `MIX_MATCH_CONTRIB`, `MIX_MATCH_PRC_BASED_ON` | Mix-and-match group + contribution |
@@ -235,7 +235,7 @@ Counterpoint Document → CRDM mapping suggests CRDM should accommodate:
 
 - **Module T:** primary consumer of Documents
 - **Module D:** transfers come through Documents (DOC_TYP "XFER"), not a separate endpoint
-- **Module J:** purchase orders + receivers + RTVs come through Documents
+- **Module O:** purchase orders + receivers + RTVs come through Documents
 - **Module F:** payment + tax detail flows from Document nested arrays
 - **Module Q:** audit log + pricing decisions provide rich fraud-detection substrate
 - **Module N:** STR_ID + STA_ID + DRW_ID associations via Document

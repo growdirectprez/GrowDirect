@@ -55,13 +55,13 @@ Of the 156 truly missing targets:
 | **Forward-references to planned cards** (cove/coac/foundation governance + bylaws + historical docs) | ~80 | Author when timing is right; this is intentional roadmap not error |
 | **CRB-resident cards** (exist in `growdirect-llc/canary-retail-brain` repo, not in local Brain) | ~25 | Cross-vault references; document as expected behavior |
 | **Code-file references** (`tools.py`, `evidence_chain.py`, `*.manifest.yaml`) | ~10 | Not actually wiki links; checker conflates with markdown links |
-| **Typos / wrong paths** | ~5 | Fix surgically (one fixed in this commit: `canary-module-c-commercial.md` had `../platform/RetailSpine` should be `../projects/RetailSpine`) |
+| **Typos / wrong paths** | ~5 | Fix surgically (one fixed in this commit: `canary-module-m-merchandising.md` had `../platform/RetailSpine` should be `../projects/RetailSpine`) |
 | **Genuinely-needed concepts not yet authored** | ~30 | Author opportunistically when adjacent work surfaces them; this commit creates `canary-canonical-positioning.md` (referenced 3x) |
 | **Empty / malformed targets** (e.g., `""`, `.md` with no filename) | ~7 | Edit source to remove the malformed link |
 
 ## Quick wins applied in this commit
 
-1. Fixed wrong-path typo in `canary-module-c-commercial.md` line 85: `../platform/RetailSpine` → `../projects/RetailSpine`.
+1. Fixed wrong-path typo in `canary-module-m-merchandising.md` line 85: `../platform/RetailSpine` → `../projects/RetailSpine`.
 2. Created stub: `canary-canonical-positioning.md` (referenced 3x — anchors the founder-locked WHO/WHAT/HOW positioning statement, ties to memory `project_canary_canonical_positioning`).
 
 ## Out of scope for this baseline

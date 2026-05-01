@@ -17,7 +17,7 @@ master, item master, and document (transaction) — and almost everything
 else is plumbing or thin metadata around them. Mapped to Canary's CRDM
 classes and the spine letter scheme used in the Counterpoint integration
 SDD, the 95 documented endpoints (97 files minus 2 stubs) cluster
-unambiguously around **T (Transactions)**, **R (Customer)**, **S (Space /
+unambiguously around **T (Transactions)**, **C (Customer)**, **S (Space /
 Range / Display)**, **F (Finance)**, and **N (Device)**. Modules **L
 (Labor)** and **W (Work Execution)** have zero coverage from this surface
 and must be sourced elsewhere or deferred.
@@ -105,7 +105,7 @@ real + 2 stub).
 | `GET /Users/{CompanyName}` | platform | platform | |
 | `GET /Users/Roles` | platform | platform | |
 
-### Customer — module R
+### Customer — module C
 
 | Method + Path | CRDM class | Spine module | Notes |
 |---|---|---|---|
@@ -168,7 +168,7 @@ real + 2 stub).
 | `GET /InventoryControl` | Things | D | IM_INV_CTL (valuation method, default location). |
 | `GET /Inventory/Locations` | Places | D | IM_LOC list. **Arguably N (Device/Site) primary — SDD §4 puts InventoryLocations in Places**; we keep D here for distribution semantics and flag the SDD overlap. |
 
-### Vendor — module C / J seam
+### Vendor — module M / J seam
 
 | Method + Path | CRDM class | Spine module | Notes |
 |---|---|---|---|
@@ -216,7 +216,7 @@ real + 2 stub).
 | `GET /EC` | Workflows | S | EC_CTL. |
 | `GET /ECCategories` | Things | S | EC_CATEG. The eCommerce catalog hierarchy. |
 
-### Workgroup — module R (template-driven defaults)
+### Workgroup — module C (template-driven defaults)
 
 | Method + Path | CRDM class | Spine module | Notes |
 |---|---|---|---|
@@ -229,7 +229,7 @@ real + 2 stub).
 - **T (Transactions)** — 10 endpoints. PS_DOC_HDR + nested PS_DOC_LIN /
   PS_DOC_PMT / PS_DOC_NOTE / PS_DOC_TAX / contacts. Full read + write.
   Adequate for Canary's core fact feed.
-- **R (Customer)** — 18 endpoints (16 real + 2 stub). AR_CUST + ship-to
+- **C (Customer)** — 18 endpoints (16 real + 2 stub). AR_CUST + ship-to
   + notes + cards + open items + control + workgroup-driven defaults.
   Best-covered domain in the API.
 - **S (Space / Range / Display)** — 9 endpoints. Item master, categories,
@@ -338,7 +338,7 @@ real + 2 stub).
    no labor surface in this API. L coverage = 0.
 5. SDD letter scheme overlaps with but does not match the canonical spine
    wiki. The canonical wiki has C / D / F / J / S active; the SDD
-   additionally uses T (Transactions), R (Customer), N (Device), Q
+   additionally uses T (Transactions), C (Customer), N (Device), Q
    (Loss Prevention), A (Asset), P (Pricing), L (Labor), W (Work
    Execution). For this engagement the SDD's expanded scheme is
    operative, but a future reconciliation pass should either fold the

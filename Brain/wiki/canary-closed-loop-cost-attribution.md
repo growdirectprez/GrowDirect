@@ -106,14 +106,14 @@ Every class of loss — commercial, physical, data, network, or compute — has 
 
 | Layer | Class | Attribution Path |
 |-------|-------|-----------------|
-| Commercial | Wrong product — assortment miss | Module C / Buyer — localization failure, demand signal ignored |
+| Commercial | Wrong product — assortment miss | Module M / Buyer — localization failure, demand signal ignored |
 | Commercial | Wrong place — channel or location misallocation | Module S / Commercial Planner — space allocation, channel routing |
-| Commercial | Wrong time — demand window missed | Module J / Forecast + Module P / Promotion — timing failure |
+| Commercial | Wrong time — demand window missed | Module O / Forecast + Module P / Promotion — timing failure |
 | Commercial | Wrong sellers — conversion miss by person or territory | Module L / HR — hiring, placement, territory assignment |
-| Commercial | Backroom push — carrying cost transferred to store | Module C / Buyer + Module D / Vendor — upstream decision-maker owns the aging cost, not the store |
+| Commercial | Backroom push — carrying cost transferred to store | Module M / Buyer + Module D / Vendor — upstream decision-maker owns the aging cost, not the store |
 | Physical | External vendor shortage | Receiving discrepancy — vendor credit |
 | Physical | Internal bad process | SOP gap, workflow failure, unexecuted task |
-| Physical | Sales floor execution failure | Module W / Store Ops — miscount, misstock, display failure |
+| Physical | Sales floor execution failure | Module E / Store Ops — miscount, misstock, display failure |
 | Physical | Waste | Module S / Space — perishable shrink, damage, expired goods |
 | Physical | Product out of code / date | Module D — late receipt, cold chain break |
 | Physical | Equipment malfunction | Module A — scanner failure, scale drift, POS hardware |
@@ -187,7 +187,7 @@ The mission sentence — *"keeps you on track, meets your customers where they'r
 - [[Brain/wiki/cards/packet-cost-tracking|Packet Cost Tracking]] — atomic cost accounting at every event; the node-layer implementation of proportional charging
 - [[Brain/wiki/cards/heartbeat-protocol|Heartbeat Protocol]] — signed node heartbeat; silence is itself a garbage event triggering attribution
 - [[Brain/wiki/canary-module-q-functional-decomposition|Module Q — Loss Prevention]] — the module that operationalizes detection at the physical and transaction layers
-- [[Brain/wiki/canary-module-c-functional-decomposition|Module C — Commercial]] — buyer accountability; wrong product / wrong time / backroom push attribution path
-- [[Brain/wiki/canary-module-j-functional-decomposition|Module J — Forecast & Order]] — demand signal; wrong time attribution path
+- [[Brain/wiki/canary-module-m-functional-decomposition|Module M — Merchandising]] — buyer accountability; wrong product / wrong time / backroom push attribution path
+- [[Brain/wiki/canary-module-o-functional-decomposition|Module O — Orders]] — demand signal; wrong time attribution path
 - [[Brain/wiki/canary-module-d-functional-decomposition|Module D — Distribution]] — vendor overshipment, receiving discrepancy, backroom aging attribution path
 - [[Brain/wiki/canary-fox-case-management|Fox Case Management]] — the evidentiary record that anchors attribution when it escalates to a case

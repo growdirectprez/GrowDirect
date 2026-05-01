@@ -8,7 +8,7 @@ related:
   - Brain/wiki/canary-location-item-data-model.md
   - Brain/wiki/canary-module-p-pricing-promotion.md
   - Canary-Retail-Brain/modules/P-pricing-promotion.manifest.yaml
-  - Canary-Retail-Brain/modules/J-forecast-order.manifest.yaml
+  - Canary-Retail-Brain/modules/O-orders.manifest.yaml
   - Canary-Retail-Brain/modules/D-distribution.manifest.yaml
 source-intakes:
   - Brain/raw/inbox/sap-fashion-workshop-1998.md
@@ -140,7 +140,7 @@ Use cases:
 - New store setup: assortment sized against actual square footage
 - Capacity gate on ordering: items cannot be received beyond fixture capacity
 
-Canary module S (Space, Range, Display) owns this gate in the spine.
+Canary module S (Space) owns this gate in the spine.
 
 ---
 
@@ -159,7 +159,7 @@ A recurring failure mode in planning systems: hierarchy reorganizations break hi
 | Seasonal plan, OTB | P — Pricing/Promotion | OTB is a forward-looking pricing constraint |
 | Unit plan, allocation | J — Forecast/Order | Allocation output drives PO creation in J |
 | Store allocation distribution | D — Distribution | Stock transport orders and DC-to-store flow |
-| Assortment plan, listing grade | S — Space, Range, Display | Ordering gate: item must have planogram assignment |
+| Assortment plan, listing grade | S — Space | Ordering gate: item must have planogram assignment |
 | Historical sales for allocation | T — Transactions | Source of actual sales by store by item |
 | Location hierarchy | N — Device / Places | Store master and store group membership |
 
@@ -180,7 +180,7 @@ These are standing invariants, not vendor-specific:
 ## Related
 
 - **Canary module P:** [[Canary-Retail-Brain/modules/P-pricing-promotion.manifest.yaml]]
-- **Canary module J:** [[Canary-Retail-Brain/modules/J-forecast-order.manifest.yaml]]
+- **Canary module O:** [[Canary-Retail-Brain/modules/O-orders.manifest.yaml]]
 - **Canary module D:** [[Canary-Retail-Brain/modules/D-distribution.manifest.yaml]]
 - **Promotion workflow:** [[Brain/wiki/retail-promotion-workflow]]
 - **PO from plan:** [[Brain/wiki/retail-po-from-plan]]

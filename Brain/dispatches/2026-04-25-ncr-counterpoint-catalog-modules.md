@@ -62,7 +62,7 @@ Produce a one-page pre-flight summary covering: confirmed endpoint list, garden-
 4. Garden-center field surfacing: ATTR_COD_1/2 (plant attributes), MIX_MATCH_COD (mix-match group), CATEG_COD/SUBCAT_COD (2-level), ADDL_DESCR_1/2/3 (additional descriptions — may carry botanical/Spanish names)
 5. MCP tool surface: `get_items(category?, status?)`, `get_item(item_id)`, `get_item_categories()`, `get_item_inventory(item_id)`, `get_item_images(item_id)`, `search_items_by_attribute(attr_cod, value)` (new — H&G-relevant)
 6. Test: fixture suite with H&G-shaped data (plants with multi-name fields, mix-match groups, fractional units, perishable flags)
-7. Wiki: update `Brain/wiki/canary-module-s-space-range-display.md` with Counterpoint-mapping section
+7. Wiki: update `Brain/wiki/canary-module-s-space.md` with Counterpoint-mapping section
 8. Founder review gate
 
 ### Sub-phase 2b — Module P (derived)

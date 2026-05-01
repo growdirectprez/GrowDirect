@@ -56,7 +56,7 @@ T (adapter ingress) → T.3.2 (DOC_TYP routing) → T.4.6/T.4.7 (XFER/PO publica
 
 ## Finding 5: Q Rule Catalog Is More Advanced Than Live Code
 
-CRB publishes a 25-rule catalog across 12 families (including compliance and commercial/B2B families added beyond the original 23/10). The live code has 37 frozen Chirp rules against Square. The Counterpoint-specific rules (Q-IS-02 cash-paid receivers, Q-IS-04 dead-count tracking, Q-MM-01/02 mix-and-match, Q-RESTRICTED-ITEM-SALE compliance, Q-C-01 through Q-C-05 commercial/B2B) are documented in CRB but not yet implemented.
+CRB publishes a 25-rule catalog across 12 families (including compliance and commercial/B2B families added beyond the original 23/10). The live code has 37 frozen Chirp rules against Square. The Counterpoint-specific rules (Q-IS-02 cash-paid receivers, Q-IS-04 dead-count tracking, Q-MM-01/02 mix-and-match, Q-RESTRICTED-ITEM-SALE compliance, Q-M-01 through Q-M-05 commercial/B2B) are documented in CRB but not yet implemented.
 
 **SDD drift assessment:**
 - CRB is aspirational-but-realistic for Counterpoint rules — they're well-specified, have assumption markers, and have explicit resolution paths

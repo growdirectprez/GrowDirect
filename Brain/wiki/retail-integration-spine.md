@@ -86,7 +86,7 @@ The source corpus is organized by single-letter prefix. P (People) and
 R (Retail/Store) are present in the taxonomy but empty in the source —
 documented below as canonical placeholders.
 
-### C — Commercial
+### M — Merchandising
 
 **Purpose.** Master-data flow from the Merchandising System into the
 operational data hub and downstream consumers. Establishes the product,

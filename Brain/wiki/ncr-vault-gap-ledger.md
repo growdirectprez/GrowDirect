@@ -29,18 +29,18 @@ Decision record for the NCR companion vault wiring (2026-04-27). Cross-reference
 | agents | roadmap.md | — | **Missing** | No Brain equivalent. NCR file has 4-phase batch-to-real-time progression (2026–2030) with tech stack per phase. → `canary-agent-roadmap-batch-to-realtime.md` |
 | modules | index.md | — | Forward-only | L1–L4 hierarchy navigator with coverage key and module stubs. Navigation scaffolding only. |
 | modules | D-distribution.md | `canary-module-d-functional-decomposition.md` | Covered | Brain functional decomposition is the source; NCR is the projection. |
-| modules | W-work-execution.md | `canary-module-w-work-execution.md` | Covered | NCR is a 16-line stub; Brain has 295-line full spec. |
+| modules | W-work-execution.md | `canary-module-e-execution.md` | Covered | NCR is a 16-line stub; Brain has 295-line full spec. |
 | modules | Q-loss-prevention.md | `canary-module-q-functional-decomposition.md` | Covered | Brain has full functional decomposition. |
 | modules | Q-loss-prevention-rule-catalog.md | `canary-module-q-counterpoint-rule-catalog.md` | Covered | Brain has full rule catalog with parameters and allow-lists. |
 | modules | N-device.md | `canary-module-n-functional-decomposition.md` | Covered | Brain has functional decomposition. |
 | modules | EJ-spine-and-sales-audit.md | `canary-ej-spine-and-sales-audit.md` | Covered | NCR is 13-line stub; Brain has 292-line full spec. |
 | modules | F-finance.md | `canary-module-f-functional-decomposition.md` | Covered | Brain has full functional decomposition. |
-| modules | C-commercial.md | `canary-module-c-functional-decomposition.md` | Covered | Brain has full functional decomposition. |
-| modules | L-labor-workforce.md | `canary-module-l-labor-workforce.md` | Covered | NCR is 12-line stub; Brain has 295-line full spec. |
+| modules | C-commercial.md | `canary-module-m-functional-decomposition.md` | Covered | Brain has full functional decomposition. |
+| modules | L-labor-workforce.md | `canary-module-l-labor.md` | Covered | NCR is 12-line stub; Brain has 295-line full spec. |
 | modules | P-pricing-promotion.md | `canary-module-p-functional-decomposition.md` | Covered | Brain has full functional decomposition. |
-| modules | J-forecast-order.md | `canary-module-j-functional-decomposition.md` | Covered | Brain has full functional decomposition. |
+| modules | J-forecast-order.md | `canary-module-o-functional-decomposition.md` | Covered | Brain has full functional decomposition. |
 | modules | S-space-range-display.md | `canary-module-s-functional-decomposition.md` | Covered | Brain has full functional decomposition. |
-| modules | R-customer.md | `canary-module-r-functional-decomposition.md` | Covered | Brain has full functional decomposition. |
+| modules | R-customer.md | `canary-module-c-functional-decomposition.md` | Covered | Brain has full functional decomposition. |
 | modules | T-transaction-pipeline.md | `canary-module-t-functional-decomposition.md` | Covered | Brain has full functional decomposition. |
 | modules | A-asset-management.md | `canary-module-a-functional-decomposition.md` | Covered | Brain has full functional decomposition. |
 | ncr-context | index.md | `ncr-counterpoint-phase-0-context-brief.md`, `voyix-counterpoint-rapid-pos-engagement-context.md`, `ncr-counterpoint-rapid-pos-relationship.md` | Covered | Three Brain articles back the NCR ecosystem context. |
