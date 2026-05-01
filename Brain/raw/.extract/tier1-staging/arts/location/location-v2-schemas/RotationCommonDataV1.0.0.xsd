@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- edited with XMLSpy v2006 sp1 U (http://www.altova.com) by Richard L Halter (private) -->
+<!-- V1.1.0
+	Added USD as default currency code -->
+<xs:schema xmlns:xs="http://www.w3.org/2001/XMLSchema" elementFormDefault="qualified" attributeFormDefault="unqualified">
+	<xs:include schemaLocation="AxisTypeCodeEnumerationV1.0.0.xsd"/>
+	<xs:complexType name="RotationCommonData">
+		<xs:simpleContent>
+			<xs:extension base="xs:decimal">
+				<xs:annotation>
+					<xs:documentation>The amount rounded, for example if the total is 2.68 EUR and it is rounded to 2.70 EUR, then the rounding amount is .02 EUR</xs:documentation>
+				</xs:annotation>
+				<xs:attribute name="Axis" type="AxisTypeCode"/>
+			</xs:extension>
+		</xs:simpleContent>
+	</xs:complexType>
+</xs:schema>

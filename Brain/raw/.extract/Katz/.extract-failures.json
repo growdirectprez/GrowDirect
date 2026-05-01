@@ -1,0 +1,434 @@
+[
+  {
+    "source_path": "/Users/gclyle/GrowDirect/Brain/raw/inbox/Katz/Phase I/03 - As-Is Workshops/Katz As Is Process WS Category Management 05 08 03 v0.0.ppt",
+    "source_sha256": "d737a32032db8d92cac0e730356793f2a34d1e2c3230b4ca031c797e7955e1a4",
+    "target_path": "/Users/gclyle/GrowDirect/Brain/raw/.extract/Katz/Phase I/03 - As-Is Workshops/Katz As Is Process WS Category Management 05 08 03 v0.0.ppt.md",
+    "method": null,
+    "status": "failed",
+    "error": "markitdown: UnsupportedFormatException: Could not convert stream to Markdown. No converter attempted a conversion, suggesting that the filetype is simply not supported.",
+    "extracted_at": "2026-04-24T21:42:09.954864+00:00"
+  },
+  {
+    "source_path": "/Users/gclyle/GrowDirect/Brain/raw/inbox/Katz/Phase I/03 - As-Is Workshops/Katz As Is Process WS Forecasting 05 07 03 v0.0.ppt",
+    "source_sha256": "2ea41c39ff62d8faef71b35e13fd5f9f798726623dc3889a034251f78537991a",
+    "target_path": "/Users/gclyle/GrowDirect/Brain/raw/.extract/Katz/Phase I/03 - As-Is Workshops/Katz As Is Process WS Forecasting 05 07 03 v0.0.ppt.md",
+    "method": null,
+    "status": "failed",
+    "error": "markitdown: UnsupportedFormatException: Could not convert stream to Markdown. No converter attempted a conversion, suggesting that the filetype is simply not supported.",
+    "extracted_at": "2026-04-24T21:42:09.962534+00:00"
+  },
+  {
+    "source_path": "/Users/gclyle/GrowDirect/Brain/raw/inbox/Katz/Phase I/03 - As-Is Workshops/Katz As Is Process WS Inventory 05 09 03 v0.0.ppt",
+    "source_sha256": "a6eef05a3741b508dd8cf5a8f0a1537a7ffa45c0d7f9372e42393a1efc312503",
+    "target_path": "/Users/gclyle/GrowDirect/Brain/raw/.extract/Katz/Phase I/03 - As-Is Workshops/Katz As Is Process WS Inventory 05 09 03 v0.0.ppt.md",
+    "method": null,
+    "status": "failed",
+    "error": "markitdown: UnsupportedFormatException: Could not convert stream to Markdown. No converter attempted a conversion, suggesting that the filetype is simply not supported.",
+    "extracted_at": "2026-04-24T21:42:09.969985+00:00"
+  },
+  {
+    "source_path": "/Users/gclyle/GrowDirect/Brain/raw/inbox/Katz/Phase I/03 - As-Is Workshops/Katz As Is Process WS Manage Pricing 05 07 03 v0.0.ppt",
+    "source_sha256": "caf8a8ff7cf42004c30c5f19e6db6254c9f964b2e2b3a721a9bcffac5678b57a",
+    "target_path": "/Users/gclyle/GrowDirect/Brain/raw/.extract/Katz/Phase I/03 - As-Is Workshops/Katz As Is Process WS Manage Pricing 05 07 03 v0.0.ppt.md",
+    "method": null,
+    "status": "failed",
+    "error": "markitdown: UnsupportedFormatException: Could not convert stream to Markdown. No converter attempted a conversion, suggesting that the filetype is simply not supported.",
+    "extracted_at": "2026-04-24T21:42:09.977215+00:00"
+  },
+  {
+    "source_path": "/Users/gclyle/GrowDirect/Brain/raw/inbox/Katz/Phase I/03 - As-Is Workshops/Katz As Is Process WS Manage Vendor 05 12 03 v0.0.ppt",
+    "source_sha256": "964e30c45d20c2ad0e874d0d60ec4d6a1d6bf49efed981073fd14005b91f4d7c",
+    "target_path": "/Users/gclyle/GrowDirect/Brain/raw/.extract/Katz/Phase I/03 - As-Is Workshops/Katz As Is Process WS Manage Vendor 05 12 03 v0.0.ppt.md",
+    "method": null,
+    "status": "failed",
+    "error": "markitdown: UnsupportedFormatException: Could not convert stream to Markdown. No converter attempted a conversion, suggesting that the filetype is simply not supported.",
+    "extracted_at": "2026-04-24T21:42:09.983648+00:00"
+  },
+  {
+    "source_path": "/Users/gclyle/GrowDirect/Brain/raw/inbox/Katz/Phase I/03 - As-Is Workshops/Katz As Is Process WS Move 05 06 03 v0.0.ppt",
+    "source_sha256": "95e72fb9a0ef8915a69a992ce4a48417711822f983f4e7a7e62e1af5716df70e",
+    "target_path": "/Users/gclyle/GrowDirect/Brain/raw/.extract/Katz/Phase I/03 - As-Is Workshops/Katz As Is Process WS Move 05 06 03 v0.0.ppt.md",
+    "method": null,
+    "status": "failed",
+    "error": "markitdown: UnsupportedFormatException: Could not convert stream to Markdown. No converter attempted a conversion, suggesting that the filetype is simply not supported.",
+    "extracted_at": "2026-04-24T21:42:09.990479+00:00"
+  },
+  {
+    "source_path": "/Users/gclyle/GrowDirect/Brain/raw/inbox/Katz/Phase I/03 - As-Is Workshops/Katz As Is Process WS POS 05 06 03 v0.0.ppt",
+    "source_sha256": "9b7a57a1160bf13dfdafce5615a54dd3f27458efeeb60b3cfdcfc779aa2fa5db",
+    "target_path": "/Users/gclyle/GrowDirect/Brain/raw/.extract/Katz/Phase I/03 - As-Is Workshops/Katz As Is Process WS POS 05 06 03 v0.0.ppt.md",
+    "method": null,
+    "status": "failed",
+    "error": "markitdown: UnsupportedFormatException: Could not convert stream to Markdown. No converter attempted a conversion, suggesting that the filetype is simply not supported.",
+    "extracted_at": "2026-04-24T21:42:09.997196+00:00"
+  },
+  {
+    "source_path": "/Users/gclyle/GrowDirect/Brain/raw/inbox/Katz/Phase I/03 - As-Is Workshops/Katz As Is Process WS ProPharm 05 05 03 v0.0.ppt",
+    "source_sha256": "b041cafe9b6d7d8e24d2907557b10429e161f33e0d2ee57f333d764280c9c8c3",
+    "target_path": "/Users/gclyle/GrowDirect/Brain/raw/.extract/Katz/Phase I/03 - As-Is Workshops/Katz As Is Process WS ProPharm 05 05 03 v0.0.ppt.md",
+    "method": null,
+    "status": "failed",
+    "error": "markitdown: UnsupportedFormatException: Could not convert stream to Markdown. No converter attempted a conversion, suggesting that the filetype is simply not supported.",
+    "extracted_at": "2026-04-24T21:42:10.005138+00:00"
+  },
+  {
+    "source_path": "/Users/gclyle/GrowDirect/Brain/raw/inbox/Katz/Phase I/04 - Executive Visioning/Executive Visioning Presentation June 4 2003.ppt",
+    "source_sha256": "07af64af76d475a952f1a54bcf78ec8cdfff0d2fd476149b40f074baa783ef89",
+    "target_path": "/Users/gclyle/GrowDirect/Brain/raw/.extract/Katz/Phase I/04 - Executive Visioning/Executive Visioning Presentation June 4 2003.ppt.md",
+    "method": null,
+    "status": "failed",
+    "error": "markitdown: UnsupportedFormatException: Could not convert stream to Markdown. No converter attempted a conversion, suggesting that the filetype is simply not supported.",
+    "extracted_at": "2026-04-24T21:42:10.135307+00:00"
+  },
+  {
+    "source_path": "/Users/gclyle/GrowDirect/Brain/raw/inbox/Katz/Phase I/04 - Executive Visioning/McKesson Executive Visioning Presentation June 4 2003 v1.ppt",
+    "source_sha256": "37f7b72f8f36a0bee95170c83f3c641f9cb36d408ba9ae879e68795668bee1ac",
+    "target_path": "/Users/gclyle/GrowDirect/Brain/raw/.extract/Katz/Phase I/04 - Executive Visioning/McKesson Executive Visioning Presentation June 4 2003 v1.ppt.md",
+    "method": null,
+    "status": "failed",
+    "error": "markitdown: UnsupportedFormatException: Could not convert stream to Markdown. No converter attempted a conversion, suggesting that the filetype is simply not supported.",
+    "extracted_at": "2026-04-24T21:42:10.202295+00:00"
+  },
+  {
+    "source_path": "/Users/gclyle/GrowDirect/Brain/raw/inbox/Katz/Phase I/06 - Balanced Scorecards/retailer egcards - balanced scorecards.ppt",
+    "source_sha256": "9655bab10c0bd5e7602d1b75f0300701bfc18ae28c94f674a77c56d6ea8b6a57",
+    "target_path": "/Users/gclyle/GrowDirect/Brain/raw/.extract/Katz/Phase I/06 - Balanced Scorecards/retailer egcards - balanced scorecards.ppt.md",
+    "method": null,
+    "status": "failed",
+    "error": "markitdown: UnsupportedFormatException: Could not convert stream to Markdown. No converter attempted a conversion, suggesting that the filetype is simply not supported.",
+    "extracted_at": "2026-04-24T21:42:10.732509+00:00"
+  },
+  {
+    "source_path": "/Users/gclyle/GrowDirect/Brain/raw/inbox/Katz/Phase I/09 - Presentations/Katz Kick Off Final.ppt",
+    "source_sha256": "4b8d39c97df3ab06b00408e74a5e7365b4e1d23453f083db8c8b91b825093590",
+    "target_path": "/Users/gclyle/GrowDirect/Brain/raw/.extract/Katz/Phase I/09 - Presentations/Katz Kick Off Final.ppt.md",
+    "method": null,
+    "status": "failed",
+    "error": "markitdown: UnsupportedFormatException: Could not convert stream to Markdown. No converter attempted a conversion, suggesting that the filetype is simply not supported.",
+    "extracted_at": "2026-04-24T21:42:23.485067+00:00"
+  },
+  {
+    "source_path": "/Users/gclyle/GrowDirect/Brain/raw/inbox/Katz/Phase I/09 - Presentations/Katz SC#1 Presentation Final.ppt",
+    "source_sha256": "831ca2c836f495a485aa95b9b9645df56c413d7d03feb6e6f7c02cc2d7839301",
+    "target_path": "/Users/gclyle/GrowDirect/Brain/raw/.extract/Katz/Phase I/09 - Presentations/Katz SC#1 Presentation Final.ppt.md",
+    "method": null,
+    "status": "failed",
+    "error": "markitdown: UnsupportedFormatException: Could not convert stream to Markdown. No converter attempted a conversion, suggesting that the filetype is simply not supported.",
+    "extracted_at": "2026-04-24T21:42:23.492729+00:00"
+  },
+  {
+    "source_path": "/Users/gclyle/GrowDirect/Brain/raw/inbox/Katz/Phase I/09 - Presentations/Katz SCOA Final Report Appendix.ppt",
+    "source_sha256": "99e3f53960970cb655000fdbfaafd9d90bcf3eacace1779769c597d5c1871c69",
+    "target_path": "/Users/gclyle/GrowDirect/Brain/raw/.extract/Katz/Phase I/09 - Presentations/Katz SCOA Final Report Appendix.ppt.md",
+    "method": null,
+    "status": "failed",
+    "error": "markitdown: UnsupportedFormatException: Could not convert stream to Markdown. No converter attempted a conversion, suggesting that the filetype is simply not supported.",
+    "extracted_at": "2026-04-24T21:42:23.504969+00:00"
+  },
+  {
+    "source_path": "/Users/gclyle/GrowDirect/Brain/raw/inbox/Katz/Phase I/09 - Presentations/Katz SCOA Final Report.ppt",
+    "source_sha256": "a8cb24c7799c1a4e58709c6b4f0abe7567ad5d27e1edf12497f262eedcccd0d4",
+    "target_path": "/Users/gclyle/GrowDirect/Brain/raw/.extract/Katz/Phase I/09 - Presentations/Katz SCOA Final Report.ppt.md",
+    "method": null,
+    "status": "failed",
+    "error": "markitdown: UnsupportedFormatException: Could not convert stream to Markdown. No converter attempted a conversion, suggesting that the filetype is simply not supported.",
+    "extracted_at": "2026-04-24T21:42:23.513417+00:00"
+  },
+  {
+    "source_path": "/Users/gclyle/GrowDirect/Brain/raw/inbox/Katz/Phase I/10 - Change Management/Draft CRA Katzv6.ppt",
+    "source_sha256": "ff5afaa7ef60e885e9053d1a6b1e7d0e9752be1338c273d0c39ee15c3d4367fe",
+    "target_path": "/Users/gclyle/GrowDirect/Brain/raw/.extract/Katz/Phase I/10 - Change Management/Draft CRA Katzv6.ppt.md",
+    "method": null,
+    "status": "failed",
+    "error": "markitdown: UnsupportedFormatException: Could not convert stream to Markdown. No converter attempted a conversion, suggesting that the filetype is simply not supported.",
+    "extracted_at": "2026-04-24T21:42:23.520837+00:00"
+  },
+  {
+    "source_path": "/Users/gclyle/GrowDirect/Brain/raw/inbox/Katz/Phase II/01 - Priority Implementation - Quick Wins/Quick Wins Final Report v2.ppt",
+    "source_sha256": "78413f57eef76896ba633d7db769b2950bd12515c5feae14b3e91fa071e2be04",
+    "target_path": "/Users/gclyle/GrowDirect/Brain/raw/.extract/Katz/Phase II/01 - Priority Implementation - Quick Wins/Quick Wins Final Report v2.ppt.md",
+    "method": null,
+    "status": "failed",
+    "error": "markitdown: UnsupportedFormatException: Could not convert stream to Markdown. No converter attempted a conversion, suggesting that the filetype is simply not supported.",
+    "extracted_at": "2026-04-24T21:42:23.529680+00:00"
+  },
+  {
+    "source_path": "/Users/gclyle/GrowDirect/Brain/raw/inbox/Katz/Phase II/02 - Supply Chain Design/Future Visions Options-v7.ppt",
+    "source_sha256": "c3670a1ab5c4387298d00dea5f38de487065b11a328fd766c8c966d7494bb871",
+    "target_path": "/Users/gclyle/GrowDirect/Brain/raw/.extract/Katz/Phase II/02 - Supply Chain Design/Future Visions Options-v7.ppt.md",
+    "method": null,
+    "status": "failed",
+    "error": "markitdown: UnsupportedFormatException: Could not convert stream to Markdown. No converter attempted a conversion, suggesting that the filetype is simply not supported.",
+    "extracted_at": "2026-04-24T21:42:23.537593+00:00"
+  },
+  {
+    "source_path": "/Users/gclyle/GrowDirect/Brain/raw/inbox/Katz/Phase II/03 - System Selection & Supply Chain Optimization/01. To Be Workshops/Manage Finance Process Workshop v3.ppt",
+    "source_sha256": "71cb1201e4fd3a4d73be28a975551c396cbcf5449bf82d8233aaefd7e437f8e3",
+    "target_path": "/Users/gclyle/GrowDirect/Brain/raw/.extract/Katz/Phase II/03 - System Selection & Supply Chain Optimization/01. To Be Workshops/Manage Finance Process Workshop v3.ppt.md",
+    "method": null,
+    "status": "failed",
+    "error": "markitdown: UnsupportedFormatException: Could not convert stream to Markdown. No converter attempted a conversion, suggesting that the filetype is simply not supported.",
+    "extracted_at": "2026-04-24T21:42:23.639042+00:00"
+  },
+  {
+    "source_path": "/Users/gclyle/GrowDirect/Brain/raw/inbox/Katz/Phase II/03 - System Selection & Supply Chain Optimization/01. To Be Workshops/Manage Store Operations Process Workshop v3.ppt",
+    "source_sha256": "e7dd0fc09681a595a998f7c534857039584210f5a585b4f9f334fd88dd922aad",
+    "target_path": "/Users/gclyle/GrowDirect/Brain/raw/.extract/Katz/Phase II/03 - System Selection & Supply Chain Optimization/01. To Be Workshops/Manage Store Operations Process Workshop v3.ppt.md",
+    "method": null,
+    "status": "failed",
+    "error": "markitdown: UnsupportedFormatException: Could not convert stream to Markdown. No converter attempted a conversion, suggesting that the filetype is simply not supported.",
+    "extracted_at": "2026-04-24T21:42:23.646946+00:00"
+  },
+  {
+    "source_path": "/Users/gclyle/GrowDirect/Brain/raw/inbox/Katz/Phase II/03 - System Selection & Supply Chain Optimization/01. To Be Workshops/Manage Suppliers Process Workshop v3.ppt",
+    "source_sha256": "17ab0e3e6a64bd3bf01dab3f5e0537b73c8a5dd7e853c37a614192d0875a94b1",
+    "target_path": "/Users/gclyle/GrowDirect/Brain/raw/.extract/Katz/Phase II/03 - System Selection & Supply Chain Optimization/01. To Be Workshops/Manage Suppliers Process Workshop v3.ppt.md",
+    "method": null,
+    "status": "failed",
+    "error": "markitdown: UnsupportedFormatException: Could not convert stream to Markdown. No converter attempted a conversion, suggesting that the filetype is simply not supported.",
+    "extracted_at": "2026-04-24T21:42:23.655231+00:00"
+  },
+  {
+    "source_path": "/Users/gclyle/GrowDirect/Brain/raw/inbox/Katz/Phase II/03 - System Selection & Supply Chain Optimization/01. To Be Workshops/Merchandising Process Workshop v3.ppt",
+    "source_sha256": "927df15c6dda827597b188a07622a3c014631591144108aaab08967a5847d0e8",
+    "target_path": "/Users/gclyle/GrowDirect/Brain/raw/.extract/Katz/Phase II/03 - System Selection & Supply Chain Optimization/01. To Be Workshops/Merchandising Process Workshop v3.ppt.md",
+    "method": null,
+    "status": "failed",
+    "error": "markitdown: UnsupportedFormatException: Could not convert stream to Markdown. No converter attempted a conversion, suggesting that the filetype is simply not supported.",
+    "extracted_at": "2026-04-24T21:42:23.663089+00:00"
+  },
+  {
+    "source_path": "/Users/gclyle/GrowDirect/Brain/raw/inbox/Katz/Phase II/03 - System Selection & Supply Chain Optimization/01. To Be Workshops/Planning & Analysis Process Workshop v3.ppt",
+    "source_sha256": "4d3a11d6a04f044257497678219461894c6059211a6f88dbba13e3f9c5f30825",
+    "target_path": "/Users/gclyle/GrowDirect/Brain/raw/.extract/Katz/Phase II/03 - System Selection & Supply Chain Optimization/01. To Be Workshops/Planning & Analysis Process Workshop v3.ppt.md",
+    "method": null,
+    "status": "failed",
+    "error": "markitdown: UnsupportedFormatException: Could not convert stream to Markdown. No converter attempted a conversion, suggesting that the filetype is simply not supported.",
+    "extracted_at": "2026-04-24T21:42:23.670467+00:00"
+  },
+  {
+    "source_path": "/Users/gclyle/GrowDirect/Brain/raw/inbox/Katz/Phase II/03 - System Selection & Supply Chain Optimization/01. To Be Workshops/Planning & Distribution Process Workshop v3.ppt",
+    "source_sha256": "40431d063ed17bcf0666d6946950667245c937966b2073164f0a59cca971377e",
+    "target_path": "/Users/gclyle/GrowDirect/Brain/raw/.extract/Katz/Phase II/03 - System Selection & Supply Chain Optimization/01. To Be Workshops/Planning & Distribution Process Workshop v3.ppt.md",
+    "method": null,
+    "status": "failed",
+    "error": "markitdown: UnsupportedFormatException: Could not convert stream to Markdown. No converter attempted a conversion, suggesting that the filetype is simply not supported.",
+    "extracted_at": "2026-04-24T21:42:23.678872+00:00"
+  },
+  {
+    "source_path": "/Users/gclyle/GrowDirect/Brain/raw/inbox/Katz/Phase II/03 - System Selection & Supply Chain Optimization/03. RFP Responses/JDA Response/Attachment J- JDA Hardware Architecture.ppt",
+    "source_sha256": "dde04fffb1d0ee052ca236b23b38873e7d8c995c467c57a535094274dac3303c",
+    "target_path": "/Users/gclyle/GrowDirect/Brain/raw/.extract/Katz/Phase II/03 - System Selection & Supply Chain Optimization/03. RFP Responses/JDA Response/Attachment J- JDA Hardware Architecture.ppt.md",
+    "method": null,
+    "status": "failed",
+    "error": "markitdown: UnsupportedFormatException: Could not convert stream to Markdown. No converter attempted a conversion, suggesting that the filetype is simply not supported.",
+    "extracted_at": "2026-04-24T21:42:48.219537+00:00"
+  },
+  {
+    "source_path": "/Users/gclyle/GrowDirect/Brain/raw/inbox/Katz/Phase II/03 - System Selection & Supply Chain Optimization/03. RFP Responses/JDA Response/Attachment K- JDA Software Architecture .ppt",
+    "source_sha256": "4bbe6636b3367415ad5811f04f84645e70ff6e68e7f5018c7021ebb44a48e878",
+    "target_path": "/Users/gclyle/GrowDirect/Brain/raw/.extract/Katz/Phase II/03 - System Selection & Supply Chain Optimization/03. RFP Responses/JDA Response/Attachment K- JDA Software Architecture .ppt.md",
+    "method": null,
+    "status": "failed",
+    "error": "markitdown: UnsupportedFormatException: Could not convert stream to Markdown. No converter attempted a conversion, suggesting that the filetype is simply not supported.",
+    "extracted_at": "2026-04-24T21:42:48.227761+00:00"
+  },
+  {
+    "source_path": "/Users/gclyle/GrowDirect/Brain/raw/inbox/Katz/Phase II/03 - System Selection & Supply Chain Optimization/06. Demo Script Vendor Materials/JDA Material/2003 Price Management.PPT",
+    "source_sha256": "028262926189a185b17de9bc50ca0e55f4024445a2d994cae2140ecf998fb259",
+    "target_path": "/Users/gclyle/GrowDirect/Brain/raw/.extract/Katz/Phase II/03 - System Selection & Supply Chain Optimization/06. Demo Script Vendor Materials/JDA Material/2003 Price Management.PPT.md",
+    "method": null,
+    "status": "failed",
+    "error": "markitdown: UnsupportedFormatException: Could not convert stream to Markdown. No converter attempted a conversion, suggesting that the filetype is simply not supported.",
+    "extracted_at": "2026-04-24T21:43:12.180872+00:00"
+  },
+  {
+    "source_path": "/Users/gclyle/GrowDirect/Brain/raw/inbox/Katz/Phase II/03 - System Selection & Supply Chain Optimization/06. Demo Script Vendor Materials/JDA Material/Katz - Develop Product Forecasts1.ppt",
+    "source_sha256": "fd6f5ab666734552a8c09e150453e1957949656dd6d71d9602dd3ececf16c5de",
+    "target_path": "/Users/gclyle/GrowDirect/Brain/raw/.extract/Katz/Phase II/03 - System Selection & Supply Chain Optimization/06. Demo Script Vendor Materials/JDA Material/Katz - Develop Product Forecasts1.ppt.md",
+    "method": null,
+    "status": "failed",
+    "error": "markitdown: UnsupportedFormatException: Could not convert stream to Markdown. No converter attempted a conversion, suggesting that the filetype is simply not supported.",
+    "extracted_at": "2026-04-24T21:43:12.192075+00:00"
+  },
+  {
+    "source_path": "/Users/gclyle/GrowDirect/Brain/raw/inbox/Katz/Phase II/03 - System Selection & Supply Chain Optimization/06. Demo Script Vendor Materials/JDA Material/Katz General Setup.PPT",
+    "source_sha256": "091b97dba2fad37056198c560f9164c45d93f720a77f09295d25bbaa3eaea07a",
+    "target_path": "/Users/gclyle/GrowDirect/Brain/raw/.extract/Katz/Phase II/03 - System Selection & Supply Chain Optimization/06. Demo Script Vendor Materials/JDA Material/Katz General Setup.PPT.md",
+    "method": null,
+    "status": "failed",
+    "error": "markitdown: UnsupportedFormatException: Could not convert stream to Markdown. No converter attempted a conversion, suggesting that the filetype is simply not supported.",
+    "extracted_at": "2026-04-24T21:43:12.199660+00:00"
+  },
+  {
+    "source_path": "/Users/gclyle/GrowDirect/Brain/raw/inbox/Katz/Phase II/03 - System Selection & Supply Chain Optimization/06. Demo Script Vendor Materials/JDA Material/PKTMP000.ppt",
+    "source_sha256": "9dd89081dca8e0d3415e4030c883a90d5eedd7026260c58aae01aa1fce40559b",
+    "target_path": "/Users/gclyle/GrowDirect/Brain/raw/.extract/Katz/Phase II/03 - System Selection & Supply Chain Optimization/06. Demo Script Vendor Materials/JDA Material/PKTMP000.ppt.md",
+    "method": null,
+    "status": "failed",
+    "error": "markitdown: UnsupportedFormatException: Could not convert stream to Markdown. No converter attempted a conversion, suggesting that the filetype is simply not supported.",
+    "extracted_at": "2026-04-24T21:43:12.208961+00:00"
+  },
+  {
+    "source_path": "/Users/gclyle/GrowDirect/Brain/raw/inbox/Katz/Phase II/03 - System Selection & Supply Chain Optimization/06. Demo Script Vendor Materials/JDA Material/Remote Deployment Options.ppt",
+    "source_sha256": "0f79f1d50306db8e3beb75c62133e9076e532b8506a743c9a56b7fe7be4963ce",
+    "target_path": "/Users/gclyle/GrowDirect/Brain/raw/.extract/Katz/Phase II/03 - System Selection & Supply Chain Optimization/06. Demo Script Vendor Materials/JDA Material/Remote Deployment Options.ppt.md",
+    "method": null,
+    "status": "failed",
+    "error": "markitdown: UnsupportedFormatException: Could not convert stream to Markdown. No converter attempted a conversion, suggesting that the filetype is simply not supported.",
+    "extracted_at": "2026-04-24T21:43:12.216681+00:00"
+  },
+  {
+    "source_path": "/Users/gclyle/GrowDirect/Brain/raw/inbox/Katz/Phase II/03 - System Selection & Supply Chain Optimization/06. Demo Script Vendor Materials/JDA Material/katz conclusion Oct 2003 ravi.ppt",
+    "source_sha256": "d8a51212ef502102a674870f7dca63671841eec295528d0ac6332ac630f921c3",
+    "target_path": "/Users/gclyle/GrowDirect/Brain/raw/.extract/Katz/Phase II/03 - System Selection & Supply Chain Optimization/06. Demo Script Vendor Materials/JDA Material/katz conclusion Oct 2003 ravi.ppt.md",
+    "method": null,
+    "status": "failed",
+    "error": "markitdown: UnsupportedFormatException: Could not convert stream to Markdown. No converter attempted a conversion, suggesting that the filetype is simply not supported.",
+    "extracted_at": "2026-04-24T21:43:12.226437+00:00"
+  },
+  {
+    "source_path": "/Users/gclyle/GrowDirect/Brain/raw/inbox/Katz/Phase II/03 - System Selection & Supply Chain Optimization/06. Demo Script Vendor Materials/JDA Material/katz introduction Oct 2003 ravi.ppt",
+    "source_sha256": "c17cbef4e3d823a8b2c61bc1f69a85ad12a0fbafcd82626f59fe845add5f488f",
+    "target_path": "/Users/gclyle/GrowDirect/Brain/raw/.extract/Katz/Phase II/03 - System Selection & Supply Chain Optimization/06. Demo Script Vendor Materials/JDA Material/katz introduction Oct 2003 ravi.ppt.md",
+    "method": null,
+    "status": "failed",
+    "error": "markitdown: UnsupportedFormatException: Could not convert stream to Markdown. No converter attempted a conversion, suggesting that the filetype is simply not supported.",
+    "extracted_at": "2026-04-24T21:43:12.236169+00:00"
+  },
+  {
+    "source_path": "/Users/gclyle/GrowDirect/Brain/raw/inbox/Katz/Phase II/03 - System Selection & Supply Chain Optimization/06. Demo Script Vendor Materials/SAP Material/Katz_Exec_Pres_V_5[1] SAP.ppt",
+    "source_sha256": "e516a8d872c1043bdd8cc0df231f0823e171dcc8d8de67553debaba4feee1aff",
+    "target_path": "/Users/gclyle/GrowDirect/Brain/raw/.extract/Katz/Phase II/03 - System Selection & Supply Chain Optimization/06. Demo Script Vendor Materials/SAP Material/Katz_Exec_Pres_V_5[1] SAP.ppt.md",
+    "method": null,
+    "status": "failed",
+    "error": "markitdown: UnsupportedFormatException: Could not convert stream to Markdown. No converter attempted a conversion, suggesting that the filetype is simply not supported.",
+    "extracted_at": "2026-04-24T21:43:12.252954+00:00"
+  },
+  {
+    "source_path": "/Users/gclyle/GrowDirect/Brain/raw/inbox/Katz/Phase II/04 - Supporting  IT Architecture/Katz Architecture 082603.ppt",
+    "source_sha256": "ae5ab0d9bd70ce1163ff6bc0e8672cbcccb03e282c0998a14ffe92884444b4d8",
+    "target_path": "/Users/gclyle/GrowDirect/Brain/raw/.extract/Katz/Phase II/04 - Supporting  IT Architecture/Katz Architecture 082603.ppt.md",
+    "method": null,
+    "status": "failed",
+    "error": "markitdown: UnsupportedFormatException: Could not convert stream to Markdown. No converter attempted a conversion, suggesting that the filetype is simply not supported.",
+    "extracted_at": "2026-04-24T21:43:15.322380+00:00"
+  },
+  {
+    "source_path": "/Users/gclyle/GrowDirect/Brain/raw/inbox/Katz/Phase II/04 - Supporting  IT Architecture/Katz Architecture 091503 HL.ppt",
+    "source_sha256": "bc26305d54d3e779407ffc8f47092435f9e420de61a3dc24f695242a227096af",
+    "target_path": "/Users/gclyle/GrowDirect/Brain/raw/.extract/Katz/Phase II/04 - Supporting  IT Architecture/Katz Architecture 091503 HL.ppt.md",
+    "method": null,
+    "status": "failed",
+    "error": "markitdown: UnsupportedFormatException: Could not convert stream to Markdown. No converter attempted a conversion, suggesting that the filetype is simply not supported.",
+    "extracted_at": "2026-04-24T21:43:15.344052+00:00"
+  },
+  {
+    "source_path": "/Users/gclyle/GrowDirect/Brain/raw/inbox/Katz/Phase II/04 - Supporting  IT Architecture/Katz High Level Architecture.ppt",
+    "source_sha256": "96f87226485bdc6341d18389507159dd82fb38dbf5990dacdf3c3967c4a2aef8",
+    "target_path": "/Users/gclyle/GrowDirect/Brain/raw/.extract/Katz/Phase II/04 - Supporting  IT Architecture/Katz High Level Architecture.ppt.md",
+    "method": null,
+    "status": "failed",
+    "error": "markitdown: UnsupportedFormatException: Could not convert stream to Markdown. No converter attempted a conversion, suggesting that the filetype is simply not supported.",
+    "extracted_at": "2026-04-24T21:43:15.389189+00:00"
+  },
+  {
+    "source_path": "/Users/gclyle/GrowDirect/Brain/raw/inbox/Katz/Phase II/05 - Organization Alignment & Change Management/CM Roles and Resp v.3.ppt",
+    "source_sha256": "4264ca5c6e697a2ee22724a910004f2c836dbc5674c87d421adbca4d5430c7fb",
+    "target_path": "/Users/gclyle/GrowDirect/Brain/raw/.extract/Katz/Phase II/05 - Organization Alignment & Change Management/CM Roles and Resp v.3.ppt.md",
+    "method": null,
+    "status": "failed",
+    "error": "markitdown: UnsupportedFormatException: Could not convert stream to Markdown. No converter attempted a conversion, suggesting that the filetype is simply not supported.",
+    "extracted_at": "2026-04-24T21:43:15.400751+00:00"
+  },
+  {
+    "source_path": "/Users/gclyle/GrowDirect/Brain/raw/inbox/Katz/Phase II/05 - Organization Alignment & Change Management/Casper II CM Final.ppt",
+    "source_sha256": "4cfb80ef6b40e9bc6b879aa1a2dcc0f44df80317809d529e1a6ed83420dd6d4e",
+    "target_path": "/Users/gclyle/GrowDirect/Brain/raw/.extract/Katz/Phase II/05 - Organization Alignment & Change Management/Casper II CM Final.ppt.md",
+    "method": null,
+    "status": "failed",
+    "error": "markitdown: UnsupportedFormatException: Could not convert stream to Markdown. No converter attempted a conversion, suggesting that the filetype is simply not supported.",
+    "extracted_at": "2026-04-24T21:43:15.410289+00:00"
+  },
+  {
+    "source_path": "/Users/gclyle/GrowDirect/Brain/raw/inbox/Katz/Phase II/05 - Organization Alignment & Change Management/Mgt System v4.ppt",
+    "source_sha256": "fccfdee6f760f142cb40f633c1d3d4e1e4340904e9550efb3ea60ae18b3d5224",
+    "target_path": "/Users/gclyle/GrowDirect/Brain/raw/.extract/Katz/Phase II/05 - Organization Alignment & Change Management/Mgt System v4.ppt.md",
+    "method": null,
+    "status": "failed",
+    "error": "markitdown: UnsupportedFormatException: Could not convert stream to Markdown. No converter attempted a conversion, suggesting that the filetype is simply not supported.",
+    "extracted_at": "2026-04-24T21:43:15.556218+00:00"
+  },
+  {
+    "source_path": "/Users/gclyle/GrowDirect/Brain/raw/inbox/Katz/Phase II/05 - Organization Alignment & Change Management/Organization Designv6.ppt",
+    "source_sha256": "011ca70ff2ac97e1532c21df6444ec4c3f85976462d5fdbbed05114b6a0b4536",
+    "target_path": "/Users/gclyle/GrowDirect/Brain/raw/.extract/Katz/Phase II/05 - Organization Alignment & Change Management/Organization Designv6.ppt.md",
+    "method": null,
+    "status": "failed",
+    "error": "markitdown: UnsupportedFormatException: Could not convert stream to Markdown. No converter attempted a conversion, suggesting that the filetype is simply not supported.",
+    "extracted_at": "2026-04-24T21:43:15.570202+00:00"
+  },
+  {
+    "source_path": "/Users/gclyle/GrowDirect/Brain/raw/inbox/Katz/Phase II/05 - Organization Alignment & Change Management/Training Strategy v3.ppt",
+    "source_sha256": "583be1af3e247c4db40175b5c97e1ede55c9e3837a9063f89f8a29bac9103b6b",
+    "target_path": "/Users/gclyle/GrowDirect/Brain/raw/.extract/Katz/Phase II/05 - Organization Alignment & Change Management/Training Strategy v3.ppt.md",
+    "method": null,
+    "status": "failed",
+    "error": "markitdown: UnsupportedFormatException: Could not convert stream to Markdown. No converter attempted a conversion, suggesting that the filetype is simply not supported.",
+    "extracted_at": "2026-04-24T21:43:15.582172+00:00"
+  },
+  {
+    "source_path": "/Users/gclyle/GrowDirect/Brain/raw/inbox/Katz/Phase II/06 - Prepare for Implementation/Supporting RMS IT Infrastructure EF v4.0.ppt",
+    "source_sha256": "35e373a5a144c65089b2bea64fb038a78bea614c12a104996140e76379799c13",
+    "target_path": "/Users/gclyle/GrowDirect/Brain/raw/.extract/Katz/Phase II/06 - Prepare for Implementation/Supporting RMS IT Infrastructure EF v4.0.ppt.md",
+    "method": null,
+    "status": "failed",
+    "error": "markitdown: UnsupportedFormatException: Could not convert stream to Markdown. No converter attempted a conversion, suggesting that the filetype is simply not supported.",
+    "extracted_at": "2026-04-24T21:43:15.623741+00:00"
+  },
+  {
+    "source_path": "/Users/gclyle/GrowDirect/Brain/raw/inbox/Katz/Phase II/07 - Presentations/Katz SCD Kickoff Final.ppt",
+    "source_sha256": "a06757924440c9465d7f28de7638a4977c0b766e28b14dd36fcee73f6b7b048e",
+    "target_path": "/Users/gclyle/GrowDirect/Brain/raw/.extract/Katz/Phase II/07 - Presentations/Katz SCD Kickoff Final.ppt.md",
+    "method": null,
+    "status": "failed",
+    "error": "markitdown: UnsupportedFormatException: Could not convert stream to Markdown. No converter attempted a conversion, suggesting that the filetype is simply not supported.",
+    "extracted_at": "2026-04-24T21:43:15.636762+00:00"
+  },
+  {
+    "source_path": "/Users/gclyle/GrowDirect/Brain/raw/inbox/Katz/Phase II/07 - Presentations/Phase II SC#1 Final.ppt",
+    "source_sha256": "65d39222c5b854154f6fccc5308e1b16566520b4fa08183c75c67edfff330114",
+    "target_path": "/Users/gclyle/GrowDirect/Brain/raw/.extract/Katz/Phase II/07 - Presentations/Phase II SC#1 Final.ppt.md",
+    "method": null,
+    "status": "failed",
+    "error": "markitdown: UnsupportedFormatException: Could not convert stream to Markdown. No converter attempted a conversion, suggesting that the filetype is simply not supported.",
+    "extracted_at": "2026-04-24T21:43:15.653044+00:00"
+  },
+  {
+    "source_path": "/Users/gclyle/GrowDirect/Brain/raw/inbox/Katz/Phase II/07 - Presentations/Phase II SC#2 Final.ppt",
+    "source_sha256": "ffde75f5913c3f7fdbc05e7b20848df388afe2d9ae614efbf8fb08d315f20fd8",
+    "target_path": "/Users/gclyle/GrowDirect/Brain/raw/.extract/Katz/Phase II/07 - Presentations/Phase II SC#2 Final.ppt.md",
+    "method": null,
+    "status": "failed",
+    "error": "markitdown: UnsupportedFormatException: Could not convert stream to Markdown. No converter attempted a conversion, suggesting that the filetype is simply not supported.",
+    "extracted_at": "2026-04-24T21:43:15.667383+00:00"
+  },
+  {
+    "source_path": "/Users/gclyle/GrowDirect/Brain/raw/inbox/Katz/Phase II/07 - Presentations/Phase II SC#3 Final.ppt",
+    "source_sha256": "7e794643b5a13c3b544593ba30324c319b04086693aed0c28c4769798e71835a",
+    "target_path": "/Users/gclyle/GrowDirect/Brain/raw/.extract/Katz/Phase II/07 - Presentations/Phase II SC#3 Final.ppt.md",
+    "method": null,
+    "status": "failed",
+    "error": "markitdown: UnsupportedFormatException: Could not convert stream to Markdown. No converter attempted a conversion, suggesting that the filetype is simply not supported.",
+    "extracted_at": "2026-04-24T21:43:15.682171+00:00"
+  },
+  {
+    "source_path": "/Users/gclyle/GrowDirect/Brain/raw/inbox/Katz/Phase II/07 - Presentations/To Be Workshop Particpants.ppt",
+    "source_sha256": "095790896622e539a63381ea3c3da1869386bf2a4601a29f6d8e1bc1b8d603ec",
+    "target_path": "/Users/gclyle/GrowDirect/Brain/raw/.extract/Katz/Phase II/07 - Presentations/To Be Workshop Particpants.ppt.md",
+    "method": null,
+    "status": "failed",
+    "error": "markitdown: UnsupportedFormatException: Could not convert stream to Markdown. No converter attempted a conversion, suggesting that the filetype is simply not supported.",
+    "extracted_at": "2026-04-24T21:43:15.696576+00:00"
+  }
+]

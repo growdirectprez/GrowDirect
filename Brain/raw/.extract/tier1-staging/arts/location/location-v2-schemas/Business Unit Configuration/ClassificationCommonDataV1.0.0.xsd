@@ -1,0 +1,137 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- edited with XMLSpy v2006 sp2 U (http://www.altova.com) by Richard L Halter (private) -->
+<!-- Association of Retail Technology Standards
+	(c) 2003, 2004, 2009 National Retail Federation.  All rights reserved -->
+<!-- 
+		July 2009 		Richard Halter
+		Major Release V3.0.0
+		 - added Type Code to OccasionType to provide a description of a categorization of celebrated events or occasions. e.g. Wedding, High School Graduation,  Birthday, Golden Wedding Anniversary,  		
+		- Added RecommendedItem to OccasionType to identify recommendations to the customer for this occasion.- items that are recommended to Customers for inclusion in their GiftRegistry, based on the type of occasion being celebrated or observed.
+		- Added ItemID to RecommendedItemType to identify the recommended item
+		-	 Added RecommendedQuantity to Recommended Item to identify The quantity of items that are recommended for this item in this registry 
+		- Made Biometrics in Personal Summary repeatable to account for more than one type biometrics.
+		- Added TermsIDType - Terms and conditions associated with a promotional program.
+		- added to TermsID a Description - A human readable description of the terms and conditions.
+		- Added Name and Description to Loyalty Program ID
+		- Added Name and Description to Loyalty Account ID
+		- Made Loyalty Program Id repeatable to allow one Loyalty Account to tie to multiple Loyalty Programs. (multiple loyalty accounts are handled at the Customer Account level)
+		- Added Exchange to the Stock Market Symbol Type
+		- Made StockMarketSymbol, LegalEntity, Citizenship optional in ClassificationType
+		- Added Job and JobTitle to Employment Information Type
+		- Added ImportanceType Enumeration to IndividualType
+		- Added ContactHistoryType Node to Customer BehaviorType
+		- Added PurchaseHistoryType Node to Customer Behavior Type
+		- Added CumulativeBilling to CustomerType
+		- Added PotentialProfitability, PromotionMedium, PromotionsReceivedCount, ReadinessToBuy to PromotionType
+		- Added Biometric Information Record to Biometric type
+		- Removed Relationship from AffiliationType
+		- Change Action to ActionCode to match header
+		- Added LogonCommonData to CredentialsType
+		- Sync'd with common header, common data and incorporating definitions
+		- Added MessageID to the base Customers schema to give this message a unique id
+		- Added RequestID to the Customer Type to give each individual customer request its own unique id
+		- Added Response to handle batch responses
+		- changed to use AddressCommonData
+		- Added @Action to Customer base 
+		- Removed ResponseCode from Customer Type
+		- Removed ResponseDescription from Customer Type
+		- Removed DateTime from Customer Type
+		- Added Response element to Customer Type
+		- Replaced RetailStoreID and SiteID with the common data BusinessUnit in CustomerType
+		- Replaced SiteIDType with BusinessUnitCommonData
+		- Replaced SiteID in GiftRegistrationType with BusinessUnitCommonData
+		- Replaced RetailStoreID with BusinessUnitCommonData in AffiliationType
+		- Replaced RetailStoreID/SiteID with BusinessUnitCommonData in RedemptionType
+		- Replaced NameOldCommonData with NameCommonData
+		- Moved GenderType to Attribute and added GenderCommonData Enumeration
+		- Replaced PersonalIdentificationOldCommonData with PersonalIdentificationCommonData
+		- Replaced OldTransactionLinkCommonData with TransactionLinkCommonData
+		- Replaced MerchandiseHierarchyCommonData with New MerchandiseHierarchyCommonData
+- the Technical Committee decided that changes occurred at the message level, not at the node level
+		- Removed @UpdateType from GiftRegistrationType
+		- Removed @UpdateType from PersonalPreferencesType
+		- Removed @UpdateType from SecurityArrangementType
+		- Removed @UpdateType from CustomerStatusType
+		- Removed @UpdateType from IndividualType
+		- Removed @UpdateType from CustomerBehaviorType
+		- Removed @UpdateType from PersonalIdentificationType
+		- Removed @UpdateType from CustomerAccountType
+		- Removed @UpdateType from LayawayAccount
+		- Removed @UpdateType from InstallmentPaymentAccount
+		- Removed @UpdateType from RentalAccountType
+		- Removed @UpdateType from OrganizationType
+		- Removed @UpdateType from ClassificationType
+		- Removed @UpdateType from ChargeAccountType
+		- Removed @UpdateType from LoyaltyAccountType
+		- Removed @UpdateType from RedemptionType
+		- Removed @UpdateType from PersonalSummaryType
+		- Removed @UpdateType from SocioEconomicProfileType
+		- Removed @UpdateType from EmploymentInformationType
+		- Removed @UpdateType from CredentialsType
+		- Removed @UpdateType from AffiliationType
+		- Removed @UpdateType from Telephone
+		- Removed @UpdateType from Address
+		- Removed @UpdateType from EMail
+		- Removed @UpdateType from ContactInformationType
+
+		Dec - 2005		Richard Halter
+		Bug Fix V2.0.2
+			- Fixed common data problem by moving old name common data to this schema
+			- Fixed common data problem by moving old Telephone common data to this schema
+			- Fixed common data problem by moving old address common data to this schema
+			- Fixed common data problem by moving old OldTransactionLinkCommonData to this schema
+			- Fixed common data problem by moving old PersonalIdentificationOldCommonData to this schema
+			- Fixed common data problem by moving OldTerritoryTypeCode to this schema
+			- Fixed common data problem by moving OldAddressLineTypeCode to this schema
+			- Made IDNumber optional in PersonalIdentificationOldCommonData
+			- Made BirthDate Optional in PersonalSummaryType
+			- Made GenderType Optional in PersonalSummaryType
+			- Made Ethnicity Optional in PersonalSummaryType
+			- Made MaritialStatusCode Optional in PersonalSummaryType
+		Jul-2005 		Stuart McGrigor
+		Bug fix V2.0.1
+			- Added MajorVersion, MinorVersion & FixVersion attributes to Customer.
+			- Added PersonalIdentificationType adding @UpdateType attribute to common data edition.
+ -->
+<xs:schema xmlns:xs="http://www.w3.org/2001/XMLSchema" elementFormDefault="qualified" attributeFormDefault="unqualified">
+	<xs:include schemaLocation="IXREnumerationExtensionV1.1.0.xsd"/>
+	<xs:complexType name="ClassificationType">
+		<xs:annotation>
+			<xs:documentation>Standard Industry Classification Code,
+Merchant Classification Code</xs:documentation>
+		</xs:annotation>
+		<xs:sequence>
+			<xs:element name="StockMarketSymbol" minOccurs="0">
+				<xs:annotation>
+					<xs:documentation>a mnemonic used to identify a publicly-traded corporation on a particular stock exchange</xs:documentation>
+				</xs:annotation>
+				<xs:complexType>
+					<xs:simpleContent>
+						<xs:extension base="StockMarketSymbolType"/>
+					</xs:simpleContent>
+				</xs:complexType>
+			</xs:element>
+			<xs:element name="LegalEntity" type="xs:string" minOccurs="0">
+				<xs:annotation>
+					<xs:documentation>(Corporation, Sole Proprietorship, …)</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="Citizenship" type="xs:string" minOccurs="0" maxOccurs="unbounded"/>
+			<xs:any namespace="##other" processContents="lax" minOccurs="0" maxOccurs="unbounded"/>
+		</xs:sequence>
+	</xs:complexType>
+	<xs:complexType name="StockMarketSymbolType">
+		<xs:annotation>
+			<xs:documentation>a mnemonic used to identify a publicly-traded corporation on a particular stock exchange</xs:documentation>
+		</xs:annotation>
+		<xs:simpleContent>
+			<xs:extension base="xs:string">
+				<xs:attribute name="Exchange" type="xs:string">
+					<xs:annotation>
+						<xs:documentation>An individual stock market</xs:documentation>
+					</xs:annotation>
+				</xs:attribute>
+			</xs:extension>
+		</xs:simpleContent>
+	</xs:complexType>
+</xs:schema>

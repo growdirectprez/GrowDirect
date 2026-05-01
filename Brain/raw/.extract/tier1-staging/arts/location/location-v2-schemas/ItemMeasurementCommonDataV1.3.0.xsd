@@ -1,0 +1,180 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- edited with XMLSpy v2006 sp2 U (http://www.altova.com) by Richard L Halter (private) -->
+<!-- V1.0.1	20070228	R. Halter
+	- Based on feedback, reduced the requirement on Height, Width and Depth by making them optional.
+-->
+<xs:schema xmlns:xs="http://www.w3.org/2001/XMLSchema" elementFormDefault="qualified" attributeFormDefault="unqualified">
+	<xs:include schemaLocation="UnitOfMeasureCodeEnumerationV1.3.0.xsd"/>
+	<xs:include schemaLocation="MeasurementCommonDataV1.3.0.xsd"/>
+	<xs:complexType name="ItemMeasurementCommonData">
+		<xs:annotation>
+			<xs:documentation>from EAN.UCC</xs:documentation>
+		</xs:annotation>
+		<xs:sequence>
+			<xs:element name="Depth" minOccurs="0">
+				<xs:annotation>
+					<xs:documentation>EAN.UCC Definition: The measurement from front to back of the
+						trade item. Examples: "5 MMT" Business Rules: Measurements are relative to
+						how the customer normally views the trade item. Orientation guidelines to be
+						determined by PTRG within CR 02-000102 by Needs to be associated with a
+						valid UoM.</xs:documentation>
+				</xs:annotation>
+				<xs:complexType>
+					<xs:simpleContent>
+						<xs:extension base="MeasurementCommonData"/>
+					</xs:simpleContent>
+				</xs:complexType>
+			</xs:element>
+			<xs:element name="Height" minOccurs="0">
+				<xs:annotation>
+					<xs:documentation>EAN.UCC Definition: The measurement of the height of the trade
+						item. The vertical dimension from the lowest extremity to the highest
+						extremity, including packaging. At a pallet level the trade itemHeight will
+						include the height of the pallet itself. Examples: "60 CMT" Business Rules:
+						Measurements are relative to how the customer normally views the trade item.
+						Orientation guidelines to be determined by PTRG within CR 02-000102 by Needs
+						to be associated with a valid UoM.</xs:documentation>
+				</xs:annotation>
+				<xs:complexType>
+					<xs:simpleContent>
+						<xs:extension base="MeasurementCommonData"/>
+					</xs:simpleContent>
+				</xs:complexType>
+			</xs:element>
+			<xs:element name="Width" minOccurs="0">
+				<xs:annotation>
+					<xs:documentation>EAN.UCC Definition: The measurement from left to right of the
+						trade item. Examples: "10 INH" Business Rules: Measurements are relative to
+						how the customer normally views the trade item. Orientation guidelines to be
+						determined by PTRG within CR 02-000102 by Needs to be associated with a
+						valid UoM.</xs:documentation>
+				</xs:annotation>
+				<xs:complexType>
+					<xs:simpleContent>
+						<xs:extension base="MeasurementCommonData"/>
+					</xs:simpleContent>
+				</xs:complexType>
+			</xs:element>
+			<xs:element name="Diameter" minOccurs="0">
+				<xs:annotation>
+					<xs:documentation>EAN.UCC Definition: The measurement of the diameter of the
+						trade item at its largest point. Examples: 165 "mmt", value - mmt, diameter
+						Business Rules: Has to be associated with valid UoM.</xs:documentation>
+				</xs:annotation>
+				<xs:complexType>
+					<xs:simpleContent>
+						<xs:extension base="MeasurementCommonData"/>
+					</xs:simpleContent>
+				</xs:complexType>
+			</xs:element>
+			<xs:element name="GrossWeight" minOccurs="0">
+				<xs:annotation>
+					<xs:documentation>EAN.UCC Definition: Used to identify the gross weight of the
+						trade item. The gross weight includes all packaging materials of the trade
+						item. At pallet level the trade itemGrossWeight includes the weight of the
+						pallet itself. Examples: "200 grm", value - total pounds, total grams, etc.
+						Business Rules: Has to be associated with a valid UoM. </xs:documentation>
+				</xs:annotation>
+				<xs:complexType>
+					<xs:simpleContent>
+						<xs:extension base="MeasurementCommonData"/>
+					</xs:simpleContent>
+				</xs:complexType>
+			</xs:element>
+			<xs:element name="NetWeight" minOccurs="0">
+				<xs:annotation>
+					<xs:documentation>EAN.UCC Definition: Used to identify the net weight of the
+						trade item. Net weight excludes any packaging materials and applies to all
+						levels but consumer unit level. Examples: "11.5 kgm" value - pounds, grams,
+						etc. Business Rules: For consumer unit, Net Content replaces Net Weight (can
+						then be weight, size, volume). Has to be associated with a valid UoM.
+					</xs:documentation>
+				</xs:annotation>
+				<xs:complexType>
+					<xs:simpleContent>
+						<xs:extension base="MeasurementCommonData"/>
+					</xs:simpleContent>
+				</xs:complexType>
+			</xs:element>
+			<xs:element name="NetContent" minOccurs="0">
+				<xs:annotation>
+					<xs:documentation>EAN.UCC Definition: The amount of the trade item contained by
+						a package, as claimed on the label. (See examples) Examples: Evian Water
+						750ml - net content = "750 MLT" ; 20 count pack of diapers, net content =
+						"20 ea." Business Rules: In case of multi-pack, indicates the net content of
+						the total trade item. For fixed value trade items use the value claimed on
+						the package, to avoid variable fill rate issue that arises with some trade
+						item which are sold by volume or weight, and whose actual content may vary
+						slightly from batch to batch. In case of variable quantity trade items,
+						indicates the average quantity.</xs:documentation>
+				</xs:annotation>
+				<xs:complexType>
+					<xs:simpleContent>
+						<xs:extension base="MeasurementCommonData"/>
+					</xs:simpleContent>
+				</xs:complexType>
+			</xs:element>
+			<xs:element name="DrainedWeight" minOccurs="0">
+				<xs:annotation>
+					<xs:documentation>EAN.UCC Definition: The weight of the trade item when drained
+						of its liquid. Examples: 225 "grm", Jar of pickles in vinegar. Value,
+						ounces, pounds, etc. Business Rules: Applies to defined bricks of GCI Global
+						trade item Classification - Mainly food trade item. Has to be associated
+						with a valid UoM.</xs:documentation>
+				</xs:annotation>
+				<xs:complexType>
+					<xs:simpleContent>
+						<xs:extension base="MeasurementCommonData"/>
+					</xs:simpleContent>
+				</xs:complexType>
+			</xs:element>
+			<xs:element name="PegHorizontal" minOccurs="0">
+				<xs:annotation>
+					<xs:documentation>EAN.UCC Definition: Used to indicate the horizontal distance
+						from the edge of the trade item to the center of the hole into which the peg
+						is inserted when the trade item is displayed on a pegboard. Examples: "2
+						INH" Business Rules: Required if the trade item is displayed on a peg board.
+						Has to be associated with a valid UOM. </xs:documentation>
+				</xs:annotation>
+				<xs:complexType>
+					<xs:simpleContent>
+						<xs:extension base="MeasurementCommonData"/>
+					</xs:simpleContent>
+				</xs:complexType>
+			</xs:element>
+			<xs:element name="PegVertical" minOccurs="0">
+				<xs:annotation>
+					<xs:documentation>EAN.UCC Definition: Used to indicate the vertical distance
+						from the edge of the trade item to the center of the hole into which the peg
+						is inserted when the trade item is displayed on a pegboard. The hole into
+						which the peg is inserted when the trade item is displayed on a pegboard.
+						The measurement is always taken from the top edge of the trade item to the
+						hole. Examples: "2 INH" Business Rules: Required if the trade item is
+						displayed on a peg board. Has to be associated with a valid
+					UOM.</xs:documentation>
+				</xs:annotation>
+				<xs:complexType>
+					<xs:simpleContent>
+						<xs:extension base="MeasurementCommonData"/>
+					</xs:simpleContent>
+				</xs:complexType>
+			</xs:element>
+			<xs:element name="TareWeight" minOccurs="0">
+				<xs:complexType>
+					<xs:simpleContent>
+						<xs:extension base="MeasurementCommonData"/>
+					</xs:simpleContent>
+				</xs:complexType>
+			</xs:element>
+		</xs:sequence>
+		<xs:attribute name="NetContentDeclarationIndicatedFlag" type="xs:boolean" use="optional" default="false">
+			<xs:annotation>
+				<xs:documentation>EAN.UCC Definition: This field is used to facilitate local
+					business rules where a declaration of a trade item's net content is not on the
+					product label e.g.,UK under 50g.legislation Business Rules: For a product
+					without an on-pack net content declaration this field should be indicated as
+					YES, weight should be communicated at the trade unit level.</xs:documentation>
+			</xs:annotation>
+		</xs:attribute>
+	</xs:complexType>
+</xs:schema>

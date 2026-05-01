@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- edited with XMLSpy v2006 sp2 U (http://www.altova.com) by Richard L Halter (private) -->
+<xs:schema xmlns:xs="http://www.w3.org/2001/XMLSchema" elementFormDefault="qualified" attributeFormDefault="unqualified">
+	<xs:complexType name="RequestIDCommonData">
+		<xs:annotation>
+			<xs:documentation>UUID to uniquely identifying this request</xs:documentation>
+		</xs:annotation>
+		<xs:simpleContent>
+			<xs:extension base="xs:string">
+				<xs:attribute name="Name" type="xs:string" use="optional">
+					<xs:annotation>
+						<xs:documentation>The name of this request</xs:documentation>
+					</xs:annotation>
+				</xs:attribute>
+				<xs:attribute name="Timestamp" type="xs:dateTime" use="optional">
+					<xs:annotation>
+						<xs:documentation>The timestamp for when this request was made</xs:documentation>
+					</xs:annotation>
+				</xs:attribute>
+			</xs:extension>
+		</xs:simpleContent>
+	</xs:complexType>
+</xs:schema>

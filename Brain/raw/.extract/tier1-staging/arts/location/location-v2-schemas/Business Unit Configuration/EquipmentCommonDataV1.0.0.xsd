@@ -1,0 +1,105 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- edited with XMLSpy v2006 sp2 U (http://www.altova.com) by Richard L Halter (private) -->
+<xs:schema xmlns:xs="http://www.w3.org/2001/XMLSchema" elementFormDefault="qualified" attributeFormDefault="unqualified">
+	<xs:include schemaLocation="EquipmentActionTypeCodeV1.0.0.xsd"/>
+	<xs:include schemaLocation="EquipmentIDCommonDataV1.0.0.xsd"/>
+	<xs:include schemaLocation="EquipmentStatusTypeCodeV1.0.0.xsd"/>
+	<xs:include schemaLocation="StoreLocationCommonDataV1.0.0.xsd"/>
+	<xs:complexType name="EquipmentCommonData">
+		<xs:sequence>
+			<!-- A unique identifier for REMC client equipment -->
+			<xs:element name="EquipmentID" type="EquipmentIDType"/>
+			<!-- A descriptive name for the equipment -->
+			<!-- The date the equipment was installed at the site -->
+			<xs:element name="InstallDate" type="xs:date" minOccurs="0"/>
+			<!-- The device address or network node address in the system -->
+			<!-- This may be expressed for instance in a TCP/IP network -->
+			<!-- in the minimum form of an IP address or a Subnet mask -->
+			<xs:element name="DeviceAddress" type="xs:string" minOccurs="0"/>
+			<!-- The fixed asset number for the equipment -->
+			<xs:element name="FixedAssetNumber" type="xs:string" minOccurs="0"/>
+			<!-- The model number of the equipment -->
+			<xs:element name="ModelNumber" type="xs:string" minOccurs="0"/>
+			<!-- a unique identification for the device or application -->
+			<!-- the equipment taking the measurement -->
+			<!-- Name associated with the device -->
+			<!-- Location o fthe sensor, i.e. on top of the freezer, on the back door, in the ductwork -->
+			<xs:element name="Location" minOccurs="0">
+				<xs:complexType>
+					<xs:complexContent>
+						<xs:extension base="StoreLocationCommonData"/>
+					</xs:complexContent>
+				</xs:complexType>
+			</xs:element>
+			<!-- Corporation name or ID A unique user supplied corporation name -->
+			<!-- information about the software installed in the equipment -->
+			<xs:element name="Software" type="SoftwareType" minOccurs="0"/>
+			<!-- Name of the contact person or company -->
+			<!-- xs:element name = "ContactName" type = "ContactName" minOccurs = "0" maxOccurs = "unbounded"/ -->
+			<!-- information about the company which made the equipment -->
+			<xs:element name="Manufacturer" type="Manufacturer" minOccurs="0"/>
+			<!-- To manage the components of a piece of equipment -->
+			<!-- for example, HVAC has a compressor, fan,... -->
+		</xs:sequence>
+		<xs:attribute name="ActionType" default="Create">
+			<xs:simpleType>
+				<xs:restriction base="xs:string">
+					<xs:enumeration value="Create"/>
+					<xs:enumeration value="Ammend"/>
+					<xs:enumeration value="Refresh"/>
+					<xs:enumeration value="Delete"/>
+				</xs:restriction>
+			</xs:simpleType>
+		</xs:attribute>
+		<xs:attribute name="StatusCode" default="Active">
+			<xs:simpleType>
+				<xs:restriction base="xs:string">
+					<xs:enumeration value="Active"/>
+					<xs:enumeration value="Closed"/>
+					<xs:enumeration value="OffLine"/>
+				</xs:restriction>
+			</xs:simpleType>
+		</xs:attribute>
+		<!-- information describing what to do with this node -->
+		<!-- Expresses the status of the equipment -->
+	</xs:complexType>
+	<xs:complexType name="SoftwareType">
+		<xs:sequence>
+			<!-- a unique id for this software package -->
+			<xs:element name="ID">
+				<xs:complexType>
+					<xs:simpleContent>
+						<xs:extension base="IDCommonData"/>
+					</xs:simpleContent>
+				</xs:complexType>
+			</xs:element>
+			<!-- The name of this software package -->
+			<!-- the current version of this software package -->
+			<xs:element name="Version" type="xs:string" minOccurs="0"/>
+			<!-- The current revision of this software package -->
+			<xs:element name="Revision" type="xs:string" minOccurs="0"/>
+			<!-- the date this version/revision was created -->
+			<xs:element name="CreationDate" type="xs:date" minOccurs="0"/>
+			<!-- The software checksum 			  -->
+			<!-- helps validate the software version/revision -->
+			<xs:element name="Checksum" type="xs:string" minOccurs="0"/>
+		</xs:sequence>
+		<xs:attribute name="TypeCode" type="SoftwareTypeCode" default="Firmware"/>
+		<!-- identifies the type of software - software or firmware -->
+	</xs:complexType>
+	<!-- information about the company which made the equipment -->
+	<xs:complexType name="Manufacturer">
+		<xs:simpleContent>
+			<xs:extension base="IDCommonData"/>
+		</xs:simpleContent>
+	</xs:complexType>
+	<xs:simpleType name="SoftwareTypeCode">
+		<xs:union memberTypes="SoftwareTypeCodeEnumeration TypeCodeExtension"/>
+	</xs:simpleType>
+	<xs:simpleType name="SoftwareTypeCodeEnumeration">
+		<xs:restriction base="xs:NMTOKEN">
+			<xs:enumeration value="Software"/>
+			<xs:enumeration value="Firmware"/>
+		</xs:restriction>
+	</xs:simpleType>
+</xs:schema>

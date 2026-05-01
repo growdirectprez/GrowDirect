@@ -1,0 +1,96 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- edited with XMLSpy v2006 sp1 U (http://www.altova.com) by Richard L Halter (private) -->
+<xs:schema xmlns:xs="http://www.w3.org/2001/XMLSchema" elementFormDefault="qualified" attributeFormDefault="unqualified">
+	<xs:include schemaLocation="CountCommonDataV1.0.0.xsd"/>
+	<xs:include schemaLocation="DescriptionCommonDataV1.3.0.xsd"/>
+	<xs:include schemaLocation="DimensionsCommonDataV1.1.0.xsd"/>
+	<xs:include schemaLocation="FixtureCapacityTypeV1.0.0.xsd"/>
+	<xs:include schemaLocation="FixtureDividerTypeV1.0.0.xsd"/>
+	<xs:include schemaLocation="FixtureIDCommonDataV1.0.0.xsd"/>
+	<xs:include schemaLocation="GeoPhysicalLocationCommonDataV1.4.0.xsd"/>
+	<xs:include schemaLocation="GrillTypeV1.0.0.xsd"/>
+	<xs:include schemaLocation="IXREnumerationExtensionV1.1.0.xsd"/>
+	<xs:include schemaLocation="LocationCommonDataV1.0.0.xsd"/>
+	<xs:include schemaLocation="PegTypeV1.0.0.xsd"/>
+	<xs:include schemaLocation="PositionTypeV1.0.0.xsd"/>
+	<xs:complexType name="FixtureType">
+		<xs:sequence>
+			<xs:element name="FixtureID" type="FixtureIDCommonData" minOccurs="0"/>
+			<xs:element name="Description" type="DescriptionCommonData" minOccurs="0" maxOccurs="unbounded"/>
+			<xs:element name="ParentLink" type="xs:positiveInteger" minOccurs="0" maxOccurs="unbounded">
+				<xs:annotation>
+					<xs:documentation>The fixture ID of parent fixture</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="ChildLink" type="xs:positiveInteger" minOccurs="0" maxOccurs="unbounded">
+				<xs:annotation>
+					<xs:documentation>The fixture ID of the child fixture</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="Position" type="PositionType" minOccurs="0"/>
+			<xs:element name="Dimension" minOccurs="0">
+				<xs:complexType>
+					<xs:complexContent>
+						<xs:extension base="DimensionCommonData"/>
+					</xs:complexContent>
+				</xs:complexType>
+			</xs:element>
+			<xs:element name="Location" type="LocationCommonData" minOccurs="0"/>
+			<xs:element name="Slope" type="LatLongType" minOccurs="0">
+				<xs:annotation>
+					<xs:documentation>The rotation of the equipment around the X axis.  Measured in degrees, both positive and negative. </xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="Divider" type="FixtureDividerType" minOccurs="0" maxOccurs="unbounded"/>
+			<xs:element name="DividerCount" type="xs:int" minOccurs="0"/>
+			<xs:element name="Peg" type="PegType" minOccurs="0"/>
+			<xs:element name="Grill" type="GrillType" minOccurs="0"/>
+			<xs:element name="Capacity" type="FixtureCapacityType" minOccurs="0" maxOccurs="unbounded"/>
+			<xs:element name="Merchandising" type="MerchandisingType" minOccurs="0"/>
+			<xs:element name="AttachPoint" type="AttachPointType" minOccurs="0"/>
+		</xs:sequence>
+	</xs:complexType>
+	<xs:complexType name="MerchandisingFormatType">
+		<xs:attribute name="Format" type="MerchandisingFormatTypeCode"/>
+		<xs:attribute name="Capacity" type="xs:decimal"/>
+	</xs:complexType>
+	<xs:complexType name="MerchandisingType">
+		<xs:sequence>
+			<xs:element name="PositionCapUnits" type="xs:decimal" minOccurs="0"/>
+			<xs:element name="PositionCapOrientation" type="OrientationCommonData" minOccurs="0"/>
+			<xs:element name="Format" type="MerchandisingFormatType" minOccurs="0"/>
+		</xs:sequence>
+		<xs:attribute name="StyleType" type="FixtureStyleType"/>
+	</xs:complexType>
+	<xs:complexType name="AttachPointType">
+		<xs:choice>
+			<xs:element name="RowNumber" type="xs:int"/>
+			<xs:sequence>
+				<xs:element name="Column" type="AxisType" minOccurs="0">
+					<xs:annotation>
+						<xs:documentation>Specifies where the fixture attaches in the X axis to the parent for peg-boards.</xs:documentation>
+					</xs:annotation>
+				</xs:element>
+				<xs:element name="Row" type="AxisType" minOccurs="0">
+					<xs:annotation>
+						<xs:documentation>Specifies where the fixture attaches to the Y (vertical) axis to the parent for peg-boards and slatwalls.</xs:documentation>
+					</xs:annotation>
+				</xs:element>
+			</xs:sequence>
+		</xs:choice>
+	</xs:complexType>
+	<!-- 
+	-->
+	<xs:simpleType name="MerchandisingFormatTypeCode">
+		<xs:union memberTypes="MerchandisingFormatTypeCodeEnumeration TypeCodeExtension"/>
+	</xs:simpleType>
+	<xs:simpleType name="MerchandisingFormatTypeCodeEnumeration">
+		<xs:restriction base="xs:NMTOKEN">
+			<xs:enumeration value="Unit"/>
+			<xs:enumeration value="Tray"/>
+			<xs:enumeration value="Case"/>
+			<xs:enumeration value="Loose"/>
+			<xs:enumeration value="LogStack"/>
+		</xs:restriction>
+	</xs:simpleType>
+</xs:schema>

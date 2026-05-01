@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- edited with XMLSpy v2006 sp2 U (http://www.altova.com) by Richard L Halter (private) -->
+<xs:schema xmlns:xs="http://www.w3.org/2001/XMLSchema" elementFormDefault="qualified" attributeFormDefault="unqualified">
+	<xs:include schemaLocation="MeasurementCommonDataV1.3.0.xsd"/>
+	<xs:complexType name="DimensionCommonData">
+		<xs:sequence>
+			<xs:element name="Height">
+				<xs:complexType>
+					<xs:simpleContent>
+						<xs:extension base="MeasurementCommonData"/>
+					</xs:simpleContent>
+				</xs:complexType>
+			</xs:element>
+			<xs:element name="Width">
+				<xs:complexType>
+					<xs:simpleContent>
+						<xs:extension base="MeasurementCommonData"/>
+					</xs:simpleContent>
+				</xs:complexType>
+			</xs:element>
+			<xs:element name="Depth">
+				<xs:complexType>
+					<xs:simpleContent>
+						<xs:extension base="MeasurementCommonData"/>
+					</xs:simpleContent>
+				</xs:complexType>
+			</xs:element>
+		</xs:sequence>
+	</xs:complexType>
+</xs:schema>

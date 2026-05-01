@@ -1,0 +1,38 @@
+[
+  {
+    "source_path": "/Users/gclyle/GrowDirect/Brain/raw/.extract/tier1-staging/gk-pos/GK_AppEnablement-2.0_v516.pdf",
+    "source_sha256": "d0fed098d8d464cfe76c5bf530ca4f5b34d31dae46ad8fd81422f8c27f8b7b92",
+    "target_path": "/Users/gclyle/GrowDirect/Brain/raw/.extract/tier1-md/gk-pos/GK_AppEnablement-2.0_v516.pdf.md",
+    "method": "markitdown",
+    "status": "ok",
+    "error": null,
+    "extracted_at": "2026-05-01T04:35:37.383827+00:00"
+  },
+  {
+    "source_path": "/Users/gclyle/GrowDirect/Brain/raw/.extract/tier1-staging/gk-pos/GK_AppEnablement-525-FD_2025-01-15.pdf",
+    "source_sha256": "c20954c940b252abc9537581d72f81f1cfa6fcef2c44108bc725b55d47a5bbca",
+    "target_path": "/Users/gclyle/GrowDirect/Brain/raw/.extract/tier1-md/gk-pos/GK_AppEnablement-525-FD_2025-01-15.pdf.md",
+    "method": "markitdown",
+    "status": "ok",
+    "error": null,
+    "extracted_at": "2026-05-01T04:35:40.527642+00:00"
+  },
+  {
+    "source_path": "/Users/gclyle/GrowDirect/Brain/raw/.extract/tier1-staging/gk-pos/GK_Mobile_SDK_Selfscanning_v6.9.7.pdf",
+    "source_sha256": "5558928b497e912ea236885fdaa6316160e118bb641eb377ce12c2202a6948e0",
+    "target_path": "/Users/gclyle/GrowDirect/Brain/raw/.extract/tier1-md/gk-pos/GK_Mobile_SDK_Selfscanning_v6.9.7.pdf.md",
+    "method": "markitdown",
+    "status": "ok",
+    "error": null,
+    "extracted_at": "2026-05-01T04:35:44.777968+00:00"
+  },
+  {
+    "source_path": "/Users/gclyle/GrowDirect/Brain/raw/.extract/tier1-staging/gk-pos/GK_SAP_OmnichannelPOS_Integration.pdf",
+    "source_sha256": "8d4016ee3dbe3468c32e797cfc8f735d7b10e2f1038e7e4d7c63d851b2aaf4fa",
+    "target_path": "/Users/gclyle/GrowDirect/Brain/raw/.extract/tier1-md/gk-pos/GK_SAP_OmnichannelPOS_Integration.pdf.md",
+    "method": "markitdown",
+    "status": "ok",
+    "error": null,
+    "extracted_at": "2026-05-01T04:35:48.171166+00:00"
+  }
+]

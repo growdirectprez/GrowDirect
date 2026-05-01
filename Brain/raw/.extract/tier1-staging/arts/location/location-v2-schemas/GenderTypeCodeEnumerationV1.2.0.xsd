@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- Minor Release 20060623
+ - Added  - Boy, Girl, Men, Women, Unisex
+-->
+<xs:schema xmlns:xs="http://www.w3.org/2001/XMLSchema" elementFormDefault="qualified" attributeFormDefault="unqualified">
+	<xs:include schemaLocation="IXREnumerationExtensionV1.1.0.xsd"/>
+	<!-- 
+		Gender 
+	-->
+	<xs:simpleType name="GenderTypeCode">
+		<xs:union memberTypes="GenderTypeCodeEnumeration TypeCodeExtension"/>
+	</xs:simpleType>
+	<xs:simpleType name="GenderTypeCodeEnumeration">
+		<xs:restriction base="xs:NMTOKEN">
+			<xs:enumeration value="Male"/>
+			<xs:enumeration value="Female"/>
+			<xs:enumeration value="Boy"/>
+			<xs:enumeration value="Girl"/>
+			<xs:enumeration value="Men"/>
+			<xs:enumeration value="Women"/>
+			<xs:enumeration value="Unisex"/>
+			<xs:enumeration value="Unknown"/>
+		</xs:restriction>
+	</xs:simpleType>
+</xs:schema>

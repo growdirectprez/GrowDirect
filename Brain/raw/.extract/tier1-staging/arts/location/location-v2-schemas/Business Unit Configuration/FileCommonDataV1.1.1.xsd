@@ -1,0 +1,71 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- edited with XMLSpy v2006 sp2 U (http://www.altova.com) by Richard L Halter (private) -->
+<xs:schema xmlns:xs="http://www.w3.org/2001/XMLSchema" elementFormDefault="qualified" attributeFormDefault="unqualified">
+	<xs:include schemaLocation="FileCompressionTypeCodesEnumerationV1.1.0.xsd"/>
+	<xs:include schemaLocation="TransmissionMediumTypeCodesEnumerationV1.1.0.xsd"/>
+	<xs:complexType name="FileCommonData">
+		<xs:sequence>
+			<xs:element name="Name" type="xs:string" minOccurs="0">
+				<xs:annotation>
+					<xs:documentation>The Name of the file</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="URI" type="URIType" minOccurs="0" maxOccurs="unbounded">
+				<xs:annotation>
+					<xs:documentation>Uniform Resource Identifier to identify where the file is located</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="ContentCount" type="xs:integer" minOccurs="0">
+				<xs:annotation>
+					<xs:documentation>A count of the number of items in this file</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="CreationDate" type="xs:date" minOccurs="0">
+				<xs:annotation>
+					<xs:documentation>The date the file was created</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="DelayDate" type="xs:date" minOccurs="0">
+				<xs:annotation>
+					<xs:documentation>The date this file will be available</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="DeliveryDate" type="xs:date" minOccurs="0">
+				<xs:annotation>
+					<xs:documentation>The date this file will be delivered</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="DigitalSignature" type="xs:base64Binary" minOccurs="0">
+				<xs:annotation>
+					<xs:documentation>See RFC 3275 (optional) (future)</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="FileFormat" type="xs:string" minOccurs="0">
+				<xs:annotation>
+					<xs:documentation> Encoding method used to store asset.  The W3C site suggests,  http://www.w3.org/Daemon/User/Config/Suffixes.html, 
+the list of content types can be extended.\</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="FileSize" type="xs:integer" minOccurs="0"/>
+		</xs:sequence>
+		<xs:attribute name="Compression" type="FileCompressionTypeCode">
+			<xs:annotation>
+				<xs:documentation>The method used to compress, for example, JPEG, JPEG2000, LZW, LZ77, RLE, Uncompressed</xs:documentation>
+			</xs:annotation>
+		</xs:attribute>
+		<xs:attribute name="TransmissionMedium" type="TransmissionMediumTypeCode">
+			<xs:annotation>
+				<xs:documentation>How information is available for transmission.</xs:documentation>
+			</xs:annotation>
+		</xs:attribute>
+	</xs:complexType>
+	<xs:complexType name="URIType">
+		<xs:simpleContent>
+			<xs:extension base="xs:string">
+				<xs:attribute name="Size" type="xs:string" use="optional"/>
+				<xs:attribute name="Units" type="xs:string" use="optional"/>
+				<xs:attribute name="Format" type="xs:string" use="optional"/>
+			</xs:extension>
+		</xs:simpleContent>
+	</xs:complexType>
+</xs:schema>

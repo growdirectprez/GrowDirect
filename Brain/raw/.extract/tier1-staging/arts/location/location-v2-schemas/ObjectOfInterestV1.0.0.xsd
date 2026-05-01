@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- edited with XMLSpy v2006 sp2 U (http://www.altova.com) by Richard L Halter (private) -->
+<xs:schema xmlns:xs="http://www.w3.org/2001/XMLSchema" elementFormDefault="qualified" attributeFormDefault="unqualified">
+	<xs:include schemaLocation="InstructionsV1.0.0.xsd"/>
+	<xs:include schemaLocation="ItemMeasurementCommonDataV1.3.0.xsd"/>
+	<xs:include schemaLocation="ItemTypeV1.0.0.xsd"/>
+	<xs:include schemaLocation="LocationCommonDataV1.0.0.xsd"/>
+	<xs:include schemaLocation="ObjectIDV1.0.0.xsd"/>
+	<xs:include schemaLocation="OrganizationHierarchyCommonDataV1.2.0.xsd"/>
+	<xs:include schemaLocation="PhysicalLocationV1.0.0.xsd"/>
+	<xs:complexType name="ObjectOfInterestType">
+		<xs:sequence>
+			<xs:element name="ObjectID" type="ObjectIDType" minOccurs="0" maxOccurs="unbounded"/>
+			<xs:element name="Item" type="ItemType" minOccurs="0" maxOccurs="unbounded"/>
+			<xs:element name="Location" minOccurs="0">
+				<xs:complexType>
+					<xs:complexContent>
+						<xs:extension base="LocationCommonData"/>
+					</xs:complexContent>
+				</xs:complexType>
+			</xs:element>
+			<xs:element name="Proximity" minOccurs="0">
+				<xs:complexType>
+					<xs:complexContent>
+						<xs:extension base="PhysicalLocationType"/>
+					</xs:complexContent>
+				</xs:complexType>
+			</xs:element>
+			<xs:element name="Dimension" type="ItemMeasurementCommonData" minOccurs="0"/>
+			<xs:element name="OrganizationHierarchy" type="OrganizationHierarchyCommonData" minOccurs="0" maxOccurs="unbounded"/>
+			<xs:element name="Instructions" type="InstructionsType" minOccurs="0" maxOccurs="unbounded">
+				<xs:annotation>
+					<xs:documentation>Tells what to do with this object</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+		</xs:sequence>
+	</xs:complexType>
+</xs:schema>

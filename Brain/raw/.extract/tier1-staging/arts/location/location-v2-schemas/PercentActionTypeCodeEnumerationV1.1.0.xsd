@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<xs:schema xmlns:xs="http://www.w3.org/2001/XMLSchema" elementFormDefault="qualified"
+	attributeFormDefault="unqualified">
+	<xs:include schemaLocation="IXREnumerationExtensionV1.1.0.xsd"/>
+	<!--
+		Enumerated type for Percent Action Type attribute
+	-->
+	<xs:simpleType name="PercentActionTypeCode">
+		<xs:union memberTypes="PercentActionTypeCodeEnumeration TypeCodeExtension"/>
+	</xs:simpleType>
+	<xs:simpleType name="PercentActionTypeCodeEnumeration">
+		<xs:restriction base="xs:NMTOKEN">
+			<xs:enumeration value="Add"/>
+			<xs:enumeration value="Subtract"/>
+		</xs:restriction>
+	</xs:simpleType>
+</xs:schema>

@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- edited with XMLSpy v2006 sp2 U (http://www.altova.com) by Richard L Halter (private) -->
+<xs:schema xmlns:xs="http://www.w3.org/2001/XMLSchema" elementFormDefault="qualified" attributeFormDefault="unqualified">
+	<xs:include schemaLocation="DescriptionCommonDataV1.3.0.xsd"/>
+	<xs:include schemaLocation="SeverityCodeEnumerationV1.1.0.xsd"/>
+	<xs:complexType name="BusinessErrorCommonData">
+		<xs:sequence>
+			<xs:element name="ErrorID" type="xs:string" minOccurs="0">
+				<xs:annotation>
+					<xs:documentation>UUID identifying this particular instance of the
+					error</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="Code" type="xs:string" minOccurs="0">
+				<xs:annotation>
+					<xs:documentation>used to describe the error condition.</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="Description" type="DescriptionCommonData" minOccurs="0">
+				<xs:annotation>
+					<xs:documentation>Any information about the  error.</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="RelatedErrorID" type="xs:string" minOccurs="0" maxOccurs="unbounded">
+				<xs:annotation>
+					<xs:documentation>The Message ID of any other messages which relate to this error.</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+		</xs:sequence>
+		<xs:attribute name="Severity" type="SeverityCodeType" use="optional" default="Information">
+			<xs:annotation>
+				<xs:documentation>Describes how bad is the error, Information, Warning, Error</xs:documentation>
+			</xs:annotation>
+		</xs:attribute>
+	</xs:complexType>
+</xs:schema>

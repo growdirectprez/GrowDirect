@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<xs:schema xmlns:xs="http://www.w3.org/2001/XMLSchema" elementFormDefault="qualified" attributeFormDefault="unqualified">
+	<xs:include schemaLocation="IXREnumerationExtensionV1.1.0.xsd"/>
+	<!--
+		Enumerated type for Description Type Codes attribute
+	-->
+	<xs:simpleType name="DescriptionTypeCode">
+		<xs:union memberTypes="DescriptionTypeCodeEnumeration TypeCodeExtension"/>
+	</xs:simpleType>
+	<xs:simpleType name="DescriptionTypeCodeEnumeration">
+		<xs:restriction base="xs:NMTOKEN">
+			<xs:enumeration value="Long"/>
+			<xs:enumeration value="Short"/>
+			<xs:enumeration value="Web"/>
+			<xs:enumeration value="Supplier"/>
+		</xs:restriction>
+	</xs:simpleType>
+</xs:schema>

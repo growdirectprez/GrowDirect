@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<xs:schema xmlns:xs="http://www.w3.org/2001/XMLSchema" elementFormDefault="qualified" attributeFormDefault="unqualified">
+	<xs:include schemaLocation="IXREnumerationExtensionV1.1.0.xsd"/>
+	<!--
+		Enumerated type for  Inventory Status Codes attribute
+	-->
+	<xs:simpleType name="InventoryStatusCodes">
+		<xs:union memberTypes="InventoryStatusCodesEnumeration TypeCodeExtension"/>
+	</xs:simpleType>
+	<xs:simpleType name="InventoryStatusCodesEnumeration">
+		<xs:restriction base="xs:NMTOKEN">
+			<xs:enumeration value="All"/>
+			<xs:enumeration value="AvailableOnHand"/>
+			<xs:enumeration value="AvailableToSell"/>
+			<xs:enumeration value="AvailableToPromise"/>
+			<xs:enumeration value="DefectiveOnHand"/>
+			<xs:enumeration value="NotAvailable"/>
+			<xs:enumeration value="OnOrder"/>
+			<xs:enumeration value="InTransitInBound"/>
+			<xs:enumeration value="PreSellOrders"/>
+			<xs:enumeration value="ReservedOnHand"/>
+			<xs:enumeration value="ReturnToVendor"/>
+			<xs:enumeration value="Shrinkage"/>
+			<xs:enumeration value="Sold"/>
+		</xs:restriction>
+	</xs:simpleType>
+</xs:schema>

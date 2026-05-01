@@ -1,0 +1,110 @@
+[
+  {
+    "source_path": "/Users/gclyle/GrowDirect/Brain/raw/inbox/BP/Cat Mgmt.ppt",
+    "source_sha256": "bf585322dcd162c9dda620f05f9eb4b4f28b7770434ff30ad60a892f6c50ae86",
+    "target_path": "/Users/gclyle/GrowDirect/Brain/raw/.extract/BP/Cat Mgmt.ppt.md",
+    "method": null,
+    "status": "failed",
+    "error": "markitdown: UnsupportedFormatException: Could not convert stream to Markdown. No converter attempted a conversion, suggesting that the filetype is simply not supported.",
+    "extracted_at": "2026-04-24T21:43:48.450057+00:00"
+  },
+  {
+    "source_path": "/Users/gclyle/GrowDirect/Brain/raw/inbox/BP/Efficnt Asst.ppt",
+    "source_sha256": "56c82cd8635a6bfb733b0f3c281494f3f051e1ac1bb864516473d0b824a37d1e",
+    "target_path": "/Users/gclyle/GrowDirect/Brain/raw/.extract/BP/Efficnt Asst.ppt.md",
+    "method": null,
+    "status": "failed",
+    "error": "markitdown: UnsupportedFormatException: Could not convert stream to Markdown. No converter attempted a conversion, suggesting that the filetype is simply not supported.",
+    "extracted_at": "2026-04-24T21:43:48.508792+00:00"
+  },
+  {
+    "source_path": "/Users/gclyle/GrowDirect/Brain/raw/inbox/BP/Event Mgmt.ppt",
+    "source_sha256": "67b3fca62b8073cd3c2c21ddb809bdff2116f282cb650e48ff0b017d21acc04f",
+    "target_path": "/Users/gclyle/GrowDirect/Brain/raw/.extract/BP/Event Mgmt.ppt.md",
+    "method": null,
+    "status": "failed",
+    "error": "markitdown: UnsupportedFormatException: Could not convert stream to Markdown. No converter attempted a conversion, suggesting that the filetype is simply not supported.",
+    "extracted_at": "2026-04-24T21:43:48.518036+00:00"
+  },
+  {
+    "source_path": "/Users/gclyle/GrowDirect/Brain/raw/inbox/BP/Forwrd Buy.ppt",
+    "source_sha256": "6c6443b647b9d2406c897f8a88fc1d40a9d26e5f90649a88558df74c0ca22e62",
+    "target_path": "/Users/gclyle/GrowDirect/Brain/raw/.extract/BP/Forwrd Buy.ppt.md",
+    "method": null,
+    "status": "failed",
+    "error": "markitdown: UnsupportedFormatException: Could not convert stream to Markdown. No converter attempted a conversion, suggesting that the filetype is simply not supported.",
+    "extracted_at": "2026-04-24T21:43:48.525735+00:00"
+  },
+  {
+    "source_path": "/Users/gclyle/GrowDirect/Brain/raw/inbox/BP/Import Mgmt.ppt",
+    "source_sha256": "ca0f4d24e47f5023f3d30cd55e20d0df1dc9b8f8ed62fb6147dbddb4bdfa0612",
+    "target_path": "/Users/gclyle/GrowDirect/Brain/raw/.extract/BP/Import Mgmt.ppt.md",
+    "method": null,
+    "status": "failed",
+    "error": "markitdown: UnsupportedFormatException: Could not convert stream to Markdown. No converter attempted a conversion, suggesting that the filetype is simply not supported.",
+    "extracted_at": "2026-04-24T21:43:48.533354+00:00"
+  },
+  {
+    "source_path": "/Users/gclyle/GrowDirect/Brain/raw/inbox/BP/Inventry Cntrl.ppt",
+    "source_sha256": "11e52f6978d3ca510138c51558140a1ce6e24eea92dd960cd85ecb2d30499d58",
+    "target_path": "/Users/gclyle/GrowDirect/Brain/raw/.extract/BP/Inventry Cntrl.ppt.md",
+    "method": null,
+    "status": "failed",
+    "error": "markitdown: UnsupportedFormatException: Could not convert stream to Markdown. No converter attempted a conversion, suggesting that the filetype is simply not supported.",
+    "extracted_at": "2026-04-24T21:43:48.540534+00:00"
+  },
+  {
+    "source_path": "/Users/gclyle/GrowDirect/Brain/raw/inbox/BP/Invoice Verif.ppt",
+    "source_sha256": "364508d497192357c001ae9af324e73ff56157f2a70668dd9a4d1d22dc8a3288",
+    "target_path": "/Users/gclyle/GrowDirect/Brain/raw/.extract/BP/Invoice Verif.ppt.md",
+    "method": null,
+    "status": "failed",
+    "error": "markitdown: UnsupportedFormatException: Could not convert stream to Markdown. No converter attempted a conversion, suggesting that the filetype is simply not supported.",
+    "extracted_at": "2026-04-24T21:43:48.547971+00:00"
+  },
+  {
+    "source_path": "/Users/gclyle/GrowDirect/Brain/raw/inbox/BP/Perf Mont.ppt",
+    "source_sha256": "70bf17977a40459a2ce5e13145e7638bc9766e0b573eaceb92e0a7b5a2a52c18",
+    "target_path": "/Users/gclyle/GrowDirect/Brain/raw/.extract/BP/Perf Mont.ppt.md",
+    "method": null,
+    "status": "failed",
+    "error": "markitdown: UnsupportedFormatException: Could not convert stream to Markdown. No converter attempted a conversion, suggesting that the filetype is simply not supported.",
+    "extracted_at": "2026-04-24T21:43:48.997579+00:00"
+  },
+  {
+    "source_path": "/Users/gclyle/GrowDirect/Brain/raw/inbox/BP/RTV.ppt",
+    "source_sha256": "22b6befdeee80c3e86eadb618b5421b8135a297dc7cabb0c6bf2c16bb5474801",
+    "target_path": "/Users/gclyle/GrowDirect/Brain/raw/.extract/BP/RTV.ppt.md",
+    "method": null,
+    "status": "failed",
+    "error": "markitdown: UnsupportedFormatException: Could not convert stream to Markdown. No converter attempted a conversion, suggesting that the filetype is simply not supported.",
+    "extracted_at": "2026-04-24T21:43:49.008943+00:00"
+  },
+  {
+    "source_path": "/Users/gclyle/GrowDirect/Brain/raw/inbox/BP/Sales Audit.ppt",
+    "source_sha256": "b838863bfc7bbe06162c8ec045638647330ec73ce869ead440df5d32a74f7bf9",
+    "target_path": "/Users/gclyle/GrowDirect/Brain/raw/.extract/BP/Sales Audit.ppt.md",
+    "method": null,
+    "status": "failed",
+    "error": "markitdown: UnsupportedFormatException: Could not convert stream to Markdown. No converter attempted a conversion, suggesting that the filetype is simply not supported.",
+    "extracted_at": "2026-04-24T21:43:49.016552+00:00"
+  },
+  {
+    "source_path": "/Users/gclyle/GrowDirect/Brain/raw/inbox/BP/Spc Mgmt.ppt",
+    "source_sha256": "8c0258cf0966780a6946e3b59516076b6ab60f27de95f642906e0b3d4bb933c2",
+    "target_path": "/Users/gclyle/GrowDirect/Brain/raw/.extract/BP/Spc Mgmt.ppt.md",
+    "method": null,
+    "status": "failed",
+    "error": "markitdown: UnsupportedFormatException: Could not convert stream to Markdown. No converter attempted a conversion, suggesting that the filetype is simply not supported.",
+    "extracted_at": "2026-04-24T21:43:49.023486+00:00"
+  },
+  {
+    "source_path": "/Users/gclyle/GrowDirect/Brain/raw/inbox/BP/Vendor Mgmt.ppt",
+    "source_sha256": "9688ed0a60cf03394e5702d0a46615ba7e8e828075180bd2e441ec6a9cf5e1a5",
+    "target_path": "/Users/gclyle/GrowDirect/Brain/raw/.extract/BP/Vendor Mgmt.ppt.md",
+    "method": null,
+    "status": "failed",
+    "error": "markitdown: UnsupportedFormatException: Could not convert stream to Markdown. No converter attempted a conversion, suggesting that the filetype is simply not supported.",
+    "extracted_at": "2026-04-24T21:43:49.101560+00:00"
+  }
+]

@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<xs:schema xmlns:xs="http://www.w3.org/2001/XMLSchema" elementFormDefault="qualified" attributeFormDefault="unqualified">
+	<xs:include schemaLocation="IXREnumerationExtensionV1.1.0.xsd"/>
+	<!---->
+	<xs:simpleType name="BusinessUnitStatus">
+		<xs:union memberTypes="BusinessUnitStatusEnumeration TypeCodeExtension"/>
+	</xs:simpleType>
+	<xs:simpleType name="BusinessUnitStatusEnumeration">
+		<xs:restriction base="xs:NMTOKEN">
+			<xs:enumeration value="ChangeHours"/>
+			<xs:enumeration value="ClosedForRemodeling"/>
+			<xs:enumeration value="Closed"/>
+			<xs:enumeration value="GrandOpening"/>
+			<xs:enumeration value="OpenForBusiness"/>
+			<xs:enumeration value="SoftOpening"/>
+			<xs:enumeration value="UnderConstruction"/>
+		</xs:restriction>
+	</xs:simpleType>
+</xs:schema>

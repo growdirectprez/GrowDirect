@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- edited with XMLSpy v2006 sp2 U (http://www.altova.com) by Richard L Halter (private) -->
+<xs:schema xmlns:xs="http://www.w3.org/2001/XMLSchema" elementFormDefault="qualified" attributeFormDefault="unqualified">
+	<xs:include schemaLocation="CustomerCommonDataV2.0.0.xsd"/>
+	<xs:complexType name="CustomerInformationType">
+		<xs:complexContent>
+			<xs:extension base="CustomerCommonData">
+				<xs:sequence>
+					<xs:element name="WishList" type="WishListType" minOccurs="0"/>
+				</xs:sequence>
+			</xs:extension>
+		</xs:complexContent>
+	</xs:complexType>
+	<xs:complexType name="WishListType">
+		<xs:sequence>
+			<xs:element name="Item" type="xs:string" maxOccurs="unbounded"/>
+		</xs:sequence>
+	</xs:complexType>
+</xs:schema>

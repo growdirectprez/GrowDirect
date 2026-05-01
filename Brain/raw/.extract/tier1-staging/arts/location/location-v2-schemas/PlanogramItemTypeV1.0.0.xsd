@@ -1,0 +1,68 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- edited with XMLSpy v2006 sp2 U (http://www.altova.com) by Richard L Halter (private) -->
+<xs:schema xmlns:xs="http://www.w3.org/2001/XMLSchema" elementFormDefault="qualified" attributeFormDefault="unqualified">
+	<xs:include schemaLocation="DateTimeTypeV1.0.0.xsd"/>
+	<xs:include schemaLocation="DimensionsCommonDataV1.1.0.xsd"/>
+	<xs:include schemaLocation="HazardousInformationCommonDataV1.0.0.xsd"/>
+	<xs:include schemaLocation="InventoryLocationCommonDataV1.1.0.xsd"/>
+	<xs:include schemaLocation="ItemIDCommonDataV1.4.0.xsd"/>
+	<xs:include schemaLocation="LocationCommonDataV1.0.0.xsd"/>
+	<xs:include schemaLocation="MaterialHandlingCommonDataV1.0.0.xsd"/>
+	<xs:include schemaLocation="MerchandisingStyleTypeCodeEnumerationV1.0.0.xsd"/>
+	<xs:include schemaLocation="OrientationCommonDataV1.0.0.xsd"/>
+	<xs:include schemaLocation="PlanogramActionCodeEnumerationV1.0.0.xsd"/>
+	<xs:include schemaLocation="PriceCommonDataV1.4.0.xsd"/>
+	<xs:include schemaLocation="PriorityTypeCodeEnumerationV1.0.0.xsd"/>
+	<xs:include schemaLocation="QuantityCommonDataV1.6.0.xsd"/>
+	<xs:include schemaLocation="SequenceNumberCommonDataV1.0.0.xsd"/>
+	<xs:include schemaLocation="UnitOfMeasureCodeEnumerationV1.3.0.xsd"/>
+	<xs:complexType name="PlanogramItemType">
+		<xs:sequence>
+			<xs:element name="ItemID" type="ItemIDCommonData"/>
+			<xs:element name="Quantity" type="QuantityCommonData" minOccurs="0"/>
+			<xs:element name="Price" type="PriceCommonData" minOccurs="0"/>
+			<xs:element name="DateTIme" type="DateTimeCommonData" minOccurs="0" maxOccurs="unbounded"/>
+			<xs:element name="MerchandisingStyle" type="MerchandisingStyleType" minOccurs="0" maxOccurs="unbounded"/>
+			<xs:element name="Location" type="LocationCommonData" minOccurs="0"/>
+			<xs:element name="PositionSequence" type="SequenceNumberType" minOccurs="0"/>
+			<xs:element name="ItemPosition" type="xs:int" minOccurs="0" maxOccurs="unbounded"/>
+			<xs:element name="Dimensions" type="DimensionCommonData" minOccurs="0"/>
+			<xs:element name="Cap" type="CapType" minOccurs="0" maxOccurs="unbounded"/>
+			<xs:element name="Inventory" type="InventoryLocationCommonData" minOccurs="0" maxOccurs="unbounded"/>
+			<xs:element name="Proximity" type="ProximityType" minOccurs="0"/>
+			<xs:element name="HandlingInstructions" type="HandlingType" minOccurs="0"/>
+			<xs:element name="HazardousInformation" type="HazardousInformationType" minOccurs="0"/>
+		</xs:sequence>
+		<xs:attribute name="ActionCode" type="PlanogramActionCode"/>
+		<xs:attribute name="Priority" type="PriorityTypeCode"/>
+	</xs:complexType>
+	<xs:complexType name="MerchandisingStyleType">
+		<xs:simpleContent>
+			<xs:extension base="xs:string">
+				<xs:attribute name="TypeCode" type="MerchandisingStyleTypeCodes"/>
+				<xs:attribute name="Capacity" type="xs:decimal"/>
+			</xs:extension>
+		</xs:simpleContent>
+	</xs:complexType>
+	<xs:complexType name="CapType">
+		<xs:annotation>
+			<xs:documentation>Capacity for this fixture</xs:documentation>
+		</xs:annotation>
+		<xs:simpleContent>
+			<xs:extension base="OrientationCommonData">
+				<xs:attribute name="UnitCount" type="xs:int">
+					<xs:annotation>
+						<xs:documentation>Count of the number of facings in this direction</xs:documentation>
+					</xs:annotation>
+				</xs:attribute>
+			</xs:extension>
+		</xs:simpleContent>
+	</xs:complexType>
+	<xs:complexType name="ProximityType">
+		<xs:simpleContent>
+			<xs:extension base="xs:decimal">
+				<xs:attribute name="UOM" type="UnitOfMeasureCodeCommonData"/>
+			</xs:extension>
+		</xs:simpleContent>
+	</xs:complexType>
+</xs:schema>

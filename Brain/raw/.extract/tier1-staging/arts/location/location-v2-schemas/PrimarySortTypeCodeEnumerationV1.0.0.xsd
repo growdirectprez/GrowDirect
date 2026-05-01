@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<xs:schema xmlns:xs="http://www.w3.org/2001/XMLSchema" elementFormDefault="qualified" attributeFormDefault="unqualified">
+	<xs:include schemaLocation="IXREnumerationExtensionV1.1.0.xsd"/>
+	<!-- 
+		Territory 
+	-->
+	<xs:simpleType name="PrimarySortTypeCode">
+		<xs:union memberTypes="PrimarySortTypeCodeEnumeration TypeCodeExtension"/>
+	</xs:simpleType>
+	<xs:simpleType name="PrimarySortTypeCodeEnumeration">
+		<xs:restriction base="xs:NMTOKEN">
+			<xs:enumeration value="None"/>
+			<xs:enumeration value="Temperature"/>
+			<xs:enumeration value="Weight"/>
+		</xs:restriction>
+	</xs:simpleType>
+	<xs:simpleType name="PrimarySortDirectionTypeCode">
+		<xs:union memberTypes="PrimarySortDirectionTypeCodeEnumeration TypeCodeExtension"/>
+	</xs:simpleType>
+	<xs:simpleType name="PrimarySortDirectionTypeCodeEnumeration">
+		<xs:restriction base="xs:NMTOKEN">
+			<xs:enumeration value="None"/>
+			<xs:enumeration value="Ascending"/>
+			<xs:enumeration value="Descending"/>
+		</xs:restriction>
+	</xs:simpleType>
+</xs:schema>

@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<xs:schema xmlns:xs="http://www.w3.org/2001/XMLSchema" elementFormDefault="qualified" attributeFormDefault="unqualified">
+	<xs:include schemaLocation="IXREnumerationExtensionV1.1.0.xsd"/>
+	<xs:simpleType name="PlanogramActionCode">
+		<xs:union memberTypes="PlanogramActionCodeEnumeration TypeCodeExtension"/>
+	</xs:simpleType>
+	<xs:simpleType name="PlanogramActionCodeEnumeration">
+		<xs:restriction base="xs:NMTOKEN">
+		<xs:enumeration value="Add"/>
+		<xs:enumeration value="Adjust"/>
+		<xs:enumeration value="Remove"/>
+		</xs:restriction>
+	</xs:simpleType>
+</xs:schema>

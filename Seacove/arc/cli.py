@@ -1,4 +1,5 @@
 """ARC CLI — AI Draftsman pipeline commands."""
+import json
 import click
 from pathlib import Path
 
@@ -75,9 +76,85 @@ def extract(project: str, model: str | None):
 
 @main.command("model")
 @click.argument("project")
-def model_cmd(project: str):
-    """Build spatial model from extraction data."""
-    click.echo(f"Building spatial model for project: {project}")
+@click.option(
+    "--model", "ollama_model", default=None,
+    help="Ollama text model name (default: $ARC_MODEL_MODEL or llama3.1)",
+)
+@click.option(
+    "--reconcile", is_flag=True, default=False,
+    help="Compare extractions against existing spatial_model.json and produce a conflict report.",
+)
+@click.option(
+    "--dry-run", is_flag=True, default=False,
+    help="Print result to stdout without writing any files.",
+)
+def model_cmd(project: str, ollama_model: str | None, reconcile: bool, dry_run: bool):
+    """Build spatial model from extraction data.
+
+    Synthesis mode (default): reads all extractions/*.json, calls Ollama text
+    model to reason about layout, writes model/spatial_model.json.
+
+    Reconcile mode (--reconcile): diffs new extractions against an existing
+    spatial_model.json and writes model/reconciliation_report.json.
+    """
+    import os
+    from arc.model.builder import build_model, DEFAULT_MODEL
+
+    project_dir = PROJECTS_DIR / project
+    if not project_dir.exists():
+        click.echo(f"Project directory not found: {project_dir}")
+        raise SystemExit(1)
+
+    model_name = ollama_model or os.environ.get("ARC_MODEL_MODEL", DEFAULT_MODEL)
+
+    mode = "reconcile" if reconcile else "synthesize"
+    click.echo(f"Model stage: {mode} | project={project} | model={model_name}")
+    if dry_run:
+        click.echo("(dry run — no files will be written)")
+
+    try:
+        result, out_path = build_model(
+            project_dir,
+            model=model_name,
+            reconcile=reconcile,
+            dry_run=dry_run,
+        )
+    except FileNotFoundError as exc:
+        click.echo(f"Error: {exc}")
+        raise SystemExit(1)
+    except ValueError as exc:
+        click.echo(f"Error: {exc}")
+        raise SystemExit(1)
+
+    if dry_run:
+        click.echo(json.dumps(result, indent=2))
+    else:
+        click.echo(f"Written: {out_path}")
+        if reconcile:
+            report = result
+            n_conflicts = len(report.get("conflicts", []))
+            n_additions = len(report.get("additions", []))
+            n_matches = len(report.get("matches", []))
+            click.echo(f"  {n_matches} match(es), {n_conflicts} conflict(s), {n_additions} addition(s)")
+            click.echo(f"\n{report.get('summary', '')}")
+            if n_conflicts:
+                click.echo("\nConflicts:")
+                for c in report.get("conflicts", []):
+                    sev = c.get("severity", "?").upper()
+                    ent = c.get("entity", "?")
+                    fld = c.get("field", "?")
+                    mv = c.get("model_value")
+                    ev = c.get("extracted_value")
+                    rec = c.get("recommendation", "")
+                    click.echo(f"  [{sev}] {ent}.{fld}: model={mv!r} vs extracted={ev!r}")
+                    if rec:
+                        click.echo(f"         → {rec}")
+        else:
+            floors = result.get("structure", {}).get("floors", [])
+            total_walls = sum(len(f.get("walls", [])) for f in floors)
+            total_rooms = sum(len(f.get("rooms", [])) for f in floors)
+            click.echo(f"  {len(floors)} floor(s), {total_rooms} room(s), {total_walls} wall(s)")
+            click.echo("\nNext: run 'arc validate' to check consistency.")
 
 
 @main.command()

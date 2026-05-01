@@ -1,0 +1,74 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- edited with XMLSpy v2006 sp1 U (http://www.altova.com) by Richard L Halter (private) -->
+<!-- 
+	Version 1.2.0
+	- Removed FullAddress because there is no place in the data model to store it
+-->
+<xs:schema xmlns:xs="http://www.w3.org/2001/XMLSchema" elementFormDefault="qualified" attributeFormDefault="unqualified">
+	<xs:include schemaLocation="AddressTypeCodeEnumerationV1.2.0.xsd"/>
+	<xs:include schemaLocation="AddressLocationCodeEnumerationV1.1.0.xsd"/>
+	<xs:include schemaLocation="AddressLineTypeCodeEnumerationV1.1.0.xsd"/>
+	<xs:include schemaLocation="TerritoryTypeCodeEnumerationV1.1.0.xsd"/>
+	<xs:include schemaLocation="CountryCodeEnumerationV1.2.0.xsd"/>
+	<xs:complexType name="AddressCommonData">
+		<xs:sequence>
+			<xs:element name="TypeCode" type="AddressTypeCode" default="Home" minOccurs="0" maxOccurs="unbounded">
+				<xs:annotation>
+					<xs:documentation>defines the use of the address: home, business, billing, etc. Allows for one address to satisfy multiple uses.</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="AddressLine" maxOccurs="unbounded">
+				<xs:complexType>
+					<xs:simpleContent>
+						<xs:extension base="xs:string">
+							<xs:attribute name="TypeCode" type="AddressLineTypeCode" use="optional" default="Street">
+								<xs:annotation>
+									<xs:documentation> describes the type of
+									address</xs:documentation>
+								</xs:annotation>
+							</xs:attribute>
+							<xs:attribute name="RelativeOrder" type="xs:integer" use="optional"/>
+						</xs:extension>
+					</xs:simpleContent>
+				</xs:complexType>
+			</xs:element>
+			<xs:element name="City" type="xs:string" minOccurs="0"/>
+			<xs:element name="Territory" minOccurs="0" maxOccurs="unbounded">
+				<xs:annotation>
+					<xs:documentation>A state, provice, or other region within a
+					country</xs:documentation>
+				</xs:annotation>
+				<xs:complexType>
+					<xs:simpleContent>
+						<xs:extension base="xs:string">
+							<xs:attribute name="TypeCode" type="TerritoryTypeCode"/>
+							<xs:attribute name="RelativeOrder" type="xs:integer" use="optional"/>
+						</xs:extension>
+					</xs:simpleContent>
+				</xs:complexType>
+			</xs:element>
+			<xs:element name="PostalCode" type="xs:string" minOccurs="0">
+				<xs:annotation>
+					<xs:documentation>A code assigned by the postal authority and used for mail
+						delivery</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="Country" minOccurs="0">
+				<xs:annotation>
+					<xs:documentation>The name of a country or territory</xs:documentation>
+				</xs:annotation>
+				<xs:complexType>
+					<xs:simpleContent>
+						<xs:extension base="xs:string">
+							<xs:attribute name="Code" type="CountryCode" use="optional"/>
+						</xs:extension>
+					</xs:simpleContent>
+				</xs:complexType>
+			</xs:element>
+			<xs:element name="PostalCodeExtension" type="xs:string" minOccurs="0"/>
+		</xs:sequence>
+		<xs:attribute name="PrimaryFlag" type="xs:boolean" use="optional" default="true"/>
+		<xs:attribute name="AddressLocationType" type="AddressLocationCode" use="optional" default="Permanent"/>
+		<xs:attribute name="AddressType" type="AddressTypeCode"/>
+	</xs:complexType>
+</xs:schema>

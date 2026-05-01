@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- edited with XMLSpy v2006 sp2 U (http://www.altova.com) by Richard L Halter (private) -->
+<xs:schema xmlns:xs="http://www.w3.org/2001/XMLSchema" elementFormDefault="qualified" attributeFormDefault="unqualified">
+	<xs:include schemaLocation="UnitOfMeasureCodeEnumerationV1.3.0.xsd"/>
+	<xs:complexType name="MeasurementCommonData">
+		<xs:simpleContent>
+			<xs:extension base="xs:float">
+				<xs:attribute name="UnitOfMeasure" type="UnitOfMeasureCodeCommonData" use="optional"/>
+			</xs:extension>
+		</xs:simpleContent>
+	</xs:complexType>
+</xs:schema>

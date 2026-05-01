@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- edited with XMLSpy v2006 sp1 U (http://www.altova.com) by Richard L Halter (private) -->
+<!-- 
+	Version 1.2.0
+	- Removed FullAddress because there is no place in the data model to store it
+-->
+<xs:schema xmlns:xs="http://www.w3.org/2001/XMLSchema" elementFormDefault="qualified" attributeFormDefault="unqualified">
+	<xs:include schemaLocation="ActionTypeCodesEnumerationV1.7.0.xsd"/>
+	<xs:include schemaLocation="FixtureTypeV1.0.0.xsd"/>
+	<xs:include schemaLocation="ItemIDCommonDataV1.4.0.xsd"/>
+	<xs:complexType name="CutInActionListType">
+		<xs:sequence>
+			<xs:element name="CutInAction" type="CutInActionType" maxOccurs="unbounded"/>
+		</xs:sequence>
+	</xs:complexType>
+	<xs:complexType name="CutInActionType">
+		<xs:sequence>
+			<xs:element name="ItemID" type="ItemIDCommonData" maxOccurs="unbounded"/>
+			<xs:element name="Fixture" type="FixtureType" minOccurs="0" maxOccurs="unbounded"/>
+		</xs:sequence>
+		<xs:attribute name="ActionTypeCode" type="ActionCommonDataTypeCodes"/>
+	</xs:complexType>
+</xs:schema>

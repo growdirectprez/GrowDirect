@@ -1,0 +1,1306 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Heartbeat / Fireball — Strategic Technical Overview</title>
+<style>
+  :root {
+    --navy:   #0d1b2e;
+    --navy2:  #122038;
+    --navy3:  #1a2d4a;
+    --rule:   #1e3554;
+    --accent: #c8922a;  /* amber — consulting gold */
+    --accent2:#3d7abf;  /* steel blue */
+    --accent3:#2e9e6e;  /* emerald */
+    --text:   #d4dde8;
+    --text-mid:#8fa3bb;
+    --text-dim:#4e6680;
+    --white:  #f0f4f8;
+    --code:   #7ec8e3;
+  }
+
+  *, *::before, *::after { box-sizing: border-box; margin:0; padding:0; }
+
+  html { scroll-behavior: smooth; }
+
+  body {
+    background: var(--navy);
+    color: var(--text);
+    font-family: 'Georgia', 'Times New Roman', serif;
+    font-size: 15px;
+    line-height: 1.7;
+  }
+
+  /* ─── COVER BAND ──────────────────────────── */
+  .cover {
+    background: linear-gradient(135deg, #06101e 0%, #0d1b2e 50%, #122038 100%);
+    border-bottom: 3px solid var(--accent);
+    padding: 64px 0 52px;
+  }
+  .cover-inner { max-width: 960px; margin: 0 auto; padding: 0 48px; }
+
+  .cover-eyebrow {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    margin-bottom: 24px;
+  }
+  .cover-eyebrow-line {
+    width: 32px; height: 2px;
+    background: var(--accent);
+  }
+  .cover-eyebrow-text {
+    font-family: 'Arial', sans-serif;
+    font-size: 10.5px;
+    font-weight: 700;
+    letter-spacing: .18em;
+    text-transform: uppercase;
+    color: var(--accent);
+  }
+
+  .cover h1 {
+    font-size: 42px;
+    font-weight: 700;
+    color: var(--white);
+    letter-spacing: -.02em;
+    line-height: 1.15;
+    margin-bottom: 6px;
+  }
+  .cover-slash { color: var(--accent); margin: 0 4px; }
+  .cover-sub {
+    font-family: 'Arial', sans-serif;
+    font-size: 14px;
+    color: var(--text-mid);
+    margin-bottom: 32px;
+    font-style: italic;
+  }
+
+  .cover-meta {
+    display: flex;
+    gap: 0;
+    border-top: 1px solid var(--rule);
+    padding-top: 24px;
+    flex-wrap: wrap;
+  }
+  .cover-meta-item {
+    padding: 0 28px 0 0;
+    margin-right: 28px;
+    border-right: 1px solid var(--rule);
+  }
+  .cover-meta-item:last-child { border-right: none; }
+  .cover-meta-label {
+    font-family: 'Arial', sans-serif;
+    font-size: 9px;
+    font-weight: 700;
+    letter-spacing: .14em;
+    text-transform: uppercase;
+    color: var(--text-dim);
+    margin-bottom: 3px;
+  }
+  .cover-meta-value {
+    font-family: 'Arial', sans-serif;
+    font-size: 12px;
+    color: var(--text-mid);
+  }
+
+  /* ─── THESIS BAND ─────────────────────────── */
+  .thesis-band {
+    background: var(--navy2);
+    border-bottom: 1px solid var(--rule);
+    padding: 40px 0;
+  }
+  .thesis-inner { max-width: 960px; margin: 0 auto; padding: 0 48px; }
+
+  .thesis-label {
+    font-family: 'Arial', sans-serif;
+    font-size: 9.5px;
+    font-weight: 700;
+    letter-spacing: .15em;
+    text-transform: uppercase;
+    color: var(--accent);
+    margin-bottom: 14px;
+    display: flex;
+    align-items: center;
+    gap: 10px;
+  }
+  .thesis-label::after {
+    content: '';
+    flex: 1;
+    height: 1px;
+    background: var(--rule);
+  }
+  .thesis-body {
+    font-size: 17px;
+    color: var(--white);
+    line-height: 1.7;
+    font-style: italic;
+    max-width: 820px;
+    border-left: 3px solid var(--accent);
+    padding-left: 24px;
+  }
+  .thesis-body strong { font-style: normal; color: var(--accent); }
+
+  /* ─── EXECUTIVE SUMMARY ───────────────────── */
+  .exec-band {
+    background: var(--navy2);
+    border-bottom: 1px solid var(--rule);
+    padding: 44px 0;
+  }
+  .exec-inner { max-width: 960px; margin: 0 auto; padding: 0 48px; }
+
+  .exec-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr 1fr;
+    gap: 0;
+    margin-top: 24px;
+  }
+  @media (max-width: 700px) { .exec-grid { grid-template-columns: 1fr; } }
+
+  .exec-card {
+    padding: 24px 28px;
+    border-right: 1px solid var(--rule);
+    border-bottom: 1px solid var(--rule);
+  }
+  .exec-card:nth-child(3n) { border-right: none; }
+  .exec-card:nth-last-child(-n+3) { border-bottom: none; }
+  @media (max-width: 700px) {
+    .exec-card { border-right: none; }
+    .exec-card:nth-last-child(-n+3) { border-bottom: 1px solid var(--rule); }
+    .exec-card:last-child { border-bottom: none; }
+  }
+
+  .exec-card-num {
+    font-family: 'Arial', sans-serif;
+    font-size: 28px;
+    font-weight: 700;
+    color: var(--accent);
+    line-height: 1;
+    margin-bottom: 8px;
+    font-variant-numeric: tabular-nums;
+  }
+  .exec-card-label {
+    font-family: 'Arial', sans-serif;
+    font-size: 11px;
+    font-weight: 700;
+    letter-spacing: .1em;
+    text-transform: uppercase;
+    color: var(--text-mid);
+    margin-bottom: 10px;
+  }
+  .exec-card-body {
+    font-family: 'Arial', sans-serif;
+    font-size: 13px;
+    color: var(--text-mid);
+    line-height: 1.6;
+  }
+
+  /* ─── MAIN BODY ───────────────────────────── */
+  .body-wrap { max-width: 960px; margin: 0 auto; padding: 0 48px 80px; }
+
+  /* ─── SECTION ─────────────────────────────── */
+  .section { padding-top: 56px; }
+
+  .section-header {
+    display: flex;
+    align-items: flex-start;
+    gap: 20px;
+    margin-bottom: 32px;
+    padding-bottom: 20px;
+    border-bottom: 1px solid var(--rule);
+  }
+  .section-num-block {
+    flex-shrink: 0;
+    width: 36px; height: 36px;
+    background: var(--accent);
+    border-radius: 4px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-family: 'Arial', sans-serif;
+    font-size: 14px;
+    font-weight: 700;
+    color: #06101e;
+    margin-top: 3px;
+  }
+  .section-title-block h2 {
+    font-size: 24px;
+    font-weight: 700;
+    color: var(--white);
+    letter-spacing: -.015em;
+    margin-bottom: 4px;
+  }
+  .section-title-block .section-deck {
+    font-family: 'Arial', sans-serif;
+    font-size: 13px;
+    color: var(--text-mid);
+    font-style: italic;
+  }
+
+  /* ─── BODY PROSE ──────────────────────────── */
+  p { margin-bottom: 16px; font-family: 'Georgia', serif; }
+  p:last-child { margin-bottom: 0; }
+  strong { color: var(--white); font-weight: 600; }
+  em { color: var(--text-mid); }
+
+  h3 {
+    font-family: 'Arial', sans-serif;
+    font-size: 13px;
+    font-weight: 700;
+    letter-spacing: .1em;
+    text-transform: uppercase;
+    color: var(--accent);
+    margin: 32px 0 14px;
+    display: flex;
+    align-items: center;
+    gap: 10px;
+  }
+  h3::after {
+    content: '';
+    flex: 1;
+    height: 1px;
+    background: var(--rule);
+  }
+
+  /* ─── TABLE ───────────────────────────────── */
+  .table-wrap { overflow-x: auto; margin: 20px 0 28px; }
+  table {
+    width: 100%;
+    border-collapse: collapse;
+    font-family: 'Arial', sans-serif;
+    font-size: 13px;
+  }
+  thead tr {
+    background: var(--navy3);
+    border-bottom: 2px solid var(--accent);
+  }
+  thead th {
+    padding: 11px 16px;
+    text-align: left;
+    font-size: 10px;
+    font-weight: 700;
+    letter-spacing: .12em;
+    text-transform: uppercase;
+    color: var(--accent);
+    white-space: nowrap;
+  }
+  tbody td {
+    padding: 11px 16px;
+    vertical-align: top;
+    border-bottom: 1px solid var(--rule);
+    color: var(--text);
+    line-height: 1.55;
+  }
+  tbody tr:last-child td { border-bottom: none; }
+  tbody tr:hover td { background: rgba(255,255,255,.02); }
+  td.row-label {
+    color: var(--white);
+    font-weight: 600;
+    white-space: nowrap;
+  }
+
+  /* ─── INSIGHT BOXES ───────────────────────── */
+  .insight {
+    margin: 24px 0;
+    padding: 18px 22px 18px 20px;
+    border-left: 3px solid;
+    border-radius: 0 6px 6px 0;
+    font-family: 'Arial', sans-serif;
+    font-size: 13.5px;
+    line-height: 1.6;
+  }
+  .insight.gold {
+    border-color: var(--accent);
+    background: rgba(200,146,42,.07);
+  }
+  .insight.blue {
+    border-color: var(--accent2);
+    background: rgba(61,122,191,.07);
+  }
+  .insight.green {
+    border-color: var(--accent3);
+    background: rgba(46,158,110,.07);
+  }
+  .insight-label {
+    font-size: 9.5px;
+    font-weight: 700;
+    letter-spacing: .15em;
+    text-transform: uppercase;
+    margin-bottom: 7px;
+  }
+  .insight.gold .insight-label  { color: var(--accent); }
+  .insight.blue .insight-label  { color: var(--accent2); }
+  .insight.green .insight-label { color: var(--accent3); }
+  .insight p { font-family: 'Arial', sans-serif; margin-bottom: 0; color: var(--text-mid); }
+  .insight p + p { margin-top: 8px; }
+
+  /* ─── PIPELINE ────────────────────────────── */
+  .pipeline-wrap {
+    background: var(--navy2);
+    border: 1px solid var(--rule);
+    border-radius: 8px;
+    padding: 28px;
+    margin: 24px 0;
+  }
+  .pipeline-label {
+    font-family: 'Arial', sans-serif;
+    font-size: 9.5px;
+    font-weight: 700;
+    letter-spacing: .14em;
+    text-transform: uppercase;
+    color: var(--text-dim);
+    margin-bottom: 16px;
+  }
+  .pipeline {
+    display: flex;
+    align-items: stretch;
+    gap: 0;
+    flex-wrap: wrap;
+  }
+  .pipe-node {
+    flex: 1;
+    min-width: 100px;
+    background: var(--navy3);
+    border: 1px solid var(--rule);
+    padding: 12px 14px;
+    text-align: center;
+    font-family: 'Arial', sans-serif;
+    font-size: 11.5px;
+    font-weight: 600;
+    color: var(--text-mid);
+  }
+  .pipe-node .pipe-sub {
+    display: block;
+    font-size: 9.5px;
+    font-weight: 400;
+    color: var(--text-dim);
+    margin-top: 4px;
+  }
+  .pipe-node.hl {
+    background: rgba(61,122,191,.12);
+    border-color: rgba(61,122,191,.35);
+    color: #93bcde;
+  }
+  .pipe-node.hl .pipe-sub { color: rgba(147,188,222,.6); }
+  .pipe-arr {
+    display: flex;
+    align-items: center;
+    padding: 0 6px;
+    color: var(--text-dim);
+    font-size: 16px;
+  }
+
+  /* ─── CLUSTER GRID ────────────────────────── */
+  .clusters {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(170px,1fr));
+    gap: 12px;
+    margin: 20px 0;
+  }
+  .cluster {
+    background: var(--navy2);
+    border: 1px solid var(--rule);
+    border-top: 3px solid;
+    border-radius: 4px;
+    padding: 14px;
+  }
+  .cluster h4 {
+    font-family: 'Arial', sans-serif;
+    font-size: 11.5px;
+    font-weight: 700;
+    color: var(--white);
+    margin-bottom: 8px;
+  }
+  .cluster p {
+    font-family: 'Arial', sans-serif;
+    font-size: 11.5px;
+    color: var(--text-mid);
+    line-height: 1.5;
+    margin: 0;
+  }
+  .cl1 { border-top-color: var(--accent2); }
+  .cl2 { border-top-color: var(--accent); }
+  .cl3 { border-top-color: var(--accent3); }
+  .cl4 { border-top-color: #a78bfa; }
+  .cl5 { border-top-color: #f472b6; }
+
+  /* ─── EVENT PILL ──────────────────────────── */
+  .ev-strip {
+    display: flex;
+    gap: 8px;
+    flex-wrap: wrap;
+    margin: 16px 0 20px;
+  }
+  .ev-pill {
+    font-family: 'Arial', sans-serif;
+    font-size: 12px;
+    font-weight: 700;
+    padding: 5px 13px;
+    border-radius: 3px;
+  }
+  .ep-oos  { background:rgba(220,38,38,.15); color:#fca5a5; border:1px solid rgba(220,38,38,.3); }
+  .ep-fast { background:rgba(217,119,6,.15); color:#fcd34d; border:1px solid rgba(217,119,6,.3); }
+  .ep-slow { background:rgba(37,99,235,.15); color:#93c5fd; border:1px solid rgba(37,99,235,.3); }
+  .ep-new  { background:rgba(22,163,74,.15); color:#86efac; border:1px solid rgba(22,163,74,.3); }
+  .ep-drop { background:rgba(124,58,237,.15); color:#c4b5fd; border:1px solid rgba(124,58,237,.3); }
+
+  /* ─── CODE BLOCK ──────────────────────────── */
+  pre {
+    background: #050d18;
+    border: 1px solid var(--rule);
+    border-left: 3px solid var(--accent2);
+    border-radius: 0 6px 6px 0;
+    padding: 18px 20px;
+    overflow-x: auto;
+    font-family: 'Consolas', 'Courier New', monospace;
+    font-size: 12px;
+    line-height: 1.75;
+    color: var(--code);
+    margin: 20px 0;
+  }
+  pre .dim { color: var(--text-dim); }
+  pre .hi  { color: #fcd34d; }
+  pre .hl  { color: #86efac; }
+
+  /* ─── VERDICT 2x2 ─────────────────────────── */
+  .verdict {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 2px;
+    margin: 24px 0;
+    border: 1px solid var(--rule);
+    border-radius: 6px;
+    overflow: hidden;
+  }
+  @media (max-width: 640px) { .verdict { grid-template-columns: 1fr; } }
+  .verdict-q {
+    background: var(--navy2);
+    padding: 26px;
+  }
+  .verdict-q-title {
+    font-family: 'Arial', sans-serif;
+    font-size: 10px;
+    font-weight: 700;
+    letter-spacing: .14em;
+    text-transform: uppercase;
+    margin-bottom: 16px;
+    padding-bottom: 12px;
+    border-bottom: 2px solid;
+  }
+  .verdict-q.right .verdict-q-title { color: var(--accent3); border-color: var(--accent3); }
+  .verdict-q.wrong .verdict-q-title { color: var(--accent); border-color: var(--accent); }
+  .verdict-item {
+    display: flex;
+    gap: 10px;
+    margin-bottom: 13px;
+    font-family: 'Arial', sans-serif;
+    font-size: 13px;
+    color: var(--text-mid);
+    line-height: 1.5;
+  }
+  .verdict-item:last-child { margin-bottom: 0; }
+  .vi-mark {
+    flex-shrink: 0;
+    margin-top: 1px;
+    font-weight: 900;
+    font-size: 12px;
+  }
+  .verdict-q.right .vi-mark { color: var(--accent3); }
+  .verdict-q.wrong .vi-mark { color: var(--accent); }
+
+  /* ─── LINEAGE TABLE BADGES ────────────────── */
+  .badge {
+    display: inline-block;
+    font-family: 'Arial', sans-serif;
+    font-size: 10px;
+    font-weight: 700;
+    letter-spacing: .06em;
+    padding: 2px 8px;
+    border-radius: 3px;
+    white-space: nowrap;
+  }
+  .b-11  { background:rgba(46,158,110,.15); color:#6ee7b7; border:1px solid rgba(46,158,110,.35); }
+  .b-tx  { background:rgba(61,122,191,.15); color:#93bcde; border:1px solid rgba(61,122,191,.35); }
+  .b-new { background:rgba(167,139,250,.15); color:#c4b5fd; border:1px solid rgba(167,139,250,.35); }
+  .b-omit{ background:rgba(78,102,128,.15); color:#7a91a8; border:1px solid rgba(78,102,128,.3); }
+
+  /* ─── DIVIDER ─────────────────────────────── */
+  .section-rule {
+    border: none;
+    border-top: 1px solid var(--rule);
+    margin: 0;
+  }
+
+  /* ─── FOOTER ──────────────────────────────── */
+  .footer {
+    border-top: 2px solid var(--rule);
+    margin-top: 72px;
+    padding-top: 28px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    flex-wrap: wrap;
+    gap: 12px;
+  }
+  .footer-left {
+    font-family: 'Arial', sans-serif;
+    font-size: 11px;
+    color: var(--text-dim);
+    line-height: 1.6;
+  }
+  .footer-right {
+    font-family: 'Arial', sans-serif;
+    font-size: 10.5px;
+    font-weight: 700;
+    letter-spacing: .1em;
+    text-transform: uppercase;
+    color: var(--accent);
+    background: rgba(200,146,42,.1);
+    border: 1px solid rgba(200,146,42,.3);
+    padding: 5px 12px;
+    border-radius: 3px;
+  }
+
+  /* ─── INLINE CODE ─────────────────────────── */
+  code {
+    font-family: 'Consolas', monospace;
+    font-size: 12px;
+    color: var(--code);
+    background: rgba(126,200,227,.08);
+    padding: 1px 5px;
+    border-radius: 3px;
+  }
+
+  /* ─── TOC ─────────────────────────────────── */
+  .toc-strip {
+    background: var(--navy3);
+    border-bottom: 1px solid var(--rule);
+    padding: 14px 48px;
+    display: flex;
+    gap: 32px;
+    flex-wrap: wrap;
+    align-items: center;
+  }
+  .toc-strip-label {
+    font-family: 'Arial', sans-serif;
+    font-size: 9.5px;
+    font-weight: 700;
+    letter-spacing: .14em;
+    text-transform: uppercase;
+    color: var(--text-dim);
+    flex-shrink: 0;
+  }
+  .toc-strip a {
+    font-family: 'Arial', sans-serif;
+    font-size: 12px;
+    color: var(--text-mid);
+    text-decoration: none;
+    white-space: nowrap;
+    transition: color .15s;
+  }
+  .toc-strip a:hover { color: var(--accent); }
+  .toc-strip .toc-n {
+    font-size: 10px;
+    color: var(--text-dim);
+    margin-right: 4px;
+    font-variant-numeric: tabular-nums;
+  }
+</style>
+</head>
+<body>
+
+<!-- ══════════════════════════════════════════
+     COVER
+══════════════════════════════════════════ -->
+<div class="cover">
+  <div class="cover-inner">
+    <div class="cover-eyebrow">
+      <div class="cover-eyebrow-line"></div>
+      <span class="cover-eyebrow-text">Prior Art Research · Technical Overview</span>
+    </div>
+    <h1>Heartbeat<span class="cover-slash">/</span>Fireball</h1>
+    <p class="cover-sub">2001–2003 Retail Out-of-Stock Detection &amp; Real-Time Notification System</p>
+    <div class="cover-meta">
+      <div class="cover-meta-item">
+        <div class="cover-meta-label">Production period</div>
+        <div class="cover-meta-value">2001 – 2003</div>
+      </div>
+      <div class="cover-meta-item">
+        <div class="cover-meta-label">Deployments</div>
+        <div class="cover-meta-value">Two US grocery pilots</div>
+      </div>
+      <div class="cover-meta-item">
+        <div class="cover-meta-label">Platform</div>
+        <div class="cover-meta-value">Microsoft BizTalk · EAI · Win. Advanced Server</div>
+      </div>
+      <div class="cover-meta-item">
+        <div class="cover-meta-label">Sponsor</div>
+        <div class="cover-meta-value">Global FMCG manufacturer</div>
+      </div>
+      <div class="cover-meta-item">
+        <div class="cover-meta-label">Classification</div>
+        <div class="cover-meta-value">Confidential · Archetype-scrubbed</div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- TOC STRIP -->
+<div class="toc-strip">
+  <span class="toc-strip-label">Contents</span>
+  <a href="#s1"><span class="toc-n">01</span>Context &amp; NFR Profile</a>
+  <a href="#s2"><span class="toc-n">02</span>The Problem — Both Layers</a>
+  <a href="#s3"><span class="toc-n">03</span>Architecture &amp; Pipeline</a>
+  <a href="#s4"><span class="toc-n">04</span>Detection Algorithm</a>
+  <a href="#s5"><span class="toc-n">05</span>Notification Subsystem</a>
+  <a href="#s6"><span class="toc-n">06</span>Phase-I Retrospective</a>
+  <a href="#s7"><span class="toc-n">07</span>Canary Lineage Map</a>
+</div>
+
+<!-- ══════════════════════════════════════════
+     GOVERNING THESIS
+══════════════════════════════════════════ -->
+<div class="thesis-band">
+  <div class="thesis-inner">
+    <div class="thesis-label">Governing Thesis</div>
+    <p class="thesis-body">
+      Heartbeat / Fireball proved, in production, that a near-real-time POS trickle feed
+      plus a per-store-per-SKU statistical velocity model plus a push notification to an
+      operator at the physical point of action is a <strong>viable and sufficient shape</strong>
+      for demand-signal-driven retail exception detection. The system worked.
+      The deployment model didn't. Canary inherits the design DNA and inverts every
+      commercial failure — self-service onboarding, single-vendor stack,
+      system-tracked alert lifecycle, operator-facing detection thresholds.
+    </p>
+  </div>
+</div>
+
+<!-- ══════════════════════════════════════════
+     EXECUTIVE SUMMARY — 6 STATS
+══════════════════════════════════════════ -->
+<div class="exec-band">
+  <div class="exec-inner">
+    <div class="thesis-label">Executive Summary</div>
+    <div class="exec-grid" style="border: 1px solid var(--rule); border-radius:6px; overflow:hidden; margin-top:20px;">
+      <div class="exec-card">
+        <div class="exec-card-num">15 min</div>
+        <div class="exec-card-label">End-to-end latency</div>
+        <div class="exec-card-body">Trickle feed → model rebuild → pager delivery at the southeastern-chain pilot. Hourly at the Tier-1.</div>
+      </div>
+      <div class="exec-card">
+        <div class="exec-card-num">1,000</div>
+        <div class="exec-card-label">SKUs per store (pilot scope)</div>
+        <div class="exec-card-body">Single-department at the Tier-1 super-format. Full-store at the southeastern chain (~24k assortment).</div>
+      </div>
+      <div class="exec-card">
+        <div class="exec-card-num">8</div>
+        <div class="exec-card-label">Algorithm covariates</div>
+        <div class="exec-card-body">Price · time of day · day of week · store · traffic · promotions · in-store competition · seasonality. Poisson velocity model per (item, store).</div>
+      </div>
+      <div class="exec-card">
+        <div class="exec-card-num">5</div>
+        <div class="exec-card-label">Named event types</div>
+        <div class="exec-card-body">OOS · Too Fast · Too Slow · New Item · Dropped Item. Likelihood-ratio anomaly detector — not threshold-based on raw counts.</div>
+      </div>
+      <div class="exec-card">
+        <div class="exec-card-num">0</div>
+        <div class="exec-card-label">Training required for operators</div>
+        <div class="exec-card-body">Wireless pager delivery via SMTP. Open email, browse, delete. No new application to learn. Designed to the device, not against it.</div>
+      </div>
+      <div class="exec-card">
+        <div class="exec-card-num">3</div>
+        <div class="exec-card-label">Commercial parties required</div>
+        <div class="exec-card-body">FMCG sponsor + integration vendor + algorithm vendor. Alignment required before any retailer could deploy. The fatal structural flaw.</div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- ══════════════════════════════════════════
+     BODY
+══════════════════════════════════════════ -->
+<div class="body-wrap">
+
+  <!-- ─── SECTION 1 ─── -->
+  <section class="section" id="s1">
+    <div class="section-header">
+      <div class="section-num-block">01</div>
+      <div class="section-title-block">
+        <h2>Context &amp; NFR Profile</h2>
+        <span class="section-deck">What was deployed, where, at what scale, under whose sponsorship</span>
+      </div>
+    </div>
+
+    <p>
+      The system ran at two US grocery deployments. The first was a Tier-1 super-format chain —
+      stores exceeding 250,000 sq ft, approximately 120,000 SKU assortment, 24×7 operations,
+      upper-Midwest geography, piloted at single-department scope (~1,000 monitored SKUs).
+      The second was a southeastern multi-state supermarket chain with approximately 1,100 stores
+      and ~24,000 active SKUs, piloted at full-store scope.
+    </p>
+
+    <div class="table-wrap">
+      <table>
+        <thead><tr><th>Dimension</th><th>Archetype A — Tier-1 Super-Format</th><th>Archetype B — Multi-State Regional</th></tr></thead>
+        <tbody>
+          <tr><td class="row-label">Format</td><td>Super-format ≥250k sq ft</td><td>Standard supermarket format</td></tr>
+          <tr><td class="row-label">Assortment</td><td>~120,000 SKUs</td><td>~24,000 SKUs</td></tr>
+          <tr><td class="row-label">Pilot scope</td><td>Single department (~1,000 SKUs)</td><td>Full-store</td></tr>
+          <tr><td class="row-label">Notification cadence</td><td>Hourly</td><td>15-minute heartbeat</td></tr>
+          <tr><td class="row-label">Operations</td><td>24×7</td><td>Standard grocery hours</td></tr>
+        </tbody>
+      </table>
+    </div>
+
+    <div class="insight gold">
+      <div class="insight-label">Sponsorship structure — manufacturer, not retailer</div>
+      <p>The system was sponsored by a global FMCG manufacturer, not the retailer. This matters: the demand-signal thesis was a manufacturer's thesis (supply chain synchronization), and the ROI calculation was a manufacturer's ROI calculation (reduced OOS = fewer lost manufacturer sales). The retailer was the deployment host, not the business-case owner. The commercial misalignment this created was the dominant risk in the Phase-I retrospective.</p>
+    </div>
+  </section>
+
+  <hr class="section-rule">
+
+  <!-- ─── SECTION 2 ─── -->
+  <section class="section" id="s2">
+    <div class="section-header">
+      <div class="section-num-block">02</div>
+      <div class="section-title-block">
+        <h2>The Problem — Both Layers</h2>
+        <span class="section-deck">The surface problem and the architectural thesis beneath it</span>
+      </div>
+    </div>
+
+    <p>
+      The problem was deliberately two-layer. The surface problem was operational: detect
+      out-of-stock conditions from live POS data and notify a store stocker within 15 minutes,
+      before the lost-sale clock compounds. The thesis-level problem was structural: <em>"the
+      supply chain must have a real-time consumer-demand-driven signal that initiates the supply
+      chain response."</em>
+    </p>
+
+    <p>
+      OOS was chosen as the wedge problem because it is the most viscerally measurable instance
+      of supply-chain desynchronization from consumer demand. A stockout is a lost sale that
+      every party in the chain — manufacturer, retailer, consumer — feels and can agree to measure.
+      Every design decision in the system follows from prioritizing <strong>time-to-actionable-signal</strong>
+      over batch sophistication.
+    </p>
+
+    <h3>Non-Functional Requirements</h3>
+    <div class="table-wrap">
+      <table>
+        <thead><tr><th>NFR</th><th>Target</th><th>Design implication</th></tr></thead>
+        <tbody>
+          <tr><td class="row-label">Data latency</td><td>Near-real-time (trickle TLOG feed, 15-min model rebuild)</td><td>Continuous feed architecture — no nightly batch</td></tr>
+          <tr><td class="row-label">Notification channel</td><td>Wireless pager / handheld push-email, SMTP delivery</td><td>Infrastructure every grocery store already had</td></tr>
+          <tr><td class="row-label">Operator skill assumption</td><td>Zero application training</td><td>Email UX; open, browse, delete</td></tr>
+          <tr><td class="row-label">Retailer integration footprint</td><td>Read-only on POS data</td><td>Non-obtrusive; no write-back; no IT footprint change</td></tr>
+          <tr><td class="row-label">Scalability target</td><td>"Internet scale" — multi-tenant, multi-enterprise</td><td>Centralized hosted service architecture (see Section 03)</td></tr>
+        </tbody>
+      </table>
+    </div>
+
+    <div class="insight blue">
+      <div class="insight-label">Explicitly out of scope</div>
+      <p>Automated reorder or replenishment triggering. Customer-side analytics. E-commerce surface. Self-service onboarding — every retailer deployment required a paid integrator engagement. Vertical generalization beyond grocery.</p>
+      <p>The "acting on the alert" step was left entirely to the human operator. The system detected and routed. It did not track whether the operator responded. That gap — no system-tracked acknowledgement — is one of the largest single deltas Canary closes.</p>
+    </div>
+  </section>
+
+  <hr class="section-rule">
+
+  <!-- ─── SECTION 3 ─── -->
+  <section class="section" id="s3">
+    <div class="section-header">
+      <div class="section-num-block">03</div>
+      <div class="section-title-block">
+        <h2>Architecture &amp; Pipeline</h2>
+        <span class="section-deck">End-to-end data flow, five-cluster hosted service anatomy, two collection patterns evaluated</span>
+      </div>
+    </div>
+
+    <p>
+      The system decomposed into two functional domains: <strong>RIO</strong> (Retail Integration
+      &amp; Operations Services — the integration layer between retailer systems and the hosted
+      service) and the <strong>Hosted Detection + Notification Service</strong> (central analysis
+      and delivery engine). The pipeline was strictly linear.
+    </p>
+
+    <div class="pipeline-wrap">
+      <div class="pipeline-label">End-to-End Data Pipeline</div>
+      <div class="pipeline">
+        <div class="pipe-node">Retailer POS / TLOG<span class="pipe-sub">Basket-level, continuous</span></div>
+        <div class="pipe-arr">→</div>
+        <div class="pipe-node">RIO Inputs<span class="pipe-sub">XML over HTTPS/VPN</span></div>
+        <div class="pipe-arr">→</div>
+        <div class="pipe-node hl">EAI Bus<span class="pipe-sub">Open Channels routing</span></div>
+        <div class="pipe-arr">→</div>
+        <div class="pipe-node hl">OOS Cluster<span class="pipe-sub">Poisson velocity model</span></div>
+        <div class="pipe-arr">→</div>
+        <div class="pipe-node hl">EAI Bus<span class="pipe-sub">Subscription routing</span></div>
+        <div class="pipe-arr">→</div>
+        <div class="pipe-node">RIO Outputs<span class="pipe-sub">SMTP → pager</span></div>
+        <div class="pipe-arr">→</div>
+        <div class="pipe-node">Store Operator<span class="pipe-sub">Wireless device</span></div>
+      </div>
+    </div>
+
+    <h3>Five-Cluster Hosted Service Anatomy</h3>
+    <div class="clusters">
+      <div class="cluster cl1">
+        <h4>Web Cluster</h4>
+        <p>All HTTP/HTTPS connectivity. Interface to EAI bus via receive functions. Customer VPN + FTP. Subscription management UI.</p>
+      </div>
+      <div class="cluster cl2">
+        <h4>Integration Bus Cluster</h4>
+        <p><strong>Open Channels pattern</strong> — destination and transport derived from message body, not hardcoded per-partner configs. SQL-backed routing tables. One port serving many retailers.</p>
+      </div>
+      <div class="cluster cl3">
+        <h4>Application Server Cluster</h4>
+        <p>Notification subsystem business objects. Subscription state management. Web interface support.</p>
+      </div>
+      <div class="cluster cl4">
+        <h4>SQL + Analysis Services</h4>
+        <p>Routing and subscription state. Optional POS data mart against standard retail XML model. Optional BI cubes as web service to enterprise customers.</p>
+      </div>
+      <div class="cluster cl5">
+        <h4>OOS Algorithm Cluster</h4>
+        <p>Detection algorithm + per-installation velocity models. Own XPDB compressed-transaction store — isolated from bus SQL. Returns OOS messages back to the bus.</p>
+      </div>
+    </div>
+
+    <div class="insight blue">
+      <div class="insight-label">Architectural decision — two separate stores, deliberately</div>
+      <p>The OOS cluster maintained its own high-speed XPDB compressed-transaction store — not the bus's SQL cluster. Algorithm's store: recent transaction stream, optimized for velocity computation. Bus's SQL: routing state, subscription state, optional data mart. Two stores, two purposes, no shared write path. This separation was not incidental; it reflects the correct intuition that the detection layer and the routing layer have incompatible access patterns.</p>
+    </div>
+
+    <h3>Two Collection Patterns Evaluated</h3>
+    <div class="table-wrap">
+      <table>
+        <thead><tr><th>Pattern</th><th>Mechanics</th><th>Verdict</th></tr></thead>
+        <tbody>
+          <tr>
+            <td class="row-label">In-store autonomous device</td>
+            <td>Per-store Heartbeat box connected directly to the POS controller. OOS analysis local. HTTP-based reports browseable on LAN.</td>
+            <td>Retained as a product variant. Not the reference architecture.</td>
+          </tr>
+          <tr>
+            <td class="row-label">Centralized hosted service</td>
+            <td>POS data shipped from each store to central hosted service. OOS analysis remote. Results pushed to wireless devices via SMTP.</td>
+            <td><strong>Reference architecture.</strong> Won the document footprint. Designed for "internet scale" — multi-tenant across thousands of stores.</td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+
+    <div class="insight green">
+      <div class="insight-label">Why the centralized pattern won</div>
+      <p>The in-store autonomous device was a hedge against fragile WAN — rational in 2002 when wide-area connectivity was unreliable. The centralized hosted architecture won because it could support multi-enterprise multi-store deployment against shared infrastructure. Canary chose hosted SaaS outright — the 2002 trade-off is settled in 2026 by commodity cloud and ubiquitous cellular. The edge device option is no longer needed.</p>
+    </div>
+  </section>
+
+  <hr class="section-rule">
+
+  <!-- ─── SECTION 4 ─── -->
+  <section class="section" id="s4">
+    <div class="section-header">
+      <div class="section-num-block">04</div>
+      <div class="section-title-block">
+        <h2>Detection Algorithm</h2>
+        <span class="section-deck">Poisson velocity model, eight covariates, five event types, feedback-loop retraining</span>
+      </div>
+    </div>
+
+    <p>
+      The intellectual centre of the system. Branded as the <em>Consumer Demand Signal Service /
+      Item Velocity Monitor</em>. A statistical-anomaly detector that <strong>learned normal item
+      velocity from POS transaction history under varying merchandising conditions, then detected
+      statistical variances from that learned velocity</strong> to flag a small set of named event
+      types. Algorithm IP was proprietary to the vendor; transformation specifics were not disclosed.
+    </p>
+
+    <div class="insight gold">
+      <div class="insight-label">Most consequential design choice in the entire system</div>
+      <p>The model receives <strong>no inventory feed.</strong> OOS is inferred from sales velocity dropping below the model's expectation — not from an inventory-on-hand count crossing zero. This was the design choice that made the system viable at retailers who wouldn't or couldn't provide live inventory data, which was most of them. It also meant the operator receiving an OOS alert had to disambiguate — shelf visit, back-room check — rather than the algorithm.</p>
+    </div>
+
+    <h3>Five Named Event Types</h3>
+    <div class="ev-strip">
+      <span class="ev-pill ep-oos">O — Out of Stock</span>
+      <span class="ev-pill ep-fast">F — Too Fast</span>
+      <span class="ev-pill ep-slow">S — Too Slow</span>
+      <span class="ev-pill ep-new">N — New Item</span>
+      <span class="ev-pill ep-drop">D — Dropped Item</span>
+    </div>
+
+    <div class="table-wrap">
+      <table>
+        <thead><tr><th>Event</th><th>Detection semantics</th><th>Operational implication</th></tr></thead>
+        <tbody>
+          <tr><td class="row-label">OOS</td><td>Velocity dropped to a level statistically inconsistent with learned model under current merchandising conditions</td><td>Human goes to shelf. Algorithm does not disambiguate from "out for restocking."</td></tr>
+          <tr><td class="row-label">Too Fast</td><td>Item moving above normal turn rate</td><td>Misprice, competitor OOS, untracked promotion, or sudden popularity shift</td></tr>
+          <tr><td class="row-label">Too Slow</td><td>Below normal turn rate, not yet OOS threshold</td><td>Leading indicator. System treats OOS as a continuum — Too Slow is the early warning.</td></tr>
+          <tr><td class="row-label">New Item</td><td>Item code appearing with no prior velocity history</td><td>First-observation flag for post-distribution tracking</td></tr>
+          <tr><td class="row-label">Dropped Item</td><td>Established velocity model, item has stopped appearing</td><td>Possible delist or discontinue signal</td></tr>
+        </tbody>
+      </table>
+    </div>
+
+    <h3>The Velocity Model — Eight Covariates</h3>
+    <p>A statistical model per <strong>(monitored item, monitored store, merchandising condition)</strong>. Historical item-movement data is transformed into event observations whose arrival times behave as a Poisson process. Eight covariates accounted for in the model:</p>
+
+    <div class="table-wrap">
+      <table>
+        <thead><tr><th>Covariate</th><th>Why it belongs in the model</th></tr></thead>
+        <tbody>
+          <tr><td class="row-label">Current price</td><td>Price elasticity drives velocity. Promotional vs regular price determines expected demand. Without this, every promotion looks like Too Fast.</td></tr>
+          <tr><td class="row-label">Time of day</td><td>Intra-day patterns differ significantly. Morning vs evening velocity baselines vary by SKU and store format.</td></tr>
+          <tr><td class="row-label">Day of week</td><td>Weekend vs weekday baseline. Pre-holiday surge. Without this, Sunday patterns look like anomalies every week.</td></tr>
+          <tr><td class="row-label">Store identifier</td><td>Per-store model. Same SKU in different stores can have radically different velocity baselines.</td></tr>
+          <tr><td class="row-label">Current store traffic</td><td>High-footfall periods amplify expected velocity. A slow-moving SKU during a quiet period may look OOS when it isn't.</td></tr>
+          <tr><td class="row-label">Current promotions</td><td>Explicit covariate so a velocity spike during a known promotion does not register as Too Fast.</td></tr>
+          <tr><td class="row-label">In-store competition</td><td>Competitive placement context — facing count, adjacent SKU performance.</td></tr>
+          <tr><td class="row-label">Seasonality</td><td>Annual and intra-year velocity patterns. A slow summer for a winter SKU should not fire OOS.</td></tr>
+        </tbody>
+      </table>
+    </div>
+
+    <h3>Detection Mechanics</h3>
+    <p>
+      For each new transaction: <em>"What is the probability of the newly observed data given the
+      normal velocity model?"</em> Normal velocity already accounts for current conditions.
+      If the probability of the observation — or one more extreme — is sufficiently small, an
+      anomaly event is generated. Classification into event type depends on transaction data and
+      model rules <strong>adapted per installation</strong> by the vendor.
+    </p>
+    <p>
+      This is a <strong>likelihood-ratio anomaly detector against a learned Poisson model with
+      merchandising-context covariates.</strong> Not threshold-based on raw counts. Not a
+      Bayesian network. A parametric statistical model with per-event-type classification overlay
+      tuned per deployment.
+    </p>
+
+    <h3>Training Feedback Loop</h3>
+    <p>
+      Model is <strong>first trained → used to detect events → retrained using events-adjusted
+      historical data.</strong> Events filter the training data — observations during a known OOS
+      period are excluded from subsequent retraining so the OOS period does not get re-learned as
+      "normal slow velocity." This conditional data cleaning before each retrain cycle is the
+      quality-gate that prevents the model from chasing its own tail.
+    </p>
+
+    <div class="insight gold">
+      <div class="insight-label">Operator tunability boundary — subscriptions, not detection</div>
+      <p>Operators had subscription knobs, not detection knobs. They could tune what they received (filter by event type, sort order, frequency, time window) but could not adjust the velocity model thresholds directly. All threshold tuning was the algorithm vendor's domain, done per installation. This created an adoption-rate drag — each new retailer required a tuning engagement before detection was production-quality. Canary inverts this: per-merchant detection threshold tuning is exposed directly to the operator via <code>merchant_rule_configs</code>.</p>
+    </div>
+  </section>
+
+  <hr class="section-rule">
+
+  <!-- ─── SECTION 5 ─── -->
+  <section class="section" id="s5">
+    <div class="section-header">
+      <div class="section-num-block">05</div>
+      <div class="section-title-block">
+        <h2>Notification Subsystem</h2>
+        <span class="section-deck">Trigger model · subscription model · pager UX · XML schema evolution · failure modes</span>
+      </div>
+    </div>
+
+    <p>
+      The operational centre of the system — where detection reached a human who could act.
+      The notification subsystem is <strong>the single most directly Canary-parallel artifact</strong>
+      in the archive. Every structural dimension maps forward: trigger model, subscription model,
+      delivery channels, report format, event schema, failure modes.
+    </p>
+
+    <h3>Trigger Model — Three Categories</h3>
+    <div class="table-wrap">
+      <table>
+        <thead><tr><th>Trigger</th><th>What fires it</th><th>Suppressible?</th></tr></thead>
+        <tbody>
+          <tr>
+            <td class="row-label">OOS Report</td>
+            <td>Package of OOS, Too Fast, and Too Slow events generated each reporting period. Primary value delivery.</td>
+            <td>Yes — per user</td>
+          </tr>
+          <tr>
+            <td class="row-label">Threshold Alarm</td>
+            <td>Separate alert when cumulative OOS-loss-value crosses a configured dollar threshold (e.g., "$996.36 in OOS losses since last check"). Sent independently so it doesn't get buried in a long event list.</td>
+            <td>Yes — per user (some pilot deployments suppressed this explicitly)</td>
+          </tr>
+          <tr>
+            <td class="row-label">Data Flow Interrupted</td>
+            <td>Fires whenever the trickle POS feed pauses. Signals that downstream OOS reports may be unreliable. The trust-the-pipeline alarm — an operator cannot distinguish "no alerts because nothing's wrong" from "no alerts because we lost visibility" without it.</td>
+            <td><strong>No. Mandatory for all users.</strong></td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+
+    <h3>Subscription Model — Per-User Dimensions</h3>
+    <div class="table-wrap">
+      <table>
+        <thead><tr><th>Dimension</th><th>Options</th></tr></thead>
+        <tbody>
+          <tr><td class="row-label">Report types</td><td>OOS Report (yes/no) · Threshold Alarm (yes/no) · Data Flow Alarm (always yes)</td></tr>
+          <tr><td class="row-label">Report period</td><td>15 min · hourly · every 4 h · every 8 h · daily. Multi-day: explicitly not supported.</td></tr>
+          <tr><td class="row-label">Summary vs Periodic</td><td><strong>Summary</strong> = current full OOS position (cumulative). <strong>Periodic</strong> = changes since last report (transitions only). Mix-and-match supported.</td></tr>
+          <tr><td class="row-label">Time windows</td><td>Operator-defined — e.g., "every 15 min from 7:00am to 7:00pm"</td></tr>
+          <tr><td class="row-label">Event-type filter</td><td>OOS · Too Fast · Too Slow — any subset. Operators routinely suppressed Too Fast / Too Slow when focused on stockouts.</td></tr>
+          <tr><td class="row-label">Sort profiles</td><td><strong>Stocker:</strong> Event Type → Department → Category → Promo Status → Item Code. <strong>Store Manager:</strong> Event Type → Promo Status → Department → Category → Item Code.</td></tr>
+          <tr><td class="row-label">Report cap</td><td>100 events per report (default, pilot). Driven by handheld device display constraint.</td></tr>
+        </tbody>
+      </table>
+    </div>
+
+    <h3>The Pager UX — Report Format</h3>
+    <p>
+      Hard constraint: <strong>8 lines × 25 characters</strong> — the lowest-common-denominator
+      handheld display. Reports were padded with spaces so the larger device visually matched the
+      smaller. The team designed to the hardware. This discipline — not against it — is one of the
+      most operationally sophisticated choices in the archive.
+    </p>
+
+    <pre><span class="dim">       1         2
+123456789012345678901234567</span>
+<span class="hi">1 OOS mm/dd/yyyy hh:mm</span>     <span class="dim">← report header: type + timestamp</span>
+2
+<span class="hl">3 O 004151132001 123456 P</span>  <span class="dim">← O=type | UPC | item code | P=promo</span>
+4 ROMAN MEAL ROUND TOP BREA<span class="dim">← description (40-char wrap)</span>
+5 D
+6
+<span class="hl">7 O 001820000801 123456</span>
+8 BUSH LIGHT 12 PACK /CANS
+<span class="dim">
+Threshold Alarm:         Data Flow Interrupted:</span>
+<span class="hi">1 02/23/2001 15:49         1 02/23/2001 15:49</span>
+<span class="hi">2 THRESHOLD $   996.36     2 DATA FLOW INTERRUPTED</span></pre>
+
+    <h3>XML Event Schema — Evolution Pattern</h3>
+    <p>
+      The notification subsystem received inputs as XML messages from the OOS cluster. Two schema
+      versions exist in the archive: <strong>August schema</strong> (6 Aug) and <strong>January schema</strong>
+      (15 Jan) — a ~5-month delta reflecting production-experience learning. The XML envelope carried
+      routing data <em>inside the message body</em>, not just in headers — the design choice that enabled
+      the EAI bus's Open Channels pattern. One messaging port could serve many retailers because
+      the destination was derived from the message, not from the port configuration.
+    </p>
+
+    <p>
+      The Aug → Jan schema delta is the kind of artifact that signals the production deployment
+      surfaced things the design hadn't predicted. Healthy pattern. Canary's CRDM version
+      evolution follows the same arc.
+    </p>
+
+    <div class="insight gold">
+      <div class="insight-label">The open loop — what the system did not do</div>
+      <p>No system-tracked acknowledgement. No alert lifecycle. The operator was expected to open the report, browse events, act at the shelf, and delete the email. Whether they did was out-of-band. The system could not measure its own effectiveness. The Phase-I retrospective noted the notification subsystem worked — the missing piece was the closed-loop signal from operator action back to the system. This is one of the largest deltas Canary closes, with a full alert lifecycle: <code>new → investigating / escalated / resolved / dismissed / case_opened / archived</code>.</p>
+    </div>
+  </section>
+
+  <hr class="section-rule">
+
+  <!-- ─── SECTION 6 ─── -->
+  <section class="section" id="s6">
+    <div class="section-header">
+      <div class="section-num-block">06</div>
+      <div class="section-title-block">
+        <h2>Phase-I Retrospective Findings</h2>
+        <span class="section-deck">April 2001 pilot assessment — what worked, what didn't, and why the go-to-market failed while the technology succeeded</span>
+      </div>
+    </div>
+
+    <p>
+      The April 2001 Phase-I Pilot Assessment by the integration vendor's consulting arm was the
+      most honest document in the archive. The central finding: <strong>the technical system
+      worked. The go-to-market did not.</strong> Business-model risks dominated the retrospective's
+      risk register — not delivery-quality risks.
+    </p>
+
+    <div class="verdict">
+      <div class="verdict-q right">
+        <div class="verdict-q-title">✓ Design decisions that aged well</div>
+        <div class="verdict-item"><span class="vi-mark">✓</span>Trickle feed as foundation. Continuous near-real-time POS event arrival as the non-negotiable prerequisite. Still axiomatic in 2026 — Canary's TSP webhook design starts from the same axiom without re-litigating it.</div>
+        <div class="verdict-item"><span class="vi-mark">✓</span>Operator as final recipient. Route to a human at the physical point of action. No automated remediation in the data path. Canary preserves this — Chirp alerts, Fox investigates, humans close the loop.</div>
+        <div class="verdict-item"><span class="vi-mark">✓</span>Per-(item, store) baseline. Velocity learned at per-store-per-SKU granularity — not aggregated across the chain. Granularity is detection quality. Still the right choice.</div>
+        <div class="verdict-item"><span class="vi-mark">✓</span>Subscription / filter / sort tunable per user. The system understood that one alert shape per organization fails. Different roles — stockers vs managers — need different filters and sort orders.</div>
+        <div class="verdict-item"><span class="vi-mark">✓</span>Non-suppressible Data Flow Interrupted alarm. "No alerts" is ambiguous without a pipeline-health signal. An operator can't distinguish "fine" from "blind."</div>
+        <div class="verdict-item"><span class="vi-mark">✓</span>Open-routing pattern. Destination derived from message content. Made multi-tenant routing work. Still load-bearing in every SaaS event pipeline in 2026.</div>
+      </div>
+      <div class="verdict-q wrong">
+        <div class="verdict-q-title">✗ Design decisions that failed (or were right-for-2002)</div>
+        <div class="verdict-item"><span class="vi-mark">✗</span>Deployment cost. Every retailer required a paid integrator engagement. Retrospective explicitly: "no turnkey solution that would allow rapid adoption." Right-for-2002; a business-ending constraint for SMB SaaS.</div>
+        <div class="verdict-item"><span class="vi-mark">✗</span>Three-party commercial dependency. FMCG sponsor + integration vendor + algorithm vendor had to align before any retailer could deploy. Top-line risk in the retrospective. Canary owns the entire stack.</div>
+        <div class="verdict-item"><span class="vi-mark">✗</span>No system-tracked operator acknowledgement. "Did the operator act?" was out-of-band. System could not measure its own effectiveness. Canary brings it inside with a full alert lifecycle.</div>
+        <div class="verdict-item"><span class="vi-mark">✗</span>Detection thresholds hidden from operators. Subscription knobs only — no detection knobs. Algorithm tuning was the vendor's domain, per installation. Adoption-rate drag. Canary exposes thresholds directly via merchant rule configs.</div>
+        <div class="verdict-item"><span class="vi-mark">✗</span>In-memory event cache only. No durable event store, no replay. Historical record was the optional data-mart copy — separate system, not authoritative. Canary's append-only evidence_records table is the durable, replayable, forensic-grade ground truth.</div>
+        <div class="verdict-item"><span class="vi-mark">✗</span>Algorithm scalability open question. Per-(store, SKU) Poisson model with 15-min retrain and 8 covariates was computationally non-trivial at full-store super-format scale (~120k SKUs). Performance under full assortment coverage was not proven in the pilot.</div>
+      </div>
+    </div>
+
+    <div class="insight gold">
+      <div class="insight-label">The retrospective's most important line</div>
+      <p>The notification subsystem was on track and working. The independent algorithm audit at the southeastern-chain pilot was on track. The delivery risk was low. The risks that dominated the register were: ROI schedule communication, commitments to next-round pilots, investment recoupment, and escalating requirements without clear ROI attribution. <strong>The technology proved out. The commercial model — three-party, high-deployment-cost, manufacturer-sponsored — did not.</strong></p>
+    </div>
+  </section>
+
+  <hr class="section-rule">
+
+  <!-- ─── SECTION 7 ─── -->
+  <section class="section" id="s7">
+    <div class="section-header">
+      <div class="section-num-block">07</div>
+      <div class="section-title-block">
+        <h2>Canary Lineage Map</h2>
+        <span class="section-deck">Per-component inheritance: 1:1 conceptual · transformed · net-new · deliberate omission</span>
+      </div>
+    </div>
+
+    <p>
+      The payoff of the research. Where the 2002 design maps to Canary's current architecture,
+      what was carried forward, what was transformed in substrate while preserving function,
+      and what is genuinely new with no 2002 analogue.
+    </p>
+
+    <div class="table-wrap">
+      <table>
+        <thead><tr><th>2002 Component</th><th>Canary 2026 Equivalent</th><th>Match</th><th>Key difference</th></tr></thead>
+        <tbody>
+          <tr>
+            <td class="row-label">Trickle POS feed (XML over HTTPS/VPN)</td>
+            <td>TSP webhook ingest (JSON over HTTPS, push from Square)</td>
+            <td><span class="badge b-tx">Transformed</span></td>
+            <td>Push-from-source not pull. JSON not XML. Replay via webhook event IDs. Same foundational role.</td>
+          </tr>
+          <tr>
+            <td class="row-label">Enterprise integration bus (Open Channels)</td>
+            <td>Webhook subscription manager + Sub 1/2/3 worker chain</td>
+            <td><span class="badge b-tx">Transformed</span></td>
+            <td>Commodity Flask + RQ + Postgres instead of enterprise EAI. Same separation of routing-state from event-state. Same destination-from-content routing pattern.</td>
+          </tr>
+          <tr>
+            <td class="row-label">OOS detection algorithm (Poisson, 8 covariates, 15-min retrain)</td>
+            <td>Chirp detection rules (27+ named rules, deterministic, severity-scored)</td>
+            <td><span class="badge b-tx">Transformed</span></td>
+            <td>Single deep statistical model → many deterministic rules. 2002's algorithm sophistication has a future home in Canary's Bayesian / KAP layer — the per-(merchant, signal) learned-baseline pattern is identical in concept.</td>
+          </tr>
+          <tr>
+            <td class="row-label">XPDB compressed transaction store</td>
+            <td><code>sales</code> schema transactions table (Postgres)</td>
+            <td><span class="badge b-tx">Transformed</span></td>
+            <td>Standard Postgres vs specialized columnar. SMB-scale volumes don't require the specialized store. Same access-pattern separation from routing state.</td>
+          </tr>
+          <tr>
+            <td class="row-label">Events cache server (in-memory query interface)</td>
+            <td>Alert table + alert MCP server (DB-backed, REST + agent)</td>
+            <td><span class="badge b-tx">Transformed</span></td>
+            <td>Persistent DB not volatile cache. Agent surface added. Replay capability added.</td>
+          </tr>
+          <tr>
+            <td class="row-label">Notification subsystem (subscription, routing, format-aware render)</td>
+            <td>Alert notification service (severity filter + quiet hours + rate cap + digest, SMS/email/push/in-app)</td>
+            <td><span class="badge b-11">1:1 Conceptual</span></td>
+            <td>The single most directly inherited component. Same trigger → subscription → channel-aware render → operator shape. Modernized channel set.</td>
+          </tr>
+          <tr>
+            <td class="row-label">Browser-based reports (HTML events formatter)</td>
+            <td>In-app dashboard (Flask + Jinja + Alpine)</td>
+            <td><span class="badge b-11">1:1 Conceptual</span></td>
+            <td>Same philosophical placement: secondary to push notification, primary for fuller summary and audit.</td>
+          </tr>
+          <tr>
+            <td class="row-label">Pager/handheld (SMTP, 8×25 char, zero training)</td>
+            <td>SMS + push + in-app + email (multi-channel, format-aware)</td>
+            <td><span class="badge b-tx">Transformed</span></td>
+            <td>Same "design to the receiving device" discipline. LCD constraint removed. Channel set updated.</td>
+          </tr>
+          <tr>
+            <td class="row-label">Operator workflow (open → browse → act → delete; no ack)</td>
+            <td>Alert lifecycle: <code>new → investigating / escalated / resolved / dismissed / case_opened / archived</code></td>
+            <td><span class="badge b-new">Net-new in Canary</span></td>
+            <td>2002 left "did the operator act?" outside the system. Canary brings it inside. Full lifecycle with history, time-to-acknowledge, time-to-resolve.</td>
+          </tr>
+          <tr>
+            <td class="row-label">Professional-services deployment (consulting per retailer)</td>
+            <td>OAuth self-service onboarding</td>
+            <td><span class="badge b-new">Net-new in Canary</span></td>
+            <td>The single largest design delta. The explicit response to the retrospective's "no turnkey solution" failure.</td>
+          </tr>
+          <tr>
+            <td class="row-label">Algorithm + integration vendor partnerships</td>
+            <td>(No equivalent — Canary owns the entire stack)</td>
+            <td><span class="badge b-omit">Deliberate omission</span></td>
+            <td>Phase-I retrospective flagged both as friction. Canary's vertical integration is the explicit response.</td>
+          </tr>
+          <tr>
+            <td class="row-label">(No 2002 equivalent)</td>
+            <td>Bitcoin Ordinal evidence chain (immutable, cryptographic, write-once)</td>
+            <td><span class="badge b-new">Net-new in Canary</span></td>
+            <td>Sovereignty and forensic-integrity moat. Wasn't possible until Bitcoin Ordinals.</td>
+          </tr>
+          <tr>
+            <td class="row-label">(No 2002 equivalent)</td>
+            <td>Fox case management with cryptographic evidence chains</td>
+            <td><span class="badge b-new">Net-new in Canary</span></td>
+            <td>Investigation lifecycle as a first-class domain. 2002 left investigation entirely out of the system.</td>
+          </tr>
+          <tr>
+            <td class="row-label">(No 2002 equivalent)</td>
+            <td>Owl agentic memory + retrieval (MCP)</td>
+            <td><span class="badge b-new">Net-new in Canary</span></td>
+            <td>The 2002 design anticipated a programmatic downstream consumer. Canary actually has one.</td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+
+    <div class="insight green">
+      <div class="insight-label">The architectural shape — unchanged in 25 years</div>
+      <p>
+        Near-real-time detection produces an event → event flows through an integration layer →
+        subscription subsystem determines who and how → message renders for the receiving channel
+        and context → operator acts at the physical point. The 2002 design got this shape right.
+        Canary inherits it without significant alteration. The substrate changed. The design DNA
+        didn't. What Canary adds is the closed loop — system-tracked operator response, investigation
+        lifecycle, cryptographic evidence chain — that 2002 left outside the system boundary by necessity.
+      </p>
+    </div>
+
+    <h3>What Canary Inherits — Directly</h3>
+    <p style="font-family:'Arial',sans-serif; font-size:13.5px; color:var(--text-mid);">
+      The trickle-feed-as-foundation axiom ·
+      Operator-as-final-recipient design ·
+      Per-(merchant, signal) velocity baseline ·
+      Subscription / filter / sort tunability per user ·
+      Non-suppressible pipeline-health alarm ·
+      Open-routing pattern (event content drives routing) ·
+      Notification subsystem shape (trigger → subscription → channel-aware render → operator) ·
+      Split between fast-detection store and routing/state store
+    </p>
+
+    <h3>What is Genuinely New in Canary</h3>
+    <p style="font-family:'Arial',sans-serif; font-size:13.5px; color:var(--text-mid);">
+      Self-service OAuth onboarding (largest single delta) ·
+      Single-vendor stack with no algorithm or integration vendor dependency ·
+      System-tracked operator acknowledgement and full alert lifecycle ·
+      Investigation lifecycle (Fox) as a first-class domain ·
+      Cryptographic evidence chain (Bitcoin Ordinal anchoring) ·
+      Lightning micro-payment plumbing ·
+      Agent surface (Owl + MCP) ·
+      Per-merchant detection threshold tuning exposed to the operator
+    </p>
+  </section>
+
+  <footer class="footer">
+    <div class="footer-left">
+      Extracted from 18 of ~417 source artifacts in the Heartbeat / Fireball archive.<br>
+      Client names and retailer-specific details abstracted to NFR archetype per playbook.<br>
+      Source of record: <code>Brain/raw/inbox/Heartbeat/</code>
+    </div>
+    <div class="footer-right">Confidential — Archetype-Scrubbed</div>
+  </footer>
+
+</div><!-- /body-wrap -->
+</body>
+</html>

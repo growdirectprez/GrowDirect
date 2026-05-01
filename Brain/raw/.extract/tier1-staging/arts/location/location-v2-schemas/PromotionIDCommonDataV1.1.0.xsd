@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- edited with XMLSpy v2006 sp2 U (http://www.altova.com) by Richard L Halter (private) -->
+<xs:schema xmlns:xs="http://www.w3.org/2001/XMLSchema" elementFormDefault="qualified" attributeFormDefault="unqualified">
+	<xs:include schemaLocation="PromotionTypeCodeEnumerationV1.1.0.xsd"/>
+	<xs:include schemaLocation="IDCommonDataV1.0.0.xsd"/>
+	<xs:complexType name="PromotionIDCommonData">
+		<xs:simpleContent>
+			<xs:extension base="IDCommonData">
+				<xs:attribute name="Description" type="xs:string"/>
+				<xs:attribute name="TypeCode" type="PromotionTypeCode"/>
+			</xs:extension>
+		</xs:simpleContent>
+	</xs:complexType>
+</xs:schema>

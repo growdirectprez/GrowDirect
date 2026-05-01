@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<xs:schema xmlns:xs="http://www.w3.org/2001/XMLSchema" elementFormDefault="qualified" attributeFormDefault="unqualified">
+<xs:include schemaLocation="IXREnumerationExtensionV1.1.0.xsd"/>
+		<!--
+		Enumerated type for Address Line Type attribute
+	-->
+	<xs:simpleType name="AddressLineTypeCode">
+		<xs:union memberTypes="AddressLineTypeCodeEnumeration TypeCodeExtension"/>
+	</xs:simpleType>
+	<xs:simpleType name="AddressLineTypeCodeEnumeration">
+		<xs:restriction base="xs:NMTOKEN">
+			<xs:enumeration value="Street"/>
+			<xs:enumeration value="RuralRoute"/>
+			<xs:enumeration value="POBox"/>
+			<xs:enumeration value="Unit"/>
+			<xs:enumeration value="Apartment"/>
+		</xs:restriction>
+	</xs:simpleType>
+
+</xs:schema>

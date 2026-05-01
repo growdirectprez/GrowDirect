@@ -1,0 +1,104 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- edited with XMLSpy v2006 sp2 U (http://www.altova.com) by Richard L Halter (private) -->
+<!--
+	Version 1.1.0
+	- Updated WorkstationID to include mode
+-->
+<xs:schema xmlns:xs="http://www.w3.org/2001/XMLSchema" elementFormDefault="qualified"
+	attributeFormDefault="unqualified">
+	<xs:include schemaLocation="ActionTypeCodesEnumerationV1.4.0.xsd"/>
+	<xs:include schemaLocation="BusinessUnitCommonDataV1.3.0.xsd"/>
+	<xs:include schemaLocation="DateTimeCommonDataV1.2.0.xsd"/>
+	<xs:include schemaLocation="MessageTypeCodeEnumerationV1.1.0.xsd"/>
+	<xs:include schemaLocation="OrganizationHierarchyCommonDataV1.2.0.xsd"/>
+	<xs:include schemaLocation="RequestIDCommonDataV1.0.0.xsd"/>
+	<xs:include schemaLocation="ResponseCommonDataV1.5.0.xsd"/>
+	<xs:include schemaLocation="WorkstationIDCommonDataV1.3.0.xsd"/>
+	<xs:element name="ARTSCommonHeader" type="ARTSCommonHeaderType">
+		<xs:annotation>
+			<xs:documentation>The common header for use in the Flattened Service Schema</xs:documentation>
+		</xs:annotation>
+	</xs:element>
+	<xs:complexType name="ARTSCommonHeaderType">
+		<xs:sequence>
+			<xs:element name="MessageID" minOccurs="0">
+				<xs:annotation>
+					<xs:documentation>UUID to uniquely identifying this request</xs:documentation>
+				</xs:annotation>
+				<xs:complexType>
+					<xs:simpleContent>
+						<xs:extension base="RequestIDCommonData"/>
+					</xs:simpleContent>
+				</xs:complexType>
+			</xs:element>
+			<xs:element name="DateTime" minOccurs="0" maxOccurs="unbounded">
+				<xs:annotation>
+					<xs:documentation>The date and time for this particular message.  NOTE: a message can have two times one was when the application sends the message (identified in the MessageID) the other when the message actually gets sent.  this date time</xs:documentation>
+				</xs:annotation>
+				<xs:complexType>
+					<xs:simpleContent>
+						<xs:extension base="DateTimeCommonData"/>
+					</xs:simpleContent>
+				</xs:complexType>
+			</xs:element>
+			<xs:element name="Description" minOccurs="0" maxOccurs="unbounded">
+				<xs:annotation>
+					<xs:documentation>Textual information around this particular message</xs:documentation>
+				</xs:annotation>
+				<xs:complexType>
+					<xs:simpleContent>
+						<xs:extension base="DescriptionCommonData"/>
+					</xs:simpleContent>
+				</xs:complexType>
+			</xs:element>
+			<xs:element name="Response" minOccurs="0">
+				<xs:annotation>
+					<xs:documentation>Unique information needed in the response</xs:documentation>
+				</xs:annotation>
+				<xs:complexType>
+					<xs:complexContent>
+						<xs:extension base="ResponseCommonData"/>
+					</xs:complexContent>
+				</xs:complexType>
+			</xs:element>
+			<xs:element name="Requestor" type="xs:string" minOccurs="0">
+				<xs:annotation>
+					<xs:documentation>the entity requesitng the message</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="BusinessUnit" type="BusinessUnitCommonData" minOccurs="0"
+				maxOccurs="unbounded">
+				<xs:annotation>
+					<xs:documentation>Business Unit Common Data Node describing the location. Contains one or more of RetailStore, DistributionCenter, InventoryLocation and AdminstrativeCenter.</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="OrganizationalHierarchy" type="OrganizationHierarchyCommonData"
+				minOccurs="0" maxOccurs="unbounded">
+				<xs:annotation>
+					<xs:documentation>organizational hierarchy so that destination can be targeted to individual location, region, division etc, not to be confused with reporting the entire hierarchy as is done with the Organizational Hierarchy Structure - i.e. an instance of an organization hierarchy at a particular level</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="WorkstationID" type="WorkstationIDCommonData" minOccurs="0">
+				<xs:annotation>
+					<xs:documentation>The unique identifier for the WORKSTATION, typically the serial number.</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="TillID" type="xs:string" minOccurs="0">
+				<xs:annotation>
+					<xs:documentation>The till is the insert which goes into the cash
+                                drawer</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+		</xs:sequence>
+		<xs:attribute name="ActionCode" type="ActionCommonDataTypeCodes">
+			<xs:annotation>
+				<xs:documentation>In a message oriented environment, these are the different types of actions requested to be done, add, begin, etc.</xs:documentation>
+			</xs:annotation>
+		</xs:attribute>
+		<xs:attribute name="MessageType" type="MessageTypeCode">
+			<xs:annotation>
+				<xs:documentation>in a message oriented environment, this identifies the type of message, Request, Response, Publish, Acknowledge</xs:documentation>
+			</xs:annotation>
+		</xs:attribute>
+	</xs:complexType>
+</xs:schema>

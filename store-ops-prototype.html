@@ -1,0 +1,1954 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Canary — Store Operations Suite · Murdoch's Laramie</title>
+<style>
+/* ═══════════════════════════════════════════════════════
+   CANARY DESIGN SYSTEM — Store Operations Suite Prototype
+   Murdoch's Ranch & Home Supply — Laramie, WY Demo
+   ═══════════════════════════════════════════════════════ */
+
+:root {
+  --bg-ink:       #0D1117;
+  --bg-surface:   #13191F;
+  --bg-secondary: #161B22;
+  --bg-card:      #1C2128;
+  --bg-elevated:  #21262D;
+  --border-subtle: #30363D;
+  --border-faint:  #21262D;
+  --text-primary:  #E6EDF3;
+  --text-secondary:#8B949E;
+  --text-muted:    #6B7280;
+  --text-dim:      #4B5563;
+  --signal-yellow: #FBBF24;
+  --signal-amber:  #F59E0B;
+  --signal-red:    #EF4444;
+  --signal-green:  #22C55E;
+  --signal-blue:   #3B82F6;
+  --signal-purple: #A855F7;
+  --signal-orange: #F97316;
+  --sidebar-w:     220px;
+}
+
+*, *::before, *::after { margin: 0; padding: 0; box-sizing: border-box; }
+body {
+  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', system-ui, sans-serif;
+  background: var(--bg-ink);
+  color: var(--text-secondary);
+  line-height: 1.6;
+  min-height: 100vh;
+}
+h1,h2,h3,h4 { font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', system-ui, sans-serif; color: var(--text-primary); line-height: 1.3; }
+a { color: var(--signal-yellow); text-decoration: none; }
+
+/* ── LAYOUT ── */
+.app-layout { display: flex; min-height: 100vh; }
+
+/* ── SIDEBAR ── */
+.sidebar {
+  position: fixed; top: 0; left: 0;
+  width: var(--sidebar-w); height: 100vh;
+  background: var(--bg-surface);
+  border-right: 1px solid var(--border-subtle);
+  display: flex; flex-direction: column; z-index: 100; overflow-y: auto;
+}
+.sidebar-logo {
+  padding: 20px 16px; border-bottom: 1px solid var(--border-subtle);
+  display: flex; align-items: center; gap: 10px;
+}
+.sidebar-logo-text .name { font-size: 1rem; font-weight: 700; color: var(--text-primary); line-height: 1; }
+.sidebar-logo-text .store { font-size: 0.6rem; color: var(--signal-yellow); letter-spacing: 0.08em; text-transform: uppercase; margin-top: 2px; }
+.sidebar-nav { flex: 1; padding: 12px 0; }
+.sidebar-section-label {
+  font-size: 0.6rem; font-weight: 700; letter-spacing: 0.1em;
+  text-transform: uppercase; color: var(--text-dim);
+  padding: 8px 16px 4px; margin-top: 4px;
+}
+.sidebar-item {
+  display: flex; align-items: center; gap: 10px;
+  padding: 8px 16px;
+  color: var(--text-secondary); font-size: 0.83rem; font-weight: 500;
+  border-left: 3px solid transparent;
+  transition: all 0.15s; cursor: pointer; text-decoration: none;
+}
+.sidebar-item:hover { color: var(--text-primary); background: rgba(255,255,255,0.04); }
+.sidebar-item.active { color: var(--text-primary); background: rgba(255,255,255,0.06); border-left-color: var(--signal-yellow); }
+.sidebar-item-badge {
+  margin-left: auto; min-width: 18px; height: 18px;
+  background: var(--signal-red); color: #fff;
+  font-size: 0.6rem; font-weight: 700;
+  border-radius: 9px; display: flex; align-items: center; justify-content: center; padding: 0 5px;
+}
+.sidebar-user {
+  padding: 14px 16px; border-top: 1px solid var(--border-subtle);
+  display: flex; align-items: center; gap: 10px;
+}
+.sidebar-avatar {
+  width: 30px; height: 30px; border-radius: 50%;
+  background: var(--bg-elevated); display: flex; align-items: center; justify-content: center;
+  font-size: 0.75rem; font-weight: 700; color: var(--signal-yellow);
+}
+.sidebar-user-name { font-size: 0.78rem; font-weight: 600; color: var(--text-primary); line-height: 1; }
+.sidebar-user-role { font-size: 0.6rem; color: var(--text-muted); text-transform: uppercase; letter-spacing: 0.06em; }
+
+/* ── MAIN ── */
+.app-main {
+  margin-left: var(--sidebar-w); flex: 1;
+  display: flex; flex-direction: column; min-height: 100vh;
+}
+
+/* ── TOPBAR ── */
+.app-topbar {
+  display: flex; align-items: center; justify-content: space-between;
+  padding: 14px 24px; border-bottom: 1px solid var(--border-subtle);
+  background: var(--bg-surface); position: sticky; top: 0; z-index: 50;
+}
+.topbar-left { display: flex; flex-direction: column; }
+.topbar-title { font-size: 1.1rem; font-weight: 700; color: var(--text-primary); line-height: 1; }
+.topbar-sub { font-size: 0.7rem; color: var(--text-muted); margin-top: 2px; }
+.topbar-right { display: flex; align-items: center; gap: 12px; }
+.topbar-status {
+  display: flex; align-items: center; gap: 6px;
+  font-size: 0.72rem; color: var(--text-muted);
+}
+.pulse {
+  width: 7px; height: 7px; border-radius: 50%; background: var(--signal-green);
+  box-shadow: 0 0 0 0 rgba(34,197,94,0.4); animation: pulse-anim 2s infinite;
+}
+@keyframes pulse-anim { 0%,100% { box-shadow: 0 0 0 0 rgba(34,197,94,0.4); } 70% { box-shadow: 0 0 0 6px rgba(34,197,94,0); } }
+.btn {
+  display: inline-flex; align-items: center; gap: 6px;
+  padding: 7px 14px; border-radius: 8px; font-size: 0.78rem; font-weight: 600;
+  border: none; cursor: pointer; transition: all 0.15s; font-family: inherit;
+}
+.btn-primary { background: var(--signal-yellow); color: #0D1117; }
+.btn-primary:hover { background: var(--signal-amber); }
+.btn-ghost { background: transparent; color: var(--text-secondary); border: 1px solid var(--border-subtle); }
+.btn-ghost:hover { color: var(--text-primary); border-color: var(--text-muted); }
+.btn-danger { background: rgba(239,68,68,0.15); color: var(--signal-red); border: 1px solid rgba(239,68,68,0.3); }
+.btn-sm { padding: 5px 10px; font-size: 0.72rem; }
+
+/* ── PAGE TABS ── */
+.page-tabs {
+  display: flex; border-bottom: 1px solid var(--border-subtle);
+  background: var(--bg-surface); padding: 0 24px; gap: 0;
+  position: sticky; top: 57px; z-index: 40;
+}
+.page-tab {
+  padding: 11px 18px; font-size: 0.82rem; font-weight: 600;
+  color: var(--text-muted); border-bottom: 2px solid transparent;
+  cursor: pointer; transition: all 0.15s; white-space: nowrap; background: none; border-top: none; border-left: none; border-right: none; font-family: inherit;
+}
+.page-tab:hover { color: var(--text-secondary); }
+.page-tab.active { color: var(--text-primary); border-bottom-color: var(--signal-yellow); }
+.page-tab .tab-badge {
+  display: inline-flex; align-items: center; justify-content: center;
+  width: 16px; height: 16px; border-radius: 8px;
+  background: var(--signal-red); color: #fff; font-size: 0.6rem; font-weight: 700;
+  margin-left: 5px;
+}
+
+/* ── CONTENT AREA ── */
+.page-content { padding: 24px; flex: 1; }
+
+/* ── CARDS ── */
+.card {
+  background: var(--bg-card); border: 1px solid var(--border-subtle);
+  border-radius: 12px; overflow: hidden;
+}
+.card-header {
+  padding: 14px 18px; border-bottom: 1px solid var(--border-faint);
+  display: flex; align-items: center; justify-content: space-between;
+}
+.card-title { font-size: 0.85rem; font-weight: 700; color: var(--text-primary); }
+.card-body { padding: 16px 18px; }
+
+/* ── STAT CARDS ── */
+.stat-grid { display: grid; grid-template-columns: repeat(4, 1fr); gap: 14px; margin-bottom: 20px; }
+.stat-card {
+  background: var(--bg-card); border: 1px solid var(--border-subtle);
+  border-radius: 10px; padding: 16px;
+}
+.stat-value { font-size: 1.6rem; font-weight: 700; color: var(--text-primary); line-height: 1; }
+.stat-label { font-size: 0.68rem; color: var(--text-muted); text-transform: uppercase; letter-spacing: 0.06em; margin-top: 4px; }
+.stat-delta { font-size: 0.72rem; margin-top: 6px; }
+.stat-delta.up { color: var(--signal-green); }
+.stat-delta.down { color: var(--signal-red); }
+.stat-delta.warn { color: var(--signal-yellow); }
+
+/* ── GRID HELPERS ── */
+.grid-2 { display: grid; grid-template-columns: 1fr 1fr; gap: 16px; }
+.grid-3 { display: grid; grid-template-columns: 1fr 1fr 1fr; gap: 16px; }
+.col-span-2 { grid-column: span 2; }
+
+/* ── TABLES ── */
+.data-table { width: 100%; border-collapse: collapse; font-size: 0.82rem; }
+.data-table th {
+  padding: 9px 14px; text-align: left;
+  font-size: 0.68rem; text-transform: uppercase; letter-spacing: 0.08em;
+  color: var(--text-muted); font-weight: 700; border-bottom: 1px solid var(--border-subtle); white-space: nowrap;
+}
+.data-table td {
+  padding: 11px 14px; border-bottom: 1px solid var(--border-faint);
+  color: var(--text-primary); vertical-align: middle;
+}
+.data-table tbody tr:last-child td { border-bottom: none; }
+.data-table tbody tr:hover { background: var(--bg-elevated); cursor: pointer; }
+
+/* ── BADGES ── */
+.badge {
+  display: inline-flex; align-items: center;
+  padding: 2px 8px; border-radius: 6px;
+  font-size: 0.65rem; font-weight: 700; text-transform: uppercase; letter-spacing: 0.05em; white-space: nowrap;
+}
+.badge-green   { background: rgba(34,197,94,0.12);  color: #22C55E; }
+.badge-red     { background: rgba(239,68,68,0.12);  color: #F87171; }
+.badge-yellow  { background: rgba(251,191,36,0.12); color: #FBBF24; }
+.badge-blue    { background: rgba(59,130,246,0.12); color: #60A5FA; }
+.badge-purple  { background: rgba(168,85,247,0.12); color: #C084FC; }
+.badge-orange  { background: rgba(249,115,22,0.12); color: #FB923C; }
+.badge-gray    { background: rgba(107,114,128,0.12); color: #9CA3AF; }
+
+/* ── COMPLIANCE GATE ── */
+.scan-input-wrap {
+  display: flex; gap: 10px; margin-bottom: 20px;
+}
+.scan-input {
+  flex: 1; padding: 10px 14px;
+  background: var(--bg-secondary); border: 1px solid var(--border-subtle);
+  border-radius: 10px; color: var(--text-primary); font-family: inherit; font-size: 0.88rem;
+  outline: none; transition: border-color 0.15s;
+}
+.scan-input:focus { border-color: var(--signal-yellow); }
+.scan-input::placeholder { color: var(--text-dim); }
+
+.auth-result {
+  border-radius: 12px; padding: 18px;
+  border: 1px solid; margin-bottom: 20px;
+  animation: slide-in 0.2s ease;
+}
+@keyframes slide-in { from { opacity: 0; transform: translateY(-6px); } to { opacity: 1; transform: translateY(0); } }
+.auth-result.authorized { background: rgba(34,197,94,0.06); border-color: rgba(34,197,94,0.25); }
+.auth-result.restricted { background: rgba(239,68,68,0.06); border-color: rgba(239,68,68,0.25); }
+.auth-result.blocked    { background: rgba(249,115,22,0.06); border-color: rgba(249,115,22,0.25); }
+
+.auth-result-head { display: flex; align-items: center; gap: 12px; margin-bottom: 10px; }
+.auth-icon { width: 36px; height: 36px; border-radius: 50%; display: flex; align-items: center; justify-content: center; font-size: 1rem; flex-shrink: 0; }
+.auth-icon.authorized { background: rgba(34,197,94,0.15); }
+.auth-icon.restricted { background: rgba(239,68,68,0.15); }
+.auth-icon.blocked    { background: rgba(249,115,22,0.15); }
+.auth-decision { font-size: 1rem; font-weight: 700; line-height: 1; }
+.auth-decision.authorized { color: var(--signal-green); }
+.auth-decision.restricted { color: var(--signal-red); }
+.auth-decision.blocked    { color: var(--signal-orange); }
+.auth-item-name { font-size: 0.78rem; color: var(--text-muted); margin-top: 2px; }
+
+.auth-factors { display: flex; flex-direction: column; gap: 7px; }
+.auth-factor {
+  display: flex; align-items: center; gap: 10px;
+  padding: 8px 12px; border-radius: 8px;
+  background: rgba(255,255,255,0.03); font-size: 0.78rem;
+}
+.auth-factor-label { color: var(--text-muted); font-size: 0.65rem; text-transform: uppercase; letter-spacing: 0.06em; width: 80px; flex-shrink: 0; }
+.auth-factor-val { flex: 1; color: var(--text-primary); }
+.auth-factor-status { flex-shrink: 0; }
+.remediation-box {
+  margin-top: 12px; padding: 10px 14px;
+  background: rgba(251,191,36,0.06); border-radius: 8px;
+  border: 1px solid rgba(251,191,36,0.2);
+  font-size: 0.78rem; color: var(--signal-yellow);
+}
+.remediation-box strong { display: block; margin-bottom: 3px; }
+
+/* ── BOPIS QUEUE ── */
+.bopis-item {
+  display: flex; align-items: center; gap: 14px;
+  padding: 13px 16px; border-bottom: 1px solid var(--border-faint);
+}
+.bopis-item:last-child { border-bottom: none; }
+.bopis-avatar {
+  width: 36px; height: 36px; border-radius: 50%;
+  background: var(--bg-elevated); display: flex; align-items: center; justify-content: center;
+  font-size: 0.78rem; font-weight: 700; color: var(--signal-yellow); flex-shrink: 0;
+}
+.bopis-info { flex: 1; min-width: 0; }
+.bopis-name { font-size: 0.83rem; font-weight: 600; color: var(--text-primary); }
+.bopis-order { font-size: 0.72rem; color: var(--text-muted); }
+.bopis-time { font-size: 0.7rem; color: var(--text-dim); white-space: nowrap; margin-left: auto; }
+
+/* ── LIVE FEED ── */
+.feed-item {
+  display: flex; align-items: flex-start; gap: 12px;
+  padding: 10px 0; border-bottom: 1px solid var(--border-faint);
+  font-size: 0.78rem;
+}
+.feed-item:last-child { border-bottom: none; }
+.feed-dot { width: 8px; height: 8px; border-radius: 50%; margin-top: 5px; flex-shrink: 0; }
+.feed-dot.sale { background: var(--signal-green); }
+.feed-dot.alert { background: var(--signal-red); }
+.feed-dot.bopis { background: var(--signal-blue); }
+.feed-dot.void  { background: var(--signal-orange); }
+.feed-dot.compliance { background: var(--signal-yellow); }
+.feed-label { color: var(--text-secondary); flex: 1; }
+.feed-label strong { color: var(--text-primary); }
+.feed-amount { color: var(--text-primary); font-weight: 600; white-space: nowrap; }
+.feed-time { color: var(--text-dim); white-space: nowrap; margin-left: 8px; }
+
+/* ── HAWK WIZARD ── */
+.wizard-overlay {
+  position: fixed; inset: 0; background: rgba(0,0,0,0.7); z-index: 200;
+  display: flex; align-items: center; justify-content: center;
+  backdrop-filter: blur(4px);
+}
+.wizard-modal {
+  background: var(--bg-card); border: 1px solid var(--border-subtle);
+  border-radius: 16px; width: 560px; max-width: 95vw;
+  max-height: 90vh; overflow-y: auto;
+  box-shadow: 0 24px 60px rgba(0,0,0,0.6);
+  animation: modal-in 0.2s ease;
+}
+@keyframes modal-in { from { opacity: 0; transform: scale(0.96) translateY(8px); } to { opacity: 1; transform: none; } }
+.wizard-head {
+  padding: 18px 20px; border-bottom: 1px solid var(--border-faint);
+  display: flex; align-items: center; justify-content: space-between;
+}
+.wizard-title { font-size: 1rem; font-weight: 700; color: var(--text-primary); }
+.wizard-close {
+  width: 28px; height: 28px; border-radius: 6px; border: none;
+  background: var(--bg-elevated); color: var(--text-muted); cursor: pointer;
+  display: flex; align-items: center; justify-content: center; font-size: 1rem;
+}
+.wizard-close:hover { color: var(--text-primary); background: var(--border-subtle); }
+.wizard-body { padding: 20px; }
+.wizard-step-indicator {
+  display: flex; gap: 6px; margin-bottom: 20px;
+}
+.wizard-step-dot {
+  width: 8px; height: 8px; border-radius: 50%;
+  background: var(--bg-elevated); border: 1px solid var(--border-subtle);
+  transition: all 0.2s;
+}
+.wizard-step-dot.active { background: var(--signal-yellow); border-color: var(--signal-yellow); }
+.wizard-step-dot.done   { background: var(--signal-green); border-color: var(--signal-green); }
+
+.incident-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 10px; }
+.incident-option {
+  padding: 12px 14px; border-radius: 10px;
+  background: var(--bg-secondary); border: 1px solid var(--border-subtle);
+  cursor: pointer; transition: all 0.15s;
+}
+.incident-option:hover { border-color: var(--signal-yellow); background: rgba(251,191,36,0.05); }
+.incident-option.selected { border-color: var(--signal-yellow); background: rgba(251,191,36,0.08); }
+.incident-option-label { font-size: 0.8rem; font-weight: 600; color: var(--text-primary); }
+.incident-option-sub { font-size: 0.68rem; color: var(--text-muted); margin-top: 2px; }
+.incident-option-class { font-size: 0.6rem; text-transform: uppercase; letter-spacing: 0.06em; color: var(--text-dim); margin-top: 6px; }
+
+.form-group { margin-bottom: 14px; }
+.form-label { display: block; font-size: 0.73rem; font-weight: 600; color: var(--text-secondary); margin-bottom: 5px; text-transform: uppercase; letter-spacing: 0.05em; }
+.form-input, .form-select, .form-textarea {
+  width: 100%; padding: 9px 12px;
+  background: var(--bg-secondary); border: 1px solid var(--border-subtle);
+  border-radius: 8px; color: var(--text-primary); font-family: inherit; font-size: 0.83rem; outline: none;
+  transition: border-color 0.15s;
+}
+.form-input:focus, .form-select:focus, .form-textarea:focus { border-color: var(--signal-yellow); }
+.form-textarea { resize: vertical; min-height: 80px; }
+.form-select option { background: var(--bg-secondary); }
+.form-row { display: flex; gap: 12px; }
+.form-row .form-group { flex: 1; }
+
+.wizard-footer {
+  padding: 16px 20px; border-top: 1px solid var(--border-faint);
+  display: flex; justify-content: space-between; align-items: center;
+}
+
+/* ── ASSOCIATE SESSIONS ── */
+.session-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 12px; }
+.session-card {
+  background: var(--bg-secondary); border: 1px solid var(--border-subtle);
+  border-radius: 10px; padding: 14px;
+}
+.session-card-top { display: flex; align-items: center; gap: 10px; margin-bottom: 10px; }
+.session-name { font-size: 0.83rem; font-weight: 600; color: var(--text-primary); }
+.session-role { font-size: 0.65rem; color: var(--text-muted); }
+.session-meta { font-size: 0.7rem; color: var(--text-muted); display: flex; flex-direction: column; gap: 3px; }
+.session-meta-row { display: flex; justify-content: space-between; }
+.session-meta-val { color: var(--text-secondary); }
+
+/* ── DEVICE HEALTH ── */
+.device-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 10px; }
+.device-card {
+  background: var(--bg-secondary); border: 1px solid var(--border-subtle);
+  border-radius: 10px; padding: 12px 14px;
+}
+.device-name { font-size: 0.78rem; font-weight: 600; color: var(--text-primary); }
+.device-type { font-size: 0.65rem; color: var(--text-muted); }
+.device-status { display: flex; align-items: center; gap: 5px; margin-top: 8px; font-size: 0.72rem; }
+
+/* ── MCP GRID ── */
+.mcp-row {
+  display: flex; align-items: center; justify-content: space-between;
+  padding: 10px 14px; border-bottom: 1px solid var(--border-faint); font-size: 0.78rem;
+}
+.mcp-row:last-child { border-bottom: none; }
+.mcp-name { color: var(--text-primary); font-family: monospace; font-size: 0.75rem; }
+.mcp-tools { color: var(--text-muted); font-size: 0.68rem; }
+.mcp-latency { color: var(--text-secondary); font-size: 0.72rem; }
+
+/* ── TRAINING / COVE ── */
+.obligation-item {
+  display: flex; align-items: center; gap: 14px;
+  padding: 12px 16px; border-bottom: 1px solid var(--border-faint);
+}
+.obligation-item:last-child { border-bottom: none; }
+.obligation-name { font-size: 0.83rem; font-weight: 600; color: var(--text-primary); flex: 1; }
+.obligation-cert { font-size: 0.7rem; color: var(--text-muted); }
+.obligation-due { font-size: 0.72rem; font-weight: 600; }
+.obligation-due.urgent { color: var(--signal-red); }
+.obligation-due.warn   { color: var(--signal-yellow); }
+.obligation-due.ok     { color: var(--signal-green); }
+
+.sop-item {
+  display: flex; align-items: center; justify-content: space-between;
+  padding: 10px 14px; border-bottom: 1px solid var(--border-faint); font-size: 0.8rem;
+}
+.sop-item:last-child { border-bottom: none; }
+.sop-title { color: var(--text-primary); font-weight: 500; }
+.sop-meta { font-size: 0.68rem; color: var(--text-muted); margin-top: 2px; }
+
+/* ── SNI TABLE ── */
+.sni-bar-wrap { display: flex; align-items: center; gap: 10px; }
+.sni-bar-bg { flex: 1; height: 5px; background: var(--bg-elevated); border-radius: 3px; overflow: hidden; }
+.sni-bar-fill { height: 100%; border-radius: 3px; transition: width 0.4s; }
+.sni-bar-fill.ok   { background: var(--signal-green); }
+.sni-bar-fill.warn { background: var(--signal-yellow); }
+.sni-bar-fill.high { background: var(--signal-red); }
+
+/* ── THREAD ── */
+.thread-msg {
+  padding: 12px 14px; border-radius: 10px; font-size: 0.78rem;
+  margin-bottom: 10px;
+}
+.thread-msg.inbound  { background: var(--bg-secondary); border: 1px solid var(--border-faint); }
+.thread-msg.outbound { background: rgba(251,191,36,0.07); border: 1px solid rgba(251,191,36,0.15); }
+.thread-msg-head { display: flex; align-items: center; justify-content: space-between; margin-bottom: 6px; }
+.thread-from { font-size: 0.72rem; font-weight: 700; color: var(--text-primary); }
+.thread-time { font-size: 0.65rem; color: var(--text-dim); }
+
+/* ── CHIRP ALERT ITEM ── */
+.chirp-item {
+  display: flex; align-items: flex-start; gap: 12px;
+  padding: 12px 16px; border-bottom: 1px solid var(--border-faint); cursor: pointer; transition: background 0.1s;
+}
+.chirp-item:last-child { border-bottom: none; }
+.chirp-item:hover { background: var(--bg-elevated); }
+.chirp-rule { font-size: 0.72rem; font-family: monospace; color: var(--signal-yellow); }
+.chirp-desc { font-size: 0.8rem; color: var(--text-primary); font-weight: 500; }
+.chirp-meta { font-size: 0.68rem; color: var(--text-muted); margin-top: 2px; }
+.chirp-score { font-size: 0.78rem; font-weight: 700; }
+.chirp-score.critical { color: var(--signal-red); }
+.chirp-score.high     { color: var(--signal-orange); }
+.chirp-score.medium   { color: var(--signal-yellow); }
+
+/* ── UTIL ── */
+.section-label {
+  font-size: 0.65rem; font-weight: 700; text-transform: uppercase; letter-spacing: 0.1em;
+  color: var(--text-muted); margin-bottom: 10px;
+}
+.mt-4 { margin-top: 16px; } .mt-6 { margin-top: 24px; }
+.mb-4 { margin-bottom: 16px; }
+.text-muted { color: var(--text-muted); }
+.text-yellow { color: var(--signal-yellow); }
+.text-sm { font-size: 0.78rem; }
+.divider { border: none; border-top: 1px solid var(--border-faint); margin: 14px 0; }
+.empty-msg { text-align: center; padding: 32px; color: var(--text-dim); font-size: 0.82rem; }
+
+/* ── HIDDEN TABS ── */
+.tab-panel { display: none; }
+.tab-panel.active { display: block; }
+
+/* ── SCROLLBAR ── */
+::-webkit-scrollbar { width: 5px; height: 5px; }
+::-webkit-scrollbar-track { background: transparent; }
+::-webkit-scrollbar-thumb { background: var(--border-subtle); border-radius: 3px; }
+
+/* ── CLOAK ── */
+[x-cloak] { display: none !important; }
+
+/* ── TOAST ── */
+.toast {
+  position: fixed; bottom: 24px; right: 24px; z-index: 500;
+  background: var(--bg-elevated); border: 1px solid var(--border-subtle);
+  border-radius: 12px; padding: 14px 18px;
+  display: flex; align-items: center; gap: 12px;
+  box-shadow: 0 8px 30px rgba(0,0,0,0.55);
+  min-width: 280px; max-width: 420px;
+  animation: toast-in 0.22s ease;
+}
+@keyframes toast-in { from { opacity:0; transform:translateY(10px); } to { opacity:1; transform:none; } }
+.toast-icon { width:30px; height:30px; border-radius:50%; display:flex; align-items:center; justify-content:center; flex-shrink:0; font-size:0.85rem; }
+.toast-icon.success { background:rgba(34,197,94,0.15); color:var(--signal-green); }
+.toast-icon.warn    { background:rgba(251,191,36,0.15); color:var(--signal-yellow); }
+.toast-icon.error   { background:rgba(239,68,68,0.15);  color:var(--signal-red); }
+.toast-msg { font-size:0.82rem; font-weight:600; color:var(--text-primary); }
+.toast-sub { font-size:0.72rem; color:var(--text-muted); margin-top:2px; }
+
+/* ── CASE DETAIL PANEL ── */
+.case-panel-overlay {
+  position:fixed; inset:0; background:rgba(0,0,0,0.45); z-index:150;
+  display:flex; justify-content:flex-end;
+}
+.case-panel {
+  width:480px; max-width:95vw; height:100vh; overflow-y:auto;
+  background:var(--bg-card); border-left:1px solid var(--border-subtle);
+  animation:panel-in 0.22s ease;
+  display:flex; flex-direction:column;
+}
+@keyframes panel-in { from { transform:translateX(36px); opacity:0; } to { transform:none; opacity:1; } }
+.case-panel-head {
+  padding:18px 20px; border-bottom:1px solid var(--border-faint);
+  display:flex; align-items:flex-start; justify-content:space-between;
+  position:sticky; top:0; background:var(--bg-card); z-index:1;
+}
+.case-panel-id { font-family:monospace; font-size:1.05rem; color:var(--signal-yellow); font-weight:700; }
+.case-panel-body { padding:20px; flex:1; }
+
+.timeline-item { display:flex; gap:12px; padding-bottom:18px; position:relative; }
+.timeline-item::before {
+  content:''; position:absolute; left:10px; top:22px;
+  width:1px; height:calc(100% - 16px); background:var(--border-faint);
+}
+.timeline-item:last-child::before { display:none; }
+.timeline-dot {
+  width:21px; height:21px; border-radius:50%; flex-shrink:0; margin-top:2px;
+  display:flex; align-items:center; justify-content:center; font-size:0.6rem; font-weight:700;
+}
+.timeline-dot.open       { background:rgba(59,130,246,0.2);  border:1px solid rgba(59,130,246,0.4);  color:var(--signal-blue); }
+.timeline-dot.evidence   { background:rgba(168,85,247,0.2);  border:1px solid rgba(168,85,247,0.4);  color:var(--signal-purple); }
+.timeline-dot.obligation { background:rgba(251,191,36,0.2);  border:1px solid rgba(251,191,36,0.4);  color:var(--signal-yellow); }
+.timeline-dot.update     { background:rgba(34,197,94,0.2);   border:1px solid rgba(34,197,94,0.4);   color:var(--signal-green); }
+.timeline-title { font-size:0.82rem; font-weight:600; color:var(--text-primary); }
+.timeline-desc  { font-size:0.72rem; color:var(--text-muted); margin-top:2px; line-height:1.4; }
+.timeline-time  { font-size:0.65rem; color:var(--text-dim); margin-top:3px; }
+
+/* ── PREFILL BANNER ── */
+.prefill-banner {
+  padding:10px 14px; border-radius:8px; margin-bottom:14px;
+  background:rgba(59,130,246,0.08); border:1px solid rgba(59,130,246,0.25);
+  font-size:0.78rem;
+}
+.prefill-banner-label { color:var(--signal-blue); font-size:0.68rem; text-transform:uppercase; letter-spacing:0.06em; font-weight:700; margin-bottom:3px; }
+</style>
+  
+</head>
+
+<body x-data="storeOps()" x-init="init()">
+<div class="app-layout">
+
+<!-- ════════════════ SIDEBAR ════════════════ -->
+<aside class="sidebar">
+  <div class="sidebar-logo">
+    <svg width="32" height="28" viewBox="0 0 130 100" fill="none">
+      <circle cx="42" cy="33" r="18" fill="#FBBF24"/>
+      <ellipse cx="50" cy="58" rx="25" ry="19" fill="#FBBF24"/>
+      <path d="M36 47 Q16 56 26 74 Q38 66 48 54 Z" fill="#F59E0B"/>
+      <circle cx="48" cy="30" r="4" fill="#0d1117"/>
+      <circle cx="46.5" cy="28.8" r="1.5" fill="#FBBF24"/>
+      <path d="M58 30 L73 24 L63 34 Z" fill="#E8A317"/>
+      <path d="M78 22 Q84 28 78 34" stroke="#FBBF24" stroke-width="2.5" stroke-linecap="round" fill="none" opacity="0.7"/>
+      <path d="M85 17 Q94 28 85 39" stroke="#FBBF24" stroke-width="2.5" stroke-linecap="round" fill="none" opacity="0.4"/>
+    </svg>
+    <div class="sidebar-logo-text">
+      <div class="name">Canary</div>
+      <div class="store">Laramie, WY</div>
+    </div>
+  </div>
+  <nav class="sidebar-nav">
+    <a class="sidebar-item active" @click="activeTab='floor'">
+      <svg width="14" height="14" viewBox="0 0 20 20" fill="none"><rect x="2" y="2" width="7" height="7" rx="1.5" stroke="currentColor" stroke-width="1.5"/><rect x="11" y="2" width="7" height="7" rx="1.5" stroke="currentColor" stroke-width="1.5"/><rect x="2" y="11" width="7" height="7" rx="1.5" stroke="currentColor" stroke-width="1.5"/><rect x="11" y="11" width="7" height="7" rx="1.5" stroke="currentColor" stroke-width="1.5"/></svg>
+      Store Floor
+    </a>
+    <a class="sidebar-item" @click="activeTab='compliance'; activeTab='compliance'">
+      <svg width="14" height="14" viewBox="0 0 20 20" fill="none"><path d="M10 2l2.5 5 5.5.8-4 3.9.9 5.5L10 15l-4.9 2.2.9-5.5L2 7.8l5.5-.8L10 2z" stroke="currentColor" stroke-width="1.5" stroke-linejoin="round"/></svg>
+      Compliance
+    </a>
+    <a class="sidebar-item" @click="activeTab='cases'">
+      <svg width="14" height="14" viewBox="0 0 20 20" fill="none"><rect x="3" y="3" width="14" height="14" rx="2" stroke="currentColor" stroke-width="1.5"/><path d="M7 8h6M7 12h4" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/></svg>
+      Cases
+      <span class="sidebar-item-badge">3</span>
+    </a>
+    <div class="sidebar-section-label">Analytics</div>
+    <a class="sidebar-item" @click="activeTab='analytics'">
+      <svg width="14" height="14" viewBox="0 0 20 20" fill="none"><path d="M3 17V7l4-4 4 4 4-4v14" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg>
+      Chirp / SNI
+    </a>
+    <a class="sidebar-item" @click="activeTab='operations'">
+      <svg width="14" height="14" viewBox="0 0 20 20" fill="none"><circle cx="10" cy="10" r="7" stroke="currentColor" stroke-width="1.5"/><path d="M10 6v4l3 3" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/></svg>
+      Operations
+    </a>
+    <div class="sidebar-section-label">Store</div>
+    <a class="sidebar-item" @click="activeTab='training'">
+      <svg width="14" height="14" viewBox="0 0 20 20" fill="none"><path d="M4 6h12M4 10h8M4 14h6" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/></svg>
+      Training / SOPs
+    </a>
+    <a class="sidebar-item" href="#">
+      <svg width="14" height="14" viewBox="0 0 20 20" fill="none"><circle cx="10" cy="7" r="3" stroke="currentColor" stroke-width="1.5"/><path d="M4 17c0-3.3 2.7-6 6-6s6 2.7 6 6" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/></svg>
+      Team
+    </a>
+    <a class="sidebar-item" href="#">
+      <svg width="14" height="14" viewBox="0 0 20 20" fill="none"><circle cx="10" cy="10" r="3" stroke="currentColor" stroke-width="1.5"/><path d="M10 3v2M10 15v2M3 10h2M15 10h2" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/></svg>
+      Settings
+    </a>
+  </nav>
+  <div class="sidebar-user">
+    <div class="sidebar-avatar">M</div>
+    <div>
+      <div class="sidebar-user-name">Marcus Webb</div>
+      <div class="sidebar-user-role">Store Manager</div>
+    </div>
+  </div>
+</aside>
+
+<!-- ════════════════ MAIN ════════════════ -->
+<div class="app-main">
+
+  <!-- TOPBAR -->
+  <div class="app-topbar">
+    <div class="topbar-left">
+      <div class="topbar-title">Store Operations Suite</div>
+      <div class="topbar-sub">Murdoch's Ranch &amp; Home Supply · Laramie, WY · Today 9:14 AM MDT</div>
+    </div>
+    <div class="topbar-right">
+      <div class="topbar-status">
+        <div class="pulse"></div>
+        Square POS · Live
+      </div>
+      <button class="btn btn-ghost btn-sm">Sync</button>
+      <button class="btn btn-primary btn-sm" @click="openWizard()">+ New Case</button>
+    </div>
+  </div>
+
+  <!-- PAGE TABS -->
+  <div class="page-tabs">
+    <button class="page-tab" :class="activeTab==='floor'?'active':''" @click="activeTab='floor'">Floor</button>
+    <button class="page-tab" :class="activeTab==='compliance'?'active':''" @click="activeTab='compliance'">Compliance <span x-show="complianceDenials>0" class="tab-badge" x-text="complianceDenials"></span></button>
+    <button class="page-tab" :class="activeTab==='cases'?'active':''" @click="activeTab='cases'">Cases <span class="tab-badge">3</span></button>
+    <button class="page-tab" :class="activeTab==='analytics'?'active':''" @click="activeTab='analytics'">Analytics</button>
+    <button class="page-tab" :class="activeTab==='operations'?'active':''" @click="activeTab='operations'">Operations</button>
+    <button class="page-tab" :class="activeTab==='training'?'active':''" @click="activeTab='training'">Training</button>
+  </div>
+
+  <!-- ════ TAB: FLOOR ════ -->
+  <div class="page-content tab-panel" :class="activeTab==='floor'?'active':''">
+
+    <div class="stat-grid">
+      <div class="stat-card">
+        <div class="stat-value">$14,820</div>
+        <div class="stat-label">Sales Today</div>
+        <div class="stat-delta up">↑ 12% vs last Thursday</div>
+      </div>
+      <div class="stat-card">
+        <div class="stat-value">184</div>
+        <div class="stat-label">Transactions</div>
+        <div class="stat-delta up">↑ 8 vs yesterday</div>
+      </div>
+      <div class="stat-card">
+        <div class="stat-value">7</div>
+        <div class="stat-label">BOPIS Pending</div>
+        <div class="stat-delta warn">3 ready · 4 in pick</div>
+      </div>
+      <div class="stat-card">
+        <div class="stat-value">2</div>
+        <div class="stat-label">Chirp Alerts</div>
+        <div class="stat-delta down">1 critical, 1 medium</div>
+      </div>
+    </div>
+
+    <div class="grid-2">
+
+      <!-- Active Sessions -->
+      <div class="card">
+        <div class="card-header">
+          <div class="card-title">Active Sessions</div>
+          <span class="badge badge-green">5 on floor</span>
+        </div>
+        <div class="card-body" style="padding:14px">
+          <div class="session-grid">
+            <div class="session-card">
+              <div class="session-card-top">
+                <div class="sidebar-avatar">K</div>
+                <div>
+                  <div class="session-name">Kayla Thornton</div>
+                  <div class="session-role">Firearms Specialist</div>
+                </div>
+              </div>
+              <div class="session-meta">
+                <div class="session-meta-row"><span>Zone</span><span class="session-meta-val">Sporting Goods</span></div>
+                <div class="session-meta-row"><span>Shift</span><span class="session-meta-val">7:00 AM – 3:30 PM</span></div>
+                <div class="session-meta-row"><span>FFL Cert</span><span class="session-meta-val" style="color:var(--signal-yellow)">⚠ Exp 14d</span></div>
+              </div>
+            </div>
+            <div class="session-card">
+              <div class="session-card-top">
+                <div class="sidebar-avatar">J</div>
+                <div>
+                  <div class="session-name">Jenna Fitch</div>
+                  <div class="session-role">Cashier</div>
+                </div>
+              </div>
+              <div class="session-meta">
+                <div class="session-meta-row"><span>Register</span><span class="session-meta-val">Reg 2</span></div>
+                <div class="session-meta-row"><span>Txns</span><span class="session-meta-val">47 today</span></div>
+                <div class="session-meta-row"><span>Status</span><span class="session-meta-val" style="color:var(--signal-green)">● Active</span></div>
+              </div>
+            </div>
+            <div class="session-card">
+              <div class="session-card-top">
+                <div class="sidebar-avatar">D</div>
+                <div>
+                  <div class="session-name">Derek Pruitt</div>
+                  <div class="session-role">LP Officer</div>
+                </div>
+              </div>
+              <div class="session-meta">
+                <div class="session-meta-row"><span>Zone</span><span class="session-meta-val">All zones</span></div>
+                <div class="session-meta-row"><span>Open cases</span><span class="session-meta-val">3</span></div>
+                <div class="session-meta-row"><span>Status</span><span class="session-meta-val" style="color:var(--signal-green)">● Monitoring</span></div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- BOPIS Queue -->
+      <div class="card">
+        <div class="card-header">
+          <div class="card-title">BOPIS Queue</div>
+          <div style="display:flex;gap:6px">
+            <span class="badge badge-green">3 ready</span>
+            <span class="badge badge-yellow">4 picking</span>
+          </div>
+        </div>
+        <div>
+          <div class="bopis-item">
+            <div class="bopis-avatar">SR</div>
+            <div class="bopis-info">
+              <div class="bopis-name">S. Reyes</div>
+              <div class="bopis-order">BO-7841 · Purina Strategy GX Horse (50lb) · Reg 1</div>
+            </div>
+            <span class="badge badge-green">Ready</span>
+            <span class="bopis-time">8 min</span>
+          </div>
+          <div class="bopis-item" style="cursor:pointer" title="Click to run compliance check" @click="jumpToComplianceScan('Corteva Grazon Next HL')">
+            <div class="bopis-avatar">TL</div>
+            <div class="bopis-info">
+              <div class="bopis-name">T. Larimore</div>
+              <div class="bopis-order">BO-7839 · Corteva Grazon Next HL (qt) · <span style="color:var(--signal-yellow);font-weight:600">⚠ RUP — License req'd</span></div>
+            </div>
+            <span class="badge badge-yellow" style="cursor:pointer">Auth Needed ↗</span>
+            <span class="bopis-time">22 min</span>
+          </div>
+          <div class="bopis-item" style="cursor:pointer" title="Click to run compliance check" @click="jumpToComplianceScan('Ruger 10/22 Carbine .22LR')">
+            <div class="bopis-avatar">AM</div>
+            <div class="bopis-info">
+              <div class="bopis-name">A. Martinez</div>
+              <div class="bopis-order">BO-7836 · Ruger 10/22 Carbine .22LR · <span style="color:var(--signal-blue);font-weight:600">4473 Open</span></div>
+            </div>
+            <span class="badge badge-blue" style="cursor:pointer">Form Pending ↗</span>
+            <span class="bopis-time">41 min</span>
+          </div>
+          <div class="bopis-item">
+            <div class="bopis-avatar">BH</div>
+            <div class="bopis-info">
+              <div class="bopis-name">B. Harmon</div>
+              <div class="bopis-order">BO-7834 · Tarter 10-Panel Corral Panel + 2× 5gal Bucket</div>
+            </div>
+            <span class="badge badge-gray">Picking</span>
+            <span class="bopis-time">1h 4m</span>
+          </div>
+        </div>
+      </div>
+
+    </div>
+
+    <!-- Live Transaction Feed -->
+    <div class="card mt-4">
+      <div class="card-header">
+        <div class="card-title">Live Transaction Feed <span style="font-size:0.65rem;color:var(--text-dim);font-weight:400;margin-left:6px">Square POS · Reg 1–4</span></div>
+        <span class="badge badge-green">● streaming</span>
+      </div>
+      <div class="card-body" style="padding:6px 14px">
+        <template x-for="item in liveFeed" :key="item.id">
+          <div class="feed-item">
+            <div class="feed-dot" :class="item.type"></div>
+            <div class="feed-label" x-html="item.label"></div>
+            <span class="feed-amount" x-text="item.amount"></span>
+            <span class="feed-time" x-text="item.time"></span>
+          </div>
+        </template>
+      </div>
+    </div>
+
+  </div><!-- /floor tab -->
+
+
+  <!-- ════ TAB: COMPLIANCE ════ -->
+  <div class="page-content tab-panel" :class="activeTab==='compliance'?'active':''">
+
+    <div class="grid-2">
+
+      <!-- Scan / Auth Gate -->
+      <div>
+        <div class="section-label">Item Authorization Gate</div>
+        <div class="scan-input-wrap">
+          <input class="scan-input" type="text" x-model="scanQuery"
+            placeholder="Scan barcode, type SKU, or item name…"
+            @keydown.enter="runScan()"
+            @keydown.escape="authResult=null">
+          <button class="btn btn-primary" @click="runScan()">Check</button>
+        </div>
+
+        <!-- Quick Items -->
+        <div style="display:flex;gap:8px;flex-wrap:wrap;margin-bottom:16px">
+          <button class="btn btn-ghost btn-sm" @click="scanQuery='Ruger 10/22 Carbine .22LR'; runScan()">Ruger 10/22</button>
+          <button class="btn btn-ghost btn-sm" @click="scanQuery='Corteva Grazon Next HL'; runScan()">Grazon Next HL</button>
+          <button class="btn btn-ghost btn-sm" @click="scanQuery='Straight-Run Bantam Chick'; runScan()">Bantam Chick</button>
+          <button class="btn btn-ghost btn-sm" @click="scanQuery='Purina Strategy GX (50lb)'; runScan()">Strategy GX</button>
+          <button class="btn btn-ghost btn-sm" @click="scanQuery='Winchester .308 Win 150gr 20ct'; runScan()">Winchester .308</button>
+        </div>
+
+        <!-- Auth Result -->
+        <div x-show="authResult" x-cloak>
+          <div class="auth-result" :class="authResult?.decision?.toLowerCase()">
+            <div class="auth-result-head">
+              <div class="auth-icon" :class="authResult?.decision?.toLowerCase()">
+                <span x-text="authResult?.decision==='AUTHORIZED'?'✓':authResult?.decision==='RESTRICTED'?'✕':'⊘'"></span>
+              </div>
+              <div>
+                <div class="auth-decision" :class="authResult?.decision?.toLowerCase()" x-text="authResult?.decision"></div>
+                <div class="auth-item-name" x-text="authResult?.item"></div>
+              </div>
+              <span class="badge" :class="authResult?.regulated_class_badge" x-text="authResult?.regulated_class" style="margin-left:auto"></span>
+            </div>
+
+            <div class="auth-factors">
+              <template x-for="f in authResult?.factors" :key="f.label">
+                <div class="auth-factor">
+                  <span class="auth-factor-label" x-text="f.label"></span>
+                  <span class="auth-factor-val" x-text="f.value"></span>
+                  <span class="auth-factor-status"><span class="badge" :class="f.badge" x-text="f.status"></span></span>
+                </div>
+              </template>
+            </div>
+
+            <div class="remediation-box" x-show="authResult?.remediation">
+              <strong x-text="authResult?.remediation_title"></strong>
+              <span x-text="authResult?.remediation"></span>
+              <div x-show="authResult?.hawk_incident_type" style="margin-top:12px">
+                <button class="btn btn-primary btn-sm" @click="openFromCompliance()" x-text="authResult?.hawk_incident_label || 'Open Hawk Case →'"></button>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Decision Log -->
+        <div x-show="decisionLog.length" class="card">
+          <div class="card-header">
+            <div class="card-title">Decision Log</div>
+            <span class="text-muted text-sm" x-text="'This session · ' + decisionLog.length + ' checks'"></span>
+          </div>
+          <table class="data-table">
+            <thead><tr><th>Item</th><th>Decision</th><th>Factor</th><th>Time</th></tr></thead>
+            <tbody>
+              <template x-for="d in decisionLog" :key="d.id">
+                <tr>
+                  <td x-text="d.item"></td>
+                  <td><span class="badge" :class="d.badge" x-text="d.decision"></span></td>
+                  <td x-text="d.factor" class="text-muted" style="font-size:0.72rem"></td>
+                  <td x-text="d.time" class="text-muted" style="font-size:0.72rem"></td>
+                </tr>
+              </template>
+            </tbody>
+          </table>
+        </div>
+      </div>
+
+      <!-- Regulatory Zones -->
+      <div>
+        <div class="section-label">Regulatory Zone Config · Laramie, WY</div>
+        <div class="card mb-4">
+          <table class="data-table">
+            <thead><tr><th>Zone Type</th><th>License</th><th>Status</th><th>Expiry</th></tr></thead>
+            <tbody>
+              <tr><td>FFL Dealer</td><td style="font-family:monospace;font-size:0.72rem">WY-FFL-0041897</td><td><span class="badge badge-green">Active</span></td><td class="text-muted">2026-09-30</td></tr>
+              <tr><td>Pesticide Dealer</td><td style="font-family:monospace;font-size:0.72rem">WY-PDA-2024-0183</td><td><span class="badge badge-green">Active</span></td><td class="text-muted">2026-12-31</td></tr>
+              <tr><td>Live Animal</td><td style="font-family:monospace;font-size:0.72rem">USDA-AH-WY-0047</td><td><span class="badge badge-green">Active</span></td><td class="text-muted">2027-01-15</td></tr>
+              <tr><td>Age Verification</td><td style="font-family:monospace;font-size:0.72rem">WY State — Auto</td><td><span class="badge badge-green">Active</span></td><td class="text-muted">—</td></tr>
+              <tr><td>HAZMAT Licensed</td><td style="font-family:monospace;font-size:0.72rem">DOT-HAZMAT-WY-0091</td><td><span class="badge badge-yellow">Renewal Due</span></td><td class="text-muted" style="color:var(--signal-yellow)">2026-05-15 ⚠</td></tr>
+            </tbody>
+          </table>
+        </div>
+
+        <div class="section-label">Seasonal Windows</div>
+        <div class="card">
+          <table class="data-table">
+            <thead><tr><th>Class</th><th>Window</th><th>Status</th></tr></thead>
+            <tbody>
+              <tr><td>LIVE_ANIMAL (Chick)</td><td class="text-muted">Mar 15 – May 31</td><td><span class="badge badge-red">Closed</span></td></tr>
+              <tr><td>LIVE_ANIMAL (Turkey poult)</td><td class="text-muted">Apr 1 – Jun 15</td><td><span class="badge badge-red">Closed</span></td></tr>
+              <tr><td>FIREARM</td><td class="text-muted">Year-round</td><td><span class="badge badge-green">Open</span></td></tr>
+              <tr><td>RUP (Ag chem season)</td><td class="text-muted">Mar 1 – Oct 31</td><td><span class="badge badge-green">Open</span></td></tr>
+              <tr><td>AGE_RESTRICTED</td><td class="text-muted">Year-round</td><td><span class="badge badge-green">Open</span></td></tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+    </div>
+  </div><!-- /compliance tab -->
+
+
+  <!-- ════ TAB: CASES ════ -->
+  <div class="page-content tab-panel" :class="activeTab==='cases'?'active':''">
+
+    <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:16px">
+      <div>
+        <h2 style="font-size:1rem">Hawk Case Management</h2>
+        <div class="text-muted text-sm">Laramie store · 3 open cases</div>
+      </div>
+      <button class="btn btn-primary" @click="openWizard()">+ New Case</button>
+    </div>
+
+    <div class="card mb-4">
+      <table class="data-table">
+        <thead>
+          <tr>
+            <th>Case ID</th><th>Incident Type</th><th>Track</th><th>Status</th>
+            <th>Subject</th><th>Opened</th><th>Obligations</th>
+          </tr>
+        </thead>
+        <tbody>
+          <template x-for="c in cases" :key="c.id">
+            <tr @click="openCaseDetail(c)" style="cursor:pointer" :style="c.closed?'opacity:0.55':''">
+              <td>
+                <span style="font-family:monospace;font-size:0.75rem"
+                  :style="c.closed?'color:var(--text-dim)':'color:var(--signal-yellow)'"
+                  x-text="c.id"></span>
+              </td>
+              <td>
+                <div style="font-size:0.78rem;font-weight:600" x-text="c.type"></div>
+                <div style="font-size:0.65rem;color:var(--text-muted)" x-text="c.desc"></div>
+              </td>
+              <td><span class="badge" :class="c.cls==='DE'?'badge-red':'badge-orange'" x-text="c.cls"></span></td>
+              <td><span class="badge" :class="c.statusBadge" x-text="c.status"></span></td>
+              <td class="text-muted" style="font-size:0.78rem" x-text="c.subject"></td>
+              <td class="text-muted" style="font-size:0.72rem" x-text="c.opened"></td>
+              <td><span class="badge" :class="c.obligationBadge" x-text="c.obligationText"></span></td>
+            </tr>
+          </template>
+        </tbody>
+      </table>
+    </div>
+
+    <!-- Compliance Obligations Tracker -->
+    <div class="section-label">Open Compliance Obligations</div>
+    <div class="card">
+      <div class="card-header">
+        <div class="card-title">Obligations — Laramie</div>
+        <div style="display:flex;gap:6px">
+          <span class="badge badge-red">1 overdue</span>
+          <span class="badge badge-yellow">2 due soon</span>
+        </div>
+      </div>
+      <div>
+        <div class="obligation-item">
+          <div class="sidebar-avatar" style="flex-shrink:0">AM</div>
+          <div style="flex:1">
+            <div class="obligation-name">ATF Form 4473 · Ruger 10/22 SN:0023817491</div>
+            <div class="obligation-cert">Case HWK-0038 · Background check must complete before transfer</div>
+          </div>
+          <span class="badge badge-red" style="margin-right:10px">Firearm Transfer</span>
+          <div class="obligation-due urgent">Overdue · 9 min</div>
+        </div>
+        <div class="obligation-item">
+          <div class="sidebar-avatar" style="flex-shrink:0">K</div>
+          <div style="flex:1">
+            <div class="obligation-name">Kayla Thornton · Firearms Sales Certification Renewal</div>
+            <div class="obligation-cert">FIREARMS_SALES cert · Current expiry 2026-05-14</div>
+          </div>
+          <span class="badge badge-yellow" style="margin-right:10px">Cert Renewal</span>
+          <div class="obligation-due warn">14 days</div>
+        </div>
+        <div class="obligation-item">
+          <div class="sidebar-avatar" style="flex-shrink:0;background:rgba(251,191,36,0.1);color:var(--signal-yellow)">⚠</div>
+          <div style="flex:1">
+            <div class="obligation-name">HAZMAT License Renewal — Laramie Location</div>
+            <div class="obligation-cert">DOT-HAZMAT-WY-0091 · Expires 2026-05-15 · Zone: HAZMAT_LICENSED</div>
+          </div>
+          <span class="badge badge-yellow" style="margin-right:10px">License Renewal</span>
+          <div class="obligation-due warn">15 days</div>
+        </div>
+      </div>
+    </div>
+
+  </div><!-- /cases tab -->
+
+
+  <!-- ════ TAB: ANALYTICS ════ -->
+  <div class="page-content tab-panel" :class="activeTab==='analytics'?'active':''">
+    <div class="grid-2">
+
+      <!-- Chirp Alert Feed -->
+      <div>
+        <div class="section-label">Chirp Detection Alerts</div>
+        <div class="card">
+          <div class="card-header">
+            <div class="card-title">Active Alerts</div>
+            <div style="display:flex;gap:6px">
+              <span class="badge badge-red">1 critical</span>
+              <span class="badge badge-yellow">1 medium</span>
+            </div>
+          </div>
+          <div class="chirp-item" style="border-top:none">
+            <div style="flex:1">
+              <div class="chirp-rule">Q-DC-01</div>
+              <div class="chirp-desc">Register Drawer Discrepancy — Reg 3</div>
+              <div class="chirp-meta">$47.20 variance · Jenna Fitch · Square device SQ-TRM-0031 · 7:42 AM</div>
+            </div>
+            <div>
+              <div class="chirp-score critical">9.1</div>
+              <span class="badge badge-red" style="margin-top:4px">Critical</span>
+            </div>
+          </div>
+          <div class="chirp-item">
+            <div style="flex:1">
+              <div class="chirp-rule">Q-DR-01</div>
+              <div class="chirp-desc">Discount Exception — Reg 1</div>
+              <div class="chirp-meta">Employee discount on non-employee item · SKU 88291 · $31.00 · 8:11 AM</div>
+            </div>
+            <div>
+              <div class="chirp-score medium">5.4</div>
+              <span class="badge badge-yellow" style="margin-top:4px">Medium</span>
+            </div>
+          </div>
+          <div class="chirp-item" style="opacity:0.5">
+            <div style="flex:1">
+              <div class="chirp-rule">Q-VO-01</div>
+              <div class="chirp-desc">Void Rate — Reg 1 (Closed)</div>
+              <div class="chirp-meta">4 voids in 4 hours · Resolved yesterday · No follow-up required</div>
+            </div>
+            <div>
+              <div class="chirp-score medium">4.8</div>
+              <span class="badge badge-gray" style="margin-top:4px">Closed</span>
+            </div>
+          </div>
+
+          <div class="card-header" style="margin-top:4px">
+            <div class="card-title" style="font-size:0.78rem">Square POS Event Sample</div>
+          </div>
+          <div style="padding:10px 14px">
+            <pre style="font-size:0.65rem;color:var(--text-muted);background:var(--bg-secondary);border-radius:8px;padding:10px;overflow:auto;line-height:1.5">{
+  "type": "payment.created",
+  "data": {
+    "object": {
+      "payment": {
+        "id": "8Xt2HzgVmCpBqK9",
+        "amount_money": { "amount": 4720, "currency": "USD" },
+        "source_type": "CARD",
+        "device_details": {
+          "device_id": "SQ-TRM-0031",
+          "device_name": "Reg 3"
+        },
+        "employee_id": "EMP-FITCH-0018",
+        "created_at": "2026-04-30T13:42:17Z"
+      }
+    }
+  }
+}</pre>
+          </div>
+        </div>
+      </div>
+
+      <!-- SNI Network Comparison -->
+      <div>
+        <div class="section-label">Store Network Integrity — Laramie vs. Network</div>
+        <div class="card">
+          <div class="card-header">
+            <div class="card-title">Signal Comparison</div>
+            <span class="badge badge-yellow">1 deviation</span>
+          </div>
+          <table class="data-table">
+            <thead>
+              <tr><th>Signal</th><th>Laramie</th><th>Network Avg</th><th>Status</th></tr>
+            </thead>
+            <tbody>
+              <tr>
+                <td>Void Rate</td>
+                <td style="color:var(--signal-red);font-weight:700">3.1%</td>
+                <td class="text-muted">1.4%</td>
+                <td>
+                  <div class="sni-bar-wrap">
+                    <div class="sni-bar-bg"><div class="sni-bar-fill high" style="width:78%"></div></div>
+                    <span class="badge badge-red">2.2σ</span>
+                  </div>
+                </td>
+              </tr>
+              <tr>
+                <td>Return Rate</td>
+                <td>2.8%</td>
+                <td class="text-muted">2.6%</td>
+                <td>
+                  <div class="sni-bar-wrap">
+                    <div class="sni-bar-bg"><div class="sni-bar-fill ok" style="width:35%"></div></div>
+                    <span class="badge badge-green">0.3σ</span>
+                  </div>
+                </td>
+              </tr>
+              <tr>
+                <td>Discount Depth</td>
+                <td style="color:var(--signal-yellow);font-weight:600">8.4%</td>
+                <td class="text-muted">6.1%</td>
+                <td>
+                  <div class="sni-bar-wrap">
+                    <div class="sni-bar-bg"><div class="sni-bar-fill warn" style="width:55%"></div></div>
+                    <span class="badge badge-yellow">1.4σ</span>
+                  </div>
+                </td>
+              </tr>
+              <tr>
+                <td>Avg Basket</td>
+                <td>$80.54</td>
+                <td class="text-muted">$77.20</td>
+                <td>
+                  <div class="sni-bar-wrap">
+                    <div class="sni-bar-bg"><div class="sni-bar-fill ok" style="width:22%"></div></div>
+                    <span class="badge badge-green">0.6σ</span>
+                  </div>
+                </td>
+              </tr>
+              <tr>
+                <td>Firearms NICS Denials</td>
+                <td>0</td>
+                <td class="text-muted">0.2 / wk</td>
+                <td>
+                  <div class="sni-bar-wrap">
+                    <div class="sni-bar-bg"><div class="sni-bar-fill ok" style="width:10%"></div></div>
+                    <span class="badge badge-green">Normal</span>
+                  </div>
+                </td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+
+        <div class="card mt-4">
+          <div class="card-header"><div class="card-title">SNI Action</div></div>
+          <div class="card-body">
+            <p class="text-sm" style="color:var(--text-secondary);margin-bottom:12px">Void rate deviation (2.2σ above network mean) triggered a Hawk alert. Case HWK-0041 is open and linked to this signal. No cross-store pattern detected — isolated to Laramie Reg 3 shift window.</p>
+            <button class="btn btn-ghost btn-sm">View Baseline</button>
+            <button class="btn btn-primary btn-sm" style="margin-left:8px">Open SNI Report</button>
+          </div>
+        </div>
+      </div>
+
+    </div>
+  </div><!-- /analytics tab -->
+
+
+  <!-- ════ TAB: OPERATIONS ════ -->
+  <div class="page-content tab-panel" :class="activeTab==='operations'?'active':''">
+    <div class="grid-2">
+
+      <!-- Device Health -->
+      <div>
+        <div class="section-label">Device Health — Laramie</div>
+        <div class="device-grid" style="grid-template-columns:1fr 1fr;gap:10px;margin-bottom:16px">
+          <div class="device-card">
+            <div class="device-name">Reg 1 — Square Terminal</div>
+            <div class="device-type">SQ-TRM-0029 · POS</div>
+            <div class="device-status">
+              <div class="pulse"></div>
+              <span style="color:var(--signal-green);font-size:0.72rem">Online · 99.9% uptime</span>
+            </div>
+          </div>
+          <div class="device-card">
+            <div class="device-name">Reg 2 — Square Terminal</div>
+            <div class="device-type">SQ-TRM-0030 · POS</div>
+            <div class="device-status">
+              <div class="pulse"></div>
+              <span style="color:var(--signal-green);font-size:0.72rem">Online · 99.7% uptime</span>
+            </div>
+          </div>
+          <div class="device-card" style="border-color:rgba(239,68,68,0.3)">
+            <div class="device-name">Reg 3 — Square Terminal</div>
+            <div class="device-type">SQ-TRM-0031 · POS · <span style="color:var(--signal-red)">Alert active</span></div>
+            <div class="device-status">
+              <div class="pulse" style="background:var(--signal-red);box-shadow:0 0 0 0 rgba(239,68,68,0.4);animation:pulse-anim 1s infinite"></div>
+              <span style="color:var(--signal-red);font-size:0.72rem">Q-DC-01 Alert — HWK-0041</span>
+            </div>
+          </div>
+          <div class="device-card">
+            <div class="device-name">Reg 4 — Square Terminal</div>
+            <div class="device-type">SQ-TRM-0032 · POS</div>
+            <div class="device-status">
+              <div class="pulse"></div>
+              <span style="color:var(--signal-green);font-size:0.72rem">Online · 100% uptime</span>
+            </div>
+          </div>
+          <div class="device-card">
+            <div class="device-name">Entry Sensor — Main</div>
+            <div class="device-type">Presence Detection · Store Brain</div>
+            <div class="device-status">
+              <div class="pulse"></div>
+              <span style="color:var(--signal-green);font-size:0.72rem">Online · 214 events today</span>
+            </div>
+          </div>
+          <div class="device-card">
+            <div class="device-name">BOPIS Kiosk</div>
+            <div class="device-type">SQ-KSK-0001 · Self-service pickup</div>
+            <div class="device-status">
+              <div class="pulse"></div>
+              <span style="color:var(--signal-green);font-size:0.72rem">Online · 7 active holds</span>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- MCP Health Grid -->
+      <div>
+        <div class="section-label">MCP Service Health</div>
+        <div class="card">
+          <div class="card-header">
+            <div class="card-title">canary-ops · Laramie tenant</div>
+            <span class="badge badge-green">8/8 healthy</span>
+          </div>
+          <div class="mcp-row"><span class="mcp-name">canary-brain</span><span class="mcp-tools">9 tools · store-brain:9085</span><span class="badge badge-green">18ms</span></div>
+          <div class="mcp-row"><span class="mcp-name">canary-compliance</span><span class="mcp-tools">7 tools · compliance:9091</span><span class="badge badge-green">24ms</span></div>
+          <div class="mcp-row"><span class="mcp-name">canary-hawk</span><span class="mcp-tools">11 tools · hawk:8082</span><span class="badge badge-green">31ms</span></div>
+          <div class="mcp-row"><span class="mcp-name">canary-inventory</span><span class="mcp-tools">10 tools · inventory-as-a-service:9081</span><span class="badge badge-green">22ms</span></div>
+          <div class="mcp-row"><span class="mcp-name">canary-item</span><span class="mcp-tools">9 tools · item:8090</span><span class="badge badge-green">14ms</span></div>
+          <div class="mcp-row"><span class="mcp-name">canary-chirp</span><span class="mcp-tools">Detection · chirp:8081</span><span class="badge badge-green">8ms</span></div>
+          <div class="mcp-row"><span class="mcp-name">canary-sni</span><span class="mcp-tools">7 signals · sni:9088</span><span class="badge badge-yellow">142ms</span></div>
+          <div class="mcp-row"><span class="mcp-name">canary-ops</span><span class="mcp-tools">7 tools · ops-dashboard:9084</span><span class="badge badge-green">11ms</span></div>
+        </div>
+      </div>
+
+    </div>
+  </div><!-- /operations tab -->
+
+
+  <!-- ════ TAB: TRAINING ════ -->
+  <div class="page-content tab-panel" :class="activeTab==='training'?'active':''">
+    <div class="grid-2">
+
+      <!-- Associate Obligations -->
+      <div>
+        <div class="section-label">Cove Governance Bridge — Associate Certifications</div>
+        <div class="card mb-4">
+          <div class="card-header">
+            <div class="card-title">Open Obligations</div>
+            <span class="badge badge-yellow">2 requiring action</span>
+          </div>
+          <div>
+            <div class="obligation-item">
+              <div class="sidebar-avatar">K</div>
+              <div style="flex:1">
+                <div class="obligation-name">Kayla Thornton</div>
+                <div class="obligation-cert">FIREARMS_SALES cert · Expires 2026-05-14 · Issuer: ATF</div>
+              </div>
+              <div>
+                <button class="btn btn-ghost btn-sm" style="margin-right:8px">Assign SOP</button>
+                <div class="obligation-due warn" style="text-align:right">14d remaining</div>
+              </div>
+            </div>
+            <div class="obligation-item">
+              <div class="sidebar-avatar">R</div>
+              <div style="flex:1">
+                <div class="obligation-name">Roy Blaine</div>
+                <div class="obligation-cert">HAZMAT_HANDLER cert · Expires 2026-05-22 · Issuer: DOT</div>
+              </div>
+              <div>
+                <button class="btn btn-ghost btn-sm" style="margin-right:8px">Assign SOP</button>
+                <div class="obligation-due warn" style="text-align:right">22d remaining</div>
+              </div>
+            </div>
+            <div class="obligation-item" style="opacity:0.55">
+              <div class="sidebar-avatar">D</div>
+              <div style="flex:1">
+                <div class="obligation-name">Derek Pruitt</div>
+                <div class="obligation-cert">FIREARMS_SALES + LP OFFICER certs · Both current</div>
+              </div>
+              <div>
+                <div class="obligation-due ok" style="text-align:right">Current</div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- DM Review Thread -->
+        <div class="section-label">District Manager Thread · Compliance Review</div>
+        <div class="card">
+          <div class="thread-msg inbound" style="margin:14px 14px 0">
+            <div class="thread-msg-head">
+              <span class="thread-from">Greg Holt (District Manager)</span>
+              <span class="thread-time">Apr 28, 2:14 PM</span>
+            </div>
+            Kayla's firearms cert renewal is flagged in the system. Can you confirm she's enrolled in the recertification course before end of month? If not, we'll need to reassign her from the sporting goods counter.
+          </div>
+          <div class="thread-msg outbound" style="margin:8px 14px 0">
+            <div class="thread-msg-head">
+              <span class="thread-from">Marcus Webb (Store Manager)</span>
+              <span class="thread-time">Apr 28, 4:01 PM</span>
+            </div>
+            Confirmed — enrolled in ATF Compliance Recertification (online) scheduled May 6–7. Hawk obligation HWK-OBL-0044 filed. She'll be current by May 10.
+          </div>
+          <div class="thread-msg inbound" style="margin:8px 14px 14px">
+            <div class="thread-msg-head">
+              <span class="thread-from">Greg Holt</span>
+              <span class="thread-time">Apr 29, 9:22 AM</span>
+            </div>
+            Good. Make sure the Hawk case links to the training completion doc once done. Also heads up — HAZMAT renewal is also coming up May 15, need Roy in the DOT refresher before then.
+          </div>
+        </div>
+      </div>
+
+      <!-- SOP Library -->
+      <div>
+        <div class="section-label">SOP Library — Laramie</div>
+        <div class="card">
+          <div class="card-header">
+            <div class="card-title">Governing Documents</div>
+            <button class="btn btn-ghost btn-sm">+ New SOP</button>
+          </div>
+          <div class="sop-item">
+            <div>
+              <div class="sop-title">Firearms Sale Procedure — ATF Form 4473</div>
+              <div class="sop-meta">SOP-FFL-001 · Updated 2026-03-01 · Applies: FIREARM class · FFL_DEALER zone</div>
+            </div>
+            <span class="badge badge-green">Current</span>
+          </div>
+          <div class="sop-item">
+            <div>
+              <div class="sop-title">Restricted-Use Pesticide Sale Protocol</div>
+              <div class="sop-meta">SOP-RUP-001 · Updated 2026-02-14 · Applies: RUP class · PESTICIDE_DEALER zone</div>
+            </div>
+            <span class="badge badge-green">Current</span>
+          </div>
+          <div class="sop-item" style="border-left:2px solid var(--signal-yellow);padding-left:12px">
+            <div>
+              <div class="sop-title">HAZMAT Receiving and Handling</div>
+              <div class="sop-meta">SOP-HAZ-001 · Updated 2025-11-30 · DOT renewal tied to this SOP — review required</div>
+            </div>
+            <span class="badge badge-yellow">Review Due</span>
+          </div>
+          <div class="sop-item">
+            <div>
+              <div class="sop-title">Live Animal Seasonal Sale — Poultry</div>
+              <div class="sop-meta">SOP-LAN-001 · Updated 2026-01-15 · Applies: LIVE_ANIMAL class · seasonal window Mar 15 – May 31</div>
+            </div>
+            <span class="badge badge-green">Current</span>
+          </div>
+          <div class="sop-item">
+            <div>
+              <div class="sop-title">Age Verification — Tobacco / Firearms</div>
+              <div class="sop-meta">SOP-AGE-001 · Updated 2026-01-08 · Wyoming state compliance · all associates required</div>
+            </div>
+            <span class="badge badge-green">Current</span>
+          </div>
+          <div class="sop-item">
+            <div>
+              <div class="sop-title">Register Variance — Drawer Discrepancy Response</div>
+              <div class="sop-meta">SOP-LP-003 · Updated 2026-04-01 · Links to Hawk Q-DC-01 incident type</div>
+            </div>
+            <span class="badge badge-green">Current</span>
+          </div>
+        </div>
+      </div>
+
+    </div>
+  </div><!-- /training tab -->
+
+</div><!-- /app-main -->
+</div><!-- /app-layout -->
+
+
+<!-- ════════════════ TOAST ════════════════ -->
+<div class="toast" x-show="toast" x-cloak>
+  <div class="toast-icon" :class="toast?.type">
+    <span x-text="toast?.type==='success'?'✓':toast?.type==='warn'?'⚠':'✕'"></span>
+  </div>
+  <div>
+    <div class="toast-msg" x-text="toast?.msg"></div>
+    <div class="toast-sub" x-show="toast?.sub" x-text="toast?.sub"></div>
+  </div>
+</div>
+
+<!-- ════════════════ CASE DETAIL PANEL ════════════════ -->
+<div class="case-panel-overlay" x-show="caseDetail" x-cloak @click.self="caseDetail=null">
+  <div class="case-panel" @click.stop>
+    <div class="case-panel-head">
+      <div>
+        <div style="display:flex;align-items:center;gap:8px;margin-bottom:5px;flex-wrap:wrap">
+          <span class="case-panel-id" x-text="caseDetail?.id"></span>
+          <span class="badge" :class="caseDetail?.statusBadge" x-text="caseDetail?.status"></span>
+          <span class="badge" :class="caseDetail?.cls==='DE'?'badge-red':'badge-orange'" x-text="caseDetail?.cls"></span>
+        </div>
+        <div style="font-size:0.85rem;color:var(--text-primary);font-weight:600" x-text="caseDetail?.type"></div>
+        <div style="font-size:0.72rem;color:var(--text-muted);margin-top:2px;font-family:monospace" x-text="caseDetail?.desc"></div>
+      </div>
+      <button class="wizard-close" @click="caseDetail=null">✕</button>
+    </div>
+
+    <div class="case-panel-body">
+
+      <!-- Meta strip -->
+      <div style="display:flex;gap:20px;margin-bottom:20px;padding-bottom:16px;border-bottom:1px solid var(--border-faint);flex-wrap:wrap">
+        <div>
+          <div style="color:var(--text-muted);text-transform:uppercase;letter-spacing:0.06em;font-size:0.62rem;margin-bottom:3px">Subject</div>
+          <div style="color:var(--text-primary);font-weight:600;font-size:0.82rem" x-text="caseDetail?.subject"></div>
+        </div>
+        <div>
+          <div style="color:var(--text-muted);text-transform:uppercase;letter-spacing:0.06em;font-size:0.62rem;margin-bottom:3px">Opened</div>
+          <div style="color:var(--text-secondary);font-size:0.82rem" x-text="caseDetail?.opened"></div>
+        </div>
+        <div>
+          <div style="color:var(--text-muted);text-transform:uppercase;letter-spacing:0.06em;font-size:0.62rem;margin-bottom:3px">Evidence</div>
+          <div style="color:var(--signal-purple);font-family:monospace;font-size:0.72rem">Fox chain ● active</div>
+        </div>
+      </div>
+
+      <!-- Open obligation callout -->
+      <div x-show="caseDetail?.obligations > 0" class="auth-result restricted" style="margin-bottom:16px;padding:12px 14px">
+        <div style="display:flex;align-items:center;gap:8px">
+          <span class="badge" :class="caseDetail?.obligationBadge" x-text="caseDetail?.obligationText"></span>
+          <span style="font-size:0.8rem;color:var(--text-primary)" x-text="caseDetail?.obligationDetail || 'Obligation requires attention'"></span>
+        </div>
+      </div>
+
+      <!-- Timeline -->
+      <div class="section-label" style="margin-bottom:12px">Case Timeline</div>
+      <div>
+        <template x-for="(ev, i) in (caseDetail?.timeline || [])" :key="i">
+          <div class="timeline-item">
+            <div class="timeline-dot" :class="ev.dot">●</div>
+            <div style="flex:1">
+              <div class="timeline-title" x-text="ev.title"></div>
+              <div class="timeline-desc" x-text="ev.desc"></div>
+              <div class="timeline-time" x-text="ev.time"></div>
+            </div>
+          </div>
+        </template>
+      </div>
+
+      <!-- Action bar -->
+      <div class="mt-6" style="display:flex;gap:10px;flex-wrap:wrap;padding-top:16px;border-top:1px solid var(--border-faint)">
+        <button class="btn btn-primary btn-sm"
+          x-show="caseDetail?.id==='HWK-0038' && !caseDetail?.closed"
+          @click="mark4473Complete()">✓ Mark 4473 Complete</button>
+        <button class="btn btn-ghost btn-sm"
+          x-show="!caseDetail?.closed"
+          @click="closeCaseFromPanel()">Close Case</button>
+        <button class="btn btn-ghost btn-sm" @click="caseDetail=null">Dismiss</button>
+      </div>
+
+    </div>
+  </div>
+</div>
+
+<!-- ════════════════ HAWK WIZARD MODAL ════════════════ -->
+<div class="wizard-overlay" x-show="wizardOpen" x-cloak @click.self="wizardOpen=false">
+  <div class="wizard-modal" @click.stop>
+    <div class="wizard-head">
+      <div class="wizard-title">
+        <span x-show="wizardStep===1">New Hawk Case — Select Incident Type</span>
+        <span x-show="wizardStep===2" x-text="'Case Details — ' + (selectedIncident?.label || '')"></span>
+        <span x-show="wizardStep===3">Review &amp; Open</span>
+      </div>
+      <button class="wizard-close" @click="wizardOpen=false">✕</button>
+    </div>
+    <div class="wizard-body">
+      <div class="wizard-step-indicator">
+        <div class="wizard-step-dot" :class="wizardStep>1?'done':wizardStep===1?'active':''"></div>
+        <div class="wizard-step-dot" :class="wizardStep>2?'done':wizardStep===2?'active':''"></div>
+        <div class="wizard-step-dot" :class="wizardStep===3?'active':''"></div>
+      </div>
+
+      <!-- Step 1: Incident type -->
+      <div x-show="wizardStep===1">
+        <p class="text-sm text-muted" style="margin-bottom:14px">Select the incident class that best describes what occurred.</p>
+        <div class="incident-grid">
+          <div class="incident-option" :class="selectedIncident?.id==='firearm_transfer_pending'?'selected':''" @click="selectedIncident={id:'firearm_transfer_pending',label:'ATF Form 4473 — Transfer Pending',cls:'DE',track:'Compliance'}">
+            <div class="incident-option-label">Firearm Transfer Pending</div>
+            <div class="incident-option-sub">Form 4473 initiated — awaiting NICS result</div>
+            <div class="incident-option-class">DE · Compliance</div>
+          </div>
+          <div class="incident-option" :class="selectedIncident?.id==='register_discrepancy'?'selected':''" @click="selectedIncident={id:'register_discrepancy',label:'Register Discrepancy',cls:'PV',track:'Loss Prevention'}">
+            <div class="incident-option-label">Register Discrepancy</div>
+            <div class="incident-option-sub">Drawer variance, over/short, cash handling</div>
+            <div class="incident-option-class">PV · Loss Prevention</div>
+          </div>
+          <div class="incident-option" :class="selectedIncident?.id==='compliance_buyer_verification'?'selected':''" @click="selectedIncident={id:'compliance_buyer_verification',label:'Buyer License Verification — RUP',cls:'DE',track:'Compliance'}">
+            <div class="incident-option-label">Buyer License — RUP Sale</div>
+            <div class="incident-option-sub">Restricted-Use Pesticide sale — applicator license required</div>
+            <div class="incident-option-class">DE · Compliance</div>
+          </div>
+          <div class="incident-option" :class="selectedIncident?.id==='void_exception'?'selected':''" @click="selectedIncident={id:'void_exception',label:'Void Exception',cls:'PV',track:'Loss Prevention'}">
+            <div class="incident-option-label">Void Exception</div>
+            <div class="incident-option-sub">Unusual void pattern or high-value void</div>
+            <div class="incident-option-class">PV · Loss Prevention</div>
+          </div>
+          <div class="incident-option" :class="selectedIncident?.id==='compliance_training_gap'?'selected':''" @click="selectedIncident={id:'compliance_training_gap',label:'Associate Certification Gap',cls:'DE',track:'Compliance'}">
+            <div class="incident-option-label">Cert / Training Gap</div>
+            <div class="incident-option-sub">Associate certification expired or near expiry</div>
+            <div class="incident-option-class">DE · Compliance</div>
+          </div>
+          <div class="incident-option" :class="selectedIncident?.id==='discount_exception'?'selected':''" @click="selectedIncident={id:'discount_exception',label:'Discount Exception',cls:'PV',track:'Loss Prevention'}">
+            <div class="incident-option-label">Discount Exception</div>
+            <div class="incident-option-sub">Unauthorized discount, below-floor price</div>
+            <div class="incident-option-class">PV · Loss Prevention</div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Step 2: Case details -->
+      <div x-show="wizardStep===2">
+        <!-- Prefill notice (from compliance scan) -->
+        <div class="prefill-banner" x-show="wizardPrefill">
+          <div class="prefill-banner-label">↗ Pre-filled from compliance check</div>
+          <div style="color:var(--text-primary);font-size:0.82rem" x-text="wizardPrefill?.item"></div>
+          <div style="color:var(--text-muted);font-size:0.72rem;margin-top:2px" x-text="wizardPrefill?.subject"></div>
+        </div>
+        <div class="form-row">
+          <div class="form-group">
+            <label class="form-label">Register / Location</label>
+            <select class="form-select">
+              <option>Reg 1 — Main checkout</option>
+              <option>Reg 2 — Main checkout</option>
+              <option selected>Reg 3 — Main checkout</option>
+              <option>Reg 4 — Sporting Goods</option>
+              <option>Customer — BOPIS kiosk</option>
+            </select>
+          </div>
+          <div class="form-group">
+            <label class="form-label">Associate</label>
+            <select class="form-select">
+              <option>Jenna Fitch</option>
+              <option>Kayla Thornton</option>
+              <option>Derek Pruitt</option>
+              <option>Marcus Webb</option>
+              <option>Roy Blaine</option>
+            </select>
+          </div>
+        </div>
+        <div class="form-group">
+          <label class="form-label">Item / Serial (if applicable)</label>
+          <input class="form-input" type="text" :placeholder="wizardPrefill?.item || 'SKU, serial number, or item description'" :value="wizardPrefill?.item || ''">
+        </div>
+        <div class="form-row">
+          <div class="form-group">
+            <label class="form-label">Amount Involved</label>
+            <input class="form-input" type="text" placeholder="$0.00">
+          </div>
+          <div class="form-group">
+            <label class="form-label">Transaction ID</label>
+            <input class="form-input" type="text" placeholder="Square TXN-…">
+          </div>
+        </div>
+        <div class="form-group">
+          <label class="form-label">Description</label>
+          <textarea class="form-textarea" placeholder="Describe what was observed…"></textarea>
+        </div>
+        <div class="form-group">
+          <label class="form-label">Track</label>
+          <div style="display:flex;gap:10px;margin-top:4px">
+            <label style="display:flex;align-items:center;gap:6px;cursor:pointer;font-size:0.8rem">
+              <input type="radio" name="track" value="DE" :checked="selectedIncident?.cls==='DE'"> <span style="color:var(--text-primary)">DE — Documentation &amp; Evidence</span>
+            </label>
+            <label style="display:flex;align-items:center;gap:6px;cursor:pointer;font-size:0.8rem">
+              <input type="radio" name="track" value="PV" :checked="selectedIncident?.cls==='PV'"> <span style="color:var(--text-primary)">PV — Probable/Verified Theft</span>
+            </label>
+          </div>
+        </div>
+      </div>
+
+      <!-- Step 3: Review -->
+      <div x-show="wizardStep===3">
+        <div class="auth-result authorized" style="margin-bottom:0">
+          <div class="auth-result-head">
+            <div class="auth-icon authorized">✓</div>
+            <div>
+              <div class="auth-decision authorized">Ready to open</div>
+              <div class="auth-item-name" x-text="selectedIncident?.label || 'Case'"></div>
+            </div>
+            <span class="badge" :class="selectedIncident?.cls==='DE'?'badge-red':'badge-orange'" x-text="selectedIncident?.cls" style="margin-left:auto"></span>
+          </div>
+          <div class="auth-factors">
+            <div class="auth-factor">
+              <span class="auth-factor-label">Track</span>
+              <span class="auth-factor-val" x-text="selectedIncident?.track"></span>
+              <span class="auth-factor-status"><span class="badge badge-green">Set</span></span>
+            </div>
+            <div class="auth-factor">
+              <span class="auth-factor-label">Evidence</span>
+              <span class="auth-factor-val">Fox INSERT-only chain will auto-initialize</span>
+              <span class="auth-factor-status"><span class="badge badge-green">Ready</span></span>
+            </div>
+            <div class="auth-factor">
+              <span class="auth-factor-label">Blockchain</span>
+              <span class="auth-factor-val">Anchor enabled — L2 hash on open</span>
+              <span class="auth-factor-status"><span class="badge badge-blue">Optional</span></span>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="wizard-footer">
+      <button class="btn btn-ghost" @click="wizardStep>1?wizardStep--:wizardOpen=false" x-text="wizardStep===1?'Cancel':'← Back'"></button>
+      <div style="display:flex;gap:8px;align-items:center">
+        <span class="text-muted text-sm" x-text="'Step ' + wizardStep + ' of 3'"></span>
+        <button class="btn btn-primary"
+          @click="wizardStep<3?wizardStep++:openCase()"
+          :disabled="wizardStep===1 && !selectedIncident"
+          x-text="wizardStep===3?'Open Case →':'Next →'"></button>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- ════════════════ ALPINE APP STATE ════════════════ -->
+<script>
+function storeOps() {
+  return {
+    activeTab: 'floor',
+    wizardOpen: false,
+    wizardStep: 1,
+    selectedIncident: null,
+    wizardPrefill: null,
+    caseDetail: null,
+    scanQuery: '',
+    authResult: null,
+    decisionLog: [],
+    complianceDenials: 0,
+    toast: null,
+    _toastTimer: null,
+
+    // ── Reactive case list ──────────────────────────────────────────
+    cases: [
+      {
+        id: 'HWK-0041',
+        type: 'Register Discrepancy',
+        desc: 'Q-DC-01 · Drawer variance $47.20',
+        cls: 'PV', status: 'Investigating', statusBadge: 'badge-yellow',
+        subject: 'Reg 3 · J. Fitch', opened: 'Today 7:42 AM',
+        obligations: 0, obligationBadge: 'badge-gray', obligationText: '0',
+        timeline: [
+          { dot:'open',     title:'Case opened',                  desc:'Chirp Q-DC-01 triggered — $47.20 variance on Reg 3 · Square SQ-TRM-0031',                   time:'7:42 AM' },
+          { dot:'evidence', title:'Fox evidence chain initialized',desc:'Transaction log sealed · chain hash: 0xA3F2...8D14 · INSERT-only',                          time:'7:42 AM' },
+          { dot:'obligation',title:'POS event attached',           desc:'Square payment.created #8Xt2HzgVmCpBqK9 · $47.20 · SQ-TRM-0031 · J. Fitch',              time:'7:43 AM' },
+        ],
+      },
+      {
+        id: 'HWK-0039',
+        type: 'RUP Sale — License Verification Pending',
+        desc: 'compliance_buyer_verification · Grazon Next HL',
+        cls: 'DE', status: 'Pending Review', statusBadge: 'badge-orange',
+        subject: 'T. Larimore (customer)', opened: 'Today 8:31 AM',
+        obligations: 1, obligationBadge: 'badge-yellow', obligationText: '1 due',
+        obligationDetail: 'Record WY Pesticide Applicator License before tender',
+        timeline: [
+          { dot:'open',      title:'Case opened',              desc:'canary-compliance check_item_authorization → RESTRICTED · factor: ITEM',        time:'8:31 AM' },
+          { dot:'evidence',  title:'Compliance decision logged',desc:'compliance_decisions INSERT · reason: RUP_BUYER_LICENSE_REQUIRED',              time:'8:31 AM' },
+          { dot:'obligation',title:'Obligation created',        desc:'Record WY Pesticide Applicator License for T. Larimore before tender',         time:'8:31 AM' },
+        ],
+      },
+      {
+        id: 'HWK-0038',
+        type: 'ATF Form 4473 — Transfer Pending',
+        desc: 'firearm_transfer_pending · Ruger 10/22 SN: 0023817491',
+        cls: 'DE', status: 'Open', statusBadge: 'badge-blue',
+        subject: 'A. Martinez (customer)', opened: 'Today 8:54 AM',
+        obligations: 1, obligationBadge: 'badge-red', obligationText: '1 overdue',
+        obligationDetail: 'ATF Form 4473 must be initiated and NICS check run before transfer — OVERDUE',
+        timeline: [
+          { dot:'open',      title:'Case opened',                  desc:'Ruger 10/22 Carbine · SN: 0023817491 · firearm_transfer_pending initiated',                  time:'8:54 AM' },
+          { dot:'evidence',  title:'Item serialized and sealed',    desc:'Fox INSERT · SN: 0023817491 · SKU: 14-9012 · FFL confirmed WY-FFL-0041897',                  time:'8:54 AM' },
+          { dot:'obligation',title:'Form 4473 obligation — OVERDUE',desc:'ATF Form 4473 must be completed and NICS initiated before transfer to A. Martinez',          time:'8:54 AM' },
+        ],
+      },
+      {
+        id: 'HWK-0037',
+        type: 'Void Exception — Excessive Voids',
+        desc: 'Q-VO-01 · 4 voids < 4 hours',
+        cls: 'PV', status: 'Closed', statusBadge: 'badge-gray',
+        subject: 'Reg 1', opened: 'Yesterday',
+        obligations: 0, obligationBadge: 'badge-gray', obligationText: '0',
+        closed: true,
+        timeline: [
+          { dot:'open',   title:'Case opened',desc:'Chirp Q-VO-01 · 4 voids in 4 hours on Reg 1 · score 4.8',         time:'Yesterday 4:22 PM' },
+          { dot:'update', title:'Case closed',desc:'Reviewed by Derek Pruitt — training event, no fraud indicators',    time:'Yesterday 6:01 PM' },
+        ],
+      },
+    ],
+
+    // ── Live feed ──────────────────────────────────────────────────
+    liveFeed: [
+      { id:1,  type:'compliance', label:'<strong>RESTRICTED</strong> — Bantam Chick · seasonal window closed · Kayla Thornton',                 amount:'—',      time:'9:11 AM' },
+      { id:2,  type:'sale',       label:'<strong>Sale</strong> · SKU 44182 · Tough-1 Saddle Bag · Reg 2 · J. Fitch',                           amount:'$58.99', time:'9:09 AM' },
+      { id:3,  type:'bopis',      label:'<strong>BOPIS Arrived</strong> · S. Reyes · BO-7841 · Purina Strategy GX 50lb',                       amount:'—',      time:'9:06 AM' },
+      { id:4,  type:'sale',       label:'<strong>Sale</strong> · SKU 88002 · Hummingbird Feeder 72oz · Reg 1',                                 amount:'$24.49', time:'9:04 AM' },
+      { id:5,  type:'alert',      label:'<strong>CHIRP Q-DR-01</strong> — Discount exception · SKU 88291 · Reg 1 · Score 5.4',                 amount:'$31.00', time:'8:58 AM' },
+      { id:6,  type:'sale',       label:'<strong>Sale</strong> · SKU 30174 · Corteva Grazon Next HL (qt) · RUP sale · License recorded',       amount:'$89.99', time:'8:51 AM' },
+      { id:7,  type:'compliance', label:'<strong>AUTHORIZED</strong> · Ruger 10/22 Carbine .22LR · FFL check ✓ · Form 4473 initiated',         amount:'—',      time:'8:47 AM' },
+      { id:8,  type:'void',       label:'<strong>Void</strong> · SKU 29831 · Void #3 today on Reg 3 · Chirp threshold warning',                amount:'$12.50', time:'8:41 AM' },
+      { id:9,  type:'sale',       label:'<strong>Sale</strong> · SKU 73012 · Tarter 6-Bar Gate 16ft · Reg 4',                                 amount:'$184.99',time:'8:38 AM' },
+      { id:10, type:'bopis',      label:'<strong>BOPIS Pick Confirmed</strong> · B. Harmon · BO-7834 · 10-Panel Corral + Buckets',             amount:'$427.80',time:'8:32 AM' },
+    ],
+
+    // ── Item catalog (mirrors canary-compliance check_item_authorization) ──
+    itemCatalog: {
+      'ruger 10/22': {
+        item: 'Ruger 10/22 Carbine .22LR',
+        decision: 'AUTHORIZED',
+        regulated_class: 'FIREARM', regulated_class_badge: 'badge-red',
+        hawk_incident_type: 'firearm_transfer_pending',
+        hawk_incident_label: 'Open Form 4473 Case →',
+        hawk_prefill_subject: 'A. Martinez (customer)',
+        factors: [
+          { label:'Item',      value:'Regulated class FIREARM · Serialized · FFL required',                    status:'PASS',     badge:'badge-green'  },
+          { label:'Zone',      value:'FFL_DEALER active · WY-FFL-0041897',                                    status:'PASS',     badge:'badge-green'  },
+          { label:'Seasonal',  value:'Year-round window — open',                                              status:'PASS',     badge:'badge-green'  },
+          { label:'Associate', value:'Kayla Thornton · FIREARMS_SALES cert valid (14d remaining)',            status:'WARN',     badge:'badge-yellow' },
+          { label:'Operational',value:'No active holds · SN: 0023817491 clear',                              status:'PASS',     badge:'badge-green'  },
+        ],
+        remediation_title: 'Next required action:',
+        remediation: 'ATF Form 4473 must be completed and NICS background check initiated before transfer. Serial number required at tender.',
+      },
+      'grazon': {
+        item: 'Corteva Grazon Next HL Herbicide (qt)',
+        decision: 'RESTRICTED',
+        regulated_class: 'RUP', regulated_class_badge: 'badge-orange',
+        hawk_incident_type: 'compliance_buyer_verification',
+        hawk_incident_label: 'Open Buyer License Case →',
+        hawk_prefill_subject: 'T. Larimore (customer)',
+        factors: [
+          { label:'Item',      value:'Restricted-Use Pesticide · Buyer applicator license required',          status:'REQUIRED', badge:'badge-yellow' },
+          { label:'Zone',      value:'PESTICIDE_DEALER active · WY-PDA-2024-0183',                           status:'PASS',     badge:'badge-green'  },
+          { label:'Seasonal',  value:'Ag chem season Mar 1 – Oct 31 — window open',                         status:'PASS',     badge:'badge-green'  },
+          { label:'Associate', value:'PESTICIDE_DEALER zone cert held by store (dealer license)',            status:'PASS',     badge:'badge-green'  },
+          { label:'Buyer',     value:'Customer applicator license number NOT yet recorded',                  status:'FAIL',     badge:'badge-red'    },
+        ],
+        remediation_title: 'Required before sale:',
+        remediation: 'Ask customer to present Wyoming Pesticide Applicator License. Record license number on transaction. If customer cannot provide license, sale must be declined.',
+      },
+      'bantam chick': {
+        item: 'Straight-Run Bantam Chick (each)',
+        decision: 'RESTRICTED',
+        regulated_class: 'LIVE_ANIMAL', regulated_class_badge: 'badge-purple',
+        factors: [
+          { label:'Item',     value:'Live Animal · Chick season window applies',               status:'CHECK', badge:'badge-yellow' },
+          { label:'Zone',     value:'LIVE_ANIMAL zone active · USDA-AH-WY-0047',              status:'PASS',  badge:'badge-green'  },
+          { label:'Seasonal', value:'Chick window CLOSED — season ended May 31',              status:'FAIL',  badge:'badge-red'    },
+          { label:'Associate',value:'No associate cert required for this class',              status:'PASS',  badge:'badge-green'  },
+        ],
+        remediation_title: 'Seasonal window closed:',
+        remediation: 'Live chick sales are restricted to the Mar 15 – May 31 window per USDA seasonal program. Next season opens March 15, 2027.',
+      },
+      'strategy gx': {
+        item: 'Purina Strategy GX Horse Feed (50 lb)',
+        decision: 'AUTHORIZED',
+        regulated_class: 'UNRESTRICTED', regulated_class_badge: 'badge-gray',
+        factors: [
+          { label:'Item',       value:'No regulated class — standard merchandise',              status:'PASS', badge:'badge-green' },
+          { label:'Zone',       value:'No zone requirement for this item class',               status:'PASS', badge:'badge-green' },
+          { label:'Seasonal',   value:'No seasonal window — year-round sale',                 status:'PASS', badge:'badge-green' },
+          { label:'Operational',value:'No holds — 14 units available at Laramie',             status:'PASS', badge:'badge-green' },
+        ],
+        remediation: null,
+      },
+      'winchester .308': {
+        item: 'Winchester .308 Win 150gr 20ct',
+        decision: 'AUTHORIZED',
+        regulated_class: 'AMMUNITION', regulated_class_badge: 'badge-yellow',
+        factors: [
+          { label:'Item',       value:'Ammunition — AGE_RESTRICTED · .308 Win = rifle caliber',              status:'PASS',   badge:'badge-green'  },
+          { label:'Zone',       value:'FFL_DEALER zone not required for ammunition',                         status:'PASS',   badge:'badge-green'  },
+          { label:'Age',        value:'Rifle caliber — age minimum 18 · age verification required at POS',  status:'PASS',   badge:'badge-yellow' },
+          { label:'Operational',value:'No holds · 6 boxes available · No MAP pricing',                      status:'PASS',   badge:'badge-green'  },
+        ],
+        remediation_title: 'Note:',
+        remediation: 'Wyoming requires age verification (18+) for all long-gun ammunition. POS will prompt for age confirmation at tender.',
+      },
+    },
+
+    // ── Lifecycle ──────────────────────────────────────────────────
+    init() {
+      setInterval(() => {
+        const pool = [
+          { type:'sale',  label:'<strong>Sale</strong> · SKU 71204 · Yeti Tundra 45 Cooler · Reg 1',           amount:'$299.99' },
+          { type:'sale',  label:'<strong>Sale</strong> · SKU 29014 · Carhartt Canvas Chore Coat L · Reg 2',    amount:'$89.99'  },
+          { type:'bopis', label:'<strong>BOPIS Pick Started</strong> · A. Martinez · BO-7836 · Ruger 10/22', amount:'—'       },
+          { type:'sale',  label:'<strong>Sale</strong> · SKU 55103 · Purina Flock Raiser 50lb · Reg 4',        amount:'$21.49'  },
+        ];
+        const pick = pool[Math.floor(Math.random() * pool.length)];
+        const now = new Date();
+        const h = now.getHours(); const m = String(now.getMinutes()).padStart(2,'0');
+        const h12 = h % 12 || 12; const ap = h >= 12 ? 'PM' : 'AM';
+        this.liveFeed.unshift({ id: Date.now(), ...pick, time: h12 + ':' + m + ' ' + ap });
+        if (this.liveFeed.length > 15) this.liveFeed.pop();
+      }, 12000);
+    },
+
+    // ── Compliance scan ────────────────────────────────────────────
+    runScan() {
+      if (!this.scanQuery.trim()) return;
+      const q = this.scanQuery.toLowerCase();
+      let match = null;
+      for (const [key, val] of Object.entries(this.itemCatalog)) {
+        if (q.includes(key)) { match = val; break; }
+      }
+      if (!match) {
+        match = {
+          item: this.scanQuery,
+          decision: 'AUTHORIZED',
+          regulated_class: 'UNRESTRICTED', regulated_class_badge: 'badge-gray',
+          factors: [
+            { label:'Item',       value:'No regulated class on record — standard sale', status:'PASS', badge:'badge-green' },
+            { label:'Zone',       value:'No zone restriction applies',                  status:'PASS', badge:'badge-green' },
+            { label:'Operational',value:'No active holds',                              status:'PASS', badge:'badge-green' },
+          ],
+          remediation: null,
+        };
+      }
+      this.authResult = match;
+      if (match.decision !== 'AUTHORIZED') this.complianceDenials++;
+      const now = new Date();
+      const h = now.getHours(); const m = String(now.getMinutes()).padStart(2,'0');
+      const h12 = h % 12 || 12; const ap = h >= 12 ? 'PM' : 'AM';
+      this.decisionLog.unshift({
+        id: Date.now(),
+        item: match.item.length > 30 ? match.item.substring(0,30) + '…' : match.item,
+        decision: match.decision,
+        badge: match.decision === 'AUTHORIZED' ? 'badge-green' : 'badge-red',
+        factor: match.factors?.find(f => f.status === 'FAIL')?.label || '—',
+        time: h12 + ':' + m + ' ' + ap,
+      });
+    },
+
+    // BOPIS shortcut → compliance tab + auto-scan
+    jumpToComplianceScan(itemName) {
+      this.activeTab = 'compliance';
+      this.$nextTick(() => {
+        this.scanQuery = itemName;
+        this.runScan();
+      });
+    },
+
+    // Compliance result → wizard, pre-filled, skip to step 2
+    openFromCompliance() {
+      if (!this.authResult?.hawk_incident_type) return;
+      const incidentMap = {
+        'firearm_transfer_pending':      { id:'firearm_transfer_pending',      label:'ATF Form 4473 — Transfer Pending',     cls:'DE', track:'Compliance' },
+        'compliance_buyer_verification': { id:'compliance_buyer_verification', label:'Buyer License Verification — RUP',     cls:'DE', track:'Compliance' },
+      };
+      this.selectedIncident = incidentMap[this.authResult.hawk_incident_type];
+      this.wizardPrefill = { item: this.authResult.item, subject: this.authResult.hawk_prefill_subject || '' };
+      this.wizardStep = 2;
+      this.wizardOpen = true;
+    },
+
+    // Manual wizard open (+ New Case button)
+    openWizard() {
+      this.wizardOpen = true;
+      this.wizardStep = 1;
+      this.selectedIncident = null;
+      this.wizardPrefill = null;
+    },
+
+    // Wizard final step → open case, add to reactive list
+    openCase() {
+      if (!this.selectedIncident) return;
+      const label = this.selectedIncident.label;
+      const incId  = this.selectedIncident.id;
+      const cls    = this.selectedIncident.cls;
+      const now    = new Date();
+      const h = now.getHours(); const m = String(now.getMinutes()).padStart(2,'0');
+      const h12 = h % 12 || 12; const ap = h >= 12 ? 'PM' : 'AM';
+      const timeStr = 'Today ' + h12 + ':' + m + ' ' + ap;
+      const nextNum = 42 + this.cases.filter(c => !c.closed).length;
+      const caseId  = 'HWK-00' + nextNum;
+
+      const newCase = {
+        id: caseId,
+        type: label,
+        desc: incId + (this.wizardPrefill?.item ? ' · ' + this.wizardPrefill.item : ''),
+        cls, status: 'Open', statusBadge: 'badge-blue',
+        subject: this.wizardPrefill?.subject || 'Manual entry',
+        opened: timeStr,
+        obligations: 0, obligationBadge: 'badge-gray', obligationText: '0',
+        timeline: [
+          { dot:'open',     title:'Case opened',                   desc: label + (this.wizardPrefill?.item ? ' — ' + this.wizardPrefill.item : ''), time: timeStr },
+          { dot:'evidence', title:'Fox evidence chain initialized', desc: 'INSERT-only evidence record sealed at case creation', time: timeStr },
+        ],
+      };
+
+      this.cases.unshift(newCase);
+      this.wizardOpen = false;
+      this.wizardStep = 1;
+      this.selectedIncident = null;
+      this.wizardPrefill = null;
+      this.activeTab = 'cases';
+      this.showToast(caseId + ' opened', 'success', label + ' · Fox chain initialized');
+    },
+
+    // Case detail panel
+    openCaseDetail(c) { this.caseDetail = c; },
+
+    closeCaseFromPanel() {
+      if (!this.caseDetail) return;
+      const idx = this.cases.findIndex(c => c.id === this.caseDetail.id);
+      if (idx !== -1) {
+        this.cases[idx].status = 'Closed';
+        this.cases[idx].statusBadge = 'badge-gray';
+        this.cases[idx].closed = true;
+        this.cases[idx].obligations = 0;
+        this.cases[idx].obligationText = '0';
+        this.cases[idx].timeline.push({ dot:'update', title:'Case closed', desc:'Closed by Marcus Webb · Laramie', time:'Just now' });
+        this.caseDetail = this.cases[idx];
+      }
+      this.showToast(this.caseDetail.id + ' closed', 'success');
+    },
+
+    mark4473Complete() {
+      const idx = this.cases.findIndex(c => c.id === 'HWK-0038');
+      if (idx !== -1) {
+        this.cases[idx].status = 'Pending Close';
+        this.cases[idx].statusBadge = 'badge-green';
+        this.cases[idx].obligations = 0;
+        this.cases[idx].obligationText = '0';
+        this.cases[idx].obligationBadge = 'badge-gray';
+        this.cases[idx].timeline.push({ dot:'update', title:'Form 4473 marked complete', desc:'NICS check initiated · Transfer proceeding · Background check pending', time:'Just now' });
+        this.caseDetail = this.cases[idx];
+      }
+      this.showToast('HWK-0038 · Form 4473 complete', 'success', 'NICS check initiated · Transfer proceeding');
+    },
+
+    // Toast helper
+    showToast(msg, type = 'success', sub = '') {
+      clearTimeout(this._toastTimer);
+      this.toast = { msg, type, sub };
+      this._toastTimer = setTimeout(() => { this.toast = null; }, 3800);
+    },
+  };
+}
+</script>
+
+<script>(()=>{var nt=!1,it=!1,W=[],ot=-1;function Ut(e){Rn(e)}function Rn(e){W.includes(e)||W.push(e),Mn()}function Wt(e){let t=W.indexOf(e);t!==-1&&t>ot&&W.splice(t,1)}function Mn(){!it&&!nt&&(nt=!0,queueMicrotask(Nn))}function Nn(){nt=!1,it=!0;for(let e=0;e<W.length;e++)W[e](),ot=e;W.length=0,ot=-1,it=!1}var T,N,$,at,st=!0;function Gt(e){st=!1,e(),st=!0}function Jt(e){T=e.reactive,$=e.release,N=t=>e.effect(t,{scheduler:r=>{st?Ut(r):r()}}),at=e.raw}function ct(e){N=e}function Yt(e){let t=()=>{};return[n=>{let i=N(n);return e._x_effects||(e._x_effects=new Set,e._x_runEffects=()=>{e._x_effects.forEach(o=>o())}),e._x_effects.add(i),t=()=>{i!==void 0&&(e._x_effects.delete(i),$(i))},i},()=>{t()}]}function ve(e,t){let r=!0,n,i=N(()=>{let o=e();JSON.stringify(o),r?n=o:queueMicrotask(()=>{t(o,n),n=o}),r=!1});return()=>$(i)}var Xt=[],Zt=[],Qt=[];function er(e){Qt.push(e)}function te(e,t){typeof t=="function"?(e._x_cleanups||(e._x_cleanups=[]),e._x_cleanups.push(t)):(t=e,Zt.push(t))}function Ae(e){Xt.push(e)}function Oe(e,t,r){e._x_attributeCleanups||(e._x_attributeCleanups={}),e._x_attributeCleanups[t]||(e._x_attributeCleanups[t]=[]),e._x_attributeCleanups[t].push(r)}function lt(e,t){e._x_attributeCleanups&&Object.entries(e._x_attributeCleanups).forEach(([r,n])=>{(t===void 0||t.includes(r))&&(n.forEach(i=>i()),delete e._x_attributeCleanups[r])})}function tr(e){for(e._x_effects?.forEach(Wt);e._x_cleanups?.length;)e._x_cleanups.pop()()}var ut=new MutationObserver(mt),ft=!1;function ue(){ut.observe(document,{subtree:!0,childList:!0,attributes:!0,attributeOldValue:!0}),ft=!0}function dt(){kn(),ut.disconnect(),ft=!1}var le=[];function kn(){let e=ut.takeRecords();le.push(()=>e.length>0&&mt(e));let t=le.length;queueMicrotask(()=>{if(le.length===t)for(;le.length>0;)le.shift()()})}function m(e){if(!ft)return e();dt();let t=e();return ue(),t}var pt=!1,Se=[];function rr(){pt=!0}function nr(){pt=!1,mt(Se),Se=[]}function mt(e){if(pt){Se=Se.concat(e);return}let t=[],r=new Set,n=new Map,i=new Map;for(let o=0;o<e.length;o++)if(!e[o].target._x_ignoreMutationObserver&&(e[o].type==="childList"&&(e[o].removedNodes.forEach(s=>{s.nodeType===1&&s._x_marker&&r.add(s)}),e[o].addedNodes.forEach(s=>{if(s.nodeType===1){if(r.has(s)){r.delete(s);return}s._x_marker||t.push(s)}})),e[o].type==="attributes")){let s=e[o].target,a=e[o].attributeName,c=e[o].oldValue,l=()=>{n.has(s)||n.set(s,[]),n.get(s).push({name:a,value:s.getAttribute(a)})},u=()=>{i.has(s)||i.set(s,[]),i.get(s).push(a)};s.hasAttribute(a)&&c===null?l():s.hasAttribute(a)?(u(),l()):u()}i.forEach((o,s)=>{lt(s,o)}),n.forEach((o,s)=>{Xt.forEach(a=>a(s,o))});for(let o of r)t.some(s=>s.contains(o))||Zt.forEach(s=>s(o));for(let o of t)o.isConnected&&Qt.forEach(s=>s(o));t=null,r=null,n=null,i=null}function Ce(e){return z(B(e))}function k(e,t,r){return e._x_dataStack=[t,...B(r||e)],()=>{e._x_dataStack=e._x_dataStack.filter(n=>n!==t)}}function B(e){return e._x_dataStack?e._x_dataStack:typeof ShadowRoot=="function"&&e instanceof ShadowRoot?B(e.host):e.parentNode?B(e.parentNode):[]}function z(e){return new Proxy({objects:e},Dn)}var Dn={ownKeys({objects:e}){return Array.from(new Set(e.flatMap(t=>Object.keys(t))))},has({objects:e},t){return t==Symbol.unscopables?!1:e.some(r=>Object.prototype.hasOwnProperty.call(r,t)||Reflect.has(r,t))},get({objects:e},t,r){return t=="toJSON"?Pn:Reflect.get(e.find(n=>Reflect.has(n,t))||{},t,r)},set({objects:e},t,r,n){let i=e.find(s=>Object.prototype.hasOwnProperty.call(s,t))||e[e.length-1],o=Object.getOwnPropertyDescriptor(i,t);return o?.set&&o?.get?o.set.call(n,r)||!0:Reflect.set(i,t,r)}};function Pn(){return Reflect.ownKeys(this).reduce((t,r)=>(t[r]=Reflect.get(this,r),t),{})}function Te(e){let t=n=>typeof n=="object"&&!Array.isArray(n)&&n!==null,r=(n,i="")=>{Object.entries(Object.getOwnPropertyDescriptors(n)).forEach(([o,{value:s,enumerable:a}])=>{if(a===!1||s===void 0||typeof s=="object"&&s!==null&&s.__v_skip)return;let c=i===""?o:`${i}.${o}`;typeof s=="object"&&s!==null&&s._x_interceptor?n[o]=s.initialize(e,c,o):t(s)&&s!==n&&!(s instanceof Element)&&r(s,c)})};return r(e)}function Re(e,t=()=>{}){let r={initialValue:void 0,_x_interceptor:!0,initialize(n,i,o){return e(this.initialValue,()=>In(n,i),s=>ht(n,i,s),i,o)}};return t(r),n=>{if(typeof n=="object"&&n!==null&&n._x_interceptor){let i=r.initialize.bind(r);r.initialize=(o,s,a)=>{let c=n.initialize(o,s,a);return r.initialValue=c,i(o,s,a)}}else r.initialValue=n;return r}}function In(e,t){return t.split(".").reduce((r,n)=>r[n],e)}function ht(e,t,r){if(typeof t=="string"&&(t=t.split(".")),t.length===1)e[t[0]]=r;else{if(t.length===0)throw error;return e[t[0]]||(e[t[0]]={}),ht(e[t[0]],t.slice(1),r)}}var ir={};function y(e,t){ir[e]=t}function fe(e,t){let r=Ln(t);return Object.entries(ir).forEach(([n,i])=>{Object.defineProperty(e,`$${n}`,{get(){return i(t,r)},enumerable:!1})}),e}function Ln(e){let[t,r]=_t(e),n={interceptor:Re,...t};return te(e,r),n}function or(e,t,r,...n){try{return r(...n)}catch(i){re(i,e,t)}}function re(e,t,r=void 0){e=Object.assign(e??{message:"No error message given."},{el:t,expression:r}),console.warn(`Alpine Expression Error: ${e.message}
+
+${r?'Expression: "'+r+`"
+
+`:""}`,t),setTimeout(()=>{throw e},0)}var Me=!0;function ke(e){let t=Me;Me=!1;let r=e();return Me=t,r}function R(e,t,r={}){let n;return x(e,t)(i=>n=i,r),n}function x(...e){return sr(...e)}var sr=xt;function ar(e){sr=e}function xt(e,t){let r={};fe(r,e);let n=[r,...B(e)],i=typeof t=="function"?$n(n,t):Fn(n,t,e);return or.bind(null,e,t,i)}function $n(e,t){return(r=()=>{},{scope:n={},params:i=[]}={})=>{let o=t.apply(z([n,...e]),i);Ne(r,o)}}var gt={};function jn(e,t){if(gt[e])return gt[e];let r=Object.getPrototypeOf(async function(){}).constructor,n=/^[\n\s]*if.*\(.*\)/.test(e.trim())||/^(let|const)\s/.test(e.trim())?`(async()=>{ ${e} })()`:e,o=(()=>{try{let s=new r(["__self","scope"],`with (scope) { __self.result = ${n} }; __self.finished = true; return __self.result;`);return Object.defineProperty(s,"name",{value:`[Alpine] ${e}`}),s}catch(s){return re(s,t,e),Promise.resolve()}})();return gt[e]=o,o}function Fn(e,t,r){let n=jn(t,r);return(i=()=>{},{scope:o={},params:s=[]}={})=>{n.result=void 0,n.finished=!1;let a=z([o,...e]);if(typeof n=="function"){let c=n(n,a).catch(l=>re(l,r,t));n.finished?(Ne(i,n.result,a,s,r),n.result=void 0):c.then(l=>{Ne(i,l,a,s,r)}).catch(l=>re(l,r,t)).finally(()=>n.result=void 0)}}}function Ne(e,t,r,n,i){if(Me&&typeof t=="function"){let o=t.apply(r,n);o instanceof Promise?o.then(s=>Ne(e,s,r,n)).catch(s=>re(s,i,t)):e(o)}else typeof t=="object"&&t instanceof Promise?t.then(o=>e(o)):e(t)}var wt="x-";function C(e=""){return wt+e}function cr(e){wt=e}var De={};function d(e,t){return De[e]=t,{before(r){if(!De[r]){console.warn(String.raw`Cannot find directive \`${r}\`. \`${e}\` will use the default order of execution`);return}let n=G.indexOf(r);G.splice(n>=0?n:G.indexOf("DEFAULT"),0,e)}}}function lr(e){return Object.keys(De).includes(e)}function pe(e,t,r){if(t=Array.from(t),e._x_virtualDirectives){let o=Object.entries(e._x_virtualDirectives).map(([a,c])=>({name:a,value:c})),s=Et(o);o=o.map(a=>s.find(c=>c.name===a.name)?{name:`x-bind:${a.name}`,value:`"${a.value}"`}:a),t=t.concat(o)}let n={};return t.map(dr((o,s)=>n[o]=s)).filter(mr).map(zn(n,r)).sort(Kn).map(o=>Bn(e,o))}function Et(e){return Array.from(e).map(dr()).filter(t=>!mr(t))}var yt=!1,de=new Map,ur=Symbol();function fr(e){yt=!0;let t=Symbol();ur=t,de.set(t,[]);let r=()=>{for(;de.get(t).length;)de.get(t).shift()();de.delete(t)},n=()=>{yt=!1,r()};e(r),n()}function _t(e){let t=[],r=a=>t.push(a),[n,i]=Yt(e);return t.push(i),[{Alpine:K,effect:n,cleanup:r,evaluateLater:x.bind(x,e),evaluate:R.bind(R,e)},()=>t.forEach(a=>a())]}function Bn(e,t){let r=()=>{},n=De[t.type]||r,[i,o]=_t(e);Oe(e,t.original,o);let s=()=>{e._x_ignore||e._x_ignoreSelf||(n.inline&&n.inline(e,t,i),n=n.bind(n,e,t,i),yt?de.get(ur).push(n):n())};return s.runCleanups=o,s}var Pe=(e,t)=>({name:r,value:n})=>(r.startsWith(e)&&(r=r.replace(e,t)),{name:r,value:n}),Ie=e=>e;function dr(e=()=>{}){return({name:t,value:r})=>{let{name:n,value:i}=pr.reduce((o,s)=>s(o),{name:t,value:r});return n!==t&&e(n,t),{name:n,value:i}}}var pr=[];function ne(e){pr.push(e)}function mr({name:e}){return hr().test(e)}var hr=()=>new RegExp(`^${wt}([^:^.]+)\\b`);function zn(e,t){return({name:r,value:n})=>{let i=r.match(hr()),o=r.match(/:([a-zA-Z0-9\-_:]+)/),s=r.match(/\.[^.\]]+(?=[^\]]*$)/g)||[],a=t||e[r]||r;return{type:i?i[1]:null,value:o?o[1]:null,modifiers:s.map(c=>c.replace(".","")),expression:n,original:a}}}var bt="DEFAULT",G=["ignore","ref","data","id","anchor","bind","init","for","model","modelable","transition","show","if",bt,"teleport"];function Kn(e,t){let r=G.indexOf(e.type)===-1?bt:e.type,n=G.indexOf(t.type)===-1?bt:t.type;return G.indexOf(r)-G.indexOf(n)}function J(e,t,r={}){e.dispatchEvent(new CustomEvent(t,{detail:r,bubbles:!0,composed:!0,cancelable:!0}))}function D(e,t){if(typeof ShadowRoot=="function"&&e instanceof ShadowRoot){Array.from(e.children).forEach(i=>D(i,t));return}let r=!1;if(t(e,()=>r=!0),r)return;let n=e.firstElementChild;for(;n;)D(n,t,!1),n=n.nextElementSibling}function E(e,...t){console.warn(`Alpine Warning: ${e}`,...t)}var _r=!1;function gr(){_r&&E("Alpine has already been initialized on this page. Calling Alpine.start() more than once can cause problems."),_r=!0,document.body||E("Unable to initialize. Trying to load Alpine before `<body>` is available. Did you forget to add `defer` in Alpine's `<script>` tag?"),J(document,"alpine:init"),J(document,"alpine:initializing"),ue(),er(t=>S(t,D)),te(t=>P(t)),Ae((t,r)=>{pe(t,r).forEach(n=>n())});let e=t=>!Y(t.parentElement,!0);Array.from(document.querySelectorAll(br().join(","))).filter(e).forEach(t=>{S(t)}),J(document,"alpine:initialized"),setTimeout(()=>{Vn()})}var vt=[],xr=[];function yr(){return vt.map(e=>e())}function br(){return vt.concat(xr).map(e=>e())}function Le(e){vt.push(e)}function $e(e){xr.push(e)}function Y(e,t=!1){return j(e,r=>{if((t?br():yr()).some(i=>r.matches(i)))return!0})}function j(e,t){if(e){if(t(e))return e;if(e._x_teleportBack&&(e=e._x_teleportBack),!!e.parentElement)return j(e.parentElement,t)}}function wr(e){return yr().some(t=>e.matches(t))}var Er=[];function vr(e){Er.push(e)}var Hn=1;function S(e,t=D,r=()=>{}){j(e,n=>n._x_ignore)||fr(()=>{t(e,(n,i)=>{n._x_marker||(r(n,i),Er.forEach(o=>o(n,i)),pe(n,n.attributes).forEach(o=>o()),n._x_ignore||(n._x_marker=Hn++),n._x_ignore&&i())})})}function P(e,t=D){t(e,r=>{tr(r),lt(r),delete r._x_marker})}function Vn(){[["ui","dialog",["[x-dialog], [x-popover]"]],["anchor","anchor",["[x-anchor]"]],["sort","sort",["[x-sort]"]]].forEach(([t,r,n])=>{lr(r)||n.some(i=>{if(document.querySelector(i))return E(`found "${i}", but missing ${t} plugin`),!0})})}var St=[],At=!1;function ie(e=()=>{}){return queueMicrotask(()=>{At||setTimeout(()=>{je()})}),new Promise(t=>{St.push(()=>{e(),t()})})}function je(){for(At=!1;St.length;)St.shift()()}function Sr(){At=!0}function me(e,t){return Array.isArray(t)?Ar(e,t.join(" ")):typeof t=="object"&&t!==null?qn(e,t):typeof t=="function"?me(e,t()):Ar(e,t)}function Ar(e,t){let r=o=>o.split(" ").filter(Boolean),n=o=>o.split(" ").filter(s=>!e.classList.contains(s)).filter(Boolean),i=o=>(e.classList.add(...o),()=>{e.classList.remove(...o)});return t=t===!0?t="":t||"",i(n(t))}function qn(e,t){let r=a=>a.split(" ").filter(Boolean),n=Object.entries(t).flatMap(([a,c])=>c?r(a):!1).filter(Boolean),i=Object.entries(t).flatMap(([a,c])=>c?!1:r(a)).filter(Boolean),o=[],s=[];return i.forEach(a=>{e.classList.contains(a)&&(e.classList.remove(a),s.push(a))}),n.forEach(a=>{e.classList.contains(a)||(e.classList.add(a),o.push(a))}),()=>{s.forEach(a=>e.classList.add(a)),o.forEach(a=>e.classList.remove(a))}}function X(e,t){return typeof t=="object"&&t!==null?Un(e,t):Wn(e,t)}function Un(e,t){let r={};return Object.entries(t).forEach(([n,i])=>{r[n]=e.style[n],n.startsWith("--")||(n=Gn(n)),e.style.setProperty(n,i)}),setTimeout(()=>{e.style.length===0&&e.removeAttribute("style")}),()=>{X(e,r)}}function Wn(e,t){let r=e.getAttribute("style",t);return e.setAttribute("style",t),()=>{e.setAttribute("style",r||"")}}function Gn(e){return e.replace(/([a-z])([A-Z])/g,"$1-$2").toLowerCase()}function he(e,t=()=>{}){let r=!1;return function(){r?t.apply(this,arguments):(r=!0,e.apply(this,arguments))}}d("transition",(e,{value:t,modifiers:r,expression:n},{evaluate:i})=>{typeof n=="function"&&(n=i(n)),n!==!1&&(!n||typeof n=="boolean"?Yn(e,r,t):Jn(e,n,t))});function Jn(e,t,r){Or(e,me,""),{enter:i=>{e._x_transition.enter.during=i},"enter-start":i=>{e._x_transition.enter.start=i},"enter-end":i=>{e._x_transition.enter.end=i},leave:i=>{e._x_transition.leave.during=i},"leave-start":i=>{e._x_transition.leave.start=i},"leave-end":i=>{e._x_transition.leave.end=i}}[r](t)}function Yn(e,t,r){Or(e,X);let n=!t.includes("in")&&!t.includes("out")&&!r,i=n||t.includes("in")||["enter"].includes(r),o=n||t.includes("out")||["leave"].includes(r);t.includes("in")&&!n&&(t=t.filter((g,b)=>b<t.indexOf("out"))),t.includes("out")&&!n&&(t=t.filter((g,b)=>b>t.indexOf("out")));let s=!t.includes("opacity")&&!t.includes("scale"),a=s||t.includes("opacity"),c=s||t.includes("scale"),l=a?0:1,u=c?_e(t,"scale",95)/100:1,p=_e(t,"delay",0)/1e3,h=_e(t,"origin","center"),w="opacity, transform",F=_e(t,"duration",150)/1e3,Ee=_e(t,"duration",75)/1e3,f="cubic-bezier(0.4, 0.0, 0.2, 1)";i&&(e._x_transition.enter.during={transformOrigin:h,transitionDelay:`${p}s`,transitionProperty:w,transitionDuration:`${F}s`,transitionTimingFunction:f},e._x_transition.enter.start={opacity:l,transform:`scale(${u})`},e._x_transition.enter.end={opacity:1,transform:"scale(1)"}),o&&(e._x_transition.leave.during={transformOrigin:h,transitionDelay:`${p}s`,transitionProperty:w,transitionDuration:`${Ee}s`,transitionTimingFunction:f},e._x_transition.leave.start={opacity:1,transform:"scale(1)"},e._x_transition.leave.end={opacity:l,transform:`scale(${u})`})}function Or(e,t,r={}){e._x_transition||(e._x_transition={enter:{during:r,start:r,end:r},leave:{during:r,start:r,end:r},in(n=()=>{},i=()=>{}){Fe(e,t,{during:this.enter.during,start:this.enter.start,end:this.enter.end},n,i)},out(n=()=>{},i=()=>{}){Fe(e,t,{during:this.leave.during,start:this.leave.start,end:this.leave.end},n,i)}})}window.Element.prototype._x_toggleAndCascadeWithTransitions=function(e,t,r,n){let i=document.visibilityState==="visible"?requestAnimationFrame:setTimeout,o=()=>i(r);if(t){e._x_transition&&(e._x_transition.enter||e._x_transition.leave)?e._x_transition.enter&&(Object.entries(e._x_transition.enter.during).length||Object.entries(e._x_transition.enter.start).length||Object.entries(e._x_transition.enter.end).length)?e._x_transition.in(r):o():e._x_transition?e._x_transition.in(r):o();return}e._x_hidePromise=e._x_transition?new Promise((s,a)=>{e._x_transition.out(()=>{},()=>s(n)),e._x_transitioning&&e._x_transitioning.beforeCancel(()=>a({isFromCancelledTransition:!0}))}):Promise.resolve(n),queueMicrotask(()=>{let s=Cr(e);s?(s._x_hideChildren||(s._x_hideChildren=[]),s._x_hideChildren.push(e)):i(()=>{let a=c=>{let l=Promise.all([c._x_hidePromise,...(c._x_hideChildren||[]).map(a)]).then(([u])=>u?.());return delete c._x_hidePromise,delete c._x_hideChildren,l};a(e).catch(c=>{if(!c.isFromCancelledTransition)throw c})})})};function Cr(e){let t=e.parentNode;if(t)return t._x_hidePromise?t:Cr(t)}function Fe(e,t,{during:r,start:n,end:i}={},o=()=>{},s=()=>{}){if(e._x_transitioning&&e._x_transitioning.cancel(),Object.keys(r).length===0&&Object.keys(n).length===0&&Object.keys(i).length===0){o(),s();return}let a,c,l;Xn(e,{start(){a=t(e,n)},during(){c=t(e,r)},before:o,end(){a(),l=t(e,i)},after:s,cleanup(){c(),l()}})}function Xn(e,t){let r,n,i,o=he(()=>{m(()=>{r=!0,n||t.before(),i||(t.end(),je()),t.after(),e.isConnected&&t.cleanup(),delete e._x_transitioning})});e._x_transitioning={beforeCancels:[],beforeCancel(s){this.beforeCancels.push(s)},cancel:he(function(){for(;this.beforeCancels.length;)this.beforeCancels.shift()();o()}),finish:o},m(()=>{t.start(),t.during()}),Sr(),requestAnimationFrame(()=>{if(r)return;let s=Number(getComputedStyle(e).transitionDuration.replace(/,.*/,"").replace("s",""))*1e3,a=Number(getComputedStyle(e).transitionDelay.replace(/,.*/,"").replace("s",""))*1e3;s===0&&(s=Number(getComputedStyle(e).animationDuration.replace("s",""))*1e3),m(()=>{t.before()}),n=!0,requestAnimationFrame(()=>{r||(m(()=>{t.end()}),je(),setTimeout(e._x_transitioning.finish,s+a),i=!0)})})}function _e(e,t,r){if(e.indexOf(t)===-1)return r;let n=e[e.indexOf(t)+1];if(!n||t==="scale"&&isNaN(n))return r;if(t==="duration"||t==="delay"){let i=n.match(/([0-9]+)ms/);if(i)return i[1]}return t==="origin"&&["top","right","left","center","bottom"].includes(e[e.indexOf(t)+2])?[n,e[e.indexOf(t)+2]].join(" "):n}var I=!1;function A(e,t=()=>{}){return(...r)=>I?t(...r):e(...r)}function Tr(e){return(...t)=>I&&e(...t)}var Rr=[];function H(e){Rr.push(e)}function Mr(e,t){Rr.forEach(r=>r(e,t)),I=!0,kr(()=>{S(t,(r,n)=>{n(r,()=>{})})}),I=!1}var Be=!1;function Nr(e,t){t._x_dataStack||(t._x_dataStack=e._x_dataStack),I=!0,Be=!0,kr(()=>{Zn(t)}),I=!1,Be=!1}function Zn(e){let t=!1;S(e,(n,i)=>{D(n,(o,s)=>{if(t&&wr(o))return s();t=!0,i(o,s)})})}function kr(e){let t=N;ct((r,n)=>{let i=t(r);return $(i),()=>{}}),e(),ct(t)}function ge(e,t,r,n=[]){switch(e._x_bindings||(e._x_bindings=T({})),e._x_bindings[t]=r,t=n.includes("camel")?si(t):t,t){case"value":Qn(e,r);break;case"style":ti(e,r);break;case"class":ei(e,r);break;case"selected":case"checked":ri(e,t,r);break;default:Pr(e,t,r);break}}function Qn(e,t){if(Ot(e))e.attributes.value===void 0&&(e.value=t),window.fromModel&&(typeof t=="boolean"?e.checked=xe(e.value)===t:e.checked=Dr(e.value,t));else if(ze(e))Number.isInteger(t)?e.value=t:!Array.isArray(t)&&typeof t!="boolean"&&![null,void 0].includes(t)?e.value=String(t):Array.isArray(t)?e.checked=t.some(r=>Dr(r,e.value)):e.checked=!!t;else if(e.tagName==="SELECT")oi(e,t);else{if(e.value===t)return;e.value=t===void 0?"":t}}function ei(e,t){e._x_undoAddedClasses&&e._x_undoAddedClasses(),e._x_undoAddedClasses=me(e,t)}function ti(e,t){e._x_undoAddedStyles&&e._x_undoAddedStyles(),e._x_undoAddedStyles=X(e,t)}function ri(e,t,r){Pr(e,t,r),ii(e,t,r)}function Pr(e,t,r){[null,void 0,!1].includes(r)&&ci(t)?e.removeAttribute(t):(Ir(t)&&(r=t),ni(e,t,r))}function ni(e,t,r){e.getAttribute(t)!=r&&e.setAttribute(t,r)}function ii(e,t,r){e[t]!==r&&(e[t]=r)}function oi(e,t){let r=[].concat(t).map(n=>n+"");Array.from(e.options).forEach(n=>{n.selected=r.includes(n.value)})}function si(e){return e.toLowerCase().replace(/-(\w)/g,(t,r)=>r.toUpperCase())}function Dr(e,t){return e==t}function xe(e){return[1,"1","true","on","yes",!0].includes(e)?!0:[0,"0","false","off","no",!1].includes(e)?!1:e?Boolean(e):null}var ai=new Set(["allowfullscreen","async","autofocus","autoplay","checked","controls","default","defer","disabled","formnovalidate","inert","ismap","itemscope","loop","multiple","muted","nomodule","novalidate","open","playsinline","readonly","required","reversed","selected","shadowrootclonable","shadowrootdelegatesfocus","shadowrootserializable"]);function Ir(e){return ai.has(e)}function ci(e){return!["aria-pressed","aria-checked","aria-expanded","aria-selected"].includes(e)}function Lr(e,t,r){return e._x_bindings&&e._x_bindings[t]!==void 0?e._x_bindings[t]:jr(e,t,r)}function $r(e,t,r,n=!0){if(e._x_bindings&&e._x_bindings[t]!==void 0)return e._x_bindings[t];if(e._x_inlineBindings&&e._x_inlineBindings[t]!==void 0){let i=e._x_inlineBindings[t];return i.extract=n,ke(()=>R(e,i.expression))}return jr(e,t,r)}function jr(e,t,r){let n=e.getAttribute(t);return n===null?typeof r=="function"?r():r:n===""?!0:Ir(t)?!![t,"true"].includes(n):n}function ze(e){return e.type==="checkbox"||e.localName==="ui-checkbox"||e.localName==="ui-switch"}function Ot(e){return e.type==="radio"||e.localName==="ui-radio"}function Ke(e,t){var r;return function(){var n=this,i=arguments,o=function(){r=null,e.apply(n,i)};clearTimeout(r),r=setTimeout(o,t)}}function He(e,t){let r;return function(){let n=this,i=arguments;r||(e.apply(n,i),r=!0,setTimeout(()=>r=!1,t))}}function Ve({get:e,set:t},{get:r,set:n}){let i=!0,o,s,a=N(()=>{let c=e(),l=r();if(i)n(Ct(c)),i=!1;else{let u=JSON.stringify(c),p=JSON.stringify(l);u!==o?n(Ct(c)):u!==p&&t(Ct(l))}o=JSON.stringify(e()),s=JSON.stringify(r())});return()=>{$(a)}}function Ct(e){return typeof e=="object"?JSON.parse(JSON.stringify(e)):e}function Fr(e){(Array.isArray(e)?e:[e]).forEach(r=>r(K))}var Z={},Br=!1;function zr(e,t){if(Br||(Z=T(Z),Br=!0),t===void 0)return Z[e];Z[e]=t,Te(Z[e]),typeof t=="object"&&t!==null&&t.hasOwnProperty("init")&&typeof t.init=="function"&&Z[e].init()}function Kr(){return Z}var Hr={};function Vr(e,t){let r=typeof t!="function"?()=>t:t;return e instanceof Element?Tt(e,r()):(Hr[e]=r,()=>{})}function qr(e){return Object.entries(Hr).forEach(([t,r])=>{Object.defineProperty(e,t,{get(){return(...n)=>r(...n)}})}),e}function Tt(e,t,r){let n=[];for(;n.length;)n.pop()();let i=Object.entries(t).map(([s,a])=>({name:s,value:a})),o=Et(i);return i=i.map(s=>o.find(a=>a.name===s.name)?{name:`x-bind:${s.name}`,value:`"${s.value}"`}:s),pe(e,i,r).map(s=>{n.push(s.runCleanups),s()}),()=>{for(;n.length;)n.pop()()}}var Ur={};function Wr(e,t){Ur[e]=t}function Gr(e,t){return Object.entries(Ur).forEach(([r,n])=>{Object.defineProperty(e,r,{get(){return(...i)=>n.bind(t)(...i)},enumerable:!1})}),e}var li={get reactive(){return T},get release(){return $},get effect(){return N},get raw(){return at},version:"3.14.8",flushAndStopDeferringMutations:nr,dontAutoEvaluateFunctions:ke,disableEffectScheduling:Gt,startObservingMutations:ue,stopObservingMutations:dt,setReactivityEngine:Jt,onAttributeRemoved:Oe,onAttributesAdded:Ae,closestDataStack:B,skipDuringClone:A,onlyDuringClone:Tr,addRootSelector:Le,addInitSelector:$e,interceptClone:H,addScopeToNode:k,deferMutations:rr,mapAttributes:ne,evaluateLater:x,interceptInit:vr,setEvaluator:ar,mergeProxies:z,extractProp:$r,findClosest:j,onElRemoved:te,closestRoot:Y,destroyTree:P,interceptor:Re,transition:Fe,setStyles:X,mutateDom:m,directive:d,entangle:Ve,throttle:He,debounce:Ke,evaluate:R,initTree:S,nextTick:ie,prefixed:C,prefix:cr,plugin:Fr,magic:y,store:zr,start:gr,clone:Nr,cloneNode:Mr,bound:Lr,$data:Ce,watch:ve,walk:D,data:Wr,bind:Vr},K=li;function Rt(e,t){let r=Object.create(null),n=e.split(",");for(let i=0;i<n.length;i++)r[n[i]]=!0;return t?i=>!!r[i.toLowerCase()]:i=>!!r[i]}var ui="itemscope,allowfullscreen,formnovalidate,ismap,nomodule,novalidate,readonly";var Ls=Rt(ui+",async,autofocus,autoplay,controls,default,defer,disabled,hidden,loop,open,required,reversed,scoped,seamless,checked,muted,multiple,selected");var Jr=Object.freeze({}),$s=Object.freeze([]);var fi=Object.prototype.hasOwnProperty,ye=(e,t)=>fi.call(e,t),V=Array.isArray,oe=e=>Yr(e)==="[object Map]";var di=e=>typeof e=="string",qe=e=>typeof e=="symbol",be=e=>e!==null&&typeof e=="object";var pi=Object.prototype.toString,Yr=e=>pi.call(e),Mt=e=>Yr(e).slice(8,-1);var Ue=e=>di(e)&&e!=="NaN"&&e[0]!=="-"&&""+parseInt(e,10)===e;var We=e=>{let t=Object.create(null);return r=>t[r]||(t[r]=e(r))},mi=/-(\w)/g,js=We(e=>e.replace(mi,(t,r)=>r?r.toUpperCase():"")),hi=/\B([A-Z])/g,Fs=We(e=>e.replace(hi,"-$1").toLowerCase()),Nt=We(e=>e.charAt(0).toUpperCase()+e.slice(1)),Bs=We(e=>e?`on${Nt(e)}`:""),kt=(e,t)=>e!==t&&(e===e||t===t);var Dt=new WeakMap,we=[],L,Q=Symbol("iterate"),Pt=Symbol("Map key iterate");function _i(e){return e&&e._isEffect===!0}function rn(e,t=Jr){_i(e)&&(e=e.raw);let r=xi(e,t);return t.lazy||r(),r}function nn(e){e.active&&(on(e),e.options.onStop&&e.options.onStop(),e.active=!1)}var gi=0;function xi(e,t){let r=function(){if(!r.active)return e();if(!we.includes(r)){on(r);try{return bi(),we.push(r),L=r,e()}finally{we.pop(),sn(),L=we[we.length-1]}}};return r.id=gi++,r.allowRecurse=!!t.allowRecurse,r._isEffect=!0,r.active=!0,r.raw=e,r.deps=[],r.options=t,r}function on(e){let{deps:t}=e;if(t.length){for(let r=0;r<t.length;r++)t[r].delete(e);t.length=0}}var se=!0,Lt=[];function yi(){Lt.push(se),se=!1}function bi(){Lt.push(se),se=!0}function sn(){let e=Lt.pop();se=e===void 0?!0:e}function M(e,t,r){if(!se||L===void 0)return;let n=Dt.get(e);n||Dt.set(e,n=new Map);let i=n.get(r);i||n.set(r,i=new Set),i.has(L)||(i.add(L),L.deps.push(i),L.options.onTrack&&L.options.onTrack({effect:L,target:e,type:t,key:r}))}function U(e,t,r,n,i,o){let s=Dt.get(e);if(!s)return;let a=new Set,c=u=>{u&&u.forEach(p=>{(p!==L||p.allowRecurse)&&a.add(p)})};if(t==="clear")s.forEach(c);else if(r==="length"&&V(e))s.forEach((u,p)=>{(p==="length"||p>=n)&&c(u)});else switch(r!==void 0&&c(s.get(r)),t){case"add":V(e)?Ue(r)&&c(s.get("length")):(c(s.get(Q)),oe(e)&&c(s.get(Pt)));break;case"delete":V(e)||(c(s.get(Q)),oe(e)&&c(s.get(Pt)));break;case"set":oe(e)&&c(s.get(Q));break}let l=u=>{u.options.onTrigger&&u.options.onTrigger({effect:u,target:e,key:r,type:t,newValue:n,oldValue:i,oldTarget:o}),u.options.scheduler?u.options.scheduler(u):u()};a.forEach(l)}var wi=Rt("__proto__,__v_isRef,__isVue"),an=new Set(Object.getOwnPropertyNames(Symbol).map(e=>Symbol[e]).filter(qe)),Ei=cn();var vi=cn(!0);var Xr=Si();function Si(){let e={};return["includes","indexOf","lastIndexOf"].forEach(t=>{e[t]=function(...r){let n=_(this);for(let o=0,s=this.length;o<s;o++)M(n,"get",o+"");let i=n[t](...r);return i===-1||i===!1?n[t](...r.map(_)):i}}),["push","pop","shift","unshift","splice"].forEach(t=>{e[t]=function(...r){yi();let n=_(this)[t].apply(this,r);return sn(),n}}),e}function cn(e=!1,t=!1){return function(n,i,o){if(i==="__v_isReactive")return!e;if(i==="__v_isReadonly")return e;if(i==="__v_raw"&&o===(e?t?Bi:dn:t?Fi:fn).get(n))return n;let s=V(n);if(!e&&s&&ye(Xr,i))return Reflect.get(Xr,i,o);let a=Reflect.get(n,i,o);return(qe(i)?an.has(i):wi(i))||(e||M(n,"get",i),t)?a:It(a)?!s||!Ue(i)?a.value:a:be(a)?e?pn(a):et(a):a}}var Ai=Oi();function Oi(e=!1){return function(r,n,i,o){let s=r[n];if(!e&&(i=_(i),s=_(s),!V(r)&&It(s)&&!It(i)))return s.value=i,!0;let a=V(r)&&Ue(n)?Number(n)<r.length:ye(r,n),c=Reflect.set(r,n,i,o);return r===_(o)&&(a?kt(i,s)&&U(r,"set",n,i,s):U(r,"add",n,i)),c}}function Ci(e,t){let r=ye(e,t),n=e[t],i=Reflect.deleteProperty(e,t);return i&&r&&U(e,"delete",t,void 0,n),i}function Ti(e,t){let r=Reflect.has(e,t);return(!qe(t)||!an.has(t))&&M(e,"has",t),r}function Ri(e){return M(e,"iterate",V(e)?"length":Q),Reflect.ownKeys(e)}var Mi={get:Ei,set:Ai,deleteProperty:Ci,has:Ti,ownKeys:Ri},Ni={get:vi,set(e,t){return console.warn(`Set operation on key "${String(t)}" failed: target is readonly.`,e),!0},deleteProperty(e,t){return console.warn(`Delete operation on key "${String(t)}" failed: target is readonly.`,e),!0}};var $t=e=>be(e)?et(e):e,jt=e=>be(e)?pn(e):e,Ft=e=>e,Qe=e=>Reflect.getPrototypeOf(e);function Ge(e,t,r=!1,n=!1){e=e.__v_raw;let i=_(e),o=_(t);t!==o&&!r&&M(i,"get",t),!r&&M(i,"get",o);let{has:s}=Qe(i),a=n?Ft:r?jt:$t;if(s.call(i,t))return a(e.get(t));if(s.call(i,o))return a(e.get(o));e!==i&&e.get(t)}function Je(e,t=!1){let r=this.__v_raw,n=_(r),i=_(e);return e!==i&&!t&&M(n,"has",e),!t&&M(n,"has",i),e===i?r.has(e):r.has(e)||r.has(i)}function Ye(e,t=!1){return e=e.__v_raw,!t&&M(_(e),"iterate",Q),Reflect.get(e,"size",e)}function Zr(e){e=_(e);let t=_(this);return Qe(t).has.call(t,e)||(t.add(e),U(t,"add",e,e)),this}function Qr(e,t){t=_(t);let r=_(this),{has:n,get:i}=Qe(r),o=n.call(r,e);o?un(r,n,e):(e=_(e),o=n.call(r,e));let s=i.call(r,e);return r.set(e,t),o?kt(t,s)&&U(r,"set",e,t,s):U(r,"add",e,t),this}function en(e){let t=_(this),{has:r,get:n}=Qe(t),i=r.call(t,e);i?un(t,r,e):(e=_(e),i=r.call(t,e));let o=n?n.call(t,e):void 0,s=t.delete(e);return i&&U(t,"delete",e,void 0,o),s}function tn(){let e=_(this),t=e.size!==0,r=oe(e)?new Map(e):new Set(e),n=e.clear();return t&&U(e,"clear",void 0,void 0,r),n}function Xe(e,t){return function(n,i){let o=this,s=o.__v_raw,a=_(s),c=t?Ft:e?jt:$t;return!e&&M(a,"iterate",Q),s.forEach((l,u)=>n.call(i,c(l),c(u),o))}}function Ze(e,t,r){return function(...n){let i=this.__v_raw,o=_(i),s=oe(o),a=e==="entries"||e===Symbol.iterator&&s,c=e==="keys"&&s,l=i[e](...n),u=r?Ft:t?jt:$t;return!t&&M(o,"iterate",c?Pt:Q),{next(){let{value:p,done:h}=l.next();return h?{value:p,done:h}:{value:a?[u(p[0]),u(p[1])]:u(p),done:h}},[Symbol.iterator](){return this}}}}function q(e){return function(...t){{let r=t[0]?`on key "${t[0]}" `:"";console.warn(`${Nt(e)} operation ${r}failed: target is readonly.`,_(this))}return e==="delete"?!1:this}}function ki(){let e={get(o){return Ge(this,o)},get size(){return Ye(this)},has:Je,add:Zr,set:Qr,delete:en,clear:tn,forEach:Xe(!1,!1)},t={get(o){return Ge(this,o,!1,!0)},get size(){return Ye(this)},has:Je,add:Zr,set:Qr,delete:en,clear:tn,forEach:Xe(!1,!0)},r={get(o){return Ge(this,o,!0)},get size(){return Ye(this,!0)},has(o){return Je.call(this,o,!0)},add:q("add"),set:q("set"),delete:q("delete"),clear:q("clear"),forEach:Xe(!0,!1)},n={get(o){return Ge(this,o,!0,!0)},get size(){return Ye(this,!0)},has(o){return Je.call(this,o,!0)},add:q("add"),set:q("set"),delete:q("delete"),clear:q("clear"),forEach:Xe(!0,!0)};return["keys","values","entries",Symbol.iterator].forEach(o=>{e[o]=Ze(o,!1,!1),r[o]=Ze(o,!0,!1),t[o]=Ze(o,!1,!0),n[o]=Ze(o,!0,!0)}),[e,r,t,n]}var[Di,Pi,Ii,Li]=ki();function ln(e,t){let r=t?e?Li:Ii:e?Pi:Di;return(n,i,o)=>i==="__v_isReactive"?!e:i==="__v_isReadonly"?e:i==="__v_raw"?n:Reflect.get(ye(r,i)&&i in n?r:n,i,o)}var $i={get:ln(!1,!1)};var ji={get:ln(!0,!1)};function un(e,t,r){let n=_(r);if(n!==r&&t.call(e,n)){let i=Mt(e);console.warn(`Reactive ${i} contains both the raw and reactive versions of the same object${i==="Map"?" as keys":""}, which can lead to inconsistencies. Avoid differentiating between the raw and reactive versions of an object and only use the reactive version if possible.`)}}var fn=new WeakMap,Fi=new WeakMap,dn=new WeakMap,Bi=new WeakMap;function zi(e){switch(e){case"Object":case"Array":return 1;case"Map":case"Set":case"WeakMap":case"WeakSet":return 2;default:return 0}}function Ki(e){return e.__v_skip||!Object.isExtensible(e)?0:zi(Mt(e))}function et(e){return e&&e.__v_isReadonly?e:mn(e,!1,Mi,$i,fn)}function pn(e){return mn(e,!0,Ni,ji,dn)}function mn(e,t,r,n,i){if(!be(e))return console.warn(`value cannot be made reactive: ${String(e)}`),e;if(e.__v_raw&&!(t&&e.__v_isReactive))return e;let o=i.get(e);if(o)return o;let s=Ki(e);if(s===0)return e;let a=new Proxy(e,s===2?n:r);return i.set(e,a),a}function _(e){return e&&_(e.__v_raw)||e}function It(e){return Boolean(e&&e.__v_isRef===!0)}y("nextTick",()=>ie);y("dispatch",e=>J.bind(J,e));y("watch",(e,{evaluateLater:t,cleanup:r})=>(n,i)=>{let o=t(n),a=ve(()=>{let c;return o(l=>c=l),c},i);r(a)});y("store",Kr);y("data",e=>Ce(e));y("root",e=>Y(e));y("refs",e=>(e._x_refs_proxy||(e._x_refs_proxy=z(Hi(e))),e._x_refs_proxy));function Hi(e){let t=[];return j(e,r=>{r._x_refs&&t.push(r._x_refs)}),t}var Bt={};function zt(e){return Bt[e]||(Bt[e]=0),++Bt[e]}function hn(e,t){return j(e,r=>{if(r._x_ids&&r._x_ids[t])return!0})}function _n(e,t){e._x_ids||(e._x_ids={}),e._x_ids[t]||(e._x_ids[t]=zt(t))}y("id",(e,{cleanup:t})=>(r,n=null)=>{let i=`${r}${n?`-${n}`:""}`;return Vi(e,i,t,()=>{let o=hn(e,r),s=o?o._x_ids[r]:zt(r);return n?`${r}-${s}-${n}`:`${r}-${s}`})});H((e,t)=>{e._x_id&&(t._x_id=e._x_id)});function Vi(e,t,r,n){if(e._x_id||(e._x_id={}),e._x_id[t])return e._x_id[t];let i=n();return e._x_id[t]=i,r(()=>{delete e._x_id[t]}),i}y("el",e=>e);gn("Focus","focus","focus");gn("Persist","persist","persist");function gn(e,t,r){y(t,n=>E(`You can't use [$${t}] without first installing the "${e}" plugin here: https://alpinejs.dev/plugins/${r}`,n))}d("modelable",(e,{expression:t},{effect:r,evaluateLater:n,cleanup:i})=>{let o=n(t),s=()=>{let u;return o(p=>u=p),u},a=n(`${t} = __placeholder`),c=u=>a(()=>{},{scope:{__placeholder:u}}),l=s();c(l),queueMicrotask(()=>{if(!e._x_model)return;e._x_removeModelListeners.default();let u=e._x_model.get,p=e._x_model.set,h=Ve({get(){return u()},set(w){p(w)}},{get(){return s()},set(w){c(w)}});i(h)})});d("teleport",(e,{modifiers:t,expression:r},{cleanup:n})=>{e.tagName.toLowerCase()!=="template"&&E("x-teleport can only be used on a <template> tag",e);let i=xn(r),o=e.content.cloneNode(!0).firstElementChild;e._x_teleport=o,o._x_teleportBack=e,e.setAttribute("data-teleport-template",!0),o.setAttribute("data-teleport-target",!0),e._x_forwardEvents&&e._x_forwardEvents.forEach(a=>{o.addEventListener(a,c=>{c.stopPropagation(),e.dispatchEvent(new c.constructor(c.type,c))})}),k(o,{},e);let s=(a,c,l)=>{l.includes("prepend")?c.parentNode.insertBefore(a,c):l.includes("append")?c.parentNode.insertBefore(a,c.nextSibling):c.appendChild(a)};m(()=>{s(o,i,t),A(()=>{S(o)})()}),e._x_teleportPutBack=()=>{let a=xn(r);m(()=>{s(e._x_teleport,a,t)})},n(()=>m(()=>{o.remove(),P(o)}))});var qi=document.createElement("div");function xn(e){let t=A(()=>document.querySelector(e),()=>qi)();return t||E(`Cannot find x-teleport element for selector: "${e}"`),t}var yn=()=>{};yn.inline=(e,{modifiers:t},{cleanup:r})=>{t.includes("self")?e._x_ignoreSelf=!0:e._x_ignore=!0,r(()=>{t.includes("self")?delete e._x_ignoreSelf:delete e._x_ignore})};d("ignore",yn);d("effect",A((e,{expression:t},{effect:r})=>{r(x(e,t))}));function ae(e,t,r,n){let i=e,o=c=>n(c),s={},a=(c,l)=>u=>l(c,u);if(r.includes("dot")&&(t=Ui(t)),r.includes("camel")&&(t=Wi(t)),r.includes("passive")&&(s.passive=!0),r.includes("capture")&&(s.capture=!0),r.includes("window")&&(i=window),r.includes("document")&&(i=document),r.includes("debounce")){let c=r[r.indexOf("debounce")+1]||"invalid-wait",l=tt(c.split("ms")[0])?Number(c.split("ms")[0]):250;o=Ke(o,l)}if(r.includes("throttle")){let c=r[r.indexOf("throttle")+1]||"invalid-wait",l=tt(c.split("ms")[0])?Number(c.split("ms")[0]):250;o=He(o,l)}return r.includes("prevent")&&(o=a(o,(c,l)=>{l.preventDefault(),c(l)})),r.includes("stop")&&(o=a(o,(c,l)=>{l.stopPropagation(),c(l)})),r.includes("once")&&(o=a(o,(c,l)=>{c(l),i.removeEventListener(t,o,s)})),(r.includes("away")||r.includes("outside"))&&(i=document,o=a(o,(c,l)=>{e.contains(l.target)||l.target.isConnected!==!1&&(e.offsetWidth<1&&e.offsetHeight<1||e._x_isShown!==!1&&c(l))})),r.includes("self")&&(o=a(o,(c,l)=>{l.target===e&&c(l)})),(Ji(t)||wn(t))&&(o=a(o,(c,l)=>{Yi(l,r)||c(l)})),i.addEventListener(t,o,s),()=>{i.removeEventListener(t,o,s)}}function Ui(e){return e.replace(/-/g,".")}function Wi(e){return e.toLowerCase().replace(/-(\w)/g,(t,r)=>r.toUpperCase())}function tt(e){return!Array.isArray(e)&&!isNaN(e)}function Gi(e){return[" ","_"].includes(e)?e:e.replace(/([a-z])([A-Z])/g,"$1-$2").replace(/[_\s]/,"-").toLowerCase()}function Ji(e){return["keydown","keyup"].includes(e)}function wn(e){return["contextmenu","click","mouse"].some(t=>e.includes(t))}function Yi(e,t){let r=t.filter(o=>!["window","document","prevent","stop","once","capture","self","away","outside","passive"].includes(o));if(r.includes("debounce")){let o=r.indexOf("debounce");r.splice(o,tt((r[o+1]||"invalid-wait").split("ms")[0])?2:1)}if(r.includes("throttle")){let o=r.indexOf("throttle");r.splice(o,tt((r[o+1]||"invalid-wait").split("ms")[0])?2:1)}if(r.length===0||r.length===1&&bn(e.key).includes(r[0]))return!1;let i=["ctrl","shift","alt","meta","cmd","super"].filter(o=>r.includes(o));return r=r.filter(o=>!i.includes(o)),!(i.length>0&&i.filter(s=>((s==="cmd"||s==="super")&&(s="meta"),e[`${s}Key`])).length===i.length&&(wn(e.type)||bn(e.key).includes(r[0])))}function bn(e){if(!e)return[];e=Gi(e);let t={ctrl:"control",slash:"/",space:" ",spacebar:" ",cmd:"meta",esc:"escape",up:"arrow-up",down:"arrow-down",left:"arrow-left",right:"arrow-right",period:".",comma:",",equal:"=",minus:"-",underscore:"_"};return t[e]=e,Object.keys(t).map(r=>{if(t[r]===e)return r}).filter(r=>r)}d("model",(e,{modifiers:t,expression:r},{effect:n,cleanup:i})=>{let o=e;t.includes("parent")&&(o=e.parentNode);let s=x(o,r),a;typeof r=="string"?a=x(o,`${r} = __placeholder`):typeof r=="function"&&typeof r()=="string"?a=x(o,`${r()} = __placeholder`):a=()=>{};let c=()=>{let h;return s(w=>h=w),En(h)?h.get():h},l=h=>{let w;s(F=>w=F),En(w)?w.set(h):a(()=>{},{scope:{__placeholder:h}})};typeof r=="string"&&e.type==="radio"&&m(()=>{e.hasAttribute("name")||e.setAttribute("name",r)});var u=e.tagName.toLowerCase()==="select"||["checkbox","radio"].includes(e.type)||t.includes("lazy")?"change":"input";let p=I?()=>{}:ae(e,u,t,h=>{l(Kt(e,t,h,c()))});if(t.includes("fill")&&([void 0,null,""].includes(c())||ze(e)&&Array.isArray(c())||e.tagName.toLowerCase()==="select"&&e.multiple)&&l(Kt(e,t,{target:e},c())),e._x_removeModelListeners||(e._x_removeModelListeners={}),e._x_removeModelListeners.default=p,i(()=>e._x_removeModelListeners.default()),e.form){let h=ae(e.form,"reset",[],w=>{ie(()=>e._x_model&&e._x_model.set(Kt(e,t,{target:e},c())))});i(()=>h())}e._x_model={get(){return c()},set(h){l(h)}},e._x_forceModelUpdate=h=>{h===void 0&&typeof r=="string"&&r.match(/\./)&&(h=""),window.fromModel=!0,m(()=>ge(e,"value",h)),delete window.fromModel},n(()=>{let h=c();t.includes("unintrusive")&&document.activeElement.isSameNode(e)||e._x_forceModelUpdate(h)})});function Kt(e,t,r,n){return m(()=>{if(r instanceof CustomEvent&&r.detail!==void 0)return r.detail!==null&&r.detail!==void 0?r.detail:r.target.value;if(ze(e))if(Array.isArray(n)){let i=null;return t.includes("number")?i=Ht(r.target.value):t.includes("boolean")?i=xe(r.target.value):i=r.target.value,r.target.checked?n.includes(i)?n:n.concat([i]):n.filter(o=>!Xi(o,i))}else return r.target.checked;else{if(e.tagName.toLowerCase()==="select"&&e.multiple)return t.includes("number")?Array.from(r.target.selectedOptions).map(i=>{let o=i.value||i.text;return Ht(o)}):t.includes("boolean")?Array.from(r.target.selectedOptions).map(i=>{let o=i.value||i.text;return xe(o)}):Array.from(r.target.selectedOptions).map(i=>i.value||i.text);{let i;return Ot(e)?r.target.checked?i=r.target.value:i=n:i=r.target.value,t.includes("number")?Ht(i):t.includes("boolean")?xe(i):t.includes("trim")?i.trim():i}}})}function Ht(e){let t=e?parseFloat(e):null;return Zi(t)?t:e}function Xi(e,t){return e==t}function Zi(e){return!Array.isArray(e)&&!isNaN(e)}function En(e){return e!==null&&typeof e=="object"&&typeof e.get=="function"&&typeof e.set=="function"}d("cloak",e=>queueMicrotask(()=>m(()=>e.removeAttribute(C("cloak")))));$e(()=>`[${C("init")}]`);d("init",A((e,{expression:t},{evaluate:r})=>typeof t=="string"?!!t.trim()&&r(t,{},!1):r(t,{},!1)));d("text",(e,{expression:t},{effect:r,evaluateLater:n})=>{let i=n(t);r(()=>{i(o=>{m(()=>{e.textContent=o})})})});d("html",(e,{expression:t},{effect:r,evaluateLater:n})=>{let i=n(t);r(()=>{i(o=>{m(()=>{e.innerHTML=o,e._x_ignoreSelf=!0,S(e),delete e._x_ignoreSelf})})})});ne(Pe(":",Ie(C("bind:"))));var vn=(e,{value:t,modifiers:r,expression:n,original:i},{effect:o,cleanup:s})=>{if(!t){let c={};qr(c),x(e,n)(u=>{Tt(e,u,i)},{scope:c});return}if(t==="key")return Qi(e,n);if(e._x_inlineBindings&&e._x_inlineBindings[t]&&e._x_inlineBindings[t].extract)return;let a=x(e,n);o(()=>a(c=>{c===void 0&&typeof n=="string"&&n.match(/\./)&&(c=""),m(()=>ge(e,t,c,r))})),s(()=>{e._x_undoAddedClasses&&e._x_undoAddedClasses(),e._x_undoAddedStyles&&e._x_undoAddedStyles()})};vn.inline=(e,{value:t,modifiers:r,expression:n})=>{t&&(e._x_inlineBindings||(e._x_inlineBindings={}),e._x_inlineBindings[t]={expression:n,extract:!1})};d("bind",vn);function Qi(e,t){e._x_keyExpression=t}Le(()=>`[${C("data")}]`);d("data",(e,{expression:t},{cleanup:r})=>{if(eo(e))return;t=t===""?"{}":t;let n={};fe(n,e);let i={};Gr(i,n);let o=R(e,t,{scope:i});(o===void 0||o===!0)&&(o={}),fe(o,e);let s=T(o);Te(s);let a=k(e,s);s.init&&R(e,s.init),r(()=>{s.destroy&&R(e,s.destroy),a()})});H((e,t)=>{e._x_dataStack&&(t._x_dataStack=e._x_dataStack,t.setAttribute("data-has-alpine-state",!0))});function eo(e){return I?Be?!0:e.hasAttribute("data-has-alpine-state"):!1}d("show",(e,{modifiers:t,expression:r},{effect:n})=>{let i=x(e,r);e._x_doHide||(e._x_doHide=()=>{m(()=>{e.style.setProperty("display","none",t.includes("important")?"important":void 0)})}),e._x_doShow||(e._x_doShow=()=>{m(()=>{e.style.length===1&&e.style.display==="none"?e.removeAttribute("style"):e.style.removeProperty("display")})});let o=()=>{e._x_doHide(),e._x_isShown=!1},s=()=>{e._x_doShow(),e._x_isShown=!0},a=()=>setTimeout(s),c=he(p=>p?s():o(),p=>{typeof e._x_toggleAndCascadeWithTransitions=="function"?e._x_toggleAndCascadeWithTransitions(e,p,s,o):p?a():o()}),l,u=!0;n(()=>i(p=>{!u&&p===l||(t.includes("immediate")&&(p?a():o()),c(p),l=p,u=!1)}))});d("for",(e,{expression:t},{effect:r,cleanup:n})=>{let i=ro(t),o=x(e,i.items),s=x(e,e._x_keyExpression||"index");e._x_prevKeys=[],e._x_lookup={},r(()=>to(e,i,o,s)),n(()=>{Object.values(e._x_lookup).forEach(a=>m(()=>{P(a),a.remove()})),delete e._x_prevKeys,delete e._x_lookup})});function to(e,t,r,n){let i=s=>typeof s=="object"&&!Array.isArray(s),o=e;r(s=>{no(s)&&s>=0&&(s=Array.from(Array(s).keys(),f=>f+1)),s===void 0&&(s=[]);let a=e._x_lookup,c=e._x_prevKeys,l=[],u=[];if(i(s))s=Object.entries(s).map(([f,g])=>{let b=Sn(t,g,f,s);n(v=>{u.includes(v)&&E("Duplicate key on x-for",e),u.push(v)},{scope:{index:f,...b}}),l.push(b)});else for(let f=0;f<s.length;f++){let g=Sn(t,s[f],f,s);n(b=>{u.includes(b)&&E("Duplicate key on x-for",e),u.push(b)},{scope:{index:f,...g}}),l.push(g)}let p=[],h=[],w=[],F=[];for(let f=0;f<c.length;f++){let g=c[f];u.indexOf(g)===-1&&w.push(g)}c=c.filter(f=>!w.includes(f));let Ee="template";for(let f=0;f<u.length;f++){let g=u[f],b=c.indexOf(g);if(b===-1)c.splice(f,0,g),p.push([Ee,f]);else if(b!==f){let v=c.splice(f,1)[0],O=c.splice(b-1,1)[0];c.splice(f,0,O),c.splice(b,0,v),h.push([v,O])}else F.push(g);Ee=g}for(let f=0;f<w.length;f++){let g=w[f];g in a&&(m(()=>{P(a[g]),a[g].remove()}),delete a[g])}for(let f=0;f<h.length;f++){let[g,b]=h[f],v=a[g],O=a[b],ee=document.createElement("div");m(()=>{O||E('x-for ":key" is undefined or invalid',o,b,a),O.after(ee),v.after(O),O._x_currentIfEl&&O.after(O._x_currentIfEl),ee.before(v),v._x_currentIfEl&&v.after(v._x_currentIfEl),ee.remove()}),O._x_refreshXForScope(l[u.indexOf(b)])}for(let f=0;f<p.length;f++){let[g,b]=p[f],v=g==="template"?o:a[g];v._x_currentIfEl&&(v=v._x_currentIfEl);let O=l[b],ee=u[b],ce=document.importNode(o.content,!0).firstElementChild,qt=T(O);k(ce,qt,o),ce._x_refreshXForScope=On=>{Object.entries(On).forEach(([Cn,Tn])=>{qt[Cn]=Tn})},m(()=>{v.after(ce),A(()=>S(ce))()}),typeof ee=="object"&&E("x-for key cannot be an object, it must be a string or an integer",o),a[ee]=ce}for(let f=0;f<F.length;f++)a[F[f]]._x_refreshXForScope(l[u.indexOf(F[f])]);o._x_prevKeys=u})}function ro(e){let t=/,([^,\}\]]*)(?:,([^,\}\]]*))?$/,r=/^\s*\(|\)\s*$/g,n=/([\s\S]*?)\s+(?:in|of)\s+([\s\S]*)/,i=e.match(n);if(!i)return;let o={};o.items=i[2].trim();let s=i[1].replace(r,"").trim(),a=s.match(t);return a?(o.item=s.replace(t,"").trim(),o.index=a[1].trim(),a[2]&&(o.collection=a[2].trim())):o.item=s,o}function Sn(e,t,r,n){let i={};return/^\[.*\]$/.test(e.item)&&Array.isArray(t)?e.item.replace("[","").replace("]","").split(",").map(s=>s.trim()).forEach((s,a)=>{i[s]=t[a]}):/^\{.*\}$/.test(e.item)&&!Array.isArray(t)&&typeof t=="object"?e.item.replace("{","").replace("}","").split(",").map(s=>s.trim()).forEach(s=>{i[s]=t[s]}):i[e.item]=t,e.index&&(i[e.index]=r),e.collection&&(i[e.collection]=n),i}function no(e){return!Array.isArray(e)&&!isNaN(e)}function An(){}An.inline=(e,{expression:t},{cleanup:r})=>{let n=Y(e);n._x_refs||(n._x_refs={}),n._x_refs[t]=e,r(()=>delete n._x_refs[t])};d("ref",An);d("if",(e,{expression:t},{effect:r,cleanup:n})=>{e.tagName.toLowerCase()!=="template"&&E("x-if can only be used on a <template> tag",e);let i=x(e,t),o=()=>{if(e._x_currentIfEl)return e._x_currentIfEl;let a=e.content.cloneNode(!0).firstElementChild;return k(a,{},e),m(()=>{e.after(a),A(()=>S(a))()}),e._x_currentIfEl=a,e._x_undoIf=()=>{m(()=>{P(a),a.remove()}),delete e._x_currentIfEl},a},s=()=>{e._x_undoIf&&(e._x_undoIf(),delete e._x_undoIf)};r(()=>i(a=>{a?o():s()})),n(()=>e._x_undoIf&&e._x_undoIf())});d("id",(e,{expression:t},{evaluate:r})=>{r(t).forEach(i=>_n(e,i))});H((e,t)=>{e._x_ids&&(t._x_ids=e._x_ids)});ne(Pe("@",Ie(C("on:"))));d("on",A((e,{value:t,modifiers:r,expression:n},{cleanup:i})=>{let o=n?x(e,n):()=>{};e.tagName.toLowerCase()==="template"&&(e._x_forwardEvents||(e._x_forwardEvents=[]),e._x_forwardEvents.includes(t)||e._x_forwardEvents.push(t));let s=ae(e,t,r,a=>{o(()=>{},{scope:{$event:a},params:[a]})});i(()=>s())}));rt("Collapse","collapse","collapse");rt("Intersect","intersect","intersect");rt("Focus","trap","focus");rt("Mask","mask","mask");function rt(e,t,r){d(t,n=>E(`You can't use [x-${t}] without first installing the "${e}" plugin here: https://alpinejs.dev/plugins/${r}`,n))}K.setEvaluator(xt);K.setReactivityEngine({reactive:et,effect:rn,release:nn,raw:_});var Vt=K;window.Alpine=Vt;queueMicrotask(()=>{Vt.start()});})();
+</script>
+</body>
+</html>

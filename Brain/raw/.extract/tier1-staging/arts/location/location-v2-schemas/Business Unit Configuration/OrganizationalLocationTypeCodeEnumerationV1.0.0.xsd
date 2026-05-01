@@ -1,0 +1,53 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<xs:schema xmlns:xs="http://www.w3.org/2001/XMLSchema" elementFormDefault="qualified" attributeFormDefault="unqualified">
+	<xs:include schemaLocation="IXREnumerationExtensionV1.1.0.xsd"/>
+	<!--
+		Store Locations types
+	-->
+	<xs:simpleType name="OrganizationalLocationTypeCode">
+		<xs:union memberTypes="OrganizationalLocationTypeCodeEnumeration TypeCodeExtension"/>
+	</xs:simpleType>
+	<xs:simpleType name="OrganizationalLocationTypeCodeEnumeration">
+		<xs:restriction base="xs:NMTOKEN">
+			<xs:enumeration value="AdministrationCenter"/>
+			<xs:enumeration value="Aisle"/>
+			<xs:enumeration value="Bay"/>
+			<xs:enumeration value="Brand"/>
+			<xs:enumeration value="Category"/>
+			<xs:enumeration value="SubCategory"/>
+			<xs:enumeration value="Chest"/>
+			<xs:enumeration value="MajorClass"/>
+			<xs:enumeration value="Class"/>
+			<xs:enumeration value="SubClass"/>
+			<xs:enumeration value="Counter"/>
+			<xs:enumeration value="MajorDepartment"/>
+			<xs:enumeration value="Department"/>
+			<xs:enumeration value="SubDepartment"/>
+			<xs:enumeration value="Desk"/>
+			<xs:enumeration value="Device"/>
+			<xs:enumeration value="DistributionCenter"/>
+			<xs:enumeration value="District"/>
+			<xs:enumeration value="Division"/>
+			<xs:enumeration value="Dock"/>
+			<xs:enumeration value="Fixture"/>
+			<xs:enumeration value="Floor"/>
+			<xs:enumeration value="Gondola"/>
+			<xs:enumeration value="Group"/>
+			<xs:enumeration value="SubGroup"/>
+			<xs:enumeration value="Item"/>
+			<xs:enumeration value="Level"/>
+			<xs:enumeration value="Pallet"/>
+			<xs:enumeration value="Peg"/>
+			<xs:enumeration value="Planogram"/>
+			<xs:enumeration value="PointOfPurchaseMaterial"/>
+			<xs:enumeration value="Room"/>
+			<xs:enumeration value="Restroom"/>
+			<xs:enumeration value="Region"/>
+			<xs:enumeration value="RetailStore"/>
+			<xs:enumeration value="Shelf"/>
+			<xs:enumeration value="WebSite"/>
+			<xs:enumeration value="Workstation"/>
+			<xs:enumeration value="Zone"/>
+		</xs:restriction>
+	</xs:simpleType>
+</xs:schema>

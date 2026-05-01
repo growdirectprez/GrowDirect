@@ -1,0 +1,164 @@
+[
+  {
+    "source_path": "/Users/gclyle/GrowDirect/Brain/raw/.extract/tier1-staging/arts/inventory/ARTS XML Inventory Charter.pdf",
+    "source_sha256": "c1f2b35f4ad14035631159f062ae120e6cbf0ec6ff918ba8ebb74cc271c8f6a6",
+    "target_path": "/Users/gclyle/GrowDirect/Brain/raw/.extract/tier1-md/arts/inventory/ARTS XML Inventory Charter.pdf.md",
+    "method": "markitdown",
+    "status": "ok",
+    "error": null,
+    "extracted_at": "2026-05-01T04:25:10.934505+00:00"
+  },
+  {
+    "source_path": "/Users/gclyle/GrowDirect/Brain/raw/.extract/tier1-staging/arts/inventory/CR IXRetail Inventory Technical Specification V1.0 20050813.pdf",
+    "source_sha256": "b1e65aab0ece9acaeca7a2b9a4f65e2c65f357ec5d227564108bf3c879b6956c",
+    "target_path": "/Users/gclyle/GrowDirect/Brain/raw/.extract/tier1-md/arts/inventory/CR IXRetail Inventory Technical Specification V1.0 20050813.pdf.md",
+    "method": "markitdown",
+    "status": "ok",
+    "error": null,
+    "extracted_at": "2026-05-01T04:25:12.094700+00:00"
+  },
+  {
+    "source_path": "/Users/gclyle/GrowDirect/Brain/raw/.extract/tier1-staging/arts/item-maintenance/ARTS XML Item Maintenance Charter.pdf",
+    "source_sha256": "d16e0bd8597e7715cff8bb1911f9e23782237d23dda2719a38d4c91b350a8aea",
+    "target_path": "/Users/gclyle/GrowDirect/Brain/raw/.extract/tier1-md/arts/item-maintenance/ARTS XML Item Maintenance Charter.pdf.md",
+    "method": "markitdown",
+    "status": "ok",
+    "error": null,
+    "extracted_at": "2026-05-01T04:25:17.382266+00:00"
+  },
+  {
+    "source_path": "/Users/gclyle/GrowDirect/Brain/raw/.extract/tier1-staging/arts/item-maintenance/ARTSItemMaintenance_TechSpec_1.3.2/CR ARTS XML Item Maintenance Technical Specification V1.3.2 20131223.pdf",
+    "source_sha256": "f1ab7741bc47dd2a89235c022f3a345e7b1d0801a9fd83be1378f31364213caa",
+    "target_path": "/Users/gclyle/GrowDirect/Brain/raw/.extract/tier1-md/arts/item-maintenance/ARTSItemMaintenance_TechSpec_1.3.2/CR ARTS XML Item Maintenance Technical Specification V1.3.2 20131223.pdf.md",
+    "method": "markitdown",
+    "status": "ok",
+    "error": null,
+    "extracted_at": "2026-05-01T04:25:17.541714+00:00"
+  },
+  {
+    "source_path": "/Users/gclyle/GrowDirect/Brain/raw/.extract/tier1-staging/arts/item-maintenance/ARTSItemMaintenance_TechSpec_1.3.2/CR Item Maintenance Domain Model V1.3.2 20131223.pdf",
+    "source_sha256": "9148717c5d82afdae6bed75b493d7be3f65c7705c7ecaeb0dae9491403385016",
+    "target_path": "/Users/gclyle/GrowDirect/Brain/raw/.extract/tier1-md/arts/item-maintenance/ARTSItemMaintenance_TechSpec_1.3.2/CR Item Maintenance Domain Model V1.3.2 20131223.pdf.md",
+    "method": "markitdown",
+    "status": "ok",
+    "error": null,
+    "extracted_at": "2026-05-01T04:25:27.474733+00:00"
+  },
+  {
+    "source_path": "/Users/gclyle/GrowDirect/Brain/raw/.extract/tier1-staging/arts/location/ARTS_LocationV2_Charter_20160202.pdf",
+    "source_sha256": "4c965b9dadaf6d2eae69793535cfec6e2692778e67a8de800504cf398be605c3",
+    "target_path": "/Users/gclyle/GrowDirect/Brain/raw/.extract/tier1-md/arts/location/ARTS_LocationV2_Charter_20160202.pdf.md",
+    "method": "markitdown",
+    "status": "ok",
+    "error": null,
+    "extracted_at": "2026-05-01T04:25:27.767924+00:00"
+  },
+  {
+    "source_path": "/Users/gclyle/GrowDirect/Brain/raw/.extract/tier1-staging/arts/location/CR_ARTS_Location_Technical_Specification_V2.0.0_20170301_final.pdf",
+    "source_sha256": "46083e479e9506b5a11dfa713e92600d9edd6211844bb1ad728a624ac03b048b",
+    "target_path": "/Users/gclyle/GrowDirect/Brain/raw/.extract/tier1-md/arts/location/CR_ARTS_Location_Technical_Specification_V2.0.0_20170301_final.pdf.md",
+    "method": "markitdown",
+    "status": "ok",
+    "error": null,
+    "extracted_at": "2026-05-01T04:25:28.545851+00:00"
+  },
+  {
+    "source_path": "/Users/gclyle/GrowDirect/Brain/raw/.extract/tier1-staging/arts/location/LCWD ARTS Planogram Domain Model V2.0.0 20170207.pdf",
+    "source_sha256": "0b2d7cdf18538a3b2a38ae6723c3442599b6c12ebbd8de97e2bf0133c3d4f3be",
+    "target_path": "/Users/gclyle/GrowDirect/Brain/raw/.extract/tier1-md/arts/location/LCWD ARTS Planogram Domain Model V2.0.0 20170207.pdf.md",
+    "method": "markitdown",
+    "status": "ok",
+    "error": null,
+    "extracted_at": "2026-05-01T04:25:36.892178+00:00"
+  },
+  {
+    "source_path": "/Users/gclyle/GrowDirect/Brain/raw/.extract/tier1-staging/gslm/GSLM Controls and Parameters Overview.doc",
+    "source_sha256": "639786a345a6616b615c3453bd3c1b91e641c2eaa0c03188193033ce791882c8",
+    "target_path": "/Users/gclyle/GrowDirect/Brain/raw/.extract/tier1-md/gslm/GSLM Controls and Parameters Overview.doc.md",
+    "method": "textutil",
+    "status": "ok",
+    "error": null,
+    "extracted_at": "2026-05-01T04:25:37.106838+00:00"
+  },
+  {
+    "source_path": "/Users/gclyle/GrowDirect/Brain/raw/.extract/tier1-staging/gslm/GSLM Customer Overview.doc",
+    "source_sha256": "b5d81d16cd168cbe6765fc3cf0710e86807ca39e63c85ef9352389e037c47fc0",
+    "target_path": "/Users/gclyle/GrowDirect/Brain/raw/.extract/tier1-md/gslm/GSLM Customer Overview.doc.md",
+    "method": "textutil",
+    "status": "ok",
+    "error": null,
+    "extracted_at": "2026-05-01T04:25:37.186350+00:00"
+  },
+  {
+    "source_path": "/Users/gclyle/GrowDirect/Brain/raw/.extract/tier1-staging/gslm/GSLM Entity Descriptions.docx",
+    "source_sha256": "f43d6c13be43cbbc46aa1db98957a42b42b216b06be331269a64b705fbf1c006",
+    "target_path": "/Users/gclyle/GrowDirect/Brain/raw/.extract/tier1-md/gslm/GSLM Entity Descriptions.docx.md",
+    "method": "markitdown",
+    "status": "ok",
+    "error": null,
+    "extracted_at": "2026-05-01T04:25:37.242514+00:00"
+  },
+  {
+    "source_path": "/Users/gclyle/GrowDirect/Brain/raw/.extract/tier1-staging/gslm/GSLM Finance Overview.doc",
+    "source_sha256": "441b7f76b532201a5a9792bbfb6dc960bff3a8446375a659f97286f2600f30fe",
+    "target_path": "/Users/gclyle/GrowDirect/Brain/raw/.extract/tier1-md/gslm/GSLM Finance Overview.doc.md",
+    "method": "textutil",
+    "status": "ok",
+    "error": null,
+    "extracted_at": "2026-05-01T04:25:37.334882+00:00"
+  },
+  {
+    "source_path": "/Users/gclyle/GrowDirect/Brain/raw/.extract/tier1-staging/gslm/GSLM Item Overview.doc",
+    "source_sha256": "2c450357af955b81d5cb64ab59bc6bce570422386e6d69f07edad1ff520e98a6",
+    "target_path": "/Users/gclyle/GrowDirect/Brain/raw/.extract/tier1-md/gslm/GSLM Item Overview.doc.md",
+    "method": "textutil",
+    "status": "ok",
+    "error": null,
+    "extracted_at": "2026-05-01T04:25:37.392637+00:00"
+  },
+  {
+    "source_path": "/Users/gclyle/GrowDirect/Brain/raw/.extract/tier1-staging/gslm/GSLM Location Overview.doc",
+    "source_sha256": "af75df4169909dc49d865429f2f8a190249a69d9bcf6200d3f26a8898b0a2af8",
+    "target_path": "/Users/gclyle/GrowDirect/Brain/raw/.extract/tier1-md/gslm/GSLM Location Overview.doc.md",
+    "method": "textutil",
+    "status": "ok",
+    "error": null,
+    "extracted_at": "2026-05-01T04:25:37.451918+00:00"
+  },
+  {
+    "source_path": "/Users/gclyle/GrowDirect/Brain/raw/.extract/tier1-staging/gslm/GSLM People Overview.doc",
+    "source_sha256": "45bbfab85c65b32cec4cbfedf0110d696c518c63ca661ef7a78232e19774c00b",
+    "target_path": "/Users/gclyle/GrowDirect/Brain/raw/.extract/tier1-md/gslm/GSLM People Overview.doc.md",
+    "method": "textutil",
+    "status": "ok",
+    "error": null,
+    "extracted_at": "2026-05-01T04:25:37.519268+00:00"
+  },
+  {
+    "source_path": "/Users/gclyle/GrowDirect/Brain/raw/.extract/tier1-staging/gslm/GSLM Price and Promotion Overview.doc",
+    "source_sha256": "85e5b6503f20afc3e73b7dd7ed210b28591c45de4333f966c3d0cbac023f902a",
+    "target_path": "/Users/gclyle/GrowDirect/Brain/raw/.extract/tier1-md/gslm/GSLM Price and Promotion Overview.doc.md",
+    "method": "textutil",
+    "status": "ok",
+    "error": null,
+    "extracted_at": "2026-05-01T04:25:37.584224+00:00"
+  },
+  {
+    "source_path": "/Users/gclyle/GrowDirect/Brain/raw/.extract/tier1-staging/gslm/GSLM Space Planning Overview.doc",
+    "source_sha256": "6f8855b66ea50d1f7f5c1907e6b33e62d8aacaeed587933751f8954853ea47ae",
+    "target_path": "/Users/gclyle/GrowDirect/Brain/raw/.extract/tier1-md/gslm/GSLM Space Planning Overview.doc.md",
+    "method": "textutil",
+    "status": "ok",
+    "error": null,
+    "extracted_at": "2026-05-01T04:25:37.640065+00:00"
+  },
+  {
+    "source_path": "/Users/gclyle/GrowDirect/Brain/raw/.extract/tier1-staging/gslm/GSLM Supply Chain Overview.doc",
+    "source_sha256": "57a32fd9648709b2b659f6f856155564a7a9a048adc87ffb250892a68eda3e85",
+    "target_path": "/Users/gclyle/GrowDirect/Brain/raw/.extract/tier1-md/gslm/GSLM Supply Chain Overview.doc.md",
+    "method": "textutil",
+    "status": "ok",
+    "error": null,
+    "extracted_at": "2026-05-01T04:25:37.700695+00:00"
+  }
+]

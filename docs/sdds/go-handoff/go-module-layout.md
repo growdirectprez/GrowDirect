@@ -65,6 +65,7 @@ GrowDirect-RapidPOS/
 │   ├── store-network-integrity/  main.go     # :9088  Multi-store cross-location anomaly detection
 │   ├── commercial/               main.go     # :9089  Vendor relationship layer — finance, rebates, chargebacks
 │   ├── l402-otb/                 main.go     # :9090  L402-gated open-to-buy budget enforcement
+│   ├── compliance/               main.go     # :9091  Item authorization × regulatory zone × operational blocks
 │   │
 │   └── edge/       main.go     # (no port) Counterpoint poller — deploys on-prem
 │
@@ -129,6 +130,7 @@ The 9080–9099 block is reserved for services that extend the original 13-modul
 | 9088 | store-network-integrity | Multi-store cross-location anomaly detection |
 | 9089 | commercial | Vendor relationship layer — finance, rebates, chargebacks, deductions |
 | 9090 | l402-otb | L402-gated open-to-buy budget enforcement |
+| 9091 | compliance | Item authorization × regulatory zone × operational blocks |
 
 > **Reconciliation note (2026-04-29):** The extended-block services were initially drafted with port assignments overlapping the 8080–8098 spine. The 9080+ block is the canonical assignment. SDD frontmatter and inline binary references have been aligned to this table.
 

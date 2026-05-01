@@ -1,0 +1,29 @@
+[
+  {
+    "source_path": "/Users/gclyle/GrowDirect/Brain/raw/inbox/EBiz Def Des Dev/Sample Web Impl Guide Def.doc",
+    "source_sha256": "b2a0108a9f946d3c99c5941d406a96158bac681accf47fe15fc942c53dc43252",
+    "target_path": "/Users/gclyle/GrowDirect/Brain/raw/.extract/EBiz Def Des Dev/Sample Web Impl Guide Def.doc.md",
+    "method": "textutil",
+    "status": "ok",
+    "error": null,
+    "extracted_at": "2026-04-24T21:43:46.724902+00:00"
+  },
+  {
+    "source_path": "/Users/gclyle/GrowDirect/Brain/raw/inbox/EBiz Def Des Dev/Sample Web Impl Guide Des.doc",
+    "source_sha256": "41a8578adb0f5ebc8f1998b71310ae218ebc7f5782f3159e4346d6449b0dbc66",
+    "target_path": "/Users/gclyle/GrowDirect/Brain/raw/.extract/EBiz Def Des Dev/Sample Web Impl Guide Des.doc.md",
+    "method": "textutil",
+    "status": "ok",
+    "error": null,
+    "extracted_at": "2026-04-24T21:43:47.239400+00:00"
+  },
+  {
+    "source_path": "/Users/gclyle/GrowDirect/Brain/raw/inbox/EBiz Def Des Dev/Sample Web Impl Guide Dev.doc",
+    "source_sha256": "013e43c7196b4df2c2018294fb87dfeb3821f678cf6be86643ea69a974c8c9e6",
+    "target_path": "/Users/gclyle/GrowDirect/Brain/raw/.extract/EBiz Def Des Dev/Sample Web Impl Guide Dev.doc.md",
+    "method": "textutil",
+    "status": "ok",
+    "error": null,
+    "extracted_at": "2026-04-24T21:43:47.349600+00:00"
+  }
+]

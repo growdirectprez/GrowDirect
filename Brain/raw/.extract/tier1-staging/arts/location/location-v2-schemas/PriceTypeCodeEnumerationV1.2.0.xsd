@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<xs:schema xmlns:xs="http://www.w3.org/2001/XMLSchema" elementFormDefault="qualified" attributeFormDefault="unqualified">
+	<!-- Minor Release V1.1.0
+	- Added MAPPrice and VolumeDiscountPrice
+-->
+	<xs:include schemaLocation="IXREnumerationExtensionV1.1.0.xsd"/>
+	<!--
+		Enumerated type for Price Type attribute
+UnitCostPrice - The weighted average cost for each retail sale unit of this item. The weighted average cost is updated each time a shipment of this item is received
+UnitListPrice - The suggested sale unit retail price provided by the items manufacturer. Alternate names - list price, manufacturer recommended price, MSRP, Manufacturer Unit Price, Unit List Price.
+RegularSalesUnitPrice - The sale unit monetary value of the item which is the original retail minus permanent markdowns taken against this item.
+InventoryValuePrice - The monetary value of the units present at the beginning of the accounting period.
+SuggestedRetailPrice - EAN.UCC Definition: The retail (to consumer) price as suggested by the manufacturer. This is normally used to establish a proposed value for the trade item for marketing purposes. May or may not appear on the package. May be used as a guideline by the retailer to establish their actual retail price.
+MAPPrice - Minimum Advertised Price as determined by the Manufacturer.
+VolumeDIscountPrice - Discounted price based on certain minimum purchase volume.
+BidPrice - A price value that certain Comparison Shopping Engines (CSE) will use to purchase a better position o fhte product on the CSE site.
+	-->
+	<xs:simpleType name="PriceTypeCode">
+		<xs:union memberTypes="PriceTypeCodeEnumeration TypeCodeExtension"/>
+	</xs:simpleType>
+	<xs:simpleType name="PriceTypeCodeEnumeration">
+		<xs:restriction base="xs:NMTOKEN">
+			<xs:enumeration value="BidPrice"/>
+			<xs:enumeration value="InventoryValuePrice"/>
+			<xs:enumeration value="MAPPrice"/>
+			<xs:enumeration value="RegularSalesUnitPrice"/>
+			<xs:enumeration value="SuggestedRetailPrice"/>
+			<xs:enumeration value="UnitCostPrice"/>
+			<xs:enumeration value="UnitListPrice"/>
+			<xs:enumeration value="VolumeDiscountPrice"/>
+		</xs:restriction>
+	</xs:simpleType>
+</xs:schema>

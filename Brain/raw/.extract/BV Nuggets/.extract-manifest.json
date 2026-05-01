@@ -1,0 +1,56 @@
+[
+  {
+    "source_path": "/Users/gclyle/GrowDirect/Brain/raw/inbox/BV Nuggets/00-01-29 Sizing a BroadVision Site.ppt",
+    "source_sha256": "a4431af65320a87f69ba97aea1ff38623f1234a78e825c8b6c1fe2107df878ab",
+    "target_path": "/Users/gclyle/GrowDirect/Brain/raw/.extract/BV Nuggets/00-01-29 Sizing a BroadVision Site.ppt.md",
+    "method": null,
+    "status": "failed",
+    "error": "markitdown: UnsupportedFormatException: Could not convert stream to Markdown. No converter attempted a conversion, suggesting that the filetype is simply not supported.",
+    "extracted_at": "2026-04-24T21:43:42.964011+00:00"
+  },
+  {
+    "source_path": "/Users/gclyle/GrowDirect/Brain/raw/inbox/BV Nuggets/BV Lessons Learned and Best Practices.doc",
+    "source_sha256": "8f464aab4c2ee9f65bf805f16a887f26b52f414fec91795d1ee3f63996382065",
+    "target_path": "/Users/gclyle/GrowDirect/Brain/raw/.extract/BV Nuggets/BV Lessons Learned and Best Practices.doc.md",
+    "method": "textutil",
+    "status": "ok",
+    "error": null,
+    "extracted_at": "2026-04-24T21:43:43.516275+00:00"
+  },
+  {
+    "source_path": "/Users/gclyle/GrowDirect/Brain/raw/inbox/BV Nuggets/Fulfillment & outsourcing options.ppt",
+    "source_sha256": "2bf0152e10342a7f230568b7f4a7b27e91d58b01f7ae388f18fdfd2bba405a23",
+    "target_path": "/Users/gclyle/GrowDirect/Brain/raw/.extract/BV Nuggets/Fulfillment & outsourcing options.ppt.md",
+    "method": null,
+    "status": "failed",
+    "error": "markitdown: UnsupportedFormatException: Could not convert stream to Markdown. No converter attempted a conversion, suggesting that the filetype is simply not supported.",
+    "extracted_at": "2026-04-24T21:43:43.576998+00:00"
+  },
+  {
+    "source_path": "/Users/gclyle/GrowDirect/Brain/raw/inbox/BV Nuggets/Vignette compete.doc",
+    "source_sha256": "1c357b1769c314122656fdfc96a5ce0ece5ea84e74bfa1d5d6c7d889da238759",
+    "target_path": "/Users/gclyle/GrowDirect/Brain/raw/.extract/BV Nuggets/Vignette compete.doc.md",
+    "method": "textutil",
+    "status": "ok",
+    "error": null,
+    "extracted_at": "2026-04-24T21:43:43.585392+00:00"
+  },
+  {
+    "source_path": "/Users/gclyle/GrowDirect/Brain/raw/inbox/BV Nuggets/Vignette vs Broadvision.xls",
+    "source_sha256": "6b9b6bcd8315c454b261ee8d56e44c6b966e6c3536d9f5b702a7610463a6032d",
+    "target_path": "/Users/gclyle/GrowDirect/Brain/raw/.extract/BV Nuggets/Vignette vs Broadvision.xls.md",
+    "method": "markitdown",
+    "status": "ok",
+    "error": null,
+    "extracted_at": "2026-04-24T21:43:43.642579+00:00"
+  },
+  {
+    "source_path": "/Users/gclyle/GrowDirect/Brain/raw/inbox/BV Nuggets/creativegood-guide.pdf",
+    "source_sha256": "84dac72d1d4d117fd818008b656bc5d2198a57fed9c7c5ad361199f9634a39cf",
+    "target_path": "/Users/gclyle/GrowDirect/Brain/raw/.extract/BV Nuggets/creativegood-guide.pdf.md",
+    "method": "markitdown",
+    "status": "ok",
+    "error": null,
+    "extracted_at": "2026-04-24T21:43:43.668044+00:00"
+  }
+]

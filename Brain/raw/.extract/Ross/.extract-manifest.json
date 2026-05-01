@@ -1,0 +1,83 @@
+[
+  {
+    "source_path": "/Users/gclyle/GrowDirect/Brain/raw/.extract/Ross/Ross Interface Groups.xlsx",
+    "source_sha256": "9940f05029400043077d382a70210712bbb6ff18d529dc42845560b17437439b",
+    "target_path": "/Users/gclyle/GrowDirect/Brain/raw/.extract/Ross/Ross Interface Groups.xlsx.md",
+    "method": "markitdown",
+    "status": "ok",
+    "error": null,
+    "extracted_at": "2026-05-01T04:52:49.279172+00:00"
+  },
+  {
+    "source_path": "/Users/gclyle/GrowDirect/Brain/raw/.extract/Ross/Technical_Design_RTI_Hub_To_Source_Transfer_v2.doc",
+    "source_sha256": "bdb77b4fa47d1ec24732d692b4864c268f21e9dc0e888c87be57393b0c35b147",
+    "target_path": "/Users/gclyle/GrowDirect/Brain/raw/.extract/Ross/Technical_Design_RTI_Hub_To_Source_Transfer_v2.doc.md",
+    "method": "textutil",
+    "status": "ok",
+    "error": null,
+    "extracted_at": "2026-05-01T04:52:50.134742+00:00"
+  },
+  {
+    "source_path": "/Users/gclyle/GrowDirect/Brain/raw/.extract/Ross/Technical_Design_RTI_Hub_To_Store_Transfer v3.doc",
+    "source_sha256": "03ab06e73a4e081db290a9cc0936ab937182741cfe5d5dd0eb4dcc1d50e93288",
+    "target_path": "/Users/gclyle/GrowDirect/Brain/raw/.extract/Ross/Technical_Design_RTI_Hub_To_Store_Transfer v3.doc.md",
+    "method": "textutil",
+    "status": "ok",
+    "error": null,
+    "extracted_at": "2026-05-01T04:52:50.243082+00:00"
+  },
+  {
+    "source_path": "/Users/gclyle/GrowDirect/Brain/raw/.extract/Ross/Technical_Design_RTI_Source_To_Hub_Transfer_v3.doc",
+    "source_sha256": "75bbdde1e601a58800c481d2c1bb5fd534639dae5176099a3eb7b0f17e6c99fb",
+    "target_path": "/Users/gclyle/GrowDirect/Brain/raw/.extract/Ross/Technical_Design_RTI_Source_To_Hub_Transfer_v3.doc.md",
+    "method": "textutil",
+    "status": "ok",
+    "error": null,
+    "extracted_at": "2026-05-01T04:52:50.311453+00:00"
+  },
+  {
+    "source_path": "/Users/gclyle/GrowDirect/Brain/raw/.extract/Ross/Technical_Design_RTI_Store_to_Hub_Transfer v2.doc",
+    "source_sha256": "8179879c93743375fa7098f56b50b243179e525b51a5c7c103742325a860a6f5",
+    "target_path": "/Users/gclyle/GrowDirect/Brain/raw/.extract/Ross/Technical_Design_RTI_Store_to_Hub_Transfer v2.doc.md",
+    "method": "textutil",
+    "status": "ok",
+    "error": null,
+    "extracted_at": "2026-05-01T04:52:50.374044+00:00"
+  },
+  {
+    "source_path": "/Users/gclyle/GrowDirect/Brain/raw/.extract/Ross/Technical_Design_Ross_Alerts_and_Monitors_v3.doc",
+    "source_sha256": "16548babe63da611ac13d12bb079fd1a603ed9f4423576985592e00eb6c9fcb3",
+    "target_path": "/Users/gclyle/GrowDirect/Brain/raw/.extract/Ross/Technical_Design_Ross_Alerts_and_Monitors_v3.doc.md",
+    "method": "textutil",
+    "status": "ok",
+    "error": null,
+    "extracted_at": "2026-05-01T04:52:50.439231+00:00"
+  },
+  {
+    "source_path": "/Users/gclyle/GrowDirect/Brain/raw/.extract/Ross/Technical_Design_Ross_Alerts_and_Monitors_v_loose.doc",
+    "source_sha256": "a2dab598a68add70a8d92a89913599b0bab24585dd309e921b1d670091405149",
+    "target_path": "/Users/gclyle/GrowDirect/Brain/raw/.extract/Ross/Technical_Design_Ross_Alerts_and_Monitors_v_loose.doc.md",
+    "method": "textutil",
+    "status": "ok",
+    "error": null,
+    "extracted_at": "2026-05-01T04:52:50.504683+00:00"
+  },
+  {
+    "source_path": "/Users/gclyle/GrowDirect/Brain/raw/.extract/Ross/Technical_Design_Ross_File_Transfer_Solution_Overview_v6.doc",
+    "source_sha256": "9884d1dc46b46cdc766ca042a7362196c1a6ee1962c440525f6c9979535df307",
+    "target_path": "/Users/gclyle/GrowDirect/Brain/raw/.extract/Ross/Technical_Design_Ross_File_Transfer_Solution_Overview_v6.doc.md",
+    "method": "textutil",
+    "status": "ok",
+    "error": null,
+    "extracted_at": "2026-05-01T04:52:50.573078+00:00"
+  },
+  {
+    "source_path": "/Users/gclyle/GrowDirect/Brain/raw/.extract/Ross/Technical_Design_Ross_File_Transfer_Solution_Overview_v6_loose.doc",
+    "source_sha256": "03421519130729a28fbaee121ccc22a6c1776be55626fae84bd890d5ce31161b",
+    "target_path": "/Users/gclyle/GrowDirect/Brain/raw/.extract/Ross/Technical_Design_Ross_File_Transfer_Solution_Overview_v6_loose.doc.md",
+    "method": "textutil",
+    "status": "ok",
+    "error": null,
+    "extracted_at": "2026-05-01T04:52:50.653633+00:00"
+  }
+]

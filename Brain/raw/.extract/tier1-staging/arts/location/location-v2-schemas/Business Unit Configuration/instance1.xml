@@ -1,0 +1,237 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<BusinessUnitConfiguration xmlns="http://www.nrf-arts.org/IXRetail/namespace/"
+ xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+ xsi:schemaLocation="http://www.nrf-arts.org/IXRetail/namespace/ file:/C:/ARTS/ARTS%20Products/Location/V2.0.0/Schema/Business%20Unit%20Configuration/BusinessUnitConfigurationV1.0.0.xsd" MajorVersion="1" MinorVersion="0" FixVersion="0">
+    <ARTSHeader ActionCode="Add" MessageType="Request">
+        <MessageID Name="Name1" Timestamp="2006-05-04T18:13:51.0">MessageID0</MessageID>
+        <DateTime TypeCode="Message">2006-05-04T18:13:51.0</DateTime>
+        <Description Language="eng" TypeCode="Short">Description0</Description>
+        <Response ResponseCode="OK">
+            <RequestID>RequestID0</RequestID>
+            <ResponderID>ResponderID0</ResponderID>
+            <ResponseTimestamp>2006-05-04T18:13:51.0</ResponseTimestamp>
+            <ResponseDescription Language="eng" TypeCode="Short">ResponseDescription0</ResponseDescription>
+            <BusinessError Severity="Information">
+                <ErrorID>ErrorID0</ErrorID>
+                <Code>Code0</Code>
+                <Description Language="eng" TypeCode="Short">Description1</Description>
+                <RelatedErrorID>RelatedErrorID0</RelatedErrorID>
+            </BusinessError>
+            <LastSuccessfulResponseID>LastSuccessfulResponseID0</LastSuccessfulResponseID>
+        </Response>
+        <Requestor>Requestor0</Requestor>
+        <BusinessUnit Name="Name3" TypeCode="RetailStore">BusinessUnit0</BusinessUnit>
+        <OrganizationalHierarchy Level="Country" ID="ID1">OrganizationalHierarchy0</OrganizationalHierarchy>
+        <WorkstationID Mode="Retail" TypeCode="ATM" SerialNumber="SerialNumber1" WorkstationLocation="WorkstationLocation1">WorkstationID0</WorkstationID>
+        <TillID>TillID0</TillID>
+    </ARTSHeader>
+    <BusinessUnitConfiguration TimeZone="ACDT" Status="ChangeHours" ResponseFormat="Picture" LevelOfDetail="Country">
+        <BusinessUnit Name="Name5" TypeCode="RetailStore">BusinessUnit1</BusinessUnit>
+        <HoursOfOperation Day="Sunday" When="Between" Status="Open">
+            <Span StatusTypeCode="Active">
+                <StartDate>2006-05-04</StartDate>
+                <StartTime>01:01:01.001</StartTime>
+                <EndTime>01:01:01.001</EndTime>
+                <Duration UnitOfMeasureCode="Days">P1Y2M3DT1H10M0S</Duration>
+                <EndDate>2006-05-04</EndDate>
+            </Span>
+        </HoursOfOperation>
+        <DoesBusinessAs>DoesBusinessAs0</DoesBusinessAs>
+        <TaxpayerID>TaxpayerID0</TaxpayerID>
+        <LegalStatusCode>LegalStatusCode0</LegalStatusCode>
+        <ParentCompanyID Name="Name7">ParentCompanyID0</ParentCompanyID>
+        <Classification>
+            <StockMarketSymbol Exchange="Exchange1">StockMarketSymbol0</StockMarketSymbol>
+            <LegalEntity>LegalEntity0</LegalEntity>
+            <Citizenship>Citizenship0</Citizenship>
+        </Classification>
+        <ContactInformation StatusTypeCode="Active">
+            <StartDate>2006-05-04</StartDate>
+            <EndDate>2006-05-04</EndDate>
+            <Telephone PrimaryFlag="true" TypeCode="Home">
+                <AreaCode>AreaCode0</AreaCode>
+                <LocalNumber>LocalNumber0</LocalNumber>
+                <ExtensionNumber>ExtensionNumber0</ExtensionNumber>
+                <ITUCountryCode>ITUCountryCode0</ITUCountryCode>
+            </Telephone>
+            <Address PrimaryFlag="true" AddressLocationType="Permanent" AddressType="Home">
+                <TypeCode>Home</TypeCode>
+                <AddressLine TypeCode="Street" RelativeOrder="0">AddressLine0</AddressLine>
+                <City>City0</City>
+                <Territory TypeCode="State" RelativeOrder="0">Territory0</Territory>
+                <PostalCode>PostalCode0</PostalCode>
+                <Country Code="AF">Country0</Country>
+                <PostalCodeExtension>PostalCodeExtension0</PostalCodeExtension>
+            </Address>
+            <EMail PrimaryFlag="true" TypeCode="Home">EMail0</EMail>
+            <ContactPurpose>ContactPurpose0</ContactPurpose>
+            <SocialMedia TypeCode="Facebook">SocialMedia0</SocialMedia>
+        </ContactInformation>
+        <StoreType>Prototype</StoreType>
+        <Request>All</Request>
+        <OrganizationHierarchy Level="Country" ID="ID3">OrganizationHierarchy0</OrganizationHierarchy>
+        <Manager>
+            <Name>
+                <Salutation RelativeOrder="0">Salutation0</Salutation>
+                <Name Location="First" TypeCode="GivenName" RelativeOrder="0">Name0</Name>
+                <Suffix RelativeOrder="0">Suffix0</Suffix>
+                <SortingName>SortingName0</SortingName>
+                <MailingName>MailingName0</MailingName>
+                <OfficialName>OfficialName0</OfficialName>
+            </Name>
+            <ContactInformation StatusTypeCode="Active">
+                <StartDate>2006-05-04</StartDate>
+                <EndDate>2006-05-04</EndDate>
+                <Telephone PrimaryFlag="true" TypeCode="Home">
+                    <AreaCode>AreaCode1</AreaCode>
+                    <LocalNumber>LocalNumber1</LocalNumber>
+                    <ExtensionNumber>ExtensionNumber1</ExtensionNumber>
+                    <ITUCountryCode>ITUCountryCode1</ITUCountryCode>
+                </Telephone>
+                <Address PrimaryFlag="true" AddressLocationType="Permanent" AddressType="Home">
+                    <TypeCode>Home</TypeCode>
+                    <AddressLine TypeCode="Street" RelativeOrder="0">AddressLine1</AddressLine>
+                    <City>City1</City>
+                    <Territory TypeCode="State" RelativeOrder="0">Territory1</Territory>
+                    <PostalCode>PostalCode1</PostalCode>
+                    <Country Code="AF">Country1</Country>
+                    <PostalCodeExtension>PostalCodeExtension1</PostalCodeExtension>
+                </Address>
+                <EMail PrimaryFlag="true" TypeCode="Home">EMail1</EMail>
+                <ContactPurpose>ContactPurpose1</ContactPurpose>
+                <SocialMedia TypeCode="Facebook">SocialMedia1</SocialMedia>
+            </ContactInformation>
+        </Manager>
+        <OpenDate>2006-05-04</OpenDate>
+        <CloseDate>2006-05-04</CloseDate>
+        <FloorCount>0</FloorCount>
+        <StoreSize UnitOfMeasure="EA">0</StoreSize>
+        <FloorSize Floor="50" UnitOfMeasure="EA">0</FloorSize>
+        <StoreService Status="New">
+            <Name>Name1</Name>
+            <TypeCode>TypeCode0</TypeCode>
+            <StartDate>2006-05-04</StartDate>
+            <LicenseNo>LicenseNo0</LicenseNo>
+        </StoreService>
+        <Location>
+            <Location TypeCode="AdministrationCenter" Name="Name9">
+                <Address PrimaryFlag="true" AddressLocationType="Permanent" AddressType="Home">
+                    <TypeCode>Home</TypeCode>
+                    <AddressLine TypeCode="Street" RelativeOrder="0">AddressLine2</AddressLine>
+                    <City>City2</City>
+                    <Territory TypeCode="State" RelativeOrder="0">Territory2</Territory>
+                    <PostalCode>PostalCode2</PostalCode>
+                    <Country Code="AF">Country2</Country>
+                    <PostalCodeExtension>PostalCodeExtension2</PostalCodeExtension>
+                </Address>
+                <Axis>
+                    <X-Axis>0</X-Axis>
+                    <Y-Axis>0</Y-Axis>
+                    <Z-Axis>0</Z-Axis>
+                </Axis>
+                <CrossStreetName>CrossStreetName0</CrossStreetName>
+                <Coordinates CoordinateSystem="Mercator">
+                    <Latitude>
+                    </Latitude>
+                    <Longitude>
+                    </Longitude>
+                </Coordinates>
+                <SequenceNumber>50</SequenceNumber>
+                <OriginLocation>
+                    <SequenceNumber>50</SequenceNumber>
+                    <X-Coordinate Accuracy="0">0</X-Coordinate>
+                    <Y-Coordinate Accuracy="0">0</Y-Coordinate>
+                    <Z-Coordinate Accuracy="0">0</Z-Coordinate>
+                </OriginLocation>
+            </Location>
+            <Orientation North="0" Direction="Horizontal" Facing="Left" Rotation="00">Orientation0</Orientation>
+        </Location>
+        <Affiliation Name="Name11" Relationship="Relationship1" PartyID="PartyID1"/>
+        <ChargeAccounts CheckDigit="0" Organization="Organization1">ChargeAccounts0</ChargeAccounts>
+        <FloorPlan Compression="JPEG" TransmissionMedium="CD">
+            <Name>Name2</Name>
+            <URI Size="Size1" Units="Units1" Format="Format1">URI0</URI>
+            <ContentCount>0</ContentCount>
+            <CreationDate>2006-05-04</CreationDate>
+            <DelayDate>2006-05-04</DelayDate>
+            <DeliveryDate>2006-05-04</DeliveryDate>
+            <DigitalSignature>ZGVmYXVsdA==</DigitalSignature>
+            <FileFormat>FileFormat0</FileFormat>
+            <FileSize>0</FileSize>
+        </FloorPlan>
+        <Equipment ActionType="Create" StatusCode="Active">
+            <EquipmentID>
+                <ID Name="Name13">ID0</ID>
+                <URI Size="Size3" Units="Units3" Format="Format3" Type="OEMFilename">URI1</URI>
+            </EquipmentID>
+            <InstallDate>2006-05-04</InstallDate>
+            <DeviceAddress>DeviceAddress0</DeviceAddress>
+            <FixedAssetNumber>FixedAssetNumber0</FixedAssetNumber>
+            <ModelNumber>ModelNumber0</ModelNumber>
+            <Location>
+                <Location TypeCode="AdministrationCenter" Name="Name15">
+                    <Address PrimaryFlag="true" AddressLocationType="Permanent" AddressType="Home">
+                        <AddressLine TypeCode="Street" RelativeOrder="0">AddressLine3</AddressLine>
+                    </Address>
+                    <Axis>
+                        <X-Axis>0</X-Axis>
+                        <Y-Axis>0</Y-Axis>
+                        <Z-Axis>0</Z-Axis>
+                    </Axis>
+                    <CrossStreetName>CrossStreetName1</CrossStreetName>
+                    <Coordinates CoordinateSystem="Mercator">
+                        <Latitude>
+                        </Latitude>
+                        <Longitude>
+                        </Longitude>
+                    </Coordinates>
+                    <SequenceNumber>50</SequenceNumber>
+                    <OriginLocation>
+                    </OriginLocation>
+                </Location>
+                <Orientation North="0" Direction="Horizontal" Facing="Left" Rotation="00">Orientation1</Orientation>
+            </Location>
+            <Software TypeCode="Firmware">
+                <ID Name="Name17">ID1</ID>
+                <Version>Version0</Version>
+                <Revision>Revision0</Revision>
+                <CreationDate>2006-05-04</CreationDate>
+                <Checksum>Checksum0</Checksum>
+            </Software>
+            <Manufacturer Name="Name19">Manufacturer0</Manufacturer>
+        </Equipment>
+        <Planogram TypeCode="Current">
+            <PlanogramID Name="Name21">PlanogramID0</PlanogramID>
+            <Location TypeCode="AdministrationCenter" Name="Name23">
+                <Address PrimaryFlag="true" AddressLocationType="Permanent" AddressType="Home">
+                    <TypeCode>Home</TypeCode>
+                    <AddressLine TypeCode="Street" RelativeOrder="0">AddressLine4</AddressLine>
+                    <City>City3</City>
+                    <Territory TypeCode="State" RelativeOrder="0">Territory3</Territory>
+                    <PostalCode>PostalCode3</PostalCode>
+                    <Country Code="AF">Country3</Country>
+                    <PostalCodeExtension>PostalCodeExtension3</PostalCodeExtension>
+                </Address>
+                <Axis>
+                    <X-Axis>0</X-Axis>
+                    <Y-Axis>0</Y-Axis>
+                    <Z-Axis>0</Z-Axis>
+                </Axis>
+                <CrossStreetName>CrossStreetName2</CrossStreetName>
+                <Coordinates CoordinateSystem="Mercator">
+                    <Latitude>
+                    </Latitude>
+                    <Longitude>
+                    </Longitude>
+                </Coordinates>
+                <SequenceNumber>50</SequenceNumber>
+                <OriginLocation>
+                    <SequenceNumber>50</SequenceNumber>
+                    <X-Coordinate Accuracy="0">0</X-Coordinate>
+                    <Y-Coordinate Accuracy="0">0</Y-Coordinate>
+                    <Z-Coordinate Accuracy="0">0</Z-Coordinate>
+                </OriginLocation>
+            </Location>
+        </Planogram>
+    </BusinessUnitConfiguration>
+</BusinessUnitConfiguration>

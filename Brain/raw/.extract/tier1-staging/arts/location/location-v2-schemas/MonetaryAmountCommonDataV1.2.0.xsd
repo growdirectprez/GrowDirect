@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<xs:schema xmlns:xs="http://www.w3.org/2001/XMLSchema" elementFormDefault="qualified" attributeFormDefault="unqualified">
+	<xs:include schemaLocation="AmountCommonDataV1.2.0.xsd"/>
+	<xs:complexType name="MonetaryAmountCommonData">
+		<xs:simpleContent>
+			<xs:extension base="AmountCommonData"/>
+		</xs:simpleContent>
+	</xs:complexType>
+</xs:schema>

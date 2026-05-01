@@ -1,0 +1,319 @@
+---
+date: 2026-04-24
+type: raw
+source: Brain/raw/.extract/BP/mfo000.doc.md
+tags: [retail, consulting-reference, pwc, mh, petsmart, finance, 1997-1999]
+project: retail
+status: unprocessed
+---
+
+# mfo000.doc
+
+## Source
+File: `Brain/raw/.extract/BP/mfo000.doc.md`
+Size: 14,548 bytes
+
+## Raw content
+ TOC \o "1-2" I. Process Name Forecasting (Level 2)	 GOTOBUTTON _TOC410533469   PAGEREF _TOC410533469 2
+A. Objectives	 GOTOBUTTON _TOC410533470   PAGEREF _TOC410533470 2
+B. Critical Success Factors	 GOTOBUTTON _TOC410533471   PAGEREF _TOC410533471 2
+C. Assumptions	 GOTOBUTTON _TOC410533472   PAGEREF _TOC410533472 2
+D. Requirements	 GOTOBUTTON _TOC410533473   PAGEREF _TOC410533473 2
+E. Performance Measures	 GOTOBUTTON _TOC410533474   PAGEREF _TOC410533474 3
+F. Process Improvements	 GOTOBUTTON _TOC410533475   PAGEREF _TOC410533475 4
+G. Issues	 GOTOBUTTON _TOC410533476   PAGEREF _TOC410533476 4
+H. Test Month Follow Up Notes	 GOTOBUTTON _TOC410533477   PAGEREF _TOC410533477 4
+I. Opportunities	 GOTOBUTTON _TOC410533478   PAGEREF _TOC410533478 4
+J. Jobs Analysis	 GOTOBUTTON _TOC410533479   PAGEREF _TOC410533479 4
+K. Better Practices Recommendations	 GOTOBUTTON _TOC410533480   PAGEREF _TOC410533480 5
+L. Reports	 GOTOBUTTON _TOC410533481   PAGEREF _TOC410533481 5
+M. Forms	 GOTOBUTTON _TOC410533482   PAGEREF _TOC410533482 5
+N. Existing SAP functionality	 GOTOBUTTON _TOC410533483   PAGEREF _TOC410533483 6
+II. Add/Delete Item Article/Site Parameters (Level 3)	 GOTOBUTTON _TOC410533484   PAGEREF _TOC410533484 7
+A. Assumptions	 GOTOBUTTON _TOC410533485   PAGEREF _TOC410533485 7
+B. Requirements	 GOTOBUTTON _TOC410533486   PAGEREF _TOC410533486 7
+III. Maintain Forecasting  Parameters (Level 3)	 GOTOBUTTON _TOC410533487   PAGEREF _TOC410533487 8
+A. Requirements	 GOTOBUTTON _TOC410533488   PAGEREF _TOC410533488 8
+IV. Develop Forecasting Schedules (Level 3)	 GOTOBUTTON _TOC410533489   PAGEREF _TOC410533489 9
+A. Requirements	 GOTOBUTTON _TOC410533490   PAGEREF _TOC410533490 9
+V. Calculate Demand Forecast (Level 3)	 GOTOBUTTON _TOC410533491   PAGEREF _TOC410533491 9
+A. Requirements	 GOTOBUTTON _TOC410533492   PAGEREF _TOC410533492 9
+VI. Review Forecasted Demand (Level 3)	 GOTOBUTTON _TOC410533493   PAGEREF _TOC410533493 9
+A. Requirements	 GOTOBUTTON _TOC410533494   PAGEREF _TOC410533494 9
+
+
+Process Name Forecasting (Level 2)
+Objectives
+To provide accurate demand projections which support effective inventory management and meet targeted Customer Service Levels.
+Critical Success Factors
+		1.	Ability to maintain a continuous supply of product
+		2.	Ability to provide the right product in the right amount to the right place at 				the right time.
+Assumptions
+Sales history is a data feed from the Master Data database and is not keyed into the system.  (10/29/97)
+
+Collaborative Forecasting and Vendor Managed Inventory are not part of this process during its initial stages. (11/5/97, 1/7/98)
+
+Forecasting will provide all appropriate demand to the replenishment process.  (12/10/97)
+
+Cross Functional Assumption with Assortment Management: Assortment Management will provide the Forecasting process with expected sales and forecast parameter “profile” inputs (as part of the new article set up); these  inputs will be used in Add/Delete  Forecasting Item Parameters process.  (1/7/98)
+
+That for most articles, forecasting will be run once a week.  (1/26/98)
+
+Requirements
+Note on font usage in this section:  Italic font is used to indicate requirements where there is a potential gap with SAP;  and Bold font is used for known gaps.
+
+Ability to forecast in units, with unit forecasts being convertible into base currency or weight (i.e., rebate tracking.)  (11/17/97)
+
+Ability to compute forecasts based on:
+a.	Basic Demand
+b.	Seasonal Demand
+c.	Promotional Demand
+d.	(Shrink) Factor, Multiplier, or other indice relating to any of the above for the forecasted article or a reference article.
+e.	Any user selected combination of the above
+(11/17/97)
+
+Provide mass maintenance capabilities for parameters, consumption values, and forecast values across all merchandise/ organizational hierarchies, and /or characteristic attributes with the ability to apply effective dates. (11/17/97)
+
+Ability to automatically trigger and manage forecasting parameters for new (any) site set-ups through effective dates.   (11/17/97)
+
+Ability of the long range forecast to take into account the new store plan, whether or not it includes defined site(s) or just a total number.   (i.e. ability to provide vendor with long range forecast that includes future new stores.) (11/17/97)
+
+Forecasting may be required to run on a daily, weekly, or monthly basis utilizing any combination of the organizational or merchandise hierarchy. (12/3/97)
+
+Provide the capability to establish forecasting or replenishment parameters  based on article or site characteristic attributes.  Example designations/codes include:
+a.	New Item
+b.	Promotional Item
+c.	Discontinued
+
+Provide the ability to transmit to the vendor
+Actual sales and inventory information
+Forecasted demand and inventory information
+Forecast POs sorted by source
+(1/7/98)
+
+For Vendor Management Processing purposes, forecasting module must support:
+Receiving Long Range forecast from a Vendors
+Providing accurate Forecasts to Vendors
+Collaborative Forecasting
+
+For selected items extrapolate demand for zero sales periods (periods may be defined in number of days ) and correct (period)consumption values.   (1/7/98)
+
+Performance Measures
+Effectiveness Measures (Output Measures of the Replenishment process):
+a.	(Gross)Inventory Turnover / Weeks of Supply (in Units, Dollars, Demand Weighted)
+	1.	Calculated from Historical Sales
+	2. 	Calculated using Forecasted Sales
+b.	(Net) Inventory(Inventory-Presentation) Turnover
+c.	Inventory Service Levels - all sites (Stores & DCs)
+	- Demand weighted
+	- Line item
+	- Dollars
+d.	Over stocks and out-of-stocks - all sites (Stores & DCs)
+	(1/7/98)
+
+Efficiency Measures (Output Measures of the Forecasting process itself):
+a.	Accuracy of Forecasts (number of forecasts modified, extent of modifications)
+b.	Forecasted Demand review time
+c.	Comparison of Forecast to Actual Demand summarized by Merchandise 	Category, Organizational Hierarchy)
+	(1/7/98)
+Process Improvements
+Issues
+From which process will we be able to provide article sources with projected (three to six month estimates) receipts, goods issues (transfers), and on-hands?  Merchandise Planning, Forecasting, or Replenishment?  RESOLVED: Forecasting and replenishment (11/13/97)
+
+Is there a way in Event Management to link two events (history) so that the new event can utilize the post event history?  RESOLVED: Yes - See indice requirements. (11/13/97)
+
+
+How do we handle Buy One/Get One (BOGO) Free Offers or temporarily substituted SKUs (bonus bags) in forecasting?  (11/5/97) RESOLVED: Yes - See indice requirements.
+
+Can a characteristic value trigger a process (such as Replenishment)?  (12/3/97) RESOLVED: Yes - The  requirement/gap is for Article or Site characteristic values to trigger replenishment processing (see gap MRP220).
+
+How does a demand forecast feed the financial reporting module (financial forecasting):  how do we avoid discrepancies between Merchandising and Financial forecasts? (Ralph M 12/3/97)  Added to Toolkit as cross functional issue - 1/27/98 Mike W.
+
+How do we account for livestock loss/shrinkage in forecasting? Resolved - See indice requirements.
+
+Do we need a Review Forecast process? Resolved - Yes(12/10/97)
+
+Test Month Follow Up Notes
+See Replenishment Process Documentation for further information.
+Opportunities
+Jobs Analysis
+See Initial Notes on Jobs Tasks on Process Maps.
+Better Practices Recommendations
+
+Forecasting and replenishment are automated process with minimal intervention.
+
+Adequate history is maintained to support current forecasts, profiles, and model generation.
+
+Promotional demand is segregated from standard demand.
+
+A combination of top-down and bottom-up forecasting is utilized where:
+a.	Top-down produces reliable aggregate forecasts.
+b.	Bottom-up allows for early identification of specific trends.
+
+Statistical tools used in forecasting follow:
+a.	Exponential smoothing:  for highly seasonal and non-competitive 	products.
+b.	Regression analysis:  for competitive products with a consistent marketing 	budget.
+
+Forecasts consider:
+a.	Base-line model stock
+b.	Appropriate time horizon
+c.	Promotional plan
+d.	Seasonal profile
+e.	Parameters (safety stock)
+
+Parameters, such as forecast horizon, are set at the class, vendor, or item level.
+
+Time horizons are based on:
+a.	Lead time from supplier to warehouse
+b.	Replenishment cycle
+c.	Order cycle
+d.	Uncertainty
+
+Time or inventory based trigger points are selected in terms of product requirements.
+
+The forecasting module maintains the calendar of events and adjusts for seasonal or holiday differences.
+
+Management of the forecast and replenishment processes occurs at the parameter not SOQ level.
+Reports
+Forms
+Existing SAP functionality
+Notes on Model Select Indicator & Procedure.
+
+This indicator is used in the forecast model to specify whether the system will check values for either or both trend, seasonal pattern conditions.
+
+The Model  Selection Procedure works as follows:
+
+Procedure 1:  The system uses a significance test to determine whether a trend or seasonal pattern is present;  the forecast model selected is based on results of the significance test.
+
+Procedure 2:  The system carries out the forecast  using all models, optimizes parameters and then selects the model with the smallest Mean Absolute Deviation (MAD).  This procedure is more precise and time consuming than Procedure 1.
+ Indicator for Parameter Optimization.
+This indicator causes the system to optimize the smoothing factors needed by the given forecast model.
+
+When this indicator is set, optimization is carried out for the first and all subsequent forecasts.  The system calculates a number of different parameter combinations and selects the one that produces the lowest MAD.
+
+Optimization Level.
+Specifies the increment by which the system optimizes the forecast parameters.  The finer the degree of optimization, the more exact (but also more time consuming) the parameter is optimized.
+
+---
+Values on the Forecast Profile Change Selection Screen:
+Forecast Model
+Number of Historical Values
+Number of Forecast Periods
+Number of Periods for Initialization
+Fixed Periods
+Number of Periods per Seasonal Cycle
+Initialization Indicator
+Tracking Limit
+Model Selection Indicator
+Model Selection Procedure
+Indicator for Parameter Optimization
+Optimization Level
+Weighting Group
+Trend Value Smoothing using Beta Factor
+Seasonal Index Smoothing Using Gamma Factor
+MAD Smoothing
+
+
+Add/Delete Item Article/Site Parameters (Level 3)
+Assumptions
+The Add/Delete Item Article/Site Parameters level 3 process includes the identification of the need for a forecast  (i.e. forecasting may not be required for certain articles - one time buys, etc.).   (12/3/97)
+Requirements
+Forecasting parameters and history can be copied from one site to another, one site to many, one article to another, and/or one article to many.  (11/17/97 )
+
+Ability to copy consumption history from one site to another using different range module(Planogram)/site combinations. (11/17/97)
+
+Ability to support a forecasting horizon or history horizon which includes :
+a)	User defined  # of weeks (up to 60 weeks).
+b)	User assigned time frames by any combination of the following:
+	By Selection:
+	1.	Merchandise Hierarchy
+	2.  	Characteristic Attribute
+	3.	Vendor.
+	By Organization:
+	1.	Organization Hierarchy
+	2.	Characteristic Value/Attribute
+	(11/17/97)
+
+Forecasting parameters will include:
+Historical Periods
+Forecast Periods (Defined in Days, Weeks, Months or Year)
+Error Tolerance Parameters(smoothing constants) for actual or forecast periods by item, item group, site,  or site group
+Consumption/Forecast Calendar equal to (Fiscal or Merchandise)
+Execution Schedule
+(12/10/97)
+
+Based upon individual field level requirements the system will provide both Information and Error/Warning Messages.  (12/10/97)
+
+Be able to designate parameter values at the Merchandise Category Level (required for Livestock forecasting).  (12/10/97)
+
+Maintain Forecasting  Parameters (Level 3)
+Requirements
+Implement item movement Velocity Codes to index an item’s performance in relation to other items.
+a.	Velocity Code ranking should be based on either GMROI, Sales Dollars 	or Sales Units for a selected time period.
+	1).	Provide the capability to set break points based on a percentage 			or a fixed dollar/unit volume level.
+	2).	Velocity codes settings should be defined based on Organization 			and Merchandise Hierarchy relationships.
+	3.)	Allow external feed (spreadsheet) to update rankings (11/17/97)
+
+b.	Hard-coded exceptions must be supported, preventing analysis 	process from establishing new values . (11/17/97)
+
+c.	Ability to set Service Level Standards based on velocity code for 	calculating safety stock.
+d.	System must support five ranks of velocity codes (i.e. a,b,c,d,e)
+	(11/17/97)
+
+Provide multiple coding methods for demand including the ability to include or exclude from the forecast such variables as:
+a.	New Store picks
+b.	Special or unique transfers
+c. 	Periods of time
+	(11/17/97)
+
+Maintain item movement history for all sites. (11/17/97)
+
+Simulate a forecast and see the results of changing parameters.  (12/10/97 )
+	See Gap MRP080 for related Replenishment Simulation capability requirements.
+
+ Develop Forecasting Schedules (Level 3)
+Requirements
+
+Scheduling needs to be determined by the user, based on
+Characteristic Value
+Merchandise Hierarchy
+Organizational Hierarchy
+(12/10/97)
+
+
+Calculate Demand Forecast (Level 3)
+Requirements
+Provide the capability to compute and aggregate seasonality, promotional, or other indices and then apply them at the article/site level.  (11/17/97 )
+
+Provide various statistical methods of calculating the forecast for an article including:
+a.  Regression analysis
+b.  Exponential smoothing
+c.  Weighted average
+	(11/17/97)
+
+Provide functionality which allows the user to specify sales weeks utilized in the forecast. (11/17/97)
+
+Provide functionality which allows the manual movement of seasonal indices based on store need, holidays, etc. (11/17/97)
+
+Calculate a demand forecast by article, or article/site combinations.  (12/10/97)
+
+
+Review Forecasted Demand (Level 3)
+Requirements
+
+Provide the ability to override/approve forecasts by exceptions including :
+Price Changes
+New Store Openings
+Forecast accuracy falls outside of preset tolerances
+(1/7/98)
+
+Provide the ability to set Exception Reporting Tolerances based on:
+Individual Article / Store combinations
+Aggregated Article/Merchandise Category basis
+(1/7/98)
+
+## Key takeaways
+<!-- Session fills these in during processing -->
+
+## Links to existing knowledge
+<!-- What wiki articles or project docs does this connect to? -->

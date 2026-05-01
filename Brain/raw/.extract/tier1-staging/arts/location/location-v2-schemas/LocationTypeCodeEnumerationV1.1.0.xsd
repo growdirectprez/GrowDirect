@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<xs:schema xmlns:xs="http://www.w3.org/2001/XMLSchema" elementFormDefault="qualified" attributeFormDefault="unqualified">
+<xs:include schemaLocation="IXREnumerationExtensionV1.1.0.xsd"/>
+		<!--
+		Name part locations types
+	-->
+	<xs:simpleType name="LocationTypeCode">
+		<xs:union memberTypes="LocationTypeCodeEnumeration TypeCodeExtension"/>
+	</xs:simpleType>
+	<xs:simpleType name="LocationTypeCodeEnumeration">
+		<xs:restriction base="xs:NMTOKEN">
+			<xs:enumeration value="First"/>
+			<xs:enumeration value="Middle"/>
+			<xs:enumeration value="Last"/>
+		</xs:restriction>
+	</xs:simpleType>
+
+</xs:schema>

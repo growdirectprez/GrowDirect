@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- V1.1.0
+	Added USD as default currency code -->
+<xs:schema xmlns:xs="http://www.w3.org/2001/XMLSchema" elementFormDefault="qualified" attributeFormDefault="unqualified">
+	<xs:include schemaLocation="DecimalCommonDataV1.0.0.xsd"/>
+	<xs:include schemaLocation="CurrencyCodeEnumerationV1.1.0.xsd"/>
+	<xs:complexType name="AmountCommonData">
+		<xs:simpleContent>
+			<xs:extension base="DecimalCommonData">
+				<xs:attribute name="Currency" type="CurrencyTypeCode" use="optional" default="USD"/>
+				<xs:attribute name="ForeignAmount" type="DecimalCommonData" use="optional"/>
+			</xs:extension>
+		</xs:simpleContent>
+	</xs:complexType>
+</xs:schema>

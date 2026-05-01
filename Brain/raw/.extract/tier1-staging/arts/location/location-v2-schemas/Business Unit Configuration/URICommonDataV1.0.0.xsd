@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<xs:schema xmlns:xs="http://www.w3.org/2001/XMLSchema" elementFormDefault="qualified" attributeFormDefault="unqualified">
+	<xs:include schemaLocation="URITypeCodesEnumerationV1.0.0.xsd"/>
+	<xs:complexType name="URICommonData">
+		<xs:simpleContent>
+			<xs:extension base="xs:string">
+				<xs:attribute name="Size" type="xs:string" use="optional"/>
+				<xs:attribute name="Units" type="xs:string" use="optional"/>
+				<xs:attribute name="Format" type="xs:string" use="optional"/>
+				<xs:attribute name="Type" type="URITypeCode" use="optional"/>
+			</xs:extension>
+		</xs:simpleContent>
+	</xs:complexType>
+</xs:schema>

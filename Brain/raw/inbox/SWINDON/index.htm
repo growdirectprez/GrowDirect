@@ -1,0 +1,59 @@
+<HTML>
+<HEAD>
+<TITLE>PricewaterhouseCoopers & BroadVision Co-develop Methodology</TITLE>
+<script LANGUAGE="JavaScript">
+<!---  Launch Pop_up Window
+
+function launch(win){
+
+var temp = "location=0,directories=0,menubar=0,resizable=1,scrollbars=1,status=0,titlebar=0,toolbar=0,left=0,top=0"
+win2=window.open(win,"", temp)
+
+}
+
+function resize()
+{
+
+self.resizeTo(800,600)
+
+}
+
+//-->
+</script>
+</HEAD>
+<BODY bgcolor="#FFFFFF">
+<SCRIPT LANGUAGE=JavaScript>
+<!--
+var InternetExplorer = navigator.appName.indexOf("Microsoft") != -1;
+// Handle all the the FSCommand messages in a Flash movie
+function Basic_DoFSCommand(command, args) {
+  var BasicObj = InternetExplorer ? Basic : document.Basic;
+  //
+  // Place your code here...
+if (command != "") {
+launch(command);
+  }
+  //
+}
+// Hook for Internet Explorer 
+if (navigator.appName && navigator.appName.indexOf("Microsoft") != -1 && 
+	  navigator.userAgent.indexOf("Windows") != -1 && navigator.userAgent.indexOf("Windows 3.1") == -1) {
+	document.write('<SCRIPT LANGUAGE=VBScript\> \n');
+	document.write('on error resume next \n');
+	document.write('Sub Basic_FSCommand(ByVal command, ByVal args)\n');
+	document.write('  call Basic_DoFSCommand(command, args)\n');
+	document.write('end sub\n');
+	document.write('</SCRIPT\> \n');
+}
+//-->
+</SCRIPT>
+<!-- URL's used in the movie-->
+<!-- text used in the movie-->
+<OBJECT classid="clsid:D27CDB6E-AE6D-11cf-96B8-444553540000"
+ codebase="../plugins/swflash.cab#version=4,0,0,0"
+ ID=Basic WIDTH=100% HEIGHT=100%>
+ <PARAM NAME=movie VALUE="Broadvision.swf"> <PARAM NAME=quality VALUE=high> <PARAM NAME=bgcolor VALUE=#FFFFFF> <EMBED src="Broadvision.swf" quality=high bgcolor=#212E6F  WIDTH=100% HEIGHT=100%	swLiveConnect=true
+ TYPE="application/x-shockwave-flash" PLUGINSPAGE="http://www.macromedia.com/shockwave/download/index.cgi?P1_Prod_Version=ShockwaveFlash"></EMBED>
+</OBJECT>
+</BODY>
+</HTML>

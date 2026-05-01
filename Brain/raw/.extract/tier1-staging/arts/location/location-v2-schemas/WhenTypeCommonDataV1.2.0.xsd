@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<xs:schema xmlns:xs="http://www.w3.org/2001/XMLSchema" elementFormDefault="qualified" attributeFormDefault="unqualified">
+<xs:include schemaLocation="IXREnumerationExtensionV1.1.0.xsd"/>
+		<!-- 
+		When Type
+	-->
+	<xs:simpleType name="WhenType">
+		<xs:union memberTypes="WhenTypeEnumeration TypeCodeExtension"/>
+	</xs:simpleType>
+	<xs:simpleType name="WhenTypeEnumeration">
+		<xs:restriction base="xs:NMTOKEN">
+			<xs:enumeration value="Before"/>
+			<xs:enumeration value="After"/>
+			<xs:enumeration value="Between"><xs:annotation><xs:documentation>Same as During</xs:documentation></xs:annotation></xs:enumeration>
+			<xs:enumeration value="Now"/>
+			<xs:enumeration value="Shift"/>
+			<xs:enumeration value="Specific"/>
+		</xs:restriction>
+	</xs:simpleType>
+</xs:schema>

@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<xs:schema xmlns:xs="http://www.w3.org/2001/XMLSchema" elementFormDefault="qualified" attributeFormDefault="unqualified">
+<xs:include schemaLocation="CustomerDemographicCommonDataV1.0.0.xsd"/>
+		<xs:complexType name="IDDemographicDataPairCommonData">
+		<xs:sequence>
+			<xs:element name="CustomerID" type="xs:string"/>
+			<xs:element name="CustomerDemographic" type="CustomerDemographicCommonData"/>
+		</xs:sequence>
+	</xs:complexType>
+</xs:schema>

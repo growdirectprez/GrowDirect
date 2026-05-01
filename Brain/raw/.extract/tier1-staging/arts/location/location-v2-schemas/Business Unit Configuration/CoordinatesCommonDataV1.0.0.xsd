@@ -1,0 +1,61 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- edited with XMLSpy v2006 sp2 U (http://www.altova.com) by Richard L Halter (private) -->
+<!--
+	March 3, 2008 - Initial Release
+-->
+<xs:schema xmlns:xs="http://www.w3.org/2001/XMLSchema" elementFormDefault="qualified" attributeFormDefault="unqualified">
+	<xs:include schemaLocation="IXREnumerationExtensionV1.1.0.xsd"/>
+	<xs:complexType name="CoordinatesCommonData">
+		<xs:annotation>
+			<xs:documentation>Identifys every location on the earth specified by the two coordinates of a spherical coordinate system aligned with the spin axis of the Earth</xs:documentation>
+		</xs:annotation>
+		<xs:sequence>
+			<xs:element name="Latitude" type="LatLongType">
+				<xs:annotation>
+					<xs:documentation>the angle at the centre of the coordinate system between any point on the earth's surface and the plane of the equator. Lines joining points of the same latitude are called parallels, and they trace concentric circles on the surface of the earth. Each pole is 90 degrees: the north pole 90° N; the south pole 90° S. The 0° parallel of latitude is designated the equator, an imaginary line that divides the globe into the Northern and Southern Hemispheres </xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="Longitude" type="LatLongType">
+				<xs:annotation>
+					<xs:documentation>the angle east or west, at the centre of the coordinate system, between any point on the earth's surface and the plane of an arbitrary north-south line between the two geographical poles. Lines joining points of the same longitude are called meridians. All meridians are halves of great circles, and are not parallel: by definition they converge at the north and south poles. The line passing through the (former) Royal Observatory, Greenwich (near London in the UK) is the international zero-longitude reference line, the Prime Meridian. The antipodal meridian of Greenwich is both 180°W and 180°E.</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+		</xs:sequence>
+		<xs:attribute name="CoordinateSystem" type="CoordinateSystemTypeCode">
+			<xs:annotation>
+				<xs:documentation>geographic coordinate system enables every location on the earth to be specified by the three coordinates of a spherical coordinate system aligned with the spin axis of the Earth</xs:documentation>
+			</xs:annotation>
+		</xs:attribute>
+	</xs:complexType>
+	<!-- Coordinate System Type Code-->
+	<xs:simpleType name="CoordinateSystemTypeCode">
+		<xs:union memberTypes="CoordinateSystemTypeCodeEnumeration TypeCodeExtension"/>
+	</xs:simpleType>
+	<xs:simpleType name="CoordinateSystemTypeCodeEnumeration">
+		<xs:restriction base="xs:NMTOKEN">
+			<xs:enumeration value="Mercator"/>
+		</xs:restriction>
+	</xs:simpleType>
+	<xs:complexType name="LatLongType">
+		<xs:attribute name="Degrees" type="xs:int">
+			<xs:annotation>
+				<xs:documentation>The degrees of longitude of a set of coordinates that is used to identify a physical location.</xs:documentation>
+			</xs:annotation>
+		</xs:attribute>
+		<xs:attribute name="Minutes" type="xs:int">
+			<xs:annotation>
+				<xs:documentation>The minutes of longitude of a set of coordinates that is used to identify a physical location.</xs:documentation>
+			</xs:annotation>
+		</xs:attribute>
+		<xs:attribute name="Seconds" type="xs:int">
+			<xs:annotation>
+				<xs:documentation>The seconds of longitude of a set of coordinates that is used to identify a physical location.</xs:documentation>
+			</xs:annotation>
+		</xs:attribute>
+		<xs:attribute name="Direction" type="xs:string">
+			<xs:annotation>
+				<xs:documentation>The direction of latitude of a set of coordinates that is used to identify a physical location.</xs:documentation>
+			</xs:annotation>
+		</xs:attribute>
+	</xs:complexType>
+</xs:schema>

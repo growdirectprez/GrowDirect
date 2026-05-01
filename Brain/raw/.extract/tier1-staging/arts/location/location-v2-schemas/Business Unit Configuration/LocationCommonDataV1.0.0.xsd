@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- edited with XMLSpy v2006 sp2 U (http://www.altova.com) by Richard L Halter (private) -->
+<xs:schema xmlns:xs="http://www.w3.org/2001/XMLSchema" elementFormDefault="qualified" attributeFormDefault="unqualified">
+	<xs:include schemaLocation="LocationTypeV1.0.0.xsd"/>
+	<xs:include schemaLocation="OrientationCommonDataV1.0.0.xsd"/>
+	<xs:complexType name="LocationCommonData">
+		<xs:sequence>
+			<xs:element name="Location" type="LocationType" minOccurs="0" maxOccurs="unbounded"/>
+			<xs:element name="Orientation" type="OrientationCommonData" minOccurs="0"/>
+		</xs:sequence>
+	</xs:complexType>
+</xs:schema>

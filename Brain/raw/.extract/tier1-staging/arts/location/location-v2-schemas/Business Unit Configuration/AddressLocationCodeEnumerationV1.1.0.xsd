@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<xs:schema xmlns:xs="http://www.w3.org/2001/XMLSchema" elementFormDefault="qualified" attributeFormDefault="unqualified">
+<xs:include schemaLocation="IXREnumerationExtensionV1.1.0.xsd"/>
+		<!-- 
+		Address locations 
+	-->
+	<xs:simpleType name="AddressLocationCode">
+		<xs:union memberTypes="AddressLocationCodeEnumeration TypeCodeExtension"/>
+	</xs:simpleType>
+	<xs:simpleType name="AddressLocationCodeEnumeration">
+		<xs:restriction base="xs:NMTOKEN">
+			<xs:enumeration value="Permanent"/>
+			<xs:enumeration value="Winter"/>
+			<xs:enumeration value="Summer"/>
+		</xs:restriction>
+	</xs:simpleType>
+
+</xs:schema>

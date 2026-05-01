@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- edited with XMLSpy v2006 sp2 U (http://www.altova.com) by Richard L Halter (private) -->
+<xs:schema xmlns:xs="http://www.w3.org/2001/XMLSchema" elementFormDefault="qualified" attributeFormDefault="unqualified">
+	<xs:include schemaLocation="UnitPriceCommonDataV1.4.0.xsd"/>
+	<xs:include schemaLocation="PriceTypeCodeEnumerationV1.2.0.xsd"/>
+	<xs:complexType name="PriceCommonData">
+		<xs:simpleContent>
+			<xs:extension base="UnitPriceCommonData">
+				<xs:attribute name="ValueTypeCode" type="PriceTypeCode" use="required"/>
+				<xs:attribute name="TaxIncludedInPriceFlag" type="xs:boolean" use="optional" default="false"/>
+				<xs:attribute name="PriceOverrideFlag" type="xs:boolean" use="optional" default="true">
+					<xs:annotation>
+						<xs:documentation>Indicates whether an item’s price can be overridden at
+							point of sale; assumes an exception occurred (e.g., no price in PLUFILE,
+							no entry, wrong price tag).</xs:documentation>
+					</xs:annotation>
+				</xs:attribute>
+				<xs:attribute name="QuantityPricingFlag" type="xs:boolean" use="optional" default="false">
+					<xs:annotation>
+						<xs:documentation>Denotes whether the item is priced using Quantity Package
+							Price (Eg: 3 for $0.89)</xs:documentation>
+					</xs:annotation>
+				</xs:attribute>
+			</xs:extension>
+		</xs:simpleContent>
+	</xs:complexType>
+</xs:schema>

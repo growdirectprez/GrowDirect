@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<xs:schema xmlns:xs="http://www.w3.org/2001/XMLSchema" elementFormDefault="qualified" attributeFormDefault="unqualified">
+	<xs:include schemaLocation="IXREnumerationExtensionV1.1.0.xsd"/>
+	<!-- 
+		Days Of the Week
+	-->
+	<xs:simpleType name="DOWStatusType">
+		<xs:union memberTypes="DOWStatusTypeEnumeration TypeCodeExtension"/>
+	</xs:simpleType>
+	<xs:simpleType name="DOWStatusTypeEnumeration">
+		<xs:restriction base="xs:NMTOKEN">
+			<xs:enumeration value="Open"/>
+			<xs:enumeration value="Closed"/>
+		</xs:restriction>
+	</xs:simpleType>
+</xs:schema>

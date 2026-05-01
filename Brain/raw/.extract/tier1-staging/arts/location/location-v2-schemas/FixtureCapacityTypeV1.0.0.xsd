@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- edited with XMLSpy v2006 sp2 U (http://www.altova.com) by Richard L Halter (private) -->
+<xs:schema xmlns:xs="http://www.w3.org/2001/XMLSchema" elementFormDefault="qualified" attributeFormDefault="unqualified">
+	<xs:include schemaLocation="FixtureStyleTypeEnumerationV1.0.0.xsd"/>
+	<xs:complexType name="FixtureCapacityType">
+		<xs:simpleContent>
+			<xs:extension base="xs:int">
+				<xs:attribute name="StyleType" type="FixtureStyleType"/>
+			</xs:extension>
+		</xs:simpleContent>
+	</xs:complexType>
+</xs:schema>

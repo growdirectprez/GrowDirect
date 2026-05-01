@@ -1,0 +1,455 @@
+---
+date: 2026-04-24
+type: raw
+source: Brain/raw/.extract/BP/mrp000.doc.md
+tags: [retail, consulting-reference, pwc, mh, petsmart, finance, 1997-1999]
+project: retail
+status: unprocessed
+---
+
+# mrp000.doc
+
+## Source
+File: `Brain/raw/.extract/BP/mrp000.doc.md`
+Size: 28,770 bytes
+
+## Raw content
+ TOC \o "1-2" I. Process Name Replenishment (Level 2)	 GOTOBUTTON _TOC410535996   PAGEREF _TOC410535996 2
+A. Objectives	 GOTOBUTTON _TOC410535997   PAGEREF _TOC410535997 2
+B. Critical Success Factors	 GOTOBUTTON _TOC410535998   PAGEREF _TOC410535998 2
+C. Assumptions	 GOTOBUTTON _TOC410535999   PAGEREF _TOC410535999 2
+D. Requirements	 GOTOBUTTON _TOC410536000   PAGEREF _TOC410536000 3
+E. Performance Measures	 GOTOBUTTON _TOC410536001   PAGEREF _TOC410536001 5
+F. Process Improvements	 GOTOBUTTON _TOC410536002   PAGEREF _TOC410536002 5
+G. Issues	 GOTOBUTTON _TOC410536003   PAGEREF _TOC410536003 6
+H. Opportunities	 GOTOBUTTON _TOC410536004   PAGEREF _TOC410536004 9
+I. Jobs Analysis	 GOTOBUTTON _TOC410536005   PAGEREF _TOC410536005 9
+J. Better Practices Recommendations	 GOTOBUTTON _TOC410536006   PAGEREF _TOC410536006 9
+K. Reports	 GOTOBUTTON _TOC410536007   PAGEREF _TOC410536007 9
+L. Forms	 GOTOBUTTON _TOC410536008   PAGEREF _TOC410536008 9
+M. Existing SAP functionality	 GOTOBUTTON _TOC410536009   PAGEREF _TOC410536009 9
+N. Addendum	 GOTOBUTTON _TOC410536010   PAGEREF _TOC410536010 11
+II. Add/Delete Item Replenishment Parameters (Level 3)	 GOTOBUTTON _TOC410536011   PAGEREF _TOC410536011 11
+A. Requirements	 GOTOBUTTON _TOC410536012   PAGEREF _TOC410536012 11
+III. Maintain Replenishment Parameters (Level 3)	 GOTOBUTTON _TOC410536013   PAGEREF _TOC410536013 12
+A. Requirements	 GOTOBUTTON _TOC410536014   PAGEREF _TOC410536014 12
+IV. Develop Replenishment Schedules (Level 3)	 GOTOBUTTON _TOC410536015   PAGEREF _TOC410536015 13
+A. Requirements	 GOTOBUTTON _TOC410536016   PAGEREF _TOC410536016 13
+V. Calculate a Suggested Order Quantity (SOQ) (Level 3)	 GOTOBUTTON _TOC410536017   PAGEREF _TOC410536017 14
+A. Requirements	 GOTOBUTTON _TOC410536018   PAGEREF _TOC410536018 14
+VI. Determine Order Type (Level 3)	 GOTOBUTTON _TOC410536019   PAGEREF _TOC410536019 14
+A. Requirements	 GOTOBUTTON _TOC410536020   PAGEREF _TOC410536020 14
+VII. Review SOQ (Level 3)	 GOTOBUTTON _TOC410536021   PAGEREF _TOC410536021 14
+A. Requirements	 GOTOBUTTON _TOC410536022   PAGEREF _TOC410536022 14
+
+
+Process Name Replenishment (Level 2)
+Objectives
+To provide a continuous flow of products through the supply chain that supports sales growth, expected customer services levels and optimizes corporate return on investment (ROI).
+
+Critical Success Factors
+		1.	Ability to maintain a continuous flow of product.
+
+		2.	Ability to provide the right product in the right amount to the right place at 				the right time.
+
+Assumptions
+New Level 2 Process called Forecasting will be added to the target process baseline - separate from Replenishment.  (10/22/97)
+
+Location based decision points (Distribution Centers, Stores, etc.) are embedded in the Level 3 target processes and that replenishment can be run on any or all of the locations.  (10/22/97)
+
+Sourcing Parameters are maintained at the Item - Site level. (10/22/97)
+a.	Sourcing can include single item from multiple sources (12/3/97)
+
+Truckbuilding will be a separate Level 2 Target Process and that an output of PO Management will be Truckbuilding.  (10/29/97)
+
+Stores may participate in the replenishment of live goods. (12/03/97)
+
+The system will support the Replenishment of any article defined by PETsMART (Reptiles, Plants, Store supplies, etc.). (12/03/97)
+
+High levels of System Access will be required when working with Article\Site Master data (i.e. most users will not be able to change A/S Master data - because of the impacts to RP process).  (12/10/97 - Add/Del  RP Params discussion.)
+
+Any user will be able to set up a store group - and any store can be in multiple groups.  (12/10/97-Maintain RP Params discussion.)
+
+RP Simulation is not part of any production process (i.e. simulations cannot impact actual production processing). (12/10/97-Maintain RP Params discussion.)
+
+That for Exception and Summary Reporting purposes all SOQs generated from Replenishment processing will be reviewed within 48 hours.  (1/26/98)
+
+Requirements
+Note on font usage in this section:  Italic font is used to indicate requirements where there is a potential gap with SAP;  and Bold font is used for known gaps.
+
+Store replenishment  will be based on a sales forecast and DC replenishment will be based on an aggregated sales forecasts and presentation quantities for each article/site combination serviced by a given DC. (11/17/97)
+[Gap Note:  DC Forecast is based on historical consumption values.]
+
+Replenishment must support single purchase order generation with multiple “deliver to” locations:
+a.	Replenishment to/from DC(s)
+b.	Direct Store delivery to multiple stores (e.g. goods for 5 stores on one 	truck).   (12/03/97)
+[No Gap - Replenishment does not create POs instead it requisitions planned orders.  It is possible to support multiple deliver to locations on one PO - see PO Reqs document for details. ]
+
+A simulation capability will be provided for any Replenishment Method (Demand based, Inventory based, or Order Up To).   The simulation capability will include:
+a.	Simulation without creation of  Purchase Orders or Deliveries.
+b.	Simulation of all capabilities and parameters in the production 	environment including simulated SOQ to Source. (11/17/97)
+[Gap Notes:  No simulation capabilities available at this time.]
+
+Provide a systematic comparison of Replenishment simulations by:
+a.	Store
+b.	Category
+c.	Vendor
+d.	Period
+e. 	Feature Code
+f.	Any item used in Reporting (12/03/97)
+[Gap Notes:  Same as above - No simulation capabilities possible at this time.]
+
+The system will provide an effective date functionality  which will be used to determine whether an article/site is to be considered during a replenishment run.  (12/03/97)
+[No Gap. Article Master provides ‘Valid From’ fields for Logistics DC and Logistics Store records.]
+
+Provide the capability  to update replenishment parameters for all stores in a group using a model site/article.  Any change to the model would update (flood) all stores attached to the model site/article. (11/20/97 -> 1/7/98)
+
+Replenishment will provide Sources with projected estimated receipts, estimated goods issues (transfers), Cube measurements and estimated store on-hands.  (11/13/97 -> 1/8/98)
+
+Provide system sourcing  logic to combine Internal vs. External Vendor, Lowest Cost, and Lead Time  selection criteria in the RP process.  Example:  Select Lowest Cost AND Shortest Lead Time Vendor.   (11/20/97 -> 1/7/98)
+
+Provide capability to run simulations which include projected receipts, goods issues and on hands for multiple periods at the category level  (11/25/97 -> 1/7/98).
+[Gap Notes:  See above - No simulation capabilities possible at this time.]
+
+Provide  min/max requirements  groups capability in Replenishment. (11/25/97 -> 1/7/98).
+[No Gap Max Stock, Safety Stock and Service Level also supported.]
+
+Functional Requirement/Gap from Test Month:  Need capability to define multiple sources within a sourcing strategy  any site (currently able to define 1 internal and 1 external source per strategy in store replenishment - multiple source determination is available for MRP - warehouse replenishment- only)  (1/13/98)
+[Gap Notes:  Req needs further clarification. Source Lists are for external procurement only - and can source as many vendors as we want.  Questions exist on full capabilities for Internal Sourcing Strategies.]
+
+Functional Requirement/Gap from Test Month:  (SS)  Safety stock is not calculated - It is only a manually entered value. Safety stock needs to be dynamically calculated based on dynamic vendor lead times, demand variability and targeted service levels.  The output of the safety stock calculation will be a measurement of days of supply. (1/13/98)
+[Gap Note:  Safety Stock is currently calculated by means of Service Level; Gap relates to use of dynamic lead time (currently unavailable) in the calculation.]
+
+Functional Requirement/Gap from Test Month:  (PI ?)  DC replenishment is currently based upon DC consumption - not a sum of forecasted demand for  the stores supplied by the DC. There is no provision for irregular demand.  PETsMART needs the ability to filter out types of demand (e.g. new store distributions) (e.g. new stores and promotions). (1/13/98 )
+[Gap Note:  Multiple Gaps: DC Consumption Req #1 this section; and forecasting/promo gap.]
+
+Functional Requirement/Gap from Test Month:  (PI ?)  Vendor lead times are not dynamic measurements - and are currently only manually entered .
+a.  Vendor Lead times should be calculated from PO creation to PO receipt using a moving average or other defined calculation.  (1/13/98)
+
+Functional Requirement/Gap from Test Month:  (SS) Order optimizing and Load Building do not utilize Store Level Consumption Data.  Process must access store level consumption data.  (you can use manual truckbuilding, but this is not acceptable). (1/13/98)
+
+Functional Requirement/Gap from Test Month:  (SS)  Seasonal trend methods cannot be used in conjunction with trend models for store replenishment.
+[Gap relates to req for multiple indices. ]
+
+Functional Requirement/Gap from Test Month:  (PI ?)  Stock outs and lost sales(unfulfilled demand) are not calculated and included in SAP’s forecasting and/or replenishment processes.   (1/13/98)
+
+Functional Requirement/Gap from Test Month:  (SS - Possibly Biggest single RP Gap)  Need the ability to separate the forecasting and replenishment range of coverage. Currently if you forecast 8 weeks, then the target stock will be the sum of the forecasted demand (+ safety stock) for the 8 weeks.  This does not allow long range forecasting with short range replenishment - developer acknowledged this as a gap.  (1/13/98)
+
+Functional Requirement/Gap from Test Month:  (PI ?)  Store replenishment does not currently support substitution logic (e.g. either for discontinued items or situations with bonus packages) (1/13/98)
+
+Functional Requirement/Gap from Test Month:  (PI ?)  Replenishment cannot currently be set up to ignore store orders that are tied to a promotion - prevents the store from adding promotional quantities, as replenishment will just reduce the fill-in order. (1/13/98)
+
+Functional Requirement/Gap from Test Month:  (PI ?) Supplying site for store replenishment is defined at the site / merchandise category level, PETsMART needs to be able to do this at the site / article level. (1/13/98)
+[Gap Notes:  Store replenishment was simplified in 4.0 and lost this capability.]
+
+Provide the ability to specify both a supplying DC and supplying warehouse for an article, with the supplying DC controlling which Warehouse Management System (WMS) instance the orders get transmitted to, and the supplying warehouse being included in the IDOC so the information can be interfaced to WMS.
+
+
+Performance Measures
+Effectiveness Measures:
+a.		(Gross) Inventory Turnover or Weeks of Supply (in units, dollars, and 			demand weighted)
+b.		(Net) Inventory (Inventory - Presentation)Turnover
+c.		Inventory Service Levels
+d.		Customer Feedback
+e.		Lost Sales due to Out-of-Stocks
+f.  	Timeliness of Order
+	(measured from SOQ generation to Order Management hand-off)
+
+Efficiency Measures:
+a.		Number of SOQs Modified
+b.		SOQ Review Time
+c.		Level of Integration w/ Forecasting and Space Planning
+		(measured by exception reporting of errors)
+
+
+Process Improvements
+
+Issues
+
+CROSS FUNCTIONAL ISSUE WITH WAREHOUSE MANAGEMENT:  Need to work procedures so that inventory can be segregated by type (i.e., Available, Display Only, RTV).   11/97 -> 1/7/98)  Added to Toolkit as an Issue 1/27/98. Mike W.
+
+Decide based on requirements, is Inventory Control an output of Replenishment?	(10/29/97)  RESOLVED. Yes. Transfers are considered a PO Type.  (1/7/98)
+
+Production & Expiration Date Processing.   Can reservation be run on either Production or Expiration Dates? (for example - ship oldest goods first from warehouse.)  Also do we the capability in allocation to automatically ship goods by a production date? (for example make sure all Christmas items leave warehouse by 1 December.)  In general, how does the system support/report on shelf life dates? (what formats are supported, etc.)  Response (Sam T, Kent W, Ned D, 11/24/97):  Both SAP and Dallas provide FIFO goods movement capabilities.  Provide the automatic goods shipment capability is feasible via an In House Program.  CROSS FUNCTIONAL ISSUE/GAP WITH WAREHOUSE MANAGEMENT TEAM. Added to Toolkit as an Issue 1/27/98. Mike W.
+
+Drop Down Menu Bar Symbol/Notification - how does it work?  Some drop down fields indicate they are drop down fields with a triangle (i.e. Match Codes)  - other's don't show the triangle but have drop down selections.  How does this work? RESOLVED/Response (Ned D, 11/24/97):  This is area of inconsistency within SAP which SAP is correcting.  Any field which uses Match Codes should show the triangle symbol  - and when you move the cursor into that field - the drop down menu arrow should appear.   If the field does not show a triangle - tab to the field and press F4 - the match codes for the field or an info message (saying no match codes are available) should appear.
+
+Generic Site Set Up.  Can a generic site/store be set up for a store group - can it be used  to flood replenishment parameters to the other stores in the group.  (More than a Reference Store capability.) RESOLVED. Response (Sam T, Kent W, Ned D, 11/24/97):  New requirement added under PO Management process area in support of this function.  Note that the requirement will be partially satisfied with a Mass Maintenance capability and that full implementation may be as a  future enhancement/development item.  REQUIREMENT ADDED 1/7/98.
+
+Setting Up Forecasting as part of New Item Set Up.  What happens during new item set up for a forecastable item? Can I save the item without specifying forecasting parameters? [Yes.] Would set up errors happen during the RP run? would they stop all RP processing.  [No.]  Don't want to blow up/stop a RP run - because one store is not set up correctly.
+RESOLVED.   Response (Sam T, Kent W, Ned D, 11/24/97):   Logical & Data Error processing occurs before forecasting and replenishment parameters are saved (during item set up) - and so these kinds of errors could not occur during the actual MRP run. (11/20/97)
+
+Definition of a Planned Order.  (See Page 125 of MM CBP Guide.)  RESOLVED.
+Response from CBP Manual:  Planned Orders are internal documents and show the planned receipts for a particular stock item/material in a plant.  Planned orders are created automatically during a planning run and  can be converted into Purchase Requisitions or Purchase Orders.  In the case Vendor to Store items - Planned Orders will probably be converted into Purchase Requisitions and then into Purchase Orders;  for DC Items, we will probably go from Planned Orders direct to Purchase Orders. (11/20/97)
+
+Connections between SAP Systems at Vendors and PETsMART.  Example can we send Forecast to another vendor using SAP?  RESOLVED.   Response (Sam T, Kent W, Ned D, 11/24/97): Yes SAP can support direct data transfers - but there are mega issues surrounding this type of transfers.  At least initially, it may be more feasible to summarize forecast projections and ship them to the vendor (via EDI) rather than full data dump between two systems.
+
+FOLLOW UP WITH SAP:  Scheduling in Replenishment.  Need to know more about everything in this area.  Can we set up nightly runs... how do we assign scheduling...  CRITICAL. (11/20/97 -> 1/7/98 Still Critical)
+[Job Scheduling Gap in SAP] Defined as gap  in MRP 230.
+
+CROSS FUNCTIONAL ISSUE:  Need to work electronic communications procedures between Store and Inventory Managers so that stores can provide systematic inputs into the Replenishment process. (1/7/98)
+[Note from SAP Gap Analysis: Stores need to provide demand. ] Added to Toolkit as an Issue 1/27/98. Mike W.
+
+CROSS FUNCTIONAL ISSUE WITH WAREHOUSE MANAGEMENT:  Is maintaining a Country of Origin attribute a requirement in lot tracking?  (Dana L 1/9/98) ] Added to Toolkit as an Issue 1/27/98. Mike W.
+
+How will Supply Source Determination work in Store Replenishment?  At what level does SAP define the supplying site for a particular store or article?  (If the lowest level is at Merchandise Category/Site  - we have a gap: i.e.  Fish Department merchandise would have multiple suppliers.) (Dana L 1/9/98)
+RESOLVED:  SAP Analysis Note: Article level is a valid option - should be no gap.
+
+Resolved Gap From Test Month: (#3)  Pending further discussion, presentation quantity requirements may be met through using the minimum target stock feature, but a follow-up meeting needs to happen to confirm that a  shift in using the presentation qty as a minimum target stock vs. a never go below. We need include operations in these discussions to confirm goals in top stock management etc.  (1/13/98)
+
+Follow Up Item From Test Month: Investigate the capabilities of store replenishment to identify the sourcing strategy by article (need capability to determine different sources for different articles within the same merchandise category).  (1/13/98) RESOLVED:  SAP Analysis - More sources on Site/Article level is possible.
+
+Follow Up Item From Test Month: Follow up on required mass maintenance functionality. Requirements may be mostly met through the use of requirements groups, but a major limitation is that once a parameter is changed at the article level, the article is no longer part of the requirements group (e.g. one of the parameters is target stock which will be changed for each article by the forecast weekly).  (1/13/98)
+[SAP Analysis/response: ‘Issue should not be a gap.’]  Resolution 1/27/98: Defined as Gap see MRP220.
+
+Follow Up Item From Test Month: Selection for articles to be included in requirements groups is probably too structured for our needs. It helps in mass set up but not so much on changes.  (1/13/98)
+[SAP Analysis/Response:  Need PETsMART requirements]. Added to Toolkit as an Issue 1/27/98. Mike W.
+
+Follow Up Item From Test Month: Investigate the use of the seasonal weighting profiles, several limitations may exist. (e.g. cannot assign a new item to an existing weighting profile, articles excluded from the build will generate their own seasonal weighted profile.  (1/13/98)
+SAP Analysis/Response: Answer Yes - articles excluded from the build will generate their own seasonal weighted profile.
+
+Follow Up Item From Test Month: Follow-up work on forecasting demand segregation (normal vs. promotional vs. seasonal vs. store requests) to insure that replenishment works in conjunction with forecasting to meet our needs. How will store input be accounted for in demand forecasting and supported by replenishment?   (1/13/98)
+[SAP Analysis/Response: Depends on Set Up in SAP.  Demand Forecasts by Site/Article are possible.]  See Gaps MRP020, MRP030.
+
+Follow Up Item From Test Month:  Does Replenishment actually use the manually entered Vendor Lead Time value - it did not appear so at test month.  (1/19/98) - See Gap writeup MRP120.
+
+Open Question from Test Month:  How does replenishment handle structured articles at the structured article level? Component level?
+[SAP Analysis/Response:  Header level quantity is calculated from mean value of constituent components.]
+
+Open Question from Test Month:  Can replenishment recognize shipment notices ? (e.g. ASN’s) (1/13/98)
+[SAP Analysis/Response: No.]  SE PO Documentation for related gaps.
+
+Open Question from Test Month:  Confirm what forecasting methods are available for store replenishment? (1/13/98)
+[SAP Analysis/Response:  (4) methods are supported:  Constant;  Trend; Seasonal; and Seasonal Trend.]
+
+Open Question from Test Month:  How does SAP define planned vs. unplanned consumption? (1/13/98)
+[SAP Analysis/Response:  Using forecast based planning - when unplanned becomes part of historical values it is not part of future forecast calculations.]
+
+Open Question from Test Month:  What role does the ‘forecast quantity sold’ value play in replenishment / forecasting. - Patti  (1/13/98)
+[SAP Analysis/Response:  Open - looking for specific field referred to.] Added to Toolkit as open issue 1/27/98. Mike W.
+
+Opportunities
+ Jobs Analysis
+Notes on System Support Organization. Ideally want three tier support structure:
+Divisional Inventory Managers involved with major parameter discussions
+Inventory Mgrs
+System Admin/Support Group
+
+Better Practices Recommendations
+Forecasting and Replenishment will be automated processes requiring minimal intervention.
+
+Promotional demand will be segregated from normal demand.
+
+Parameters such as Forecast Horizon or Model Quantity will be set at the class, vendor or item level.
+
+Time horizons are based on:
+a.	Lead times from supplier to the warehouse
+b.	Replenishment cycle
+c.	Order cycle
+d.	Uncertainty
+
+Management of the forecasting and replenishment processes occurs at the parameter and not at the standard order quantity level.
+
+Reports
+Forms
+Existing SAP functionality
+Change RP Profile Selection Screen Parameters:
+RP Type
+Stack Planner
+ABC Indicator
+Planned Delivery in Days
+In House Production Time
+Scheduled Margin Key for Floats
+Dependent Requirements Indicator
+Requirements Grouping Indicator
+Safety Stock
+Reorder Point
+Lot Size Key
+Rounding Value
+Minimum Lot Size
+Maximum Lot Size
+Fixed Lot Size
+Maximum Stock Level
+Assembly Scrap Percent
+Ordering Costs
+Storage Costs
+Splitting Indicator
+Goods Receipt Processing Time
+Quota Arrangement Usage
+Period Indicator
+Fiscal Year Variant
+Purchasing Group
+PPC Calendar
+Ind Repetitive Mfg Allowed
+Rep Mfg Profile
+Planning Time Fence
+Consumption Mode
+Consumption Period Backward
+Consumption Period Forward
+RP Group
+Component Scrap %
+BOMs
+Mixed RP Indicator
+Total RP Lead Time
+Planning Article
+
+Implementation & Technical Considerations from Test Month Documentation:
+
+Consider not setting the reorder point - it may cause difficulty in generating correct orders. If you do set it, it must be greater than your minimum target stock (or you will go below your defined presentation quantity prior to generating a replenishment). If it is left blank, there will be no impact except that there is a potential to generate small replenishment orders (which may or may not be a problem depending on how transfer quantities are set)
+
+Team needs to look closely at the use of the planning horizon in conjunction with the target range of coverage. Need to make sure that these can be defined at the individual article / site level, it appears that the planning horizon is a global value in replenishment if it is run in dialog (vs. batch). Issues will arise in how these two values will work together. Potential Gap
+
+FYI - when using store replenishment some of the information contained in the article master record is misleading. The forecast and consumption values shown are not the ones used.
+
+FYI - if the MRP functionality in SAP is used (suggested for DC replenishment) you can only run it one site at a time.
+
+Investigate how the Minimum Target Stock value works in coordination with Safety Stock in SAP and identify additional requirements to make it function as a presentation quantity. (Potential Gap)
+
+If we intend to use MRP functionality for the stores this will have a significant impact on performance. Need to work closely with the functional team to insure that the proposed solution will be technically feasible. (MRP for all stores is probably not feasible.
+
+
+Addendum
+
+
+Add/Delete Item Replenishment Parameters (Level 3)
+Requirements
+Ability to copy replenishment parameters by :
+a.	Vendor
+b.	Merchandise Hierarchy
+c.	Feature Code/Characteristic attribute
+d.	Replenishment Source
+e.	Site
+f.	Any combination of the above
+g.	Any forecasting parameter. (12/03/97)
+
+Ability  to copy only the Replenishment parameters from a Reference Article/Site.
+[Gap Note:  No copy function available only reference (on site/article level).]
+
+Support all of the following required Replenishment Parameters including:
+a.	Lead Time
+b.	Dynamic Safety Time/Stock for both DC’s and stores
+c.	Presentation Quantity or Multiple Presentation Quantity
+d.	Effective Date:
+	1).	Start
+	2).	Stop
+e.	Review Cycle
+f.	Sourcing strategy
+g.    Min/Max Stock
+h.    Weeks of supply
+i.    	Review strategy (i.e. all SKUs, only those that have sold, etc.)
+[Gap Notes:  Safety Stock calculated from Service Level; Effective Start Date is equivalent to ‘Valid From’; Min/Max Stock is represented as Max Stock and Reorder Point. ]
+
+Support all of the required Replenishment Methods including:
+a.	Demand based - based on forecast parameters.
+b.	Inventory based, including:
+	1).	Min/Max:
+		Minimum - Fixed or dynamic, updated from the Assortment/Space 			Planning module.
+		Maximum - Fixed or calculated dynamically.
+	2).	Reorder Point.
+[Gap Notes:  Reorder point can be dynamically updated or fixed; No link currently available from Assortment/Space Planning Module. ]
+
+Provide a ‘Check’ capability :
+The system will identify the number of article/site changes impacted by any parameter addition, deletion or change.
+The changes will be sorted by hierarchy, # of sites and # or articles.
+(12/10/97)
+
+Changes to linked items will apply to parents and all children (regardless of when the children were created).  (12/10/97)
+
+Need to have a date effective rollback or undo capability for any Replenishment parameter change made in mass maintenance.  (12/10/97)
+
+The system will provide the capability to increment (+1) or decrement (-1) certain Replenishment parameters including:
+Safety Weeks
+Minimum Buys
+Lead Time
+(12/10/97)
+
+
+
+Maintain Replenishment Parameters (Level 3)
+Requirements
+Same set as those listed for the Add/Delete Replenishment Item Parameters process.
+
+Provide a mass maintenance capability to allow users to change values at the site and/or SKU level.  Allow the user  to change the parameters of  multiple items at the same time and have the changes drive different replenishment behaviors.  Mass maintenance parameters to be changed include:
+a.	Presentation Values
+b.	Safety Stock Levels and Rules
+c.	Reorder Weeks (Times) of Supply
+d.	Min/Max stock
+e.	Lead time
+[Gap Note:  No mass maintenance capabilities are available to 4.0 - some the of the requirements listed here maybe in 4.0.]
+
+Mass maintenance capabilities should also include :
+a.	Capability to define the sites or SKUs for the change.
+b.	Capability to define the type of change required.
+c.	Capability to review the expected or actual results prior to, during or 	after  the time the change is made to include:
+	1).	The system should specify the number of sites or SKUs impacted.
+	2).	Allow the user to execute, or review the changes on either a one 			to one, or group by group basis.
+	3).	Provide a Mass Maintenance audit trail  to include:
+		a).	Which sites/SKUs were changed
+		b).	Old and New values
+		c).	User ID
+		d).	Date and Time of change
+		e).	‘Change Back To’ Date (12/03/97)
+
+Article parameters managed by mass maintenance include :
+a.	Effective Dates
+	1).	Start Date
+	2).	Stop Date
+b.	Change Back To Date
+c.	Live Date
+d.	Kill Date
+e.	Any date sensitive changes
+	(12/03/97)
+
+Provide the capability to select stores for inclusion in a store group based on Boolean logic (And, Or select statements),store grid selection, or characteristic attributes.  (12/10/97)
+
+Provide the capability to simulate the impact of a change to a Replenishment parameter.  (12/10/97)
+
+Provide the capability to set up and maintain hardcoded defaults for any errors and/or warning messages used in the maintain Replenishment parameters process. (12/10/97)
+
+
+
+Develop Replenishment Schedules (Level 3)
+Requirements
+Support the following Replenishment Run Schedules and parameters:
+a.	Run Schedule
+	1).  	Day of week
+	2).  	Frequency
+
+b.	Schedule Parameters
+	1). 	Organizational Hierarchy
+	2).  	Merchandise Hierarchy
+	3). 	Replenishment Source
+	4).	Vendor
+	5).	Characteristic Value
+	6).	Any combination of the above parameters
+Calculate a Suggested Order Quantity (SOQ) (Level 3)
+Requirements
+The SOQ Calculation must include:
+Forecasted Demand
+In Transit Stock
+On Hand Stock
+Dynamic Safety Stock
+Lead Time
+
+
+The system must be capable of providing vendors with expected orders for selected periods.
+[Gap Notes:  Can not be accomplished during the same Replenishment run.]
+
+
+
+Determine Order Type (Level 3)
+Requirements
+Utilize an integrated sourcing strategy in the Replenishment process.
+
+
+Review SOQ (Level 3)
+Requirements
+The system will allow overrides to increase/decrease SOQ for individual SKU’s within limits established by Merchandising. Limits can include:
+a.	Fixed or dynamic quantities
+[Gap Notes: Dynamic and Static rounding profiles exist in SAP units only.]
+
+## Key takeaways
+<!-- Session fills these in during processing -->
+
+## Links to existing knowledge
+<!-- What wiki articles or project docs does this connect to? -->

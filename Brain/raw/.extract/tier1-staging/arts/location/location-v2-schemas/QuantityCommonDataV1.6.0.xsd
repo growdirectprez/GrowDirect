@@ -1,0 +1,54 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- edited with XMLSpy v2006 sp2 U (http://www.altova.com) by Richard L Halter (private) -->
+<xs:schema xmlns:xs="http://www.w3.org/2001/XMLSchema" elementFormDefault="qualified" attributeFormDefault="unqualified">
+	<xs:include schemaLocation="IXREnumerationExtensionV1.1.0.xsd"/>
+	<xs:include schemaLocation="UnitOfMeasureCodeEnumerationV1.3.0.xsd"/>
+	<xs:include schemaLocation="EntryMethodTypeCodeEnumerationV1.2.0.xsd"/>
+	<xs:complexType name="QuantityCommonData">
+		<xs:simpleContent>
+			<xs:extension base="xs:decimal">
+				<xs:attribute name="Units" type="xs:decimal" default="1">
+					<xs:annotation>
+						<xs:documentation>The number of units sold, when selling bulk merchandise.
+							Eg: A sale of 20 Gallons of Gas: Quantity=20, Units=1, UnitOfMeasure=Ga
+							Eg: A sale of 3 cans of Beans: Quantity=3, Units=1, UnitOfMeasure=Ea
+							Sale of 6 pack of beer quantity = 1, units = 6
+						unitofmeasure=6pk</xs:documentation>
+					</xs:annotation>
+				</xs:attribute>
+				<xs:attribute name="UnitOfMeasureCode" type="UnitOfMeasureCodeCommonData" use="optional" default="EA">
+					<xs:annotation>
+						<xs:documentation>The code used to specify the units in which a value is
+							being expressed, or manner in which a measurement has been taken.
+						</xs:documentation>
+					</xs:annotation>
+				</xs:attribute>
+				<xs:attribute name="EntryMethod" type="EntryMethodTypeCode" use="optional" default="Scanned"/>
+				<xs:attribute name="Resolution">
+					<xs:annotation>
+						<xs:documentation>Indicate the number of significant digits.  When printing a transaction with its weight, only the digits should be printed which have significant resolution.
+e.g. a Scale with a resolution of 2 g would print "0.820" - the last zero is intentional and correct but a scale with 100g resolution would print "0.8" for a value of 0.800 - here the last two zeroes must not be printed
+</xs:documentation>
+					</xs:annotation>
+					<xs:simpleType>
+						<xs:restriction base="xs:decimal">
+							<xs:minInclusive value="0.0"/>
+						</xs:restriction>
+					</xs:simpleType>
+				</xs:attribute>
+				<xs:attribute name="Type" type="QuantityTypeCode" default="Sell"/>
+			</xs:extension>
+		</xs:simpleContent>
+	</xs:complexType>
+	<xs:simpleType name="QuantityTypeCode">
+		<xs:union memberTypes="QuantityTypeCodeEnumeration TypeCodeExtension"/>
+	</xs:simpleType>
+	<xs:simpleType name="QuantityTypeCodeEnumeration">
+		<xs:restriction base="xs:NMTOKEN">
+			<xs:enumeration value="Sell"/>
+			<xs:enumeration value="Inventory"/>
+			<xs:enumeration value="Waste"/>
+			<xs:enumeration value="Label"/>
+		</xs:restriction>
+	</xs:simpleType>
+</xs:schema>

@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<xs:schema xmlns:xs="http://www.w3.org/2001/XMLSchema" elementFormDefault="qualified" attributeFormDefault="unqualified">
+	<xs:include schemaLocation="IXREnumerationExtensionV1.1.0.xsd"/>
+	<!--
+		Enumerated type for Inventory Location Codes attribute
+	-->
+	<xs:simpleType name="InventoryLocationCodes">
+		<xs:union memberTypes="InventoryLocationCodesEnumeration TypeCodeExtension"/>
+	</xs:simpleType>
+	<xs:simpleType name="InventoryLocationCodesEnumeration">
+		<xs:restriction base="xs:NMTOKEN">
+			<xs:enumeration value="Bin"/>
+			<xs:enumeration value="Shelf"/>
+			<xs:enumeration value="EndCap"/>
+			<xs:enumeration value="Pickface"/>
+			<xs:enumeration value="Inspection"/>
+			<xs:enumeration value="Dock"/>
+		</xs:restriction>
+	</xs:simpleType>
+</xs:schema>

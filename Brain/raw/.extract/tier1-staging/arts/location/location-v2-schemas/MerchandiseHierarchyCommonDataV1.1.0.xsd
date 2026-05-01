@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<xs:schema xmlns:xs="http://www.w3.org/2001/XMLSchema" elementFormDefault="qualified" attributeFormDefault="unqualified">
+	<xs:include schemaLocation="MerchandiseHierarchyLevelEnumerationV1.1.0.xsd"/>
+	<xs:complexType name="MerchandiseHierarchyCommonData">
+		<xs:annotation>
+			<xs:documentation>This is an instance of a merchandise hierarchy structure for
+				a particular level</xs:documentation>
+		</xs:annotation>
+		<xs:simpleContent>
+			<xs:extension base="xs:string">
+				<xs:attribute name="Level" type="MerchandiseHierarchyLevelTypeCode" use="optional"/>
+				<xs:attribute name="ID" type="xs:string" use="optional"/>
+				<xs:anyAttribute namespace="##other" processContents="lax"/>
+			</xs:extension>
+		</xs:simpleContent>
+	</xs:complexType>
+</xs:schema>

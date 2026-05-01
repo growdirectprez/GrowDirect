@@ -1,0 +1,74 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- edited with XMLSpy v2006 sp1 U (http://www.altova.com) by Richard L Halter (private) -->
+<xs:schema xmlns:xs="http://www.w3.org/2001/XMLSchema" elementFormDefault="qualified"
+	attributeFormDefault="unqualified">
+	<!-- Minor Version 1.5.0 2010/12/31
+	- Added Website
+	- Added ContactPreference
+-->
+	<xs:include schemaLocation="GenderTypeCodeEnumerationV1.2.0.xsd"/>
+	<xs:include schemaLocation="CustomerDemographicCommonDataV1.0.0.xsd"/>
+	<xs:include schemaLocation="IDDemographicDataPairCommonDataV1.0.0.xsd"/>
+	<xs:include schemaLocation="NameCommonDataV1.2.0.xsd"/>
+	<xs:include schemaLocation="AddressCommonDataV1.4.0.xsd"/>
+	<xs:include schemaLocation="TelephoneCommonDataV1.2.0.xsd"/>
+	<xs:include schemaLocation="EMailCommonDataV2.0.0.xsd"/>
+	<xs:complexType name="CustomerCommonData">
+		<xs:sequence>
+			<xs:element name="CustomerID" type="xs:string" minOccurs="0">
+				<xs:annotation>
+					<xs:documentation>A unique identifier for a customer.</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="Name" minOccurs="0">
+				<xs:complexType>
+					<xs:complexContent>
+						<xs:extension base="NameCommonData"/>
+					</xs:complexContent>
+				</xs:complexType>
+			</xs:element>
+			<xs:element name="Address" minOccurs="0">
+				<xs:complexType>
+					<xs:complexContent>
+						<xs:extension base="AddressCommonData"/>
+					</xs:complexContent>
+				</xs:complexType>
+			</xs:element>
+			<xs:element name="TelephoneNumber" minOccurs="0">
+				<xs:complexType>
+					<xs:complexContent>
+						<xs:extension base="TelephoneCommonData"/>
+					</xs:complexContent>
+				</xs:complexType>
+			</xs:element>
+			<xs:element name="EMail" minOccurs="0">
+				<xs:complexType>
+					<xs:complexContent>
+						<xs:extension base="EMailCommonData"/>
+					</xs:complexContent>
+				</xs:complexType>
+			</xs:element>
+			<xs:element name="Website" type="xs:string" minOccurs="0" maxOccurs="unbounded"/>
+			<xs:element name="PrivacyOptOut" type="xs:string" minOccurs="0">
+				<xs:annotation>
+					<xs:documentation>Typically eMail, Phone, Mail</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="BirthDayMonth" type="xs:gMonthDay" minOccurs="0"/>
+			<xs:element name="BirthYear" type="xs:gYear" minOccurs="0"/>
+		</xs:sequence>
+		<xs:attribute name="Gender" type="GenderTypeCode" use="optional" default="Male"/>
+		<xs:attribute name="ContactPreference" type="ContactPreferenceTypeCode" use="optional"/>
+	</xs:complexType>
+	<!-- Contact Preference -->
+	<xs:simpleType name="ContactPreferenceTypeCode">
+		<xs:union memberTypes="ContactPreferenceTypeCodeEnumeration TypeCodeExtension"/>
+	</xs:simpleType>
+	<xs:simpleType name="ContactPreferenceTypeCodeEnumeration">
+		<xs:restriction base="xs:NMTOKEN">
+			<xs:enumeration value="Phone"/>
+			<xs:enumeration value="E-mail"/>
+			<xs:enumeration value="Mail"/>
+		</xs:restriction>
+	</xs:simpleType>
+</xs:schema>

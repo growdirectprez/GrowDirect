@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- V1.1.0
+	- Added to support Traceability
+			AvailableForSale, BestBefore, Birth, CutBy, EnterFreezer, Kill, Pack, Packaging, Production, SellBy, Slaughter
+
+-->
+<xs:schema xmlns:xs="http://www.w3.org/2001/XMLSchema" elementFormDefault="qualified" attributeFormDefault="unqualified">
+	<xs:include schemaLocation="IXREnumerationExtensionV1.1.0.xsd"/>
+	<!-- 
+		Date Time Enumeration
+	-->
+	<xs:simpleType name="FixturesType">
+		<xs:union memberTypes="FixturesTypeEnumeration TypeCodeExtension"/>
+	</xs:simpleType>
+	<xs:simpleType name="FixturesTypeEnumeration">
+		<xs:restriction base="xs:NMTOKEN">
+			<xs:enumeration value="Bay"/>
+			<xs:enumeration value="Bin"/>
+			<xs:enumeration value="Chest"/>
+			<xs:enumeration value="Clipstrip"/>
+			<xs:enumeration value="DisplayCase"/>
+			<xs:enumeration value="Fixture"/>
+			<xs:enumeration value="Freezer"/>
+			<xs:enumeration value="GarmetRack"/>
+			<xs:enumeration value="GravityFeed"/>
+			<xs:enumeration value="HangingBar"/>
+			<xs:enumeration value="Peg"/>
+			<xs:enumeration value="Pegboard"/>
+			<xs:enumeration value="Planogram"/>
+			<xs:enumeration value="Rod"/>
+			<xs:enumeration value="Shelf"/>
+			<xs:enumeration value="Slatwall"/>
+		</xs:restriction>
+	</xs:simpleType>
+</xs:schema>

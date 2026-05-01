@@ -1,0 +1,65 @@
+[
+  {
+    "source_path": "/Users/gclyle/GrowDirect/Brain/raw/inbox/Other Retek Decks/AIP Tech Overview 1103.ppt",
+    "source_sha256": "3d5ac43f0082b97414929e05a0167ba489fab5f1ce4ff0f1bf806994c1abc422",
+    "target_path": "/Users/gclyle/GrowDirect/Brain/raw/.extract/Other Retek Decks/AIP Tech Overview 1103.ppt.md",
+    "method": null,
+    "status": "failed",
+    "error": "markitdown: UnsupportedFormatException: Could not convert stream to Markdown. No converter attempted a conversion, suggesting that the filetype is simply not supported.",
+    "extracted_at": "2026-04-24T21:43:16.056017+00:00"
+  },
+  {
+    "source_path": "/Users/gclyle/GrowDirect/Brain/raw/inbox/Other Retek Decks/RPOS Presentation.ppt",
+    "source_sha256": "5bcb1cd3b8853f5b16a8d702b6214ae28283d5f790cf23a5a21674224b29ee1a",
+    "target_path": "/Users/gclyle/GrowDirect/Brain/raw/.extract/Other Retek Decks/RPOS Presentation.ppt.md",
+    "method": null,
+    "status": "failed",
+    "error": "markitdown: UnsupportedFormatException: Could not convert stream to Markdown. No converter attempted a conversion, suggesting that the filetype is simply not supported.",
+    "extracted_at": "2026-04-24T21:43:18.067124+00:00"
+  },
+  {
+    "source_path": "/Users/gclyle/GrowDirect/Brain/raw/inbox/Other Retek Decks/Range&Space.ppt",
+    "source_sha256": "13f167d24267c8cbf457b63cdafa575bf7e68d8f5fcd1911ea7b4866b58e7e94",
+    "target_path": "/Users/gclyle/GrowDirect/Brain/raw/.extract/Other Retek Decks/Range&Space.ppt.md",
+    "method": null,
+    "status": "failed",
+    "error": "markitdown: UnsupportedFormatException: Could not convert stream to Markdown. No converter attempted a conversion, suggesting that the filetype is simply not supported.",
+    "extracted_at": "2026-04-24T21:43:18.076634+00:00"
+  },
+  {
+    "source_path": "/Users/gclyle/GrowDirect/Brain/raw/inbox/Other Retek Decks/Retek 10 Architecture Overview - IBM View @ 030203.ppt",
+    "source_sha256": "cb069ce33c68e2ffc27f8c60a3cecc075b6012ee723f595a0f12056924d9ce81",
+    "target_path": "/Users/gclyle/GrowDirect/Brain/raw/.extract/Other Retek Decks/Retek 10 Architecture Overview - IBM View @ 030203.ppt.md",
+    "method": null,
+    "status": "failed",
+    "error": "markitdown: UnsupportedFormatException: Could not convert stream to Markdown. No converter attempted a conversion, suggesting that the filetype is simply not supported.",
+    "extracted_at": "2026-04-24T21:43:18.439367+00:00"
+  },
+  {
+    "source_path": "/Users/gclyle/GrowDirect/Brain/raw/inbox/Other Retek Decks/Retek Appl Arch q1 00 (Retek Ratified).ppt",
+    "source_sha256": "840e3268da46c741fd7e805074f5f7549bc3cf650c85e87702930345ecabe68a",
+    "target_path": "/Users/gclyle/GrowDirect/Brain/raw/.extract/Other Retek Decks/Retek Appl Arch q1 00 (Retek Ratified).ppt.md",
+    "method": null,
+    "status": "failed",
+    "error": "markitdown: UnsupportedFormatException: Could not convert stream to Markdown. No converter attempted a conversion, suggesting that the filetype is simply not supported.",
+    "extracted_at": "2026-04-24T21:43:18.447221+00:00"
+  },
+  {
+    "source_path": "/Users/gclyle/GrowDirect/Brain/raw/inbox/Other Retek Decks/Retek Full Suite.ppt",
+    "source_sha256": "7502d938a1b1c2ddc046182c4448d21726f1b20016fb6cdd2da7411ba25e9a6b",
+    "target_path": "/Users/gclyle/GrowDirect/Brain/raw/.extract/Other Retek Decks/Retek Full Suite.ppt.md",
+    "method": null,
+    "status": "failed",
+    "error": "markitdown: UnsupportedFormatException: Could not convert stream to Markdown. No converter attempted a conversion, suggesting that the filetype is simply not supported.",
+    "extracted_at": "2026-04-24T21:43:18.460388+00:00"
+  },
+  {
+    "source_path": "/Users/gclyle/GrowDirect/Brain/raw/inbox/Other Retek Decks/Retek V10 NRF Deck - SCM.ppt",
+    "source_sha256": "56805efbfd0f628ccd4271d0d33685708a22608f5675ef9880a9310cb18744f7",
+    "target_path": "/Users/gclyle/GrowDirect/Brain/raw/.extract/Other Retek Decks/Retek V10 NRF Deck - SCM.ppt.md",
+    "method": null,
+    "status": "failed",
+    "error": "markitdown: UnsupportedFormatException: Could not convert stream to Markdown. No converter attempted a conversion, suggesting that the filetype is simply not supported.",
+    "extracted_at": "2026-04-24T21:43:19.619541+00:00"
+  }
+]

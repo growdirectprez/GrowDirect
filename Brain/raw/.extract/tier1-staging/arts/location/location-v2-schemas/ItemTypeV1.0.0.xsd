@@ -1,0 +1,50 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- edited with XMLSpy v2006 sp2 U (http://www.altova.com) by Richard L Halter (private) -->
+<xs:schema xmlns:xs="http://www.w3.org/2001/XMLSchema" elementFormDefault="qualified" attributeFormDefault="unqualified">
+	<xs:include schemaLocation="InventoryStatusCodesEnumerationV1.4.0.xsd"/>
+	<xs:include schemaLocation="ItemIDCommonDataV1.4.0.xsd"/>
+	<xs:include schemaLocation="ItemMeasurementCommonDataV1.3.0.xsd"/>
+	<xs:include schemaLocation="PhysicalLocationV1.0.0.xsd"/>
+	<xs:include schemaLocation="PriceCommonDataV1.4.0.xsd"/>
+	<xs:include schemaLocation="QuantityCommonDataV1.6.0.xsd"/>
+	<xs:complexType name="ItemType">
+		<xs:sequence>
+			<xs:element name="ItemID" minOccurs="0">
+				<xs:complexType>
+					<xs:simpleContent>
+						<xs:extension base="ItemIDCommonData"/>
+					</xs:simpleContent>
+				</xs:complexType>
+			</xs:element>
+			<xs:element name="Price" minOccurs="0">
+				<xs:complexType>
+					<xs:simpleContent>
+						<xs:extension base="PriceCommonData"/>
+					</xs:simpleContent>
+				</xs:complexType>
+			</xs:element>
+			<xs:element name="Proximity" minOccurs="0">
+				<xs:complexType>
+					<xs:complexContent>
+						<xs:extension base="PhysicalLocationType"/>
+					</xs:complexContent>
+				</xs:complexType>
+			</xs:element>
+			<xs:element name="Quantity" minOccurs="0">
+				<xs:complexType>
+					<xs:simpleContent>
+						<xs:extension base="QuantityCommonData"/>
+					</xs:simpleContent>
+				</xs:complexType>
+			</xs:element>
+			<xs:element name="Dimension" minOccurs="0">
+				<xs:complexType>
+					<xs:complexContent>
+						<xs:extension base="ItemMeasurementCommonData"/>
+					</xs:complexContent>
+				</xs:complexType>
+			</xs:element>
+		</xs:sequence>
+		<xs:attribute name="Status" type="InventoryStatusCodes"/>
+	</xs:complexType>
+</xs:schema>

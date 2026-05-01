@@ -1,0 +1,20 @@
+[
+  {
+    "source_path": "/Users/gclyle/GrowDirect/Brain/raw/inbox/BV Nuggets/00-01-29 Sizing a BroadVision Site.ppt",
+    "source_sha256": "a4431af65320a87f69ba97aea1ff38623f1234a78e825c8b6c1fe2107df878ab",
+    "target_path": "/Users/gclyle/GrowDirect/Brain/raw/.extract/BV Nuggets/00-01-29 Sizing a BroadVision Site.ppt.md",
+    "method": null,
+    "status": "failed",
+    "error": "markitdown: UnsupportedFormatException: Could not convert stream to Markdown. No converter attempted a conversion, suggesting that the filetype is simply not supported.",
+    "extracted_at": "2026-04-24T21:43:42.964011+00:00"
+  },
+  {
+    "source_path": "/Users/gclyle/GrowDirect/Brain/raw/inbox/BV Nuggets/Fulfillment & outsourcing options.ppt",
+    "source_sha256": "2bf0152e10342a7f230568b7f4a7b27e91d58b01f7ae388f18fdfd2bba405a23",
+    "target_path": "/Users/gclyle/GrowDirect/Brain/raw/.extract/BV Nuggets/Fulfillment & outsourcing options.ppt.md",
+    "method": null,
+    "status": "failed",
+    "error": "markitdown: UnsupportedFormatException: Could not convert stream to Markdown. No converter attempted a conversion, suggesting that the filetype is simply not supported.",
+    "extracted_at": "2026-04-24T21:43:43.576998+00:00"
+  }
+]

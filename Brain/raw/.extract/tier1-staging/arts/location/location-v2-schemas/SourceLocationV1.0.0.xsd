@@ -1,0 +1,34 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- edited with XMLSpy v2006 sp1 U (http://www.altova.com) by Richard L Halter (private) -->
+<xs:schema xmlns:xs="http://www.w3.org/2001/XMLSchema" elementFormDefault="qualified" attributeFormDefault="unqualified">
+	<xs:include schemaLocation="IXREnumerationExtensionV1.1.0.xsd"/>
+	<xs:include schemaLocation="BusinessUnitCommonDataV1.3.0.xsd"/>
+	<xs:include schemaLocation="IDCommonDataV1.0.0.xsd"/>
+	<xs:include schemaLocation="ItemIDCommonDataV1.4.0.xsd"/>
+	<xs:include schemaLocation="MerchandiseHierarchyCommonDataV1.1.0.xsd"/>
+	<xs:include schemaLocation="ObjectOfInterestV1.0.0.xsd"/>
+	<xs:include schemaLocation="PhysicalLocationV1.0.0.xsd"/>
+	<xs:include schemaLocation="RangeV1.0.0.xsd"/>
+	<xs:include schemaLocation="SearchRadiusV1.0.0.xsd"/>
+	<xs:complexType name="SourceLocationType">
+		<xs:complexContent>
+			<xs:extension base="PhysicalLocationType">
+				<xs:sequence>
+					<xs:element name="BusinessUnit" type="BusinessUnitCommonData" minOccurs="0"/>
+					<xs:element name="Range" type="RangeType" minOccurs="0"/>
+					<xs:element name="SearchRange" type="SearchRadiusType" minOccurs="0"/>
+					<xs:choice minOccurs="0" maxOccurs="unbounded">
+						<xs:element name="ObjectOfInterest" type="ObjectOfInterestType"/>
+						<xs:element name="MerchandiseHierarchy" type="MerchandiseHierarchyCommonData"/>
+						<xs:element name="ItemID" type="ItemIDCommonData"/>
+					</xs:choice>
+					<xs:element name="RouteID" type="IDCommonData" minOccurs="0" maxOccurs="unbounded">
+						<xs:annotation>
+							<xs:documentation>The route to the source location for this object</xs:documentation>
+						</xs:annotation>
+					</xs:element>
+				</xs:sequence>
+			</xs:extension>
+		</xs:complexContent>
+	</xs:complexType>
+</xs:schema>

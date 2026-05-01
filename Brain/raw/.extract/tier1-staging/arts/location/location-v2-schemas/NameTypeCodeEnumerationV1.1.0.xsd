@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<xs:schema xmlns:xs="http://www.w3.org/2001/XMLSchema" elementFormDefault="qualified" attributeFormDefault="unqualified">
+<xs:include schemaLocation="IXREnumerationExtensionV1.1.0.xsd"/>
+		<!--
+		Name part types
+	-->
+	<xs:simpleType name="NameTypeCode">
+		<xs:union memberTypes="NameTypeCodeEnumeration TypeCodeExtension"/>
+	</xs:simpleType>
+	<xs:simpleType name="NameTypeCodeEnumeration">
+		<xs:restriction base="xs:NMTOKEN">
+			<xs:enumeration value="GivenName"/>
+			<xs:enumeration value="OtherGivenName"/>
+			<xs:enumeration value="FamilyName"/>
+			<xs:enumeration value="Patronymic"/>
+			<xs:enumeration value="Nickname"/>
+			<xs:enumeration value="Alias"/>
+			<xs:enumeration value="Initial"/>
+			<xs:enumeration value="PreferredName"/>
+			<xs:enumeration value="Prefecture"/>
+		</xs:restriction>
+	</xs:simpleType>
+
+</xs:schema>

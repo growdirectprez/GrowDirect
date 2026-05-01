@@ -1,0 +1,34 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<xs:schema xmlns:xs="http://www.w3.org/2001/XMLSchema" elementFormDefault="qualified" attributeFormDefault="unqualified">
+	<!-- V1.1.0 -->
+	<!-- Added TimeClock -->
+	<!-- V1.2.0 -->
+	<!-- Added CRIND -->
+	<!-- Added Mobile -->
+	<xs:include schemaLocation="IXREnumerationExtensionV1.1.0.xsd"/>
+	<!--
+		Enumerated type for Workstation Types 
+	-->
+	<xs:simpleType name="WorkstationIDTypeCode">
+		<xs:union memberTypes="WorkstationIDTypeCodeEnumeration TypeCodeExtension"/>
+	</xs:simpleType>
+	<xs:simpleType name="WorkstationIDTypeCodeEnumeration">
+		<xs:restriction base="xs:NMTOKEN">
+			<xs:enumeration value="ATM"/>
+			<xs:enumeration value="CallCenterStation"/>
+			<xs:enumeration value="CRIND"/>
+			<xs:enumeration value="Kiosk"/>
+			<xs:enumeration value="Mobile"/>
+			<xs:enumeration value="Network"/>
+			<xs:enumeration value="POI">
+				<xs:annotation>
+					<xs:documentation>Point of Interaction (payment subsystem)</xs:documentation>
+				</xs:annotation>
+			</xs:enumeration>
+			<xs:enumeration value="POS"/>
+			<xs:enumeration value="TimeClock"/>
+			<xs:enumeration value="URI"/>
+			<xs:enumeration value="Website"/>
+		</xs:restriction>
+	</xs:simpleType>
+</xs:schema>

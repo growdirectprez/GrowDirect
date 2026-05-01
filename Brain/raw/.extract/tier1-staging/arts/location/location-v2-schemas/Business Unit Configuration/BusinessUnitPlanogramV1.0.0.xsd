@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- edited with XMLSpy v2006 sp1 U (http://www.altova.com) by Richard L Halter (private) -->
+<!-- 
+	Version 1.2.0
+	- Removed FullAddress because there is no place in the data model to store it
+-->
+<xs:schema xmlns:xs="http://www.w3.org/2001/XMLSchema" elementFormDefault="qualified" attributeFormDefault="unqualified">
+	<xs:include schemaLocation="IDCommonDataV1.0.0.xsd"/>
+	<xs:include schemaLocation="LocationTypeV1.0.0.xsd"/>
+	<xs:include schemaLocation="PlanogramTypeCodeV1.0.0.xsd"/>
+	<xs:complexType name="BusinessUnitPlanogramType">
+		<xs:sequence>
+			<xs:element name="PlanogramID" type="IDCommonData" minOccurs="0"/>
+			<xs:element name="Location" type="LocationType" minOccurs="0"/>
+		</xs:sequence>
+		<xs:attribute name="TypeCode" type="PlanogramTypeCode"/>
+	</xs:complexType>
+</xs:schema>

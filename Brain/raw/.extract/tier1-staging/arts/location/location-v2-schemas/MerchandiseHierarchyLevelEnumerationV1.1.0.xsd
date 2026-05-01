@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<xs:schema xmlns:xs="http://www.w3.org/2001/XMLSchema" elementFormDefault="qualified" attributeFormDefault="unqualified">
+<xs:include schemaLocation="IXREnumerationExtensionV1.1.0.xsd"/>
+		<!-- 
+		Merchandise Hierarchy Level Enumerations 
+	-->
+	<xs:simpleType name="MerchandiseHierarchyLevelTypeCode">
+		<xs:union memberTypes="MerchandiseHierarchyLevelEnumeration TypeCodeExtension"/>
+	</xs:simpleType>
+	<xs:simpleType name="MerchandiseHierarchyLevelEnumeration">
+		<xs:restriction base="xs:NMTOKEN">
+			<xs:enumeration value="Division"/>
+			<xs:enumeration value="Group"/>
+			<xs:enumeration value="SubGroup"/>
+			<xs:enumeration value="MajorDepartment"/>
+			<xs:enumeration value="Department"/>
+			<xs:enumeration value="SubDepartment"/>
+			<xs:enumeration value="MajorClass"/>
+			<xs:enumeration value="Class"/>
+			<xs:enumeration value="SubClass"/>
+			<xs:enumeration value="Category"/>
+			<xs:enumeration value="SubCategory"/>
+			<xs:enumeration value="Style"/>
+			<xs:enumeration value="SKU"/>
+			<xs:enumeration value="UPC"/>
+			<xs:enumeration value="EPC"/>
+		</xs:restriction>
+	</xs:simpleType>
+</xs:schema>

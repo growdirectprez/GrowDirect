@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- edited with XMLSpy v2006 sp2 U (http://www.altova.com) by Richard L Halter (private) -->
+<xs:schema xmlns:xs="http://www.w3.org/2001/XMLSchema" elementFormDefault="qualified" attributeFormDefault="unqualified">
+	<xs:include schemaLocation="IXREnumerationExtensionV1.1.0.xsd"/>
+	<!-- 
+		Social Media 
+	-->
+	<xs:simpleType name="SocialMediaTypeCode">
+		<xs:union memberTypes="SocialMediaTypeCodeEnumeration TypeCodeExtension"/>
+	</xs:simpleType>
+	<xs:simpleType name="SocialMediaTypeCodeEnumeration">
+		<xs:restriction base="xs:NMTOKEN">
+			<xs:enumeration value="Facebook"/>
+			<xs:enumeration value="Twitter"/>
+			<xs:enumeration value="MySpace"/>
+			<xs:enumeration value="AIM"/>
+			<xs:enumeration value="YahooIM"/>
+			<xs:enumeration value="WIndowsLiveMessenger"/>
+			<xs:enumeration value="Skype"/>
+		</xs:restriction>
+	</xs:simpleType>
+</xs:schema>

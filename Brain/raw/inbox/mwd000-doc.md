@@ -1,0 +1,161 @@
+---
+date: 2026-04-24
+type: raw
+source: Brain/raw/.extract/BP/Mwd000.doc.md
+tags: [retail, consulting-reference, pwc, mh, petsmart, finance, 1997-1999]
+project: retail
+status: unprocessed
+---
+
+# Mwd000.doc
+
+## Source
+File: `Brain/raw/.extract/BP/Mwd000.doc.md`
+Size: 12,521 bytes
+
+## Raw content
+ TOC \o "1-2" I. Wholesale Diverting	 GOTOBUTTON _TOC409230249   PAGEREF _TOC409230249 2
+A. Objectives	 GOTOBUTTON _TOC409230250   PAGEREF _TOC409230250 2
+B. Critical Success Factors	 GOTOBUTTON _TOC409230251   PAGEREF _TOC409230251 2
+C. Assumptions	 GOTOBUTTON _TOC409230252   PAGEREF _TOC409230252 2
+D. Requirements	 GOTOBUTTON _TOC409230253   PAGEREF _TOC409230253 2
+E. Performance Measures	 GOTOBUTTON _TOC409230254   PAGEREF _TOC409230254 4
+F. Issues	 GOTOBUTTON _TOC409230255   PAGEREF _TOC409230255 4
+G. Jobs Analysis	 GOTOBUTTON _TOC409230256   PAGEREF _TOC409230256 5
+H. Reports	 GOTOBUTTON _TOC409230257   PAGEREF _TOC409230257 5
+I. Forms	 GOTOBUTTON _TOC409230258   PAGEREF _TOC409230258 6
+J. Existing SAP functionality	 GOTOBUTTON _TOC409230259   PAGEREF _TOC409230259 6
+K. Addendum	 GOTOBUTTON _TOC409230260   PAGEREF _TOC409230260 7
+
+
+
+Wholesale Diverting
+Objectives
+To accurately and efficiently process orders, collect payments from, and issue shipments to PETsMART’s wholesale customers in way that is profitable to PETsMART.
+Critical Success Factors
+Ability to complete sales transactions in a timely and complete manner
+Ability to provide an accurate accounting of inventory, sales, and profits to decision makers
+Ability to generate invoices based on customer POs
+Ability to generate fair selling prices that generate profits
+Ability to sell products to wholesale customers without disrupting store replenishment
+Assumptions
+All sales transactions in this process are at arms length due to FASB reporting requirements
+Buying diverted product will be covered in the Purchase Order Management and Investment Buying processes
+The purchase of product from Sporting Dog / SLT and UK is handled within the standard Purchase Order Management process
+The Sell to Customer, Process Intercompany Sales, and Sell Diverted Product processes are the same, with the exception of special accounting requirements for intercompany sales and sales of diverted product. Therefore they have been combined into the Process Sales process.
+Batch (lot number and expiration date) tracking will not be used (01/06/98)
+Ray Flamm is collecting legal requirements for shipping documents. For now, we are assuming shipping documents to external customers, inter-company customers, and stores are the same. (01/12/98)
+Requirements
+Article Master Requirements
+Flag articles as ‘divertable’ or ‘not divertable’ (This requirement can also be met using a wholesale / diverting distribution channel. See Existing SAP Functionality)
+Set a flag at the article level as being ‘drop ship’ for products that will ship directly from the vendor to the customer or ‘available at DC’ for products that will typically be shipped from a DC
+
+Pricing Requirements
+Incorporate special wholesaling pricing conditions:
+Facilitate markup prices that can be maintained over a long period of time that cover the cost of freight, import, and handling
+Permit pricing operators to designate a user-defined selling price over a date range or on a per-order basis
+
+Customer Master Requirements
+Set customer priorities for determination of product availability. For example, PETsMART stores as the top priority, intercompany stores as the next priority, and external customers as the lowest priority.
+Utilize a customer resale number on documents to identify to auditors that sales tax is unnecessary for these transactions.
+Maintain multiple ship-to addresses for each customer and communicate the correct address on a per-order basis to EXE to produce the correct shipping documents. (This requires a workaround as EXE only maintains a single ship-to address for each customer number) (1/07/98)
+Automatically check the primary source DC for internal and external customers that have been set in the article-customer master data.  If there is insufficient product to promise at the primary DC, allow users to check other sources.
+Maintain default alternate delivery types in the customer master that may be overridden on a per order basis:
+Complete delivery: first available date
+Partial deliveries: first available dates
+Call to negotiate delivery date
+Integrate wholesale customer (intercompany and external) demand into replenishment with rules based on the customer:
+Segment exceptional orders from being included in future demand calculations
+Exclude some customers from demand altogether--Pet City, for example.
+Allow pricing conditions to be tailored specifically to the customer. For example, increase a particular customer’s handling surcharge for all orders by 2%.
+
+Financial Requirements
+Report resulting profit from wholesale transactions to a profit center
+Ability to handle multiple currencies as a seller
+Create the appropriate financial transactions for drop shipments and shipments from DCs (see Existing SAP Functionality)
+
+Intercompany Sales Requirements
+Create an invoice for UK and debit an intercompany payment account
+
+Other Requirements
+When ordering product from multiple vendors to fulfill a customer’s order, consolidate all the POs on one shipping manifest
+Forecast internal and external customers demand: (01/29/98 )
+Forecast retail sites and projected demand for "internal" customers.  Forecast demand through the article's lead time.  In some instances, this lead time could be as long as 8 months.
+If projected supply (current oh + projected receipts) is greater than projected demand (forecasted store demand + actual known demand {UB orders, deliveries, sales orders}), then publish list of articles and excess supply.  This list will be sent to prospective customers as available product.
+When wholesale orders are received and entered on system, SAP should check the most recent ATP to determine if this order can be fulfilled within the valid shipping window. Forecasted demand should subtract from projected supply even if no actual demand has been recorded in system via purchase order, UB order or delivery.
+Based on the result from above, the order is accepted or declined.  Depending on product lead times and projected demand, the system should order additional product to fulfill the new requirement.
+The system must support and track multiple shipments on a single customer PO, some of which may be third-party shipments and some of which may be DC shipments
+Use EDI if customer is in compliance for the following transactions:
+Accept customer purchase orders via EDI
+Send an order acknowledgment to the customer via EDI when the order has been received and approved
+Send shipping notification to customer via EDI
+Send invoices to customers via EDI
+EXE needs to receive customer master information at the time of customer setup in SAP in order to produce shipping documents to customers. (01/06/98)
+Support three delivery paths: direct from vendor to customer; direct from DC to customer; from vendor to DC for consolidation to customer
+Performance Measures
+Cost-benefit of sales to customers
+Timeliness of sales to customers
+Completeness of invoice to customer
+Accuracy of audit trail
+Issues
+How can we systematically determine whether the primary / secondary source DC has sufficient product? (Resolution: SAP provides in transit quantity, on hand quantity, and more. The actual decision to carry out the order must be made by a person. The extent of the information provided to this person depends on the SAP configuration)
+Can SAP forecast internal customers’ demand? (Resolution: Yes, Sporting Dog / SLT and Pet City demand could be forecast, for instance.)
+Is SAP’s credit check functionality going to be used? (This issue has also been forwarded to the Accounts Receivable team). (01/08/98)
+Is there an assortment listing-like process for customers? For example, can we keep all large aquariums out of the Pet City listing so we are not sending those heavy, fragile products overseas? Resolution: Yes, per James A., Patti O., and SAP documentation there is. See the Existing SAP Functionality for more information. (01/07/98)
+Can we set up “PETsMART International” in SAP as a separate company with its own balance sheet account? Possibly, but the ramifications are huge. Do we really want to? (12/29/97)
+Will there be a separate department for wholesaling and diverting? (01/05/98)
+We have made the assumption that lot number tracking will not be used. Lot number tracking is available in SAP, but would impact every process we are envisioning. If lot number and expiration date tracking are required on a wholesale (delivery) basis only, it is a gap. (01/06/98)
+Traffic must be involved when the customer asks for a preferred truck line or shipping method (UPS, for example). We need to be able to convey this default information in the customer master and override it in the sales order. We also need to be able to communicate the shipping method to the DC. How is traffic going to be involved? How does traffic schedule? (01/12/98)
+There are going to be margin ramifications when selling diverted product near cost. Can we separate the pools of diverted and wholesale inventory from retail inventory to maintain separate profit reporting? No, not easily. Can we split up wholesale, diverting, and retail profit reporting using distribution channels? Resolution: Yes, but article management will be increased threefold as the articles in each channel must be maintained independently. (01/12/98)
+Do shipping documents need to contain bill-to information? (01/12/98)
+Jobs Analysis
+Job:	DC Operations
+Receive sales orders / pick sheets for delivery to customers
+Pick and deliver shipments
+
+Job:	Inventory Management (Wholesale Department)
+Receive and key customer purchase orders
+Determine, with system assistance, the most beneficial method of shipment or whether the order be filled at all
+
+Job: 	Accounts Receivable
+Issue invoices to customers
+Collect payments from customers
+Reports
+Reports Added
+Wholesale Margin Report (displays the selling price vs. MAC over a date range for a merchandise category or other group of articles)
+Invoice:
+PO reference numbers (if applicable), invoice number
+Article quantity, description (SKU), conditional selling price
+Subtotal, handling charge, grand total
+Customer number, name, address, resale number
+Reports Retained
+Shipping Documents (Although produced by EXE, these documents are are a key part of the process. Their requirements are being determined by Ray Flamm in Traffic.)
+Forms
+Added Forms
+Sales Order Form (SAP Standard)
+Available to Promise Form (SAP Standard)
+Existing SAP functionality
+
+Accounting for Regular Shipments *most likely
+
+Goods ReceiptInventoryGR / IR100100Invoice VerificationGR / IRA/P100100Goods IssueInventoryCOGS100100Invoice CustomerRevenueA/R105105
+Accounting for Drop Shipments *most likely
+
+Invoice VerificationCOGSA/P100100Invoice CustomerRevenueA/R105105
+3rd Party Billing
+There are two methods for billing customers in third-party orders. The first is on the basis of the order quantity. This places the order in the billing due list immediately. The second is for order-related billing on the basis of the invoice quantity. In this case, the system does not include the order in the billing due list until an invoice from the vendor is received and processed by the purchasing department.
+
+In the first case, the third-party order is considered to be completely billed only when the invoiced quantity equals the order quantity of the sales order item. In the second case, each time a vendor invoice is received, a customer invoice is created for the quantity in the vendor invoice and the order is considered to be fully invoiced until the next vendor invoice is received. (SAP documentation)
+
+Retail vs. Wholesale Customers
+In both standard SAP and SAP Retail we are able to define a new distribution channel for wholesale sales versus store to customer or DC to store channels.  Then, only those articles that are defined for the wholesale channel could be sold to ANY wholesale customer (These articles may or may not be valid for sale through the retail channel). This would not limit products to specific wholesale customers while allowing the same product to be sold to other wholesale customers. (James Arthur, 01/06/98)
+
+Customer Assortments
+It is possible to generate assortment lists for general assortment customers (assortment owners without reference to a site). This means that wholesalers can use the assortment list functionality, too. (SAP documentation)
+Addendum
+
+## Key takeaways
+<!-- Session fills these in during processing -->
+
+## Links to existing knowledge
+<!-- What wiki articles or project docs does this connect to? -->

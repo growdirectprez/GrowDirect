@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<xs:schema xmlns:xs="http://www.w3.org/2001/XMLSchema" elementFormDefault="qualified" attributeFormDefault="unqualified">
+	<xs:include schemaLocation="IXREnumerationExtensionV1.1.0.xsd"/>
+	<!--
+		Enumerated type for  CommonData Transmission Medium Type Codes attribute
+	-->
+	<xs:simpleType name="TransmissionMediumTypeCode">
+		<xs:union memberTypes="TransmissionMediumTypeCodeEnumeration TypeCodeExtension"/>
+	</xs:simpleType>
+	<xs:simpleType name="TransmissionMediumTypeCodeEnumeration">
+		<xs:restriction base="xs:NMTOKEN">
+			<xs:enumeration value="CD"/>
+			<xs:enumeration value="Disk"/>
+			<xs:enumeration value="FilmTransparency"/>
+			<xs:enumeration value="FTP"/>
+			<xs:enumeration value="OpticalMedia"/>
+			<xs:enumeration value="Print"/>
+			<xs:enumeration value="TelnetTransmission"/>
+		</xs:restriction>
+	</xs:simpleType>
+</xs:schema>

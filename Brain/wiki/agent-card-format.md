@@ -41,7 +41,7 @@ The agent card format is the standard for knowledge units that agents consume vi
 ### Optional fields
 
 | Field | Type | Purpose |
-|-------|------|---------|
+|-------|------|---------| 
 | `agent` | string | Agent that owns or primarily uses this card |
 | `feeds` | array | card-ids or module codes this concept feeds into |
 | `receives` | array | card-ids or module codes that feed into this concept |
@@ -149,6 +149,7 @@ All agent cards live in `Brain/wiki/cards/`. Subdirectories are permitted for la
 | [Infra: Blockchain Evidence Anchor](cards/infra-blockchain-evidence-anchor.md) | infra-blockchain-evidence-anchor | infra-capability |
 | [Infra: L402 OTB Settlement](cards/infra-l402-otb-settlement.md) | infra-l402-otb-settlement | infra-capability |
 | [Platform Thesis](cards/platform-thesis.md) | platform-thesis | platform-thesis |
+| [Platform: Closed-Loop Attribution](cards/platform-closed-loop-attribution.md) | platform-closed-loop-attribution | platform-thesis |
 | [Platform: Retailer Lifecycle Test](cards/platform-retailer-lifecycle-test.md) | platform-retailer-lifecycle-test | infra-capability |
 | [Platform: ALX as VSM](cards/platform-alx-vsm.md) | platform-alx-vsm | platform-thesis |
 | [Runbook: Memory Bus Seed](cards/runbook-memory-bus-seed.md) | runbook-memory-bus-seed | runbook |
@@ -165,6 +166,7 @@ All agent cards live in `Brain/wiki/cards/`. Subdirectories are permitted for la
 | [Retail: Receiving Disposition](cards/retail-receiving-disposition.md) | retail-receiving-disposition | domain-module |
 | [Retail: Inventory Valuation / MAC](cards/retail-inventory-valuation-mac.md) | retail-inventory-valuation-mac | domain-module |
 | [Retail: Inventory Audit](cards/retail-inventory-audit.md) | retail-inventory-audit | domain-module |
+| [Retail: Backroom Cost Transfer](cards/retail-backroom-cost-transfer.md) | retail-backroom-cost-transfer | domain-module |
 | [Retail: Merchandise Financial Planning](cards/retail-merchandise-financial-planning.md) | retail-merchandise-financial-planning | domain-module |
 | [Retail: Demand Forecasting](cards/retail-demand-forecasting.md) | retail-demand-forecasting | domain-module |
 | [Retail: Replenishment Model](cards/retail-replenishment-model.md) | retail-replenishment-model | domain-module |

@@ -1,0 +1,56 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- edited with XMLSpy v2006 sp2 U (http://www.altova.com) by Richard L Halter (private) -->
+<xs:schema xmlns="http://www.nrf-arts.org/IXRetail/namespace/" xmlns:xs="http://www.w3.org/2001/XMLSchema" targetNamespace="http://www.nrf-arts.org/IXRetail/namespace/" elementFormDefault="qualified" attributeFormDefault="unqualified">
+	<xs:include schemaLocation="IXREnumerationExtensionV1.1.0.xsd"/>
+	<xs:include schemaLocation="ARTSHeaderCommonDataV1.7.0.xsd"/>
+	<xs:include schemaLocation="DateTimeCommonDataV1.2.0.xsd"/>
+	<xs:include schemaLocation="DescriptionCommonDataV1.2.0.xsd"/>
+	<xs:include schemaLocation="FixtureBaseV1.0.0.xsd"/>
+	<xs:include schemaLocation="IDCommonDataV1.0.0.xsd"/>
+	<xs:element name="Planogram">
+		<xs:complexType>
+			<xs:sequence>
+				<xs:element name="ARTSHeader" type="ARTSCommonHeaderType" minOccurs="0"/>
+				<xs:element name="Planogram" type="PlanogramType" minOccurs="0" maxOccurs="unbounded"/>
+			</xs:sequence>
+			<xs:attribute name="MajorVersion" type="xs:int" default="1"/>
+			<xs:attribute name="MinorVersion" type="xs:int" default="0"/>
+			<xs:attribute name="FixVersion" type="xs:int" default="0"/>
+		</xs:complexType>
+	</xs:element>
+	<xs:complexType name="PlanogramType">
+		<xs:sequence>
+			<xs:element name="PlanogramID">
+				<xs:annotation>
+					<xs:documentation>Unique identifier for this planogram</xs:documentation>
+				</xs:annotation>
+				<xs:complexType>
+					<xs:simpleContent>
+						<xs:extension base="IDCommonData"/>
+					</xs:simpleContent>
+				</xs:complexType>
+			</xs:element>
+			<xs:element name="Description" type="DescriptionCommonData" minOccurs="0" maxOccurs="unbounded">
+				<xs:annotation>
+					<xs:documentation>A long, descriptive name for the planogram</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="DateTime" type="DateTimeCommonData" maxOccurs="unbounded"/>
+			<xs:element name="ParentID" type="IDCommonData" minOccurs="0" maxOccurs="unbounded">
+				<xs:annotation>
+					<xs:documentation>Link To parent planograms</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="ChildID" type="IDCommonData" minOccurs="0" maxOccurs="unbounded">
+				<xs:annotation>
+					<xs:documentation>Link to child Planograms</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="Fixture" type="FixtureBase" minOccurs="0" maxOccurs="unbounded">
+				<xs:annotation>
+					<xs:documentation>This fixture contains these items</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+		</xs:sequence>
+	</xs:complexType>
+</xs:schema>

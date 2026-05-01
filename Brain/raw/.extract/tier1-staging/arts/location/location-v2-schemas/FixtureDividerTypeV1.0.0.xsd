@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- edited with XMLSpy v2006 sp2 U (http://www.altova.com) by Richard L Halter (private) -->
+<xs:schema xmlns:xs="http://www.w3.org/2001/XMLSchema" elementFormDefault="qualified" attributeFormDefault="unqualified">
+	<xs:include schemaLocation="PositionTypeV1.0.0.xsd"/>
+	<xs:complexType name="FixtureDividerType">
+		<xs:sequence>
+			<xs:element name="DividerID" type="xs:string"/>
+			<xs:element name="Position" type="PositionType"/>
+		</xs:sequence>
+	</xs:complexType>
+</xs:schema>

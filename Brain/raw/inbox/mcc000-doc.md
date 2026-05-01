@@ -1,0 +1,272 @@
+---
+date: 2026-04-24
+type: raw
+source: Brain/raw/.extract/BP/Mcc000.doc.md
+tags: [retail, consulting-reference, pwc, mh, petsmart, finance, 1997-1999]
+project: retail
+status: unprocessed
+---
+
+# Mcc000.doc
+
+## Source
+File: `Brain/raw/.extract/BP/Mcc000.doc.md`
+Size: 17,344 bytes
+
+## Raw content
+ TOC \o "1-2" I. Inventory Audit	 GOTOBUTTON _TOC410620041   PAGEREF _TOC410620041 3
+A. Objectives	 GOTOBUTTON _TOC410620042   PAGEREF _TOC410620042 3
+B. Critical Success Factors	 GOTOBUTTON _TOC410620043   PAGEREF _TOC410620043 3
+C. Assumptions	 GOTOBUTTON _TOC410620044   PAGEREF _TOC410620044 3
+D. Performance Measures	 GOTOBUTTON _TOC410620045   PAGEREF _TOC410620045 3
+E. Issues	 GOTOBUTTON _TOC410620046   PAGEREF _TOC410620046 3
+F. Better Practices Recommendations	 GOTOBUTTON _TOC410620047   PAGEREF _TOC410620047 4
+G. Existing SAP Functionality	 GOTOBUTTON _TOC410620048   PAGEREF _TOC410620048 4
+II. Manage Inventory Audit Schedule	 GOTOBUTTON _TOC410620049   PAGEREF _TOC410620049 5
+A. Objectives	 GOTOBUTTON _TOC410620050   PAGEREF _TOC410620050 5
+B. Requirements	 GOTOBUTTON _TOC410620051   PAGEREF _TOC410620051 5
+C. Performance Measures	 GOTOBUTTON _TOC410620052   PAGEREF _TOC410620052 6
+D. Jobs Analysis	 GOTOBUTTON _TOC410620053   PAGEREF _TOC410620053 6
+E. Reports	 GOTOBUTTON _TOC410620054   PAGEREF _TOC410620054 6
+F. Forms	 GOTOBUTTON _TOC410620055   PAGEREF _TOC410620055 6
+III. Initiate Inventory Audit	 GOTOBUTTON _TOC410620056   PAGEREF _TOC410620056 7
+A. Objectives	 GOTOBUTTON _TOC410620057   PAGEREF _TOC410620057 7
+B. Requirements	 GOTOBUTTON _TOC410620058   PAGEREF _TOC410620058 7
+C. Jobs Analysis	 GOTOBUTTON _TOC410620059   PAGEREF _TOC410620059 7
+D. Interface Files	 GOTOBUTTON _TOC410620060   PAGEREF _TOC410620060 8
+E. Reports	 GOTOBUTTON _TOC410620061   PAGEREF _TOC410620061 8
+F. Forms	 GOTOBUTTON _TOC410620062   PAGEREF _TOC410620062 8
+IV. Reconcile Physical and Book Inventory	 GOTOBUTTON _TOC410620063   PAGEREF _TOC410620063 8
+A. Objectives	 GOTOBUTTON _TOC410620064   PAGEREF _TOC410620064 8
+B. Requirements	 GOTOBUTTON _TOC410620065   PAGEREF _TOC410620065 8
+C. Performance Measures	 GOTOBUTTON _TOC410620066   PAGEREF _TOC410620066 9
+D. Jobs Analysis	 GOTOBUTTON _TOC410620067   PAGEREF _TOC410620067 9
+E. Reports	 GOTOBUTTON _TOC410620068   PAGEREF _TOC410620068 9
+V. Initiate Empty Shelf Audit	 GOTOBUTTON _TOC410620069   PAGEREF _TOC410620069 10
+A. Objectives	 GOTOBUTTON _TOC410620070   PAGEREF _TOC410620070 10
+B. Requirements	 GOTOBUTTON _TOC410620071   PAGEREF _TOC410620071 10
+C. Jobs Analysis	 GOTOBUTTON _TOC410620072   PAGEREF _TOC410620072 10
+D. Reports	 GOTOBUTTON _TOC410620073   PAGEREF _TOC410620073 10
+E. Forms	 GOTOBUTTON _Toc410620074   PAGEREF _Toc410620074 10
+
+
+Inventory Audit
+Objectives
+To support the accurate replenishment of items through the accurate reporting and update of perpetual inventories
+Critical Success Factors
+Ability to update high-profile inventories in a timely manner
+Ability to provide accurate store-level and DC inventories
+Ability to manage shrinkage at the store, DC, and department level
+Compliance with required accounting requirements
+Ability to minimize the impact to customers in stores (12/23/97)
+Ability to receive data transfers at the store terminal (12/26/97)
+Ability to perform snapshots (freeze articles) in stores (12/26/97)
+Assumptions
+SAP Client PCs will be housed in sites
+SAP Client PCs will be equipped with printers
+Lot number tracking is unnecessary
+EXE will develop their own inventory audit schedule and perform their own counts
+EXE will send adjustments from their inventory audits to SAP
+RF guns and antennae will be housed in sites and an RF interface will exist on the SAP Client PCs
+With nightly batch polling, inventory audits must be completed before the store opens in order to ensure an accurate perpetual inventory
+Store Systems group will address the Perform Inventory Audits process
+Performance Measures
+Timeliness of counts
+Accuracy of counts
+Compliance with accounting requirements
+Shrink %
+Issues
+The inventory audit process is complicated by power buys and excess stock in top stock, back stock, trailer stock, and secondary locations. Can we preserve PETsMART's warehouse image and reduce that extra stock in order to make inventory audits and physical inventories more efficient?
+SAP has the ability to freeze (snapshot) and block articles for physical inventories and inventory audits. Can SAP block only a particular type of transaction (sales, for instance)? Transactions that involve blocked articles are not posted until the articles have been un-blocked. Do we want to use this functionality? Resolution: Article freezes are the equivalent of the current snapshot. Articles that are blocked are blocked from ALL inventory movement types. The blocking ability has been marked as optional in the process documentation. (01/16/98)
+Maintaining store locations from planograms in SAP would increase the speed and effectiveness of inventory audits. In addition, physical inventory in-store variance reports could be produced by SAP (store locations noted as a gap).
+The timing of inventory audits is critical and will be based on the polling schedule. Most counts will be done after polling and inventory update. A real time polling system would not require as strict timing (This has been noted as a Store Systems issue) (12/24/97)
+What information will appear on inventory audit and recount sheets? Locations, articles? What is the format required for these sheets? (12/24/97)
+Can we maintain a separate trailer location for stores? Will inventory in the trailer roll up and be counted in the store’s complete on hands? Business reason: It would be useful from an Inventory Control perspective to see that 8 of a store’s 10 Dogloos were in a trailer and not on the floor. (Resolution: Yes, inventory can be maintained in a trailer according to SAP and yes, this inventory would be included in the store’s on hands. However, this increases the amount of inventory management required by the store) (01/16/98)
+Better Practices Recommendations
+Inventory audit frequency is determined by the level of shrinkage and the importance of SKUs to total sales
+Increased inventory audits at the SKU level {fish particularly}
+Utilization of summary and exception reporting to identify trends
+Existing SAP Functionality
+Determine which articles should be cycle counted
+or
+Automatically set the cycle count indicator using ABC analysis based on consumption or requirements. (Choose only items with the cycle count indicator already set or all items).*
+
+*both manual and automatic cycle count indicators are maintained at site level.
+
+Determine when we should cycle count
+The time intervals at which the articles are counted can be defined in the customizing module for each category (A, B, C, D).*
+
+Date of last physical inventory + time interval (Cycle Count Category A)
+Date of last physical inventory + time interval (Cycle Count Category B)  etc...
+
+*Client Level
+
+Perform Cycle Count
+Identify which articles need to cycle counted. (above)
+Send articles to physical inventory program.
+Create a mini-physical inventory for those articles (see physical inventory instructions).
+Manage Inventory Audit Schedule
+Objectives
+To optimize inventory audit effectiveness by selecting high velocity articles for inventory and through improved scheduling
+Inventory Audits of key articles must occur on a regular, scheduled basis.  The system must support the identification of candidates for the inventory audit processes based on article/site performance and transactions.  Examples of decision criteria are:
+Sales Volume in Units
+Sales Volume in Dollars
+Receipt Volume in Units
+Receipt Volume in Dollars
+Shrinkage history
+Articles purchased from certified vendors
+
+In addition, the envisioned scheduling application must accept availability and "black out dates" from multiple sources, including:
+User-defined days for inventory audit scheduling, for example on Mondays and Wednesdays only
+Buyer or Inventory Manager Request
+Store Operations
+IS Organization
+Promotion and Event Management
+Holiday calendar
+Physical Inventory Schedule
+Communicate the Inventory Audit Schedule to stores and IS and make the schedule available on-line
+Produce an exception report that lists stores that had a scheduled inventory audit, but did not execute the inventory audit. (01/12/98 )
+PETsMART needs the ability to initiate the inventory audit process based on 'triggers' from other processes.  An Inventory Audit To-Do List for specified sites is needed to effectively manage this process.   This list would be issued on specified days, for example on Tuesdays and Thursdays only.  The list functionality must be able to schedule around user-specified 'black out' dates.  Automatically update the Inventory Audit To-Do List and send to stores based on the following inputs: (01/06/98)
+pre-defined replenishment criteria
+shrink in excess of user-defined parameters
+zero or negative on-hands
+recalls / other removals of “all”
+prior to promotions / following promotions
+changes in receipt velocity
+changes in sales velocity
+Performance Measures
+Number of hours spent creating and coordinating inventory audit schedule
+Effectiveness of inventory audits in catching and correcting problems (cost-benefit)
+Jobs Analysis
+Inventory Control
+Create and update inventory audit schedules based on article velocity, site shrink, budget constraints, the physical inventory schedule, recent promotional events, and store management requests
+Distribute inventory audit schedules to stores and IS
+Monitor stores to ensure that inventory audits are being carried out at the specified time
+Issue Inventory Audit Reminders to stores via email to ensure that they are notified of scheduled inventory audits.
+Reports
+Retained Reports
+Inventory Audit Schedule (This is currently a manually created report. The information on the target report will be retained, but it is a requirement that the creation of this report be better facilitated by the system)
+Reports Added
+Inventory Audit Monitor Report (Lists scheduled inventory audits vs. actual inventory audits performed. Used to ensure that stores are completing scheduled inventory audits) (01/02/98)
+Inventory Audit Reminder (A report that is sent to stores via email by Inventory Control that reminds them of a scheduled inventory audit that needs to be completed)
+Inventory Audit To-Do List (A list that is updated automatically by exception--negative inventory, recalls, sales velocity changes, etc. Automatically sent to the store via email) Contains:
+Articles to be researched
+Reason for counting
+Forms
+Retained Forms
+Inventory Audit Availability Request Form (sent to stores and IS to gather dates on which they would be / wouldn’t be available to inventory audit)
+Initiate Inventory Audit
+Objectives
+To efficiently prepare sites with the resources necessary to complete the inventory audit accurately.
+Requirements
+Derive location codes from a space-planning tool to help store associates find articles in multiple locations. Print the possible article locations on the audit sheets generated at the store (12/24/97 )
+Inventory audits must be initiated in sites when the perpetual inventory most closely matches the physical inventory. Assuming nightly batch polling is in use, this will be in the morning before the store opens. (This has been noted as a store systems issue) (01/16/98)
+Produce Open Transaction Exception Reports that lists transactions that have not been closed (transfers & returns, for example) that might interfere with a correct inventory count:
+Cycle Count Status Report
+Outstanding Sales Transaction Report
+Registers not Polled Report
+Open Inventory Movement Transaction Report
+Open Transfer Report
+Inventory Bucket Report
+Freeze (produce a snapshot of) the articles at the site of the inventory audit for eventual reconciliation with the counts (The freeze may be completed by IS or by the store itself. Blocking articles from inventory movement is possible in SAP, but has been noted as optional)
+Notify stores of perpetual inventory exceptions via the Inventory Audit To-Do List (articles to be audited, reason for inventory audit) (01/16/98)
+Allow items to be audited using RF technology: scan the article, enter the location, and enter the count
+Maintain articles and quantities by location temporarily and print the locations on the Difference List or another document
+Support counts of articles in multiple locations in the store, including outside storage locations (trailers, for instance)
+Jobs Analysis
+Store Operations
+Close incomplete transactions
+Freeze (Produce snapshot of) articles to be audited (could be IS task)
+Prepare inventory audit sheets
+Physically count articles in the store
+IS
+Freeze (produce snapshot of) articles to be audited (could be store operations task)
+Inventory Control
+Remind sites of scheduled inventory audits via Inventory Audit Reminder
+Interface Files
+Retained Files
+SKUDUMP (the current snapshot file)
+Reports
+Retained Reports
+Count Sheet (A scanable sheet that lists the article and the locations in the store the article might be found.)
+Reports Added
+Open Transaction Exception Report (displays open returns, transfers, frozen articles, and orders to correct on hands problems that may interfere with the inventory audit)
+Inventory Audit Reminder (Form sent to stores to remind them of an upcoming inventory audit)
+Forms
+Forms Added
+Inventory Audit Sheet (Forms printed at the store for each location in which the articles may be located--as determined by the space planning tool)
+Reconcile Physical and Book Inventory
+Objectives
+To efficiently and accurately reconcile miscounts at the site prior to posting inventory and financial adjustments in order to improve the updated book inventory.
+Requirements
+Allow items to be counted and entered into SAP using RF technology
+Produce a Difference List at the store after the physical counts have been entered
+Mark differences (unit and $) that are outside a certain pre-set parameter on the difference list--by merchandise category, article, or vendor
+Initiate recounts based on established variance parameters at the merchandise category level
+Post counts at the SAP terminal when they have been validated
+Permit store to unfreeze articles (remove the snapshot)
+Produce multiple Shrink Analysis Reports (see Reports section) to evaluate key shrink figures at SSG
+When the counts have been posted, issue a history of the cycle count / audit to the store director’s email. Include the articles counted, the time the count was initiated, the number of recounts, the quantity counted after each recount, and the time the adjustments were finally posted.
+Performance Measures
+Timeliness of corrections update
+Accuracy of adjustments
+Number of recounts required for validation
+Jobs Analysis
+Store Operations
+Enter counts at the SAP terminal via RF technology
+Recount problem articles and locations at the store as identified on the Difference List
+Post final counts
+Unfreeze articles, if necessary (may be IS task)
+IS
+Unfreeze articles, if necessary (may be Store Operations task)
+Inventory Control
+Produce final Difference List and issue to the store
+Monitor Inventory Audit Variance Exception Reports
+Produce Shrink Analysis Reports
+Reports
+Reports Added
+Difference List:
+Article
+Location - See requirement in Initiate Inventory Audit
+Book units
+Physical units
+Retail difference
+Cost difference
+Unit difference
+Shrink Analysis Reports (This may be one report or may be several reports at different levels of detail)
+Absolute variance (units / $)
+Absolute variance / sales
+Net $ variance as a % of sale
+Inventory Audit Variance Exception Report (Produced for Inventory Control when the absolute dollar or unit variance is outside of user-defined parameters. For example, when a store’s unit variance for an article is greater than 50, produce the report)
+Inventory Audit Time Report (Produced for store directors, it shows the time an audit was executed and the time of the final adjustment to monitor how timely the audit was completed)
+Initiate Empty Shelf Audit
+Objectives
+To efficiently support site-initiated inventory audits in order to correct and maintain the inventory of high velocity articles.
+Requirements
+
+Article master to register store-level article locations from PegMan or other space planning tool (12/24/97)
+Allow a store associate to scan an article using an RF gun, enter the quantity counted for that article and, when finished, print a report that lists articles, on hands, and counts, but do not update the perpetual inventory. (01/16/98)
+Permit stores to freeze (take a snapshot of) articles
+Allow items to be counted using RF technology
+Maintain articles and quantities by location temporarily and print the locations on the Difference List or another document
+Support counts of articles in multiple locations in the store, including outside storage locations (trailers, for instance)
+Jobs Analysis
+Store Operations
+Close incomplete transactions
+Freeze (produce snapshot of) articles
+Prepare inventory audit sheets
+Physically count articles in the store
+Reports
+Reports Added
+Open Transaction Exception Report (displays open returns, transfers, orders to correct on hands problems that may interfere with the inventory audit)
+Count Report (Report that does not require the update of perpetual inventory to produce: displays articles, quantities counted, actual on hands)
+Forms
+Forms Added
+Inventory Audit Sheet (Forms printed at the store for each location in which the articles may be located--as determined by the space planning tool)
+
+
+## Key takeaways
+<!-- Session fills these in during processing -->
+
+## Links to existing knowledge
+<!-- What wiki articles or project docs does this connect to? -->

@@ -1,0 +1,45 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- edited with XMLSpy v2006 sp2 U (http://www.altova.com) by Richard L Halter (private) -->
+<xs:schema xmlns:xs="http://www.w3.org/2001/XMLSchema" elementFormDefault="qualified" attributeFormDefault="unqualified">
+	<!--
+	- Version 1.1 10/03/2008
+	- Added mode to track which mode the workstation was in during the transaction
+    - V1.5.0 
+_ Updated workstationIDTypeCode Extension V1.2.0
+-->
+	<xs:include schemaLocation="IXREnumerationExtensionV1.1.0.xsd"/>
+	<xs:include schemaLocation="WorkstationIDTypeCodeEnumerationV1.2.0.xsd"/>
+	<xs:complexType name="WorkstationIDCommonData">
+		<xs:annotation>
+			<xs:documentation>The unique identifier for the WORKSTATION, typically the serial number.</xs:documentation>
+		</xs:annotation>
+		<xs:simpleContent>
+			<xs:extension base="xs:string">
+				<xs:attribute name="Mode" type="WorkstationIDMode">
+					<xs:annotation>
+						<xs:documentation>Describes the mode this Worskstation was in when it made the purchase..</xs:documentation>
+					</xs:annotation>
+				</xs:attribute>
+				<xs:attribute name="TypeCode" type="WorkstationIDTypeCode"/>
+				<xs:attribute name="SerialNumber" type="xs:string" use="optional"/>
+				<xs:attribute name="WorkstationLocation" type="xs:string">
+					<xs:annotation>
+						<xs:documentation>the location at the time of the Transaction (e.g. Food, Menswear, Household, Electrical).</xs:documentation>
+					</xs:annotation>
+				</xs:attribute>
+			</xs:extension>
+		</xs:simpleContent>
+	</xs:complexType>
+	<xs:simpleType name="WorkstationIDMode">
+		<xs:union memberTypes="WorkstationIDModeEnumeration TypeCodeExtension"/>
+	</xs:simpleType>
+	<xs:simpleType name="WorkstationIDModeEnumeration">
+		<xs:restriction base="xs:NMTOKEN">
+			<xs:enumeration value="Retail"/>
+			<xs:enumeration value="Restaurant"/>
+			<xs:enumeration value="Foodcounter"/>
+			<xs:enumeration value="Forecourt"/>
+			<xs:enumeration value="Bar"/>
+		</xs:restriction>
+	</xs:simpleType>
+</xs:schema>

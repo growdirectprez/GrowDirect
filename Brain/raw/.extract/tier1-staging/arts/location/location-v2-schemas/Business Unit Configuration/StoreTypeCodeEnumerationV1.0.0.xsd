@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<xs:schema xmlns:xs="http://www.w3.org/2001/XMLSchema" elementFormDefault="qualified" attributeFormDefault="unqualified">
+	<xs:include schemaLocation="IXREnumerationExtensionV1.1.0.xsd"/>
+	<!-- 
+		Facing Types 
+	-->
+	<xs:simpleType name="StoreTypeCode">
+		<xs:union memberTypes="StoreTypeCodeEnumeration TypeCodeExtension"/>
+	</xs:simpleType>
+	<xs:simpleType name="StoreTypeCodeEnumeration">
+		<xs:restriction base="xs:NMTOKEN">
+			<xs:enumeration value="Prototype">
+				<xs:annotation>
+					<xs:documentation>This can also be like an abstract bas type model from which real stores are implemented.  Similar size or footprint or concepts</xs:documentation>
+				</xs:annotation>
+			</xs:enumeration>
+			<xs:enumeration value="Standard"/>
+			<xs:enumeration value="Real"/>
+			<xs:enumeration value="Test">
+				<xs:annotation>
+					<xs:documentation>Test situation where new concepts are tested</xs:documentation>
+				</xs:annotation>
+			</xs:enumeration>
+			<xs:enumeration value="Virtual">
+				<xs:annotation>
+					<xs:documentation>a test store that doesn't really exist</xs:documentation>
+				</xs:annotation>
+			</xs:enumeration>
+		</xs:restriction>
+	</xs:simpleType>
+</xs:schema>

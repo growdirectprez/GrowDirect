@@ -1,0 +1,61 @@
+<h2>Design Module brief — structure</h2>
+<p class="subtitle">One <code>.md</code> file. Feed it to Claude.ai Design Module to generate the site. Each section tells Claude what to build and what content to use.</p>
+
+<div style="font-size: 13px; line-height: 1.8;">
+
+  <div class="section">
+    <p class="label">Block 1 — Context + audience</p>
+    <p style="color:rgba(255,255,255,0.7); margin-top:6px">Who reads this site. What they already know. What they need to walk away believing. Keeps Claude.ai from generating generic copy.</p>
+  </div>
+
+  <div class="section">
+    <p class="label">Block 2 — Visual direction</p>
+    <p style="color:rgba(255,255,255,0.7); margin-top:6px">Full brand palette (reuses existing tokens: parchment, green-dark, gold). Typography stack. Tone: technical, dry, no hype. Reference: existing Armstrong proposal for style baseline.</p>
+  </div>
+
+  <div class="section">
+    <p class="label">Block 3 — Site map + deployment target</p>
+    <p style="color:rgba(255,255,255,0.7); margin-top:6px">6 pages. <code>canary.growdirect.io/rapidpos</code>. Multi-page static HTML. Each page = one artifact. List of pages with one-line purpose.</p>
+  </div>
+
+  <div class="section">
+    <p class="label">Block 4 — Shared components spec</p>
+    <p style="color:rgba(255,255,255,0.7); margin-top:6px">Nav bar (logo, page links, CTA). Footer. Code block styling. Architecture diagram conventions. Tells Claude.ai what to reuse across pages.</p>
+  </div>
+
+  <div class="section">
+    <p class="label">Blocks 5–10 — Per-page briefs</p>
+    <p style="color:rgba(255,255,255,0.7); margin-top:6px">One block per page. Each contains: purpose, audience state of mind, hero/headline, sections with actual content (not placeholders), design notes. Claude.ai generates one artifact per block.</p>
+    <div style="margin-top: 12px; padding-left: 16px; border-left: 2px solid rgba(76,175,125,0.35);">
+      <div style="color: #4CAF7D; margin-bottom: 4px;">Page 1: Overview (index)</div>
+      <div style="color: #4CAF7D; margin-bottom: 4px;">Page 2: Architecture — How It Works</div>
+      <div style="color: #4CAF7D; margin-bottom: 4px;">Page 3: MCP Endpoint Reference</div>
+      <div style="color: #4CAF7D; margin-bottom: 4px;">Page 4: VAR Quickstart</div>
+      <div style="color: #BF8700; margin-bottom: 4px;">Page 5: Store of the Future 2030 <span style="color:rgba(255,255,255,0.35)">(presentation mode)</span></div>
+      <div style="color: #BF8700;">Page 6: Armstrong — Applied Pitch <span style="color:rgba(255,255,255,0.35)">(condensed proposal, solution-first)</span></div>
+    </div>
+  </div>
+
+  <div class="section">
+    <p class="label">Block 11 — Generation instructions</p>
+    <p style="color:rgba(255,255,255,0.7); margin-top:6px">Explicit instructions to Claude.ai: generate each page as a self-contained HTML artifact. Share CSS via a <code>&lt;style&gt;</code> block. No frameworks, no CDN, no build step. Inline SVG for diagrams.</p>
+  </div>
+
+</div>
+
+<div class="options" style="margin-top: 24px;">
+  <div class="option" data-choice="one-shot" onclick="toggleSelect(this)">
+    <div class="letter">A</div>
+    <div class="content">
+      <h3>One big brief → generate all pages in sequence</h3>
+      <p>Full brief in one .md. Feed to Claude.ai once. It generates page 1, you say "next," it generates page 2, and so on. Keeps CSS consistent across all pages since it remembers the prior artifacts.</p>
+    </div>
+  </div>
+  <div class="option" data-choice="per-page" onclick="toggleSelect(this)">
+    <div class="letter">B</div>
+    <div class="content">
+      <h3>One brief per page</h3>
+      <p>The .md has a top-level shared-design section, then each page section is self-contained enough to paste independently. More portable — send just the Armstrong pitch section to a different Claude.ai session if needed.</p>
+    </div>
+  </div>
+</div>

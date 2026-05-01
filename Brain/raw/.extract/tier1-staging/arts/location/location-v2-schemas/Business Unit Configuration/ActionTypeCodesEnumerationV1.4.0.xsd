@@ -1,0 +1,47 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<xs:schema xmlns:xs="http://www.w3.org/2001/XMLSchema" elementFormDefault="qualified" attributeFormDefault="unqualified">
+	<xs:include schemaLocation="IXREnumerationExtensionV1.1.0.xsd"/>
+	<!--
+		Enumerated type for  CommonData Action Type Codes attribute
+	-->
+	<xs:simpleType name="ActionCommonDataTypeCodes">
+		<xs:union memberTypes="ActionCommonDataTypeCodesEnumeration TypeCodeExtension"/>
+	</xs:simpleType>
+	<xs:simpleType name="ActionCommonDataTypeCodesEnumeration">
+		<xs:restriction base="xs:NMTOKEN">
+			<xs:enumeration value="Add"/>
+			<xs:enumeration value="Adjust"/>
+			<xs:enumeration value="Begin"/>
+			<xs:enumeration value="Cancel"/>
+			<xs:enumeration value="Complete"/>
+			<xs:enumeration value="Create"/>
+			<xs:enumeration value="Delete"/>
+			<xs:enumeration value="Delivered"/>
+			<xs:enumeration value="Dispatch"/>
+			<xs:enumeration value="Donate"/>
+			<xs:enumeration value="Error"/>
+			<xs:enumeration value="Lookup"/>
+			<xs:enumeration value="Initiate"/>
+			<xs:enumeration value="Inquiry"/>
+			<xs:enumeration value="Instruction"/>
+			<xs:enumeration value="Information"/>
+			<xs:enumeration value="Packed"/>
+			<xs:enumeration value="PartialCancel"/>
+			<xs:enumeration value="PartialComplete"/>
+			<xs:enumeration value="Picked"/>
+			<xs:enumeration value="Read"/>
+			<xs:enumeration value="Refusal"/>
+			<xs:enumeration value="Remove"/>
+			<xs:enumeration value="Request"/>
+			<xs:enumeration value="Replace"/>
+			<xs:enumeration value="Reserve"/>
+			<xs:enumeration value="Return"/>
+			<xs:enumeration value="Search"/>
+			<xs:enumeration value="Settle"/>
+			<xs:enumeration value="Shipped"/>
+			<xs:enumeration value="Subtract"/>
+			<xs:enumeration value="Suggest"/>
+			<xs:enumeration value="Update"/>
+		</xs:restriction>
+	</xs:simpleType>
+</xs:schema>

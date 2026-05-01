@@ -1,0 +1,48 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- edited with XMLSpy v2006 sp2 U (http://www.altova.com) by Richard L Halter (private) -->
+<!-- Association of Retail Technology Standards
+	(c) 2014 National Retail Federation.  All rights reserved -->
+<xs:schema xmlns:xs="http://www.w3.org/2001/XMLSchema" elementFormDefault="qualified" attributeFormDefault="unqualified">
+	<xs:include schemaLocation="MeasurementCommonDataV1.3.0.xsd"/>
+	<!-- ======================================================== -->
+	<!--Handling-->
+	<!--                                                                                                                  -->
+	<!-- ======================================================== -->
+	<xs:complexType name="HandlingType">
+		<xs:annotation>
+			<xs:documentation>from EAN.UCC</xs:documentation>
+		</xs:annotation>
+		<xs:sequence>
+			<xs:element name="HandlingInstructionsCode" type="xs:string" minOccurs="0" maxOccurs="unbounded">
+				<xs:annotation>
+					<xs:documentation>EAN.UCC Definition: Defines the information and processes needed to safely handle the trade item. Handling instructions is composed of both text and a language code.  The language for text is specified using the two digit ISO 639-1988 list, for example, English is EN and French is FR.
+Examples:
+DNF – Do Not Freeze
+“FTD” – Frost danger
+“HS” – Heat sensitive
+“HWC” – Handle with care
+Business Rules: Repeatable values are accepted.</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="StackingFactor" minOccurs="0">
+				<xs:annotation>
+					<xs:documentation>EAN.UCC Definition: A factor that determines the maximum stacking for the product. Indicates the number of levels the product may be stacked.
+Examples: Factor of "2" = trade item is stackable 2 high
+Business Rules: Factor will indicate how many levels the particular product may be stacked in. The counting of the levels will always commence at 1 not 0.</xs:documentation>
+				</xs:annotation>
+				<xs:simpleType>
+					<xs:restriction base="xs:nonNegativeInteger">
+						<xs:totalDigits value="6"/>
+					</xs:restriction>
+				</xs:simpleType>
+			</xs:element>
+			<xs:element name="StackingWeightMaximum" minOccurs="0">
+				<xs:complexType>
+					<xs:simpleContent>
+						<xs:extension base="MeasurementCommonData"/>
+					</xs:simpleContent>
+				</xs:complexType>
+			</xs:element>
+		</xs:sequence>
+	</xs:complexType>
+</xs:schema>

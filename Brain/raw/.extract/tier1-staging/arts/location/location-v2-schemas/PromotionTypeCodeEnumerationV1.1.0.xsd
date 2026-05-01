@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<xs:schema xmlns:xs="http://www.w3.org/2001/XMLSchema" elementFormDefault="qualified" attributeFormDefault="unqualified">
+	<xs:include schemaLocation="IXREnumerationExtensionV1.1.0.xsd"/>
+	<!--
+		Enumerated type for Promotion Type attribute
+	-->
+	<xs:simpleType name="PromotionTypeCode">
+		<xs:union memberTypes="PromotionTypeCodeEnumeration TypeCodeExtension"/>
+	</xs:simpleType>
+	<xs:simpleType name="PromotionTypeCodeEnumeration">
+		<xs:restriction base="xs:NMTOKEN">
+			<xs:enumeration value="AdvertisedSale"/>
+			<xs:enumeration value="CashDiscount"/>
+			<xs:enumeration value="Coupon"/>
+			<xs:enumeration value="ManufacturersCoupon"/>
+			<xs:enumeration value="Markdown"/>
+			<xs:enumeration value="PriceOverride"/>
+			<xs:enumeration value="Rebate"/>
+			<xs:enumeration value="SeniorCitizen"/>
+			<xs:enumeration value="TargetedOffer"/>
+		</xs:restriction>
+	</xs:simpleType>
+</xs:schema>

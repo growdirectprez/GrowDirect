@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- edited with XMLSpy v2006 sp2 U (http://www.altova.com) by Richard L Halter (private) -->
+<xs:schema xmlns:xs="http://www.w3.org/2001/XMLSchema" elementFormDefault="qualified" attributeFormDefault="unqualified">
+	<xs:include schemaLocation="RotationTypeCodeEnumerationV1.0.0.xsd"/>
+	<xs:include schemaLocation="FacingTypeCodeEnumerationV1.0.0.xsd"/>
+	<xs:include schemaLocation="StockingDirectionTypeCodeEnumerationV1.0.0.xsd"/>
+	<xs:complexType name="OrientationCommonData">
+		<xs:simpleContent>
+			<xs:extension base="xs:string">
+				<xs:attribute name="North" type="xs:decimal">
+					<xs:annotation>
+						<xs:documentation>Angle of the North Arrow with respect to this map</xs:documentation>
+					</xs:annotation>
+				</xs:attribute>
+				<xs:attribute name="Direction" type="StockingDirectionTypeCode"/>
+				<xs:attribute name="Facing" type="FacingTypeCode"/>
+				<xs:attribute name="Rotation" type="RotationTypeCode"/>
+			</xs:extension>
+		</xs:simpleContent>
+	</xs:complexType>
+</xs:schema>

@@ -1,0 +1,115 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- edited with XMLSpy v2006 sp1 U (http://www.altova.com) by Richard L Halter (private) -->
+<xs:schema xmlns="http://www.nrf-arts.org/IXRetail/namespace/" xmlns:xs="http://www.w3.org/2001/XMLSchema" targetNamespace="http://www.nrf-arts.org/IXRetail/namespace/" elementFormDefault="qualified" attributeFormDefault="unqualified">
+	<xs:include schemaLocation="IXREnumerationExtensionV1.1.0.xsd"/>
+	<xs:include schemaLocation="ARTSHeaderCommonDataV1.7.0.xsd"/>
+	<xs:include schemaLocation="BusinessUnitCommonDataV1.3.0.xsd"/>
+	<xs:include schemaLocation="BusinessUnitConfigurationCommonData.xsd"/>
+	<xs:include schemaLocation="BusinessUnitPlanogramV1.0.0.xsd"/>
+	<xs:include schemaLocation="BusinessUnitStatusV1.0.0.xsd"/>
+	<xs:include schemaLocation="ClassificationCommonDataV1.0.0.xsd"/>
+	<xs:include schemaLocation="DayOfWeekCommonDataV1.4.0.xsd"/>
+	<xs:include schemaLocation="EquipmentCommonDataV1.0.0.xsd"/>
+	<xs:include schemaLocation="FileCommonDataV1.1.1.xsd"/>
+	<xs:include schemaLocation="GeoPhysicalLocationCommonDataV1.4.0.xsd"/>
+	<xs:include schemaLocation="StoreLocationCommonDataV1.0.0.xsd"/>
+	<xs:include schemaLocation="NameCommonDataV1.2.0.xsd"/>
+	<xs:include schemaLocation="MeasurementCommonDataV1.3.0.xsd"/>
+	<xs:include schemaLocation="OrganizationHierarchyCommonDataV1.2.0.xsd"/>
+	<xs:include schemaLocation="OrganizationalLocationTypeCodeEnumerationV1.0.0.xsd"/>
+	<xs:include schemaLocation="ResponseFormatCommonDataV1.0.0.xsd"/>
+	<xs:include schemaLocation="StoreServicesTypeCodeV1.0.0.xsd"/>
+	<xs:include schemaLocation="StoreTypeCodeEnumerationV1.0.0.xsd"/>
+	<xs:include schemaLocation="TimeZonesTypeCodeEnumerationV1.0.0.xsd"/>
+	<xs:complexType name="BusinessUnitConfigurationType">
+		<xs:complexContent>
+			<xs:extension base="BusinessUnitConfigurationCommonData">
+				<xs:sequence>
+					<xs:element name="StoreType" type="StoreTypeCode" minOccurs="0" maxOccurs="unbounded"/>
+					<xs:element name="Request" type="RequestTypeCode" minOccurs="0" maxOccurs="unbounded"/>
+					<xs:element name="OrganizationHierarchy" type="OrganizationHierarchyCommonData" minOccurs="0" maxOccurs="unbounded"/>
+					<xs:element name="Manager" type="ManagerType" minOccurs="0" maxOccurs="unbounded"/>
+					<xs:element name="OpenDate" type="xs:date" minOccurs="0"/>
+					<xs:element name="CloseDate" type="xs:date" minOccurs="0"/>
+					<xs:element name="FloorCount" type="xs:int" minOccurs="0"/>
+					<xs:element name="StoreSize" type="MeasurementCommonData" minOccurs="0" maxOccurs="unbounded"/>
+					<xs:element name="FloorSize" minOccurs="0" maxOccurs="unbounded">
+						<xs:complexType>
+							<xs:simpleContent>
+								<xs:extension base="FloorSizeType"/>
+							</xs:simpleContent>
+						</xs:complexType>
+					</xs:element>
+					<xs:element name="StoreService" type="StoreServicesType" minOccurs="0" maxOccurs="unbounded"/>
+					<xs:element name="Location" type="StoreLocationCommonData" minOccurs="0"/>
+					<xs:element name="Affiliation" type="AffiliationType" minOccurs="0" maxOccurs="unbounded"/>
+					<xs:element name="ChargeAccounts" type="ChargeAccountType" minOccurs="0" maxOccurs="unbounded"/>
+					<xs:element name="FloorPlan" type="FileCommonData" minOccurs="0" maxOccurs="unbounded">
+						<xs:annotation>
+							<xs:documentation>File containing the floor plan.  this can be a reference to the location of this file</xs:documentation>
+						</xs:annotation>
+					</xs:element>
+					<xs:element name="Equipment" type="EquipmentCommonData" minOccurs="0" maxOccurs="unbounded"/>
+					<xs:element name="Planogram" type="BusinessUnitPlanogramType" minOccurs="0" maxOccurs="unbounded"/>
+				</xs:sequence>
+				<xs:attribute name="TimeZone" type="TimeZonesTypeCode"/>
+				<xs:attribute name="Status" type="BusinessUnitStatus"/>
+				<xs:attribute name="ResponseFormat" type="ResponseFormatTypeCode"/>
+				<xs:attribute name="LevelOfDetail" type="OrganizationTypeCodeEnumeration"/>
+				<xs:anyAttribute namespace="##other" processContents="lax"/>
+			</xs:extension>
+		</xs:complexContent>
+	</xs:complexType>
+	<xs:complexType name="FloorSizeType">
+		<xs:simpleContent>
+			<xs:extension base="MeasurementCommonData">
+				<xs:attribute name="Floor" type="xs:positiveInteger"/>
+			</xs:extension>
+		</xs:simpleContent>
+	</xs:complexType>
+	<xs:simpleType name="RequestTypeCode">
+		<xs:union memberTypes="RequestTypeCodeEnumeration TypeCodeExtension"/>
+	</xs:simpleType>
+	<xs:simpleType name="RequestTypeCodeEnumeration">
+		<xs:restriction base="xs:NMTOKEN">
+			<xs:enumeration value="All"/>
+			<xs:enumeration value="Header"/>
+			<xs:enumeration value="OpeningTimes"/>
+			<xs:enumeration value="Services"/>
+		</xs:restriction>
+	</xs:simpleType>
+	<xs:complexType name="AffiliationType">
+		<xs:attribute name="Name" type="xs:string"/>
+		<xs:attribute name="Relationship" type="xs:string"/>
+		<xs:attribute name="PartyID" type="xs:string"/>
+	</xs:complexType>
+	<xs:complexType name="ManagerType">
+		<xs:sequence>
+			<xs:element name="Name" minOccurs="0">
+				<xs:complexType>
+					<xs:complexContent>
+						<xs:extension base="NameCommonData"/>
+					</xs:complexContent>
+				</xs:complexType>
+			</xs:element>
+			<xs:element name="ContactInformation" type="ContactInformationType" minOccurs="0"/>
+		</xs:sequence>
+	</xs:complexType>
+	<xs:complexType name="ChargeAccountType">
+		<xs:simpleContent>
+			<xs:extension base="xs:string">
+				<xs:attribute name="CheckDigit" type="xs:int"/>
+				<xs:attribute name="Organization" type="xs:string"/>
+			</xs:extension>
+		</xs:simpleContent>
+	</xs:complexType>
+	<xs:complexType name="StoreServicesType">
+		<xs:sequence>
+			<xs:element name="Name" type="xs:string" minOccurs="0"/>
+			<xs:element name="TypeCode" type="xs:string"/>
+			<xs:element name="StartDate" type="xs:date" minOccurs="0"/>
+			<xs:element name="LicenseNo" type="xs:string" minOccurs="0" maxOccurs="unbounded"/>
+		</xs:sequence>
+		<xs:attribute name="Status" type="StoreServiceStatusTypeCode"/>
+	</xs:complexType>
+</xs:schema>

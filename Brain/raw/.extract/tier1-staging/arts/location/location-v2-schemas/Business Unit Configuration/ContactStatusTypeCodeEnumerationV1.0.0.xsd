@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<xs:schema xmlns:xs="http://www.w3.org/2001/XMLSchema" elementFormDefault="qualified" attributeFormDefault="unqualified">
+	<xs:include schemaLocation="IXREnumerationExtensionV1.1.0.xsd"/>
+	<!--
+		Name part locations types
+	-->
+	<xs:simpleType name="ContactStatusTypeCode">
+		<xs:union memberTypes="ContactStatusTypeCodeEnumeration TypeCodeExtension"/>
+	</xs:simpleType>
+	<xs:simpleType name="ContactStatusTypeCodeEnumeration">
+		<xs:restriction base="xs:NMTOKEN">
+			<xs:enumeration value="Active"/>
+			<xs:enumeration value="Inactive"/>
+		</xs:restriction>
+	</xs:simpleType>
+</xs:schema>

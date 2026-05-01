@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- edited with XMLSpy v2006 sp1 U (http://www.altova.com) by Richard L Halter (private) -->
+<!-- 
+	Version 1.1.0
+	- updated with new enumeration list
+-->
+<xs:schema xmlns:xs="http://www.w3.org/2001/XMLSchema" elementFormDefault="qualified" attributeFormDefault="unqualified">
+	<xs:include schemaLocation="BusinessUnitTypeCodeEnumerationV1.3.0.xsd"/>
+	<xs:complexType name="BusinessUnitCommonData">
+		<xs:annotation>
+			<xs:documentation>Business Unit Common Data Node describing the location.
+				Contains one or more of RetailStore, DistributionCenter, InventoryLocation and
+				AdminstrativeCenter.</xs:documentation>
+		</xs:annotation>
+		<xs:simpleContent>
+			<xs:extension base="xs:string">
+				<xs:attribute name="Name" type="xs:string" use="optional">
+					<xs:annotation>
+						<xs:documentation>The name of the business unit</xs:documentation>
+					</xs:annotation>
+				</xs:attribute>
+				<xs:attribute name="TypeCode" type="BusinessUnitTypeCode" use="optional" default="RetailStore">
+					<xs:annotation>
+						<xs:documentation>type of the business unit; retail store, warehouse, etc</xs:documentation>
+					</xs:annotation>
+				</xs:attribute>
+				<xs:anyAttribute namespace="##other" processContents="lax"/>
+			</xs:extension>
+		</xs:simpleContent>
+	</xs:complexType>
+</xs:schema>

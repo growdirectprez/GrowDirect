@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<xs:schema xmlns:xs="http://www.w3.org/2001/XMLSchema" elementFormDefault="qualified" attributeFormDefault="unqualified">
+	<xs:include schemaLocation="IXREnumerationExtensionV1.1.0.xsd"/>
+	<!-- 
+		Facing Types 
+	-->
+	<xs:simpleType name="StockingDirectionTypeCode">
+		<xs:union memberTypes="StockingDirectionTypeCodeEnumeration TypeCodeExtension"/>
+	</xs:simpleType>
+	<xs:simpleType name="StockingDirectionTypeCodeEnumeration">
+		<xs:restriction base="xs:NMTOKEN">
+			<xs:enumeration value="Horizontal"/>
+			<xs:enumeration value="Vertical"/>
+			<xs:enumeration value="Depth"/>
+		</xs:restriction>
+	</xs:simpleType>
+</xs:schema>

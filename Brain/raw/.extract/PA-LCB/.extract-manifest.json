@@ -1,0 +1,128 @@
+[
+  {
+    "source_path": "/Users/gclyle/GrowDirect/Brain/raw/inbox/PA LCB/(revised) RFP20060127 IBM Questions.doc",
+    "source_sha256": "c9ae0a0e7218b831db875d14447ac45afe586194d1a2f9ca7066ae162e6ed7a9",
+    "target_path": "/Users/gclyle/GrowDirect/Brain/raw/.extract/PA-LCB/(revised) RFP20060127 IBM Questions.doc.md",
+    "method": "textutil",
+    "status": "ok",
+    "error": null,
+    "extracted_at": "2026-04-30T01:19:59.593152+00:00"
+  },
+  {
+    "source_path": "/Users/gclyle/GrowDirect/Brain/raw/inbox/PA LCB/082405.pdf",
+    "source_sha256": "8d8b1b249a6788a77eb97b0d992934fc8bd23dfd103b232c2ea4802218179804",
+    "target_path": "/Users/gclyle/GrowDirect/Brain/raw/.extract/PA-LCB/082405.pdf.md",
+    "method": "markitdown",
+    "status": "ok",
+    "error": null,
+    "extracted_at": "2026-04-30T01:20:01.696630+00:00"
+  },
+  {
+    "source_path": "/Users/gclyle/GrowDirect/Brain/raw/inbox/PA LCB/Clarifications for IBM question.doc",
+    "source_sha256": "bef15ecdb4e4267d6b4695e6a936e4a0bf6ac8f614826ae1c2ce4200a5e4ea47",
+    "target_path": "/Users/gclyle/GrowDirect/Brain/raw/.extract/PA-LCB/Clarifications for IBM question.doc.md",
+    "method": "textutil",
+    "status": "ok",
+    "error": null,
+    "extracted_at": "2026-04-30T01:20:03.678855+00:00"
+  },
+  {
+    "source_path": "/Users/gclyle/GrowDirect/Brain/raw/inbox/PA LCB/Clorox - Brand Management Feb 19.ppt",
+    "source_sha256": "db789ca7819394f7785418a89614ef6799dc1ab572b62a9f73ce75e307520abb",
+    "target_path": "/Users/gclyle/GrowDirect/Brain/raw/.extract/PA-LCB/Clorox - Brand Management Feb 19.ppt.md",
+    "method": null,
+    "status": "failed",
+    "error": "markitdown: UnsupportedFormatException: Could not convert stream to Markdown. No converter attempted a conversion, suggesting that the filetype is simply not supported.",
+    "extracted_at": "2026-04-30T01:20:03.746512+00:00"
+  },
+  {
+    "source_path": "/Users/gclyle/GrowDirect/Brain/raw/inbox/PA LCB/IBM - TSA Merch Plan PMO SOW 091605v2.doc",
+    "source_sha256": "68d509c26a38f85735c4c1b75e2ee94be6947d8ed4462fc1935967ee41cf02c3",
+    "target_path": "/Users/gclyle/GrowDirect/Brain/raw/.extract/PA-LCB/IBM - TSA Merch Plan PMO SOW 091605v2.doc.md",
+    "method": "textutil",
+    "status": "ok",
+    "error": null,
+    "extracted_at": "2026-04-30T01:20:03.755705+00:00"
+  },
+  {
+    "source_path": "/Users/gclyle/GrowDirect/Brain/raw/inbox/PA LCB/IBM - TSA Planning PMO SOW 092705.doc",
+    "source_sha256": "e69878e9385029e636e004a36b7768a4e6fae3b23a86d000ebd0af63ceac28e1",
+    "target_path": "/Users/gclyle/GrowDirect/Brain/raw/.extract/PA-LCB/IBM - TSA Planning PMO SOW 092705.doc.md",
+    "method": "textutil",
+    "status": "ok",
+    "error": null,
+    "extracted_at": "2026-04-30T01:20:03.828210+00:00"
+  },
+  {
+    "source_path": "/Users/gclyle/GrowDirect/Brain/raw/inbox/PA LCB/IBM - TSA Planning PMO SOW 110305.doc",
+    "source_sha256": "8c6b483b7e53c20bbdf2e009bdc1ce70079821a7351825e0eef64e0e5645ba7f",
+    "target_path": "/Users/gclyle/GrowDirect/Brain/raw/.extract/PA-LCB/IBM - TSA Planning PMO SOW 110305.doc.md",
+    "method": "textutil",
+    "status": "ok",
+    "error": null,
+    "extracted_at": "2026-04-30T01:20:03.896468+00:00"
+  },
+  {
+    "source_path": "/Users/gclyle/GrowDirect/Brain/raw/inbox/PA LCB/PA LCB rfp20060127.pdf",
+    "source_sha256": "b9b77771dac7cdb9b29d6c2963e5124979e9d2901bc6b6c4427c101a95af765d",
+    "target_path": "/Users/gclyle/GrowDirect/Brain/raw/.extract/PA-LCB/PA LCB rfp20060127.pdf.md",
+    "method": "markitdown",
+    "status": "ok",
+    "error": null,
+    "extracted_at": "2026-04-30T01:20:03.962756+00:00"
+  },
+  {
+    "source_path": "/Users/gclyle/GrowDirect/Brain/raw/inbox/PA LCB/PLCB  Workplan Narrative v1.doc",
+    "source_sha256": "ae42f900b757f9ed7ce95c28a6e2a64adfddc100b64ab821ac7e64d46495e68b",
+    "target_path": "/Users/gclyle/GrowDirect/Brain/raw/.extract/PA-LCB/PLCB  Workplan Narrative v1.doc.md",
+    "method": "textutil",
+    "status": "ok",
+    "error": null,
+    "extracted_at": "2026-04-30T01:20:07.995912+00:00"
+  },
+  {
+    "source_path": "/Users/gclyle/GrowDirect/Brain/raw/inbox/PA LCB/RFP20060127 IBM Questions.doc",
+    "source_sha256": "24f6e4ec728ba4c6f81b20bd462a9772cbf022ea9f5e1c333197333eceb94dab",
+    "target_path": "/Users/gclyle/GrowDirect/Brain/raw/.extract/PA-LCB/RFP20060127 IBM Questions.doc.md",
+    "method": "textutil",
+    "status": "ok",
+    "error": null,
+    "extracted_at": "2026-04-30T01:20:08.061191+00:00"
+  },
+  {
+    "source_path": "/Users/gclyle/GrowDirect/Brain/raw/inbox/PA LCB/Retail CBM Submission to KV 20050725.ppt",
+    "source_sha256": "495e997c3eb000dff852970c7199a86640051ed26f5b04169ee572e8f2299ad5",
+    "target_path": "/Users/gclyle/GrowDirect/Brain/raw/.extract/PA-LCB/Retail CBM Submission to KV 20050725.ppt.md",
+    "method": null,
+    "status": "failed",
+    "error": "markitdown: UnsupportedFormatException: Could not convert stream to Markdown. No converter attempted a conversion, suggesting that the filetype is simply not supported.",
+    "extracted_at": "2026-04-30T01:20:08.121094+00:00"
+  },
+  {
+    "source_path": "/Users/gclyle/GrowDirect/Brain/raw/inbox/PA LCB/SOQ New Format.ppt",
+    "source_sha256": "36588e145486ffb0b50a544da9842bd01011ac0841450803f19e0f9a946304c7",
+    "target_path": "/Users/gclyle/GrowDirect/Brain/raw/.extract/PA-LCB/SOQ New Format.ppt.md",
+    "method": null,
+    "status": "failed",
+    "error": "markitdown: UnsupportedFormatException: Could not convert stream to Markdown. No converter attempted a conversion, suggesting that the filetype is simply not supported.",
+    "extracted_at": "2026-04-30T01:20:08.132633+00:00"
+  },
+  {
+    "source_path": "/Users/gclyle/GrowDirect/Brain/raw/inbox/PA LCB/interactive CPG MAP 03.11.04 v1.ppt",
+    "source_sha256": "6662ee5c3ceca87e3d29c214782ed5dbd11ef8ae4082cce0910e21c26ae7bf6f",
+    "target_path": "/Users/gclyle/GrowDirect/Brain/raw/.extract/PA-LCB/interactive CPG MAP 03.11.04 v1.ppt.md",
+    "method": null,
+    "status": "failed",
+    "error": "markitdown: UnsupportedFormatException: Could not convert stream to Markdown. No converter attempted a conversion, suggesting that the filetype is simply not supported.",
+    "extracted_at": "2026-04-30T01:20:08.140144+00:00"
+  },
+  {
+    "source_path": "/Users/gclyle/GrowDirect/Brain/raw/inbox/PA LCB/zlist.xls",
+    "source_sha256": "f80fcce247daf39c54e4d8571673a735b12189f8283604c50efb3059867f2db1",
+    "target_path": "/Users/gclyle/GrowDirect/Brain/raw/.extract/PA-LCB/zlist.xls.md",
+    "method": "markitdown",
+    "status": "ok",
+    "error": null,
+    "extracted_at": "2026-04-30T01:20:08.147430+00:00"
+  }
+]

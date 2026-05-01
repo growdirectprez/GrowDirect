@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<xs:schema xmlns:xs="http://www.w3.org/2001/XMLSchema" elementFormDefault="qualified" attributeFormDefault="unqualified">
+<xs:include schemaLocation="IXREnumerationExtensionV1.1.0.xsd"/>
+		<!-- 
+		Telephone locations 
+	-->
+	<xs:simpleType name="TelephoneTypeCode">
+		<xs:union memberTypes="TelephoneTypeCodeEnumeration TypeCodeExtension"/>
+	</xs:simpleType>
+	<xs:simpleType name="TelephoneTypeCodeEnumeration">
+		<xs:restriction base="xs:NMTOKEN">
+			<xs:enumeration value="Home"/>
+			<xs:enumeration value="Home2"/>
+			<xs:enumeration value="Mobile"/>
+			<xs:enumeration value="Work"/>
+			<xs:enumeration value="Work2"/>
+			<xs:enumeration value="WorkFax"/>
+			<xs:enumeration value="HomeFax"/>
+			<xs:enumeration value="Pager"/>
+		</xs:restriction>
+	</xs:simpleType>
+
+</xs:schema>

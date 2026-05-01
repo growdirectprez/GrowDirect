@@ -1,0 +1,245 @@
+[
+  {
+    "source_path": "/Users/gclyle/GrowDirect/Brain/raw/inbox/Other Retek Decks/AIP Tech Overview 1103.ppt",
+    "source_sha256": "3d5ac43f0082b97414929e05a0167ba489fab5f1ce4ff0f1bf806994c1abc422",
+    "target_path": "/Users/gclyle/GrowDirect/Brain/raw/.extract/Other Retek Decks/AIP Tech Overview 1103.ppt.md",
+    "method": null,
+    "status": "failed",
+    "error": "markitdown: UnsupportedFormatException: Could not convert stream to Markdown. No converter attempted a conversion, suggesting that the filetype is simply not supported.",
+    "extracted_at": "2026-04-24T21:43:16.056017+00:00"
+  },
+  {
+    "source_path": "/Users/gclyle/GrowDirect/Brain/raw/inbox/Other Retek Decks/Pages from rdf-100-ug.pdf",
+    "source_sha256": "fca30a514ec976f90dc3cae7e64dc2314e578d368c14e4f686d8bde04756b181",
+    "target_path": "/Users/gclyle/GrowDirect/Brain/raw/.extract/Other Retek Decks/Pages from rdf-100-ug.pdf.md",
+    "method": "markitdown",
+    "status": "ok",
+    "error": null,
+    "extracted_at": "2026-04-24T21:43:16.659049+00:00"
+  },
+  {
+    "source_path": "/Users/gclyle/GrowDirect/Brain/raw/inbox/Other Retek Decks/Pages from rib-101-intg.pdf",
+    "source_sha256": "1eb55c5a2c7576765d09b6e21ee673b7b4b5fc5a17e64e664a53f0efec298851",
+    "target_path": "/Users/gclyle/GrowDirect/Brain/raw/.extract/Other Retek Decks/Pages from rib-101-intg.pdf.md",
+    "method": "markitdown",
+    "status": "ok",
+    "error": null,
+    "extracted_at": "2026-04-24T21:43:17.466131+00:00"
+  },
+  {
+    "source_path": "/Users/gclyle/GrowDirect/Brain/raw/inbox/Other Retek Decks/RMS 10.0 Sizing Tool Questions - v1.xls",
+    "source_sha256": "63a2322863469d3b530b66387ab8eb5afb83ced0cf34893bce5314a2d31f2ea7",
+    "target_path": "/Users/gclyle/GrowDirect/Brain/raw/.extract/Other Retek Decks/RMS 10.0 Sizing Tool Questions - v1.xls.md",
+    "method": "markitdown",
+    "status": "ok",
+    "error": null,
+    "extracted_at": "2026-04-24T21:43:18.003410+00:00"
+  },
+  {
+    "source_path": "/Users/gclyle/GrowDirect/Brain/raw/inbox/Other Retek Decks/RPOS Presentation.ppt",
+    "source_sha256": "5bcb1cd3b8853f5b16a8d702b6214ae28283d5f790cf23a5a21674224b29ee1a",
+    "target_path": "/Users/gclyle/GrowDirect/Brain/raw/.extract/Other Retek Decks/RPOS Presentation.ppt.md",
+    "method": null,
+    "status": "failed",
+    "error": "markitdown: UnsupportedFormatException: Could not convert stream to Markdown. No converter attempted a conversion, suggesting that the filetype is simply not supported.",
+    "extracted_at": "2026-04-24T21:43:18.067124+00:00"
+  },
+  {
+    "source_path": "/Users/gclyle/GrowDirect/Brain/raw/inbox/Other Retek Decks/Range&Space.ppt",
+    "source_sha256": "13f167d24267c8cbf457b63cdafa575bf7e68d8f5fcd1911ea7b4866b58e7e94",
+    "target_path": "/Users/gclyle/GrowDirect/Brain/raw/.extract/Other Retek Decks/Range&Space.ppt.md",
+    "method": null,
+    "status": "failed",
+    "error": "markitdown: UnsupportedFormatException: Could not convert stream to Markdown. No converter attempted a conversion, suggesting that the filetype is simply not supported.",
+    "extracted_at": "2026-04-24T21:43:18.076634+00:00"
+  },
+  {
+    "source_path": "/Users/gclyle/GrowDirect/Brain/raw/inbox/Other Retek Decks/Retek  External System Integration Approach v2.pdf",
+    "source_sha256": "455b04fe89b33682470764139bee64af32d46f991d595cb2422e2520ecbfb5f1",
+    "target_path": "/Users/gclyle/GrowDirect/Brain/raw/.extract/Other Retek Decks/Retek  External System Integration Approach v2.pdf.md",
+    "method": "markitdown",
+    "status": "ok",
+    "error": null,
+    "extracted_at": "2026-04-24T21:43:18.083446+00:00"
+  },
+  {
+    "source_path": "/Users/gclyle/GrowDirect/Brain/raw/inbox/Other Retek Decks/Retek 10 Architecture Overview - IBM View @ 030203.ppt",
+    "source_sha256": "cb069ce33c68e2ffc27f8c60a3cecc075b6012ee723f595a0f12056924d9ce81",
+    "target_path": "/Users/gclyle/GrowDirect/Brain/raw/.extract/Other Retek Decks/Retek 10 Architecture Overview - IBM View @ 030203.ppt.md",
+    "method": null,
+    "status": "failed",
+    "error": "markitdown: UnsupportedFormatException: Could not convert stream to Markdown. No converter attempted a conversion, suggesting that the filetype is simply not supported.",
+    "extracted_at": "2026-04-24T21:43:18.439367+00:00"
+  },
+  {
+    "source_path": "/Users/gclyle/GrowDirect/Brain/raw/inbox/Other Retek Decks/Retek Appl Arch q1 00 (Retek Ratified).ppt",
+    "source_sha256": "840e3268da46c741fd7e805074f5f7549bc3cf650c85e87702930345ecabe68a",
+    "target_path": "/Users/gclyle/GrowDirect/Brain/raw/.extract/Other Retek Decks/Retek Appl Arch q1 00 (Retek Ratified).ppt.md",
+    "method": null,
+    "status": "failed",
+    "error": "markitdown: UnsupportedFormatException: Could not convert stream to Markdown. No converter attempted a conversion, suggesting that the filetype is simply not supported.",
+    "extracted_at": "2026-04-24T21:43:18.447221+00:00"
+  },
+  {
+    "source_path": "/Users/gclyle/GrowDirect/Brain/raw/inbox/Other Retek Decks/Retek Full Suite.ppt",
+    "source_sha256": "7502d938a1b1c2ddc046182c4448d21726f1b20016fb6cdd2da7411ba25e9a6b",
+    "target_path": "/Users/gclyle/GrowDirect/Brain/raw/.extract/Other Retek Decks/Retek Full Suite.ppt.md",
+    "method": null,
+    "status": "failed",
+    "error": "markitdown: UnsupportedFormatException: Could not convert stream to Markdown. No converter attempted a conversion, suggesting that the filetype is simply not supported.",
+    "extracted_at": "2026-04-24T21:43:18.460388+00:00"
+  },
+  {
+    "source_path": "/Users/gclyle/GrowDirect/Brain/raw/inbox/Other Retek Decks/Retek Hardware Architecture.pdf",
+    "source_sha256": "d33ba5c8f8883d45eb12980128f5ff3963862b7f6740ed7b4bf4329700e75f58",
+    "target_path": "/Users/gclyle/GrowDirect/Brain/raw/.extract/Other Retek Decks/Retek Hardware Architecture.pdf.md",
+    "method": "markitdown",
+    "status": "ok",
+    "error": null,
+    "extracted_at": "2026-04-24T21:43:18.470483+00:00"
+  },
+  {
+    "source_path": "/Users/gclyle/GrowDirect/Brain/raw/inbox/Other Retek Decks/Retek Performance Lab.pdf",
+    "source_sha256": "193cb3046fd3ff3fd94905cdc271a5432812d350489a01e0a4854e3ba9037804",
+    "target_path": "/Users/gclyle/GrowDirect/Brain/raw/.extract/Other Retek Decks/Retek Performance Lab.pdf.md",
+    "method": "markitdown",
+    "status": "ok",
+    "error": null,
+    "extracted_at": "2026-04-24T21:43:18.799284+00:00"
+  },
+  {
+    "source_path": "/Users/gclyle/GrowDirect/Brain/raw/inbox/Other Retek Decks/Retek RIB.Ahlens Solution.doc",
+    "source_sha256": "7abd87e9125b26360561375c67f6733c70f11d97295abac506a18e33baed2f6d",
+    "target_path": "/Users/gclyle/GrowDirect/Brain/raw/.extract/Other Retek Decks/Retek RIB.Ahlens Solution.doc.md",
+    "method": "textutil",
+    "status": "ok",
+    "error": null,
+    "extracted_at": "2026-04-24T21:43:18.874634+00:00"
+  },
+  {
+    "source_path": "/Users/gclyle/GrowDirect/Brain/raw/inbox/Other Retek Decks/Retek RestartRecovery.pdf",
+    "source_sha256": "fe72348f79c5f963a132a48f076cb6cc282fd0aebda05e970e1767cf891eabe8",
+    "target_path": "/Users/gclyle/GrowDirect/Brain/raw/.extract/Other Retek Decks/Retek RestartRecovery.pdf.md",
+    "method": "markitdown",
+    "status": "ok",
+    "error": null,
+    "extracted_at": "2026-04-24T21:43:18.929188+00:00"
+  },
+  {
+    "source_path": "/Users/gclyle/GrowDirect/Brain/raw/inbox/Other Retek Decks/Retek Scalability.pdf",
+    "source_sha256": "429a730ce1e7bbf140668d9f178c5e17145d3369b891b7a39f5800c206cf98a2",
+    "target_path": "/Users/gclyle/GrowDirect/Brain/raw/.extract/Other Retek Decks/Retek Scalability.pdf.md",
+    "method": "markitdown",
+    "status": "ok",
+    "error": null,
+    "extracted_at": "2026-04-24T21:43:19.064714+00:00"
+  },
+  {
+    "source_path": "/Users/gclyle/GrowDirect/Brain/raw/inbox/Other Retek Decks/Retek Security.pdf",
+    "source_sha256": "465dcdb6b31c4341db635046a1b7f0ffe9a6690ef924f6df081be0a93bd00191",
+    "target_path": "/Users/gclyle/GrowDirect/Brain/raw/.extract/Other Retek Decks/Retek Security.pdf.md",
+    "method": "markitdown",
+    "status": "ok",
+    "error": null,
+    "extracted_at": "2026-04-24T21:43:19.520020+00:00"
+  },
+  {
+    "source_path": "/Users/gclyle/GrowDirect/Brain/raw/inbox/Other Retek Decks/Retek V10 NRF Deck - SCM.ppt",
+    "source_sha256": "56805efbfd0f628ccd4271d0d33685708a22608f5675ef9880a9310cb18744f7",
+    "target_path": "/Users/gclyle/GrowDirect/Brain/raw/.extract/Other Retek Decks/Retek V10 NRF Deck - SCM.ppt.md",
+    "method": null,
+    "status": "failed",
+    "error": "markitdown: UnsupportedFormatException: Could not convert stream to Markdown. No converter attempted a conversion, suggesting that the filetype is simply not supported.",
+    "extracted_at": "2026-04-24T21:43:19.619541+00:00"
+  },
+  {
+    "source_path": "/Users/gclyle/GrowDirect/Brain/raw/inbox/Other Retek Decks/Retek.RMS to RDM Interfaces.Ahlens.xls",
+    "source_sha256": "1b476ff69dedb055817797bcc0f54d2f64f0ad02fa79307969c2d6f62c8c79a7",
+    "target_path": "/Users/gclyle/GrowDirect/Brain/raw/.extract/Other Retek Decks/Retek.RMS to RDM Interfaces.Ahlens.xls.md",
+    "method": "markitdown",
+    "status": "ok",
+    "error": null,
+    "extracted_at": "2026-04-24T21:43:19.626663+00:00"
+  },
+  {
+    "source_path": "/Users/gclyle/GrowDirect/Brain/raw/inbox/Other Retek Decks/Retekv10-Modules.Key Blocks.doc",
+    "source_sha256": "acc66f6b8b27e889988bcdb7c4509c785839cb8ca68948d29b747052fbd343ec",
+    "target_path": "/Users/gclyle/GrowDirect/Brain/raw/.extract/Other Retek Decks/Retekv10-Modules.Key Blocks.doc.md",
+    "method": "textutil",
+    "status": "ok",
+    "error": null,
+    "extracted_at": "2026-04-24T21:43:19.642388+00:00"
+  },
+  {
+    "source_path": "/Users/gclyle/GrowDirect/Brain/raw/inbox/Other Retek Decks/Typical Retek Sizing Input Requirements 270303.doc",
+    "source_sha256": "0b05eb7af2376dc7270502c471fb2b9d59677cfdf170a4c6ba5588f9f119d61e",
+    "target_path": "/Users/gclyle/GrowDirect/Brain/raw/.extract/Other Retek Decks/Typical Retek Sizing Input Requirements 270303.doc.md",
+    "method": "textutil",
+    "status": "ok",
+    "error": null,
+    "extracted_at": "2026-04-24T21:43:19.698793+00:00"
+  },
+  {
+    "source_path": "/Users/gclyle/GrowDirect/Brain/raw/inbox/Other Retek Decks/reim-100-ug.pdf",
+    "source_sha256": "ddd2a0444d7fa6bf4aa280c00a0f6d67aa8eb4ff276621a78f60c648312db4d1",
+    "target_path": "/Users/gclyle/GrowDirect/Brain/raw/.extract/Other Retek Decks/reim-100-ug.pdf.md",
+    "method": "markitdown",
+    "status": "ok",
+    "error": null,
+    "extracted_at": "2026-04-24T21:43:19.765520+00:00"
+  },
+  {
+    "source_path": "/Users/gclyle/GrowDirect/Brain/raw/inbox/Other Retek Decks/resa-110-ug.pdf",
+    "source_sha256": "42ab932dd1c45bc99838819057b3c22883f0b62d356de0c628280bc0fd18fdfe",
+    "target_path": "/Users/gclyle/GrowDirect/Brain/raw/.extract/Other Retek Decks/resa-110-ug.pdf.md",
+    "method": "markitdown",
+    "status": "ok",
+    "error": null,
+    "extracted_at": "2026-04-24T21:43:20.887189+00:00"
+  },
+  {
+    "source_path": "/Users/gclyle/GrowDirect/Brain/raw/inbox/Other Retek Decks/rms-110-ug.pdf",
+    "source_sha256": "b950531e16fcc4b0e385b49d95015b64e419cab24a84f6e345a7bfeeb635fd61",
+    "target_path": "/Users/gclyle/GrowDirect/Brain/raw/.extract/Other Retek Decks/rms-110-ug.pdf.md",
+    "method": "markitdown",
+    "status": "ok",
+    "error": null,
+    "extracted_at": "2026-04-24T21:43:23.866907+00:00"
+  },
+  {
+    "source_path": "/Users/gclyle/GrowDirect/Brain/raw/inbox/Other Retek Decks/ro-100-ug.pdf",
+    "source_sha256": "bb23da80b2d93df80814a892bcd55020d0d18fcea3386461769a8c6ca4f99c9a",
+    "target_path": "/Users/gclyle/GrowDirect/Brain/raw/.extract/Other Retek Decks/ro-100-ug.pdf.md",
+    "method": "markitdown",
+    "status": "ok",
+    "error": null,
+    "extracted_at": "2026-04-24T21:43:35.057393+00:00"
+  },
+  {
+    "source_path": "/Users/gclyle/GrowDirect/Brain/raw/inbox/Other Retek Decks/rpm-ips-qref.pdf",
+    "source_sha256": "87752baf848acd00ec5cb59efe6a817fa6a4f33dc548f5b51c472ec0ae86d4e7",
+    "target_path": "/Users/gclyle/GrowDirect/Brain/raw/.extract/Other Retek Decks/rpm-ips-qref.pdf.md",
+    "method": "markitdown",
+    "status": "ok",
+    "error": null,
+    "extracted_at": "2026-04-24T21:43:35.619252+00:00"
+  },
+  {
+    "source_path": "/Users/gclyle/GrowDirect/Brain/raw/inbox/Other Retek Decks/rtm-100-ug.pdf",
+    "source_sha256": "106c9f85694245d4b3e1710aefebd9688bb1197bbca49d4f53e7334050a53b7b",
+    "target_path": "/Users/gclyle/GrowDirect/Brain/raw/.extract/Other Retek Decks/rtm-100-ug.pdf.md",
+    "method": "markitdown",
+    "status": "ok",
+    "error": null,
+    "extracted_at": "2026-04-24T21:43:36.384343+00:00"
+  },
+  {
+    "source_path": "/Users/gclyle/GrowDirect/Brain/raw/inbox/Other Retek Decks/topplan-100-ug.pdf",
+    "source_sha256": "e38614de3cae740b5d8730e8140cd753d6cc922a701ed075e03e9c1d797a4674",
+    "target_path": "/Users/gclyle/GrowDirect/Brain/raw/.extract/Other Retek Decks/topplan-100-ug.pdf.md",
+    "method": "markitdown",
+    "status": "ok",
+    "error": null,
+    "extracted_at": "2026-04-24T21:43:38.457717+00:00"
+  }
+]

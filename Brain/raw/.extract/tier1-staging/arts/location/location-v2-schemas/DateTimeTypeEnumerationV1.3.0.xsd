@@ -1,0 +1,51 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- V1.1.0
+	- Added to support Traceability
+			AvailableForSale, BestBefore, Birth, CutBy, EnterFreezer, Kill, Pack, Packaging, Production, SellBy, Slaughter
+
+-->
+<xs:schema xmlns:xs="http://www.w3.org/2001/XMLSchema" elementFormDefault="qualified" attributeFormDefault="unqualified">
+	<xs:include schemaLocation="IXREnumerationExtensionV1.1.0.xsd"/>
+	<!-- 
+		Date Time Enumeration
+	-->
+	<xs:simpleType name="DateTimeType">
+		<xs:union memberTypes="DateTimeTypeEnumeration TypeCodeExtension"/>
+	</xs:simpleType>
+	<xs:simpleType name="DateTimeTypeEnumeration">
+		<xs:restriction base="xs:NMTOKEN">
+			<xs:enumeration value="Message"/>
+			<xs:enumeration value="Activation"/>
+			<xs:enumeration value="ActualStart"/>
+			<xs:enumeration value="AvailableForSale"/>
+			<xs:enumeration value="BestBefore"/>
+			<xs:enumeration value="Birth"/>
+			<xs:enumeration value="Business"/>
+			<xs:enumeration value="Cancel"/>
+			<xs:enumeration value="Current"/>
+			<xs:enumeration value="CutBy"/>
+			<xs:enumeration value="Dispatch"/>
+			<xs:enumeration value="Effective"/>
+			<xs:enumeration value="End"/>
+			<xs:enumeration value="EnterFreezer"/>
+			<xs:enumeration value="ExpectedDue"/>
+			<xs:enumeration value="ExpectedStart"/>
+			<xs:enumeration value="Expiration"/>
+			<xs:enumeration value="GiftReceiptRefundExpiry"/>
+			<xs:enumeration value="Historical"/>
+			<xs:enumeration value="Kill"/>
+			<xs:enumeration value="Pack"/>
+			<xs:enumeration value="Packaging"/>
+			<xs:enumeration value="PlanogramResetDue"/>
+			<xs:enumeration value="Production"/>
+			<xs:enumeration value="Receipt"/>
+			<xs:enumeration value="RefundExpiry"/>
+			<xs:enumeration value="SellBy"/>
+			<xs:enumeration value="Slaughter"/>
+			<xs:enumeration value="Start"/>
+			<xs:enumeration value="StoreAvailableToTakeOrders"/>
+			<xs:enumeration value="Transaction"/>
+			<xs:enumeration value="UseBy"/>
+		</xs:restriction>
+	</xs:simpleType>
+</xs:schema>

@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<xs:schema xmlns:xs="http://www.w3.org/2001/XMLSchema" elementFormDefault="qualified" attributeFormDefault="unqualified">
+	<xs:include schemaLocation="IXREnumerationExtensionV1.1.0.xsd"/>
+	<!--
+		Enumerated type for  CommonData File Compression Type Codes attribute
+	-->
+	<xs:simpleType name="FileCompressionTypeCode">
+		<xs:union memberTypes="FileCompressionTypeCodeEnumeration TypeCodeExtension"/>
+	</xs:simpleType>
+	<xs:simpleType name="FileCompressionTypeCodeEnumeration">
+		<xs:restriction base="xs:NMTOKEN">
+			<xs:enumeration value="JPEG"/>
+			<xs:enumeration value="JPEG2000"/>
+			<xs:enumeration value="LZW"/>
+			<xs:enumeration value="LZ77"/>
+			<xs:enumeration value="RLE"/>
+			<xs:enumeration value="Uncompressed"/>
+		</xs:restriction>
+	</xs:simpleType>
+</xs:schema>

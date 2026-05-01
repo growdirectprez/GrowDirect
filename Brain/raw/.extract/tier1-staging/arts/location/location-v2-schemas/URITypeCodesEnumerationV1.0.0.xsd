@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<xs:schema xmlns:xs="http://www.w3.org/2001/XMLSchema" elementFormDefault="qualified" attributeFormDefault="unqualified">
+	<xs:include schemaLocation="IXREnumerationExtensionV1.1.0.xsd"/>
+	<!--
+		Enumerated type for  CommonData URI Type Codes attribute
+	-->
+	<xs:simpleType name="URITypeCode">
+		<xs:annotation>
+			<xs:documentation>PIES Definition</xs:documentation>
+		</xs:annotation>
+		<xs:union memberTypes="URITypeCodeEnumeration TypeCodeExtension"/>
+	</xs:simpleType>
+	<xs:simpleType name="URITypeCodeEnumeration">
+		<xs:restriction base="xs:NMTOKEN">
+			<xs:enumeration value="OEMFilename">
+				<xs:annotation>
+					<xs:documentation>AAIA - PIES - Original Equipment Manufacturer's File Name.</xs:documentation>
+				</xs:annotation>
+			</xs:enumeration>
+			<xs:enumeration value="OldFilename">
+				<xs:annotation>
+					<xs:documentation>AAIA - PIES - Name of Digital Asset file that this Asset record is replacing.</xs:documentation>
+				</xs:annotation>
+			</xs:enumeration>
+			<xs:enumeration value="NewFilename">
+				<xs:annotation>
+					<xs:documentation>AAIA - PIES - Name of Digital Asset file being replaced.</xs:documentation>
+				</xs:annotation>
+			</xs:enumeration>
+			<xs:enumeration value="URL">
+				<xs:annotation>
+					<xs:documentation>Generic URL where the file is located</xs:documentation>
+				</xs:annotation>
+			</xs:enumeration>
+		</xs:restriction>
+	</xs:simpleType>
+</xs:schema>

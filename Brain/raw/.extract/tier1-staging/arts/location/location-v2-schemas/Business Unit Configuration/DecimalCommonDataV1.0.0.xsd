@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<xs:schema xmlns:xs="http://www.w3.org/2001/XMLSchema" elementFormDefault="qualified" attributeFormDefault="unqualified">
+	<xs:simpleType name="DecimalCommonData">
+		<xs:restriction base="xs:decimal">
+			<xs:maxInclusive value="99999999.999999"/>
+			<xs:minInclusive value="0.000000"/>
+		</xs:restriction>
+	</xs:simpleType>
+</xs:schema>

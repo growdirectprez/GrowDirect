@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<xs:schema xmlns:xs="http://www.w3.org/2001/XMLSchema" elementFormDefault="qualified" attributeFormDefault="unqualified">
+	<!--============-->
+	<!-- Extension mechanism -->
+	<!--============-->
+	<xs:simpleType name="IXREnumerationExtension">
+		<xs:restriction base="xs:string">
+			<xs:pattern value="[0-9A-Za-z][0-9A-Za-z]*:[0-9A-Za-z]*"/>
+		</xs:restriction>
+	</xs:simpleType>
+	<xs:simpleType name="TypeCodeExtension">
+		<xs:restriction base="IXREnumerationExtension"/>
+	</xs:simpleType>
+</xs:schema>

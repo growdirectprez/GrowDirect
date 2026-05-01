@@ -1,0 +1,118 @@
+<html>
+<head>
+<title>Untitled Document</title>
+<meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1">
+<script language="JavaScript">
+<!--
+function MM_preloadImages() { //v3.0
+  var d=document; if(d.images){ if(!d.MM_p) d.MM_p=new Array();
+    var i,j=d.MM_p.length,a=MM_preloadImages.arguments; for(i=0; i<a.length; i++)
+    if (a[i].indexOf("#")!=0){ d.MM_p[j]=new Image; d.MM_p[j++].src=a[i];}}
+}
+
+function MM_findObj(n, d) { //v3.0
+  var p,i,x;  if(!d) d=document; if((p=n.indexOf("?"))>0&&parent.frames.length) {
+    d=parent.frames[n.substring(p+1)].document; n=n.substring(0,p);}
+  if(!(x=d[n])&&d.all) x=d.all[n]; for (i=0;!x&&i<d.forms.length;i++) x=d.forms[i][n];
+  for(i=0;!x&&d.layers&&i<d.layers.length;i++) x=MM_findObj(n,d.layers[i].document); return x;
+}
+
+function MM_nbGroup(event, grpName) { //v3.0
+  var i,img,nbArr,args=MM_nbGroup.arguments;
+  if (event == "init" && args.length > 2) {
+    if ((img = MM_findObj(args[2])) != null && !img.MM_init) {
+      img.MM_init = true; img.MM_up = args[3]; img.MM_dn = img.src;
+      if ((nbArr = document[grpName]) == null) nbArr = document[grpName] = new Array();
+      nbArr[nbArr.length] = img;
+      for (i=4; i < args.length-1; i+=2) if ((img = MM_findObj(args[i])) != null) {
+        if (!img.MM_up) img.MM_up = img.src;
+        img.src = img.MM_dn = args[i+1];
+        nbArr[nbArr.length] = img;
+    } }
+  } else if (event == "over") {
+    document.MM_nbOver = nbArr = new Array();
+    for (i=1; i < args.length-1; i+=3) if ((img = MM_findObj(args[i])) != null) {
+      if (!img.MM_up) img.MM_up = img.src;
+      img.src = (img.MM_dn && args[i+2]) ? args[i+2] : args[i+1];
+      nbArr[nbArr.length] = img;
+    }
+  } else if (event == "out" ) {
+    for (i=0; i < document.MM_nbOver.length; i++) {
+      img = document.MM_nbOver[i]; img.src = (img.MM_dn) ? img.MM_dn : img.MM_up; }
+  } else if (event == "down") {
+    if ((nbArr = document[grpName]) != null)
+      for (i=0; i < nbArr.length; i++) { img=nbArr[i]; img.src = img.MM_up; img.MM_dn = 0; }
+    document[grpName] = nbArr = new Array();
+    for (i=2; i < args.length-1; i+=2) if ((img = MM_findObj(args[i])) != null) {
+      if (!img.MM_up) img.MM_up = img.src;
+      img.src = img.MM_dn = args[i+1];
+      nbArr[nbArr.length] = img;
+  } }
+}
+//-->
+</script>
+</head>
+<body bgcolor="#FFFFFF" onLoad="MM_preloadImages('../images/buttons/profile_over.gif','../images/buttons/loyalty_over.gif','../images/buttons/shop_list_over.gif','../images/buttons/order_tracking_over.gif','../images/buttons/address_over.gif','../images/buttons/payment_over.gif')">
+<table border="0" cellpadding="0" cellspacing="0" width="540">
+  <!-- fwtable fwsrc="my_account.png" fwbase="hdr_my_acct.gif" --> 
+  <tr> 
+    <td><img src="shim.gif" width="244" height="1" border="0"></td>
+    <td><img src="shim.gif" width="246" height="1" border="0"></td>
+    <td><img src="shim.gif" width="50" height="1" border="0"></td>
+    <td><img src="shim.gif" width="1" height="1" border="0"></td>
+  </tr>
+  <tr valign="top"> 
+    <td rowspan="2"><img name="hdr_my_acct" src="hdr_my_acct.gif" width="244" height="65" border="0"></td>
+    <td><img name="hdr_my_acct_r1_c2" src="hdr_my_acct_r1_c2.gif" width="246" height="39" border="0"></td>
+    <td rowspan="2"><img name="hdr_home" src="hdr_home.gif" width="50" height="65" border="0" usemap="#m_hdr_home"></td>
+    <td><img src="shim.gif" width="1" height="39" border="0"></td>
+  </tr>
+  <tr valign="top"> 
+    <td><img name="hdr_bar" src="hdr_bar.gif" width="246" height="26" border="0"></td>
+    <td><img src="shim.gif" width="1" height="26" border="0"></td>
+  </tr>
+  <map name="m_hdr_home"> <area shape="rect" coords="14,10,29,25" href="C:\Program Files\Macromedia\Dreamweaver 3\Help\ContextHelp.htm" > 
+  </map> 
+</table>
+<!-- Fireworks 3.0  Dreamweaver 3.0 target.  Created Wed Feb 02 20:11:47 GMT-0500 (Eastern Standard Time) 2000 --> 
+<!-- Fireworks 3.0  Dreamweaver 3.0 target.  Created Wed Feb 02 18:42:23 GMT-0500 (Eastern Standard Time) 2000 --> 
+<!-- Fireworks 3.0  Dreamweaver 3.0 target.  Created Wed Feb 02 18:21:09 GMT-0500 (Eastern Standard Time) 2000 --> 
+<div id="Layer7" style="position:absolute; width:425px; height:35px; z-index:7; left: 398px; top: 416px"><!-- #BeginLibraryItem "/Library/Bottom Navigation.lbi" --><font face="Geneva, Arial, Helvetica" size="1"><a href="../about.htm">about 
+          us</a> | <a href="../cart.htm">current article</a> | <a href="../archive.htm">archive</a> 
+          |<a href="../index.htm"> home</a><br>
+          <font color="#999999">copyright information &copy;1999-00. E-mail <a href="mailto:fakeaddress@macromedia.com">us</a>.</font></font><!-- #EndLibraryItem --> 
+</div>
+<map name="m_my_account"> <area shape="rect" coords="526,18,553,45" href="C:\Program Files\Macromedia\Dreamweaver 3\Help\ContextHelp.htm" > 
+</map> <map name="m_my_account"> <area shape="rect" coords="504,10,519,25" href="C:\Program Files\Macromedia\Dreamweaver 3\Help\ContextHelp.htm" > 
+</map> 
+<div id="Layer6" style="position: absolute; left: 58px; top: 77px; width: 215px; height: 310px; z-index: 6"> 
+  <table border="0" cellpadding="0" cellspacing="0" width="141">
+    <tr> 
+      <td><a href="user_profile.jsp?<%=Session.Location.linkString()%>" onClick="MM_nbGroup('down','group1','Profile','',1)" onMouseOver="MM_nbGroup('over','Profile','../images/buttons/profile_over.gif','',1)" onMouseOut="MM_nbGroup('out')"><img name="Profile" src="../images/buttons/profile_up.gif" border="0" onLoad=""></a> 
+        <div id="Layer1" style="position:absolute; width:155px; height:310px; z-index:8; left: 215px; top: 0px"> 
+          <div id="Layer2" style="position:absolute; width:120px; height:155px; z-index:1; left: 155px; top: 0px"></div>
+        </div>
+      </td>
+    </tr>
+    <tr> 
+      <td><a href="user_profile.jsp?<%=Session.Location.linkString()%>" onClick="MM_nbGroup('down','group1','loyalty','',1)" onMouseOver="MM_nbGroup('over','loyalty','../images/buttons/loyalty_over.gif','',1)" onMouseOut="MM_nbGroup('out')"><img name="loyalty" src="../images/buttons/loyalty_up.gif" border="0" onLoad=""></a></td>
+    </tr>
+    <tr> 
+      <td><a href="shoplist.jsp?<%=Session.Location.linkString()%>" onClick="MM_nbGroup('down','group1','lists','',1)" onMouseOver="MM_nbGroup('over','lists','../images/buttons/shop_list_over.gif','',1)" onMouseOut="MM_nbGroup('out')"><img name="lists" src="../images/buttons/shop_list_up.gif" border="0" onLoad=""></a></td>
+    </tr>
+    <tr> 
+      <td><a href="order_history.jsp?<%=Session.Location.linkString()%>" onClick="MM_nbGroup('down','group1','tracking','',1)" onMouseOver="MM_nbGroup('over','tracking','../images/buttons/order_tracking_over.gif','',1)" onMouseOut="MM_nbGroup('out')"><img name="tracking" src="../images/buttons/order_tracking_up.gif" border="0" onLoad=""></a></td>
+    </tr>
+    <tr> 
+      <td><a href="address_book.jsp?<%=Session.Location.linkString()%>" onClick="MM_nbGroup('down','group1','address','',1)" onMouseOver="MM_nbGroup('over','address','../images/buttons/address_over.gif','',1)" onMouseOut="MM_nbGroup('out')"><img name="address" src="../images/buttons/address_up.gif" border="0" onLoad=""></a></td>
+    </tr>
+    <tr> 
+      <td><a href="payment_methods.jsp?<%=Session.Location.linkString()%>" onClick="MM_nbGroup('down','group1','payment','',1)" onMouseOver="MM_nbGroup('over','payment','../images/buttons/payment_over.gif','',1)" onMouseOut="MM_nbGroup('out')"><img name="payment" src="../images/buttons/payment_up.gif" border="0" onLoad="" width="191" height="26"></a></td>
+    </tr>
+  </table>
+  <map name="m_my_account"> 
+    <area shape="rect" coords="519,20,546,47" href="C:\Program Files\Macromedia\Dreamweaver 3\Help\ContextHelp.htm" > 
+  </map></div>
+<div id="Layer3" style="position:absolute; width:120px; height:155px; z-index:8; left: 428px; top: 232px"></div>
+</body>
+</html>

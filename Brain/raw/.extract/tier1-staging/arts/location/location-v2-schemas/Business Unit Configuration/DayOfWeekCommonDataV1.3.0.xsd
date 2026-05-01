@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- edited with XMLSpy v2006 sp2 U (http://www.altova.com) by Richard L Halter (private) -->
+<xs:schema xmlns:xs="http://www.w3.org/2001/XMLSchema" elementFormDefault="qualified" attributeFormDefault="unqualified">
+	<xs:include schemaLocation="StartEndTimeTypeCommonDataV1.3.0.xsd"/>
+	<xs:include schemaLocation="DOWTypeCommonDataV1.1.0.xsd"/>
+	<xs:include schemaLocation="WhenTypeCommonDataV1.1.0.xsd"/>
+	<xs:complexType name="DayOfWeekCommonData">
+		<xs:sequence>
+			<xs:element name="Span" type="StartEndTimeType" maxOccurs="unbounded"/>
+		</xs:sequence>
+		<xs:attribute name="Day" type="DOWType" use="optional"/>
+		<xs:attribute name="When" type="WhenType" use="optional" default="Between"/>
+	</xs:complexType>
+</xs:schema>

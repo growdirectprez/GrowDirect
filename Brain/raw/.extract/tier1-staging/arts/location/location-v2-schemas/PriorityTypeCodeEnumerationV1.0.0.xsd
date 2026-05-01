@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<xs:schema xmlns:xs="http://www.w3.org/2001/XMLSchema" elementFormDefault="qualified" attributeFormDefault="unqualified">
+	<xs:include schemaLocation="IXREnumerationExtensionV1.1.0.xsd"/>
+	<xs:simpleType name="PriorityTypeCode">
+		<xs:union memberTypes="PriorityTypeCodeEnumeration TypeCodeExtension"/>
+	</xs:simpleType>
+	<xs:simpleType name="PriorityTypeCodeEnumeration">
+		<xs:restriction base="xs:NMTOKEN">
+		<xs:enumeration value="Low"/>
+		<xs:enumeration value="Normal"/>
+		<xs:enumeration value="Urgent"/>
+		</xs:restriction>
+	</xs:simpleType>
+</xs:schema>

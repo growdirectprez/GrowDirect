@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<xs:schema xmlns:xs="http://www.w3.org/2001/XMLSchema" elementFormDefault="qualified" attributeFormDefault="unqualified">
+	<xs:include schemaLocation="IXREnumerationExtensionV1.1.0.xsd"/>
+	<!--
+		Enumerated type for Address Line Type attribute
+	-->
+	<xs:simpleType name="PlanogramTypeCode">
+		<xs:union memberTypes="PlanogramTypeCodeEnumeration TypeCodeExtension"/>
+	</xs:simpleType>
+	<xs:simpleType name="PlanogramTypeCodeEnumeration">
+		<xs:restriction base="xs:NMTOKEN">
+			<xs:enumeration value="Current"/>
+			<xs:enumeration value="Changes"/>
+			<xs:enumeration value="New"/>
+			<xs:enumeration value="Previous"/>
+		</xs:restriction>
+	</xs:simpleType>
+</xs:schema>

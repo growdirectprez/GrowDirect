@@ -1,0 +1,129 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- edited with XMLSpy v2006 sp2 U (http://www.altova.com) by Richard L Halter (private) -->
+<!-- Association of Retail Technology Standards
+	(c) 2014 National Retail Federation.  All rights reserved -->
+<xs:schema xmlns:xs="http://www.w3.org/2001/XMLSchema" elementFormDefault="qualified" attributeFormDefault="unqualified">
+	<xs:include schemaLocation="MeasurementCommonDataV1.3.0.xsd"/>
+	<!-- ======================================================== -->
+	<!--Hazardous Material-->
+	<!--                                                                                                                  -->
+	<!-- ======================================================== -->
+	<xs:complexType name="HazardousInformationType">
+		<xs:annotation>
+			<xs:documentation>from EAN.UCC</xs:documentation>
+		</xs:annotation>
+		<xs:sequence>
+			<xs:element name="MaterialSafetyDataSheetNumber" type="xs:string" maxOccurs="unbounded">
+				<xs:annotation>
+					<xs:documentation>EAN.UCC Definition: Manufacturer's identification number for the material safety data sheet for a trade item.
+Examples: "4711", "ag34784", "zruifk"
+Business Rules: This is an internal number which is distributed by the manufacturer. Can be in any format. This attribute is mandatory if the Material Safety Data Sheet attribute is “Y”.</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="ClassOfDangerousGoods" maxOccurs="unbounded">
+				<xs:annotation>
+					<xs:documentation>EAN.UCC Definition: Dangerous goods classification of the trade item. There are 9 danger classes, some classes are further subdivided into subclasses. Class number explains in general terms the nature and properties of the goods and serves to classify them together in terms of their most significant risk.
+Examples: Class “4.2”: Substances liable to spontaneous combustion.
+Class “6.1”: Toxic substances
+Business Rules: Information required when dangerousGoodsIndicator
+equals Y. Subsidiary risks given by repeating attribute value. Repeatable per dangerousGoodsRegulation code. Refer to UNECE code list.
+Hazardous attributes relate to supply chain handling (e.g., transport, storage, handling).</xs:documentation>
+				</xs:annotation>
+				<xs:simpleType>
+					<xs:restriction base="xs:string">
+						<xs:minLength value="1"/>
+						<xs:maxLength value="80"/>
+					</xs:restriction>
+				</xs:simpleType>
+			</xs:element>
+			<xs:element name="DangerousGoodsHazardousCode">
+				<xs:annotation>
+					<xs:documentation>EAN.UCC Definition: Dangerous goods hazard ID number, which must be applied to the vehicle, when transporting this trade item (dangerous good) by road or rail, to inform the police, the fire brigade and others in case of an accident about the kind of danger caused by the cargo.
+Examples: -
+Business Rules: Information required when dangerousGoodsIndicator
+equals Y. Repeatable per  dangerousGoodsRegulation code. Hazardous
+attributes relate to supply chain handling (e.g., transport, storage, handling).</xs:documentation>
+				</xs:annotation>
+				<xs:simpleType>
+					<xs:restriction base="xs:string">
+						<xs:minLength value="1"/>
+						<xs:maxLength value="80"/>
+					</xs:restriction>
+				</xs:simpleType>
+			</xs:element>
+			<xs:element name="DangerousGoodsPackingGroup">
+				<xs:annotation>
+					<xs:documentation>EAN.UCC Definition: Identifies the degree of risk these dangerous goods present during transport according to IATA/IMDG/ADR/RID regulations.
+Examples: Group I : Great danger - Packaging meeting criteria to pack
+hazardous materials with great danger.
+Business Rules: Information required when dangerousGoodsIndicator equals Y. Repeatable per dangerousGoodsRegulation code. http://www.unece.org/trade/untdid/d99b/tred/tred8339.htm Hazardous attributes relate to supply chain handling (e.g., transport, storage, handling).</xs:documentation>
+				</xs:annotation>
+				<xs:simpleType>
+					<xs:restriction base="xs:string">
+						<xs:minLength value="1"/>
+						<xs:maxLength value="80"/>
+					</xs:restriction>
+				</xs:simpleType>
+			</xs:element>
+			<xs:element name="DangerousGoodsRegulationCode" type="xs:string" maxOccurs="unbounded">
+				<xs:annotation>
+					<xs:documentation>EAN.UCC Definition: Code indicating the classification system(s) of dangerous goods and/or the Agency(ies) responsible for it. Examples: "ADR" European agreement on the international carriage of dangerous goods on roads.
+Business Rules: Various systems (ADR, RID, US49, IATA, etc.) exist and are used for hazard classification and identification.
+Information required when dangerousGoodsIndicator equals Y.
+Repeatable field http://www.unece.org/trade/untdid/d99b/tred/tred8273.htm
+Hazardous attributes relate to supply chain handling (e.g., transport, storage, handling).</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="DangerousGoodsShippingName" maxOccurs="unbounded">
+				<xs:annotation>
+					<xs:documentation>EAN.UCC Definition: Shipping name of the trade item (dangerous goods). The recognized agencies (see dangerousGoodsRegulationsCodes), in their regulations, provide a list of all acceptable proper shipping names.
+Examples: "Flammable Liquid"
+Business Rules: Information required when dangerousGoodsIndicator equals Y. Repeatable per dangerousGoodsRegulation code. Hazardous attributes relate to supply chain handling (e.g., transport, storage, handling).</xs:documentation>
+				</xs:annotation>
+				<xs:simpleType>
+					<xs:restriction base="xs:string">
+						<xs:minLength value="1"/>
+						<xs:maxLength value="80"/>
+					</xs:restriction>
+				</xs:simpleType>
+			</xs:element>
+			<xs:element name="DangerousGoodsTechnicalName" maxOccurs="unbounded">
+				<xs:annotation>
+					<xs:documentation>EAN.UCC Definition: Chemical term of the trade item, listed by name and allowed in the substance list of GGVS (Dangerous Goods Ordinance for Roads) or GGVE (Dangerous Goods Ordinance for Rail). This is composed of
+both text and a language code. The language for text is specified using the two-digit ISO 639 list.
+Examples: "TRINITROCHLORO-BENZENE (PICRYL CHLORIDE), WETTED"
+Business Rules: Information required when dangerousGoodsIndicator equals Y. The technical names are listed in the order that they contribute to the danger (main hazard, not necessarily the highest concentration).
+Repeatable per dangerousGoodsRegulation code. Hazardous attributes relate to supply chain handling (e.g., transport, storage, handling).</xs:documentation>
+				</xs:annotation>
+				<xs:simpleType>
+					<xs:restriction base="xs:string">
+						<xs:minLength value="1"/>
+						<xs:maxLength value="80"/>
+					</xs:restriction>
+				</xs:simpleType>
+			</xs:element>
+			<xs:element name="FlashPointTemperature">
+				<xs:annotation>
+					<xs:documentation>EAN.UCC Definition: The lowest temperature at which a substance gives off a sufficient vapor to support combustion. This uses a measurement consisting of a unit of measure and value.
+
+Business Rules: Information required when dangerousGoodsIndicator equals Y.  Expressed in Celsius (or Centigrade) or Fahrenheit  Format defined by UN/EDIFACT 7106 Has to be associated with valid UoM. Hazardous attributes relate to supply chain handling (e.g., transport, storage, handling).</xs:documentation>
+				</xs:annotation>
+				<xs:complexType>
+					<xs:simpleContent>
+						<xs:extension base="MeasurementCommonData"/>
+					</xs:simpleContent>
+				</xs:complexType>
+			</xs:element>
+			<xs:element name="UnitedNationsDangerousGoodsNumber" type="xs:integer" maxOccurs="unbounded">
+				<xs:annotation>
+					<xs:documentation>EAN.UCC Definition: The four-digit number assigned by the United Nations Committee of Experts on the Transport of Dangerous Goods to classify a
+substance or a particular groups of substances. Abbreviation: UNDG Number
+Examples: UN "1155" ETHYLENEGLYCOLDIETHYLETHER
+Business Rules: Information required when dangerousGoodsIndicator equals Y.
+Repeatable per dangerousGoodsRegulation code. http://www.unece.org/trans/danger/publi/adr/adr2001/English/ Hazardous attributes relate to supply chain handling (e.g., transport,
+storage, handling).</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+		</xs:sequence>
+	</xs:complexType>
+</xs:schema>

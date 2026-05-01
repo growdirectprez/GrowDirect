@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<xs:schema xmlns:xs="http://www.w3.org/2001/XMLSchema" elementFormDefault="qualified" attributeFormDefault="unqualified">
+	<xs:include schemaLocation="IXREnumerationExtensionV1.1.0.xsd"/>
+	<!-- 
+		Days Of the Week
+	-->
+	<xs:simpleType name="DOWType">
+		<xs:union memberTypes="DOWTypeEnumeration TypeCodeExtension"/>
+	</xs:simpleType>
+	<xs:simpleType name="DOWTypeEnumeration">
+		<xs:restriction base="xs:NMTOKEN">
+			<xs:enumeration value="Sunday"/>
+			<xs:enumeration value="Monday"/>
+			<xs:enumeration value="Tuesday"/>
+			<xs:enumeration value="Wednesday"/>
+			<xs:enumeration value="Thursday"/>
+			<xs:enumeration value="Friday"/>
+			<xs:enumeration value="Saturday"/>
+			<xs:enumeration value="Weekday"/>
+			<xs:enumeration value="Weekend"/>
+		</xs:restriction>
+	</xs:simpleType>
+</xs:schema>

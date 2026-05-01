@@ -1,0 +1,96 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- edited with XMLSpy v2006 sp2 U (http://www.altova.com) by Richard L Halter (private) -->
+<xs:schema xmlns:xs="http://www.w3.org/2001/XMLSchema" elementFormDefault="qualified" attributeFormDefault="unqualified">
+	<!-- Minor Release V1.2.0 20060823
+		- Added MenuID -  the menu id for this particular item
+	 Minor Release V1.1.0 20060627
+		- added MuzeID and AMGID
+-->
+	<xs:include schemaLocation="IXREnumerationExtensionV1.1.0.xsd"/>
+	<!--        Item ID Types               -->
+	<!-- derived from UPOS V1.9    -->
+	<!-- 	ScanDataType Property R -->
+	<!-- MuzeID - The ID of a music title as  provided to the retailer by MUZE -->
+	<!-- AMGID - The ID of a music title as provided to the retailer by AMG -->
+	<xs:simpleType name="ItemIDTypeCode">
+		<xs:union memberTypes="ItemIDTypeCodeEnumeration TypeCodeExtension"/>
+	</xs:simpleType>
+	<xs:simpleType name="ItemIDTypeCodeEnumeration">
+		<xs:restriction base="xs:NMTOKEN">
+			<xs:enumeration value="GTIN">
+				<xs:annotation>
+					<xs:documentation>Global Trade Identification Number</xs:documentation>
+				</xs:annotation>
+			</xs:enumeration>
+			<xs:enumeration value="SGTIN">
+				<xs:annotation>
+					<xs:documentation>Serialized GTIN</xs:documentation>
+				</xs:annotation>
+			</xs:enumeration>
+			<xs:enumeration value="SSCC">
+				<xs:annotation>
+					<xs:documentation>Serialized Shipping Container</xs:documentation>
+				</xs:annotation>
+			</xs:enumeration>
+			<xs:enumeration value="SIN">
+				<xs:annotation>
+					<xs:documentation>Shipment ID Number</xs:documentation>
+				</xs:annotation>
+			</xs:enumeration>
+			<xs:enumeration value="PLU">
+				<xs:annotation>
+					<xs:documentation>Price Lookup Unit</xs:documentation>
+				</xs:annotation>
+			</xs:enumeration>
+			<xs:enumeration value="SKU">
+				<xs:annotation>
+					<xs:documentation>Stock Keeping Unit</xs:documentation>
+				</xs:annotation>
+			</xs:enumeration>
+			<xs:enumeration value="ItemID"/>
+			<xs:enumeration value="ISBN"/>
+			<xs:enumeration value="ISSN"/>
+			<xs:enumeration value="EPC"/>
+			<xs:enumeration value="TUC"/>
+			<xs:enumeration value="POSDepartment"/>
+			<xs:enumeration value="RFID"/>
+			<xs:enumeration value="ScanData">
+				<xs:annotation>
+					<xs:documentation>the information coming from the scanner</xs:documentation>
+				</xs:annotation>
+			</xs:enumeration>
+			<xs:enumeration value="UPC"/>
+			<xs:enumeration value="MUZEID"/>
+			<xs:enumeration value="AMGID"/>
+			<xs:enumeration value="MenuID"/>
+			<xs:enumeration value="UPC-A"/>
+			<xs:enumeration value="UPC-AWithSupplementalBarcode"/>
+			<xs:enumeration value="UPC-E"/>
+			<xs:enumeration value="UPC-EWithSupplementalBarcode"/>
+			<xs:enumeration value="UPC-D1"/>
+			<xs:enumeration value="UPC-D2"/>
+			<xs:enumeration value="UPC-D3"/>
+			<xs:enumeration value="UPC-D4"/>
+			<xs:enumeration value="UPC-D5"/>
+			<xs:enumeration value="EAN8"/>
+			<xs:enumeration value="JAN8"/>
+			<xs:enumeration value="EAN8WithSupplementalBarcode"/>
+			<xs:enumeration value="EAN13"/>
+			<xs:enumeration value="JAN13"/>
+			<xs:enumeration value="EAN13WithSupplementalBarcode"/>
+			<xs:enumeration value="EAN-128"/>
+			<xs:enumeration value="Standard2Of5"/>
+			<xs:enumeration value="Interleaved2Of5"/>
+			<xs:enumeration value="Codabar"/>
+			<xs:enumeration value="Code39"/>
+			<xs:enumeration value="Code93"/>
+			<xs:enumeration value="Code128"/>
+			<xs:enumeration value="OCRA"/>
+			<xs:enumeration value="OCRB"/>
+			<xs:enumeration value="PDF417"/>
+			<xs:enumeration value="MAXICODE"/>
+			<xs:enumeration value="OTHER"/>
+			<xs:enumeration value="UNKNOWN"/>
+		</xs:restriction>
+	</xs:simpleType>
+</xs:schema>

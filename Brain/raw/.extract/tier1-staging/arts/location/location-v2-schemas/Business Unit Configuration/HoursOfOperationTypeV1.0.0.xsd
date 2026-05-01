@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- edited with XMLSpy v2006 sp2 U (http://www.altova.com) by Richard L Halter (private) -->
+<xs:schema xmlns:xs="http://www.w3.org/2001/XMLSchema" elementFormDefault="qualified" attributeFormDefault="unqualified">
+	<xs:include schemaLocation="DayOfWeekCommonDataV1.4.0.xsd"/>
+	<xs:include schemaLocation="HoursTypeTypeCodeEnumerationV1.0.0.xsd"/>
+	<xs:complexType name="HoursOfOperationType">
+		<xs:complexContent>
+			<xs:extension base="DayOfWeekCommonData">
+				<xs:attribute name="HoursType" type="HoursTypeTypeCode"/>
+			</xs:extension>
+		</xs:complexContent>
+	</xs:complexType>
+</xs:schema>

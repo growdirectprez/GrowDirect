@@ -1,0 +1,1694 @@
+[
+  {
+    "source_path": "/Users/gclyle/GrowDirect/Brain/raw/inbox/Katz/Phase I/01 - Executive Interviews/Al Wilkie Interview Analysis.xls",
+    "source_sha256": "4659cb94b56910c7861f58b06f72fce9b0782ac033c87df8168f091cd1aae7a4",
+    "target_path": "/Users/gclyle/GrowDirect/Brain/raw/.extract/Katz/Phase I/01 - Executive Interviews/Al Wilkie Interview Analysis.xls.md",
+    "method": "markitdown",
+    "status": "ok",
+    "error": null,
+    "extracted_at": "2026-04-24T21:42:08.446998+00:00"
+  },
+  {
+    "source_path": "/Users/gclyle/GrowDirect/Brain/raw/inbox/Katz/Phase I/01 - Executive Interviews/Bruce Moody Interview Analysis.xls",
+    "source_sha256": "57d0a9d4a61b51c1133f1e50bdb0e94ec6bc0d02550b172e700e11536125e4df",
+    "target_path": "/Users/gclyle/GrowDirect/Brain/raw/.extract/Katz/Phase I/01 - Executive Interviews/Bruce Moody Interview Analysis.xls.md",
+    "method": "markitdown",
+    "status": "ok",
+    "error": null,
+    "extracted_at": "2026-04-24T21:42:09.054417+00:00"
+  },
+  {
+    "source_path": "/Users/gclyle/GrowDirect/Brain/raw/inbox/Katz/Phase I/01 - Executive Interviews/Craig Taylor Jonathan Alpert Interview Analysis.xls",
+    "source_sha256": "18fd96f352bdf64d004fb1f449753911687da768cd20d231462b74f804f4a5d1",
+    "target_path": "/Users/gclyle/GrowDirect/Brain/raw/.extract/Katz/Phase I/01 - Executive Interviews/Craig Taylor Jonathan Alpert Interview Analysis.xls.md",
+    "method": "markitdown",
+    "status": "ok",
+    "error": null,
+    "extracted_at": "2026-04-24T21:42:09.075561+00:00"
+  },
+  {
+    "source_path": "/Users/gclyle/GrowDirect/Brain/raw/inbox/Katz/Phase I/01 - Executive Interviews/George Edwards Interview Analysis.xls",
+    "source_sha256": "aefc812dea3dc3345b0ffea04c7bb16f78e5be340173f4b547ab59837a43ac55",
+    "target_path": "/Users/gclyle/GrowDirect/Brain/raw/.extract/Katz/Phase I/01 - Executive Interviews/George Edwards Interview Analysis.xls.md",
+    "method": "markitdown",
+    "status": "ok",
+    "error": null,
+    "extracted_at": "2026-04-24T21:42:09.095983+00:00"
+  },
+  {
+    "source_path": "/Users/gclyle/GrowDirect/Brain/raw/inbox/Katz/Phase I/01 - Executive Interviews/Grant Schwartz Interview Analysis.xls",
+    "source_sha256": "9fd18e1b3ca17c018c2fdafcef9752dcce0ca535d7b7874f6415c1f18a147ffb",
+    "target_path": "/Users/gclyle/GrowDirect/Brain/raw/.extract/Katz/Phase I/01 - Executive Interviews/Grant Schwartz Interview Analysis.xls.md",
+    "method": "markitdown",
+    "status": "ok",
+    "error": null,
+    "extracted_at": "2026-04-24T21:42:09.116403+00:00"
+  },
+  {
+    "source_path": "/Users/gclyle/GrowDirect/Brain/raw/inbox/Katz/Phase I/01 - Executive Interviews/Interview compilation - summarized.xls",
+    "source_sha256": "1a00fbee9e21c3dcba641ef95e04b279090e16552faacdcad85eafb5c4ac03db",
+    "target_path": "/Users/gclyle/GrowDirect/Brain/raw/.extract/Katz/Phase I/01 - Executive Interviews/Interview compilation - summarized.xls.md",
+    "method": "markitdown",
+    "status": "ok",
+    "error": null,
+    "extracted_at": "2026-04-24T21:42:09.136616+00:00"
+  },
+  {
+    "source_path": "/Users/gclyle/GrowDirect/Brain/raw/inbox/Katz/Phase I/01 - Executive Interviews/Interview compilation.xls",
+    "source_sha256": "7bffcc9219a96abd4fd6652dc2a5c0ad17da465ee68e4bd6d2ffc2b073ea19cc",
+    "target_path": "/Users/gclyle/GrowDirect/Brain/raw/.extract/Katz/Phase I/01 - Executive Interviews/Interview compilation.xls.md",
+    "method": "markitdown",
+    "status": "ok",
+    "error": null,
+    "extracted_at": "2026-04-24T21:42:09.154166+00:00"
+  },
+  {
+    "source_path": "/Users/gclyle/GrowDirect/Brain/raw/inbox/Katz/Phase I/01 - Executive Interviews/Interview with Larry Latowsky Apr 14 03.doc",
+    "source_sha256": "a8acd94fd637663f3e3096e55a2741a8bb4a784b10670ab7fac3811136a2b9f1",
+    "target_path": "/Users/gclyle/GrowDirect/Brain/raw/.extract/Katz/Phase I/01 - Executive Interviews/Interview with Larry Latowsky Apr 14 03.doc.md",
+    "method": "textutil",
+    "status": "ok",
+    "error": null,
+    "extracted_at": "2026-04-24T21:42:09.176699+00:00"
+  },
+  {
+    "source_path": "/Users/gclyle/GrowDirect/Brain/raw/inbox/Katz/Phase I/01 - Executive Interviews/Peter Davidson Interview Analysis.xls",
+    "source_sha256": "46455f6381b76fa01e820ee7cba0c940b422152a1badcd241bf692b511543bec",
+    "target_path": "/Users/gclyle/GrowDirect/Brain/raw/.extract/Katz/Phase I/01 - Executive Interviews/Peter Davidson Interview Analysis.xls.md",
+    "method": "markitdown",
+    "status": "ok",
+    "error": null,
+    "extracted_at": "2026-04-24T21:42:09.233235+00:00"
+  },
+  {
+    "source_path": "/Users/gclyle/GrowDirect/Brain/raw/inbox/Katz/Phase I/01 - Executive Interviews/Sue Macabe Interview Analysis.xls",
+    "source_sha256": "fa18925fb668f44cad83d27b1e7d696dc6d6f8895cf16d4fe3fe84f5bd415a75",
+    "target_path": "/Users/gclyle/GrowDirect/Brain/raw/.extract/Katz/Phase I/01 - Executive Interviews/Sue Macabe Interview Analysis.xls.md",
+    "method": "markitdown",
+    "status": "ok",
+    "error": null,
+    "extracted_at": "2026-04-24T21:42:09.255918+00:00"
+  },
+  {
+    "source_path": "/Users/gclyle/GrowDirect/Brain/raw/inbox/Katz/Phase I/02 - Store Visits/Bay & Dundas Store Visit April 30, 2003.xls",
+    "source_sha256": "615c79ef08d6794821522a972d7748d5ef6cc91608ff3fc6408aff9668080dff",
+    "target_path": "/Users/gclyle/GrowDirect/Brain/raw/.extract/Katz/Phase I/02 - Store Visits/Bay & Dundas Store Visit April 30, 2003.xls.md",
+    "method": "markitdown",
+    "status": "ok",
+    "error": null,
+    "extracted_at": "2026-04-24T21:42:09.276587+00:00"
+  },
+  {
+    "source_path": "/Users/gclyle/GrowDirect/Brain/raw/inbox/Katz/Phase I/02 - Store Visits/Bayshore Store Visit May 15, 2003.xls",
+    "source_sha256": "7fe8cfd83e9a6e2aca5c0b8dff465acbc89b4a9090ded42e08b3b4bd8d03c1b0",
+    "target_path": "/Users/gclyle/GrowDirect/Brain/raw/.extract/Katz/Phase I/02 - Store Visits/Bayshore Store Visit May 15, 2003.xls.md",
+    "method": "markitdown",
+    "status": "ok",
+    "error": null,
+    "extracted_at": "2026-04-24T21:42:09.296525+00:00"
+  },
+  {
+    "source_path": "/Users/gclyle/GrowDirect/Brain/raw/inbox/Katz/Phase I/02 - Store Visits/Carleton Place Store Visit May 15, 2003.xls",
+    "source_sha256": "5f394c2f43c6116cecf60265e68a74b3744a737ee345b994ace2a5b0a07502d7",
+    "target_path": "/Users/gclyle/GrowDirect/Brain/raw/.extract/Katz/Phase I/02 - Store Visits/Carleton Place Store Visit May 15, 2003.xls.md",
+    "method": "markitdown",
+    "status": "ok",
+    "error": null,
+    "extracted_at": "2026-04-24T21:42:09.316485+00:00"
+  },
+  {
+    "source_path": "/Users/gclyle/GrowDirect/Brain/raw/inbox/Katz/Phase I/02 - Store Visits/Church & Wellesley Store Visit April 29, 2003.xls",
+    "source_sha256": "e4c7925e87b77f042735985a4cf4a7f833fc2d35ca072e0ac79cc42437835869",
+    "target_path": "/Users/gclyle/GrowDirect/Brain/raw/.extract/Katz/Phase I/02 - Store Visits/Church & Wellesley Store Visit April 29, 2003.xls.md",
+    "method": "markitdown",
+    "status": "ok",
+    "error": null,
+    "extracted_at": "2026-04-24T21:42:09.337011+00:00"
+  },
+  {
+    "source_path": "/Users/gclyle/GrowDirect/Brain/raw/inbox/Katz/Phase I/02 - Store Visits/Commerce Court Store Visit April 29, 2003.xls",
+    "source_sha256": "e036af2cc6612a8bef4fbc70f3cbe52ed4279eac25730b73820a2ede1857e721",
+    "target_path": "/Users/gclyle/GrowDirect/Brain/raw/.extract/Katz/Phase I/02 - Store Visits/Commerce Court Store Visit April 29, 2003.xls.md",
+    "method": "markitdown",
+    "status": "ok",
+    "error": null,
+    "extracted_at": "2026-04-24T21:42:09.356920+00:00"
+  },
+  {
+    "source_path": "/Users/gclyle/GrowDirect/Brain/raw/inbox/Katz/Phase I/02 - Store Visits/Crossroads Store Visit May 21, 2003.xls",
+    "source_sha256": "32c06c13bae454acfcb5fcc32b5b7ea12cb158cdb90ca1bf43553da96d9cf2ff",
+    "target_path": "/Users/gclyle/GrowDirect/Brain/raw/.extract/Katz/Phase I/02 - Store Visits/Crossroads Store Visit May 21, 2003.xls.md",
+    "method": "markitdown",
+    "status": "ok",
+    "error": null,
+    "extracted_at": "2026-04-24T21:42:09.377600+00:00"
+  },
+  {
+    "source_path": "/Users/gclyle/GrowDirect/Brain/raw/inbox/Katz/Phase I/02 - Store Visits/Fall River Store Visit May 22, 2003.xls",
+    "source_sha256": "c4436192d01c2a45be85bbfedb8493462333cef540ca574dc25d73847ae7db64",
+    "target_path": "/Users/gclyle/GrowDirect/Brain/raw/.extract/Katz/Phase I/02 - Store Visits/Fall River Store Visit May 22, 2003.xls.md",
+    "method": "markitdown",
+    "status": "ok",
+    "error": null,
+    "extracted_at": "2026-04-24T21:42:09.398058+00:00"
+  },
+  {
+    "source_path": "/Users/gclyle/GrowDirect/Brain/raw/inbox/Katz/Phase I/02 - Store Visits/GDN King City Store Visit May 6, 2003.xls",
+    "source_sha256": "d5f927b15e31c110eaa9f53c4c060f723276f20b8b979040fccd670691d95aa3",
+    "target_path": "/Users/gclyle/GrowDirect/Brain/raw/.extract/Katz/Phase I/02 - Store Visits/GDN King City Store Visit May 6, 2003.xls.md",
+    "method": "markitdown",
+    "status": "ok",
+    "error": null,
+    "extracted_at": "2026-04-24T21:42:09.418329+00:00"
+  },
+  {
+    "source_path": "/Users/gclyle/GrowDirect/Brain/raw/inbox/Katz/Phase I/02 - Store Visits/IDA Azilda Store Visit May 1, 2003.xls",
+    "source_sha256": "6557c379d02ee04ec82a48b95b43c7229e7f57d292a075b643f2277eaa283feb",
+    "target_path": "/Users/gclyle/GrowDirect/Brain/raw/.extract/Katz/Phase I/02 - Store Visits/IDA Azilda Store Visit May 1, 2003.xls.md",
+    "method": "markitdown",
+    "status": "ok",
+    "error": null,
+    "extracted_at": "2026-04-24T21:42:09.439028+00:00"
+  },
+  {
+    "source_path": "/Users/gclyle/GrowDirect/Brain/raw/inbox/Katz/Phase I/02 - Store Visits/IDA West Mall Store Visit May 2, 2003.xls",
+    "source_sha256": "d9f152d2dba66f669ded160b6ad574897906813203529b39f6298b8164c80149",
+    "target_path": "/Users/gclyle/GrowDirect/Brain/raw/.extract/Katz/Phase I/02 - Store Visits/IDA West Mall Store Visit May 2, 2003.xls.md",
+    "method": "markitdown",
+    "status": "ok",
+    "error": null,
+    "extracted_at": "2026-04-24T21:42:09.459675+00:00"
+  },
+  {
+    "source_path": "/Users/gclyle/GrowDirect/Brain/raw/inbox/Katz/Phase I/02 - Store Visits/Lakeshore Store Visit April 30, 2003.xls",
+    "source_sha256": "2c9219111564f8cb7df6e051cfa1dc55d9ddc8c73366753b1fa430796550df7f",
+    "target_path": "/Users/gclyle/GrowDirect/Brain/raw/.extract/Katz/Phase I/02 - Store Visits/Lakeshore Store Visit April 30, 2003.xls.md",
+    "method": "markitdown",
+    "status": "ok",
+    "error": null,
+    "extracted_at": "2026-04-24T21:42:09.479996+00:00"
+  },
+  {
+    "source_path": "/Users/gclyle/GrowDirect/Brain/raw/inbox/Katz/Phase I/02 - Store Visits/Lunenburg Store Visit May 21, 2003.xls",
+    "source_sha256": "c72215da19d607288693f6530de6ecb82fa4477075b9877caebde7389b3b2e5e",
+    "target_path": "/Users/gclyle/GrowDirect/Brain/raw/.extract/Katz/Phase I/02 - Store Visits/Lunenburg Store Visit May 21, 2003.xls.md",
+    "method": "markitdown",
+    "status": "ok",
+    "error": null,
+    "extracted_at": "2026-04-24T21:42:09.500607+00:00"
+  },
+  {
+    "source_path": "/Users/gclyle/GrowDirect/Brain/raw/inbox/Katz/Phase I/02 - Store Visits/Metro Centre Store Visit April 29, 2003.xls",
+    "source_sha256": "464a28ad9fff2089751e003f9dbb654d21489d80eede0506eb33c6e7dcc5e7ae",
+    "target_path": "/Users/gclyle/GrowDirect/Brain/raw/.extract/Katz/Phase I/02 - Store Visits/Metro Centre Store Visit April 29, 2003.xls.md",
+    "method": "markitdown",
+    "status": "ok",
+    "error": null,
+    "extracted_at": "2026-04-24T21:42:09.522049+00:00"
+  },
+  {
+    "source_path": "/Users/gclyle/GrowDirect/Brain/raw/inbox/Katz/Phase I/02 - Store Visits/Montreal Square Store Visit May 15, 2003.xls",
+    "source_sha256": "e66b6b1f248da33e30126b541c7c8d9ec33633a33ee83939e227dd378cd7489c",
+    "target_path": "/Users/gclyle/GrowDirect/Brain/raw/.extract/Katz/Phase I/02 - Store Visits/Montreal Square Store Visit May 15, 2003.xls.md",
+    "method": "markitdown",
+    "status": "ok",
+    "error": null,
+    "extracted_at": "2026-04-24T21:42:09.542029+00:00"
+  },
+  {
+    "source_path": "/Users/gclyle/GrowDirect/Brain/raw/inbox/Katz/Phase I/02 - Store Visits/PPD 1st Canadian Store Visit April 29, 2003.xls",
+    "source_sha256": "7283d5fa598b075dc9a662c2b11e15440a06b0890a34da7de1d6cc462809c771",
+    "target_path": "/Users/gclyle/GrowDirect/Brain/raw/.extract/Katz/Phase I/02 - Store Visits/PPD 1st Canadian Store Visit April 29, 2003.xls.md",
+    "method": "markitdown",
+    "status": "ok",
+    "error": null,
+    "extracted_at": "2026-04-24T21:42:09.565190+00:00"
+  },
+  {
+    "source_path": "/Users/gclyle/GrowDirect/Brain/raw/inbox/Katz/Phase I/02 - Store Visits/PPD Church & Wellesley Store Visit April 29, 2003.xls",
+    "source_sha256": "ca4c6360bb7eab33a1ed012f8a46768cc500d0a54d1d19f4565aedfd1d52063f",
+    "target_path": "/Users/gclyle/GrowDirect/Brain/raw/.extract/Katz/Phase I/02 - Store Visits/PPD Church & Wellesley Store Visit April 29, 2003.xls.md",
+    "method": "markitdown",
+    "status": "ok",
+    "error": null,
+    "extracted_at": "2026-04-24T21:42:09.593742+00:00"
+  },
+  {
+    "source_path": "/Users/gclyle/GrowDirect/Brain/raw/inbox/Katz/Phase I/02 - Store Visits/PPD Commerce Court Store Visit April 29, 2003.xls",
+    "source_sha256": "c16decbc6a8fd4b2d631d48c4571980936c305464aa679aac9641eaffa304886",
+    "target_path": "/Users/gclyle/GrowDirect/Brain/raw/.extract/Katz/Phase I/02 - Store Visits/PPD Commerce Court Store Visit April 29, 2003.xls.md",
+    "method": "markitdown",
+    "status": "ok",
+    "error": null,
+    "extracted_at": "2026-04-24T21:42:09.621599+00:00"
+  },
+  {
+    "source_path": "/Users/gclyle/GrowDirect/Brain/raw/inbox/Katz/Phase I/02 - Store Visits/PPD Eglinton Creditview Store Visit April 28, 2003.xls",
+    "source_sha256": "8b7196b6eefe643762583aeec4f74af08791546b4a60f30d6fb72a204da90910",
+    "target_path": "/Users/gclyle/GrowDirect/Brain/raw/.extract/Katz/Phase I/02 - Store Visits/PPD Eglinton Creditview Store Visit April 28, 2003.xls.md",
+    "method": "markitdown",
+    "status": "ok",
+    "error": null,
+    "extracted_at": "2026-04-24T21:42:09.668670+00:00"
+  },
+  {
+    "source_path": "/Users/gclyle/GrowDirect/Brain/raw/inbox/Katz/Phase I/02 - Store Visits/PPD Metro Centre Store Visit April 29, 2003.xls",
+    "source_sha256": "6b18d2fe9cd0c0195e5c650baeb897f2ca9e638109bdfd25af67c1eb568982da",
+    "target_path": "/Users/gclyle/GrowDirect/Brain/raw/.extract/Katz/Phase I/02 - Store Visits/PPD Metro Centre Store Visit April 29, 2003.xls.md",
+    "method": "markitdown",
+    "status": "ok",
+    "error": null,
+    "extracted_at": "2026-04-24T21:42:09.689935+00:00"
+  },
+  {
+    "source_path": "/Users/gclyle/GrowDirect/Brain/raw/inbox/Katz/Phase I/02 - Store Visits/PPD New Sudbury Store Visit May 1, 2003.xls",
+    "source_sha256": "c2ebec71dc0c20878d30ef37d6700555d3a5df8ab9a1420f3fd8b609f473817c",
+    "target_path": "/Users/gclyle/GrowDirect/Brain/raw/.extract/Katz/Phase I/02 - Store Visits/PPD New Sudbury Store Visit May 1, 2003.xls.md",
+    "method": "markitdown",
+    "status": "ok",
+    "error": null,
+    "extracted_at": "2026-04-24T21:42:09.710962+00:00"
+  },
+  {
+    "source_path": "/Users/gclyle/GrowDirect/Brain/raw/inbox/Katz/Phase I/02 - Store Visits/PPD Pickering Store Visit April 30, 2003.xls",
+    "source_sha256": "5253a1f77bc453b1b77cce0c3bafb93b5e8de62c8189367d00be28fbbcabb6f9",
+    "target_path": "/Users/gclyle/GrowDirect/Brain/raw/.extract/Katz/Phase I/02 - Store Visits/PPD Pickering Store Visit April 30, 2003.xls.md",
+    "method": "markitdown",
+    "status": "ok",
+    "error": null,
+    "extracted_at": "2026-04-24T21:42:09.736893+00:00"
+  },
+  {
+    "source_path": "/Users/gclyle/GrowDirect/Brain/raw/inbox/Katz/Phase I/02 - Store Visits/PPD Westney Ajax BS Store Visit April 30, 2003.xls",
+    "source_sha256": "0f03d9f035a87981119b565bc0e8ec641c337270e2739d56a2e30bca0ae2877c",
+    "target_path": "/Users/gclyle/GrowDirect/Brain/raw/.extract/Katz/Phase I/02 - Store Visits/PPD Westney Ajax BS Store Visit April 30, 2003.xls.md",
+    "method": "markitdown",
+    "status": "ok",
+    "error": null,
+    "extracted_at": "2026-04-24T21:42:09.758869+00:00"
+  },
+  {
+    "source_path": "/Users/gclyle/GrowDirect/Brain/raw/inbox/Katz/Phase I/02 - Store Visits/PPD Westney Ajax FS Store Visit April 30, 2003.xls",
+    "source_sha256": "53dfeed7921955aa9ea2c3b588a7eff6029c14fc1fcfce6c0fab7fe41ea3348a",
+    "target_path": "/Users/gclyle/GrowDirect/Brain/raw/.extract/Katz/Phase I/02 - Store Visits/PPD Westney Ajax FS Store Visit April 30, 2003.xls.md",
+    "method": "markitdown",
+    "status": "ok",
+    "error": null,
+    "extracted_at": "2026-04-24T21:42:09.785095+00:00"
+  },
+  {
+    "source_path": "/Users/gclyle/GrowDirect/Brain/raw/inbox/Katz/Phase I/02 - Store Visits/REX Bay & Dundas Store Visit April 30, 2003.xls",
+    "source_sha256": "0ecdf59c4b6d3fb4b4b6e68074ca0cd815af39bf652b68589a64b5cdbd171faa",
+    "target_path": "/Users/gclyle/GrowDirect/Brain/raw/.extract/Katz/Phase I/02 - Store Visits/REX Bay & Dundas Store Visit April 30, 2003.xls.md",
+    "method": "markitdown",
+    "status": "ok",
+    "error": null,
+    "extracted_at": "2026-04-24T21:42:09.807216+00:00"
+  },
+  {
+    "source_path": "/Users/gclyle/GrowDirect/Brain/raw/inbox/Katz/Phase I/02 - Store Visits/REX Milton Store Visit May 2, 2003.xls",
+    "source_sha256": "bbfbea8684996333a07c23b98653e37a0823441184d1e8b77309fff784a379e7",
+    "target_path": "/Users/gclyle/GrowDirect/Brain/raw/.extract/Katz/Phase I/02 - Store Visits/REX Milton Store Visit May 2, 2003.xls.md",
+    "method": "markitdown",
+    "status": "ok",
+    "error": null,
+    "extracted_at": "2026-04-24T21:42:09.828727+00:00"
+  },
+  {
+    "source_path": "/Users/gclyle/GrowDirect/Brain/raw/inbox/Katz/Phase I/02 - Store Visits/REX Sudbury Downtown Store Visit May 1, 2003.xls",
+    "source_sha256": "93a99600955b4420dc490618eff4b38f966c98f88397ade6c60ffaba2e405b26",
+    "target_path": "/Users/gclyle/GrowDirect/Brain/raw/.extract/Katz/Phase I/02 - Store Visits/REX Sudbury Downtown Store Visit May 1, 2003.xls.md",
+    "method": "markitdown",
+    "status": "ok",
+    "error": null,
+    "extracted_at": "2026-04-24T21:42:09.854201+00:00"
+  },
+  {
+    "source_path": "/Users/gclyle/GrowDirect/Brain/raw/inbox/Katz/Phase I/02 - Store Visits/Store Visit Compilation.xls",
+    "source_sha256": "2978132725cd92a4a38b6dfcd6af9fc418c462c95caa7dc1f956f29ca6efa747",
+    "target_path": "/Users/gclyle/GrowDirect/Brain/raw/.extract/Katz/Phase I/02 - Store Visits/Store Visit Compilation.xls.md",
+    "method": "markitdown",
+    "status": "ok",
+    "error": null,
+    "extracted_at": "2026-04-24T21:42:09.884070+00:00"
+  },
+  {
+    "source_path": "/Users/gclyle/GrowDirect/Brain/raw/inbox/Katz/Phase I/02 - Store Visits/Sudbury Rexall Store Visit May 1, 2003.xls",
+    "source_sha256": "ac5ae2ce70da0de63af23a66d4a9b14dc6345ea7658e93bf2fe96b86275addad",
+    "target_path": "/Users/gclyle/GrowDirect/Brain/raw/.extract/Katz/Phase I/02 - Store Visits/Sudbury Rexall Store Visit May 1, 2003.xls.md",
+    "method": "markitdown",
+    "status": "ok",
+    "error": null,
+    "extracted_at": "2026-04-24T21:42:09.932633+00:00"
+  },
+  {
+    "source_path": "/Users/gclyle/GrowDirect/Brain/raw/inbox/Katz/Phase I/03 - As-Is Workshops/Katz As Is Process WS Category Management 05 08 03 v0.0.ppt",
+    "source_sha256": "d737a32032db8d92cac0e730356793f2a34d1e2c3230b4ca031c797e7955e1a4",
+    "target_path": "/Users/gclyle/GrowDirect/Brain/raw/.extract/Katz/Phase I/03 - As-Is Workshops/Katz As Is Process WS Category Management 05 08 03 v0.0.ppt.md",
+    "method": null,
+    "status": "failed",
+    "error": "markitdown: UnsupportedFormatException: Could not convert stream to Markdown. No converter attempted a conversion, suggesting that the filetype is simply not supported.",
+    "extracted_at": "2026-04-24T21:42:09.954864+00:00"
+  },
+  {
+    "source_path": "/Users/gclyle/GrowDirect/Brain/raw/inbox/Katz/Phase I/03 - As-Is Workshops/Katz As Is Process WS Forecasting 05 07 03 v0.0.ppt",
+    "source_sha256": "2ea41c39ff62d8faef71b35e13fd5f9f798726623dc3889a034251f78537991a",
+    "target_path": "/Users/gclyle/GrowDirect/Brain/raw/.extract/Katz/Phase I/03 - As-Is Workshops/Katz As Is Process WS Forecasting 05 07 03 v0.0.ppt.md",
+    "method": null,
+    "status": "failed",
+    "error": "markitdown: UnsupportedFormatException: Could not convert stream to Markdown. No converter attempted a conversion, suggesting that the filetype is simply not supported.",
+    "extracted_at": "2026-04-24T21:42:09.962534+00:00"
+  },
+  {
+    "source_path": "/Users/gclyle/GrowDirect/Brain/raw/inbox/Katz/Phase I/03 - As-Is Workshops/Katz As Is Process WS Inventory 05 09 03 v0.0.ppt",
+    "source_sha256": "a6eef05a3741b508dd8cf5a8f0a1537a7ffa45c0d7f9372e42393a1efc312503",
+    "target_path": "/Users/gclyle/GrowDirect/Brain/raw/.extract/Katz/Phase I/03 - As-Is Workshops/Katz As Is Process WS Inventory 05 09 03 v0.0.ppt.md",
+    "method": null,
+    "status": "failed",
+    "error": "markitdown: UnsupportedFormatException: Could not convert stream to Markdown. No converter attempted a conversion, suggesting that the filetype is simply not supported.",
+    "extracted_at": "2026-04-24T21:42:09.969985+00:00"
+  },
+  {
+    "source_path": "/Users/gclyle/GrowDirect/Brain/raw/inbox/Katz/Phase I/03 - As-Is Workshops/Katz As Is Process WS Manage Pricing 05 07 03 v0.0.ppt",
+    "source_sha256": "caf8a8ff7cf42004c30c5f19e6db6254c9f964b2e2b3a721a9bcffac5678b57a",
+    "target_path": "/Users/gclyle/GrowDirect/Brain/raw/.extract/Katz/Phase I/03 - As-Is Workshops/Katz As Is Process WS Manage Pricing 05 07 03 v0.0.ppt.md",
+    "method": null,
+    "status": "failed",
+    "error": "markitdown: UnsupportedFormatException: Could not convert stream to Markdown. No converter attempted a conversion, suggesting that the filetype is simply not supported.",
+    "extracted_at": "2026-04-24T21:42:09.977215+00:00"
+  },
+  {
+    "source_path": "/Users/gclyle/GrowDirect/Brain/raw/inbox/Katz/Phase I/03 - As-Is Workshops/Katz As Is Process WS Manage Vendor 05 12 03 v0.0.ppt",
+    "source_sha256": "964e30c45d20c2ad0e874d0d60ec4d6a1d6bf49efed981073fd14005b91f4d7c",
+    "target_path": "/Users/gclyle/GrowDirect/Brain/raw/.extract/Katz/Phase I/03 - As-Is Workshops/Katz As Is Process WS Manage Vendor 05 12 03 v0.0.ppt.md",
+    "method": null,
+    "status": "failed",
+    "error": "markitdown: UnsupportedFormatException: Could not convert stream to Markdown. No converter attempted a conversion, suggesting that the filetype is simply not supported.",
+    "extracted_at": "2026-04-24T21:42:09.983648+00:00"
+  },
+  {
+    "source_path": "/Users/gclyle/GrowDirect/Brain/raw/inbox/Katz/Phase I/03 - As-Is Workshops/Katz As Is Process WS Move 05 06 03 v0.0.ppt",
+    "source_sha256": "95e72fb9a0ef8915a69a992ce4a48417711822f983f4e7a7e62e1af5716df70e",
+    "target_path": "/Users/gclyle/GrowDirect/Brain/raw/.extract/Katz/Phase I/03 - As-Is Workshops/Katz As Is Process WS Move 05 06 03 v0.0.ppt.md",
+    "method": null,
+    "status": "failed",
+    "error": "markitdown: UnsupportedFormatException: Could not convert stream to Markdown. No converter attempted a conversion, suggesting that the filetype is simply not supported.",
+    "extracted_at": "2026-04-24T21:42:09.990479+00:00"
+  },
+  {
+    "source_path": "/Users/gclyle/GrowDirect/Brain/raw/inbox/Katz/Phase I/03 - As-Is Workshops/Katz As Is Process WS POS 05 06 03 v0.0.ppt",
+    "source_sha256": "9b7a57a1160bf13dfdafce5615a54dd3f27458efeeb60b3cfdcfc779aa2fa5db",
+    "target_path": "/Users/gclyle/GrowDirect/Brain/raw/.extract/Katz/Phase I/03 - As-Is Workshops/Katz As Is Process WS POS 05 06 03 v0.0.ppt.md",
+    "method": null,
+    "status": "failed",
+    "error": "markitdown: UnsupportedFormatException: Could not convert stream to Markdown. No converter attempted a conversion, suggesting that the filetype is simply not supported.",
+    "extracted_at": "2026-04-24T21:42:09.997196+00:00"
+  },
+  {
+    "source_path": "/Users/gclyle/GrowDirect/Brain/raw/inbox/Katz/Phase I/03 - As-Is Workshops/Katz As Is Process WS ProPharm 05 05 03 v0.0.ppt",
+    "source_sha256": "b041cafe9b6d7d8e24d2907557b10429e161f33e0d2ee57f333d764280c9c8c3",
+    "target_path": "/Users/gclyle/GrowDirect/Brain/raw/.extract/Katz/Phase I/03 - As-Is Workshops/Katz As Is Process WS ProPharm 05 05 03 v0.0.ppt.md",
+    "method": null,
+    "status": "failed",
+    "error": "markitdown: UnsupportedFormatException: Could not convert stream to Markdown. No converter attempted a conversion, suggesting that the filetype is simply not supported.",
+    "extracted_at": "2026-04-24T21:42:10.005138+00:00"
+  },
+  {
+    "source_path": "/Users/gclyle/GrowDirect/Brain/raw/inbox/Katz/Phase I/03 - As-Is Workshops/Other Workshop Notes.xls",
+    "source_sha256": "9cc6ac685a3e5fff4729e55452540e1e636a15c1fecdf84ae5f8bb4427ef00f7",
+    "target_path": "/Users/gclyle/GrowDirect/Brain/raw/.extract/Katz/Phase I/03 - As-Is Workshops/Other Workshop Notes.xls.md",
+    "method": "markitdown",
+    "status": "ok",
+    "error": null,
+    "extracted_at": "2026-04-24T21:42:10.012984+00:00"
+  },
+  {
+    "source_path": "/Users/gclyle/GrowDirect/Brain/raw/inbox/Katz/Phase I/03 - As-Is Workshops/Workshop Good Ideas.xls",
+    "source_sha256": "f15d0304eae3e5bf7f5ad0e2fcacbb443d1632bb185b35d1212d84c73f6d4c90",
+    "target_path": "/Users/gclyle/GrowDirect/Brain/raw/.extract/Katz/Phase I/03 - As-Is Workshops/Workshop Good Ideas.xls.md",
+    "method": "markitdown",
+    "status": "ok",
+    "error": null,
+    "extracted_at": "2026-04-24T21:42:10.023356+00:00"
+  },
+  {
+    "source_path": "/Users/gclyle/GrowDirect/Brain/raw/inbox/Katz/Phase I/03 - As-Is Workshops/Workshop Notes.xls",
+    "source_sha256": "721ef07f7a0dc3cdf11541b43e7c034f4e0a10e3251a4762d0e57b3edaa0b77c",
+    "target_path": "/Users/gclyle/GrowDirect/Brain/raw/.extract/Katz/Phase I/03 - As-Is Workshops/Workshop Notes.xls.md",
+    "method": "markitdown",
+    "status": "ok",
+    "error": null,
+    "extracted_at": "2026-04-24T21:42:10.054360+00:00"
+  },
+  {
+    "source_path": "/Users/gclyle/GrowDirect/Brain/raw/inbox/Katz/Phase I/03 - As-Is Workshops/Workshop Plan v2.xls",
+    "source_sha256": "4b445f1a71ebfbe6ec0fce5aa2affdb1e7e3cf92b4c9bb42bf6506e230497227",
+    "target_path": "/Users/gclyle/GrowDirect/Brain/raw/.extract/Katz/Phase I/03 - As-Is Workshops/Workshop Plan v2.xls.md",
+    "method": "markitdown",
+    "status": "ok",
+    "error": null,
+    "extracted_at": "2026-04-24T21:42:10.105790+00:00"
+  },
+  {
+    "source_path": "/Users/gclyle/GrowDirect/Brain/raw/inbox/Katz/Phase I/04 - Executive Visioning/Executive Visioning Presentation June 4 2003.ppt",
+    "source_sha256": "07af64af76d475a952f1a54bcf78ec8cdfff0d2fd476149b40f074baa783ef89",
+    "target_path": "/Users/gclyle/GrowDirect/Brain/raw/.extract/Katz/Phase I/04 - Executive Visioning/Executive Visioning Presentation June 4 2003.ppt.md",
+    "method": null,
+    "status": "failed",
+    "error": "markitdown: UnsupportedFormatException: Could not convert stream to Markdown. No converter attempted a conversion, suggesting that the filetype is simply not supported.",
+    "extracted_at": "2026-04-24T21:42:10.135307+00:00"
+  },
+  {
+    "source_path": "/Users/gclyle/GrowDirect/Brain/raw/inbox/Katz/Phase I/04 - Executive Visioning/Katz Group Executive Visioning Session.doc",
+    "source_sha256": "de3d9c0d6d7ac2b2b751d2f4c98c23941a917bde53bb53c93b5976ac9b81dfb1",
+    "target_path": "/Users/gclyle/GrowDirect/Brain/raw/.extract/Katz/Phase I/04 - Executive Visioning/Katz Group Executive Visioning Session.doc.md",
+    "method": "textutil",
+    "status": "ok",
+    "error": null,
+    "extracted_at": "2026-04-24T21:42:10.143717+00:00"
+  },
+  {
+    "source_path": "/Users/gclyle/GrowDirect/Brain/raw/inbox/Katz/Phase I/04 - Executive Visioning/McKesson Executive Visioning Presentation June 4 2003 v1.ppt",
+    "source_sha256": "37f7b72f8f36a0bee95170c83f3c641f9cb36d408ba9ae879e68795668bee1ac",
+    "target_path": "/Users/gclyle/GrowDirect/Brain/raw/.extract/Katz/Phase I/04 - Executive Visioning/McKesson Executive Visioning Presentation June 4 2003 v1.ppt.md",
+    "method": null,
+    "status": "failed",
+    "error": "markitdown: UnsupportedFormatException: Could not convert stream to Markdown. No converter attempted a conversion, suggesting that the filetype is simply not supported.",
+    "extracted_at": "2026-04-24T21:42:10.202295+00:00"
+  },
+  {
+    "source_path": "/Users/gclyle/GrowDirect/Brain/raw/inbox/Katz/Phase I/05 - Benchmarking/IHL - IT in Drug Chains.pdf",
+    "source_sha256": "c19630b085789897e7dac96ce684e0bcedba35aea63c353f83725363a0f15f3e",
+    "target_path": "/Users/gclyle/GrowDirect/Brain/raw/.extract/Katz/Phase I/05 - Benchmarking/IHL - IT in Drug Chains.pdf.md",
+    "method": "markitdown",
+    "status": "ok",
+    "error": null,
+    "extracted_at": "2026-04-24T21:42:10.210854+00:00"
+  },
+  {
+    "source_path": "/Users/gclyle/GrowDirect/Brain/raw/inbox/Katz/Phase I/05 - Benchmarking/Katz Supply Chain Metrics.xls",
+    "source_sha256": "837cd0553d6f12c189136dedea03377997d4641af4ca225c52fb124a82cebf60",
+    "target_path": "/Users/gclyle/GrowDirect/Brain/raw/.extract/Katz/Phase I/05 - Benchmarking/Katz Supply Chain Metrics.xls.md",
+    "method": "markitdown",
+    "status": "ok",
+    "error": null,
+    "extracted_at": "2026-04-24T21:42:10.501854+00:00"
+  },
+  {
+    "source_path": "/Users/gclyle/GrowDirect/Brain/raw/inbox/Katz/Phase I/05 - Benchmarking/RMS System.xls",
+    "source_sha256": "d78c1e2d1a6da6b21dbc4f4963f3f34dfea770b9fed4b2e8f9c537f90659105f",
+    "target_path": "/Users/gclyle/GrowDirect/Brain/raw/.extract/Katz/Phase I/05 - Benchmarking/RMS System.xls.md",
+    "method": "markitdown",
+    "status": "ok",
+    "error": null,
+    "extracted_at": "2026-04-24T21:42:10.525734+00:00"
+  },
+  {
+    "source_path": "/Users/gclyle/GrowDirect/Brain/raw/inbox/Katz/Phase I/06 - Balanced Scorecards/Harvard Business Review - Balanced Scorecard.doc",
+    "source_sha256": "54c79b7b7027c3faff5f827c2f6330d7dfbff299b27dacd720a48a6e3e2c8da4",
+    "target_path": "/Users/gclyle/GrowDirect/Brain/raw/.extract/Katz/Phase I/06 - Balanced Scorecards/Harvard Business Review - Balanced Scorecard.doc.md",
+    "method": "markitdown",
+    "status": "ok",
+    "error": null,
+    "extracted_at": "2026-04-24T21:42:10.539905+00:00"
+  },
+  {
+    "source_path": "/Users/gclyle/GrowDirect/Brain/raw/inbox/Katz/Phase I/06 - Balanced Scorecards/Harvard Business Review - Putting the Balanced Scorecard#e74.doc",
+    "source_sha256": "daa60198eb81ab9ef359e10c40177fc85aba55ec324460af119184dde22a9375",
+    "target_path": "/Users/gclyle/GrowDirect/Brain/raw/.extract/Katz/Phase I/06 - Balanced Scorecards/Harvard Business Review - Putting the Balanced Scorecard#e74.doc.md",
+    "method": "textutil",
+    "status": "ok",
+    "error": null,
+    "extracted_at": "2026-04-24T21:42:10.550995+00:00"
+  },
+  {
+    "source_path": "/Users/gclyle/GrowDirect/Brain/raw/inbox/Katz/Phase I/06 - Balanced Scorecards/Retail Balanced Scorecard.xls",
+    "source_sha256": "bf0b31c48658c6ee52dab4d735320918ec5e14b79e823e96b69224cc0bb9c01c",
+    "target_path": "/Users/gclyle/GrowDirect/Brain/raw/.extract/Katz/Phase I/06 - Balanced Scorecards/Retail Balanced Scorecard.xls.md",
+    "method": "markitdown",
+    "status": "ok",
+    "error": null,
+    "extracted_at": "2026-04-24T21:42:10.611914+00:00"
+  },
+  {
+    "source_path": "/Users/gclyle/GrowDirect/Brain/raw/inbox/Katz/Phase I/06 - Balanced Scorecards/retailer egcards - balanced scorecards.ppt",
+    "source_sha256": "9655bab10c0bd5e7602d1b75f0300701bfc18ae28c94f674a77c56d6ea8b6a57",
+    "target_path": "/Users/gclyle/GrowDirect/Brain/raw/.extract/Katz/Phase I/06 - Balanced Scorecards/retailer egcards - balanced scorecards.ppt.md",
+    "method": null,
+    "status": "failed",
+    "error": "markitdown: UnsupportedFormatException: Could not convert stream to Markdown. No converter attempted a conversion, suggesting that the filetype is simply not supported.",
+    "extracted_at": "2026-04-24T21:42:10.732509+00:00"
+  },
+  {
+    "source_path": "/Users/gclyle/GrowDirect/Brain/raw/inbox/Katz/Phase I/07 - Inventory Analysis/Discontinued by Store v3.xls",
+    "source_sha256": "3aa56c9ef68073f911190be5062b2330acbcc7e188fc204788f712919d95b286",
+    "target_path": "/Users/gclyle/GrowDirect/Brain/raw/.extract/Katz/Phase I/07 - Inventory Analysis/Discontinued by Store v3.xls.md",
+    "method": "markitdown",
+    "status": "ok",
+    "error": null,
+    "extracted_at": "2026-04-24T21:42:10.744757+00:00"
+  },
+  {
+    "source_path": "/Users/gclyle/GrowDirect/Brain/raw/inbox/Katz/Phase I/07 - Inventory Analysis/Inventory Turns By Vendor & Category.xls",
+    "source_sha256": "d3977f57dec2df453202c38e914a9b61b004310524c008fe311cc3e680741eea",
+    "target_path": "/Users/gclyle/GrowDirect/Brain/raw/.extract/Katz/Phase I/07 - Inventory Analysis/Inventory Turns By Vendor & Category.xls.md",
+    "method": "markitdown",
+    "status": "ok",
+    "error": null,
+    "extracted_at": "2026-04-24T21:42:15.616134+00:00"
+  },
+  {
+    "source_path": "/Users/gclyle/GrowDirect/Brain/raw/inbox/Katz/Phase I/07 - Inventory Analysis/Inventory Turns By Vendor.xls",
+    "source_sha256": "0bb28a99c0142e0636aee68d74e30148d6b96d1116ef7bb8db31b5baab832229",
+    "target_path": "/Users/gclyle/GrowDirect/Brain/raw/.extract/Katz/Phase I/07 - Inventory Analysis/Inventory Turns By Vendor.xls.md",
+    "method": "markitdown",
+    "status": "ok",
+    "error": null,
+    "extracted_at": "2026-04-24T21:42:22.805379+00:00"
+  },
+  {
+    "source_path": "/Users/gclyle/GrowDirect/Brain/raw/inbox/Katz/Phase I/07 - Inventory Analysis/Service Levels.xls",
+    "source_sha256": "7e249f54e6ba647f954d07e42a92ec87bd9d0e4280c9824a04499f4e99e5c95d",
+    "target_path": "/Users/gclyle/GrowDirect/Brain/raw/.extract/Katz/Phase I/07 - Inventory Analysis/Service Levels.xls.md",
+    "method": "markitdown",
+    "status": "ok",
+    "error": null,
+    "extracted_at": "2026-04-24T21:42:23.374591+00:00"
+  },
+  {
+    "source_path": "/Users/gclyle/GrowDirect/Brain/raw/inbox/Katz/Phase I/08 - Business Case/Katz Group Benefits Case v2.xls",
+    "source_sha256": "fdac46585852593e5ee70760f2b21996d34827ef0345f09fcd1b553e9a26f6f5",
+    "target_path": "/Users/gclyle/GrowDirect/Brain/raw/.extract/Katz/Phase I/08 - Business Case/Katz Group Benefits Case v2.xls.md",
+    "method": "markitdown",
+    "status": "ok",
+    "error": null,
+    "extracted_at": "2026-04-24T21:42:23.392439+00:00"
+  },
+  {
+    "source_path": "/Users/gclyle/GrowDirect/Brain/raw/inbox/Katz/Phase I/08 - Business Case/NPV Model v2.xls",
+    "source_sha256": "400902b25e070b848a0a7b2b0c3dba20fe7c277fff2504bf6b3e96f9ed6d5bf6",
+    "target_path": "/Users/gclyle/GrowDirect/Brain/raw/.extract/Katz/Phase I/08 - Business Case/NPV Model v2.xls.md",
+    "method": "markitdown",
+    "status": "ok",
+    "error": null,
+    "extracted_at": "2026-04-24T21:42:23.416318+00:00"
+  },
+  {
+    "source_path": "/Users/gclyle/GrowDirect/Brain/raw/inbox/Katz/Phase I/08 - Business Case/Retail Systems Cost Model DRAFT V5.xls",
+    "source_sha256": "acc6cb9c674f2418331d40c8c0381f322402fba34764c4454e4b110783bd7723",
+    "target_path": "/Users/gclyle/GrowDirect/Brain/raw/.extract/Katz/Phase I/08 - Business Case/Retail Systems Cost Model DRAFT V5.xls.md",
+    "method": "markitdown",
+    "status": "ok",
+    "error": null,
+    "extracted_at": "2026-04-24T21:42:23.429871+00:00"
+  },
+  {
+    "source_path": "/Users/gclyle/GrowDirect/Brain/raw/inbox/Katz/Phase I/08 - Business Case/Solution Contribution to Value Opportunities V3.xls",
+    "source_sha256": "56d8d8e048e3cee4a23e714ee9a3609c7866d309bdc75c1846701f0b2745e6f2",
+    "target_path": "/Users/gclyle/GrowDirect/Brain/raw/.extract/Katz/Phase I/08 - Business Case/Solution Contribution to Value Opportunities V3.xls.md",
+    "method": "markitdown",
+    "status": "ok",
+    "error": null,
+    "extracted_at": "2026-04-24T21:42:23.457614+00:00"
+  },
+  {
+    "source_path": "/Users/gclyle/GrowDirect/Brain/raw/inbox/Katz/Phase I/09 - Presentations/Katz Kick Off Final.ppt",
+    "source_sha256": "4b8d39c97df3ab06b00408e74a5e7365b4e1d23453f083db8c8b91b825093590",
+    "target_path": "/Users/gclyle/GrowDirect/Brain/raw/.extract/Katz/Phase I/09 - Presentations/Katz Kick Off Final.ppt.md",
+    "method": null,
+    "status": "failed",
+    "error": "markitdown: UnsupportedFormatException: Could not convert stream to Markdown. No converter attempted a conversion, suggesting that the filetype is simply not supported.",
+    "extracted_at": "2026-04-24T21:42:23.485067+00:00"
+  },
+  {
+    "source_path": "/Users/gclyle/GrowDirect/Brain/raw/inbox/Katz/Phase I/09 - Presentations/Katz SC#1 Presentation Final.ppt",
+    "source_sha256": "831ca2c836f495a485aa95b9b9645df56c413d7d03feb6e6f7c02cc2d7839301",
+    "target_path": "/Users/gclyle/GrowDirect/Brain/raw/.extract/Katz/Phase I/09 - Presentations/Katz SC#1 Presentation Final.ppt.md",
+    "method": null,
+    "status": "failed",
+    "error": "markitdown: UnsupportedFormatException: Could not convert stream to Markdown. No converter attempted a conversion, suggesting that the filetype is simply not supported.",
+    "extracted_at": "2026-04-24T21:42:23.492729+00:00"
+  },
+  {
+    "source_path": "/Users/gclyle/GrowDirect/Brain/raw/inbox/Katz/Phase I/09 - Presentations/Katz SCOA Final Report Appendix.ppt",
+    "source_sha256": "99e3f53960970cb655000fdbfaafd9d90bcf3eacace1779769c597d5c1871c69",
+    "target_path": "/Users/gclyle/GrowDirect/Brain/raw/.extract/Katz/Phase I/09 - Presentations/Katz SCOA Final Report Appendix.ppt.md",
+    "method": null,
+    "status": "failed",
+    "error": "markitdown: UnsupportedFormatException: Could not convert stream to Markdown. No converter attempted a conversion, suggesting that the filetype is simply not supported.",
+    "extracted_at": "2026-04-24T21:42:23.504969+00:00"
+  },
+  {
+    "source_path": "/Users/gclyle/GrowDirect/Brain/raw/inbox/Katz/Phase I/09 - Presentations/Katz SCOA Final Report.ppt",
+    "source_sha256": "a8cb24c7799c1a4e58709c6b4f0abe7567ad5d27e1edf12497f262eedcccd0d4",
+    "target_path": "/Users/gclyle/GrowDirect/Brain/raw/.extract/Katz/Phase I/09 - Presentations/Katz SCOA Final Report.ppt.md",
+    "method": null,
+    "status": "failed",
+    "error": "markitdown: UnsupportedFormatException: Could not convert stream to Markdown. No converter attempted a conversion, suggesting that the filetype is simply not supported.",
+    "extracted_at": "2026-04-24T21:42:23.513417+00:00"
+  },
+  {
+    "source_path": "/Users/gclyle/GrowDirect/Brain/raw/inbox/Katz/Phase I/10 - Change Management/Draft CRA Katzv6.ppt",
+    "source_sha256": "ff5afaa7ef60e885e9053d1a6b1e7d0e9752be1338c273d0c39ee15c3d4367fe",
+    "target_path": "/Users/gclyle/GrowDirect/Brain/raw/.extract/Katz/Phase I/10 - Change Management/Draft CRA Katzv6.ppt.md",
+    "method": null,
+    "status": "failed",
+    "error": "markitdown: UnsupportedFormatException: Could not convert stream to Markdown. No converter attempted a conversion, suggesting that the filetype is simply not supported.",
+    "extracted_at": "2026-04-24T21:42:23.520837+00:00"
+  },
+  {
+    "source_path": "/Users/gclyle/GrowDirect/Brain/raw/inbox/Katz/Phase II/01 - Priority Implementation - Quick Wins/Quick Wins Final Report v2.ppt",
+    "source_sha256": "78413f57eef76896ba633d7db769b2950bd12515c5feae14b3e91fa071e2be04",
+    "target_path": "/Users/gclyle/GrowDirect/Brain/raw/.extract/Katz/Phase II/01 - Priority Implementation - Quick Wins/Quick Wins Final Report v2.ppt.md",
+    "method": null,
+    "status": "failed",
+    "error": "markitdown: UnsupportedFormatException: Could not convert stream to Markdown. No converter attempted a conversion, suggesting that the filetype is simply not supported.",
+    "extracted_at": "2026-04-24T21:42:23.529680+00:00"
+  },
+  {
+    "source_path": "/Users/gclyle/GrowDirect/Brain/raw/inbox/Katz/Phase II/02 - Supply Chain Design/Future Visions Options-v7.ppt",
+    "source_sha256": "c3670a1ab5c4387298d00dea5f38de487065b11a328fd766c8c966d7494bb871",
+    "target_path": "/Users/gclyle/GrowDirect/Brain/raw/.extract/Katz/Phase II/02 - Supply Chain Design/Future Visions Options-v7.ppt.md",
+    "method": null,
+    "status": "failed",
+    "error": "markitdown: UnsupportedFormatException: Could not convert stream to Markdown. No converter attempted a conversion, suggesting that the filetype is simply not supported.",
+    "extracted_at": "2026-04-24T21:42:23.537593+00:00"
+  },
+  {
+    "source_path": "/Users/gclyle/GrowDirect/Brain/raw/inbox/Katz/Phase II/03 - System Selection & Supply Chain Optimization/01. To Be Workshops/Katz Requirements v4.xls",
+    "source_sha256": "bf02a9ef271df47eacf9cf93fb7c9c2695a380754c252d0ad1d9105c29409bf7",
+    "target_path": "/Users/gclyle/GrowDirect/Brain/raw/.extract/Katz/Phase II/03 - System Selection & Supply Chain Optimization/01. To Be Workshops/Katz Requirements v4.xls.md",
+    "method": "markitdown",
+    "status": "ok",
+    "error": null,
+    "extracted_at": "2026-04-24T21:42:23.545589+00:00"
+  },
+  {
+    "source_path": "/Users/gclyle/GrowDirect/Brain/raw/inbox/Katz/Phase II/03 - System Selection & Supply Chain Optimization/01. To Be Workshops/Manage Finance Process Workshop v3.ppt",
+    "source_sha256": "71cb1201e4fd3a4d73be28a975551c396cbcf5449bf82d8233aaefd7e437f8e3",
+    "target_path": "/Users/gclyle/GrowDirect/Brain/raw/.extract/Katz/Phase II/03 - System Selection & Supply Chain Optimization/01. To Be Workshops/Manage Finance Process Workshop v3.ppt.md",
+    "method": null,
+    "status": "failed",
+    "error": "markitdown: UnsupportedFormatException: Could not convert stream to Markdown. No converter attempted a conversion, suggesting that the filetype is simply not supported.",
+    "extracted_at": "2026-04-24T21:42:23.639042+00:00"
+  },
+  {
+    "source_path": "/Users/gclyle/GrowDirect/Brain/raw/inbox/Katz/Phase II/03 - System Selection & Supply Chain Optimization/01. To Be Workshops/Manage Store Operations Process Workshop v3.ppt",
+    "source_sha256": "e7dd0fc09681a595a998f7c534857039584210f5a585b4f9f334fd88dd922aad",
+    "target_path": "/Users/gclyle/GrowDirect/Brain/raw/.extract/Katz/Phase II/03 - System Selection & Supply Chain Optimization/01. To Be Workshops/Manage Store Operations Process Workshop v3.ppt.md",
+    "method": null,
+    "status": "failed",
+    "error": "markitdown: UnsupportedFormatException: Could not convert stream to Markdown. No converter attempted a conversion, suggesting that the filetype is simply not supported.",
+    "extracted_at": "2026-04-24T21:42:23.646946+00:00"
+  },
+  {
+    "source_path": "/Users/gclyle/GrowDirect/Brain/raw/inbox/Katz/Phase II/03 - System Selection & Supply Chain Optimization/01. To Be Workshops/Manage Suppliers Process Workshop v3.ppt",
+    "source_sha256": "17ab0e3e6a64bd3bf01dab3f5e0537b73c8a5dd7e853c37a614192d0875a94b1",
+    "target_path": "/Users/gclyle/GrowDirect/Brain/raw/.extract/Katz/Phase II/03 - System Selection & Supply Chain Optimization/01. To Be Workshops/Manage Suppliers Process Workshop v3.ppt.md",
+    "method": null,
+    "status": "failed",
+    "error": "markitdown: UnsupportedFormatException: Could not convert stream to Markdown. No converter attempted a conversion, suggesting that the filetype is simply not supported.",
+    "extracted_at": "2026-04-24T21:42:23.655231+00:00"
+  },
+  {
+    "source_path": "/Users/gclyle/GrowDirect/Brain/raw/inbox/Katz/Phase II/03 - System Selection & Supply Chain Optimization/01. To Be Workshops/Merchandising Process Workshop v3.ppt",
+    "source_sha256": "927df15c6dda827597b188a07622a3c014631591144108aaab08967a5847d0e8",
+    "target_path": "/Users/gclyle/GrowDirect/Brain/raw/.extract/Katz/Phase II/03 - System Selection & Supply Chain Optimization/01. To Be Workshops/Merchandising Process Workshop v3.ppt.md",
+    "method": null,
+    "status": "failed",
+    "error": "markitdown: UnsupportedFormatException: Could not convert stream to Markdown. No converter attempted a conversion, suggesting that the filetype is simply not supported.",
+    "extracted_at": "2026-04-24T21:42:23.663089+00:00"
+  },
+  {
+    "source_path": "/Users/gclyle/GrowDirect/Brain/raw/inbox/Katz/Phase II/03 - System Selection & Supply Chain Optimization/01. To Be Workshops/Planning & Analysis Process Workshop v3.ppt",
+    "source_sha256": "4d3a11d6a04f044257497678219461894c6059211a6f88dbba13e3f9c5f30825",
+    "target_path": "/Users/gclyle/GrowDirect/Brain/raw/.extract/Katz/Phase II/03 - System Selection & Supply Chain Optimization/01. To Be Workshops/Planning & Analysis Process Workshop v3.ppt.md",
+    "method": null,
+    "status": "failed",
+    "error": "markitdown: UnsupportedFormatException: Could not convert stream to Markdown. No converter attempted a conversion, suggesting that the filetype is simply not supported.",
+    "extracted_at": "2026-04-24T21:42:23.670467+00:00"
+  },
+  {
+    "source_path": "/Users/gclyle/GrowDirect/Brain/raw/inbox/Katz/Phase II/03 - System Selection & Supply Chain Optimization/01. To Be Workshops/Planning & Distribution Process Workshop v3.ppt",
+    "source_sha256": "40431d063ed17bcf0666d6946950667245c937966b2073164f0a59cca971377e",
+    "target_path": "/Users/gclyle/GrowDirect/Brain/raw/.extract/Katz/Phase II/03 - System Selection & Supply Chain Optimization/01. To Be Workshops/Planning & Distribution Process Workshop v3.ppt.md",
+    "method": null,
+    "status": "failed",
+    "error": "markitdown: UnsupportedFormatException: Could not convert stream to Markdown. No converter attempted a conversion, suggesting that the filetype is simply not supported.",
+    "extracted_at": "2026-04-24T21:42:23.678872+00:00"
+  },
+  {
+    "source_path": "/Users/gclyle/GrowDirect/Brain/raw/inbox/Katz/Phase II/03 - System Selection & Supply Chain Optimization/01. To Be Workshops/Process Capability Definition v2.xls",
+    "source_sha256": "5f55aa8dcfdacc47579a5da28aa74dbee2576e26e04cd940d53d09833a5ce55d",
+    "target_path": "/Users/gclyle/GrowDirect/Brain/raw/.extract/Katz/Phase II/03 - System Selection & Supply Chain Optimization/01. To Be Workshops/Process Capability Definition v2.xls.md",
+    "method": "markitdown",
+    "status": "ok",
+    "error": null,
+    "extracted_at": "2026-04-24T21:42:23.685756+00:00"
+  },
+  {
+    "source_path": "/Users/gclyle/GrowDirect/Brain/raw/inbox/Katz/Phase II/03 - System Selection & Supply Chain Optimization/02. RFP Distributed to Vendors/Katz Requirements.xls",
+    "source_sha256": "2db6d93833eea9dfeeb2c112fbc112a63f71ba05cb4cdd3719cf4e7e7dfe06f9",
+    "target_path": "/Users/gclyle/GrowDirect/Brain/raw/.extract/Katz/Phase II/03 - System Selection & Supply Chain Optimization/02. RFP Distributed to Vendors/Katz Requirements.xls.md",
+    "method": "markitdown",
+    "status": "ok",
+    "error": null,
+    "extracted_at": "2026-04-24T21:42:23.717990+00:00"
+  },
+  {
+    "source_path": "/Users/gclyle/GrowDirect/Brain/raw/inbox/Katz/Phase II/03 - System Selection & Supply Chain Optimization/02. RFP Distributed to Vendors/Katz Retail Supply Chain Management Systems RFP - JDA.doc",
+    "source_sha256": "3e341b6854a9a51a2ad89f699b2a78f99868b567da4196c98ee757e9f349f58e",
+    "target_path": "/Users/gclyle/GrowDirect/Brain/raw/.extract/Katz/Phase II/03 - System Selection & Supply Chain Optimization/02. RFP Distributed to Vendors/Katz Retail Supply Chain Management Systems RFP - JDA.doc.md",
+    "method": "textutil",
+    "status": "ok",
+    "error": null,
+    "extracted_at": "2026-04-24T21:42:23.808228+00:00"
+  },
+  {
+    "source_path": "/Users/gclyle/GrowDirect/Brain/raw/inbox/Katz/Phase II/03 - System Selection & Supply Chain Optimization/02. RFP Distributed to Vendors/Katz Retail Supply Chain Management Systems RFP - JDE.doc",
+    "source_sha256": "d4f844bbca100cbed80c60dca9ef43faa9c1f0f4d375d977cf5cdde24e042be3",
+    "target_path": "/Users/gclyle/GrowDirect/Brain/raw/.extract/Katz/Phase II/03 - System Selection & Supply Chain Optimization/02. RFP Distributed to Vendors/Katz Retail Supply Chain Management Systems RFP - JDE.doc.md",
+    "method": "textutil",
+    "status": "ok",
+    "error": null,
+    "extracted_at": "2026-04-24T21:42:23.886440+00:00"
+  },
+  {
+    "source_path": "/Users/gclyle/GrowDirect/Brain/raw/inbox/Katz/Phase II/03 - System Selection & Supply Chain Optimization/02. RFP Distributed to Vendors/Katz Retail Supply Chain Management Systems RFP - Retek.doc",
+    "source_sha256": "d9353bd85eed32d425a49e2306546551180d0ae17914ec5af2e0f56de19c779b",
+    "target_path": "/Users/gclyle/GrowDirect/Brain/raw/.extract/Katz/Phase II/03 - System Selection & Supply Chain Optimization/02. RFP Distributed to Vendors/Katz Retail Supply Chain Management Systems RFP - Retek.doc.md",
+    "method": "textutil",
+    "status": "ok",
+    "error": null,
+    "extracted_at": "2026-04-24T21:42:23.953446+00:00"
+  },
+  {
+    "source_path": "/Users/gclyle/GrowDirect/Brain/raw/inbox/Katz/Phase II/03 - System Selection & Supply Chain Optimization/02. RFP Distributed to Vendors/Katz Retail Supply Chain Management Systems RFP - SAP.doc",
+    "source_sha256": "b48a2a4a03118e19a27f8380a7883d610a2bf341c9f2b679213651598928bb4d",
+    "target_path": "/Users/gclyle/GrowDirect/Brain/raw/.extract/Katz/Phase II/03 - System Selection & Supply Chain Optimization/02. RFP Distributed to Vendors/Katz Retail Supply Chain Management Systems RFP - SAP.doc.md",
+    "method": "textutil",
+    "status": "ok",
+    "error": null,
+    "extracted_at": "2026-04-24T21:42:24.094072+00:00"
+  },
+  {
+    "source_path": "/Users/gclyle/GrowDirect/Brain/raw/inbox/Katz/Phase II/03 - System Selection & Supply Chain Optimization/02. RFP Distributed to Vendors/Katz Retail Supply Chain Management Systems RFP - i2.doc",
+    "source_sha256": "7a201155aa9e2960a48b539d450f4c7c835ea5ee9f8f39774e3bbb93baf98273",
+    "target_path": "/Users/gclyle/GrowDirect/Brain/raw/.extract/Katz/Phase II/03 - System Selection & Supply Chain Optimization/02. RFP Distributed to Vendors/Katz Retail Supply Chain Management Systems RFP - i2.doc.md",
+    "method": "textutil",
+    "status": "ok",
+    "error": null,
+    "extracted_at": "2026-04-24T21:42:24.168482+00:00"
+  },
+  {
+    "source_path": "/Users/gclyle/GrowDirect/Brain/raw/inbox/Katz/Phase II/03 - System Selection & Supply Chain Optimization/02. RFP Distributed to Vendors/Katz Retail Supply Chain Management Systems RFP.doc",
+    "source_sha256": "269b6df487192ddbaa2c29217267bcf30d3d6b941200dd5c06160794fe3f698c",
+    "target_path": "/Users/gclyle/GrowDirect/Brain/raw/.extract/Katz/Phase II/03 - System Selection & Supply Chain Optimization/02. RFP Distributed to Vendors/Katz Retail Supply Chain Management Systems RFP.doc.md",
+    "method": "textutil",
+    "status": "ok",
+    "error": null,
+    "extracted_at": "2026-04-24T21:42:24.238287+00:00"
+  },
+  {
+    "source_path": "/Users/gclyle/GrowDirect/Brain/raw/inbox/Katz/Phase II/03 - System Selection & Supply Chain Optimization/03. RFP Responses/JD Edwards Response/Appendix A.pdf",
+    "source_sha256": "b2219ff42fde2ab85204b05d47482173929d490c52eea8e11d7df99f4a21a605",
+    "target_path": "/Users/gclyle/GrowDirect/Brain/raw/.extract/Katz/Phase II/03 - System Selection & Supply Chain Optimization/03. RFP Responses/JD Edwards Response/Appendix A.pdf.md",
+    "method": "markitdown",
+    "status": "ok",
+    "error": null,
+    "extracted_at": "2026-04-24T21:42:24.306419+00:00"
+  },
+  {
+    "source_path": "/Users/gclyle/GrowDirect/Brain/raw/inbox/Katz/Phase II/03 - System Selection & Supply Chain Optimization/03. RFP Responses/JD Edwards Response/Appendix B.pdf",
+    "source_sha256": "eb18cc22157034aa5191d62b621ac312ec11e6cb84fede0ea2a9d4501e53b81f",
+    "target_path": "/Users/gclyle/GrowDirect/Brain/raw/.extract/Katz/Phase II/03 - System Selection & Supply Chain Optimization/03. RFP Responses/JD Edwards Response/Appendix B.pdf.md",
+    "method": "markitdown",
+    "status": "ok",
+    "error": null,
+    "extracted_at": "2026-04-24T21:42:25.904125+00:00"
+  },
+  {
+    "source_path": "/Users/gclyle/GrowDirect/Brain/raw/inbox/Katz/Phase II/03 - System Selection & Supply Chain Optimization/03. RFP Responses/JD Edwards Response/Appendix C 1 of 3.pdf",
+    "source_sha256": "c7de667a16f932ef9be949b116525f82593a58a9212fffb1d43255558362a4c2",
+    "target_path": "/Users/gclyle/GrowDirect/Brain/raw/.extract/Katz/Phase II/03 - System Selection & Supply Chain Optimization/03. RFP Responses/JD Edwards Response/Appendix C 1 of 3.pdf.md",
+    "method": "markitdown",
+    "status": "ok",
+    "error": null,
+    "extracted_at": "2026-04-24T21:42:27.888779+00:00"
+  },
+  {
+    "source_path": "/Users/gclyle/GrowDirect/Brain/raw/inbox/Katz/Phase II/03 - System Selection & Supply Chain Optimization/03. RFP Responses/JD Edwards Response/Appendix C 2 of 3.pdf",
+    "source_sha256": "3e52e32f2be66e30325ab1ef0b60b11d69882b98788c3e1e60bd7e89b5d8077f",
+    "target_path": "/Users/gclyle/GrowDirect/Brain/raw/.extract/Katz/Phase II/03 - System Selection & Supply Chain Optimization/03. RFP Responses/JD Edwards Response/Appendix C 2 of 3.pdf.md",
+    "method": "markitdown",
+    "status": "ok",
+    "error": null,
+    "extracted_at": "2026-04-24T21:42:27.909056+00:00"
+  },
+  {
+    "source_path": "/Users/gclyle/GrowDirect/Brain/raw/inbox/Katz/Phase II/03 - System Selection & Supply Chain Optimization/03. RFP Responses/JD Edwards Response/Appendix C 3 of 3.pdf",
+    "source_sha256": "4a4711ff9fb9dcdd8df09927e4d36687cb42426fde8d8832faa20c7fdb7b71b8",
+    "target_path": "/Users/gclyle/GrowDirect/Brain/raw/.extract/Katz/Phase II/03 - System Selection & Supply Chain Optimization/03. RFP Responses/JD Edwards Response/Appendix C 3 of 3.pdf.md",
+    "method": "markitdown",
+    "status": "ok",
+    "error": null,
+    "extracted_at": "2026-04-24T21:42:28.498799+00:00"
+  },
+  {
+    "source_path": "/Users/gclyle/GrowDirect/Brain/raw/inbox/Katz/Phase II/03 - System Selection & Supply Chain Optimization/03. RFP Responses/JD Edwards Response/Appendix D .pdf",
+    "source_sha256": "4edde6d9381441113d814d80d3cca67282ffa4fbe7ed722f4bfd6db077fb4856",
+    "target_path": "/Users/gclyle/GrowDirect/Brain/raw/.extract/Katz/Phase II/03 - System Selection & Supply Chain Optimization/03. RFP Responses/JD Edwards Response/Appendix D .pdf.md",
+    "method": "markitdown",
+    "status": "ok",
+    "error": null,
+    "extracted_at": "2026-04-24T21:42:28.655877+00:00"
+  },
+  {
+    "source_path": "/Users/gclyle/GrowDirect/Brain/raw/inbox/Katz/Phase II/03 - System Selection & Supply Chain Optimization/03. RFP Responses/JD Edwards Response/Appendix E 1 of 2.pdf",
+    "source_sha256": "a3f2e025b5f1b7e89dd7ff273051f4dab7aba271a7288313f0e631c915644de3",
+    "target_path": "/Users/gclyle/GrowDirect/Brain/raw/.extract/Katz/Phase II/03 - System Selection & Supply Chain Optimization/03. RFP Responses/JD Edwards Response/Appendix E 1 of 2.pdf.md",
+    "method": "markitdown",
+    "status": "ok",
+    "error": null,
+    "extracted_at": "2026-04-24T21:42:29.766569+00:00"
+  },
+  {
+    "source_path": "/Users/gclyle/GrowDirect/Brain/raw/inbox/Katz/Phase II/03 - System Selection & Supply Chain Optimization/03. RFP Responses/JD Edwards Response/Appendix E 2 of 2.pdf",
+    "source_sha256": "0a29c9238e477d79bce29103759e07b856a0702d1423684bf0914319be07b861",
+    "target_path": "/Users/gclyle/GrowDirect/Brain/raw/.extract/Katz/Phase II/03 - System Selection & Supply Chain Optimization/03. RFP Responses/JD Edwards Response/Appendix E 2 of 2.pdf.md",
+    "method": "markitdown",
+    "status": "ok",
+    "error": null,
+    "extracted_at": "2026-04-24T21:42:34.182565+00:00"
+  },
+  {
+    "source_path": "/Users/gclyle/GrowDirect/Brain/raw/inbox/Katz/Phase II/03 - System Selection & Supply Chain Optimization/03. RFP Responses/JD Edwards Response/Appendix F .pdf",
+    "source_sha256": "8627e2758920b2f781e8da30c33e70a2f48d54b72fd8c1298ae8f77bb2f92ed3",
+    "target_path": "/Users/gclyle/GrowDirect/Brain/raw/.extract/Katz/Phase II/03 - System Selection & Supply Chain Optimization/03. RFP Responses/JD Edwards Response/Appendix F .pdf.md",
+    "method": "markitdown",
+    "status": "ok",
+    "error": null,
+    "extracted_at": "2026-04-24T21:42:38.916829+00:00"
+  },
+  {
+    "source_path": "/Users/gclyle/GrowDirect/Brain/raw/inbox/Katz/Phase II/03 - System Selection & Supply Chain Optimization/03. RFP Responses/JD Edwards Response/Response.doc",
+    "source_sha256": "2ddf2d4f57396a24185f23598509b54ff73e16dac24354310022c95b4953d5cd",
+    "target_path": "/Users/gclyle/GrowDirect/Brain/raw/.extract/Katz/Phase II/03 - System Selection & Supply Chain Optimization/03. RFP Responses/JD Edwards Response/Response.doc.md",
+    "method": "textutil",
+    "status": "ok",
+    "error": null,
+    "extracted_at": "2026-04-24T21:42:40.279311+00:00"
+  },
+  {
+    "source_path": "/Users/gclyle/GrowDirect/Brain/raw/inbox/Katz/Phase II/03 - System Selection & Supply Chain Optimization/03. RFP Responses/JDA Response/Attachment A- JDA Company History Timeline.doc",
+    "source_sha256": "2557fc1510dd74b345edd47707007abaf71a7da0322e4be73a4e77e112ec673d",
+    "target_path": "/Users/gclyle/GrowDirect/Brain/raw/.extract/Katz/Phase II/03 - System Selection & Supply Chain Optimization/03. RFP Responses/JDA Response/Attachment A- JDA Company History Timeline.doc.md",
+    "method": "textutil",
+    "status": "ok",
+    "error": null,
+    "extracted_at": "2026-04-24T21:42:40.401643+00:00"
+  },
+  {
+    "source_path": "/Users/gclyle/GrowDirect/Brain/raw/inbox/Katz/Phase II/03 - System Selection & Supply Chain Optimization/03. RFP Responses/JDA Response/Attachment B- JDA 2001 Form 10K.pdf",
+    "source_sha256": "9d5336bacfc2358cd7da4a9be95394411b9ec5890a0ee99e91c165cc4b6ba1da",
+    "target_path": "/Users/gclyle/GrowDirect/Brain/raw/.extract/Katz/Phase II/03 - System Selection & Supply Chain Optimization/03. RFP Responses/JDA Response/Attachment B- JDA 2001 Form 10K.pdf.md",
+    "method": "markitdown",
+    "status": "ok",
+    "error": null,
+    "extracted_at": "2026-04-24T21:42:40.471401+00:00"
+  },
+  {
+    "source_path": "/Users/gclyle/GrowDirect/Brain/raw/inbox/Katz/Phase II/03 - System Selection & Supply Chain Optimization/03. RFP Responses/JDA Response/Attachment C- JDA 2002 Form 10K.pdf",
+    "source_sha256": "dfc736de7ef8c4b6bb48a2081fa65f66b0ccb68f600a3a7e592c40e5219563b8",
+    "target_path": "/Users/gclyle/GrowDirect/Brain/raw/.extract/Katz/Phase II/03 - System Selection & Supply Chain Optimization/03. RFP Responses/JDA Response/Attachment C- JDA 2002 Form 10K.pdf.md",
+    "method": "markitdown",
+    "status": "ok",
+    "error": null,
+    "extracted_at": "2026-04-24T21:42:40.749361+00:00"
+  },
+  {
+    "source_path": "/Users/gclyle/GrowDirect/Brain/raw/inbox/Katz/Phase II/03 - System Selection & Supply Chain Optimization/03. RFP Responses/JDA Response/Attachment D- JDA Q2-2003 Earnings Release.pdf",
+    "source_sha256": "99813dc3d967c3c17826bd02e1bd5b2cb14ea7c5172173235e157c3ec49b64de",
+    "target_path": "/Users/gclyle/GrowDirect/Brain/raw/.extract/Katz/Phase II/03 - System Selection & Supply Chain Optimization/03. RFP Responses/JDA Response/Attachment D- JDA Q2-2003 Earnings Release.pdf.md",
+    "method": "markitdown",
+    "status": "ok",
+    "error": null,
+    "extracted_at": "2026-04-24T21:42:46.671474+00:00"
+  },
+  {
+    "source_path": "/Users/gclyle/GrowDirect/Brain/raw/inbox/Katz/Phase II/03 - System Selection & Supply Chain Optimization/03. RFP Responses/JDA Response/Attachment E- Customer Solutions Group.doc",
+    "source_sha256": "1b0b04daeec120e04617ec914c6ee1731fc004c44b1fd6a48be8972c813f8de3",
+    "target_path": "/Users/gclyle/GrowDirect/Brain/raw/.extract/Katz/Phase II/03 - System Selection & Supply Chain Optimization/03. RFP Responses/JDA Response/Attachment E- Customer Solutions Group.doc.md",
+    "method": "textutil",
+    "status": "ok",
+    "error": null,
+    "extracted_at": "2026-04-24T21:42:46.915710+00:00"
+  },
+  {
+    "source_path": "/Users/gclyle/GrowDirect/Brain/raw/inbox/Katz/Phase II/03 - System Selection & Supply Chain Optimization/03. RFP Responses/JDA Response/Attachment F- eLearning from BMI.doc",
+    "source_sha256": "fe721f824ce97c3a871877afad18ed262105b75d37437c89cfc01d0e9924162a",
+    "target_path": "/Users/gclyle/GrowDirect/Brain/raw/.extract/Katz/Phase II/03 - System Selection & Supply Chain Optimization/03. RFP Responses/JDA Response/Attachment F- eLearning from BMI.doc.md",
+    "method": "textutil",
+    "status": "ok",
+    "error": null,
+    "extracted_at": "2026-04-24T21:42:46.988449+00:00"
+  },
+  {
+    "source_path": "/Users/gclyle/GrowDirect/Brain/raw/inbox/Katz/Phase II/03 - System Selection & Supply Chain Optimization/03. RFP Responses/JDA Response/Attachment G - JDA Client Support Programs.doc",
+    "source_sha256": "5ba8c76e33619a16f16c9b30c11c60afbdaa027192355e9098efdd71153f7455",
+    "target_path": "/Users/gclyle/GrowDirect/Brain/raw/.extract/Katz/Phase II/03 - System Selection & Supply Chain Optimization/03. RFP Responses/JDA Response/Attachment G - JDA Client Support Programs.doc.md",
+    "method": "textutil",
+    "status": "ok",
+    "error": null,
+    "extracted_at": "2026-04-24T21:42:47.062758+00:00"
+  },
+  {
+    "source_path": "/Users/gclyle/GrowDirect/Brain/raw/inbox/Katz/Phase II/03 - System Selection & Supply Chain Optimization/03. RFP Responses/JDA Response/Attachment H - Special Interest Group Outline.pdf",
+    "source_sha256": "b66a696fb1222500d9db21462484a7be515d47544ae29b90a14b5ecb6b9af778",
+    "target_path": "/Users/gclyle/GrowDirect/Brain/raw/.extract/Katz/Phase II/03 - System Selection & Supply Chain Optimization/03. RFP Responses/JDA Response/Attachment H - Special Interest Group Outline.pdf.md",
+    "method": "markitdown",
+    "status": "ok",
+    "error": null,
+    "extracted_at": "2026-04-24T21:42:47.166775+00:00"
+  },
+  {
+    "source_path": "/Users/gclyle/GrowDirect/Brain/raw/inbox/Katz/Phase II/03 - System Selection & Supply Chain Optimization/03. RFP Responses/JDA Response/Attachment I- JDA Users Group Contact List.xls",
+    "source_sha256": "15b315f363887348a4de870d0926368f182983ed3bce477e470b1e1f9719403e",
+    "target_path": "/Users/gclyle/GrowDirect/Brain/raw/.extract/Katz/Phase II/03 - System Selection & Supply Chain Optimization/03. RFP Responses/JDA Response/Attachment I- JDA Users Group Contact List.xls.md",
+    "method": "markitdown",
+    "status": "ok",
+    "error": null,
+    "extracted_at": "2026-04-24T21:42:48.201622+00:00"
+  },
+  {
+    "source_path": "/Users/gclyle/GrowDirect/Brain/raw/inbox/Katz/Phase II/03 - System Selection & Supply Chain Optimization/03. RFP Responses/JDA Response/Attachment J- JDA Hardware Architecture.ppt",
+    "source_sha256": "dde04fffb1d0ee052ca236b23b38873e7d8c995c467c57a535094274dac3303c",
+    "target_path": "/Users/gclyle/GrowDirect/Brain/raw/.extract/Katz/Phase II/03 - System Selection & Supply Chain Optimization/03. RFP Responses/JDA Response/Attachment J- JDA Hardware Architecture.ppt.md",
+    "method": null,
+    "status": "failed",
+    "error": "markitdown: UnsupportedFormatException: Could not convert stream to Markdown. No converter attempted a conversion, suggesting that the filetype is simply not supported.",
+    "extracted_at": "2026-04-24T21:42:48.219537+00:00"
+  },
+  {
+    "source_path": "/Users/gclyle/GrowDirect/Brain/raw/inbox/Katz/Phase II/03 - System Selection & Supply Chain Optimization/03. RFP Responses/JDA Response/Attachment K- JDA Software Architecture .ppt",
+    "source_sha256": "4bbe6636b3367415ad5811f04f84645e70ff6e68e7f5018c7021ebb44a48e878",
+    "target_path": "/Users/gclyle/GrowDirect/Brain/raw/.extract/Katz/Phase II/03 - System Selection & Supply Chain Optimization/03. RFP Responses/JDA Response/Attachment K- JDA Software Architecture .ppt.md",
+    "method": null,
+    "status": "failed",
+    "error": "markitdown: UnsupportedFormatException: Could not convert stream to Markdown. No converter attempted a conversion, suggesting that the filetype is simply not supported.",
+    "extracted_at": "2026-04-24T21:42:48.227761+00:00"
+  },
+  {
+    "source_path": "/Users/gclyle/GrowDirect/Brain/raw/inbox/Katz/Phase II/03 - System Selection & Supply Chain Optimization/03. RFP Responses/JDA Response/Attachment L- JDA Customer Agreement.doc",
+    "source_sha256": "864322a48763b7ba57051a78a6ececa893fe528af8266c17610f44d8967b3451",
+    "target_path": "/Users/gclyle/GrowDirect/Brain/raw/.extract/Katz/Phase II/03 - System Selection & Supply Chain Optimization/03. RFP Responses/JDA Response/Attachment L- JDA Customer Agreement.doc.md",
+    "method": "textutil",
+    "status": "ok",
+    "error": null,
+    "extracted_at": "2026-04-24T21:42:48.236852+00:00"
+  },
+  {
+    "source_path": "/Users/gclyle/GrowDirect/Brain/raw/inbox/Katz/Phase II/03 - System Selection & Supply Chain Optimization/03. RFP Responses/JDA Response/Katz Requirements .xls",
+    "source_sha256": "c2761d77ca9a6ef75a560e782913126676bec1440fb967e05542d5fef726bf14",
+    "target_path": "/Users/gclyle/GrowDirect/Brain/raw/.extract/Katz/Phase II/03 - System Selection & Supply Chain Optimization/03. RFP Responses/JDA Response/Katz Requirements .xls.md",
+    "method": "markitdown",
+    "status": "ok",
+    "error": null,
+    "extracted_at": "2026-04-24T21:42:48.312621+00:00"
+  },
+  {
+    "source_path": "/Users/gclyle/GrowDirect/Brain/raw/inbox/Katz/Phase II/03 - System Selection & Supply Chain Optimization/03. RFP Responses/JDA Response/Katz Retail Supply Chain Management Systems RFP .doc",
+    "source_sha256": "b44f6e5e1154a677246867165a3099b3e9c9c3a95a513ac131c9ed824669847b",
+    "target_path": "/Users/gclyle/GrowDirect/Brain/raw/.extract/Katz/Phase II/03 - System Selection & Supply Chain Optimization/03. RFP Responses/JDA Response/Katz Retail Supply Chain Management Systems RFP .doc.md",
+    "method": "textutil",
+    "status": "ok",
+    "error": null,
+    "extracted_at": "2026-04-24T21:42:48.415040+00:00"
+  },
+  {
+    "source_path": "/Users/gclyle/GrowDirect/Brain/raw/inbox/Katz/Phase II/03 - System Selection & Supply Chain Optimization/03. RFP Responses/Retek Response/Katz RSCM Systems RFP Response - Retek Final.doc",
+    "source_sha256": "3a04cb0de31ce10881024cfac86353068b0538e291cb2b3b77af3feaa8f93199",
+    "target_path": "/Users/gclyle/GrowDirect/Brain/raw/.extract/Katz/Phase II/03 - System Selection & Supply Chain Optimization/03. RFP Responses/Retek Response/Katz RSCM Systems RFP Response - Retek Final.doc.md",
+    "method": "textutil",
+    "status": "ok",
+    "error": null,
+    "extracted_at": "2026-04-24T21:42:48.511895+00:00"
+  },
+  {
+    "source_path": "/Users/gclyle/GrowDirect/Brain/raw/inbox/Katz/Phase II/03 - System Selection & Supply Chain Optimization/03. RFP Responses/Retek Response/katzse24 letter of transmittal.doc",
+    "source_sha256": "b737ca9604b51db9ea565604ca16554a15ae4385be3f9218210d8f7bcaa12283",
+    "target_path": "/Users/gclyle/GrowDirect/Brain/raw/.extract/Katz/Phase II/03 - System Selection & Supply Chain Optimization/03. RFP Responses/Retek Response/katzse24 letter of transmittal.doc.md",
+    "method": "textutil",
+    "status": "ok",
+    "error": null,
+    "extracted_at": "2026-04-24T21:42:48.593750+00:00"
+  },
+  {
+    "source_path": "/Users/gclyle/GrowDirect/Brain/raw/inbox/Katz/Phase II/03 - System Selection & Supply Chain Optimization/03. RFP Responses/SAP Response/Appendix A - SAP AG 2000 Annual Report.pdf",
+    "source_sha256": "9ece964bc90a50fb6539aad0b2d286b4d80862238ea42c089f2d1564604b2e2a",
+    "target_path": "/Users/gclyle/GrowDirect/Brain/raw/.extract/Katz/Phase II/03 - System Selection & Supply Chain Optimization/03. RFP Responses/SAP Response/Appendix A - SAP AG 2000 Annual Report.pdf.md",
+    "method": "markitdown",
+    "status": "ok",
+    "error": null,
+    "extracted_at": "2026-04-24T21:42:48.652372+00:00"
+  },
+  {
+    "source_path": "/Users/gclyle/GrowDirect/Brain/raw/inbox/Katz/Phase II/03 - System Selection & Supply Chain Optimization/03. RFP Responses/SAP Response/Appendix A - SAP AG 2001 Annual Report.pdf",
+    "source_sha256": "930bd0c696cf4d45167b282d8382f2ec8d233f524536c45b8538b3131b7f1d7f",
+    "target_path": "/Users/gclyle/GrowDirect/Brain/raw/.extract/Katz/Phase II/03 - System Selection & Supply Chain Optimization/03. RFP Responses/SAP Response/Appendix A - SAP AG 2001 Annual Report.pdf.md",
+    "method": "markitdown",
+    "status": "ok",
+    "error": null,
+    "extracted_at": "2026-04-24T21:42:53.703026+00:00"
+  },
+  {
+    "source_path": "/Users/gclyle/GrowDirect/Brain/raw/inbox/Katz/Phase II/03 - System Selection & Supply Chain Optimization/03. RFP Responses/SAP Response/Appendix A - SAP AG 2002 Annual Report.pdf",
+    "source_sha256": "a947ca68d5949c3ce6e36c620e21f234ea03b37c4a30cc2bc236a060f2c77c4c",
+    "target_path": "/Users/gclyle/GrowDirect/Brain/raw/.extract/Katz/Phase II/03 - System Selection & Supply Chain Optimization/03. RFP Responses/SAP Response/Appendix A - SAP AG 2002 Annual Report.pdf.md",
+    "method": "markitdown",
+    "status": "ok",
+    "error": null,
+    "extracted_at": "2026-04-24T21:42:59.584806+00:00"
+  },
+  {
+    "source_path": "/Users/gclyle/GrowDirect/Brain/raw/inbox/Katz/Phase II/03 - System Selection & Supply Chain Optimization/03. RFP Responses/SAP Response/Appendix B - Supported Currencies.doc",
+    "source_sha256": "0a6b272b43e2c7a85d9359f20a842f73e630c72b2a92f14ded3c5ce7c2090e1e",
+    "target_path": "/Users/gclyle/GrowDirect/Brain/raw/.extract/Katz/Phase II/03 - System Selection & Supply Chain Optimization/03. RFP Responses/SAP Response/Appendix B - Supported Currencies.doc.md",
+    "method": "textutil",
+    "status": "ok",
+    "error": null,
+    "extracted_at": "2026-04-24T21:43:06.516738+00:00"
+  },
+  {
+    "source_path": "/Users/gclyle/GrowDirect/Brain/raw/inbox/Katz/Phase II/03 - System Selection & Supply Chain Optimization/03. RFP Responses/SAP Response/Appendix C - ASAP Methodology.doc",
+    "source_sha256": "8c31011d7f71ccd8ecca332eba150c36f5d159fa29a00668a3230d666c5f5389",
+    "target_path": "/Users/gclyle/GrowDirect/Brain/raw/.extract/Katz/Phase II/03 - System Selection & Supply Chain Optimization/03. RFP Responses/SAP Response/Appendix C - ASAP Methodology.doc.md",
+    "method": "textutil",
+    "status": "ok",
+    "error": null,
+    "extracted_at": "2026-04-24T21:43:06.597383+00:00"
+  },
+  {
+    "source_path": "/Users/gclyle/GrowDirect/Brain/raw/inbox/Katz/Phase II/03 - System Selection & Supply Chain Optimization/03. RFP Responses/SAP Response/Appendix D - Draft Katz End User License Agt with Exhibi#8c9.doc",
+    "source_sha256": "dfa74962d01e9459616928651ffcfe9da535ea32ec7c5492cd022cf0860c3c94",
+    "target_path": "/Users/gclyle/GrowDirect/Brain/raw/.extract/Katz/Phase II/03 - System Selection & Supply Chain Optimization/03. RFP Responses/SAP Response/Appendix D - Draft Katz End User License Agt with Exhibi#8c9.doc.md",
+    "method": "textutil",
+    "status": "ok",
+    "error": null,
+    "extracted_at": "2026-04-24T21:43:06.662798+00:00"
+  },
+  {
+    "source_path": "/Users/gclyle/GrowDirect/Brain/raw/inbox/Katz/Phase II/03 - System Selection & Supply Chain Optimization/03. RFP Responses/SAP Response/Appendix D - Draft Katz Exh D (Cdn Escrow Agrmt) Sep5'03.doc",
+    "source_sha256": "ebc8241a4ae5b487d80c7678d83c13d126c4729a0a21bb4850cab4ac57222ed6",
+    "target_path": "/Users/gclyle/GrowDirect/Brain/raw/.extract/Katz/Phase II/03 - System Selection & Supply Chain Optimization/03. RFP Responses/SAP Response/Appendix D - Draft Katz Exh D (Cdn Escrow Agrmt) Sep5'03.doc.md",
+    "method": "textutil",
+    "status": "ok",
+    "error": null,
+    "extracted_at": "2026-04-24T21:43:06.738072+00:00"
+  },
+  {
+    "source_path": "/Users/gclyle/GrowDirect/Brain/raw/inbox/Katz/Phase II/03 - System Selection & Supply Chain Optimization/03. RFP Responses/SAP Response/Appendix D - Draft Katz Exh D (Cdn Escrow Exhibit) Sep5'03.doc",
+    "source_sha256": "65079124146ad266fd9f141ca88cb36a91d2958bc340eccde34f9f49dbc0a1ac",
+    "target_path": "/Users/gclyle/GrowDirect/Brain/raw/.extract/Katz/Phase II/03 - System Selection & Supply Chain Optimization/03. RFP Responses/SAP Response/Appendix D - Draft Katz Exh D (Cdn Escrow Exhibit) Sep5'03.doc.md",
+    "method": "textutil",
+    "status": "ok",
+    "error": null,
+    "extracted_at": "2026-04-24T21:43:06.804116+00:00"
+  },
+  {
+    "source_path": "/Users/gclyle/GrowDirect/Brain/raw/inbox/Katz/Phase II/03 - System Selection & Supply Chain Optimization/03. RFP Responses/SAP Response/Appendix D - Draft Katz Exh D (Cdn Escrow Schedule) Sep5'03.doc",
+    "source_sha256": "66b831b80817e194f1b7f3cac6dd675743b31e9225da04a4ed846e9fa761029b",
+    "target_path": "/Users/gclyle/GrowDirect/Brain/raw/.extract/Katz/Phase II/03 - System Selection & Supply Chain Optimization/03. RFP Responses/SAP Response/Appendix D - Draft Katz Exh D (Cdn Escrow Schedule) Sep5'03.doc.md",
+    "method": "textutil",
+    "status": "ok",
+    "error": null,
+    "extracted_at": "2026-04-24T21:43:06.870867+00:00"
+  },
+  {
+    "source_path": "/Users/gclyle/GrowDirect/Brain/raw/inbox/Katz/Phase II/03 - System Selection & Supply Chain Optimization/03. RFP Responses/SAP Response/Appendix D - Draft Katz mySAP Appendix A w Exhibit A Sep5'03.doc",
+    "source_sha256": "826b41e8e72d74ef0a75c1d910f303ad8e21bd67b17b95521e98c140f8c8e352",
+    "target_path": "/Users/gclyle/GrowDirect/Brain/raw/.extract/Katz/Phase II/03 - System Selection & Supply Chain Optimization/03. RFP Responses/SAP Response/Appendix D - Draft Katz mySAP Appendix A w Exhibit A Sep5'03.doc.md",
+    "method": "textutil",
+    "status": "ok",
+    "error": null,
+    "extracted_at": "2026-04-24T21:43:06.939025+00:00"
+  },
+  {
+    "source_path": "/Users/gclyle/GrowDirect/Brain/raw/inbox/Katz/Phase II/03 - System Selection & Supply Chain Optimization/03. RFP Responses/SAP Response/Appendix E - Boots.pdf",
+    "source_sha256": "9eec7ad3bfcb86bd048af050c14cffe7709c662b8107b4b4b46182c337669013",
+    "target_path": "/Users/gclyle/GrowDirect/Brain/raw/.extract/Katz/Phase II/03 - System Selection & Supply Chain Optimization/03. RFP Responses/SAP Response/Appendix E - Boots.pdf.md",
+    "method": "markitdown",
+    "status": "ok",
+    "error": null,
+    "extracted_at": "2026-04-24T21:43:07.016382+00:00"
+  },
+  {
+    "source_path": "/Users/gclyle/GrowDirect/Brain/raw/inbox/Katz/Phase II/03 - System Selection & Supply Chain Optimization/03. RFP Responses/SAP Response/Appendix E - Spar.pdf",
+    "source_sha256": "96bea086ea565c16693564984e4061bc7a4d66ed5466fbec081b8d35892de6c0",
+    "target_path": "/Users/gclyle/GrowDirect/Brain/raw/.extract/Katz/Phase II/03 - System Selection & Supply Chain Optimization/03. RFP Responses/SAP Response/Appendix E - Spar.pdf.md",
+    "method": "markitdown",
+    "status": "ok",
+    "error": null,
+    "extracted_at": "2026-04-24T21:43:07.209024+00:00"
+  },
+  {
+    "source_path": "/Users/gclyle/GrowDirect/Brain/raw/inbox/Katz/Phase II/03 - System Selection & Supply Chain Optimization/03. RFP Responses/SAP Response/Appendix E J Crew.pdf",
+    "source_sha256": "32c3252308f31ca2652131f1d3163e4df2bc6824989297c50650dba734129d48",
+    "target_path": "/Users/gclyle/GrowDirect/Brain/raw/.extract/Katz/Phase II/03 - System Selection & Supply Chain Optimization/03. RFP Responses/SAP Response/Appendix E J Crew.pdf.md",
+    "method": "markitdown",
+    "status": "ok",
+    "error": null,
+    "extracted_at": "2026-04-24T21:43:07.367831+00:00"
+  },
+  {
+    "source_path": "/Users/gclyle/GrowDirect/Brain/raw/inbox/Katz/Phase II/03 - System Selection & Supply Chain Optimization/03. RFP Responses/SAP Response/Appendix E StaffW.pdf",
+    "source_sha256": "d60baaa65413d0b84317bf2e5288bec4dda488f7676f5e5ed0a9bc8092bedaaf",
+    "target_path": "/Users/gclyle/GrowDirect/Brain/raw/.extract/Katz/Phase II/03 - System Selection & Supply Chain Optimization/03. RFP Responses/SAP Response/Appendix E StaffW.pdf.md",
+    "method": "markitdown",
+    "status": "ok",
+    "error": null,
+    "extracted_at": "2026-04-24T21:43:07.936036+00:00"
+  },
+  {
+    "source_path": "/Users/gclyle/GrowDirect/Brain/raw/inbox/Katz/Phase II/03 - System Selection & Supply Chain Optimization/03. RFP Responses/SAP Response/Appendix E_f Workforce Management.pdf",
+    "source_sha256": "a95595b1e00d41aa9ed309626a5572e42b3831cc79cb115c81f5379a996d9213",
+    "target_path": "/Users/gclyle/GrowDirect/Brain/raw/.extract/Katz/Phase II/03 - System Selection & Supply Chain Optimization/03. RFP Responses/SAP Response/Appendix E_f Workforce Management.pdf.md",
+    "method": "markitdown",
+    "status": "ok",
+    "error": null,
+    "extracted_at": "2026-04-24T21:43:08.142667+00:00"
+  },
+  {
+    "source_path": "/Users/gclyle/GrowDirect/Brain/raw/inbox/Katz/Phase II/03 - System Selection & Supply Chain Optimization/03. RFP Responses/SAP Response/Appendix F - MCR.pdf",
+    "source_sha256": "a7c9539f9ca3235694f7b8d7eeb38529b7885364ec09251de5821f9d2fe9b94f",
+    "target_path": "/Users/gclyle/GrowDirect/Brain/raw/.extract/Katz/Phase II/03 - System Selection & Supply Chain Optimization/03. RFP Responses/SAP Response/Appendix F - MCR.pdf.md",
+    "method": "markitdown",
+    "status": "ok",
+    "error": null,
+    "extracted_at": "2026-04-24T21:43:08.455231+00:00"
+  },
+  {
+    "source_path": "/Users/gclyle/GrowDirect/Brain/raw/inbox/Katz/Phase II/03 - System Selection & Supply Chain Optimization/03. RFP Responses/SAP Response/Appendix F - POS_Data_Mana.pdf",
+    "source_sha256": "bc3f085339ff7c927cdfc0e1795c16618961825a81f33e0a1e55cdb6e06a3533",
+    "target_path": "/Users/gclyle/GrowDirect/Brain/raw/.extract/Katz/Phase II/03 - System Selection & Supply Chain Optimization/03. RFP Responses/SAP Response/Appendix F - POS_Data_Mana.pdf.md",
+    "method": "markitdown",
+    "status": "ok",
+    "error": null,
+    "extracted_at": "2026-04-24T21:43:09.331747+00:00"
+  },
+  {
+    "source_path": "/Users/gclyle/GrowDirect/Brain/raw/inbox/Katz/Phase II/03 - System Selection & Supply Chain Optimization/03. RFP Responses/SAP Response/Appendix F - Supply Chain.pdf",
+    "source_sha256": "7e9a287f369b4a048c0df2ce09e137fe3b56ab45e02ac11a66de4765e7df1d42",
+    "target_path": "/Users/gclyle/GrowDirect/Brain/raw/.extract/Katz/Phase II/03 - System Selection & Supply Chain Optimization/03. RFP Responses/SAP Response/Appendix F - Supply Chain.pdf.md",
+    "method": "markitdown",
+    "status": "ok",
+    "error": null,
+    "extracted_at": "2026-04-24T21:43:09.460624+00:00"
+  },
+  {
+    "source_path": "/Users/gclyle/GrowDirect/Brain/raw/inbox/Katz/Phase II/03 - System Selection & Supply Chain Optimization/03. RFP Responses/SAP Response/Appendix F EH&S.pdf",
+    "source_sha256": "c111448707eff5b8adc2c2baddfe7f83a821c3e1255fa86bac8d906469ea619b",
+    "target_path": "/Users/gclyle/GrowDirect/Brain/raw/.extract/Katz/Phase II/03 - System Selection & Supply Chain Optimization/03. RFP Responses/SAP Response/Appendix F EH&S.pdf.md",
+    "method": "markitdown",
+    "status": "ok",
+    "error": null,
+    "extracted_at": "2026-04-24T21:43:09.762845+00:00"
+  },
+  {
+    "source_path": "/Users/gclyle/GrowDirect/Brain/raw/inbox/Katz/Phase II/03 - System Selection & Supply Chain Optimization/03. RFP Responses/SAP Response/Appendix F Real Estate.pdf",
+    "source_sha256": "86783f747786f41e99a4ee3d18b93e3d5b417365bc5dc943cd7d1e66a3985ec8",
+    "target_path": "/Users/gclyle/GrowDirect/Brain/raw/.extract/Katz/Phase II/03 - System Selection & Supply Chain Optimization/03. RFP Responses/SAP Response/Appendix F Real Estate.pdf.md",
+    "method": "markitdown",
+    "status": "ok",
+    "error": null,
+    "extracted_at": "2026-04-24T21:43:09.985289+00:00"
+  },
+  {
+    "source_path": "/Users/gclyle/GrowDirect/Brain/raw/inbox/Katz/Phase II/03 - System Selection & Supply Chain Optimization/03. RFP Responses/SAP Response/Appendix F asset management.pdf",
+    "source_sha256": "68a26a1235eb79a7fa0e2942304bc2cfe7bee1cadca408899e0ef37c8bba65e3",
+    "target_path": "/Users/gclyle/GrowDirect/Brain/raw/.extract/Katz/Phase II/03 - System Selection & Supply Chain Optimization/03. RFP Responses/SAP Response/Appendix F asset management.pdf.md",
+    "method": "markitdown",
+    "status": "ok",
+    "error": null,
+    "extracted_at": "2026-04-24T21:43:10.199782+00:00"
+  },
+  {
+    "source_path": "/Users/gclyle/GrowDirect/Brain/raw/inbox/Katz/Phase II/03 - System Selection & Supply Chain Optimization/03. RFP Responses/SAP Response/Appendix F- Analytical retail.pdf",
+    "source_sha256": "05b5407cee82b0c9b0681cb64ec04c0ed7285be68ee64c63852497a18e7e59c3",
+    "target_path": "/Users/gclyle/GrowDirect/Brain/raw/.extract/Katz/Phase II/03 - System Selection & Supply Chain Optimization/03. RFP Responses/SAP Response/Appendix F- Analytical retail.pdf.md",
+    "method": "markitdown",
+    "status": "ok",
+    "error": null,
+    "extracted_at": "2026-04-24T21:43:10.364737+00:00"
+  },
+  {
+    "source_path": "/Users/gclyle/GrowDirect/Brain/raw/inbox/Katz/Phase II/03 - System Selection & Supply Chain Optimization/03. RFP Responses/SAP Response/Final Cover Letter.doc",
+    "source_sha256": "168a55bf5225d395815cf240cd86437d2181e3813f9fa0bcd8c38373b1541fd3",
+    "target_path": "/Users/gclyle/GrowDirect/Brain/raw/.extract/Katz/Phase II/03 - System Selection & Supply Chain Optimization/03. RFP Responses/SAP Response/Final Cover Letter.doc.md",
+    "method": "textutil",
+    "status": "ok",
+    "error": null,
+    "extracted_at": "2026-04-24T21:43:10.696922+00:00"
+  },
+  {
+    "source_path": "/Users/gclyle/GrowDirect/Brain/raw/inbox/Katz/Phase II/03 - System Selection & Supply Chain Optimization/03. RFP Responses/SAP Response/Katz - Retail Supply Chain - SAP FINAL.doc",
+    "source_sha256": "1e826b70ed94dc1c1c91707b2dc241f805c3d27243e9ca329bc891d9a0f1408a",
+    "target_path": "/Users/gclyle/GrowDirect/Brain/raw/.extract/Katz/Phase II/03 - System Selection & Supply Chain Optimization/03. RFP Responses/SAP Response/Katz - Retail Supply Chain - SAP FINAL.doc.md",
+    "method": "textutil",
+    "status": "ok",
+    "error": null,
+    "extracted_at": "2026-04-24T21:43:10.765441+00:00"
+  },
+  {
+    "source_path": "/Users/gclyle/GrowDirect/Brain/raw/inbox/Katz/Phase II/03 - System Selection & Supply Chain Optimization/03. RFP Responses/SAP Response/Katz Requirements - SAP FINAL RESPONSE.xls",
+    "source_sha256": "eb1f7d3f6cf824ee73184cf35fc47f5c7cbb21c5fbdec234fbc6076188c8dcb6",
+    "target_path": "/Users/gclyle/GrowDirect/Brain/raw/.extract/Katz/Phase II/03 - System Selection & Supply Chain Optimization/03. RFP Responses/SAP Response/Katz Requirements - SAP FINAL RESPONSE.xls.md",
+    "method": "markitdown",
+    "status": "ok",
+    "error": null,
+    "extracted_at": "2026-04-24T21:43:10.859196+00:00"
+  },
+  {
+    "source_path": "/Users/gclyle/GrowDirect/Brain/raw/inbox/Katz/Phase II/03 - System Selection & Supply Chain Optimization/04. RFP Evaluation/Katz RFP Response Analysis Functional Requirements v7.xls",
+    "source_sha256": "f7b8bfd2a8d41285de108dd21e8ee1a51cfa5f6aa9e48c48626eb433edc22a69",
+    "target_path": "/Users/gclyle/GrowDirect/Brain/raw/.extract/Katz/Phase II/03 - System Selection & Supply Chain Optimization/04. RFP Evaluation/Katz RFP Response Analysis Functional Requirements v7.xls.md",
+    "method": "markitdown",
+    "status": "ok",
+    "error": null,
+    "extracted_at": "2026-04-24T21:43:10.971560+00:00"
+  },
+  {
+    "source_path": "/Users/gclyle/GrowDirect/Brain/raw/inbox/Katz/Phase II/03 - System Selection & Supply Chain Optimization/04. RFP Evaluation/Short-listed Vendors.doc",
+    "source_sha256": "9af83df963fe60939f807a92cb697c7a2ef50fb2c3d0f7451be9c4f3c5055d02",
+    "target_path": "/Users/gclyle/GrowDirect/Brain/raw/.extract/Katz/Phase II/03 - System Selection & Supply Chain Optimization/04. RFP Evaluation/Short-listed Vendors.doc.md",
+    "method": "textutil",
+    "status": "ok",
+    "error": null,
+    "extracted_at": "2026-04-24T21:43:11.432587+00:00"
+  },
+  {
+    "source_path": "/Users/gclyle/GrowDirect/Brain/raw/inbox/Katz/Phase II/03 - System Selection & Supply Chain Optimization/05. Demo Script/Data for Demo Scripts Final.xls",
+    "source_sha256": "d152491a43346e24c35ff3bebf8bd0c6b3f304380235ddbd9d66429826f5c2f9",
+    "target_path": "/Users/gclyle/GrowDirect/Brain/raw/.extract/Katz/Phase II/03 - System Selection & Supply Chain Optimization/05. Demo Script/Data for Demo Scripts Final.xls.md",
+    "method": "markitdown",
+    "status": "ok",
+    "error": null,
+    "extracted_at": "2026-04-24T21:43:11.491187+00:00"
+  },
+  {
+    "source_path": "/Users/gclyle/GrowDirect/Brain/raw/inbox/Katz/Phase II/03 - System Selection & Supply Chain Optimization/05. Demo Script/Katz RSCM Systems Demo Script Score Card Final.doc",
+    "source_sha256": "01862af443ad4ccf54e20f6e175160d987444e0bd55f2a2a464eab66bda70480",
+    "target_path": "/Users/gclyle/GrowDirect/Brain/raw/.extract/Katz/Phase II/03 - System Selection & Supply Chain Optimization/05. Demo Script/Katz RSCM Systems Demo Script Score Card Final.doc.md",
+    "method": "textutil",
+    "status": "ok",
+    "error": null,
+    "extracted_at": "2026-04-24T21:43:12.089909+00:00"
+  },
+  {
+    "source_path": "/Users/gclyle/GrowDirect/Brain/raw/inbox/Katz/Phase II/03 - System Selection & Supply Chain Optimization/06. Demo Script Vendor Materials/JDA Material/2003 Price Management.PPT",
+    "source_sha256": "028262926189a185b17de9bc50ca0e55f4024445a2d994cae2140ecf998fb259",
+    "target_path": "/Users/gclyle/GrowDirect/Brain/raw/.extract/Katz/Phase II/03 - System Selection & Supply Chain Optimization/06. Demo Script Vendor Materials/JDA Material/2003 Price Management.PPT.md",
+    "method": null,
+    "status": "failed",
+    "error": "markitdown: UnsupportedFormatException: Could not convert stream to Markdown. No converter attempted a conversion, suggesting that the filetype is simply not supported.",
+    "extracted_at": "2026-04-24T21:43:12.180872+00:00"
+  },
+  {
+    "source_path": "/Users/gclyle/GrowDirect/Brain/raw/inbox/Katz/Phase II/03 - System Selection & Supply Chain Optimization/06. Demo Script Vendor Materials/JDA Material/Katz - Develop Product Forecasts1.ppt",
+    "source_sha256": "fd6f5ab666734552a8c09e150453e1957949656dd6d71d9602dd3ececf16c5de",
+    "target_path": "/Users/gclyle/GrowDirect/Brain/raw/.extract/Katz/Phase II/03 - System Selection & Supply Chain Optimization/06. Demo Script Vendor Materials/JDA Material/Katz - Develop Product Forecasts1.ppt.md",
+    "method": null,
+    "status": "failed",
+    "error": "markitdown: UnsupportedFormatException: Could not convert stream to Markdown. No converter attempted a conversion, suggesting that the filetype is simply not supported.",
+    "extracted_at": "2026-04-24T21:43:12.192075+00:00"
+  },
+  {
+    "source_path": "/Users/gclyle/GrowDirect/Brain/raw/inbox/Katz/Phase II/03 - System Selection & Supply Chain Optimization/06. Demo Script Vendor Materials/JDA Material/Katz General Setup.PPT",
+    "source_sha256": "091b97dba2fad37056198c560f9164c45d93f720a77f09295d25bbaa3eaea07a",
+    "target_path": "/Users/gclyle/GrowDirect/Brain/raw/.extract/Katz/Phase II/03 - System Selection & Supply Chain Optimization/06. Demo Script Vendor Materials/JDA Material/Katz General Setup.PPT.md",
+    "method": null,
+    "status": "failed",
+    "error": "markitdown: UnsupportedFormatException: Could not convert stream to Markdown. No converter attempted a conversion, suggesting that the filetype is simply not supported.",
+    "extracted_at": "2026-04-24T21:43:12.199660+00:00"
+  },
+  {
+    "source_path": "/Users/gclyle/GrowDirect/Brain/raw/inbox/Katz/Phase II/03 - System Selection & Supply Chain Optimization/06. Demo Script Vendor Materials/JDA Material/PKTMP000.ppt",
+    "source_sha256": "9dd89081dca8e0d3415e4030c883a90d5eedd7026260c58aae01aa1fce40559b",
+    "target_path": "/Users/gclyle/GrowDirect/Brain/raw/.extract/Katz/Phase II/03 - System Selection & Supply Chain Optimization/06. Demo Script Vendor Materials/JDA Material/PKTMP000.ppt.md",
+    "method": null,
+    "status": "failed",
+    "error": "markitdown: UnsupportedFormatException: Could not convert stream to Markdown. No converter attempted a conversion, suggesting that the filetype is simply not supported.",
+    "extracted_at": "2026-04-24T21:43:12.208961+00:00"
+  },
+  {
+    "source_path": "/Users/gclyle/GrowDirect/Brain/raw/inbox/Katz/Phase II/03 - System Selection & Supply Chain Optimization/06. Demo Script Vendor Materials/JDA Material/Remote Deployment Options.ppt",
+    "source_sha256": "0f79f1d50306db8e3beb75c62133e9076e532b8506a743c9a56b7fe7be4963ce",
+    "target_path": "/Users/gclyle/GrowDirect/Brain/raw/.extract/Katz/Phase II/03 - System Selection & Supply Chain Optimization/06. Demo Script Vendor Materials/JDA Material/Remote Deployment Options.ppt.md",
+    "method": null,
+    "status": "failed",
+    "error": "markitdown: UnsupportedFormatException: Could not convert stream to Markdown. No converter attempted a conversion, suggesting that the filetype is simply not supported.",
+    "extracted_at": "2026-04-24T21:43:12.216681+00:00"
+  },
+  {
+    "source_path": "/Users/gclyle/GrowDirect/Brain/raw/inbox/Katz/Phase II/03 - System Selection & Supply Chain Optimization/06. Demo Script Vendor Materials/JDA Material/katz conclusion Oct 2003 ravi.ppt",
+    "source_sha256": "d8a51212ef502102a674870f7dca63671841eec295528d0ac6332ac630f921c3",
+    "target_path": "/Users/gclyle/GrowDirect/Brain/raw/.extract/Katz/Phase II/03 - System Selection & Supply Chain Optimization/06. Demo Script Vendor Materials/JDA Material/katz conclusion Oct 2003 ravi.ppt.md",
+    "method": null,
+    "status": "failed",
+    "error": "markitdown: UnsupportedFormatException: Could not convert stream to Markdown. No converter attempted a conversion, suggesting that the filetype is simply not supported.",
+    "extracted_at": "2026-04-24T21:43:12.226437+00:00"
+  },
+  {
+    "source_path": "/Users/gclyle/GrowDirect/Brain/raw/inbox/Katz/Phase II/03 - System Selection & Supply Chain Optimization/06. Demo Script Vendor Materials/JDA Material/katz introduction Oct 2003 ravi.ppt",
+    "source_sha256": "c17cbef4e3d823a8b2c61bc1f69a85ad12a0fbafcd82626f59fe845add5f488f",
+    "target_path": "/Users/gclyle/GrowDirect/Brain/raw/.extract/Katz/Phase II/03 - System Selection & Supply Chain Optimization/06. Demo Script Vendor Materials/JDA Material/katz introduction Oct 2003 ravi.ppt.md",
+    "method": null,
+    "status": "failed",
+    "error": "markitdown: UnsupportedFormatException: Could not convert stream to Markdown. No converter attempted a conversion, suggesting that the filetype is simply not supported.",
+    "extracted_at": "2026-04-24T21:43:12.236169+00:00"
+  },
+  {
+    "source_path": "/Users/gclyle/GrowDirect/Brain/raw/inbox/Katz/Phase II/03 - System Selection & Supply Chain Optimization/06. Demo Script Vendor Materials/SAP Material/Katz_Exec_Pres_V_5[1] SAP.ppt",
+    "source_sha256": "e516a8d872c1043bdd8cc0df231f0823e171dcc8d8de67553debaba4feee1aff",
+    "target_path": "/Users/gclyle/GrowDirect/Brain/raw/.extract/Katz/Phase II/03 - System Selection & Supply Chain Optimization/06. Demo Script Vendor Materials/SAP Material/Katz_Exec_Pres_V_5[1] SAP.ppt.md",
+    "method": null,
+    "status": "failed",
+    "error": "markitdown: UnsupportedFormatException: Could not convert stream to Markdown. No converter attempted a conversion, suggesting that the filetype is simply not supported.",
+    "extracted_at": "2026-04-24T21:43:12.252954+00:00"
+  },
+  {
+    "source_path": "/Users/gclyle/GrowDirect/Brain/raw/inbox/Katz/Phase II/03 - System Selection & Supply Chain Optimization/07. Demo Script Evaluation/Demo Summary v4.doc",
+    "source_sha256": "d830b15d7cd2091a11649125af286e79c3dc6c8e58667d004cecdaee2dca7195",
+    "target_path": "/Users/gclyle/GrowDirect/Brain/raw/.extract/Katz/Phase II/03 - System Selection & Supply Chain Optimization/07. Demo Script Evaluation/Demo Summary v4.doc.md",
+    "method": "textutil",
+    "status": "ok",
+    "error": null,
+    "extracted_at": "2026-04-24T21:43:12.262536+00:00"
+  },
+  {
+    "source_path": "/Users/gclyle/GrowDirect/Brain/raw/inbox/Katz/Phase II/03 - System Selection & Supply Chain Optimization/07. Demo Script Evaluation/Katz Demo Scripts Scorecard - JDA v4.xls",
+    "source_sha256": "e3ce07347ee9b6e2eee813e383fe6e67638478419ee1c4b4949e04f4f5e24a02",
+    "target_path": "/Users/gclyle/GrowDirect/Brain/raw/.extract/Katz/Phase II/03 - System Selection & Supply Chain Optimization/07. Demo Script Evaluation/Katz Demo Scripts Scorecard - JDA v4.xls.md",
+    "method": "markitdown",
+    "status": "ok",
+    "error": null,
+    "extracted_at": "2026-04-24T21:43:12.329734+00:00"
+  },
+  {
+    "source_path": "/Users/gclyle/GrowDirect/Brain/raw/inbox/Katz/Phase II/03 - System Selection & Supply Chain Optimization/07. Demo Script Evaluation/Katz Demo Scripts Scorecard - SAP v5.xls",
+    "source_sha256": "fb60278721f6df09523ca5eefef8398021c4485c38cb88f6ae41ad5695e1d542",
+    "target_path": "/Users/gclyle/GrowDirect/Brain/raw/.extract/Katz/Phase II/03 - System Selection & Supply Chain Optimization/07. Demo Script Evaluation/Katz Demo Scripts Scorecard - SAP v5.xls.md",
+    "method": "markitdown",
+    "status": "ok",
+    "error": null,
+    "extracted_at": "2026-04-24T21:43:12.650385+00:00"
+  },
+  {
+    "source_path": "/Users/gclyle/GrowDirect/Brain/raw/inbox/Katz/Phase II/03 - System Selection & Supply Chain Optimization/08. Gartner Information/Gartner - SAP Plans to Mine More Revenue From Its Instal#256.pdf",
+    "source_sha256": "15ff8f1aacb976c72f5c1924a22c55b8da7c4deb49d23335729db47022099bf2",
+    "target_path": "/Users/gclyle/GrowDirect/Brain/raw/.extract/Katz/Phase II/03 - System Selection & Supply Chain Optimization/08. Gartner Information/Gartner - SAP Plans to Mine More Revenue From Its Instal#256.pdf.md",
+    "method": "markitdown",
+    "status": "ok",
+    "error": null,
+    "extracted_at": "2026-04-24T21:43:13.008731+00:00"
+  },
+  {
+    "source_path": "/Users/gclyle/GrowDirect/Brain/raw/inbox/Katz/Phase II/03 - System Selection & Supply Chain Optimization/08. Gartner Information/Gartner - Top 10 Questions on SAP for Retail.pdf",
+    "source_sha256": "10c4c1ac6ea6983df64b7151137b5eebf782ab2d46ee42cd8c64d440ef7fcc01",
+    "target_path": "/Users/gclyle/GrowDirect/Brain/raw/.extract/Katz/Phase II/03 - System Selection & Supply Chain Optimization/08. Gartner Information/Gartner - Top 10 Questions on SAP for Retail.pdf.md",
+    "method": "markitdown",
+    "status": "ok",
+    "error": null,
+    "extracted_at": "2026-04-24T21:43:13.359125+00:00"
+  },
+  {
+    "source_path": "/Users/gclyle/GrowDirect/Brain/raw/inbox/Katz/Phase II/03 - System Selection & Supply Chain Optimization/08. Gartner Information/Gartner - Vendor Rating JDA Software Group.pdf",
+    "source_sha256": "bd9f6f4a7d66fa2bf0a53650a079d9fe9782402c9089fdbfce54fa143f1b6b05",
+    "target_path": "/Users/gclyle/GrowDirect/Brain/raw/.extract/Katz/Phase II/03 - System Selection & Supply Chain Optimization/08. Gartner Information/Gartner - Vendor Rating JDA Software Group.pdf.md",
+    "method": "markitdown",
+    "status": "ok",
+    "error": null,
+    "extracted_at": "2026-04-24T21:43:13.642225+00:00"
+  },
+  {
+    "source_path": "/Users/gclyle/GrowDirect/Brain/raw/inbox/Katz/Phase II/03 - System Selection & Supply Chain Optimization/08. Gartner Information/Gartner - Vendor Rating Retek.pdf",
+    "source_sha256": "010688dc55626370dcc6d54730349325be65e65170474f325a924d68d1b052b9",
+    "target_path": "/Users/gclyle/GrowDirect/Brain/raw/.extract/Katz/Phase II/03 - System Selection & Supply Chain Optimization/08. Gartner Information/Gartner - Vendor Rating Retek.pdf.md",
+    "method": "markitdown",
+    "status": "ok",
+    "error": null,
+    "extracted_at": "2026-04-24T21:43:14.144256+00:00"
+  },
+  {
+    "source_path": "/Users/gclyle/GrowDirect/Brain/raw/inbox/Katz/Phase II/03 - System Selection & Supply Chain Optimization/08. Gartner Information/Gartner Conference Call.doc",
+    "source_sha256": "e60200536f9250d0b7d48f13bc9483ecb7bb8523e386f8e716cc5f364cdaaada",
+    "target_path": "/Users/gclyle/GrowDirect/Brain/raw/.extract/Katz/Phase II/03 - System Selection & Supply Chain Optimization/08. Gartner Information/Gartner Conference Call.doc.md",
+    "method": "textutil",
+    "status": "ok",
+    "error": null,
+    "extracted_at": "2026-04-24T21:43:14.774506+00:00"
+  },
+  {
+    "source_path": "/Users/gclyle/GrowDirect/Brain/raw/inbox/Katz/Phase II/03 - System Selection & Supply Chain Optimization/08. Gartner Information/Gartner's View on JDA and SAP v2.doc",
+    "source_sha256": "29c374bd6bd49a17ae52299c3bfd27ec3d96dba910ce68e81be262bf98b5dbd0",
+    "target_path": "/Users/gclyle/GrowDirect/Brain/raw/.extract/Katz/Phase II/03 - System Selection & Supply Chain Optimization/08. Gartner Information/Gartner's View on JDA and SAP v2.doc.md",
+    "method": "textutil",
+    "status": "ok",
+    "error": null,
+    "extracted_at": "2026-04-24T21:43:14.838487+00:00"
+  },
+  {
+    "source_path": "/Users/gclyle/GrowDirect/Brain/raw/inbox/Katz/Phase II/03 - System Selection & Supply Chain Optimization/09. Reference Checks/Boots conference call notes.doc",
+    "source_sha256": "f9c2fe593803f9e49c4f84d85460f6224c79064c6c4ad31eef9ee91da2be3add",
+    "target_path": "/Users/gclyle/GrowDirect/Brain/raw/.extract/Katz/Phase II/03 - System Selection & Supply Chain Optimization/09. Reference Checks/Boots conference call notes.doc.md",
+    "method": "textutil",
+    "status": "ok",
+    "error": null,
+    "extracted_at": "2026-04-24T21:43:14.901102+00:00"
+  },
+  {
+    "source_path": "/Users/gclyle/GrowDirect/Brain/raw/inbox/Katz/Phase II/03 - System Selection & Supply Chain Optimization/09. Reference Checks/CVS Reference Check.doc",
+    "source_sha256": "91092e0c5185ae9b501e90deda36479d90685b9fe89bae433a28fb386be66ab1",
+    "target_path": "/Users/gclyle/GrowDirect/Brain/raw/.extract/Katz/Phase II/03 - System Selection & Supply Chain Optimization/09. Reference Checks/CVS Reference Check.doc.md",
+    "method": "textutil",
+    "status": "ok",
+    "error": null,
+    "extracted_at": "2026-04-24T21:43:14.963306+00:00"
+  },
+  {
+    "source_path": "/Users/gclyle/GrowDirect/Brain/raw/inbox/Katz/Phase II/03 - System Selection & Supply Chain Optimization/09. Reference Checks/Forzani Reference Call.doc",
+    "source_sha256": "88610a58fefa14413fa3d2d15c81970aaaaf0b68a9486de0f4cd23ca622b2922",
+    "target_path": "/Users/gclyle/GrowDirect/Brain/raw/.extract/Katz/Phase II/03 - System Selection & Supply Chain Optimization/09. Reference Checks/Forzani Reference Call.doc.md",
+    "method": "textutil",
+    "status": "ok",
+    "error": null,
+    "extracted_at": "2026-04-24T21:43:15.021147+00:00"
+  },
+  {
+    "source_path": "/Users/gclyle/GrowDirect/Brain/raw/inbox/Katz/Phase II/03 - System Selection & Supply Chain Optimization/09. Reference Checks/HE Butt Reference Check.doc",
+    "source_sha256": "1b103711dba7b7fd710dda361f4567064ab8a50e0a7b84612ffcbeaa6c15a236",
+    "target_path": "/Users/gclyle/GrowDirect/Brain/raw/.extract/Katz/Phase II/03 - System Selection & Supply Chain Optimization/09. Reference Checks/HE Butt Reference Check.doc.md",
+    "method": "textutil",
+    "status": "ok",
+    "error": null,
+    "extracted_at": "2026-04-24T21:43:15.075431+00:00"
+  },
+  {
+    "source_path": "/Users/gclyle/GrowDirect/Brain/raw/inbox/Katz/Phase II/03 - System Selection & Supply Chain Optimization/09. Reference Checks/Sobeys Reference Check.doc",
+    "source_sha256": "362ff8600dd5769acaf5e8a1a4fcec5b7e64f0204ff3a057b146d1f0d6fe18d3",
+    "target_path": "/Users/gclyle/GrowDirect/Brain/raw/.extract/Katz/Phase II/03 - System Selection & Supply Chain Optimization/09. Reference Checks/Sobeys Reference Check.doc.md",
+    "method": "textutil",
+    "status": "ok",
+    "error": null,
+    "extracted_at": "2026-04-24T21:43:15.131756+00:00"
+  },
+  {
+    "source_path": "/Users/gclyle/GrowDirect/Brain/raw/inbox/Katz/Phase II/03 - System Selection & Supply Chain Optimization/09. Reference Checks/Tractor Supply Reference Check.doc",
+    "source_sha256": "59aea03dd8643329a0066052720dfceaa18977ac9e9585ca0321e7c9a930f4e0",
+    "target_path": "/Users/gclyle/GrowDirect/Brain/raw/.extract/Katz/Phase II/03 - System Selection & Supply Chain Optimization/09. Reference Checks/Tractor Supply Reference Check.doc.md",
+    "method": "textutil",
+    "status": "ok",
+    "error": null,
+    "extracted_at": "2026-04-24T21:43:15.187200+00:00"
+  },
+  {
+    "source_path": "/Users/gclyle/GrowDirect/Brain/raw/inbox/Katz/Phase II/04 - Supporting  IT Architecture/Current Assessment  & Opportunities V3.4  Revised 08022003.xls",
+    "source_sha256": "0d146c6f908c474e1842595f2d9dbb862a2b3b0e6a854108c6f043aaa8ef6d2e",
+    "target_path": "/Users/gclyle/GrowDirect/Brain/raw/.extract/Katz/Phase II/04 - Supporting  IT Architecture/Current Assessment  & Opportunities V3.4  Revised 08022003.xls.md",
+    "method": "markitdown",
+    "status": "ok",
+    "error": null,
+    "extracted_at": "2026-04-24T21:43:15.270376+00:00"
+  },
+  {
+    "source_path": "/Users/gclyle/GrowDirect/Brain/raw/inbox/Katz/Phase II/04 - Supporting  IT Architecture/Katz Architecture 082603.ppt",
+    "source_sha256": "ae5ab0d9bd70ce1163ff6bc0e8672cbcccb03e282c0998a14ffe92884444b4d8",
+    "target_path": "/Users/gclyle/GrowDirect/Brain/raw/.extract/Katz/Phase II/04 - Supporting  IT Architecture/Katz Architecture 082603.ppt.md",
+    "method": null,
+    "status": "failed",
+    "error": "markitdown: UnsupportedFormatException: Could not convert stream to Markdown. No converter attempted a conversion, suggesting that the filetype is simply not supported.",
+    "extracted_at": "2026-04-24T21:43:15.322380+00:00"
+  },
+  {
+    "source_path": "/Users/gclyle/GrowDirect/Brain/raw/inbox/Katz/Phase II/04 - Supporting  IT Architecture/Katz Architecture 091503 HL.ppt",
+    "source_sha256": "bc26305d54d3e779407ffc8f47092435f9e420de61a3dc24f695242a227096af",
+    "target_path": "/Users/gclyle/GrowDirect/Brain/raw/.extract/Katz/Phase II/04 - Supporting  IT Architecture/Katz Architecture 091503 HL.ppt.md",
+    "method": null,
+    "status": "failed",
+    "error": "markitdown: UnsupportedFormatException: Could not convert stream to Markdown. No converter attempted a conversion, suggesting that the filetype is simply not supported.",
+    "extracted_at": "2026-04-24T21:43:15.344052+00:00"
+  },
+  {
+    "source_path": "/Users/gclyle/GrowDirect/Brain/raw/inbox/Katz/Phase II/04 - Supporting  IT Architecture/Katz Current Applications Assessment.xls",
+    "source_sha256": "1d2d225b3bfcfb9939d5cf0e4806c64cb61c52751a2aaaddf99008d9e3b496c4",
+    "target_path": "/Users/gclyle/GrowDirect/Brain/raw/.extract/Katz/Phase II/04 - Supporting  IT Architecture/Katz Current Applications Assessment.xls.md",
+    "method": "markitdown",
+    "status": "ok",
+    "error": null,
+    "extracted_at": "2026-04-24T21:43:15.359411+00:00"
+  },
+  {
+    "source_path": "/Users/gclyle/GrowDirect/Brain/raw/inbox/Katz/Phase II/04 - Supporting  IT Architecture/Katz High Level Architecture.ppt",
+    "source_sha256": "96f87226485bdc6341d18389507159dd82fb38dbf5990dacdf3c3967c4a2aef8",
+    "target_path": "/Users/gclyle/GrowDirect/Brain/raw/.extract/Katz/Phase II/04 - Supporting  IT Architecture/Katz High Level Architecture.ppt.md",
+    "method": null,
+    "status": "failed",
+    "error": "markitdown: UnsupportedFormatException: Could not convert stream to Markdown. No converter attempted a conversion, suggesting that the filetype is simply not supported.",
+    "extracted_at": "2026-04-24T21:43:15.389189+00:00"
+  },
+  {
+    "source_path": "/Users/gclyle/GrowDirect/Brain/raw/inbox/Katz/Phase II/05 - Organization Alignment & Change Management/CM Roles and Resp v.3.ppt",
+    "source_sha256": "4264ca5c6e697a2ee22724a910004f2c836dbc5674c87d421adbca4d5430c7fb",
+    "target_path": "/Users/gclyle/GrowDirect/Brain/raw/.extract/Katz/Phase II/05 - Organization Alignment & Change Management/CM Roles and Resp v.3.ppt.md",
+    "method": null,
+    "status": "failed",
+    "error": "markitdown: UnsupportedFormatException: Could not convert stream to Markdown. No converter attempted a conversion, suggesting that the filetype is simply not supported.",
+    "extracted_at": "2026-04-24T21:43:15.400751+00:00"
+  },
+  {
+    "source_path": "/Users/gclyle/GrowDirect/Brain/raw/inbox/Katz/Phase II/05 - Organization Alignment & Change Management/Casper II CM Final.ppt",
+    "source_sha256": "4cfb80ef6b40e9bc6b879aa1a2dcc0f44df80317809d529e1a6ed83420dd6d4e",
+    "target_path": "/Users/gclyle/GrowDirect/Brain/raw/.extract/Katz/Phase II/05 - Organization Alignment & Change Management/Casper II CM Final.ppt.md",
+    "method": null,
+    "status": "failed",
+    "error": "markitdown: UnsupportedFormatException: Could not convert stream to Markdown. No converter attempted a conversion, suggesting that the filetype is simply not supported.",
+    "extracted_at": "2026-04-24T21:43:15.410289+00:00"
+  },
+  {
+    "source_path": "/Users/gclyle/GrowDirect/Brain/raw/inbox/Katz/Phase II/05 - Organization Alignment & Change Management/Comm Plan Casper Phase IIv4.xls",
+    "source_sha256": "de1d7e85517acfc624fef9b6cf593076b3964a9a5238dc659ccff746eb7f1435",
+    "target_path": "/Users/gclyle/GrowDirect/Brain/raw/.extract/Katz/Phase II/05 - Organization Alignment & Change Management/Comm Plan Casper Phase IIv4.xls.md",
+    "method": "markitdown",
+    "status": "ok",
+    "error": null,
+    "extracted_at": "2026-04-24T21:43:15.449625+00:00"
+  },
+  {
+    "source_path": "/Users/gclyle/GrowDirect/Brain/raw/inbox/Katz/Phase II/05 - Organization Alignment & Change Management/Communication Plan Development for Katzv2.doc",
+    "source_sha256": "5a11982700fa9fabc0546e2091aff8f8325a43f5ec3abda312fecc83c5b08496",
+    "target_path": "/Users/gclyle/GrowDirect/Brain/raw/.extract/Katz/Phase II/05 - Organization Alignment & Change Management/Communication Plan Development for Katzv2.doc.md",
+    "method": "textutil",
+    "status": "ok",
+    "error": null,
+    "extracted_at": "2026-04-24T21:43:15.471759+00:00"
+  },
+  {
+    "source_path": "/Users/gclyle/GrowDirect/Brain/raw/inbox/Katz/Phase II/05 - Organization Alignment & Change Management/Mgt System v4.ppt",
+    "source_sha256": "fccfdee6f760f142cb40f633c1d3d4e1e4340904e9550efb3ea60ae18b3d5224",
+    "target_path": "/Users/gclyle/GrowDirect/Brain/raw/.extract/Katz/Phase II/05 - Organization Alignment & Change Management/Mgt System v4.ppt.md",
+    "method": null,
+    "status": "failed",
+    "error": "markitdown: UnsupportedFormatException: Could not convert stream to Markdown. No converter attempted a conversion, suggesting that the filetype is simply not supported.",
+    "extracted_at": "2026-04-24T21:43:15.556218+00:00"
+  },
+  {
+    "source_path": "/Users/gclyle/GrowDirect/Brain/raw/inbox/Katz/Phase II/05 - Organization Alignment & Change Management/Organization Designv6.ppt",
+    "source_sha256": "011ca70ff2ac97e1532c21df6444ec4c3f85976462d5fdbbed05114b6a0b4536",
+    "target_path": "/Users/gclyle/GrowDirect/Brain/raw/.extract/Katz/Phase II/05 - Organization Alignment & Change Management/Organization Designv6.ppt.md",
+    "method": null,
+    "status": "failed",
+    "error": "markitdown: UnsupportedFormatException: Could not convert stream to Markdown. No converter attempted a conversion, suggesting that the filetype is simply not supported.",
+    "extracted_at": "2026-04-24T21:43:15.570202+00:00"
+  },
+  {
+    "source_path": "/Users/gclyle/GrowDirect/Brain/raw/inbox/Katz/Phase II/05 - Organization Alignment & Change Management/Training Strategy v3.ppt",
+    "source_sha256": "583be1af3e247c4db40175b5c97e1ede55c9e3837a9063f89f8a29bac9103b6b",
+    "target_path": "/Users/gclyle/GrowDirect/Brain/raw/.extract/Katz/Phase II/05 - Organization Alignment & Change Management/Training Strategy v3.ppt.md",
+    "method": null,
+    "status": "failed",
+    "error": "markitdown: UnsupportedFormatException: Could not convert stream to Markdown. No converter attempted a conversion, suggesting that the filetype is simply not supported.",
+    "extracted_at": "2026-04-24T21:43:15.582172+00:00"
+  },
+  {
+    "source_path": "/Users/gclyle/GrowDirect/Brain/raw/inbox/Katz/Phase II/06 - Prepare for Implementation/Revised NPV Model v2.xls",
+    "source_sha256": "cc65f5c7c985c0aee37c7668cf750d92b093d05ba4d4a1b452e4cbf25524941c",
+    "target_path": "/Users/gclyle/GrowDirect/Brain/raw/.extract/Katz/Phase II/06 - Prepare for Implementation/Revised NPV Model v2.xls.md",
+    "method": "markitdown",
+    "status": "ok",
+    "error": null,
+    "extracted_at": "2026-04-24T21:43:15.592834+00:00"
+  },
+  {
+    "source_path": "/Users/gclyle/GrowDirect/Brain/raw/inbox/Katz/Phase II/06 - Prepare for Implementation/Supporting RMS IT Infrastructure EF v4.0.ppt",
+    "source_sha256": "35e373a5a144c65089b2bea64fb038a78bea614c12a104996140e76379799c13",
+    "target_path": "/Users/gclyle/GrowDirect/Brain/raw/.extract/Katz/Phase II/06 - Prepare for Implementation/Supporting RMS IT Infrastructure EF v4.0.ppt.md",
+    "method": null,
+    "status": "failed",
+    "error": "markitdown: UnsupportedFormatException: Could not convert stream to Markdown. No converter attempted a conversion, suggesting that the filetype is simply not supported.",
+    "extracted_at": "2026-04-24T21:43:15.623741+00:00"
+  },
+  {
+    "source_path": "/Users/gclyle/GrowDirect/Brain/raw/inbox/Katz/Phase II/07 - Presentations/Katz SCD Kickoff Final.ppt",
+    "source_sha256": "a06757924440c9465d7f28de7638a4977c0b766e28b14dd36fcee73f6b7b048e",
+    "target_path": "/Users/gclyle/GrowDirect/Brain/raw/.extract/Katz/Phase II/07 - Presentations/Katz SCD Kickoff Final.ppt.md",
+    "method": null,
+    "status": "failed",
+    "error": "markitdown: UnsupportedFormatException: Could not convert stream to Markdown. No converter attempted a conversion, suggesting that the filetype is simply not supported.",
+    "extracted_at": "2026-04-24T21:43:15.636762+00:00"
+  },
+  {
+    "source_path": "/Users/gclyle/GrowDirect/Brain/raw/inbox/Katz/Phase II/07 - Presentations/Phase II SC#1 Final.ppt",
+    "source_sha256": "65d39222c5b854154f6fccc5308e1b16566520b4fa08183c75c67edfff330114",
+    "target_path": "/Users/gclyle/GrowDirect/Brain/raw/.extract/Katz/Phase II/07 - Presentations/Phase II SC#1 Final.ppt.md",
+    "method": null,
+    "status": "failed",
+    "error": "markitdown: UnsupportedFormatException: Could not convert stream to Markdown. No converter attempted a conversion, suggesting that the filetype is simply not supported.",
+    "extracted_at": "2026-04-24T21:43:15.653044+00:00"
+  },
+  {
+    "source_path": "/Users/gclyle/GrowDirect/Brain/raw/inbox/Katz/Phase II/07 - Presentations/Phase II SC#2 Final.ppt",
+    "source_sha256": "ffde75f5913c3f7fdbc05e7b20848df388afe2d9ae614efbf8fb08d315f20fd8",
+    "target_path": "/Users/gclyle/GrowDirect/Brain/raw/.extract/Katz/Phase II/07 - Presentations/Phase II SC#2 Final.ppt.md",
+    "method": null,
+    "status": "failed",
+    "error": "markitdown: UnsupportedFormatException: Could not convert stream to Markdown. No converter attempted a conversion, suggesting that the filetype is simply not supported.",
+    "extracted_at": "2026-04-24T21:43:15.667383+00:00"
+  },
+  {
+    "source_path": "/Users/gclyle/GrowDirect/Brain/raw/inbox/Katz/Phase II/07 - Presentations/Phase II SC#3 Final.ppt",
+    "source_sha256": "7e794643b5a13c3b544593ba30324c319b04086693aed0c28c4769798e71835a",
+    "target_path": "/Users/gclyle/GrowDirect/Brain/raw/.extract/Katz/Phase II/07 - Presentations/Phase II SC#3 Final.ppt.md",
+    "method": null,
+    "status": "failed",
+    "error": "markitdown: UnsupportedFormatException: Could not convert stream to Markdown. No converter attempted a conversion, suggesting that the filetype is simply not supported.",
+    "extracted_at": "2026-04-24T21:43:15.682171+00:00"
+  },
+  {
+    "source_path": "/Users/gclyle/GrowDirect/Brain/raw/inbox/Katz/Phase II/07 - Presentations/To Be Workshop Particpants.ppt",
+    "source_sha256": "095790896622e539a63381ea3c3da1869386bf2a4601a29f6d8e1bc1b8d603ec",
+    "target_path": "/Users/gclyle/GrowDirect/Brain/raw/.extract/Katz/Phase II/07 - Presentations/To Be Workshop Particpants.ppt.md",
+    "method": null,
+    "status": "failed",
+    "error": "markitdown: UnsupportedFormatException: Could not convert stream to Markdown. No converter attempted a conversion, suggesting that the filetype is simply not supported.",
+    "extracted_at": "2026-04-24T21:43:15.696576+00:00"
+  },
+  {
+    "source_path": "/Users/gclyle/GrowDirect/Brain/raw/inbox/Katz/Project Casper Documentation Index.doc",
+    "source_sha256": "f25c12525ebf80167ba3a93339dad6ae489b15362e0a6ce253e1b9083d96407f",
+    "target_path": "/Users/gclyle/GrowDirect/Brain/raw/.extract/Katz/Project Casper Documentation Index.doc.md",
+    "method": "textutil",
+    "status": "ok",
+    "error": null,
+    "extracted_at": "2026-04-24T21:43:15.708830+00:00"
+  }
+]

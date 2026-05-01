@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<xs:schema xmlns:xs="http://www.w3.org/2001/XMLSchema" elementFormDefault="qualified" attributeFormDefault="unqualified">
+	<xs:include schemaLocation="IXREnumerationExtensionV1.1.0.xsd"/>
+	<!-- 
+		Address Types 
+	-->
+	<xs:simpleType name="AddressTypeCode">
+		<xs:union memberTypes="AddressTypeCodeEnumeration TypeCodeExtension"/>
+	</xs:simpleType>
+	<xs:simpleType name="AddressTypeCodeEnumeration">
+		<xs:restriction base="xs:NMTOKEN">
+			<xs:enumeration value="Home"/>
+			<xs:enumeration value="Work"/>
+			<xs:enumeration value="Delivery"/>
+			<xs:enumeration value="Pickup"/>
+			<xs:enumeration value="Billing"/>
+			<xs:enumeration value="RetailStore"/>
+			<xs:enumeration value="Warehouse"/>
+			<xs:enumeration value="Administration"/>
+			<xs:enumeration value="Factory"/>
+		</xs:restriction>
+	</xs:simpleType>
+</xs:schema>

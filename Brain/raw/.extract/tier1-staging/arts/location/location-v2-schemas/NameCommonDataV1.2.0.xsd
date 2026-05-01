@@ -1,0 +1,77 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- 
+	Version 1.1.0
+	- Made Salutation and Suffix repeatable
+	 - removed FullName as not in the Data Model
+-->
+<xs:schema xmlns:xs="http://www.w3.org/2001/XMLSchema" elementFormDefault="qualified" attributeFormDefault="unqualified">
+	<xs:include schemaLocation="LocationTypeCodeEnumerationV1.1.0.xsd"/>
+	<xs:include schemaLocation="NameTypeCodeEnumerationV1.1.0.xsd"/>
+	<xs:complexType name="NameCommonData">
+		<xs:sequence>
+			<xs:element name="Salutation" minOccurs="0" maxOccurs="unbounded">
+				<xs:annotation>
+					<xs:documentation>Extra words that don't form part of the person's name but are
+						normally printed before the FirstName as a courtesy title. For instance, Mr.
+						Ms., Miss, Dr., Prof. etc.</xs:documentation>
+				</xs:annotation>
+				<xs:complexType>
+					<xs:simpleContent>
+						<xs:extension base="xs:string">
+							<xs:attribute name="RelativeOrder" type="xs:integer" use="optional"/>
+						</xs:extension>
+					</xs:simpleContent>
+				</xs:complexType>
+			</xs:element>
+			<xs:element name="Name" minOccurs="0" maxOccurs="unbounded">
+				<xs:annotation>
+					<xs:documentation>The individual parts of the name</xs:documentation>
+				</xs:annotation>
+				<xs:complexType>
+					<xs:simpleContent>
+						<xs:extension base="xs:string">
+							<xs:attribute name="Location" type="LocationTypeCode"/>
+							<xs:attribute name="TypeCode" type="NameTypeCode"/>
+							<xs:attribute name="RelativeOrder" type="xs:integer" use="optional"/>
+						</xs:extension>
+					</xs:simpleContent>
+				</xs:complexType>
+			</xs:element>
+			<xs:element name="Suffix" minOccurs="0" maxOccurs="unbounded">
+				<xs:annotation>
+					<xs:documentation>Extra words that don't form part of the person's name but are
+						normally printed after the LastName to help identify the person. Example
+						values include, Sr, Jr, III</xs:documentation>
+				</xs:annotation>
+				<xs:complexType>
+					<xs:simpleContent>
+						<xs:extension base="xs:string">
+							<xs:attribute name="RelativeOrder" type="xs:integer" use="optional"/>
+						</xs:extension>
+					</xs:simpleContent>
+				</xs:complexType>
+			</xs:element>
+			<xs:element name="SortingName" type="xs:string" minOccurs="0">
+				<xs:annotation>
+					<xs:documentation>A culturally sensitive version of the person's name that is
+						used when producing a sorted list of names. Examples: Jones, W S, McGrigor,
+						S F, Tryggvi, T</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="MailingName" type="xs:string" minOccurs="0">
+				<xs:annotation>
+					<xs:documentation>A culturally sensitive version of the person's name that is
+						used when contacting them Examples: Bill Jones, Stuey McGrigor, Trygvi
+						Thordarson</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="OfficialName" type="xs:string" minOccurs="0">
+				<xs:annotation>
+					<xs:documentation>A culturally sensitive version of the person's name that is
+						used for all legal documents. Examples: William Stephen Jones, Stuart Fergus
+						McGrigor, Tryggvi Magnus Thordarson</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+		</xs:sequence>
+	</xs:complexType>
+</xs:schema>

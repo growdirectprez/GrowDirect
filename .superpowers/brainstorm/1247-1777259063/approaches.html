@@ -1,0 +1,71 @@
+<h2>Three approaches for <code>canary.growdirect.io/rapidpos</code></h2>
+<p class="subtitle">Technical audience first — architecture, how RapidPOS works, what you build on it. Pitch deck ("Store of the Future 2030") embedded as a section within.</p>
+
+<div class="options">
+
+  <div class="option" data-choice="a" onclick="toggleSelect(this)">
+    <div class="letter">A</div>
+    <div class="content">
+      <h3>Single-file HTML — Designed Document</h3>
+      <p>One self-contained <code>index.html</code>, like the current Armstrong proposal. Sections scroll top-to-bottom: Overview → Architecture → MCP Endpoints → Integration → Store of the Future 2030. Wiki pages from NCR vault are manually embedded as styled sections. Deploy via <code>gh api PUT</code> — no build step.</p>
+      <div class="pros-cons" style="margin-top:12px">
+        <div class="pros"><h4>Pros</h4><ul>
+          <li>Ship the same day</li>
+          <li>Full design freedom — Claude.ai generates it</li>
+          <li>One file, zero tooling</li>
+        </ul></div>
+        <div class="cons"><h4>Cons</h4><ul>
+          <li>Gets unwieldy past ~2,000 lines</li>
+          <li>Wiki content updates = manual copy-paste</li>
+          <li>No URL-addressable pages for individual topics</li>
+        </ul></div>
+      </div>
+    </div>
+  </div>
+
+  <div class="option" data-choice="b" onclick="toggleSelect(this)">
+    <div class="letter">B</div>
+    <div class="content">
+      <h3>Multi-page Static HTML — GitHub Pages repo</h3>
+      <p>New <code>growdirect-llc/canary</code> repo. Each section is a separate HTML file (<code>index.html</code>, <code>architecture.html</code>, <code>endpoints.html</code>, <code>store-2030.html</code>). Shared CSS + nav component. Wiki pages become their own HTML files, same styles. GitHub Pages serves root at <code>canary.growdirect.io</code>, subpath <code>/rapidpos/</code> served from a subfolder.</p>
+      <div class="pros-cons" style="margin-top:12px">
+        <div class="pros"><h4>Pros</h4><ul>
+          <li>Each page URL-addressable — linkable to specific content</li>
+          <li>Easier to maintain — edit one page at a time</li>
+          <li>Wiki pages feel native, not bolted on</li>
+        </ul></div>
+        <div class="cons"><h4>Cons</h4><ul>
+          <li>More files to keep in sync visually</li>
+          <li>Shared nav/CSS still manual (no build step)</li>
+          <li>Wiki updates still manual</li>
+        </ul></div>
+      </div>
+    </div>
+  </div>
+
+  <div class="option" data-choice="c" onclick="toggleSelect(this)">
+    <div class="letter">C</div>
+    <div class="content">
+      <h3>Quartz v4 Vault — Matches existing infrastructure</h3>
+      <p>New <code>growdirect-llc/canary</code> repo as a Quartz vault, just like NCR / CRB / CATz. Markdown files for every section. GitHub Actions builds and deploys. <code>canary.growdirect.io</code> resolves to it. Wiki content flows directly from Brain exports — same pipeline as other vaults. Add a custom landing page for the RapidPOS pitch section.</p>
+      <div class="pros-cons" style="margin-top:12px">
+        <div class="pros"><h4>Pros</h4><ul>
+          <li>Fits the existing vault pattern — zero new infra</li>
+          <li>Wiki pages are first-class — backlinks, graph, search</li>
+          <li>Markdown = easy content updates from Brain</li>
+        </ul></div>
+        <div class="cons"><h4>Cons</h4><ul>
+          <li>Quartz design is opinionated — pitch deck sections need custom CSS work</li>
+          <li>Store of the Future visual treatment harder to achieve</li>
+          <li>Build step adds deploy latency (~2 min per push)</li>
+        </ul></div>
+      </div>
+    </div>
+  </div>
+
+</div>
+
+<div class="section" style="margin-top:28px; padding:16px; background:rgba(255,255,255,0.06); border-radius:8px; border-left:3px solid var(--accent)">
+  <p class="label">My recommendation</p>
+  <p style="margin-top:6px"><strong>B — Multi-page static HTML.</strong> Gives you URL-addressable sections (linker a CTO to the endpoints page directly), full design control for the Store of the Future section, and a clean separation between proposal pages and wiki pages — all under one consistent stylesheet. Claude.ai generates the initial design; deploy as GitHub Pages. Scale to Quartz later if content volume demands it.</p>
+</div>

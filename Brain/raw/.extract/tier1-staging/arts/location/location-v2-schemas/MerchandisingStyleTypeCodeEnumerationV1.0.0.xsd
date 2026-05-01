@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<xs:schema xmlns:xs="http://www.w3.org/2001/XMLSchema" elementFormDefault="qualified" attributeFormDefault="unqualified">
+	<xs:include schemaLocation="IXREnumerationExtensionV1.1.0.xsd"/>
+	<xs:simpleType name="MerchandisingStyleTypeCodes">
+		<xs:union memberTypes="MerchandisingStyleTypeCodesEnumeration TypeCodeExtension"/>
+	</xs:simpleType>
+	<xs:simpleType name="MerchandisingStyleTypeCodesEnumeration">
+		<xs:restriction base="xs:NMTOKEN">
+		<xs:enumeration value="Unit"/>
+		<xs:enumeration value="Tray"/>
+		<xs:enumeration value="Case"/>
+		<xs:enumeration value="Loose"/>
+		<xs:enumeration value="LogStack"/>
+		</xs:restriction>
+	</xs:simpleType>
+</xs:schema>

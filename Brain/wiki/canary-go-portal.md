@@ -1,6 +1,6 @@
 ---
 tags: [canary, go, portal, moc]
-last-compiled: 2026-04-28
+last-compiled: 2026-04-30
 needs-review: 2026-05-12
 ---
 
@@ -47,8 +47,14 @@ All specs in `docs/sdds/go-handoff/`. Read in this order:
 - [[docs/sdds/go-handoff/hawk|Hawk]] — Square adapter (reference implementation)
 - [[docs/sdds/go-handoff/bull|Bull]] — NCR Counterpoint adapter (polling model, REST key auth)
 
+### Store Operations Layer
+- [[docs/sdds/go-handoff/store-brain|Store Brain (:9085)]] — presence resolution, session governance, MCP tool permission gating
+- [[docs/sdds/go-handoff/ops-dashboard|Ops Dashboard (:9084)]] — device health NOC, MCP health grid, SSE
+- [[docs/sdds/go-handoff/store-network-integrity|Store Network Integrity (:9088)]] — cross-location anomaly detection
+- [[docs/sdds/go-handoff/compliance|Compliance (:9091)]] — item authorization × regulatory zone × operational blocks; `canary-compliance` MCP (7 tools)
+
 ### Module Layout
-- [[docs/sdds/go-handoff/go-module-layout|Go Module Layout]] — 19-service monorepo, port map, CRDM package, sqlc conventions
+- [[docs/sdds/go-handoff/go-module-layout|Go Module Layout]] — 20-service monorepo, port map, CRDM package, sqlc conventions
 
 ---
 
@@ -76,18 +82,18 @@ All manifests in `GrowDirect-CRB/modules/`. Each has a `.manifest.yaml` (design 
 | Module | Manifest | Narrative |
 |--------|----------|-----------|
 | T — Transaction Pipeline | [[GrowDirect-CRB/modules/T-transaction-pipeline.manifest]] | [[GrowDirect-CRB/modules/T-transaction-pipeline]] |
-| R — Customer | [[GrowDirect-CRB/modules/R-customer.manifest]] | [[GrowDirect-CRB/modules/R-customer]] |
+| C — Customer | [[GrowDirect-CRB/modules/R-customer.manifest]] | [[GrowDirect-CRB/modules/R-customer]] |
 | N — Device | [[GrowDirect-CRB/modules/N-device.manifest]] | [[GrowDirect-CRB/modules/N-device]] |
 | A — Asset Management | [[GrowDirect-CRB/modules/A-asset-management.manifest]] | [[GrowDirect-CRB/modules/A-asset-management]] |
 | Q — Loss Prevention | [[GrowDirect-CRB/modules/Q-loss-prevention.manifest]] | [[GrowDirect-CRB/modules/Q-loss-prevention]] |
-| C — Commercial | [[GrowDirect-CRB/modules/C-commercial.manifest]] | [[GrowDirect-CRB/modules/C-commercial]] |
+| M — Merchandising | [[GrowDirect-CRB/modules/C-commercial.manifest]] | [[GrowDirect-CRB/modules/C-commercial]] |
 | D — Distribution | [[GrowDirect-CRB/modules/D-distribution.manifest]] | [[GrowDirect-CRB/modules/D-distribution]] |
 | F — Finance | [[GrowDirect-CRB/modules/F-finance.manifest]] | [[GrowDirect-CRB/modules/F-finance]] |
-| J — Forecast & Order | [[GrowDirect-CRB/modules/J-forecast-order.manifest]] | [[GrowDirect-CRB/modules/J-forecast-order]] |
+| O — Orders | [[GrowDirect-CRB/modules/J-forecast-order.manifest]] | [[GrowDirect-CRB/modules/J-forecast-order]] |
 | S — Space, Range & Display | [[GrowDirect-CRB/modules/S-space-range-display.manifest]] | [[GrowDirect-CRB/modules/S-space-range-display]] |
 | P — Pricing & Promotion | [[GrowDirect-CRB/modules/P-pricing-promotion.manifest]] | [[GrowDirect-CRB/modules/P-pricing-promotion]] |
-| L — Labor & Workforce | [[GrowDirect-CRB/modules/L-labor-workforce.manifest]] | [[GrowDirect-CRB/modules/L-labor-workforce]] |
-| W — Work Execution | [[GrowDirect-CRB/modules/W-work-execution.manifest]] | [[GrowDirect-CRB/modules/W-work-execution]] |
+| L — Labor | [[GrowDirect-CRB/modules/L-labor-workforce.manifest]] | [[GrowDirect-CRB/modules/L-labor-workforce]] |
+| E — Execution | [[GrowDirect-CRB/modules/W-work-execution.manifest]] | [[GrowDirect-CRB/modules/W-work-execution]] |
 
 ---
 

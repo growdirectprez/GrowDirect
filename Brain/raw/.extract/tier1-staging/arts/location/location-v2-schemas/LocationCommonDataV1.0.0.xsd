@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- edited with XMLSpy v2006 sp1 U (http://www.altova.com) by Richard L Halter (private) -->
+<xs:schema xmlns:xs="http://www.w3.org/2001/XMLSchema" elementFormDefault="qualified" attributeFormDefault="unqualified">
+	<xs:include schemaLocation="DescriptionCommonDataV1.3.0.xsd"/>
+	<xs:include schemaLocation="OrientationCommonDataV1.0.0.xsd"/>
+	<xs:include schemaLocation="OrganizationalLocationTypeCodeEnumerationV1.2.0.xsd"/>
+	<xs:include schemaLocation="SequenceNumberCommonDataV1.0.0.xsd"/>
+	<xs:include schemaLocation="VertexCommonDataV1.0.0.xsd"/>
+	<xs:complexType name="LocationCommonData">
+		<xs:sequence>
+			<xs:element name="SequenceNumber" type="SequenceNumberType" minOccurs="0"/>
+			<xs:element name="OriginLocation" type="VertexCommonData" minOccurs="0"/>
+			<xs:element name="Description" type="DescriptionCommonData" minOccurs="0"/>
+			<xs:element name="Orientation" type="OrientationCommonData" minOccurs="0"/>
+		</xs:sequence>
+		<xs:attribute name="TypeCode" type="OrganizationalLocationTypeCode"/>
+		<xs:attribute name="Name" type="xs:string"/>
+	</xs:complexType>
+</xs:schema>

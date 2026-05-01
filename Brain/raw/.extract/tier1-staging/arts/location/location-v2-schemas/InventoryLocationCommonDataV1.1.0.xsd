@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- edited with XMLSpy v2006 sp2 U (http://www.altova.com) by Richard L Halter (private) -->
+<xs:schema xmlns:xs="http://www.w3.org/2001/XMLSchema" elementFormDefault="qualified" attributeFormDefault="unqualified">
+	<xs:include schemaLocation="BusinessUnitCommonDataV1.3.0.xsd"/>
+	<xs:include schemaLocation="InventoryLocationCodesEnumerationV1.1.0.xsd"/>
+	<xs:complexType name="InventoryLocationCommonData">
+		<xs:annotation>
+			<xs:documentation>A physical place the retailer stores merchandise. It may be co-located at a Site with RetailStore, DistributionCenter, or AdministrativeCenter. It does not include containers, ships and trucks that are in transit.</xs:documentation>
+		</xs:annotation>
+		<xs:sequence>
+			<xs:element name="BusinessUnit" minOccurs="0" maxOccurs="unbounded">
+				<xs:complexType>
+					<xs:simpleContent>
+						<xs:extension base="BusinessUnitCommonData"/>
+					</xs:simpleContent>
+				</xs:complexType>
+			</xs:element>
+			<xs:element name="SellingLocation" type="xs:string" minOccurs="0" maxOccurs="unbounded">
+				<xs:annotation>
+					<xs:documentation>An area of floor space or shelf space within the RetailStore to which sales can be assigned. This may be assigned to or rented to a Vendor</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="ExactLocation" minOccurs="0" maxOccurs="unbounded">
+				<xs:complexType>
+					<xs:simpleContent>
+						<xs:extension base="xs:string">
+							<xs:attribute name="Level" type="xs:string" use="optional"/>
+						</xs:extension>
+					</xs:simpleContent>
+				</xs:complexType>
+			</xs:element>
+		</xs:sequence>
+		<xs:attribute name="Location" type="InventoryLocationCodes" use="optional" default="Shelf"/>
+	</xs:complexType>
+</xs:schema>

@@ -1,0 +1,2527 @@
+===============================================
+Batch intake run: 20260424-144143
+Root:    /Users/gclyle/GrowDirect
+Inbox:   /Users/gclyle/GrowDirect/Brain/raw/inbox
+Extract: /Users/gclyle/GrowDirect/Brain/raw/.extract
+Log:     /Users/gclyle/GrowDirect/Brain/raw/.logs/batch-intake-20260424-144143.log
+Corpora: 6
+===============================================
+
+### Pass 1/3: extract binaries → markdown
+
+── EXTRACT: SWINDON
+Extracting from /Users/gclyle/GrowDirect/Brain/raw/inbox/SWINDON
+  Target:    /Users/gclyle/GrowDirect/Brain/raw/.extract/SWINDON
+  Exts:      ['doc', 'docx', 'pdf', 'ppt', 'pptx', 'xls', 'xlsx']
+  Maxdepth:  unlimited
+  Files:     94
+The PDF <_io.BytesIO object at 0x124acaed0> contains a metadata field indicating that it should not allow text extraction. Ignoring this field and proceeding. Use the check_extractable if you want to raise an error in this case
+The PDF <_io.BytesIO object at 0x114ea0040> contains a metadata field indicating that it should not allow text extraction. Ignoring this field and proceeding. Use the check_extractable if you want to raise an error in this case
+WARNING *** OLE2 inconsistency: SSCS size is 0 but SSAT size is non-zero
+
+  OK:       67
+  Failed:   27
+  Skipped:  0
+  Manifest: /Users/gclyle/GrowDirect/Brain/raw/.extract/SWINDON/.extract-manifest.json
+  Failures: /Users/gclyle/GrowDirect/Brain/raw/.extract/SWINDON/.extract-failures.json
+   [OK]   extract complete: SWINDON
+
+── EXTRACT: Katz
+Extracting from /Users/gclyle/GrowDirect/Brain/raw/inbox/Katz
+  Target:    /Users/gclyle/GrowDirect/Brain/raw/.extract/Katz
+  Exts:      ['doc', 'docx', 'pdf', 'ppt', 'pptx', 'xls', 'xlsx']
+  Maxdepth:  unlimited
+  Files:     188
+The PDF <_io.BytesIO object at 0x1186d91c0> contains a metadata field indicating that it should not allow text extraction. Ignoring this field and proceeding. Use the check_extractable if you want to raise an error in this case
+The PDF <_io.BytesIO object at 0x116374e00> contains a metadata field indicating that it should not allow text extraction. Ignoring this field and proceeding. Use the check_extractable if you want to raise an error in this case
+The PDF <_io.BytesIO object at 0x122325e90> contains a metadata field indicating that it should not allow text extraction. Ignoring this field and proceeding. Use the check_extractable if you want to raise an error in this case
+
+  OK:       140
+  Failed:   48
+  Skipped:  0
+  Manifest: /Users/gclyle/GrowDirect/Brain/raw/.extract/Katz/.extract-manifest.json
+  Failures: /Users/gclyle/GrowDirect/Brain/raw/.extract/Katz/.extract-failures.json
+   [OK]   extract complete: Katz
+
+── EXTRACT: Other Retek Decks
+Extracting from /Users/gclyle/GrowDirect/Brain/raw/inbox/Other Retek Decks
+  Target:    /Users/gclyle/GrowDirect/Brain/raw/.extract/Other Retek Decks
+  Exts:      ['doc', 'docx', 'pdf', 'ppt', 'pptx', 'xls', 'xlsx']
+  Maxdepth:  unlimited
+  Files:     27
+
+  OK:       20
+  Failed:   7
+  Skipped:  0
+  Manifest: /Users/gclyle/GrowDirect/Brain/raw/.extract/Other Retek Decks/.extract-manifest.json
+  Failures: /Users/gclyle/GrowDirect/Brain/raw/.extract/Other Retek Decks/.extract-failures.json
+   [OK]   extract complete: Other Retek Decks
+
+── EXTRACT: BV Nuggets
+Extracting from /Users/gclyle/GrowDirect/Brain/raw/inbox/BV Nuggets
+  Target:    /Users/gclyle/GrowDirect/Brain/raw/.extract/BV Nuggets
+  Exts:      ['doc', 'docx', 'pdf', 'ppt', 'pptx', 'xls', 'xlsx']
+  Maxdepth:  unlimited
+  Files:     6
+
+  OK:       4
+  Failed:   2
+  Skipped:  0
+  Manifest: /Users/gclyle/GrowDirect/Brain/raw/.extract/BV Nuggets/.extract-manifest.json
+  Failures: /Users/gclyle/GrowDirect/Brain/raw/.extract/BV Nuggets/.extract-failures.json
+   [OK]   extract complete: BV Nuggets
+
+── EXTRACT: EBiz Def Des Dev
+Extracting from /Users/gclyle/GrowDirect/Brain/raw/inbox/EBiz Def Des Dev
+  Target:    /Users/gclyle/GrowDirect/Brain/raw/.extract/EBiz Def Des Dev
+  Exts:      ['doc', 'docx', 'pdf', 'ppt', 'pptx', 'xls', 'xlsx']
+  Maxdepth:  unlimited
+  Files:     3
+
+  OK:       3
+  Failed:   0
+  Skipped:  0
+  Manifest: /Users/gclyle/GrowDirect/Brain/raw/.extract/EBiz Def Des Dev/.extract-manifest.json
+   [OK]   extract complete: EBiz Def Des Dev
+
+── EXTRACT: BP
+Extracting from /Users/gclyle/GrowDirect/Brain/raw/inbox/BP
+  Target:    /Users/gclyle/GrowDirect/Brain/raw/.extract/BP
+  Exts:      ['doc', 'docx', 'pdf', 'ppt', 'pptx', 'xls', 'xlsx']
+  Maxdepth:  unlimited
+  Files:     46
+
+  OK:       34
+  Failed:   12
+  Skipped:  0
+  Manifest: /Users/gclyle/GrowDirect/Brain/raw/.extract/BP/.extract-manifest.json
+  Failures: /Users/gclyle/GrowDirect/Brain/raw/.extract/BP/.extract-failures.json
+   [OK]   extract complete: BP
+
+### Pass 2/3: ingest extracted markdown → Brain raw-intake notes
+
+── INGEST: SWINDON  (project=retail tags=pwc,swindon,sap-retail,broadvision,coe,1999)
+  Created: Brain/raw/inbox/t-k-customization-doc.md
+  Source:  Brain/raw/.extract/SWINDON/T&K customization.doc.md
+  Status:  unprocessed
+
+  Next: process this note in a Cowork session —
+  fill in Key Takeaways, link to wiki articles, then
+  update status to 'processed' or 'compiled'.
+  Created: Brain/raw/inbox/e-b-script-v4-doc.md
+  Source:  Brain/raw/.extract/SWINDON/E-B script v4.doc.md
+  Status:  unprocessed
+
+  Next: process this note in a Cowork session —
+  fill in Key Takeaways, link to wiki articles, then
+  update status to 'processed' or 'compiled'.
+  Created: Brain/raw/inbox/datapro-1-00-doc.md
+  Source:  Brain/raw/.extract/SWINDON/Reading/datapro.1.00.doc.md
+  Status:  unprocessed
+
+  Next: process this note in a Cowork session —
+  fill in Key Takeaways, link to wiki articles, then
+  update status to 'processed' or 'compiled'.
+  Created: Brain/raw/inbox/personalization-pdf.md
+  Source:  Brain/raw/.extract/SWINDON/Reading/Personalization.pdf.md
+  Status:  unprocessed
+
+  Next: process this note in a Cowork session —
+  fill in Key Takeaways, link to wiki articles, then
+  update status to 'processed' or 'compiled'.
+  Created: Brain/raw/inbox/dynamic-categories-pdf.md
+  Source:  Brain/raw/.extract/SWINDON/Reading/Dynamic Categories.pdf.md
+  Status:  unprocessed
+
+  Next: process this note in a Cowork session —
+  fill in Key Takeaways, link to wiki articles, then
+  update status to 'processed' or 'compiled'.
+  Created: Brain/raw/inbox/patricia-seybold-grp-report-pdf.md
+  Source:  Brain/raw/.extract/SWINDON/Reading/Patricia Seybold Grp Report.pdf.md
+  Status:  unprocessed
+
+  Next: process this note in a Cowork session —
+  fill in Key Takeaways, link to wiki articles, then
+  update status to 'processed' or 'compiled'.
+  Created: Brain/raw/inbox/which-commerce-platform-pdf.md
+  Source:  Brain/raw/.extract/SWINDON/Reading/Which Commerce Platform.pdf.md
+  Status:  unprocessed
+
+  Next: process this note in a Cowork session —
+  fill in Key Takeaways, link to wiki articles, then
+  update status to 'processed' or 'compiled'.
+  Created: Brain/raw/inbox/12-10-99scenarios-doc.md
+  Source:  Brain/raw/.extract/SWINDON/12.10.99scenarios.doc.md
+  Status:  unprocessed
+
+  Next: process this note in a Cowork session —
+  fill in Key Takeaways, link to wiki articles, then
+  update status to 'processed' or 'compiled'.
+  Created: Brain/raw/inbox/revised_sc_3-doc.md
+  Source:  Brain/raw/.extract/SWINDON/Revised_Sc_3.doc.md
+  Status:  unprocessed
+
+  Next: process this note in a Cowork session —
+  fill in Key Takeaways, link to wiki articles, then
+  update status to 'processed' or 'compiled'.
+  Created: Brain/raw/inbox/product_desc-xls.md
+  Source:  Brain/raw/.extract/SWINDON/product_desc.xls.md
+  Status:  unprocessed
+
+  Next: process this note in a Cowork session —
+  fill in Key Takeaways, link to wiki articles, then
+  update status to 'processed' or 'compiled'.
+  Created: Brain/raw/inbox/bv-promises-doc.md
+  Source:  Brain/raw/.extract/SWINDON/BV promises.doc.md
+  Status:  unprocessed
+
+  Next: process this note in a Cowork session —
+  fill in Key Takeaways, link to wiki articles, then
+  update status to 'processed' or 'compiled'.
+  Created: Brain/raw/inbox/sap_prices-xls.md
+  Source:  Brain/raw/.extract/SWINDON/sap_prices.xls.md
+  Status:  unprocessed
+
+  Next: process this note in a Cowork session —
+  fill in Key Takeaways, link to wiki articles, then
+  update status to 'processed' or 'compiled'.
+  Created: Brain/raw/inbox/retail_script_12_21_99-doc.md
+  Source:  Brain/raw/.extract/SWINDON/Retail_Script_12_21_99.doc.md
+  Status:  unprocessed
+
+  Next: process this note in a Cowork session —
+  fill in Key Takeaways, link to wiki articles, then
+  update status to 'processed' or 'compiled'.
+  Created: Brain/raw/inbox/customer-data-model-12_28_99-xls.md
+  Source:  Brain/raw/.extract/SWINDON/customer data model 12_28_99.xls.md
+  Status:  unprocessed
+
+  Next: process this note in a Cowork session —
+  fill in Key Takeaways, link to wiki articles, then
+  update status to 'processed' or 'compiled'.
+  Created: Brain/raw/inbox/scenarios-12_14_99-doc.md
+  Source:  Brain/raw/.extract/SWINDON/scenarios 12_14_99.doc.md
+  Status:  unprocessed
+
+  Next: process this note in a Cowork session —
+  fill in Key Takeaways, link to wiki articles, then
+  update status to 'processed' or 'compiled'.
+  Created: Brain/raw/inbox/supply-chain-management---full-tour-script-doc.md
+  Source:  Brain/raw/.extract/SWINDON/Supply chain management - full tour script.doc.md
+  Status:  unprocessed
+
+  Next: process this note in a Cowork session —
+  fill in Key Takeaways, link to wiki articles, then
+  update status to 'processed' or 'compiled'.
+  Created: Brain/raw/inbox/retail-demo---proposed-system-changes-1-0-doc.md
+  Source:  Brain/raw/.extract/SWINDON/Retail Demo - Proposed System Changes 1.0.doc.md
+  Status:  unprocessed
+
+  Next: process this note in a Cowork session —
+  fill in Key Takeaways, link to wiki articles, then
+  update status to 'processed' or 'compiled'.
+  Created: Brain/raw/inbox/revised_sc_1-doc.md
+  Source:  Brain/raw/.extract/SWINDON/Revised_Sc_1.doc.md
+  Status:  unprocessed
+
+  Next: process this note in a Cowork session —
+  fill in Key Takeaways, link to wiki articles, then
+  update status to 'processed' or 'compiled'.
+  Created: Brain/raw/inbox/finance-tour-v4-doc.md
+  Source:  Brain/raw/.extract/SWINDON/Finance tour v4.doc.md
+  Status:  unprocessed
+
+  Next: process this note in a Cowork session —
+  fill in Key Takeaways, link to wiki articles, then
+  update status to 'processed' or 'compiled'.
+  Created: Brain/raw/inbox/swatch-outstanding-tasks-doc.md
+  Source:  Brain/raw/.extract/SWINDON/Swatch Outstanding Tasks.doc.md
+  Status:  unprocessed
+
+  Next: process this note in a Cowork session —
+  fill in Key Takeaways, link to wiki articles, then
+  update status to 'processed' or 'compiled'.
+  Created: Brain/raw/inbox/pm_scenario-doc.md
+  Source:  Brain/raw/.extract/SWINDON/PM_Scenario.doc.md
+  Status:  unprocessed
+
+  Next: process this note in a Cowork session —
+  fill in Key Takeaways, link to wiki articles, then
+  update status to 'processed' or 'compiled'.
+  Created: Brain/raw/inbox/rsc-map-doc.md
+  Source:  Brain/raw/.extract/SWINDON/RSC Map.doc.md
+  Status:  unprocessed
+
+  Next: process this note in a Cowork session —
+  fill in Key Takeaways, link to wiki articles, then
+  update status to 'processed' or 'compiled'.
+  Created: Brain/raw/inbox/rsc-communities-doc.md
+  Source:  Brain/raw/.extract/SWINDON/RSC Communities.doc.md
+  Status:  unprocessed
+
+  Next: process this note in a Cowork session —
+  fill in Key Takeaways, link to wiki articles, then
+  update status to 'processed' or 'compiled'.
+  Created: Brain/raw/inbox/finance-4-1-nt-release-notes-pdf.md
+  Source:  Brain/raw/.extract/SWINDON/Release Notes/Finance 4.1 NT release notes.pdf.md
+  Status:  unprocessed
+
+  Next: process this note in a Cowork session —
+  fill in Key Takeaways, link to wiki articles, then
+  update status to 'processed' or 'compiled'.
+  Created: Brain/raw/inbox/design-centre-4-1-release-notes-pdf.md
+  Source:  Brain/raw/.extract/SWINDON/Release Notes/Design Centre 4.1 release notes.pdf.md
+  Status:  unprocessed
+
+  Next: process this note in a Cowork session —
+  fill in Key Takeaways, link to wiki articles, then
+  update status to 'processed' or 'compiled'.
+  Created: Brain/raw/inbox/commerce-4-1-nt-release-notes-pdf.md
+  Source:  Brain/raw/.extract/SWINDON/Release Notes/Commerce 4.1 NT release notes.pdf.md
+  Status:  unprocessed
+
+  Next: process this note in a Cowork session —
+  fill in Key Takeaways, link to wiki articles, then
+  update status to 'processed' or 'compiled'.
+  Created: Brain/raw/inbox/enterprise-4-1-nt-release-notes-pdf.md
+  Source:  Brain/raw/.extract/SWINDON/Release Notes/Enterprise 4.1 NT release notes.pdf.md
+  Status:  unprocessed
+
+  Next: process this note in a Cowork session —
+  fill in Key Takeaways, link to wiki articles, then
+  update status to 'processed' or 'compiled'.
+  Created: Brain/raw/inbox/dcc-4-1-release-notes-pdf.md
+  Source:  Brain/raw/.extract/SWINDON/Release Notes/DCC 4.1 release notes.pdf.md
+  Status:  unprocessed
+
+  Next: process this note in a Cowork session —
+  fill in Key Takeaways, link to wiki articles, then
+  update status to 'processed' or 'compiled'.
+  Created: Brain/raw/inbox/publishing-centre-4-1-nt-release-notes-pdf.md
+  Source:  Brain/raw/.extract/SWINDON/Release Notes/Publishing Centre 4.1 NT release notes.pdf.md
+  Status:  unprocessed
+
+  Next: process this note in a Cowork session —
+  fill in Key Takeaways, link to wiki articles, then
+  update status to 'processed' or 'compiled'.
+  Created: Brain/raw/inbox/retail-commerce-4-1-nt-release-notes-pdf.md
+  Source:  Brain/raw/.extract/SWINDON/Release Notes/Retail Commerce 4.1 NT release notes.pdf.md
+  Status:  unprocessed
+
+  Next: process this note in a Cowork session —
+  fill in Key Takeaways, link to wiki articles, then
+  update status to 'processed' or 'compiled'.
+  Created: Brain/raw/inbox/knowledge-4-1-nt-release-notes-pdf.md
+  Source:  Brain/raw/.extract/SWINDON/Release Notes/Knowledge 4.1 NT release notes.pdf.md
+  Status:  unprocessed
+
+  Next: process this note in a Cowork session —
+  fill in Key Takeaways, link to wiki articles, then
+  update status to 'processed' or 'compiled'.
+  Created: Brain/raw/inbox/com-extension-pdf.md
+  Source:  Brain/raw/.extract/SWINDON/Additional documentation/COM extension.pdf.md
+  Status:  unprocessed
+
+  Next: process this note in a Cowork session —
+  fill in Key Takeaways, link to wiki articles, then
+  update status to 'processed' or 'compiled'.
+  Created: Brain/raw/inbox/installation-and-adminstration-guide--summer-1999-revision--pdf.md
+  Source:  Brain/raw/.extract/SWINDON/Additional documentation/Installation and Adminstration Guide (Summer 1999 revision).pdf.md
+  Status:  unprocessed
+
+  Next: process this note in a Cowork session —
+  fill in Key Takeaways, link to wiki articles, then
+  update status to 'processed' or 'compiled'.
+  Created: Brain/raw/inbox/verity-search-enhancement-pdf.md
+  Source:  Brain/raw/.extract/SWINDON/Additional documentation/Verity search enhancement.pdf.md
+  Status:  unprocessed
+
+  Next: process this note in a Cowork session —
+  fill in Key Takeaways, link to wiki articles, then
+  update status to 'processed' or 'compiled'.
+  Created: Brain/raw/inbox/t-k-cleanup-doc.md
+  Source:  Brain/raw/.extract/SWINDON/T&K cleanup.doc.md
+  Status:  unprocessed
+
+  Next: process this note in a Cowork session —
+  fill in Key Takeaways, link to wiki articles, then
+  update status to 'processed' or 'compiled'.
+  Created: Brain/raw/inbox/product_load2-xls.md
+  Source:  Brain/raw/.extract/SWINDON/product_load2.xls.md
+  Status:  unprocessed
+
+  Next: process this note in a Cowork session —
+  fill in Key Takeaways, link to wiki articles, then
+  update status to 'processed' or 'compiled'.
+  Created: Brain/raw/inbox/scenarios-12_18_99-doc.md
+  Source:  Brain/raw/.extract/SWINDON/scenarios 12_18_99.doc.md
+  Status:  unprocessed
+
+  Next: process this note in a Cowork session —
+  fill in Key Takeaways, link to wiki articles, then
+  update status to 'processed' or 'compiled'.
+  Created: Brain/raw/inbox/scenarios-doc.md
+  Source:  Brain/raw/.extract/SWINDON/scenarios.doc.md
+  Status:  unprocessed
+
+  Next: process this note in a Cowork session —
+  fill in Key Takeaways, link to wiki articles, then
+  update status to 'processed' or 'compiled'.
+  Created: Brain/raw/inbox/t-kstoryline-v0-08-doc.md
+  Source:  Brain/raw/.extract/SWINDON/T&KSTORYLINE v0.08.doc.md
+  Status:  unprocessed
+
+  Next: process this note in a Cowork session —
+  fill in Key Takeaways, link to wiki articles, then
+  update status to 'processed' or 'compiled'.
+  Created: Brain/raw/inbox/tk_products-xls.md
+  Source:  Brain/raw/.extract/SWINDON/tk_products.xls.md
+  Status:  unprocessed
+
+  Next: process this note in a Cowork session —
+  fill in Key Takeaways, link to wiki articles, then
+  update status to 'processed' or 'compiled'.
+  Created: Brain/raw/inbox/supply-chain-operations---full-tour-script-doc.md
+  Source:  Brain/raw/.extract/SWINDON/Supply chain operations - full tour script.doc.md
+  Status:  unprocessed
+
+  Next: process this note in a Cowork session —
+  fill in Key Takeaways, link to wiki articles, then
+  update status to 'processed' or 'compiled'.
+  Created: Brain/raw/inbox/list-of-content-elements-doc.md
+  Source:  Brain/raw/.extract/SWINDON/List of Content Elements.doc.md
+  Status:  unprocessed
+
+  Next: process this note in a Cowork session —
+  fill in Key Takeaways, link to wiki articles, then
+  update status to 'processed' or 'compiled'.
+  Created: Brain/raw/inbox/how-to-load-new-products-doc.md
+  Source:  Brain/raw/.extract/SWINDON/How to Load New Products.doc.md
+  Status:  unprocessed
+
+  Next: process this note in a Cowork session —
+  fill in Key Takeaways, link to wiki articles, then
+  update status to 'processed' or 'compiled'.
+  Created: Brain/raw/inbox/sow-workshop-doc.md
+  Source:  Brain/raw/.extract/SWINDON/SoW Workshop.doc.md
+  Status:  unprocessed
+
+  Next: process this note in a Cowork session —
+  fill in Key Takeaways, link to wiki articles, then
+  update status to 'processed' or 'compiled'.
+  Created: Brain/raw/inbox/revised_sc_2-doc.md
+  Source:  Brain/raw/.extract/SWINDON/Revised_Sc_2.doc.md
+  Status:  unprocessed
+
+  Next: process this note in a Cowork session —
+  fill in Key Takeaways, link to wiki articles, then
+  update status to 'processed' or 'compiled'.
+  Created: Brain/raw/inbox/supply-chain-strategy---10feb99-doc.md
+  Source:  Brain/raw/.extract/SWINDON/Supply Chain strategy - 10feb99.doc.md
+  Status:  unprocessed
+
+  Next: process this note in a Cowork session —
+  fill in Key Takeaways, link to wiki articles, then
+  update status to 'processed' or 'compiled'.
+  Created: Brain/raw/inbox/product-manager-01-04-00-doc.md
+  Source:  Brain/raw/.extract/SWINDON/Product manager 01-04-00.doc.md
+  Status:  unprocessed
+
+  Next: process this note in a Cowork session —
+  fill in Key Takeaways, link to wiki articles, then
+  update status to 'processed' or 'compiled'.
+  Created: Brain/raw/inbox/things-to-think-about-doc.md
+  Source:  Brain/raw/.extract/SWINDON/Things to think about.doc.md
+  Status:  unprocessed
+
+  Next: process this note in a Cowork session —
+  fill in Key Takeaways, link to wiki articles, then
+  update status to 'processed' or 'compiled'.
+  Created: Brain/raw/inbox/website_functions-xls.md
+  Source:  Brain/raw/.extract/SWINDON/Website_Functions.xls.md
+  Status:  unprocessed
+
+  Next: process this note in a Cowork session —
+  fill in Key Takeaways, link to wiki articles, then
+  update status to 'processed' or 'compiled'.
+  Created: Brain/raw/inbox/complete-scenario-3-01-04-00-doc.md
+  Source:  Brain/raw/.extract/SWINDON/Complete Scenario 3 01-04-00.doc.md
+  Status:  unprocessed
+
+  Next: process this note in a Cowork session —
+  fill in Key Takeaways, link to wiki articles, then
+  update status to 'processed' or 'compiled'.
+  Created: Brain/raw/inbox/product_load-xls.md
+  Source:  Brain/raw/.extract/SWINDON/product_load.xls.md
+  Status:  unprocessed
+
+  Next: process this note in a Cowork session —
+  fill in Key Takeaways, link to wiki articles, then
+  update status to 'processed' or 'compiled'.
+  Created: Brain/raw/inbox/rules-doc.md
+  Source:  Brain/raw/.extract/SWINDON/rules.doc.md
+  Status:  unprocessed
+
+  Next: process this note in a Cowork session —
+  fill in Key Takeaways, link to wiki articles, then
+  update status to 'processed' or 'compiled'.
+  Created: Brain/raw/inbox/arch-doc.md
+  Source:  Brain/raw/.extract/SWINDON/Arch.doc.md
+  Status:  unprocessed
+
+  Next: process this note in a Cowork session —
+  fill in Key Takeaways, link to wiki articles, then
+  update status to 'processed' or 'compiled'.
+  Created: Brain/raw/inbox/product-manager-01-03-00-doc.md
+  Source:  Brain/raw/.extract/SWINDON/Product manager 01-03-00.doc.md
+  Status:  unprocessed
+
+  Next: process this note in a Cowork session —
+  fill in Key Takeaways, link to wiki articles, then
+  update status to 'processed' or 'compiled'.
+  Created: Brain/raw/inbox/merchandise-hierarchy-doc.md
+  Source:  Brain/raw/.extract/SWINDON/Merchandise Hierarchy.doc.md
+  Status:  unprocessed
+
+  Next: process this note in a Cowork session —
+  fill in Key Takeaways, link to wiki articles, then
+  update status to 'processed' or 'compiled'.
+  Created: Brain/raw/inbox/complete-scenario-2-01-04-00-doc.md
+  Source:  Brain/raw/.extract/SWINDON/Complete Scenario 2 01-04-00.doc.md
+  Status:  unprocessed
+
+  Next: process this note in a Cowork session —
+  fill in Key Takeaways, link to wiki articles, then
+  update status to 'processed' or 'compiled'.
+  Created: Brain/raw/inbox/broadvision-team-doc.md
+  Source:  Brain/raw/.extract/SWINDON/Broadvision team.doc.md
+  Status:  unprocessed
+
+  Next: process this note in a Cowork session —
+  fill in Key Takeaways, link to wiki articles, then
+  update status to 'processed' or 'compiled'.
+  Created: Brain/raw/inbox/t-kstoryline-v1-01-doc.md
+  Source:  Brain/raw/.extract/SWINDON/T&KSTORYLINE v1.01.doc.md
+  Status:  unprocessed
+
+  Next: process this note in a Cowork session —
+  fill in Key Takeaways, link to wiki articles, then
+  update status to 'processed' or 'compiled'.
+  Created: Brain/raw/inbox/independence-confirm-doc.md
+  Source:  Brain/raw/.extract/SWINDON/Independence Confirm.doc.md
+  Status:  unprocessed
+
+  Next: process this note in a Cowork session —
+  fill in Key Takeaways, link to wiki articles, then
+  update status to 'processed' or 'compiled'.
+  Created: Brain/raw/inbox/artlist-xls.md
+  Source:  Brain/raw/.extract/SWINDON/ARTLIST.XLS.md
+  Status:  unprocessed
+
+  Next: process this note in a Cowork session —
+  fill in Key Takeaways, link to wiki articles, then
+  update status to 'processed' or 'compiled'.
+  Created: Brain/raw/inbox/gemkeysow-doc.md
+  Source:  Brain/raw/.extract/SWINDON/GemKeySOW.doc.md
+  Status:  unprocessed
+
+  Next: process this note in a Cowork session —
+  fill in Key Takeaways, link to wiki articles, then
+  update status to 'processed' or 'compiled'.
+  Created: Brain/raw/inbox/retail-demo-doc.md
+  Source:  Brain/raw/.extract/SWINDON/retail demo.doc.md
+  Status:  unprocessed
+
+  Next: process this note in a Cowork session —
+  fill in Key Takeaways, link to wiki articles, then
+  update status to 'processed' or 'compiled'.
+  Created: Brain/raw/inbox/complete-scenario-1-1-04-00-doc.md
+  Source:  Brain/raw/.extract/SWINDON/Complete Scenario 1 1-04-00.doc.md
+  Status:  unprocessed
+
+  Next: process this note in a Cowork session —
+  fill in Key Takeaways, link to wiki articles, then
+  update status to 'processed' or 'compiled'.
+  Created: Brain/raw/inbox/scenarios-12_17_99-doc.md
+  Source:  Brain/raw/.extract/SWINDON/scenarios 12_17_99.doc.md
+  Status:  unprocessed
+
+  Next: process this note in a Cowork session —
+  fill in Key Takeaways, link to wiki articles, then
+  update status to 'processed' or 'compiled'.
+  Created: Brain/raw/inbox/mchierarchy-xls.md
+  Source:  Brain/raw/.extract/SWINDON/mchierarchy.xls.md
+  Status:  unprocessed
+
+  Next: process this note in a Cowork session —
+  fill in Key Takeaways, link to wiki articles, then
+  update status to 'processed' or 'compiled'.
+  Created: Brain/raw/inbox/head-office-script-version-4-doc.md
+  Source:  Brain/raw/.extract/SWINDON/Head Office Script version 4.doc.md
+  Status:  unprocessed
+
+  Next: process this note in a Cowork session —
+  fill in Key Takeaways, link to wiki articles, then
+  update status to 'processed' or 'compiled'.
+  Created: Brain/raw/inbox/crossells-xls.md
+  Source:  Brain/raw/.extract/SWINDON/crossells.xls.md
+  Status:  unprocessed
+
+  Next: process this note in a Cowork session —
+  fill in Key Takeaways, link to wiki articles, then
+  update status to 'processed' or 'compiled'.
+   [OK]   ingest complete: SWINDON  OK=67 FAIL=0
+
+── INGEST: Katz  (project=retail tags=pwc,katz,scm,rfp,2003)
+  Created: Brain/raw/inbox/katz-requirements-v4-xls.md
+  Source:  Brain/raw/.extract/Katz/Phase II/03 - System Selection & Supply Chain Optimization/01. To Be Workshops/Katz Requirements v4.xls.md
+  Status:  unprocessed
+
+  Next: process this note in a Cowork session —
+  fill in Key Takeaways, link to wiki articles, then
+  update status to 'processed' or 'compiled'.
+  Created: Brain/raw/inbox/process-capability-definition-v2-xls.md
+  Source:  Brain/raw/.extract/Katz/Phase II/03 - System Selection & Supply Chain Optimization/01. To Be Workshops/Process Capability Definition v2.xls.md
+  Status:  unprocessed
+
+  Next: process this note in a Cowork session —
+  fill in Key Takeaways, link to wiki articles, then
+  update status to 'processed' or 'compiled'.
+  Created: Brain/raw/inbox/gartner-s-view-on-jda-and-sap-v2-doc.md
+  Source:  Brain/raw/.extract/Katz/Phase II/03 - System Selection & Supply Chain Optimization/08. Gartner Information/Gartner's View on JDA and SAP v2.doc.md
+  Status:  unprocessed
+
+  Next: process this note in a Cowork session —
+  fill in Key Takeaways, link to wiki articles, then
+  update status to 'processed' or 'compiled'.
+  Created: Brain/raw/inbox/gartner---vendor-rating-retek-pdf.md
+  Source:  Brain/raw/.extract/Katz/Phase II/03 - System Selection & Supply Chain Optimization/08. Gartner Information/Gartner - Vendor Rating Retek.pdf.md
+  Status:  unprocessed
+
+  Next: process this note in a Cowork session —
+  fill in Key Takeaways, link to wiki articles, then
+  update status to 'processed' or 'compiled'.
+  Created: Brain/raw/inbox/gartner---top-10-questions-on-sap-for-retail-pdf.md
+  Source:  Brain/raw/.extract/Katz/Phase II/03 - System Selection & Supply Chain Optimization/08. Gartner Information/Gartner - Top 10 Questions on SAP for Retail.pdf.md
+  Status:  unprocessed
+
+  Next: process this note in a Cowork session —
+  fill in Key Takeaways, link to wiki articles, then
+  update status to 'processed' or 'compiled'.
+  Created: Brain/raw/inbox/gartner---vendor-rating-jda-software-group-pdf.md
+  Source:  Brain/raw/.extract/Katz/Phase II/03 - System Selection & Supply Chain Optimization/08. Gartner Information/Gartner - Vendor Rating JDA Software Group.pdf.md
+  Status:  unprocessed
+
+  Next: process this note in a Cowork session —
+  fill in Key Takeaways, link to wiki articles, then
+  update status to 'processed' or 'compiled'.
+  Created: Brain/raw/inbox/gartner---sap-plans-to-mine-more-revenue-from-its-instal-256-pdf.md
+  Source:  Brain/raw/.extract/Katz/Phase II/03 - System Selection & Supply Chain Optimization/08. Gartner Information/Gartner - SAP Plans to Mine More Revenue From Its Instal#256.pdf.md
+  Status:  unprocessed
+
+  Next: process this note in a Cowork session —
+  fill in Key Takeaways, link to wiki articles, then
+  update status to 'processed' or 'compiled'.
+  Created: Brain/raw/inbox/gartner-conference-call-doc.md
+  Source:  Brain/raw/.extract/Katz/Phase II/03 - System Selection & Supply Chain Optimization/08. Gartner Information/Gartner Conference Call.doc.md
+  Status:  unprocessed
+
+  Next: process this note in a Cowork session —
+  fill in Key Takeaways, link to wiki articles, then
+  update status to 'processed' or 'compiled'.
+  Created: Brain/raw/inbox/short-listed-vendors-doc.md
+  Source:  Brain/raw/.extract/Katz/Phase II/03 - System Selection & Supply Chain Optimization/04. RFP Evaluation/Short-listed Vendors.doc.md
+  Status:  unprocessed
+
+  Next: process this note in a Cowork session —
+  fill in Key Takeaways, link to wiki articles, then
+  update status to 'processed' or 'compiled'.
+  Created: Brain/raw/inbox/katz-rfp-response-analysis-functional-requirements-v7-xls.md
+  Source:  Brain/raw/.extract/Katz/Phase II/03 - System Selection & Supply Chain Optimization/04. RFP Evaluation/Katz RFP Response Analysis Functional Requirements v7.xls.md
+  Status:  unprocessed
+
+  Next: process this note in a Cowork session —
+  fill in Key Takeaways, link to wiki articles, then
+  update status to 'processed' or 'compiled'.
+  Created: Brain/raw/inbox/katz-rscm-systems-demo-script-score-card-final-doc.md
+  Source:  Brain/raw/.extract/Katz/Phase II/03 - System Selection & Supply Chain Optimization/05. Demo Script/Katz RSCM Systems Demo Script Score Card Final.doc.md
+  Status:  unprocessed
+
+  Next: process this note in a Cowork session —
+  fill in Key Takeaways, link to wiki articles, then
+  update status to 'processed' or 'compiled'.
+  Created: Brain/raw/inbox/data-for-demo-scripts-final-xls.md
+  Source:  Brain/raw/.extract/Katz/Phase II/03 - System Selection & Supply Chain Optimization/05. Demo Script/Data for Demo Scripts Final.xls.md
+  Status:  unprocessed
+
+  Next: process this note in a Cowork session —
+  fill in Key Takeaways, link to wiki articles, then
+  update status to 'processed' or 'compiled'.
+  Created: Brain/raw/inbox/demo-summary-v4-doc.md
+  Source:  Brain/raw/.extract/Katz/Phase II/03 - System Selection & Supply Chain Optimization/07. Demo Script Evaluation/Demo Summary v4.doc.md
+  Status:  unprocessed
+
+  Next: process this note in a Cowork session —
+  fill in Key Takeaways, link to wiki articles, then
+  update status to 'processed' or 'compiled'.
+  Created: Brain/raw/inbox/katz-demo-scripts-scorecard---sap-v5-xls.md
+  Source:  Brain/raw/.extract/Katz/Phase II/03 - System Selection & Supply Chain Optimization/07. Demo Script Evaluation/Katz Demo Scripts Scorecard - SAP v5.xls.md
+  Status:  unprocessed
+
+  Next: process this note in a Cowork session —
+  fill in Key Takeaways, link to wiki articles, then
+  update status to 'processed' or 'compiled'.
+  Created: Brain/raw/inbox/katz-demo-scripts-scorecard---jda-v4-xls.md
+  Source:  Brain/raw/.extract/Katz/Phase II/03 - System Selection & Supply Chain Optimization/07. Demo Script Evaluation/Katz Demo Scripts Scorecard - JDA v4.xls.md
+  Status:  unprocessed
+
+  Next: process this note in a Cowork session —
+  fill in Key Takeaways, link to wiki articles, then
+  update status to 'processed' or 'compiled'.
+  Created: Brain/raw/inbox/katzse24-letter-of-transmittal-doc.md
+  Source:  Brain/raw/.extract/Katz/Phase II/03 - System Selection & Supply Chain Optimization/03. RFP Responses/Retek Response/katzse24 letter of transmittal.doc.md
+  Status:  unprocessed
+
+  Next: process this note in a Cowork session —
+  fill in Key Takeaways, link to wiki articles, then
+  update status to 'processed' or 'compiled'.
+  Created: Brain/raw/inbox/katz-rscm-systems-rfp-response---retek-final-doc.md
+  Source:  Brain/raw/.extract/Katz/Phase II/03 - System Selection & Supply Chain Optimization/03. RFP Responses/Retek Response/Katz RSCM Systems RFP Response - Retek Final.doc.md
+  Status:  unprocessed
+
+  Next: process this note in a Cowork session —
+  fill in Key Takeaways, link to wiki articles, then
+  update status to 'processed' or 'compiled'.
+  Created: Brain/raw/inbox/attachment-a--jda-company-history-timeline-doc.md
+  Source:  Brain/raw/.extract/Katz/Phase II/03 - System Selection & Supply Chain Optimization/03. RFP Responses/JDA Response/Attachment A- JDA Company History Timeline.doc.md
+  Status:  unprocessed
+
+  Next: process this note in a Cowork session —
+  fill in Key Takeaways, link to wiki articles, then
+  update status to 'processed' or 'compiled'.
+  Created: Brain/raw/inbox/attachment-c--jda-2002-form-10k-pdf.md
+  Source:  Brain/raw/.extract/Katz/Phase II/03 - System Selection & Supply Chain Optimization/03. RFP Responses/JDA Response/Attachment C- JDA 2002 Form 10K.pdf.md
+  Status:  unprocessed
+
+  Next: process this note in a Cowork session —
+  fill in Key Takeaways, link to wiki articles, then
+  update status to 'processed' or 'compiled'.
+  Created: Brain/raw/inbox/attachment-d--jda-q2-2003-earnings-release-pdf.md
+  Source:  Brain/raw/.extract/Katz/Phase II/03 - System Selection & Supply Chain Optimization/03. RFP Responses/JDA Response/Attachment D- JDA Q2-2003 Earnings Release.pdf.md
+  Status:  unprocessed
+
+  Next: process this note in a Cowork session —
+  fill in Key Takeaways, link to wiki articles, then
+  update status to 'processed' or 'compiled'.
+  Created: Brain/raw/inbox/attachment-f--elearning-from-bmi-doc.md
+  Source:  Brain/raw/.extract/Katz/Phase II/03 - System Selection & Supply Chain Optimization/03. RFP Responses/JDA Response/Attachment F- eLearning from BMI.doc.md
+  Status:  unprocessed
+
+  Next: process this note in a Cowork session —
+  fill in Key Takeaways, link to wiki articles, then
+  update status to 'processed' or 'compiled'.
+  Created: Brain/raw/inbox/attachment-b--jda-2001-form-10k-pdf.md
+  Source:  Brain/raw/.extract/Katz/Phase II/03 - System Selection & Supply Chain Optimization/03. RFP Responses/JDA Response/Attachment B- JDA 2001 Form 10K.pdf.md
+  Status:  unprocessed
+
+  Next: process this note in a Cowork session —
+  fill in Key Takeaways, link to wiki articles, then
+  update status to 'processed' or 'compiled'.
+  Created: Brain/raw/inbox/attachment-e--customer-solutions-group-doc.md
+  Source:  Brain/raw/.extract/Katz/Phase II/03 - System Selection & Supply Chain Optimization/03. RFP Responses/JDA Response/Attachment E- Customer Solutions Group.doc.md
+  Status:  unprocessed
+
+  Next: process this note in a Cowork session —
+  fill in Key Takeaways, link to wiki articles, then
+  update status to 'processed' or 'compiled'.
+  Created: Brain/raw/inbox/katz-requirements--xls.md
+  Source:  Brain/raw/.extract/Katz/Phase II/03 - System Selection & Supply Chain Optimization/03. RFP Responses/JDA Response/Katz Requirements .xls.md
+  Status:  unprocessed
+
+  Next: process this note in a Cowork session —
+  fill in Key Takeaways, link to wiki articles, then
+  update status to 'processed' or 'compiled'.
+  Created: Brain/raw/inbox/attachment-i--jda-users-group-contact-list-xls.md
+  Source:  Brain/raw/.extract/Katz/Phase II/03 - System Selection & Supply Chain Optimization/03. RFP Responses/JDA Response/Attachment I- JDA Users Group Contact List.xls.md
+  Status:  unprocessed
+
+  Next: process this note in a Cowork session —
+  fill in Key Takeaways, link to wiki articles, then
+  update status to 'processed' or 'compiled'.
+  Created: Brain/raw/inbox/attachment-g---jda-client-support-programs-doc.md
+  Source:  Brain/raw/.extract/Katz/Phase II/03 - System Selection & Supply Chain Optimization/03. RFP Responses/JDA Response/Attachment G - JDA Client Support Programs.doc.md
+  Status:  unprocessed
+
+  Next: process this note in a Cowork session —
+  fill in Key Takeaways, link to wiki articles, then
+  update status to 'processed' or 'compiled'.
+  Created: Brain/raw/inbox/attachment-h---special-interest-group-outline-pdf.md
+  Source:  Brain/raw/.extract/Katz/Phase II/03 - System Selection & Supply Chain Optimization/03. RFP Responses/JDA Response/Attachment H - Special Interest Group Outline.pdf.md
+  Status:  unprocessed
+
+  Next: process this note in a Cowork session —
+  fill in Key Takeaways, link to wiki articles, then
+  update status to 'processed' or 'compiled'.
+  Created: Brain/raw/inbox/katz-retail-supply-chain-management-systems-rfp--doc.md
+  Source:  Brain/raw/.extract/Katz/Phase II/03 - System Selection & Supply Chain Optimization/03. RFP Responses/JDA Response/Katz Retail Supply Chain Management Systems RFP .doc.md
+  Status:  unprocessed
+
+  Next: process this note in a Cowork session —
+  fill in Key Takeaways, link to wiki articles, then
+  update status to 'processed' or 'compiled'.
+  Created: Brain/raw/inbox/attachment-l--jda-customer-agreement-doc.md
+  Source:  Brain/raw/.extract/Katz/Phase II/03 - System Selection & Supply Chain Optimization/03. RFP Responses/JDA Response/Attachment L- JDA Customer Agreement.doc.md
+  Status:  unprocessed
+
+  Next: process this note in a Cowork session —
+  fill in Key Takeaways, link to wiki articles, then
+  update status to 'processed' or 'compiled'.
+  Created: Brain/raw/inbox/katz---retail-supply-chain---sap-final-doc.md
+  Source:  Brain/raw/.extract/Katz/Phase II/03 - System Selection & Supply Chain Optimization/03. RFP Responses/SAP Response/Katz - Retail Supply Chain - SAP FINAL.doc.md
+  Status:  unprocessed
+
+  Next: process this note in a Cowork session —
+  fill in Key Takeaways, link to wiki articles, then
+  update status to 'processed' or 'compiled'.
+  Created: Brain/raw/inbox/appendix-f-eh-s-pdf.md
+  Source:  Brain/raw/.extract/Katz/Phase II/03 - System Selection & Supply Chain Optimization/03. RFP Responses/SAP Response/Appendix F EH&S.pdf.md
+  Status:  unprocessed
+
+  Next: process this note in a Cowork session —
+  fill in Key Takeaways, link to wiki articles, then
+  update status to 'processed' or 'compiled'.
+  Created: Brain/raw/inbox/appendix-a---sap-ag-2002-annual-report-pdf.md
+  Source:  Brain/raw/.extract/Katz/Phase II/03 - System Selection & Supply Chain Optimization/03. RFP Responses/SAP Response/Appendix A - SAP AG 2002 Annual Report.pdf.md
+  Status:  unprocessed
+
+  Next: process this note in a Cowork session —
+  fill in Key Takeaways, link to wiki articles, then
+  update status to 'processed' or 'compiled'.
+  Created: Brain/raw/inbox/appendix-e_f-workforce-management-pdf.md
+  Source:  Brain/raw/.extract/Katz/Phase II/03 - System Selection & Supply Chain Optimization/03. RFP Responses/SAP Response/Appendix E_f Workforce Management.pdf.md
+  Status:  unprocessed
+
+  Next: process this note in a Cowork session —
+  fill in Key Takeaways, link to wiki articles, then
+  update status to 'processed' or 'compiled'.
+  Created: Brain/raw/inbox/appendix-f-asset-management-pdf.md
+  Source:  Brain/raw/.extract/Katz/Phase II/03 - System Selection & Supply Chain Optimization/03. RFP Responses/SAP Response/Appendix F asset management.pdf.md
+  Status:  unprocessed
+
+  Next: process this note in a Cowork session —
+  fill in Key Takeaways, link to wiki articles, then
+  update status to 'processed' or 'compiled'.
+  Created: Brain/raw/inbox/appendix-c---asap-methodology-doc.md
+  Source:  Brain/raw/.extract/Katz/Phase II/03 - System Selection & Supply Chain Optimization/03. RFP Responses/SAP Response/Appendix C - ASAP Methodology.doc.md
+  Status:  unprocessed
+
+  Next: process this note in a Cowork session —
+  fill in Key Takeaways, link to wiki articles, then
+  update status to 'processed' or 'compiled'.
+  Created: Brain/raw/inbox/appendix-f-real-estate-pdf.md
+  Source:  Brain/raw/.extract/Katz/Phase II/03 - System Selection & Supply Chain Optimization/03. RFP Responses/SAP Response/Appendix F Real Estate.pdf.md
+  Status:  unprocessed
+
+  Next: process this note in a Cowork session —
+  fill in Key Takeaways, link to wiki articles, then
+  update status to 'processed' or 'compiled'.
+  Created: Brain/raw/inbox/appendix-e-staffw-pdf.md
+  Source:  Brain/raw/.extract/Katz/Phase II/03 - System Selection & Supply Chain Optimization/03. RFP Responses/SAP Response/Appendix E StaffW.pdf.md
+  Status:  unprocessed
+
+  Next: process this note in a Cowork session —
+  fill in Key Takeaways, link to wiki articles, then
+  update status to 'processed' or 'compiled'.
+  Created: Brain/raw/inbox/appendix-a---sap-ag-2000-annual-report-pdf.md
+  Source:  Brain/raw/.extract/Katz/Phase II/03 - System Selection & Supply Chain Optimization/03. RFP Responses/SAP Response/Appendix A - SAP AG 2000 Annual Report.pdf.md
+  Status:  unprocessed
+
+  Next: process this note in a Cowork session —
+  fill in Key Takeaways, link to wiki articles, then
+  update status to 'processed' or 'compiled'.
+  Created: Brain/raw/inbox/appendix-e-j-crew-pdf.md
+  Source:  Brain/raw/.extract/Katz/Phase II/03 - System Selection & Supply Chain Optimization/03. RFP Responses/SAP Response/Appendix E J Crew.pdf.md
+  Status:  unprocessed
+
+  Next: process this note in a Cowork session —
+  fill in Key Takeaways, link to wiki articles, then
+  update status to 'processed' or 'compiled'.
+  Created: Brain/raw/inbox/appendix-d---draft-katz-exh-d--cdn-escrow-schedule--sep5-03-doc.md
+  Source:  Brain/raw/.extract/Katz/Phase II/03 - System Selection & Supply Chain Optimization/03. RFP Responses/SAP Response/Appendix D - Draft Katz Exh D (Cdn Escrow Schedule) Sep5'03.doc.md
+  Status:  unprocessed
+
+  Next: process this note in a Cowork session —
+  fill in Key Takeaways, link to wiki articles, then
+  update status to 'processed' or 'compiled'.
+  Created: Brain/raw/inbox/appendix-f--analytical-retail-pdf.md
+  Source:  Brain/raw/.extract/Katz/Phase II/03 - System Selection & Supply Chain Optimization/03. RFP Responses/SAP Response/Appendix F- Analytical retail.pdf.md
+  Status:  unprocessed
+
+  Next: process this note in a Cowork session —
+  fill in Key Takeaways, link to wiki articles, then
+  update status to 'processed' or 'compiled'.
+  Created: Brain/raw/inbox/appendix-d---draft-katz-exh-d--cdn-escrow-exhibit--sep5-03-doc.md
+  Source:  Brain/raw/.extract/Katz/Phase II/03 - System Selection & Supply Chain Optimization/03. RFP Responses/SAP Response/Appendix D - Draft Katz Exh D (Cdn Escrow Exhibit) Sep5'03.doc.md
+  Status:  unprocessed
+
+  Next: process this note in a Cowork session —
+  fill in Key Takeaways, link to wiki articles, then
+  update status to 'processed' or 'compiled'.
+  Created: Brain/raw/inbox/katz-requirements---sap-final-response-xls.md
+  Source:  Brain/raw/.extract/Katz/Phase II/03 - System Selection & Supply Chain Optimization/03. RFP Responses/SAP Response/Katz Requirements - SAP FINAL RESPONSE.xls.md
+  Status:  unprocessed
+
+  Next: process this note in a Cowork session —
+  fill in Key Takeaways, link to wiki articles, then
+  update status to 'processed' or 'compiled'.
+  Created: Brain/raw/inbox/appendix-e---spar-pdf.md
+  Source:  Brain/raw/.extract/Katz/Phase II/03 - System Selection & Supply Chain Optimization/03. RFP Responses/SAP Response/Appendix E - Spar.pdf.md
+  Status:  unprocessed
+
+  Next: process this note in a Cowork session —
+  fill in Key Takeaways, link to wiki articles, then
+  update status to 'processed' or 'compiled'.
+  Created: Brain/raw/inbox/appendix-e---boots-pdf.md
+  Source:  Brain/raw/.extract/Katz/Phase II/03 - System Selection & Supply Chain Optimization/03. RFP Responses/SAP Response/Appendix E - Boots.pdf.md
+  Status:  unprocessed
+
+  Next: process this note in a Cowork session —
+  fill in Key Takeaways, link to wiki articles, then
+  update status to 'processed' or 'compiled'.
+  Created: Brain/raw/inbox/appendix-d---draft-katz-exh-d--cdn-escrow-agrmt--sep5-03-doc.md
+  Source:  Brain/raw/.extract/Katz/Phase II/03 - System Selection & Supply Chain Optimization/03. RFP Responses/SAP Response/Appendix D - Draft Katz Exh D (Cdn Escrow Agrmt) Sep5'03.doc.md
+  Status:  unprocessed
+
+  Next: process this note in a Cowork session —
+  fill in Key Takeaways, link to wiki articles, then
+  update status to 'processed' or 'compiled'.
+  Created: Brain/raw/inbox/appendix-d---draft-katz-end-user-license-agt-with-exhibi-8c9-doc.md
+  Source:  Brain/raw/.extract/Katz/Phase II/03 - System Selection & Supply Chain Optimization/03. RFP Responses/SAP Response/Appendix D - Draft Katz End User License Agt with Exhibi#8c9.doc.md
+  Status:  unprocessed
+
+  Next: process this note in a Cowork session —
+  fill in Key Takeaways, link to wiki articles, then
+  update status to 'processed' or 'compiled'.
+  Created: Brain/raw/inbox/appendix-f---pos_data_mana-pdf.md
+  Source:  Brain/raw/.extract/Katz/Phase II/03 - System Selection & Supply Chain Optimization/03. RFP Responses/SAP Response/Appendix F - POS_Data_Mana.pdf.md
+  Status:  unprocessed
+
+  Next: process this note in a Cowork session —
+  fill in Key Takeaways, link to wiki articles, then
+  update status to 'processed' or 'compiled'.
+  Created: Brain/raw/inbox/appendix-b---supported-currencies-doc.md
+  Source:  Brain/raw/.extract/Katz/Phase II/03 - System Selection & Supply Chain Optimization/03. RFP Responses/SAP Response/Appendix B - Supported Currencies.doc.md
+  Status:  unprocessed
+
+  Next: process this note in a Cowork session —
+  fill in Key Takeaways, link to wiki articles, then
+  update status to 'processed' or 'compiled'.
+  Created: Brain/raw/inbox/appendix-a---sap-ag-2001-annual-report-pdf.md
+  Source:  Brain/raw/.extract/Katz/Phase II/03 - System Selection & Supply Chain Optimization/03. RFP Responses/SAP Response/Appendix A - SAP AG 2001 Annual Report.pdf.md
+  Status:  unprocessed
+
+  Next: process this note in a Cowork session —
+  fill in Key Takeaways, link to wiki articles, then
+  update status to 'processed' or 'compiled'.
+  Created: Brain/raw/inbox/final-cover-letter-doc.md
+  Source:  Brain/raw/.extract/Katz/Phase II/03 - System Selection & Supply Chain Optimization/03. RFP Responses/SAP Response/Final Cover Letter.doc.md
+  Status:  unprocessed
+
+  Next: process this note in a Cowork session —
+  fill in Key Takeaways, link to wiki articles, then
+  update status to 'processed' or 'compiled'.
+  Created: Brain/raw/inbox/appendix-f---mcr-pdf.md
+  Source:  Brain/raw/.extract/Katz/Phase II/03 - System Selection & Supply Chain Optimization/03. RFP Responses/SAP Response/Appendix F - MCR.pdf.md
+  Status:  unprocessed
+
+  Next: process this note in a Cowork session —
+  fill in Key Takeaways, link to wiki articles, then
+  update status to 'processed' or 'compiled'.
+  Created: Brain/raw/inbox/appendix-f---supply-chain-pdf.md
+  Source:  Brain/raw/.extract/Katz/Phase II/03 - System Selection & Supply Chain Optimization/03. RFP Responses/SAP Response/Appendix F - Supply Chain.pdf.md
+  Status:  unprocessed
+
+  Next: process this note in a Cowork session —
+  fill in Key Takeaways, link to wiki articles, then
+  update status to 'processed' or 'compiled'.
+  Created: Brain/raw/inbox/appendix-d---draft-katz-mysap-appendix-a-w-exhibit-a-sep5-03-doc.md
+  Source:  Brain/raw/.extract/Katz/Phase II/03 - System Selection & Supply Chain Optimization/03. RFP Responses/SAP Response/Appendix D - Draft Katz mySAP Appendix A w Exhibit A Sep5'03.doc.md
+  Status:  unprocessed
+
+  Next: process this note in a Cowork session —
+  fill in Key Takeaways, link to wiki articles, then
+  update status to 'processed' or 'compiled'.
+  Created: Brain/raw/inbox/appendix-d--pdf.md
+  Source:  Brain/raw/.extract/Katz/Phase II/03 - System Selection & Supply Chain Optimization/03. RFP Responses/JD Edwards Response/Appendix D .pdf.md
+  Status:  unprocessed
+
+  Next: process this note in a Cowork session —
+  fill in Key Takeaways, link to wiki articles, then
+  update status to 'processed' or 'compiled'.
+  Created: Brain/raw/inbox/appendix-e-1-of-2-pdf.md
+  Source:  Brain/raw/.extract/Katz/Phase II/03 - System Selection & Supply Chain Optimization/03. RFP Responses/JD Edwards Response/Appendix E 1 of 2.pdf.md
+  Status:  unprocessed
+
+  Next: process this note in a Cowork session —
+  fill in Key Takeaways, link to wiki articles, then
+  update status to 'processed' or 'compiled'.
+  Created: Brain/raw/inbox/appendix-c-2-of-3-pdf.md
+  Source:  Brain/raw/.extract/Katz/Phase II/03 - System Selection & Supply Chain Optimization/03. RFP Responses/JD Edwards Response/Appendix C 2 of 3.pdf.md
+  Status:  unprocessed
+
+  Next: process this note in a Cowork session —
+  fill in Key Takeaways, link to wiki articles, then
+  update status to 'processed' or 'compiled'.
+  Created: Brain/raw/inbox/appendix-a-pdf.md
+  Source:  Brain/raw/.extract/Katz/Phase II/03 - System Selection & Supply Chain Optimization/03. RFP Responses/JD Edwards Response/Appendix A.pdf.md
+  Status:  unprocessed
+
+  Next: process this note in a Cowork session —
+  fill in Key Takeaways, link to wiki articles, then
+  update status to 'processed' or 'compiled'.
+  Created: Brain/raw/inbox/appendix-c-1-of-3-pdf.md
+  Source:  Brain/raw/.extract/Katz/Phase II/03 - System Selection & Supply Chain Optimization/03. RFP Responses/JD Edwards Response/Appendix C 1 of 3.pdf.md
+  Status:  unprocessed
+
+  Next: process this note in a Cowork session —
+  fill in Key Takeaways, link to wiki articles, then
+  update status to 'processed' or 'compiled'.
+  Created: Brain/raw/inbox/appendix-f--pdf.md
+  Source:  Brain/raw/.extract/Katz/Phase II/03 - System Selection & Supply Chain Optimization/03. RFP Responses/JD Edwards Response/Appendix F .pdf.md
+  Status:  unprocessed
+
+  Next: process this note in a Cowork session —
+  fill in Key Takeaways, link to wiki articles, then
+  update status to 'processed' or 'compiled'.
+  Created: Brain/raw/inbox/appendix-e-2-of-2-pdf.md
+  Source:  Brain/raw/.extract/Katz/Phase II/03 - System Selection & Supply Chain Optimization/03. RFP Responses/JD Edwards Response/Appendix E 2 of 2.pdf.md
+  Status:  unprocessed
+
+  Next: process this note in a Cowork session —
+  fill in Key Takeaways, link to wiki articles, then
+  update status to 'processed' or 'compiled'.
+  Created: Brain/raw/inbox/appendix-c-3-of-3-pdf.md
+  Source:  Brain/raw/.extract/Katz/Phase II/03 - System Selection & Supply Chain Optimization/03. RFP Responses/JD Edwards Response/Appendix C 3 of 3.pdf.md
+  Status:  unprocessed
+
+  Next: process this note in a Cowork session —
+  fill in Key Takeaways, link to wiki articles, then
+  update status to 'processed' or 'compiled'.
+  Created: Brain/raw/inbox/appendix-b-pdf.md
+  Source:  Brain/raw/.extract/Katz/Phase II/03 - System Selection & Supply Chain Optimization/03. RFP Responses/JD Edwards Response/Appendix B.pdf.md
+  Status:  unprocessed
+
+  Next: process this note in a Cowork session —
+  fill in Key Takeaways, link to wiki articles, then
+  update status to 'processed' or 'compiled'.
+  Created: Brain/raw/inbox/response-doc.md
+  Source:  Brain/raw/.extract/Katz/Phase II/03 - System Selection & Supply Chain Optimization/03. RFP Responses/JD Edwards Response/Response.doc.md
+  Status:  unprocessed
+
+  Next: process this note in a Cowork session —
+  fill in Key Takeaways, link to wiki articles, then
+  update status to 'processed' or 'compiled'.
+  Created: Brain/raw/inbox/he-butt-reference-check-doc.md
+  Source:  Brain/raw/.extract/Katz/Phase II/03 - System Selection & Supply Chain Optimization/09. Reference Checks/HE Butt Reference Check.doc.md
+  Status:  unprocessed
+
+  Next: process this note in a Cowork session —
+  fill in Key Takeaways, link to wiki articles, then
+  update status to 'processed' or 'compiled'.
+  Created: Brain/raw/inbox/forzani-reference-call-doc.md
+  Source:  Brain/raw/.extract/Katz/Phase II/03 - System Selection & Supply Chain Optimization/09. Reference Checks/Forzani Reference Call.doc.md
+  Status:  unprocessed
+
+  Next: process this note in a Cowork session —
+  fill in Key Takeaways, link to wiki articles, then
+  update status to 'processed' or 'compiled'.
+  Created: Brain/raw/inbox/sobeys-reference-check-doc.md
+  Source:  Brain/raw/.extract/Katz/Phase II/03 - System Selection & Supply Chain Optimization/09. Reference Checks/Sobeys Reference Check.doc.md
+  Status:  unprocessed
+
+  Next: process this note in a Cowork session —
+  fill in Key Takeaways, link to wiki articles, then
+  update status to 'processed' or 'compiled'.
+  Created: Brain/raw/inbox/tractor-supply-reference-check-doc.md
+  Source:  Brain/raw/.extract/Katz/Phase II/03 - System Selection & Supply Chain Optimization/09. Reference Checks/Tractor Supply Reference Check.doc.md
+  Status:  unprocessed
+
+  Next: process this note in a Cowork session —
+  fill in Key Takeaways, link to wiki articles, then
+  update status to 'processed' or 'compiled'.
+  Created: Brain/raw/inbox/cvs-reference-check-doc.md
+  Source:  Brain/raw/.extract/Katz/Phase II/03 - System Selection & Supply Chain Optimization/09. Reference Checks/CVS Reference Check.doc.md
+  Status:  unprocessed
+
+  Next: process this note in a Cowork session —
+  fill in Key Takeaways, link to wiki articles, then
+  update status to 'processed' or 'compiled'.
+  Created: Brain/raw/inbox/boots-conference-call-notes-doc.md
+  Source:  Brain/raw/.extract/Katz/Phase II/03 - System Selection & Supply Chain Optimization/09. Reference Checks/Boots conference call notes.doc.md
+  Status:  unprocessed
+
+  Next: process this note in a Cowork session —
+  fill in Key Takeaways, link to wiki articles, then
+  update status to 'processed' or 'compiled'.
+  Created: Brain/raw/inbox/katz-retail-supply-chain-management-systems-rfp-doc.md
+  Source:  Brain/raw/.extract/Katz/Phase II/03 - System Selection & Supply Chain Optimization/02. RFP Distributed to Vendors/Katz Retail Supply Chain Management Systems RFP.doc.md
+  Status:  unprocessed
+
+  Next: process this note in a Cowork session —
+  fill in Key Takeaways, link to wiki articles, then
+  update status to 'processed' or 'compiled'.
+  Created: Brain/raw/inbox/katz-retail-supply-chain-management-systems-rfp---jda-doc.md
+  Source:  Brain/raw/.extract/Katz/Phase II/03 - System Selection & Supply Chain Optimization/02. RFP Distributed to Vendors/Katz Retail Supply Chain Management Systems RFP - JDA.doc.md
+  Status:  unprocessed
+
+  Next: process this note in a Cowork session —
+  fill in Key Takeaways, link to wiki articles, then
+  update status to 'processed' or 'compiled'.
+  Created: Brain/raw/inbox/katz-retail-supply-chain-management-systems-rfp---jde-doc.md
+  Source:  Brain/raw/.extract/Katz/Phase II/03 - System Selection & Supply Chain Optimization/02. RFP Distributed to Vendors/Katz Retail Supply Chain Management Systems RFP - JDE.doc.md
+  Status:  unprocessed
+
+  Next: process this note in a Cowork session —
+  fill in Key Takeaways, link to wiki articles, then
+  update status to 'processed' or 'compiled'.
+  Created: Brain/raw/inbox/katz-retail-supply-chain-management-systems-rfp---retek-doc.md
+  Source:  Brain/raw/.extract/Katz/Phase II/03 - System Selection & Supply Chain Optimization/02. RFP Distributed to Vendors/Katz Retail Supply Chain Management Systems RFP - Retek.doc.md
+  Status:  unprocessed
+
+  Next: process this note in a Cowork session —
+  fill in Key Takeaways, link to wiki articles, then
+  update status to 'processed' or 'compiled'.
+  Created: Brain/raw/inbox/katz-retail-supply-chain-management-systems-rfp---sap-doc.md
+  Source:  Brain/raw/.extract/Katz/Phase II/03 - System Selection & Supply Chain Optimization/02. RFP Distributed to Vendors/Katz Retail Supply Chain Management Systems RFP - SAP.doc.md
+  Status:  unprocessed
+
+  Next: process this note in a Cowork session —
+  fill in Key Takeaways, link to wiki articles, then
+  update status to 'processed' or 'compiled'.
+  Created: Brain/raw/inbox/katz-requirements-xls.md
+  Source:  Brain/raw/.extract/Katz/Phase II/03 - System Selection & Supply Chain Optimization/02. RFP Distributed to Vendors/Katz Requirements.xls.md
+  Status:  unprocessed
+
+  Next: process this note in a Cowork session —
+  fill in Key Takeaways, link to wiki articles, then
+  update status to 'processed' or 'compiled'.
+  Created: Brain/raw/inbox/katz-retail-supply-chain-management-systems-rfp---i2-doc.md
+  Source:  Brain/raw/.extract/Katz/Phase II/03 - System Selection & Supply Chain Optimization/02. RFP Distributed to Vendors/Katz Retail Supply Chain Management Systems RFP - i2.doc.md
+  Status:  unprocessed
+
+  Next: process this note in a Cowork session —
+  fill in Key Takeaways, link to wiki articles, then
+  update status to 'processed' or 'compiled'.
+  Created: Brain/raw/inbox/revised-npv-model-v2-xls.md
+  Source:  Brain/raw/.extract/Katz/Phase II/06 - Prepare for Implementation/Revised NPV Model v2.xls.md
+  Status:  unprocessed
+
+  Next: process this note in a Cowork session —
+  fill in Key Takeaways, link to wiki articles, then
+  update status to 'processed' or 'compiled'.
+  Created: Brain/raw/inbox/current-assessment----opportunities-v3-4--revised-08022003-xls.md
+  Source:  Brain/raw/.extract/Katz/Phase II/04 - Supporting  IT Architecture/Current Assessment  & Opportunities V3.4  Revised 08022003.xls.md
+  Status:  unprocessed
+
+  Next: process this note in a Cowork session —
+  fill in Key Takeaways, link to wiki articles, then
+  update status to 'processed' or 'compiled'.
+  Created: Brain/raw/inbox/katz-current-applications-assessment-xls.md
+  Source:  Brain/raw/.extract/Katz/Phase II/04 - Supporting  IT Architecture/Katz Current Applications Assessment.xls.md
+  Status:  unprocessed
+
+  Next: process this note in a Cowork session —
+  fill in Key Takeaways, link to wiki articles, then
+  update status to 'processed' or 'compiled'.
+  Created: Brain/raw/inbox/comm-plan-casper-phase-iiv4-xls.md
+  Source:  Brain/raw/.extract/Katz/Phase II/05 - Organization Alignment & Change Management/Comm Plan Casper Phase IIv4.xls.md
+  Status:  unprocessed
+
+  Next: process this note in a Cowork session —
+  fill in Key Takeaways, link to wiki articles, then
+  update status to 'processed' or 'compiled'.
+  Created: Brain/raw/inbox/communication-plan-development-for-katzv2-doc.md
+  Source:  Brain/raw/.extract/Katz/Phase II/05 - Organization Alignment & Change Management/Communication Plan Development for Katzv2.doc.md
+  Status:  unprocessed
+
+  Next: process this note in a Cowork session —
+  fill in Key Takeaways, link to wiki articles, then
+  update status to 'processed' or 'compiled'.
+  Created: Brain/raw/inbox/discontinued-by-store-v3-xls.md
+  Source:  Brain/raw/.extract/Katz/Phase I/07 - Inventory Analysis/Discontinued by Store v3.xls.md
+  Status:  unprocessed
+
+  Next: process this note in a Cowork session —
+  fill in Key Takeaways, link to wiki articles, then
+  update status to 'processed' or 'compiled'.
+  Created: Brain/raw/inbox/inventory-turns-by-vendor-xls.md
+  Source:  Brain/raw/.extract/Katz/Phase I/07 - Inventory Analysis/Inventory Turns By Vendor.xls.md
+  Status:  unprocessed
+
+  Next: process this note in a Cowork session —
+  fill in Key Takeaways, link to wiki articles, then
+  update status to 'processed' or 'compiled'.
+  Created: Brain/raw/inbox/service-levels-xls.md
+  Source:  Brain/raw/.extract/Katz/Phase I/07 - Inventory Analysis/Service Levels.xls.md
+  Status:  unprocessed
+
+  Next: process this note in a Cowork session —
+  fill in Key Takeaways, link to wiki articles, then
+  update status to 'processed' or 'compiled'.
+  Created: Brain/raw/inbox/inventory-turns-by-vendor---category-xls.md
+  Source:  Brain/raw/.extract/Katz/Phase I/07 - Inventory Analysis/Inventory Turns By Vendor & Category.xls.md
+  Status:  unprocessed
+
+  Next: process this note in a Cowork session —
+  fill in Key Takeaways, link to wiki articles, then
+  update status to 'processed' or 'compiled'.
+  Created: Brain/raw/inbox/ihl---it-in-drug-chains-pdf.md
+  Source:  Brain/raw/.extract/Katz/Phase I/05 - Benchmarking/IHL - IT in Drug Chains.pdf.md
+  Status:  unprocessed
+
+  Next: process this note in a Cowork session —
+  fill in Key Takeaways, link to wiki articles, then
+  update status to 'processed' or 'compiled'.
+  Created: Brain/raw/inbox/rms-system-xls.md
+  Source:  Brain/raw/.extract/Katz/Phase I/05 - Benchmarking/RMS System.xls.md
+  Status:  unprocessed
+
+  Next: process this note in a Cowork session —
+  fill in Key Takeaways, link to wiki articles, then
+  update status to 'processed' or 'compiled'.
+  Created: Brain/raw/inbox/katz-supply-chain-metrics-xls.md
+  Source:  Brain/raw/.extract/Katz/Phase I/05 - Benchmarking/Katz Supply Chain Metrics.xls.md
+  Status:  unprocessed
+
+  Next: process this note in a Cowork session —
+  fill in Key Takeaways, link to wiki articles, then
+  update status to 'processed' or 'compiled'.
+  Created: Brain/raw/inbox/katz-group-executive-visioning-session-doc.md
+  Source:  Brain/raw/.extract/Katz/Phase I/04 - Executive Visioning/Katz Group Executive Visioning Session.doc.md
+  Status:  unprocessed
+
+  Next: process this note in a Cowork session —
+  fill in Key Takeaways, link to wiki articles, then
+  update status to 'processed' or 'compiled'.
+  Created: Brain/raw/inbox/rex-bay---dundas-store-visit-april-30--2003-xls.md
+  Source:  Brain/raw/.extract/Katz/Phase I/02 - Store Visits/REX Bay & Dundas Store Visit April 30, 2003.xls.md
+  Status:  unprocessed
+
+  Next: process this note in a Cowork session —
+  fill in Key Takeaways, link to wiki articles, then
+  update status to 'processed' or 'compiled'.
+  Created: Brain/raw/inbox/ppd-pickering-store-visit-april-30--2003-xls.md
+  Source:  Brain/raw/.extract/Katz/Phase I/02 - Store Visits/PPD Pickering Store Visit April 30, 2003.xls.md
+  Status:  unprocessed
+
+  Next: process this note in a Cowork session —
+  fill in Key Takeaways, link to wiki articles, then
+  update status to 'processed' or 'compiled'.
+  Created: Brain/raw/inbox/commerce-court-store-visit-april-29--2003-xls.md
+  Source:  Brain/raw/.extract/Katz/Phase I/02 - Store Visits/Commerce Court Store Visit April 29, 2003.xls.md
+  Status:  unprocessed
+
+  Next: process this note in a Cowork session —
+  fill in Key Takeaways, link to wiki articles, then
+  update status to 'processed' or 'compiled'.
+  Created: Brain/raw/inbox/bay---dundas-store-visit-april-30--2003-xls.md
+  Source:  Brain/raw/.extract/Katz/Phase I/02 - Store Visits/Bay & Dundas Store Visit April 30, 2003.xls.md
+  Status:  unprocessed
+
+  Next: process this note in a Cowork session —
+  fill in Key Takeaways, link to wiki articles, then
+  update status to 'processed' or 'compiled'.
+  Created: Brain/raw/inbox/rex-milton-store-visit-may-2--2003-xls.md
+  Source:  Brain/raw/.extract/Katz/Phase I/02 - Store Visits/REX Milton Store Visit May 2, 2003.xls.md
+  Status:  unprocessed
+
+  Next: process this note in a Cowork session —
+  fill in Key Takeaways, link to wiki articles, then
+  update status to 'processed' or 'compiled'.
+  Created: Brain/raw/inbox/gdn-king-city-store-visit-may-6--2003-xls.md
+  Source:  Brain/raw/.extract/Katz/Phase I/02 - Store Visits/GDN King City Store Visit May 6, 2003.xls.md
+  Status:  unprocessed
+
+  Next: process this note in a Cowork session —
+  fill in Key Takeaways, link to wiki articles, then
+  update status to 'processed' or 'compiled'.
+  Created: Brain/raw/inbox/bayshore-store-visit-may-15--2003-xls.md
+  Source:  Brain/raw/.extract/Katz/Phase I/02 - Store Visits/Bayshore Store Visit May 15, 2003.xls.md
+  Status:  unprocessed
+
+  Next: process this note in a Cowork session —
+  fill in Key Takeaways, link to wiki articles, then
+  update status to 'processed' or 'compiled'.
+  Created: Brain/raw/inbox/lunenburg-store-visit-may-21--2003-xls.md
+  Source:  Brain/raw/.extract/Katz/Phase I/02 - Store Visits/Lunenburg Store Visit May 21, 2003.xls.md
+  Status:  unprocessed
+
+  Next: process this note in a Cowork session —
+  fill in Key Takeaways, link to wiki articles, then
+  update status to 'processed' or 'compiled'.
+  Created: Brain/raw/inbox/ppd-church---wellesley-store-visit-april-29--2003-xls.md
+  Source:  Brain/raw/.extract/Katz/Phase I/02 - Store Visits/PPD Church & Wellesley Store Visit April 29, 2003.xls.md
+  Status:  unprocessed
+
+  Next: process this note in a Cowork session —
+  fill in Key Takeaways, link to wiki articles, then
+  update status to 'processed' or 'compiled'.
+  Created: Brain/raw/inbox/ppd-eglinton-creditview-store-visit-april-28--2003-xls.md
+  Source:  Brain/raw/.extract/Katz/Phase I/02 - Store Visits/PPD Eglinton Creditview Store Visit April 28, 2003.xls.md
+  Status:  unprocessed
+
+  Next: process this note in a Cowork session —
+  fill in Key Takeaways, link to wiki articles, then
+  update status to 'processed' or 'compiled'.
+  Created: Brain/raw/inbox/ppd-commerce-court-store-visit-april-29--2003-xls.md
+  Source:  Brain/raw/.extract/Katz/Phase I/02 - Store Visits/PPD Commerce Court Store Visit April 29, 2003.xls.md
+  Status:  unprocessed
+
+  Next: process this note in a Cowork session —
+  fill in Key Takeaways, link to wiki articles, then
+  update status to 'processed' or 'compiled'.
+  Created: Brain/raw/inbox/montreal-square-store-visit-may-15--2003-xls.md
+  Source:  Brain/raw/.extract/Katz/Phase I/02 - Store Visits/Montreal Square Store Visit May 15, 2003.xls.md
+  Status:  unprocessed
+
+  Next: process this note in a Cowork session —
+  fill in Key Takeaways, link to wiki articles, then
+  update status to 'processed' or 'compiled'.
+  Created: Brain/raw/inbox/lakeshore-store-visit-april-30--2003-xls.md
+  Source:  Brain/raw/.extract/Katz/Phase I/02 - Store Visits/Lakeshore Store Visit April 30, 2003.xls.md
+  Status:  unprocessed
+
+  Next: process this note in a Cowork session —
+  fill in Key Takeaways, link to wiki articles, then
+  update status to 'processed' or 'compiled'.
+  Created: Brain/raw/inbox/ppd-westney-ajax-fs-store-visit-april-30--2003-xls.md
+  Source:  Brain/raw/.extract/Katz/Phase I/02 - Store Visits/PPD Westney Ajax FS Store Visit April 30, 2003.xls.md
+  Status:  unprocessed
+
+  Next: process this note in a Cowork session —
+  fill in Key Takeaways, link to wiki articles, then
+  update status to 'processed' or 'compiled'.
+  Created: Brain/raw/inbox/ppd-1st-canadian-store-visit-april-29--2003-xls.md
+  Source:  Brain/raw/.extract/Katz/Phase I/02 - Store Visits/PPD 1st Canadian Store Visit April 29, 2003.xls.md
+  Status:  unprocessed
+
+  Next: process this note in a Cowork session —
+  fill in Key Takeaways, link to wiki articles, then
+  update status to 'processed' or 'compiled'.
+  Created: Brain/raw/inbox/ida-west-mall-store-visit-may-2--2003-xls.md
+  Source:  Brain/raw/.extract/Katz/Phase I/02 - Store Visits/IDA West Mall Store Visit May 2, 2003.xls.md
+  Status:  unprocessed
+
+  Next: process this note in a Cowork session —
+  fill in Key Takeaways, link to wiki articles, then
+  update status to 'processed' or 'compiled'.
+  Created: Brain/raw/inbox/store-visit-compilation-xls.md
+  Source:  Brain/raw/.extract/Katz/Phase I/02 - Store Visits/Store Visit Compilation.xls.md
+  Status:  unprocessed
+
+  Next: process this note in a Cowork session —
+  fill in Key Takeaways, link to wiki articles, then
+  update status to 'processed' or 'compiled'.
+  Created: Brain/raw/inbox/crossroads-store-visit-may-21--2003-xls.md
+  Source:  Brain/raw/.extract/Katz/Phase I/02 - Store Visits/Crossroads Store Visit May 21, 2003.xls.md
+  Status:  unprocessed
+
+  Next: process this note in a Cowork session —
+  fill in Key Takeaways, link to wiki articles, then
+  update status to 'processed' or 'compiled'.
+  Created: Brain/raw/inbox/ppd-metro-centre-store-visit-april-29--2003-xls.md
+  Source:  Brain/raw/.extract/Katz/Phase I/02 - Store Visits/PPD Metro Centre Store Visit April 29, 2003.xls.md
+  Status:  unprocessed
+
+  Next: process this note in a Cowork session —
+  fill in Key Takeaways, link to wiki articles, then
+  update status to 'processed' or 'compiled'.
+  Created: Brain/raw/inbox/ppd-new-sudbury-store-visit-may-1--2003-xls.md
+  Source:  Brain/raw/.extract/Katz/Phase I/02 - Store Visits/PPD New Sudbury Store Visit May 1, 2003.xls.md
+  Status:  unprocessed
+
+  Next: process this note in a Cowork session —
+  fill in Key Takeaways, link to wiki articles, then
+  update status to 'processed' or 'compiled'.
+  Created: Brain/raw/inbox/church---wellesley-store-visit-april-29--2003-xls.md
+  Source:  Brain/raw/.extract/Katz/Phase I/02 - Store Visits/Church & Wellesley Store Visit April 29, 2003.xls.md
+  Status:  unprocessed
+
+  Next: process this note in a Cowork session —
+  fill in Key Takeaways, link to wiki articles, then
+  update status to 'processed' or 'compiled'.
+  Created: Brain/raw/inbox/fall-river-store-visit-may-22--2003-xls.md
+  Source:  Brain/raw/.extract/Katz/Phase I/02 - Store Visits/Fall River Store Visit May 22, 2003.xls.md
+  Status:  unprocessed
+
+  Next: process this note in a Cowork session —
+  fill in Key Takeaways, link to wiki articles, then
+  update status to 'processed' or 'compiled'.
+  Created: Brain/raw/inbox/ida-azilda-store-visit-may-1--2003-xls.md
+  Source:  Brain/raw/.extract/Katz/Phase I/02 - Store Visits/IDA Azilda Store Visit May 1, 2003.xls.md
+  Status:  unprocessed
+
+  Next: process this note in a Cowork session —
+  fill in Key Takeaways, link to wiki articles, then
+  update status to 'processed' or 'compiled'.
+  Created: Brain/raw/inbox/sudbury-rexall-store-visit-may-1--2003-xls.md
+  Source:  Brain/raw/.extract/Katz/Phase I/02 - Store Visits/Sudbury Rexall Store Visit May 1, 2003.xls.md
+  Status:  unprocessed
+
+  Next: process this note in a Cowork session —
+  fill in Key Takeaways, link to wiki articles, then
+  update status to 'processed' or 'compiled'.
+  Created: Brain/raw/inbox/ppd-westney-ajax-bs-store-visit-april-30--2003-xls.md
+  Source:  Brain/raw/.extract/Katz/Phase I/02 - Store Visits/PPD Westney Ajax BS Store Visit April 30, 2003.xls.md
+  Status:  unprocessed
+
+  Next: process this note in a Cowork session —
+  fill in Key Takeaways, link to wiki articles, then
+  update status to 'processed' or 'compiled'.
+  Created: Brain/raw/inbox/carleton-place-store-visit-may-15--2003-xls.md
+  Source:  Brain/raw/.extract/Katz/Phase I/02 - Store Visits/Carleton Place Store Visit May 15, 2003.xls.md
+  Status:  unprocessed
+
+  Next: process this note in a Cowork session —
+  fill in Key Takeaways, link to wiki articles, then
+  update status to 'processed' or 'compiled'.
+  Created: Brain/raw/inbox/metro-centre-store-visit-april-29--2003-xls.md
+  Source:  Brain/raw/.extract/Katz/Phase I/02 - Store Visits/Metro Centre Store Visit April 29, 2003.xls.md
+  Status:  unprocessed
+
+  Next: process this note in a Cowork session —
+  fill in Key Takeaways, link to wiki articles, then
+  update status to 'processed' or 'compiled'.
+  Created: Brain/raw/inbox/rex-sudbury-downtown-store-visit-may-1--2003-xls.md
+  Source:  Brain/raw/.extract/Katz/Phase I/02 - Store Visits/REX Sudbury Downtown Store Visit May 1, 2003.xls.md
+  Status:  unprocessed
+
+  Next: process this note in a Cowork session —
+  fill in Key Takeaways, link to wiki articles, then
+  update status to 'processed' or 'compiled'.
+  Created: Brain/raw/inbox/solution-contribution-to-value-opportunities-v3-xls.md
+  Source:  Brain/raw/.extract/Katz/Phase I/08 - Business Case/Solution Contribution to Value Opportunities V3.xls.md
+  Status:  unprocessed
+
+  Next: process this note in a Cowork session —
+  fill in Key Takeaways, link to wiki articles, then
+  update status to 'processed' or 'compiled'.
+  Created: Brain/raw/inbox/npv-model-v2-xls.md
+  Source:  Brain/raw/.extract/Katz/Phase I/08 - Business Case/NPV Model v2.xls.md
+  Status:  unprocessed
+
+  Next: process this note in a Cowork session —
+  fill in Key Takeaways, link to wiki articles, then
+  update status to 'processed' or 'compiled'.
+  Created: Brain/raw/inbox/katz-group-benefits-case-v2-xls.md
+  Source:  Brain/raw/.extract/Katz/Phase I/08 - Business Case/Katz Group Benefits Case v2.xls.md
+  Status:  unprocessed
+
+  Next: process this note in a Cowork session —
+  fill in Key Takeaways, link to wiki articles, then
+  update status to 'processed' or 'compiled'.
+  Created: Brain/raw/inbox/retail-systems-cost-model-draft-v5-xls.md
+  Source:  Brain/raw/.extract/Katz/Phase I/08 - Business Case/Retail Systems Cost Model DRAFT V5.xls.md
+  Status:  unprocessed
+
+  Next: process this note in a Cowork session —
+  fill in Key Takeaways, link to wiki articles, then
+  update status to 'processed' or 'compiled'.
+  Created: Brain/raw/inbox/retail-balanced-scorecard-xls.md
+  Source:  Brain/raw/.extract/Katz/Phase I/06 - Balanced Scorecards/Retail Balanced Scorecard.xls.md
+  Status:  unprocessed
+
+  Next: process this note in a Cowork session —
+  fill in Key Takeaways, link to wiki articles, then
+  update status to 'processed' or 'compiled'.
+  Created: Brain/raw/inbox/harvard-business-review---balanced-scorecard-doc.md
+  Source:  Brain/raw/.extract/Katz/Phase I/06 - Balanced Scorecards/Harvard Business Review - Balanced Scorecard.doc.md
+  Status:  unprocessed
+
+  Next: process this note in a Cowork session —
+  fill in Key Takeaways, link to wiki articles, then
+  update status to 'processed' or 'compiled'.
+  Created: Brain/raw/inbox/harvard-business-review---putting-the-balanced-scorecard-e74-doc.md
+  Source:  Brain/raw/.extract/Katz/Phase I/06 - Balanced Scorecards/Harvard Business Review - Putting the Balanced Scorecard#e74.doc.md
+  Status:  unprocessed
+
+  Next: process this note in a Cowork session —
+  fill in Key Takeaways, link to wiki articles, then
+  update status to 'processed' or 'compiled'.
+  Created: Brain/raw/inbox/workshop-good-ideas-xls.md
+  Source:  Brain/raw/.extract/Katz/Phase I/03 - As-Is Workshops/Workshop Good Ideas.xls.md
+  Status:  unprocessed
+
+  Next: process this note in a Cowork session —
+  fill in Key Takeaways, link to wiki articles, then
+  update status to 'processed' or 'compiled'.
+  Created: Brain/raw/inbox/workshop-notes-xls.md
+  Source:  Brain/raw/.extract/Katz/Phase I/03 - As-Is Workshops/Workshop Notes.xls.md
+  Status:  unprocessed
+
+  Next: process this note in a Cowork session —
+  fill in Key Takeaways, link to wiki articles, then
+  update status to 'processed' or 'compiled'.
+  Created: Brain/raw/inbox/workshop-plan-v2-xls.md
+  Source:  Brain/raw/.extract/Katz/Phase I/03 - As-Is Workshops/Workshop Plan v2.xls.md
+  Status:  unprocessed
+
+  Next: process this note in a Cowork session —
+  fill in Key Takeaways, link to wiki articles, then
+  update status to 'processed' or 'compiled'.
+  Created: Brain/raw/inbox/other-workshop-notes-xls.md
+  Source:  Brain/raw/.extract/Katz/Phase I/03 - As-Is Workshops/Other Workshop Notes.xls.md
+  Status:  unprocessed
+
+  Next: process this note in a Cowork session —
+  fill in Key Takeaways, link to wiki articles, then
+  update status to 'processed' or 'compiled'.
+  Created: Brain/raw/inbox/interview-with-larry-latowsky-apr-14-03-doc.md
+  Source:  Brain/raw/.extract/Katz/Phase I/01 - Executive Interviews/Interview with Larry Latowsky Apr 14 03.doc.md
+  Status:  unprocessed
+
+  Next: process this note in a Cowork session —
+  fill in Key Takeaways, link to wiki articles, then
+  update status to 'processed' or 'compiled'.
+  Created: Brain/raw/inbox/craig-taylor-jonathan-alpert-interview-analysis-xls.md
+  Source:  Brain/raw/.extract/Katz/Phase I/01 - Executive Interviews/Craig Taylor Jonathan Alpert Interview Analysis.xls.md
+  Status:  unprocessed
+
+  Next: process this note in a Cowork session —
+  fill in Key Takeaways, link to wiki articles, then
+  update status to 'processed' or 'compiled'.
+  Created: Brain/raw/inbox/interview-compilation-xls.md
+  Source:  Brain/raw/.extract/Katz/Phase I/01 - Executive Interviews/Interview compilation.xls.md
+  Status:  unprocessed
+
+  Next: process this note in a Cowork session —
+  fill in Key Takeaways, link to wiki articles, then
+  update status to 'processed' or 'compiled'.
+  Created: Brain/raw/inbox/al-wilkie-interview-analysis-xls.md
+  Source:  Brain/raw/.extract/Katz/Phase I/01 - Executive Interviews/Al Wilkie Interview Analysis.xls.md
+  Status:  unprocessed
+
+  Next: process this note in a Cowork session —
+  fill in Key Takeaways, link to wiki articles, then
+  update status to 'processed' or 'compiled'.
+  Created: Brain/raw/inbox/bruce-moody-interview-analysis-xls.md
+  Source:  Brain/raw/.extract/Katz/Phase I/01 - Executive Interviews/Bruce Moody Interview Analysis.xls.md
+  Status:  unprocessed
+
+  Next: process this note in a Cowork session —
+  fill in Key Takeaways, link to wiki articles, then
+  update status to 'processed' or 'compiled'.
+  Created: Brain/raw/inbox/george-edwards-interview-analysis-xls.md
+  Source:  Brain/raw/.extract/Katz/Phase I/01 - Executive Interviews/George Edwards Interview Analysis.xls.md
+  Status:  unprocessed
+
+  Next: process this note in a Cowork session —
+  fill in Key Takeaways, link to wiki articles, then
+  update status to 'processed' or 'compiled'.
+  Created: Brain/raw/inbox/sue-macabe-interview-analysis-xls.md
+  Source:  Brain/raw/.extract/Katz/Phase I/01 - Executive Interviews/Sue Macabe Interview Analysis.xls.md
+  Status:  unprocessed
+
+  Next: process this note in a Cowork session —
+  fill in Key Takeaways, link to wiki articles, then
+  update status to 'processed' or 'compiled'.
+  Created: Brain/raw/inbox/grant-schwartz-interview-analysis-xls.md
+  Source:  Brain/raw/.extract/Katz/Phase I/01 - Executive Interviews/Grant Schwartz Interview Analysis.xls.md
+  Status:  unprocessed
+
+  Next: process this note in a Cowork session —
+  fill in Key Takeaways, link to wiki articles, then
+  update status to 'processed' or 'compiled'.
+  Created: Brain/raw/inbox/peter-davidson-interview-analysis-xls.md
+  Source:  Brain/raw/.extract/Katz/Phase I/01 - Executive Interviews/Peter Davidson Interview Analysis.xls.md
+  Status:  unprocessed
+
+  Next: process this note in a Cowork session —
+  fill in Key Takeaways, link to wiki articles, then
+  update status to 'processed' or 'compiled'.
+  Created: Brain/raw/inbox/interview-compilation---summarized-xls.md
+  Source:  Brain/raw/.extract/Katz/Phase I/01 - Executive Interviews/Interview compilation - summarized.xls.md
+  Status:  unprocessed
+
+  Next: process this note in a Cowork session —
+  fill in Key Takeaways, link to wiki articles, then
+  update status to 'processed' or 'compiled'.
+  Created: Brain/raw/inbox/project-casper-documentation-index-doc.md
+  Source:  Brain/raw/.extract/Katz/Project Casper Documentation Index.doc.md
+  Status:  unprocessed
+
+  Next: process this note in a Cowork session —
+  fill in Key Takeaways, link to wiki articles, then
+  update status to 'processed' or 'compiled'.
+   [OK]   ingest complete: Katz  OK=140 FAIL=0
+
+── INGEST: Other Retek Decks  (project=retail tags=retek,rms,rib,rdm,2003-2005)
+  Created: Brain/raw/inbox/retek--external-system-integration-approach-v2-pdf.md
+  Source:  Brain/raw/.extract/Other Retek Decks/Retek  External System Integration Approach v2.pdf.md
+  Status:  unprocessed
+
+  Next: process this note in a Cowork session —
+  fill in Key Takeaways, link to wiki articles, then
+  update status to 'processed' or 'compiled'.
+  Created: Brain/raw/inbox/retek-scalability-pdf.md
+  Source:  Brain/raw/.extract/Other Retek Decks/Retek Scalability.pdf.md
+  Status:  unprocessed
+
+  Next: process this note in a Cowork session —
+  fill in Key Takeaways, link to wiki articles, then
+  update status to 'processed' or 'compiled'.
+  Created: Brain/raw/inbox/retek-performance-lab-pdf.md
+  Source:  Brain/raw/.extract/Other Retek Decks/Retek Performance Lab.pdf.md
+  Status:  unprocessed
+
+  Next: process this note in a Cowork session —
+  fill in Key Takeaways, link to wiki articles, then
+  update status to 'processed' or 'compiled'.
+  Created: Brain/raw/inbox/rtm-100-ug-pdf.md
+  Source:  Brain/raw/.extract/Other Retek Decks/rtm-100-ug.pdf.md
+  Status:  unprocessed
+
+  Next: process this note in a Cowork session —
+  fill in Key Takeaways, link to wiki articles, then
+  update status to 'processed' or 'compiled'.
+  Created: Brain/raw/inbox/retek-restartrecovery-pdf.md
+  Source:  Brain/raw/.extract/Other Retek Decks/Retek RestartRecovery.pdf.md
+  Status:  unprocessed
+
+  Next: process this note in a Cowork session —
+  fill in Key Takeaways, link to wiki articles, then
+  update status to 'processed' or 'compiled'.
+  Created: Brain/raw/inbox/retek-hardware-architecture-pdf.md
+  Source:  Brain/raw/.extract/Other Retek Decks/Retek Hardware Architecture.pdf.md
+  Status:  unprocessed
+
+  Next: process this note in a Cowork session —
+  fill in Key Takeaways, link to wiki articles, then
+  update status to 'processed' or 'compiled'.
+  Created: Brain/raw/inbox/typical-retek-sizing-input-requirements-270303-doc.md
+  Source:  Brain/raw/.extract/Other Retek Decks/Typical Retek Sizing Input Requirements 270303.doc.md
+  Status:  unprocessed
+
+  Next: process this note in a Cowork session —
+  fill in Key Takeaways, link to wiki articles, then
+  update status to 'processed' or 'compiled'.
+  Created: Brain/raw/inbox/retek-rib-ahlens-solution-doc.md
+  Source:  Brain/raw/.extract/Other Retek Decks/Retek RIB.Ahlens Solution.doc.md
+  Status:  unprocessed
+
+  Next: process this note in a Cowork session —
+  fill in Key Takeaways, link to wiki articles, then
+  update status to 'processed' or 'compiled'.
+  Created: Brain/raw/inbox/reim-100-ug-pdf.md
+  Source:  Brain/raw/.extract/Other Retek Decks/reim-100-ug.pdf.md
+  Status:  unprocessed
+
+  Next: process this note in a Cowork session —
+  fill in Key Takeaways, link to wiki articles, then
+  update status to 'processed' or 'compiled'.
+  Created: Brain/raw/inbox/topplan-100-ug-pdf.md
+  Source:  Brain/raw/.extract/Other Retek Decks/topplan-100-ug.pdf.md
+  Status:  unprocessed
+
+  Next: process this note in a Cowork session —
+  fill in Key Takeaways, link to wiki articles, then
+  update status to 'processed' or 'compiled'.
+  Created: Brain/raw/inbox/rms-110-ug-pdf.md
+  Source:  Brain/raw/.extract/Other Retek Decks/rms-110-ug.pdf.md
+  Status:  unprocessed
+
+  Next: process this note in a Cowork session —
+  fill in Key Takeaways, link to wiki articles, then
+  update status to 'processed' or 'compiled'.
+  Created: Brain/raw/inbox/retek-security-pdf.md
+  Source:  Brain/raw/.extract/Other Retek Decks/Retek Security.pdf.md
+  Status:  unprocessed
+
+  Next: process this note in a Cowork session —
+  fill in Key Takeaways, link to wiki articles, then
+  update status to 'processed' or 'compiled'.
+  Created: Brain/raw/inbox/ro-100-ug-pdf.md
+  Source:  Brain/raw/.extract/Other Retek Decks/ro-100-ug.pdf.md
+  Status:  unprocessed
+
+  Next: process this note in a Cowork session —
+  fill in Key Takeaways, link to wiki articles, then
+  update status to 'processed' or 'compiled'.
+  Created: Brain/raw/inbox/resa-110-ug-pdf.md
+  Source:  Brain/raw/.extract/Other Retek Decks/resa-110-ug.pdf.md
+  Status:  unprocessed
+
+  Next: process this note in a Cowork session —
+  fill in Key Takeaways, link to wiki articles, then
+  update status to 'processed' or 'compiled'.
+  Created: Brain/raw/inbox/pages-from-rdf-100-ug-pdf.md
+  Source:  Brain/raw/.extract/Other Retek Decks/Pages from rdf-100-ug.pdf.md
+  Status:  unprocessed
+
+  Next: process this note in a Cowork session —
+  fill in Key Takeaways, link to wiki articles, then
+  update status to 'processed' or 'compiled'.
+  Created: Brain/raw/inbox/pages-from-rib-101-intg-pdf.md
+  Source:  Brain/raw/.extract/Other Retek Decks/Pages from rib-101-intg.pdf.md
+  Status:  unprocessed
+
+  Next: process this note in a Cowork session —
+  fill in Key Takeaways, link to wiki articles, then
+  update status to 'processed' or 'compiled'.
+  Created: Brain/raw/inbox/retekv10-modules-key-blocks-doc.md
+  Source:  Brain/raw/.extract/Other Retek Decks/Retekv10-Modules.Key Blocks.doc.md
+  Status:  unprocessed
+
+  Next: process this note in a Cowork session —
+  fill in Key Takeaways, link to wiki articles, then
+  update status to 'processed' or 'compiled'.
+  Created: Brain/raw/inbox/retek-rms-to-rdm-interfaces-ahlens-xls.md
+  Source:  Brain/raw/.extract/Other Retek Decks/Retek.RMS to RDM Interfaces.Ahlens.xls.md
+  Status:  unprocessed
+
+  Next: process this note in a Cowork session —
+  fill in Key Takeaways, link to wiki articles, then
+  update status to 'processed' or 'compiled'.
+  Created: Brain/raw/inbox/rpm-ips-qref-pdf.md
+  Source:  Brain/raw/.extract/Other Retek Decks/rpm-ips-qref.pdf.md
+  Status:  unprocessed
+
+  Next: process this note in a Cowork session —
+  fill in Key Takeaways, link to wiki articles, then
+  update status to 'processed' or 'compiled'.
+  Created: Brain/raw/inbox/rms-10-0-sizing-tool-questions---v1-xls.md
+  Source:  Brain/raw/.extract/Other Retek Decks/RMS 10.0 Sizing Tool Questions - v1.xls.md
+  Status:  unprocessed
+
+  Next: process this note in a Cowork session —
+  fill in Key Takeaways, link to wiki articles, then
+  update status to 'processed' or 'compiled'.
+   [OK]   ingest complete: Other Retek Decks  OK=20 FAIL=0
+
+── INGEST: BV Nuggets  (project=retail tags=broadvision,pwc,lessons-learned,1999-2000)
+  Created: Brain/raw/inbox/bv-lessons-learned-and-best-practices-doc.md
+  Source:  Brain/raw/.extract/BV Nuggets/BV Lessons Learned and Best Practices.doc.md
+  Status:  unprocessed
+
+  Next: process this note in a Cowork session —
+  fill in Key Takeaways, link to wiki articles, then
+  update status to 'processed' or 'compiled'.
+  Created: Brain/raw/inbox/vignette-compete-doc.md
+  Source:  Brain/raw/.extract/BV Nuggets/Vignette compete.doc.md
+  Status:  unprocessed
+
+  Next: process this note in a Cowork session —
+  fill in Key Takeaways, link to wiki articles, then
+  update status to 'processed' or 'compiled'.
+  Created: Brain/raw/inbox/creativegood-guide-pdf.md
+  Source:  Brain/raw/.extract/BV Nuggets/creativegood-guide.pdf.md
+  Status:  unprocessed
+
+  Next: process this note in a Cowork session —
+  fill in Key Takeaways, link to wiki articles, then
+  update status to 'processed' or 'compiled'.
+  Created: Brain/raw/inbox/vignette-vs-broadvision-xls.md
+  Source:  Brain/raw/.extract/BV Nuggets/Vignette vs Broadvision.xls.md
+  Status:  unprocessed
+
+  Next: process this note in a Cowork session —
+  fill in Key Takeaways, link to wiki articles, then
+  update status to 'processed' or 'compiled'.
+   [OK]   ingest complete: BV Nuggets  OK=4 FAIL=0
+
+── INGEST: EBiz Def Des Dev  (project=retail tags=pwc,methodology,web-implementation-guide,2000)
+  Created: Brain/raw/inbox/sample-web-impl-guide-def-doc.md
+  Source:  Brain/raw/.extract/EBiz Def Des Dev/Sample Web Impl Guide Def.doc.md
+  Status:  unprocessed
+
+  Next: process this note in a Cowork session —
+  fill in Key Takeaways, link to wiki articles, then
+  update status to 'processed' or 'compiled'.
+  Created: Brain/raw/inbox/sample-web-impl-guide-dev-doc.md
+  Source:  Brain/raw/.extract/EBiz Def Des Dev/Sample Web Impl Guide Dev.doc.md
+  Status:  unprocessed
+
+  Next: process this note in a Cowork session —
+  fill in Key Takeaways, link to wiki articles, then
+  update status to 'processed' or 'compiled'.
+  Created: Brain/raw/inbox/sample-web-impl-guide-des-doc.md
+  Source:  Brain/raw/.extract/EBiz Def Des Dev/Sample Web Impl Guide Des.doc.md
+  Status:  unprocessed
+
+  Next: process this note in a Cowork session —
+  fill in Key Takeaways, link to wiki articles, then
+  update status to 'processed' or 'compiled'.
+   [OK]   ingest complete: EBiz Def Des Dev  OK=3 FAIL=0
+
+── INGEST: BP  (project=retail tags=consulting-reference,pwc,mh,petsmart,finance,1997-1999)
+  Created: Brain/raw/inbox/best-practices---edi-tech-doc.md
+  Source:  Brain/raw/.extract/BP/BEST PRACTICES - EDI TECH.DOC.md
+  Status:  unprocessed
+
+  Next: process this note in a Cowork session —
+  fill in Key Takeaways, link to wiki articles, then
+  update status to 'processed' or 'compiled'.
+  Created: Brain/raw/inbox/best-practices---performance-indicators-doc.md
+  Source:  Brain/raw/.extract/BP/best practices - performance indicators.doc.md
+  Status:  unprocessed
+
+  Next: process this note in a Cowork session —
+  fill in Key Takeaways, link to wiki articles, then
+  update status to 'processed' or 'compiled'.
+  Created: Brain/raw/inbox/dm000-doc.md
+  Source:  Brain/raw/.extract/BP/Dm000.doc.md
+  Status:  unprocessed
+
+  Next: process this note in a Cowork session —
+  fill in Key Takeaways, link to wiki articles, then
+  update status to 'processed' or 'compiled'.
+  Created: Brain/raw/inbox/980130tb-doc.md
+  Source:  Brain/raw/.extract/BP/980130tb.doc.md
+  Status:  unprocessed
+
+  Next: process this note in a Cowork session —
+  fill in Key Takeaways, link to wiki articles, then
+  update status to 'processed' or 'compiled'.
+  Created: Brain/raw/inbox/best-practices---integrated-financials-doc.md
+  Source:  Brain/raw/.extract/BP/BEST PRACTICES - INTEGRATED FINANCIALS.DOC.md
+  Status:  unprocessed
+
+  Next: process this note in a Cowork session —
+  fill in Key Takeaways, link to wiki articles, then
+  update status to 'processed' or 'compiled'.
+  Created: Brain/raw/inbox/best-practices---outsource-doc.md
+  Source:  Brain/raw/.extract/BP/best practices - outsource.doc.md
+  Status:  unprocessed
+
+  Next: process this note in a Cowork session —
+  fill in Key Takeaways, link to wiki articles, then
+  update status to 'processed' or 'compiled'.
+  Created: Brain/raw/inbox/980128sr-doc.md
+  Source:  Brain/raw/.extract/BP/980128sr.doc.md
+  Status:  unprocessed
+
+  Next: process this note in a Cowork session —
+  fill in Key Takeaways, link to wiki articles, then
+  update status to 'processed' or 'compiled'.
+  Created: Brain/raw/inbox/best-practices---payroll-combined-doc.md
+  Source:  Brain/raw/.extract/BP/best practices - payroll combined.doc.md
+  Status:  unprocessed
+
+  Next: process this note in a Cowork session —
+  fill in Key Takeaways, link to wiki articles, then
+  update status to 'processed' or 'compiled'.
+  Created: Brain/raw/inbox/best-practices---reporting-combined-doc.md
+  Source:  Brain/raw/.extract/BP/best practices - reporting combined.doc.md
+  Status:  unprocessed
+
+  Next: process this note in a Cowork session —
+  fill in Key Takeaways, link to wiki articles, then
+  update status to 'processed' or 'compiled'.
+  Created: Brain/raw/inbox/best-practices---ap-combined-doc.md
+  Source:  Brain/raw/.extract/BP/best practices - AP combined.doc.md
+  Status:  unprocessed
+
+  Next: process this note in a Cowork session —
+  fill in Key Takeaways, link to wiki articles, then
+  update status to 'processed' or 'compiled'.
+  Created: Brain/raw/inbox/mws000-doc.md
+  Source:  Brain/raw/.extract/BP/Mws000.doc.md
+  Status:  unprocessed
+
+  Next: process this note in a Cowork session —
+  fill in Key Takeaways, link to wiki articles, then
+  update status to 'processed' or 'compiled'.
+  Created: Brain/raw/inbox/vm000-doc.md
+  Source:  Brain/raw/.extract/BP/Vm000.doc.md
+  Status:  unprocessed
+
+  Next: process this note in a Cowork session —
+  fill in Key Takeaways, link to wiki articles, then
+  update status to 'processed' or 'compiled'.
+  Created: Brain/raw/inbox/980128ib-doc.md
+  Source:  Brain/raw/.extract/BP/980128ib.doc.md
+  Status:  unprocessed
+
+  Next: process this note in a Cowork session —
+  fill in Key Takeaways, link to wiki articles, then
+  update status to 'processed' or 'compiled'.
+  Created: Brain/raw/inbox/mrp000-doc.md
+  Source:  Brain/raw/.extract/BP/mrp000.doc.md
+  Status:  unprocessed
+
+  Next: process this note in a Cowork session —
+  fill in Key Takeaways, link to wiki articles, then
+  update status to 'processed' or 'compiled'.
+  Created: Brain/raw/inbox/mfo000-doc.md
+  Source:  Brain/raw/.extract/BP/mfo000.doc.md
+  Status:  unprocessed
+
+  Next: process this note in a Cowork session —
+  fill in Key Takeaways, link to wiki articles, then
+  update status to 'processed' or 'compiled'.
+  Created: Brain/raw/inbox/miv000-doc.md
+  Source:  Brain/raw/.extract/BP/Miv000.doc.md
+  Status:  unprocessed
+
+  Next: process this note in a Cowork session —
+  fill in Key Takeaways, link to wiki articles, then
+  update status to 'processed' or 'compiled'.
+  Created: Brain/raw/inbox/mpi000-doc.md
+  Source:  Brain/raw/.extract/BP/Mpi000.doc.md
+  Status:  unprocessed
+
+  Next: process this note in a Cowork session —
+  fill in Key Takeaways, link to wiki articles, then
+  update status to 'processed' or 'compiled'.
+  Created: Brain/raw/inbox/best-practices---staffing-doc.md
+  Source:  Brain/raw/.extract/BP/best practices - staffing.doc.md
+  Status:  unprocessed
+
+  Next: process this note in a Cowork session —
+  fill in Key Takeaways, link to wiki articles, then
+  update status to 'processed' or 'compiled'.
+  Created: Brain/raw/inbox/mrv000-doc.md
+  Source:  Brain/raw/.extract/BP/Mrv000.doc.md
+  Status:  unprocessed
+
+  Next: process this note in a Cowork session —
+  fill in Key Takeaways, link to wiki articles, then
+  update status to 'processed' or 'compiled'.
+  Created: Brain/raw/inbox/asstmgmt-doc.md
+  Source:  Brain/raw/.extract/BP/Asstmgmt.doc.md
+  Status:  unprocessed
+
+  Next: process this note in a Cowork session —
+  fill in Key Takeaways, link to wiki articles, then
+  update status to 'processed' or 'compiled'.
+  Created: Brain/raw/inbox/mpo000-doc.md
+  Source:  Brain/raw/.extract/BP/mpo000.DOC.md
+  Status:  unprocessed
+
+  Next: process this note in a Cowork session —
+  fill in Key Takeaways, link to wiki articles, then
+  update status to 'processed' or 'compiled'.
+  Created: Brain/raw/inbox/best-practices---ar-combined-doc.md
+  Source:  Brain/raw/.extract/BP/BEST PRACTICES - AR COMBINED.DOC.md
+  Status:  unprocessed
+
+  Next: process this note in a Cowork session —
+  fill in Key Takeaways, link to wiki articles, then
+  update status to 'processed' or 'compiled'.
+  Created: Brain/raw/inbox/best-practices---treasury-doc.md
+  Source:  Brain/raw/.extract/BP/best practices - treasury.doc.md
+  Status:  unprocessed
+
+  Next: process this note in a Cowork session —
+  fill in Key Takeaways, link to wiki articles, then
+  update status to 'processed' or 'compiled'.
+  Created: Brain/raw/inbox/best-practices---shared-services-combined-doc.md
+  Source:  Brain/raw/.extract/BP/best practices - Shared Services combined.doc.md
+  Status:  unprocessed
+
+  Next: process this note in a Cowork session —
+  fill in Key Takeaways, link to wiki articles, then
+  update status to 'processed' or 'compiled'.
+  Created: Brain/raw/inbox/980130xf-doc.md
+  Source:  Brain/raw/.extract/BP/980130xf.doc.md
+  Status:  unprocessed
+
+  Next: process this note in a Cowork session —
+  fill in Key Takeaways, link to wiki articles, then
+  update status to 'processed' or 'compiled'.
+  Created: Brain/raw/inbox/msm000-doc.md
+  Source:  Brain/raw/.extract/BP/msm000.doc.md
+  Status:  unprocessed
+
+  Next: process this note in a Cowork session —
+  fill in Key Takeaways, link to wiki articles, then
+  update status to 'processed' or 'compiled'.
+  Created: Brain/raw/inbox/best-practices---gen-acct-combined-doc.md
+  Source:  Brain/raw/.extract/BP/best practices - Gen Acct combined.doc.md
+  Status:  unprocessed
+
+  Next: process this note in a Cowork session —
+  fill in Key Takeaways, link to wiki articles, then
+  update status to 'processed' or 'compiled'.
+  Created: Brain/raw/inbox/980130am-doc.md
+  Source:  Brain/raw/.extract/BP/980130am.doc.md
+  Status:  unprocessed
+
+  Next: process this note in a Cowork session —
+  fill in Key Takeaways, link to wiki articles, then
+  update status to 'processed' or 'compiled'.
+  Created: Brain/raw/inbox/traffic-doc.md
+  Source:  Brain/raw/.extract/BP/Traffic.doc.md
+  Status:  unprocessed
+
+  Next: process this note in a Cowork session —
+  fill in Key Takeaways, link to wiki articles, then
+  update status to 'processed' or 'compiled'.
+  Created: Brain/raw/inbox/mfp000-doc.md
+  Source:  Brain/raw/.extract/BP/Mfp000.doc.md
+  Status:  unprocessed
+
+  Next: process this note in a Cowork session —
+  fill in Key Takeaways, link to wiki articles, then
+  update status to 'processed' or 'compiled'.
+  Created: Brain/raw/inbox/mwd000-doc.md
+  Source:  Brain/raw/.extract/BP/Mwd000.doc.md
+  Status:  unprocessed
+
+  Next: process this note in a Cowork session —
+  fill in Key Takeaways, link to wiki articles, then
+  update status to 'processed' or 'compiled'.
+  Created: Brain/raw/inbox/mcc000-doc.md
+  Source:  Brain/raw/.extract/BP/Mcc000.doc.md
+  Status:  unprocessed
+
+  Next: process this note in a Cowork session —
+  fill in Key Takeaways, link to wiki articles, then
+  update status to 'processed' or 'compiled'.
+  Created: Brain/raw/inbox/mem000-doc.md
+  Source:  Brain/raw/.extract/BP/mem000.doc.md
+  Status:  unprocessed
+
+  Next: process this note in a Cowork session —
+  fill in Key Takeaways, link to wiki articles, then
+  update status to 'processed' or 'compiled'.
+  Created: Brain/raw/inbox/best-practices---planning-combined-doc.md
+  Source:  Brain/raw/.extract/BP/best practices - planning combined.doc.md
+  Status:  unprocessed
+
+  Next: process this note in a Cowork session —
+  fill in Key Takeaways, link to wiki articles, then
+  update status to 'processed' or 'compiled'.
+   [OK]   ingest complete: BP  OK=34 FAIL=0
+
+### Pass 3/3: rebuild registry
+  Registry built: Brain/REGISTRY.json
+  Articles indexed:  259
+  Topics indexed:    3586
+
+  Articles:
+    [wiki        ] Brain/wiki/501c-advocacy-arm.md
+                  501(c)(4) Advocacy Arm — New Entity Decision (Parking)
+    [wiki        ] Brain/wiki/abalonecove-org.md
+                  abalonecove.org
+    [wiki        ] Brain/wiki/academic-frame-1999-hbs.md
+                  The Academic Frame — HBS 9-599-101 (Moon, 1999) and the Third Branch
+    [wiki        ] Brain/wiki/angel-architecture.md
+                  Angel Architecture
+    [wiki        ] Brain/wiki/angel-brand-and-team.md
+                  Angel Brand & Team — AREA at Compass
+    [wiki        ] Brain/wiki/angel-buyer-process.md
+                  Angel Buyer Process
+    [wiki        ] Brain/wiki/angel-client-reviews.md
+                  Angelique Lyle — Client Reviews
+    [wiki        ] Brain/wiki/angel-compass-concierge.md
+                  Angel — Compass Concierge
+    [wiki        ] Brain/wiki/angel-content-archive-index.md
+                  Angel Content Archive — Index & Catalog Plan
+    [wiki        ] Brain/wiki/angel-content-engine.md
+                  Angel Content Engine
+    [wiki        ] Brain/wiki/angel-country-club-raw.md
+                  Country Club — Content Pool (Raw)
+    [wiki        ] Brain/wiki/angel-data-platform.md
+                  Angel Data Platform
+    [wiki        ] Brain/wiki/angel-eastview-raw.md
+                  Eastview — Content Pool (Raw)
+    [wiki        ] Brain/wiki/angel-la-cresta-raw.md
+                  La Cresta — Content Pool (Raw)
+    [wiki        ] Brain/wiki/angel-listing-process.md
+                  Angel Listing Process
+    [wiki        ] Brain/wiki/angel-los-verdes-raw.md
+                  Los Verdes — Content Pool (Raw)
+    [wiki        ] Brain/wiki/angel-malaga-cove-raw.md
+                  Malaga Cove — Content Pool (Raw)
+    [wiki        ] Brain/wiki/angel-market-intelligence.md
+                  Angel Market Intelligence
+    [wiki        ] Brain/wiki/angel-mira-catalina-raw.md
+                  Mira Catalina — Content Pool (Raw)
+    [wiki        ] Brain/wiki/angel-montemalaga-raw.md
+                  Montemalaga — Content Pool (Raw)
+    [wiki        ] Brain/wiki/angel-ninja-selling.md
+                  Ninja Selling — Sales Methodology for Angel
+    [wiki        ] Brain/wiki/angel-peninsula-center-raw.md
+                  Peninsula Center — Content Pool (Raw)
+    [wiki        ] Brain/wiki/angel-peninsula-equestrian-guide.md
+                  Peninsula Equestrian Guide — Content Pool (Raw, Stub)
+    [wiki        ] Brain/wiki/angel-peninsula-golf-guide.md
+                  Peninsula Golf Guide — Content Pool (Raw, Stub)
+    [wiki        ] Brain/wiki/angel-peninsula-school-guide.md
+                  Peninsula School Guide — Content Pool (Raw)
+    [wiki        ] Brain/wiki/angel-peninsula-sports-guide.md
+                  Peninsula Sports Guide — Content Pool (Raw)
+    [wiki        ] Brain/wiki/angel-pv-dr-east-raw.md
+                  PV Drive East — Content Pool (Raw)
+    [wiki        ] Brain/wiki/angel-pv-dr-north-raw.md
+                  PV Drive North — Content Pool (Raw)
+    [wiki        ] Brain/wiki/angel-pv-dr-south-raw.md
+                  PV Drive South — Content Pool (Raw)
+    [wiki        ] Brain/wiki/angel-riviera-village-raw.md
+                  Riviera Village — Content Pool (Raw)
+    [wiki        ] Brain/wiki/angel-rolling-hills-estates-raw.md
+                  Rolling Hills Estates — Content Pool (Raw)
+    [wiki        ] Brain/wiki/angel-rolling-hills-raw.md
+                  Rolling Hills — Content Pool (Raw)
+    [wiki        ] Brain/wiki/angel-silver-spur-raw.md
+                  Silver Spur — Content Pool (Raw)
+    [wiki        ] Brain/wiki/angel-south-shores-raw.md
+                  South Shores — Content Pool (Raw)
+    [wiki        ] Brain/wiki/angel-the-crest-raw.md
+                  The Crest — Content Pool (Raw)
+    [wiki        ] Brain/wiki/angel-transaction-timeline.md
+                  Angel Transaction Timeline
+    [wiki        ] Brain/wiki/angel-valmonte-raw.md
+                  Valmonte — Content Pool (Raw)
+    [wiki        ] Brain/wiki/angel-voice-training.md
+                  Angel Voice Training
+    [wiki        ] Brain/wiki/angel-weekly-crmls-pull.md
+                  Angel Weekly CRMLS Pull — Process Definition
+    [wiki        ] Brain/wiki/angel-west-palos-verdes-raw.md
+                  West Palos Verdes — Content Pool (Raw)
+    [wiki        ] Brain/wiki/canary-alerts-guide.md
+                  Canary Alerts — A Plain-English Guide
+    [wiki        ] Brain/wiki/canary-architecture.md
+                  Canary Architecture
+    [wiki        ] Brain/wiki/canary-chirp-rules.md
+                  Canary Chirp Rules
+    [wiki        ] Brain/wiki/canary-data-model.md
+                  Canary Data Model
+    [wiki        ] Brain/wiki/canary-detection.md
+                  Canary Detection Engine
+    [wiki        ] Brain/wiki/canary-fox-case-management.md
+                  Canary Fox Case Management
+    [wiki        ] Brain/wiki/canary-platform-overview.md
+                  Canary — Platform Overview
+    [wiki        ] Brain/wiki/canary-sales-strategy.md
+                  Canary Sales Strategy
+    [wiki        ] Brain/wiki/canary-tsp-pipeline.md
+                  Canary TSP Pipeline
+    [wiki        ] Brain/wiki/card-coach-ken-taylor.md
+                  Coach Ken Taylor — Junior Lifeguard Prep
+    [wiki        ] Brain/wiki/card-coreology.md
+                  Coreology — Palos Verdes
+    [wiki        ] Brain/wiki/card-dan-spring-training.md
+                  Spring Training Baseball Camp (Dan Spring)
+    [wiki        ] Brain/wiki/card-golden-scoop-gelato.md
+                  Golden Scoop Gelato
+    [wiki        ] Brain/wiki/card-lunada-creamery.md
+                  Lunada Creamery
+    [wiki        ] Brain/wiki/card-neptunes-frozen-treats.md
+                  Neptune's Frozen Treats
+    [wiki        ] Brain/wiki/card-pv-surf-camp.md
+                  PV Surf Camp
+    [wiki        ] Brain/wiki/card-pvhs-drama.md
+                  PV High School Drama — "Best Entertainment Value in LA"
+    [wiki        ] Brain/wiki/card-yogasix-rolling-hills.md
+                  YogaSix Rolling Hills
+    [wiki        ] Brain/wiki/cio-leave-behind-wedge.md
+                  The CIO Leave-Behind Wedge
+    [wiki        ] Brain/wiki/claim-lot-h-scope-correction.md
+                  Claim: Lot H Declaration Contains Only Racial Exclusionary Language
+    [wiki        ] Brain/wiki/coac-15-owner-network.md
+                  15-Owner Network — Parcel Identification and Owner Recruitment
+    [wiki        ] Brain/wiki/coac-1967-portuguese-bend-clay-mineralogy.md
+                  COAC: 1967 Portuguese Bend Clay Mobility (Kerr & Drew)
+    [wiki        ] Brain/wiki/coac-1975-general-plan-eir.md
+                  COAC: 1975 RPV General Plan + EIR — Annotated for Cove
+    [wiki        ] Brain/wiki/coac-1984-gp-amendment-14-eastview.md
+                  COAC: 1984 GP Amendment 14 — Eastview Annexation (Jurisdictional-Continuity Precedent)
+    [wiki        ] Brain/wiki/coac-2026-civic-problems-memorandum.md
+                  2026 Civic Problems Memorandum — Viral Campaign Parallel to 1939 PVE Booklet
+    [wiki        ] Brain/wiki/coac-aclad-partnership.md
+                  ACLAD Partnership — Same-Side Public-Private Defense
+    [wiki        ] Brain/wiki/coac-article-v-equity-modernization.md
+                  Article V Equity / Vote-Share Modernization
+    [wiki        ] Brain/wiki/coac-bylaws-moc.md
+                  CoAC Bylaws & Governing Instruments — MOC
+    [wiki        ] Brain/wiki/coac-declaration-100-article-ii-section-5.md
+                  Declaration 100 Article II §5 — Self-Executing Reactivation Mechanism
+    [wiki        ] Brain/wiki/coac-negative-space-lot-h-boundary.md
+                  Negative-Space Lot H Boundary — Technical Description
+    [wiki        ] Brain/wiki/coac-pv-endangered-species.md
+                  COAC: Palos Verdes Endangered Species & Habitat — Scientific Foundation
+    [wiki        ] Brain/wiki/coac-reactivation-framework.md
+                  CoAC Reactivation Framework — MOC
+    [wiki        ] Brain/wiki/coac-restated-declaration-blitz-plan.md
+                  Restated Declaration — Blitz Execution Plan
+    [wiki        ] Brain/wiki/coac-rm-22-incompatibility.md
+                  RM-22 Incompatibility — Peninsula Precedent Record
+    [wiki        ] Brain/wiki/coac-rpv-housing-elements.md
+                  COAC: RPV Housing Elements (1990, 2001) — Annotated for Cove
+    [wiki        ] Brain/wiki/coac-rpv-scotus-petitions.md
+                  COAC: RPV-Resident SCOTUS Petitions (1994, 1990s, 2001)
+    [wiki        ] Brain/wiki/coac-trustee-slate-preparation.md
+                  Trustee Slate — Preparation and Vetting
+    [wiki        ] Brain/wiki/coac-yimby-opposition-landscape.md
+                  YIMBY Opposition Landscape — Adversarial Network and Neutralization
+    [wiki        ] Brain/wiki/cove-0-clipper.md
+                  0 Clipper Road
+    [wiki        ] Brain/wiki/cove-1976-pvp-development-pressure.md
+                  1976 Palos Verdes Properties Development Pressure — The 50-Year Pattern
+    [wiki        ] Brain/wiki/cove-arc-posture.md
+                  WPBCA ARC Posture — Concierge + Transparency, Not Reviewer
+    [wiki        ] Brain/wiki/cove-art-jury-vs-wpbca-arc.md
+                  Art Jury (Declaration 100, 1929) vs. WPBCA Architectural Committee
+    [wiki        ] Brain/wiki/cove-baughey-1947.md
+                  Baughey Article — Rancho Palos Verdes 1784–1947
+    [wiki        ] Brain/wiki/cove-case-law-lessons.md
+                  Case-Law Synthesis — Rules That Bind WPBCA
+    [wiki        ] Brain/wiki/cove-city-positions.md
+                  City Positions Cross-Reference
+    [wiki        ] Brain/wiki/cove-coastal-specific-plan-s4.md
+                  Coastal Specific Plan — Subregion 4
+    [wiki        ] Brain/wiki/cove-colyear-2024.md
+                  Colyear v. Rolling Hills Community Association (2024)
+    [wiki        ] Brain/wiki/cove-community-history.md
+                  Community History
+    [wiki        ] Brain/wiki/cove-csudh-field-guide.md
+                  CSUDH Palos Verdes Field Guide (McNulty, 2012)
+    [wiki        ] Brain/wiki/cove-declaration-100-scope-open.md
+                  Declaration 100 Scope — The Open Question
+    [wiki        ] Brain/wiki/cove-declaration-100.md
+                  Declaration No. 100 — General Plan of Restrictions
+    [wiki        ] Brain/wiki/cove-document-retention.md
+                  Document Retention — CoAC / WPBCA
+    [wiki        ] Brain/wiki/cove-endangered-species-constraints.md
+                  Endangered Species Constraints — Species → Trigger → Project Map
+    [wiki        ] Brain/wiki/cove-governance.md
+                  Governance & Operations
+    [wiki        ] Brain/wiki/cove-legal-framework.md
+                  Cove Legal Framework
+    [wiki        ] Brain/wiki/cove-lessons-learned.md
+                  Cove Lessons Learned — Running Ledger
+    [wiki        ] Brain/wiki/cove-lot-h-discovery.md
+                  Lot H Discovery
+    [wiki        ] Brain/wiki/cove-lrpmp-shoreline-park-parcel.md
+                  LRPMP — Shoreline Park Parcel (APN 7573-007-900)
+    [wiki        ] Brain/wiki/cove-lrpmp.md
+                  RPV Long-Range Property Management Plan (LRPMP)
+    [wiki        ] Brain/wiki/cove-permit-tech-landscape.md
+                  Permit-Tech Landscape — April 2026
+    [wiki        ] Brain/wiki/cove-platform.md
+                  Cove Platform Development
+    [wiki        ] Brain/wiki/cove-property-geology.md
+                  Property & Geology
+    [wiki        ] Brain/wiki/cove-pv-declaration-scheme.md
+                  PV Corp Declaration Scheme & the Olmsted Legacy
+    [wiki        ] Brain/wiki/cove-pvplc-partnership.md
+                  PVPLC — Partnership for Sub Region 4 Implementation
+    [wiki        ] Brain/wiki/cove-rpv-planning-framework-2026.md
+                  RPV Planning Framework — What Controls WPBCA (2026 Synthesis)
+    [wiki        ] Brain/wiki/cove-rpv-redevelopment-conveyance.md
+                  RPV Redevelopment Agency Conveyance (2014)
+    [wiki        ] Brain/wiki/cove-rpv-safety-element-2018.md
+                  COAC: RPV 2018 Safety Element — Annotated for Cove
+    [wiki        ] Brain/wiki/cove-vanderlip-memoir.md
+                  Vanderlip's Memoir — In His Own Words
+    [wiki        ] Brain/wiki/cove-zone2-geotech-2011.md
+                  Zone 2 Geotechnical Study (LGC Valley, 2011)
+    [wiki        ] Brain/wiki/document-management.md
+                  Document Management Strategy
+    [wiki        ] Brain/wiki/foundation-blockchain-proof-layer.md
+                  Foundation Blockchain Proof Layer
+    [wiki        ] Brain/wiki/foundation-bylaws.md
+                  Foundation Bylaws
+    [wiki        ] Brain/wiki/foundation-ca-formation.md
+                  Foundation California Formation
+    [wiki        ] Brain/wiki/foundation-crypto-donations.md
+                  Foundation Crypto Donations
+    [wiki        ] Brain/wiki/foundation-founders-narrative.md
+                  Founder's Narrative (Private)
+    [wiki        ] Brain/wiki/foundation-legal-framework.md
+                  Foundation Legal Framework — MOC
+    [wiki        ] Brain/wiki/foundation-llc-rescue-status.md
+                  LLC Rescue Status (Existing California LLC)
+    [wiki        ] Brain/wiki/foundation-three-hat-compensation.md
+                  Foundation Three-Hat Compensation Model
+    [wiki        ] Brain/wiki/foundation-time-logging-policy.md
+                  Foundation Time Logging Policy
+    [wiki        ] Brain/wiki/foundation-umbrella-alx.md
+                  Foundation — Umbrella ALX (Parking)
+    [wiki        ] Brain/wiki/growdirect-attack-plan.md
+                  Canary LP — Attack Plan v3.0
+    [wiki        ] Brain/wiki/growdirect-canary.md
+                  The Play
+    [wiki        ] Brain/wiki/growdirect-chirp-udq-strategy.md
+                  Chirp UDQ + Lightning Metering — Branch Strategy
+    [wiki        ] Brain/wiki/growdirect-competitive-landscape.md
+                  War Chest Source 56: Competitive Landscape
+    [wiki        ] Brain/wiki/growdirect-competitive-oracle-oci.md
+                  Competitive Intelligence — Oracle Retail / OCI Engineering Conversation
+    [wiki        ] Brain/wiki/growdirect-compliance.md
+                  Compliance
+    [wiki        ] Brain/wiki/growdirect-dao-treasury-protocol.md
+                  The Protocol — DAO Governance, Treasury, and Self-Sustaining Economics
+    [wiki        ] Brain/wiki/growdirect-data-strategy.md
+                  Canary Data Strategy — North Star
+    [wiki        ] Brain/wiki/growdirect-factory-process.md
+                  Canary LP — The Factory Process
+    [wiki        ] Brain/wiki/growdirect-fee-window.md
+                  The Fee Window
+    [wiki        ] Brain/wiki/growdirect-first-mover.md
+                  Protection
+    [wiki        ] Brain/wiki/growdirect-founders-case.md
+                  The Founder's Case
+    [wiki        ] Brain/wiki/growdirect-genesis-pool.md
+                  The Genesis Pool
+    [wiki        ] Brain/wiki/growdirect-glossary.md
+                  Glossary
+    [wiki        ] Brain/wiki/growdirect-how-we-build.md
+                  How We Build
+    [wiki        ] Brain/wiki/growdirect-investment-thesis.md
+                  The Investment Thesis
+    [wiki        ] Brain/wiki/growdirect-lightning-two-phases.md
+                  How Lightning Powers elJeffe — Two Phases, One Wallet
+    [wiki        ] Brain/wiki/growdirect-manifesto-v1.md
+                  GrowDirect Manifesto
+    [wiki        ] Brain/wiki/growdirect-manifesto.md
+                  GrowDirect Manifesto
+    [wiki        ] Brain/wiki/growdirect-patent-visual-architecture-v3.md
+                  Patent Schematic — Six-Node Architecture v3.0 (FIG. 1)
+    [wiki        ] Brain/wiki/growdirect-patent-visual-data-sovereignty.md
+                  Patent Schematic — Data Sovereignty Stack v1.0 (FIG. 4)
+    [wiki        ] Brain/wiki/growdirect-patent-visual-dataflow-v3.md
+                  Patent Schematic — Single-Transaction Data Flow v3.0 (FIG. 2)
+    [wiki        ] Brain/wiki/growdirect-patent-visual-namespace-lifecycle.md
+                  Patent Schematic — Namespace Lifecycle v1.0 (FIG. 5)
+    [wiki        ] Brain/wiki/growdirect-patent-visual-rebuild-recovery.md
+                  Patent Schematic — Rebuild & Recovery Path v1.0 (FIG. 6)
+    [wiki        ] Brain/wiki/growdirect-patent-visual-six-node-v2.md
+                  Patent Schematic — Six-Node Architecture v2.0 (FIG. 1, historical)
+    [wiki        ] Brain/wiki/growdirect-patent-visual-triple-subscriber.md
+                  Patent Schematic — Triple Subscriber Component v2.0 (FIG. 3)
+    [wiki        ] Brain/wiki/growdirect-pitch-spine.md
+                  GrowDirect Investor Pitch — SPINE v0.4
+    [wiki        ] Brain/wiki/growdirect-press-release-syd-revision.md
+                  Canary Press Release v2.0 — Syd Revision
+    [wiki        ] Brain/wiki/growdirect-production-chain.md
+                  GrowDirect Production Chain — v0.1
+    [wiki        ] Brain/wiki/growdirect-projections.md
+                  Three-Year Projections
+    [wiki        ] Brain/wiki/growdirect-research-bitcoin-architecture.md
+                  Bitcoin-Native Infrastructure for Retail Loss Prevention
+    [wiki        ] Brain/wiki/growdirect-research-cannabis-retail-risk.md
+                  Cannabis Retail Risk Dictionary & Integration Spec
+    [wiki        ] Brain/wiki/growdirect-research-reference-library.md
+                  Canary / GrowDirect — Project Reference Library
+    [wiki        ] Brain/wiki/growdirect-research-worm-exposure.md
+                  WORM Exposure Sprint Deliverables
+    [wiki        ] Brain/wiki/growdirect-revenue.md
+                  The Financial Model
+    [wiki        ] Brain/wiki/growdirect-sales-socal-lead-database.md
+                  Canary SoCal Lead Database v1.0
+    [wiki        ] Brain/wiki/growdirect-sales-square-opportunity.md
+                  Canary Square Opportunity — CEO Briefing (Feb 2026)
+    [wiki        ] Brain/wiki/growdirect-sales-thesis-deck.md
+                  GrowDirect Thesis v1.0 — Investor Deck
+    [wiki        ] Brain/wiki/growdirect-six-nodes.md
+                  The Architecture
+    [wiki        ] Brain/wiki/growdirect-sovereignty.md
+                  Sovereignty
+    [wiki        ] Brain/wiki/growdirect-strategic-thesis.md
+                  Canary LP — Strategic Thesis
+    [wiki        ] Brain/wiki/growdirect-symbiosis-thesis.md
+                  THE SYMBIOSIS THESIS: WAR CHEST SOURCE 55
+    [wiki        ] Brain/wiki/growdirect-team-jeffe-quotes.md
+                  Jeffe Quotes — CEO, GrowDirect
+    [wiki        ] Brain/wiki/growdirect-the-article.md
+                  The Article — From tLog to gLog
+    [wiki        ] Brain/wiki/growdirect-the-ask.md
+                  The Ask
+    [wiki        ] Brain/wiki/growdirect-the-chirp.md
+                  The Chirp
+    [wiki        ] Brain/wiki/growdirect-the-crdm.md
+                  The Data Model
+    [wiki        ] Brain/wiki/growdirect-the-demo.md
+                  The Demo
+    [wiki        ] Brain/wiki/growdirect-the-fox.md
+                  The Fox — Case Management
+    [wiki        ] Brain/wiki/growdirect-the-gate.md
+                  The Validation Gate
+    [wiki        ] Brain/wiki/growdirect-the-glog.md
+                  elJeffe
+    [wiki        ] Brain/wiki/growdirect-the-goose.md
+                  The Goose — Bitcoin Money Machine
+    [wiki        ] Brain/wiki/growdirect-the-l402.md
+                  The L402 Validation Gate
+    [wiki        ] Brain/wiki/growdirect-the-market.md
+                  The Market
+    [wiki        ] Brain/wiki/growdirect-the-mining-moat.md
+                  Block Space as Write Access
+    [wiki        ] Brain/wiki/growdirect-the-network.md
+                  The Network Effect
+    [wiki        ] Brain/wiki/growdirect-the-notary.md
+                  The Notarization Service
+    [wiki        ] Brain/wiki/growdirect-the-owl.md
+                  The Owl — Analytics Oracle
+    [wiki        ] Brain/wiki/growdirect-the-patent.md
+                  The Patent
+    [wiki        ] Brain/wiki/growdirect-the-pipe.md
+                  The Protocol Pipe
+    [wiki        ] Brain/wiki/growdirect-the-pitch.md
+                  The Record Is Broken
+    [wiki        ] Brain/wiki/growdirect-the-pool.md
+                  The Inscription Pool
+    [wiki        ] Brain/wiki/growdirect-the-rollout.md
+                  The Rollout
+    [wiki        ] Brain/wiki/growdirect-the-scale.md
+                  The Scaling Model
+    [wiki        ] Brain/wiki/growdirect-the-team.md
+                  The Team
+    [wiki        ] Brain/wiki/growdirect-the-vision.md
+                  The Vision
+    [wiki        ] Brain/wiki/growdirect-timelog-alx-b072-symbiosis-dispatch-mar01.md
+                  Session — B-072 Symbiosis Thesis: Full 6-Agent Dispatch (Mar 1, 2026)
+    [wiki        ] Brain/wiki/growdirect-timelog-alx-cowork-capture-feb27.md
+                  Session — ALX Cowork Capture (Feb 27, 2026)
+    [wiki        ] Brain/wiki/growdirect-timelog-alx-cowork-dispatch-feb26.md
+                  Session — ALX Cowork Dispatch (Feb 26, 2026)
+    [wiki        ] Brain/wiki/growdirect-timelog-alx-raas-architecture-mar01.md
+                  Session — RaaS Strategic Reframe + Investor Deck QA (Mar 1, 2026)
+    [wiki        ] Brain/wiki/growdirect-timelog-b059-execution-feb27.md
+                  Session — B-059 Execution: TSP PRD Revision (Feb 27, 2026)
+    [wiki        ] Brain/wiki/growdirect-timelog-jeremy-b076-wire-seed-mar01.md
+                  Session — Jeremy: B-076 Wire & Seed Smoke Test (Mar 1, 2026)
+    [wiki        ] Brain/wiki/growdirect-timelog-jeremy-heartbeat-integration-feb27.md
+                  Session — Jeremy: Heartbeat Integration Testing (Feb 27, 2026)
+    [wiki        ] Brain/wiki/growdirect-timelog-jess-companion-guides-feb24.md
+                  Session — Jess: Companion Guides v1.0 (Feb 24, 2026)
+    [wiki        ] Brain/wiki/growdirect-timelog-token-analysis-feb20.md
+                  Token Consumption Analysis — February 20, 2026
+    [wiki        ] Brain/wiki/growdirect-timelog-tom-b068-reconciliation-feb28.md
+                  Session — Tom: B-068 Token Registry Reconciliation (Feb 28, 2026)
+    [wiki        ] Brain/wiki/growdirect-timelog-tsp-consolidated-review-feb27.md
+                  Session — TSP Consolidated Review + Sprint 6 Kickoff (Feb 27, 2026)
+    [wiki        ] Brain/wiki/growdirect-timelog-week-feb16-24.md
+                  Weekly Roll-Up — February 16–24, 2026
+    [wiki        ] Brain/wiki/growdirect-triple-subscriber.md
+                  The Triple Subscriber Pipeline
+    [wiki        ] Brain/wiki/growdirect-white-paper-competitive-landscape.md
+                  Executive Summary
+    [wiki        ] Brain/wiki/growdirect-white-paper-micropayment.md
+                  Executive Summary
+    [wiki        ] Brain/wiki/growdirect-white-paper-quant-peer-review.md
+                  **Executive Summary: The Quant’s Verdict**
+    [wiki        ] Brain/wiki/growdirect-white-paper.md
+                  **1. The $112 Billion Problem**
+    [wiki        ] Brain/wiki/growdirect-why-now.md
+                  Why Now
+    [wiki        ] Brain/wiki/growdirect-workflow.md
+                  GrowDirect Workflow
+    [wiki        ] Brain/wiki/growdirect-working-papers.md
+                  GrowDirect Working Papers — Structure
+    [wiki        ] Brain/wiki/intactix-canonical-validation.md
+                  Intactix 2006 — Canonical Validation of RetailSpine
+    [wiki        ] Brain/wiki/methodology-ibm-it-architecture-options.md
+                  Methodology · IBM IT Architecture Options (Morrisons pattern)
+    [wiki        ] Brain/wiki/methodology-ibm-retail-diagnostic.md
+                  Methodology · IBM Retail Diagnostic (Clarks pattern)
+    [wiki        ] Brain/wiki/peninsula-gyms-fitness.md
+                  Gyms & Fitness — Palos Verdes Peninsula & South Bay
+    [wiki        ] Brain/wiki/peninsula-ice-cream.md
+                  Ice Cream & Frozen Treats — Palos Verdes Peninsula & South Bay
+    [wiki        ] Brain/wiki/peninsula-kids-water.md
+                  Kids Water Activities — Palos Verdes Peninsula & South Bay
+    [wiki        ] Brain/wiki/peninsula-tennis-pickleball.md
+                  Tennis & Pickleball — Palos Verdes Peninsula
+    [wiki        ] Brain/wiki/peninsula-youth-sports-summer.md
+                  Youth Sports, Summer & Enrichment — Palos Verdes Peninsula
+    [wiki        ] Brain/wiki/reference-hoa-disclosure-sample-2018.md
+                  Reference — HOA Disclosure Documents (Sample, 2018)
+    [wiki        ] Brain/wiki/reference-oracle-project-costing.md
+                  Oracle Project Costing — User Guide, Release 11i (May 2005)
+    [wiki        ] Brain/wiki/retail-integration-spine.md
+                  Retail Integration Spine — Canonical Interface Catalog
+    [wiki        ] Brain/wiki/retail-spine-secure-crosswalk.md
+                  Retail Spine — Prior-Art Cards Crosswalk
+    [wiki        ] Brain/wiki/retail-spine-solex-crosswalk.md
+                  Retail Spine — E-commerce Worked Example Crosswalk
+    [wiki        ] Brain/wiki/seacove-arc-module.md
+                  Seacove → Cove ARC Module
+    [wiki        ] Brain/wiki/seacove-project.md
+                  25 Seacove Drive — Project Overview
+    [wiki        ] Brain/wiki/seacove-wpbca-demo-plan.md
+                  Seacove → WPBCA Demo Delivery Plan
+    [wiki        ] Brain/wiki/secure-5-inventory.md
+                  Secure 5 Inventory
+    [wiki        ] Brain/wiki/secure-architecture.md
+                  Secure Architecture
+    [wiki        ] Brain/wiki/secure-client-top5-grocery-chain.md
+                  Secure Client: Top-5 US Grocery Chain
+    [wiki        ] Brain/wiki/secure-customer-order-management-flow-2017.md
+                  Secure — Customer Order Management Data Flow (2017)
+    [wiki        ] Brain/wiki/secure-dsd-ired-analytics.md
+                  Secure DSD iRED Analytics — US Grocery Chain Annual Summary
+    [wiki        ] Brain/wiki/secure-dv-private-label-2006.md
+                  Private Label Food Setup — US Design Validation Workshop (Aug 2006)
+    [wiki        ] Brain/wiki/secure-eagle-eye-fnr-2018.md
+                  Eagle Eye — Functional & Non-Functional Requirements v4.0 (Feb 2018, NS Comments)
+    [wiki        ] Brain/wiki/secure-heartbeat-fireball-2002.md
+                  Heartbeat / Fireball (2002) — Essential Design
+    [wiki        ] Brain/wiki/secure-integrated-maps-2003.md
+                  Integrated Maps — Retail Hardlines Solution Landscape (2003/04)
+    [wiki        ] Brain/wiki/secure-lite.md
+                  Secure Lite
+    [wiki        ] Brain/wiki/secure-lpms-case-management-2015.md
+                  LPMS Case Management — Sporting-Goods Chain Deployment (2015)
+    [wiki        ] Brain/wiki/secure-merchandising-rfp-evant-response-2003.md
+                  Merchandising System RFP — Evant Response (Sept 2003)
+    [wiki        ] Brain/wiki/secure-omnichannel.md
+                  Secure Omnichannel
+    [wiki        ] Brain/wiki/secure-platform-overview.md
+                  Secure Platform Overview
+    [wiki        ] Brain/wiki/secure-property-services-operating-model-2002.md
+                  Property & Building Services Operating Model — 2002 (UK dept-store + grocery group)
+    [wiki        ] Brain/wiki/secure-retail-career-archive.md
+                  Pre-Secure Retail Career Archive
+    [wiki        ] Brain/wiki/secure-retail-operating-model-2006.md
+                  Retail Operating Model — 2006 (IBM engagement, UK global grocer)
+    [wiki        ] Brain/wiki/secure-sysrepublic-xbr-2016.md
+                  xBR Replacement — Sysrepublic Functional Requirements Response (June 2016)
+    [wiki        ] Brain/wiki/secure-us-property-it-scoping.md
+                  US Property IT Requirements — Scoping Document (IBM, pre-Secure)
+    [wiki        ] Brain/wiki/south-bay-wiki-architecture.md
+                  South Bay Wiki — Content Architecture
+    [wiki        ] Brain/wiki/srd-shelf-edge-label.md
+                  The Shelf-Edge Label — Compile Target of the SRD Canonical
+    [wiki        ] Brain/wiki/tesco-technical-library.md
+                  Tesco Technical Library — The Third Canonical Layer at F&E
+    [wiki        ] Brain/wiki/third-branch.md
+                  The Third Branch
+    [wiki        ] Brain/wiki/wpbca-compliance-framework.md
+                  Community of Abalone Cove (formerly WPBCA) Compliance Framework — MOC
+    [wiki        ] Brain/wiki/wpbca-investment-policy.md
+                  Community of Abalone Cove (formerly WPBCA) — Investment Policy Statement
+    [wiki        ] Brain/wiki/wpbca-ocean-path-easement.md
+                  Community of Abalone Cove (formerly WPBCA) — Ocean Path Easements — Private Governance Matter
+    [wiki        ] Brain/wiki/wpbca-payments-platform.md
+                  Community of Abalone Cove (formerly WPBCA) — Payments Platform and Assessment Collection
+    [wiki        ] Brain/wiki/wpbca-third-director-recruitment.md
+                  Community of Abalone Cove (formerly WPBCA) — Third-Director Recruitment
+    [project-moc ] Brain/projects/Angel.md
+                  Angel
+    [project-moc ] Brain/projects/Canary.md
+                  Canary
+    [project-moc ] Brain/projects/Cove.md
+                  Cove
+    [project-moc ] Brain/projects/Factory.md
+                  Factory
+    [project-moc ] Brain/projects/GrowDirect.md
+                  GrowDirect
+    [project-moc ] Brain/projects/Method.md
+                  Method
+    [project-moc ] Brain/projects/RetailSpine.md
+                  RetailSpine
+    [project-moc ] Brain/projects/Seacove.md
+                  Seacove
+    [project-moc ] Brain/projects/Secure.md
+                  Secure
+   [OK]   registry rebuild complete
+
+===============================================
+Done:    20260424-144401
+Intakes: OK=268  FAIL=0
+Log:     /Users/gclyle/GrowDirect/Brain/raw/.logs/batch-intake-20260424-144143.log
+===============================================

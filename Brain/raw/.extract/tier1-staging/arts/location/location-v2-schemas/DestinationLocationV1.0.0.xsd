@@ -1,0 +1,45 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- edited with XMLSpy v2006 sp1 U (http://www.altova.com) by Richard L Halter (private) -->
+<xs:schema xmlns:xs="http://www.w3.org/2001/XMLSchema" elementFormDefault="qualified" attributeFormDefault="unqualified">
+	<xs:include schemaLocation="SequenceNumberCommonDataV1.0.0.xsd"/>
+	<xs:include schemaLocation="BusinessUnitCommonDataV1.3.0.xsd"/>
+	<xs:include schemaLocation="DescriptionCommonDataV1.3.0.xsd"/>
+	<xs:include schemaLocation="DynamicDataCommonDataV1.0.0.xsd"/>
+	<xs:include schemaLocation="ItemIDCommonDataV1.4.0.xsd"/>
+	<xs:include schemaLocation="MerchandiseHierarchyCommonDataV1.1.0.xsd"/>
+	<xs:include schemaLocation="ObjectOfInterestV1.0.0.xsd"/>
+	<xs:include schemaLocation="PhysicalLocationV1.0.0.xsd"/>
+	<xs:include schemaLocation="PromotionTypeV1.0.0.xsd"/>
+	<xs:include schemaLocation="RangeV1.0.0.xsd"/>
+	<xs:include schemaLocation="URITypeV1.0.0.xsd"/>
+	<xs:complexType name="DestinationLocationType">
+		<xs:complexContent>
+			<xs:extension base="PhysicalLocationType">
+				<xs:sequence>
+					<xs:element name="SequenceNumber" type="SequenceNumberType" minOccurs="0"/>
+					<xs:element name="Name" type="xs:string" minOccurs="0"/>
+					<xs:element name="Description" type="DescriptionCommonData" minOccurs="0" maxOccurs="unbounded"/>
+					<xs:element name="BusinessUnit" type="BusinessUnitCommonData" minOccurs="0"/>
+					<xs:element name="Range" type="RangeType" minOccurs="0">
+						<xs:annotation>
+							<xs:documentation>The range from the source location to the destination location</xs:documentation>
+						</xs:annotation>
+					</xs:element>
+					<xs:element name="URI" type="URIType" minOccurs="0" maxOccurs="unbounded"/>
+					<xs:element name="DynamicData" type="DynamicDataCommonData" minOccurs="0" maxOccurs="unbounded"/>
+					<xs:choice minOccurs="0" maxOccurs="unbounded">
+						<xs:element name="ObjectOfInterest" type="ObjectOfInterestType"/>
+						<xs:element name="MerchandiseHierarchy" type="MerchandiseHierarchyCommonData"/>
+						<xs:element name="ItemID" type="ItemIDCommonData"/>
+						<xs:element name="Promotion" type="PromotionType"/>
+					</xs:choice>
+					<xs:element name="RouteID" type="IDCommonData" minOccurs="0" maxOccurs="unbounded">
+						<xs:annotation>
+							<xs:documentation>The id of the route to this object</xs:documentation>
+						</xs:annotation>
+					</xs:element>
+				</xs:sequence>
+			</xs:extension>
+		</xs:complexContent>
+	</xs:complexType>
+</xs:schema>

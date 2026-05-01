@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- edited with XMLSpy v2006 sp1 U (http://www.altova.com) by Richard L Halter (private) -->
+<xs:schema xmlns:xs="http://www.w3.org/2001/XMLSchema" elementFormDefault="qualified" attributeFormDefault="unqualified">
+	<xs:include schemaLocation="AmountCommonDataV1.2.0.xsd"/>
+	<xs:include schemaLocation="DescriptionCommonDataV1.3.0.xsd"/>
+	<xs:include schemaLocation="PromotionIDCommonDataV1.1.0.xsd"/>
+	<xs:include schemaLocation="PercentageCommonDataV1.0.0.xsd"/>
+	<xs:include schemaLocation="QuantityCommonDataV1.6.0.xsd"/>
+	<xs:complexType name="PromotionType">
+		<xs:sequence>
+			<xs:element name="PromotionID" type="PromotionIDCommonData"/>
+			<xs:element name="Description" type="DescriptionCommonData" minOccurs="0" maxOccurs="unbounded"/>
+			<xs:element name="Quantity" type="QuantityCommonData" minOccurs="0"/>
+			<xs:element name="ExpirationDate" type="xs:date" minOccurs="0"/>
+			<xs:choice minOccurs="0">
+				<xs:element name="Amount" type="AmountCommonData"/>
+				<xs:element name="Percent" type="PercentageCommonData"/>
+			</xs:choice>
+		</xs:sequence>
+	</xs:complexType>
+</xs:schema>

@@ -1,0 +1,74 @@
+<h2>Site structure — <code>canary.growdirect.io/rapidpos</code></h2>
+<p class="subtitle">Two layers: generic RapidPOS solution foundation + Armstrong as the applied pitch on top. Click a node to tell me if a section is wrong or missing.</p>
+
+<div style="font-family: 'IBM Plex Mono', monospace; font-size: 13px; line-height: 2; padding: 24px; background: rgba(0,0,0,0.3); border-radius: 10px; border: 1px solid rgba(255,255,255,0.1);">
+
+  <div style="color: #4CAF7D; font-weight: bold; font-size: 15px; margin-bottom: 8px;">canary.growdirect.io/rapidpos/</div>
+
+  <div style="border-left: 2px solid rgba(76,175,125,0.4); margin-left: 8px; padding-left: 16px;">
+
+    <div style="margin-bottom: 16px;">
+      <div style="color: #E8A800; font-weight: bold;">index — Overview</div>
+      <div style="color: rgba(255,255,255,0.55); font-size: 11px; padding-left: 12px;">
+        What RapidPOS is · Who it's for (VARs, retailers on NCR Counterpoint)<br>
+        3-layer architecture diagram (Counterpoint → MCP Server → AI Agents)<br>
+        CTA: read the architecture / book a call
+      </div>
+    </div>
+
+    <div style="margin-bottom: 16px;">
+      <div style="color: #E8A800; font-weight: bold;">architecture — How It Works</div>
+      <div style="color: rgba(255,255,255,0.55); font-size: 11px; padding-left: 12px;">
+        MCP protocol overview · NCR Counterpoint REST API integration model<br>
+        Data flow: transaction → CRDM → MCP tool → agent response<br>
+        The 3-database schema (canary_app / canary_sales / canary_metrics)<br>
+        Security model, auth, rate limits
+      </div>
+    </div>
+
+    <div style="margin-bottom: 16px;">
+      <div style="color: #E8A800; font-weight: bold;">endpoints — MCP Tool Reference</div>
+      <div style="color: rgba(255,255,255,0.55); font-size: 11px; padding-left: 12px;">
+        All exposed MCP tools with schemas · Input/output examples<br>
+        Counterpoint endpoint mapping (pulled from NCR vault)<br>
+        Rate limits, pagination, error codes
+      </div>
+    </div>
+
+    <div style="margin-bottom: 16px;">
+      <div style="color: #E8A800; font-weight: bold;">integrate — VAR Quickstart</div>
+      <div style="color: rgba(255,255,255,0.55); font-size: 11px; padding-left: 12px;">
+        Prerequisites · Step-by-step connection to live Counterpoint instance<br>
+        Docker compose snippet · First tool call in 15 minutes
+      </div>
+    </div>
+
+    <div style="margin-bottom: 16px; padding: 12px; background: rgba(76,175,125,0.08); border-radius: 6px; border: 1px solid rgba(76,175,125,0.2);">
+      <div style="color: #4CAF7D; font-weight: bold;">store-2030 — Store of the Future</div>
+      <div style="color: rgba(255,255,255,0.55); font-size: 11px; padding-left: 12px;">
+        <span style="color: rgba(255,255,255,0.35)">[ PITCH DECK LAYER — visual treatment, different from doc pages ]</span><br>
+        The retail AI thesis · 2030 customer journey · What the MCP layer enables<br>
+        Generic — any specialty retailer, not Armstrong-specific
+      </div>
+      <div style="margin-top: 10px; padding-left: 12px; border-left: 2px solid rgba(191,135,0,0.4);">
+        <div style="color: #BF8700; font-weight: bold; font-size: 12px;">armstrong — Armstrong Garden Centers</div>
+        <div style="color: rgba(255,255,255,0.45); font-size: 11px; padding-left: 12px;">
+          Applied pitch: Armstrong + RapidPOS = ALX<br>
+          The horticulture vault · 31 stores · NCR Counterpoint live<br>
+          The Armstrong Proposal condensed — solution-focused, no strategy theater
+        </div>
+      </div>
+    </div>
+
+  </div>
+</div>
+
+<div class="section" style="margin-top: 20px;">
+  <p class="label">Deployment</p>
+  <p style="margin-top: 6px; color: rgba(255,255,255,0.75)">Multi-page static HTML in a new <code>growdirect-llc/canary</code> GitHub Pages repo. Each section above = one HTML file, shared CSS. <code>canary.growdirect.io</code> CNAME → repo root. Paths work naturally: <code>/rapidpos/architecture</code>, <code>/rapidpos/endpoints</code>, etc. Claude.ai Design Module generates the initial HTML for each page.</p>
+</div>
+
+<div class="section" style="margin-top: 16px; padding: 14px; background: rgba(191,135,0,0.08); border-radius: 6px; border: 1px solid rgba(191,135,0,0.25);">
+  <p class="label" style="color: #BF8700;">Key question</p>
+  <p style="margin-top: 6px; color: rgba(255,255,255,0.75)">The <strong>Store of the Future / Armstrong</strong> section: does it live inside the same nav/site as the technical docs, or does it get a visually distinct "presentation mode" that breaks out of the doc layout? Think: same header + nav, but the page itself goes full-screen immersive — more like the current Armstrong proposal's cover section.</p>
+</div>

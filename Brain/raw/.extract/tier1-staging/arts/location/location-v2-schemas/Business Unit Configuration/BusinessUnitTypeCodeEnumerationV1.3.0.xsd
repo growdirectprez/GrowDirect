@@ -1,0 +1,67 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- 
+	Version 1.1.0
+	- Added Call Center and Web Site to list
+ -->
+<xs:schema xmlns:xs="http://www.w3.org/2001/XMLSchema" elementFormDefault="qualified" attributeFormDefault="unqualified">
+	<xs:include schemaLocation="IXREnumerationExtensionV1.1.0.xsd"/>
+	<!--
+		Enumerated type for Business Unit Type attribute
+	-->
+	<xs:simpleType name="BusinessUnitTypeCode">
+		<xs:union memberTypes="BusinessUnitTypeCodeEnumeration TypeCodeExtension"/>
+	</xs:simpleType>
+	<xs:simpleType name="BusinessUnitTypeCodeEnumeration">
+		<xs:restriction base="xs:NMTOKEN">
+			<xs:enumeration value="RetailStore">
+				<xs:annotation>
+					<xs:documentation>A business which regularly offers goods for sale to the ultimae consumer.</xs:documentation>
+				</xs:annotation>
+			</xs:enumeration>
+			<xs:enumeration value="DistributionCenter">
+				<xs:annotation>
+					<xs:documentation>A facility to which goods are shiped for the purpose of short-term storage, sorting, repacking and finally shipment to individual stores, wholesalers, or consumers</xs:documentation>
+				</xs:annotation>
+			</xs:enumeration>
+			<xs:enumeration value="AdministrationCenter">
+				<xs:annotation>
+					<xs:documentation>A location such as a central, executive and district offices which are engaged in performing administrative functions for the retail stores.</xs:documentation>
+				</xs:annotation>
+			</xs:enumeration>
+			<xs:enumeration value="CallCenter">
+				<xs:annotation>
+					<xs:documentation>A department wholly focused on telephone inquires</xs:documentation>
+				</xs:annotation>
+			</xs:enumeration>
+			<xs:enumeration value="WebSite"/>
+			<xs:enumeration value="Distributor">
+				<xs:annotation>
+					<xs:documentation>Modified GS1 - responsible for receipt, storage, dispatch, processing, sampling and analysis of the product, as well as record keeping of appropriate information about what is received and what is dispatched.</xs:documentation>
+				</xs:annotation>
+			</xs:enumeration>
+			<xs:enumeration value="Filler">
+				<xs:annotation>
+					<xs:documentation>GS1 - responsible for the receipt, storage, processing, sampling, analysis, filling, packing and dispatch of finished goods, as well as record keeping of appropriate information about what is received and what is dispatched</xs:documentation>
+				</xs:annotation>
+			</xs:enumeration>
+			<xs:enumeration value="TransitCellar">
+				<xs:annotation>
+					<xs:documentation>GS1 - responsible for the receipt, storage, dispatch, processing, sampling and analysis of bulk wine, as well as record keeping of appropriate information about what is received and what is dispatched.</xs:documentation>
+				</xs:annotation>
+			</xs:enumeration>
+			<xs:enumeration value="Producer">
+				<xs:annotation>
+					<xs:documentation>Modified GS1 - responsible for receiving and for the production, manufacture and/or blending of the product.</xs:documentation>
+				</xs:annotation>
+			</xs:enumeration>
+			<xs:enumeration value="Grower">
+				<xs:annotation>
+					<xs:documentation>Modified GS1 - responsible for the production (in accordance with integrated production principles), harvest and delivery, as well as record keeping of appropriate information about what is received and what is sent.</xs:documentation>
+				</xs:annotation>
+			</xs:enumeration>
+			<xs:enumeration value="Factory"><xs:annotation><xs:documentation>A building or set of buildings containing equipment potentially with housing for associates for the sole purpose of manufacturing goods, often on a large scale</xs:documentation></xs:annotation></xs:enumeration>
+			<xs:enumeration value="Building"><xs:annotation><xs:documentation>Individual buildings in a complex of buildings, for example a factory or a distribution center </xs:documentation></xs:annotation></xs:enumeration>
+			<xs:enumeration value="Dormitory"><xs:annotation><xs:documentation>A residential area for associates</xs:documentation></xs:annotation></xs:enumeration>
+		</xs:restriction>
+	</xs:simpleType>
+</xs:schema>

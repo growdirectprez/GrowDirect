@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- V1.1.0
+	- Added to support Traceability
+			AvailableForSale, BestBefore, Birth, CutBy, EnterFreezer, Kill, Pack, Packaging, Production, SellBy, Slaughter
+
+-->
+<xs:schema xmlns:xs="http://www.w3.org/2001/XMLSchema" elementFormDefault="qualified" attributeFormDefault="unqualified">
+	<xs:include schemaLocation="IXREnumerationExtensionV1.1.0.xsd"/>
+	<!-- 
+		Date Time Enumeration
+	-->
+	<xs:simpleType name="FixtureStyleType">
+		<xs:union memberTypes="FixtureStyleTypeEnumeration TypeCodeExtension"/>
+	</xs:simpleType>
+	<xs:simpleType name="FixtureStyleTypeEnumeration">
+		<xs:restriction base="xs:NMTOKEN">
+			<xs:enumeration value="Units"/>
+			<xs:enumeration value="Trays"/>
+			<xs:enumeration value="Cases"/>
+		</xs:restriction>
+	</xs:simpleType>
+</xs:schema>

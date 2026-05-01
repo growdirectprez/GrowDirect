@@ -1,0 +1,99 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- edited with XMLSpy v2006 sp2 U (http://www.altova.com) by Richard L Halter (private) -->
+<xs:schema xmlns:xs="http://www.w3.org/2001/XMLSchema" elementFormDefault="qualified" attributeFormDefault="unqualified">
+	<xs:include schemaLocation="IXREnumerationExtensionV1.1.0.xsd"/>
+	<xs:complexType name="ObjectIDType">
+		<xs:simpleContent>
+			<xs:extension base="xs:string">
+				<xs:attribute name="TypeCode" type="ObjectIDTypeCode"/>
+				<xs:attribute name="SubTypeCode" type="ObjectIDSubTypeCode"/>
+			</xs:extension>
+		</xs:simpleContent>
+	</xs:complexType>
+	<xs:simpleType name="ObjectIDTypeCode">
+		<xs:union memberTypes="ObjectIDTypeCodeEnumeration TypeCodeExtension"/>
+	</xs:simpleType>
+	<xs:simpleType name="ObjectIDTypeCodeEnumeration">
+		<xs:restriction base="xs:NMTOKEN">
+			<xs:enumeration value="Region"/>
+			<xs:enumeration value="District"/>
+			<xs:enumeration value="RetailStore"/>
+			<xs:enumeration value="DistributionCenter"/>
+			<xs:enumeration value="AdministrationCenter"/>
+			<xs:enumeration value="WebSite"/>
+			<xs:enumeration value="Floor"/>
+			<xs:enumeration value="Level"/>
+			<xs:enumeration value="Division"/>
+			<xs:enumeration value="Group"/>
+			<xs:enumeration value="SubGroup"/>
+			<xs:enumeration value="MajorDepartment"/>
+			<xs:enumeration value="Department"/>
+			<xs:enumeration value="SubDepartment"/>
+			<xs:enumeration value="MajorClass"/>
+			<xs:enumeration value="Class"/>
+			<xs:enumeration value="SubClass"/>
+			<xs:enumeration value="Category"/>
+			<xs:enumeration value="SubCategory"/>
+			<xs:enumeration value="Zone"/>
+			<xs:enumeration value="Room"/>
+			<xs:enumeration value="Restroom"/>
+			<xs:enumeration value="Gondola"/>
+			<xs:enumeration value="Planogram"/>
+			<xs:enumeration value="Fixture"/>
+			<xs:enumeration value="Bay"/>
+			<xs:enumeration value="Chest"/>
+			<xs:enumeration value="Pallet"/>
+			<xs:enumeration value="Workstation"/>
+			<xs:enumeration value="Desk"/>
+			<xs:enumeration value="Shelf"/>
+			<xs:enumeration value="Peg"/>
+			<xs:enumeration value="Item"/>
+			<xs:enumeration value="Device"/>
+			<xs:enumeration value="PointOfPurchaseMaterial"/>
+			<xs:enumeration value="Brand"/>
+		</xs:restriction>
+	</xs:simpleType>
+	<xs:simpleType name="ObjectIDSubTypeCode">
+		<xs:union memberTypes="ObjectIDSubTypeCodeEnumeration TypeCodeExtension"/>
+	</xs:simpleType>
+	<xs:simpleType name="ObjectIDSubTypeCodeEnumeration">
+		<xs:restriction base="xs:NMTOKEN">
+			<xs:enumeration value="POS"/>
+			<xs:enumeration value="Belt"/>
+			<xs:enumeration value="BillAcceptor"/>
+			<xs:enumeration value="BillDispenser"/>
+			<xs:enumeration value="Biometrics"/>
+			<xs:enumeration value="BumpBar"/>
+			<xs:enumeration value="CashDrawer"/>
+			<xs:enumeration value="CAT"/>
+			<xs:enumeration value="CheckScanner"/>
+			<xs:enumeration value="CoinAcceptor"/>
+			<xs:enumeration value="CoinDispenser"/>
+			<xs:enumeration value="ElectronicJournal"/>
+			<xs:enumeration value="ElectornicValue"/>
+			<xs:enumeration value="FiscalPrinter"/>
+			<xs:enumeration value="Gate"/>
+			<xs:enumeration value="HardTotals"/>
+			<xs:enumeration value="ImageScanner"/>
+			<xs:enumeration value="ItemDispenser"/>
+			<xs:enumeration value="Keylock"/>
+			<xs:enumeration value="Lights"/>
+			<xs:enumeration value="LineDisplay"/>
+			<xs:enumeration value="MICR"/>
+			<xs:enumeration value="MotionSensor"/>
+			<xs:enumeration value="MSR"/>
+			<xs:enumeration value="PINPad"/>
+			<xs:enumeration value="PointCard"/>
+			<xs:enumeration value="POSKeyboard"/>
+			<xs:enumeration value="POSPower"/>
+			<xs:enumeration value="POSPrinter"/>
+			<xs:enumeration value="RemoteOrderDisplay"/>
+			<xs:enumeration value="RFIDScanner"/>
+			<xs:enumeration value="Scale"/>
+			<xs:enumeration value="Scanner"/>
+			<xs:enumeration value="SignatureCapture"/>
+			<xs:enumeration value="SmartCardReader"/>
+			<xs:enumeration value="ToneIndicator"/>
+		</xs:restriction>
+	</xs:simpleType>
+</xs:schema>

@@ -1,0 +1,39 @@
+age
+income
+education
+ e-maill the list of attributes and out of the box profile
+
+Database Schema 
+
+meta data about the content is stored on the server
+
+Rule - If a visitor meets this criteria (X) show this piece of content (Preoduct, adv, incentive, editorial)
+
+Matching enginge - Taxonomy matching 
+
+saw, selected, choose and bought 
+
+investigate writing observation to the database
+
+Observation / tracking 
+
+incentive based on observation 
+
+develop a standrad set of rules to be called from within the javascript
+
+The 
+
+Business manager makes a change - develop scenario
+
+product, editiora, incenticve, advertism ent, discussion group, template 
+
+
+Sale - % off automatic
+
+Coupon - Click on the coupon to put it in your 
+
+incenticve - High value shopper - $ value over time called from with in the shopping cart page 
+
+targted advertisment - default for unregistered, dynamic based on 
+
+log file - Broad base , Andromedia

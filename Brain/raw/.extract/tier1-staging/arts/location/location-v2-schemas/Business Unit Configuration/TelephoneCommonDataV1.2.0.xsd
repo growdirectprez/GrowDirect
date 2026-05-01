@@ -1,0 +1,46 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- 
+	Version 1.1.0
+	- Removed FullTelephoneNumber as not in the data model
+-->
+<xs:schema xmlns:xs="http://www.w3.org/2001/XMLSchema" elementFormDefault="qualified" attributeFormDefault="unqualified">
+	<xs:include schemaLocation="TelephoneTypeCodeEnumerationV1.1.0.xsd"/>
+	<xs:complexType name="TelephoneCommonData">
+		<xs:annotation>
+			<xs:documentation>Approved - Telephone Common Data May be home, cell, business, fax,
+				pager, … (Repeatable)</xs:documentation>
+		</xs:annotation>
+		<xs:sequence>
+			<xs:element name="AreaCode" type="xs:string" minOccurs="0">
+				<xs:annotation>
+					<xs:documentation>A code that identifies a geographic grouping of telephone
+						numbers within the US and Canada</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="LocalNumber" type="xs:string" minOccurs="0"/>
+			<xs:element name="ExtensionNumber" type="xs:string" minOccurs="0">
+				<xs:annotation>
+					<xs:documentation>Addtional numbers required to reach a person, extension, or
+						voice mailbox</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="ITUCountryCode" type="xs:string" minOccurs="0">
+				<xs:annotation>
+					<xs:documentation>A code assigned by the ITU representing a country or other
+						region International Telephone Unit</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+		</xs:sequence>
+		<xs:attribute name="PrimaryFlag" type="xs:boolean" use="optional" default="true">
+			<xs:annotation>
+				<xs:documentation>Indicates this is the primary phone number</xs:documentation>
+			</xs:annotation>
+		</xs:attribute>
+		<xs:attribute name="TypeCode" type="TelephoneTypeCode" use="optional" default="Home">
+			<xs:annotation>
+				<xs:documentation>A category or telephone (number) types (cell, fax, voice,
+					etc.)Enumeration - Mobile, Office, Home, Fax</xs:documentation>
+			</xs:annotation>
+		</xs:attribute>
+	</xs:complexType>
+</xs:schema>

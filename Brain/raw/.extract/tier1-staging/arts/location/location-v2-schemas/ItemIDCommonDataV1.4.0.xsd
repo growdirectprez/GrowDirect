@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- V1.4.0 
+	- added UUID to be able to uniquely identify individual items across stores, brands, etc. (effectively a Primary Key)
+-->
+<xs:schema xmlns:xs="http://www.w3.org/2001/XMLSchema" elementFormDefault="qualified" attributeFormDefault="unqualified">
+	<xs:include schemaLocation="ItemIDTypeCodeEnumerationV1.3.0.xsd"/>
+	<xs:complexType name="ItemIDCommonData">
+		<xs:annotation>
+			<xs:documentation>Unique number for this item – represents this class of item, represented by PLU, GTIN, UPC, other</xs:documentation>
+		</xs:annotation>
+		<xs:simpleContent>
+			<xs:extension base="xs:string">
+				<xs:attribute name="Name" type="xs:string" use="optional"/>
+				<xs:attribute name="Qualifier" type="xs:string" use="optional"/>
+				<xs:attribute name="Type" type="ItemIDTypeCode" use="optional" default="SKU"/>
+				<xs:attribute name="UUID" type="xs:string">
+					<xs:annotation>
+						<xs:documentation>Universally Unique identifier for this item</xs:documentation>
+					</xs:annotation>
+				</xs:attribute>
+			</xs:extension>
+		</xs:simpleContent>
+	</xs:complexType>
+</xs:schema>

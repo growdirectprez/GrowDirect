@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<xs:schema xmlns:xs="http://www.w3.org/2001/XMLSchema" elementFormDefault="qualified" attributeFormDefault="unqualified">
+	<xs:include schemaLocation="IXREnumerationExtensionV1.1.0.xsd"/>
+	<!--
+		 Version 1.1.0
+		- Added Tapped to support Contactless Payment
+		- Added Waved to support Contactless Payment
+	-->
+	<!-- 
+		Entry Method Enumerations 
+	-->
+	<xs:simpleType name="EntryMethodTypeCode">
+		<xs:union memberTypes="EntryMethodEnumeration TypeCodeExtension"/>
+	</xs:simpleType>
+	<xs:simpleType name="EntryMethodEnumeration">
+		<xs:restriction base="xs:NMTOKEN">
+			<xs:enumeration value="SmartCard"/>
+			<xs:enumeration value="MICR"/>
+			<xs:enumeration value="MSR"/>
+			<xs:enumeration value="Keyed"/>
+			<xs:enumeration value="Scanned"/>
+			<xs:enumeration value="Weighed"/>
+			<xs:enumeration value="Measured"/>
+			<xs:enumeration value="RFID"/>
+			<xs:enumeration value="Automatic"/>
+			<xs:enumeration value="IntegratedChipCard"/>
+			<xs:enumeration value="Tapped"/>
+			<xs:enumeration value="Waved"/>
+		</xs:restriction>
+	</xs:simpleType>
+</xs:schema>

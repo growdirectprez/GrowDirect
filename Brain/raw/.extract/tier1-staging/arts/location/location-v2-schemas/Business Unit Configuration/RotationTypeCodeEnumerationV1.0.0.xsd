@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<xs:schema xmlns:xs="http://www.w3.org/2001/XMLSchema" elementFormDefault="qualified" attributeFormDefault="unqualified">
+	<xs:include schemaLocation="IXREnumerationExtensionV1.1.0.xsd"/>
+	<!-- 
+		Rotation Types 
+	-->
+	<xs:simpleType name="RotationTypeCode">
+		<xs:union memberTypes="RotationTypeCodeEnumeration TypeCodeExtension"/>
+	</xs:simpleType>
+	<xs:simpleType name="RotationTypeCodeEnumeration">
+		<xs:restriction base="xs:NMTOKEN">
+			<xs:enumeration value="00"/>
+			<xs:enumeration value="90"/>
+			<xs:enumeration value="180"/>
+			<xs:enumeration value="270"/>
+		</xs:restriction>
+	</xs:simpleType>
+</xs:schema>

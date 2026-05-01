@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<xs:schema xmlns:xs="http://www.w3.org/2001/XMLSchema" elementFormDefault="qualified" attributeFormDefault="unqualified">
+	<xs:include schemaLocation="IXREnumerationExtensionV1.1.0.xsd"/>
+	<!-- 
+		Days Of the Week
+	-->
+	<xs:simpleType name="StoreServiceStatusTypeCode">
+		<xs:union memberTypes="StoreServiceStatusTypeCodeEnumeration TypeCodeExtension"/>
+	</xs:simpleType>
+	<xs:simpleType name="StoreServiceStatusTypeCodeEnumeration">
+		<xs:restriction base="xs:NMTOKEN">
+			<xs:enumeration value="New"/>
+			<xs:enumeration value="Existing"/>
+			<xs:enumeration value="Remove"/>
+			<xs:enumeration value="Close"/>
+		</xs:restriction>
+	</xs:simpleType>
+</xs:schema>

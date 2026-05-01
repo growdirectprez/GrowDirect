@@ -1,0 +1,100 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- edited with XMLSpy v2006 sp1 U (http://www.altova.com) by Richard L Halter (private) -->
+<xs:schema xmlns:xs="http://www.w3.org/2001/XMLSchema" elementFormDefault="qualified" attributeFormDefault="unqualified">
+	<xs:include schemaLocation="IXREnumerationExtensionV1.1.0.xsd"/>
+	<xs:include schemaLocation="AddressCommonDataV1.4.0.xsd"/>
+	<xs:include schemaLocation="BusinessUnitCommonDataV1.3.0.xsd"/>
+	<xs:include schemaLocation="ClassificationCommonDataV1.0.0.xsd"/>
+	<xs:include schemaLocation="ContactStatusTypeCodeEnumerationV1.0.0.xsd"/>
+	<xs:include schemaLocation="DayOfWeekCommonDataV1.4.0.xsd"/>
+	<xs:include schemaLocation="EMailCommonDataV2.0.0.xsd"/>
+	<xs:include schemaLocation="SocialMediaCommonDataV1.0.0.xsd"/>
+	<xs:include schemaLocation="TelephoneCommonDataV1.2.0.xsd"/>
+	<xs:complexType name="BusinessUnitConfigurationCommonData">
+		<xs:sequence>
+			<xs:element name="BusinessUnit" maxOccurs="unbounded">
+				<xs:annotation>
+					<xs:documentation>Name of the organization</xs:documentation>
+				</xs:annotation>
+				<xs:complexType>
+					<xs:simpleContent>
+						<xs:extension base="BusinessUnitCommonData"/>
+					</xs:simpleContent>
+				</xs:complexType>
+			</xs:element>
+			<xs:element name="HoursOfOperation" type="DayOfWeekCommonData" minOccurs="0" maxOccurs="unbounded"/>
+			<xs:element name="DoesBusinessAs" type="xs:string" minOccurs="0" maxOccurs="unbounded">
+				<xs:annotation>
+					<xs:documentation>Alternate name for this organization</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="TaxpayerID" type="xs:string" minOccurs="0">
+				<xs:annotation>
+					<xs:documentation>A tax or other number assigned by a governing body that is unique to all organization within that governing body’s jurisdiction.</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="LegalStatusCode" type="xs:string" minOccurs="0">
+				<xs:annotation>
+					<xs:documentation>A code that indicates the organization’s legal or tax status. For example, this may be Commercial Corporation, Not-for-profit, Non-profit, Academic, Government, etc.</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="ParentCompanyID" type="ParentCompanyIDType" minOccurs="0"/>
+			<xs:element name="Classification" type="ClassificationType" minOccurs="0">
+				<xs:annotation>
+					<xs:documentation>Standard Industry Classification Code,
+Merchant Classification Code</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="ContactInformation" type="ContactInformationType" minOccurs="0" maxOccurs="unbounded">
+				<xs:annotation>
+					<xs:documentation>How to get in touch with this customer</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+		</xs:sequence>
+	</xs:complexType>
+	<xs:complexType name="ContactInformationType">
+		<xs:annotation>
+			<xs:documentation>How to get in touch with this customer</xs:documentation>
+		</xs:annotation>
+		<xs:sequence>
+			<xs:element name="StartDate" type="xs:date" minOccurs="0">
+				<xs:annotation>
+					<xs:documentation>Time Frame this contact information is valid</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="EndDate" type="xs:date" minOccurs="0">
+				<xs:annotation>
+					<xs:documentation>Time Frame this contact information is valid</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="Telephone" type="TelephoneCommonData" minOccurs="0" maxOccurs="unbounded"/>
+			<xs:element name="Address" type="AddressCommonData" minOccurs="0" maxOccurs="unbounded"/>
+			<xs:element name="EMail" minOccurs="0" maxOccurs="unbounded">
+				<xs:complexType>
+					<xs:simpleContent>
+						<xs:extension base="EMailCommonData"/>
+					</xs:simpleContent>
+				</xs:complexType>
+			</xs:element>
+			<xs:element name="ContactPurpose" type="xs:string" minOccurs="0" maxOccurs="unbounded">
+				<xs:annotation>
+					<xs:documentation>Retailer defined reasons for contacting Parties and Sites. Suggested values include: Accounts, Deliveries, Legal.</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="SocialMedia" type="SocialMediaType" minOccurs="0" maxOccurs="unbounded">
+				<xs:annotation>
+					<xs:documentation>Contact using Social Media, such as face book, twitter, etc.</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:any namespace="##other" processContents="lax" minOccurs="0" maxOccurs="unbounded"/>
+		</xs:sequence>
+		<xs:attribute name="StatusTypeCode" type="ContactStatusTypeCode"/>
+	</xs:complexType>
+	<xs:complexType name="ParentCompanyIDType">
+		<xs:simpleContent>
+			<xs:extension base="xs:string">
+				<xs:attribute name="Name" type="xs:string"/>
+			</xs:extension>
+		</xs:simpleContent>
+	</xs:complexType>
+</xs:schema>

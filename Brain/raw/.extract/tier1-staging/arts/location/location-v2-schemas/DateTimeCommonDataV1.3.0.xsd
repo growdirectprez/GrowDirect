@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- edited with XMLSpy v2006 sp2 U (http://www.altova.com) by Richard L Halter (private) -->
+<xs:schema xmlns:xs="http://www.w3.org/2001/XMLSchema" elementFormDefault="qualified" attributeFormDefault="unqualified">
+	<xs:include schemaLocation="DateTimeTypeEnumerationV1.3.0.xsd"/>
+	<xs:complexType name="DateTimeCommonData">
+		<xs:simpleContent>
+			<xs:extension base="xs:dateTime">
+				<xs:attribute name="TypeCode" type="DateTimeType" use="optional" default="Message">
+					<xs:annotation>
+						<xs:documentation>Identifies what kind of time to which this is referring.  such as birth, available to sell, business, etc.</xs:documentation>
+					</xs:annotation>
+				</xs:attribute>
+				<xs:attribute name="Offset" type="xs:string">
+					<xs:annotation>
+						<xs:documentation>Gets the local time's offset from Coordinated Universal Time (UTC), For example "+0.3.00"</xs:documentation>
+					</xs:annotation>
+				</xs:attribute>
+				<xs:anyAttribute namespace="##other" processContents="lax"/>
+			</xs:extension>
+		</xs:simpleContent>
+	</xs:complexType>
+</xs:schema>

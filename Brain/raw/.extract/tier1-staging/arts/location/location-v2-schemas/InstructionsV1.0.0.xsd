@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- edited with XMLSpy v2006 sp1 U (http://www.altova.com) by Richard L Halter (private) -->
+<xs:schema xmlns:xs="http://www.w3.org/2001/XMLSchema" elementFormDefault="qualified" attributeFormDefault="unqualified">
+	<xs:include schemaLocation="IXREnumerationExtensionV1.1.0.xsd"/>
+	<xs:include schemaLocation="DateTimeCommonDataV1.3.0.xsd"/>
+	<xs:include schemaLocation="DescriptionCommonDataV1.3.0.xsd"/>
+	<xs:include schemaLocation="LocationCommonDataV1.0.0.xsd"/>
+	<xs:include schemaLocation="ObjectIDV1.0.0.xsd"/>
+	<xs:complexType name="InstructionsType">
+		<xs:sequence>
+			<xs:element name="ObjectID" type="ObjectIDType" minOccurs="0" maxOccurs="unbounded"/>
+			<xs:element name="Location" type="LocationCommonData" minOccurs="0"/>
+			<xs:element name="DateTime" type="DateTimeCommonData" minOccurs="0" maxOccurs="unbounded"/>
+			<xs:element name="Description" type="DescriptionCommonData" minOccurs="0" maxOccurs="unbounded"/>
+		</xs:sequence>
+		<xs:attribute name="Action" type="InstructionActionsTypeCode"/>
+	</xs:complexType>
+	<xs:simpleType name="InstructionActionsTypeCode">
+		<xs:union memberTypes="InstructionActionsTypeCodeEnumeration TypeCodeExtension"/>
+	</xs:simpleType>
+	<xs:simpleType name="InstructionActionsTypeCodeEnumeration">
+		<xs:restriction base="xs:NMTOKEN">
+			<xs:enumeration value="Unpack"/>
+			<xs:enumeration value="MoveTo"/>
+			<xs:enumeration value="MoveFrom"/>
+		</xs:restriction>
+	</xs:simpleType>
+</xs:schema>

@@ -1,0 +1,245 @@
+[
+  {
+    "source_path": "/Users/gclyle/GrowDirect/Brain/raw/inbox/SWINDON/Approach.ppt",
+    "source_sha256": "a851261256674aa2a6c0a6462832489742dbc063cf7adb2296e72f7de5e0a2a3",
+    "target_path": "/Users/gclyle/GrowDirect/Brain/raw/.extract/SWINDON/Approach.ppt.md",
+    "method": null,
+    "status": "failed",
+    "error": "markitdown: UnsupportedFormatException: Could not convert stream to Markdown. No converter attempted a conversion, suggesting that the filetype is simply not supported.",
+    "extracted_at": "2026-04-24T21:41:53.958381+00:00"
+  },
+  {
+    "source_path": "/Users/gclyle/GrowDirect/Brain/raw/inbox/SWINDON/Herb_overview.ppt",
+    "source_sha256": "fe2e6e5f5a0680c98c1313c74a8856ce727a38b0d5a413e2ff7e5649687f3b35",
+    "target_path": "/Users/gclyle/GrowDirect/Brain/raw/.extract/SWINDON/Herb_overview.ppt.md",
+    "method": null,
+    "status": "failed",
+    "error": "markitdown: UnsupportedFormatException: Could not convert stream to Markdown. No converter attempted a conversion, suggesting that the filetype is simply not supported.",
+    "extracted_at": "2026-04-24T21:41:54.717417+00:00"
+  },
+  {
+    "source_path": "/Users/gclyle/GrowDirect/Brain/raw/inbox/SWINDON/RSC_INTERSHOP_DEMO.ppt",
+    "source_sha256": "b8158e415e39958585e32b845e6b071239db192a4075ded2b58f4ffd92eccce3",
+    "target_path": "/Users/gclyle/GrowDirect/Brain/raw/.extract/SWINDON/RSC_INTERSHOP_DEMO.ppt.md",
+    "method": null,
+    "status": "failed",
+    "error": "markitdown: UnsupportedFormatException: Could not convert stream to Markdown. No converter attempted a conversion, suggesting that the filetype is simply not supported.",
+    "extracted_at": "2026-04-24T21:41:55.426953+00:00"
+  },
+  {
+    "source_path": "/Users/gclyle/GrowDirect/Brain/raw/inbox/SWINDON/RSC_Sitemap.ppt",
+    "source_sha256": "cc5626c4d9ab9df7520dcf29df12627a42d9a8c48bc67d6ecc00618d68e00f32",
+    "target_path": "/Users/gclyle/GrowDirect/Brain/raw/.extract/SWINDON/RSC_Sitemap.ppt.md",
+    "method": null,
+    "status": "failed",
+    "error": "markitdown: UnsupportedFormatException: Could not convert stream to Markdown. No converter attempted a conversion, suggesting that the filetype is simply not supported.",
+    "extracted_at": "2026-04-24T21:41:55.436200+00:00"
+  },
+  {
+    "source_path": "/Users/gclyle/GrowDirect/Brain/raw/inbox/SWINDON/RSC_Templates.ppt",
+    "source_sha256": "8fd4a4c66bf3f50c6ae7851d9243142700b1705913ab2469ce5866f05070b02e",
+    "target_path": "/Users/gclyle/GrowDirect/Brain/raw/.extract/SWINDON/RSC_Templates.ppt.md",
+    "method": null,
+    "status": "failed",
+    "error": "markitdown: UnsupportedFormatException: Could not convert stream to Markdown. No converter attempted a conversion, suggesting that the filetype is simply not supported.",
+    "extracted_at": "2026-04-24T21:41:55.445262+00:00"
+  },
+  {
+    "source_path": "/Users/gclyle/GrowDirect/Brain/raw/inbox/SWINDON/Reading/Accolades.ppt",
+    "source_sha256": "b206bc48ad9581e56b65f319cab9b36ba8ae1afa81417d172a39130be4e0ad00",
+    "target_path": "/Users/gclyle/GrowDirect/Brain/raw/.extract/SWINDON/Reading/Accolades.ppt.md",
+    "method": null,
+    "status": "failed",
+    "error": "markitdown: UnsupportedFormatException: Could not convert stream to Markdown. No converter attempted a conversion, suggesting that the filetype is simply not supported.",
+    "extracted_at": "2026-04-24T21:41:55.453838+00:00"
+  },
+  {
+    "source_path": "/Users/gclyle/GrowDirect/Brain/raw/inbox/SWINDON/Reading/food1.pdf",
+    "source_sha256": "8b9f64f58d253840d689a805bb10358b65819f51639b5b20b5c6bd37a9900f30",
+    "target_path": "/Users/gclyle/GrowDirect/Brain/raw/.extract/SWINDON/Reading/food1.pdf.md",
+    "method": null,
+    "status": "failed",
+    "error": null,
+    "extracted_at": "2026-04-24T21:41:58.400008+00:00"
+  },
+  {
+    "source_path": "/Users/gclyle/GrowDirect/Brain/raw/inbox/SWINDON/Reading/food2.pdf",
+    "source_sha256": "f25ffa1188ee6fea2ac63a6fdc871afed7ddd87901959e34a7aef78940af3233",
+    "target_path": "/Users/gclyle/GrowDirect/Brain/raw/.extract/SWINDON/Reading/food2.pdf.md",
+    "method": null,
+    "status": "failed",
+    "error": "markitdown: FileConversionException: File conversion failed after 1 attempts:\n - PdfConverter threw PDFSyntaxError with message: No /Root object! - Is this really a PDF?\n | pdftotext: CalledProcessError: Command '['pdftotext', '/Users/gclyle/GrowDirect/Brain/raw/inbox/SWINDON/Reading/food2.pdf', '-']' returned non-zero exit status 1.",
+    "extracted_at": "2026-04-24T21:41:58.513902+00:00"
+  },
+  {
+    "source_path": "/Users/gclyle/GrowDirect/Brain/raw/inbox/SWINDON/Retail E-Biz 8.1.ppt",
+    "source_sha256": "99dba494fbbddd7436f287dd3f849e2b3852bd316620b5ff709f6615fc9384e4",
+    "target_path": "/Users/gclyle/GrowDirect/Brain/raw/.extract/SWINDON/Retail E-Biz 8.1.ppt.md",
+    "method": null,
+    "status": "failed",
+    "error": "markitdown: UnsupportedFormatException: Could not convert stream to Markdown. No converter attempted a conversion, suggesting that the filetype is simply not supported.",
+    "extracted_at": "2026-04-24T21:42:05.885914+00:00"
+  },
+  {
+    "source_path": "/Users/gclyle/GrowDirect/Brain/raw/inbox/SWINDON/Retail storyboard review 1-4-00.ppt",
+    "source_sha256": "954337993d991d5e2ccdcdf85cf58a40673f35f44b657fdb0bec2781b36a1f0c",
+    "target_path": "/Users/gclyle/GrowDirect/Brain/raw/.extract/SWINDON/Retail storyboard review 1-4-00.ppt.md",
+    "method": null,
+    "status": "failed",
+    "error": "markitdown: UnsupportedFormatException: Could not convert stream to Markdown. No converter attempted a conversion, suggesting that the filetype is simply not supported.",
+    "extracted_at": "2026-04-24T21:42:05.894800+00:00"
+  },
+  {
+    "source_path": "/Users/gclyle/GrowDirect/Brain/raw/inbox/SWINDON/Retail storyboard.ppt",
+    "source_sha256": "fbb1dd5223c36134ee835da27e1f938d9b4d05c8cf3cfd1d805668846c5099de",
+    "target_path": "/Users/gclyle/GrowDirect/Brain/raw/.extract/SWINDON/Retail storyboard.ppt.md",
+    "method": null,
+    "status": "failed",
+    "error": "markitdown: UnsupportedFormatException: Could not convert stream to Markdown. No converter attempted a conversion, suggesting that the filetype is simply not supported.",
+    "extracted_at": "2026-04-24T21:42:05.902696+00:00"
+  },
+  {
+    "source_path": "/Users/gclyle/GrowDirect/Brain/raw/inbox/SWINDON/Retail.ppt",
+    "source_sha256": "a4715ac4eb09a37d536e84d0530912ab693d67c659c4584c68afadc3efa1d75b",
+    "target_path": "/Users/gclyle/GrowDirect/Brain/raw/.extract/SWINDON/Retail.ppt.md",
+    "method": null,
+    "status": "failed",
+    "error": "markitdown: UnsupportedFormatException: Could not convert stream to Markdown. No converter attempted a conversion, suggesting that the filetype is simply not supported.",
+    "extracted_at": "2026-04-24T21:42:05.910446+00:00"
+  },
+  {
+    "source_path": "/Users/gclyle/GrowDirect/Brain/raw/inbox/SWINDON/Scenario_1_Templates.ppt",
+    "source_sha256": "0cb882a1b306d40b21258f6ce1308604646141622e1c739e1245dcaf690ddb44",
+    "target_path": "/Users/gclyle/GrowDirect/Brain/raw/.extract/SWINDON/Scenario_1_Templates.ppt.md",
+    "method": null,
+    "status": "failed",
+    "error": "markitdown: UnsupportedFormatException: Could not convert stream to Markdown. No converter attempted a conversion, suggesting that the filetype is simply not supported.",
+    "extracted_at": "2026-04-24T21:42:06.184156+00:00"
+  },
+  {
+    "source_path": "/Users/gclyle/GrowDirect/Brain/raw/inbox/SWINDON/Scenario_2_Templates.ppt",
+    "source_sha256": "9e403a4d24892acdd44d29e8dec19c82bc8557222acb718a6e143197d67157d6",
+    "target_path": "/Users/gclyle/GrowDirect/Brain/raw/.extract/SWINDON/Scenario_2_Templates.ppt.md",
+    "method": null,
+    "status": "failed",
+    "error": "markitdown: UnsupportedFormatException: Could not convert stream to Markdown. No converter attempted a conversion, suggesting that the filetype is simply not supported.",
+    "extracted_at": "2026-04-24T21:42:06.194359+00:00"
+  },
+  {
+    "source_path": "/Users/gclyle/GrowDirect/Brain/raw/inbox/SWINDON/Scenario_3_Templates.ppt",
+    "source_sha256": "834a4341c6d5f9041104190d32873e73d46afe72035a4e15a527cb84b5b88846",
+    "target_path": "/Users/gclyle/GrowDirect/Brain/raw/.extract/SWINDON/Scenario_3_Templates.ppt.md",
+    "method": null,
+    "status": "failed",
+    "error": "markitdown: UnsupportedFormatException: Could not convert stream to Markdown. No converter attempted a conversion, suggesting that the filetype is simply not supported.",
+    "extracted_at": "2026-04-24T21:42:06.203261+00:00"
+  },
+  {
+    "source_path": "/Users/gclyle/GrowDirect/Brain/raw/inbox/SWINDON/T&K customer survey 01-10-00.ppt",
+    "source_sha256": "3da6bf698ab0d2838f90657410af548e511f4e2f0f621368498c211818106ca8",
+    "target_path": "/Users/gclyle/GrowDirect/Brain/raw/.extract/SWINDON/T&K customer survey 01-10-00.ppt.md",
+    "method": null,
+    "status": "failed",
+    "error": "markitdown: UnsupportedFormatException: Could not convert stream to Markdown. No converter attempted a conversion, suggesting that the filetype is simply not supported.",
+    "extracted_at": "2026-04-24T21:42:06.568424+00:00"
+  },
+  {
+    "source_path": "/Users/gclyle/GrowDirect/Brain/raw/inbox/SWINDON/T&K demo Script.ppt",
+    "source_sha256": "d9338e618b9c145a2d3cd06075f51b36daca8448c7476e6f1a9eedcc4206afdf",
+    "target_path": "/Users/gclyle/GrowDirect/Brain/raw/.extract/SWINDON/T&K demo Script.ppt.md",
+    "method": null,
+    "status": "failed",
+    "error": "markitdown: UnsupportedFormatException: Could not convert stream to Markdown. No converter attempted a conversion, suggesting that the filetype is simply not supported.",
+    "extracted_at": "2026-04-24T21:42:06.641812+00:00"
+  },
+  {
+    "source_path": "/Users/gclyle/GrowDirect/Brain/raw/inbox/SWINDON/T&K_Demo_12_18_99.ppt",
+    "source_sha256": "0a765e3c0b6f5217219788a52ae54bedce297f1efaa1375b9a4f7468f6a2eb25",
+    "target_path": "/Users/gclyle/GrowDirect/Brain/raw/.extract/SWINDON/T&K_Demo_12_18_99.ppt.md",
+    "method": null,
+    "status": "failed",
+    "error": "markitdown: UnsupportedFormatException: Could not convert stream to Markdown. No converter attempted a conversion, suggesting that the filetype is simply not supported.",
+    "extracted_at": "2026-04-24T21:42:06.786287+00:00"
+  },
+  {
+    "source_path": "/Users/gclyle/GrowDirect/Brain/raw/inbox/SWINDON/T&K_Demo_12_20_99.ppt",
+    "source_sha256": "b5461b82b39779118988c5105a67c7790960f97b1e6a1a73e3999e8b14c050f0",
+    "target_path": "/Users/gclyle/GrowDirect/Brain/raw/.extract/SWINDON/T&K_Demo_12_20_99.ppt.md",
+    "method": null,
+    "status": "failed",
+    "error": "markitdown: UnsupportedFormatException: Could not convert stream to Markdown. No converter attempted a conversion, suggesting that the filetype is simply not supported.",
+    "extracted_at": "2026-04-24T21:42:06.797934+00:00"
+  },
+  {
+    "source_path": "/Users/gclyle/GrowDirect/Brain/raw/inbox/SWINDON/T&K_Templates.ppt",
+    "source_sha256": "196dee6a17f4b191f7574667f9ce2b47c47add11b357e8b481641be5e7dcc101",
+    "target_path": "/Users/gclyle/GrowDirect/Brain/raw/.extract/SWINDON/T&K_Templates.ppt.md",
+    "method": null,
+    "status": "failed",
+    "error": "markitdown: UnsupportedFormatException: Could not convert stream to Markdown. No converter attempted a conversion, suggesting that the filetype is simply not supported.",
+    "extracted_at": "2026-04-24T21:42:06.806272+00:00"
+  },
+  {
+    "source_path": "/Users/gclyle/GrowDirect/Brain/raw/inbox/SWINDON/Website Example - Enhancing Customer Service.ppt",
+    "source_sha256": "e1e999a71b9ccbcb639c948c34bc8dbae2cd9c6c2585c523b00c2f0b85830006",
+    "target_path": "/Users/gclyle/GrowDirect/Brain/raw/.extract/SWINDON/Website Example - Enhancing Customer Service.ppt.md",
+    "method": null,
+    "status": "failed",
+    "error": "markitdown: UnsupportedFormatException: Could not convert stream to Markdown. No converter attempted a conversion, suggesting that the filetype is simply not supported.",
+    "extracted_at": "2026-04-24T21:42:06.874149+00:00"
+  },
+  {
+    "source_path": "/Users/gclyle/GrowDirect/Brain/raw/inbox/SWINDON/Website Example - Enhancing Shopping Experience.ppt",
+    "source_sha256": "9bd83a1950e5b2332b5950c03834705f8b3ce9e3fd6124a4ae53137b01c673f9",
+    "target_path": "/Users/gclyle/GrowDirect/Brain/raw/.extract/SWINDON/Website Example - Enhancing Shopping Experience.ppt.md",
+    "method": null,
+    "status": "failed",
+    "error": "markitdown: UnsupportedFormatException: Could not convert stream to Markdown. No converter attempted a conversion, suggesting that the filetype is simply not supported.",
+    "extracted_at": "2026-04-24T21:42:06.885770+00:00"
+  },
+  {
+    "source_path": "/Users/gclyle/GrowDirect/Brain/raw/inbox/SWINDON/Website Example - Extending Marketing Advertising Brand.ppt",
+    "source_sha256": "360036d9db2d3f727ffd42067ca2987ed34b5f964323b9cff3b935ccd6d4ab5b",
+    "target_path": "/Users/gclyle/GrowDirect/Brain/raw/.extract/SWINDON/Website Example - Extending Marketing Advertising Brand.ppt.md",
+    "method": null,
+    "status": "failed",
+    "error": "markitdown: UnsupportedFormatException: Could not convert stream to Markdown. No converter attempted a conversion, suggesting that the filetype is simply not supported.",
+    "extracted_at": "2026-04-24T21:42:06.894998+00:00"
+  },
+  {
+    "source_path": "/Users/gclyle/GrowDirect/Brain/raw/inbox/SWINDON/Website Example - Selling Product Services.ppt",
+    "source_sha256": "8b4d9a8191bf5887f30e226fae4d51374bd9de415ff9441abcf8a83466237083",
+    "target_path": "/Users/gclyle/GrowDirect/Brain/raw/.extract/SWINDON/Website Example - Selling Product Services.ppt.md",
+    "method": null,
+    "status": "failed",
+    "error": "markitdown: UnsupportedFormatException: Could not convert stream to Markdown. No converter attempted a conversion, suggesting that the filetype is simply not supported.",
+    "extracted_at": "2026-04-24T21:42:06.905120+00:00"
+  },
+  {
+    "source_path": "/Users/gclyle/GrowDirect/Brain/raw/inbox/SWINDON/broadvision capability.ppt",
+    "source_sha256": "7b6a05a7ea867cb2641293d6a35e187681900ffcc02cc9fc1c9eb731ac62f645",
+    "target_path": "/Users/gclyle/GrowDirect/Brain/raw/.extract/SWINDON/broadvision capability.ppt.md",
+    "method": null,
+    "status": "failed",
+    "error": "markitdown: UnsupportedFormatException: Could not convert stream to Markdown. No converter attempted a conversion, suggesting that the filetype is simply not supported.",
+    "extracted_at": "2026-04-24T21:42:06.934766+00:00"
+  },
+  {
+    "source_path": "/Users/gclyle/GrowDirect/Brain/raw/inbox/SWINDON/retail_demo.ppt",
+    "source_sha256": "81a27edfbafd0ff71b0a0cbeb5bf8530f760893816762483cc1ea3c3f6f0ed77",
+    "target_path": "/Users/gclyle/GrowDirect/Brain/raw/.extract/SWINDON/retail_demo.ppt.md",
+    "method": null,
+    "status": "failed",
+    "error": "markitdown: UnsupportedFormatException: Could not convert stream to Markdown. No converter attempted a conversion, suggesting that the filetype is simply not supported.",
+    "extracted_at": "2026-04-24T21:42:07.606581+00:00"
+  },
+  {
+    "source_path": "/Users/gclyle/GrowDirect/Brain/raw/inbox/SWINDON/templates_old.ppt",
+    "source_sha256": "07089fb1a97ee03224324d7b279eca33c41d95764cc4463c56ab2eec8e7aff33",
+    "target_path": "/Users/gclyle/GrowDirect/Brain/raw/.extract/SWINDON/templates_old.ppt.md",
+    "method": null,
+    "status": "failed",
+    "error": "markitdown: UnsupportedFormatException: Could not convert stream to Markdown. No converter attempted a conversion, suggesting that the filetype is simply not supported.",
+    "extracted_at": "2026-04-24T21:42:07.969315+00:00"
+  }
+]

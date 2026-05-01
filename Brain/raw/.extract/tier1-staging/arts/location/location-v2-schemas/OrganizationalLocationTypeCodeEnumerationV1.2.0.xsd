@@ -1,0 +1,55 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- edited with XMLSpy v2006 sp1 U (http://www.altova.com) by Richard L Halter (private) -->
+<!-- V1.2.0 -->
+<!-- added Country -->
+<xs:schema xmlns:xs="http://www.w3.org/2001/XMLSchema" elementFormDefault="qualified" attributeFormDefault="unqualified">
+	<xs:include schemaLocation="IXREnumerationExtensionV1.1.0.xsd"/>
+	<xs:simpleType name="OrganizationalLocationTypeCode">
+		<xs:union memberTypes="OrganizationalLocationTypeCodeList TypeCodeExtension"/>
+	</xs:simpleType>
+	<xs:simpleType name="OrganizationalLocationTypeCodeList">
+		<xs:restriction base="xs:NMTOKEN">
+			<xs:enumeration value="Region"/>
+			<xs:enumeration value="District"/>
+			<xs:enumeration value="RetailStore"/>
+			<xs:enumeration value="DistributionCenter"/>
+			<xs:enumeration value="AdministrationCenter"/>
+			<xs:enumeration value="WebSite"/>
+			<xs:enumeration value="Floor"/>
+			<xs:enumeration value="Level"/>
+			<xs:enumeration value="Division"/>
+			<xs:enumeration value="Group"/>
+			<xs:enumeration value="SubGroup"/>
+			<xs:enumeration value="MajorDepartment"/>
+			<xs:enumeration value="Department"/>
+			<xs:enumeration value="SubDepartment"/>
+			<xs:enumeration value="MajorClass"/>
+			<xs:enumeration value="Class"/>
+			<xs:enumeration value="SubClass"/>
+			<xs:enumeration value="Category"/>
+			<xs:enumeration value="SubCategory"/>
+			<xs:enumeration value="Zone"/>
+			<xs:enumeration value="Room"/>
+			<xs:enumeration value="FrontDoor"/>
+			<xs:enumeration value="BackDoor"/>
+			<xs:enumeration value="EmergencyExit"/>
+			<xs:enumeration value="Restroom"/>
+			<xs:enumeration value="Gondola"/>
+			<xs:enumeration value="Planogram"/>
+			<xs:enumeration value="Fixture"/>
+			<xs:enumeration value="Bay"/>
+			<xs:enumeration value="Aisle"/>
+			<xs:enumeration value="Chest"/>
+			<xs:enumeration value="Pallet"/>
+			<xs:enumeration value="Workstation"/>
+			<xs:enumeration value="Desk"/>
+			<xs:enumeration value="Shelf"/>
+			<xs:enumeration value="Peg"/>
+			<xs:enumeration value="Item"/>
+			<xs:enumeration value="Device"/>
+			<xs:enumeration value="PointOfPurchaseMaterial"/>
+			<xs:enumeration value="Brand"/>
+			<xs:enumeration value="Counter"/>
+		</xs:restriction>
+	</xs:simpleType>
+</xs:schema>

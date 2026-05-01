@@ -1,0 +1,40 @@
+---
+date: 2026-04-24
+type: raw
+source: Brain/raw/.extract/Katz/Phase I/08 - Business Case/Solution Contribution to Value Opportunities V3.xls.md
+tags: [retail, pwc, katz, scm, rfp, 2003]
+project: retail
+status: unprocessed
+---
+
+# Solution Contribution to Value Opportunities V3.xls
+
+## Source
+File: `Brain/raw/.extract/Katz/Phase I/08 - Business Case/Solution Contribution to Value Opportunities V3.xls.md`
+Size: 7,350 bytes
+
+## Raw content
+## Solution Value Contribution
+| Effectiveness of Solutions (draft) | Unnamed: 1 | Unnamed: 2 | Unnamed: 3 | Unnamed: 4 | Unnamed: 5 | Unnamed: 6 | Unnamed: 7 | Unnamed: 8 | Unnamed: 9 | Unnamed: 10 | Unnamed: 11 | Unnamed: 12 | Unnamed: 13 | Unnamed: 14 | Unnamed: 15 | Unnamed: 16 | Unnamed: 17 | Unnamed: 18 | Unnamed: 19 | Unnamed: 20 | Unnamed: 21 | Unnamed: 22 | Unnamed: 23 | Unnamed: 24 | Unnamed: 25 | Unnamed: 26 | Unnamed: 27 | Unnamed: 28 | Unnamed: 29 | Unnamed: 30 | Unnamed: 31 | Unnamed: 32 | Unnamed: 33 | Unnamed: 34 | Unnamed: 35 | Unnamed: 36 | Unnamed: 37 | Unnamed: 38 | Unnamed: 39 | Unnamed: 40 | Unnamed: 41 | Unnamed: 42 | Unnamed: 43 | Unnamed: 44 | Unnamed: 45 | Unnamed: 46 | Unnamed: 47 | Unnamed: 48 | Unnamed: 49 | Unnamed: 50 | Unnamed: 51 | Unnamed: 52 | Unnamed: 53 | Unnamed: 54 | Unnamed: 55 |
+| --- | --- | --- | --- | --- | --- | --- | --- | --- | --- | --- | --- | --- | --- | --- | --- | --- | --- | --- | --- | --- | --- | --- | --- | --- | --- | --- | --- | --- | --- | --- | --- | --- | --- | --- | --- | --- | --- | --- | --- | --- | --- | --- | --- | --- | --- | --- | --- | --- | --- | --- | --- | --- | --- | --- | --- |
+| NaN | NaN | NaN | NaN | NaN | NaN | NaN | NaN | NaN | NaN | NaN | NaN | NaN | NaN | NaN | NaN | NaN | NaN | NaN | NaN | NaN | NaN | NaN | NaN | NaN | NaN | NaN | NaN | NaN | NaN | NaN | NaN | NaN | NaN | NaN | NaN | NaN | NaN | NaN | NaN | NaN | NaN | NaN | NaN | NaN | NaN | NaN | NaN | NaN | NaN | NaN | NaN | NaN | NaN | NaN | NaN |
+| NaN | NaN | NaN | Merchandising System Phase-I | NaN | NaN | Data Warehouse Phase-I (required for DF, RMS, etc.) | NaN | NaN | Demand Forecasting Phase-II | NaN | NaN | Shelf Space Planning Phase-II | NaN | NaN | Sales Audit Phase-II | NaN | NaN | Assortment, Top and Key Item Planning Phase-III | NaN | NaN | Retail Intelligence Phase-III | NaN | NaN | Profit Optimization | NaN | NaN | POS, Order Management & Store Operations | NaN | NaN | Trade Management | NaN | NaN | CPFR | NaN | NaN | Distribution Management | NaN | NaN | Total | NaN | NaN | source, negotiate and content | (TM + TO + GLM) | NaN | MP+DP+RP+PP+BPI | NaN | NaN | NaN | NaN | NaN | NaN | NaN | NaN | NaN | NaN |
+| NaN | NaN | Per/year (CDN$ '000) | Enablers | % | Per/year (CDN$ '000) | Enablers | % | Per/year (CDN$ '000) | Enablers | % | Per/year (CDN$ '000) | Enablers | % | Per/year (CDN$ '000) | Enablers | % | Per/year (CDN$ '000) | Enablers | % | Per/year (CDN$ '000) | Enablers | % | Per/year (CDN$ '000) | Enablers | % | Per/year (CDN$ '000) | Enablers | % | Per/year (CDN$ '000) | Enablers | % | Per/year (CDN$ '000) | Enablers | % | Per/year (CDN$ '000) | Enablers | % | Per/year (CDN$ '000) |  | % | Per/year (CDN$ '000) | Source, Negotiate & Content | Logistics | NaN | Planning | OMS, Storefront & IFS | Supplier collab | NaN | TOTAL | Year 1 | Year 2 | Year 3 | Year 4 | Year 5 | Year 6 |
+| NaN | Inventory Reduction 4.88 to 6.15 turns. BIC 7.40) | 3470.27027 | Inventory Control | 0.2 | 694.054054 | NaN |  |  | NaN | 0.2 | 694.054054 | NaN | 0.1 | 347.027027 | NaN | 0 | 0 | NaN | 0.1 | 347.027027 | NaN | 0.05 | 173.513514 | NaN | 0 | 0 | NaN | 0.2 | 694.054054 | NaN | 0 | 0 | NaN | 0.15 | 520.540541 | NaN | 0 | 0 | NaN | 1 | 3470.27027 | NaN | NaN | NaN | NaN | NaN | NaN | NaN | NaN | NaN | NaN | NaN | NaN | NaN | NaN |
+| NaN | Service Level/Lost Sales (90 to 93.75%. BIC 96.5%) | 11619 |  | 0.1 | 1161.9 | NaN |  |  | NaN | 0.2 | 2323.8 | NaN | 0.1 | 1161.9 | NaN | 0 | 0 | NaN | 0.1 | 1161.9 | NaN | 0.1 | 1161.9 | NaN | 0 | 0 | NaN | 0.1 | 1161.9 | NaN | 0 | 0 | NaN | 0.1 | 1161.9 | NaN | 0.2 | 2323.8 | NaN | 1.0 | 11619.0 | NaN | NaN | NaN | NaN | NaN | NaN | NaN | NaN | NaN | NaN | NaN | NaN | NaN | NaN |
+| NaN | Mark Down Improvement | 4485 | NaN | 0 | 0 |  |  |  | NaN | 0.2 | 897 | NaN | 0.1 | 448.5 | NaN | 0 | 0 | NaN | 0 | 0 | NaN | 0.1 | 448.5 | NaN | 0.4 | 1794 | NaN | 0.2 | 897 | NaN | 0 | 0 | NaN | 0 | 0 | NaN | 0 | 0 | NaN | 1 | 4485 | NaN | NaN | NaN | NaN | NaN | NaN | NaN | NaN | NaN | NaN | NaN | NaN | NaN | NaN |
+| NaN | Revenue Improvement form Merchandising Optimization | 8073 | NaN | 0.1 | 807.3 |  |  |  | NaN | 0.1 | 807.3 | NaN | 0.1 | 807.3 | NaN | 0 | 0 | NaN | 0.1 | 807.3 | NaN | 0.2 | 1614.6 | NaN | 0.2 | 1614.6 | NaN | 0.2 | 1614.6 | NaN | 0 | 0 | NaN | 0 | 0 | NaN | 0 | 0 | NaN | 1 | 8073.0 | NaN | NaN | NaN | NaN | NaN | NaN | NaN | NaN | NaN | NaN | NaN | NaN | NaN | NaN |
+| NaN | Gross Margin Improvement | 2900 | NaN | 0.2 | 580 | NaN | NaN | NaN | NaN | 0.2 | 580 | NaN | 0.2 | 580 | NaN | NaN | NaN | NaN | 0.2 | 580 | NaN | NaN | 0 | NaN | 0.2 | 580 | NaN | NaN | NaN | NaN | NaN | NaN | NaN | NaN | NaN | NaN | NaN | NaN | NaN | 1 | 2900 | NaN | NaN | NaN | NaN | NaN | NaN | NaN | NaN | NaN | NaN | NaN | NaN | NaN | NaN |
+| NaN | Total | 30547.27027 |  | 0.6 | 3243.254054 |  |  |  |  | 0.9 | 5302.154054 | NaN | 0.6 | 3344.727027 |  | 0 | 0 |  | 0.5 | 2896.227027 | 10283.340541 | 0.45 | 3398.513514 |  | 0.8 | 3988.6 |  | 0.7 | 4367.554054 |  | 0 | 0 |  | 0.25 | 1682.440541 |  | 0.2 | 2323.8 |  | 4 | 30547.27027 | NaN | NaN | NaN | NaN | NaN | NaN | NaN | NaN | NaN | NaN | NaN | NaN | NaN | NaN |
+| NaN | % of total $ potential | NaN | NaN | NaN | 0.106172 | NaN | NaN |  | NaN | NaN | 0.173572 | NaN | NaN | 0.109493 | NaN | NaN | 0 | NaN | NaN | 0.094811 | NaN | NaN | 0.111254 | NaN | NaN | 0.130571 | NaN | NaN | 0.142977 | NaN | NaN | 0 | NaN | NaN | 0.055077 | NaN | NaN | 0.076072 | NaN | NaN | 1 | NaN | NaN | NaN | NaN | NaN | NaN | NaN | NaN | NaN | NaN | NaN | NaN | NaN | NaN |
+| NaN | Ranking | NaN | NaN | NaN | 1 | NaN | NaN | NaN | NaN | NaN | 1 | NaN | NaN | 2 | NaN | NaN | NaN | NaN | NaN | 2 | NaN | NaN | 3 | NaN | NaN | 3 | NaN | NaN | 2 | NaN | NaN | 4 | NaN | NaN | 2 | NaN | NaN | 3 | NaN | NaN | NaN | NaN | NaN | NaN | NaN | NaN | NaN | NaN | NaN | NaN | NaN | NaN | NaN | NaN | NaN |
+| NaN | Phases | NaN | Phase1 | NaN | NaN | NaN | NaN | NaN | Phase II | NaN | NaN | NaN | NaN | NaN | NaN | NaN | NaN | NaN | NaN | NaN | Phase III | NaN | NaN | NaN | NaN | NaN | By Katz being implemented  now | NaN | NaN | In McKessons area | NaN | NaN | NaN | NaN | NaN | NaN | NaN | NaN | NaN | NaN | NaN | NaN | NaN | NaN | NaN | NaN | NaN | NaN | NaN | NaN | NaN | NaN | NaN | NaN | NaN |
+| NaN |  | NaN | NaN | NaN | NaN | NaN | NaN | NaN | NaN | NaN | NaN | NaN | NaN | NaN | NaN | NaN | NaN | NaN | NaN | NaN | NaN | NaN | NaN | NaN | NaN | NaN | NaN | NaN | NaN | NaN | NaN | NaN | NaN | NaN | NaN | NaN | NaN | NaN | NaN | NaN | NaN | NaN | NaN | NaN | NaN | NaN | NaN | NaN | NaN | NaN | NaN | NaN | NaN | NaN | NaN |
+| NaN | NaN | NaN | NaN | NaN | NaN | NaN | NaN | NaN | NaN | Phase II Total | 8646.881081 | NaN | NaN | NaN | NaN | NaN | NaN | Phase III Total | NaN | 10283.340541 | NaN | NaN | NaN | NaN | NaN | NaN | NaN | NaN | NaN | NaN | NaN | NaN | NaN | NaN | NaN | NaN | NaN | NaN | NaN | NaN | NaN | NaN | NaN | NaN | NaN | NaN | NaN | NaN | NaN | NaN | NaN | NaN | NaN | NaN | NaN |
+| NaN | NaN | NaN | NaN | NaN | NaN | NaN | NaN | NaN | NaN | NaN | 4323.440541 | NaN | NaN | NaN | NaN | NaN | NaN | NaN | NaN | 5141.67027 | NaN | NaN | NaN | NaN | NaN | NaN | NaN | NaN | 8373.794595 | NaN | NaN | NaN | NaN | NaN | NaN | NaN | NaN | NaN | NaN | NaN | NaN | NaN | NaN | NaN | NaN | NaN | NaN | NaN | NaN | NaN | NaN | NaN | NaN | NaN | NaN |
+
+## Key takeaways
+<!-- Session fills these in during processing -->
+
+## Links to existing knowledge
+<!-- What wiki articles or project docs does this connect to? -->

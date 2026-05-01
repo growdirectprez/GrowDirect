@@ -1,0 +1,164 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<xs:schema xmlns:xs="http://www.w3.org/2001/XMLSchema" elementFormDefault="qualified" attributeFormDefault="unqualified">
+	<xs:include schemaLocation="IXREnumerationExtensionV1.1.0.xsd"/>
+	<!-- 
+		Dec - 2005		Richard Halter
+		Bug Fix V2.0.2
+			- Added Days
+			- Added Seconds
+-->
+	<!-- United Namtions Economic Commission for Europe -->
+	<!-- Codes for Units of Measurement used in the International Trade -->
+	<xs:simpleType name="UnitOfMeasureCodeCommonData">
+		<xs:union memberTypes="UnitOfMeasureCodeEnumeration TypeCodeExtension"/>
+	</xs:simpleType>
+	<xs:simpleType name="UnitOfMeasureCodeEnumeration">
+		<xs:annotation>
+			<xs:documentation>enum codes excerpted from UN/ECE REC 20</xs:documentation>
+		</xs:annotation>
+		<xs:restriction base="xs:string">
+			<xs:enumeration value="EA">
+				<xs:annotation>
+					<xs:documentation>each</xs:documentation>
+				</xs:annotation>
+			</xs:enumeration>
+			<xs:enumeration value="Hours">
+				<xs:annotation>
+					<xs:documentation>Hours</xs:documentation>
+				</xs:annotation>
+			</xs:enumeration>
+			<xs:enumeration value="Days">
+				<xs:annotation>
+					<xs:documentation>Days</xs:documentation>
+				</xs:annotation>
+			</xs:enumeration>
+			<xs:enumeration value="Seconds">
+				<xs:annotation>
+					<xs:documentation>Seconds</xs:documentation>
+				</xs:annotation>
+			</xs:enumeration>
+			<xs:enumeration value="Crate of 12">
+				<xs:annotation>
+					<xs:documentation>Crate of 12 bottles of beer</xs:documentation>
+				</xs:annotation>
+			</xs:enumeration>
+			<xs:enumeration value="6Pack">
+				<xs:annotation>
+					<xs:documentation>6 Pack</xs:documentation>
+				</xs:annotation>
+			</xs:enumeration>
+			<xs:enumeration value="GLI">
+				<xs:annotation>
+					<xs:documentation>gallon (UK)</xs:documentation>
+				</xs:annotation>
+			</xs:enumeration>
+			<xs:enumeration value="GLL">
+				<xs:annotation>
+					<xs:documentation>gallon (US)</xs:documentation>
+				</xs:annotation>
+			</xs:enumeration>
+			<xs:enumeration value="LTR">
+				<xs:annotation>
+					<xs:documentation>litre</xs:documentation>
+				</xs:annotation>
+			</xs:enumeration>
+			<xs:enumeration value="INH">
+				<xs:annotation>
+					<xs:documentation>inch</xs:documentation>
+				</xs:annotation>
+			</xs:enumeration>
+			<xs:enumeration value="FOT">
+				<xs:annotation>
+					<xs:documentation>foot</xs:documentation>
+				</xs:annotation>
+			</xs:enumeration>
+			<xs:enumeration value="SMI">
+				<xs:annotation>
+					<xs:documentation> Mile</xs:documentation>
+				</xs:annotation>
+			</xs:enumeration>
+			<xs:enumeration value="FTK">
+				<xs:annotation>
+					<xs:documentation>square foot</xs:documentation>
+				</xs:annotation>
+			</xs:enumeration>
+			<xs:enumeration value="YDT">
+				<xs:annotation>
+					<xs:documentation>square yard</xs:documentation>
+				</xs:annotation>
+			</xs:enumeration>
+			<xs:enumeration value="DH">
+				<xs:annotation>
+					<xs:documentation>ANSI X-12 Miles</xs:documentation>
+				</xs:annotation>
+			</xs:enumeration>
+			<xs:enumeration value="MMT">
+				<xs:annotation>
+					<xs:documentation>millimeter</xs:documentation>
+				</xs:annotation>
+			</xs:enumeration>
+			<xs:enumeration value="KTM">
+				<xs:annotation>
+					<xs:documentation>Kilometre</xs:documentation>
+				</xs:annotation>
+			</xs:enumeration>
+			<xs:enumeration value="CMQ">
+				<xs:annotation>
+					<xs:documentation>Cubic centimeter</xs:documentation>
+				</xs:annotation>
+			</xs:enumeration>
+			<xs:enumeration value="CMT"><xs:annotation><xs:documentation>Centimeter</xs:documentation></xs:annotation></xs:enumeration>
+			<xs:enumeration value="MTR">
+				<xs:annotation>
+					<xs:documentation>metre</xs:documentation>
+				</xs:annotation>
+			</xs:enumeration>
+			<xs:enumeration value="MTK">
+				<xs:annotation>
+					<xs:documentation>square metre</xs:documentation>
+				</xs:annotation>
+			</xs:enumeration>
+			<xs:enumeration value="MTQ">
+				<xs:annotation>
+					<xs:documentation>cubic metre</xs:documentation>
+				</xs:annotation>
+			</xs:enumeration>
+			<xs:enumeration value="GRM">
+				<xs:annotation>
+					<xs:documentation>gram</xs:documentation>
+				</xs:annotation>
+			</xs:enumeration>
+			<xs:enumeration value="KGM">
+				<xs:annotation>
+					<xs:documentation>kilogram</xs:documentation>
+				</xs:annotation>
+			</xs:enumeration>
+			<xs:enumeration value="Kg">
+				<xs:annotation>
+					<xs:documentation>kilogram</xs:documentation>
+				</xs:annotation>
+			</xs:enumeration>
+			<xs:enumeration value="LBR">
+				<xs:annotation>
+					<xs:documentation>pound</xs:documentation>
+				</xs:annotation>
+			</xs:enumeration>
+			<xs:enumeration value="ANN">
+				<xs:annotation>
+					<xs:documentation>Annual</xs:documentation>
+				</xs:annotation>
+			</xs:enumeration>
+			<xs:enumeration value="CEL">
+				<xs:annotation>
+					<xs:documentation>degree celcius</xs:documentation>
+				</xs:annotation>
+			</xs:enumeration>
+			<xs:enumeration value="FAH">
+				<xs:annotation>
+					<xs:documentation>degree fahrenheit</xs:documentation>
+				</xs:annotation>
+			</xs:enumeration>
+			<!-- Linear Measurements -->
+		</xs:restriction>
+	</xs:simpleType>
+</xs:schema>

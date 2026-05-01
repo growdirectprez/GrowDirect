@@ -1,0 +1,143 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- edited with XMLSpy v2006 sp2 U (http://www.altova.com) by Richard L Halter (private) -->
+<xs:schema xmlns:xs="http://www.w3.org/2001/XMLSchema" elementFormDefault="qualified" attributeFormDefault="unqualified">
+	<xs:include schemaLocation="IXREnumerationExtensionV1.1.0.xsd"/>
+	<xs:include schemaLocation="DecimalCommonDataV1.0.0.xsd"/>
+	<xs:include schemaLocation="LanguageCodeCommonDataV1.1.0.xsd"/>
+	<xs:include schemaLocation="UnitOfMeasureCodeEnumerationV1.3.0.xsd"/>
+	<xs:complexType name="DynamicDataCommonData">
+		<xs:annotation>
+			<xs:documentation>Details about the Audio, Video or Animation asset</xs:documentation>
+		</xs:annotation>
+		<xs:sequence>
+			<xs:element name="AspectRatio" type="xs:string" minOccurs="0">
+				<xs:annotation>
+					<xs:documentation>The width-to-height ratio used to determine how an image fits on a page or monitor.</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="AssetSize" minOccurs="0">
+				<xs:complexType>
+					<xs:simpleContent>
+						<xs:extension base="DecimalCommonData">
+							<xs:attribute name="UnitOfMeasure" type="UnitOfMeasureCodeCommonData"/>
+						</xs:extension>
+					</xs:simpleContent>
+				</xs:complexType>
+			</xs:element>
+			<xs:element name="Compression" type="xs:string" minOccurs="0">
+				<xs:annotation>
+					<xs:documentation>An indication of the compression method used to reduce the file size.  Examples include quick time, real player, mpg, etc.</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="CreativeDirection" type="xs:string" minOccurs="0"/>
+			<xs:element name="Format" type="xs:string" minOccurs="0">
+				<xs:annotation>
+					<xs:documentation>An indication of animation format used to create the motion, could be gif, pics, flash, etc</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="OptimalMediaPlayer" type="xs:string" minOccurs="0">
+				<xs:annotation>
+					<xs:documentation>The media player to which this asset was targeted (if any) </xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="PlaybackRate" type="xs:string" minOccurs="0">
+				<xs:annotation>
+					<xs:documentation>The targeted frame rate for the compression rate of display of the animation, usually expressed in number of frames per second</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="Resolution" type="ResolutionType" minOccurs="0" maxOccurs="unbounded"/>
+			<xs:element name="Runtime" minOccurs="0">
+				<xs:annotation>
+					<xs:documentation>The running length of the dynamic asset at the playback rate</xs:documentation>
+				</xs:annotation>
+				<xs:complexType>
+					<xs:simpleContent>
+						<xs:extension base="DecimalCommonData">
+							<xs:attribute name="UnitOfMeasureCode" type="UnitOfMeasureCodeCommonData" default="Seconds"/>
+						</xs:extension>
+					</xs:simpleContent>
+				</xs:complexType>
+			</xs:element>
+			<xs:any namespace="##other" processContents="lax" minOccurs="0" maxOccurs="unbounded"/>
+		</xs:sequence>
+		<xs:attribute name="DynamicAssetFormat" type="DynamicAssetFormatType"/>
+		<xs:attribute name="Language" type="LanguageCode"/>
+		<xs:attribute name="StreamingFlag" type="xs:boolean" use="optional">
+			<xs:annotation>
+				<xs:documentation>An indicator that the file is compressed to start display before fully uncompressing and an indication of which compression method used to achieve streaming capability.</xs:documentation>
+			</xs:annotation>
+		</xs:attribute>
+		<xs:attribute name="TypeCode" type="DynamicAssetTypeCode">
+			<xs:annotation>
+				<xs:documentation>Animation, Audio, Video</xs:documentation>
+			</xs:annotation>
+		</xs:attribute>
+	</xs:complexType>
+	<xs:complexType name="ResolutionType">
+		<xs:annotation>
+			<xs:documentation>AAIA - PIES - DPI of Digital Asset – 72 / 96 / 300 / 600 / 800 / 1200</xs:documentation>
+		</xs:annotation>
+		<xs:simpleContent>
+			<xs:extension base="ResolutionFixedTypeCode">
+				<xs:attribute name="Units" type="ResolutionUnitsTypeCode"/>
+			</xs:extension>
+		</xs:simpleContent>
+	</xs:complexType>
+	<xs:simpleType name="ResolutionFixedTypeCode">
+		<xs:annotation>
+			<xs:documentation>(AAIA - PIES - DPI of Digital Asset – 72 / 96 / 300 / 600 / 800 / 1200)</xs:documentation>
+		</xs:annotation>
+		<xs:union memberTypes="ResolutionFixedTypeCodeEnumeration xs:decimal"/>
+	</xs:simpleType>
+	<xs:simpleType name="ResolutionFixedTypeCodeEnumeration">
+		<xs:restriction base="xs:NMTOKEN">
+			<xs:enumeration value="72"/>
+			<xs:enumeration value="96"/>
+			<xs:enumeration value="300"/>
+			<xs:enumeration value="600"/>
+			<xs:enumeration value="800"/>
+			<xs:enumeration value="1200"/>
+		</xs:restriction>
+	</xs:simpleType>
+	<xs:simpleType name="ResolutionUnitsTypeCode">
+		<xs:union memberTypes="ResolutionUnitsTypeCodeEnumeration TypeCodeExtension"/>
+	</xs:simpleType>
+	<xs:simpleType name="ResolutionUnitsTypeCodeEnumeration">
+		<xs:restriction base="xs:NMTOKEN">
+			<xs:enumeration value="PixelsPerCentimeter"/>
+			<xs:enumeration value="PixelsPerInch"/>
+			<xs:enumeration value="DotsPerInch"/>
+			<xs:enumeration value="SampleRate">
+				<xs:annotation>
+					<xs:documentation>The sample rate at which the audio was digitized</xs:documentation>
+				</xs:annotation>
+			</xs:enumeration>
+			<xs:enumeration value="BitRate">
+				<xs:annotation>
+					<xs:documentation>The optimal rate for playback</xs:documentation>
+				</xs:annotation>
+			</xs:enumeration>
+		</xs:restriction>
+	</xs:simpleType>
+	<xs:simpleType name="DynamicAssetFormatType">
+		<xs:union memberTypes="DynamicAssetFormatTypeEnumeration TypeCodeExtension"/>
+	</xs:simpleType>
+	<xs:simpleType name="DynamicAssetFormatTypeEnumeration">
+		<xs:restriction base="xs:NMTOKEN">
+			<xs:enumeration value="MPG"/>
+			<xs:enumeration value="WM"/>
+			<xs:enumeration value="Flash"/>
+			<xs:enumeration value="Shockwave"/>
+		</xs:restriction>
+	</xs:simpleType>
+	<xs:simpleType name="DynamicAssetTypeCode">
+		<xs:union memberTypes="DynamicAssetTypeCodeEnumeration TypeCodeExtension"/>
+	</xs:simpleType>
+	<xs:simpleType name="DynamicAssetTypeCodeEnumeration">
+		<xs:restriction base="xs:NMTOKEN">
+			<xs:enumeration value="Animation"/>
+			<xs:enumeration value="Audio"/>
+			<xs:enumeration value="Video"/>
+		</xs:restriction>
+	</xs:simpleType>
+</xs:schema>
