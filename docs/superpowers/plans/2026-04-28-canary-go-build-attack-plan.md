@@ -22,18 +22,18 @@ The Go build has a clear critical path: Docker → Foundation → Detection Core
 | GRO-645 | Owl & pgvector | M3 — Intelligence Layer | High |
 | GRO-646 | Analytics, Risk Scoring | M3 — Intelligence Layer | High |
 | GRO-647 | Module T — Transaction Pipeline | M4 — Module Spine | Urgent |
-| GRO-648 | Module R — Customer | M4 — Module Spine | High |
+| GRO-648 | Module C — Customer | M4 — Module Spine | High |
 | GRO-649 | Module N — Device | M4 — Module Spine | High |
 | GRO-650 | Module A — Asset Management | M4 — Module Spine | High |
 | GRO-651 | Module Q — Loss Prevention | M4 — Module Spine | Urgent |
-| GRO-652 | Module C — Commercial | M4 — Module Spine | High |
+| GRO-652 | Module M — Merchandising | M4 — Module Spine | High |
 | GRO-653 | Module D — Distribution | M4 — Module Spine | High |
 | GRO-654 | Module F — Finance | M4 — Module Spine | High |
-| GRO-655 | Module J — Forecast & Order | M4 — Module Spine | High |
+| GRO-655 | Module O — Orders | M4 — Module Spine | High |
 | GRO-656 | Module S — Space, Range & Display | M4 — Module Spine | High |
 | GRO-657 | Module P — Pricing & Promotion | M4 — Module Spine | High |
-| GRO-658 | Module L — Labor & Workforce | M4 — Module Spine | High |
-| GRO-659 | Module W — Work Execution | M4 — Module Spine | High |
+| GRO-658 | Module L — Labor | M4 — Module Spine | High |
+| GRO-659 | Module E — Execution | M4 — Module Spine | High |
 | GRO-660 | Bull — NCR Counterpoint Adapter | M5 — VAR Delivery | Urgent |
 | GRO-661 | Edge Agent & Hub | M5 — VAR Delivery | Urgent |
 | GRO-662 | RapidPOS Onboarding Flow | M5 — VAR Delivery | Urgent |
@@ -113,7 +113,7 @@ After Phase 3, Demo Gate 1 reaches CATz Phase I exit quality: Square data → al
 |---|---|---|
 | 1st | N (Device) | Feeds T; no upstream dependencies |
 | 2nd | T (Transaction Pipeline) | Core revenue event; feeds Q, R, F, A |
-| 3rd (parallel) | R (Customer), A (Asset Management) | Both read from T; independent of each other |
+| 3rd (parallel) | C (Customer), A (Asset Management) | Both read from T; independent of each other |
 | 4th | Q (Loss Prevention) | Depends on T + A; primary LP product — the CATz sellable unit |
 | 5th (parallel) | P (Pricing), S (Space / Range / Display) | Relatively independent; feed C and J |
 | 6th (parallel) | C (Commercial), J (Forecast & Order) | Depend on S + P |

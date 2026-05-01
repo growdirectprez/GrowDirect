@@ -76,16 +76,16 @@ Each domain agent knows its full adjacency map.
 | T — Transaction Pipeline | N (device identity), P (price values) | Q, R, F, A |
 | N — Device | — | T |
 | Q — Loss Prevention | T, A | Fox, Owl |
-| R — Customer | T | P (loyalty earn rules) |
+| C — Customer | T | P (loyalty earn rules) |
 | P — Pricing & Promotion | R, C | T, C |
-| C — Commercial | S, P | D, F |
+| M — Merchandising | S, P | D, F |
 | S — Space, Range & Display | — | C, J |
 | D — Distribution | C, J | A, F |
-| J — Forecast & Order | S, D | C, D |
+| O — Orders | S, D | C, D |
 | F — Finance | T, C, D, A | — |
 | A — Asset Management | T, D, Q | F |
-| L — Labor & Workforce | — | W |
-| W — Work Execution | L | All modules (execution dispatch) |
+| L — Labor | — | W |
+| E — Execution | L | All modules (execution dispatch) |
 
 **Foundation dependency:** All 13 modules depend on CRDM/Data Model, Identity/Auth, and Multi-POS Substrate. The CRDM agent is the schema authority — cross-module schema changes require CRDM agent sign-off and interface versioning before consuming modules advance to Service Introduction.
 

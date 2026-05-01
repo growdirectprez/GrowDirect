@@ -85,7 +85,7 @@ Multi-store deployment adds the back office hub:
 - Aggregates Module Q alerts across all stores
 - Monitors Module D transfer positions network-wide
 - Reads Module A heartbeat on every device
-- Surfaces Module J OTB status by store and category
+- Surfaces Module O OTB status by store and category
 - Connects upward to corporate if the org requires it
 
 The back office hub adds no new infrastructure — it runs on the same Canary stack as the store agents.

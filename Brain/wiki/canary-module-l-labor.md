@@ -4,7 +4,7 @@ type: wiki
 status: active
 tags: [canary, retail-spine, module-l, labor, workforce, scheduling, time-tracking, productivity, v3]
 sources:
-  - Canary-Retail-Brain/modules/L-labor-workforce.md
+  - Canary-Retail-Brain/modules/L-labor.md
   - Canary-Retail-Brain/platform/stock-ledger.md
   - GrowDirect/Brain/wiki/secure-retail-operating-model-2006.md
   - GrowDirect/Brain/wiki/secure-property-services-operating-model-2002.md
@@ -12,13 +12,13 @@ last-compiled: 2026-04-24
 needs-review: 2026-05-24
 ----
 
-# Canary Module — L (Labor & Workforce)
+# Canary Module — L (Labor)
 
 ## Summary
 
-L (Labor & Workforce) owns scheduling, time tracking, payroll integration touchpoints, and labor productivity analytics. **v3 design — implementation deferred.** This wiki article is the Canary-specific crosswalk for the v3 L module. The canonical, vendor-neutral module spec lives at `Canary-Retail-Brain/modules/L-labor-workforce.md`.
+L (Labor) owns scheduling, time tracking, payroll integration touchpoints, and labor productivity analytics. **v3 design — implementation deferred.** This wiki article is the Canary-specific crosswalk for the v3 L module. The canonical, vendor-neutral module spec lives at `Canary-Retail-Brain/modules/L-labor.md`.
 
-L is the people-side dimension of the retail operating system. Unlike R (Customer), which tracks customers, L tracks employees — their schedules, time entries, productivity, and payroll integration. L closes the workforce gap that every SMB retailer needs: staffing aligned to traffic, time tracking for labor cost validation, and productivity insights.
+L is the people-side dimension of the retail operating system. Unlike C (Customer), which tracks customers, L tracks employees — their schedules, time entries, productivity, and payroll integration. L closes the workforce gap that every SMB retailer needs: staffing aligned to traffic, time tracking for labor cost validation, and productivity insights.
 
 ## Code surface
 
@@ -60,7 +60,7 @@ L reads from (no write):
 No v3 SDDs exist yet for L. Canary's current SDDs only cover v1 modules (T, Q, architecture, data-model) and projected v2 modules (C, D, F, J).
 
 Projected SDD structure (future):
-- `Canary/docs/sdds/v3/labor-workforce.md` — employee profile schema, shift management, time-entry capture, payroll export integration, productivity metrics
+- `Canary/docs/sdds/v3/labor.md` — employee profile schema, shift management, time-entry capture, payroll export integration, productivity metrics
 - Section: Ledger relationship (time-entry events, payroll co-ownership)
 - Section: Integration with T (transaction attribution to employee), Q (shrink attribution), J (staffing optimization signals)
 
@@ -85,19 +85,19 @@ Projected SDD structure (future):
 ## Related
 
 - [[../projects/RetailSpine|Retail Spine MOC]]
-- [[canary-model-r-customer|R (Customer)]]
+- [[canary-model-r-customer|C (Customer)]]
 - [[canary-module-t-transaction-pipeline|T (Transaction Pipeline)]]
 - [[canary-module-q-loss-prevention|Q (Loss Prevention)]]
-- [[canary-module-j-forecast-order|J (Forecast & Order)]]
-- [[canary-module-s-space-range-display|S (Space, Range, Display)]]
-- [[canary-module-w-work-execution|W (Work Execution)]]
+- [[canary-module-o-orders|J (Forecast & Order)]]
+- [[canary-module-s-space|S (Space)]]
+- [[canary-module-e-execution|W (Work Execution)]]
 - [[../platform/RetailSpine|Retail Spine — Ledger relationships]]
 - [[secure-retail-operating-model-2006|Secure Retail Operating Model 2006]]
 - [[secure-property-services-operating-model-2002|Secure Property Services Operating Model 2002]]
 
 ## Sources
 
-- `Canary-Retail-Brain/modules/L-labor-workforce.md` — canonical module spec
+- `Canary-Retail-Brain/modules/L-labor.md` — canonical module spec
 - `GrowDirect/Brain/wiki/secure-retail-operating-model-2006.md` — people-side operating model context
 - `GrowDirect/Brain/wiki/secure-property-services-operating-model-2002.md` — workforce planning reference
 

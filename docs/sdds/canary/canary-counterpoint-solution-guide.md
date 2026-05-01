@@ -35,7 +35,7 @@ Phase 1 delivers six interconnected modules:
 | S — Store & Device | Establishes operational context: which store, which station, which session |
 | I — Item Catalog | Sets the cost and margin floor for every item sold |
 | F — Finance/Tender | Classifies how money moves: cash, card, AR, gift card |
-| R — Customer | Identifies who is buying, their tier, and their AR standing |
+| C — Customer | Identifies who is buying, their tier, and their AR standing |
 | D — Distribution/Inventory | Tracks on-hand quantity against what the register reports sold |
 | Q — Loss Prevention | Detects when S/I/F/R/D signals diverge from expected patterns |
 
@@ -99,8 +99,8 @@ are explicitly deferred:
 |---|---|
 | Labor / timecard anomalies (Module L) | Phase 6 |
 | Pricing & promotion analysis (Module P) | Phase 3 |
-| Commercial / B2B AR analysis (Module C) | Phase 3 |
-| Forecast & order anomalies (Module J) | Phase 4 |
+| Commercial / B2B AR analysis (Module M) | Phase 3 |
+| Forecast & order anomalies (Module O) | Phase 4 |
 | Gift card fraud (Module G) | Phase 2 |
 | Loyalty manipulation | Phase 2 |
 
@@ -224,7 +224,7 @@ human decision chain. Canary preserves that chain.
 | S — Store/Device | Session detection, drawer open event tracking | Store manager confirms session anomalies |
 | I — Item Catalog | Cost floor computation, margin substrate refresh | Owner reviews threshold calibration |
 | F — Tender | Tender classification, cash-share computation | Store manager explains vendor payment patterns |
-| R — Customer | Customer resolution, tier context | LP investigator reviews high-value customer patterns |
+| C — Customer | Customer resolution, tier context | LP investigator reviews high-value customer patterns |
 | D — Inventory | Snapshot ingestion, delta computation | Store manager explains write-offs |
 | Q — Loss Prevention | Rule evaluation, alert creation, case auto-open | LP investigator owns triage and closure |
 
@@ -260,7 +260,7 @@ that mirrors how a retail operation actually produces observable data.
 ┌─────────────────────────────────────────────────────────┐
 │  ENRICHMENT  (context layered onto transaction records)  │
 │                                                          │
-│  R — Customer                                            │
+│  C — Customer                                            │
 │    Who bought? Known account or walk-in?                 │
 │    Provides: cust_no → tier, AR balance, disc_pct        │
 │                                                          │
@@ -458,7 +458,7 @@ Gift card reconciliation and SVS voucher fraud deferred to Phase 2.
 
 ---
 
-### Module R — Customer
+### Module C — Customer
 
 **Retail spine capability (L1–L3):**
 Knowing who is buying provides essential context for detection. A 40%
@@ -635,7 +635,7 @@ Phase 1 delivers the substrate + detection foundation. Phase 2 builds on it:
 | Gift card fraud (C-G rules) | F tender substrate (gift_card canonical type) |
 | Loyalty manipulation | R customer substrate (loy_pts_bal) |
 | Pricing & promotion analysis (Module P) | I item catalog (price points, promo flags) |
-| Commercial AR analysis (Module C) | R customer substrate (AR balance, terms) |
+| Commercial AR analysis (Module M) | R customer substrate (AR balance, terms) |
 | Labor timecard anomalies (Module L) | S store/station (session timing) |
 
 None of Phase 2 requires additional POS endpoints. The data is already

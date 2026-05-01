@@ -1,6 +1,6 @@
 ---
 id: sdd-cp-customer
-title: NCR Counterpoint — Customer Entity Adapter (Module R)
+title: NCR Counterpoint — Customer Entity Adapter (Module C)
 status: draft-1
 version: 0.1.0
 date: 2026-04-26
@@ -23,7 +23,7 @@ target-tables:
   - app.poll_watermarks (existing — new entity_type)
 ---
 
-# NCR Counterpoint — Customer Entity Adapter (Module R)
+# NCR Counterpoint — Customer Entity Adapter (Module C)
 
 ## 1. Purpose and scope
 
@@ -375,13 +375,13 @@ to any Counterpoint vertical with multi-tier pricing):
 
 | Field | Rule family | Detection logic |
 |---|---|---|
-| `categ_cod` | Q-C.4 (Customer-Tier Anomaly) | If ticket-level discount or pricing tier on PS_DOC_LIN exceeds what `categ_cod` authorizes per the tier policy, flag. |
-| `disc_pct` | Q-C.3 (Blanket Discount Override) | If `PS_DOC_HDR.DISC_AMT / subtotal > disc_pct + threshold`, flag as unauthorized discount. |
+| `categ_cod` | Q-M.4 (Customer-Tier Anomaly) | If ticket-level discount or pricing tier on PS_DOC_LIN exceeds what `categ_cod` authorizes per the tier policy, flag. |
+| `disc_pct` | Q-M.3 (Blanket Discount Override) | If `PS_DOC_HDR.DISC_AMT / subtotal > disc_pct + threshold`, flag as unauthorized discount. |
 | `allow_ar_chrg` | Q-AR.1 (Unauthorized Charge Account) | If a Document records AR charge (`PMT_COD` = AR tender) against a customer where `allow_ar_chrg=False`, flag. |
 | `allow_tkts` | Q-AR.2 (Suspended Customer Sale) | If Document references a CUST_NO where `allow_tkts=False`, flag. |
 | `loy_pts_bal` | Q-LOY.1 (Loyalty Balance Manipulation) | If earned points on a ticket exceed expected earn rate × ticket total by > threshold, compare against `loy_pts_bal` delta. |
 | `terms_cod` | Q-AR.3 (Terms Mismatch) | If AR charge terms on Document do not match `terms_cod` for the customer, flag for manual review. |
-| `cust_typ` | Q-C.5 (Customer Type Misclassification) | If a `CUST_TYP=C` (cash) customer accumulates AR balance > 0, flag. |
+| `cust_typ` | Q-M.5 (Customer Type Misclassification) | If a `CUST_TYP=C` (cash) customer accumulates AR balance > 0, flag. |
 
 Rule definitions are seeded into `app.detection_rules` via Chirp catalog.
 The substrate columns above are read at detection time from
@@ -541,7 +541,7 @@ field is stored and `loy_card_hash` is NULL. If `LOY_CARD_NO != PHONE_1`
 and is non-empty, `loy_card_hash` is populated with the SHA-256 hex digest.
 
 **AC-R-06 — Module Q substrate:** For a customer with `categ_cod="RETAIL"`,
-Chirp rule Q-C.4 query returns the correct tier for the test merchant. For a
+Chirp rule Q-M.4 query returns the correct tier for the test merchant. For a
 customer with `allow_ar_chrg=False`, Q-AR.1 rule evaluates as expected when
 a Document contains AR tender for that CUST_NO.
 
@@ -563,7 +563,7 @@ rows: one for `source_code='square'`, one for `source_code='counterpoint'`.
 | R-OQ-03 | `LOY_CARD_NO` format in garden center deployments. Is it always a phone number, or are barcode-based cards used? Impacts strip vs. hash decision. | PII enforcement |
 | R-OQ-04 | Counterpoint customer update rate. A 31-store retailer with 50k customers: how many customers change per hour? Determines if hourly poll interval is efficient or if a lower cadence (e.g., 4h) is appropriate for staging. | Poll interval tuning |
 | R-OQ-05 | Does Counterpoint expose a "customer created" event type (via RS_STAT transitions) that would let Canary distinguish new customers from updates? Or is RS_UTC_DT the only signal? | Bootstrapping vs. incremental differentiation |
-| R-OQ-06 | B2B pricing tiers: does CATEG_COD directly encode the contractor vs. retail distinction for garden center deployments, or does the retailer use a separate custom field? Clarify with Bart. | Module Q rule accuracy (Q-C.4) |
+| R-OQ-06 | B2B pricing tiers: does CATEG_COD directly encode the contractor vs. retail distinction for garden center deployments, or does the retailer use a separate custom field? Clarify with Bart. | Module Q rule accuracy (Q-M.4) |
 
 ---
 
@@ -573,7 +573,7 @@ rows: one for `source_code='square'`, one for `source_code='counterpoint'`.
 - `Canary/docs/sdds/v2/identity.md` — Identity system; merchant registration; OAuth
 - `Canary/docs/sdds/v2/external-identities.md` — External identity bridge; cross-DB linking design
 - `Canary/docs/sdds/v2/data-model.md` — Core `app.customers` table definition
-- `Brain/wiki/canary-module-r-customer.md` — Module R wiki overview
-- `Brain/wiki/ncr-counterpoint-api-reference.md` — Counterpoint endpoint reference (§ Module R — Customer)
-- `Brain/wiki/canary-module-q-counterpoint-rule-catalog.md` — Module Q rules referencing R substrate (Q-C.3, Q-C.4, Q-AR.1–3)
+- `Brain/wiki/canary-module-c-customer.md` — Module C wiki overview
+- `Brain/wiki/ncr-counterpoint-api-reference.md` — Counterpoint endpoint reference (§ Module C — Customer)
+- `Brain/wiki/canary-module-q-counterpoint-rule-catalog.md` — Module Q rules referencing R substrate (Q-M.3, Q-M.4, Q-AR.1–3)
 - `Brain/wiki/garden-center-operating-reality.md` — Vertical context; multi-tier customer pricing

@@ -64,7 +64,7 @@ Tertiary modules close out spine coverage:
 3. TSP adapter: no new endpoint polling — derives from Modules R + J data
 4. MCP tool surface: `get_commercial_accounts()`, `get_account_balance(customer_id)`, `get_account_purchase_history(customer_id)`, `get_ar_aging_by_account()`
 5. Test: fixture suite with B2B scenarios (landscaper accounts, monthly invoicing, terms-based collection)
-6. Wiki: update `Brain/wiki/canary-module-c-commercial.md`
+6. Wiki: update `Brain/wiki/canary-module-m-merchandising.md`
 7. Founder review gate
 
 ### Sub-phase 4c — Module Q (Loss Prevention — Canary core)

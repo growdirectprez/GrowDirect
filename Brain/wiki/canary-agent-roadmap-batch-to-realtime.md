@@ -116,7 +116,7 @@ Five phases from first connection to full LP pipeline. Each phase has a clear en
 
 **Phase 2 — Sync:** Cloud ALX receiving full stream. pgvector memory bus seeded with store history. Chirp detection rules running against live data — results visible in Canary dashboard but not yet surfaced to the retailer as alerts. Calibration period: rules tuned to the store's actual transaction patterns before going live.
 
-**Phase 3 — Detection:** LP alerts live. Fox cases open automatically. Retailer LP team receives alerts via Module W work dispatch. Cloud-store bidirectional confirmed — store agent receives policy updates from cloud ALX, cloud ALX receives Fox case evidence from store.
+**Phase 3 — Detection:** LP alerts live. Fox cases open automatically. Retailer LP team receives alerts via Module E work dispatch. Cloud-store bidirectional confirmed — store agent receives policy updates from cloud ALX, cloud ALX receives Fox case evidence from store.
 
 **Phase 4 — Retire:** Legacy export/polling workflows shut down. The edge agent is the sole transaction data path. All historical data migrated to the Canary data model. The store is fully on Canary Go.
 

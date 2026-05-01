@@ -73,7 +73,7 @@ Module Q (Loss Prevention) detection rules built for grocery / restaurant / gene
 - **Variable cost basis** — when the same plant comes from three different growers at three different costs, margin analysis needs to handle the variance
 - **Receivers (DOC_TYP RECVR) with thin metadata** — when the receiver was created from a paper invoice, fields may be missing or default-valued. Adapter shouldn't reject; should flag-and-ingest.
 
-Module J (Forecast / Order) is also affected:
+Module O (Forecast / Order) is also affected:
 
 - **Replenishment forecasting** based on sales velocity is challenging when items are seasonal AND new items appear mid-season AND specialty growers can't take "automated POs" — they show up when they have something to sell
 - **Vendor onboarding** is informal — a new vendor may not exist in Counterpoint at the moment of intake; staff add them ad-hoc
@@ -121,7 +121,7 @@ Customer-tier modeling matters here. Multi-tier customer pricing is a Counterpoi
 For engagement planners (Phase II To-Be Workshops):
 
 1. Don't assume tech sophistication — confirm where on the spectrum the customer sits
-2. Vendor data quality is variable — Module J scope should account for it
+2. Vendor data quality is variable — Module O scope should account for it
 3. Cash-vendor-payment is real — Module Q rules must allow-list it or classify differently
 4. Item lifecycle is short and seasonal — catalog is not stable
 5. Channel mix is wide — confirm which of the 6+ channels are in play

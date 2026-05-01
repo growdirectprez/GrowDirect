@@ -170,7 +170,7 @@ Q is the most agent-rich module on v1.
 - [[canary-architecture|Canary Architecture]]
 - [[canary-detection|Canary Detection Engine]] — full Chirp doc
 - [[canary-module-t-transactions|Canary Module — T]] — primary input
-- [[canary-module-r-customer|Canary Module — R]]
+- [[canary-module-c-customer|Canary Module — R]]
 - [[canary-module-n-device|Canary Module — N]]
 - [[canary-module-a-asset-management|Canary Module — A]]
 

@@ -260,7 +260,7 @@ Counterpoint does not store timezone in `PS_STR`. Canary needs store
 timezone for:
 - After-hours transaction detection (C-004, C-1302, C-2105)
 - Day boundary determination in batch rule windows
-- Business-hours enforcement (Q-C-05)
+- Business-hours enforcement (Q-M-05)
 
 **Strategy:** Derive timezone from `STATE` field using a US state → IANA
 timezone lookup table. For multi-timezone states (e.g., Indiana, Texas,

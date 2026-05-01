@@ -285,10 +285,10 @@ Bull is **not buildable** until all of the following are operational:
 | Direction | Description |
 |---|---|
 | **Input:** D.1 per-location SOH | Current stock position per (item, location) |
-| **Input:** J.2 ROP + safety stock targets | Demand-derived reorder points |
+| **Input:** O.2 ROP + safety stock targets | Demand-derived reorder points |
 | **Output:** Excess/deficit matching | Location pairs where transfer is cheaper than new PO |
 | **Output:** Transfer recommendations with OTB context | Scored by transfer-cost vs replenishment-cost |
-| **Output:** Buyer review queue | Same approval UX pattern as J.4 PO recommendations |
+| **Output:** Buyer review queue | Same approval UX pattern as O.4 PO recommendations |
 
 ---
 
@@ -429,7 +429,7 @@ Not implemented until Phase 3.
 | Contract ID | Consumer | What Bull promises |
 |---|---|---|
 | D.6.3 TRANSFER-VARIANCE | Module Q (Q-IS-03), Module F (cost reconciliation) | Variance per XFER-RECVR pair with match-confidence flag |
-| D.6.4 In-transit hold | Module J (on-order), Module C (OTB) | In-transit stock is NOT counted as available-for-sale |
+| D.6.4 In-transit hold | Module O (on-order), Module M (OTB) | In-transit stock is NOT counted as available-for-sale |
 | D.6.5 UNATTRIBUTED-MOVEMENT | Module Q, Module F | Every unexplained SOH delta is named, not dropped |
 | D.6.9 In-transit timeout | Operations | 72-hour (configurable) timeout alert on unconfirmed transfers |
 

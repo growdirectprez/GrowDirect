@@ -61,7 +61,7 @@ Branch: `gclyle/gro-549-solex-c2-productionize-scenario-runner-ux` (ahead of ori
   - `GET /Store/{StoreId}/TokenizeInfo`
 - **`DELETE /CACHE`** is referenced in `Basics/Requests.md` (line 79) but has no per-endpoint file — operational contract, undocumented at endpoint level.
 - **README chart has multiple chart-vs-files defects** (POST→PUT mislinks, casing drift, `Document_Note` POST hyperlinks to a PUT file). All filed as **GRO-550** (Backlog, Parked).
-- **Modules L (Labor) and W (Work Execution) have NO Counterpoint coverage.** Confirmed during extraction. **Don't go looking — it's not there.** Module L has an "option (d) Canary-native labor module" sketch in the SDD; Module W has the same parallel sketch. See memory `project_canary_native_labor_module_opportunity.md`.
+- **Modules L (Labor) and W (Work Execution) have NO Counterpoint coverage.** Confirmed during extraction. **Don't go looking — it's not there.** Module L has an "option (d) Canary-native labor module" sketch in the SDD; Module E has the same parallel sketch. See memory `project_canary_native_labor_module_opportunity.md`.
 
 ## Operating posture
 

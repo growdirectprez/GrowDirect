@@ -7,7 +7,7 @@ tags: [retail, purchase-orders, allocation, replenishment, forecasting, canary]
 related:
   - Brain/wiki/retail-merchandise-planning-otb.md
   - Brain/wiki/retail-promotion-workflow.md
-  - Canary-Retail-Brain/modules/J-forecast-order.manifest.yaml
+  - Canary-Retail-Brain/modules/O-orders.manifest.yaml
   - Canary-Retail-Brain/modules/D-distribution.manifest.yaml
   - Brain/wiki/ncr-counterpoint-endpoint-spine-map.md
 source-intakes:
@@ -23,7 +23,7 @@ needs-review: 2026-05-10
 
 In specialty retail, purchase orders are not discrete buying decisions — they are the downstream output of a planning process that has already committed to a sales plan, an allocation, and an OTB budget. The PO is the last step, not the first. Any system that treats PO entry as a standalone transaction disconnects the buying decision from the financial plan, breaking the feedback loop that controls inventory investment.
 
-Canary module J (Forecast/Order) owns this chain. Its design requirement is tight, bidirectional integration with the merchandise plan in P, the allocation logic in D, and the receiving and cost flows in F.
+Canary module O (Forecast/Order) owns this chain. Its design requirement is tight, bidirectional integration with the merchandise plan in P, the allocation logic in D, and the receiving and cost flows in F.
 
 ---
 
@@ -202,12 +202,12 @@ Standard PO lifecycle events that require alerts:
 
 ---
 
-## Canary Module J Implications
+## Canary Module O Implications
 
 | Retail Requirement | Canary J Behavior |
 |---|---|
 | PO generated from allocation | J consumes allocation output from P; creates PO at the store-level detail |
-| Pre-distributed PO with EDI | J stores store-allocation at line level; EDI mapping in module C (Commercial) |
+| Pre-distributed PO with EDI | J stores store-allocation at line level; EDI mapping in module M (Merchandising) |
 | Short-ship reconciliation | J invokes re-allocation logic at goods receipt; updates store commitments in D |
 | Replenishment engine | J runs the demand-driven reorder cycle for basic/NOS items |
 | Promotional demand visibility | J reads P's promotion calendar before generating replenishment suggestions |
@@ -221,7 +221,7 @@ Standard PO lifecycle events that require alerts:
 
 - **Merchandise planning and OTB:** [[Brain/wiki/retail-merchandise-planning-otb]]
 - **Promotion workflow:** [[Brain/wiki/retail-promotion-workflow]]
-- **Canary module J:** [[Canary-Retail-Brain/modules/J-forecast-order.manifest.yaml]]
+- **Canary module O:** [[Canary-Retail-Brain/modules/O-orders.manifest.yaml]]
 - **Canary module D:** [[Canary-Retail-Brain/modules/D-distribution.manifest.yaml]]
 - **NCR Counterpoint endpoint map:** [[Brain/wiki/ncr-counterpoint-endpoint-spine-map]]
 - **Source intakes:** [[Brain/raw/inbox/sap-fashion-workshop-1998]] · [[Brain/raw/inbox/sap-apparel-workshop-promotions-pricing-po]]

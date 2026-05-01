@@ -222,8 +222,8 @@ CREATE TABLE app.cp_item_categories (
     descr           TEXT,
 
     -- Module Q margin targets (critical substrate)
-    min_pft_pct     NUMERIC(5, 2),    -- minimum profit % (floor); Q-C.1 substrate
-    trgt_pft_pct    NUMERIC(5, 2),    -- target profit % (benchmark); Q-C.1 context
+    min_pft_pct     NUMERIC(5, 2),    -- minimum profit % (floor); Q-M.1 substrate
+    trgt_pft_pct    NUMERIC(5, 2),    -- target profit % (benchmark); Q-M.1 context
 
     -- Source metadata
     lst_maint_dt    TIMESTAMPTZ,
@@ -331,7 +331,7 @@ WHERE li.transaction_id = :txn_id;
 
 ## 8. Module Q integration
 
-### Margin floor detection (Q-C.1 family)
+### Margin floor detection (Q-M.1 family)
 
 The core loss-prevention use case. Two thresholds apply:
 
@@ -355,7 +355,7 @@ alert trigger:
   < cp_item_categories.min_pft_pct / 100.0
 ```
 
-### Non-discountable item discount (Q-C.2)
+### Non-discountable item discount (Q-M.2)
 
 If `cp_item_catalog.is_discntbl = FALSE` and `transaction_line_items.total_discount_cents > 0`,
 flag as unauthorized discount on a non-discountable item.
@@ -390,9 +390,9 @@ date, flag as anomalous (potential use of discontinued item codes).
 
 | Rule | Primary field | Table | Join path |
 |---|---|---|---|
-| Q-C.1 cost floor | `lst_cost` | `cp_item_catalog` | `external_identities` → `cp_item_catalog` |
-| Q-C.1 margin floor | `min_pft_pct` | `cp_item_categories` | `cp_item_catalog.categ_cod` → `cp_item_categories` |
-| Q-C.2 non-discountable | `is_discntbl` | `cp_item_catalog` | same |
+| Q-M.1 cost floor | `lst_cost` | `cp_item_catalog` | `external_identities` → `cp_item_catalog` |
+| Q-M.1 margin floor | `min_pft_pct` | `cp_item_categories` | `cp_item_catalog.categ_cod` → `cp_item_categories` |
+| Q-M.2 non-discountable | `is_discntbl` | `cp_item_catalog` | same |
 | Q-P.1 open price | `prompt_for_prc`, `item_is_misc` | `cp_item_catalog` | same |
 | Q-Q.1 fractional qty | `qty_decs`, `is_weighed` | `cp_item_catalog` | same |
 | Q-STAT.1 deactivated item | `stat` transition | `cp_item_catalog` | direct |
@@ -407,7 +407,7 @@ The H&G vertical has item patterns that affect Module Q substrates:
 | Bulk amendments (soil, mulch) | `IS_WEIGHED=Y`, `QTY_DECS>0`, `STK_UNIT=CU YD/LB` | Q-Q.1: weighed goods; baseline weight distribution needed for anomaly detection |
 | Tropicals / houseplants | High `PRC_1` variance (individual specimen pricing); `PROMPT_FOR_PRC=Y` for premium specimens | Q-P.1: open-price rule applies; threshold must be calibrated to category variance |
 | Cash vendor plants | `ITEM_VEND_NO` absent or generic; `CATEG_COD` = nursery/plant category | Q-VEND.1: cash-purchase receipts in Module Q allow-list (see `ncr-counterpoint-tsp-adapter.md §12`) |
-| Gift items / hardgoods | `IS_DISCNTBL=Y`; end-of-season 50% clearance is legitimate | Q-C.2: clearance discount rules need seasonal suppression window to avoid alert flood |
+| Gift items / hardgoods | `IS_DISCNTBL=Y`; end-of-season 50% clearance is legitimate | Q-M.2: clearance discount rules need seasonal suppression window to avoid alert flood |
 
 These vertical-specific thresholds are configured in `app.merchant_rule_configs`,
 not hardcoded in the detection rules themselves. The rules are generic;
@@ -550,15 +550,15 @@ in Counterpoint results in a `item.deactivated` event in the stream and
 `cp_item_catalog.stat = 'I'` after the next poll.
 
 **AC-S-05 — Module Q margin floor:** For a transaction line item on `ADM-SCD`
-with `base_price_cents = 10000` (below `lst_cost = 159.996`), the Q-C.1 rule
+with `base_price_cents = 10000` (below `lst_cost = 159.996`), the Q-M.1 rule
 triggers an alert with the correct item identifier and merchant context.
 
 **AC-S-06 — Non-discountable detection:** For a transaction line item on any
-item where `is_discntbl = FALSE` with `total_discount_cents > 0`, the Q-C.2
+item where `is_discntbl = FALSE` with `total_discount_cents > 0`, the Q-M.2
 rule triggers. Verify the `cp_item_catalog` join resolves correctly.
 
 **AC-S-07 — Category margin floor:** For a transaction line item in the `GOLF`
-category (min_pft_pct = 50), a sale at 45% margin triggers Q-C.1. A sale at
+category (min_pft_pct = 50), a sale at 45% margin triggers Q-M.1. A sale at
 55% margin does not.
 
 **AC-S-08 — Cache-miss on-demand fetch:** A Document poll that contains an
@@ -570,11 +570,11 @@ re-processes with the resolved catalog entry.
 
 | ID | Question | Impact |
 |---|---|---|
-| S-OQ-01 | Price levels: Counterpoint supports up to 5 price levels (PRC_1 through PRC_5). Which price levels does the garden center deployment use? PRC_1 is confirmed. Are PRC_2–5 used for contractor/wholesale tiers? If yes, add PRC_2–5 columns to `cp_item_catalog`. | Module P (pricing tier) and Q-C.4 accuracy |
+| S-OQ-01 | Price levels: Counterpoint supports up to 5 price levels (PRC_1 through PRC_5). Which price levels does the garden center deployment use? PRC_1 is confirmed. Are PRC_2–5 used for contractor/wholesale tiers? If yes, add PRC_2–5 columns to `cp_item_catalog`. | Module P (pricing tier) and Q-M.4 accuracy |
 | S-OQ-02 | Live-goods STAT cycle: Do garden center Counterpoint deployments set `STAT=I` seasonally, or do they archive the item entirely (DELETE)? Determines whether Q-STAT.1 fires seasonally or only on true deactivation. | False positive rate for Q-STAT.1 |
 | S-OQ-03 | Cash vendor receive DOC_TYP: When a garden center buys plants for cash from a local grower, what DOC_TYP and ITEM_NO pattern appears? Is it a new receipt (RECVR) against a generic vendor item, or an ad-hoc Document with a miscellaneous ITEM_NO? | Q-VEND.1 allow-list construction |
 | S-OQ-04 | Bulk goods pricing unit: Is `IS_WEIGHED=Y` reliably set for all bulk amendment items (mulch, soil, fertilizer) in the garden center's Counterpoint config, or is it inconsistently applied? | Q-Q.1 fractional quantity detection reliability |
-| S-OQ-05 | `MIN_PFT_PCT` calibration: Are the garden center's `IM_CATEG_COD.MIN_PFT_PCT` values actually set (non-zero), or are they left at 0 (default)? If all zeros, the category margin floor rule has no bite until the retailer configures them. | Q-C.1 effectiveness; may need operator-assisted config step |
+| S-OQ-05 | `MIN_PFT_PCT` calibration: Are the garden center's `IM_CATEG_COD.MIN_PFT_PCT` values actually set (non-zero), or are they left at 0 (default)? If all zeros, the category margin floor rule has no bite until the retailer configures them. | Q-M.1 effectiveness; may need operator-assisted config step |
 | S-OQ-06 | Counterpoint item count for the target engagement: Approximate SKU count across all stores. Determines whether initial load requires chunking strategy beyond simple 500-row paging. | Initial load performance planning |
 
 ---
@@ -584,6 +584,6 @@ re-processes with the resolved catalog entry.
 - `docs/sdds/canary/ncr-counterpoint-tsp-adapter.md` — Document/sales adapter; uses ITEM_NO → catalog resolution
 - `docs/sdds/canary/ncr-counterpoint-customer-adapter.md` — Customer adapter; CATEG_COD parallel (customer vs item tier)
 - `Brain/wiki/ncr-counterpoint-api-reference.md` — Counterpoint endpoint reference (§ Module S — Items)
-- `Brain/wiki/canary-module-q-counterpoint-rule-catalog.md` — Module Q rule catalog; Q-C.1, Q-C.2, Q-P.1, Q-Q.1 rule definitions
+- `Brain/wiki/canary-module-q-counterpoint-rule-catalog.md` — Module Q rule catalog; Q-M.1, Q-M.2, Q-P.1, Q-Q.1 rule definitions
 - `Brain/wiki/garden-center-operating-reality.md` — H&G vertical specifics: seasonal STAT transitions, bulk goods, cash vendor receipts
 - `Canary/docs/sdds/v2/data-model.md` — CRDM `sales.transaction_line_items` table definition

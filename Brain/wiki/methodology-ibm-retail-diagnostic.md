@@ -243,14 +243,14 @@ The Clarks seven-section methodology maps directly to Canary's spine ring sequen
 
 **Canary v2 ring modules directly address Clarks Theme 2 root causes:**
 - **Module D (Demand):** Perpetual ledger, demand forecast, OTB enforcement, automated replenishment trigger. Addresses root causes: Replenishment Process Lead-Time, Book Stock Accuracy, Upstream Supply Chain visibility.
-- **Module J (Journey):** Customer order fulfillment orchestration, inter-location inventory visibility, backorder tracking. Addresses root causes: Store Ordering Process, Margin-Driven Delivery Restrictions, Range Complexity.
+- **Module O (Journey):** Customer order fulfillment orchestration, inter-location inventory visibility, backorder tracking. Addresses root causes: Store Ordering Process, Margin-Driven Delivery Restrictions, Range Complexity.
 - **Module F (Financial Control):** Shrink variance root-cause analysis, daily reconciliation discipline. Cross-theme infrastructure.
 
 **Canary v3 ring modules extend into Clarks Phase 3 (end-state strategy):**
 - **Module S (Sales Margin Analytics):** Real-time margin visibility by product/category/location. Addresses residual margin erosion from unplanned discounting + product-mix drift.
 - **Module P (Pricing Intelligence):** Automated markdown recommendations, price-elasticity modeling. Drives margin recovery on slow-movers without customer experience degradation.
 - **Module L (Long-term Planning):** Strategic inventory planning, seasonality alignment, range-optimization. Reduces overstock root-cause before it becomes a clearance burden.
-- **Module W (Wholesale / Multi-Channel):** Foundation for future expansion (marketplace, B2B wholesale, subscription). Out of scope for v2 diagnostic.
+- **Module E (Wholesale / Multi-Channel):** Foundation for future expansion (marketplace, B2B wholesale, subscription). Out of scope for v2 diagnostic.
 
 **Key insight:** The Clarks methodology's three-phase roadmap pattern **naturally aligns to Canary's spine rings** (Existing + v2 + v3). This is not coincidence; it reflects how enterprise retail systems evolve: immediate loss-prevention wins, then operational-efficiency platform build, then strategic margin/growth optimization.
 
@@ -289,7 +289,7 @@ The Clarks seven-section methodology maps directly to Canary's spine ring sequen
    - Heat-map: 7 recommendations × 5 axes (3 prize, 2 cost/complexity).
    - 2×2 Matrix: Phase 1 Quick Wins (Chirp, Loss Review) vs. Phase 2 Build the System (D, J modules).
    - Phase 1 (Q1–Q4 2026): Chirp detection + 24h SLA. £140k–£210k benefit (50% of loss-prevention opportunity). Effort: 3 weeks merchant, 1 week Canary support. Cost: £3k–£5k.
-   - Phase 2 (Q1–Q4 2027): Build Module D (perpetual ledger) + demand forecast + auto-replenishment + Module J (fulfillment orchestration). £800k–£1.2m cumulative benefit (full inventory opportunity). Effort: 40–50 weeks Canary dev, 20–25 weeks merchant scale. Cost: £35k (amortized across merchants).
+   - Phase 2 (Q1–Q4 2027): Build Module D (perpetual ledger) + demand forecast + auto-replenishment + Module O (fulfillment orchestration). £800k–£1.2m cumulative benefit (full inventory opportunity). Effort: 40–50 weeks Canary dev, 20–25 weeks merchant scale. Cost: £35k (amortized across merchants).
    - Phase 3 (2028+): Module S (margin analytics) + Module P (pricing intelligence). £280k–£400k incremental. Out of scope for this diagnostic; scoped in 2027.
 
 7. **Case for Action:**

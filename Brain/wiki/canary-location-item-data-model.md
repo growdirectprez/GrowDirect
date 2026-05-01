@@ -93,7 +93,7 @@ The reverse is not true: a Store can have zero, one, or many Inventory Locations
 
 ### 2.1 Items live in S
 
-**Module S** (`S-space-range-display`) carries the catalog. Per SDD §6.10 and the endpoint-spine map, the core item-side tables are:
+**Module S** (`S-space`) carries the catalog. Per SDD §6.10 and the endpoint-spine map, the core item-side tables are:
 
 - `items` (CRDM `Things.items`) — the SKU master
 - `item_categories` (CRDM `Things.item_categories`) — hierarchical merchandise classification
@@ -111,14 +111,14 @@ Counterpoint analogs:
 
 The endpoint-spine map identifies `Module A` (Asset Management) as a *derived view* of `items` — a filter on `ITEM_TYP = N` (non-inventory) plus a non-saleable flag. There is no separate `assets` table; A reuses S's storage.
 
-### 2.2 Relationship to Module C (Commercial)
+### 2.2 Relationship to Module M (Merchandising)
 
-Items reference **Module C** (`C-commercial`) for SKU and supplier identity. Per the C-commercial manifest, Module C is the publisher of cost-update events to the stock ledger when supplier landed cost changes; it owns SKU/supplier identity, while Module S owns the merchandising metadata.
+Items reference **Module M** (`M-merchandising`) for SKU and supplier identity. Per the C-commercial manifest, Module M is the publisher of cost-update events to the stock ledger when supplier landed cost changes; it owns SKU/supplier identity, while Module S owns the merchandising metadata.
 
 The split:
 
-- `items.sku_id` → `commercial.skus.sku_id` (Module C)
-- `items.supplier_id` → `commercial.suppliers.supplier_id` (Module C)
+- `items.sku_id` → `commercial.skus.sku_id` (Module M)
+- `items.supplier_id` → `commercial.suppliers.supplier_id` (Module M)
 - `items.cost` (perpetual landed cost) — owned by C, projected onto items rows
 - `items.regular_price`, `items.tier_price_*` — owned by S (with Module P pricing-resolver overlays)
 
@@ -242,7 +242,7 @@ flowchart LR
         ItemInv[item_inventory<br/>per-Store rollup]
     end
 
-    subgraph C[Module C — Commercial]
+    subgraph C[Module M — Merchandising]
         SKU[skus]
         Supplier[suppliers]
         MMGroup[mix_match_groups]
@@ -304,7 +304,7 @@ flowchart LR
         │                          │
         │ sku_id, supplier_id      │ category_id
         ▼                          ▼
-   Module C (commercial)      ┌──────────────┐
+   Module M (commercial)      ┌──────────────┐
    ┌──────────┐               │item_categories│
    │   skus   │               └──────────────┘
    │ suppliers│
@@ -482,8 +482,8 @@ This article sits in a network of related docs. Read in conjunction with:
 - **`docs/sdds/canary/ncr-counterpoint-retail-spine-integration.md`** §4-§6 — class-level CRDM alignment (this article is the §6 detail companion for N/D/S).
 - **`Canary-Retail-Brain/modules/N-device.manifest.yaml`** — Module N design spec.
 - **`Canary-Retail-Brain/modules/D-distribution.manifest.yaml`** — Module D design spec.
-- **`Canary-Retail-Brain/modules/S-space-range-display.manifest.yaml`** — Module S design spec.
-- **`Canary-Retail-Brain/modules/C-commercial.manifest.yaml`** — Module C design spec.
+- **`Canary-Retail-Brain/modules/S-space.manifest.yaml`** — Module S design spec.
+- **`Canary-Retail-Brain/modules/M-merchandising.manifest.yaml`** — Module M design spec.
 
 ## Sources
 

@@ -109,8 +109,8 @@ have the highest signal-to-noise ratio and lowest calibration burden.
 | C-1801 | Q-CT-01 | WHOLESALE_ON_RETAIL_PATTERN | low | customer_tier |
 | C-1802 | Q-CT-02 | TIER_REASSIGNMENT_PRE_PURCHASE | high | customer_tier |
 | C-1901 | Q-MM-01 | MIX_MATCH_BELOW_COST | medium | mix_and_match |
-| C-2101 | Q-C-01 | AT_LIMIT_ACCOUNT_TRANSACTING | medium | commercial_b2b |
-| C-2103 | Q-C-03 | AR_PAST_DUE_THRESHOLD | medium | commercial_b2b |
+| C-2101 | Q-M-01 | AT_LIMIT_ACCOUNT_TRANSACTING | medium | commercial_b2b |
+| C-2103 | Q-M-03 | AR_PAST_DUE_THRESHOLD | medium | commercial_b2b |
 
 **Informational-only rules (never alert; analytics/trend only):**
 

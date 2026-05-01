@@ -252,7 +252,7 @@ One row per `PS_DOC_LIN` entry. Keyed on `(transaction_id, line_seq_no)`.
 | `description` | `PS_DOC_LIN.DESCR` | string |
 | `category_code` | `PS_DOC_LIN.CATEG_COD` | string |
 | `subcategory_code` | `PS_DOC_LIN.SUBCAT_COD` | string |
-| `vendor_no` | `PS_DOC_LIN.ITEM_VEND_NO` | string (Module J cross-ref) |
+| `vendor_no` | `PS_DOC_LIN.ITEM_VEND_NO` | string (Module O cross-ref) |
 | `qty_sold` | `PS_DOC_LIN.QTY_SOLD` | decimal |
 | `qty_numerator` | `PS_DOC_LIN.QTY_NUMER` | integer (fractional unit numerator) |
 | `qty_denominator` | `PS_DOC_LIN.QTY_DENOM` | integer (fractional unit denominator) |

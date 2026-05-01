@@ -2,224 +2,263 @@
 classification: internal
 type: wiki
 sub-type: module-functional-decomposition
-date: 2026-04-26
-last-compiled: 2026-04-26
-needs-review: 2026-05-10
+date: 2026-04-25
+last-compiled: 2026-04-25
+needs-review: 2026-05-09
 status: draft v1 (archetype — no real customer engagement)
 module: C
-solution-map-cell: ◐ Derived — no dedicated Counterpoint B2B endpoint family; derived from AR_CUST tier/credit fields, AR_CUST_CTL multi-tier flags, Customer_OpenItems AR aging, and behavioral pattern from T
-companion-modules: [R, F, T, Q]
+solution-map-cell: ● Full direct (Counterpoint Customer family — 17 endpoints; the best-covered domain in the API)
+companion-modules: [T, Q, P, M, F, N]
 companion-substrate: [ncr-counterpoint-api-reference.md, ncr-counterpoint-endpoint-spine-map.md]
-companion-context: [garden-center-operating-reality.md]
-companion-canary-spec: Canary-Retail-Brain/modules/C-commercial.md
-companion-canary-crosswalk: Brain/wiki/canary-module-c-commercial.md
+companion-context: [garden-center-operating-reality.md, ncr-counterpoint-rapid-pos-relationship.md]
+companion-canary-spec: Canary-Retail-Brain/modules/C-customer.md
 companion-catz: CATz/proof-cases/specialty-smb-counterpoint-solution-map.md
-methodology-note: "Sister card to d, a, p functional-decomp cards. First fully-derived module in this batch — C has no own Counterpoint endpoints; all L2s read from R + F substrate or derive classification from AR fields. The garden-center landscaper / wholesale / project-tier reality is the primary vertical lens shaping the B2B classification design."
+methodology-note: "Sister card to canary-module-q-functional-decomposition.md and canary-module-t-functional-decomposition.md. Same template; same L1→L4 framework. C inherits T's customer-reference upserts (T.7.7) and feeds Q's tier-aware allow-lists (Q.6) and P-derived multi-tier pricing observations."
 ---
 
-# Module C (Commercial / B2B) — Functional Decomposition
+# Module C (Customer) — Functional Decomposition
 
 > **Artifact layer.** Third of three Canary module artifact layers:
-> 1. **Canonical spec** (vendor-neutral) — `Canary-Retail-Brain/modules/C-commercial.md`
-> 2. **Code/schema crosswalk** (Canary-specific) — `Brain/wiki/canary-module-c-commercial.md`
+> 1. **Canonical spec** (vendor-neutral) — `Canary-Retail-Brain/modules/C-customer.md`
+> 2. **Code/schema crosswalk** (Canary-specific) — `Brain/wiki/canary-module-c-customer.md` *(planned for Q/T/C; exists for J/P/F/C)*
 > 3. **Functional decomposition** (Counterpoint-substrate-aware, L2/L3 + user stories) — *this card*
 
 ## Governing thesis
 
-C is the **B2B intelligence layer** of the Canary spine — the surface that distinguishes wholesale accounts, landscaper clients, and project-tier buyers from casual retail consumers. Against the Counterpoint substrate, C has no dedicated endpoint family of its own. Everything C knows about a commercial customer is derived from AR fields that Counterpoint already surfaces through the Customer and Customer_OpenItems endpoints: account category codes (`AR_CUST.CATEG_COD`), credit terms (`AR_CUST.NO_CR_LIM`, `CR_RATE`, `BAL`), multi-tier control flags (`AR_CUST_CTL`), and outstanding AR balances (`Customer_OpenItems`). C reads these from R's substrate publications and builds B2B classification on top of them.
+C owns the **People entity** in CRDM, specifically the customer subset. Counterpoint exposes the richest People surface of any spine module — **17 endpoints** covering AR_CUST + addresses + notes + cards + open AR + control + workgroup-driven defaults — and adds two capabilities Square has no equivalent for: **multi-tier pricing identity** (`AR_CUST.CATEG_COD`) and **embedded loyalty** (12 LOY_* fields per customer). For a Lawn & Garden tenant specifically, the multi-tier identity is the load-bearing feature: every Q rule that distinguishes wholesale from retail behavior depends on C, every P-derived pricing observation depends on C, every C-derived B2B classification depends on C.
 
-The opportunity is real: at a garden center, 20-40% of gross revenue typically comes from commercial accounts (landscapers buying for projects, nurseries reselling wholesale, municipality contracts). These accounts operate on different credit terms, purchase at different price tiers, and carry different risk profiles than retail walk-in traffic. Counterpoint stores all of this — but doesn't surface it as a distinct B2B-intelligence layer. Canary does.
+C holds a deliberate **inversion of the dominant industry default**: the Canary v1 spec stores no PII at rest. Counterpoint, by contrast, holds full PII (name, email, phone, address, card-on-file, AR ledger, loyalty history). C's Counterpoint posture must reconcile these two: the Canary-side privacy commitment AND the Counterpoint-side full customer record. The reconciliation is **read-through-to-Counterpoint at query time**, not "ingest everything Counterpoint knows."
 
-The derived-module shape is the load-bearing design constraint. C cannot fire without R (customer master) and F (AR ledger) being in place. This ordering is a build-sequence constraint, not just a data dependency: C is the Module 4 in the Canary v2 ring, behind R (Module 2) and F (Module 3). The L2 split below reflects this dependency chain explicitly.
-
-## Executive summary
-
-| Dimension | Count | Source |
-|---|---|---|
-| L2 process areas | 5 | This card |
-| L3 functional processes | 26 | This card |
-| Counterpoint endpoints in C's path | 0 dedicated; inherits from R's `AR_CUST`, `AR_CUST_CTL`, `Customer_OpenItems` | API reference |
-| Counterpoint-substrate L2 areas | 0 own; C reads R + F publications | Solution Map cell |
-| Canary-native L2 areas | 3 (C.1 B2B classification, C.2 credit posture, C.4 B2B Q rules) | CATz proof case |
-| Derived L2 areas | 2 (C.3 AR ledger surface cross-cut with F.6, C.5 substrate contracts) | F module dependency |
-| Substrate contracts C owes downstream | 6 | This card §C.5 |
-| Assumptions requiring real-customer validation | 8 | Tagged `ASSUMPTION-C-NN` |
-| User stories enumerated | 32 | Observer + analyst mix; cast in §Operating notes |
-
-**Posture:** first fully-derived module in this decomposition pass. C contributes no own Counterpoint polling; all substrate comes from R and F. The B2B classification and credit-posture L2s are Canary-native intelligence built on top of R's customer substrate and F's AR ledger. Garden-center vertical context — landscaper tiers, project-PO billing, municipality accounts — shapes every L2.
+C is **● Full direct** in every Counterpoint Solution Map cell, but the cell hides three real architectural decisions: (1) multi-company-per-tenant customer namespace handling, (2) the privacy-posture reconciliation just described, and (3) tier-code conventions that vary per-VAR and per-customer (every Counterpoint deployment uses CATEG_COD differently — there is no universal taxonomy).
 
 ## Counterpoint Endpoint Substrate
 
 | Counterpoint Endpoint | CRDM Entity | L2 Process Area |
 |---|---|---|
-| AR_CUST | Customer master | C.1 (Classification), C.5 (Credit posture) |
-| Customer_OpenItems | Open AR items | C.2 (Payment velocity), C.3 (AR aging) |
-| AR_CUST_CTL | Credit control | C.1 (Tier derivation), C.5 (Credit limit) |
-| PS_DOC_HDR / PS_DOC_LIN | Transaction history | C.2 (Behavioral pattern routing) |
+| AR_CUST | Customer master | C.1 (Customer identity), C.5 (Credit posture) |
+| Customer/{CustNo}/OpenItems | Open AR items | C.3 (AR aging), C.4 (Payment history) |
+| AR_CUST_CTL | Credit control | C.5 (Credit limit / tier) |
+| PS_DOC_HDR (customer-linked) | Transaction headers | C.2 (Behavioral pattern), C.3 (Purchase history) |
+| AR_CUST.IS_TAX_EXEMPT | Tax exemption flag | C.1 (Customer tax classification — sourced to F.2) |
+
+## Executive summary
+
+| Dimension | Count | Source |
+|---|---|---|
+| L2 process areas | 6 | This card |
+| L3 functional processes | 32 | This card |
+| Counterpoint endpoints in C's path | 17 (Customer family) | API reference |
+| AR_CUST loyalty fields | 12 | API reference + relationship wiki |
+| Garden-center tier conventions enumerated | 5 (walk-in, member, landscaper, project, wholesale) | garden-center-operating-reality |
+| Privacy-posture L3 processes | 4 | Q.4 |
+| Substrate contracts C owes downstream | 8 | This card §C.6 |
+| Assumptions requiring real-customer validation | 9 | Tagged `ASSUMPTION-C-NN` |
+| User stories enumerated | 47 | Observer-perspective; actor ∈ {Registry, Projection, Owl, Fox, Operator, Store GM, LP Analyst} |
+
+**Posture:** archetype-shaped against Counterpoint specifically. The privacy-first v1 design (no PII at rest) is preserved. Per-VAR tier-code variance is acknowledged as a discovery surface at every customer onboarding — there is no universal `CATEG_COD` mapping.
 
 ## L1 → L2 → L3 framework
 
 ```
-L1 (Solution Map cell)         C = ◐ Derived
-                                 │  (no own Counterpoint endpoints;
-                                 │   derived from R's AR_CUST/AR_CUST_CTL substrate
-                                 │   + F's AR ledger + T's behavioral pattern)
+L1 (Solution Map cell)         C = ● Full direct (Counterpoint Customer family — 17 endpoints)
                                  │
-L2 (Process areas)               ├── C.1  B2B classification derivation    ★ Canary-native (from R)
-                                 ├── C.2  Per-customer credit posture       ★ Canary-native (from R + F)
-                                 ├── C.3  AR ledger surface                 ◐ Derived (cross-cut F.6)
-                                 ├── C.4  B2B-specific detection rules      ★ Canary-native (cross-cut Q)
-                                 └── C.5  Cross-module substrate contracts
+L2 (Process areas)               ├── C.1  Customer registry & upsert
+                                 ├── C.2  Tier identity & multi-tier pricing context
+                                 ├── C.3  Loyalty + AR ledger surfacing
+                                 ├── C.4  Privacy posture (no PII at rest)
+                                 ├── C.5  Identity resolution (cross-company, future cross-vendor)
+                                 └── C.6  Investigator surface + downstream contracts
                                  │
-L3 (Functional processes)       (26 — enumerated per L2 below)
+L3 (Functional processes)       (32 — enumerated per L2 below)
                                  │
-L4 (Implementation detail)      Canary-Retail-Brain/modules/C-commercial.md
-                                  + canary-module-c-commercial.md (schema crosswalk)
-                                  + future Canary/docs/sdds/v2/commercial.md
+L4 (Implementation detail)      Lives in SDDs + module specs
+                                  (Canary-Retail-Brain/modules/C-customer.md,
+                                   docs/sdds/canary/ncr-counterpoint-retail-spine-integration.md §6.2)
 ```
 
-## C.1 — B2B classification derivation
+## C.1 — Customer registry & upsert
 
-**Coverage posture.** ★ Canary-native, built from R's substrate. Counterpoint stores account categorization in `AR_CUST.CATEG_COD` but does not differentiate B2B from retail algorithmically. Canary derives B2B classification from a combination of account-category codes, credit-terms configuration, and transaction behavioral pattern from T.
-
-**Companion cards.** `canary-module-r-functional-decomposition.md` (R.2 tier identity, R.3 loyalty + AR — C inherits both), `garden-center-operating-reality.md` (landscaper / wholesale / project-tier vertical reality).
+**Purpose.** Maintain one row per merchant per Counterpoint customer (per company alias, for multi-company tenants). T's parsed transaction stream triggers shell-row upserts before C has polled the Customer endpoint; C catches up async. The registry is the FK target every other module depends on for People references.
 
 ### L3 processes
 
-| ID | L3 process | Source | Notes |
+| ID | L3 process | Substrate | Notes |
 |---|---|---|---|
-| C.1.1 | Read `AR_CUST.CATEG_COD` per customer from R's substrate | R's customer publication (R.2) | Account category code; Canary maps customer-configured codes to B2B tier (e.g., "LAND" = landscaper, "WHOLE" = wholesale) → TBD: L4 implementation detail pending |
-| C.1.2 | Read `AR_CUST_CTL` multi-tier pricing flags | R's customer publication | `AR_CUST_CTL` controls which price tier the customer accesses (Price 1/2/3); tier access is the strongest B2B signal in Counterpoint → TBD: L4 implementation detail pending |
-| C.1.3 | Detect commercial-account indicator via credit terms | R.3 — `AR_CUST.NO_CR_LIM` / `CR_RATE` presence | Cash customers have no credit config; commercial accounts have credit terms; credit existence = commercial strong-signal → TBD: L4 implementation detail pending |
-| C.1.4 | Derive B2B classification score per customer | C.1.1 (category code match) + C.1.2 (price-tier access) + C.1.3 (credit terms) + T's average-order-value pattern | Multi-signal derivation; merchant-configurable weight; outputs B2B_CLASS: retail / commercial / wholesale / project-tier → TBD: L4 implementation detail pending |
-| C.1.5 | Handle unclassified accounts (no category code, no credit terms, default tier) | Canary-native fallback | Default classification based on T's behavioral pattern alone; flagged as CLASSIFICATION-UNCERTAIN → TBD: L4 implementation detail pending |
-| C.1.6 | Reclassification on CATEG_COD change | R event stream — when R detects CATEG_COD update | Classification must update within one R-poll cycle; downstream C.2/C.3 consumers notified → TBD: L4 implementation detail pending |
+| C.1.1 | Shell-row upsert from T's reference | T's `transaction.created` carrying `CUST_NO` | Triggered before C has polled the customer record; row created with `CUST_NO`, `merchant_id`, `company_alias`, `db_status='pending_enrichment'` → TBD: L4 implementation detail pending |
+| C.1.2 | Full-row enrichment from `GET /Customer/{CustNo}` | `AR_CUST` + nested `AR_CUST_NOTE` / `AR_SHIP_ADRS` / `AR_CUST_CARDS` | Called when shell row needs enrichment OR on poll cadence → TBD: L4 implementation detail pending |
+| C.1.3 | Incremental sync via `GET /Customers` | `RS_UTC_DT`-filtered paginated workhorse | Counterpoint-recommended incremental path; respects watermark per `(tenant, company_alias)` → TBD: L4 implementation detail pending |
+| C.1.4 | EC-flagged customer enrichment | `GET /Customers/EC` | Online-customer subset; same registry, separate poll cadence → TBD: L4 implementation detail pending |
+| C.1.5 | CustomerControl read at tenant bootstrap | `GET /CustomerControl` | Tier definitions + loyalty enable + customer-default fields; **cached server-side 24h**; T.1.7 cache discipline applies → TBD: L4 implementation detail pending |
+| C.1.6 | Workgroup template read | `GET /Workgroup/{WorkgroupID}` | Numbering defaults + tier defaults that drive `POST /Customer` from the Counterpoint side → TBD: L4 implementation detail pending |
+| C.1.7 | Soft-delete on customer archival | `db_status='archived'` rather than DELETE | Preserves audit trail; re-activated on return, never duplicated → TBD: L4 implementation detail pending |
+| C.1.8 | Multi-company namespace isolation | Per-`(tenant_id, company_alias)` registry partition | One Canary tenant with N Counterpoint companies has N independent customer namespaces — never bleed across → TBD: L4 implementation detail pending |
 
 ### User stories
 
-- *As C's Classifier, I want every Counterpoint customer with non-default price-tier access (`AR_CUST_CTL` price-2/3 flags) identified as commercial-strong-signal, regardless of whether their CATEG_COD has been set — price-tier access is the most reliable B2B indicator in the substrate.*
-- *As a Garden-Center Account Manager in Owl, I want to ask "show me all commercial accounts" and get a ranked list by B2B classification tier (landscaper / wholesale / project / uncertain), with the signals that drove the classification visible.*
-- *As C's Classifier, I want CATEG_COD reclassifications propagated within one R-poll cycle — a landscaper who gets reclassified to wholesale should see their C.2 credit posture recalculated immediately.*
-- *As an Operator, I want CLASSIFICATION-UNCERTAIN accounts flagged in the onboarding review queue — accounts with no category code, no credit terms, and below-threshold average order value need a human decision on B2B status.*
+- *As C, I want T's `CUST_NO` references to immediately upsert a shell row so transaction events never reference unknown customers, even if the Customer endpoint hasn't been polled yet.*
+- *As C, I want the `GET /Customers` incremental poll to respect a per-`(tenant, company_alias)` watermark so I never re-fetch already-consumed customers and never miss a customer modified during my last cycle.*
+- *As an Operator in Owl, I want to ask "which customer references are still in shell-row state for tenant X" and get an enrichment-lag report so stale references surface before they break downstream queries.*
+- *As an Operator at a multi-company tenant, I want CUST_NO=12345 in `companyA` and CUST_NO=12345 in `companyB` to be unambiguously different customers in C, with the company alias preserved in every join key.*
 
-## C.2 — Per-customer credit posture
+## C.2 — Tier identity & multi-tier pricing context
 
-**Coverage posture.** ★ Canary-native, built from R's substrate and F's AR ledger. Counterpoint stores credit limit and balance in `AR_CUST`; Canary's contribution is building a credit posture signal — current utilization, aging pattern, payment-velocity — that Counterpoint doesn't surface as a risk score.
+**Purpose.** This is the load-bearing L&G capability. Counterpoint's `AR_CUST.CATEG_COD` is the multi-tier pricing identity field; for a garden-center tenant, the typical taxonomy is `RETAIL / MEMBER / LANDSCAPER / PROJECT / WHOLESALE`. Q.2.9 (customer-tier abuse), Q.6.x vertical-pack tier-aware allow-lists, and P-derived multi-tier pricing observations all depend on C surfacing the tier cleanly.
 
-**Companion cards.** `canary-module-r-functional-decomposition.md` (R.3 loyalty + AR), `canary-module-f-functional-decomposition.md` (F.6 AR ledger — C.3 below is the cross-cut).
+**No universal taxonomy.** Every Counterpoint deployment uses `CATEG_COD` differently. Per-VAR conventions vary; per-customer conventions vary within a VAR. This L2 surfaces the field; tier-meaning interpretation is a per-tenant configuration that gets captured at onboarding (see ASSUMPTION-C-03).
 
 ### L3 processes
 
-| ID | L3 process | Source | Notes |
+| ID | L3 process | Substrate | Notes |
 |---|---|---|---|
-| C.2.1 | Read credit limit and current balance from `AR_CUST` via R.3 | R's AR surface | `AR_CUST.NO_CR_LIM` (unlimited credit flag), `AR_CUST.CR_RATE` (credit rating), `AR_CUST.BAL` (current balance) → TBD: L4 implementation detail pending |
-| C.2.2 | Calculate credit utilization per commercial account | `AR_CUST.BAL` / `AR_CUST.CRDLIM` | Utilization = current balance / credit limit; high utilization is an account health signal → TBD: L4 implementation detail pending |
-| C.2.3 | Read aging buckets from `Customer_OpenItems` via R.3 | R's AR aging surface | Current / 30 / 60 / 90+ day aging; F.6's cross-cut surfaces the same data from the finance side → TBD: L4 implementation detail pending |
-| C.2.4 | Derive payment velocity per account | Trailing payment pattern from `Customer_OpenItems` close dates | Fast-paying accounts vs. chronic-slow accounts; velocity is a C-native signal not in Counterpoint → TBD: L4 implementation detail pending |
-| C.2.5 | Produce per-account credit posture signal | C.2.2 utilization + C.2.3 aging + C.2.4 velocity | Output: `CREDIT_POSTURE` enum: current / watch / past-due / at-limit; drives C.4 Q-rule eligibility → TBD: L4 implementation detail pending |
-| C.2.6 | Trigger credit-hold flag on AT-LIMIT accounts | C.2.5 → alert → account manager | Credit holds in Counterpoint are operator-set; Canary surfaces the signal, doesn't write back to Counterpoint → TBD: L4 implementation detail pending |
+| C.2.1 | Surface `CATEG_COD` per customer | `AR_CUST.CATEG_COD` | Preserved verbatim; no normalization (different tenants use different code conventions) → TBD: L4 implementation detail pending |
+| C.2.2 | Tier-code → tier-meaning mapping per tenant | Tenant config table; populated at onboarding | E.g., `WHL → wholesale`, `LSC → landscaper`, `MBR → member`, `RET → retail` → TBD: L4 implementation detail pending |
+| C.2.3 | Tier-change audit on customer record | `AR_CUST.LST_MAINT_DT` + `LST_MAINT_USR_ID` deltas | Substrate for Q.2.9 (Q-CT-02 pre-purchase tier upgrade rule) → TBD: L4 implementation detail pending |
+| C.2.4 | Multi-tier pricing flag surfacing | `AR_CUST_CTL` (CustomerControl) multi-tier flags | Substrate for P-derived pricing rule observations → TBD: L4 implementation detail pending |
+| C.2.5 | Open-AR balance per customer | `GET /Customer/{CustNo}/OpenItems` | AR aging; substrate for C-derived B2B classification + Q-TC-02 (tax-exempt abuse adjacent) → TBD: L4 implementation detail pending |
+| C.2.6 | Customer credit posture | `AR_CUST.CR_RATE`, `NO_CR_LIM`, `BAL` | Substrate for C and risk-adjacent rules → TBD: L4 implementation detail pending |
+| C.2.7 | B2B vs retail derivation hooks | Pattern-detect over C.2.1 + C.2.5 + transaction shape | Feeds C-derived B2B classification; the C module is "derived from C" per Solution Map → TBD: L4 implementation detail pending |
 
 ### User stories
 
-- *As C's Credit Engine, I want per-account credit utilization recalculated after each payment recorded in `Customer_OpenItems`, so the CREDIT_POSTURE signal reflects real-time balance, not last-week's snapshot.*
-- *As a Garden-Center Account Manager, I want to ask "which commercial accounts are past 60 days on their balance?" and get a ranked list with current balance, credit limit, and payment velocity — so I can prioritize outreach before accounts hit the formal collections threshold.*
-- *As C, I want CREDIT_POSTURE:AT-LIMIT accounts to surface an alert to the account manager before the next transaction — Counterpoint doesn't prevent a new sale to an at-limit account; Canary should surface the warning.*
-- *As an LP Analyst (Q.6), I want accounts with deteriorating credit posture (trending toward past-due) cross-referenced against recent high-value transactions — a landscaper maxing their credit right before going dark is a Q-relevant pattern.*
+- *As Q.2.9, I want every customer's tier code (`CATEG_COD`) and its tenant-specific meaning available on every transaction join, so the wholesale-on-retail-pattern rule fires correctly across tenants with different code conventions.*
+- *As Q.2.9, I want tier-change events on a customer record exposed as their own substrate (`C.2.3`) so the pre-purchase tier-upgrade rule can correlate against transaction timestamps.*
+- *As an LP Analyst at a garden center, I want to see the per-customer history "RET → LSC → WHL" with audit timestamps when investigating a tier-abuse case, so legitimate sales-rep promotions are visible.*
+- *As an Operator onboarding a Counterpoint tenant in Owl, I want to declare the tier-code → tier-meaning mapping interactively, with auto-suggested mappings inferred from the customer's existing AR_CUST data.*
+- *As C (the derived B2B module), I want the union of `AR_CUST.CATEG_COD ∈ wholesale-tier-set` plus `AR_CUST.NO_CR_LIM > 0` plus `OpenItems` non-empty to identify B2B customers without reaching into Counterpoint twice.*
 
-## C.3 — AR ledger surface (cross-cut with F.6)
+## C.3 — Loyalty + AR ledger surfacing
 
-**Coverage posture.** ◐ Derived — cross-cut with F's AR module. The AR ledger (open items, aging, payment history) is owned by F.6 from the finance side; C surfaces the same data through the account-management lens. This L2 is the contractual handshake between C and F — two modules reading the same substrate for different analytical purposes.
-
-**Companion cards.** `canary-module-f-functional-decomposition.md` (F.6 AR ledger — this L2 is C's read of F's surface).
+**Purpose.** Counterpoint embeds 12 loyalty fields per customer (`LOY_PGM_COD`, `LOY_PTS_BAL`, `LOY_CARD_NO`, etc.) plus a full AR ledger via `Customer_OpenItems`. C surfaces both as substrate without persisting PII; loyalty + AR shape feeds C.6 contracts to downstream modules (Q for velocity rules, F for AR-vs-tender reconciliation, future C for B2B account behavior).
 
 ### L3 processes
 
-| ID | L3 process | Source | Notes |
+| ID | L3 process | Substrate | Notes |
 |---|---|---|---|
-| C.3.1 | Read per-account open items from F.6 publication | F.6's AR ledger surface | Open invoices, amounts, due dates; C reads from F's AR publication, not directly from Counterpoint → TBD: L4 implementation detail pending |
-| C.3.2 | Aggregate open items into per-account AR summary | C's account-management projection over F.6 | Total outstanding, oldest open item date, count of past-due items — account-management view → TBD: L4 implementation detail pending |
-| C.3.3 | Track payment history per account | F.6's payment-event stream | Payments recorded in `Customer_OpenItems` close events; C tracks payment pattern (amount, timing, method) → TBD: L4 implementation detail pending |
-| C.3.4 | Surface AR aging calendar per commercial account | C's account-management surface | 0-30-60-90+ day aging per account; visible to account managers and sales reps in Owl → TBD: L4 implementation detail pending |
-| C.3.5 | Detect anomalous payment patterns | C.3.3 payment history vs. C.2.4 velocity baseline | A normally-fast-paying landscaper who starts paying slowly is a C.4 input signal → TBD: L4 implementation detail pending |
+| C.3.1 | Surface loyalty enrollment | `AR_CUST.LOY_PGM_COD` + `LOY_CARD_NO` (existence flags only — not card values) | C stores the enrolled-yes/no flag, not the card number → TBD: L4 implementation detail pending |
+| C.3.2 | Surface loyalty balance | `AR_CUST.LOY_PTS_BAL` (numeric only) | Integer; safe to persist; substrate for repeat-purchase detection → TBD: L4 implementation detail pending |
+| C.3.3 | Surface loyalty redemption events | Document line items with loyalty-redemption indicator | Substrate for Q-related redemption-pattern rules; loyalty redemption captured in T's transaction stream → TBD: L4 implementation detail pending |
+| C.3.4 | Surface AR-customer flag | `AR_CUST.IS_AR_CUST` or equivalent (**ASSUMPTION-C-04**) | Distinguishes AR-charge-eligible customers from cash-only → TBD: L4 implementation detail pending |
+| C.3.5 | Surface open AR aging | `Customer_OpenItems` aging buckets | Substrate for F (AR collection workflows downstream) and C (B2B credit posture) → TBD: L4 implementation detail pending |
+| C.3.6 | AR-charge-vs-cash transaction posture | Pattern-detect over C.3.4 + transaction tender mix | Feeds Q-TM-01 (cash-only register pattern) — wholesale customers paying AR shift expected tender mix → TBD: L4 implementation detail pending |
 
 ### User stories
 
-- *As an Account Manager in Owl, I want a per-account AR summary (total outstanding, oldest item, aging buckets) visible alongside the customer's transaction history — not a separate AR module the operations team lives in.*
-- *As C, I want F.6's AR ledger as my substrate for C.3 — I do not want to poll `Customer_OpenItems` independently. If F.6 polls it, I read from F.6's publication. One poller per endpoint.*
-- *As C's Anomaly Detector, I want accounts whose payment velocity has slowed more than 20% vs. their 90-day baseline flagged as a C.4 Q-rule input — slow-pay trend is a leading indicator, not a lagging one.*
+- *As C, I want loyalty enrollment and balance surfaced as integer-shape substrate so downstream rules can pattern-match without C ever persisting PII.*
+- *As Q, I want loyalty redemption events available alongside transaction events so redemption-pattern rules (over-redemption per session, redemption-then-refund pattern) can fire.*
+- *As F, I want per-customer open AR aging (current / 30 / 60 / 90+) available without joining back to Counterpoint, so AR collection workflows can run from CRDM.*
+- *As an LP Analyst at a garden center, I want loyalty redemption activity per cashier per session visible — loyalty-redemption-then-refund is a known fraud pattern in retail.*
 
-## C.4 — B2B-specific detection rules (cross-cut with Q)
+## C.4 — Privacy posture (no PII at rest)
 
-**Coverage posture.** ★ Canary-native. B2B-specific detection rules are Canary-native — Counterpoint has no analytics over commercial accounts. These rules cross-cut Q's detection engine and are triggered by C's signals (credit posture, classification tier, AR pattern).
+**Purpose.** C is the most architecturally opinionated module: **the v1 implementation deliberately stores no PII at rest**. Names, emails, phone numbers, addresses are intentionally not in C's tables. Counterpoint holds them; Canary reads at query time when the workflow demands it. This L2 owns that posture and the schema enforcement that makes it structural, not procedural.
 
-**Companion cards.** `canary-module-q-functional-decomposition.md` (Q-rule catalog — C-family rules cross-cut Q's detection framework).
+**Why this matters for Counterpoint.** Square's customer surface is lighter. Counterpoint's `AR_CUST` carries deep PII (name, email, phone, multiple ship-to addresses, card-on-file, AR ledger, loyalty history). The naive integration would ingest all of it. C deliberately doesn't.
 
 ### L3 processes
 
-| ID | L3 process | Trigger | Notes |
+| ID | L3 process | Substrate | Notes |
 |---|---|---|---|
-| C.4.1 | B2B-CREDIT-01: At-limit account continues transacting | C.2.5 AT-LIMIT + T's transaction stream | A commercial account at credit limit making new purchases — alert to account manager → TBD: L4 implementation detail pending |
-| C.4.2 | B2B-CREDIT-02: Rapid credit consumption before going dark | C.2.2 utilization velocity spike | Account that has been at <20% utilization suddenly consuming 80% in two weeks is a collections risk signal → TBD: L4 implementation detail pending |
-| C.4.3 | B2B-AR-01: Past-due balance crosses threshold | C.2.3 aging bucket transition to 60+ | Threshold configurable; default 60-day past-due triggers account manager alert → TBD: L4 implementation detail pending |
-| C.4.4 | B2B-TIER-01: Transaction price inconsistent with B2B tier | T's transaction price-level vs. C.1.2 tier assignment | A wholesale account being sold at retail price (or vice versa) is an account-setup inconsistency → TBD: L4 implementation detail pending |
-| C.4.5 | B2B-PATTERN-01: Commercial account transacting outside business hours | T's transaction timestamp vs. account classification | A flagged-commercial account transacting at 9pm Sunday may indicate account-sharing (ASSUMPTION-C-06) → TBD: L4 implementation detail pending |
-
-### Canary Detection Hooks
-
-C.4 rules are cataloged in the Q rule catalog under the **Q-C** (Commercial / B2B) family. C derives the input signals; Q fires the alert via Chirp. These are account-management alerts, not LP fraud alerts — routed to the account manager surface in Owl rather than the LP queue.
-
-| C.4 rule | Q catalog entry | Chirp alert type |
-|---|---|---|
-| C.4.1 B2B-CREDIT-01 (at-limit transacting) | **Q-C-01** | Account-management alert → Owl account manager surface |
-| C.4.2 B2B-CREDIT-02 (rapid credit consumption) | **Q-C-02** | Account-management alert → Owl (pre-delinquency) |
-| C.4.3 B2B-AR-01 (past-due threshold) | **Q-C-03** | Account-management alert → Owl account manager surface |
-| C.4.4 B2B-TIER-01 (price-tier mismatch) | **Q-C-04** | Data-quality flag → store manager (not LP queue) |
-| C.4.5 B2B-PATTERN-01 (after-hours commercial) | **Q-C-05** | Low signal → escalates when combined with Q-C-01/02 |
-
-See `canary-module-q-counterpoint-rule-catalog.md` §Commercial / B2B for substrate, logic, parameters, and allow-list for each rule.
+| C.4.1 | Schema-enforced PII absence | `customers` table has no string columns for personal data | Hard constraint at the DDL layer; can't be bypassed at application layer → TBD: L4 implementation detail pending |
+| C.4.2 | Read-through to Counterpoint at query time | When workflow demands name / email / address: parser fetches from `GET /Customer/{CustNo}` per request | No caching beyond request scope; never persisted → TBD: L4 implementation detail pending |
+| C.4.3 | Card-fingerprint storage (opaque) | `card_profiles` holds Counterpoint's tokenized fingerprint (`AR_CUST_CARDS` token) | Token, not PAN; not reversible in Canary → TBD: L4 implementation detail pending |
+| C.4.4 | PII-redaction-at-parse contract | T.3.4 + T.7.10 redact `SIG_IMG`, `SIG_IMG_VECTOR`, raw PAN; C asserts compliance | C never receives those bytes; T-side redaction is pre-condition → TBD: L4 implementation detail pending |
+| C.4.5 | GDPR/CCPA right-to-be-forgotten | Soft-delete on C + vendor-side deletion request | Single soft-delete suffices on Canary side; vendor (Counterpoint) handles its own → TBD: L4 implementation detail pending |
+| C.4.6 | Profile-extension opt-in (future / per-merchant flag) | Per-tenant feature flag + extension table | Default off; enabling requires explicit data-handling agreement; out of v1 → TBD: L4 implementation detail pending |
 
 ### User stories
 
-- *As Q's Detection Engine (C-rule family), I want C.4.1 B2B-CREDIT-01 to fire an alert to the account manager — not a fraud alert — when an at-limit commercial account attempts a new purchase. The operator decides whether to override the credit hold.*
-- *As an Account Manager in Owl, I want C.4.2 (rapid credit-consumption spike) surfaced as a proactive alert before the account hits the formal past-due threshold — the signal should arrive when the account is still recoverable.*
-- *As C's Rule Engine, I want B2B-TIER-01 (price-tier mismatch) to fire as a data-quality flag, not a fraud detection — it most likely means the account was set up incorrectly in Counterpoint, not that someone is gaming the system.*
-- *As a store manager, I need to reclassify a customer from retail to wholesale tier during the spring landscape-contractor season so that their pricing reflects their current purchase volume.*
-- *As an account manager, I need to approve a one-time credit-hold override for a trusted B2B account that is temporarily over-limit so that they can complete a critical end-of-season order.*
-- *As a loss prevention analyst, I need to detect when a customer's current tier (WHOLESALE) conflicts with their historical transactions (RETAIL pricing) so I can flag potential retroactive pricing abuse.*
+- *As Canary's Compliance Story, I want the schema itself to enforce no-PII-at-rest in C, so a future engineer cannot accidentally introduce a name column without an explicit migration that triggers compliance review.*
+- *As C, I want every read-through to Counterpoint to be request-scoped and never cached — the query returns the data, the data evaporates from Canary.*
+- *As an LP Analyst investigating a case in Fox, I want customer name + contact info displayed in the case view by reading-through to Counterpoint at click time, with the read audit-logged so privacy review can prove no bulk extraction.*
+- *As Canary's Product Owner, I want a profile-extension opt-in path that explicitly requires a data-handling agreement, so customers who genuinely need first-party PII storage have a path that's not ad-hoc.*
+- *As an Auditor, I want to confirm that a full database exfiltration of C yields only opaque IDs and integer aggregates — re-identification requires also breaching Counterpoint.*
 
-## C.5 — Cross-module substrate contracts
+## C.5 — Identity resolution (cross-company, future cross-vendor)
 
-**Purpose.** C is a derived module — it depends on R and F for its substrate, and it promises classification signals to Q and the account-management surface. These contracts are the dependency chain that makes C safe to build after R and F are stable.
+**Purpose.** A single Canary tenant may run multiple Counterpoint companies (multi-company-per-tenant is real) and may eventually run Square-in-store + Counterpoint-online (cross-vendor). Today: per-`(tenant, company_alias)` namespaces are independent. v2: explicit identity resolution surface for cross-namespace customers.
+
+### L3 processes
+
+| ID | L3 process | Scope | Notes |
+|---|---|---|---|
+| C.5.1 | Per-`(tenant, company_alias)` namespace isolation | Counterpoint multi-company today | Same as C.1.8; no auto-merge across companies → TBD: L4 implementation detail pending |
+| C.5.2 | `external_identities` link table | Cross-namespace identity scaffold | Exists in Canary already (per GRO-267); links opt-in, never auto-derived → TBD: L4 implementation detail pending |
+| C.5.3 | Manual identity link surface | Operator MCP tool | "Link Counterpoint customer X in companyA to Counterpoint customer Y in companyB"; audit-logged, soft-revocable → TBD: L4 implementation detail pending |
+| C.5.4 | Cross-vendor identity resolution (v2) | Square + Counterpoint same-customer matching | Matching policy undecided: deterministic (email match) / probabilistic / customer-confirmed; out of v1 → TBD: L4 implementation detail pending |
+| C.5.5 | Customer-side ID assertion (future) | Customer logs into Canary-merchant portal, asserts identity link | Future surface; out of v1 → TBD: L4 implementation detail pending |
+
+### User stories
+
+- *As C, I want cross-company customer references treated as independent until an Operator explicitly links them, so multi-company tenants don't get accidental customer merges from same `CUST_NO` collision.*
+- *As an Operator at a multi-company garden-center chain in Owl, I want to manually link two Counterpoint customer records (e.g., a landscaper who shops at both `armstrong-glendora` and `armstrong-irvine` companies) with one MCP call, audit-logged.*
+- *As Canary's Product Owner, I want cross-vendor identity resolution explicitly punted to v2 with a documented matching-policy decision required before build — getting this wrong silently merges different customers and has GDPR consequences.*
+
+## C.6 — Investigator surface + downstream contracts
+
+**Purpose.** C outputs feed two surfaces: (1) read-only customer queries from Owl/Fox/Operator MCP tools, and (2) substrate contracts to downstream modules. **This L2 is symmetric to T.7 — same producer-view-of-contracts pattern.**
+
+### L3 processes (investigator surface)
+
+| ID | L3 process | Surface | Actor |
+|---|---|---|---|
+| C.6.1 | Customer lookup by `CUST_NO` | `canary-identity` MCP tool, read-only | LP Analyst, Investigator → TBD: L4 implementation detail pending |
+| C.6.2 | Customer lookup by card fingerprint | Same MCP, opaque token only | Investigator → TBD: L4 implementation detail pending |
+| C.6.3 | Customer transaction history projection | LTV / count / temporal bounds; aggregates derived from T | LP Analyst, Store GM → TBD: L4 implementation detail pending |
+| C.6.4 | Owl natural-language Q&A over customers | "Show me top wholesale customers by YTD revenue" | Store GM, Exec → TBD: L4 implementation detail pending |
+| C.6.5 | Read-through-to-Counterpoint for PII-bearing fields | At click time in Fox case view | Investigator (audit-logged) → TBD: L4 implementation detail pending |
+| C.6.6 | Cohort projection (segment-by-tier, segment-by-LTV) | Aggregates from C.2 + C.3 | Marketing-adjacent (out of v1, deferred to v3) → TBD: L4 implementation detail pending |
+
+### L3 contracts (substrate registry — symmetric to T.7)
 
 | ID | Contract | Owner downstream | What C promises |
 |---|---|---|---|
-| C.5.1 | B2B classification per customer (`B2B_CLASS` enum) | Q (rule eligibility), Owl (account-management surface), J (wholesale-tier replenishment context) | Updated within one R-poll cycle of any CATEG_COD or price-tier change → TBD: L4 implementation detail pending |
-| C.5.2 | `CREDIT_POSTURE` signal per commercial account | Q (C.4 rules), Account manager (Owl alert) | Recalculated after each payment event or balance change; history preserved → TBD: L4 implementation detail pending |
-| C.5.3 | AR summary per commercial account (total outstanding, aging, velocity) | F.6 (cross-cut, symmetric), Owl (account management) | C reads from F.6's AR publication; C.5.3 is the account-management projection of F.6's finance-side view → TBD: L4 implementation detail pending |
-| C.5.4 | B2B-specific alert events (C.4.1–C.4.5) | Q's alert pipeline, Account manager (Owl) | B2B alerts are distinct from Q's transaction-level fraud alerts; classified as account-management alerts, not LP alerts → TBD: L4 implementation detail pending |
-| C.5.5 | Price-tier assignment per commercial account | T's transaction pipeline (for price-level validation), J (PO recommendation tier context) | C's price-tier read from `AR_CUST_CTL` is surfaced to T's transaction validation and J's recommendation engine → TBD: L4 implementation detail pending |
-| C.5.6 | CLASSIFICATION-UNCERTAIN flag roster | Operator onboarding queue | Unresolved accounts flagged for human classification decision at onboarding or periodic review → TBD: L4 implementation detail pending |
+| C.6.7 | Tier code surfaced verbatim | Q (Q.2.9), C (derived) | `AR_CUST.CATEG_COD` preserved exactly; tier-meaning mapping available per-tenant → TBD: L4 implementation detail pending |
+| C.6.8 | Tier-change audit | Q (Q-CT-02) | Tier deltas with timestamp + actor available as event substrate → TBD: L4 implementation detail pending |
+| C.6.9 | Loyalty enrollment + balance | Q, repeat-purchase rules | Integer balance + enrolled flag; no card numbers → TBD: L4 implementation detail pending |
+| C.6.10 | Open AR aging buckets | F, C | Per-customer aging without round-trip to Counterpoint → TBD: L4 implementation detail pending |
+| C.6.11 | Multi-tier pricing flag | P (derived) | `AR_CUST_CTL` multi-tier indicators surfaced for pricing-rule observation → TBD: L4 implementation detail pending |
+| C.6.12 | Tax-exempt customer flag | Q (Q-TC-02) | `AR_CUST.IS_TAX_EXEMPT` or equivalent (**ASSUMPTION-C-06**) surfaced as boolean → TBD: L4 implementation detail pending |
+| C.6.13 | Customer-namespace attribution | All | Every C reference carries `(tenant_id, company_alias)` — never bleed across companies → TBD: L4 implementation detail pending |
+| C.6.14 | PII-absence guarantee | All | Downstream consumers cannot pull PII from C; must read-through to Counterpoint via C.4.2 with audit → TBD: L4 implementation detail pending |
 
 ### User stories
 
-- *As Q's Rule Engine, I want C's B2B_CLASS and CREDIT_POSTURE signals as inputs so C.4.x rules can fire without C re-deriving classification from scratch at rule-evaluation time.*
-- *As J's Recommendation Engine, I want price-tier context for commercial accounts (C.5.5) so that wholesale-tier accounts don't get replenishment recommendations calibrated for retail-unit sale velocity.*
-- *As an Account Manager, I want C.5.6 CLASSIFICATION-UNCERTAIN flagged accounts surfaced in a review queue at onboarding, so I'm not discovering mystery accounts when they first hit a credit alert.*
+- *As an LP Analyst in Fox, I want to look up a customer by `CUST_NO` and see their tier, LTV, transaction count, AR balance, and loyalty status — without needing PII to investigate a case.*
+- *As an LP Analyst, I want to click through to "show contact info" only when I need to actually contact the customer, with the read audit-logged for compliance review.*
+- *As Q (Q.6.x vertical pack), I want to assert at boot that C surfaces tier code, tier-meaning mapping, AR aging, and tax-exempt flag for the active tenant — failing fast if the substrate contract is broken.*
+- *As a Store GM in Owl, I want to ask "show me wholesale customers I haven't seen in 60 days" and get a per-customer drilldown without leaving the conversation.*
+- *As Marketing (deferred v3), I want cohort projections by tier × LTV available as a queryable surface — but only when the profile-extension opt-in (C.4.6) is enabled and the data-handling agreement is in place.*
+
+## Canary Detection Hooks
+
+| C Process | → Detection Surface | Signal Description |
+|---|---|---|
+| C.2 (Behavioral pattern routing) | Q-IS rule family | Customer behavioral anomalies (velocity spikes, unusual return patterns, cross-location activity) are published as Q-IS accumulation signals |
+| C.5.3 (Cross-company customer collision) | Q-DM-03 | Customers detected under multiple company IDs with shared PAN or contact data are flagged to Q-DM-03 for identity-manipulation review |
+| C.4 (Payment history) | Q-TM rule family | Unusual payment velocity or tender-mix for a known customer feeds Q-TM tender-monitoring rules |
+
+## Additional User Stories
+
+- *As a loss prevention analyst, I need to detect when the same customer appears under two different company IDs with matching contact information so I can investigate potential account manipulation.*
+- *As a store manager, I need customer profile extensions (loyalty tier, spend band) to be available in Canary reporting even before v3 enrichment, so I can filter investigation queues by customer segment.*
 
 ## Assumptions requiring real-customer validation
 
+These markers exist because the answer requires either a Rapid Garden POS sandbox database, a real customer's `AR_CUST` corpus, or both.
+
 | ID | Assumption | What it blocks | Resolution path |
 |---|---|---|---|
-| ASSUMPTION-C-01 | `AR_CUST.CATEG_COD` is consistently configured by L&G Counterpoint operators — some operators may not set category codes | C.1.1 classification signal reliability | Customer catalog inspection; if codes are sparse, C.1.2 (price-tier access) becomes the primary signal |
-| ASSUMPTION-C-02 | `AR_CUST_CTL` multi-tier flags are the definitive Counterpoint B2B signal — assumed based on Counterpoint schema; not confirmed as the operational convention | C.1.2 and C.5.5 price-tier contract | Sandbox inspection of AR_CUST_CTL fields and how they interact with POS transaction price level |
-| ASSUMPTION-C-03 | Garden-center commercial accounts represent 20-40% of gross revenue — assumed from vertical domain knowledge, not customer-confirmed | C module design-priority justification | Customer revenue-mix interview at kickoff |
-| ASSUMPTION-C-04 | Landscaper / wholesale / project-tier is a useful classification taxonomy for L&G garden centers — customer may use different tier names or have more/fewer tiers | C.1.4 tier taxonomy and C.1.5 unclassified handling | Customer interview at onboarding; taxonomy is merchant-configurable |
-| ASSUMPTION-C-05 | `Customer_OpenItems` is populated by L&G Counterpoint operators — some smaller operators may not use Counterpoint's AR module | C.3 and C.2.3 AR aging availability | Customer interview; if AR module not in use, C.3 and C.2.3 are empty; C.2.5 CREDIT_POSTURE falls back to credit-field-only signals |
-| ASSUMPTION-C-06 | B2B-PATTERN-01 (commercial account transacting outside business hours) is an operationally useful signal — may produce too many false positives if landscapers legitimately transact in evenings | C.4.5 rule calibration | Real customer transaction timing data; likely needs vertical allow-list |
-| ASSUMPTION-C-07 | Canary does not write B2B classification back to Counterpoint (one-way read) | C.1.4 classification destination | Design decision: Canary-side only; confirmed by NCR-as-competitor framing (no write-back to Counterpoint without explicit per-customer opt-in) |
-| ASSUMPTION-C-08 | F.6 is the single poller for `Customer_OpenItems` — C reads from F.6's publication, not independently | C.3 architecture and C.5.3 contract correctness | Phase III SDD coordination between C and F |
+| ASSUMPTION-C-01 | `CUST_NO` cardinality across companies — same value in companyA and companyB are different customers (assumed) | C.1.8, C.5.1 namespace isolation correctness | Sandbox multi-company test or docs confirmation |
+| ASSUMPTION-C-02 | "CASH" sentinel `CUST_NO` — Counterpoint convention for non-customer transactions | C.1.1 shell-row upsert filtering (don't create CASH customer rows) | Sandbox DB inspection — confirm sentinel value(s) |
+| ASSUMPTION-C-03 | Per-customer tier-code conventions — `CATEG_COD` value meanings (`WHL`, `LSC`, `RET` etc.) vary per VAR / per customer | C.2.2 (tier-meaning mapping); every tier-aware Q rule | Per-tenant onboarding discovery; no universal answer |
+| ASSUMPTION-C-04 | AR-customer flag field name — `AR_CUST.IS_AR_CUST` assumed; not directly visible in current sample | C.3.4 substrate path | Sandbox DB schema inspection |
+| ASSUMPTION-C-05 | Loyalty enrollment indicators — which of the 12 LOY_* fields are the boolean enrollment vs balance vs card | C.3.1, C.3.2 surface decisions | Sandbox sample data + AR_CUST schema docs |
+| ASSUMPTION-C-06 | Tax-exempt customer field name — likely `IS_TAX_EXEMPT` or via `TAX_COD = NOTAX`; needs confirmation | C.6.12 contract; Q-TC-02 substrate | Sandbox DB inspection |
+| ASSUMPTION-C-07 | EC (eCommerce) customer relationship — is `GET /Customers/EC` a filter view of `GET /Customers` or a separate table | C.1.4 vs C.1.3 implementation | Sandbox endpoint inspection |
+| ASSUMPTION-C-08 | Workgroup customer-template scope — does Workgroup affect customer reads or only customer creation defaults | C.1.6 — may or may not be in steady-state read path | Documentation read or sandbox test |
+| ASSUMPTION-C-09 | Multi-name plant convention impact on C — none expected (item-side, not customer-side), but flagged in case Rapid POS extends customer record with garden-specific fields | C.4.1 schema-enforced PII absence — extensions could violate without explicit migration | Per-customer at onboarding |
 
-**Highest-leverage gaps:** ASSUMPTION-C-01 (CATEG_COD configuration) and ASSUMPTION-C-05 (AR module in use) are the two substrate-availability gaps that most affect C's classification fidelity. Both are engagement-knowable at customer onboarding — not platform-knowable from sandbox alone. ASSUMPTION-C-02 (AR_CUST_CTL price-tier as definitive B2B signal) is platform-knowable from sandbox inspection and should be resolved before Phase 1 adapter work begins.
+**Highest-leverage gaps:** C-03 (tier-code conventions) — load-bearing for every L&G-distinctive Q rule. Cannot be assumed at platform level; must be discovered per-tenant. Capture as part of CATz Phase II To-Be Workshop output.
 
 ## Customer-specific overrides
 
@@ -227,48 +266,47 @@ See `canary-module-q-counterpoint-rule-catalog.md` §Commercial / B2B for substr
 
 ```
 Customer: <name>
-B2B tier taxonomy: <landscaper/wholesale/project-tier (default) | <customer-specific tiers>>
-CATEG_COD to tier mapping: <standard mapping | customer-specific>
-AR module in use: <yes | no — C.3 and C.2.3 empty>
-Credit hold mode: <alert-only (default) | block-transaction>
-B2B-CREDIT alert threshold: <AT-LIMIT (default) | >XX% utilization>
-B2B-AR past-due threshold: <60 days (default) | <N> days>
-Price-tier access signal: <AR_CUST_CTL (default) | customer-specific override>
+Counterpoint deployment: <single-company | multi-company (N companies)>
+Company aliases: [<alias1>, <alias2>, ...]
+Tier-code mapping (C.2.2):
+  CATEG_COD value | meaning
+  ---             | ---
+  WHL             | wholesale
+  LSC             | landscaper
+  MBR             | member
+  RET             | retail
+  PRJ             | project (one-time landscape)
+  ...
+Loyalty program in use: <yes — program name | no>
+Loyalty enrollment field convention: <which LOY_* field>
+AR ledger active: <yes | no>
+Tax-exempt convention: <field name + value convention>
+Profile-extension opt-in: <off — default | on — DPA reference>
 Disabled C.x processes (with reason):
   C.x.x: <reason>
 ASSUMPTION resolutions:
   ASSUMPTION-C-NN: resolved as <answer>; source: <evidence>
   ...
+Manual identity links (C.5.3):
+  <link entry list>
 ```
 
 ## Operating notes
 
-**Cast of actors:**
-
-| Actor | Role | Lives where |
-|---|---|---|
-| Classifier | Derives B2B classification from R substrate | Canary-internal (C.1) |
-| Credit Engine | Calculates credit posture from R + F substrate | Canary-internal (C.2) |
-| AR Surface | Projects F.6's AR ledger through the account-management lens | Canary-internal (C.3) |
-| B2B Rule Engine | Evaluates C.4 rules; routes alerts to Q's pipeline | Canary-internal (C.4) |
-| Account Manager | Human-in-the-loop for credit posture alerts and classification decisions | Customer org |
-| Owl / Fox | Account-management surface + investigation queue | Canary-internal |
-
-**C is a derived module — build sequence matters.** C cannot function without R (customer master, AR fields) and F (AR ledger). The build sequence constraint is load-bearing: C is not an early-sprint candidate. It is the Module 4 in the v2 ring, behind R and F.
-
-**The B2B signal in Counterpoint is distributed, not concentrated.** Unlike Square (which doesn't carry B2B metadata at all), Counterpoint carries useful signals across multiple fields — but none of them is a single "this is a commercial account" flag. C's value is the multi-signal derivation that turns CATEG_COD + price-tier + credit-terms + behavioral pattern into a clean classification. That synthesis doesn't exist in Counterpoint and is a genuine Canary contribution.
-
-**Garden-center vertical context is load-bearing for C.** The landscaper / wholesale / project-tier taxonomy is not a generic retail construct — it's the specific commercial-account structure that garden centers operate with. Municipality contracts (parks departments, school districts), landscape contractors buying for large installation projects, and wholesale nursery accounts all have different risk profiles. C's classification must accommodate this without over-generalizing.
+- C inherits T.7.7 (T's customer-reference upsert contract) — every transaction reference upserts a shell row in C before the transaction event publishes. C's C.1.1 is the receiver of T.7.7. The two contracts must stay symmetric; drift between them silently breaks downstream joins.
+- C is the **substrate provider for two derived modules** (P-derived multi-tier pricing, C-derived B2B classification) per the Solution Map. The L3 processes in C.2 and C.3 are explicitly designed to surface fields those derivations need.
+- The privacy-first posture (C.4) is a **deliberate inversion** of the dominant industry default. It is a marketable property of the platform, not just a technical choice. Customers who genuinely need first-party PII opt in via C.4.6 with a documented data-handling agreement; default is off.
+- Tier-code conventions (ASSUMPTION-C-03) are load-bearing AND not platform-knowable. Every customer engagement needs explicit tier-mapping discovery during CATz Phase II To-Be Workshops. This is a methodology hook as much as an engineering one.
 
 ## Related
 
-- `Canary-Retail-Brain/modules/C-commercial.md` — L1 canonical spec
-- `canary-module-c-commercial.md` — L2 Canary code/schema crosswalk
-- `canary-module-r-functional-decomposition.md` — sister card; C inherits R.2 (tier identity) and R.3 (loyalty + AR); R is C's primary substrate dependency
-- `canary-module-f-functional-decomposition.md` — sister card; C.3 reads from F.6's AR ledger; F is C's secondary substrate dependency
-- `canary-module-q-functional-decomposition.md` — sister card; C.4 rules route to Q's detection pipeline; Q-rule catalog C-family
-- `canary-module-t-functional-decomposition.md` — sister card; T's transaction stream is C.1.4's behavioral-pattern input and C.4.5's rule substrate
-- `ncr-counterpoint-api-reference.md` — AR_CUST, AR_CUST_CTL, Customer_OpenItems field context
-- `ncr-counterpoint-endpoint-spine-map.md` — C-column placement (no dedicated endpoints; derived from R's AR surface)
-- `garden-center-operating-reality.md` — landscaper / wholesale / project-tier reality; municipality accounts; B2B revenue mix
-- (CATz) `proof-cases/specialty-smb-counterpoint-solution-map.md` — C row = ◐ Derived; this card is the L2/L3 expansion of that cell
+- `Canary-Retail-Brain/modules/C-customer.md` — module-level architectural spec (CRDM, BSTs, schema, agent surface, security posture); referenced throughout
+- `canary-module-q-functional-decomposition.md` — sister card; C.6.7-C.6.12 contracts are consumed by Q.1 + Q.2.9 + Q.6
+- `canary-module-t-functional-decomposition.md` — sister card; T.7.7 (customer-ref upsert) is the producer-side of C.1.1
+- `ncr-counterpoint-api-reference.md` — full Customer family (17 endpoints) detail; CustomerControl semantics; cached-data discipline
+- `ncr-counterpoint-endpoint-spine-map.md` — per-endpoint × CRDM × spine map for Customer family
+- `ncr-counterpoint-rapid-pos-relationship.md` — feature-to-API mapping (multi-tier pricing → CATEG_COD; loyalty → 12 LOY_* fields); referenced in C.2 and C.3
+- `garden-center-operating-reality.md` — customer-tier reality for L&G (walk-in / member / landscaper / project / wholesale); referenced in C.2
+- `rapid-pos-counterpoint-user-pain-points.md` — pricing-rules complexity, customer-tier handling pain themes
+- (CATz) `proof-cases/specialty-smb-counterpoint-solution-map.md` — C row = ● Full direct; this card is the L2/L3 expansion of that cell
+- (CATz, proposed) `method/artifacts/module-functional-decomposition.md` — the artifact template this card proves out alongside Q and T

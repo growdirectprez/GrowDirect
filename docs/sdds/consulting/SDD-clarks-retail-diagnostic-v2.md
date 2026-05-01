@@ -384,7 +384,7 @@ Maps to Canary's **Chirp** (Q) module: six escalating detection rules for lost s
 Maps to Canary's **v2 ring** gaps (Modules D + J):
 
 - **Module D (Demand):** No perpetual ledger tie-out, no OTBI enforcement, no replenishment auto-trigger.
-- **Module J (Journey):** No customer-order orchestration, no multi-channel fulfillment, no inventory visibility across locations.
+- **Module O (Journey):** No customer-order orchestration, no multi-channel fulfillment, no inventory visibility across locations.
 
 **In Store Labour diagnostic:**
 - Theme 2 root cause: "Inventory management process efficiency" (e.g., manual stock counts take 4 hours/week, no perpetual ledger reconciliation).

@@ -32,7 +32,7 @@ Before a promotion is created, buyers and planners need access to:
 |---|---|
 | Current on-hand stock | Module D (inventory_by_location) |
 | Sales history of past promotions for same article/category | Module T (transaction history) |
-| Prior promotion purchase quantities | Module J (historical POs) |
+| Prior promotion purchase quantities | Module O (historical POs) |
 | Current regular cost, retail, and gross margin | Module P (current conditions) |
 | Promotional cost, retail, and gross margin at plan retail | Module P (modeled) |
 
