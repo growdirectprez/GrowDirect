@@ -30,7 +30,8 @@ steps:
       - --all-tags
       - us-central1-docker.pkg.dev/$PROJECT_ID/canary-go/hello
 
-  # 3 — deploy to Cloud Run
+  # 3 — deploy to Cloud Run (authenticated only — org policy blocks
+  # allUsers bindings; receiving team configures their own auth model)
   - id: deploy-hello
     name: gcr.io/google.com/cloudsdktool/cloud-sdk
     entrypoint: gcloud
@@ -41,7 +42,7 @@ steps:
       - --image=us-central1-docker.pkg.dev/$PROJECT_ID/canary-go/hello:$SHORT_SHA
       - --region=us-central1
       - --platform=managed
-      - --allow-unauthenticated
+      - --no-allow-unauthenticated
       - --port=8080
       - --quiet
 
