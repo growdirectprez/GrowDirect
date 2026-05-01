@@ -82,7 +82,7 @@ Projected SDD structure (future):
 - [[canary-module-d-distribution|D (Distribution)]]
 - [[canary-module-f-finance|F (Finance)]]
 - [[canary-module-j-forecast-order|J (Forecast & Order)]]
-- [[../platform/RetailSpine|Retail Spine — Ledger relationships]]
+- [[../projects/RetailSpine|Retail Spine — Ledger relationships]]
 - [[../platform/stock-ledger|Stock Ledger — Perpetual-Inventory Movement Ledger]]
 - [[../platform/retail-accounting-method|Retail Accounting Method — RIM, Cost Method, Open To Buy]]
 
