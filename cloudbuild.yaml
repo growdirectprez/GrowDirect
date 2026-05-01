@@ -3,13 +3,17 @@
 # Drop-zone CI/CD pipeline for the GrowDirect monorepo.
 # Triggered by the Cloud Build GitHub trigger on push to main.
 #
-# Currently builds and deploys the cmd/hello smoke-test service.
-# Pattern is the same for any cmd/<service>: build → push → deploy.
+# Builds and deploys two smoke-test services:
+#   - cmd/hello   : zero-dep HTTP service, proves the pipeline shape
+#   - cmd/dbcheck : connects to Cloud SQL Postgres + pgvector,
+#                   proves the data path
 #
-# See GRO-700 v3 for the dispatch context.
+# Pattern is the same for any cmd/<service>: build → push → deploy.
+# See GRO-700 v3 for the dispatch context and DEPLOY.md for the workflow.
 
 steps:
-  # 1 — build the hello image
+  # === hello service ===
+
   - id: build-hello
     name: gcr.io/cloud-builders/docker
     args:
@@ -22,7 +26,6 @@ steps:
       - CanaryGo/deploy/Dockerfile.hello
       - CanaryGo
 
-  # 2 — push the image to Artifact Registry
   - id: push-hello
     name: gcr.io/cloud-builders/docker
     args:
@@ -30,8 +33,6 @@ steps:
       - --all-tags
       - us-central1-docker.pkg.dev/$PROJECT_ID/canary-go/hello
 
-  # 3 — deploy to Cloud Run (authenticated only — org policy blocks
-  # allUsers bindings; receiving team configures their own auth model)
   - id: deploy-hello
     name: gcr.io/google.com/cloudsdktool/cloud-sdk
     entrypoint: gcloud
@@ -46,8 +47,46 @@ steps:
       - --port=8080
       - --quiet
 
+  # === dbcheck service (connects to Cloud SQL via unix socket) ===
+
+  - id: build-dbcheck
+    name: gcr.io/cloud-builders/docker
+    args:
+      - build
+      - -t
+      - us-central1-docker.pkg.dev/$PROJECT_ID/canary-go/dbcheck:$SHORT_SHA
+      - -t
+      - us-central1-docker.pkg.dev/$PROJECT_ID/canary-go/dbcheck:latest
+      - -f
+      - CanaryGo/deploy/Dockerfile.dbcheck
+      - CanaryGo
+
+  - id: push-dbcheck
+    name: gcr.io/cloud-builders/docker
+    args:
+      - push
+      - --all-tags
+      - us-central1-docker.pkg.dev/$PROJECT_ID/canary-go/dbcheck
+
+  - id: deploy-dbcheck
+    name: gcr.io/google.com/cloudsdktool/cloud-sdk
+    entrypoint: gcloud
+    args:
+      - run
+      - deploy
+      - dbcheck
+      - --image=us-central1-docker.pkg.dev/$PROJECT_ID/canary-go/dbcheck:$SHORT_SHA
+      - --region=us-central1
+      - --platform=managed
+      - --no-allow-unauthenticated
+      - --port=8080
+      - --add-cloudsql-instances=canary-rapidpos:us-central1:canary-rapidpos-db
+      - --set-secrets=DATABASE_URL=db-url:latest
+      - --quiet
+
 images:
   - us-central1-docker.pkg.dev/$PROJECT_ID/canary-go/hello
+  - us-central1-docker.pkg.dev/$PROJECT_ID/canary-go/dbcheck
 
 options:
   logging: CLOUD_LOGGING_ONLY
