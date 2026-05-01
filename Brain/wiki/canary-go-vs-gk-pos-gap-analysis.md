@@ -2,7 +2,7 @@
 tags: [canary, go, architecture, gap-analysis, gk-pos, benchmark]
 last-compiled: 2026-04-30
 needs-review: 2026-06-01
-related: [canary-go-portal, canary-go-endpoint-library, canary-architecture, canary-long-arc-atlas]
+related: [canary-go-portal, canary-go-endpoint-library, canary-go-cadence-ladder, canary-architecture, canary-long-arc-atlas]
 ---
 
 # Canary Go vs GK-POS — Gap Analysis
@@ -62,21 +62,64 @@ GK has two. Canary has three because it isn't a UI host *and* isn't a single-ins
 
 GK has a fourth surface Canary does not, by design: **In-Canary App Enablement** — third-party plug-ins running inside Canary's own UI (Ops Dashboard, Store Brain). This is probably 18+ months out, possibly never. It is named here so the absence is by design, not by oversight.
 
+## Gap as tier coverage, not endpoint count
+
+Endpoint count is the wrong unit. GK's 400+ REST endpoints look like 6× Canary's surface area, but the meaningful comparison is **tier coverage per domain** — does each system serve every cadence its users need? Apply the [[canary-go-cadence-ladder|five-tier ladder]] to both:
+
+### GK's tier distribution (inferred from public docs)
+
+| Tier | GK Service API + App Enablement coverage |
+|---|---|
+| Stream | Heavy — App Enablement (in-POS plug-ins, scanner, Pos namespace, Messaging) is overwhelmingly stream-tier; SSE-equivalents in the dashboards |
+| Change-feed | Substantial — Service API basket/promotion/loyalty endpoints typical of REST-polled enterprise integration |
+| Daily batch | Substantial — POSLog → SAP CAR daily flows, daily sales rollups, audit exports |
+| Bulk window | Substantial — weekly catalog, vendor master, employee master, location refresh cycles per Tesco-style RTI patterns |
+| Reference | Heavy — masterdata namespaces, configuration, tax/calendar, Fuel forecourt config |
+
+**GK covers all five tiers.** Their 400+ endpoint count is the *consequence* of full tier coverage across 50+ retail domains, not a moat by itself.
+
+### Canary's tier distribution (current)
+
+| Tier | Canary coverage as of 2026-04-30 |
+|---|---|
+| Stream | Partial — webhooks ✅, SSE streams mostly ⚪ |
+| Change-feed | Partial — adapter polling ✅, resource tail-feeds mostly ⚪ |
+| Daily batch | **Sparse** — only `analytics` rollups documented |
+| Bulk window | **Largely empty** — bulk-import (Axis A) and `/exports` (Axis B) both ⚪ |
+| Reference | Partial — identity ✅, owl ✅, masters mostly ⚪ |
+
+**The bulk-window gap is the largest, and the daily-batch gap is the second.** These are exactly the tiers where enterprise integration partners most expect stable contracts — weekly catalog imports, daily reconciliation runs, scheduled exports for BI. The tier lens reveals that Canary's "missing 21 services" is less about endpoint count and more about *which two tiers those endpoints need to serve*.
+
+### What this changes about the gap analysis
+
+The earlier framing — "Canary has 61 endpoints, GK has 400+" — is misleading. The right framing is:
+
+| Domain | Canary tier coverage | GK tier coverage | Real gap |
+|---|---|---|---|
+| Detection / cases | Stream + Change-feed + Reference (3/5) | None (out of GK lane) | Canary's moat — no comparison |
+| Master data (item, customer) | Reference partial | All 5 tiers | Canary missing change-feed, daily batch, bulk window |
+| Inventory | None ⚪ | All 5 tiers (real-time, batch, weekly cycles) | Tier-shaped family proposed; biggest greenfield |
+| Pricing/promo | None ⚪ | Stream (in-POS) + Reference (rules) + Bulk (campaigns) | Stream is GK-only by design (Canary is not a basket calc) |
+| Identity | All 5 tiers ✅ | All 5 tiers ✅ | Comparable |
+| Reports/exports | None ⚪ | Daily batch + Bulk window | Largest single gap |
+
+This reframing matters for partner-facing CRB content: **Canary's "small endpoint count" is partly an artifact of incomplete tier coverage in 21 services, not a fundamental capability gap.** Closing the bulk-window and daily-batch tiers in the master-data and operations services brings Canary to functional parity for the lanes where it competes.
+
 ## Gap by GK namespace
 
 Walking GK's 9 App Enablement namespaces and mapping each to Canary:
 
-| GK Namespace | Canary Equivalent | Status | Notes |
-|---|---|---|---|
-| `Common` (session, events) | `identity` (:8086) for session; Valkey pub/sub + SSE for events | **Comparable** | Different transport, equivalent purpose |
-| `Masterdata` | `item` (:8090), `customer` (:8096) | **Comparable** | Canary will not duplicate POS-resident master data; the canonical record stays at the POS, Canary mirrors |
-| `ExternalMasterdata` | `field-capture` (:9087) semantic registry | **Adjacent, not equivalent** | Canary's model is pgvector-backed schema mapping; GK's is direct external lookup |
-| `Pos` (line items, transactions) | None | **N/A by design** | Canary doesn't *run* a register. Phase 4 of the [[canary-long-arc-atlas\|long arc]] adds this; Phases 1-3 deliberately do not |
-| `Authorization` | `identity` (:8086) JWT + RBAC | **Comparable** | |
-| `Fuel` | None | **Out of scope** | Fuel/convenience not on roadmap |
-| `Function` (TS) | MCP tool registry (canary-compliance, canary-raas) | **Different model, comparable purpose** | MCP is more powerful for AI consumers — see Axis C |
-| `Messaging` (TS) | Valkey pub/sub + SSE | **Comparable** | |
-| `Scanner` (TS) | None | **Out of scope** | Edge concern, not Canary's layer |
+| GK Namespace | Tier(s) GK runs at | Canary Equivalent | Canary tier(s) | Status |
+|---|---|---|---|---|
+| `Common` (session, events) | Stream + Reference | `identity` (:8086) for session; Valkey pub/sub + SSE for events | Reference ✅ + Stream ⚪ | **Comparable** — different transport, equivalent purpose |
+| `Masterdata` | Reference + Change-feed | `item` (:8090), `customer` (:8096) | Reference ⚪ + Change-feed ⚪ + Bulk window ⚪ | **Comparable lane, undocumented** — see endpoint library tier-shaped families |
+| `ExternalMasterdata` | Reference | `field-capture` (:9087) semantic registry | Reference ⚪ | **Adjacent** — Canary's model is pgvector-backed schema mapping; GK's is direct external lookup |
+| `Pos` (line items, transactions) | Stream | None | None | **N/A by design** — Canary doesn't *run* a register. Phase 4 of the [[canary-long-arc-atlas\|long arc]] adds this; Phases 1-3 deliberately do not |
+| `Authorization` | Stream + Reference | `identity` (:8086) JWT + RBAC | Stream ✅ + Reference ✅ | **Comparable** |
+| `Fuel` | Stream | None | None | **Out of scope** — Fuel/convenience not on roadmap |
+| `Function` (TS) | Stream | MCP tool registry (canary-compliance, canary-raas) | Reference ✅ + Stream ⚪ | **Different model, comparable purpose** — MCP is more powerful for AI consumers (Axis C) |
+| `Messaging` (TS) | Stream | Valkey pub/sub + SSE | Stream ⚪ | **Comparable lane** — Canary stream-tier surface is documented in patterns but not yet in service contracts |
+| `Scanner` (TS) | Stream | None | None | **Out of scope** — edge concern, not Canary's layer |
 
 **Summary:** 4 comparable, 1 adjacent, 1 different-model-comparable-purpose, 3 N/A-by-design or out-of-scope.
 
@@ -118,11 +161,12 @@ Filling these 21 service contracts is the build-out target. Each becomes its own
 
 ## What this tells us about priorities
 
-Three load-bearing observations:
+Four load-bearing observations:
 
 1. **The 21 undocumented services are the immediate library gap.** They have port assignments, some have full SDDs, none have published endpoint contracts. Until they do, the [[canary-go-endpoint-library|Endpoint Library]] is half-built.
 2. **The MCP surface (Axis C) is Canary's most novel axis and the one with no GK equivalent.** Agents-as-first-class-consumers is the AI-native differentiator. It earns its own canonical chapter, not a footnote.
 3. **The Pos namespace gap is right.** Canary deliberately does not have line-item registration, basket calculation, or tender flow endpoints. That is Phase 4 of the long arc, not Phase 1 or 2. Naming this absence as deliberate is itself a documentation move that signals architectural intent to partners reading CRB.
+4. **The bulk-window and daily-batch tiers are the load-bearing coverage gap.** See [[canary-go-cadence-ladder|Cadence Ladder]] §coverage gaps and §moat-service tier mapping. Closing these tiers across the 21 undocumented services is what gets Canary to functional parity for the lanes where it competes — not adding more endpoint count.
 
 ## Useful comparisons across the lane
 
@@ -144,4 +188,5 @@ GK is what a fully realized enterprise POS platform looks like. Counterpoint by 
 - Mobile SDK Selfscanning v6.9.7 — `Brain/raw/inbox/gk_mobile_sdk_selfscanning_v6-9-7-pdf.md`
 - SAP Omnichannel POS by GK ↔ CAR integration — `Brain/raw/inbox/gk_sap_omnichannelpos_integration-pdf.md`
 - [GK becomes Fujitsu company (2025-05)](https://www.gk-software.com/us/corporate-news-and-press-releases/en-press-release-20250527-fujitsu-gk)
+- [[canary-go-cadence-ladder]] — the tier model that reframes "endpoint count" into "tier coverage"
 - [[canary-go-portal]] · [[microservice-architecture]] · [[canary-long-arc-atlas]]
