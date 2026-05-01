@@ -43,6 +43,7 @@ steps:
       - --platform=managed
       - --allow-unauthenticated
       - --port=8080
+      - --quiet
 
 images:
   - us-central1-docker.pkg.dev/$PROJECT_ID/canary-go/hello
