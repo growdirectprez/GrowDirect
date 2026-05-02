@@ -11,6 +11,10 @@ copyright: "Copyright (c) 2026 GrowDirect LLC"
 
 # Data Model
 
+> **⚠ SUPERSEDED 2026-05-01 by [`canonical-data-model.md`](./canonical-data-model.md).**
+>
+> This v0 spec is preserved for historical reference. The canonical replacement is ARTS-anchored, SMB-2030 scoped, with TOM operational lifecycle bound to each entity. See [`canonical-data-model-delta.md`](./canonical-data-model-delta.md) for what changed and why, and [`mcp-service-junctions.md`](./mcp-service-junctions.md) for the L3 bus SLA inventory.
+
 **Source SDDs:** SDD-023 through SDD-032, SDD-042, SDD-043, SDD-044, SDD-057
 
 ---
