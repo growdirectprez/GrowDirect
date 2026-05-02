@@ -1,7 +1,7 @@
 ---
 card-type: platform-thesis
 card-id: platform-gateway-thesis
-card-version: 2
+card-version: 3
 domain: platform
 layer: cross-cutting
 status: draft
@@ -68,7 +68,9 @@ Square has 4M+ merchants, world-class checkout, world-class payments, and a mark
 
 The accelerator pack is not a feature list. It is **the best analyst, architect, developer, delivery lead, support engineer, training designer, change manager, and CSM the retailer never had to hire** — running as runtime functions over their substrate, available the moment the gateway is connected. The independent specialty retailer can never afford eight specialists. They get one of those nine roles done, badly, by the owner. The accelerator pack changes the unit economics of being a small retailer.
 
-**The leave-behind is the substrate, not the agents.** The protocol layer (POSLOG conformance, namespace identity, evidence anchor contracts, the field-capture schema, the contract surface every accelerator-pack capability speaks) is **published as open protocol** — versioned, specified, runnable by anyone. The agents that ride on top are the commercial layer; the substrate is the gift to Main Street. This is the architectural commitment behind the civic mission ([[mission-main-street]]) — a retailer who adopts the substrate is never trapped by a vendor decision. They can swap accelerator-pack components, run their own, or fork the protocol. The moat is not lock-in; the moat is being the canonical reference implementation of a protocol the market consolidates around.
+**The leave-behind is the substrate, not the agents.** The protocol layer (POSLOG conformance, namespace identity, evidence anchor contracts, the field-capture schema, the contract surface every accelerator-pack capability speaks) is **published as open protocol under Apache License, Version 2.0** — versioned, specified, runnable by anyone. The agents that ride on top are the commercial layer; the substrate is the gift to Main Street. This is the architectural commitment behind the civic mission ([[mission-main-street]]) — a retailer who adopts the substrate is never trapped by a vendor decision. They can swap accelerator-pack components, run their own, or fork the protocol. The moat is not lock-in; the moat is being the canonical reference implementation of a protocol the market consolidates around.
+
+**Why Apache 2.0 specifically.** The patent-grant + retaliation clause (§ 3) is the architectural fit. Apache 2.0 grants patent rights only on the licensed contribution, with retaliation triggering on patent suit — a structurally clean shape for a project that publishes a substrate spec while the founding company holds a filed patent (63/991,596) as a separate asset. MIT is silent on patents; custom adds review cost without case-law backing. The license is the substrate's structural defense, not just legalese. (Lock decision: 2026-05-03.)
 
 ## Structure
 
@@ -82,7 +84,7 @@ The gateway is composed of architectural assets that already exist or are design
 | **Canary Go module spine** | 13 modules + 12 extended; the back-half that consumes POSLOG and runs the rails | Build-prep underway |
 | **Edge poller** | On-prem Counterpoint bridge — the gateway attaches without replacing | Spine module |
 | **Accelerator pack manifest** | Published registry of what the gateway enables, faceted by partner, category, vertical, tier | New artifact (in flight 2026-05-02) |
-| **Open-protocol leave-behind** | The substrate (POSLOG conformance, namespace, evidence anchor contracts, field-capture schema) published as versioned, runnable spec | Commitment locked 2026-05-03 |
+| **Open-protocol leave-behind** | The substrate (POSLOG conformance, namespace, evidence anchor contracts, field-capture schema) published as versioned, runnable spec under **Apache License, Version 2.0** | Commitment locked 2026-05-03; license locked 2026-05-03 |
 
 The accelerator pack is the public artifact that proves the gateway. It is honest — every entry is tier-tagged: **Native** (built and demo-able), **POSLOG-bridged** (architectural support via the contract; integration is configuration, not custom build), or **Roadmap** (named partnership, quarterly-tagged, not yet wired). The credibility gate is the honesty of the tagging. Claiming Native when something is Roadmap is the failure mode that kills the pitch.
 
@@ -113,6 +115,8 @@ The platform also speaks at three narrative altitudes that map onto the brand st
 These were never competing stories. They are the same company at three altitudes. Recognizing this is what unlocks the deck the founder originally asked about ("namespace protocol and data layer as accelerator for retail on ARTS") — that *is* the gateway pitch, scaled for partner audiences. Deck and website share a substrate: the website's `/gateway` page is the deck's first slide. We are not building two artifacts; we are building one thesis in two formats.
 
 ## Decision log — what changed
+
+**v3 (2026-05-03, same day):** OQ-6 resolved. License locked: **Apache License, Version 2.0** for the open-protocol leave-behind. Rationale: patent-grant + retaliation clause (§ 3) is the architectural fit — the published substrate carries a defensive structure that's silent on the founder's filed patent (63/991,596) and gives partner audiences a known-good license with 25 years of case law. Inbound contributions covered under § 5; CCLA convention reserved for future corporate contributions. Next-session work: `LICENSE` at repo root, per-spec-file Apache 2.0 headers on POSLOG / namespace / evidence-anchor / field-capture specs, `/gateway` hero copy can make the published-license claim concretely.
 
 **v2 (2026-05-03):** Substrate captures session. Five substantive additions:
 
@@ -237,7 +241,7 @@ Hard constraints. These are non-negotiable.
 | OQ-3 | Should `/verticals` ship in v1.0 or v1.1? | Recommend v1.1 — get the substrate pages live first; verticals incrementally |
 | OQ-4 | NCR Voyix competitive posture in public copy | Per PwC §SO-7 — handle in private dispatch before any public language locks |
 | OQ-5 | When does the Square partnership conversation move from substrate-card to formal pitch? | Founder gate before code build; need Layer 5 deck slide and `/square` page IA before reaching out |
-| OQ-6 | Open-protocol leave-behind: license choice (Apache 2.0 vs MIT vs custom)? | Founder gate; recommend Apache 2.0 for patent-clause defensibility, blocking on legal review |
+| ~~OQ-6~~ | ~~Open-protocol leave-behind: license choice (Apache 2.0 vs MIT vs custom)?~~ | **RESOLVED 2026-05-03 → Apache License, Version 2.0.** Patent-grant + retaliation clause is the architectural fit — the published substrate carries a defensive structure that is silent on the founder's filed patent (63/991,596). Inbound-equals-outbound under § 5 covers individual contributors; CCLA convention if/when corporate contributions land. Next-session work: LICENSE file at repo root, per-spec-file Apache 2.0 headers, `/gateway` page hero copy can now make the open-protocol claim concretely. |
 | OQ-7 | SMB Health hypothesis: pilot retailer / clinic identified before website mentions vertical? | Founder gate; do not surface health vertical on website until at least one pilot conversation is live |
 
 ## Related
