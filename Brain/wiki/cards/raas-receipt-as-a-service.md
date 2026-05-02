@@ -8,8 +8,8 @@ status: approved
 agent: ALX
 feeds: [retail-sales-audit, retail-inventory-valuation-mac, retail-three-way-match, retail-operations-kpis, retail-chargeback-matrix]
 receives: [retail-sales-audit]
-tags: [RaaS, receipt-as-a-service, TSP, namespace, data-integrity, hashing, sequence-preservation, smart-contract, return-policy, blockchain, POS, receipt-hash, chain-of-custody]
-last-compiled: 2026-04-29
+tags: [RaaS, receipt-as-a-service, TSP, namespace, data-integrity, hashing, sequence-preservation, smart-contract, return-policy, blockchain, POS, receipt-hash, chain-of-custody, avax, avalanche, standalone-product, var-wedge, network-flywheel, accountability-rails]
+last-compiled: 2026-05-01
 needs-review: false
 ---
 
@@ -24,6 +24,38 @@ The receipt is the most important document in retail. It is simultaneously the s
 RaaS exists because the receipt should be a first-class data primitive — immutable, sequenced, hashed, and queryable — not a printed artifact. Every problem in retail operations that traces back to "we don't know exactly what happened at that register at that time" is a receipt integrity failure. RaaS is the technical answer to that class of failure.
 
 This is also a genuine blockchain application with real-world commercial value — not speculation. The hash anchoring of receipt events provides cryptographic proof of what occurred at a POS, when, and to whom. This proof is commercially valuable to insurers, lenders, auditors, regulators, vendors processing returns, and any counterparty that needs to verify a claim about a transaction without taking the merchant's word for it.
+
+## Standalone Product Positioning (2026-05-01 addition)
+
+**RaaS is not a feature of the Gap Backbone. It is a protocol the Gap Backbone implements first.**
+
+Any Counterpoint retailer can buy RaaS without buying the full analytics platform. The VAR installs the TSP, enables the receipt chain, anchors batches to the AVAX C-Chain. Monthly fee. LP evidence integrity, auditor-ready, no migration required.
+
+**Pricing tiers:**
+
+| Tier | Price | Included |
+|---|---|---|
+| RaaS Basic | $99/store/month | Receipt chain + AVAX anchoring + 12-month retention |
+| RaaS Standard | $199/store/month | Basic + LP dashboard + void/refund anomaly alerts |
+| RaaS Pro | $299/store/month | Standard + regulatory export + audit-ready reports |
+
+AVAX C-Chain anchor cost at 10-minute batches: ~$1.44/store/month. Gross margin: 98%+. VAR white-labels and marks up 20–40%; Canary captures the SaaS margin.
+
+**Phase 0 of every account.** RaaS is the foot in the door. The event stream it generates is the same stream every other Gap Backbone capability (analytics, demand forecasting, Virtual Store Manager) runs on. The upsell is "turn on the analytics layer you're already paying the data costs for."
+
+**The switching cost.** Once a retailer has 18 months of receipts anchored on the subnet, walking away means losing the continuity of the evidentiary chain. Historical blocks cannot be re-anchored. The LP evidence history is permanently tied to the RaaS protocol.
+
+**The network flywheel.** Every store that joins adds a node to the AVAX subnet. The subnet becomes more credible — more distributed, more defensible as evidence — as more stores join. Store 1,000 joining makes evidence from store 1 more credible retroactively. Protocol flywheel, not SaaS flywheel.
+
+**Blockchain anchor layer — why AVAX C-Chain:**
+- ~1–2s finality (vs. Ethereum 12–15s)
+- EVM-compatible; smart contract support via Solidity
+- ~$0.001–0.01/anchor transaction
+- Subnet architecture: long-arc path to a VAR-consortium chain where retailers run their own validator nodes — evidence distributed across the channel, not held by Canary
+
+**Two-chain architecture:** Bitcoin L2 (Lightning) handles billing and payments (L402-OTB / Satoshi cost model). AVAX handles evidentiary anchoring. Different jobs, different chains. Do not consolidate.
+
+**The three accountability rails:** Operational (LP anomaly detection) · Financial (L402-OTB) · **Evidentiary (RaaS)**. RaaS is the Evidentiary rail productized and sold standalone. The other two are upsells to a customer already on RaaS.
 
 ## Structure
 
@@ -80,3 +112,7 @@ The receipt chain imposes real requirements on storage architecture, query desig
 - [[retail-operations-kpis]] — all KPIs derive from the verified receipt event stream
 - [[retail-item-authorization]] — authorization state changes are receipt-class events; the authorization at transaction time is reconstructible from the chain
 - [[infra-blockchain-evidence-anchor]] — the L1/L2 anchoring layer that makes the hash chain externally verifiable
+- [[gap-backbone-architecture]] — the full technical backbone; TSP + elJeffe inscription; RaaS is the evidentiary rail
+- [[var-acquisition-thesis]] — RaaS as the Phase 0 wedge in VAR partnership and acquisition conversations
+- [[ncr-ecosystem-2026]] — Counterpoint installed base context; October 2026 migration as insertion point
+- [[counterpoint-product-state-2026]] — the SQL Server estate RaaS reads from; forced migration window
