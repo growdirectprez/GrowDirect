@@ -128,7 +128,7 @@ Phase 0 was reshaped during scoping. The original dispatch ("rebuild TSP for Cou
 - `Brain/wiki/rapid-pos-counterpoint-user-pain-points.md` — 10 pain themes + 10 FAQs from public-community research
 - `Brain/wiki/rapid-pos-counterpoint-market-research-tam.md` — TAM ~1,200 US garden centers / ~9,000 SMB across all Counterpoint VAR verticals
 - `Brain/wiki/garden-center-operating-reality.md` — H&G domain reality (vendor mix, cash-and-paper, alt payment rails)
-- `Brain/wiki/canary-module-q-counterpoint-rule-catalog.md` — 23 Q rules grouped by 10 categories, all Counterpoint-substrate-aware, with garden-center allow-list framework
+- `Brain/wiki/canary-module-q-counterpoint-rule-catalog.md` — 24 Q rules grouped by 11 categories, all Counterpoint-substrate-aware, with garden-center allow-list framework
 - `Brain/wiki/ncr-counterpoint-rapid-pos-relationship.md` — Counterpoint vs Rapid POS clarification
 - `Brain/wiki/ncr-counterpoint-sandbox-setup-checklist.md` — operator action items for credentials + sandbox stand-up (revised for NCR-as-competitor framing)
 - `CATz/method/artifacts/solution-map.md` — Phase II Solution Map artifact template
