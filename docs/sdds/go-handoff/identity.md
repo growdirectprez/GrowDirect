@@ -57,8 +57,8 @@ The Identity domain owns merchant registration, user authentication, RBAC, OAuth
 | Table | Field | PII Classification | Encryption | Notes |
 |-------|-------|-------------------|------------|-------|
 | `app.users` | `email` | sensitive | Plaintext | P0: encrypt at rest |
-| `app.users` | `username` | internal | Plaintext | |
-| `app.users` | `display_name` | internal | Plaintext | |
+| `app.users` | `username` | sensitive | Plaintext | P0: encrypt at rest. Derived from email — same risk profile (linkable to identity, often identical to email local-part). |
+| `app.users` | `display_name` | sensitive | Plaintext | P0: encrypt at rest. Derived from email and shares the same risk profile. |
 | `app.users` | `last_login_at` | internal | Plaintext | |
 | `app.organizations` | `billing_email` | sensitive | Plaintext | P0: encrypt at rest |
 | `app.organizations` | `org_name` | internal | Plaintext | |
@@ -69,7 +69,7 @@ The Identity domain owns merchant registration, user authentication, RBAC, OAuth
 | `app.interest_signups` | `email` | sensitive | Plaintext | P0: encrypt at rest |
 | `app.employees` | `email` | sensitive | Plaintext | P1: encrypt at rest |
 | `app.employees` | `phone` | sensitive | Plaintext | P1: encrypt at rest |
-| `app.employees` | `name` | internal | Plaintext | Masked when `show_employee_names=false` |
+| `app.employees` | `name` | sensitive | Plaintext | P0: encrypt at rest. The `show_employee_names=false` setting is a runtime display mask applied at the presentation layer, not a classification downgrade — the underlying field is sensitive regardless of display state. |
 | `app.audit_log` | `ip_address` | sensitive | Plaintext | P1: hash or mask |
 | Valkey | Session data (user_id, roles, merchant_id) | internal | Plaintext | P2: enable TLS + AUTH |
 | Valkey | OAuth CSRF state tokens | internal | Plaintext | 5-min TTL, one-time use |

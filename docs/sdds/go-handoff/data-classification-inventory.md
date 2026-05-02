@@ -384,6 +384,25 @@ The append-only / right-to-deletion conflict is the platform's structural compli
 | Encryption key class | All SDDs reference `CANARY_ENCRYPTION_KEY` (32 bytes). ecom-channel.md introduces `ECOM_ENCRYPTION_KEY` (also 32 bytes) as a peer | ecom-channel.md L507 vs. go-security.md | Consistent in shape; **separate keys for separate domains is good practice (blast-radius isolation)**, but the relationship between the two keys is not documented |
 | JWT secret | go-security.md `JWT_SECRET` ≥ 32 bytes (L111); architecture.md and identity.md reference `CANARY_DEV_JWT_SECRET` for dev — different keys | go-security.md vs. identity.md | Acceptable; dev key is documented as not-for-prod (P2-4 identity.md L613) |
 
+### Section D resolution log (2026-05-01)
+
+Closing pass before SDD handoff to receiving team (GRO-720). Each drift point above is addressed below; the canonical classification picked is reflected in the live SDD body text.
+
+| Drift point | Resolution | Canonical classification | Edits applied |
+|---|---|---|---|
+| `users.username` | Resolved — `data-model.md` was correct. | sensitive | `identity.md` row updated from internal → sensitive with note that username is derived from email and shares the same risk profile (P0 encrypt). |
+| `users.display_name` | Resolved — `data-model.md` was correct. | sensitive | `identity.md` row updated from internal → sensitive (P0 encrypt). |
+| `employees.phone` | Resolved — field added to authoritative PII map. | sensitive | `data-model.md` Identity Domain table now includes `employees.phone` (P0 encryption target) alongside `email` and `employee_name`. |
+| `employees.name` | Resolved — `data-model.md` was correct. | sensitive | `identity.md` row updated from internal → sensitive; clarifying note added that `show_employee_names=false` is a runtime display mask, not a classification downgrade. |
+| `card_fingerprint` | Resolved — exception case: `data-model.md` was wrong, `tsp.md` and `webhook-pipeline.md` were correct. Per Section D analysis, the fingerprint is unique-per-card and linkable across transactions, so sensitive is the right call. | sensitive | `data-model.md` updated in **two** rows (`card_profiles` L186, `transactions` L195) from internal → sensitive with rationale note on linkability. |
+| `card_exp_month` / `card_exp_year` | Resolved — `data-model.md` and `tsp.md` were correct. | sensitive | `webhook-pipeline.md` row updated from internal → sensitive (P0 encrypt) with note that last4 + expiry approaches PAN reconstruction. |
+| `phone_hash` value-vs-handler language | Resolved — both classifications are correct from different viewpoints; reconciled the language only. The stored hash value is internal (irreversible against keyed input space); the parser handler that processes plaintext is sensitive. | value: internal · handler: sensitive | `data-model.md` `loyalty_accounts.phone_hash` note appended with value-vs-handler clarifier; `tsp-parse.md` PII handling row for `phone` (loyalty) appended with the symmetric clarifier. Cross-reference between the two rows is now explicit. |
+
+**Deferred to receiving team** — these need a real decision, not a text fix; flagged here so they don't slip through handoff:
+
+- `audit_log.ip_address` severity: `data-model.md` treats as P1 (proposed); `fox.md` says "must be one-way hash" (mandatory). Receiving team to pick the canonical posture and update both SDDs accordingly.
+- `ip_address` retention windows: three different windows for the same data type — `audit_log` 24 mo (`data-model.md` L2065), `ingestion_log` 90 d (`tsp-parse.md` L428), `fox_evidence_access_log` 7 yr (LP). Receiving team to either justify each window with its retention rationale or unify them.
+
 ---
 
 ## Section E — MCP Tool Exposure Map

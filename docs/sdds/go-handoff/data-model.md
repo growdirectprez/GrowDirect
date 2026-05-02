@@ -129,6 +129,7 @@ This is the authoritative PII inventory for Canary. All other SDDs reference thi
 | `users` | `display_name` | sensitive | NO | User display name — P0 encryption target |
 | `employees` | `employee_name` | sensitive | NO | Employee full name — P0 encryption target |
 | `employees` | `email` | sensitive | NO | Employee email — P0 encryption target |
+| `employees` | `phone` | sensitive | NO | Employee phone number — P0 encryption target |
 | `employees` | `square_employee_id` | internal | NO | Square external employee ID |
 | `customers` | `square_customer_id` | internal | NO | Square external customer ID (no PII stored by design) |
 | `locations` | `address_line1` | sensitive | NO | Physical street address — P0 encryption target |
@@ -183,7 +184,7 @@ This is the authoritative PII inventory for Canary. All other SDDs reference thi
 
 | Table | Field | PII Classification | Encrypted at Rest? | Notes |
 |-------|-------|-------------------|-------------------|-------|
-| `card_profiles` | `card_fingerprint` | internal | NO | PCI-safe hash (not PAN) |
+| `card_profiles` | `card_fingerprint` | sensitive | NO | Square-issued tokenized hash (not PAN) — unique per card and linkable across transactions, so classified sensitive even though the value is not the PAN itself. |
 | `card_profiles` | `card_last4` | internal | NO | Last 4 digits (PCI-safe) |
 | `gift_cards` | `gan` | internal | NO | Gift Account Number (safe per Square docs, not PAN) |
 | `external_identities` | `external_id` | internal | NO | Source system native ID |
@@ -192,7 +193,7 @@ This is the authoritative PII inventory for Canary. All other SDDs reference thi
 
 | Table | Field | PII Classification | Encrypted at Rest? | Notes |
 |-------|-------|-------------------|-------------------|-------|
-| `transactions` | `card_fingerprint` | internal | NO | PCI-safe hash |
+| `transactions` | `card_fingerprint` | sensitive | NO | Square-issued tokenized hash (not PAN) — unique per card and linkable across transactions, so classified sensitive even though the value is not the PAN itself. |
 | `transactions` | `card_last4` | internal | NO | Last 4 digits (PCI-safe) |
 | `transactions` | `card_bin` | sensitive | NO | First 6 digits — issuer identification, fingerprinting risk |
 | `transactions` | `card_exp_month` | sensitive | NO | Card expiration month — P0 encryption target |
@@ -202,7 +203,7 @@ This is the authoritative PII inventory for Canary. All other SDDs reference thi
 | `transactions` | `employee_id` | internal | NO | Source system employee ID (cross-reference) |
 | `transactions` | `customer_id` | internal | NO | Source system customer ID (cross-reference) |
 | `transaction_tenders` | `card_last4` | internal | NO | Last 4 digits (PCI-safe) |
-| `loyalty_accounts` | `phone_hash` | internal | NO | `HMAC-SHA256(PHONE_HASH_KEY, normalize(phone))` — keyed hash; plain SHA-256 prohibited (phone domain too low-entropy). See `go-security.md` → "PII Hashing Keys" |
+| `loyalty_accounts` | `phone_hash` | internal | NO | `HMAC-SHA256(PHONE_HASH_KEY, normalize(phone))` — keyed hash; plain SHA-256 prohibited (phone domain too low-entropy). See `go-security.md` → "PII Hashing Keys". **Value-vs-handler note:** the stored hash value is classified internal because it is irreversible against the keyed input space; the parser pipeline that handles plaintext phone numbers en route to this column is classified sensitive (see `tsp-parse.md` PII Handling table). The two classifications are not in conflict — they describe the at-rest value and the in-flight handler respectively. |
 | `cash_drawer_shifts` | `employee_id` | internal | NO | Employee who opened drawer |
 | `cash_drawer_events` | `employee_id` | internal | NO | Employee who initiated event |
 | `disputes` | `payment_id` | internal | NO | Cross-reference to disputed payment |

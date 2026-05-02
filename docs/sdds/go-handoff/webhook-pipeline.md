@@ -89,7 +89,7 @@ Square sends `POST /webhooks/square` with:
 | `card_fingerprint` | `payment.card_details.card.fingerprint` | **sensitive** | Plaintext in `transactions.card_fingerprint` | Tokenized by Square but unique per card — linkable |
 | `card_last4` | `payment.card_details.card.last_4` | **internal** | Plaintext in `transactions.card_last4`, `transaction_tenders.card_last4` | Last 4 digits of card |
 | `card_bin` | `payment.card_details.card.bin` | **sensitive** | Plaintext in `transactions.card_bin` | First 6 digits — identifies issuing bank |
-| `card_exp_month/year` | `payment.card_details.card.exp_month/year` | **internal** | Plaintext in `transactions` | Card expiration |
+| `card_exp_month/year` | `payment.card_details.card.exp_month/year` | **sensitive** | Plaintext in `transactions` (P0 encrypt) | Card expiration. Classified sensitive — the combination of `card_last4` + expiry approaches PAN reconstruction (limited brute-force surface against an issuer's BIN range), so expiry is treated as PCI-adjacent and encrypted at rest. |
 | `phone_number` | `loyalty_account.mapping.phone_number` | **sensitive** | **HMAC-SHA256 keyed hash** with `PHONE_HASH_KEY` in `loyalty_accounts.phone_hash` (Go build) | Prototype used plain SHA-256; Go build mandates HMAC because phone domain (NANP ≈ 10¹⁰) is brute-forceable for unkeyed hashes. See `go-security.md` → "PII Hashing Keys". |
 | `employee_id` | Multiple event types | **internal** | Plaintext in multiple CRDM tables | Square team_member_id — identifies individual employees |
 | `customer_id` | `payment.customer_id` | **internal** | Plaintext in `transactions.customer_id` | Square customer reference |

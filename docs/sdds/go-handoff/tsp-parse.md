@@ -391,7 +391,7 @@ Stats are derived from `canary_sales.ingestion_log` queries. No real-time stream
 | `payload` (transaction forensic copy) | Restricted | Encrypt or remove — evidence_records already holds the sealed original (P0-TSP-02) |
 | `employee_name`, `email` | Sensitive | AES-256-GCM encrypt (P0-TSP-04) |
 | `ip_address` (ingestion_log) | Sensitive | HMAC hash with rotating key (P0-TSP-05) |
-| `phone` (loyalty) | Sensitive | HMAC-SHA256 with `PHONE_HASH_KEY` — keyed one-way hash; plaintext never stored. Plain SHA-256 is prohibited (low-entropy domain) — see `go-security.md` → "PII Hashing Keys" |
+| `phone` (loyalty) | Sensitive | HMAC-SHA256 with `PHONE_HASH_KEY` — keyed one-way hash; plaintext never stored. Plain SHA-256 is prohibited (low-entropy domain) — see `go-security.md` → "PII Hashing Keys". **Value-vs-handler note:** this row classifies the parser's handling of plaintext phone numbers as sensitive because the cleartext flows through the parser before being hashed. The resulting `loyalty_accounts.phone_hash` value at rest is classified internal in `data-model.md` because the keyed HMAC is irreversible against the input space. The two classifications describe the in-flight handler and the at-rest value respectively, and are not in conflict. |
 | `primary_recipient` (invoices JSONB) | Sensitive | Encrypt entire JSONB blob (P0-TSP-06) |
 
 ### Patent Scope
