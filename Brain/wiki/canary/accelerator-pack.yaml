@@ -8,11 +8,12 @@
 # until founder + Bart pass confirms each entry. See platform-gateway-thesis card
 # (invariant #1) for the honesty rule.
 
-version: 0.1.0
-last-updated: 2026-05-02
+version: 0.1.1
+last-updated: 2026-05-03
 contract: ARTS POSLOG v6
 status: draft
 needs-review: true
+public-language-policy: capability-only  # gateway thesis invariant #6 — public-facing copy uses capability language; Bitcoin/L402/LNURL/satoshi terminology lives in architecture docs and code only, with inline annotation
 
 gateway:
   source-of-truth: Brain/wiki/cards/platform-gateway-thesis.md
@@ -364,20 +365,28 @@ vendor-side-integrations:
 
 extensions:
   accountability-rails:
-    description: Native to the platform; no competitive analog
+    description: Native to the platform; no competitive analog. Capability language used here is the public-facing surface — the technical implementation lives in architecture documents and code.
     capabilities:
       - name: Closed-graph variance accountability (operational rail)
         module: chirp + fox
         source: platform-thesis card
-      - name: L402-gated open-to-buy (financial rail)
-        module: l402-otb
+        # implementation: chirp signal + fox case graph — already capability-language native
+      - name: Gated open-to-buy with verifiable settlement enforcement (financial rail)
+        module: otb-settlement
         source: platform-l402-ildwac-moat card
-      - name: Bitcoin L2 evidence anchoring (evidentiary rail)
-        module: blockchain-anchor
+        # implementation: L402-gated commitment over Lightning; satoshi-denominated wallet enforces the cap at the protocol level, not at the policy level. See platform-l402-ildwac-moat card for full architecture.
+      - name: Cryptographic evidence anchor (immutable audit chain) (evidentiary rail)
+        module: evidence-anchor
         source: infra-blockchain-evidence-anchor card
-      - name: Satoshi-denominated weighted-average cost (ILDWAC)
-        module: ildwac
+        # implementation: Bitcoin L2 ordinals inscription with Merkle proof; chain hash anchored on public L2 for non-repudiation. See infra-blockchain-evidence-anchor card for full architecture.
+      - name: Provenance-weighted cost model with verifiable settlement
+        module: provenance-weighted-cost
         source: platform-l402-ildwac-moat card
+        # implementation: ILDWAC — Inventory-Linked Denominated Weighted-Average Cost in satoshis; cost basis is hash-anchored to the original purchase settlement event. See platform-l402-ildwac-moat card for full architecture.
+      - name: Vendor SLA accountability (vendor rail)
+        module: vendor-sla-ledger
+        source: platform-thesis card (Rail 4)
+        # implementation: OpenTelemetry assertions against published cloud SLAs, accumulated in ledger.vendor_sla_variances, anchored to L2 alongside Fox case evidence. See platform-thesis card §Rail 4 for full architecture.
 
   agent-network:
     description: Operational PMO surface; zero competitive analog
