@@ -17,7 +17,8 @@ Catalogues every entity-mention across every source. Anchors the entity-by-entit
 | S6 | Recovery DDL fragments | `~/CRDM-recovery/sql/*.sql` (excl. Logical-Model) | 2010-2015 | Misc operational + reference | ~20 |
 | S7 | GSLM Entity Descriptions (Word) | `~/CRDM-recovery/gslm-mdm-site/GSLM-Entity-Descriptions.md` | 2009-12 | Merchandise hierarchy reference | ~25 (subset of S0) |
 | S8 | GSLM per-domain narrative overviews (.doc) | `~/CRDM-recovery/gslm-mdm-site/GSLM*Overview.txt` (11 files) | 2009-2010 | Domain rationale / context | n/a (prose) |
-| **S9** | **TOM Interface Design Documents** ⭐ (Tesco Operating Model integration program) | `Brain/raw/inbox/Interface Design Documents/` | 2007, Project BEN | **Operational reality — field-level data exchange between named systems** | **82 interface specs** (154 .doc + 69 .vsd + 129 .xls) |
+| **S9** | **TOM Interface Design Documents** ⭐ (Tesco Operating Model integration program) | `Brain/raw/inbox/Interface Design Documents/` | 2007, Project BEN | **Operational clock — when entities are produced/updated/consumed, by which junctions** | **82 interface specs** (154 .doc + 69 .vsd + 129 .xls) |
+| **S10** | **ARTS standards** ⭐⭐ (Association for Retail Technology Standards) | local PDFs in `Brain/raw/inbox/DollarDollar/Downloads/retail-17-07-09/` and `retail-17-07-11/` + public ARTS ODM knowledge | 2005-2017 ARTS publications | **Industry-standard structural anchor for ALL retail entities** | Full ODM (~150-200 entities); we'll implement SMB-2030 subset |
 
 **Authority order for canonical reconciliation (REVISED again — S9 added):**
 1. **GSLM MDM Site (S0)** ⭐ — full canonical structure; the abstract anchor
