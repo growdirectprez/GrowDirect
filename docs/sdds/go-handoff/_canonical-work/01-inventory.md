@@ -8,56 +8,82 @@ Catalogues every entity-mention across every source. Anchors the entity-by-entit
 
 | # | Source | Path | Era | Layer | Entities |
 |---|---|---|---|---|---|
-| S1 | **GSLM3** (Global Store Logical Model) | `~/CRDM-recovery/sql/Logical-Model-2009-12-14.sql` | 2009-12, Walmart Int'l | Master data / reference | **43** |
-| S2 | **CRDM POS 1.8 Data Dictionary** | `~/CRDM-recovery/data-dictionaries/CRDM-1.8-Data-Dictionary.md` | ~2013, Secure Store 3.2 | POS operational | **25** |
-| S3 | **CRDM POS 1.7.2 Data Dictionary** | `~/CRDM-recovery/data-dictionaries/CRDM-1.7.2-Data-Dictionary.md` | ~2012 | POS operational | **27** |
-| S4 | **Canary Go data-model.md** (active) | `docs/sdds/go-handoff/data-model.md` | 2026, GA-track | Canary platform + commercial | **~116** (65 detailed + 51 listed) |
-| S5 | **Canary Python data-model.md** (frozen) | `docs/sdds/canary/data-model.md` | 2025, v0-python-prototype | Earlier Canary draft | ~95 (similar shape, less detail) |
+| **S0** | **GSLM MDM Site** ⭐ (HTML domain documentation, 9-domain canonical) | `~/CRDM-recovery/gslm-mdm-site/` (converted from `Brain/raw/inbox/DollarDollar/GSLM/GSLM WEB Content/`) | 2009-12 to 2010-01, Walmart Int'l GSLM team | **Master data — full canonical reference** | **~102** (across 9 domains) |
+| S1 | GSLM SQL DDL (partial impl) | `~/CRDM-recovery/sql/Logical-Model-2009-12-14.sql` | 2009-12 | Master data — implementation subset | 43 |
+| S2 | **CRDM POS 1.8 Data Dictionary** | `~/CRDM-recovery/data-dictionaries/CRDM-1.8-Data-Dictionary.md` | ~2013, Secure Store 3.2 | POS operational | 25 |
+| S3 | CRDM POS 1.7.2 Data Dictionary | `~/CRDM-recovery/data-dictionaries/CRDM-1.7.2-Data-Dictionary.md` | ~2012 | POS operational | 27 |
+| S4 | **Canary Go data-model.md** (active) | `docs/sdds/go-handoff/data-model.md` | 2026, GA-track | Canary platform + commercial | ~116 (65 detailed + 51 listed) |
+| S5 | Canary Python data-model.md (frozen) | `docs/sdds/canary/data-model.md` | 2025, v0-python-prototype | Earlier Canary draft | ~95 |
 | S6 | Recovery DDL fragments | `~/CRDM-recovery/sql/*.sql` (excl. Logical-Model) | 2010-2015 | Misc operational + reference | ~20 |
+| S7 | GSLM Entity Descriptions (Word) | `~/CRDM-recovery/gslm-mdm-site/GSLM-Entity-Descriptions.md` | 2009-12 | Merchandise hierarchy reference | ~25 (subset of S0) |
+| S8 | GSLM per-domain narrative overviews (.doc) | `~/CRDM-recovery/gslm-mdm-site/GSLM*Overview.txt` (11 files) | 2009-2010 | Domain rationale / context | n/a (prose) |
 
-**Authority order for canonical reconciliation:**
-1. **GSLM (S1)** — master/reference layer anchor (founder's own design)
-2. **Canary Go data-model (S4)** — active platform spec, supersedes Python proto
-3. **CRDM 1.8 (S2)** — POS operational layer; preferred over 1.7.2 where they overlap (later schema, same lineage)
-4. **CRDM 1.7.2 (S3)** — only consulted for entities dropped in 1.8 (Customer, Repair) or to surface evolution deltas
-5. **Python proto (S5)** — semantic reference only; no DDL pulls
-6. **Recovery DDL fragments (S6)** — pulled selectively for specific reference tables (Vendors, Locations) and platform precursors (CaseCentre, Camera_Reference)
+**Authority order for canonical reconciliation (REVISED):**
+1. **GSLM MDM Site (S0)** ⭐ — full canonical, the actual MDM master, anchor for the walk
+2. **GSLM Entity Descriptions (S7)** — supplementary entity-by-entity attribute reference
+3. **GSLM SQL DDL (S1)** — physical implementation reference (for type choices, constraint patterns)
+4. **GSLM narrative overviews (S8)** — domain rationale, context for design decisions
+5. **Canary Go data-model (S4)** — active platform spec, supersedes Python proto
+6. **CRDM 1.8 (S2)** — POS operational layer; preferred over 1.7.2 where they overlap
+7. **CRDM 1.7.2 (S3)** — only consulted for entities dropped in 1.8 (Customer, Repair) or to surface evolution deltas
+8. **Python proto (S5)** — semantic reference only; no DDL pulls
+9. **Recovery DDL fragments (S6)** — pulled selectively for specific reference tables and platform precursors
 
-## S1 — GSLM3 entities (43, anchor)
+## S0 — GSLM MDM Site entities (~102 across 9 domains, ANCHOR)
 
-Grouped by their natural domain in the GSLM schema:
+Founder's own canonical retail data model, fully documented as a 9-domain web property (Jan 2010 build). Each domain has its own HTML page (now markdown), narrative .doc overview, and ERD PNG diagram. **This is the actual canonical — the SQL was a partial implementation subset.**
 
-### Catalog / Merchandise hierarchy (8)
-`BusinessDivisions` · `Departments` · `Classes` · `SubClasses` · `Finelines` · `Sections` · `MerchandiseType` · `Merchandise` · `MerchandiseAttributesLanguages`
+### Domain entity counts (per `Entity Name` table headers)
 
-### Item / SKU / Style (10)
-`SKUItems` · `SKUItemVendors` · `Styles` · `StyleVariants` · `StyleVariantValues` · `StyleVariantGroups` · `StyleVariantGroupAssignments` · `ArticleItems` · `ArticleTypes` · `Ingredients`
+| Domain | Entities | File | Narrative |
+|---|---|---|---|
+| **Item** | 22 | `Item.md` (3859 lines) | `GSLM Item Overview.txt` (33 KB) |
+| **Supply** (Chain / Vendor / Inventory) | 19 | `Supply.md` (3512 lines) | `GSLM Supply Chain Overview.txt` (18 KB) |
+| **Location** | 16 | `Location.md` (2083 lines) | `GSLM Location Overview.txt` (12 KB) |
+| **Customer** | 14 | `Customer.md` (1956 lines) | `GSLM Customer Overview.txt` (12 KB) |
+| **Finance** | 13 | `Finance.md` (2459 lines) | `GSLM Finance Overview.txt` (15 KB) |
+| **Space** (Planning / Planogram) | 8 | `Space.md` (1420 lines) | `GSLM Space Planning Overview.txt` (9 KB) |
+| **Price** (and Promotion) | 6 | `Price.md` (956 lines) | `GSLM Price and Promotion Overview.txt` (8 KB) |
+| **People** | 4 | `People.md` (972 lines) | `GSLM People Overview.txt` (5 KB) |
+| **Controls** (Parameters / interface scaffolding) | 0 (narrative only) | `Controls.md` (505 lines) | `GSLM Controls and Parameters Overview.txt` (3 KB) |
+| **TOTAL** | **~102** | | |
 
-### Pack / multi-unit (3)
-`PackItems` · `PackItemBreakout` · `PackBreakout`
+### Why this changes everything
 
-### Sales outlet / store structure (8)
-`SalesOutlets` · `SalesFloors` · `SalesFloorsInSalesOutlet` · `SalesOutletDepartments` · `SalesOutletAssets` · `SalesOutletAssetLocation` · `SalesOutletHolidays` · `SalesOutletSKUItemPromoCompDetails`
+The Logical-Model SQL (S1, 43 tables) covered only the Item/Location/Vendor/Promotion subset that the Walmart project's first phase implemented. The MDM site (S0) is the **complete 9-domain canonical** — it includes:
 
-### In-store stock placement (2)
-`SKUItemsInSalesOutlets` · `PackItemsInSalesOutlets`
+- **Customer** (14 entities) — Canary currently has only `app.customers`
+- **Finance** (13 entities) — Canary has `app.bank_accounts` and `ledger.*` only; no GL, AP/AR, three-way match, or tax model
+- **People** (4 entities) — Canary has `app.employees` only; no labor/scheduling
+- **Space** (8 entities) — GSLM SQL had only `Planogram` (1); MDM site has 8 including shelf placement
+- **Supply** (19 entities — vendor + distribution + inventory) — Canary has 2 movement entities; MDM has the full chain
 
-### Vendor (1)
-`Vendors`
+This means the **module gap analysis from earlier needs revision**:
+- F (Finance), L (Labor), C (Customer) — **NOT greenfield** — they have full MDM-layer canonical to draw from
+- D (Distribution), S (Space), P (Pricing) — gaps in Canary, **but rich source material** in GSLM MDM
+- O (Orders), E (Execution) — still genuinely greenfield (no MDM source covers them)
 
-### Tax (2)
-`Taxes` · `ItemTaxesInSalesOutlets`
+### Per-domain entity name extraction status
 
-### Promotion (5)
-`Promotions` · `PromotionComponents` · `PromotionComponentDetails` · `PromotionThresholds` · `ThresholdIntervals`
+The HTM-derived markdown retains MS Office HTML markup (inline styles), so the ~102 entity-name table cells require per-domain reading during the walk rather than a one-pass regex extract. Each chunk (2-7) will read its domain's full markdown and extract entities one at a time. This is fine — the canonical work is per-entity anyway.
 
-### Planogram (1)
-`Planogram`
+## S1 — GSLM SQL DDL entities (43, partial implementation)
 
-### User-defined attribute (2)
-`UserDefinedAttributes` · `UserDefinedAttributeValues`
+Subset of S0, with concrete SQL Server 2008 R2 DDL. Use for type/constraint reference when reconciling. Grouped by their natural place in S0's 9 domains:
 
-> **Critical observation:** GSLM3 is **purely master data and reference** — *what* is sold, *where*, by *whom*, under *what* promotion, taxed *how*. **It does not contain transactions, customers, employees, payments, inventory-on-hand, or any operational state.** That's CRDM's role. The canonical superset must walk GSLM for master data and CRDM POS for operational, then add Canary platform layers on top.
+| S0 Domain | S1 SQL tables (subset implemented) |
+|---|---|
+| Item (22 in S0) | `Merchandise`, `MerchandiseAttributesLanguages`, `MerchandiseType`, `BusinessDivisions`, `Departments`, `Classes`, `SubClasses`, `Finelines`, `Sections`, `SKUItems`, `Styles`, `StyleVariants`, `StyleVariantValues`, `StyleVariantGroups`, `StyleVariantGroupAssignments`, `ArticleItems`, `ArticleTypes`, `Ingredients`, `PackItems`, `PackItemBreakout`, `PackBreakout`, `UserDefinedAttributes`, `UserDefinedAttributeValues` (23 of S0's 22 — overlap likely from S0 not breaking out UDA from item core) |
+| Location (16 in S0) | `SalesOutlets`, `SalesFloors`, `SalesFloorsInSalesOutlet`, `SalesOutletDepartments`, `SalesOutletAssets`, `SalesOutletAssetLocation`, `SalesOutletHolidays` (7 of 16) |
+| Supply (19 in S0) | `Vendors`, `SKUItemVendors` (2 of 19 — minimal vendor master only) |
+| Price (6 in S0) | `Promotions`, `PromotionComponents`, `PromotionComponentDetails`, `PromotionThresholds`, `ThresholdIntervals`, `Taxes`, `ItemTaxesInSalesOutlets`, `SalesOutletSKUItemPromoCompDetails`, `SKUItemsInSalesOutlets`, `PackItemsInSalesOutlets` (10 — Pricing + cross-store placement) |
+| Space (8 in S0) | `Planogram` (1 of 8) |
+| Customer (14 in S0) | (none implemented in SQL) |
+| Finance (13 in S0) | (none — except `Taxes` listed under Price) |
+| People (4 in S0) | (none implemented) |
+| Controls (narrative) | (n/a) |
+
+> **Critical observation (revised):** GSLM as documented in S0 covers all 9 domains of master data — including Customer, Finance, People — that the SQL implementation never reached. The canonical walk should anchor on S0 (full domain coverage), then use S1 where actual SQL types/constraints are needed, then add CRDM operational and Canary platform layers on top.
 
 ## S2/S3 — CRDM POS entities (25 in 1.8, 27 in 1.7.2)
 
@@ -250,5 +276,29 @@ CREATE TABLE m.products (
 
 ## Status
 
-- **Chunk 1 complete.** This file = the foundation everything else builds on.
-- **Resume point:** Chunk 2 — GSLM canonical walk, Item/Catalog domain. ~10 entities. Output: first ~10 canonical entries appended to `02-canonical-draft.md` in this folder.
+- **Chunk 1 complete (revised after S0 discovery).** This file = the foundation everything else builds on.
+
+## Revised chunk plan (post-MDM-site discovery)
+
+| # | Domain | S0 entities | + Operational (CRDM/Canary) | Module owner(s) |
+|---|---|---|---|---|
+| 2 | **Item** (S0) | 22 | + Canary `app.products`; CRDM `Item` line items | M (Merchandising) |
+| 3 | **Location** (S0) + **Space** (S0) | 16 + 8 = 24 | + Canary `app.locations`, `app.location_hierarchy`; recovery `Ref_LocationHierarchy` | A (Asset) + S (Space) |
+| 4 | **Customer** (S0) + **People** (S0) | 14 + 4 = 18 | + Canary `app.customers`, `app.users`, `app.employees`, `app.user_*`, `app.employee_*`; CRDM 1.7.2 `Customer` | C (Customer) + L (Labor) |
+| 5 | **Supply** (S0) — vendor + distribution + inventory | 19 | + CRDM `GoodsReceived`, `Transfer`, `StockAdjustment`, `SupplierReturn`, `WebItemReturn`; Canary `transfer_orders`, `ledger.stock_ledger_entries` | M (vendors) + D (Distribution) |
+| 6 | **Price** (S0) + **Finance** (S0) | 6 + 13 = 19 | + Canary `app.bank_accounts`, `ledger.*` | P (Pricing) + F (Finance) |
+| 7 | **CRDM POS Operational** (Transaction Pipeline) | n/a (S0 doesn't have transactions) | CRDM 25 entities (Header, Item, Tender, Discount, FastFact, etc.) + Canary `sales.*` schema | T (Transaction Pipeline) |
+| 8 | **Canary platform mechanics** | n/a (no MDM source) | Chirp, Fox, Hawk, Owl, Bull, Webhook, RaaS, Vault, ILDWAC, blockchain anchor, evidence chain, identity, audit_log | Q (LP) + cross-cutting |
+| 9 | Module ownership tagging across whole spine | | | all 13 modules |
+| 10 | Render `canonical-data-model.md` + provenance memo + closures | | | |
+
+**Estimated total canonical entities:** ~150
+- GSLM domains (S0): ~102
+- CRDM operational layer additions (S2): ~25
+- Canary platform mechanics (S4 net-new): ~25-30 (Chirp/Fox/Hawk/Owl + ILDWAC + evidence + identity)
+
+**Greenfield modules** (no source has them — design from scratch in Chunk 8 or as a Chunk 8b):
+- O (Orders) — purchase orders, sales orders, fulfillment orders
+- E (Execution / workflow) — task management, work assignment
+
+- **Resume point:** Chunk 2 — GSLM Item domain (22 entities). Read `~/CRDM-recovery/gslm-mdm-site/Item.md` entity-by-entity, reconcile with S1 SQL DDL types and Canary `app.products`, produce canonical entries appended to `02-canonical-draft.md` in this folder.
