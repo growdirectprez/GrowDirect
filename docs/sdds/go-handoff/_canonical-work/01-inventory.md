@@ -17,17 +17,21 @@ Catalogues every entity-mention across every source. Anchors the entity-by-entit
 | S6 | Recovery DDL fragments | `~/CRDM-recovery/sql/*.sql` (excl. Logical-Model) | 2010-2015 | Misc operational + reference | ~20 |
 | S7 | GSLM Entity Descriptions (Word) | `~/CRDM-recovery/gslm-mdm-site/GSLM-Entity-Descriptions.md` | 2009-12 | Merchandise hierarchy reference | ~25 (subset of S0) |
 | S8 | GSLM per-domain narrative overviews (.doc) | `~/CRDM-recovery/gslm-mdm-site/GSLM*Overview.txt` (11 files) | 2009-2010 | Domain rationale / context | n/a (prose) |
+| **S9** | **TOM Interface Design Documents** ⭐ (Tesco Operating Model integration program) | `Brain/raw/inbox/Interface Design Documents/` | 2007, Project BEN | **Operational reality — field-level data exchange between named systems** | **82 interface specs** (154 .doc + 69 .vsd + 129 .xls) |
 
-**Authority order for canonical reconciliation (REVISED):**
-1. **GSLM MDM Site (S0)** ⭐ — full canonical, the actual MDM master, anchor for the walk
-2. **GSLM Entity Descriptions (S7)** — supplementary entity-by-entity attribute reference
-3. **GSLM SQL DDL (S1)** — physical implementation reference (for type choices, constraint patterns)
-4. **GSLM narrative overviews (S8)** — domain rationale, context for design decisions
-5. **Canary Go data-model (S4)** — active platform spec, supersedes Python proto
-6. **CRDM 1.8 (S2)** — POS operational layer; preferred over 1.7.2 where they overlap
-7. **CRDM 1.7.2 (S3)** — only consulted for entities dropped in 1.8 (Customer, Repair) or to surface evolution deltas
-8. **Python proto (S5)** — semantic reference only; no DDL pulls
-9. **Recovery DDL fragments (S6)** — pulled selectively for specific reference tables and platform precursors
+**Authority order for canonical reconciliation (REVISED again — S9 added):**
+1. **GSLM MDM Site (S0)** ⭐ — full canonical structure; the abstract anchor
+2. **TOM Interface Design Documents (S9)** ⭐ — operational reality / field-level data exchange between real systems; the concrete reinforcement
+3. **GSLM Entity Descriptions (S7)** — entity-by-entity attribute reference (subset of S0)
+4. **GSLM SQL DDL (S1)** — physical implementation reference (for type choices, constraint patterns)
+5. **GSLM narrative overviews (S8)** — domain rationale, context for design decisions
+6. **Canary Go data-model (S4)** — active platform spec, supersedes Python proto
+7. **CRDM 1.8 (S2)** — POS operational layer; preferred over 1.7.2 where they overlap
+8. **CRDM 1.7.2 (S3)** — only consulted for entities dropped in 1.8 (Customer, Repair) or to surface evolution deltas
+9. **Python proto (S5)** — semantic reference only; no DDL pulls
+10. **Recovery DDL fragments (S6)** — pulled selectively for specific reference tables and platform precursors
+
+**S0 vs S9 relationship:** GSLM (S0) is the abstract canonical model — what entities SHOULD exist and how they SHOULD relate. TOM Interface Design Documents (S9) are the concrete operational specs — what FIELDS actually moved between real production systems (RMS, GFO, Storeline, ORMS, RWMS, TIMS, etc.) at Tesco circa 2007. S0 tells us what the entity is; S9 tells us what its real-world payload looks like, in COBOL flat-file precision (PIC clauses, byte positions). Use them together: S0 for entity definition, S9 for field-level grounding and missing operational entities (Orders, Distribution movements, Finance flows).
 
 ## S0 — GSLM MDM Site entities (~102 across 9 domains, ANCHOR)
 
@@ -278,27 +282,33 @@ CREATE TABLE m.products (
 
 - **Chunk 1 complete (revised after S0 discovery).** This file = the foundation everything else builds on.
 
-## Revised chunk plan (post-MDM-site discovery)
+## Revised chunk plan (post-S9-discovery)
 
-| # | Domain | S0 entities | + Operational (CRDM/Canary) | Module owner(s) |
-|---|---|---|---|---|
-| 2 | **Item** (S0) | 22 | + Canary `app.products`; CRDM `Item` line items | M (Merchandising) |
-| 3 | **Location** (S0) + **Space** (S0) | 16 + 8 = 24 | + Canary `app.locations`, `app.location_hierarchy`; recovery `Ref_LocationHierarchy` | A (Asset) + S (Space) |
-| 4 | **Customer** (S0) + **People** (S0) | 14 + 4 = 18 | + Canary `app.customers`, `app.users`, `app.employees`, `app.user_*`, `app.employee_*`; CRDM 1.7.2 `Customer` | C (Customer) + L (Labor) |
-| 5 | **Supply** (S0) — vendor + distribution + inventory | 19 | + CRDM `GoodsReceived`, `Transfer`, `StockAdjustment`, `SupplierReturn`, `WebItemReturn`; Canary `transfer_orders`, `ledger.stock_ledger_entries` | M (vendors) + D (Distribution) |
-| 6 | **Price** (S0) + **Finance** (S0) | 6 + 13 = 19 | + Canary `app.bank_accounts`, `ledger.*` | P (Pricing) + F (Finance) |
-| 7 | **CRDM POS Operational** (Transaction Pipeline) | n/a (S0 doesn't have transactions) | CRDM 25 entities (Header, Item, Tender, Discount, FastFact, etc.) + Canary `sales.*` schema | T (Transaction Pipeline) |
-| 8 | **Canary platform mechanics** | n/a (no MDM source) | Chirp, Fox, Hawk, Owl, Bull, Webhook, RaaS, Vault, ILDWAC, blockchain anchor, evidence chain, identity, audit_log | Q (LP) + cross-cutting |
-| 9 | Module ownership tagging across whole spine | | | all 13 modules |
-| 10 | Render `canonical-data-model.md` + provenance memo + closures | | | |
+| # | Domain / Layer | S0 entities | + S9 prefix interfaces | + Operational (CRDM/Canary) | Module owner(s) |
+|---|---|---|---|---|---|
+| 2 | **Item** (S0) | 22 | C-Prefix (11): Product details, supplier ref, dept/sub-dept, store/warehouse attrs, PLU | + Canary `app.products`; CRDM `Item` line items | M (Merchandising) |
+| 3 | **Location** (S0) + **Space** (S0) | 16 + 8 = 24 | S-Prefix (19): store details, store range, capacity info, planogram product map, range data | + Canary `app.locations`, `app.location_hierarchy`; recovery `Ref_LocationHierarchy` | A (Asset) + S (Space) |
+| 4 | **Customer** (S0) + **People** (S0) | 14 + 4 = 18 | (P-Prefix empty; R-Prefix empty — gap remains for People exchange) | + Canary `app.customers`, `app.users`, `app.employees`, `app.user_*`, `app.employee_*`; CRDM 1.7.2 `Customer` | C (Customer) + L (Labor) |
+| 5 | **Supply** (S0) — vendor + distribution + inventory | 19 | **D-Prefix (18)**: PO download, GRN, inventory adjustment, stocktake, RTV, direct PO receipt, stock transfer | + CRDM `GoodsReceived`, `Transfer`, `StockAdjustment`, `SupplierReturn`, `WebItemReturn`; Canary `transfer_orders`, `ledger.stock_ledger_entries` | M (vendors) + D (Distribution) |
+| **5b** | **NEW — Orders** (closes greenfield) | (none in S0) | **J-Prefix (29)**: allocations, sales forecast, PBS/PBL/Direct order types, ASN, BOL picking, item-warehouse-supplier, transfer details, promotions interface | (no Canary equivalent — net new) | **O (Orders)** |
+| 6 | **Price** (S0) + **Finance** (S0) | 6 + 13 = 19 | F-Prefix (5): PO RMS↔TIMS, supplier invoice, supplier info, PO ack, Tesco invoice ReIM | + Canary `app.bank_accounts`, `ledger.*` | P (Pricing) + F (Finance) |
+| 7 | **CRDM POS Operational** (Transaction Pipeline) | n/a (S0 doesn't have transactions) | (no S9 prefix for POS — TOM was back-office) | CRDM 25 entities (Header, Item, Tender, Discount, FastFact, etc.) + Canary `sales.*` schema | T (Transaction Pipeline) |
+| 8 | **Canary platform mechanics** | n/a (no MDM source) | n/a (TOM had its own "Operational Framework" — out of scope) | Chirp, Fox, Hawk, Owl, Bull, Webhook, RaaS, Vault, ILDWAC, blockchain anchor, evidence chain, identity, audit_log | Q (LP) + cross-cutting |
+| 9 | Module ownership tagging across whole spine | | | | all 13 modules |
+| 10 | Render `canonical-data-model.md` + provenance memo + closures | | | | |
 
-**Estimated total canonical entities:** ~150
+**Estimated total canonical entities (REVISED):** ~165-180
 - GSLM domains (S0): ~102
-- CRDM operational layer additions (S2): ~25
-- Canary platform mechanics (S4 net-new): ~25-30 (Chirp/Fox/Hawk/Owl + ILDWAC + evidence + identity)
+- TOM Order entities (S9 J-Prefix net-new): ~10-15 (PO, BOL, ASN, Allocation, Transfer Order, Direct Store Order, Procurement Order, Final Order, etc.)
+- CRDM POS operational layer (S2): ~25
+- Canary platform mechanics (S4 net-new): ~25-30
 
-**Greenfield modules** (no source has them — design from scratch in Chunk 8 or as a Chunk 8b):
-- O (Orders) — purchase orders, sales orders, fulfillment orders
-- E (Execution / workflow) — task management, work assignment
+**Greenfield modules remaining (no source has them):**
+- E (Execution / workflow) — task management, work assignment, status flows
+- L (Labor schedules + time records) — People exists in S0 but only 4 entities (employee master); scheduling/time/labor allocation is greenfield
+
+**Closed by S9:**
+- ~~O (Orders)~~ — J-Prefix gives PBS, PBL, Direct Store Order, Allocation, Transfer; D-Prefix gives PO download/receipt
+- ~~D (Distribution movements partial)~~ — D-Prefix gives full operational movement set
 
 - **Resume point:** Chunk 2 — GSLM Item domain (22 entities). Read `~/CRDM-recovery/gslm-mdm-site/Item.md` entity-by-entity, reconcile with S1 SQL DDL types and Canary `app.products`, produce canonical entries appended to `02-canonical-draft.md` in this folder.
