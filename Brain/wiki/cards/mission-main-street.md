@@ -74,7 +74,7 @@ The brand voice generator should treat this card and the gateway thesis as the t
 | Investor pitch spine | Civic frame that makes the technical pitch land — explains why we're building this and not a different shape of company |
 | Square partnership conversation | The "why we're a good civic partner" framing — gives Square reviewers a reason beyond features |
 | Future hires | First-read for anyone joining the project; encodes what success looks like beyond ARR |
-| Open-protocol commitment | Architectural rationale; the mission is why the substrate is published under **Apache License, Version 2.0** (locked 2026-05-03) — not just licensed, but published with the patent-grant + retaliation clause that makes operator agency structurally defensible |
+| Open-protocol commitment | Architectural rationale; the mission is why the substrate is published, not just licensed |
 
 ## Sources
 
@@ -87,7 +87,7 @@ The brand voice generator should treat this card and the gateway thesis as the t
 
 ## Invariants
 
-1. **The mission lives in the architecture, not the marketing.** Open protocol leave-behind (Apache License, Version 2.0), published evidence anchors, capability-language public copy — the mission is provable in design decisions before it is asserted in copy. If an architectural choice contradicts the mission, the architecture is wrong; the copy can't paper it over.
+1. **The mission lives in the architecture, not the marketing.** Open protocol leave-behind, published evidence anchors, capability-language public copy — the mission is provable in design decisions before it is asserted in copy. If an architectural choice contradicts the mission, the architecture is wrong; the copy can't paper it over.
 2. **The off-ramp is a junction, not a destination.** The platform doesn't tell the operator where to go. It clears the substrate so the operator can see the road. Any copy that frames GrowDirect as the *answer* (vs the *substrate*) is off-voice.
 3. **Civic is not utopian.** The mission is grounded in operator agency, not in a better future. Brand voice that reads as visionary, transformational, or movement-style is failing voice — the off-ramp is calm, not heroic.
 4. **The 25-year arc is the credential, not the story.** Domain-grounded — *we know what enterprise vendors do to small operators because we built the enterprise vendors* — is the bar. Don't lead with the arc as autobiography; lead with the architectural conclusion.
