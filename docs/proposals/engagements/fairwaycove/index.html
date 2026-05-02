@@ -1,0 +1,1517 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Project Kickoff · [Retailer Name] · Canary Method</title>
+<meta name="description" content="Engagement kickoff for the integration of [Retailer Name]'s newly-acquired [Merch System] into operating systems, delivered via the Canary Method.">
+
+<style>
+/* ============================================================
+   Canary Method — RFP Response · Engagement Kickoff
+   Single-file HTML artifact. Print-clean. Self-contained.
+   ============================================================ */
+
+:root {
+  --ink:           #0D1117;
+  --ink-2:         #1F2937;
+  --ink-3:         #4B5563;
+  --ink-4:         #6B7280;
+  --ink-5:         #9CA3AF;
+
+  --surface:       #FAF6EE;
+  --surface-2:     #FFFFFF;
+  --surface-3:     #F3EDDF;
+  --border:        #E5DDD0;
+  --border-2:      #D4C9B3;
+
+  --amber:         #D97706;
+  --amber-bright:  #FBBF24;
+  --amber-deep:    #92400E;
+  --amber-tint:    #FEF3C7;
+
+  --good:          #166534;
+  --warn:          #9A3412;
+
+  --radius:        4px;
+  --radius-lg:     12px;
+
+  --max:           980px;
+  --gutter:        clamp(20px, 4vw, 56px);
+
+  --font-sans:     -apple-system, BlinkMacSystemFont, "Segoe UI", Helvetica, Arial, sans-serif;
+  --font-mono:     ui-monospace, "SF Mono", Menlo, Consolas, "Liberation Mono", monospace;
+}
+
+* { box-sizing: border-box; }
+html { scroll-behavior: smooth; }
+body {
+  margin: 0;
+  background: var(--surface);
+  color: var(--ink);
+  font-family: var(--font-sans);
+  font-size: 16px;
+  line-height: 1.55;
+  font-feature-settings: "kern" 1, "liga" 1;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+::selection { background: var(--amber-tint); color: var(--ink); }
+
+/* ----- Typography ------------------------------------------- */
+h1, h2, h3, h4, h5 {
+  font-weight: 600;
+  letter-spacing: -0.012em;
+  color: var(--ink);
+  margin: 0 0 0.4em;
+  line-height: 1.18;
+}
+h1 { font-size: clamp(2.0rem, 4.4vw, 2.8rem); letter-spacing: -0.022em; font-weight: 700; }
+h2 { font-size: clamp(1.5rem, 2.8vw, 1.95rem); letter-spacing: -0.018em; }
+h3 { font-size: 1.18rem; }
+h4 { font-size: 0.95rem; text-transform: uppercase; letter-spacing: 0.08em; color: var(--ink-3); font-weight: 600; }
+p  { margin: 0 0 1em; color: var(--ink-2); }
+small, .small { font-size: 0.82rem; color: var(--ink-3); }
+
+a { color: var(--amber-deep); text-decoration: none; border-bottom: 1px solid transparent; transition: border-color .15s ease; }
+a:hover { border-bottom-color: var(--amber-deep); }
+
+strong { font-weight: 600; color: var(--ink); }
+em { font-style: italic; color: var(--ink); }
+
+ul, ol { padding-left: 1.25em; margin: 0 0 1em; }
+li { margin-bottom: 0.4em; color: var(--ink-2); }
+
+hr { border: 0; border-top: 1px solid var(--border); margin: 2em 0; }
+
+code, pre {
+  font-family: var(--font-mono);
+  font-size: 0.85em;
+}
+code { background: var(--surface-3); padding: 1px 5px; border-radius: 3px; color: var(--ink); }
+
+/* ----- Layout primitives ------------------------------------ */
+.wrap {
+  max-width: var(--max);
+  margin: 0 auto;
+  padding: 0 var(--gutter);
+}
+
+.section {
+  padding: clamp(48px, 7vw, 96px) 0;
+  border-top: 1px solid var(--border);
+}
+.section:first-of-type { border-top: 0; }
+
+.section-num {
+  font-family: var(--font-mono);
+  font-size: 0.78rem;
+  letter-spacing: 0.08em;
+  color: var(--amber-deep);
+  text-transform: uppercase;
+  margin-bottom: 0.6em;
+  display: block;
+}
+
+.eyebrow {
+  font-family: var(--font-mono);
+  font-size: 0.74rem;
+  letter-spacing: 0.18em;
+  color: var(--ink-4);
+  text-transform: uppercase;
+  margin-bottom: 1em;
+  display: block;
+}
+
+.lead {
+  font-size: 1.12rem;
+  line-height: 1.6;
+  color: var(--ink-2);
+  margin-bottom: 1.5em;
+}
+
+.callout {
+  background: var(--surface-2);
+  border: 1px solid var(--border);
+  border-left: 3px solid var(--amber);
+  border-radius: var(--radius);
+  padding: 18px 22px;
+  margin: 1.6em 0;
+}
+.callout p:last-child { margin-bottom: 0; }
+.callout h4 { margin-bottom: 0.4em; color: var(--amber-deep); }
+
+.grid-2 { display: grid; grid-template-columns: 1fr 1fr; gap: 28px; }
+.grid-3 { display: grid; grid-template-columns: repeat(3, 1fr); gap: 24px; }
+.grid-4 { display: grid; grid-template-columns: repeat(4, 1fr); gap: 20px; }
+@media (max-width: 760px) {
+  .grid-2, .grid-3, .grid-4 { grid-template-columns: 1fr; }
+}
+
+/* ----- Tables ------------------------------------------------ */
+.tbl {
+  width: 100%;
+  border-collapse: collapse;
+  margin: 1.4em 0;
+  font-size: 0.92rem;
+  background: var(--surface-2);
+  border: 1px solid var(--border);
+  border-radius: var(--radius);
+  overflow: hidden;
+}
+.tbl th, .tbl td {
+  text-align: left;
+  padding: 10px 14px;
+  border-bottom: 1px solid var(--border);
+  vertical-align: top;
+}
+.tbl th {
+  background: var(--surface-3);
+  font-weight: 600;
+  font-size: 0.78rem;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+  color: var(--ink-3);
+}
+.tbl tr:last-child td { border-bottom: 0; }
+.tbl tr:hover td { background: var(--surface-3); }
+.tbl .num {
+  font-family: var(--font-mono);
+  font-size: 0.8rem;
+  color: var(--ink-3);
+  white-space: nowrap;
+}
+
+/* ----- Sticky nav -------------------------------------------- */
+.site-nav {
+  position: sticky;
+  top: 0;
+  z-index: 50;
+  background: rgba(250, 246, 238, 0.94);
+  backdrop-filter: saturate(160%) blur(8px);
+  -webkit-backdrop-filter: saturate(160%) blur(8px);
+  border-bottom: 1px solid var(--border);
+}
+.site-nav-inner {
+  max-width: var(--max);
+  margin: 0 auto;
+  padding: 12px var(--gutter);
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 24px;
+}
+.brand-mark {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  text-decoration: none;
+  color: var(--ink);
+}
+.brand-mark svg { width: 32px; height: 32px; border-radius: 7px; flex-shrink: 0; }
+.brand-mark-text {
+  display: flex;
+  flex-direction: column;
+  line-height: 1.1;
+}
+.brand-mark-text .top {
+  font-weight: 700;
+  font-size: 0.92rem;
+  letter-spacing: -0.01em;
+}
+.brand-mark-text .sub {
+  font-family: var(--font-mono);
+  font-size: 0.65rem;
+  letter-spacing: 0.12em;
+  color: var(--ink-4);
+  text-transform: uppercase;
+}
+.nav-links {
+  display: flex;
+  gap: 22px;
+  list-style: none;
+  margin: 0;
+  padding: 0;
+}
+.nav-links a {
+  font-size: 0.85rem;
+  color: var(--ink-3);
+  border: 0;
+  font-weight: 500;
+  transition: color .15s ease;
+}
+.nav-links a:hover { color: var(--ink); }
+@media (max-width: 760px) {
+  .nav-links { display: none; }
+}
+
+/* ----- Hero -------------------------------------------------- */
+.hero {
+  padding: clamp(64px, 10vw, 132px) 0 clamp(48px, 7vw, 80px);
+  border-top: 0;
+  text-align: left;
+}
+.hero-bird {
+  width: 84px;
+  height: 84px;
+  border-radius: 18px;
+  margin-bottom: 28px;
+  display: block;
+}
+.hero-title {
+  font-size: clamp(2.2rem, 5.6vw, 3.4rem);
+  font-weight: 700;
+  letter-spacing: -0.028em;
+  line-height: 1.05;
+  margin-bottom: 0.4em;
+  max-width: 16ch;
+}
+.hero-subtitle {
+  font-size: clamp(1.1rem, 2.2vw, 1.4rem);
+  color: var(--ink-3);
+  font-weight: 400;
+  max-width: 44ch;
+  margin-bottom: 2.2em;
+  line-height: 1.45;
+}
+.hero-meta {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
+  gap: 16px 32px;
+  border-top: 1px solid var(--border);
+  padding-top: 24px;
+  max-width: 720px;
+}
+.hero-meta dt {
+  font-size: 0.72rem;
+  text-transform: uppercase;
+  letter-spacing: 0.12em;
+  color: var(--ink-4);
+  margin-bottom: 4px;
+  font-family: var(--font-mono);
+}
+.hero-meta dd {
+  margin: 0 0 4px 0;
+  font-size: 0.95rem;
+  color: var(--ink);
+  font-weight: 500;
+}
+
+.confidential-stamp {
+  display: inline-block;
+  margin-top: 32px;
+  padding: 4px 10px;
+  border: 1px solid var(--amber-deep);
+  color: var(--amber-deep);
+  font-family: var(--font-mono);
+  font-size: 0.68rem;
+  letter-spacing: 0.18em;
+  text-transform: uppercase;
+  border-radius: 2px;
+}
+
+/* ----- Letter of transmittal --------------------------------- */
+.letter {
+  background: var(--surface-2);
+  border: 1px solid var(--border);
+  border-radius: var(--radius-lg);
+  padding: clamp(32px, 5vw, 56px);
+  margin: 2em 0;
+}
+.letter-meta {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+  gap: 14px 36px;
+  border-bottom: 1px solid var(--border);
+  padding-bottom: 22px;
+  margin-bottom: 28px;
+}
+.letter-meta dt { font-size: 0.7rem; text-transform: uppercase; letter-spacing: 0.12em; color: var(--ink-4); margin-bottom: 3px; font-family: var(--font-mono); }
+.letter-meta dd { margin: 0; font-size: 0.95rem; color: var(--ink); font-weight: 500; }
+.letter-body p { font-size: 1.0rem; line-height: 1.65; }
+.letter-sig {
+  margin-top: 32px;
+  padding-top: 22px;
+  border-top: 1px solid var(--border);
+}
+.letter-sig .sig-name { font-weight: 600; font-size: 1.0rem; color: var(--ink); margin-bottom: 2px; }
+.letter-sig .sig-title { font-size: 0.86rem; color: var(--ink-3); margin-bottom: 1px; }
+.letter-sig .sig-org { font-size: 0.86rem; color: var(--ink-3); }
+
+/* ----- Framework: Phases timeline (SVG container) ----------- */
+.framework-diagram {
+  background: var(--surface-2);
+  border: 1px solid var(--border);
+  border-radius: var(--radius-lg);
+  padding: 28px;
+  margin: 2em 0;
+  overflow-x: auto;
+}
+.framework-diagram svg {
+  display: block;
+  width: 100%;
+  height: auto;
+  min-width: 760px;
+}
+
+/* ----- Phase cards (under diagram) -------------------------- */
+.phase-cards {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 14px;
+  margin: 1.6em 0;
+}
+@media (max-width: 760px) { .phase-cards { grid-template-columns: 1fr; } }
+.phase-card {
+  background: var(--surface-2);
+  border: 1px solid var(--border);
+  border-left: 3px solid var(--amber);
+  border-radius: var(--radius);
+  padding: 16px 18px;
+}
+.phase-card-head {
+  display: flex;
+  justify-content: space-between;
+  align-items: baseline;
+  margin-bottom: 6px;
+  gap: 12px;
+}
+.phase-card-num {
+  font-family: var(--font-mono);
+  font-size: 0.72rem;
+  letter-spacing: 0.1em;
+  color: var(--amber-deep);
+  text-transform: uppercase;
+}
+.phase-card-weeks {
+  font-family: var(--font-mono);
+  font-size: 0.78rem;
+  color: var(--ink-3);
+  white-space: nowrap;
+}
+.phase-card h4 {
+  text-transform: none;
+  letter-spacing: -0.01em;
+  font-size: 1.0rem;
+  color: var(--ink);
+  margin: 0 0 8px;
+  font-weight: 600;
+}
+.phase-card p {
+  font-size: 0.88rem;
+  color: var(--ink-3);
+  margin: 0;
+  line-height: 1.5;
+}
+
+/* ----- Rails ------------------------------------------------- */
+.rails {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 14px;
+  margin: 1.6em 0;
+}
+@media (max-width: 760px) { .rails { grid-template-columns: 1fr 1fr; } }
+@media (max-width: 460px) { .rails { grid-template-columns: 1fr; } }
+.rail {
+  background: var(--surface-2);
+  border: 1px solid var(--border);
+  border-top: 3px solid var(--ink);
+  border-radius: var(--radius);
+  padding: 18px;
+}
+.rail-num {
+  font-family: var(--font-mono);
+  font-size: 0.7rem;
+  color: var(--ink-4);
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  margin-bottom: 6px;
+}
+.rail-name { font-weight: 700; color: var(--ink); margin-bottom: 8px; font-size: 1.02rem; }
+.rail p { font-size: 0.86rem; color: var(--ink-3); margin: 0; line-height: 1.5; }
+
+/* ----- Roadmap to remaining sections ------------------------ */
+.roadmap-list { list-style: none; padding: 0; margin: 1.5em 0 0; }
+.roadmap-item {
+  display: grid;
+  grid-template-columns: 56px 1fr auto;
+  gap: 18px;
+  align-items: start;
+  padding: 18px 0;
+  border-top: 1px solid var(--border);
+}
+.roadmap-item:first-child { border-top: 0; }
+.roadmap-num {
+  font-family: var(--font-mono);
+  font-size: 0.95rem;
+  font-weight: 600;
+  color: var(--amber-deep);
+  letter-spacing: 0.04em;
+}
+.roadmap-body h4 {
+  text-transform: none;
+  letter-spacing: -0.01em;
+  font-size: 1.05rem;
+  font-weight: 600;
+  color: var(--ink);
+  margin-bottom: 4px;
+}
+.roadmap-body p {
+  font-size: 0.9rem;
+  color: var(--ink-3);
+  margin: 0;
+  line-height: 1.55;
+}
+.roadmap-tag {
+  font-family: var(--font-mono);
+  font-size: 0.68rem;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  color: var(--ink-4);
+  background: var(--surface-3);
+  padding: 4px 8px;
+  border-radius: 3px;
+  white-space: nowrap;
+  align-self: start;
+}
+.roadmap-tag.live { color: var(--good); background: #DCFCE7; }
+.roadmap-tag.next { color: var(--amber-deep); background: var(--amber-tint); }
+
+/* ----- Footer ------------------------------------------------ */
+.site-footer {
+  border-top: 1px solid var(--border);
+  padding: 36px 0 56px;
+  background: var(--surface-3);
+}
+.site-footer-inner {
+  max-width: var(--max);
+  margin: 0 auto;
+  padding: 0 var(--gutter);
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: 16px;
+  color: var(--ink-4);
+  font-size: 0.82rem;
+}
+.site-footer .doc-id { font-family: var(--font-mono); color: var(--ink-4); }
+
+/* ============================================================
+   Print stylesheet — paginates cleanly to PDF
+   ============================================================ */
+@media print {
+  @page { size: Letter; margin: 0.6in 0.55in 0.7in; }
+  html { scroll-behavior: auto; }
+  body { background: #fff; font-size: 10.5pt; line-height: 1.45; }
+  .site-nav, .site-footer { display: none; }
+  .section { padding: 14pt 0; border-top: 1px solid var(--border); page-break-inside: avoid; break-inside: avoid; }
+  .section + .section { page-break-before: always; break-before: page; }
+  .hero { page-break-after: always; break-after: page; padding: 0; }
+  .letter, .framework-diagram, .phase-card, .rail { break-inside: avoid; page-break-inside: avoid; }
+  .roadmap-item { break-inside: avoid; page-break-inside: avoid; }
+  a { color: var(--ink); border-bottom: 0; }
+  h1, h2, h3, h4 { page-break-after: avoid; break-after: avoid; }
+  table, .tbl { page-break-inside: auto; }
+  .tbl tr { page-break-inside: avoid; break-inside: avoid; }
+  .callout { background: #fafafa; }
+}
+</style>
+</head>
+<body>
+
+<!-- ============================================================
+     STICKY TOP NAV
+     ============================================================ -->
+<header class="site-nav" role="banner">
+  <div class="site-nav-inner">
+    <a class="brand-mark" href="#hero" aria-label="Canary Method — return to top">
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512" fill="none" aria-hidden="true">
+        <rect width="512" height="512" rx="112" fill="#0D1117"/>
+        <g transform="translate(128, 96) scale(2.2)">
+          <circle cx="42" cy="33" r="18" fill="#FBBF24"/>
+          <ellipse cx="50" cy="58" rx="25" ry="19" fill="#FBBF24"/>
+          <path d="M36 47 Q16 56 26 74 Q38 66 48 54 Z" fill="#F59E0B"/>
+          <circle cx="48" cy="30" r="4" fill="#0D1117"/>
+          <circle cx="46.5" cy="28.8" r="1.5" fill="#FBBF24"/>
+          <path d="M58 30 L73 24 L63 34 Z" fill="#E8A317"/>
+          <path d="M58 37 L71 40 L63 37 Z" fill="#D97706"/>
+          <path d="M28 66 Q12 78 18 88 Q28 80 36 72 Z" fill="#F59E0B"/>
+        </g>
+      </svg>
+      <span class="brand-mark-text">
+        <span class="top">Canary Method</span>
+        <span class="sub">RFP&nbsp;·&nbsp;[Retailer Name]</span>
+      </span>
+    </a>
+    <nav aria-label="Proposal sections">
+      <ul class="nav-links">
+        <li><a href="#summary">Summary</a></li>
+        <li><a href="#understanding">Engagement</a></li>
+        <li><a href="#framework">Framework</a></li>
+        <li><a href="#roadmap">Proposal Map</a></li>
+      </ul>
+    </nav>
+  </div>
+</header>
+
+<main>
+
+<!-- ============================================================
+     SECTION 1 — HERO / COVER
+     ============================================================ -->
+<section class="section hero" id="hero" aria-labelledby="hero-title">
+  <div class="wrap">
+    <svg class="hero-bird" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512" fill="none" aria-hidden="true">
+      <rect width="512" height="512" rx="112" fill="#0D1117"/>
+      <g transform="translate(128, 96) scale(2.2)">
+        <circle cx="42" cy="33" r="18" fill="#FBBF24"/>
+        <ellipse cx="50" cy="58" rx="25" ry="19" fill="#FBBF24"/>
+        <path d="M36 47 Q16 56 26 74 Q38 66 48 54 Z" fill="#F59E0B"/>
+        <circle cx="48" cy="30" r="4" fill="#0D1117"/>
+        <circle cx="46.5" cy="28.8" r="1.5" fill="#FBBF24"/>
+        <path d="M58 30 L73 24 L63 34 Z" fill="#E8A317"/>
+        <path d="M58 37 L71 40 L63 37 Z" fill="#D97706"/>
+        <path d="M28 66 Q12 78 18 88 Q28 80 36 72 Z" fill="#F59E0B"/>
+      </g>
+    </svg>
+
+    <span class="eyebrow">Engagement Kickoff · Project Document v0.1</span>
+
+    <h1 class="hero-title" id="hero-title">
+      Plumbing your new merchandising backbone, the Canary way.
+    </h1>
+
+    <p class="hero-subtitle">
+      A response to <strong>[Retailer Name]</strong>'s request for a system integrator
+      to deliver the integration of <strong>[Merch System]</strong> into existing
+      operating systems &mdash; built on a published canonical retail data model,
+      OpenAPI 3.0 endpoints, and MCP-native plumbing.
+    </p>
+
+    <dl class="hero-meta">
+      <div>
+        <dt>Prepared for</dt>
+        <dd>[Retailer Name]</dd>
+      </div>
+      <div>
+        <dt>RFP Reference</dt>
+        <dd>[RFP-####]</dd>
+      </div>
+      <div>
+        <dt>Effective Date</dt>
+        <dd>[Effective Date]</dd>
+      </div>
+      <div>
+        <dt>Submitted by</dt>
+        <dd>GrowDirect, LLC</dd>
+      </div>
+      <div>
+        <dt>Engagement Lead</dt>
+        <dd>[Founder Name]</dd>
+      </div>
+      <div>
+        <dt>Document</dt>
+        <dd>v0.1 &mdash; Engagement Framework</dd>
+      </div>
+    </dl>
+
+    <span class="confidential-stamp">Confidential &mdash; for [Retailer Name] only</span>
+  </div>
+</section>
+
+<!-- ============================================================
+     SECTION 2 — LETTER OF TRANSMITTAL
+     ============================================================ -->
+<section class="section" id="transmittal" aria-labelledby="transmittal-h">
+  <div class="wrap">
+    <span class="section-num">Section 02</span>
+    <h2 id="transmittal-h">Letter of transmittal</h2>
+
+    <div class="letter">
+      <dl class="letter-meta">
+        <div>
+          <dt>Date</dt>
+          <dd>[Effective Date]</dd>
+        </div>
+        <div>
+          <dt>To</dt>
+          <dd>[Buyer Contact Name], [Title]<br>[Retailer Name]</dd>
+        </div>
+        <div>
+          <dt>From</dt>
+          <dd>[Founder Name]<br>GrowDirect, LLC</dd>
+        </div>
+        <div>
+          <dt>Re</dt>
+          <dd>Response to RFP [####] &mdash; SI for [Merch System] integration</dd>
+        </div>
+      </dl>
+
+      <div class="letter-body">
+        <p>
+          On behalf of GrowDirect, LLC, I am pleased to submit our response to your request
+          for a system integrator to deliver the integration of <strong>[Merch System]</strong>
+          into [Retailer Name]'s operating environment. We have read the RFP carefully and
+          believe we are uniquely qualified to deliver this engagement on time, on budget,
+          and in a way that leaves your team materially stronger when we exit.
+        </p>
+
+        <p>
+          What we propose is not a bespoke integration project. It is a structured engagement
+          built on a <strong>published canonical retail data model</strong>, a set of
+          <strong>OpenAPI 3.0 contracts</strong> that every system you operate is mapped to,
+          and an <strong>MCP-native integration substrate</strong> that is ready for the
+          AI-augmented operations your roadmap is already pointed at. Other firms will hand
+          you a project. We hand you a method &mdash; and a portable Integration Accelerator
+          your team retains.
+        </p>
+
+        <p>
+          The methodology behind this proposal has direct precedent at scale. The founder
+          architected the Global Store Logical Model for Walmart International (2009),
+          designed the in-store technology model for Tesco's Fresh &amp; Easy stores
+          (2007&ndash;2013), and applied the same canonical-model approach as the integration
+          exemplar for Dollar Tree's banner consolidation work (2023). We are not learning
+          on your project.
+        </p>
+
+        <p>
+          This document is the engagement kickoff &mdash; the framework for how we will
+          deliver. Subsequent sections of this proposal cover the solution architecture,
+          data migration and master data governance, PCI scope and data storage approach,
+          the protocol layer in detail, testing and cutover, team and credentials,
+          references, pricing, and risk. Each will land before your evaluation deadline.
+        </p>
+
+        <p>
+          I am the single point of accountability for this engagement and welcome your
+          questions directly. Thank you for the opportunity to respond.
+        </p>
+      </div>
+
+      <div class="letter-sig">
+        <div class="sig-name">[Founder Name]</div>
+        <div class="sig-title">Founder &amp; Engagement Lead</div>
+        <div class="sig-org">GrowDirect, LLC &mdash; [contact email] &mdash; [phone]</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ============================================================
+     SECTION 3 — EXECUTIVE SUMMARY
+     ============================================================ -->
+<section class="section" id="summary" aria-labelledby="summary-h">
+  <div class="wrap">
+    <span class="section-num">Section 03</span>
+    <h2 id="summary-h">Executive summary</h2>
+
+    <p class="lead">
+      We propose to integrate [Retailer Name]'s newly-acquired [Merch System] into your
+      operating stack via a <strong>10&ndash;12 month, six-phase, fixed-fee engagement</strong>
+      built on the Canary Method &mdash; a published canonical retail data model, OpenAPI 3.0
+      contracts, and an MCP-native integration substrate. You receive a fully-integrated
+      merchandising backbone, an audit-grade lineage trail for every record that crosses
+      a system boundary, and a portable Integration Accelerator your team retains for
+      future system changes.
+    </p>
+
+    <h3>The offer in brief</h3>
+    <table class="tbl">
+      <thead>
+        <tr><th style="width:32%">Dimension</th><th>Commitment</th></tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td><strong>Engagement shape</strong></td>
+          <td>10&ndash;12 months &middot; six phases &middot; fixed-fee per phase &middot; gated transitions</td>
+        </tr>
+        <tr>
+          <td><strong>Primary deliverable</strong></td>
+          <td>[Merch System] fully integrated with [POS], [E-commerce], [ERP], [BI/Reporting], [Vendor EDI/Portal], and [Store Ops]</td>
+        </tr>
+        <tr>
+          <td><strong>Embedded deliverable</strong></td>
+          <td>The Integration Accelerator &mdash; canonical model mapping, OpenAPI 3.0 contracts, MCP connectors, runbooks, and master-data governance, transferred to your team</td>
+        </tr>
+        <tr>
+          <td><strong>Hyper-care</strong></td>
+          <td>90 days post-cutover with declining-intensity steady-state transition</td>
+        </tr>
+        <tr>
+          <td><strong>Optional Year-2</strong></td>
+          <td>Canary platform service &mdash; canonical model + DMZ landing zone + audit anchoring as a hosted service for ongoing data routing</td>
+        </tr>
+        <tr>
+          <td><strong>Lock-in posture</strong></td>
+          <td>None. The canonical model, OpenAPI contracts, and Accelerator are yours.
+              You can self-host, switch SIs, or extend without our involvement.</td>
+        </tr>
+      </tbody>
+    </table>
+
+    <h3>Why us</h3>
+    <p>
+      The founder architected the Global Store Logical Model for Walmart International's
+      2009 banner-consolidation effort &mdash; the canonical-model exemplar reused for
+      Dollar Tree's integration work in 2023. He also designed the in-store technology
+      model for Tesco Fresh &amp; Easy (2007&ndash;2013), giving us operational precedent
+      for the kind of plumbing this engagement requires. The methodology has been deployed
+      at $500B-scale retail. The credential is direct, not adjacent.
+    </p>
+
+    <div class="callout">
+      <h4>One-line differentiator</h4>
+      <p>
+        Other system integrators deliver integrations.
+        We deliver a published standard &mdash; and you keep it.
+      </p>
+    </div>
+  </div>
+</section>
+
+<!-- ============================================================
+     SECTION 4 — UNDERSTANDING OF THE ENGAGEMENT
+     ============================================================ -->
+<section class="section" id="understanding" aria-labelledby="understanding-h">
+  <div class="wrap">
+    <span class="section-num">Section 04</span>
+    <h2 id="understanding-h">Understanding of the engagement</h2>
+
+    <p class="lead">
+      We have read the RFP carefully. This section restates what we heard, and what we
+      believe you are actually solving for &mdash; including the items between the lines.
+      If we have misread anything, that is the conversation we want to have first.
+    </p>
+
+    <h3>What we read in your RFP</h3>
+    <table class="tbl">
+      <thead>
+        <tr><th style="width:30%">Dimension</th><th>What you stated</th></tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td><strong>New merchandising backbone</strong></td>
+          <td>[Merch System], replacing [Legacy System] after [N] years in service</td>
+        </tr>
+        <tr>
+          <td><strong>Footprint</strong></td>
+          <td>[N] stores across [Geography]; [Channel mix &mdash; B&amp;M, e-commerce, wholesale, etc.]</td>
+        </tr>
+        <tr>
+          <td><strong>Existing systems to plumb</strong></td>
+          <td>[POS], [E-commerce platform], [ERP/Finance], [BI/Reporting], [Vendor EDI/Portal], [Store Ops/Workforce], [Other]</td>
+        </tr>
+        <tr>
+          <td><strong>Timeline</strong></td>
+          <td>[N]-month overall &middot; cutover window of [Window] &middot; freeze period [Dates]</td>
+        </tr>
+        <tr>
+          <td><strong>Stated requirements</strong></td>
+          <td>Hash-anchored data lineage &middot; vendor-neutral architecture &middot;
+              knowledge transfer to internal IT &middot; PCI scope managed at integration boundary</td>
+        </tr>
+        <tr>
+          <td><strong>Evaluation criteria</strong></td>
+          <td>Demonstrated integration experience &middot; methodology rigor &middot;
+              team and credentials &middot; pricing &middot; risk posture</td>
+        </tr>
+      </tbody>
+    </table>
+
+    <h3>What we heard between the lines</h3>
+
+    <p>
+      <strong>You have been burned before.</strong> Your RFP language around
+      &ldquo;maintainability,&rdquo; &ldquo;knowledge transfer,&rdquo; and &ldquo;portable
+      artifacts&rdquo; reads as a team that has lived through bespoke point-to-point
+      integration projects that became unsupportable two years after cutover. You want
+      a method, not just a project.
+    </p>
+
+    <p>
+      <strong>Your audit committee is paying attention.</strong> [Merch System] is the
+      record of truth for assortment, pricing, vendor terms, and inventory. That data
+      is high-stakes &mdash; financial, contractual, regulatory. The lineage and immutability
+      requirements in the RFP read as audit-driven, not technology-driven. We treat that
+      as a first-class design constraint, not a compliance afterthought.
+    </p>
+
+    <p>
+      <strong>Your IT team is small relative to the engagement.</strong> The RFP describes
+      a delivery model that augments rather than displaces internal staff. The team you
+      retain after we leave matters more to you than the team you rent during delivery.
+      We design the engagement around that.
+    </p>
+
+    <p>
+      <strong>You are aware that the next decade of retail operations is AI-augmented.</strong>
+      The RFP asks for &ldquo;modern API contracts,&rdquo; &ldquo;machine-readable
+      integration definitions,&rdquo; and &ldquo;extensibility for future tooling.&rdquo;
+      That is the language of a buyer who does not want to plumb this system once for today
+      and re-plumb it in three years for AI agents. The Canary Method is built to that
+      forward shape from day one.
+    </p>
+
+    <h3>What we&rsquo;re solving for</h3>
+    <ol>
+      <li>
+        <strong>Plumbing fidelity.</strong> Every system speaks one canonical retail
+        model, mapped explicitly, contract-tested at the boundary.
+      </li>
+      <li>
+        <strong>Auditability.</strong> Every record's lineage is hash-anchored on
+        arrival, immutable in storage, and provable on demand &mdash; without depending
+        on a single vendor's database to remain authoritative.
+      </li>
+      <li>
+        <strong>Reversibility.</strong> At any phase, you can fall back to the legacy
+        system without data loss or surprise. No bridge is burned until you sign off.
+      </li>
+      <li>
+        <strong>Portability.</strong> Your team retains the Integration Accelerator
+        &mdash; the canonical model, OpenAPI contracts, MCP connectors, runbooks. We
+        leave. The capability stays.
+      </li>
+      <li>
+        <strong>Future-readiness.</strong> The integration substrate is MCP-native,
+        which means tomorrow's AI tooling and agent operations plug in without a
+        re-implementation cycle.
+      </li>
+    </ol>
+
+    <div class="callout">
+      <h4>What this is not</h4>
+      <p>
+        This is not a hand-rolled, point-to-point integration project. It is not a
+        re-implementation of [Merch System]'s out-of-the-box connectors with custom
+        adapter code. It is not a project that produces tribal knowledge in the heads
+        of three people who leave when we exit. If that is what you wanted, we are
+        not the right respondent.
+      </p>
+    </div>
+  </div>
+</section>
+
+<!-- ============================================================
+     SECTION 5 — FRAMEWORK FOR DELIVERY  (the centerpiece)
+     ============================================================ -->
+<section class="section" id="framework" aria-labelledby="framework-h">
+  <div class="wrap">
+    <span class="section-num">Section 05</span>
+    <h2 id="framework-h">The framework for delivery</h2>
+
+    <p class="lead">
+      The Canary Method delivers merchandising-system integrations in <strong>six phases
+      across approximately 40&ndash;48 weeks</strong>, with explicit go/no-go gates between
+      every phase, four accountability rails enforced through every deliverable, and a
+      governance cadence designed for joint operation with your internal team. The
+      structure is the same across engagements; the content of each phase is parameterized
+      against your specific environment, captured in the engagement profile during Phase 0.
+    </p>
+
+    <!-- Phases timeline diagram (SVG) -->
+    <h3>Phases &amp; gates</h3>
+    <figure class="framework-diagram" aria-label="Six-phase engagement timeline with gates">
+      <svg viewBox="0 0 880 320" xmlns="http://www.w3.org/2000/svg" role="img"
+           aria-labelledby="phases-svg-title phases-svg-desc">
+        <title id="phases-svg-title">Canary Method: six phases with gates over 40&ndash;48 weeks</title>
+        <desc id="phases-svg-desc">
+          Horizontal timeline showing six engagement phases with go/no-go gate diamonds
+          between them, plotted across roughly 40 to 48 weeks.
+        </desc>
+
+        <!-- Background grid -->
+        <line x1="40"  y1="240" x2="840" y2="240" stroke="#E5DDD0" stroke-width="1"/>
+        <!-- Week markers -->
+        <g font-family="ui-monospace, Menlo, monospace" font-size="9.5" fill="#9CA3AF">
+          <text x="40"  y="258" text-anchor="start">w0</text>
+          <text x="100" y="258" text-anchor="middle">w4</text>
+          <text x="200" y="258" text-anchor="middle">w10</text>
+          <text x="350" y="258" text-anchor="middle">w22</text>
+          <text x="500" y="258" text-anchor="middle">w30</text>
+          <text x="680" y="258" text-anchor="middle">w38</text>
+          <text x="800" y="258" text-anchor="middle">w44</text>
+          <text x="840" y="258" text-anchor="end">w48</text>
+        </g>
+
+        <!-- Phase bars -->
+        <!-- Phase 0: w0-w4   x: 40-110  -->
+        <rect x="40"  y="80" width="70"  height="44" rx="4" fill="#0D1117"/>
+        <text x="75"  y="106" text-anchor="middle" fill="#FBBF24" font-family="-apple-system, system-ui" font-size="11" font-weight="700">P0</text>
+        <text x="75"  y="138" text-anchor="middle" fill="#4B5563" font-family="-apple-system, system-ui" font-size="10">Discovery</text>
+        <text x="75"  y="152" text-anchor="middle" fill="#9CA3AF" font-family="ui-monospace" font-size="9">4 wk</text>
+
+        <!-- Phase 1: w4-w10  x: 115-205 -->
+        <rect x="115" y="80" width="90"  height="44" rx="4" fill="#1F2937"/>
+        <text x="160" y="106" text-anchor="middle" fill="#FBBF24" font-family="-apple-system" font-size="11" font-weight="700">P1</text>
+        <text x="160" y="138" text-anchor="middle" fill="#4B5563" font-family="-apple-system" font-size="10">Canonical Mapping</text>
+        <text x="160" y="152" text-anchor="middle" fill="#9CA3AF" font-family="ui-monospace" font-size="9">6 wk</text>
+
+        <!-- Phase 2: w10-w22 x: 210-350 -->
+        <rect x="210" y="80" width="140" height="44" rx="4" fill="#0D1117"/>
+        <text x="280" y="106" text-anchor="middle" fill="#FBBF24" font-family="-apple-system" font-size="11" font-weight="700">P2</text>
+        <text x="280" y="138" text-anchor="middle" fill="#4B5563" font-family="-apple-system" font-size="10">Pass-Through Plumbing</text>
+        <text x="280" y="152" text-anchor="middle" fill="#9CA3AF" font-family="ui-monospace" font-size="9">10&ndash;14 wk</text>
+
+        <!-- Phase 3: w22-w30 x: 355-495 -->
+        <rect x="355" y="80" width="140" height="44" rx="4" fill="#1F2937"/>
+        <text x="425" y="106" text-anchor="middle" fill="#FBBF24" font-family="-apple-system" font-size="11" font-weight="700">P3</text>
+        <text x="425" y="138" text-anchor="middle" fill="#4B5563" font-family="-apple-system" font-size="10">Master Data &amp; Migration</text>
+        <text x="425" y="152" text-anchor="middle" fill="#9CA3AF" font-family="ui-monospace" font-size="9">8 wk</text>
+
+        <!-- Phase 4: w30-w38 x: 500-680 -->
+        <rect x="500" y="80" width="180" height="44" rx="4" fill="#0D1117"/>
+        <text x="590" y="106" text-anchor="middle" fill="#FBBF24" font-family="-apple-system" font-size="11" font-weight="700">P4</text>
+        <text x="590" y="138" text-anchor="middle" fill="#4B5563" font-family="-apple-system" font-size="10">Cutover &amp; Hyper-Care</text>
+        <text x="590" y="152" text-anchor="middle" fill="#9CA3AF" font-family="ui-monospace" font-size="9">8 wk</text>
+
+        <!-- Phase 5: w38-w44 x: 685-820 -->
+        <rect x="685" y="80" width="135" height="44" rx="4" fill="#1F2937"/>
+        <text x="752" y="106" text-anchor="middle" fill="#FBBF24" font-family="-apple-system" font-size="11" font-weight="700">P5</text>
+        <text x="752" y="138" text-anchor="middle" fill="#4B5563" font-family="-apple-system" font-size="10">Steady State + Handoff</text>
+        <text x="752" y="152" text-anchor="middle" fill="#9CA3AF" font-family="ui-monospace" font-size="9">4&ndash;6 wk</text>
+
+        <!-- Gate diamonds between phases -->
+        <g fill="#FBBF24" stroke="#92400E" stroke-width="1.2">
+          <polygon points="112,90 117,95 112,100 107,95"/>
+          <polygon points="207,90 212,95 207,100 202,95"/>
+          <polygon points="352,90 357,95 352,100 347,95"/>
+          <polygon points="497,90 502,95 497,100 492,95"/>
+          <polygon points="682,90 687,95 682,100 677,95"/>
+        </g>
+        <!-- Gate labels -->
+        <g font-family="ui-monospace, Menlo, monospace" font-size="8.5" fill="#92400E" font-weight="600">
+          <text x="112" y="72" text-anchor="middle">G0&rarr;1</text>
+          <text x="207" y="72" text-anchor="middle">G1&rarr;2</text>
+          <text x="352" y="72" text-anchor="middle">G2&rarr;3</text>
+          <text x="497" y="72" text-anchor="middle">G3&rarr;4</text>
+          <text x="682" y="72" text-anchor="middle">G4&rarr;5</text>
+        </g>
+
+        <!-- Rails strip below -->
+        <text x="40" y="200" font-family="-apple-system" font-size="10.5" font-weight="600" fill="#1F2937">Four accountability rails enforced through every phase:</text>
+        <g font-family="-apple-system" font-size="10" fill="#4B5563">
+          <text x="40"  y="222">&#9679; Operational</text>
+          <text x="190" y="222">&#9679; Financial</text>
+          <text x="320" y="222">&#9679; Evidentiary</text>
+          <text x="470" y="222">&#9679; Vendor SLA</text>
+        </g>
+
+        <!-- Caption -->
+        <text x="440" y="298" text-anchor="middle" font-family="-apple-system" font-size="10.5" fill="#6B7280" font-style="italic">
+          Each gate is a documented go/no-go review. No phase begins without explicit sign-off on the prior phase's exit criteria.
+        </text>
+      </svg>
+    </figure>
+
+    <!-- Phase cards -->
+    <h3>Phase detail</h3>
+    <div class="phase-cards">
+      <div class="phase-card">
+        <div class="phase-card-head">
+          <span class="phase-card-num">Phase 0</span>
+          <span class="phase-card-weeks">~4 weeks</span>
+        </div>
+        <h4>Discovery &amp; Profile</h4>
+        <p>
+          Map current-state data flows across every system. Document target-state with
+          [Merch System] at the center. Build the engagement profile: scale, channels,
+          jurisdictions, vendors, freeze windows. Set canonical-model scope.
+          <strong>Exit criteria:</strong> profile signed, canonical scope agreed, governance
+          stood up.
+        </p>
+      </div>
+      <div class="phase-card">
+        <div class="phase-card-head">
+          <span class="phase-card-num">Phase 1</span>
+          <span class="phase-card-weeks">~6 weeks</span>
+        </div>
+        <h4>Canonical Model Mapping</h4>
+        <p>
+          Map each existing system to the canonical retail model. Map [Merch System]'s
+          API surface to the canonical model. Identify gaps, conflicts, transformations.
+          Stand up the DMZ landing zone &amp; hash-anchoring infrastructure.
+          <strong>Exit criteria:</strong> mapping complete, DMZ live, anchoring tested
+          end-to-end against a sample payload.
+        </p>
+      </div>
+      <div class="phase-card">
+        <div class="phase-card-head">
+          <span class="phase-card-num">Phase 2</span>
+          <span class="phase-card-weeks">10&ndash;14 weeks</span>
+        </div>
+        <h4>Pass-Through Plumbing</h4>
+        <p>
+          Build OpenAPI 3.0 endpoints and MCP connectors for every system pair. Read
+          paths first &mdash; reversible, low-risk. Write paths second, with contract
+          tests at every boundary. Continuous canonical-model conformance verification.
+          <strong>Exit criteria:</strong> all read paths flowing, contract tests passing,
+          write paths gated by retailer sign-off.
+        </p>
+      </div>
+      <div class="phase-card">
+        <div class="phase-card-head">
+          <span class="phase-card-num">Phase 3</span>
+          <span class="phase-card-weeks">~8 weeks</span>
+        </div>
+        <h4>Master Data &amp; Migration</h4>
+        <p>
+          Item master, vendor master, location master, customer master harmonized
+          against the canonical model. Legacy data migrated with hash-anchored lineage
+          end-to-end &mdash; every record traceable from origin to destination.
+          Reconciliation against the canonical contracts.
+          <strong>Exit criteria:</strong> master data reconciled, migration audit
+          report signed, cutover plan approved.
+        </p>
+      </div>
+      <div class="phase-card">
+        <div class="phase-card-head">
+          <span class="phase-card-num">Phase 4</span>
+          <span class="phase-card-weeks">~8 weeks</span>
+        </div>
+        <h4>Cutover &amp; Hyper-Care</h4>
+        <p>
+          Phased cutover by store cluster or channel &mdash; never big-bang.
+          Real-time monitoring through canonical-model lens. Documented rollback
+          procedures usable at any cutover sub-stage. 90 days of declining-intensity
+          hyper-care covering both systems and people.
+          <strong>Exit criteria:</strong> all channels live, hyper-care metrics in
+          green, no open severity-1 issues.
+        </p>
+      </div>
+      <div class="phase-card">
+        <div class="phase-card-head">
+          <span class="phase-card-num">Phase 5</span>
+          <span class="phase-card-weeks">4&ndash;6 weeks</span>
+        </div>
+        <h4>Steady State + Accelerator Handoff</h4>
+        <p>
+          Documentation handoff. The Integration Accelerator transferred to your team
+          with practitioner certification. Decision point: ongoing Canary platform
+          service (canonical model + DMZ + audit anchoring as a hosted service)
+          or self-host the kit.
+          <strong>Exit criteria:</strong> Accelerator delivered, certification complete,
+          steady-state operating model signed.
+        </p>
+      </div>
+    </div>
+
+    <!-- Gates table -->
+    <h3>Gate criteria &mdash; what must be true to proceed</h3>
+    <table class="tbl">
+      <thead>
+        <tr>
+          <th style="width:14%">Gate</th>
+          <th style="width:25%">From &rarr; To</th>
+          <th>Required exit evidence</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td class="num">G0&rarr;1</td>
+          <td>Discovery &rarr; Canonical Mapping</td>
+          <td>Engagement profile signed; canonical scope agreed; steering committee constituted; data access established for every source system in scope.</td>
+        </tr>
+        <tr>
+          <td class="num">G1&rarr;2</td>
+          <td>Canonical Mapping &rarr; Plumbing</td>
+          <td>System-to-canonical mappings documented and reviewed; DMZ landing zone live; hash anchoring tested against representative payloads end-to-end; contract test scaffolding generated from OpenAPI definitions.</td>
+        </tr>
+        <tr>
+          <td class="num">G2&rarr;3</td>
+          <td>Plumbing &rarr; Master Data</td>
+          <td>All read-path endpoints in production; contract tests &ge; agreed coverage threshold passing; write paths reviewed and approved for development; performance and load characteristics documented.</td>
+        </tr>
+        <tr>
+          <td class="num">G3&rarr;4</td>
+          <td>Master Data &rarr; Cutover</td>
+          <td>Master records reconciled and signed off by data steward; migration audit report complete; cutover plan with rollback procedures approved by steering committee; UAT exit criteria met.</td>
+        </tr>
+        <tr>
+          <td class="num">G4&rarr;5</td>
+          <td>Cutover &rarr; Steady State</td>
+          <td>All channels and clusters live on [Merch System]; no open severity-1 incidents; hyper-care metrics in green for &ge; 30 consecutive days; legacy system decommissioning plan agreed.</td>
+        </tr>
+        <tr>
+          <td class="num">G5&rarr;close</td>
+          <td>Steady State &rarr; Engagement close</td>
+          <td>Integration Accelerator delivered; practitioner certification complete; steady-state operating model signed; final invoice issued and paid.</td>
+        </tr>
+      </tbody>
+    </table>
+
+    <!-- Governance -->
+    <h3>Governance</h3>
+    <p>
+      Joint governance is the operating model. We do not drive in isolation and surface
+      monthly status reports. The retailer's IT and merchandising leadership are inside
+      the working sessions, not above them.
+    </p>
+
+    <table class="tbl">
+      <thead>
+        <tr>
+          <th style="width:30%">Forum</th>
+          <th style="width:24%">Cadence</th>
+          <th>Composition &amp; purpose</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td><strong>Steering Committee</strong></td>
+          <td>Monthly &middot; ad hoc on gate decisions</td>
+          <td>[Retailer] CIO &amp; Director of Merchandising &middot; Executive Sponsor &middot; Canary Engagement Lead. Owns scope, gate sign-off, and escalations.</td>
+        </tr>
+        <tr>
+          <td><strong>Joint Working Session</strong></td>
+          <td>Weekly</td>
+          <td>[Retailer] IT Lead &amp; Data Steward &middot; Canary Solution Architect, Integration Lead, Data Engineer. Working-level alignment on the current phase.</td>
+        </tr>
+        <tr>
+          <td><strong>Daily Standup</strong></td>
+          <td>Daily, build &amp; cutover phases only</td>
+          <td>Build team both sides &middot; 15 minutes &middot; what shipped, what's in flight, what's blocked.</td>
+        </tr>
+        <tr>
+          <td><strong>Gate Review</strong></td>
+          <td>End of each phase</td>
+          <td>Steering Committee with full delivery team. Documented exit-evidence walkthrough. Go / no-go / conditional decision.</td>
+        </tr>
+        <tr>
+          <td><strong>Hyper-Care Operations Review</strong></td>
+          <td>Weekly during hyper-care</td>
+          <td>[Retailer] Operations &amp; Canary Cutover Lead. Live incident review, metrics health, post-cutover stabilization.</td>
+        </tr>
+      </tbody>
+    </table>
+
+    <!-- Roles -->
+    <h3>Roles &amp; responsibilities</h3>
+    <h4 style="margin-top:1.6em">Canary delivery team</h4>
+    <table class="tbl">
+      <thead>
+        <tr><th style="width:32%">Role</th><th>Responsibility</th></tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td><strong>Engagement Lead</strong></td>
+          <td>Single point of accountability. Owns scope, schedule, budget, and quality. Founder-led for this engagement.</td>
+        </tr>
+        <tr>
+          <td><strong>Solution Architect</strong></td>
+          <td>Owns the canonical model mapping and the integration architecture. Author of every contract.</td>
+        </tr>
+        <tr>
+          <td><strong>Integration Engineers</strong></td>
+          <td>Build OpenAPI 3.0 endpoints and MCP connectors. Pair-program with retailer's IT engineers as a knowledge-transfer mechanism.</td>
+        </tr>
+        <tr>
+          <td><strong>Data Engineer</strong></td>
+          <td>Master-data harmonization, migration, lineage anchoring. Owns the migration audit report.</td>
+        </tr>
+        <tr>
+          <td><strong>QA / Contract Test Lead</strong></td>
+          <td>Owns the canonical-conformance test suite. Gates promotion at every phase boundary.</td>
+        </tr>
+        <tr>
+          <td><strong>Cutover &amp; Hyper-Care Lead</strong></td>
+          <td>Owns cutover playbook, rollback procedures, and the 90-day hyper-care window.</td>
+        </tr>
+      </tbody>
+    </table>
+
+    <h4 style="margin-top:1.4em">Retailer-side counterparts</h4>
+    <table class="tbl">
+      <thead>
+        <tr><th style="width:32%">Role</th><th>Responsibility</th></tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td><strong>Executive Sponsor</strong></td>
+          <td>Steering committee chair. Owns the engagement at the C-suite. Final scope and budget authority.</td>
+        </tr>
+        <tr>
+          <td><strong>IT Lead</strong></td>
+          <td>Operational counterpart to the Engagement Lead. Owns retailer-side delivery resources.</td>
+        </tr>
+        <tr>
+          <td><strong>Data Steward</strong></td>
+          <td>Owns master data sign-offs, including the migration audit report at G3.</td>
+        </tr>
+        <tr>
+          <td><strong>UAT Lead</strong></td>
+          <td>Owns acceptance criteria and the user testing process across business units.</td>
+        </tr>
+        <tr>
+          <td><strong>Change Management Lead</strong></td>
+          <td>Owns store-team training, communication, and the cutover-day human readiness plan.</td>
+        </tr>
+      </tbody>
+    </table>
+
+    <!-- Accountability rails -->
+    <h3>Four accountability rails</h3>
+    <p>
+      The Canary Method enforces four rails through every phase. They are not periodic
+      audits &mdash; they are the operating discipline of the engagement. Each rail has
+      an explicit measurement, an explicit threshold, and an explicit escalation path.
+    </p>
+
+    <div class="rails">
+      <div class="rail">
+        <div class="rail-num">Rail 01</div>
+        <div class="rail-name">Operational</div>
+        <p>
+          No unknown loss across system boundaries. Every record that enters the
+          canonical model is accounted for &mdash; in transit, at rest, and in
+          downstream destinations. Reconciliation is continuous, not retrospective.
+        </p>
+      </div>
+      <div class="rail">
+        <div class="rail-num">Rail 02</div>
+        <div class="rail-name">Financial</div>
+        <p>
+          Phase-fixed pricing with documented gate criteria. No scope creep without
+          a formal change order. No surprise overruns &mdash; if a phase trends
+          off-target, it surfaces in weekly governance, not at month-end.
+        </p>
+      </div>
+      <div class="rail">
+        <div class="rail-num">Rail 03</div>
+        <div class="rail-name">Evidentiary</div>
+        <p>
+          Every record's lineage is hash-anchored on arrival in the DMZ landing zone.
+          Storage is immutable. Provenance is provable on demand without depending on
+          any single vendor's database remaining authoritative.
+        </p>
+      </div>
+      <div class="rail">
+        <div class="rail-num">Rail 04</div>
+        <div class="rail-name">Vendor SLA</div>
+        <p>
+          Active SLA discipline against [Merch System] and downstream cloud providers.
+          Measured throughput, latency, and availability against contractual commitments.
+          Exit options retained throughout.
+        </p>
+      </div>
+    </div>
+
+    <div class="callout">
+      <h4>Why these four, why this order</h4>
+      <p>
+        Operational and Financial are table stakes &mdash; any credible SI commits to them.
+        Evidentiary is what makes this engagement audit-grade rather than just well-run.
+        Vendor SLA is the rail most often skipped by SIs because it requires us to push
+        on platforms we don't own; we treat it as a first-class deliverable because the
+        long-term cost of weak vendor accountability exceeds the integration cost itself.
+      </p>
+    </div>
+  </div>
+</section>
+
+<!-- ============================================================
+     SECTION 6 — PROPOSAL ROADMAP (the rest of the response)
+     ============================================================ -->
+<section class="section" id="roadmap" aria-labelledby="roadmap-h">
+  <div class="wrap">
+    <span class="section-num">Section 06</span>
+    <h2 id="roadmap-h">What&rsquo;s coming in this proposal</h2>
+
+    <p class="lead">
+      This kickoff document establishes the engagement framework. The full proposal
+      package adds the technical depth your evaluation team needs to score against
+      your rubric. Each forthcoming section will land before your evaluation deadline,
+      delivered as additional sections of this same document &mdash; not as separate
+      attachments. The integration site you are reading <em>is</em> the proposal.
+    </p>
+
+    <ol class="roadmap-list" start="1">
+      <li class="roadmap-item">
+        <span class="roadmap-num">01&ndash;05</span>
+        <div class="roadmap-body">
+          <h4>Engagement framework</h4>
+          <p>
+            Cover, transmittal, executive summary, engagement understanding, and the
+            framework for delivery &mdash; everything above this point.
+          </p>
+        </div>
+        <span class="roadmap-tag live">Delivered</span>
+      </li>
+
+      <li class="roadmap-item">
+        <span class="roadmap-num">06</span>
+        <div class="roadmap-body">
+          <h4>Solution architecture</h4>
+          <p>
+            The integration topology in detail: the canonical retail data model,
+            OpenAPI 3.0 contracts per system pair, MCP connector definitions, the
+            DMZ landing zone, the four-tier storage model, and the technology stack
+            running each layer. Diagrams at the system, data-flow, and contract levels.
+          </p>
+        </div>
+        <span class="roadmap-tag next">Next</span>
+      </li>
+
+      <li class="roadmap-item">
+        <span class="roadmap-num">07</span>
+        <div class="roadmap-body">
+          <h4>Data migration &amp; master-data governance</h4>
+          <p>
+            The legacy-to-target migration approach with hash-anchored lineage. Master-data
+            harmonization across item, vendor, location, and customer domains. The data
+            steward's playbook, reconciliation methodology, and the migration audit report
+            template.
+          </p>
+        </div>
+        <span class="roadmap-tag">Forthcoming</span>
+      </li>
+
+      <li class="roadmap-item">
+        <span class="roadmap-num">08</span>
+        <div class="roadmap-body">
+          <h4>PCI scope &amp; data storage</h4>
+          <p>
+            The PCI boundary in this architecture, where it sits, and what it costs to
+            cross. Storage tiering (hot, warm, cold, anchored). Encryption at rest and
+            in transit. Data residency, retention, deletion. Compliance posture against
+            SOC 2, ISO 27001, and the relevant privacy regimes for [Retailer Name]'s
+            jurisdictions.
+          </p>
+        </div>
+        <span class="roadmap-tag">Forthcoming</span>
+      </li>
+
+      <li class="roadmap-item">
+        <span class="roadmap-num">09</span>
+        <div class="roadmap-body">
+          <h4>The protocol</h4>
+          <p>
+            A deeper read of the canonical retail data model, the OpenAPI 3.0 contract
+            surface, and the MCP-native integration substrate. What it is, what it does,
+            why it is the right plumbing for this engagement, and why every system
+            integrator who follows us inherits it instead of replacing it.
+          </p>
+        </div>
+        <span class="roadmap-tag">Forthcoming</span>
+      </li>
+
+      <li class="roadmap-item">
+        <span class="roadmap-num">10</span>
+        <div class="roadmap-body">
+          <h4>Testing, UAT, cutover &amp; hyper-care</h4>
+          <p>
+            The contract-test methodology. UAT entry and exit criteria. Cutover playbook
+            with phased clusters and rollback procedures. The 90-day hyper-care operating
+            model, metrics dashboard, and steady-state transition plan.
+          </p>
+        </div>
+        <span class="roadmap-tag">Forthcoming</span>
+      </li>
+
+      <li class="roadmap-item">
+        <span class="roadmap-num">11</span>
+        <div class="roadmap-body">
+          <h4>Team &amp; credentials</h4>
+          <p>
+            Named senior leadership. Founder-led delivery for this engagement. Bench
+            depth and gig-mesh practitioner network for build phases. Direct precedent:
+            Walmart International GSLM, Tesco Fresh &amp; Easy, Dollar Tree banner
+            consolidation. Resumes and r&eacute;f&eacute;rences attached.
+          </p>
+        </div>
+        <span class="roadmap-tag">Forthcoming</span>
+      </li>
+
+      <li class="roadmap-item">
+        <span class="roadmap-num">12</span>
+        <div class="roadmap-body">
+          <h4>References &amp; case studies</h4>
+          <p>
+            Anonymized engagement profiles where the methodology has been deployed.
+            Quantified outcomes &mdash; cycle time, defect density at cutover,
+            post-cutover incident rates, knowledge-transfer completion. Reachable
+            references on request.
+          </p>
+        </div>
+        <span class="roadmap-tag">Forthcoming</span>
+      </li>
+
+      <li class="roadmap-item">
+        <span class="roadmap-num">13</span>
+        <div class="roadmap-body">
+          <h4>Pricing &amp; commercials</h4>
+          <p>
+            Fixed-fee pricing per phase, with payment milestones tied to gate exit
+            criteria. Optional Year-2 platform service pricing. T&amp;C deviations
+            from your master agreement template. Insurance and limits-of-liability
+            posture.
+          </p>
+        </div>
+        <span class="roadmap-tag">Forthcoming</span>
+      </li>
+
+      <li class="roadmap-item">
+        <span class="roadmap-num">14</span>
+        <div class="roadmap-body">
+          <h4>Risks &amp; assumptions</h4>
+          <p>
+            The risk register: what can break, who owns the mitigation, what we are
+            betting on you to deliver, what we are committing to absorb. Honest, not
+            defensive. The CIO will read this section twice.
+          </p>
+        </div>
+        <span class="roadmap-tag">Forthcoming</span>
+      </li>
+
+      <li class="roadmap-item">
+        <span class="roadmap-num">15</span>
+        <div class="roadmap-body">
+          <h4>Appendices</h4>
+          <p>
+            Sample API contracts, canonical model schema excerpts, sample SOWs, sample
+            change-order templates, certifications, a glossary of every acronym in
+            this document, and a one-page summary card for circulation inside your
+            organization.
+          </p>
+        </div>
+        <span class="roadmap-tag">Forthcoming</span>
+      </li>
+    </ol>
+
+    <div class="callout">
+      <h4>How to read what comes next</h4>
+      <p>
+        Sections 06 through 15 will appear inline below this section as they are
+        delivered, each as a versioned addition to this document. The site you are
+        reading carries its own version stamp at the bottom. If a section answers a
+        specific RFP requirement, the requirement reference will be cited in the
+        section's eyebrow line.
+      </p>
+    </div>
+  </div>
+</section>
+
+</main>
+
+<!-- ============================================================
+     FOOTER
+     ============================================================ -->
+<footer class="site-footer">
+  <div class="site-footer-inner">
+    <div>
+      <strong>GrowDirect, LLC</strong> &middot;
+      Canary Method &middot;
+      Confidential &mdash; for [Retailer Name] only
+    </div>
+    <div class="doc-id">
+      Doc&nbsp;v0.1 &middot; [Effective Date] &middot; rfp-[####]
+    </div>
+  </div>
+</footer>
+
+</body>
+</html>
