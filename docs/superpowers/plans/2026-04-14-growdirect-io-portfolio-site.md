@@ -1,9 +1,27 @@
 ---
 classification: confidential
 owner: GrowDirect LLC
+status: superseded
+superseded-by: Brain/wiki/cards/platform-gateway-thesis.md
+superseded-on: 2026-05-02
 ---
 
-# growdirect.io Portfolio Site — Implementation Plan
+> [!warning] **SUPERSEDED 2026-05-02**
+>
+> This three-pillar portfolio plan (POS Platform · RE Toolkit · Membership) is superseded by the **gateway-led launch thesis** captured in `Brain/wiki/cards/platform-gateway-thesis.md` (also see GRO-721 downstream positioning work).
+>
+> **What changed:**
+> - Angel and Cove are no longer website pillars. They become app-layer capabilities and reusable workflow components, decomposing back into the platform capability library. Footer mention only in v1.
+> - The website is now a **single-product story** — gateway thesis + Canary + accelerator pack — not a three-pillar portfolio.
+> - The launch surface is positioned to outclass `rapidpos.com` directly: same integration coverage (via the ARTS POSLOG gateway), with the accountability rails Counterpoint VARs never had.
+> - New IA: `/`, `/gateway`, `/accelerator-pack`, `/method`, `/joint-product`, `/contact` (six pages v1.0; verticals incrementally).
+> - The deck the founder originally asked about (namespace protocol + data layer as ARTS accelerator) **is** the website's `/gateway` page, transcoded for partner audiences. One thesis, two surfaces.
+>
+> The April 14 plan below is preserved for the record. **Do not implement against it.** Implement against the new card.
+
+---
+
+# growdirect.io Portfolio Site — Implementation Plan (SUPERSEDED)
 
 > **For agentic workers:** REQUIRED: Use superpowers:subagent-driven-development (if subagents available) or superpowers:executing-plans to implement this plan. Steps use checkbox (`- [ ]`) syntax for tracking.
 

@@ -1,0 +1,437 @@
+# GrowDirect Accelerator Pack — Manifest
+# ----------------------------------------
+# Source-of-truth registry of what the platform gateway enables.
+# Generated from the RapidPOS feature map §6 (51 integrations) plus extensions.
+# Drives /accelerator-pack page on growdirect.io and partner deck appendices.
+#
+# Tier tagging is the credibility gate. Default to poslog-bridged for v1 draft
+# until founder + Bart pass confirms each entry. See platform-gateway-thesis card
+# (invariant #1) for the honesty rule.
+
+version: 0.1.0
+last-updated: 2026-05-02
+contract: ARTS POSLOG v6
+status: draft
+needs-review: true
+
+gateway:
+  source-of-truth: Brain/wiki/cards/platform-gateway-thesis.md
+  components:
+    - namespace-protocol      # GRO-13, GRO-47–58
+    - poslog-conformance      # GRO-626
+    - field-capture           # pgvector schema registry, semantic field mapping
+    - canary-go-spine         # 13 modules + 12 extended; consumes POSLOG
+    - edge-poller             # On-prem Counterpoint bridge
+
+tiers:
+  native:
+    description: Built, tested, demo-able today
+    confidence: high
+  poslog-bridged:
+    description: Architectural support via the ARTS POSLOG contract; integration is configuration, not custom build
+    confidence: medium
+  roadmap:
+    description: Named partnership; quarter-tagged; not yet wired
+    confidence: forward-looking
+  vendor-side:
+    description: Register / hardware / front-of-house; owned by DriftPOS in joint product, not the Canary gateway
+    confidence: partner-owned
+
+# -----------------------------------------------------------------------------
+# CATEGORIES
+# -----------------------------------------------------------------------------
+# Each integration carries a tier, vertical scope, source citation, and notes.
+# Categories mirror the GSLM domain split + a few platform-specific buckets.
+
+categories:
+
+  reporting-bi:
+    description: Read-side analytics and reporting surfaces
+    integrations:
+      - name: Power BI
+        tier: poslog-bridged
+        verticals: [all]
+        notes: Dashboard pack equivalents shipping with Canary `analytics` + `report` modules
+        source: rapidpos-feature-map §6
+      - name: Crystal Reports
+        tier: poslog-bridged
+        verticals: [all]
+        notes: Legacy partner — advertise compatibility, do not build native
+        source: rapidpos-feature-map §6
+
+  erp:
+    description: Enterprise resource planning sync
+    integrations:
+      - name: SAP
+        tier: poslog-bridged
+        verticals: [all]
+        source: rapidpos-feature-map §6
+      - name: Microsoft Dynamics
+        tier: poslog-bridged
+        verticals: [all]
+        source: rapidpos-feature-map §6
+      - name: Sage Intacct
+        tier: poslog-bridged
+        verticals: [all]
+        source: rapidpos-feature-map §6
+      - name: KWI
+        tier: roadmap
+        quarter: 2026-Q4
+        verticals: [all]
+        notes: Mid-market retail ERP; lower priority than the big three
+        source: rapidpos-feature-map §6
+
+  accounting:
+    description: GL and AP integration (POSLOG → accounting sync)
+    integrations:
+      - name: QuickBooks Online
+        tier: poslog-bridged
+        verticals: [all]
+        notes: Highest-volume integration in SMB specialty retail; priority for native depth
+        source: rapidpos-feature-map §6
+      - name: QuickBooks Desktop
+        tier: poslog-bridged
+        verticals: [all]
+        notes: Legacy; many specialty retailers still on it
+        source: rapidpos-feature-map §6
+      - name: Sage
+        tier: poslog-bridged
+        verticals: [all]
+        source: rapidpos-feature-map §6
+
+  crm-email:
+    description: Customer marketing automation (customer/transaction data export)
+    integrations:
+      - name: Mailchimp
+        tier: poslog-bridged
+        verticals: [all]
+        source: rapidpos-feature-map §6
+      - name: Constant Contact
+        tier: poslog-bridged
+        verticals: [all]
+        source: rapidpos-feature-map §6
+      - name: Klaviyo
+        tier: poslog-bridged
+        verticals: [all]
+        notes: Highest-priority — cleanest API, best-in-class for SMB specialty
+        source: rapidpos-feature-map §6
+
+  loyalty:
+    description: Loyalty program and gift card lifecycle
+    integrations:
+      - name: bLoyal
+        tier: poslog-bridged
+        verticals: [all]
+        source: rapidpos-feature-map §6
+      - name: Givex
+        tier: poslog-bridged
+        verticals: [all]
+        notes: Register-side redemption + back-half issuance lifecycle
+        source: rapidpos-feature-map §6
+      - name: Factor4
+        tier: poslog-bridged
+        verticals: [all]
+        source: rapidpos-feature-map §6
+
+  ecommerce:
+    description: Storefront sync (product, inventory, price; oversell prevention)
+    integrations:
+      - name: Shopify
+        tier: poslog-bridged
+        verticals: [all]
+        notes: Highest-volume; native depth target
+        source: rapidpos-feature-map §6
+      - name: Shopify POS
+        tier: vendor-side
+        verticals: [all]
+        notes: Register-side; competing POS surface, integration-only context
+        source: rapidpos-feature-map §6
+      - name: WooCommerce
+        tier: poslog-bridged
+        verticals: [all]
+        source: rapidpos-feature-map §6
+      - name: BigCommerce
+        tier: poslog-bridged
+        verticals: [all]
+        source: rapidpos-feature-map §6
+      - name: Magento
+        tier: poslog-bridged
+        verticals: [all]
+        source: rapidpos-feature-map §6
+
+  tax-compliance:
+    description: Tax calculation and regulatory compliance
+    integrations:
+      - name: Avalara
+        tier: poslog-bridged
+        verticals: [all]
+        notes: Sales tax — table-stakes; native depth target
+        source: rapidpos-feature-map §6
+      - name: ShipCompliant
+        tier: roadmap
+        quarter: 2026-Q3
+        verticals: [liquor]
+        notes: Alcohol shipping compliance; required for liquor launch (Bart pilot vertical)
+        source: rapidpos-feature-map §6
+
+  shipping-fulfillment:
+    description: Shipping rate calc, label print, work order dispatch
+    integrations:
+      - name: ShipStation
+        tier: poslog-bridged
+        verticals: [all]
+        source: rapidpos-feature-map §6
+      - name: ShippingEasy
+        tier: poslog-bridged
+        verticals: [all]
+        source: rapidpos-feature-map §6
+      - name: UPS
+        tier: poslog-bridged
+        verticals: [all]
+        source: rapidpos-feature-map §6
+      - name: WorkWave
+        tier: roadmap
+        quarter: 2027-Q1
+        verticals: [services-attached]
+        source: rapidpos-feature-map §6
+      - name: ServicePoint
+        tier: roadmap
+        quarter: 2027-Q1
+        verticals: [services-attached]
+        notes: Work order crew dispatch; bridges `commercial` module
+        source: rapidpos-feature-map §6
+
+  vendor-catalog:
+    description: Auto-create items from vendor master catalogs (batch ingestion patterns)
+    integrations:
+      - name: Lipsey's
+        tier: roadmap
+        quarter: 2026-Q4
+        verticals: [gun]
+        notes: Firearms vendor catalog; required for gun vertical launch
+        source: rapidpos-feature-map §6
+      - name: Sports South
+        tier: roadmap
+        quarter: 2026-Q4
+        verticals: [gun]
+        source: rapidpos-feature-map §6
+      - name: RSR Group
+        tier: roadmap
+        quarter: 2026-Q4
+        verticals: [gun]
+        source: rapidpos-feature-map §6
+      - name: Zanders
+        tier: roadmap
+        quarter: 2026-Q4
+        verticals: [gun]
+        source: rapidpos-feature-map §6
+      - name: Davidsons
+        tier: roadmap
+        quarter: 2026-Q4
+        verticals: [gun]
+        source: rapidpos-feature-map §6
+      - name: Gardenware
+        tier: roadmap
+        quarter: 2027-Q2
+        verticals: [garden]
+        notes: Garden retail vendor catalog; required for garden vertical launch
+        source: rapidpos-feature-map §6
+      - name: Horticopia
+        tier: roadmap
+        quarter: 2027-Q2
+        verticals: [garden]
+        source: rapidpos-feature-map §6
+
+  regulatory-firearms:
+    description: Firearms regulatory compliance — A&D log, NICS, 4473
+    integrations:
+      - name: 4473 Cloud
+        tier: roadmap
+        quarter: 2026-Q4
+        verticals: [gun]
+        notes: Digital 4473 storage; required for gun vertical launch
+        source: rapidpos-feature-map §6
+      - name: NICS eCheck
+        tier: roadmap
+        quarter: 2026-Q4
+        verticals: [gun]
+        notes: Background check integration; required for gun vertical launch
+        source: rapidpos-feature-map §6
+
+  regulatory-other:
+    description: Vertical-specific regulatory partners outside firearms
+    integrations:
+      - name: SmartWaiver
+        tier: roadmap
+        quarter: 2026-Q4
+        verticals: [gun, services-attached]
+        notes: Online waiver signing + register-side expiration check
+        source: rapidpos-feature-map §6
+
+  alcohol-delivery:
+    description: Third-party alcohol marketplace and delivery
+    integrations:
+      - name: Drizly
+        tier: roadmap
+        quarter: 2026-Q3
+        verticals: [liquor]
+        notes: Required for liquor vertical launch; aligns with Bart pilot
+        source: rapidpos-feature-map §6
+      - name: Minibar
+        tier: roadmap
+        quarter: 2026-Q3
+        verticals: [liquor]
+        source: rapidpos-feature-map §6
+
+  facility-membership:
+    description: Range/club/facility management with recurring billing and scheduling
+    integrations:
+      - name: EZFacility
+        tier: roadmap
+        quarter: 2026-Q4
+        verticals: [gun, services-attached]
+        notes: Lane reservations, class scheduling, membership lifecycle
+        source: rapidpos-feature-map §6
+
+  infrastructure:
+    description: Hosting and infrastructure dependencies
+    integrations:
+      - name: Microsoft Azure
+        tier: not-applicable
+        verticals: []
+        notes: RapidPOS infrastructure choice; Canary runs on GCP — not a portable integration claim
+        source: rapidpos-feature-map §6
+
+# -----------------------------------------------------------------------------
+# VENDOR-SIDE (DriftPOS owns these — register, hardware, front-of-house)
+# -----------------------------------------------------------------------------
+# Listed for completeness so the registry is honest about the joint-product
+# split. The Canary gateway does not own these; it interoperates over POSLOG.
+
+vendor-side-integrations:
+  mobile:
+    - name: RapidGO
+      side: driftpos
+      source: rapidpos-feature-map §6
+    - name: CP Mobile (Counterpoint Mobile)
+      side: both
+      notes: Bridge to legacy Counterpoint mobile workflows
+      source: rapidpos-feature-map §6
+  hardware:
+    - name: NCR (Voyix)
+      side: both
+      notes: Hardware partner to RapidPOS; back-half competitor to Canary — handle public posture per PwC §SO-7
+      source: rapidpos-feature-map §6
+    - name: SES-imagotag
+      side: driftpos
+      notes: Electronic shelf labels; nice-to-have not blocker
+      source: rapidpos-feature-map §6
+    - name: Zebra
+      side: driftpos
+      notes: Mobile / scanning hardware
+      source: rapidpos-feature-map §6
+    - name: Ingenico
+      side: driftpos
+      notes: Pinpads / payments hardware
+      source: rapidpos-feature-map §6
+    - name: Bixolon
+      side: driftpos
+      notes: Receipt printers
+      source: rapidpos-feature-map §6
+    - name: Janam
+      side: driftpos
+      notes: Mobile computers
+      source: rapidpos-feature-map §6
+    - name: CAS
+      side: driftpos
+      notes: Scales (grocery vertical)
+      source: rapidpos-feature-map §6
+  firearms-vendor-side:
+    - name: Outbound Software
+      side: driftpos
+      notes: Firearms outdoor / gun-show mode
+      source: rapidpos-feature-map §6
+    - name: Passport
+      side: driftpos
+      notes: Firearms ID / age verification at register
+      source: rapidpos-feature-map §6
+
+# -----------------------------------------------------------------------------
+# EXTENSIONS — Beyond the RapidPOS Surface
+# -----------------------------------------------------------------------------
+# What the gateway enables that Counterpoint VARs don't sell. Source: PwC §5
+# "and more" surface + platform thesis cards.
+
+extensions:
+  accountability-rails:
+    description: Native to the platform; no competitive analog
+    capabilities:
+      - name: Closed-graph variance accountability (operational rail)
+        module: chirp + fox
+        source: platform-thesis card
+      - name: L402-gated open-to-buy (financial rail)
+        module: l402-otb
+        source: platform-l402-ildwac-moat card
+      - name: Bitcoin L2 evidence anchoring (evidentiary rail)
+        module: blockchain-anchor
+        source: infra-blockchain-evidence-anchor card
+      - name: Satoshi-denominated weighted-average cost (ILDWAC)
+        module: ildwac
+        source: platform-l402-ildwac-moat card
+
+  agent-network:
+    description: Operational PMO surface; zero competitive analog
+    capabilities:
+      - name: ALX, ALXjr (mini-resident), Canary Builder, Cove Builder, Jeffe
+        module: agent-network
+        source: platform-alx-vsm card
+
+  signal-feeds:
+    description: Local-market intelligence; zero competitive analog in SMB POS
+    capabilities:
+      - name: Seasonality signal
+        source: signal-seasonality card
+      - name: Weather + Zone SEO signal
+        source: signal-weather-seo card
+      - name: Social threat detection signal
+        source: signal-social-threat card
+      - name: Civil services signal
+        source: signal-civil-services card
+      - name: Community intelligence signal
+        source: signal-community-intel card
+      - name: Property and landlord signal
+        source: signal-property-landlord card
+
+# -----------------------------------------------------------------------------
+# COUNTS (computed; refresh on each manifest update)
+# -----------------------------------------------------------------------------
+
+counts:
+  total-rapidpos-mapped: 51
+  by-tier:
+    native: 0
+    poslog-bridged: 22
+    roadmap: 17
+    vendor-side: 11
+    not-applicable: 1
+  by-vertical-launch-priority:
+    liquor: 4    # ShipCompliant, Drizly, Minibar, EZFacility (partial)
+    gun: 11      # Lipsey's, Sports South, RSR, Zanders, Davidsons, 4473 Cloud, NICS eCheck, SmartWaiver, EZFacility, Outbound, Passport
+    garden: 2    # Gardenware, Horticopia
+    grocery: 1   # CAS scales (vendor-side)
+
+# -----------------------------------------------------------------------------
+# PUBLISHING NOTES
+# -----------------------------------------------------------------------------
+
+publishing:
+  public-page: /accelerator-pack
+  generation: Static page generated from this YAML at build time
+  refresh-cadence: Update on partner conversation outcomes, vertical launch promotions, native integration ships
+  versioning: Bump `version` on substantive changes; bump `last-updated` always
+  memory-bus: Reseed via post-commit hook (services/memory-bus/scripts/seed_standalone.py)
+  related-cards:
+    - platform-gateway-thesis
+    - platform-thesis
+    - rapidpos-feature-map
+    - joint-product-positioning-pwc
