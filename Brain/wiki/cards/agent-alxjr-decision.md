@@ -1,23 +1,25 @@
 ---
 card-type: role-binding
 card-id: agent-alxjr-decision
-card-version: 1
+card-version: 2
 domain: platform
 layer: cross-cutting
-status: open-question
+status: approved
 agent: ALX
-tags: [alxjr, mini, dispatch, dev-workstation, gcp, decision-pending]
+tags: [alxjr, mini, dispatch, dev-workstation, gcp, sunset, decided]
 last-compiled: 2026-05-01
-needs-review: true
+needs-review: false
 ---
 
 # ALXjr — identity decision
 
-After GRO-700 Phase 1 (mini wipe), the Mac mini becomes a dev workstation. The current "ALXjr" identity exists because the mini was a server with its own Docker stack, its own memory bus, and its own dispatch queue. None of those things will exist on the mini after Phase 1. **The ALXjr identity needs a decision: sunset or thin-client.**
+After GRO-700 Phase 1 (mini wipe — deferred indefinitely under the v3 drop-zone reframe), the Mac mini becomes a dev workstation. The "ALXjr" identity existed because the mini was a server with its own Docker stack, its own memory bus, and its own dispatch queue. None of those things exist on the mini anymore — the Docker stack was parked on 2026-05-01.
 
-## Status: open question — founder decision pending
+## Decision (2026-05-01): sunset
 
-This card flags the decision; it does not make it.
+**ALXjr is retired as a separate agent identity.** Claude Code running on the mini is just ALX with a smaller screen. Linear dispatches drop the `Agent/ALXjr` label; everything dispatched to the mini is dispatched to ALX (with `Target/mini` if machine-specific).
+
+The church/state convention survives as a session-mode discipline (laptop = church, mini = state), enforced by the `/church` and `/state` skills, NOT by a separate agent identity.
 
 ## The two paths
 
@@ -63,10 +65,17 @@ If sunset:
 
 ## Acceptance — this card closes when
 
-- Founder picks A or B
-- The chosen path is captured in CLAUDE.md
-- Memory files are reconciled (deletions or rewrites)
-- This card's status moves from `open-question` to `approved` with the decision recorded
+- ✅ Founder picks A or B → **A (sunset) chosen 2026-05-01**
+- ✅ The chosen path is captured in CLAUDE.md → soft-deprecation note added 2026-05-01
+- ⏳ Memory files are reconciled (deletions or rewrites) — see follow-ups below
+- ✅ This card's status moves from `open-question` to `approved` with the decision recorded → done
+
+## Remaining follow-ups (low priority, not blocking)
+
+- `feedback_mini_docker_gate.md` memory file — mark deprecated
+- `project_alx_alxjr_naming.md` memory file — mark deprecated, point at this card
+- `feedback_church_state_sessions.md` memory file — keep, but reframe as session-mode discipline (already accurate; no edit needed)
+- CLAUDE.md "Mini Hard Rule — Docker Gate" section — currently has a relaxation note; receiving team will likely rewrite CLAUDE.md from scratch, so leaving the section in place as historical record is fine
 
 ## Related
 
