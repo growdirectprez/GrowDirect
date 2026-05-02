@@ -311,4 +311,101 @@ CREATE TABLE m.products (
 - ~~O (Orders)~~ — J-Prefix gives PBS, PBL, Direct Store Order, Allocation, Transfer; D-Prefix gives PO download/receipt
 - ~~D (Distribution movements partial)~~ — D-Prefix gives full operational movement set
 
+## Design intent — MCP Service SLAs at L3 bus junctions
+
+**Founder directive (2026-05-01):**
+
+> "Our design wants to put an MCP service at every L3 bus process and Go subsystem junction. It has to know its service level agreements at that node, and this detail helps define it."
+
+This reframes what Chunk 9b produces and elevates the operational fingerprints from documentation to **executable spec**.
+
+### The mapping
+
+Every operational fingerprint extracted in Chunk 1.5 = the SLA spec for one MCP service junction in Canary Go's L3 bus. Each MCP service at a junction needs to be **self-aware** of its own contract:
+
+| Fingerprint field (captured) | Maps to MCP service SLA dimension |
+|---|---|
+| Source system | Upstream binding |
+| Target system | Downstream binding |
+| Direction / type | Service role (producer / consumer / bridge) |
+| Trigger / cadence | When it fires (real-time / scheduled / event / on-demand) |
+| Payload format | Message envelope contract (XML / flat / JSON) |
+| Header structure | Routing & correlation contract |
+| Entities transported | Payload schema contract |
+| Approx field count | Payload size class |
+| Volume/scale notes | Throughput SLO |
+| Cross-references | Service dependency graph |
+| Business event | Trigger condition |
+
+### What still needs to be designed (Chunk 9b enrichment)
+
+Things the source TOM specs flagged as "TBC" or pushed to a separate "IMOF" framework — these are now Canary Go's job to design per-junction:
+
+- **Latency targets** — response time SLO per junction (p50/p95/p99)
+- **Freshness targets** — max staleness for downstream consumers
+- **Atomicity guarantee** — transactional vs eventual; replay-safe?
+- **Retry policy** — count, backoff, dead-letter
+- **Failure handling** — alert thresholds, escalation paths
+- **Idempotency contract** — replay-safe via message ID? content hash?
+- **Authentication / authorization** at the junction
+- **Audit / observability** requirements (what gets logged, retained how long, queried by whom)
+
+These are the **net-new SLA fields** Canary Go's MCP service architecture adds on top of TOM's data exchange specs. The fingerprints give us the WHAT and WHEN; the SLA enrichment gives us the HOW WELL.
+
+### What Chunk 9b now produces
+
+Not just "operational architecture" — specifically:
+
+**Output 1: MCP Service Junction Inventory** — `docs/sdds/go-handoff/mcp-service-junctions.md`
+- One entry per junction (~79 candidates from fingerprints, may consolidate)
+- Each entry: full SLA spec (source/target binding + payload + cadence + latency/freshness/atomicity/retry/idempotency/auth/observability)
+- Service dependency graph (DOT or mermaid) showing junction-to-junction edges
+
+**Output 2: L3 Bus Topology** — embedded in MCP service junctions doc
+- System graph: nodes = systems (RMS, GFO, Storeline, etc., reframed for Canary Go), edges = MCP service junctions
+- Visual + tabular
+
+**Output 3: Operational Clock** — embedded
+- Calendar of when each MCP service fires (real-time / hourly / daily / weekly / event)
+- Critical path identification (which junctions block each other)
+
+This is the same Chunk 9b deliverable as before, but with the framing locked: **each MCP service is born self-aware of its SLA at its junction**, and the spec we're producing IS that SLA.
+
+## Chunk 1.5 — Operational Fingerprint Extraction (COMPLETE)
+
+5 parallel subagents processed all 82 interface specs across 5 non-empty prefix folders.
+
+| Prefix | Folders | Fingerprints | .txt cached |
+|---|---|---|---|
+| C (Commercial / master data) | 11 | 11 | 11 |
+| D (Distribution / movements) | 18 | 18 | 18 |
+| F (Finance / PO+invoice) | 5 | 6 (F001/F015 split) | 5 |
+| J (GFO / Orders & forecasting) | 29 | 28 (J032 family collapsed) | 27 |
+| S (Space Range Display) | 19 | 16 (3 unnamed dups merged) | 16 |
+| **TOTAL** | **82** | **79** | **77** |
+
+Output files in `~/CRDM-recovery/interface-design-docs/`:
+- `_fingerprints-C-prefix.md` (16.8 KB)
+- `_fingerprints-D-prefix.md` (25.2 KB)
+- `_fingerprints-F-prefix.md` (19.2 KB)
+- `_fingerprints-J-prefix.md` (41.8 KB) — largest, includes 6 cross-cutting pattern families noted by subagent
+- `_fingerprints-S-prefix.md` (31.9 KB)
+
+Plus 77 cached `.txt` files under `{prefix}-converted/` for entity walks.
+
+### Cross-cutting patterns surfaced by subagents (worth bringing into Chunk 9b)
+
+- **Order-routing JIROA/JIROB schema family** (J017/J019/J020/J024) — single COBOL schema, `JIROB-PBL-IND` discriminator (1=PBL, 2=PBS, 3=DTS) drives downstream routing
+- **Sales feeds two-cadence pattern** — J004 hourly to UDD, J035 every-15-min to GFO, both from same TDS staging
+- **GFO product/location masters daily refresh family** (J052/J054/J057/J076/J087/J088/J100) — shared `TOM_IDSGFO_FileTransfer` orchestration
+- **D-Prefix four architectural patterns** — RIB-mediated push, DB2 SP invocation, FTP file-drop, master-system outbound
+- **C-Prefix common envelope** — RMS → BizTalk → SQL Server IDS via real-time JMS RIB (XML); C001TR is the Turkey deviant (flat-file batch via SSIS)
+- **F-Prefix three-way match implicit pattern** — F001/F015 (PO) → F013 (PO ack) → receipt → F004 (supplier invoice via ReIM into OFi)
+- **F-Prefix multi-model tax** — F004/F014 carry parallel sub-groups for VAT (rate-table, multi-rate per invoice) and Sales Tax — anticipated country-by-country tax-engine variance
+- **S-Prefix Common Forms pattern** — 13 IDS-sourced interfaces all funnel through named stored procs returning common rowset shapes per entity (Item, Location, Merchandise Hierarchy, SKU Hierarchy, Division Hierarchy, Supplier Hierarchy)
+- **S-Prefix SAE-as-hub** — feeds RPAS forecasting + IKB planogram + receives RMS sales aggregation + IKB replenishment ref
+- **IMOF (Integration Management Operational Framework)** — was still in design across all corpus dates; load-bearing infrastructure left as "placeholder" pattern. **This is exactly what Canary Go MCP services replace.**
+
+These patterns are SLA archetypes — Canary Go MCP services will fall into similar families.
+
 - **Resume point:** Chunk 2 — GSLM Item domain (22 entities). Read `~/CRDM-recovery/gslm-mdm-site/Item.md` entity-by-entity, reconcile with S1 SQL DDL types and Canary `app.products`, produce canonical entries appended to `02-canonical-draft.md` in this folder.
