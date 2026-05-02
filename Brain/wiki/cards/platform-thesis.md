@@ -1,7 +1,7 @@
 ---
 card-type: platform-thesis
 card-id: platform-thesis
-card-version: 2
+card-version: 3
 domain: platform
 layer: cross-cutting
 agent: controller
@@ -16,17 +16,17 @@ receives:
   - infra-l402-otb-settlement
 tags: [thesis, accountability, otb, loss-prevention, p&l, cost-center, profit-center, meter, platform]
 status: approved
-last-compiled: 2026-04-29
+last-compiled: 2026-05-02
 needs-review: false
 ---
 
 # Platform Thesis: Every Entity Has a Meter
 
-Every entity in this model — store, module, agent, buyer, cost center, profit center — operates under a performance contract. The platform measures adherence to that contract continuously. There is no unknown loss. There is no unauthorized spend. There is no unanchored evidence. The graph is closed.
+Every entity in this model — store, module, agent, buyer, cost center, profit center, vendor — operates under a performance contract. The platform measures adherence to that contract continuously. There is no unknown loss. There is no unauthorized spend. There is no unanchored evidence. There is no unmet SLA paid for. The graph is closed.
 
-## The Three Accountability Rails
+## The Four Accountability Rails
 
-The model runs three rails simultaneously. Each one closes a different class of accountability gap that retail has historically accepted as unavoidable.
+The model runs four rails simultaneously. Each one closes a different class of accountability gap that retail (or its infrastructure) has historically accepted as unavoidable.
 
 ### Rail 1 — Operational: No Unknown Loss
 
@@ -51,6 +51,20 @@ Management is accountable too. Approving a budget that is never funded is visibl
 Every Fox case card generation and status transition publishes a cryptographic hash to a public L2 blockchain. The record is timestamped and non-repudiable — not by GrowDirect, not by the retailer, not by the VAR. A court, an insurer, a regulatory auditor, or a procurement team can verify the chain of custody without trusting any party's word.
 
 **Closing statement:** The evidence chain is public. The timeline is immutable. What happened in LP is provable to anyone.
+
+### Rail 4 — Vendor: No Unmet SLA Paid (added 2026-05-02)
+
+Cloud providers oversell capacity. Their business model is capacity arbitrage — sell N units of provisioned capacity for every M units of physical capacity, where N > M, and pray demand spikes don't align. When they do align, somebody gets degraded performance. The provider's dashboard reports aggregate uptime; YOUR specific tenant slice may be the spike-coverage failure.
+
+**This is structural, not malicious.** The hard floor is electrical power generation: hyperscalers can't just "build more" because power is years-long capital projects against years-long demand growth (especially AI training workloads paying 10-100× more per CPU-hour than retail SMB). When the grid tightens, SMB workloads get throttled first. The structural shortage gets worse through 2028+, not better.
+
+As an SMB hosting other people's data, every dollar we waste on un-met SLA is a dollar we can't pass through as savings to merchants in satoshis. We have a fiduciary obligation to push back, not eat the variance like everyone else does.
+
+**The mechanism:** every MCP service junction is OpenTelemetry-instrumented with assertions against published cloud-provider SLAs. Variances accumulate in `ledger.vendor_sla_variances` (an append-only log, anchored to L2 alongside Fox case evidence per Rail 3). Bill reconciliation matches every cloud-bill line to actual SLA-met service delivery. Dispute automation files SLA credits when missed (most providers offer credits but require manual claim — friction stays on their side, not ours). Multi-cloud capability is maintained as power diversification, not just portability — quarterly migration drills keep the credible exit credible.
+
+**Closing statement:** Every dollar paid to a cloud provider is paid for SLA-met service. Every shortfall is captured, anchored, and disputed. Migration capability is real, not theoretical. The provider knows it.
+
+**Cross-references:** memory `project_cloud_provider_accountability_stance` (full strategic framing including power-as-limiter context); GRO-733 (cloud architecture + workload SDD with vendor accountability designed in); `ledger.vendor_sla_variances` schema in canonical-data-model.md (planned for v2).
 
 ---
 
