@@ -1,0 +1,139 @@
+# Canary Go CI — Loop 4 Wave A Phase A.3 (GRO-763)
+#
+# Three jobs:
+#   1. build-vet       — go build + go vet on every PR + push to main
+#   2. test            — go test ./... (unit) + integration tag against
+#                        ephemeral postgres + valkey services
+#   3. memory-bus-seed — dry-run the seed script when Brain/wiki/ or
+#                        docs/sdds/ change so we catch parse failures
+#                        before they hit the live bus
+#
+# The cmd/identity Tier-3 exclusion is dropped after GRO-763 Phase C
+# completes; until then the integration job filters that package.
+
+name: canary-go-ci
+
+on:
+  push:
+    branches: [main]
+    paths:
+      - 'CanaryGo/**'
+      - '.github/workflows/canary-go-ci.yml'
+  pull_request:
+    paths:
+      - 'CanaryGo/**'
+      - '.github/workflows/canary-go-ci.yml'
+
+defaults:
+  run:
+    working-directory: CanaryGo
+
+env:
+  GO_VERSION: '1.25.0'
+
+jobs:
+  build-vet:
+    name: build + vet
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-go@v5
+        with:
+          go-version: ${{ env.GO_VERSION }}
+          cache-dependency-path: CanaryGo/go.sum
+      - run: go build ./...
+      - run: go vet ./...
+
+  test:
+    name: test (unit + integration)
+    runs-on: ubuntu-latest
+    needs: build-vet
+    services:
+      postgres:
+        image: postgres:17
+        env:
+          POSTGRES_USER: growdirect
+          POSTGRES_PASSWORD: growdirect_dev
+          POSTGRES_DB: canary_go
+        ports:
+          - 5432:5432
+        options: >-
+          --health-cmd pg_isready
+          --health-interval 10s
+          --health-timeout 5s
+          --health-retries 5
+      valkey:
+        image: valkey/valkey:8
+        ports:
+          - 6379:6379
+        options: >-
+          --health-cmd "valkey-cli ping"
+          --health-interval 10s
+          --health-timeout 5s
+          --health-retries 5
+    env:
+      PG_USER: growdirect
+      PG_PASSWORD: growdirect_dev
+      PGHOST: 127.0.0.1
+      DATABASE_URL: postgres://growdirect:growdirect_dev@127.0.0.1:5432/canary_go?sslmode=disable
+      TEST_DATABASE_URL: postgres://growdirect:growdirect_dev@127.0.0.1:5432/canary_go_test?sslmode=disable
+      GATEWAY_TEST_DATABASE_URL: postgres://growdirect:growdirect_dev@127.0.0.1:5432/canary_go_test?sslmode=disable
+      GATEWAY_TEST_VALKEY_URL: redis://127.0.0.1:6379/2
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-go@v5
+        with:
+          go-version: ${{ env.GO_VERSION }}
+          cache-dependency-path: CanaryGo/go.sum
+
+      - name: Install postgres client
+        run: |
+          sudo apt-get update -qq
+          sudo apt-get install -y -qq postgresql-client
+
+      - name: Apply schema (canary_go + canary_go_test)
+        env:
+          PGPASSWORD: ${{ env.PG_PASSWORD }}
+        run: |
+          psql -h 127.0.0.1 -U "$PG_USER" -d postgres -c "CREATE DATABASE canary_go_test" || true
+          for f in deploy/schema/*.sql; do
+            echo "  -- $f"
+            psql -h 127.0.0.1 -U "$PG_USER" -d canary_go      -v ON_ERROR_STOP=1 -f "$f"
+            psql -h 127.0.0.1 -U "$PG_USER" -d canary_go_test -v ON_ERROR_STOP=1 -f "$f"
+          done
+
+      - name: Unit tests
+        run: go test ./...
+
+      - name: Integration tests
+        # cmd/identity is Tier-3 until Phase C of GRO-763 lands; the
+        # exclusion goes away in the same wave.
+        run: |
+          PKGS=$(go list ./... | grep -v '/cmd/identity$')
+          go test -tags=integration $PKGS
+
+  memory-bus-seed:
+    name: memory-bus seed dry-run
+    runs-on: ubuntu-latest
+    if: |
+      contains(github.event.pull_request.changed_files, 'Brain/wiki/') ||
+      contains(github.event.pull_request.changed_files, 'docs/sdds/') ||
+      github.event_name == 'push'
+    defaults:
+      run:
+        working-directory: .
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+      - name: Validate seed script imports
+        # Real seed needs Ollama + postgres; on CI we just import the
+        # module to catch syntax / dep regressions. Full seed runs via
+        # the post-commit hook on the founder's machine.
+        run: |
+          if [ -f services/memory-bus/scripts/seed_standalone.py ]; then
+            python -m py_compile services/memory-bus/scripts/seed_standalone.py
+          else
+            echo "no seed script present — skipping"
+          fi
