@@ -90,6 +90,18 @@ Each archetype has default SLA targets. Individual junctions inherit; override o
 | `mcp.loyalty.tier-evaluate` | producer | A4 | monthly tier recalc |
 | `mcp.loyalty.lookup` | consumer | A2 | every loyalty-tender or earn at POS |
 
+### Party (Substrate Identity) — 5 junctions
+
+Added per **GRO-734** / `party-identity-design.md`. The party substrate sits upstream of `c.customers`; every transaction-complete resolves a party. Schema: `party` (6 tables + decisioning_facts materialized view).
+
+| Junction ID | Type | Archetype | Notes |
+|---|---|---|---|
+| `mcp.party.resolve-from-tender` | producer | A2 (override: must commit transactionally with caller) | resolve-or-create party from tender fingerprint at transaction-complete; SLA p99 < 50ms (10% of t.transactions.complete budget); idempotent on `(tenant_id, identifier_type, identifier_value_hash)`; request: `{tenant_id, source_system, payment_metadata, secondary_identifiers[]}`; response: `{party_id, party_code, confidence, was_created, identifier_id}` — see party-identity-design.md §Part C resolution rules 1-3 |
+| `mcp.party.merge-anonymous-to-known` | producer | A10 (cross-party multi-row write, requires merchant-admin or support-role) | merchant-initiated merge of two parties (or de-merge); supports `action='merge'` with `surviving_party_id` + `to_merge_party_id`, or `action='de_merge'` with `target_identifiers[]` to split off; appends 1-2 resolution_events rows; SLA p99 < 500ms; auth: merchant-admin or support-role |
+| `mcp.party.identifier-add` | producer | A3 | attach a new identifier to an existing party (e.g., merchant captures email at first sale to anonymous party); request: `{tenant_id, party_id, identifier_type, identifier_value, source_system}`; response: `{identifier_id, was_attached, prior_party_id?}` (prior_party_id non-null if identifier previously belonged to a different party — caller may then queue merge review); SLA p99 < 80ms |
+| `mcp.party.household-detect` | bridge | A4 (default: nightly batch) + A1-style on-demand mode | nightly auto-detection per tenant when `PARTY_HOUSEHOLDS_ENABLED=true`; also supports synchronous `mode='manual'` with explicit `member_party_ids[]` for merchant-driven assignment; appends `party.household_evidence` rows; threshold-driven membership creation per party-identity-design.md §Part D; SLA: nightly batch under 30min per tenant; manual mode p99 < 2s |
+| `mcp.party.decisioning-recompute` | producer | A4 (default: daily 02:00 local per tenant) + A1-style on-demand for fraud_risk | refreshes `party.decisioning_facts` materialized view; daily batch covers value/frequency/monetary/segment_tags; on-demand mode with `compute_risk=true` recomputes party_fraud_risk for a single party (cached 1h); weekly Sunday 03:00 covers party_churn_risk; SLA: nightly tenant batch under 30min; on-demand single-party p99 < 500ms |
+
 ### L (Labor) — 7 junctions
 
 | Junction ID | Type | Archetype | Notes |
@@ -286,22 +298,23 @@ Each archetype has default SLA targets. Individual junctions inherit; override o
 | Q (Loss Prevention) | 14 |
 | Ledger / Cost-to-Serve | 13 |
 | Cross-cutting platform | 7 |
-| **TOTAL** | **166** |
+| Party (Substrate Identity) | 5 |
+| **TOTAL** | **171** |
 
 ## Archetype distribution
 
 | Archetype | Count | % |
 |---|---|---|
-| A1 — Real-time master replicate | 56 | 34% |
-| A2 — Real-time scan lookup | 14 | 8% |
-| A3 — Real-time event emit | 39 | 24% |
-| A4 — Scheduled batch aggregate | 16 | 10% |
+| A1 — Real-time master replicate | 56 | 33% |
+| A2 — Real-time scan lookup | 15 | 9% |
+| A3 — Real-time event emit | 40 | 23% |
+| A4 — Scheduled batch aggregate | 18 | 11% |
 | A5 — Event-triggered fan-out | 7 | 4% |
-| A6 — Long-running poll | 11 | 7% |
+| A6 — Long-running poll | 11 | 6% |
 | A7 — Append-only event log | 13 | 8% |
 | A8 — Three-way match (stateful) | 4 | 2% |
 | A9 — Discriminated message routing | 0 | (handled inline by routing logic) |
-| A10 — Cross-tenant administrative | 6 | 4% |
+| A10 — Cross-tenant administrative | 7 | 4% |
 
 **6 archetypes cover 88% of junctions.** Implementing 10 archetype templates (with SLA-default infrastructure) covers the entire L3 bus topology — individual junctions plug into the appropriate archetype with minimal config.
 
