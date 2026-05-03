@@ -73,3 +73,7 @@ docs/audit-2026-04-23/
 
 # GRO-553: shared infra creds
 devops/.env
+
+# Lotus Notes archives — exceed GitHub file-size limits (folded GRO-736)
+*.nsf
+*.NSF
