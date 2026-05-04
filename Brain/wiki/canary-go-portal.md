@@ -1,7 +1,7 @@
 ---
 tags: [canary, go, portal, moc]
-last-compiled: 2026-04-30
-needs-review: 2026-05-12
+last-compiled: 2026-05-04
+needs-review: 2026-05-18
 ---
 
 # Canary Go — Project Portal
@@ -96,6 +96,66 @@ All manifests in `GrowDirect-CRB/modules/`. Each has a `.manifest.yaml` (design 
 | E — Execution | [[GrowDirect-CRB/modules/W-work-execution.manifest]] | [[GrowDirect-CRB/modules/W-work-execution]] |
 
 ---
+
+## Wireframe Brief Library
+
+Screen-level design briefs for every Canary Go portal screen — 110 screens across 6 groups. All briefs in `docs/superpowers/briefs/`. Each brief covers: layout, key elements, interaction flows, CP crosswalk (UX displacement target), and open questions.
+
+| Group | Wave | Screens | Directory |
+|-------|------|---------|-----------|
+| Group 0 — Admin + DevOps | Admin (cross-wave) | ~15 | `docs/superpowers/briefs/admin/` |
+| Group 1 — LP Core | W1 | 25 | `docs/superpowers/briefs/wave-1/` |
+| Group 2 — Store Ops + Devices | W2 | 30 | `docs/superpowers/briefs/wave-2/` |
+| Group 3 — Finance + Purchasing + Planning | W3 | 21 | `docs/superpowers/briefs/wave-3/` |
+| Group 4 — Merch + Labor | W4 | 13 | `docs/superpowers/briefs/wave-4/` |
+| Group 5 — W-Execution (Dashboard + Settings) | W5 | 9 | `docs/superpowers/briefs/wave-5/` |
+
+**Notable design decisions captured in briefs:**
+
+- **Count entry hidden-expected-quantity** (`wave-2/inventory-count-entry.md`) — counters never see expected quantity; integrity constraint, not a missing feature
+- **LP substrate completeness gate** (`wave-1/settings-store-drawer.md`) — missing substrate row = detection rule silent for that location; "Missing — rule silent" state surfaced in settings
+- **Exception vs Alert distinction** (`wave-5/exceptions-list.md`) — Exceptions are a curated queue of confirmed anomalies elevated from raw alerts; not the same thing
+- **OTB real-time impact panel** (`wave-3/orders-new.md`) — budget impact shows in right rail as the buyer types the PO; L4 structural addition with no CP equivalent
+- **Distribution Recommendations proximity weighting** (`wave-3/distribution-recommendations.md`) — rebalancing queue uses store geo-coordinates for routing logic
+- **Vertical pack configuration** (`wave-5/settings-vertical-pack.md`) — Garden+Nursery default; "Overridden" labels track manual deviations from pack defaults
+
+**CP crosswalk coverage:** 10 UX displacement targets documented across Wave 1–3 briefs. Every UX Callout section contrasts Canary's approach against the CP equivalent workflow.
+
+---
+
+## Wave 1 Build Track
+
+Wave 1 = LP Core — the 25 screens that form the operational detection + investigation surface. Backend packages are implemented; the build track wires them to the web UI layer.
+
+**Implementation plan:** `docs/superpowers/plans/2026-05-04-canary-go-wave-1-implementation-plan.md`
+
+**Key gaps the plan addresses:**
+
+1. `detection` schema (detection_rules, detections, lp_substrate, allow_list) does not exist in active migrations — gap in 019–023 sequence; plan adds migration 024
+2. `web.Handler.New(logger)` accepts only a logger — all handlers return hardcoded stubs; needs `web.Deps` struct with store dependencies
+3. New `internal/lp/substrate.go` package needed for LP substrate and allow-list settings pages
+
+**Active dispatches (GRO-788 – GRO-796):**
+
+| Ticket | Title | Depends on |
+|--------|-------|------------|
+| [GRO-788](https://linear.app/growdirect/issue/GRO-788) | Detection schema migration (024) | — |
+| [GRO-789](https://linear.app/growdirect/issue/GRO-789) | Dependency injection refactor — web.Deps + handler.New() | — |
+| [GRO-790](https://linear.app/growdirect/issue/GRO-790) | Wire alert handlers — list + detail | GRO-788, GRO-789 |
+| [GRO-791](https://linear.app/growdirect/issue/GRO-791) | Wire chirp handlers — live feed + transaction detail | GRO-788, GRO-789 |
+| [GRO-792](https://linear.app/growdirect/issue/GRO-792) | Wire detection rules handlers — list + detail | GRO-788, GRO-789 |
+| [GRO-793](https://linear.app/growdirect/issue/GRO-793) | Wire Hawk case handlers — list + detail + evidence | GRO-788, GRO-789 |
+| [GRO-794](https://linear.app/growdirect/issue/GRO-794) | Wire customer handlers — lookup + risk + context | GRO-788, GRO-789 |
+| [GRO-795](https://linear.app/growdirect/issue/GRO-795) | LP substrate package — internal/lp + settings pages | GRO-788, GRO-789 |
+| [GRO-796](https://linear.app/growdirect/issue/GRO-796) | Integration smoke tests — all wired handlers | GRO-790–795 |
+
+**Auth gap (not in Wave 1 scope):** GRO-769 — `tenantIDFromCtx` returns `uuid.Nil` until identity middleware is wired. Wave 1 handlers use this stub; multi-tenant isolation is deferred to GRO-769.
+
+---
+
+## Vendor Crosswalks
+
+- [[Brain/wiki/canary-go-square-crosswalk|Canary Go ↔ Square — Vendor Crosswalk]] — adapter, cadence, cost-model mapping for the Square POS
 
 ## Key Invariants
 
