@@ -97,14 +97,15 @@ services:
     image: growdirect-memory-bus
     container_name: growdirect_memory_bus
     build:
-      context: ../services/memory-bus
-      dockerfile: Dockerfile
+      context: ../services
+      dockerfile: memory-bus/Dockerfile
     environment:
       DATABASE_URL: postgresql://growdirect:growdirect_dev@growdirect_postgres:5432/growdirect_memory
       OLLAMA_URL: http://growdirect_ollama:11434
       EMBEDDING_MODEL: qwen3-embedding:8b
       PORT: "8003"
       MCP_API_KEY: ${MCP_API_KEY:-growdirect-memory-dev-key}
+      MCP_AUTH_DISABLED: "1"
     ports:
       - "127.0.0.1:8003:8003"
     depends_on:
