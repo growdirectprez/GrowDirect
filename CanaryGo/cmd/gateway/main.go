@@ -27,8 +27,11 @@ import (
 	alertPkg     "github.com/growdirect-llc/rapidpos/internal/alert"
 	analyticsPkg "github.com/growdirect-llc/rapidpos/internal/analytics"
 	assetPkg     "github.com/growdirect-llc/rapidpos/internal/asset"
+	casemgmtPkg  "github.com/growdirect-llc/rapidpos/internal/casemgmt"
+	chirpPkg     "github.com/growdirect-llc/rapidpos/internal/chirp"
 	customerPkg  "github.com/growdirect-llc/rapidpos/internal/customer"
 	"github.com/growdirect-llc/rapidpos/internal/devops"
+	lpPkg        "github.com/growdirect-llc/rapidpos/internal/lp"
 	"github.com/growdirect-llc/rapidpos/internal/web"
 	employeePkg  "github.com/growdirect-llc/rapidpos/internal/employee"
 	reportPkg    "github.com/growdirect-llc/rapidpos/internal/report"
@@ -205,7 +208,15 @@ func main() {
 	devops.New(pool, rdb, logger).Mount(r)
 
 	// / — Canary application UI.
-	web.New(logger).Mount(r)
+	webDeps := web.Deps{
+		AlertStore:     alertPkg.NewStore(pool),
+		CaseStore:      casemgmtPkg.NewStore(pool),
+		ChirpStore:     chirpPkg.NewPgxStore(pool),
+		CustomerStore:  customerPkg.NewStore(pool),
+		SubstrateStore: lpPkg.NewSubstrateStore(pool),
+		AllowListStore: lpPkg.NewAllowListStore(pool),
+	}
+	web.New(webDeps, logger).Mount(r)
 
 	addr := ":" + cfg.Port
 	logger.Info("starting",

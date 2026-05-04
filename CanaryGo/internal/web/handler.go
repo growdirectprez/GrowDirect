@@ -29,13 +29,22 @@
 package web
 
 import (
+	"context"
 	"embed"
+	"errors"
 	"html/template"
 	"io/fs"
 	"net/http"
+	"time"
 
 	"github.com/go-chi/chi/v5"
+	"github.com/google/uuid"
 	"go.uber.org/zap"
+
+	"github.com/growdirect-llc/rapidpos/internal/alert"
+	"github.com/growdirect-llc/rapidpos/internal/casemgmt"
+	"github.com/growdirect-llc/rapidpos/internal/chirp"
+	"github.com/growdirect-llc/rapidpos/internal/customer"
 )
 
 //go:embed static templates
@@ -45,6 +54,7 @@ var embedFS embed.FS
 type Handler struct {
 	logger    *zap.Logger
 	templates map[string]*template.Template
+	deps      Deps
 }
 
 // PageData is the top-level template context passed to every app page.
@@ -64,13 +74,14 @@ type UserData struct {
 }
 
 // New constructs a Handler with all templates pre-parsed.
-func New(logger *zap.Logger) *Handler {
+func New(deps Deps, logger *zap.Logger) *Handler {
 	if logger == nil {
 		logger = zap.NewNop()
 	}
 	h := &Handler{
 		logger:    logger,
 		templates: make(map[string]*template.Template),
+		deps:      deps,
 	}
 	h.mustParse("dashboard", "templates/dashboard.html")
 	h.mustParse("chirps", "templates/chirps.html")
@@ -176,22 +187,22 @@ func (h *Handler) Mount(r chi.Router) {
 
 	// App pages — auth guard will wrap these once identity middleware lands
 	r.Get("/dashboard", h.page("dashboard", "dashboard", stubDashboard))
-	r.Get("/chirps", h.page("chirps", "chirps", stubChirps))
+	r.Get("/chirps", h.chirpListPage)
 	r.Get("/transactions", h.page("transactions", "transactions", stubTransactions))
 	r.Get("/transactions/{id}", h.transactionDetailPage)
 	r.Get("/transactions/{id}/proof", h.transactionProofPage)
-	r.Get("/alerts", h.page("alerts", "alerts", stubAlerts))
+	r.Get("/alerts", h.alertListPage)
 	r.Get("/cases", h.page("cases", "cases", stubCases))
 	r.Get("/employees", h.page("employees", "employees", stubEmployees))
 	r.Get("/reports", h.page("reports", "reports", stubReports))
 	r.Get("/settings", h.page("settings", "settings", stubSettings))
 	r.Get("/owl", h.owlPage)
-	r.Get("/rules", h.page("rules", "rules", stubRules))
+	r.Get("/rules", h.rulesListPage)
 	r.Get("/connect", h.page("connect", "connect", stubConnect))
 	r.Get("/welcome", h.page("welcome", "welcome", nil))
 
 	// Hawk case management
-	r.Get("/cases/hawk", h.page("cases", "hawk_list", stubHawkList))
+	r.Get("/cases/hawk", h.hawkListPage)
 	r.Get("/cases/hawk/new", h.page("cases", "hawk_new", stubHawkNew))
 	r.Get("/cases/hawk/analytics", h.page("cases", "hawk_analytics", stubHawkAnalytics))
 	r.Get("/cases/hawk/patterns", h.page("cases", "hawk_patterns", stubHawkPatterns))
@@ -205,7 +216,7 @@ func (h *Handler) Mount(r chi.Router) {
 	r.Get("/chirps/{id}", h.chirpDetailPage)
 
 	// Customer investigator
-	r.Get("/customers", h.page("customers", "customers_list", stubCustomersList))
+	r.Get("/customers", h.customersListPage)
 	r.Get("/customers/{id}", h.customerDetailPage)
 	r.Get("/customers/{id}/risk", h.customerRiskPage)
 	r.Get("/customers/{id}/context", h.customerContextPage)
@@ -383,80 +394,317 @@ func (h *Handler) owlPage(w http.ResponseWriter, r *http.Request) {
 }
 
 func (h *Handler) hawkDetailPage(w http.ResponseWriter, r *http.Request) {
-	id := chi.URLParam(r, "id")
+	ctx := r.Context()
+	idStr := chi.URLParam(r, "id")
+	id, err := uuid.Parse(idStr)
+	if err != nil {
+		w.WriteHeader(http.StatusNotFound)
+		h.render(w, r, "err404", "cases", nil)
+		return
+	}
+	if h.deps.CaseStore == nil {
+		h.render(w, r, "hawk_detail", "cases", map[string]any{
+			"Case": map[string]any{
+				"ID": idStr, "ShortID": idStr[:8],
+				"Title": "Case " + idStr[:8], "Status": "open",
+				"StatusClass": "", "CreatedAt": "—", "Subjects": nil,
+			},
+			"Timeline": nil, "EvidenceCount": 0, "Evidence": nil,
+		})
+		return
+	}
+	tenantID := tenantIDFromCtx(ctx)
+	c, err := h.deps.CaseStore.GetCase(ctx, tenantID, id)
+	if err != nil {
+		if errors.Is(err, casemgmt.ErrNotFound) {
+			w.WriteHeader(http.StatusNotFound)
+			h.render(w, r, "err404", "cases", nil)
+			return
+		}
+		h.logger.Error("hawkDetailPage: get", zap.Error(err))
+		w.WriteHeader(http.StatusInternalServerError)
+		h.render(w, r, "err500", "cases", nil)
+		return
+	}
+	timeline, _ := h.deps.CaseStore.ListActions(ctx, id)
+	evidence, _ := h.deps.CaseStore.ListEvidence(ctx, id)
 	h.render(w, r, "hawk_detail", "cases", map[string]any{
-		"Case": map[string]any{
-			"ID":          id,
-			"ShortID":     id[:8],
-			"Title":       "Case " + id[:8],
-			"Status":      "open",
-			"StatusClass": "",
-			"CreatedAt":   "—",
-			"Subjects":    nil,
-		},
-		"Timeline":      nil,
-		"EvidenceCount": 0,
+		"Case":          c,
+		"Timeline":      timeline,
+		"EvidenceCount": len(evidence),
+		"Evidence":      evidence,
+	})
+}
+
+// alertListPage renders the alert list from the real alert store.
+func (h *Handler) alertListPage(w http.ResponseWriter, r *http.Request) {
+	ctx := r.Context()
+	tenantID := tenantIDFromCtx(ctx)
+
+	var alerts []alert.AlertDTO
+	if h.deps.AlertStore != nil {
+		var err error
+		alerts, err = h.deps.AlertStore.List(ctx, alert.ListFilters{
+			TenantID: tenantID,
+			Limit:    50,
+		})
+		if err != nil {
+			h.logger.Error("alertListPage: list", zap.Error(err))
+			w.WriteHeader(http.StatusInternalServerError)
+			h.render(w, r, "err500", "alerts", nil)
+			return
+		}
+	}
+	h.render(w, r, "alerts", "alerts", map[string]any{
+		"Alerts": alerts,
 	})
 }
 
 func (h *Handler) alertDetailPage(w http.ResponseWriter, r *http.Request) {
-	id := chi.URLParam(r, "id")
-	shortID := id
-	if len(id) >= 8 {
-		shortID = id[:8]
+	ctx := r.Context()
+	idStr := chi.URLParam(r, "id")
+	id, err := uuid.Parse(idStr)
+	if err != nil {
+		w.WriteHeader(http.StatusNotFound)
+		h.render(w, r, "err404", "alerts", nil)
+		return
 	}
+
+	shortID := idStr
+	if len(idStr) >= 8 {
+		shortID = idStr[:8]
+	}
+
+	if h.deps.AlertStore == nil {
+		h.render(w, r, "alert_detail", "alerts", map[string]any{
+			"Alert": map[string]any{
+				"ID": idStr, "ShortID": shortID,
+				"Title": "Alert " + shortID, "Severity": "high",
+				"Status": "open", "StatusClass": "", "Description": "—",
+				"RuleID": "—", "RuleCode": "—", "StoreID": "—",
+				"TransactionID": "—", "CreatedAt": "—",
+			},
+			"Timeline": nil,
+		})
+		return
+	}
+
+	tenantID := tenantIDFromCtx(ctx)
+	a, err := h.deps.AlertStore.GetByID(ctx, tenantID, id)
+	if err != nil {
+		if errors.Is(err, alert.ErrNotFound) {
+			w.WriteHeader(http.StatusNotFound)
+			h.render(w, r, "err404", "alerts", nil)
+			return
+		}
+		h.logger.Error("alertDetailPage: get", zap.Error(err))
+		w.WriteHeader(http.StatusInternalServerError)
+		h.render(w, r, "err500", "alerts", nil)
+		return
+	}
+
 	h.render(w, r, "alert_detail", "alerts", map[string]any{
 		"Alert": map[string]any{
-			"ID": id, "ShortID": shortID,
-			"Title":         "Alert " + shortID,
-			"Severity":      "high",
-			"Status":        "open",
+			"ID": a.ID.String(), "ShortID": a.ID.String()[:8],
+			"Title":         "Alert " + a.ID.String()[:8],
+			"Severity":      a.Severity,
+			"Status":        a.Status,
 			"StatusClass":   "",
 			"Description":   "—",
-			"RuleID":        "—",
-			"RuleName":      "—",
+			"RuleID":        a.RuleID.String(),
+			"RuleCode":      a.RuleCode,
 			"StoreID":       "—",
-			"TransactionID": "—",
-			"CreatedAt":     "—",
+			"TransactionID": a.SourceEntityID.String(),
+			"CreatedAt":     a.CreatedAt.Format(time.RFC3339),
 		},
 		"Timeline": nil,
 	})
 }
 
+// hawkListPage renders the Hawk case list from the real case store.
+func (h *Handler) hawkListPage(w http.ResponseWriter, r *http.Request) {
+	ctx := r.Context()
+	tenantID := tenantIDFromCtx(ctx)
+
+	type statusOpt struct {
+		Value string
+		Label string
+	}
+	statuses := []statusOpt{
+		{"open", "Open"}, {"investigating", "Investigating"},
+		{"closed", "Closed"}, {"", "All"},
+	}
+	statusFilter := r.URL.Query().Get("status")
+	if statusFilter == "" {
+		statusFilter = "open"
+	}
+
+	var cases []casemgmt.Case
+	if h.deps.CaseStore != nil {
+		var err error
+		cases, err = h.deps.CaseStore.ListCases(ctx, casemgmt.ListFilters{
+			TenantID: tenantID,
+			Status:   statusFilter,
+			Limit:    100,
+		})
+		if err != nil {
+			h.logger.Error("hawkListPage: list", zap.Error(err))
+			w.WriteHeader(http.StatusInternalServerError)
+			h.render(w, r, "err500", "cases", nil)
+			return
+		}
+	}
+	h.render(w, r, "hawk_list", "cases", map[string]any{
+		"Cases":        cases,
+		"OpenCount":    0,
+		"StatusFilter": statusFilter,
+		"Statuses":     statuses,
+	})
+}
+
+// rulesListPage renders the detection rules list from the real chirp store.
+func (h *Handler) rulesListPage(w http.ResponseWriter, r *http.Request) {
+	ctx := r.Context()
+	tenantID := tenantIDFromCtx(ctx)
+
+	var rules []chirp.Rule
+	if h.deps.ChirpStore != nil {
+		var err error
+		rules, err = h.deps.ChirpStore.ListRules(ctx, tenantID)
+		if err != nil {
+			h.logger.Error("rulesListPage: list", zap.Error(err))
+			w.WriteHeader(http.StatusInternalServerError)
+			h.render(w, r, "err500", "rules", nil)
+			return
+		}
+	}
+	h.render(w, r, "rules", "rules", map[string]any{
+		"Rules":       rules,
+		"ActiveCount": 0,
+		"TotalCount":  len(rules),
+	})
+}
+
 func (h *Handler) ruleDetailPage(w http.ResponseWriter, r *http.Request) {
-	id := chi.URLParam(r, "id")
+	ctx := r.Context()
+	idStr := chi.URLParam(r, "id")
+	id, err := uuid.Parse(idStr)
+	if err != nil {
+		w.WriteHeader(http.StatusNotFound)
+		h.render(w, r, "err404", "rules", nil)
+		return
+	}
+	if h.deps.ChirpStore == nil {
+		h.render(w, r, "rule_detail", "rules", map[string]any{
+			"Rule": map[string]any{
+				"ID": idStr, "Name": "Rule " + idStr,
+				"Severity": "high", "Category": "—", "Description": "—",
+				"Enabled": false, "FireCount": 0, "FiresToday": 0,
+				"FiresThisWeek": 0, "Parameters": nil,
+			},
+		})
+		return
+	}
+	tenantID := tenantIDFromCtx(ctx)
+	rule, err := h.deps.ChirpStore.GetRuleByID(ctx, tenantID, id)
+	if err != nil {
+		if errors.Is(err, chirp.ErrRuleNotFound) {
+			w.WriteHeader(http.StatusNotFound)
+			h.render(w, r, "err404", "rules", nil)
+			return
+		}
+		h.logger.Error("ruleDetailPage: get", zap.Error(err))
+		w.WriteHeader(http.StatusInternalServerError)
+		h.render(w, r, "err500", "rules", nil)
+		return
+	}
 	h.render(w, r, "rule_detail", "rules", map[string]any{
-		"Rule": map[string]any{
-			"ID": id, "Name": "Rule " + id,
-			"Severity":      "high",
-			"Category":      "—",
-			"Description":   "—",
-			"Enabled":       false,
-			"FireCount":     0,
-			"FiresToday":    0,
-			"FiresThisWeek": 0,
-			"Parameters":    nil,
-		},
+		"Rule": rule,
+	})
+}
+
+// chirpListPage renders the chirp (detection) list from the real chirp store.
+func (h *Handler) chirpListPage(w http.ResponseWriter, r *http.Request) {
+	ctx := r.Context()
+	tenantID := tenantIDFromCtx(ctx)
+
+	var detections []chirp.Detection
+	if h.deps.ChirpStore != nil {
+		var err error
+		detections, err = h.deps.ChirpStore.ListDetections(ctx, chirp.DetectionQuery{
+			TenantID: tenantID,
+			Limit:    50,
+		})
+		if err != nil {
+			h.logger.Error("chirpListPage: list", zap.Error(err))
+			w.WriteHeader(http.StatusInternalServerError)
+			h.render(w, r, "err500", "chirps", nil)
+			return
+		}
+	}
+	h.render(w, r, "chirps", "chirps", map[string]any{
+		"Chirps": detections,
 	})
 }
 
 func (h *Handler) chirpDetailPage(w http.ResponseWriter, r *http.Request) {
-	id := chi.URLParam(r, "id")
-	shortID := id
-	if len(id) >= 8 {
-		shortID = id[:8]
+	ctx := r.Context()
+	idStr := chi.URLParam(r, "id")
+	id, err := uuid.Parse(idStr)
+	if err != nil {
+		w.WriteHeader(http.StatusNotFound)
+		h.render(w, r, "err404", "chirps", nil)
+		return
+	}
+
+	shortID := idStr
+	if len(idStr) >= 8 {
+		shortID = idStr[:8]
+	}
+
+	if h.deps.ChirpStore == nil {
+		h.render(w, r, "chirp_detail", "chirps", map[string]any{
+			"Chirp": map[string]any{
+				"ID": idStr, "ShortID": shortID,
+				"EventType": "—", "StoreID": "—", "CashierID": "—",
+				"Amount": "—", "SKUCount": 0,
+				"Hash":      "0000000000000000000000000000000000000000000000000000000000000000",
+				"CreatedAt": "—", "CaseID": "",
+			},
+			"Signals": nil,
+		})
+		return
+	}
+
+	tenantID := tenantIDFromCtx(ctx)
+	d, err := h.deps.ChirpStore.GetDetectionByID(ctx, tenantID, id)
+	if err != nil {
+		if errors.Is(err, chirp.ErrDetectionNotFound) {
+			w.WriteHeader(http.StatusNotFound)
+			h.render(w, r, "err404", "chirps", nil)
+			return
+		}
+		h.logger.Error("chirpDetailPage: get", zap.Error(err))
+		w.WriteHeader(http.StatusInternalServerError)
+		h.render(w, r, "err500", "chirps", nil)
+		return
+	}
+
+	caseID := ""
+	if d.CaseID != nil {
+		caseID = d.CaseID.String()
 	}
 	h.render(w, r, "chirp_detail", "chirps", map[string]any{
 		"Chirp": map[string]any{
-			"ID": id, "ShortID": shortID,
-			"EventType": "—",
+			"ID": d.ID.String(), "ShortID": d.ID.String()[:8],
+			"EventType": d.SourceEntityType,
 			"StoreID":   "—",
 			"CashierID": "—",
 			"Amount":    "—",
 			"SKUCount":  0,
 			"Hash":      "0000000000000000000000000000000000000000000000000000000000000000",
-			"CreatedAt": "—",
-			"CaseID":    "",
+			"CreatedAt": d.CreatedAt.Format(time.RFC3339),
+			"CaseID":    caseID,
 		},
 		"Signals": nil,
 	})
@@ -754,41 +1002,143 @@ func stubHawkPatterns(_ *http.Request) any {
 }
 
 func (h *Handler) hawkEvidencePage(w http.ResponseWriter, r *http.Request) {
-	id := chi.URLParam(r, "id")
-	shortID := id
-	if len(id) >= 8 {
-		shortID = id[:8]
+	ctx := r.Context()
+	idStr := chi.URLParam(r, "id")
+	id, err := uuid.Parse(idStr)
+	if err != nil {
+		w.WriteHeader(http.StatusNotFound)
+		h.render(w, r, "err404", "cases", nil)
+		return
 	}
+	if h.deps.CaseStore == nil {
+		shortID := idStr
+		if len(idStr) >= 8 {
+			shortID = idStr[:8]
+		}
+		h.render(w, r, "hawk_evidence", "cases", map[string]any{
+			"Case":     map[string]any{"ID": idStr, "ShortID": shortID, "Title": "Case " + shortID},
+			"Evidence": nil,
+		})
+		return
+	}
+	tenantID := tenantIDFromCtx(ctx)
+	c, err := h.deps.CaseStore.GetCase(ctx, tenantID, id)
+	if err != nil {
+		if errors.Is(err, casemgmt.ErrNotFound) {
+			w.WriteHeader(http.StatusNotFound)
+			h.render(w, r, "err404", "cases", nil)
+			return
+		}
+		h.logger.Error("hawkEvidencePage: get", zap.Error(err))
+		w.WriteHeader(http.StatusInternalServerError)
+		h.render(w, r, "err500", "cases", nil)
+		return
+	}
+	evidence, _ := h.deps.CaseStore.ListEvidence(ctx, id)
 	h.render(w, r, "hawk_evidence", "cases", map[string]any{
-		"Case": map[string]any{
-			"ID": id, "ShortID": shortID, "Title": "Case " + shortID,
-		},
-		"Evidence": nil,
+		"Case":     c,
+		"Evidence": evidence,
 	})
 }
 
-func stubCustomersList(r *http.Request) any {
-	return map[string]any{
-		"Customers":  nil,
-		"TotalCount": 0,
-		"Query":      r.URL.Query().Get("q"),
+// customersListPage is search-first: if no ?q param, renders the empty search
+// state. If ?q is provided and a CustomerStore is wired, runs a full-text
+// search against customer.customers.
+func (h *Handler) customersListPage(w http.ResponseWriter, r *http.Request) {
+	ctx := r.Context()
+	q := r.URL.Query().Get("q")
+	tenantID := tenantIDFromCtx(ctx)
+
+	var customers []map[string]any
+	totalCount := 0
+
+	if h.deps.CustomerStore != nil && q != "" {
+		results, err := h.deps.CustomerStore.List(ctx, customer.ListFilters{
+			TenantID: tenantID,
+			Search:   q,
+			Limit:    50,
+		})
+		if err != nil {
+			h.logger.Error("customersListPage: list", zap.Error(err))
+		} else {
+			totalCount = len(results)
+			customers = make([]map[string]any, 0, len(results))
+			for _, c := range results {
+				name := customerDisplayName(c)
+				shortID := c.ID.String()[:8]
+				customers = append(customers, map[string]any{
+					"ID":              c.ID.String(),
+					"ShortID":         shortID,
+					"Name":            name,
+					"RiskTier":        "—",
+					"LastPurchaseDate": "—",
+				})
+			}
+		}
 	}
+
+	h.render(w, r, "customers_list", "customers", map[string]any{
+		"Customers":  customers,
+		"TotalCount": totalCount,
+		"Query":      q,
+	})
 }
 
 func (h *Handler) customerDetailPage(w http.ResponseWriter, r *http.Request) {
-	id := chi.URLParam(r, "id")
-	shortID := id
-	if len(id) >= 8 {
-		shortID = id[:8]
+	ctx := r.Context()
+	idStr := chi.URLParam(r, "id")
+	id, err := uuid.Parse(idStr)
+	if err != nil {
+		w.WriteHeader(http.StatusNotFound)
+		h.render(w, r, "err404", "customers", nil)
+		return
 	}
+
+	if h.deps.CustomerStore == nil {
+		// No store wired — fall through to stub.
+		shortID := idStr
+		if len(idStr) >= 8 {
+			shortID = idStr[:8]
+		}
+		h.render(w, r, "customers_detail", "customers", map[string]any{
+			"Customer": map[string]any{
+				"ID":          idStr,
+				"ShortID":     shortID,
+				"Name":        "Customer " + shortID,
+				"RiskScore":   0,
+				"RiskTier":    "low",
+				"MemberSince": "—",
+				"CaseCount":   0,
+			},
+			"Purchases": nil,
+		})
+		return
+	}
+
+	tenantID := tenantIDFromCtx(ctx)
+	c, err := h.deps.CustomerStore.GetByID(ctx, tenantID, id)
+	if err != nil {
+		if errors.Is(err, customer.ErrNotFound) {
+			w.WriteHeader(http.StatusNotFound)
+			h.render(w, r, "err404", "customers", nil)
+			return
+		}
+		h.logger.Error("customerDetailPage: get", zap.String("id", idStr), zap.Error(err))
+		w.WriteHeader(http.StatusInternalServerError)
+		h.render(w, r, "err500", "customers", nil)
+		return
+	}
+
+	name := customerDisplayName(*c)
+	shortID := c.ID.String()[:8]
 	h.render(w, r, "customers_detail", "customers", map[string]any{
 		"Customer": map[string]any{
-			"ID":          id,
+			"ID":          c.ID.String(),
 			"ShortID":     shortID,
-			"Name":        "Customer " + shortID,
+			"Name":        name,
 			"RiskScore":   0,
-			"RiskTier":    "low",
-			"MemberSince": "—",
+			"RiskTier":    "—",
+			"MemberSince": c.CreatedAt.Format("Jan 2006"),
 			"CaseCount":   0,
 		},
 		"Purchases": nil,
@@ -796,18 +1146,57 @@ func (h *Handler) customerDetailPage(w http.ResponseWriter, r *http.Request) {
 }
 
 func (h *Handler) customerRiskPage(w http.ResponseWriter, r *http.Request) {
-	id := chi.URLParam(r, "id")
-	shortID := id
-	if len(id) >= 8 {
-		shortID = id[:8]
+	ctx := r.Context()
+	idStr := chi.URLParam(r, "id")
+	id, err := uuid.Parse(idStr)
+	if err != nil {
+		w.WriteHeader(http.StatusNotFound)
+		h.render(w, r, "err404", "customers", nil)
+		return
 	}
+
+	if h.deps.CustomerStore == nil {
+		shortID := idStr
+		if len(idStr) >= 8 {
+			shortID = idStr[:8]
+		}
+		h.render(w, r, "customers_risk", "customers", map[string]any{
+			"Customer": map[string]any{
+				"ID":        idStr,
+				"ShortID":   shortID,
+				"Name":      "Customer " + shortID,
+				"RiskScore": 0,
+				"RiskTier":  "low",
+			},
+			"Signals":   nil,
+			"RuleFires": nil,
+		})
+		return
+	}
+
+	tenantID := tenantIDFromCtx(ctx)
+	c, err := h.deps.CustomerStore.GetByID(ctx, tenantID, id)
+	if err != nil {
+		if errors.Is(err, customer.ErrNotFound) {
+			w.WriteHeader(http.StatusNotFound)
+			h.render(w, r, "err404", "customers", nil)
+			return
+		}
+		h.logger.Error("customerRiskPage: get", zap.String("id", idStr), zap.Error(err))
+		w.WriteHeader(http.StatusInternalServerError)
+		h.render(w, r, "err500", "customers", nil)
+		return
+	}
+
+	name := customerDisplayName(*c)
+	shortID := c.ID.String()[:8]
 	h.render(w, r, "customers_risk", "customers", map[string]any{
 		"Customer": map[string]any{
-			"ID":        id,
+			"ID":        c.ID.String(),
 			"ShortID":   shortID,
-			"Name":      "Customer " + shortID,
+			"Name":      name,
 			"RiskScore": 0,
-			"RiskTier":  "low",
+			"RiskTier":  "—",
 		},
 		"Signals":   nil,
 		"RuleFires": nil,
@@ -815,22 +1204,86 @@ func (h *Handler) customerRiskPage(w http.ResponseWriter, r *http.Request) {
 }
 
 func (h *Handler) customerContextPage(w http.ResponseWriter, r *http.Request) {
-	id := chi.URLParam(r, "id")
-	shortID := id
-	if len(id) >= 8 {
-		shortID = id[:8]
+	ctx := r.Context()
+	idStr := chi.URLParam(r, "id")
+	id, err := uuid.Parse(idStr)
+	if err != nil {
+		w.WriteHeader(http.StatusNotFound)
+		h.render(w, r, "err404", "customers", nil)
+		return
 	}
+
+	if h.deps.CustomerStore == nil {
+		shortID := idStr
+		if len(idStr) >= 8 {
+			shortID = idStr[:8]
+		}
+		h.render(w, r, "customers_context", "customers", map[string]any{
+			"Customer": map[string]any{
+				"ID":        idStr,
+				"ShortID":   shortID,
+				"Name":      "Customer " + shortID,
+				"RiskScore": 0,
+				"RiskTier":  "low",
+			},
+			"Cases":  nil,
+			"Chirps": nil,
+		})
+		return
+	}
+
+	tenantID := tenantIDFromCtx(ctx)
+	c, err := h.deps.CustomerStore.GetByID(ctx, tenantID, id)
+	if err != nil {
+		if errors.Is(err, customer.ErrNotFound) {
+			w.WriteHeader(http.StatusNotFound)
+			h.render(w, r, "err404", "customers", nil)
+			return
+		}
+		h.logger.Error("customerContextPage: get", zap.String("id", idStr), zap.Error(err))
+		w.WriteHeader(http.StatusInternalServerError)
+		h.render(w, r, "err500", "customers", nil)
+		return
+	}
+
+	name := customerDisplayName(*c)
+	shortID := c.ID.String()[:8]
 	h.render(w, r, "customers_context", "customers", map[string]any{
 		"Customer": map[string]any{
-			"ID":        id,
+			"ID":        c.ID.String(),
 			"ShortID":   shortID,
-			"Name":      "Customer " + shortID,
+			"Name":      name,
 			"RiskScore": 0,
-			"RiskTier":  "low",
+			"RiskTier":  "—",
 		},
 		"Cases":  nil,
 		"Chirps": nil,
 	})
+}
+
+// customerDisplayName returns a human-readable name from a CustomerDTO.
+// Falls back through DisplayName → FirstName+LastName → CustomerCode → ID.
+func customerDisplayName(c customer.CustomerDTO) string {
+	if c.DisplayName != nil && *c.DisplayName != "" {
+		return *c.DisplayName
+	}
+	if c.FirstName != nil || c.LastName != nil {
+		first := ""
+		last := ""
+		if c.FirstName != nil {
+			first = *c.FirstName
+		}
+		if c.LastName != nil {
+			last = *c.LastName
+		}
+		if n := first + " " + last; n != " " {
+			return n
+		}
+	}
+	if c.CustomerCode != nil && *c.CustomerCode != "" {
+		return *c.CustomerCode
+	}
+	return c.ID.String()[:8]
 }
 
 func (h *Handler) exceptionDetailPage(w http.ResponseWriter, r *http.Request) {
@@ -921,4 +1374,11 @@ func (h *Handler) casesRemediatePage(w http.ResponseWriter, r *http.Request) {
 		},
 		"Remediations": nil,
 	})
+}
+
+// tenantIDFromCtx extracts the tenant UUID from the request context.
+// Returns uuid.Nil until auth middleware (GRO-769) is wired.
+func tenantIDFromCtx(ctx context.Context) uuid.UUID {
+	// TODO(GRO-769): replace with identity.TenantIDFromCtx(ctx)
+	return uuid.Nil
 }
