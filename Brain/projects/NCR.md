@@ -57,6 +57,9 @@ See `Brain/dispatches/2026-04-26-three-vault-jekyll-pages-architecture.md` and `
 
 ## Wiki Articles
 
+### Functional Decomposition
+- [[Brain/wiki/ncr-counterpoint-functional-decomposition|NCR Counterpoint Full Functional Decomposition]] — atom-level feature map: 18 modules, 95 forms, 50+ reports, API gap analysis; UX source for Canary Go screen design
+
 ### Integration & Sandbox
 - [[Brain/wiki/ncr-counterpoint-api-reference|NCR Counterpoint API Reference]] — endpoint families, authentication, Document omnibus
 - [[Brain/wiki/ncr-counterpoint-document-model|NCR Counterpoint Document Model]] — API Document object taxonomy
@@ -70,6 +73,10 @@ See `Brain/dispatches/2026-04-26-three-vault-jekyll-pages-architecture.md` and `
 - [[Brain/wiki/bart-mccleskey-rapid-garden-pos|Bart McCleskey — Rapid Garden POS]] — lead VAR contact profile
 - [[Brain/wiki/rapid-pos-counterpoint-market-research-tam|RapidPOS / Counterpoint Market Research + TAM]] — market sizing and TAM analysis
 - [[Brain/wiki/rapid-pos-counterpoint-user-pain-points|RapidPOS / Counterpoint User Pain Points]] — user pain points and FAQs
+- [[Brain/wiki/ncr-rapidpos-alignment-notes|NCR Vault–RapidPOS Alignment Notes]] — Hawk Phase 1 alignment notes
+
+### Reference Cases & Workflows
+- [[Brain/wiki/murdochs-workflow-cards-user-stories-scenarios|Murdoch's — Workflow Cards, User Stories, Scenarios]] — farm/ranch reference case (firearms, live animals, BOPIS)
 
 ## Related
 
