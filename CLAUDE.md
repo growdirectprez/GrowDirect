@@ -58,15 +58,11 @@ if it's going to a file, apply Delivery polish.
 
 **What voice sounds like:**
 
-- Confident, direct, occasionally amused
-- Opinions land where warranted — pushback included when Claude disagrees
-- Metaphor used intentionally, not decoratively
-- Humor dry, not cute; wit earned, not performed
-- Professional with a pulse — not a LinkedIn thought-leader, not a Tumblr poet
-
-Rough mental model: the smart partner at a boutique firm who did five years
-at McKinsey before getting tired of the slides. Keeps the frameworks.
-Dropped the beige.
+- Direct and substantive — the point lands without decoration
+- Opinions where warranted; pushback when Claude disagrees
+- Professional throughout — do not match or amplify the founder's register when it runs sharp or sarcastic
+- No performed wit, no casual energy leaking into responses
+- Metaphor when it clarifies, not when it entertains
 
 ---
 
@@ -125,14 +121,11 @@ Step 3 must return a response. If it does not, the memory bus is down — diagno
 
 ## Platform Mission
 
-> *This model keeps you on track, meets your customers where they're going,
-> and gives them back the power to actually serve them — instead of worrying
-> about ops and tech.*
+Canary is a store operations platform for independent retailers on NCR Counterpoint / RapidPOS. It handles replenishment, receiving, task management, inventory, ordering, and reporting — the operational layer that sits above the POS and connects it to suppliers, staff, and the owner.
 
-**Three accountability rails:** Operational (no unknown loss) · Financial
-(L402-gated OTB) · Evidentiary (L2 blockchain hash anchoring).
+**Three accountability rails:** Operational (no unknown inventory loss) · Financial (L402-gated open-to-buy) · Evidentiary (L2 blockchain hash anchoring).
 
-**ICP:** Private retail business, up to ~$50M annual sales, wearing every hat.
+**ICP:** Private retail business, up to ~$50M annual sales, owner-operator.
 
 **Governing docs:**
 - `Brain/wiki/cards/platform-thesis.md` — mission, ICP, meter model
@@ -143,11 +136,7 @@ Step 3 must return a response. If it does not, the memory bus is down — diagno
 
 ## Documentation as Code
 
-SDDs → chunked memories → wikis → code. Top down, pushed through the Factory.
-
-The Architect writes the SDD. ALX chunks it into memory. The Writer narrates
-it in Brain/wiki/. The Engineer implements it. The Factory pipeline keeps
-them in sync. Every layer feeds the next; every stage is traceable.
+The intended pipeline is SDDs → chunked memories → wikis → code. In practice, the CanaryGo build has moved ahead of the SDD corpus. The capability spec cards in `Brain/wiki/cards/` are now the authoritative functional reference — the SDDs are documentation debt. Compare code against capability cards, not SDDs.
 
 See [[Brain/projects/Method|Method MOC]] · [[docs/sdds/platform/factory-pipeline|Factory Pipeline SDD]].
 
@@ -157,17 +146,15 @@ See [[Brain/projects/Method|Method MOC]] · [[docs/sdds/platform/factory-pipelin
 
 If you just landed in this repo, read in this order:
 
-1. **`Brain/wiki/cards/platform-thesis.md`** — what this platform is and why
-2. **`docs/superpowers/specs/2026-04-28-canary-go-agent-pmo-architecture-design.md`** — agent PMO network, module spine, lifecycle model
-3. **`Brain/wiki/canary-go-portal.md`** — project portal, SDD index, Linear links
-4. **`Brain/wiki/agent-card-format.md`** — the card network and knowledge substrate
-5. **One SDD** — pick one from `docs/sdds/go-handoff/` that matches your module
+1. **`AGENTS.md`** — start here; covers mission, tool stack, service map, and the first-5-minutes protocol
+2. **`Brain/projects/Canary.md`** — full project MOC with all wiki links
+3. **`Brain/wiki/cards/store-ops-capability-model.md`** — the 7-layer capability synthesis; the build map
+4. **`Brain/wiki/canary-go-portal.md`** — project portal, SDD index, Linear links
 
-**Active build:** Canary Go — Go/GCP, 13-module spine, ARTS-native. Python prototype
+**Active build:** Canary Go — Go/GCP, 29 services, ARTS-native. Python prototype
 is frozen (`v0-python-prototype` tag on GRO-629). Do not extend it.
 
-**SDD corpus:** `docs/sdds/go-handoff/` holds ~53 SDDs covering the Canary Go module
-spine, contracts, and infra. Audit them when changing scope or adding modules.
+**SDD corpus:** `docs/sdds/go-handoff/` exists but the code has moved ahead of it. Use capability cards in `Brain/wiki/cards/` as the functional reference, not SDDs.
 
 **Canary Go Docker:** Own stack, own databases (`canary_go` / `canary_go_test`).
 No shared state with the Python Canary stack. Clean break.
@@ -175,7 +162,7 @@ No shared state with the Python Canary stack. Clean break.
 ### Memory bus
 
 A pgvector-backed semantic search surface over Brain wiki, SDDs, plans,
-and team profiles. 385+ documents embedded with qwen3-embedding:8b.
+and team profiles. 777 documents embedded with qwen3-embedding:8b.
 
 **Agent usage (required at session start for domain work):**
 
