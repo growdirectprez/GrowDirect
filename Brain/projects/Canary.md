@@ -24,6 +24,28 @@ Beta / Early Release Candidate
 ## Platform Concepts
 - [[Brain/wiki/canary-closed-loop-cost-attribution|Closed Loop — Cycle Count as Accountability Clearing]] — The closed-loop model: cycle count as GC across physical, data, network, and compute layers; proportional charging; the full offender taxonomy. Grounds Rail 1 of the platform thesis.
 
+## Module Overviews (post-rename)
+
+Module-level overview cards. Pair with the L1–L4 functional decomposition cards below.
+
+- [[Brain/wiki/canary-module-m-merchandising|Module M — Merchandising]]
+- [[Brain/wiki/canary-module-e-execution|Module E — Execution]]
+- [[Brain/wiki/canary-module-f-finance|Module F — Finance]]
+- [[Brain/wiki/canary-module-l-labor|Module L — Labor]]
+
+## Strategy & Operating Context
+
+- [[Brain/wiki/canary-commercial-context|Commercial Context & Go Build Direction]] — RapidPOS / VAR channel strategy
+- [[Brain/wiki/canary-location-item-data-model|Location & Item Data Model]] — canonical L+I model
+- [[Brain/wiki/canary-vsm-diagnostic-mode-requirement|VSM Diagnostic Mode Requirement]] — Clarks-frame skill requirement
+- [[Brain/wiki/canary-site-update-instructions|canary.growdirect.io — Site Update Instructions]] — content-ops runbook
+
+## Sister Projects
+
+- [[Brain/projects/NCR|NCR — Canary for NCR Counterpoint (VAR Partner Vault)]] — vendor-specific co-sell vault
+- [[Brain/projects/CanaryRetailBrain|Canary Retail Brain]] — vendor-neutral product vault
+- [[Brain/projects/CATz|CATz]] — method/co-sell vault
+
 ## Functional Decomposition (Retail Spine — Module-Level)
 
 L1–L4 decomposition of the 13-module Retail Spine on the NCR Counterpoint / RapidPOS backbone. These are the canonical cross-reference cards for the NCR vault's `modules/` section.
@@ -230,4 +252,28 @@ All referenced cards use deployment-archetype language per `feedback_scrub_clien
 - [[Brain/wiki/voyix-counterpoint-rapid-pos-engagement-context|Voyix / Counterpoint Engagement Context]] — includes store-as-mini-data-center, field org framing
 - [[Brain/wiki/canary-agent-roadmap-batch-to-realtime|Agent Roadmap — Batch to Real-Time]] — includes edge agent deployment pattern, NCR migration path Phase 0–4
 
-**last-compiled: 2026-04-28**
+### Store Ops Capability Specs (Enterprise Intelligence Synthesis)
+
+Source intelligence — enterprise WMS/planning reference:
+- [[Brain/wiki/cards/rpas-planning-paradigm|RPAS Planning Paradigm]] — workbook model, spread methods, 4-tuple measure taxonomy, deferred calculation
+- [[Brain/wiki/cards/rms-replenishment-screen-flows|RMS Replenishment Screen Flows]] — ORMS supplier SIM, 4 replenishment methods, PO status machine
+- [[Brain/wiki/cards/rdm-wms-core-concepts|RDM WMS Core Concepts]] — container/LP model, 3-level location hierarchy, Foundation engine
+- [[Brain/wiki/cards/rdm-inbound-and-receiving|RDM Inbound & Receiving]] — ASN, First Time SKU, QA/VA, opportunistic replenishment, putaway algorithms
+- [[Brain/wiki/cards/rdm-picking-and-outbound|RDM Picking & Outbound]] — wave planning, 6 pick methods, order status machine, FIFO/FEFO
+- [[Brain/wiki/cards/rdm-task-and-labor|RDM Task & Labor]] — task queue, directed work, RLM labor standards, Visibility Workbench
+
+Application capability specs — Canary build reference:
+- [[Brain/wiki/cards/store-ops-capability-model|Store Ops Capability Model]] — 7-layer synthesis, Android POS integration points, build priority
+- [[Brain/wiki/cards/canary-purchase-order-lifecycle|Purchase Order Lifecycle]] — PO status machine, 3 order control modes, supplier minimums, COLT/NOLT
+- [[Brain/wiki/cards/canary-mobile-task-ux-flows|Mobile Task UX Flows]] — receiving, replenishment, cycle count, new item onboarding — screen by screen
+- [[Brain/wiki/cards/canary-demand-sensing-smb|Demand Sensing for SMB]] — velocity model, decay weighting, auto Min/Max derivation, 8 exception types
+- [[Brain/wiki/cards/canary-supplier-profile-and-ordering|Supplier Profile & Ordering]] — 5-step setup wizard, delivery schedule, auto scorecard, lead time calibration
+- [[Brain/wiki/cards/canary-space-range-display-on-floor|Space Range Display — On the Floor]] — live planogram, range status lifecycle, POS location lookup, 1-week feedback loop
+- [[Brain/wiki/cards/canary-operations-hub|Operations Hub]] — morning briefing, exception queue, watch list, shift task dashboard
+- [[Brain/wiki/cards/canary-android-pos-integration|Android POS Integration]] — NCR Counterpoint REST, event schemas, POS Bridge microservice, 5-step onboarding wizard
+- [[Brain/wiki/cards/canary-labor-shift-management|Labor & Shift Management]] — shift model, activity group routing, time standards, productivity tracking, skip audit
+- [[Brain/wiki/cards/canary-evidentiary-rail|Evidentiary Rail]] — 4-tier storage (S1/S2/S3/S4 chain), Bitcoin L2 anchor, satoshi-as-proof, privacy architecture
+- [[Brain/wiki/cards/canary-multi-store-intelligence|Multi-Store Intelligence]] — portfolio hub, transfer orders, A/B planogram testing, network effect
+- [[Brain/wiki/cards/canary-item-master-and-catalog|Item Master & Catalog]] — 3-level hierarchy, scan-to-lookup, e-catalog import, 5 dimension types
+
+**last-compiled: 2026-05-04**
