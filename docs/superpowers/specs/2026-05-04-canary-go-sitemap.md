@@ -86,7 +86,11 @@ Left sidebar (role-scoped):
 ├── Devices ─────────────────────────── (ADM, MGR)               ← FD
 │   ├── Station Registry                /devices
 │   ├── Station Detail                  /devices/:id
-│   └── Device Health                   /devices/health
+│   ├── Device Health                   /devices/health
+│   ├── Camera Registry                 /devices/cameras            ← FD [placeholder]
+│   ├── Camera Detail + Config          /devices/cameras/:id        ← FD [placeholder]
+│   ├── Sensor Registry                 /devices/sensors            ← FD [placeholder]
+│   └── Sensor Detail + Config          /devices/sensors/:id        ← FD [placeholder]
 │
 ├── Agents ──────────────────────────── (ADM)                    ← FD
 │   ├── Agent Activity Dashboard        /agents
@@ -285,6 +289,10 @@ Admin (top-bar link, not sidebar):
 | `/devices` | Station Registry — all stores | ADM, MGR | W2 | FD | Station config in CP (no cloud surface) |
 | `/devices/:id` | Station Detail (type, store, last-active, adapter, status) | ADM | W2 | FD | None |
 | `/devices/health` | Device Health Dashboard (offline count, latency, error rate by station) | ADM | W2 | FD | None |
+| `/devices/cameras` | Camera Registry — all stores [placeholder] | ADM, LP | W3 | FD | None |
+| `/devices/cameras/:id` | Camera Detail + Config (stream, zone, retention policy) [placeholder] | ADM | W3 | FD | None |
+| `/devices/sensors` | Sensor Registry — all stores [placeholder] | ADM, MGR | W3 | FD | None |
+| `/devices/sensors/:id` | Sensor Detail + Config (type, threshold, alert routing) [placeholder] | ADM | W3 | FD | None |
 
 ---
 
@@ -400,3 +408,5 @@ Ten screens where Canary's design explicitly beats Counterpoint's:
 *Source: docs/superpowers/specs/2026-05-04-canary-go-screen-scenario-map.md × docs/superpowers/specs/2026-05-04-counterpoint-canary-ux-crosswalk.md × docs/superpowers/specs/2026-05-04-canary-go-l4-gap-delta.md × docs/superpowers/specs/2026-05-03-canary-go-ui-wave-plan.md*
 
 *v2 changes: +OTB (2), +Distribution Recs (1), +AR Aging (1), +Gift Cards (1), +Demand Forecast (1), +Devices section (3), +Agents section (4), +DevOps/Admin (3), +Markdown workflow (3), +Tenant management (2), +Commercial customer tab, +B2B alert class, +Vertical-pack setting, +Station config, +Payment config = ~22 additions → ~106 total routes*
+
+*v2.1 additions: Camera Registry + Detail (2 placeholders, Wave 3), Sensor Registry + Detail (2 placeholders, Wave 3) — routes reserved; briefs deferred until camera/sensor integration spec is written → ~110 total routes*
