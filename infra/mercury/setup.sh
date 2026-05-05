@@ -9,8 +9,10 @@ BILLING_ACCOUNT="${BILLING_ACCOUNT:?Set BILLING_ACCOUNT env var}"
 echo "=== Creating GCP project ==="
 gcloud projects create "$PROJECT_ID" --name="GrowDirect Mercury" 2>/dev/null || \
   echo "Project already exists"
-gcloud config set project "$PROJECT_ID"
-gcloud beta billing projects link "$PROJECT_ID" --billing-account="$BILLING_ACCOUNT"
+export CLOUDSDK_CORE_PROJECT="$PROJECT_ID"
+gcloud beta billing projects link "$PROJECT_ID" \
+  --billing-account="$BILLING_ACCOUNT" 2>/dev/null || \
+  echo "Billing already linked"
 
 echo "=== Enabling APIs ==="
 gcloud services enable \
