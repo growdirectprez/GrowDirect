@@ -1,0 +1,233 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<title>SISP Execution Primer — Ruptiv</title>
+<style>
+  :root {
+    --bg: #0F1729;
+    --fg: #F4F1EA;
+    --muted: #6B7E9C;
+    --accent: #4FC3DC;
+    --signal: #F2C94C;
+    --border: #1F2D4A;
+    --card-bg: #162033;
+    --mono: ui-monospace, SFMono-Regular, "SF Mono", Menlo, Consolas, monospace;
+    --sans: "Söhne", "Inter", -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+  }
+  * { box-sizing: border-box; }
+  body { background: var(--bg); color: var(--fg); font-family: var(--sans); line-height: 1.6; margin: 0; padding: 0; }
+  .container { max-width: 980px; margin: 0 auto; padding: 48px 32px 96px 32px; }
+  .doc-header { display: flex; align-items: center; justify-content: space-between; margin-bottom: 48px; padding-bottom: 20px; border-bottom: 1px solid var(--border); }
+  .doc-type { font-family: var(--mono); font-size: 11px; letter-spacing: 0.15em; text-transform: uppercase; color: var(--muted); }
+  h1 { font-family: var(--sans); font-weight: 300; font-size: 32px; letter-spacing: -0.03em; margin: 0 0 8px 0; color: var(--fg); }
+  h2 { font-family: var(--mono); font-size: 11px; margin-top: 56px; color: var(--muted); text-transform: uppercase; letter-spacing: 0.15em; border-top: 1px solid var(--border); padding-top: 16px; }
+  h3 { font-family: var(--mono); font-size: 11px; color: var(--accent); margin-top: 28px; text-transform: uppercase; letter-spacing: 0.1em; }
+  p { margin: 12px 0; }
+  code, .mono { font-family: var(--mono); background: var(--card-bg); padding: 2px 6px; border-radius: 3px; font-size: 0.875em; color: var(--accent); }
+  table { border-collapse: collapse; width: 100%; margin: 16px 0; font-size: 14px; }
+  th, td { text-align: left; padding: 10px 14px; border-bottom: 1px solid var(--border); vertical-align: top; }
+  th { font-family: var(--mono); font-weight: 400; background: var(--card-bg); color: var(--muted); font-size: 10px; text-transform: uppercase; letter-spacing: 0.12em; }
+  ul, ol { padding-left: 24px; }
+  li { margin: 4px 0; }
+  .diagram { background: var(--card-bg); padding: 24px; border-radius: 4px; border: 1px solid var(--border); margin: 24px 0; overflow-x: auto; }
+  .meta { color: var(--muted); font-family: var(--mono); font-size: 11px; letter-spacing: 0.04em; margin-bottom: 32px; }
+  a { color: var(--accent); text-decoration: none; }
+  a:hover { text-decoration: underline; }
+  .lead { font-size: 15px; color: var(--fg); line-height: 1.7; margin: 0 0 40px 0; max-width: 760px; }
+  .footer { margin-top: 80px; padding-top: 20px; border-top: 1px solid var(--border); display: flex; justify-content: space-between; align-items: center; }
+  .footer-tag { font-family: var(--mono); font-size: 10px; letter-spacing: 0.12em; text-transform: uppercase; color: var(--muted); }
+</style>
+</head>
+<body>
+<div class="container">
+
+<div class="doc-header">
+  <div>
+    <div class="doc-type">Execution Primer</div>
+    <h1>SISP Execution Primer</h1>
+    <div class="meta">Ruptiv · Five-D Method · 2026-05-04</div>
+  </div>
+  <div><svg width="28" height="28" viewBox="0 0 28 28" xmlns="http://www.w3.org/2000/svg">
+  <rect width="28" height="28" rx="4" fill="#0F1729"/>
+  <line x1="7" y1="14" x2="21" y2="14" stroke="#6B7E9C" stroke-width="1"/>
+  <line x1="7" y1="14" x2="14" y2="8" stroke="#6B7E9C" stroke-width="1"/>
+  <line x1="21" y1="14" x2="14" y2="8" stroke="#6B7E9C" stroke-width="1"/>
+  <circle cx="7"  cy="14" r="2.5" fill="#162033" stroke="#6B7E9C" stroke-width="1"/>
+  <circle cx="21" cy="14" r="2.5" fill="#162033" stroke="#6B7E9C" stroke-width="1"/>
+  <circle cx="14" cy="8"  r="2.5" fill="#162033" stroke="#6B7E9C" stroke-width="1"/>
+  <circle cx="14" cy="14" r="3"   fill="#F2C94C"/>
+</svg></div>
+</div>
+
+<p class="lead">An information systems planning engagement examines how the company's technology supports the business today, defines what it should look like to support the business tomorrow, and produces a prioritized portfolio of projects with a roadmap and investment plan. The result aligns IT with the business and gives leadership a clear program to execute.</p>
+
+<h2>What it produces</h2>
+<table>
+<tr><th>Output</th><th>Form</th></tr>
+<tr><td>Charter</td><td>signed JSON artifact</td></tr>
+<tr><td>Business strategy alignment</td><td>schema-fragment</td></tr>
+<tr><td>As-is portfolios (apps, data, tech, governance)</td><td>schema-fragments</td></tr>
+<tr><td>To-be target architecture</td><td>schema-fragments</td></tr>
+<tr><td>Project portfolio + prioritization</td><td>schema-fragment</td></tr>
+<tr><td>Roadmap + investment plan</td><td>schema-fragment</td></tr>
+<tr><td>Handoff package</td><td>folder + bus snapshot, signed</td></tr>
+</table>
+
+<h2>Phase structure</h2>
+<div class="diagram"><svg viewBox="0 0 940 540" xmlns="http://www.w3.org/2000/svg" width="100%" style="max-width:940px;height:auto;display:block;margin:0 auto;"><defs>
+  <marker id="arrow" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="8" markerHeight="8" orient="auto-start-reverse">
+    <path d="M 0 0 L 10 5 L 0 10 z" fill="#6B7E9C"/>
+  </marker>
+  <marker id="arrow-accent" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="8" markerHeight="8" orient="auto-start-reverse">
+    <path d="M 0 0 L 10 5 L 0 10 z" fill="#4FC3DC"/>
+  </marker>
+</defs>
+<rect x="20" y="240" width="100" height="56" rx="4" ry="4" fill="#162033" stroke="#1F2D4A" stroke-width="1"/>
+<text x="70.0" y="273.0" text-anchor="middle" font-family='ui-monospace, SFMono-Regular, "SF Mono", Menlo, Consolas, monospace' font-size="12" font-weight="600" fill="#F4F1EA">charter</text>
+<rect x="180" y="60" width="200" height="64" rx="4" ry="4" fill="#162033" stroke="#1F2D4A" stroke-width="1"/>
+<text x="280.0" y="88.0" text-anchor="middle" font-family='ui-monospace, SFMono-Regular, "SF Mono", Menlo, Consolas, monospace' font-size="12" font-weight="600" fill="#F4F1EA">phase 1</text>
+<text x="280.0" y="105.0" text-anchor="middle" font-family='ui-monospace, SFMono-Regular, "SF Mono", Menlo, Consolas, monospace' font-size="10" fill="#6B7E9C">business + IS situational alignment</text>
+<rect x="440" y="25.0" width="240" height="134" rx="4" fill="#162033" stroke="#1F2D4A" stroke-width="1" stroke-dasharray="3 3"/>
+<text x="450" y="43.0" font-family='ui-monospace, SFMono-Regular, "SF Mono", Menlo, Consolas, monospace' font-size="10" fill="#6B7E9C">business-strategy-extraction</text>
+<text x="450" y="65.0" font-family='ui-monospace, SFMono-Regular, "SF Mono", Menlo, Consolas, monospace' font-size="10" fill="#6B7E9C">as-is-application-portfolio</text>
+<text x="450" y="87.0" font-family='ui-monospace, SFMono-Regular, "SF Mono", Menlo, Consolas, monospace' font-size="10" fill="#6B7E9C">as-is-data-architecture</text>
+<text x="450" y="109.0" font-family='ui-monospace, SFMono-Regular, "SF Mono", Menlo, Consolas, monospace' font-size="10" fill="#6B7E9C">as-is-tech-architecture</text>
+<text x="450" y="131.0" font-family='ui-monospace, SFMono-Regular, "SF Mono", Menlo, Consolas, monospace' font-size="10" fill="#6B7E9C">as-is-governance</text>
+<text x="450" y="153.0" font-family='ui-monospace, SFMono-Regular, "SF Mono", Menlo, Consolas, monospace' font-size="10" fill="#6B7E9C">+ 1 more</text>
+<line x1="380" y1="92" x2="440" y2="92" stroke="#1F2D4A" stroke-width="1" stroke-dasharray="3 3"/>
+<line x1="120" y1="268" x2="180" y2="92" stroke="#6B7E9C" stroke-width="1.5" marker-end="url(#arrow)"/>
+<rect x="180" y="240" width="200" height="64" rx="4" ry="4" fill="#162033" stroke="#1F2D4A" stroke-width="1"/>
+<text x="280.0" y="268.0" text-anchor="middle" font-family='ui-monospace, SFMono-Regular, "SF Mono", Menlo, Consolas, monospace' font-size="12" font-weight="600" fill="#F4F1EA">phase 2</text>
+<text x="280.0" y="285.0" text-anchor="middle" font-family='ui-monospace, SFMono-Regular, "SF Mono", Menlo, Consolas, monospace' font-size="10" fill="#6B7E9C">architecture target</text>
+<rect x="440" y="205.0" width="240" height="134" rx="4" fill="#162033" stroke="#1F2D4A" stroke-width="1" stroke-dasharray="3 3"/>
+<text x="450" y="223.0" font-family='ui-monospace, SFMono-Regular, "SF Mono", Menlo, Consolas, monospace' font-size="10" fill="#6B7E9C">to-be-application-portfolio</text>
+<text x="450" y="245.0" font-family='ui-monospace, SFMono-Regular, "SF Mono", Menlo, Consolas, monospace' font-size="10" fill="#6B7E9C">to-be-data-architecture</text>
+<text x="450" y="267.0" font-family='ui-monospace, SFMono-Regular, "SF Mono", Menlo, Consolas, monospace' font-size="10" fill="#6B7E9C">to-be-tech-architecture</text>
+<text x="450" y="289.0" font-family='ui-monospace, SFMono-Regular, "SF Mono", Menlo, Consolas, monospace' font-size="10" fill="#6B7E9C">governance-target</text>
+<text x="450" y="311.0" font-family='ui-monospace, SFMono-Regular, "SF Mono", Menlo, Consolas, monospace' font-size="10" fill="#6B7E9C">capability-gap-mapping</text>
+<line x1="380" y1="272" x2="440" y2="272" stroke="#1F2D4A" stroke-width="1" stroke-dasharray="3 3"/>
+<line x1="120" y1="268" x2="180" y2="272" stroke="#6B7E9C" stroke-width="1.5" marker-end="url(#arrow)"/>
+<rect x="180" y="420" width="200" height="64" rx="4" ry="4" fill="#162033" stroke="#1F2D4A" stroke-width="1"/>
+<text x="280.0" y="448.0" text-anchor="middle" font-family='ui-monospace, SFMono-Regular, "SF Mono", Menlo, Consolas, monospace' font-size="12" font-weight="600" fill="#F4F1EA">phase 3</text>
+<text x="280.0" y="465.0" text-anchor="middle" font-family='ui-monospace, SFMono-Regular, "SF Mono", Menlo, Consolas, monospace' font-size="10" fill="#6B7E9C">portfolio + roadmap</text>
+<rect x="440" y="385.0" width="240" height="134" rx="4" fill="#162033" stroke="#1F2D4A" stroke-width="1" stroke-dasharray="3 3"/>
+<text x="450" y="403.0" font-family='ui-monospace, SFMono-Regular, "SF Mono", Menlo, Consolas, monospace' font-size="10" fill="#6B7E9C">project-portfolio-build</text>
+<text x="450" y="425.0" font-family='ui-monospace, SFMono-Regular, "SF Mono", Menlo, Consolas, monospace' font-size="10" fill="#6B7E9C">prioritization-matrix</text>
+<text x="450" y="447.0" font-family='ui-monospace, SFMono-Regular, "SF Mono", Menlo, Consolas, monospace' font-size="10" fill="#6B7E9C">dependency-graph</text>
+<text x="450" y="469.0" font-family='ui-monospace, SFMono-Regular, "SF Mono", Menlo, Consolas, monospace' font-size="10" fill="#6B7E9C">roadmap-sequencing</text>
+<text x="450" y="491.0" font-family='ui-monospace, SFMono-Regular, "SF Mono", Menlo, Consolas, monospace' font-size="10" fill="#6B7E9C">investment-plan</text>
+<line x1="380" y1="452" x2="440" y2="452" stroke="#1F2D4A" stroke-width="1" stroke-dasharray="3 3"/>
+<line x1="120" y1="268" x2="180" y2="452" stroke="#6B7E9C" stroke-width="1.5" marker-end="url(#arrow)"/>
+<rect x="720" y="240" width="100" height="56" rx="4" ry="4" fill="#162033" stroke="#F2C94C" stroke-width="1.5"/>
+<text x="770.0" y="273.0" text-anchor="middle" font-family='ui-monospace, SFMono-Regular, "SF Mono", Menlo, Consolas, monospace' font-size="12" font-weight="600" fill="#F2C94C">synthesis</text>
+<rect x="840" y="240" width="80" height="56" rx="4" ry="4" fill="#162033" stroke="#1F2D4A" stroke-width="1"/>
+<text x="880.0" y="273.0" text-anchor="middle" font-family='ui-monospace, SFMono-Regular, "SF Mono", Menlo, Consolas, monospace' font-size="12" font-weight="600" fill="#F4F1EA">handoff</text>
+<line x1="380" y1="92" x2="720" y2="268" stroke="#6B7E9C" stroke-width="1.5" marker-end="url(#arrow)"/>
+<line x1="380" y1="272" x2="720" y2="268" stroke="#6B7E9C" stroke-width="1.5" marker-end="url(#arrow)"/>
+<line x1="380" y1="452" x2="720" y2="268" stroke="#6B7E9C" stroke-width="1.5" marker-end="url(#arrow)"/>
+<line x1="820" y1="268" x2="840" y2="268" stroke="#6B7E9C" stroke-width="1.5" marker-end="url(#arrow)"/>
+</svg></div>
+
+<h2>Imprints per phase</h2>
+<h3>phase 1 — business + IS situational alignment</h3>
+<ul><li><code>business-strategy-extraction</code></li><li><code>as-is-application-portfolio</code></li><li><code>as-is-data-architecture</code></li><li><code>as-is-tech-architecture</code></li><li><code>as-is-governance</code></li><li><code>alignment-gap-analysis</code></li></ul>
+<h3>phase 2 — architecture target</h3>
+<ul><li><code>to-be-application-portfolio</code></li><li><code>to-be-data-architecture</code></li><li><code>to-be-tech-architecture</code></li><li><code>governance-target</code></li><li><code>capability-gap-mapping</code></li></ul>
+<h3>phase 3 — portfolio + roadmap</h3>
+<ul><li><code>project-portfolio-build</code></li><li><code>prioritization-matrix</code></li><li><code>dependency-graph</code></li><li><code>roadmap-sequencing</code></li><li><code>investment-plan</code></li></ul>
+
+<h2>Method overlay — TIME quadrant scoring</h2>
+<p>Each application is placed on McFarlan's strategic grid — Strategic / Turnaround / Factory / Support — driving the disposition (invest, modernize, maintain, sunset). The quadrant agent reads the app portfolio and the strategic capability needs, emits a quadrant + disposition per app.</p>
+<div class="diagram"><svg viewBox="0 0 940 366" xmlns="http://www.w3.org/2000/svg" width="100%" style="max-width:940px;height:auto;display:block;margin:0 auto;"><defs>
+  <marker id="arrow" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="8" markerHeight="8" orient="auto-start-reverse">
+    <path d="M 0 0 L 10 5 L 0 10 z" fill="#6B7E9C"/>
+  </marker>
+  <marker id="arrow-accent" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="8" markerHeight="8" orient="auto-start-reverse">
+    <path d="M 0 0 L 10 5 L 0 10 z" fill="#4FC3DC"/>
+  </marker>
+</defs>
+<rect x="44.666666666666664" y="30" width="117.33333333333333" height="44" rx="4" fill="#162033" stroke="#1F2D4A"/>
+<text x="103.33333333333333" y="57.0" text-anchor="middle" font-family='ui-monospace, SFMono-Regular, "SF Mono", Menlo, Consolas, monospace' font-size="12" font-weight="600" fill="#F4F1EA">Astronaut</text>
+<line x1="103.33333333333333" y1="84" x2="103.33333333333333" y2="346" stroke="#1F2D4A" stroke-width="1" stroke-dasharray="2 4"/>
+<rect x="191.33333333333334" y="30" width="117.33333333333333" height="44" rx="4" fill="#162033" stroke="#1F2D4A"/>
+<text x="250.0" y="57.0" text-anchor="middle" font-family='ui-monospace, SFMono-Regular, "SF Mono", Menlo, Consolas, monospace' font-size="12" font-weight="600" fill="#F4F1EA">Capsule</text>
+<line x1="250.0" y1="84" x2="250.0" y2="346" stroke="#1F2D4A" stroke-width="1" stroke-dasharray="2 4"/>
+<rect x="337.99999999999994" y="30" width="117.33333333333333" height="44" rx="4" fill="#162033" stroke="#1F2D4A"/>
+<text x="396.66666666666663" y="57.0" text-anchor="middle" font-family='ui-monospace, SFMono-Regular, "SF Mono", Menlo, Consolas, monospace' font-size="12" font-weight="600" fill="#F4F1EA">Quadrant Agent</text>
+<line x1="396.66666666666663" y1="84" x2="396.66666666666663" y2="346" stroke="#1F2D4A" stroke-width="1" stroke-dasharray="2 4"/>
+<rect x="484.6666666666666" y="30" width="117.33333333333333" height="44" rx="4" fill="#162033" stroke="#1F2D4A"/>
+<text x="543.3333333333333" y="57.0" text-anchor="middle" font-family='ui-monospace, SFMono-Regular, "SF Mono", Menlo, Consolas, monospace' font-size="12" font-weight="600" fill="#F4F1EA">Portfolio Fragment</text>
+<line x1="543.3333333333333" y1="84" x2="543.3333333333333" y2="346" stroke="#1F2D4A" stroke-width="1" stroke-dasharray="2 4"/>
+<rect x="631.3333333333334" y="30" width="117.33333333333333" height="44" rx="4" fill="#162033" stroke="#1F2D4A"/>
+<text x="690.0" y="57.0" text-anchor="middle" font-family='ui-monospace, SFMono-Regular, "SF Mono", Menlo, Consolas, monospace' font-size="12" font-weight="600" fill="#F4F1EA">Strategy Fragment</text>
+<line x1="690.0" y1="84" x2="690.0" y2="346" stroke="#1F2D4A" stroke-width="1" stroke-dasharray="2 4"/>
+<rect x="778.0" y="30" width="117.33333333333333" height="44" rx="4" fill="#162033" stroke="#1F2D4A"/>
+<text x="836.6666666666666" y="57.0" text-anchor="middle" font-family='ui-monospace, SFMono-Regular, "SF Mono", Menlo, Consolas, monospace' font-size="12" font-weight="600" fill="#F4F1EA">Bus</text>
+<line x1="836.6666666666666" y1="84" x2="836.6666666666666" y2="346" stroke="#1F2D4A" stroke-width="1" stroke-dasharray="2 4"/>
+<line x1="103.33333333333333" y1="120" x2="250.0" y2="120" stroke="#6B7E9C" stroke-width="1.5" marker-end="url(#arrow)"/>
+<rect x="89.16666666666666" y="102" width="175" height="14" rx="3" fill="#0F1729"/>
+<text x="176.66666666666666" y="113" text-anchor="middle" font-family='ui-monospace, SFMono-Regular, "SF Mono", Menlo, Consolas, monospace' font-size="10" fill="#6B7E9C">dispatch quadrant-scoring</text>
+<line x1="250.0" y1="156" x2="836.6666666666666" y2="156" stroke="#6B7E9C" stroke-width="1.5" marker-end="url(#arrow)"/>
+<rect x="382.33333333333326" y="138" width="322" height="14" rx="3" fill="#0F1729"/>
+<text x="543.3333333333333" y="149" text-anchor="middle" font-family='ui-monospace, SFMono-Regular, "SF Mono", Menlo, Consolas, monospace' font-size="10" fill="#6B7E9C">load application-portfolio + business-strategy</text>
+<line x1="250.0" y1="192" x2="396.66666666666663" y2="192" stroke="#6B7E9C" stroke-width="1.5" marker-end="url(#arrow)"/>
+<rect x="211.33333333333331" y="174" width="224" height="14" rx="3" fill="#0F1729"/>
+<text x="323.3333333333333" y="185" text-anchor="middle" font-family='ui-monospace, SFMono-Regular, "SF Mono", Menlo, Consolas, monospace' font-size="10" fill="#6B7E9C">instantiate with portfolio scope</text>
+<line x1="396.66666666666663" y1="228" x2="543.3333333333333" y2="228" stroke="#6B7E9C" stroke-width="1.5" marker-end="url(#arrow)"/>
+<rect x="350.99999999999994" y="210" width="238" height="14" rx="3" fill="#0F1729"/>
+<text x="469.99999999999994" y="221" text-anchor="middle" font-family='ui-monospace, SFMono-Regular, "SF Mono", Menlo, Consolas, monospace' font-size="10" fill="#6B7E9C">pull each app's role + cost + risk</text>
+<line x1="396.66666666666663" y1="264" x2="690.0" y2="264" stroke="#6B7E9C" stroke-width="1.5" marker-end="url(#arrow)"/>
+<rect x="434.83333333333326" y="246" width="217" height="14" rx="3" fill="#0F1729"/>
+<text x="543.3333333333333" y="257" text-anchor="middle" font-family='ui-monospace, SFMono-Regular, "SF Mono", Menlo, Consolas, monospace' font-size="10" fill="#6B7E9C">pull strategic capability needs</text>
+<line x1="396.66666666666663" y1="300" x2="836.6666666666666" y2="300" stroke="#6B7E9C" stroke-width="1.5" marker-end="url(#arrow)"/>
+<rect x="494.16666666666663" y="282" width="245" height="14" rx="3" fill="#0F1729"/>
+<text x="616.6666666666666" y="293" text-anchor="middle" font-family='ui-monospace, SFMono-Regular, "SF Mono", Menlo, Consolas, monospace' font-size="10" fill="#6B7E9C">emit quadrant + disposition per app</text>
+<line x1="250.0" y1="336" x2="836.6666666666666" y2="336" stroke="#6B7E9C" stroke-width="1.5" marker-end="url(#arrow)"/>
+<rect x="396.33333333333326" y="318" width="294" height="14" rx="3" fill="#0F1729"/>
+<text x="543.3333333333333" y="329" text-anchor="middle" font-family='ui-monospace, SFMono-Regular, "SF Mono", Menlo, Consolas, monospace' font-size="10" fill="#6B7E9C">index by quadrant, disposition, dependency</text>
+</svg></div>
+
+<h2>Data points produced</h2>
+<table>
+<tr><th>Data point</th><th>What it captures</th><th>Decision it enables</th></tr>
+<tr><td><code>TIME quadrant per application</code></td><td>Strategic / Turnaround / Factory / Support placement</td><td>Drives invest / modernize / maintain / sunset</td></tr>
+<tr><td><code>capability-gap matrix</code></td><td>Required capabilities vs. current capabilities</td><td>Drives target architecture priorities</td></tr>
+<tr><td><code>data-domain ownership map</code></td><td>Domain owners and master-data location</td><td>Drives data governance redesign</td></tr>
+<tr><td><code>integration-brittleness index</code></td><td>Integrations ranked by failure probability + blast radius</td><td>Drives integration consolidation</td></tr>
+<tr><td><code>governance-maturity per domain</code></td><td>Decision rights, funding, standards posture</td><td>Drives operating model redesign</td></tr>
+<tr><td><code>project-portfolio prioritization</code></td><td>Projects scored by NPV + risk + dependency</td><td>Drives portfolio investment</td></tr>
+<tr><td><code>roadmap sequencing</code></td><td>Waves with dependencies and milestones</td><td>Drives execution planning</td></tr>
+<tr><td><code>investment plan</code></td><td>Capex + opex by year by program</td><td>Drives budget submission</td></tr>
+</table>
+
+<h2>Handoff package</h2>
+<table>
+<tr><th>Item</th><th>Form</th></tr>
+<tr><td>Engagement record</td><td>folder + bus snapshot</td></tr>
+<tr><td>Business strategy alignment</td><td>JSON + narrative</td></tr>
+<tr><td>As-is portfolios</td><td>JSON + narrative</td></tr>
+<tr><td>To-be target architecture</td><td>JSON + narrative</td></tr>
+<tr><td>TIME quadrant per application</td><td>JSON</td></tr>
+<tr><td>Project portfolio + dependencies</td><td>JSON + narrative</td></tr>
+<tr><td>Roadmap + investment plan</td><td>JSON + narrative</td></tr>
+<tr><td>Open question registry</td><td>issue export</td></tr>
+<tr><td>Decision log</td><td>append-only JSON</td></tr>
+</table>
+
+<h2>Companion specs</h2>
+<ul>
+<li><code>Brain/wiki/diagnostic-execution-primer.html</code> — substrate primer</li>
+<li><code>Brain/wiki/cards/ruptiv-diagnostic-artifact-taxonomy.md</code> — artifact types and envelope</li>
+<li><code>Brain/wiki/cards/ruptiv-diagnostic-imprint-header-spec.md</code> — imprint header schema</li>
+<li><code>Brain/wiki/cards/execution-primer-template.md</code> — primer template spec</li>
+</ul>
+
+<div class="footer">
+  <span class="footer-tag">Ruptiv · Internal</span>
+  <span class="footer-tag">Workflows, reinvented.</span>
+</div>
+
+</div>
+</body>
+</html>

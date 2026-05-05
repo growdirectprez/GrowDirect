@@ -1,0 +1,234 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<title>SaaS Execution Primer — Ruptiv</title>
+<style>
+  :root {
+    --bg: #0F1729;
+    --fg: #F4F1EA;
+    --muted: #6B7E9C;
+    --accent: #4FC3DC;
+    --signal: #F2C94C;
+    --border: #1F2D4A;
+    --card-bg: #162033;
+    --mono: ui-monospace, SFMono-Regular, "SF Mono", Menlo, Consolas, monospace;
+    --sans: "Söhne", "Inter", -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+  }
+  * { box-sizing: border-box; }
+  body { background: var(--bg); color: var(--fg); font-family: var(--sans); line-height: 1.6; margin: 0; padding: 0; }
+  .container { max-width: 980px; margin: 0 auto; padding: 48px 32px 96px 32px; }
+  .doc-header { display: flex; align-items: center; justify-content: space-between; margin-bottom: 48px; padding-bottom: 20px; border-bottom: 1px solid var(--border); }
+  .doc-type { font-family: var(--mono); font-size: 11px; letter-spacing: 0.15em; text-transform: uppercase; color: var(--muted); }
+  h1 { font-family: var(--sans); font-weight: 300; font-size: 32px; letter-spacing: -0.03em; margin: 0 0 8px 0; color: var(--fg); }
+  h2 { font-family: var(--mono); font-size: 11px; margin-top: 56px; color: var(--muted); text-transform: uppercase; letter-spacing: 0.15em; border-top: 1px solid var(--border); padding-top: 16px; }
+  h3 { font-family: var(--mono); font-size: 11px; color: var(--accent); margin-top: 28px; text-transform: uppercase; letter-spacing: 0.1em; }
+  p { margin: 12px 0; }
+  code, .mono { font-family: var(--mono); background: var(--card-bg); padding: 2px 6px; border-radius: 3px; font-size: 0.875em; color: var(--accent); }
+  table { border-collapse: collapse; width: 100%; margin: 16px 0; font-size: 14px; }
+  th, td { text-align: left; padding: 10px 14px; border-bottom: 1px solid var(--border); vertical-align: top; }
+  th { font-family: var(--mono); font-weight: 400; background: var(--card-bg); color: var(--muted); font-size: 10px; text-transform: uppercase; letter-spacing: 0.12em; }
+  ul, ol { padding-left: 24px; }
+  li { margin: 4px 0; }
+  .diagram { background: var(--card-bg); padding: 24px; border-radius: 4px; border: 1px solid var(--border); margin: 24px 0; overflow-x: auto; }
+  .meta { color: var(--muted); font-family: var(--mono); font-size: 11px; letter-spacing: 0.04em; margin-bottom: 32px; }
+  a { color: var(--accent); text-decoration: none; }
+  a:hover { text-decoration: underline; }
+  .lead { font-size: 15px; color: var(--fg); line-height: 1.7; margin: 0 0 40px 0; max-width: 760px; }
+  .footer { margin-top: 80px; padding-top: 20px; border-top: 1px solid var(--border); display: flex; justify-content: space-between; align-items: center; }
+  .footer-tag { font-family: var(--mono); font-size: 10px; letter-spacing: 0.12em; text-transform: uppercase; color: var(--muted); }
+</style>
+</head>
+<body>
+<div class="container">
+
+<div class="doc-header">
+  <div>
+    <div class="doc-type">Execution Primer</div>
+    <h1>SaaS Execution Primer</h1>
+    <div class="meta">Ruptiv · Five-D Method · 2026-05-04</div>
+  </div>
+  <div><svg width="28" height="28" viewBox="0 0 28 28" xmlns="http://www.w3.org/2000/svg">
+  <rect width="28" height="28" rx="4" fill="#0F1729"/>
+  <line x1="7" y1="14" x2="21" y2="14" stroke="#6B7E9C" stroke-width="1"/>
+  <line x1="7" y1="14" x2="14" y2="8" stroke="#6B7E9C" stroke-width="1"/>
+  <line x1="21" y1="14" x2="14" y2="8" stroke="#6B7E9C" stroke-width="1"/>
+  <circle cx="7"  cy="14" r="2.5" fill="#162033" stroke="#6B7E9C" stroke-width="1"/>
+  <circle cx="21" cy="14" r="2.5" fill="#162033" stroke="#6B7E9C" stroke-width="1"/>
+  <circle cx="14" cy="8"  r="2.5" fill="#162033" stroke="#6B7E9C" stroke-width="1"/>
+  <circle cx="14" cy="14" r="3"   fill="#F2C94C"/>
+</svg></div>
+</div>
+
+<p class="lead">A SaaS engagement examines the commercial, product, and operational reality of a software business — its customers, recurring revenue, technology, integrations, team, and compliance posture — and produces the evidence base leadership or a buyer needs to make sound investment, partnership, or transformation decisions.</p>
+
+<h2>What it produces</h2>
+<table>
+<tr><th>Output</th><th>Form</th></tr>
+<tr><td>Charter</td><td>signed JSON artifact</td></tr>
+<tr><td>Customer base + ARR cohorts + churn</td><td>schema-fragments</td></tr>
+<tr><td>Codebase + architecture + tech debt</td><td>schema-fragments</td></tr>
+<tr><td>Integration map + security posture</td><td>schema-fragments</td></tr>
+<tr><td>GTM + CS + finance + compliance fragments</td><td>schema-fragments</td></tr>
+<tr><td>Handoff package</td><td>folder + bus snapshot, signed</td></tr>
+</table>
+
+<h2>Phase structure</h2>
+<div class="diagram"><svg viewBox="0 0 940 540" xmlns="http://www.w3.org/2000/svg" width="100%" style="max-width:940px;height:auto;display:block;margin:0 auto;"><defs>
+  <marker id="arrow" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="8" markerHeight="8" orient="auto-start-reverse">
+    <path d="M 0 0 L 10 5 L 0 10 z" fill="#6B7E9C"/>
+  </marker>
+  <marker id="arrow-accent" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="8" markerHeight="8" orient="auto-start-reverse">
+    <path d="M 0 0 L 10 5 L 0 10 z" fill="#4FC3DC"/>
+  </marker>
+</defs>
+<rect x="20" y="240" width="100" height="56" rx="4" ry="4" fill="#162033" stroke="#1F2D4A" stroke-width="1"/>
+<text x="70.0" y="273.0" text-anchor="middle" font-family='ui-monospace, SFMono-Regular, "SF Mono", Menlo, Consolas, monospace' font-size="12" font-weight="600" fill="#F4F1EA">charter</text>
+<rect x="180" y="60" width="200" height="64" rx="4" ry="4" fill="#162033" stroke="#1F2D4A" stroke-width="1"/>
+<text x="280.0" y="88.0" text-anchor="middle" font-family='ui-monospace, SFMono-Regular, "SF Mono", Menlo, Consolas, monospace' font-size="12" font-weight="600" fill="#F4F1EA">phase 1</text>
+<text x="280.0" y="105.0" text-anchor="middle" font-family='ui-monospace, SFMono-Regular, "SF Mono", Menlo, Consolas, monospace' font-size="10" fill="#6B7E9C">commercial reality</text>
+<rect x="440" y="25.0" width="240" height="134" rx="4" fill="#162033" stroke="#1F2D4A" stroke-width="1" stroke-dasharray="3 3"/>
+<text x="450" y="43.0" font-family='ui-monospace, SFMono-Regular, "SF Mono", Menlo, Consolas, monospace' font-size="10" fill="#6B7E9C">customer-base-saas</text>
+<text x="450" y="65.0" font-family='ui-monospace, SFMono-Regular, "SF Mono", Menlo, Consolas, monospace' font-size="10" fill="#6B7E9C">arr-cohort-analysis</text>
+<text x="450" y="87.0" font-family='ui-monospace, SFMono-Regular, "SF Mono", Menlo, Consolas, monospace' font-size="10" fill="#6B7E9C">churn-decomposition</text>
+<text x="450" y="109.0" font-family='ui-monospace, SFMono-Regular, "SF Mono", Menlo, Consolas, monospace' font-size="10" fill="#6B7E9C">segment-concentration</text>
+<text x="450" y="131.0" font-family='ui-monospace, SFMono-Regular, "SF Mono", Menlo, Consolas, monospace' font-size="10" fill="#6B7E9C">billing-health</text>
+<text x="450" y="153.0" font-family='ui-monospace, SFMono-Regular, "SF Mono", Menlo, Consolas, monospace' font-size="10" fill="#6B7E9C">+ 1 more</text>
+<line x1="380" y1="92" x2="440" y2="92" stroke="#1F2D4A" stroke-width="1" stroke-dasharray="3 3"/>
+<line x1="120" y1="268" x2="180" y2="92" stroke="#6B7E9C" stroke-width="1.5" marker-end="url(#arrow)"/>
+<rect x="180" y="240" width="200" height="64" rx="4" ry="4" fill="#162033" stroke="#1F2D4A" stroke-width="1"/>
+<text x="280.0" y="268.0" text-anchor="middle" font-family='ui-monospace, SFMono-Regular, "SF Mono", Menlo, Consolas, monospace' font-size="12" font-weight="600" fill="#F4F1EA">phase 2</text>
+<text x="280.0" y="285.0" text-anchor="middle" font-family='ui-monospace, SFMono-Regular, "SF Mono", Menlo, Consolas, monospace' font-size="10" fill="#6B7E9C">product + tech reality</text>
+<rect x="440" y="205.0" width="240" height="134" rx="4" fill="#162033" stroke="#1F2D4A" stroke-width="1" stroke-dasharray="3 3"/>
+<text x="450" y="223.0" font-family='ui-monospace, SFMono-Regular, "SF Mono", Menlo, Consolas, monospace' font-size="10" fill="#6B7E9C">codebase-archeology</text>
+<text x="450" y="245.0" font-family='ui-monospace, SFMono-Regular, "SF Mono", Menlo, Consolas, monospace' font-size="10" fill="#6B7E9C">sdlc-characterization</text>
+<text x="450" y="267.0" font-family='ui-monospace, SFMono-Regular, "SF Mono", Menlo, Consolas, monospace' font-size="10" fill="#6B7E9C">architecture-as-is</text>
+<text x="450" y="289.0" font-family='ui-monospace, SFMono-Regular, "SF Mono", Menlo, Consolas, monospace' font-size="10" fill="#6B7E9C">tech-debt-inventory</text>
+<text x="450" y="311.0" font-family='ui-monospace, SFMono-Regular, "SF Mono", Menlo, Consolas, monospace' font-size="10" fill="#6B7E9C">integration-map</text>
+<text x="450" y="333.0" font-family='ui-monospace, SFMono-Regular, "SF Mono", Menlo, Consolas, monospace' font-size="10" fill="#6B7E9C">+ 1 more</text>
+<line x1="380" y1="272" x2="440" y2="272" stroke="#1F2D4A" stroke-width="1" stroke-dasharray="3 3"/>
+<line x1="120" y1="268" x2="180" y2="272" stroke="#6B7E9C" stroke-width="1.5" marker-end="url(#arrow)"/>
+<rect x="180" y="420" width="200" height="64" rx="4" ry="4" fill="#162033" stroke="#1F2D4A" stroke-width="1"/>
+<text x="280.0" y="448.0" text-anchor="middle" font-family='ui-monospace, SFMono-Regular, "SF Mono", Menlo, Consolas, monospace' font-size="12" font-weight="600" fill="#F4F1EA">phase 3</text>
+<text x="280.0" y="465.0" text-anchor="middle" font-family='ui-monospace, SFMono-Regular, "SF Mono", Menlo, Consolas, monospace' font-size="10" fill="#6B7E9C">org + ops reality</text>
+<rect x="440" y="385.0" width="240" height="134" rx="4" fill="#162033" stroke="#1F2D4A" stroke-width="1" stroke-dasharray="3 3"/>
+<text x="450" y="403.0" font-family='ui-monospace, SFMono-Regular, "SF Mono", Menlo, Consolas, monospace' font-size="10" fill="#6B7E9C">team-capability-map</text>
+<text x="450" y="425.0" font-family='ui-monospace, SFMono-Regular, "SF Mono", Menlo, Consolas, monospace' font-size="10" fill="#6B7E9C">gtm-motion-trace</text>
+<text x="450" y="447.0" font-family='ui-monospace, SFMono-Regular, "SF Mono", Menlo, Consolas, monospace' font-size="10" fill="#6B7E9C">cs-support-pattern</text>
+<text x="450" y="469.0" font-family='ui-monospace, SFMono-Regular, "SF Mono", Menlo, Consolas, monospace' font-size="10" fill="#6B7E9C">finance-pattern</text>
+<text x="450" y="491.0" font-family='ui-monospace, SFMono-Regular, "SF Mono", Menlo, Consolas, monospace' font-size="10" fill="#6B7E9C">compliance-stack-audit</text>
+<line x1="380" y1="452" x2="440" y2="452" stroke="#1F2D4A" stroke-width="1" stroke-dasharray="3 3"/>
+<line x1="120" y1="268" x2="180" y2="452" stroke="#6B7E9C" stroke-width="1.5" marker-end="url(#arrow)"/>
+<rect x="720" y="240" width="100" height="56" rx="4" ry="4" fill="#162033" stroke="#F2C94C" stroke-width="1.5"/>
+<text x="770.0" y="273.0" text-anchor="middle" font-family='ui-monospace, SFMono-Regular, "SF Mono", Menlo, Consolas, monospace' font-size="12" font-weight="600" fill="#F2C94C">synthesis</text>
+<rect x="840" y="240" width="80" height="56" rx="4" ry="4" fill="#162033" stroke="#1F2D4A" stroke-width="1"/>
+<text x="880.0" y="273.0" text-anchor="middle" font-family='ui-monospace, SFMono-Regular, "SF Mono", Menlo, Consolas, monospace' font-size="12" font-weight="600" fill="#F4F1EA">handoff</text>
+<line x1="380" y1="92" x2="720" y2="268" stroke="#6B7E9C" stroke-width="1.5" marker-end="url(#arrow)"/>
+<line x1="380" y1="272" x2="720" y2="268" stroke="#6B7E9C" stroke-width="1.5" marker-end="url(#arrow)"/>
+<line x1="380" y1="452" x2="720" y2="268" stroke="#6B7E9C" stroke-width="1.5" marker-end="url(#arrow)"/>
+<line x1="820" y1="268" x2="840" y2="268" stroke="#6B7E9C" stroke-width="1.5" marker-end="url(#arrow)"/>
+</svg></div>
+
+<h2>Imprints per phase</h2>
+<h3>phase 1 — commercial reality</h3>
+<ul><li><code>customer-base-saas</code></li><li><code>arr-cohort-analysis</code></li><li><code>churn-decomposition</code></li><li><code>segment-concentration</code></li><li><code>billing-health</code></li><li><code>sales-motion-trace</code></li></ul>
+<h3>phase 2 — product + tech reality</h3>
+<ul><li><code>codebase-archeology</code></li><li><code>sdlc-characterization</code></li><li><code>architecture-as-is</code></li><li><code>tech-debt-inventory</code></li><li><code>integration-map</code></li><li><code>security-posture</code></li></ul>
+<h3>phase 3 — org + ops reality</h3>
+<ul><li><code>team-capability-map</code></li><li><code>gtm-motion-trace</code></li><li><code>cs-support-pattern</code></li><li><code>finance-pattern</code></li><li><code>compliance-stack-audit</code></li></ul>
+
+<h2>Method overlay — ARR cohort decomposition</h2>
+<p>Break ARR by acquisition cohort. Plot retention curves. Surface which cohorts drive net retention and which drag. The cohort agent reads subscription history and acquisition metadata, emits cohort retention + NRR + drag attribution.</p>
+<div class="diagram"><svg viewBox="0 0 940 366" xmlns="http://www.w3.org/2000/svg" width="100%" style="max-width:940px;height:auto;display:block;margin:0 auto;"><defs>
+  <marker id="arrow" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="8" markerHeight="8" orient="auto-start-reverse">
+    <path d="M 0 0 L 10 5 L 0 10 z" fill="#6B7E9C"/>
+  </marker>
+  <marker id="arrow-accent" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="8" markerHeight="8" orient="auto-start-reverse">
+    <path d="M 0 0 L 10 5 L 0 10 z" fill="#4FC3DC"/>
+  </marker>
+</defs>
+<rect x="44.666666666666664" y="30" width="117.33333333333333" height="44" rx="4" fill="#162033" stroke="#1F2D4A"/>
+<text x="103.33333333333333" y="57.0" text-anchor="middle" font-family='ui-monospace, SFMono-Regular, "SF Mono", Menlo, Consolas, monospace' font-size="12" font-weight="600" fill="#F4F1EA">Astronaut</text>
+<line x1="103.33333333333333" y1="84" x2="103.33333333333333" y2="346" stroke="#1F2D4A" stroke-width="1" stroke-dasharray="2 4"/>
+<rect x="191.33333333333334" y="30" width="117.33333333333333" height="44" rx="4" fill="#162033" stroke="#1F2D4A"/>
+<text x="250.0" y="57.0" text-anchor="middle" font-family='ui-monospace, SFMono-Regular, "SF Mono", Menlo, Consolas, monospace' font-size="12" font-weight="600" fill="#F4F1EA">Capsule</text>
+<line x1="250.0" y1="84" x2="250.0" y2="346" stroke="#1F2D4A" stroke-width="1" stroke-dasharray="2 4"/>
+<rect x="337.99999999999994" y="30" width="117.33333333333333" height="44" rx="4" fill="#162033" stroke="#1F2D4A"/>
+<text x="396.66666666666663" y="57.0" text-anchor="middle" font-family='ui-monospace, SFMono-Regular, "SF Mono", Menlo, Consolas, monospace' font-size="12" font-weight="600" fill="#F4F1EA">Cohort Agent</text>
+<line x1="396.66666666666663" y1="84" x2="396.66666666666663" y2="346" stroke="#1F2D4A" stroke-width="1" stroke-dasharray="2 4"/>
+<rect x="484.6666666666666" y="30" width="117.33333333333333" height="44" rx="4" fill="#162033" stroke="#1F2D4A"/>
+<text x="543.3333333333333" y="57.0" text-anchor="middle" font-family='ui-monospace, SFMono-Regular, "SF Mono", Menlo, Consolas, monospace' font-size="12" font-weight="600" fill="#F4F1EA">Billing System</text>
+<line x1="543.3333333333333" y1="84" x2="543.3333333333333" y2="346" stroke="#1F2D4A" stroke-width="1" stroke-dasharray="2 4"/>
+<rect x="631.3333333333334" y="30" width="117.33333333333333" height="44" rx="4" fill="#162033" stroke="#1F2D4A"/>
+<text x="690.0" y="57.0" text-anchor="middle" font-family='ui-monospace, SFMono-Regular, "SF Mono", Menlo, Consolas, monospace' font-size="12" font-weight="600" fill="#F4F1EA">CRM</text>
+<line x1="690.0" y1="84" x2="690.0" y2="346" stroke="#1F2D4A" stroke-width="1" stroke-dasharray="2 4"/>
+<rect x="778.0" y="30" width="117.33333333333333" height="44" rx="4" fill="#162033" stroke="#1F2D4A"/>
+<text x="836.6666666666666" y="57.0" text-anchor="middle" font-family='ui-monospace, SFMono-Regular, "SF Mono", Menlo, Consolas, monospace' font-size="12" font-weight="600" fill="#F4F1EA">Bus</text>
+<line x1="836.6666666666666" y1="84" x2="836.6666666666666" y2="346" stroke="#1F2D4A" stroke-width="1" stroke-dasharray="2 4"/>
+<line x1="103.33333333333333" y1="120" x2="250.0" y2="120" stroke="#6B7E9C" stroke-width="1.5" marker-end="url(#arrow)"/>
+<rect x="78.66666666666666" y="102" width="196" height="14" rx="3" fill="#0F1729"/>
+<text x="176.66666666666666" y="113" text-anchor="middle" font-family='ui-monospace, SFMono-Regular, "SF Mono", Menlo, Consolas, monospace' font-size="10" fill="#6B7E9C">dispatch arr-cohort-analysis</text>
+<line x1="250.0" y1="156" x2="836.6666666666666" y2="156" stroke="#6B7E9C" stroke-width="1.5" marker-end="url(#arrow)"/>
+<rect x="396.33333333333326" y="138" width="294" height="14" rx="3" fill="#0F1729"/>
+<text x="543.3333333333333" y="149" text-anchor="middle" font-family='ui-monospace, SFMono-Regular, "SF Mono", Menlo, Consolas, monospace' font-size="10" fill="#6B7E9C">load customer-base + segment-concentration</text>
+<line x1="250.0" y1="192" x2="396.66666666666663" y2="192" stroke="#6B7E9C" stroke-width="1.5" marker-end="url(#arrow)"/>
+<rect x="221.83333333333331" y="174" width="203" height="14" rx="3" fill="#0F1729"/>
+<text x="323.3333333333333" y="185" text-anchor="middle" font-family='ui-monospace, SFMono-Regular, "SF Mono", Menlo, Consolas, monospace' font-size="10" fill="#6B7E9C">instantiate with cohort scope</text>
+<line x1="396.66666666666663" y1="228" x2="543.3333333333333" y2="228" stroke="#6B7E9C" stroke-width="1.5" marker-end="url(#arrow)"/>
+<rect x="315.99999999999994" y="210" width="308" height="14" rx="3" fill="#0F1729"/>
+<text x="469.99999999999994" y="221" text-anchor="middle" font-family='ui-monospace, SFMono-Regular, "SF Mono", Menlo, Consolas, monospace' font-size="10" fill="#6B7E9C">pull subscription history + MRR per customer</text>
+<line x1="396.66666666666663" y1="264" x2="690.0" y2="264" stroke="#6B7E9C" stroke-width="1.5" marker-end="url(#arrow)"/>
+<rect x="434.83333333333326" y="246" width="217" height="14" rx="3" fill="#0F1729"/>
+<text x="543.3333333333333" y="257" text-anchor="middle" font-family='ui-monospace, SFMono-Regular, "SF Mono", Menlo, Consolas, monospace' font-size="10" fill="#6B7E9C">pull acquisition date + segment</text>
+<line x1="396.66666666666663" y1="300" x2="836.6666666666666" y2="300" stroke="#6B7E9C" stroke-width="1.5" marker-end="url(#arrow)"/>
+<rect x="455.66666666666663" y="282" width="322" height="14" rx="3" fill="#0F1729"/>
+<text x="616.6666666666666" y="293" text-anchor="middle" font-family='ui-monospace, SFMono-Regular, "SF Mono", Menlo, Consolas, monospace' font-size="10" fill="#6B7E9C">emit cohort retention + NRR + drag attribution</text>
+<line x1="250.0" y1="336" x2="836.6666666666666" y2="336" stroke="#6B7E9C" stroke-width="1.5" marker-end="url(#arrow)"/>
+<rect x="431.33333333333326" y="318" width="224" height="14" rx="3" fill="#0F1729"/>
+<text x="543.3333333333333" y="329" text-anchor="middle" font-family='ui-monospace, SFMono-Regular, "SF Mono", Menlo, Consolas, monospace' font-size="10" fill="#6B7E9C">index by cohort, segment, vector</text>
+</svg></div>
+
+<h2>Data points produced</h2>
+<table>
+<tr><th>Data point</th><th>What it captures</th><th>Decision it enables</th></tr>
+<tr><td><code>ARR cohort retention curves</code></td><td>Retention curve per acquisition cohort</td><td>Drives NRR forecast and segment focus</td></tr>
+<tr><td><code>NRR by segment</code></td><td>Net revenue retention split by customer segment</td><td>Drives expansion vs. retention motion</td></tr>
+<tr><td><code>churn decomposition</code></td><td>Voluntary / involuntary / downgrade by vector</td><td>Drives churn-reduction priorities</td></tr>
+<tr><td><code>segment-concentration risk</code></td><td>Top-10-by-revenue, concentration over 25%</td><td>Drives diversification strategy</td></tr>
+<tr><td><code>tech-debt impact categorized</code></td><td>Debt categorized by impact and remediation cost</td><td>Drives engineering investment</td></tr>
+<tr><td><code>integration blast-radius</code></td><td>Integration map with break-impact scores</td><td>Drives integration consolidation</td></tr>
+<tr><td><code>security-posture gap</code></td><td>Controls present vs. needed for next compliance cert</td><td>Drives compliance roadmap</td></tr>
+<tr><td><code>unit economics</code></td><td>CAC, LTV, gross margin, burn multiple</td><td>Drives commercial model decisions</td></tr>
+<tr><td><code>compliance-stack readiness</code></td><td>Path to next certification</td><td>Drives compliance investment</td></tr>
+</table>
+
+<h2>Handoff package</h2>
+<table>
+<tr><th>Item</th><th>Form</th></tr>
+<tr><td>Engagement record</td><td>folder + bus snapshot</td></tr>
+<tr><td>Customer base + ARR cohorts + churn</td><td>JSON + narrative</td></tr>
+<tr><td>Codebase + architecture + tech debt</td><td>JSON + narrative</td></tr>
+<tr><td>Integration graph</td><td>JSON + diagram</td></tr>
+<tr><td>Security + compliance posture</td><td>JSON + narrative</td></tr>
+<tr><td>Team + GTM + CS + finance fragments</td><td>JSON + narrative</td></tr>
+<tr><td>Risk + opportunity register</td><td>JSON + narrative</td></tr>
+<tr><td>Open question registry</td><td>issue export</td></tr>
+<tr><td>Decision log</td><td>append-only JSON</td></tr>
+</table>
+
+<h2>Companion specs</h2>
+<ul>
+<li><code>Brain/wiki/diagnostic-execution-primer.html</code> — substrate primer</li>
+<li><code>Brain/wiki/cards/ruptiv-diagnostic-artifact-taxonomy.md</code> — artifact types and envelope</li>
+<li><code>Brain/wiki/cards/ruptiv-diagnostic-imprint-header-spec.md</code> — imprint header schema</li>
+<li><code>Brain/wiki/cards/execution-primer-template.md</code> — primer template spec</li>
+</ul>
+
+<div class="footer">
+  <span class="footer-tag">Ruptiv · Internal</span>
+  <span class="footer-tag">Workflows, reinvented.</span>
+</div>
+
+</div>
+</body>
+</html>
