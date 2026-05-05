@@ -64,15 +64,15 @@ Ruptiv never co-mingles raw client data across engagements. The Patterns index i
 
 ---
 
-## OWNERSHIP
+## ARCHITECTURE LAYERS
 
-| Component | Owner | Rationale |
+| Layer | What It Is | Where It Lives |
 |---|---|---|
-| Atlas View substrate (AlloyDB schema, Cloud Run services, imprint format) | GrowDirect | Core IP. The technical substrate. |
-| Patterns index (cross-engagement compounding) | GrowDirect | Compounds across every Ruptiv engagement. This is the moat. |
-| Engagement execution (per-client fragment store, vault, Listening System) | Ruptiv (delivered to client perimeter) | Client data stays in client's hands. |
-| Method, Sparring Partner definitions, Five-D System | Ruptiv | Methodology IP. GrowDirect implements; Ruptiv defines. |
-| Brand surface (Atlas View UI, Sparring Partner cards) | Ruptiv brand-compliant; GrowDirect built | Deep Ink ground. Signal Yellow active nodes. Per Brand Guide. |
+| Atlas View substrate | AlloyDB schema, Cloud Run services, imprint format | GCP control plane |
+| Patterns index | Cross-engagement synthesis. The compounding surface. | GCP control plane — persistent |
+| Engagement execution | Fragment store, vault, Listening System heartbeats | Client perimeter — per engagement |
+| Method layer | Five-D System, Sparring Partner definitions, Listening System logic | Delivered as imprints at engagement start |
+| Brand surface | Atlas View UI, Sparring Partner cards | Deep Ink ground. Signal Yellow active nodes. Per Brand Guide. |
 
 ---
 
