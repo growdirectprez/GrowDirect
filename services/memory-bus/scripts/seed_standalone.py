@@ -116,17 +116,42 @@ EMBEDDING_DIM = int(os.environ.get("EMBEDDING_DIM", "1024"))
 MAX_TEXT = 6000
 
 
+_vertex_credentials = None
+
+
+def _get_vertex_token() -> str:
+    global _vertex_credentials
+    import google.auth
+    import google.auth.transport.requests
+    if _vertex_credentials is None:
+        _vertex_credentials, _ = google.auth.default(
+            scopes=["https://www.googleapis.com/auth/cloud-platform"]
+        )
+    req = google.auth.transport.requests.Request()
+    _vertex_credentials.refresh(req)
+    return _vertex_credentials.token
+
+
 def get_embedding(text: str) -> list[float] | None:
     try:
         if EMBED_BACKEND == "vertex":
-            import vertexai
-            from vertexai.language_models import TextEmbeddingModel
             gcp_project = os.environ.get("GOOGLE_CLOUD_PROJECT", "growdirect-mercury")
             gcp_region = os.environ.get("GOOGLE_CLOUD_REGION", "us-central1")
-            vertexai.init(project=gcp_project, location=gcp_region)
-            model = TextEmbeddingModel.from_pretrained(EMBEDDING_MODEL)
-            embeddings = model.get_embeddings([text[:MAX_TEXT]])
-            return [float(v) for v in embeddings[0].values[:EMBEDDING_DIM]]
+            token = _get_vertex_token()
+            url = (
+                f"https://{gcp_region}-aiplatform.googleapis.com/v1"
+                f"/projects/{gcp_project}/locations/{gcp_region}"
+                f"/publishers/google/models/{EMBEDDING_MODEL}:predict"
+            )
+            r = httpx.post(
+                url,
+                headers={"Authorization": f"Bearer {token}", "Content-Type": "application/json"},
+                json={"instances": [{"content": text[:MAX_TEXT]}]},
+                timeout=60.0,
+            )
+            r.raise_for_status()
+            values = r.json()["predictions"][0]["embeddings"]["values"]
+            return [float(v) for v in values[:EMBEDDING_DIM]]
         else:
             r = httpx.post(
                 f"{OLLAMA_URL}/api/embed",
