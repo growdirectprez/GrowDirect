@@ -270,7 +270,7 @@ def main():
                     engines = %s, updated_at = now()
                 WHERE session_id = %s AND metadata->>'source_file' = %s
                 """,
-                (content, str(embedding), json.dumps(meta), engines, SEED_SESSION_ID, rel),
+                (content, str(embedding), json.dumps(meta), json.dumps(engines), SEED_SESSION_ID, rel),
             )
             updated += 1
         else:
@@ -289,7 +289,7 @@ def main():
                     str(embedding),
                     json.dumps(meta),
                     src["layer"],
-                    engines,
+                    json.dumps(engines),
                 ),
             )
             inserted += 1
