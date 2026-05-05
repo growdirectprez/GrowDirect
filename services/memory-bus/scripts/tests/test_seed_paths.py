@@ -1,7 +1,6 @@
 # services/memory-bus/scripts/tests/test_seed_paths.py
 """Tests for --include-paths glob filtering in seed_standalone.py."""
 
-import fnmatch
 import sys
 from pathlib import Path
 from unittest.mock import patch, MagicMock

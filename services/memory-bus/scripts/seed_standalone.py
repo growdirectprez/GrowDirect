@@ -166,7 +166,6 @@ def main():
         help=(
             "Comma-separated glob patterns relative to repo root. "
             "When set, only files matching at least one pattern are seeded. "
-            "DATABASE_URL is read from the environment variable of the same name. "
             "Example: Brain/wiki/cards/canary-*.md,Brain/wiki/cards/ncr-*.md"
         ),
     )
