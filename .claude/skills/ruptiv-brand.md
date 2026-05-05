@@ -134,6 +134,12 @@ Run this against the document before marking it done.
 
 ---
 
+## FRAMING RULES
+
+- Ruptiv and GrowDirect are one team. Never frame documents as "us vs. them" or partition ownership between the two.
+- Describe architecture by what each layer does and where it lives — not who controls it.
+- Partnership is assumed. Do not explain it.
+
 ## WHAT DOES NOT CHANGE
 
 - Factual content, data, client names, dates
