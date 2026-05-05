@@ -110,20 +110,31 @@ DATABASE_URL = os.environ.get(
     "DATABASE_URL",
     "postgresql://growdirect:growdirect_dev@localhost:5432/growdirect_memory",
 )
-EMBEDDING_MODEL = "qwen3-embedding:8b"
-EMBEDDING_DIM = 1024
+EMBED_BACKEND = os.environ.get("EMBED_BACKEND", "ollama")  # "ollama" or "vertex"
+EMBEDDING_MODEL = os.environ.get("EMBEDDING_MODEL", "qwen3-embedding:8b")
+EMBEDDING_DIM = int(os.environ.get("EMBEDDING_DIM", "1024"))
 MAX_TEXT = 6000
 
 
 def get_embedding(text: str) -> list[float] | None:
     try:
-        r = httpx.post(
-            f"{OLLAMA_URL}/api/embed",
-            json={"model": EMBEDDING_MODEL, "input": text[:MAX_TEXT], "keep_alive": -1},
-            timeout=300.0,
-        )
-        r.raise_for_status()
-        return [float(v) for v in r.json()["embeddings"][0][:EMBEDDING_DIM]]
+        if EMBED_BACKEND == "vertex":
+            import vertexai
+            from vertexai.language_models import TextEmbeddingModel
+            gcp_project = os.environ.get("GOOGLE_CLOUD_PROJECT", "growdirect-mercury")
+            gcp_region = os.environ.get("GOOGLE_CLOUD_REGION", "us-central1")
+            vertexai.init(project=gcp_project, location=gcp_region)
+            model = TextEmbeddingModel.from_pretrained(EMBEDDING_MODEL)
+            embeddings = model.get_embeddings([text[:MAX_TEXT]])
+            return [float(v) for v in embeddings[0].values[:EMBEDDING_DIM]]
+        else:
+            r = httpx.post(
+                f"{OLLAMA_URL}/api/embed",
+                json={"model": EMBEDDING_MODEL, "input": text[:MAX_TEXT], "keep_alive": -1},
+                timeout=300.0,
+            )
+            r.raise_for_status()
+            return [float(v) for v in r.json()["embeddings"][0][:EMBEDDING_DIM]]
     except Exception as e:
         print(f"  WARN: embedding failed — {e}", file=sys.stderr)
         return None
