@@ -670,10 +670,9 @@ class MemoryStore:
         artifact_id=None,
         payload: dict | None = None,
     ) -> dict:
-        import uuid as _uuid
-        with self._engine.begin() as conn:
-            row_id = _uuid.uuid4()
-            conn.execute(
+        row_id = uuid.uuid4()
+        with self._session() as db:
+            db.execute(
                 text(
                     """INSERT INTO audit_events
                        (id, artifact_id, event_type, layer, payload)
@@ -687,4 +686,5 @@ class MemoryStore:
                     "payload": json.dumps(payload or {}),
                 },
             )
+            db.commit()
         return {"id": str(row_id)}
