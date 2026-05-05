@@ -129,11 +129,16 @@ def get_embedding(text: str) -> list[float] | None:
         return None
 
 
-def collect_files() -> list[tuple[Path, dict]]:
+def collect_files(include_patterns=None) -> list[tuple[Path, dict]]:
+    import fnmatch
     rows = []
     for src in SOURCES:
-        for f in sorted(GROWDIRECT_ROOT.glob(src["glob"])):
-            rows.append((f, src))
+        for path in sorted(GROWDIRECT_ROOT.glob(src["glob"])):
+            if include_patterns:
+                rel = str(path.relative_to(GROWDIRECT_ROOT))
+                if not any(fnmatch.fnmatch(rel, p.strip()) for p in include_patterns):
+                    continue
+            rows.append((path, src))
     return rows
 
 
@@ -154,6 +159,17 @@ def main():
     parser = argparse.ArgumentParser()
     parser.add_argument("--dry-run", action="store_true")
     parser.add_argument("--drop-first", action="store_true")
+    parser.add_argument(
+        "--include-paths",
+        type=str,
+        default=None,
+        help=(
+            "Comma-separated glob patterns relative to repo root. "
+            "When set, only files matching at least one pattern are seeded. "
+            "DATABASE_URL is read from the environment variable of the same name. "
+            "Example: Brain/wiki/cards/canary-*.md,Brain/wiki/cards/ncr-*.md"
+        ),
+    )
     args = parser.parse_args()
 
     # --- Exclusive lock: only one seed process at a time ---
@@ -172,7 +188,12 @@ def main():
         lock_fh.flush()
     # -------------------------------------------------------
 
-    all_files = collect_files()
+    include_patterns = (
+        [p.strip() for p in args.include_paths.split(",") if p.strip()]
+        if args.include_paths
+        else None
+    )
+    all_files = collect_files(include_patterns=include_patterns)
 
     if args.dry_run:
         print(f"Found {len(all_files)} source files across {len(SOURCES)} globs")
