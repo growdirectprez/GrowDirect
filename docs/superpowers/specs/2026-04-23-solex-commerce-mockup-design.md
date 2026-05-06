@@ -3,7 +3,7 @@
 **Status:** Draft
 **Date:** 2026-04-23
 **Author:** Claude (with GC)
-**Supersedes:** `docs/playbook-solex-square-merchant.md` (Phases 3–6 / Level 1) — the playbook framed the work as a seeder profile inside Canary; this spec reframes it as a standalone commerce app.
+**Supersedes:** `docs/playbooks/playbook-solex-square-merchant.md` (Phases 3–6 / Level 1) — the playbook framed the work as a seeder profile inside Canary; this spec reframes it as a standalone commerce app.
 
 ---
 
@@ -619,7 +619,7 @@ Flask served at `localhost:5003` with `--reload`. Worker runs `rq worker solex-d
 
 ## 13. Related
 
-- `docs/playbook-solex-square-merchant.md` — original playbook. Superseded for Phases 3–6.
+- `docs/playbooks/playbook-solex-square-merchant.md` — original playbook. Superseded for Phases 3–6.
 - `Canary/canary/services/square_sandbox_seeder.py` — existing Canary seeder, remains in use for Canary's farmers-market demo merchant. Unaffected by this work.
 - GRO-297 — inventory adjustments + shrink rule testing. This app's `shrink_event` scenario is the direct integration point.
 - GRO-144 (Ops Dashboard), GRO-129 (Owl search) — will be demoed on this merchant post-MVP.

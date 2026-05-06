@@ -2,7 +2,7 @@
 
 **To:** next Cowork/Claude session opened against this repo
 **From:** Alejandro (owner), 2026-04-23
-**Source of truth:** `docs/playbook-brain-scaffold-design.md`
+**Source of truth:** `docs/playbooks/playbook-brain-scaffold-design.md`
 **Linear:** GRO-520 (parent) — bump Medium → High on kickoff
 **Scope level:** ☐ A (spec-only, default) ☐ B (+ tooling prototype) ☐ C (+ Canary pilot)
 
@@ -21,12 +21,12 @@ engagement.**
 
 ## Required reading (in order, before any work)
 
-1. `docs/playbook-brain-scaffold-design.md` — the full playbook
+1. `docs/playbooks/playbook-brain-scaffold-design.md` — the full playbook
 2. `CLAUDE.md` — rule zero + Session Discipline
 3. `Brain/projects/Method.md` — the six-category method MOC
 4. `docs/sdds/platform/factory-pipeline.md` — SDD format reference
 5. GRO-520 on Linear — context + open questions
-6. `docs/playbook-method-katz-reverse-engineer.md` — the rigor we're mirroring
+6. `docs/playbooks/playbook-method-katz-reverse-engineer.md` — the rigor we're mirroring
 
 Do not start Phase 1 until all six are read.
 
@@ -105,6 +105,6 @@ queued, open questions accumulated for the SDD's Section 11.
 
 ## One-line kickoff for the receiving session
 
-> "Execute `docs/playbook-brain-scaffold-design.md` per
-> `docs/dispatch-brain-scaffold-design.md`. Start at Phase 1.
+> "Execute `docs/playbooks/playbook-brain-scaffold-design.md` per
+> `docs/dispatches/dispatch-brain-scaffold-design.md`. Start at Phase 1.
 > Report after assessment."

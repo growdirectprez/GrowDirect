@@ -88,7 +88,7 @@ Dimension: Doc quality / security hygiene.
 Severity: MEDIUM — same shape as M2; SDD is telling the truth about dev credentials and flags the issue at L320 as P0-4. Confidentiality classification on the SDD would help.
 Recommended action: Add the standard `classification: confidential` frontmatter (see L1–L48 sweep below); leave content as-is since the doc already calls out the gap.
 
-**M4 — `dispatch-primetime-2026-04-23.md` references parked file `docs/playbook-method-katz-reverse-engineer.md`.**
+**M4 — `dispatch-primetime-2026-04-23.md` references parked file `docs/playbooks/playbook-method-katz-reverse-engineer.md`.**
 File: `docs/dispatches/dispatch-primetime-2026-04-23.md` lines 39, 428, 452.
 Dimension: Sensitive names — "Katz method" cites a named industry figure as a methodology.
 Severity: MEDIUM — multiple parked references to a method labelled with the surname of a named retail-LP industry figure. The file is described as "Not started / PARKED." If it's never going to ship, decision: name change or archive.

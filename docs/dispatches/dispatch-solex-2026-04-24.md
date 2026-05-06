@@ -347,7 +347,7 @@ ALX collects answers, posts to GRO, then Stage 3 runs.
 |---|---|
 | This dispatch | `docs/dispatches/dispatch-solex-2026-04-24.md` |
 | Spec authority | `docs/superpowers/specs/2026-04-23-solex-commerce-mockup-design.md` |
-| Original playbook (mostly superseded) | `docs/playbook-solex-square-merchant.md` |
+| Original playbook (mostly superseded) | `docs/playbooks/playbook-solex-square-merchant.md` |
 | Solex repo | `Solex/` |
 | Solex README + runbook | `Solex/README.md` |
 | Canary CLAUDE.md (standards we mirror) | `Canary/CLAUDE.md` |

@@ -283,7 +283,7 @@ MOC to link all of them.
 ## B2. Brain Federation — GRO-520 Phase 2-4 (Day 2-3)
 
 Phase 1 assessment is done (`Brain/raw/inbox/_brain-assessment-v1.md`).
-Continue per `docs/playbook-brain-scaffold-design.md`:
+Continue per `docs/playbooks/playbook-brain-scaffold-design.md`:
 
 - **Phase 2:** Compile source inputs (raw + compiled + summarized brief)
 - **Phase 3:** Design 8 workstreams (taxonomy, layout, manifests, query
@@ -430,11 +430,11 @@ Not in scope for this sprint. Scoped here so it's declared, not forgotten.
 
 | Workstream | File | When |
 |---|---|---|
-| Katz method reverse-engineering | `docs/playbook-method-katz-reverse-engineer.md` | After Method page ships — enriches the consulting model |
-| Retail ops model synthesis | `docs/playbook-retail-ops-model.md` | After raw/inbox binaries are extracted — feeds Canary roadmap |
-| Solex Square merchant | `docs/playbook-solex-square-merchant.md` | After demo is stable — design partner for beta |
+| Katz method reverse-engineering | `docs/playbooks/playbook-method-katz-reverse-engineer.md` | After Method page ships — enriches the consulting model |
+| Retail ops model synthesis | `docs/playbooks/playbook-retail-ops-model.md` | After raw/inbox binaries are extracted — feeds Canary roadmap |
+| Solex Square merchant | `docs/playbooks/playbook-solex-square-merchant.md` | After demo is stable — design partner for beta |
 | Brain migration execution | GRO-520 follow-up | After Federation SDD v1.0 locks |
-| GRO-520 Phases 5-7 | `docs/playbook-brain-scaffold-design.md` | After SDD v0.9 draft, includes review + lock cycle |
+| GRO-520 Phases 5-7 | `docs/playbooks/playbook-brain-scaffold-design.md` | After SDD v0.9 draft, includes review + lock cycle |
 
 ---
 
@@ -452,11 +452,11 @@ rm docs/_archive/dispatch-cowork-2026-04-15.md  # stale
 ```
 
 Keep:
-- `docs/dispatch-brain-scaffold-design.md` — active, GRO-520
-- `docs/playbook-brain-scaffold-design.md` — active, GRO-520 source of truth
-- `docs/playbook-method-katz-reverse-engineer.md` — parked
-- `docs/playbook-retail-ops-model.md` — parked
-- `docs/playbook-solex-square-merchant.md` — parked
+- `docs/dispatches/dispatch-brain-scaffold-design.md` — active, GRO-520
+- `docs/playbooks/playbook-brain-scaffold-design.md` — active, GRO-520 source of truth
+- `docs/playbooks/playbook-method-katz-reverse-engineer.md` — parked
+- `docs/playbooks/playbook-retail-ops-model.md` — parked
+- `docs/playbooks/playbook-solex-square-merchant.md` — parked
 
 ---
 
@@ -466,7 +466,7 @@ Keep:
 |---|---|
 | Demo reseed (full spec) | `dispatch-code-2026-04-22-demo-reseed.md` (root) |
 | Brain assessment | `Brain/raw/inbox/_brain-assessment-v1.md` |
-| Brain playbook | `docs/playbook-brain-scaffold-design.md` |
+| Brain playbook | `docs/playbooks/playbook-brain-scaffold-design.md` |
 | Factory manifest | `factory-manifest.json` |
 | Factory MOC | `Brain/projects/Factory.md` |
 | Method MOC | `Brain/projects/Method.md` |
