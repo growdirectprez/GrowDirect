@@ -5,6 +5,7 @@ from graphs.nodes.review import review_node, route_after_review
 from graphs.nodes.emit import emit_node
 from pathlib import Path
 import tempfile
+from langgraph.checkpoint.memory import MemorySaver
 
 
 def test_generate_node_populates_artifacts(llm_approved, base_state):
@@ -53,3 +54,18 @@ def test_emit_node_writes_files(base_state):
         assert (Path(tmpdir) / "cmd/hawk/main.go").exists()
         assert (Path(tmpdir) / "internal/hawk/handler.go").exists()
         assert (Path(tmpdir) / "apply.sh").exists()
+
+
+def test_codegen_graph_compiles():
+    from graphs.codegen import build_graph
+    g = build_graph(checkpointer=MemorySaver())
+    assert g is not None
+
+
+def test_codegen_graph_has_expected_nodes():
+    from graphs.codegen import build_graph
+    g = build_graph(checkpointer=MemorySaver())
+    node_names = list(g.nodes.keys())
+    assert "generate" in node_names
+    assert "review" in node_names
+    assert "emit" in node_names

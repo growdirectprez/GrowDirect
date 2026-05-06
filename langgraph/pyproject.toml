@@ -5,9 +5,10 @@ description = "LangGraph local workflow for Canary Go code generation and deploy
 requires-python = ">=3.12"
 dependencies = [
     "langgraph>=0.2.0",
-    "langgraph-cli>=0.1.0",
+    "langgraph-cli[inmem]>=0.1.0",
     "langchain-anthropic>=0.3.0",
     "langchain-core>=0.3.0",
+    "langgraph-checkpoint-sqlite>=3.0.3",
 ]
 
 [project.optional-dependencies]
