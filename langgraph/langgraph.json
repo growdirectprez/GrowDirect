@@ -1,0 +1,8 @@
+{
+  "dependencies": ["."],
+  "graphs": {
+    "codegen": "./graphs/codegen.py:graph",
+    "deploy": "./graphs/deploy.py:graph"
+  },
+  "env": ".env"
+}
