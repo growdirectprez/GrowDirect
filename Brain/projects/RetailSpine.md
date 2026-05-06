@@ -369,6 +369,11 @@ The work of filling them is incremental, one source at a time:
   canonical model via system-role names from
   `Canary/docs/retail-capability-model.md` §8.
 
+## Cross-cutting wiki cards
+
+- [[Brain/wiki/retail-foundation-data|Retail Foundation Data]] — master-data layer that every spine domain reads from
+- [[Brain/wiki/retail-security-controls|Retail Security Controls]] — access-control posture across the spine
+
 ## Related
 
 - [[Brain/projects/Secure|Secure MOC]] — the retail prior-art project this

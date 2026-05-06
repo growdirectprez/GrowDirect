@@ -1,0 +1,353 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<title>Engagement Overview</title>
+<style>
+  :root {
+    --bg: #0d1117;
+    --fg: #e6edf3;
+    --muted: #8b949e;
+    --accent: #58a6ff;
+    --border: #30363d;
+    --code-bg: #161b22;
+    --mono: ui-monospace, SFMono-Regular, "SF Mono", Menlo, Consolas, monospace;
+    --sans: -apple-system, BlinkMacSystemFont, "Segoe UI", Helvetica, Arial, sans-serif;
+  }
+  * { box-sizing: border-box; }
+  html { scroll-behavior: smooth; }
+  body {
+    background: var(--bg); color: var(--fg);
+    font-family: var(--sans); line-height: 1.6;
+    margin: 0; padding: 0;
+  }
+  nav {
+    position: sticky; top: 0; z-index: 50;
+    background: rgba(13, 17, 23, 0.92);
+    backdrop-filter: blur(8px);
+    border-bottom: 1px solid var(--border);
+    padding: 14px 32px;
+    display: flex; gap: 24px; flex-wrap: wrap;
+    font-family: var(--mono); font-size: 13px;
+  }
+  nav a {
+    color: var(--muted); text-decoration: none;
+    text-transform: uppercase; letter-spacing: 0.05em;
+    transition: color 0.15s;
+  }
+  nav a:hover { color: var(--accent); }
+  section {
+    min-height: 92vh;
+    padding: 80px 32px 96px 32px;
+    display: flex; flex-direction: column; justify-content: center;
+    border-bottom: 1px solid var(--border);
+  }
+  .container { max-width: 980px; margin: 0 auto; width: 100%; }
+  h1 {
+    font-family: var(--mono); font-size: 44px;
+    margin: 0 0 12px 0; letter-spacing: -0.02em;
+    line-height: 1.15;
+  }
+  h2 {
+    font-family: var(--mono); font-size: 18px;
+    color: var(--accent); text-transform: uppercase; letter-spacing: 0.05em;
+    margin: 0 0 24px 0;
+  }
+  h3 {
+    font-family: var(--mono); font-size: 14px; color: var(--fg);
+    margin: 24px 0 8px 0;
+    text-transform: uppercase; letter-spacing: 0.05em;
+  }
+  .subtitle {
+    color: var(--muted); font-family: var(--mono);
+    font-size: 14px; text-transform: uppercase; letter-spacing: 0.06em;
+    margin-bottom: 32px;
+  }
+  p { margin: 12px 0; font-size: 16px; }
+  .lead { font-size: 18px; color: var(--fg); line-height: 1.55; margin: 20px 0; }
+  ul { padding-left: 22px; }
+  li { margin: 8px 0; font-size: 16px; }
+  table {
+    border-collapse: collapse; width: 100%;
+    margin: 20px 0; font-size: 15px;
+  }
+  th, td {
+    text-align: left; padding: 12px 14px;
+    border-bottom: 1px solid var(--border); vertical-align: top;
+  }
+  th {
+    font-family: var(--mono); font-weight: 600;
+    background: var(--code-bg); color: var(--muted);
+    font-size: 12px; text-transform: uppercase; letter-spacing: 0.04em;
+  }
+  .diagram {
+    background: var(--code-bg); border: 1px solid var(--border);
+    border-radius: 8px; padding: 32px;
+    margin: 32px auto; max-width: 760px;
+  }
+  .caption {
+    font-size: 13px; color: var(--muted);
+    text-align: center; margin-top: 16px;
+    font-family: var(--mono);
+  }
+  .three-col {
+    display: grid; grid-template-columns: repeat(3, 1fr);
+    gap: 24px; margin-top: 28px;
+  }
+  .col {
+    background: var(--code-bg); border: 1px solid var(--border);
+    border-radius: 6px; padding: 22px;
+  }
+  .col h3 { margin-top: 0; color: var(--accent); }
+  .col p { font-size: 15px; }
+  strong { color: var(--fg); font-weight: 600; }
+  .example {
+    border-left: 3px solid var(--accent);
+    padding: 10px 16px;
+    margin: 16px 0;
+    font-size: 14px; color: var(--muted);
+    background: rgba(88, 166, 255, 0.04);
+  }
+  .example strong { color: var(--accent); font-family: var(--mono); font-size: 12px; text-transform: uppercase; letter-spacing: 0.05em; display: block; margin-bottom: 4px; }
+  .meta { color: var(--muted); font-family: var(--mono); font-size: 12px; }
+  .center { text-align: center; }
+  @media (max-width: 720px) {
+    .three-col { grid-template-columns: 1fr; }
+    h1 { font-size: 32px; }
+  }
+</style>
+</head>
+<body>
+
+<nav>
+  <a href="#cover">Cover</a>
+  <a href="#why">Why</a>
+  <a href="#positioning">Positioning</a>
+  <a href="#sisp">SISP</a>
+  <a href="#saas">SaaS</a>
+  <a href="#engagement">Engagement</a>
+  <a href="#thanks">Close</a>
+</nav>
+
+<!-- ============================ COVER ============================ -->
+<section id="cover">
+  <div class="container">
+    <div class="subtitle">v1 · 2026-05-04</div>
+    <h1>The Decision Substrate</h1>
+    <p class="lead">A closed-loop consensus mechanism. Control through transparency. Every action carries its source, every decision carries its evidence, and the loop closes — capture, organize, decide, act — so the substrate compounds with use.</p>
+
+    <div class="diagram">
+      <svg viewBox="0 0 760 540" xmlns="http://www.w3.org/2000/svg" width="100%" style="max-width:760px;height:auto;display:block;margin:0 auto;">
+        <defs>
+          <marker id="arrow" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="9" markerHeight="9" orient="auto">
+            <path d="M 0 0 L 10 5 L 0 10 z" fill="#58a6ff"/>
+          </marker>
+          <pattern id="grid" patternUnits="userSpaceOnUse" width="14" height="14">
+            <path d="M 14 0 L 0 0 0 14" fill="none" stroke="#30363d" stroke-width="0.6"/>
+          </pattern>
+        </defs>
+
+        <!-- Loop ring (subtle) -->
+        <circle cx="380" cy="270" r="180" fill="none" stroke="#30363d" stroke-width="1" stroke-dasharray="2 6"/>
+
+        <!-- Center transparent substrate -->
+        <circle cx="380" cy="270" r="92" fill="url(#grid)" stroke="#58a6ff" stroke-width="1.5" opacity="0.9"/>
+        <text x="380" y="265" text-anchor="middle" font-family='ui-monospace, SFMono-Regular, Menlo, monospace' font-size="13" font-weight="600" fill="#e6edf3">decision</text>
+        <text x="380" y="284" text-anchor="middle" font-family='ui-monospace, SFMono-Regular, Menlo, monospace' font-size="13" font-weight="600" fill="#e6edf3">substrate</text>
+
+        <!-- Four outer nodes -->
+        <!-- North: Capture -->
+        <rect x="320" y="40" width="120" height="56" rx="6" fill="#161b22" stroke="#30363d" stroke-width="1"/>
+        <text x="380" y="68" text-anchor="middle" font-family='ui-monospace, SFMono-Regular, Menlo, monospace' font-size="13" font-weight="600" fill="#e6edf3">capture</text>
+        <text x="380" y="84" text-anchor="middle" font-family='ui-monospace, SFMono-Regular, Menlo, monospace' font-size="11" fill="#8b949e">the as-is</text>
+
+        <!-- East: Organize -->
+        <rect x="560" y="242" width="140" height="56" rx="6" fill="#161b22" stroke="#30363d" stroke-width="1"/>
+        <text x="630" y="270" text-anchor="middle" font-family='ui-monospace, SFMono-Regular, Menlo, monospace' font-size="13" font-weight="600" fill="#e6edf3">organize</text>
+        <text x="630" y="286" text-anchor="middle" font-family='ui-monospace, SFMono-Regular, Menlo, monospace' font-size="11" fill="#8b949e">into evidence</text>
+
+        <!-- South: Decide -->
+        <rect x="320" y="444" width="120" height="56" rx="6" fill="#161b22" stroke="#30363d" stroke-width="1"/>
+        <text x="380" y="472" text-anchor="middle" font-family='ui-monospace, SFMono-Regular, Menlo, monospace' font-size="13" font-weight="600" fill="#e6edf3">decide</text>
+        <text x="380" y="488" text-anchor="middle" font-family='ui-monospace, SFMono-Regular, Menlo, monospace' font-size="11" fill="#8b949e">together</text>
+
+        <!-- West: Act -->
+        <rect x="60" y="242" width="140" height="56" rx="6" fill="#161b22" stroke="#30363d" stroke-width="1"/>
+        <text x="130" y="270" text-anchor="middle" font-family='ui-monospace, SFMono-Regular, Menlo, monospace' font-size="13" font-weight="600" fill="#e6edf3">act</text>
+        <text x="130" y="286" text-anchor="middle" font-family='ui-monospace, SFMono-Regular, Menlo, monospace' font-size="11" fill="#8b949e">on the to-be</text>
+
+        <!-- Clockwise arcs between nodes -->
+        <!-- Capture -> Organize -->
+        <path d="M 440 80 Q 580 110 600 240" fill="none" stroke="#58a6ff" stroke-width="1.6" marker-end="url(#arrow)"/>
+        <!-- Organize -> Decide -->
+        <path d="M 600 300 Q 580 430 440 460" fill="none" stroke="#58a6ff" stroke-width="1.6" marker-end="url(#arrow)"/>
+        <!-- Decide -> Act -->
+        <path d="M 320 460 Q 180 430 160 300" fill="none" stroke="#58a6ff" stroke-width="1.6" marker-end="url(#arrow)"/>
+        <!-- Act -> Capture -->
+        <path d="M 160 240 Q 180 110 320 80" fill="none" stroke="#58a6ff" stroke-width="1.6" marker-end="url(#arrow)"/>
+
+        <!-- Stakeholder watchers around perimeter -->
+        <circle cx="610" cy="120" r="5" fill="#8b949e"/>
+        <text x="610" y="105" text-anchor="middle" font-family='ui-monospace, Menlo, monospace' font-size="10" fill="#8b949e">leadership</text>
+        <line x1="600" y1="125" x2="450" y2="240" stroke="#8b949e" stroke-width="0.5" stroke-dasharray="2 3" opacity="0.6"/>
+
+        <circle cx="610" cy="420" r="5" fill="#8b949e"/>
+        <text x="610" y="440" text-anchor="middle" font-family='ui-monospace, Menlo, monospace' font-size="10" fill="#8b949e">operators</text>
+        <line x1="600" y1="415" x2="450" y2="300" stroke="#8b949e" stroke-width="0.5" stroke-dasharray="2 3" opacity="0.6"/>
+
+        <circle cx="150" cy="420" r="5" fill="#8b949e"/>
+        <text x="150" y="440" text-anchor="middle" font-family='ui-monospace, Menlo, monospace' font-size="10" fill="#8b949e">advisors</text>
+        <line x1="160" y1="415" x2="310" y2="300" stroke="#8b949e" stroke-width="0.5" stroke-dasharray="2 3" opacity="0.6"/>
+
+        <circle cx="150" cy="120" r="5" fill="#8b949e"/>
+        <text x="150" y="105" text-anchor="middle" font-family='ui-monospace, Menlo, monospace' font-size="10" fill="#8b949e">board</text>
+        <line x1="160" y1="125" x2="310" y2="240" stroke="#8b949e" stroke-width="0.5" stroke-dasharray="2 3" opacity="0.6"/>
+      </svg>
+      <p class="caption">closed loop · transparent center · every stakeholder sees the same evidence</p>
+    </div>
+  </div>
+</section>
+
+<!-- ============================ WHY ============================ -->
+<section id="why">
+  <div class="container">
+    <h2>Who · How · Why</h2>
+
+    <div class="three-col">
+      <div class="col">
+        <h3>Who</h3>
+        <p>Leaders making decisions where being wrong is expensive. Founders, CEOs, owners, and boards considering acquisition, divestiture, transformation, scale, pivot, or succession. Investors evaluating a software or specialty-retail target. CTOs aligning technology with business strategy.</p>
+      </div>
+      <div class="col">
+        <h3>How</h3>
+        <p>Three structured engagements — positioning, information systems planning, SaaS — each run by a focused team under scoped authority. Every action is logged. Every claim has its source. The output deposits into a queryable knowledge layer that stays with you and stays useful after the engagement closes.</p>
+      </div>
+      <div class="col">
+        <h3>Why</h3>
+        <p>Standard consulting walks out with the relationship and the slides. The decision substrate stays. Whatever you decide to do next, you start from a structured picture of your business — not from scratch.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ============================ POSITIONING ============================ -->
+<section id="positioning">
+  <div class="container">
+    <h2>Method · Strategic Positioning</h2>
+    <p class="lead">Who you serve. What you stand for. Where you win against competitors. What to do next to bring the strategy to market.</p>
+
+    <h3>Data points produced</h3>
+    <ul>
+      <li><strong>Core customer profile</strong> with target segments and fit-scores</li>
+      <li><strong>Brand promise and value proposition</strong> grounded in customer evidence</li>
+      <li><strong>Competitive position</strong> and the white space your brand can claim</li>
+      <li><strong>Channel and merchandising recommendations</strong> with rationale</li>
+      <li><strong>Activation roadmap</strong> sequenced by dependency and impact</li>
+    </ul>
+
+    <div class="example">
+      <strong>Example finding</strong>
+      A specialty retailer learns that 30% of its assortment doesn't fit its core customer. The merchandise-fit-test surfaces which clusters to cut and which to extend. Three months later, gross margin is up four points and the brand statement finally matches what's on the shelf.
+    </div>
+  </div>
+</section>
+
+<!-- ============================ SISP ============================ -->
+<section id="sisp">
+  <div class="container">
+    <h2>Method · Information Systems Planning</h2>
+    <p class="lead">How your technology supports the business today. What it should look like to support the business tomorrow. The portfolio and roadmap to get there.</p>
+
+    <h3>Data points produced</h3>
+    <ul>
+      <li><strong>Business strategy alignment</strong> mapped to technology capability</li>
+      <li><strong>Application portfolio</strong> with each app on the strategic grid (invest, modernize, maintain, sunset)</li>
+      <li><strong>Target architecture</strong> across applications, data, technology, and governance</li>
+      <li><strong>Project portfolio</strong> with priorities, dependencies, and net-present-value</li>
+      <li><strong>Roadmap and investment plan</strong> sequenced by year</li>
+    </ul>
+
+    <div class="example">
+      <strong>Example finding</strong>
+      A multi-store retailer discovers half of its application portfolio is in the Support quadrant — keeping the lights on but not building advantage. The roadmap shifts the budget toward two Strategic platforms and sunsets four legacy apps over twenty-four months.
+    </div>
+  </div>
+</section>
+
+<!-- ============================ SAAS ============================ -->
+<section id="saas">
+  <div class="container">
+    <h2>Method · SaaS</h2>
+    <p class="lead">The commercial, product, and operational reality of a software business — for investment, partnership, transformation, or transaction decisions.</p>
+
+    <h3>Data points produced</h3>
+    <ul>
+      <li><strong>Customer base and ARR cohorts</strong> with retention curves and net revenue retention by segment</li>
+      <li><strong>Codebase health, architecture, and technical debt</strong> categorized by impact and remediation cost</li>
+      <li><strong>Integration map</strong> with break-impact scores</li>
+      <li><strong>Security and compliance posture</strong> mapped to the next certification</li>
+      <li><strong>Unit economics and operational pattern</strong> across team, GTM, customer success, and finance</li>
+    </ul>
+
+    <div class="example">
+      <strong>Example finding</strong>
+      A buyer evaluating a SaaS target finds 40% of net revenue retention comes from a single segment running on a tech stack the buyer cannot support post-acquisition. The deal reframes from acquisition to partnership.
+    </div>
+  </div>
+</section>
+
+<!-- ============================ ENGAGEMENT ============================ -->
+<section id="engagement">
+  <div class="container">
+    <h2>Engagement · Length and Timing</h2>
+    <p class="lead">Each method runs through three phases. They can be run alone, sequenced, or paralleled where access and stakeholder availability allow.</p>
+
+    <h3>Length per method</h3>
+    <table>
+      <tr><th>Method</th><th>Phase 1</th><th>Phase 2</th><th>Phase 3</th><th>Total</th></tr>
+      <tr><td>Strategic positioning</td><td>3–4 weeks</td><td>3–4 weeks</td><td>2–3 weeks</td><td>8–11 weeks</td></tr>
+      <tr><td>Information systems planning</td><td>3–4 weeks</td><td>4–5 weeks</td><td>2–3 weeks</td><td>9–12 weeks</td></tr>
+      <tr><td>SaaS</td><td>3–4 weeks</td><td>4–5 weeks</td><td>2–3 weeks</td><td>9–12 weeks</td></tr>
+    </table>
+
+    <h3>Combined transformation summary</h3>
+    <table>
+      <tr><th>Approach</th><th>Total length</th><th>Notes</th></tr>
+      <tr><td>Sequenced (positioning → SISP → SaaS)</td><td>26–35 weeks</td><td>Cleanest dependency chain. Positioning shapes the others.</td></tr>
+      <tr><td>Parallelized after positioning Phase 2</td><td>16–22 weeks</td><td>SISP and SaaS run concurrently after positioning Phase 2 lands. Recommended when access permits.</td></tr>
+      <tr><td>Single method only</td><td>8–12 weeks</td><td>Positioning, SISP, or SaaS alone — partial substrate that compounds when others run later.</td></tr>
+    </table>
+
+    <h3>What is included</h3>
+    <ul>
+      <li>Mission control and engagement lead for the duration</li>
+      <li>Deployed capsule (your decision brain) with scoped credentials to your systems</li>
+      <li>All synthesized facets and narratives per method</li>
+      <li>Decision and audit logs, append-only</li>
+      <li>Connector substrate ready to push the to-be back to source systems</li>
+      <li>Signed handoff package</li>
+    </ul>
+
+    <h3>What is asked of you</h3>
+    <ul>
+      <li>Access to relevant systems under scoped, audited credentials</li>
+      <li>Calendar time with the people who actually know the business</li>
+      <li>Decisions when they reach you — we escalate, you sign</li>
+      <li>Trust to let the work run in the open</li>
+    </ul>
+
+    <p class="meta">Pricing scoped per engagement based on system count, stakeholder count, depth requested, and whether the substrate stays installed for ongoing operation.</p>
+  </div>
+</section>
+
+<!-- ============================ THANKS ============================ -->
+<section id="thanks">
+  <div class="container center">
+    <h1>Thank You</h1>
+    <p class="lead">If you want a structured picture of your business — one that stays useful — let's scope it.</p>
+    <p class="meta">v1 · 2026-05-04</p>
+  </div>
+</section>
+
+</body>
+</html>

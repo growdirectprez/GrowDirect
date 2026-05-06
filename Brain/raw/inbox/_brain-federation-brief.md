@@ -3,7 +3,7 @@ type: scratch
 status: phase-2-output
 tags: [brain-federation, gro-520, phase-2, brief]
 created: 2026-04-23
-playbook: docs/playbook-brain-scaffold-design.md
+playbook: docs/playbooks/playbook-brain-scaffold-design.md
 raw: Brain/raw/inbox/_brain-federation-raw/
 assessment: Brain/raw/inbox/_brain-assessment-v1.md
 ---

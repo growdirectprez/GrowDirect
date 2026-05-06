@@ -1,0 +1,139 @@
+filters:
+  and:
+    - 'type == "module"'
+
+formulas:
+  days_since_movement: 'if(last-movement, (today() - date(last-movement)).days, "")'
+  has_blocker: 'if(blocker == null or blocker == "", "no", "yes")'
+
+properties:
+  module-id:
+    displayName: "ID"
+  module-name:
+    displayName: "Module"
+  sdlc_stage:
+    displayName: "Stage"
+  ring:
+    displayName: "Ring"
+  subsystem:
+    displayName: "Subsystem"
+  last-movement:
+    displayName: "Last move"
+  next-milestone:
+    displayName: "Next milestone"
+  blocker:
+    displayName: "Blocker"
+  formula.days_since_movement:
+    displayName: "Days since move"
+  formula.has_blocker:
+    displayName: "Blocked?"
+  linear-tracker:
+    displayName: "Linear"
+
+views:
+  - type: table
+    name: "All modules — current state"
+    limit: 50
+    order:
+      - ring
+      - module-id
+      - module-name
+      - sdlc_stage
+      - last-movement
+      - formula.days_since_movement
+      - blocker
+      - next-milestone
+
+  - type: table
+    name: "v1 ring (T·R·N·A·Q) — should be shipping"
+    limit: 20
+    filters:
+      and:
+        - 'ring == "v1"'
+    order:
+      - module-id
+      - module-name
+      - sdlc_stage
+      - last-movement
+      - blocker
+      - linear-tracker
+
+  - type: table
+    name: "v2 ring (C·D·F·J) — should be in build"
+    limit: 20
+    filters:
+      and:
+        - 'ring == "v2"'
+    order:
+      - module-id
+      - module-name
+      - sdlc_stage
+      - last-movement
+      - next-milestone
+
+  - type: table
+    name: "v3 ring (S·P·L·W) — design phase"
+    limit: 20
+    filters:
+      and:
+        - 'ring == "v3"'
+    order:
+      - module-id
+      - module-name
+      - sdlc_stage
+      - last-movement
+      - next-milestone
+
+  - type: table
+    name: "Cross-cutting (NFR/platform modules)"
+    limit: 30
+    filters:
+      and:
+        - 'ring == "cross-cutting"'
+    order:
+      - module-id
+      - module-name
+      - sdlc_stage
+      - subsystem
+      - last-movement
+
+  - type: table
+    name: "Blocked — needs attention"
+    limit: 30
+    filters:
+      and:
+        - 'blocker != null'
+        - 'blocker != ""'
+    order:
+      - module-id
+      - module-name
+      - sdlc_stage
+      - blocker
+      - last-movement
+
+  - type: table
+    name: "Stale — no movement in 30+ days"
+    limit: 30
+    filters:
+      and:
+        - 'last-movement != null'
+        - 'date(last-movement) < (today() - duration("30 days"))'
+    order:
+      - module-id
+      - module-name
+      - sdlc_stage
+      - last-movement
+      - formula.days_since_movement
+
+  - type: cards
+    name: "Shipping today"
+    limit: 30
+    filters:
+      and:
+        - 'sdlc_stage == "shipping"'
+    order:
+      - module-id
+      - module-name
+      - ring
+      - last-movement
+      - subsystem

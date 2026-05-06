@@ -46,7 +46,7 @@ Archetype summary of the folders found:
 - **UK luxury department-store flagship** — non-US Secure client
 - **US office-supply chain** — Secure Store Management Reports SOW referenced in NAS Unsorted/Downloads
 - **US toy-retail chain** (+ related sister folder) — Secure client (pre-bankruptcy era)
-- **Heartbeat / Fireball 2002** — Secure-adjacent prior-art product; full deep-dive planned per `docs/playbook-heartbeat-blueprint.md`
+- **Heartbeat / Fireball 2002** — Secure-adjacent prior-art product; full deep-dive planned per `docs/playbooks/playbook-heartbeat-blueprint.md`
 - **US sporting-goods retailer (sports specialty)** — Secure client (pre-bankruptcy)
 - **Retek** — pre-Secure partner (merchandising system implementations — product vendor, not client per se)
 - **SAP** + **SAP Retail** — pre-Secure partner (product vendor)

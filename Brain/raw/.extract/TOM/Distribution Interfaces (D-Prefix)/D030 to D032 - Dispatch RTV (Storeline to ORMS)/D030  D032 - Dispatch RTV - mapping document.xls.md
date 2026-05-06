@@ -1,0 +1,246 @@
+## Mapping
+| Unnamed: 0 | Unnamed: 1 | Unnamed: 2 | Unnamed: 3 | Unnamed: 4 | Unnamed: 5 | Unnamed: 6 | Unnamed: 7 | Unnamed: 8 | Unnamed: 9 | Unnamed: 10 | Unnamed: 11 | Unnamed: 12 | Unnamed: 13 | Unnamed: 14 | Unnamed: 15 | Unnamed: 16 | Unnamed: 17 | Unnamed: 18 | Unnamed: 19 | Unnamed: 20 | Unnamed: 21 | Unnamed: 22 | Unnamed: 23 | Unnamed: 24 | Unnamed: 25 | Unnamed: 26 | Unnamed: 27 | Unnamed: 28 | Unnamed: 29 |
+| --- | --- | --- | --- | --- | --- | --- | --- | --- | --- | --- | --- | --- | --- | --- | --- | --- | --- | --- | --- | --- | --- | --- | --- | --- | --- | --- | --- | --- | --- |
+| NaN | Stock Movement -Dispatch RTV  Mapping(Storeline to ORMS ) | NaN | NaN | NaN | NaN | Version 0.1 | NaN | NaN | NaN | NaN | NaN | NaN | Notes/Issues Key | NaN | NaN | NaN | NaN | NaN | NaN | Key to Mandatory Column | NaN | NaN | NaN | NaN | NaN | NaN | NaN | NaN | General Issues |
+| NaN | Source file name:  STKNNNNNN\_TTT\_SSSSSS\_YYYYMMDDHHMMSS.dat | NaN | NaN | NaN | NaN | NaN | NaN | NaN | NaN | NaN | NaN | NaN | NaN | Business | NaN | NaN | NaN | NaN | NaN | Y | Required | NaN | NaN | NaN | NaN | NaN | NaN | NaN | Store Line contains pack size field - does this mean that the qty is a pack qty or a unit qty? |
+| NaN | Source file format: Each field delimited with the character 124 (|) | NaN | NaN | NaN | NaN | NaN | NaN | NaN | NaN | NaN | NaN | NaN | NaN | Technical | NaN | NaN | NaN | NaN | NaN | N | Optional | NaN | NaN | NaN | NaN | NaN | NaN | NaN | NaN |
+| NaN | Source record structure - transaction header, transaction detail | NaN | NaN | NaN | NaN | NaN | NaN | NaN | NaN | NaN | NaN | NaN | NaN | Business/Technical | NaN | NaN | NaN | NaN | NaN | C | Conditional - see notes/issues | NaN | NaN | NaN | NaN | NaN | NaN | NaN | NaN |
+| NaN | Target file name - tsc\_disprtvupld\_{store number}\_{yyyymmddhhmmss}\_{xxxxxxxxxxxxx}.dat  \*\* {xxx…} to be added by IL | NaN | NaN | NaN | NaN | NaN | NaN | NaN | NaN | NaN | NaN | NaN | NaN | Maps | NaN | NaN | NaN | NaN | NaN | NaN | NaN | NaN | NaN | NaN | NaN | NaN | NaN | NaN | Assumptions on Store Line formats |
+| NaN | Target file format: variable length records | NaN | NaN | NaN | NaN | NaN | NaN | NaN | NaN | NaN | NaN | NaN | NaN | Not mapped/Field Value | NaN | NaN | NaN | NaN | NaN | NaN | NaN | NaN | NaN | NaN | NaN | NaN | NaN | NaN | Header and detail have duplicated fields - it is assumed that these duplicated fields contain the same data, and so where duplicate fields exist the detail is used in preference to the header. |
+| NaN | Target record structure: file header, file detail, file trailer - positional fixed length fields | NaN | NaN | NaN | NaN | NaN | NaN | NaN | NaN | NaN | NaN | NaN | NaN | NaN | NaN | NaN | NaN | NaN | NaN | NaN | NaN | NaN | NaN | NaN | NaN | NaN | NaN | NaN | NaN |
+| NaN | Integration  to use "Target" for mandatory and data validation rules. | NaN | NaN | NaN | NaN | NaN | NaN | NaN | NaN | NaN | NaN | NaN | NaN | NaN | NaN | NaN | NaN | NaN | NaN | NaN | NaN | NaN | NaN | NaN | NaN | NaN | NaN | NaN | NaN |
+| NaN | NaN | NaN | NaN | NaN | NaN | NaN | NaN | NaN | NaN | NaN | NaN | NaN | NaN | NaN | NaN | NaN | NaN | NaN | NaN | NaN | NaN | NaN | NaN | NaN | NaN | NaN | NaN | NaN | NaN |
+| NaN | ORMS Transaction Unit:  Whole File | NaN | NaN | NaN | NaN | NaN | NaN | NaN | NaN | NaN | NaN | NaN | NaN | NaN | NaN | NaN | NaN | NaN | NaN | NaN | NaN | NaN | NaN | NaN | NaN | NaN | NaN | NaN | NaN |
+| NaN | NaN | NaN | NaN | NaN | NaN | NaN | NaN | NaN | NaN | NaN | NaN | NaN | NaN | NaN | NaN | NaN | NaN | NaN | NaN | NaN | NaN | NaN | NaN | NaN | NaN | NaN | NaN | NaN | NaN |
+| NaN | NaN | NaN | NaN | NaN | NaN | NaN | NaN | NaN | NaN | NaN | NaN | NaN | NaN | NaN | NaN | NaN | NaN | NaN | NaN | NaN | NaN | NaN | NaN | NaN | NaN | NaN | NaN | NaN | NaN |
+| NaN | Source - Storeline | NaN | NaN | NaN | NaN | NaN | NaN | NaN | NaN | NaN | NaN | NaN | NaN | NaN | Target - ORMS | NaN | NaN | NaN | NaN | NaN | NaN | NaN | NaN | NaN | NaN | NaN | NaN | NaN | NaN |
+| NaN | RECORD Type | Field No# | Table / Object Name | Field Name / Description | Data Type | Field Start Pos. | Field End Pos. | Field\nSize | Mandatory | Transformation / Condition | Format | Justified (L = Left, R = Right) | Pad Char. | NaN | RECORD Type | Field No# | Table / Object Name | Field Name / Description | Data Type | Field Start Pos. | Field End Pos. | Field Size | Mandatory | Transformation / Condition | Format | Justified (L = Left, R = Right) | Pad Char. | NaN | Notes/Issues |
+| NaN | NaN | NaN | NaN | NaN | NaN | NaN | NaN | NaN | NaN | NaN | NaN | NaN | NaN | NaN | File Hdr | 1 | - | File Line Number | Number | 6 | 15 | 10 | Y | NaN | 0000000001 | R | Zero | NaN | - sequential line number in the file to be generated in the IL |
+| NaN | NaN | NaN | NaN | NaN | NaN | NaN | NaN | NaN | NaN | NaN | NaN | NaN | NaN | NaN | File Hdr | 2 | - | FileTypeDefination | Char | 16 | 35 | 20 | Y | NaN | TSCDSPRTVUPLD\_V2.0 | L | Space | NaN | generated by integration layer? |
+| NaN | Set Hdr | 2 | NaN | Date of extract | Date | NaN | NaN | 8 | Y | NaN | CCYYMMDD | NaN | NaN | NaN | File Hdr | 3 | - | Create Date | Date | 36 | 43 | 8 | Y | NaN | YYYYMMDD | L | Space | NaN | NaN |
+| NaN | Set Hdr | 29 | NaN | Time of extract | Time | NaN | NaN | 6 | Y | NaN | HHMMSS | NaN | NaN | NaN | File Hdr | 4 | - | Create Time | Time | 44 | 49 | 6 | Y | NaN | HHMMSS | L | Space | NaN | NaN |
+| NaN | Set Hdr | 24 | NaN | StoreNo-FromStore | number | NaN | NaN | 8 | Y | NaN | NaN | NaN | NaN | NaN | File Hdr | 5 | NaN | Location | Number | 51 | 60 | 10 | Y | NaN | NaN | R | Zero | NaN | length increased to 8 |
+| NaN | NaN | NaN | NaN | NaN | NaN | NaN | NaN | NaN | NaN | NaN | NaN | NaN | NaN | NaN | File Hdr | 6 | - | Location Type | char | 50 | 50 | 1 | Y | S = Store, W = Warehouse | S | L | Space | NaN | generated by integration layer? |
+| NaN | NaN | NaN | NaN | NaN | NaN | NaN | NaN | NaN | NaN | NaN | NaN | NaN | NaN | NaN | NaN | NaN | NaN | NaN | NaN | NaN | NaN | NaN | NaN | NaN | NaN | NaN | NaN | NaN | NaN |
+| NaN | NaN | NaN | NaN | NaN | NaN | NaN | NaN | NaN | NaN | NaN | NaN | NaN | NaN | NaN | File Dtl | 1 | - | File Record Number | Number | 6 | 15 | 10 | Y | NaN | 000000000n | R | Zero | NaN | - sequential line number in the file to be generated in the IL |
+| NaN | Set Hdr | 20 | NaN | TransactionNo | number | NaN | NaN | 8 | Y | NaN | NaN | NaN | NaN | NaN | File Dtl | 2 | - | Ext\_Ref\_No | char | 26 | 39 | 14 | N | NaN | Right ( "00000000"  \n+ \nTrim(Transaction No ) , 8) \n+ \nTrim ( StoreNo-FromStore))\n | L | Space | NaN | NaN |
+| NaN | Set Hdr | 24 | NaN | StoreNo-FromStore | number | NaN | NaN | 8 | Y | NaN | NaN | NaN | NaN | NaN | NaN | NaN | NaN | NaN | NaN | NaN | NaN | NaN | NaN | NaN | NaN | NaN | NaN | NaN | NaN |
+| NaN | NaN | NaN | NaN | NaN | NaN | NaN | NaN | NaN | NaN | NaN | NaN | NaN | NaN | NaN | NaN | NaN | NaN | NaN | NaN | NaN | NaN | NaN | NaN | NaN | NaN | NaN | NaN | NaN | NaN |
+| NaN | Set Hdr | 21 | NaN | WayBill | Char | NaN | NaN | 12 | Y | NaN | NaN | NaN | NaN | NaN | File Dtl | 3 | - | Ret\_Auth\_Num | char | 65 | 76 | 12 | N | NaN | NaN | L | Space | NaN | NaN |
+| NaN | Set Hdr | 26 | NaN | SupplierCode | number | NaN | NaN | 8 | Y | NaN | NaN | NaN | NaN | NaN | File Dtl | 4 | - | Supplier | char | 90 | 99 | 10 | Y | NaN | NaN | L | Space | NaN | length increased to 8 |
+| NaN | NaN | NaN | NaN | NaN | NaN | NaN | NaN | NaN | NaN | NaN | NaN | NaN | NaN | NaN | NaN | NaN | NaN | NaN | NaN | NaN | NaN | NaN | NaN | NaN | NaN | NaN | NaN | NaN | NaN |
+| NaN | Set Hdr | 14 | NaN | OrginalOrderNumber | number | NaN | NaN | 14 | N | NaN | NaN | NaN | NaN | NaN | File Dtl | 5 | - | Comments | char | 641 | 895 | 255 | N | NaN | OrginalOrderNumber  ||  Space(3)  || CapturedBy-CreatedBy  || Space(3) ||  Remarks | L | Space | NaN | NaN |
+| NaN | Set Hdr | 1 | NaN | CapturedBy-CreatedBy | Char | NaN | NaN | 30 | N | NaN | NaN | NaN | NaN | NaN | NaN | NaN | NaN | NaN | NaN | NaN | NaN | NaN | NaN | NaN | NaN | NaN | NaN | NaN | NaN |
+| NaN | Set Hdr | 18 | NaN | Remarks | Char | NaN | NaN | 60 | N | NaN | NaN | NaN | NaN | NaN | NaN | NaN | NaN | NaN | NaN | NaN | NaN | NaN | NaN | NaN | NaN | NaN | NaN | NaN | NaN |
+| NaN | NaN | NaN | NaN | NaN | NaN | NaN | NaN | NaN | NaN | NaN | NaN | NaN | NaN | NaN | NaN | NaN | NaN | NaN | NaN | NaN | NaN | NaN | NaN | NaN | NaN | NaN | NaN | NaN | NaN |
+| NaN | Set Hdr | 15 | NaN | ResasonCode | number | NaN | NaN | 4 | Y | if Null use Reason Code from Set Dtl (field#19) | NaN | NaN | NaN | NaN | File Dtl | 6 | - | Reason | char | 635 | 640 | 6 | N | If   (  Reason    =    501 )   Then   ReasonCode   =   "A"\nIf   (  Reason    =    502 )   Then   ReasonCode   =   "B"\nIf   (  Reason    =    503 )   Then   ReasonCode   =   "C"\nIf   (  Reason    =    504 )   Then   ReasonCode   =   "D"\nIf   (  Reason    =    505 )   Then   ReasonCode   =   "E"\nIf   (  Reason    =    506 )   Then   ReasonCode   =   "F"\nIf   (  Reason    =    507 )   Then   ReasonCode   =   "G"\nIf   (  Reason    =    508 )   Then   ReasonCode   =   "H"\nIf   (  Reason    =    509 )   Then   ReasonCode   =   "I"\nIf   (  Reason    =    510 )   Then   ReasonCode   =   "J"\nIf   (  Reason    =    511 )   Then   ReasonCode   =   "K"\nIf   (  Reason    =    512 )   Then   ReasonCode   =   "M"\nIf   (  Reason    =    513 )   Then   ReasonCode   =   "N"\nIf   (  Reason    =    514 )   Then   ReasonCode   =   "O"\nIf   (  Reason    =    515 )   Then   ReasonCode   =   "P"\nIf   (  Reason    =    516 )   Then   ReasonCode   =   "R"\nIf   (  Reason    =    517 )   Then   ReasonCode   =   "S"\nIf   (  Reason    =    518 )   Then   ReasonCode   =   "T"\nIf   (  Reason    =    519 )   Then   ReasonCode   =   "V"\n | NaN | L | Space | NaN | NaN |
+| NaN | Set Dtl | 13 | NaN | ResasonCode | number | NaN | NaN | 4 | Y | if Null use Reason Code from Set Dtl (field#19) | NaN | NaN | NaN | NaN | NaN | NaN | NaN | NaN | NaN | NaN | NaN | NaN | NaN | NaN | NaN | NaN | NaN | NaN | NaN |
+| NaN | NaN | NaN | NaN | NaN | NaN | NaN | NaN | NaN | NaN | NaN | NaN | NaN | NaN | NaN | NaN | NaN | NaN | NaN | NaN | NaN | NaN | NaN | NaN | NaN | NaN | NaN | NaN | NaN | NaN |
+| NaN | Set Dtl | 7 | NaN | Item Number | number | NaN | NaN | 14 | Y | NaN | NaN | NaN | NaN | NaN | File Dtl | 7 | - | item | char | 40 | 64 | 25 | Y | NaN | NaN | L | Space | NaN | NaN |
+| NaN | Set Dtl | 21 | NaN | TransactionQty | number(8,4) | NaN | NaN | 12 | N | 4 decimal digit | NaN | NaN | NaN | NaN | File Dtl | 8 | - | Unit\_Qty | Number | 77 | 89 | 13 | Y | NaN | NaN | R | Zero | NaN | NaN |
+| NaN | Set Dtl | 2 | NaN | Date of extract | Char | NaN | NaN | 8 | Y | NaN | CCYYMMDD | NaN | NaN | NaN | File Dtl | 9 | - | Tran\_Date | char | 600 | 613 | 14 | Y | NaN | DateofExtract || TimeofExtract | L | Space | NaN | NaN |
+| NaN | Set Dtl | 19 | NaN | Time of extract | Char | NaN | NaN | 6 | Y | NaN | HHMMSS | NaN | NaN | NaN | NaN | NaN | NaN | NaN | NaN | NaN | NaN | NaN | NaN | NaN | NaN | NaN | NaN | NaN | NaN |
+| NaN | NaN | NaN | NaN | NaN | NaN | NaN | NaN | NaN | NaN | NaN | NaN | NaN | NaN | NaN | File Dtl | 10 | - | From\_Disp | char | 596 | 599 | 4 | Y | NaN | ATS | L | Space | NaN | NaN |
+| NaN | NaN | NaN | NaN | NaN | NaN | NaN | NaN | NaN | NaN | NaN | NaN | NaN | NaN | NaN | NaN | NaN | NaN | NaN | NaN | NaN | NaN | NaN | NaN | NaN | NaN | NaN | NaN | NaN | NaN |
+| NaN | NaN | NaN | NaN | NaN | NaN | NaN | NaN | NaN | NaN | NaN | NaN | NaN | NaN | NaN | File Dtl | 11 | - | City | char | 463 | 582 | 120 | N | NaN | NaN | L | Space | NaN | NaN |
+| NaN | NaN | NaN | NaN | NaN | NaN | NaN | NaN | NaN | NaN | NaN | NaN | NaN | NaN | NaN | File Dtl | 12 | - | Country | char | 593 | 595 | 3 | N | NaN | NaN | L | Space | NaN | NaN |
+| NaN | NaN | NaN | NaN | NaN | NaN | NaN | NaN | NaN | NaN | NaN | NaN | NaN | NaN | NaN | File Dtl | 13 | - | Pcode | char | 583 | 592 | 10 | N | NaN | NaN | L | Space | NaN | NaN |
+| NaN | NaN | NaN | NaN | NaN | NaN | NaN | NaN | NaN | NaN | NaN | NaN | NaN | NaN | NaN | File Dtl | 14 | - | Rtv\_Order\_No | char | 16 | 25 | 10 | N | NaN | NaN | R | Space | NaN | NaN |
+| NaN | NaN | NaN | NaN | NaN | NaN | NaN | NaN | NaN | NaN | NaN | NaN | NaN | NaN | NaN | File Dtl | 15 | - | Ship\_Addr1 | char | 100 | 219 | 120 | N | NaN | NaN | L | Space | NaN | NaN |
+| NaN | NaN | NaN | NaN | NaN | NaN | NaN | NaN | NaN | NaN | NaN | NaN | NaN | NaN | NaN | File Dtl | 16 | - | Ship\_Addr2 | char | 220 | 339 | 120 | N | NaN | NaN | L | Space | NaN | NaN |
+| NaN | NaN | NaN | NaN | NaN | NaN | NaN | NaN | NaN | NaN | NaN | NaN | NaN | NaN | NaN | File Dtl | 17 | - | Ship\_Addr3 | char | 340 | 459 | 120 | N | NaN | NaN | L | Space | NaN | NaN |
+| NaN | NaN | NaN | NaN | NaN | NaN | NaN | NaN | NaN | NaN | NaN | NaN | NaN | NaN | NaN | File Dtl | 18 | - | State | char | 460 | 462 | 3 | N | NaN | NaN | L | Space | NaN | NaN |
+| NaN | NaN | NaN | NaN | NaN | NaN | NaN | NaN | NaN | NaN | NaN | NaN | NaN | NaN | NaN | File Dtl | 19 | - | Unit\_Cost | char | 614 | 634 | 21 | N | NaN | NaN | R | Space | NaN | NaN |
+| NaN | NaN | NaN | NaN | NaN | NaN | NaN | NaN | NaN | NaN | NaN | NaN | NaN | NaN | NaN | NaN | NaN | NaN | NaN | NaN | NaN | NaN | NaN | NaN | NaN | NaN | NaN | NaN | NaN | NaN |
+| NaN | NaN | NaN | NaN | NaN | NaN | NaN | NaN | NaN | NaN | NaN | NaN | NaN | NaN | NaN | File Trlr | 1 | - | DetailRecordCount | number | 6 | 15 | 10 | Y | NaN | 000000000n | R | Zero | NaN | Generated by IL |
+| NaN | NaN | NaN | NaN | NaN | NaN | NaN | NaN | NaN | NaN | NaN | NaN | NaN | NaN | NaN | File Trlr | 2 | - | FileRecordNumber | number | 16 | 25 | 10 | Y | NaN | 000000000n | R | Zero | NaN | NaN |
+
+## Target Schema
+| 75 | Unnamed: 1 | Unnamed: 2 | Unnamed: 3 | Unnamed: 4 | Unnamed: 5 | Unnamed: 6 | Unnamed: 7 | Unnamed: 8 | Unnamed: 9 | Unnamed: 10 | Unnamed: 11 | Unnamed: 12 | Unnamed: 13 |
+| --- | --- | --- | --- | --- | --- | --- | --- | --- | --- | --- | --- | --- | --- |
+| NaN | NaN | NaN | Target file format is:\n   a single header record, followed by zero or more detail records, followed by a single trailer record\n   the header and trailer records are mandatory\n   the record lengths are fixed for each record type\n   the fields are all fixed length | NaN | NaN | NaN | NaN | NaN | NaN | NaN | NaN | NaN | NaN |
+| NaN | NaN | NaN | NaN | NaN | NaN | NaN | NaN | NaN | NaN | NaN | NaN | NaN | NaN |
+| NaN | NaN | NaN | NaN | NaN | NaN | NaN | NaN | NaN | NaN | NaN | NaN | NaN | NaN |
+| NaN | NaN | NaN | NaN | NaN | NaN | NaN | NaN | NaN | NaN | NaN | NaN | NaN | NaN |
+| NaN | NaN | NaN | NaN | NaN | NaN | NaN | NaN | NaN | NaN | NaN | NaN | NaN | NaN |
+| NaN | NaN | NaN | NaN | NaN | NaN | NaN | NaN | NaN | NaN | NaN | NaN | NaN | NaN |
+| NaN | NaN | NaN | NaN | NaN | NaN | NaN | NaN | NaN | NaN | NaN | NaN | NaN | NaN |
+| NaN | NaN | NaN | NaN | NaN | NaN | NaN | NaN | NaN | NaN | NaN | NaN | NaN | NaN |
+| NaN | Target - ORMS | NaN | NaN | NaN | NaN | NaN | NaN | NaN | NaN | NaN | NaN | NaN | NaN |
+| NaN | RECORD Type | Field No# | Table / Object Name | Field Name / Description | Data Type | Field Start Pos. | Field End Pos. | Field Size | Mandatory | Transformation / Condition | Format | Justified (L = Left, R = Right) | Pad Char. |
+| NaN | File Hdr | 1 | - | File Line Number | Number | 6 | 15 | 10 | Y | NaN | 0000000001 | R | Zero |
+| NaN | File Hdr | 2 | - | FileTypeDefination | Char | 16 | 35 | 20 | Y | NaN | TSCDSPRTVUPLD\_V2.0 | L | Space |
+| NaN | File Hdr | 3 | - | Create Date | Date | 36 | 43 | 8 | Y | NaN | YYYYMMDD | L | Space |
+| NaN | File Hdr | 4 | - | Create Time | Time | 44 | 49 | 6 | Y | NaN | HHMMSS | L | Space |
+| NaN | File Hdr | 5 | NaN | Location | Number | 51 | 60 | 10 | Y | NaN | NaN | R | Zero |
+| NaN | File Hdr | 6 | - | Location Type | char | 50 | 50 | 1 | Y | S = Store, W = Warehouse | S | L | Space |
+| NaN | NaN | NaN | NaN | NaN | NaN | NaN | NaN | NaN | NaN | NaN | NaN | NaN | NaN |
+| NaN | File Dtl | 1 | - | File Record Number | Number | 6 | 15 | 10 | Y | NaN | 000000000n | R | Zero |
+| NaN | File Dtl | 2 | - | Ext\_Ref\_No | char | 26 | 39 | 14 | N | NaN | Right ( "00000000"  \n+ \nTrim(Transaction No ) , 8) \n+ \nTrim ( StoreNo-FromStore))\n | L | Space |
+| NaN | NaN | NaN | NaN | NaN | NaN | NaN | NaN | NaN | NaN | NaN | NaN | NaN | NaN |
+| NaN | NaN | NaN | NaN | NaN | NaN | NaN | NaN | NaN | NaN | NaN | NaN | NaN | NaN |
+| NaN | File Dtl | 3 | - | Ret\_Auth\_Num | char | 65 | 76 | 12 | N | NaN | NaN | L | Space |
+| NaN | File Dtl | 4 | - | Supplier | char | 90 | 99 | 10 | Y | NaN | NaN | L | Space |
+| NaN | NaN | NaN | NaN | NaN | NaN | NaN | NaN | NaN | NaN | NaN | NaN | NaN | NaN |
+| NaN | File Dtl | 5 | - | Comments | char | 641 | 895 | 255 | N | NaN | OrginalOrderNumber  ||  Space(3)  || CapturedBy-CreatedBy  || Space(3) ||  Remarks | L | Space |
+| NaN | NaN | NaN | NaN | NaN | NaN | NaN | NaN | NaN | NaN | NaN | NaN | NaN | NaN |
+| NaN | NaN | NaN | NaN | NaN | NaN | NaN | NaN | NaN | NaN | NaN | NaN | NaN | NaN |
+| NaN | NaN | NaN | NaN | NaN | NaN | NaN | NaN | NaN | NaN | NaN | NaN | NaN | NaN |
+| NaN | File Dtl | 6 | - | Reason | char | 635 | 640 | 6 | N | If   (  Reason    =    501 )   Then   ReasonCode   =   "A"\nIf   (  Reason    =    502 )   Then   ReasonCode   =   "B"\nIf   (  Reason    =    503 )   Then   ReasonCode   =   "C"\nIf   (  Reason    =    504 )   Then   ReasonCode   =   "D"\nIf   (  Reason    =    505 )   Then   ReasonCode   =   "E"\nIf   (  Reason    =    506 )   Then   ReasonCode   =   "F"\nIf   (  Reason    =    507 )   Then   ReasonCode   =   "G"\nIf   (  Reason    =    508 )   Then   ReasonCode   =   "H"\nIf   (  Reason    =    509 )   Then   ReasonCode   =   "I"\nIf   (  Reason    =    510 )   Then   ReasonCode   =   "J"\nIf   (  Reason    =    511 )   Then   ReasonCode   =   "K"\nIf   (  Reason    =    512 )   Then   ReasonCode   =   "M"\nIf   (  Reason    =    513 )   Then   ReasonCode   =   "N"\nIf   (  Reason    =    514 )   Then   ReasonCode   =   "O"\nIf   (  Reason    =    515 )   Then   ReasonCode   =   "P"\nIf   (  Reason    =    516 )   Then   ReasonCode   =   "R"\nIf   (  Reason    =    517 )   Then   ReasonCode   =   "S"\nIf   (  Reason    =    518 )   Then   ReasonCode   =   "T"\nIf   (  Reason    =    519 )   Then   ReasonCode   =   "V"\n | NaN | L | Space |
+| NaN | NaN | NaN | NaN | NaN | NaN | NaN | NaN | NaN | NaN | NaN | NaN | NaN | NaN |
+| NaN | NaN | NaN | NaN | NaN | NaN | NaN | NaN | NaN | NaN | NaN | NaN | NaN | NaN |
+| NaN | File Dtl | 7 | - | item | char | 40 | 64 | 25 | Y | NaN | NaN | L | Space |
+| NaN | File Dtl | 8 | - | Unit\_Qty | Number | 77 | 89 | 13 | Y | NaN | NaN | R | Zero |
+| NaN | File Dtl | 9 | - | Tran\_Date | char | 600 | 613 | 14 | Y | NaN | DateofExtract || TimeofExtract | L | Space |
+| NaN | NaN | NaN | NaN | NaN | NaN | NaN | NaN | NaN | NaN | NaN | NaN | NaN | NaN |
+| NaN | File Dtl | 10 | - | From\_Disp | char | 596 | 599 | 4 | Y | NaN | ATS | L | Space |
+| NaN | NaN | NaN | NaN | NaN | NaN | NaN | NaN | NaN | NaN | NaN | NaN | NaN | NaN |
+| NaN | NaN | NaN | NaN | NaN | NaN | NaN | NaN | NaN | NaN | NaN | NaN | NaN | NaN |
+| NaN | NaN | NaN | NaN | NaN | NaN | NaN | NaN | NaN | NaN | NaN | NaN | NaN | NaN |
+| NaN | NaN | NaN | NaN | NaN | NaN | NaN | NaN | NaN | NaN | NaN | NaN | NaN | NaN |
+| NaN | File Dtl | 11 | - | City | char | 463 | 582 | 120 | N | NaN | NaN | L | Space |
+| NaN | File Dtl | 12 | - | Country | char | 593 | 595 | 3 | N | NaN | NaN | L | Space |
+| NaN | File Dtl | 13 | - | Pcode | char | 583 | 592 | 10 | N | NaN | NaN | L | Space |
+| NaN | File Dtl | 14 | - | Rtv\_Order\_No | char | 16 | 25 | 10 | N | NaN | NaN | R | Space |
+| NaN | File Dtl | 15 | - | Ship\_Addr1 | char | 100 | 219 | 120 | N | NaN | NaN | L | Space |
+| NaN | File Dtl | 16 | - | Ship\_Addr2 | char | 220 | 339 | 120 | N | NaN | NaN | L | Space |
+| NaN | File Dtl | 17 | - | Ship\_Addr3 | char | 340 | 459 | 120 | N | NaN | NaN | L | Space |
+| NaN | File Dtl | 18 | - | State | char | 460 | 462 | 3 | N | NaN | NaN | L | Space |
+| NaN | File Dtl | 19 | - | Unit\_Cost | char | 614 | 634 | 21 | N | NaN | NaN | R | Space |
+| NaN | NaN | NaN | NaN | NaN | NaN | NaN | NaN | NaN | NaN | NaN | NaN | NaN | NaN |
+| NaN | File Trlr | 1 | - | DetailRecordCount | number | 6 | 15 | 10 | Y | NaN | 000000000n | R | Zero |
+| NaN | File Trlr | 2 | - | FileRecordNumber | number | 16 | 25 | 10 | Y | NaN | 000000000n | R | Zero |
+
+## Source Schema
+| Unnamed: 0 | Stock Take Result Adjustments | Unnamed: 2 | Unnamed: 3 |
+| --- | --- | --- | --- |
+| NaN | NaN | NaN | NaN |
+| NaN | Field | Type | Length |
+| NaN | NaN | NaN | NaN |
+| Header | NaN | NaN | NaN |
+| 1 | CapturedBy-CreatedBy | Char | 30 |
+| 2 | DateOfExtract | Ccyymmdd | 8 |
+| 3 | DelAfterDate | Ccyymmdd | 8 |
+| 4 | DelBeforeDate | Numeric | 8 |
+| 5 | Description | Char | 20 |
+| 6 | DriversName-Courier | Char | 30 |
+| 7 | InvoiceNumber | Char | 24 |
+| 8 | InvoiceTaxTotal | Numeric (7,2) | 9 |
+| 9 | InvoiceTotal | Numeric (7,2) | 9 |
+| 10 | NoOfDetailLines | Numeric | 7 |
+| 11 | OrderDate | Ccyymmdd | 8 |
+| 12 | ExpectedDelDate | Ccyymmdd | 8 |
+| 13 | OrderType-CountType | Numeric | 8 |
+| 14 | OriginalOrderNumber | Numeric | 14 |
+| 15 | ReasonCode | Numeric | 4 |
+| 16 | RecordType | Char | 3 |
+| 17 | RefNo2 | Char | 24 |
+| 18 | Remarks | Char | 60 |
+| 19 | ReProcessedFlag | Numeric (0/1) | 1 |
+| 20 | TransactionNo | Number | 14 |
+| 21 | WayBill | NaN | NaN |
+| 22 | StoreAddress | Char | 100 |
+| 23 | StoreName | Char | 20 |
+| 24 | StoreNo-FromStore | Numeric | 8 |
+| 25 | SupplierAddress | Char | 64 |
+| 26 | SupplierCode | Char | 8 |
+| 27 | SupplierName | Char | 20 |
+| 28 | SupplierType | Numeric | 1 |
+| 29 | TimeOfExtract | Hhmmss | 6 |
+| 30 | TotalQty | Numeric (10,4) | 14 |
+| 31 | TotalValue | Numeric (7,2) | 9 |
+| 32 | TransactionDateTime | Ccyymmddhhmmss | 14 |
+| 33 | UserName | Char | 30 |
+| NaN | NaN | NaN | NaN |
+| NaN | NaN | NaN | NaN |
+| NaN | NaN | NaN | NaN |
+| NaN | NaN | NaN | NaN |
+| NaN | NaN | NaN | NaN |
+| Detail | NaN | NaN | NaN |
+| 1 | RecordType | NaN | NaN |
+| 2 | DateOfExtract | Ccyymmdd | 8 |
+| 3 | ReferenceNo | NaN | NaN |
+| 4 | InvoiceCost-Excl-PerUOM | Numeric (6,2) | 8 |
+| 5 | InvoiceQty | Numeric (8,4) | 12 |
+| 6 | ItemDescription | Char | 60 |
+| 7 | ItemNumber | Numeric | 14 |
+| 8 | LineNumber | Numeric | 7 |
+| 9 | Location | Char | 20 |
+| 10 | OrderQuantity-SentQuantity | Numeric (8,4) | 12 |
+| 11 | OrderType | Numeric | 6 |
+| 12 | PackSize-Ratio | Numeric | 5 |
+| 13 | ReasonCode | Numeric | 4 |
+| 14 | SellingPricePerUOM | Numeric (6,2) | 8 |
+| 15 | Sign | + / - | 1 |
+| 16 | StoreNo | Numeric | 8 |
+| 17 | SupplierItemNo-CatalogueNo | Char | 24 |
+| 18 | TaxPercentageOnCost | Numeric (6,2) | 8 |
+| 19 | TimeOfExtract | Hhmmss | 6 |
+| 20 | OrderNumber-TransactionNumber | Numeric | 14 |
+| 21 | TransactionQty | Numeric (8,4) | 12 |
+| 22 | TrsCostPrice-Excl-PerUOM | Numeric (6,2) | 8 |
+| 23 | UOMCode | Numeric | 4 |
+| 24 | UOMDescription | Char | 20 |
+
+## Store Line notes
+| Unnamed: 0 | Unnamed: 1 | STOCK INTERFACE FILES | Unnamed: 3 | Unnamed: 4 |
+| --- | --- | --- | --- | --- |
+| NaN | NaN | NaN | NaN | NaN |
+| 1.0 | File Format | NaN | NaN | NaN |
+| NaN | a. | A common file layout will be used for all stock interface files (exports & imports) | NaN | NaN |
+| NaN | b. | The files will be in ASCII format | NaN | NaN |
+| NaN | c. | Each field is delimited. The character to be used as the delimiter will be determined by the system parameter | NaN | NaN |
+| NaN | NaN | “ASCII code for delimiter character in stock interface files”. The default character will be124 (|) | NaN | NaN |
+| NaN | NaN | NaN | NaN | NaN |
+| 2.0 | File Structure | NaN | NaN | NaN |
+| NaN | a. | Each stock interface transaction will be comprised of a header record and several detail records | NaN | NaN |
+| NaN | b. | Each interface file will be differentiated by its transaction record type | NaN | NaN |
+| NaN | NaN | NaN | NaN | NaN |
+| NaN | NaN | NaN | Record Type | Transaction |
+| NaN | NaN | Export Files | NaN | NaN |
+| NaN | NaN | NaN | 314 | Stock Count Results (Count figures) |
+| NaN | NaN | NaN | 315 | Stock Count Results (Differences) |
+| NaN | NaN | NaN | 321 | Order Receipts |
+| NaN | NaN | NaN | 322 | IBT - IN Receipts |
+| NaN | NaN | NaN | 323 | Stock Adjustments (Up & Down) |
+| NaN | NaN | NaN | 325 | Return to Supplier |
+| NaN | NaN | NaN | 326 | Return to Distribution Centre |
+| NaN | NaN | NaN | 327 | Stock Waste |
+| NaN | NaN | NaN | 350 | IBT-Out |
+| NaN | NaN | NaN | NaN | NaN |
+| NaN | NaN | Import Files | NaN | NaN |
+| NaN | NaN | NaN | 350 | IBT- IN |
+| NaN | NaN | NaN | 351 | PO Deletion |
+| NaN | NaN | NaN | 352 | Expected Purchase Orders |
+| NaN | NaN | NaN | 358 | Stock Count Request |
+| NaN | NaN | NaN | 359 | Stock-on-hand update |
+| NaN | NaN | NaN | NaN | NaN |
+| 3.0 | File name format | NaN | NaN | NaN |
+| NaN | a. | The file name will be in the following format | NaN | NaN |
+| NaN | NaN | NaN | STKNNNNNN\_TTT\_SSSSSS\_ccyymmddhhmmss.dat | NaN |
+| NaN | NaN | where | NaN | NaN |
+| NaN | NaN | NaN | STK - prefix for all Stock interfaces (exports & imports) | NaN |
+| NaN | NaN | NaN | NNNNNN - Sequential file number for all record types. (Different sequence for import & export files) | NaN |
+| NaN | NaN | NaN | TTT - Record type | NaN |
+| NaN | NaN | NaN | SSSSSS - store number | NaN |
+| NaN | NaN | NaN | ccyymmddhhmmss - date & time file created | NaN |
+| NaN | NaN | NaN | NaN | NaN |
+| NaN | b. | Exception for IBT-OUT & IBT-IN, where the same file that is created for the IBT-OUT for the sending | NaN | NaN |
+| NaN | NaN | store will be used by the receiving store to import the IBT-IN | NaN | NaN |
+| NaN | NaN | NaN | STKNNNNNN\_TTT\_SSSSSS\_RRRRRR\_ccyymmddhhmmss.dat | NaN |
+| NaN | NaN | where | NaN | NaN |
+| NaN | NaN | NaN | SSSSSS - number of sending store | NaN |
+| NaN | NaN | NaN | RRRRRR - number of receiving store | NaN |
+| NaN | NaN | NaN | NaN | NaN |
+| 4.0 | Paths | NaN | NaN | NaN |
+| NaN | a. | Import files must reside in the directory specified by the system parameter “Store\Technical\Interface Parameters\Folder name for Import file" for them to be imported | NaN | NaN |
+| NaN | b. | Files extracted for export will be placed in the directory specified by the system parameter “Store \ Technical \ Interface Parameters\Folder name for Export file” | NaN | NaN |
+
+## Change history
+| Unnamed: 0 | Unnamed: 1 | Unnamed: 2 | Unnamed: 3 |
+| --- | --- | --- | --- |
+| NaN | NaN | NaN | NaN |
+| NaN | NaN | NaN | NaN |
+| NaN | NaN | NaN | NaN |
+| Date | revision | By | Notes |
+| 2007-02-21 00:00:00 | 0.1D | Debasis Pattanaik | Draft Version |

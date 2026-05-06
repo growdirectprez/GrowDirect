@@ -84,6 +84,11 @@ The spec layer between Brain knowledge and code. Agents should read relevant SDD
 - [[Brain/wiki/growdirect-workflow|GrowDirect Workflow]] — Operating manual: two agent systems, knowledge layers, session lifecycle, working style
 - [[Brain/wiki/document-management|Document Management Strategy]] — The 7 document types, where they live, lifecycle rules
 
+## Vault Health
+
+- [[Brain/Brain Health Dashboard]] — at-a-glance Bases view of vault health
+- [[Brain/wiki/brain-broken-links-baseline-2026-05-01|Broken-Links Baseline (2026-05-01)]] — known false-positive link checker noise; baseline for diff-only health checks
+
 ## Setup
 
 See [[Brain/Setup Guide]] for first-time Obsidian setup.

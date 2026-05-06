@@ -3,7 +3,7 @@ type: scratch
 status: phase-2-raw-index
 tags: [brain-federation, gro-520, phase-2, raw-inputs]
 created: 2026-04-23
-playbook: docs/playbook-brain-scaffold-design.md
+playbook: docs/playbooks/playbook-brain-scaffold-design.md
 ---
 
 # Brain Federation — Raw Input Index (Phase 2)
@@ -55,7 +55,7 @@ definition of done, open questions).
 
 ## Input 5 — Katz method reverse-engineering playbook
 
-Source: `/Users/gclyle/GrowDirect/docs/playbook-method-katz-reverse-engineer.md`
+Source: `/Users/gclyle/GrowDirect/docs/playbooks/playbook-method-katz-reverse-engineer.md`
 
 Method precedent — Katz's raw/compiled/summarized pattern is what this
 phase borrows from. Review for evidence-handling discipline.

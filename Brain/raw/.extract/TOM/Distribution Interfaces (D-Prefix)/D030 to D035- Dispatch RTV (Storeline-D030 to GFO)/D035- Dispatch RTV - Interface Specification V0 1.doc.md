@@ -1,0 +1,1115 @@
+		
+
+
+
+
+
+
+
+
+TOM Integration
+
+Interface Specification
+For 
+Dispatch RTV Result
+
+STORELINE 
+To 
+GFO
+
+[D035]
+
+
+
+Project BEN Code:
+W60416
+Author:Debasis PattanaikDate:
+09/02/2007
+Version:
+0.1
+Status:
+ DOCPROPERTY "Doc Status"  \* MERGEFORMAT Draft 
+Modified By:
+
+Reviewed By:
+Ganesan, Sankar
+
+Change Record
+
+Author
+Date
+Version
+Change Reference, description
+Debasis Pattanaik
+09/02/2007
+0.1D
+Draft
+Ganesan, Sankar
+12/02/2007
+0.1D
+Draft
+
+
+
+
+
+Reviewers
+
+Name
+Date
+Version
+Position
+Ganesan, Sankar
+12/02/2007
+0.1D
+Draft
+
+
+
+
+
+
+
+
+
+
+At least one reviewer is required.
+
+Sign-Off
+
+By signing this form, I understand and agree with the contents of this document.
+
+Business Owner/Customer
+Erwin Oguz
+Position
+Solution Architect
+Signature
+
+Date
+
+
+Distribution List
+
+Name
+Date of Issue
+Version
+Oguz Erwin
+
+
+David Onyett
+
+
+Venkateswara Rao
+
+
+
+
+
+
+
+
+
+Document Source
+
+Related Documents: XML STORELINE source file schema, GFO system TSD document & STORELINE system FSD document 
+
+Directory: <to give path>
+
+File Name: 
+XML STORELINE source file schema - tes.chn.retail.storeline.dispatchrtv.v1.4.7						
+ EMBED Package  
+	
+GFO system TSD document - TSD008 - Stock Record - non-sales events.doc
+
+ EMBED Word.Document.8 \s 
+
+STORELINE system FSD document - FS1847_BO_Stock_Interfaces.doc
+
+ EMBED Word.Document.8 \s 
+
+
+Information Architecture Context diagram
+D035- Dispatch RTV - Information_Context_Diagram.vsd
+
+Mapping spreadsheet
+Not required for this interface
+Table of Contents
+ TOC \o "1-3" \t "Appendix,1" 1	Introduction	 PAGEREF _Toc159138668 \h 7
+1.1	Purpose of Document	 PAGEREF _Toc159138669 \h 7
+1.2	Background	 PAGEREF _Toc159138670 \h 7
+1.3	Scope	 PAGEREF _Toc159138671 \h 7
+2	Description and Requirements for the End-to-End Interface	 PAGEREF _Toc159138672 \h 8
+2.1	Description of the End-to-End Interface	 PAGEREF _Toc159138673 \h 8
+2.2	Architecture	 PAGEREF _Toc159138674 \h 8
+2.3	Requirements for the End-to-End Interface	 PAGEREF _Toc159138675 \h 9
+3	Processing required in an Extract-Stage of the interface	 PAGEREF _Toc159138676 \h 10
+3.1	Scope	 PAGEREF _Toc159138677 \h 10
+3.2	Source Message Schema	 PAGEREF _Toc159138678 \h 10
+3.3	Message Format	 PAGEREF _Toc159138679 \h 11
+3.4	Message Transport Details	 PAGEREF _Toc159138680 \h 12
+3.5	Naming and Configuration	 PAGEREF _Toc159138681 \h 12
+3.6	Environment and Security Context	 PAGEREF _Toc159138682 \h 12
+3.7	Non-Functional Requirements	 PAGEREF _Toc159138683 \h 13
+4	Processing required in the Messaging Stage of the interface	 PAGEREF _Toc159138684 \h 14
+4.1	Scope	 PAGEREF _Toc159138685 \h 14
+4.2	Data Validation	 PAGEREF _Toc159138686 \h 14
+4.3	Filtering	 PAGEREF _Toc159138687 \h 14
+4.4	Stored Procedures	 PAGEREF _Toc159138688 \h 14
+4.5	JH0S00 – Package to return STREAM info	 PAGEREF _Toc159138689 \h 14
+4.6	JIP14 – process miscellaneous stock movements – new subroutine	 PAGEREF _Toc159138690 \h 14
+4.7	Mapping	 PAGEREF _Toc159138691 \h 15
+4.8	Mapping of JH0S00 – Package to return STREAM info	 PAGEREF _Toc159138692 \h 15
+4.9	Mapping of JIP14 – process miscellaneous stock movements	 PAGEREF _Toc159138693 \h 16
+4.10	Message Format	 PAGEREF _Toc159138694 \h 17
+4.11	Message Transport Details	 PAGEREF _Toc159138695 \h 17
+4.12	Naming and Configuration	 PAGEREF _Toc159138696 \h 18
+4.13	Environment and Security Context	 PAGEREF _Toc159138697 \h 18
+4.14	Non-Functional Requirements	 PAGEREF _Toc159138698 \h 18
+5	Processing required in the <third stage of the interface>	 PAGEREF _Toc159138699 \h 19
+5.1	Scope	 PAGEREF _Toc159138700 \h 19
+5.2	Data Validation	 PAGEREF _Toc159138701 \h 19
+5.3	Filtering	 PAGEREF _Toc159138702 \h 19
+5.4	Mapping	 PAGEREF _Toc159138703 \h 19
+5.5	Target Message Schema	 PAGEREF _Toc159138704 \h 19
+5.6	Message Transport Details	 PAGEREF _Toc159138705 \h 19
+5.7	Naming and Configuration	 PAGEREF _Toc159138706 \h 19
+5.8	Environment and Security Context	 PAGEREF _Toc159138707 \h 19
+5.9	Non-Functional Requirements	 PAGEREF _Toc159138708 \h 19
+6	Testing Deliverables	 PAGEREF _Toc159138709 \h 20
+7	Deployment	 PAGEREF _Toc159138710 \h 21
+8	Assumptions and Outstanding Issues	 PAGEREF _Toc159138711 \h 22
+8.1	Assumptions	 PAGEREF _Toc159138712 \h 22
+8.2	Outstanding Issues	 PAGEREF _Toc159138713 \h 22
+Appendix A Volumes	 PAGEREF _Toc159138714 \h 23
+•	Glossary	 PAGEREF _Toc159138715 \h 24
+Appendix B Document Control	 PAGEREF _Toc159138716 \h 25
+
+Introduction
+Purpose of Document
+The purpose of this document is to describe the interfacing requirements with respect to STORELINE Stock movement data (e.g. to supplier, DC) updating into the GFO system.
+
+The document is of a sufficiently technical in nature to allow a developer to build an actual interface. Additionally the document contains detail that might sit logically within a Technical System Design (TSD) document, but is contained here for expediency. Therefore the GFO system Technical System Document (TSD) and STORELINE system Functional System Document are provided for better understanding of this interface. 
+
+This interface is only for US implementations. Turkey implementation does not require this interface. 
+
+Background
+As part of Tesco Operating Model program, there is requirement to bridge the functionalities of enterprise applications including STORELINE and GFO. To achieve this functionality, high level process flow architecture has been designed and approved by Tesco’s Enterprise Architecture team. As part of this process flow architecture there is a set of interfaces that has been identified to be developed to transfer Stock movement data from STORELINE into GFO.
+
+Scope
+The Interface Specification covers:
+
+audit requirements across the interface
+security requirements across the interface
+timing/frequency requirements or constraints
+support requirements
+archiving
+the data format to be used for the interface at each stage (e.g. xml messages)
+the normal processing required at each stage
+recovery from failure required at each stage
+volumes.
+
+Note that it is Tesco strategy to avoid placing any business logic in integration layer processing.
+Description and Requirements for the End-to-End Interface
+Description of the End-to-End Interface
+The interface is to upload the Stock movement data from STORELINE into GFO. The Upload is a full upload in nature.
+
+The interface will be governed by BizTalk Orchestration, which expects the Stock movement data in (| delimited flat file) from STORELINE interface. The STORELINE interface will put this file (*.dat) in the shared location through RTI SOAP adapter. The BizTalk server then transfers this flat file data by invoking GFO stored procedures through DB2 adopter. BizTalk will first invokes JH0S00– package return STREAM info - stored procedure to get the stream information which is passed along with other input attributes of JIP14 – stored procedure to get updated/inserted in GFO underlying table. The output attributes returned by stored procedure will determine the success/failure of this updating.
+
+The interface will make use of the audit and traceability components that are being developed as part of the Operational Framework stream. Developers should put a ‘placeholder’ in their code / configurations as appropriate. 
+
+Architecture
+ EMBED Visio.Drawing.11  
+
+
+Requirements for the End-to-End Interface
+
+Audit Requirements
+The interface will use the components provided by the Operational Framework to satisfy audit requirements.
+Security Requirements
+The interface executes within a secure private domain. There are no additional security considerations required.
+Timing/Cut-off Constraints
+To be finalised.
+Performance Requirements
+The interface should be capable of extracting data in the form of flat file from the shared location at STORELINE side and delivering the resulting into GFO side database tables before the identified cut-off time. The interface should run on real time basis. 
+Reliability and Availability Requirements
+The interface-run should be atomic in nature. Where it is not possible to implement an atomic nature of interface, appropriate mechanisms should be in place to raise/alert appropriate parties.
+Scalability Requirements
+N/A - No scalability issues exist. 
+Operational Support Requirements
+No such requirement has been agreed upon at the time of writing this document. However, it is perceived that there would be interface support requirements after go-live date that would require an evaluation.
+Likelihood of Change Requirements
+There is no such requirement
+Cultural/Global Consideration Requirements
+N/A 
+Legal Requirements
+N/A
+Compliance To Standards Requirements
+No compliance exceptions.
+Processing required in an Extract-Stage of the interface
+Scope
+STORELINE creates a pipe | delimited flat file whenever stock movement has been taken and put the file in a dedicated shared location. The flat file extension is *.dat and BizTalk in turn picks up the file from the shared location and invokes series of subroutines through DB2 Adopter to update/insert the underline table of GFO. 
+Source Message Schema
+Field Name
+Optional
+Type
+Description
+HEADER RECORDS
+CapturedBy-CreatedBy
+Yes
+string
+Extract file created user name
+DateOfExtract
+
+date
+Store-line extraction date
+DelAfterDate
+Yes
+string
+Delivery before date
+DelBeforeDate
+Yes
+string
+Delivery after date
+Description
+Yes
+string
+Free form description
+DriversName-Courier
+Yes
+string
+Courier Driver Name
+ExpectedDelDate
+Yes
+string
+Expected delivery date
+InvoiceNumber
+Yes
+string
+Invoice Number
+InvoiceTaxTotal
+Yes
+ui8
+Invoice Tax Total
+InvoiceTotal
+Yes
+ui8
+Invoice Total
+NoOfDetailLines
+Yes
+ui8
+No. of Detail Items
+OrderDate
+Yes
+string
+Order Date
+OrderType-CountType
+Yes
+ui8
+Order Type
+OriginalOrderNumber
+Yes
+ui8
+Order Number
+ReasonCode
+Yes
+ui8
+Reason Code
+RecordType
+
+string
+Record Type
+RefNo2
+Yes
+string
+Reference No 2
+Remarks
+Yes
+string
+Remarks
+ReProcessedFlag
+Yes
+string
+Re-Processed Flag
+StoreAddress
+Yes
+string
+Store address
+StoreName
+Yes
+string
+Store Name
+StoreNo-FromStore
+
+ui8
+Store Id
+SupplierAddress
+Yes
+string
+Supplier address
+SupplierCode
+
+string
+Supplier Code
+SupplierName
+Yes
+string
+Supplier Name
+SupplierType
+Yes
+ui8
+Supplier Type
+TimeOfExtract
+
+time
+Extraction time
+TotalQty
+Yes
+ui8
+Total movement Qty
+TotalValue
+Yes
+ui8
+Total movement value
+TransactionDateTime
+
+string
+Transaction Date
+TransactionNo
+
+ui8
+Transaction No
+UserName
+Yes
+string
+Operator Name
+WayBill
+Yes
+string
+Waybill Number
+DETAIL RECORDS – GROUP START
+DateOfExtract
+
+string
+Extract date of data
+InvoiceCost-Excl-PerUOM
+Yes
+ui8
+Invoice cost per UOM
+InvoiceQty
+Yes
+ui8
+Invoice Quantity
+ItemDescription
+Yes
+string
+Description of Item
+ItemNumber
+
+ui8
+Item Number
+LineNumber
+Yes
+ui8
+Record Line Number(Record starts from 1)
+Location
+Yes
+string
+Location of extract item
+OrderNumber-TransactionNumber
+
+ui8
+
+OrderQuantity-SentQuantity
+Yes
+ui8
+
+OrderType
+Yes
+ui8
+Order Type
+PackSize-Ratio
+Yes
+ui8
+Item Pack size
+ReasonCode
+Yes
+ui8
+Reason code of Item
+RecordType
+
+string
+Record Type
+ReferenceNo
+Yes
+ui8
+Reference No
+SellingPricePerUOM
+Yes
+ui8
+Selling price per UOM
+Sign
+Yes
+string
+Sign indicator 
+ - negative 
++ positive
+StoreNo
+
+ui8
+Store Id
+SupplierItemNo-CatalogueNo
+Yes
+string
+Supplier Item No 
+TaxPercentageOnCost
+Yes
+ui8
+Tax percentage on Invoice Cost
+TimeOfExtract
+
+string
+Time of Extract
+TransactionQty
+
+float
+Transaction Quantity
+TrsCostPrice-Excl-PerUOM
+Yes
+ui8
+Transaction cost value excluding per  UOM
+UOMCode
+Yes
+ui8
+Unit of measure details
+UOMDescription
+Yes
+string
+Unit of measure description
+GROUPS END HERE
+
+Message Format
+The source message is in the form of pipe | delimited flat file from STORELINE. 
+
+Message Transport Details
+
+Feature
+Specification
+Additional Information
+Source System Name
+STORELINE
+
+Source Platform / OS
+IBM AIX
+
+Source Physical Location
+
+
+Source Underlying Data Storage Technology
+SQL Server
+
+Target System Name
+Biztalk 2006
+
+Target Platform / OS
+Biztalk 2006 Server
+
+Target Physical Location
+
+
+Target Underlying Data Storage Technology
+File Share
+
+Transfer Function
+HTTP (Put/Post) 		
+HTTPS (Put/Post) 	
+Message Queue	 	 
+FTP			
+File Drop(Windows) 	
+                 (XCOM) 	
+
+Data Format.
+XML			
+Delimited		
+Positional		
+
+| delimited
+Decryption/Encryption
+No
+
+Decompression/Compression
+No
+
+Transmission Mode
+Synchronous		
+Asynchronous		
+Bulk Data		
+
+Real-time/Scheduled Batch
+Not yet decided
+
+Archiving
+There is no requirement to archive the messages.
+
+Logging
+Logging should occur, such that the message can be recreated if necessary.
+
+Error Handling
+Not yet decided 
+
+Processing should prevent sending of duplicate messages, unless this occurs during recovery from failure.
+
+
+Naming and Configuration
+
+Biztalk – 2006
+Package Name: Tesco_ TOM_Integration_Dispatch _RTV_from_STORELINE_to_GFO
+BizTalk Procedure
+Name
+Tesco_TOM_Integration_Dispatch_RTV_GFO
+<Placeholder for other package components/steps>
+
+
+<Placeholder for other package components/steps>
+
+
+
+
+Environment and Security Context
+Account details will be included here once we have visibility of the environments. 
+
+
+Non-Functional Requirements
+Not Applicable
+
+
+Processing required in the Messaging Stage of the interface
+Scope
+The BizTalk server transfers the source message schema file to GFO by invoking a series of stored procedures within DB2.This will first invokes JH0S00– stored procedure by taking Store No as input attributes- to get the stream information as output parameter which is passed along with other input attributes of JIP14 stored procedure to get updated/inserted in GFO underlying table. 
+Data Validation
+Data Validation will be done by the target GFO system.
+Filtering
+There is no filtering requirement.
+Stored Procedures
+The stock event data from STORELINE then immediately use it to invoke the relevant stored procedure(s) within DB2. The types of stock event involved are:
+
+Other movements to / from other locations e.g. supplier, DC
+
+The following description gives the details of stored procedure need to be invoked to pass data from STORELINE to GFO.
+JH0S00 – Package to return STREAM info 
+JIP00 will determine a store’s database stream then point subsequent processing to that package set.
+JIP14 – process miscellaneous stock movements – new subroutine
+JIP14 will take miscellaneous stock record adjustment data and use it to update the following tables:
+
+	TXJJ0PDM	stock movements
+	TXJJ0PPH	product profile history
+	TXJJ0BKS	stock record (via module JJ004D)
+
+Retalix (StoreLine) record type 322 = store-to-store transfer in
+Retalix (StoreLine) record type 323 = stock adjustment (+ve or -ve)
+Retalix (StoreLine) record type 325 = return to supplier 
+Retalix (StoreLine) record type 326 = return to DC
+Retalix (StoreLine) record type 350 = store-to-store transfer out 
+
+The full specification is a separate document in the PROGRAM SPECS sub-folder.
+
+Mapping
+The STORELINE Stock movement ROWSET get created by BizTalk and passed to GFO subroutines as input attributes. The input attribute order with its source mapping are given below,
+Mapping of JH0S00 – Package to return STREAM info 
+The stored-procedure returns the STREAM field details. The input attribute to this store procedure is STORE ID which returns stream details and will be used with other store procedure as an input attributes. The foot-print of this stored procedure given below 
+
+Sr NoAttribute Field NameFormatSource Field TypeSource 
+Field NameDescriptionINPUT ATTRIBUTES
+1
+IN_RO_NO
+Dec5           
+SetDtl
+Store No
+I/P attributes to stored procedure.
+OUTPUT ATTRIBUTES
+1
+OUT_STREAM
+Char 1
+
+
+Stream Name(requires to be used in following stored procedures)
+2
+OUT_CODE_LEVEL
+Char 1
+
+
+
+3
+OUT_CR_PART_NO
+Char 2
+
+
+
+4
+OUT_RO_NAME
+Char 25
+
+
+Store Name
+5
+OUT_ERROR_CODE
+Dec2
+
+
+
+6
+OUT_FATAL_ERROR_LOG
+Char 29
+
+
+
+
+The return output attributes determine the success/failure of data insert/update in GFO.In either cases the message need to be written on event log. The failures of this stored procedure also stop execution of following stored procedure and move to next ROWSET.
+
+In case of failure a log file has to be maintained as per the format given below e.g.
+
+<Store Procedure Name>. <Processed DATE/TIME> . <RETURN-CODE> - < REASON-CODE   > - < REASON-PROGRAMME > - < ERROR-SQLCODE>
+
+Mapping of JIP14 – process miscellaneous stock movements  
+The foot-print of this stored procedure with it’s ROWSET mapping details are given below –
+Sr NoAttribute Field NameCobol FormatSource Field TypeSource 
+Field NameDescriptionINPUT ATTRIBUTES
+1
+STREAM            
+PIC X.      
+
+
+Output attribute of JIP00 Stored Procedure
+2
+RO-NO             
+PIC 9(5).   
+SetDtl
+Store No
+
+3
+BPR-TPN           
+PIC 9(9).   
+SetDtl
+Item Number
+
+4
+COUNT-DATE        
+PIC X(10).  
+SetDtl
+Date of Extract
+
+5
+COUNT-TIME        
+PIC X(8).   
+SetDtl
+Time of Extract
+
+6
+MVMT-REASON-CODE  
+PIC 9(3).   
+SetDtl
+Reason Code
+STORELINE record type 322 = store-to-store transfer in
+
+STORELINE record type 323 = stock adjustment (+ve or -ve)
+
+STORELINE record type 325 = return to supplier 
+
+STORELINE record type 326 = return to DC
+
+STORELINE record type 350 = store-to-store transfer out 
+
+7
+OTHER-LOCATION-GRP
+PIC 9(8).   
+SetDtl
+Location
+
+8
+QUANTITY-GRP.     
+PIC -9(5)V99
+SetDtl
+Transaction Qty
+
+OUTPUT ATTRIBUTES
+2
+RETURN-CODE.  
+PIC 9(4). 
+
+
+Returned ZERO in case of success
+3
+FILLER              
+PIC X.    
+
+
+
+4
+REASON-CODE   
+PIC 9(4). 
+
+
+
+5
+FILLER         
+PIC X.    
+
+
+
+6
+REASON-PROGRAMME 
+PIC X(8). 
+
+
+
+7
+FILLER         
+PIC X.    
+
+
+
+8
+ERROR-SQLCODE
+PIC -9(9).
+
+
+
+
+
+The return output attributes determine the success/failure of data insert/update in GFO.In either cases the message need to be written on event log. In case of failure a log file has to be maintained as per the format given below e.g.
+
+<Store Procedure Name>. <Processed DATE/TIME> . <RETURN-CODE> - < REASON-CODE   > - < REASON-PROGRAMME > - < ERROR-SQLCODE>
+Message Format
+
+  Message Transport Details
+For messages destined for GFO system, the following applies.	
+
+Feature
+Specification
+Additional Information
+Source System Name
+Biztalk 2006
+
+Source Platform / OS
+Biztalk 2006 Server
+
+Source Physical Location
+
+
+Source Underlying Data Storage Technology
+File System
+
+Target System Name
+GFO
+
+Target Platform / OS
+COBOL/UNIX
+
+Target Physical Location
+
+
+Target Underlying Data Storage Technology
+RDBMS
+
+Transfer Function
+
+HTTP (Put/Post			
+HTTPS (Put/Post) 		
+Message Queue			
+FTP						
+File Drop (Windows) 		
+                 (XCOM) 		
+RTI File Adapter                              
+DB2 Adapter                                    
+
+Data Format
+
+XML  				
+Delimited 			
+Positional 			
+COBOL format                                 
+
+Decryption/Encryption
+No
+
+Decompression/Compression
+No
+
+Transmission Mode
+Synchronous 			
+Asynchronous 			
+Bulk Data 			
+
+Real-time/Scheduled Batch
+Real-time
+
+Archiving
+There is no archiving requirement
+
+Logging
+Should logs be kept of all actions? For how long should these be stored?
+Logging should occur, such that the message can be recreated if necessary.
+
+Error Handling
+Not yet decided
+
+Processing should prevent sending of duplicate messages, unless this occurs during recovery from failure.
+Currently it will keep all error details in a txt file. Later this may change as per the business decision.
+
+
+Naming and Configuration
+
+Biztalk 2006
+Instruction Name: 
+Instruction Details
+Description
+To be determined
+Enabled
+True
+Type
+
+Operational Window
+Schedule
+N/A
+Enabled
+False
+Host Details
+Account
+To be determined 
+Operational Details
+Worker Threads
+
+Priority
+
+Batch Size
+
+Period
+
+Retry Attempts
+
+Timeout
+
+Require Data Send
+
+Exception Management
+Treat Fatal Adapter Exception As
+
+Treat Unhandled Exceptions As
+
+
+Environment and Security Context
+Account details will be included here once we have visibility of the environments.
+
+Non-Functional Requirements
+On successful delivery of the file to the target system, the audit log should be updated via the Operational Framework pipeline component or adapter (to be determined).
+
+In the event of a failure the file should be written to the failed files location, and an alert should be raised.
+
+
+Processing required in the <third stage of the interface>
+Scope
+There is no intermediate staging is required for this interface. So this section is not applicable.
+Data Validation
+Not Required
+
+Filtering
+Not Required
+
+Mapping
+Not Required
+
+Target Message Schema
+Not Required
+
+Message Transport Details
+Not Required
+
+Naming and Configuration
+Not Required
+
+Environment and Security Context
+Not Required
+
+Non-Functional Requirements
+
+Not RequiredTesting Deliverables
+Unit Test Scripts and test cases are kept at the following location <location>Deployment
+Assumptions and Outstanding Issues
+Assumptions
+ID
+Assumption
+1
+Rollback transaction supported by GFO in case of failure.
+2
+Assuming STREAM information is extracted from JH0S00 stored procedure through DB2 adopter for each input ROWSET.
+
+Outstanding Issues
+ID
+Issue
+To be addressed by
+2
+DB2 adopter specification to call sub procedures need to be defined
+Erwin Oguz
+3
+Error handling with respect to DB2 copybook need to be defined
+Erwin Oguz
+4
+Error log file location need to de defined
+Erwin Oguz
+5
+STORELINE source file Physical Location need to be defined
+Erwin Oguz
+
+
+
+Volumes
+Glossary
+
+Acronym
+Term
+Description
+EAI
+Enterprise Application Integration
+The process of meeting the data requirements of applications by providing a message based transport from disparate data sources across all forms of enterprise technology.
+EAI Layer
+Enterprise Application Integration Layer
+Refers to the integration services provided to implement EAI. In contrast to the EIA Layer for data services. See below.
+EIA
+Enterprise Information Architecture
+Creation of a strategic single view of data across the enterprise.
+Interface
+Interface
+Many definitions exist for 'interface'. In general, 'interface' refers to the link between a data source and a data target. And there are properties of the interface in this context. However more specifically 'interface' refers to one end of a data link, hence the terms source interface and target interface, and both the source interface and the target interface will have specific properties of their own.
+GFO
+Group Forecasting and Ordering
+The GFO operates on Tesco deals with the forecasting & Ordering.
+STORELINE
+STORE used for inventory purposes.
+The STORELINE operates on Tesco deals with the inventory control. 
+XSD
+XML Schema Definition
+It describe the elements in an Extensible Markup Language (XML) document
+XML
+Extensible Markup Language
+An open standard for describing data. It is used for defining a common method for identifying data. It supports business-to-business transactions and also uses electronic data interchange and Web services. 
+FTP
+File Transfer Protocol
+The Internet File Transfer Protocol (FTP) is defined facilities for transferring files to and from remote computer systems.
+DB2
+Database access adopter
+It is used to access AS/400 platform. This helps to invokes underlying database stored procedure from outside. It has capability to invoke stored procedure as per the ROWSET.
+
+Document Control
+Change Record
+
+Author
+Date
+Version
+Change Reference, description
+Debasis Pattanaik
+09/02/2007
+0.1D
+Draft
+Ganesan, Sankar
+11/02/2007
+0.1D
+Draft
+
+
+
+
+
+
+
+Related Documents
+
+Author	
+Date
+Version
+Title
+Isaac
+18-Aug-2004
+4.0
+StoreLine FS1847 – BO Stock Interfaces
+Neil Williams
+26-Jan-2007
+0.02
+Technical System Design - TSD008 Stock Record - non-sale events
+
+
+
+
+
+
+
+
+
+
+Distribution
+
+Name
+Position
+Approver/Contributor/Other
+Erwin Oguz
+Enterprise Architect
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+	
+
+
+
+
+
+
+
+
+
+
+Tesco IT Group Technology and Architecture	 TITLE  \* MERGEFORMAT Architecture
+
+
+
+Version  REF DOC_VER Error! Reference source not found., Issue  REF DOC_STATUS Draft	Page:  PAGE  \* MERGEFORMAT 21 of  NUMPAGES 25	Date:  SAVEDATE \@ "d MMM yyyy" 13 Feb 2007
+
+Tesco IT Group Technology and Architecture	 TITLE  \* MERGEFORMAT Architecture
+
+
+Tesco IT Group Technology and Architecture	 TITLE  \* MERGEFORMAT Architecture
+
+
+
+Version  REF DOC_VER Error! Reference source not found., Issue  REF DOC_STATUS Draft	Page:  PAGE  \* MERGEFORMAT 24 of  NUMPAGES 25	Date:  SAVEDATE \@ "d MMM yyyy" 13 Feb 2007
+
+Tesco IT Group Technology and Architecture	 TITLE  \* MERGEFORMAT Architecture
+
+
+
+

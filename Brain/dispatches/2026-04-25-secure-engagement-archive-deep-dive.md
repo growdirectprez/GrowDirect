@@ -6,7 +6,7 @@ target: claude-code-session (engineer agent, fresh)
 priority: medium
 unblocks: CATz Phase III delivery framework + engagement-shape differentiation + agreements / artifact templates
 parallel-with: 2026-04-25-rapid-pos-deep-dive.md
-companion-pattern: docs/playbook-method-katz-reverse-engineer.md
+companion-pattern: docs/playbooks/playbook-method-katz-reverse-engineer.md
 tags: [catz, engagement-archive, sysrepublic-era, sanitization, content-engine-ingest]
 ---
 
@@ -19,7 +19,7 @@ sanitized templates in CATz. Goal: fill the Phase III delivery
 side of CATz that today is thin.
 
 Companion pattern: same as
-`docs/playbook-method-katz-reverse-engineer.md` (extract
+`docs/playbooks/playbook-method-katz-reverse-engineer.md` (extract
 structural discipline, strip client/product/lineage references,
 land in external vault). Same rules apply.
 
@@ -222,7 +222,7 @@ document.
 
 ## Related
 
-- `docs/playbook-method-katz-reverse-engineer.md` — the
+- `docs/playbooks/playbook-method-katz-reverse-engineer.md` — the
   companion pattern for the Katz 2003 archive
 - `Brain/dispatches/2026-04-25-rapid-pos-deep-dive.md` —
   parallel corpus-mining dispatch (different goal)

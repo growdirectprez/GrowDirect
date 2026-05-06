@@ -1,0 +1,117 @@
+filters:
+  and:
+    - 'type == "module"'
+
+formulas:
+  nfr_score: |
+    (if(nfr_security == "hardened", 3, if(nfr_security == "implemented", 2, if(nfr_security == "drafted", 1, 0))))
+    + (if(nfr_observability == "hardened", 3, if(nfr_observability == "implemented", 2, if(nfr_observability == "drafted", 1, 0))))
+    + (if(nfr_performance == "hardened", 3, if(nfr_performance == "implemented", 2, if(nfr_performance == "drafted", 1, 0))))
+    + (if(nfr_reliability == "hardened", 3, if(nfr_reliability == "implemented", 2, if(nfr_reliability == "drafted", 1, 0))))
+    + (if(nfr_auditability == "hardened", 3, if(nfr_auditability == "implemented", 2, if(nfr_auditability == "drafted", 1, 0))))
+    + (if(nfr_cost == "hardened", 3, if(nfr_cost == "implemented", 2, if(nfr_cost == "drafted", 1, 0))))
+
+properties:
+  module-id:
+    displayName: "ID"
+  module-name:
+    displayName: "Module"
+  subsystem:
+    displayName: "Subsystem"
+  nfr_security:
+    displayName: "Security"
+  nfr_observability:
+    displayName: "Observability"
+  nfr_performance:
+    displayName: "Performance"
+  nfr_reliability:
+    displayName: "Reliability"
+  nfr_auditability:
+    displayName: "Auditability"
+  nfr_cost:
+    displayName: "Cost"
+  formula.nfr_score:
+    displayName: "Score (0–18)"
+
+views:
+  - type: table
+    name: "Full NFR matrix — all modules"
+    limit: 50
+    order:
+      - module-id
+      - module-name
+      - subsystem
+      - nfr_security
+      - nfr_observability
+      - nfr_performance
+      - nfr_reliability
+      - nfr_auditability
+      - nfr_cost
+      - formula.nfr_score
+
+  - type: table
+    name: "Auditability gap (evidentiary rail) — load-bearing for thesis"
+    limit: 30
+    filters:
+      and:
+        - 'nfr_auditability == null or nfr_auditability == "none" or nfr_auditability == "drafted"'
+    order:
+      - module-id
+      - module-name
+      - nfr_auditability
+      - sdlc_stage
+      - subsystem
+
+  - type: table
+    name: "Security gap — none/drafted only"
+    limit: 30
+    filters:
+      and:
+        - 'nfr_security == null or nfr_security == "none" or nfr_security == "drafted"'
+    order:
+      - module-id
+      - module-name
+      - nfr_security
+      - sdlc_stage
+      - ring
+
+  - type: table
+    name: "Observability gap"
+    limit: 30
+    filters:
+      and:
+        - 'nfr_observability == null or nfr_observability == "none" or nfr_observability == "drafted"'
+    order:
+      - module-id
+      - module-name
+      - nfr_observability
+      - sdlc_stage
+      - ring
+
+  - type: table
+    name: "By subsystem — Canary Go"
+    limit: 30
+    filters:
+      and:
+        - 'subsystem == "canary-go"'
+    order:
+      - module-id
+      - module-name
+      - nfr_security
+      - nfr_observability
+      - nfr_performance
+      - nfr_reliability
+      - nfr_auditability
+      - formula.nfr_score
+
+  - type: table
+    name: "Top NFR maturity (score >= 12)"
+    limit: 30
+    filters:
+      and:
+        - 'formula.nfr_score >= 12'
+    order:
+      - formula.nfr_score
+      - module-id
+      - module-name
+      - subsystem

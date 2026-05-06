@@ -1,0 +1,65 @@
+[
+  {
+    "source_path": "/Users/gclyle/GrowDirect/Brain/raw/inbox/Case Management Documentation/Actions.xlsx",
+    "source_sha256": "29d64ab754708d2ccbf79b10422a270c88b999a4d528e0bd00978450e4358cf3",
+    "target_path": "/Users/gclyle/GrowDirect/Brain/raw/.extract/CaseManagement/Actions.xlsx.md",
+    "method": "markitdown",
+    "status": "ok",
+    "error": null,
+    "extracted_at": "2026-05-03T00:06:32.604584+00:00"
+  },
+  {
+    "source_path": "/Users/gclyle/GrowDirect/Brain/raw/inbox/Case Management Documentation/Incident Types.xlsx",
+    "source_sha256": "40ff16ea84257fa11c5aac5aa2690da8423b54c623f61de8c57c11b5b2bca0cb",
+    "target_path": "/Users/gclyle/GrowDirect/Brain/raw/.extract/CaseManagement/Incident Types.xlsx.md",
+    "method": "markitdown",
+    "status": "ok",
+    "error": null,
+    "extracted_at": "2026-05-03T00:06:33.042467+00:00"
+  },
+  {
+    "source_path": "/Users/gclyle/GrowDirect/Brain/raw/inbox/Case Management Documentation/Reports/Open Analyst Investigations  7-17-15.xlsx",
+    "source_sha256": "a9e3d7d2eac07a217a54cd4f9ca13f2deb8692c9ba1e7c5dab1714bd98828686",
+    "target_path": "/Users/gclyle/GrowDirect/Brain/raw/.extract/CaseManagement/Reports/Open Analyst Investigations  7-17-15.xlsx.md",
+    "method": "markitdown",
+    "status": "ok",
+    "error": null,
+    "extracted_at": "2026-05-03T00:06:33.064036+00:00"
+  },
+  {
+    "source_path": "/Users/gclyle/GrowDirect/Brain/raw/inbox/Case Management Documentation/Reports/Weekly Recap 2015 Week 24.xlsx",
+    "source_sha256": "74d0c4ca63de6d52b8deca35dbba08b3b4c57d264fe6b15ceedc9d0c12a9c8c8",
+    "target_path": "/Users/gclyle/GrowDirect/Brain/raw/.extract/CaseManagement/Reports/Weekly Recap 2015 Week 24.xlsx.md",
+    "method": "markitdown",
+    "status": "ok",
+    "error": null,
+    "extracted_at": "2026-05-03T00:06:33.262849+00:00"
+  },
+  {
+    "source_path": "/Users/gclyle/GrowDirect/Brain/raw/inbox/Case Management Documentation/Reports/YTD Errors in LPMS Reporting 2015.xlsx",
+    "source_sha256": "0c78b305b04f423b59d986c1109aef6d0ef54e0ea6ef2dfd6ca901d91674ca73",
+    "target_path": "/Users/gclyle/GrowDirect/Brain/raw/.extract/CaseManagement/Reports/YTD Errors in LPMS Reporting 2015.xlsx.md",
+    "method": "markitdown",
+    "status": "ok",
+    "error": null,
+    "extracted_at": "2026-05-03T00:06:33.570098+00:00"
+  },
+  {
+    "source_path": "/Users/gclyle/GrowDirect/Brain/raw/inbox/Case Management Documentation/Reports/Yearly Case Extract - Sample.xls",
+    "source_sha256": "6dc679389104cc0291f50fa882a1910546136825343b40fe36794b53de256d07",
+    "target_path": "/Users/gclyle/GrowDirect/Brain/raw/.extract/CaseManagement/Reports/Yearly Case Extract - Sample.xls.md",
+    "method": "markitdown",
+    "status": "ok",
+    "error": null,
+    "extracted_at": "2026-05-03T00:06:33.816083+00:00"
+  },
+  {
+    "source_path": "/Users/gclyle/GrowDirect/Brain/raw/inbox/Case Management Documentation/Source of Info.xlsx",
+    "source_sha256": "996ccd537c3b627d507b91b8c51da2cebdbe177a817993c007144c010ea93c0e",
+    "target_path": "/Users/gclyle/GrowDirect/Brain/raw/.extract/CaseManagement/Source of Info.xlsx.md",
+    "method": "markitdown",
+    "status": "ok",
+    "error": null,
+    "extracted_at": "2026-05-03T00:06:33.834764+00:00"
+  }
+]

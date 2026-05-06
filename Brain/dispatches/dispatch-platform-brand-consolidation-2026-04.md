@@ -269,7 +269,7 @@ proper scrubbing.
   `CATz/method/roles/`
 - `secure-eagle-eye-fnr-2018` → traceability-matrix template into
   `CATz/method/artifacts/`
-- `docs/playbook-method-katz-reverse-engineer.md` → the method itself
+- `docs/playbooks/playbook-method-katz-reverse-engineer.md` → the method itself
   into `CATz/method/phases/`
 
 **Promotion candidates for Canary-Retail-Brain (product):**
@@ -402,9 +402,9 @@ Session is done when:
 ## References
 
 - `GrowDirect/CLAUDE.md` — platform rules, session discipline
-- `GrowDirect/docs/playbook-method-katz-reverse-engineer.md` — CATz
+- `GrowDirect/docs/playbooks/playbook-method-katz-reverse-engineer.md` — CATz
   method source of truth
-- `GrowDirect/docs/playbook-heartbeat-blueprint.md` — Heartbeat
+- `GrowDirect/docs/playbooks/playbook-heartbeat-blueprint.md` — Heartbeat
   playbook (separate dispatch)
 - `GrowDirect/Brain/projects/Canary.md` — Canary project MOC
 - `GrowDirect/Brain/projects/Method.md` — Method MOC (factory pipeline)

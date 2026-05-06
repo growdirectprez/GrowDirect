@@ -1,0 +1,326 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<title>RapidPOS Discovery & Diagnostic — Project Plan</title>
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<style>
+  :root {
+    --bg: #0d1117;
+    --fg: #e6edf3;
+    --muted: #8b949e;
+    --accent: #58a6ff;
+    --green: #56d364;
+    --yellow: #d29922;
+    --red: #f85149;
+    --border: #30363d;
+    --code-bg: #161b22;
+    --mono: ui-monospace, SFMono-Regular, "SF Mono", Menlo, Consolas, monospace;
+    --sans: -apple-system, BlinkMacSystemFont, "Segoe UI", Helvetica, Arial, sans-serif;
+  }
+  * { box-sizing: border-box; }
+  html { scroll-behavior: smooth; }
+  body { background: var(--bg); color: var(--fg); font-family: var(--sans); line-height: 1.55; margin: 0; padding: 0; }
+  nav { position: sticky; top: 0; z-index: 100; background: rgba(13,17,23,0.94); backdrop-filter: blur(8px); border-bottom: 1px solid var(--border); padding: 14px 32px; display: flex; gap: 24px; flex-wrap: wrap; font-family: var(--mono); font-size: 12px; text-transform: uppercase; letter-spacing: 0.05em; }
+  nav a { color: var(--muted); text-decoration: none; transition: color 0.15s; }
+  nav a:hover, nav a.active { color: var(--accent); }
+  .container { max-width: 1040px; margin: 0 auto; padding: 0 32px; }
+  header.page-header { padding: 56px 0 36px; border-bottom: 1px solid var(--border); }
+  h1 { font-family: var(--mono); font-size: 28px; margin: 0 0 8px; letter-spacing: -0.01em; }
+  .doc-meta { font-family: var(--mono); font-size: 12px; color: var(--muted); display: flex; gap: 18px; flex-wrap: wrap; }
+  .doc-meta span { padding: 2px 0; }
+  section { padding: 48px 0; border-bottom: 1px solid var(--border); }
+  h2 { font-family: var(--mono); font-size: 16px; color: var(--accent); text-transform: uppercase; letter-spacing: 0.05em; margin: 0 0 20px; }
+  h3 { font-family: var(--mono); font-size: 13px; text-transform: uppercase; letter-spacing: 0.05em; color: var(--fg); margin: 32px 0 10px; }
+  p { margin: 10px 0; font-size: 15px; }
+  ul, ol { padding-left: 22px; }
+  li { margin: 4px 0; font-size: 15px; }
+  table { border-collapse: collapse; width: 100%; margin: 16px 0; font-size: 14px; }
+  th, td { padding: 9px 12px; border-bottom: 1px solid var(--border); text-align: left; vertical-align: top; }
+  th { background: var(--code-bg); font-family: var(--mono); font-weight: 600; color: var(--muted); text-transform: uppercase; font-size: 11px; letter-spacing: 0.04em; }
+  code, .mono { font-family: var(--mono); background: var(--code-bg); padding: 1px 6px; border-radius: 3px; font-size: 0.9em; color: var(--fg); }
+  .meta { font-family: var(--mono); font-size: 12px; color: var(--muted); }
+  .label { display: inline-block; font-family: var(--mono); font-size: 11px; text-transform: uppercase; letter-spacing: 0.04em; padding: 2px 8px; border-radius: 3px; background: var(--code-bg); color: var(--muted); }
+  .label.draft { color: var(--yellow); }
+  .label.approved { color: var(--green); }
+  .label.risk-high { color: var(--red); }
+  .label.risk-med { color: var(--yellow); }
+  .label.risk-low { color: var(--green); }
+  footer { padding: 40px 0; text-align: left; color: var(--muted); font-family: var(--mono); font-size: 12px; }
+</style>
+</head>
+<body>
+
+<nav>
+  <a href="#scope" class="active">Scope</a>
+  <a href="#schedule">Schedule</a>
+  <a href="#workstreams">Workstreams</a>
+  <a href="#architecture">Architecture</a>
+  <a href="#roles">Roles</a>
+  <a href="#dependencies">Dependencies</a>
+  <a href="#risks">Risks</a>
+  <a href="#acceptance">Acceptance</a>
+  <a href="#commercials">Commercials</a>
+  <a href="#approvals">Approvals</a>
+</nav>
+
+<div class="container">
+  <header class="page-header">
+    <h1>RapidPOS Discovery &amp; Diagnostic — Project Plan</h1>
+    <div class="doc-meta">
+      <span>v1</span>
+      <span>2026-05-04</span>
+      <span><span class="label draft">Draft</span></span>
+      <span>Project type: discovery &amp; diagnostic</span>
+      <span>Duration: 4 weeks (Week 0 + Weeks 1–4)</span>
+    </div>
+  </header>
+
+  <!-- ====================== SCOPE ====================== -->
+  <section id="scope">
+    <h2>1 — Scope</h2>
+
+    <h3>Objective</h3>
+    <p>Produce a structured, evidence-based picture of RapidPOS's commercial, product/technology, and operational reality. Deliver a prioritized transformation portfolio and roadmap. Install a queryable knowledge layer that persists post-engagement and is ready to support follow-on transformation execution.</p>
+
+    <h3>In scope</h3>
+    <ul>
+      <li>SaaS diagnostic — commercial reality, product and technology reality, operational reality</li>
+      <li>Information systems planning (abbreviated) — target architecture, application portfolio, project portfolio</li>
+      <li>Strategic positioning (abbreviated, where engagement context requires it)</li>
+      <li>Deployment of the diagnostic platform on RapidPOS's GCP environment</li>
+      <li>Synthesis, decision log, audit trail, signed handoff package</li>
+    </ul>
+
+    <h3>Out of scope</h3>
+    <ul>
+      <li>Implementation of recommended transformation work (separate engagement)</li>
+      <li>Procurement and vendor selection beyond what diagnostic findings surface</li>
+      <li>Any modification of RapidPOS source systems beyond bidirectional connector design (no production writes during discovery)</li>
+      <li>Customer-side change management beyond what is required to support discovery interviews and access</li>
+    </ul>
+  </section>
+
+  <!-- ====================== SCHEDULE ====================== -->
+  <section id="schedule">
+    <h2>2 — Schedule</h2>
+
+    <table>
+      <tr><th>Week</th><th>Focus</th><th>Deliverables</th><th>Gate</th></tr>
+      <tr>
+        <td><strong>Week 0</strong></td>
+        <td>Prep &amp; kickoff</td>
+        <td>Signed charter; GCP environment provisioned; scoped credentials issued; diagnostic platform deployed; agent fleet smoke-tested against test data</td>
+        <td>Charter signature</td>
+      </tr>
+      <tr>
+        <td><strong>Week 1</strong></td>
+        <td>Commercial reality</td>
+        <td>Customer base catalog; ARR cohort analysis; churn decomposition; segment concentration; billing health; sales motion trace</td>
+        <td>Phase 1 review</td>
+      </tr>
+      <tr>
+        <td><strong>Week 2</strong></td>
+        <td>Product &amp; technology reality</td>
+        <td>Codebase archeology; SDLC characterization; as-is architecture; tech debt inventory; integration map; security posture</td>
+        <td>Phase 2 review</td>
+      </tr>
+      <tr>
+        <td><strong>Week 3</strong></td>
+        <td>Org &amp; operations reality</td>
+        <td>Team capability map; GTM motion trace; CS and support pattern; finance pattern; compliance stack audit; cross-facet synthesis begins</td>
+        <td>Phase 3 review</td>
+      </tr>
+      <tr>
+        <td><strong>Week 4</strong></td>
+        <td>Synthesis, scope, handoff</td>
+        <td>Transformation portfolio; prioritized project list with dependencies; roadmap; investment plan; handoff package; knowledge layer transferred to RapidPOS ownership; operator training</td>
+        <td>Handoff signature</td>
+      </tr>
+    </table>
+
+    <p class="meta">Week-zero is provisioning, not analytical work. The four-week clock runs against analytical phases only.</p>
+  </section>
+
+  <!-- ====================== WORKSTREAMS ====================== -->
+  <section id="workstreams">
+    <h2>3 — Workstreams</h2>
+
+    <p>Three diagnostic streams run with shared infrastructure. Each writes findings to the same artifact taxonomy and the same knowledge layer. Synthesis composes across streams in Week 4.</p>
+
+    <table>
+      <tr><th>Stream</th><th>What it captures</th><th>Lead</th></tr>
+      <tr><td>SaaS diagnostic</td><td>Customers, ARR, churn, codebase, architecture, tech debt, integrations, security, team, GTM, CS, finance, compliance</td><td>Engagement lead</td></tr>
+      <tr><td>Information systems planning</td><td>Business strategy alignment; as-is/to-be portfolios across apps, data, technology, governance; project portfolio with priorities and dependencies; roadmap and investment plan</td><td>Engagement lead</td></tr>
+      <tr><td>Strategic positioning (abbreviated)</td><td>Core customer, target segments, competitive position, value proposition (where required to inform transformation choices)</td><td>Engagement lead</td></tr>
+    </table>
+
+    <p class="meta">Streams share artifact taxonomy, common envelope, audit log, and bidirectional connector substrate. See the artifact taxonomy and imprint header specs for definitions.</p>
+  </section>
+
+  <!-- ====================== ARCHITECTURE ====================== -->
+  <section id="architecture">
+    <h2>4 — Delivery architecture</h2>
+
+    <p>Single-tenant deployment in RapidPOS's GCP environment. All discovery activity runs inside the customer's project boundary. No third-party data exfiltration.</p>
+
+    <table>
+      <tr><th>Component</th><th>Implementation</th></tr>
+      <tr><td>Agent runtime</td><td>Vertex AI Agent Engine (managed)</td></tr>
+      <tr><td>Agent-to-agent communication</td><td>A2A protocol (native on Agent Engine)</td></tr>
+      <tr><td>Tool surface</td><td>MCP servers — managed servers for GCP resources, custom servers for RapidPOS source systems</td></tr>
+      <tr><td>Credential vault</td><td>GCP Secret Manager + Workload Identity</td></tr>
+      <tr><td>Knowledge store</td><td>Vector index (managed) + relational store for structured findings; tenant-scoped per engagement</td></tr>
+      <tr><td>Audit log</td><td>Cloud Logging, append-only, exported to immutable GCS bucket</td></tr>
+      <tr><td>Engagement console</td><td>Cloud Run web UI showing fleet status, findings rate, open decisions, audit trail</td></tr>
+      <tr><td>Models</td><td>Anthropic Claude (Sonnet for propagation agents, Opus for synthesis) via Model Garden</td></tr>
+    </table>
+
+    <p>The deployment persists post-engagement under RapidPOS ownership. RapidPOS controls credentials, retains all data, and may decommission the deployment at any point per its retention policy.</p>
+  </section>
+
+  <!-- ====================== ROLES ====================== -->
+  <section id="roles">
+    <h2>5 — Roles &amp; responsibilities</h2>
+
+    <table>
+      <tr><th>Role</th><th>Held by</th><th>Authority</th></tr>
+      <tr><td>Project sponsor</td><td>RapidPOS exec</td><td>Charter signature, phase gate sign-off, handoff acceptance</td></tr>
+      <tr><td>Engagement lead (mission control)</td><td>Delivery org</td><td>Scope owner; approves imprint changes; signs handoff</td></tr>
+      <tr><td>Operating lead (astronaut)</td><td>Delivery org</td><td>Day-to-day operation; dispatches imprints; tactical decisions</td></tr>
+      <tr><td>RapidPOS technical SMEs</td><td>RapidPOS engineering</td><td>System knowledge, codebase access, architecture context</td></tr>
+      <tr><td>RapidPOS commercial SMEs</td><td>RapidPOS sales / CS / finance</td><td>Customer base context, ARR data, GTM motion</td></tr>
+      <tr><td>RapidPOS security &amp; legal</td><td>RapidPOS InfoSec / Legal</td><td>Credential approval, scope review, compliance sign-off</td></tr>
+      <tr><td>GCP platform owner</td><td>RapidPOS IT</td><td>GCP project provisioning, IAM bindings, environment hand-off</td></tr>
+      <tr><td>Steering committee</td><td>Sponsor + delivery + RapidPOS leads</td><td>Phase gate decisions, scope changes, escalations</td></tr>
+    </table>
+  </section>
+
+  <!-- ====================== DEPENDENCIES ====================== -->
+  <section id="dependencies">
+    <h2>6 — Dependencies</h2>
+
+    <table>
+      <tr><th>Dependency</th><th>Owner</th><th>Required by</th></tr>
+      <tr><td>GCP project provisioned (or shared subscription identified)</td><td>RapidPOS IT</td><td>Week 0 day 1</td></tr>
+      <tr><td>Scoped credentials — CRM / billing / source repos / ticket system / financials</td><td>RapidPOS Security + system owners</td><td>Week 0 day 3</td></tr>
+      <tr><td>Stakeholder calendars unblocked for interviews</td><td>RapidPOS sponsor</td><td>Week 1</td></tr>
+      <tr><td>Legal review of data handling under engagement scope</td><td>RapidPOS Legal</td><td>Week 0</td></tr>
+      <tr><td>Steering committee cadence agreed (weekly minimum)</td><td>Sponsor + delivery lead</td><td>Week 0</td></tr>
+      <tr><td>Source-system read access verified</td><td>Operating lead</td><td>Week 0 day 4</td></tr>
+    </table>
+  </section>
+
+  <!-- ====================== RISKS ====================== -->
+  <section id="risks">
+    <h2>7 — Risks &amp; mitigations</h2>
+
+    <table>
+      <tr><th>Risk</th><th>Severity</th><th>Mitigation</th></tr>
+      <tr><td>Credential provisioning delay</td><td><span class="label risk-med">Med</span></td><td>Charter requires Week 0 day 3 deadline; escalate to sponsor on day 4 if blocked</td></tr>
+      <tr><td>Stakeholder availability shortfall</td><td><span class="label risk-med">Med</span></td><td>Sponsor pre-commits stakeholder hours in charter; missed interviews surface as escalation issues</td></tr>
+      <tr><td>Source system data quality</td><td><span class="label risk-med">Med</span></td><td>Findings carry confidence levels; low-confidence findings flagged for follow-up rather than blocking</td></tr>
+      <tr><td>Scope drift</td><td><span class="label risk-low">Low</span></td><td>Imprint headers enforce scope; out-of-scope work requires steering committee approval</td></tr>
+      <tr><td>GCP billing / quota constraints</td><td><span class="label risk-low">Low</span></td><td>Budget alerts configured at deployment; weekly cost review</td></tr>
+      <tr><td>Compliance issue blocking access to a source system</td><td><span class="label risk-high">High</span></td><td>Legal review in Week 0; alternative read paths identified per system; escalation to steering committee within 48 hours</td></tr>
+      <tr><td>Findings reveal materially different reality than sponsor assumed</td><td><span class="label risk-med">Med</span></td><td>Weekly steering review surfaces deltas early; charter scope-change procedure available</td></tr>
+    </table>
+  </section>
+
+  <!-- ====================== ACCEPTANCE ====================== -->
+  <section id="acceptance">
+    <h2>8 — Acceptance criteria</h2>
+
+    <p>Each criterion must be satisfied for handoff to be signed.</p>
+
+    <ul>
+      <li>All required schema-fragments populated to the depth defined in the charter</li>
+      <li>Synthesized narratives rendered for every populated facet</li>
+      <li>Decision log signed by mission control; all decisions trace to authority and rationale</li>
+      <li>Audit log complete and exported to immutable storage; every finding traces to source</li>
+      <li>Knowledge layer accessible by RapidPOS-named operators with documented access path</li>
+      <li>Transformation portfolio approved by sponsor with priorities, dependencies, and investment plan</li>
+      <li>Handoff package contains: charter, imprints used, all findings, all schema-fragments, all syntheses, decision log, audit log export, transformation portfolio, roadmap, investment plan, operator runbook</li>
+      <li>No halt-severity issues open</li>
+      <li>Connector substrate documented for follow-on push of to-be changes</li>
+    </ul>
+  </section>
+
+  <!-- ====================== COMMERCIALS ====================== -->
+  <section id="commercials">
+    <h2>9 — Commercials</h2>
+
+    <h3>Engagement model</h3>
+    <p>Time-and-materials engagement under a Master Services Agreement. Each engagement is executed against its own Statement of Work that references the MSA. Hours are tracked daily and billed against the rate card below. Expenses are billed at cost up to the cap below.</p>
+
+    <h3>Rate card</h3>
+    <table>
+      <tr><th>Role</th><th>Rate</th><th>Notes</th></tr>
+      <tr><td>Principal</td><td>$2,000 / day</td><td>Engagement lead, mission control, synthesis</td></tr>
+      <tr><td>Senior consultant — remote</td><td>$200 / hour</td><td>Day-to-day operating lead, propagation agent oversight</td></tr>
+      <tr><td>Senior consultant — on-site</td><td>$250 / hour</td><td>Same scope, on-site at RapidPOS facilities</td></tr>
+    </table>
+    <p class="meta">Daily-equivalent quotes available on request. Billing unit per role confirmed at SOW signing.</p>
+
+    <h3>Expenses</h3>
+    <p>At-cost reimbursement for travel, lodging, ground transport, and out-of-pocket engagement expenses. Capped at 5% of the SOW value. Receipts required for any line item above $25.</p>
+
+    <h3>Master Services Agreement — standard terms</h3>
+    <table>
+      <tr><th>Clause</th><th>Position</th></tr>
+      <tr><td>Confidentiality</td><td>Mutual NDA, term + 3 years for trade secrets</td></tr>
+      <tr><td>IP ownership</td><td>Engagement deliverables become RapidPOS property on payment. Pre-existing methodology, frameworks, and platform code remain delivery-org property; RapidPOS receives a perpetual license to use them in the deployed substrate.</td></tr>
+      <tr><td>Indemnification</td><td>Standard mutual indemnities for IP infringement and gross negligence; consistent with industry practice.</td></tr>
+      <tr><td>Limitation of liability</td><td>Capped at fees paid under the SOW.</td></tr>
+      <tr><td>Term &amp; termination</td><td>Per-SOW. Either party may terminate for material breach with 30-day cure. Termination for convenience with 14-day notice; payment for work completed through termination.</td></tr>
+      <tr><td>Insurance</td><td>Delivery-org maintains professional liability and general liability per industry standard; certificates available on request.</td></tr>
+      <tr><td>Sub-contracting</td><td>Permitted with prior written approval from RapidPOS.</td></tr>
+      <tr><td>Governing law &amp; venue</td><td>To be negotiated; typically delivery-org state of incorporation.</td></tr>
+    </table>
+
+    <h3>Data handling — explicit exclusions</h3>
+    <ul>
+      <li>No customer-of-customer data is exchanged or stored beyond what is strictly necessary for the diagnostic and authorized in the SOW.</li>
+      <li>No PCI-scoped data is accessed. Engagement is explicitly out of PCI DSS scope. Any system that touches payment card data is excluded from connector access.</li>
+      <li>No PHI or HIPAA-regulated data.</li>
+      <li>No GDPR Article 9 special-category personal data unless explicitly scoped in the SOW with appropriate controls.</li>
+      <li>All data handled remains within RapidPOS's GCP environment under RapidPOS's IAM control. Delivery-org operates under scoped, audited credentials.</li>
+    </ul>
+  </section>
+
+  <!-- ====================== APPROVALS ====================== -->
+  <section id="approvals">
+    <h2>10 — Approvals &amp; sign-offs</h2>
+
+    <table>
+      <tr><th>Gate</th><th>Approver</th><th>Form</th></tr>
+      <tr><td>Charter signature</td><td>Project sponsor</td><td>Signed JSON charter artifact</td></tr>
+      <tr><td>Phase 1 review (Week 1 close)</td><td>Steering committee</td><td>Decision artifact, append-only</td></tr>
+      <tr><td>Phase 2 review (Week 2 close)</td><td>Steering committee</td><td>Decision artifact, append-only</td></tr>
+      <tr><td>Phase 3 review (Week 3 close)</td><td>Steering committee</td><td>Decision artifact, append-only</td></tr>
+      <tr><td>Handoff signature</td><td>Mission control + project sponsor</td><td>Signed handoff artifact; sponsor written acknowledgment</td></tr>
+      <tr><td>Knowledge layer transfer</td><td>RapidPOS InfoSec + IT platform owner</td><td>Documented access transfer; credential rotation plan accepted</td></tr>
+    </table>
+
+    <p class="meta">All sign-offs land as <code>decision</code> artifacts in the engagement record per the artifact taxonomy.</p>
+  </section>
+
+  <footer>
+    Project plan v1 · 2026-05-04 · authored by engagement lead · pending sponsor review.
+  </footer>
+</div>
+
+<script>
+  window.addEventListener('scroll', () => {
+    let current = '';
+    document.querySelectorAll('section').forEach(s => {
+      if (window.scrollY >= s.offsetTop - 120) current = s.id;
+    });
+    document.querySelectorAll('nav a').forEach(a => {
+      a.classList.toggle('active', a.getAttribute('href') === '#' + current);
+    });
+  });
+</script>
+
+</body>
+</html>

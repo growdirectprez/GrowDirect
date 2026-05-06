@@ -1,0 +1,2558 @@
+[
+  {
+    "source_path": "/Users/gclyle/GrowDirect/Brain/raw/inbox/Interface Design Documents/Commercial Interfaces (C-Prefix)C001US/C001TR Product details from ORMS10 to IDS/C001TR Product Details HR Comments.doc",
+    "source_sha256": "58709fa79a666699187c4c0bea2a63c346384e5ea4c11e1a5206c50fedac0d10",
+    "target_path": "/Users/gclyle/GrowDirect/Brain/raw/.extract/TOM/Commercial Interfaces (C-Prefix)C001US/C001TR Product details from ORMS10 to IDS/C001TR Product Details HR Comments.doc.md",
+    "method": "textutil",
+    "status": "ok",
+    "error": null,
+    "extracted_at": "2026-05-03T00:06:31.452322+00:00"
+  },
+  {
+    "source_path": "/Users/gclyle/GrowDirect/Brain/raw/inbox/Interface Design Documents/Commercial Interfaces (C-Prefix)C001US/C001TR Product details from ORMS10 to IDS/C001TR Product Details ORMS10 to IDS.doc",
+    "source_sha256": "c090586c0ee647db4757ace37c22798e90be3081e80d7d80e50f4ac9be5f6ccb",
+    "target_path": "/Users/gclyle/GrowDirect/Brain/raw/.extract/TOM/Commercial Interfaces (C-Prefix)C001US/C001TR Product details from ORMS10 to IDS/C001TR Product Details ORMS10 to IDS.doc.md",
+    "method": "textutil",
+    "status": "ok",
+    "error": null,
+    "extracted_at": "2026-05-03T00:06:32.819354+00:00"
+  },
+  {
+    "source_path": "/Users/gclyle/GrowDirect/Brain/raw/inbox/Interface Design Documents/Commercial Interfaces (C-Prefix)C001US/C001TR Product details from ORMS10 to IDS/Interface Specification - C001TR Product Details.doc",
+    "source_sha256": "473b0f4dab880fbe133ad5224907c2523617fe21d6b7292ad969d72a6cb08224",
+    "target_path": "/Users/gclyle/GrowDirect/Brain/raw/.extract/TOM/Commercial Interfaces (C-Prefix)C001US/C001TR Product details from ORMS10 to IDS/Interface Specification - C001TR Product Details.doc.md",
+    "method": "textutil",
+    "status": "ok",
+    "error": null,
+    "extracted_at": "2026-05-03T00:06:32.886779+00:00"
+  },
+  {
+    "source_path": "/Users/gclyle/GrowDirect/Brain/raw/inbox/Interface Design Documents/Commercial Interfaces (C-Prefix)C001US/C001US Product Details RMS to IDS/Interface Specification - C001US Product Details.doc",
+    "source_sha256": "639cf0f5b75cc096753fdb3383ccfd398344e150653b500f864033654079f8e8",
+    "target_path": "/Users/gclyle/GrowDirect/Brain/raw/.extract/TOM/Commercial Interfaces (C-Prefix)C001US/C001US Product Details RMS to IDS/Interface Specification - C001US Product Details.doc.md",
+    "method": "textutil",
+    "status": "ok",
+    "error": null,
+    "extracted_at": "2026-05-03T00:06:32.948408+00:00"
+  },
+  {
+    "source_path": "/Users/gclyle/GrowDirect/Brain/raw/inbox/Interface Design Documents/Commercial Interfaces (C-Prefix)C001US/C002US Item Section (Department) RMS to IDS/Interface Specification - C002US Item Section (Department).doc",
+    "source_sha256": "da357c22ba96f78a6687a0206a6e7a15651ac9f371d1ce546ab6ebb3861ec7ba",
+    "target_path": "/Users/gclyle/GrowDirect/Brain/raw/.extract/TOM/Commercial Interfaces (C-Prefix)C001US/C002US Item Section (Department) RMS to IDS/Interface Specification - C002US Item Section (Department).doc.md",
+    "method": "textutil",
+    "status": "ok",
+    "error": null,
+    "extracted_at": "2026-05-03T00:06:33.015074+00:00"
+  },
+  {
+    "source_path": "/Users/gclyle/GrowDirect/Brain/raw/inbox/Interface Design Documents/Commercial Interfaces (C-Prefix)C001US/C003US Item sub department RMS to IDS/Interface Specification - C003US Item Sub Department.doc",
+    "source_sha256": "abb9f79f98453399015f5f5b33c5272681660e7a79f76777482cabf7d99b1720",
+    "target_path": "/Users/gclyle/GrowDirect/Brain/raw/.extract/TOM/Commercial Interfaces (C-Prefix)C001US/C003US Item sub department RMS to IDS/Interface Specification - C003US Item Sub Department.doc.md",
+    "method": "textutil",
+    "status": "ok",
+    "error": null,
+    "extracted_at": "2026-05-03T00:06:33.077039+00:00"
+  },
+  {
+    "source_path": "/Users/gclyle/GrowDirect/Brain/raw/inbox/Interface Design Documents/Commercial Interfaces (C-Prefix)C001US/C008US Supplier reference data RMS to IDS/Interface Specification - C008US Supplier Reference Data.doc",
+    "source_sha256": "ecb85ae690695f154d0920a97d64747aaf8ed9d6c4810dfd1307127640fbd732",
+    "target_path": "/Users/gclyle/GrowDirect/Brain/raw/.extract/TOM/Commercial Interfaces (C-Prefix)C001US/C008US Supplier reference data RMS to IDS/Interface Specification - C008US Supplier Reference Data.doc.md",
+    "method": "textutil",
+    "status": "ok",
+    "error": null,
+    "extracted_at": "2026-05-03T00:06:33.134331+00:00"
+  },
+  {
+    "source_path": "/Users/gclyle/GrowDirect/Brain/raw/inbox/Interface Design Documents/Commercial Interfaces (C-Prefix)C001US/C010TR Promotions RMS to GFO/C010TR - Interface Specification - Promotion Data from RMS to GFO.doc",
+    "source_sha256": "cfda7636c2f8571eb93db9d320b0ef8b7d315cb920766cb5e3eb5764a9cb4086",
+    "target_path": "/Users/gclyle/GrowDirect/Brain/raw/.extract/TOM/Commercial Interfaces (C-Prefix)C001US/C010TR Promotions RMS to GFO/C010TR - Interface Specification - Promotion Data from RMS to GFO.doc.md",
+    "method": "textutil",
+    "status": "ok",
+    "error": null,
+    "extracted_at": "2026-05-03T00:06:33.196050+00:00"
+  },
+  {
+    "source_path": "/Users/gclyle/GrowDirect/Brain/raw/inbox/Interface Design Documents/Commercial Interfaces (C-Prefix)C001US/C010TR Promotions RMS to GFO/Requirements for Promotions Interface to GFO V0.2.doc",
+    "source_sha256": "21f8914936d629f4c0236539bf64ca98a4e386f71aa5d09b33996ad2859f48b5",
+    "target_path": "/Users/gclyle/GrowDirect/Brain/raw/.extract/TOM/Commercial Interfaces (C-Prefix)C001US/C010TR Promotions RMS to GFO/Requirements for Promotions Interface to GFO V0.2.doc.md",
+    "method": "textutil",
+    "status": "ok",
+    "error": null,
+    "extracted_at": "2026-05-03T00:06:33.261701+00:00"
+  },
+  {
+    "source_path": "/Users/gclyle/GrowDirect/Brain/raw/inbox/Interface Design Documents/Commercial Interfaces (C-Prefix)C001US/C010US Price details RMS to IDS/C010US Price Details HR comments.doc",
+    "source_sha256": "3e204d2074b199cd9d45e824aeef5815ad886827a8a166148afabaf0ac6ff347",
+    "target_path": "/Users/gclyle/GrowDirect/Brain/raw/.extract/TOM/Commercial Interfaces (C-Prefix)C001US/C010US Price details RMS to IDS/C010US Price Details HR comments.doc.md",
+    "method": "textutil",
+    "status": "ok",
+    "error": null,
+    "extracted_at": "2026-05-03T00:06:33.345396+00:00"
+  },
+  {
+    "source_path": "/Users/gclyle/GrowDirect/Brain/raw/inbox/Interface Design Documents/Commercial Interfaces (C-Prefix)C001US/C010US Price details RMS to IDS/Interface Specification - C010US Price Details.doc",
+    "source_sha256": "11ecd790377ebde8ce55db3655a843f214b42a2b9e5ad8965a0a59951ad8c77e",
+    "target_path": "/Users/gclyle/GrowDirect/Brain/raw/.extract/TOM/Commercial Interfaces (C-Prefix)C001US/C010US Price details RMS to IDS/Interface Specification - C010US Price Details.doc.md",
+    "method": "textutil",
+    "status": "ok",
+    "error": null,
+    "extracted_at": "2026-05-03T00:06:33.408513+00:00"
+  },
+  {
+    "source_path": "/Users/gclyle/GrowDirect/Brain/raw/inbox/Interface Design Documents/Commercial Interfaces (C-Prefix)C001US/C012US Store Attributes and hierarchy RMS to IDS/Interface Specification - C012US Store Attributes and Hierarchy.doc",
+    "source_sha256": "49f47740262fb3d8ad1eb8623b9d21e7eca59dcb9f8e13ac1c53a37fb717a597",
+    "target_path": "/Users/gclyle/GrowDirect/Brain/raw/.extract/TOM/Commercial Interfaces (C-Prefix)C001US/C012US Store Attributes and hierarchy RMS to IDS/Interface Specification - C012US Store Attributes and Hierarchy.doc.md",
+    "method": "textutil",
+    "status": "ok",
+    "error": null,
+    "extracted_at": "2026-05-03T00:06:33.478413+00:00"
+  },
+  {
+    "source_path": "/Users/gclyle/GrowDirect/Brain/raw/inbox/Interface Design Documents/Commercial Interfaces (C-Prefix)C001US/C013US Warehouse attributes and hierarchy RMS to IDS/Interface Specification - C013US Warehouse Attributes and Hierarchy.doc",
+    "source_sha256": "7479cfd419e167ec79f92541d8c09137f8808b617190d40cf94f1f351a5bd4e3",
+    "target_path": "/Users/gclyle/GrowDirect/Brain/raw/.extract/TOM/Commercial Interfaces (C-Prefix)C001US/C013US Warehouse attributes and hierarchy RMS to IDS/Interface Specification - C013US Warehouse Attributes and Hierarchy.doc.md",
+    "method": "textutil",
+    "status": "ok",
+    "error": null,
+    "extracted_at": "2026-05-03T00:06:33.543597+00:00"
+  },
+  {
+    "source_path": "/Users/gclyle/GrowDirect/Brain/raw/inbox/Interface Design Documents/Commercial Interfaces (C-Prefix)C001US/C023, C027, C045, C054 PLU Requirements Document/PLU Interface - Deposit Item Identification for  US.doc",
+    "source_sha256": "e569829a279a74e8c41bd0d2c3757b2066fcf5b91dffb2d8e03d3aba95b868b6",
+    "target_path": "/Users/gclyle/GrowDirect/Brain/raw/.extract/TOM/Commercial Interfaces (C-Prefix)C001US/C023, C027, C045, C054 PLU Requirements Document/PLU Interface - Deposit Item Identification for  US.doc.md",
+    "method": "textutil",
+    "status": "ok",
+    "error": null,
+    "extracted_at": "2026-05-03T00:06:33.603239+00:00"
+  },
+  {
+    "source_path": "/Users/gclyle/GrowDirect/Brain/raw/inbox/Interface Design Documents/Commercial Interfaces (C-Prefix)C001US/C023, C027, C045, C054 PLU Requirements Document/PLU Interface - Price Extract Rules.doc",
+    "source_sha256": "393e1ec769dbd566839608d84488d1a383a3cad41fab723c2b7ed1e1f24ca1e9",
+    "target_path": "/Users/gclyle/GrowDirect/Brain/raw/.extract/TOM/Commercial Interfaces (C-Prefix)C001US/C023, C027, C045, C054 PLU Requirements Document/PLU Interface - Price Extract Rules.doc.md",
+    "method": "textutil",
+    "status": "ok",
+    "error": null,
+    "extracted_at": "2026-05-03T00:06:33.662804+00:00"
+  },
+  {
+    "source_path": "/Users/gclyle/GrowDirect/Brain/raw/inbox/Interface Design Documents/Commercial Interfaces (C-Prefix)C001US/C023, C027, C045, C054 PLU Requirements Document/Price Extract Rules for PLU Interface - IT logic.doc",
+    "source_sha256": "fa56eba4c22dc51e6e0832e504ce4a2cdbee39075d1b5ff17a57dccfe99fb636",
+    "target_path": "/Users/gclyle/GrowDirect/Brain/raw/.extract/TOM/Commercial Interfaces (C-Prefix)C001US/C023, C027, C045, C054 PLU Requirements Document/Price Extract Rules for PLU Interface - IT logic.doc.md",
+    "method": "textutil",
+    "status": "ok",
+    "error": null,
+    "extracted_at": "2026-05-03T00:06:33.728402+00:00"
+  },
+  {
+    "source_path": "/Users/gclyle/GrowDirect/Brain/raw/inbox/Interface Design Documents/Commercial Interfaces (C-Prefix)C001US/C023, C027, C045, C054 PLU Requirements Document/Requirements for PLU feed to store V0.3.doc",
+    "source_sha256": "a044eee279bddd72dbe12a885cf463ea16c81554ca7b3af11c34a80eaa691e44",
+    "target_path": "/Users/gclyle/GrowDirect/Brain/raw/.extract/TOM/Commercial Interfaces (C-Prefix)C001US/C023, C027, C045, C054 PLU Requirements Document/Requirements for PLU feed to store V0.3.doc.md",
+    "method": "textutil",
+    "status": "ok",
+    "error": null,
+    "extracted_at": "2026-05-03T00:06:33.786252+00:00"
+  },
+  {
+    "source_path": "/Users/gclyle/GrowDirect/Brain/raw/inbox/Interface Design Documents/Distribution Interfaces (D-Prefix)/D016 - PO Download for Directs (ORMS to StoreLine)/D016TR - PO Download for Directs (ORMS to Storeline) Interface Specification .doc",
+    "source_sha256": "b9b4a4520b6997249cc2434b7ef505c56538234f36a44cc188b6c9a22e572efe",
+    "target_path": "/Users/gclyle/GrowDirect/Brain/raw/.extract/TOM/Distribution Interfaces (D-Prefix)/D016 - PO Download for Directs (ORMS to StoreLine)/D016TR - PO Download for Directs (ORMS to Storeline) Interface Specification .doc.md",
+    "method": "textutil",
+    "status": "ok",
+    "error": null,
+    "extracted_at": "2026-05-03T00:06:33.864827+00:00"
+  },
+  {
+    "source_path": "/Users/gclyle/GrowDirect/Brain/raw/inbox/Interface Design Documents/Distribution Interfaces (D-Prefix)/D016 - PO Download for Directs (ORMS to StoreLine)/D016TR - PO Download for Directs (ORMS to Storeline) InterfaceSpecification.doc",
+    "source_sha256": "b9b4a4520b6997249cc2434b7ef505c56538234f36a44cc188b6c9a22e572efe",
+    "target_path": "/Users/gclyle/GrowDirect/Brain/raw/.extract/TOM/Distribution Interfaces (D-Prefix)/D016 - PO Download for Directs (ORMS to StoreLine)/D016TR - PO Download for Directs (ORMS to Storeline) InterfaceSpecification.doc.md",
+    "method": "textutil",
+    "status": "ok",
+    "error": null,
+    "extracted_at": "2026-05-03T00:06:33.932938+00:00"
+  },
+  {
+    "source_path": "/Users/gclyle/GrowDirect/Brain/raw/inbox/Interface Design Documents/Distribution Interfaces (D-Prefix)/D016 - PO Download for Directs (ORMS to StoreLine)/POs to Storeline v1.5.5.xls",
+    "source_sha256": "90730ca0bfe753990fd9f472aad76713da02c1240f475074de67e7a7558888fc",
+    "target_path": "/Users/gclyle/GrowDirect/Brain/raw/.extract/TOM/Distribution Interfaces (D-Prefix)/D016 - PO Download for Directs (ORMS to StoreLine)/POs to Storeline v1.5.5.xls.md",
+    "method": "markitdown",
+    "status": "ok",
+    "error": null,
+    "extracted_at": "2026-05-03T00:06:34.004251+00:00"
+  },
+  {
+    "source_path": "/Users/gclyle/GrowDirect/Brain/raw/inbox/Interface Design Documents/Distribution Interfaces (D-Prefix)/D019 to D020 - Inventory Adjustment (Storeline to ORMS)/D020- Inventory Adjustment - Interface Specification V0 1.doc",
+    "source_sha256": "166f04137abd84ecc56d66022d6f4e96ba89ae5cf89395300e37a54c8a6e6a6d",
+    "target_path": "/Users/gclyle/GrowDirect/Brain/raw/.extract/TOM/Distribution Interfaces (D-Prefix)/D019 to D020 - Inventory Adjustment (Storeline to ORMS)/D020- Inventory Adjustment - Interface Specification V0 1.doc.md",
+    "method": "textutil",
+    "status": "ok",
+    "error": null,
+    "extracted_at": "2026-05-03T00:06:34.185955+00:00"
+  },
+  {
+    "source_path": "/Users/gclyle/GrowDirect/Brain/raw/inbox/Interface Design Documents/Distribution Interfaces (D-Prefix)/D019 to D020 - Inventory Adjustment (Storeline to ORMS)/D020- Inventory Adjustment - Interface Specification V1.0.doc",
+    "source_sha256": "59f96b735c233db3e0c79d0bb14d56e79f8b551a8a363dac718f4b7d7217080a",
+    "target_path": "/Users/gclyle/GrowDirect/Brain/raw/.extract/TOM/Distribution Interfaces (D-Prefix)/D019 to D020 - Inventory Adjustment (Storeline to ORMS)/D020- Inventory Adjustment - Interface Specification V1.0.doc.md",
+    "method": "textutil",
+    "status": "ok",
+    "error": null,
+    "extracted_at": "2026-05-03T00:06:34.244280+00:00"
+  },
+  {
+    "source_path": "/Users/gclyle/GrowDirect/Brain/raw/inbox/Interface Design Documents/Distribution Interfaces (D-Prefix)/D019 to D020 - Inventory Adjustment (Storeline to ORMS)/D020- Inventory Adjustment - mapping document.xls",
+    "source_sha256": "232826036867619af885c2812fb04c7bcc8e6e879e2856a65a83a8e0f827ea02",
+    "target_path": "/Users/gclyle/GrowDirect/Brain/raw/.extract/TOM/Distribution Interfaces (D-Prefix)/D019 to D020 - Inventory Adjustment (Storeline to ORMS)/D020- Inventory Adjustment - mapping document.xls.md",
+    "method": "markitdown",
+    "status": "ok",
+    "error": null,
+    "extracted_at": "2026-05-03T00:06:34.307138+00:00"
+  },
+  {
+    "source_path": "/Users/gclyle/GrowDirect/Brain/raw/inbox/Interface Design Documents/Distribution Interfaces (D-Prefix)/D019 to D020 - Inventory Adjustment (Storeline to ORMS)/D19_D20_InterfaceSpec_Mapping_Issues.xls",
+    "source_sha256": "a621d86333215feca4c660c00f16fb180e2f067052321c7df02844849c8658d4",
+    "target_path": "/Users/gclyle/GrowDirect/Brain/raw/.extract/TOM/Distribution Interfaces (D-Prefix)/D019 to D020 - Inventory Adjustment (Storeline to ORMS)/D19_D20_InterfaceSpec_Mapping_Issues.xls.md",
+    "method": "markitdown",
+    "status": "ok",
+    "error": null,
+    "extracted_at": "2026-05-03T00:06:34.434949+00:00"
+  },
+  {
+    "source_path": "/Users/gclyle/GrowDirect/Brain/raw/inbox/Interface Design Documents/Distribution Interfaces (D-Prefix)/D019 to D020 - Inventory Adjustment from (STORELINE-D019 to ORMS)/D020- Inventory Adjustment - Interface Specification V0 1.doc",
+    "source_sha256": "166f04137abd84ecc56d66022d6f4e96ba89ae5cf89395300e37a54c8a6e6a6d",
+    "target_path": "/Users/gclyle/GrowDirect/Brain/raw/.extract/TOM/Distribution Interfaces (D-Prefix)/D019 to D020 - Inventory Adjustment from (STORELINE-D019 to ORMS)/D020- Inventory Adjustment - Interface Specification V0 1.doc.md",
+    "method": "textutil",
+    "status": "ok",
+    "error": null,
+    "extracted_at": "2026-05-03T00:06:34.461317+00:00"
+  },
+  {
+    "source_path": "/Users/gclyle/GrowDirect/Brain/raw/inbox/Interface Design Documents/Distribution Interfaces (D-Prefix)/D019 to D020 - Inventory Adjustment from (STORELINE-D019 to ORMS)/D020- Inventory Adjustment - mapping document.xls",
+    "source_sha256": "232826036867619af885c2812fb04c7bcc8e6e879e2856a65a83a8e0f827ea02",
+    "target_path": "/Users/gclyle/GrowDirect/Brain/raw/.extract/TOM/Distribution Interfaces (D-Prefix)/D019 to D020 - Inventory Adjustment from (STORELINE-D019 to ORMS)/D020- Inventory Adjustment - mapping document.xls.md",
+    "method": "markitdown",
+    "status": "ok",
+    "error": null,
+    "extracted_at": "2026-05-03T00:06:34.530262+00:00"
+  },
+  {
+    "source_path": "/Users/gclyle/GrowDirect/Brain/raw/inbox/Interface Design Documents/Distribution Interfaces (D-Prefix)/D019 to D020 - Inventory Adjustment from (STORELINE-D019 to ORMS)/D19_D20_InterfaceSpec_Mapping_Issues.xls",
+    "source_sha256": "a621d86333215feca4c660c00f16fb180e2f067052321c7df02844849c8658d4",
+    "target_path": "/Users/gclyle/GrowDirect/Brain/raw/.extract/TOM/Distribution Interfaces (D-Prefix)/D019 to D020 - Inventory Adjustment from (STORELINE-D019 to ORMS)/D19_D20_InterfaceSpec_Mapping_Issues.xls.md",
+    "method": "markitdown",
+    "status": "ok",
+    "error": null,
+    "extracted_at": "2026-05-03T00:06:34.641670+00:00"
+  },
+  {
+    "source_path": "/Users/gclyle/GrowDirect/Brain/raw/inbox/Interface Design Documents/Distribution Interfaces (D-Prefix)/D019 to D033 - Inventory Adjustment (Store line to GFO)/D019 to D033- Inventory Adjustment - Interface Specification V1.0.doc",
+    "source_sha256": "79ad0461054893d4ccf9d3cbf8f2b3d5f48bd6ba57ac45d28f1cddc94e53ce55",
+    "target_path": "/Users/gclyle/GrowDirect/Brain/raw/.extract/TOM/Distribution Interfaces (D-Prefix)/D019 to D033 - Inventory Adjustment (Store line to GFO)/D019 to D033- Inventory Adjustment - Interface Specification V1.0.doc.md",
+    "method": "textutil",
+    "status": "ok",
+    "error": null,
+    "extracted_at": "2026-05-03T00:06:34.663283+00:00"
+  },
+  {
+    "source_path": "/Users/gclyle/GrowDirect/Brain/raw/inbox/Interface Design Documents/Distribution Interfaces (D-Prefix)/D019 to D033 - Inventory Adjustment (Store line to GFO)/D019 to D033- Inventory Adjustment - Interface Specification V1.1.doc",
+    "source_sha256": "9dbda6d5ed8e442ddd3651d46ac44aad754cd13541134f32fc59904b6ae1514b",
+    "target_path": "/Users/gclyle/GrowDirect/Brain/raw/.extract/TOM/Distribution Interfaces (D-Prefix)/D019 to D033 - Inventory Adjustment (Store line to GFO)/D019 to D033- Inventory Adjustment - Interface Specification V1.1.doc.md",
+    "method": "textutil",
+    "status": "ok",
+    "error": null,
+    "extracted_at": "2026-05-03T00:06:34.745779+00:00"
+  },
+  {
+    "source_path": "/Users/gclyle/GrowDirect/Brain/raw/inbox/Interface Design Documents/Distribution Interfaces (D-Prefix)/D019 to D033 - Inventory Adjustment (Store line to GFO)/D019 to D033- Inventory Adjustment - Interface Specification V1.2.doc",
+    "source_sha256": "764bd86e2c9a76338ee0925e831d65d574c302cb9ed23a1535ae428210808260",
+    "target_path": "/Users/gclyle/GrowDirect/Brain/raw/.extract/TOM/Distribution Interfaces (D-Prefix)/D019 to D033 - Inventory Adjustment (Store line to GFO)/D019 to D033- Inventory Adjustment - Interface Specification V1.2.doc.md",
+    "method": "textutil",
+    "status": "ok",
+    "error": null,
+    "extracted_at": "2026-05-03T00:06:34.823267+00:00"
+  },
+  {
+    "source_path": "/Users/gclyle/GrowDirect/Brain/raw/inbox/Interface Design Documents/Distribution Interfaces (D-Prefix)/D019 to D033 - Inventory Adjustment (Store line to GFO)/D019ToD033_InterfaceSpec_Mapping_Issues.xls",
+    "source_sha256": "ba67d10dfb6ecd8073ae53e5e393f1fb7b86de35ef41793353307550e8529515",
+    "target_path": "/Users/gclyle/GrowDirect/Brain/raw/.extract/TOM/Distribution Interfaces (D-Prefix)/D019 to D033 - Inventory Adjustment (Store line to GFO)/D019ToD033_InterfaceSpec_Mapping_Issues.xls.md",
+    "method": "markitdown",
+    "status": "ok",
+    "error": null,
+    "extracted_at": "2026-05-03T00:06:34.897021+00:00"
+  },
+  {
+    "source_path": "/Users/gclyle/GrowDirect/Brain/raw/inbox/Interface Design Documents/Distribution Interfaces (D-Prefix)/D019 to D033 - Inventory Adjustment (Store line to GFO)/D029ToD033_InterfaceSpec_Issues.xls",
+    "source_sha256": "e1ab60091fd9c7d6fa44c42824df02b53f8b45d2cbcc472b4792e064e6dc0c28",
+    "target_path": "/Users/gclyle/GrowDirect/Brain/raw/.extract/TOM/Distribution Interfaces (D-Prefix)/D019 to D033 - Inventory Adjustment (Store line to GFO)/D029ToD033_InterfaceSpec_Issues.xls.md",
+    "method": "markitdown",
+    "status": "ok",
+    "error": null,
+    "extracted_at": "2026-05-03T00:06:34.919153+00:00"
+  },
+  {
+    "source_path": "/Users/gclyle/GrowDirect/Brain/raw/inbox/Interface Design Documents/Distribution Interfaces (D-Prefix)/D019 to D033 - Inventory Adjustment (Store line to GFO)/D033- Inventory Adjustment - Interface Specification V0 1.doc",
+    "source_sha256": "d6983cb08f9db5f531cf9b90951a3cdf5fa9e097e5ec3adf3648f9730bd792a1",
+    "target_path": "/Users/gclyle/GrowDirect/Brain/raw/.extract/TOM/Distribution Interfaces (D-Prefix)/D019 to D033 - Inventory Adjustment (Store line to GFO)/D033- Inventory Adjustment - Interface Specification V0 1.doc.md",
+    "method": "textutil",
+    "status": "ok",
+    "error": null,
+    "extracted_at": "2026-05-03T00:06:34.947248+00:00"
+  },
+  {
+    "source_path": "/Users/gclyle/GrowDirect/Brain/raw/inbox/Interface Design Documents/Distribution Interfaces (D-Prefix)/D019 to D033 - Inventory Adjustment (Store line to GFO)/D033- Inventory Adjustment - Interface Specification V0 2.doc",
+    "source_sha256": "2a23ce2f1cf8312ffb9c3bca48c4484c1d3745754240ea1132f6cec7c43ba83c",
+    "target_path": "/Users/gclyle/GrowDirect/Brain/raw/.extract/TOM/Distribution Interfaces (D-Prefix)/D019 to D033 - Inventory Adjustment (Store line to GFO)/D033- Inventory Adjustment - Interface Specification V0 2.doc.md",
+    "method": "textutil",
+    "status": "ok",
+    "error": null,
+    "extracted_at": "2026-05-03T00:06:35.014115+00:00"
+  },
+  {
+    "source_path": "/Users/gclyle/GrowDirect/Brain/raw/inbox/Interface Design Documents/Distribution Interfaces (D-Prefix)/D019 to D033 - Inventory Adjustment (Store line to GFO)/D033- Inventory Adjustment - Interface Specification V0 3.doc",
+    "source_sha256": "66d377e6544202ce46acfaf2e8f0c04bf1f9c2a631d5f7ff55059a3c924dd4cb",
+    "target_path": "/Users/gclyle/GrowDirect/Brain/raw/.extract/TOM/Distribution Interfaces (D-Prefix)/D019 to D033 - Inventory Adjustment (Store line to GFO)/D033- Inventory Adjustment - Interface Specification V0 3.doc.md",
+    "method": "textutil",
+    "status": "ok",
+    "error": null,
+    "extracted_at": "2026-05-03T00:06:35.079590+00:00"
+  },
+  {
+    "source_path": "/Users/gclyle/GrowDirect/Brain/raw/inbox/Interface Design Documents/Distribution Interfaces (D-Prefix)/D019 to D033 - Inventory Adjustment (Store line to GFO)/D033- Inventory Adjustment - Interface Specification V0 4.doc",
+    "source_sha256": "ea8349f14bef84090055c7f84e171cb1dfcae9bdba1cf858bdff554222471c78",
+    "target_path": "/Users/gclyle/GrowDirect/Brain/raw/.extract/TOM/Distribution Interfaces (D-Prefix)/D019 to D033 - Inventory Adjustment (Store line to GFO)/D033- Inventory Adjustment - Interface Specification V0 4.doc.md",
+    "method": "textutil",
+    "status": "ok",
+    "error": null,
+    "extracted_at": "2026-05-03T00:06:35.150872+00:00"
+  },
+  {
+    "source_path": "/Users/gclyle/GrowDirect/Brain/raw/inbox/Interface Design Documents/Distribution Interfaces (D-Prefix)/D020 - Inventory Adjustment from (STORELINE(D019) to ORMS(D020))/D020- Inventory Adjustment - Interface Specification V0 1.doc",
+    "source_sha256": "166f04137abd84ecc56d66022d6f4e96ba89ae5cf89395300e37a54c8a6e6a6d",
+    "target_path": "/Users/gclyle/GrowDirect/Brain/raw/.extract/TOM/Distribution Interfaces (D-Prefix)/D020 - Inventory Adjustment from (STORELINE(D019) to ORMS(D020))/D020- Inventory Adjustment - Interface Specification V0 1.doc.md",
+    "method": "textutil",
+    "status": "ok",
+    "error": null,
+    "extracted_at": "2026-05-03T00:06:35.222071+00:00"
+  },
+  {
+    "source_path": "/Users/gclyle/GrowDirect/Brain/raw/inbox/Interface Design Documents/Distribution Interfaces (D-Prefix)/D020 - Inventory Adjustment from (STORELINE(D019) to ORMS(D020))/D020- Inventory Adjustment - mapping document.xls",
+    "source_sha256": "d6ea8f19bbd7d312ce63d883f6126e47b2bd68925f16a7fe1c42a2a2cee5ec83",
+    "target_path": "/Users/gclyle/GrowDirect/Brain/raw/.extract/TOM/Distribution Interfaces (D-Prefix)/D020 - Inventory Adjustment from (STORELINE(D019) to ORMS(D020))/D020- Inventory Adjustment - mapping document.xls.md",
+    "method": "markitdown",
+    "status": "ok",
+    "error": null,
+    "extracted_at": "2026-05-03T00:06:35.287604+00:00"
+  },
+  {
+    "source_path": "/Users/gclyle/GrowDirect/Brain/raw/inbox/Interface Design Documents/Distribution Interfaces (D-Prefix)/D022 - Stocktake Result (Storeline-D029 to GFO)/D022- StockTake Result - Interface Specification V0 1.doc",
+    "source_sha256": "d9fcb57f7c2fde709383c7d797c1fa761143a11762c443926e86e66ebd1ceb67",
+    "target_path": "/Users/gclyle/GrowDirect/Brain/raw/.extract/TOM/Distribution Interfaces (D-Prefix)/D022 - Stocktake Result (Storeline-D029 to GFO)/D022- StockTake Result - Interface Specification V0 1.doc.md",
+    "method": "textutil",
+    "status": "ok",
+    "error": null,
+    "extracted_at": "2026-05-03T00:06:35.387474+00:00"
+  },
+  {
+    "source_path": "/Users/gclyle/GrowDirect/Brain/raw/inbox/Interface Design Documents/Distribution Interfaces (D-Prefix)/D028 - GRN (RWMS to TIMS)/D028 - GRN Interface Specification Document.doc",
+    "source_sha256": "cb50bb93e7ff2d47b013913e296a2424511cbcbd27f27b7f67ab5f65f6df6eed",
+    "target_path": "/Users/gclyle/GrowDirect/Brain/raw/.extract/TOM/Distribution Interfaces (D-Prefix)/D028 - GRN (RWMS to TIMS)/D028 - GRN Interface Specification Document.doc.md",
+    "method": "textutil",
+    "status": "ok",
+    "error": null,
+    "extracted_at": "2026-05-03T00:06:35.458381+00:00"
+  },
+  {
+    "source_path": "/Users/gclyle/GrowDirect/Brain/raw/inbox/Interface Design Documents/Distribution Interfaces (D-Prefix)/D028 - GRN (RWMS to TIMS)/D028 - GRN Interface Specification Documentv0.2.doc",
+    "source_sha256": "be2c288c0c611bf05849e3daeb00d74ac011c33460d86c34bf80c9e75b2f8c8b",
+    "target_path": "/Users/gclyle/GrowDirect/Brain/raw/.extract/TOM/Distribution Interfaces (D-Prefix)/D028 - GRN (RWMS to TIMS)/D028 - GRN Interface Specification Documentv0.2.doc.md",
+    "method": "textutil",
+    "status": "ok",
+    "error": null,
+    "extracted_at": "2026-05-03T00:06:35.523253+00:00"
+  },
+  {
+    "source_path": "/Users/gclyle/GrowDirect/Brain/raw/inbox/Interface Design Documents/Distribution Interfaces (D-Prefix)/D028 - GRN (RWMS to TIMS)/D028 - GRN Mapping Document v0.2.xls",
+    "source_sha256": "3e19a93a72180fef387291825093706d9a450a8fe682fa4bcd88025c65b9bb50",
+    "target_path": "/Users/gclyle/GrowDirect/Brain/raw/.extract/TOM/Distribution Interfaces (D-Prefix)/D028 - GRN (RWMS to TIMS)/D028 - GRN Mapping Document v0.2.xls.md",
+    "method": "markitdown",
+    "status": "ok",
+    "error": null,
+    "extracted_at": "2026-05-03T00:06:35.589845+00:00"
+  },
+  {
+    "source_path": "/Users/gclyle/GrowDirect/Brain/raw/inbox/Interface Design Documents/Distribution Interfaces (D-Prefix)/D028 - GRN (RWMS to TIMS)/D028 - GRN Mapping Document v3.0.xls",
+    "source_sha256": "f63bfdeca2be1dcad7f17049a7c620743d64ad368ac8c0067993f3bbecb4c00e",
+    "target_path": "/Users/gclyle/GrowDirect/Brain/raw/.extract/TOM/Distribution Interfaces (D-Prefix)/D028 - GRN (RWMS to TIMS)/D028 - GRN Mapping Document v3.0.xls.md",
+    "method": "markitdown",
+    "status": "ok",
+    "error": null,
+    "extracted_at": "2026-05-03T00:06:35.635379+00:00"
+  },
+  {
+    "source_path": "/Users/gclyle/GrowDirect/Brain/raw/inbox/Interface Design Documents/Distribution Interfaces (D-Prefix)/D028 - GRN (RWMS to TIMS)/D028 - GRN Mapping Document.xls",
+    "source_sha256": "65b2f744588052c512f7d45cecd0e633174adb6d5050f8f41d36c1cfd88248d8",
+    "target_path": "/Users/gclyle/GrowDirect/Brain/raw/.extract/TOM/Distribution Interfaces (D-Prefix)/D028 - GRN (RWMS to TIMS)/D028 - GRN Mapping Document.xls.md",
+    "method": "markitdown",
+    "status": "ok",
+    "error": null,
+    "extracted_at": "2026-05-03T00:06:35.677529+00:00"
+  },
+  {
+    "source_path": "/Users/gclyle/GrowDirect/Brain/raw/inbox/Interface Design Documents/Distribution Interfaces (D-Prefix)/D028 - GRN (RWMS to TIMS)/D028 - GRN Mapping Document_updated.xls",
+    "source_sha256": "c9e910f72b9cf2292bb64d8d124e1e952e3b1257dcd22595ce28372a3a54503b",
+    "target_path": "/Users/gclyle/GrowDirect/Brain/raw/.extract/TOM/Distribution Interfaces (D-Prefix)/D028 - GRN (RWMS to TIMS)/D028 - GRN Mapping Document_updated.xls.md",
+    "method": "markitdown",
+    "status": "ok",
+    "error": null,
+    "extracted_at": "2026-05-03T00:06:35.717219+00:00"
+  },
+  {
+    "source_path": "/Users/gclyle/GrowDirect/Brain/raw/inbox/Interface Design Documents/Distribution Interfaces (D-Prefix)/D028 - GRN (RWMS to TIMS)/D028_InterfaceSpecIssuesTemplate-upload.xls",
+    "source_sha256": "b12c251452174c7ba2edab2e91630e0a19450308b52e7a4f9505ab992c9f4f2d",
+    "target_path": "/Users/gclyle/GrowDirect/Brain/raw/.extract/TOM/Distribution Interfaces (D-Prefix)/D028 - GRN (RWMS to TIMS)/D028_InterfaceSpecIssuesTemplate-upload.xls.md",
+    "method": "markitdown",
+    "status": "ok",
+    "error": null,
+    "extracted_at": "2026-05-03T00:06:35.773925+00:00"
+  },
+  {
+    "source_path": "/Users/gclyle/GrowDirect/Brain/raw/inbox/Interface Design Documents/Distribution Interfaces (D-Prefix)/D028 - GRN (RWMS to TIMS)/D028_InterfaceSpecIssuesTemplate.xls",
+    "source_sha256": "06a01612c94a1bff6be83617a655badee4e24778c67902fc5522db49280042c1",
+    "target_path": "/Users/gclyle/GrowDirect/Brain/raw/.extract/TOM/Distribution Interfaces (D-Prefix)/D028 - GRN (RWMS to TIMS)/D028_InterfaceSpecIssuesTemplate.xls.md",
+    "method": "markitdown",
+    "status": "ok",
+    "error": null,
+    "extracted_at": "2026-05-03T00:06:35.793178+00:00"
+  },
+  {
+    "source_path": "/Users/gclyle/GrowDirect/Brain/raw/inbox/Interface Design Documents/Distribution Interfaces (D-Prefix)/D029 Inventory Report (RMS to TIMS)/D029 - Inventory Report Interface Specification-BizTalk (2).doc",
+    "source_sha256": "e99a8fc2f2f6cca070062c92747f2a2e62b80cfaa2c3e510b0fe65141fa1c5be",
+    "target_path": "/Users/gclyle/GrowDirect/Brain/raw/.extract/TOM/Distribution Interfaces (D-Prefix)/D029 Inventory Report (RMS to TIMS)/D029 - Inventory Report Interface Specification-BizTalk (2).doc.md",
+    "method": "textutil",
+    "status": "ok",
+    "error": null,
+    "extracted_at": "2026-05-03T00:06:35.811355+00:00"
+  },
+  {
+    "source_path": "/Users/gclyle/GrowDirect/Brain/raw/inbox/Interface Design Documents/Distribution Interfaces (D-Prefix)/D029 Inventory Report (RMS to TIMS)/D029 - Inventory Report Mapping Document.xls",
+    "source_sha256": "c010ebb56d2b82cca0ab78027ce6f9938d05ebd942b28f0b90b4f5793bb9bb53",
+    "target_path": "/Users/gclyle/GrowDirect/Brain/raw/.extract/TOM/Distribution Interfaces (D-Prefix)/D029 Inventory Report (RMS to TIMS)/D029 - Inventory Report Mapping Document.xls.md",
+    "method": "markitdown",
+    "status": "ok",
+    "error": null,
+    "extracted_at": "2026-05-03T00:06:35.880294+00:00"
+  },
+  {
+    "source_path": "/Users/gclyle/GrowDirect/Brain/raw/inbox/Interface Design Documents/Distribution Interfaces (D-Prefix)/D029 Inventory Report (RMS to TIMS)/D029 - Inventory Report Mapping Document_Updated.xls",
+    "source_sha256": "01a73ad5fbd911b3aa9054cbdf637943a8121e57ef665c42559820431fe5a96d",
+    "target_path": "/Users/gclyle/GrowDirect/Brain/raw/.extract/TOM/Distribution Interfaces (D-Prefix)/D029 Inventory Report (RMS to TIMS)/D029 - Inventory Report Mapping Document_Updated.xls.md",
+    "method": "markitdown",
+    "status": "ok",
+    "error": null,
+    "extracted_at": "2026-05-03T00:06:35.918263+00:00"
+  },
+  {
+    "source_path": "/Users/gclyle/GrowDirect/Brain/raw/inbox/Interface Design Documents/Distribution Interfaces (D-Prefix)/D029 to D021 - Stock Take Result (Storeline to ORMS)/D029  D021-StockTake Result - mapping document.xls",
+    "source_sha256": "4b3e4e8eaec7f448a55f713f9dbe09c72133b8ab54830c8c00bd7e32d1f2e073",
+    "target_path": "/Users/gclyle/GrowDirect/Brain/raw/.extract/TOM/Distribution Interfaces (D-Prefix)/D029 to D021 - Stock Take Result (Storeline to ORMS)/D029  D021-StockTake Result - mapping document.xls.md",
+    "method": "markitdown",
+    "status": "ok",
+    "error": null,
+    "extracted_at": "2026-05-03T00:06:35.954222+00:00"
+  },
+  {
+    "source_path": "/Users/gclyle/GrowDirect/Brain/raw/inbox/Interface Design Documents/Distribution Interfaces (D-Prefix)/D029 to D021 - Stock Take Result (Storeline to ORMS)/D029 D021- StockTake Result - Interface Specification V0 2.doc",
+    "source_sha256": "ae4c1fdc0175211945ab2ff8ce9d6ade1d3cdc990f912c241dc2585334abea22",
+    "target_path": "/Users/gclyle/GrowDirect/Brain/raw/.extract/TOM/Distribution Interfaces (D-Prefix)/D029 to D021 - Stock Take Result (Storeline to ORMS)/D029 D021- StockTake Result - Interface Specification V0 2.doc.md",
+    "method": "textutil",
+    "status": "ok",
+    "error": null,
+    "extracted_at": "2026-05-03T00:06:36.029354+00:00"
+  },
+  {
+    "source_path": "/Users/gclyle/GrowDirect/Brain/raw/inbox/Interface Design Documents/Distribution Interfaces (D-Prefix)/D029 to D021 - Stock Take Result (Storeline to ORMS)/D029 D021- StockTake Result - Interface Specification V0 3.doc",
+    "source_sha256": "cbafdf793c2bc515016b6a2fe61f43139077275536bdf2647d0bc0f18b7568c5",
+    "target_path": "/Users/gclyle/GrowDirect/Brain/raw/.extract/TOM/Distribution Interfaces (D-Prefix)/D029 to D021 - Stock Take Result (Storeline to ORMS)/D029 D021- StockTake Result - Interface Specification V0 3.doc.md",
+    "method": "textutil",
+    "status": "ok",
+    "error": null,
+    "extracted_at": "2026-05-03T00:06:36.089240+00:00"
+  },
+  {
+    "source_path": "/Users/gclyle/GrowDirect/Brain/raw/inbox/Interface Design Documents/Distribution Interfaces (D-Prefix)/D029 to D021 - Stock Take Result (Storeline to ORMS)/D029 D021- StockTake Result - Interface Specification V0.1.doc",
+    "source_sha256": "49f285ac00e51ee8493f07377719736178e574fd519dff0c65c3f704a8cf9c77",
+    "target_path": "/Users/gclyle/GrowDirect/Brain/raw/.extract/TOM/Distribution Interfaces (D-Prefix)/D029 to D021 - Stock Take Result (Storeline to ORMS)/D029 D021- StockTake Result - Interface Specification V0.1.doc.md",
+    "method": "textutil",
+    "status": "ok",
+    "error": null,
+    "extracted_at": "2026-05-03T00:06:36.157587+00:00"
+  },
+  {
+    "source_path": "/Users/gclyle/GrowDirect/Brain/raw/inbox/Interface Design Documents/Distribution Interfaces (D-Prefix)/D029 to D021 - Stock Take Result (Storeline to ORMS)/D029 D021- StockTake Result - Interface Specification V1.0.doc",
+    "source_sha256": "9a2ecb4e3902ca8028bb59bc9f2928ceb86fb7689919bd1dd4ac484169e9d73f",
+    "target_path": "/Users/gclyle/GrowDirect/Brain/raw/.extract/TOM/Distribution Interfaces (D-Prefix)/D029 to D021 - Stock Take Result (Storeline to ORMS)/D029 D021- StockTake Result - Interface Specification V1.0.doc.md",
+    "method": "textutil",
+    "status": "ok",
+    "error": null,
+    "extracted_at": "2026-05-03T00:06:36.224660+00:00"
+  },
+  {
+    "source_path": "/Users/gclyle/GrowDirect/Brain/raw/inbox/Interface Design Documents/Distribution Interfaces (D-Prefix)/D029 to D022 - Stocktake Result (Storeline-D029 to GFO)/D022- StockTake Result - Interface Specification V0 1.doc",
+    "source_sha256": "237e9dbe845069a34d8c52937a879c8037e7067b21ab7c112662226864cebb89",
+    "target_path": "/Users/gclyle/GrowDirect/Brain/raw/.extract/TOM/Distribution Interfaces (D-Prefix)/D029 to D022 - Stocktake Result (Storeline-D029 to GFO)/D022- StockTake Result - Interface Specification V0 1.doc.md",
+    "method": "textutil",
+    "status": "ok",
+    "error": null,
+    "extracted_at": "2026-05-03T00:06:36.300209+00:00"
+  },
+  {
+    "source_path": "/Users/gclyle/GrowDirect/Brain/raw/inbox/Interface Design Documents/Distribution Interfaces (D-Prefix)/D029 to D022 - Stocktake Result (Storeline-D029 to GFO)/D022- StockTake Result - Interface Specification V0 2.doc",
+    "source_sha256": "9b39b6dc772f00f4abb94f2b48279988061eb398b867546637e6f6bf0645b7a4",
+    "target_path": "/Users/gclyle/GrowDirect/Brain/raw/.extract/TOM/Distribution Interfaces (D-Prefix)/D029 to D022 - Stocktake Result (Storeline-D029 to GFO)/D022- StockTake Result - Interface Specification V0 2.doc.md",
+    "method": "textutil",
+    "status": "ok",
+    "error": null,
+    "extracted_at": "2026-05-03T00:06:36.377740+00:00"
+  },
+  {
+    "source_path": "/Users/gclyle/GrowDirect/Brain/raw/inbox/Interface Design Documents/Distribution Interfaces (D-Prefix)/D029 to D022 - Stocktake Result (Storeline-D029 to GFO)/D029 to D022 - InterfaceSpec_Issues_V1.0.xls",
+    "source_sha256": "78c0f5d6609dbda9063823f1e701ee7362b11e14ef03eca6b058a2bca3cd99d0",
+    "target_path": "/Users/gclyle/GrowDirect/Brain/raw/.extract/TOM/Distribution Interfaces (D-Prefix)/D029 to D022 - Stocktake Result (Storeline-D029 to GFO)/D029 to D022 - InterfaceSpec_Issues_V1.0.xls.md",
+    "method": "markitdown",
+    "status": "ok",
+    "error": null,
+    "extracted_at": "2026-05-03T00:06:36.444663+00:00"
+  },
+  {
+    "source_path": "/Users/gclyle/GrowDirect/Brain/raw/inbox/Interface Design Documents/Distribution Interfaces (D-Prefix)/D029 to D022 - Stocktake Result (Storeline-D029 to GFO)/D029 to D022- StockTake Result - Interface Specification V1.0.doc",
+    "source_sha256": "ccc02a9a5994f3b9bcbc4eed734119587cfa209afdbbb4a5833ad98ffe07d994",
+    "target_path": "/Users/gclyle/GrowDirect/Brain/raw/.extract/TOM/Distribution Interfaces (D-Prefix)/D029 to D022 - Stocktake Result (Storeline-D029 to GFO)/D029 to D022- StockTake Result - Interface Specification V1.0.doc.md",
+    "method": "textutil",
+    "status": "ok",
+    "error": null,
+    "extracted_at": "2026-05-03T00:06:36.471220+00:00"
+  },
+  {
+    "source_path": "/Users/gclyle/GrowDirect/Brain/raw/inbox/Interface Design Documents/Distribution Interfaces (D-Prefix)/D029 to D022 - Stocktake Result (Storeline-D029 to GFO)/D029 to D022- StockTake Result - Interface Specification V1.1.doc",
+    "source_sha256": "03d74372a91cfb1544b13aa366a23b6c55f3900a2181653854ddcf7d07f41017",
+    "target_path": "/Users/gclyle/GrowDirect/Brain/raw/.extract/TOM/Distribution Interfaces (D-Prefix)/D029 to D022 - Stocktake Result (Storeline-D029 to GFO)/D029 to D022- StockTake Result - Interface Specification V1.1.doc.md",
+    "method": "textutil",
+    "status": "ok",
+    "error": null,
+    "extracted_at": "2026-05-03T00:06:36.538794+00:00"
+  },
+  {
+    "source_path": "/Users/gclyle/GrowDirect/Brain/raw/inbox/Interface Design Documents/Distribution Interfaces (D-Prefix)/D029 to D022 - Stocktake Result (Storeline-D029 to GFO)/D029 to D022- StockTake Result - Interface Specification V1.2.doc",
+    "source_sha256": "bd2bc0ea61191de04e710325f44e8900fb6d0f8faeda32ea34cb55fe995714f4",
+    "target_path": "/Users/gclyle/GrowDirect/Brain/raw/.extract/TOM/Distribution Interfaces (D-Prefix)/D029 to D022 - Stocktake Result (Storeline-D029 to GFO)/D029 to D022- StockTake Result - Interface Specification V1.2.doc.md",
+    "method": "textutil",
+    "status": "ok",
+    "error": null,
+    "extracted_at": "2026-05-03T00:06:36.619475+00:00"
+  },
+  {
+    "source_path": "/Users/gclyle/GrowDirect/Brain/raw/inbox/Interface Design Documents/Distribution Interfaces (D-Prefix)/D030 to D032 - Dispatch RTV (Storeline to ORMS)/D030  D032 - Dispatch RTV  - Interface SpecsV1.0.doc",
+    "source_sha256": "bb1baf9317cdff2977ac63c17f1feac868b88cf2bb2d83edb0c847e2c7500e48",
+    "target_path": "/Users/gclyle/GrowDirect/Brain/raw/.extract/TOM/Distribution Interfaces (D-Prefix)/D030 to D032 - Dispatch RTV (Storeline to ORMS)/D030  D032 - Dispatch RTV  - Interface SpecsV1.0.doc.md",
+    "method": "textutil",
+    "status": "ok",
+    "error": null,
+    "extracted_at": "2026-05-03T00:06:36.680783+00:00"
+  },
+  {
+    "source_path": "/Users/gclyle/GrowDirect/Brain/raw/inbox/Interface Design Documents/Distribution Interfaces (D-Prefix)/D030 to D032 - Dispatch RTV (Storeline to ORMS)/D030  D032 - Dispatch RTV - mapping document.xls",
+    "source_sha256": "720adade15129e1cb094008afb6f95d23b0f6cb70271448c46c7590a7d7cc23c",
+    "target_path": "/Users/gclyle/GrowDirect/Brain/raw/.extract/TOM/Distribution Interfaces (D-Prefix)/D030 to D032 - Dispatch RTV (Storeline to ORMS)/D030  D032 - Dispatch RTV - mapping document.xls.md",
+    "method": "markitdown",
+    "status": "ok",
+    "error": null,
+    "extracted_at": "2026-05-03T00:06:36.748284+00:00"
+  },
+  {
+    "source_path": "/Users/gclyle/GrowDirect/Brain/raw/inbox/Interface Design Documents/Distribution Interfaces (D-Prefix)/D030 to D035- Dispatch RTV (Storeline-D030 to GFO)/D030 to D035 - InterfaceSpec_Issues_V1.0.xls",
+    "source_sha256": "6921887889fdf13357d4c70a750d8aab0517491b9c5c26f40e68584aa077a3d6",
+    "target_path": "/Users/gclyle/GrowDirect/Brain/raw/.extract/TOM/Distribution Interfaces (D-Prefix)/D030 to D035- Dispatch RTV (Storeline-D030 to GFO)/D030 to D035 - InterfaceSpec_Issues_V1.0.xls.md",
+    "method": "markitdown",
+    "status": "ok",
+    "error": null,
+    "extracted_at": "2026-05-03T00:06:36.824588+00:00"
+  },
+  {
+    "source_path": "/Users/gclyle/GrowDirect/Brain/raw/inbox/Interface Design Documents/Distribution Interfaces (D-Prefix)/D030 to D035- Dispatch RTV (Storeline-D030 to GFO)/D030 to D035- Dispatch RTV - Interface Specification V1.0.doc",
+    "source_sha256": "de46302e57af88749d817f59a9b8cc552dd7715c3cf6389b10c16aefb8d4bcb0",
+    "target_path": "/Users/gclyle/GrowDirect/Brain/raw/.extract/TOM/Distribution Interfaces (D-Prefix)/D030 to D035- Dispatch RTV (Storeline-D030 to GFO)/D030 to D035- Dispatch RTV - Interface Specification V1.0.doc.md",
+    "method": "textutil",
+    "status": "ok",
+    "error": null,
+    "extracted_at": "2026-05-03T00:06:36.848687+00:00"
+  },
+  {
+    "source_path": "/Users/gclyle/GrowDirect/Brain/raw/inbox/Interface Design Documents/Distribution Interfaces (D-Prefix)/D030 to D035- Dispatch RTV (Storeline-D030 to GFO)/D030 to D035- Dispatch RTV - Interface Specification V1.1.doc",
+    "source_sha256": "787a90c31d19269182ed2fffb2bd3507e58c45e05357852cbe539469e08a9fa9",
+    "target_path": "/Users/gclyle/GrowDirect/Brain/raw/.extract/TOM/Distribution Interfaces (D-Prefix)/D030 to D035- Dispatch RTV (Storeline-D030 to GFO)/D030 to D035- Dispatch RTV - Interface Specification V1.1.doc.md",
+    "method": "textutil",
+    "status": "ok",
+    "error": null,
+    "extracted_at": "2026-05-03T00:06:36.913745+00:00"
+  },
+  {
+    "source_path": "/Users/gclyle/GrowDirect/Brain/raw/inbox/Interface Design Documents/Distribution Interfaces (D-Prefix)/D030 to D035- Dispatch RTV (Storeline-D030 to GFO)/D030 to D035- Dispatch RTV - Interface Specification V1.2.doc",
+    "source_sha256": "6ab3a47fca155066d8fa15511e441d52a876d593b127c8ddc8bbe006ae95db00",
+    "target_path": "/Users/gclyle/GrowDirect/Brain/raw/.extract/TOM/Distribution Interfaces (D-Prefix)/D030 to D035- Dispatch RTV (Storeline-D030 to GFO)/D030 to D035- Dispatch RTV - Interface Specification V1.2.doc.md",
+    "method": "textutil",
+    "status": "ok",
+    "error": null,
+    "extracted_at": "2026-05-03T00:06:36.979418+00:00"
+  },
+  {
+    "source_path": "/Users/gclyle/GrowDirect/Brain/raw/inbox/Interface Design Documents/Distribution Interfaces (D-Prefix)/D030 to D035- Dispatch RTV (Storeline-D030 to GFO)/D035- Dispatch RTV - Interface Specification V0 1.doc",
+    "source_sha256": "e21621c11f58a68f12e8e32e7f81e40a82e8493b7c3a12ec829391ee065b7f95",
+    "target_path": "/Users/gclyle/GrowDirect/Brain/raw/.extract/TOM/Distribution Interfaces (D-Prefix)/D030 to D035- Dispatch RTV (Storeline-D030 to GFO)/D035- Dispatch RTV - Interface Specification V0 1.doc.md",
+    "method": "textutil",
+    "status": "ok",
+    "error": null,
+    "extracted_at": "2026-05-03T00:06:37.049574+00:00"
+  },
+  {
+    "source_path": "/Users/gclyle/GrowDirect/Brain/raw/inbox/Interface Design Documents/Distribution Interfaces (D-Prefix)/D031 Direct PO Receipt from IL to RMS/D031TR - Direct PO Receipt from IL to RMS Interface Specification .doc",
+    "source_sha256": "06dc943233d2ac1e5e6b4a4896082218b2813652d39d39c50c919068323d809e",
+    "target_path": "/Users/gclyle/GrowDirect/Brain/raw/.extract/TOM/Distribution Interfaces (D-Prefix)/D031 Direct PO Receipt from IL to RMS/D031TR - Direct PO Receipt from IL to RMS Interface Specification .doc.md",
+    "method": "textutil",
+    "status": "ok",
+    "error": null,
+    "extracted_at": "2026-05-03T00:06:37.122030+00:00"
+  },
+  {
+    "source_path": "/Users/gclyle/GrowDirect/Brain/raw/inbox/Interface Design Documents/Distribution Interfaces (D-Prefix)/D031 Direct PO Receipt from IL to RMS/D031US Directs PO Receipt to ORMS Mappings v0.1.xls",
+    "source_sha256": "5a0f8b28c17fb242d1bca08e59817289b4ffc1886709a61847c25968342d5236",
+    "target_path": "/Users/gclyle/GrowDirect/Brain/raw/.extract/TOM/Distribution Interfaces (D-Prefix)/D031 Direct PO Receipt from IL to RMS/D031US Directs PO Receipt to ORMS Mappings v0.1.xls.md",
+    "method": "markitdown",
+    "status": "ok",
+    "error": null,
+    "extracted_at": "2026-05-03T00:06:37.179306+00:00"
+  },
+  {
+    "source_path": "/Users/gclyle/GrowDirect/Brain/raw/inbox/Interface Design Documents/Distribution Interfaces (D-Prefix)/D033 - Inventory Report(Store line to GFO)/D033- Inventory Adjustment - Interface Specification V0 1.doc",
+    "source_sha256": "d6983cb08f9db5f531cf9b90951a3cdf5fa9e097e5ec3adf3648f9730bd792a1",
+    "target_path": "/Users/gclyle/GrowDirect/Brain/raw/.extract/TOM/Distribution Interfaces (D-Prefix)/D033 - Inventory Report(Store line to GFO)/D033- Inventory Adjustment - Interface Specification V0 1.doc.md",
+    "method": "textutil",
+    "status": "ok",
+    "error": null,
+    "extracted_at": "2026-05-03T00:06:37.258043+00:00"
+  },
+  {
+    "source_path": "/Users/gclyle/GrowDirect/Brain/raw/inbox/Interface Design Documents/Distribution Interfaces (D-Prefix)/D033 - Inventory Report(Store line to GFO)/D033- Inventory Adjustment - Interface Specification V0 2.doc",
+    "source_sha256": "2a23ce2f1cf8312ffb9c3bca48c4484c1d3745754240ea1132f6cec7c43ba83c",
+    "target_path": "/Users/gclyle/GrowDirect/Brain/raw/.extract/TOM/Distribution Interfaces (D-Prefix)/D033 - Inventory Report(Store line to GFO)/D033- Inventory Adjustment - Interface Specification V0 2.doc.md",
+    "method": "textutil",
+    "status": "ok",
+    "error": null,
+    "extracted_at": "2026-05-03T00:06:37.324464+00:00"
+  },
+  {
+    "source_path": "/Users/gclyle/GrowDirect/Brain/raw/inbox/Interface Design Documents/Distribution Interfaces (D-Prefix)/D033 - Inventory Report(Store line to GFO)/D033- Inventory Adjustment - Interface Specification V0 3.doc",
+    "source_sha256": "66d377e6544202ce46acfaf2e8f0c04bf1f9c2a631d5f7ff55059a3c924dd4cb",
+    "target_path": "/Users/gclyle/GrowDirect/Brain/raw/.extract/TOM/Distribution Interfaces (D-Prefix)/D033 - Inventory Report(Store line to GFO)/D033- Inventory Adjustment - Interface Specification V0 3.doc.md",
+    "method": "textutil",
+    "status": "ok",
+    "error": null,
+    "extracted_at": "2026-05-03T00:06:37.390916+00:00"
+  },
+  {
+    "source_path": "/Users/gclyle/GrowDirect/Brain/raw/inbox/Interface Design Documents/Distribution Interfaces (D-Prefix)/D034 Direct PO Receipt from IL to GFO/D034 - Direct PO Receipt from IL to GFO Interface Specification .doc",
+    "source_sha256": "ef3cd47c5ea6602ebb53c0d929430655482ee53fe5044907942e734511b94fe4",
+    "target_path": "/Users/gclyle/GrowDirect/Brain/raw/.extract/TOM/Distribution Interfaces (D-Prefix)/D034 Direct PO Receipt from IL to GFO/D034 - Direct PO Receipt from IL to GFO Interface Specification .doc.md",
+    "method": "textutil",
+    "status": "ok",
+    "error": null,
+    "extracted_at": "2026-05-03T00:06:37.463994+00:00"
+  },
+  {
+    "source_path": "/Users/gclyle/GrowDirect/Brain/raw/inbox/Interface Design Documents/Distribution Interfaces (D-Prefix)/D035- Dispatch RTV (Storeline-D030 to GFO)/D035- Dispatch RTV - Interface Specification V0 1.doc",
+    "source_sha256": "26f07ce68d4d9b38be909ee5af33c49b209bd0b8aefa870a4b258d89dab8c1ae",
+    "target_path": "/Users/gclyle/GrowDirect/Brain/raw/.extract/TOM/Distribution Interfaces (D-Prefix)/D035- Dispatch RTV (Storeline-D030 to GFO)/D035- Dispatch RTV - Interface Specification V0 1.doc.md",
+    "method": "textutil",
+    "status": "ok",
+    "error": null,
+    "extracted_at": "2026-05-03T00:06:37.533194+00:00"
+  },
+  {
+    "source_path": "/Users/gclyle/GrowDirect/Brain/raw/inbox/Interface Design Documents/Distribution Interfaces (D-Prefix)/D036 D037 Stock Transfer Receits(Storeline to GFO)/D036  D037- StockTransfer Receits - Interface Specification V0.4.doc",
+    "source_sha256": "07c09fd75cde5b265fc28043dfddbb9f6c88522b87e1ef676778584b17bf8aa9",
+    "target_path": "/Users/gclyle/GrowDirect/Brain/raw/.extract/TOM/Distribution Interfaces (D-Prefix)/D036 D037 Stock Transfer Receits(Storeline to GFO)/D036  D037- StockTransfer Receits - Interface Specification V0.4.doc.md",
+    "method": "textutil",
+    "status": "ok",
+    "error": null,
+    "extracted_at": "2026-05-03T00:06:37.607727+00:00"
+  },
+  {
+    "source_path": "/Users/gclyle/GrowDirect/Brain/raw/inbox/Interface Design Documents/Distribution Interfaces (D-Prefix)/D036 D037 Stock Transfer Receits(Storeline to GFO)/D036  D037- StockTransfer Receits-Iface SpecsV0.3.doc",
+    "source_sha256": "3ac17f2eb4b65da051184afb42fc21c8e11d4c9147ea53d5a4240b2565e06691",
+    "target_path": "/Users/gclyle/GrowDirect/Brain/raw/.extract/TOM/Distribution Interfaces (D-Prefix)/D036 D037 Stock Transfer Receits(Storeline to GFO)/D036  D037- StockTransfer Receits-Iface SpecsV0.3.doc.md",
+    "method": "textutil",
+    "status": "ok",
+    "error": null,
+    "extracted_at": "2026-05-03T00:06:37.672717+00:00"
+  },
+  {
+    "source_path": "/Users/gclyle/GrowDirect/Brain/raw/inbox/Interface Design Documents/Distribution Interfaces (D-Prefix)/D036 D038 Stock Transfer Receits (Storeline to ORMS)/D036  D038- StockTransfer Receits - V0 1.doc",
+    "source_sha256": "fbea592ab6113241fa8f977f1ee3c7238cbf44c4dddedb520c4077a6d5fe46f6",
+    "target_path": "/Users/gclyle/GrowDirect/Brain/raw/.extract/TOM/Distribution Interfaces (D-Prefix)/D036 D038 Stock Transfer Receits (Storeline to ORMS)/D036  D038- StockTransfer Receits - V0 1.doc.md",
+    "method": "textutil",
+    "status": "ok",
+    "error": null,
+    "extracted_at": "2026-05-03T00:06:37.736257+00:00"
+  },
+  {
+    "source_path": "/Users/gclyle/GrowDirect/Brain/raw/inbox/Interface Design Documents/Distribution Interfaces (D-Prefix)/D036 D038 Stock Transfer Receits (Storeline to ORMS)/D036  D038- StockTransfer Receits - mapping.xls",
+    "source_sha256": "908e5e9388720355d92d3a1738e7aeff29199f44ae7224a714c1203e72978277",
+    "target_path": "/Users/gclyle/GrowDirect/Brain/raw/.extract/TOM/Distribution Interfaces (D-Prefix)/D036 D038 Stock Transfer Receits (Storeline to ORMS)/D036  D038- StockTransfer Receits - mapping.xls.md",
+    "method": "markitdown",
+    "status": "ok",
+    "error": null,
+    "extracted_at": "2026-05-03T00:06:37.801770+00:00"
+  },
+  {
+    "source_path": "/Users/gclyle/GrowDirect/Brain/raw/inbox/Interface Design Documents/Finance Interfaces (F-Prefix)/F001 (US) _ F015 (TK) PO RMS to TIMS/F001 - Purchase Order mapping document (US).xls",
+    "source_sha256": "6329b16c46df840816a25eedcfafbe4975dfb2d86ba6ee379ccfc3223b7b90ee",
+    "target_path": "/Users/gclyle/GrowDirect/Brain/raw/.extract/TOM/Finance Interfaces (F-Prefix)/F001 (US) _ F015 (TK) PO RMS to TIMS/F001 - Purchase Order mapping document (US).xls.md",
+    "method": "markitdown",
+    "status": "ok",
+    "error": null,
+    "extracted_at": "2026-05-03T00:06:37.912341+00:00"
+  },
+  {
+    "source_path": "/Users/gclyle/GrowDirect/Brain/raw/inbox/Interface Design Documents/Finance Interfaces (F-Prefix)/F001 (US) _ F015 (TK) PO RMS to TIMS/F001 - Review Interface Spec PO RMS to TIMS AB 040107.xls",
+    "source_sha256": "91589ceed1e7e30dfb9348bc011f521546a2fb038d7935747068f00797daadcc",
+    "target_path": "/Users/gclyle/GrowDirect/Brain/raw/.extract/TOM/Finance Interfaces (F-Prefix)/F001 (US) _ F015 (TK) PO RMS to TIMS/F001 - Review Interface Spec PO RMS to TIMS AB 040107.xls.md",
+    "method": "markitdown",
+    "status": "ok",
+    "error": null,
+    "extracted_at": "2026-05-03T00:06:37.985486+00:00"
+  },
+  {
+    "source_path": "/Users/gclyle/GrowDirect/Brain/raw/inbox/Interface Design Documents/Finance Interfaces (F-Prefix)/F001 (US) _ F015 (TK) PO RMS to TIMS/F001 - TIMS PO Interface Specification v10.doc",
+    "source_sha256": "309503d54a9139f5ad1bf2b4c4c4be15d4b8349c6ed91e9ba82ad25feda8cf26",
+    "target_path": "/Users/gclyle/GrowDirect/Brain/raw/.extract/TOM/Finance Interfaces (F-Prefix)/F001 (US) _ F015 (TK) PO RMS to TIMS/F001 - TIMS PO Interface Specification v10.doc.md",
+    "method": "textutil",
+    "status": "ok",
+    "error": null,
+    "extracted_at": "2026-05-03T00:06:38.006287+00:00"
+  },
+  {
+    "source_path": "/Users/gclyle/GrowDirect/Brain/raw/inbox/Interface Design Documents/Finance Interfaces (F-Prefix)/F001 (US) _ F015 (TK) PO RMS to TIMS/F001 - TIMS PO Interface Specification v11.doc",
+    "source_sha256": "d9c7fe37785170f6dc309fb12a45f8732cbcd63c3fbacc809186d6fa35a876e5",
+    "target_path": "/Users/gclyle/GrowDirect/Brain/raw/.extract/TOM/Finance Interfaces (F-Prefix)/F001 (US) _ F015 (TK) PO RMS to TIMS/F001 - TIMS PO Interface Specification v11.doc.md",
+    "method": "textutil",
+    "status": "ok",
+    "error": null,
+    "extracted_at": "2026-05-03T00:06:38.087700+00:00"
+  },
+  {
+    "source_path": "/Users/gclyle/GrowDirect/Brain/raw/inbox/Interface Design Documents/Finance Interfaces (F-Prefix)/F001 (US) _ F015 (TK) PO RMS to TIMS/F001 - TIMS PO Interface Specification v12.doc",
+    "source_sha256": "f18e46325c1e9d06a53b2f9d6e025231a0bfb3d581769c9c2b28a1318df875ec",
+    "target_path": "/Users/gclyle/GrowDirect/Brain/raw/.extract/TOM/Finance Interfaces (F-Prefix)/F001 (US) _ F015 (TK) PO RMS to TIMS/F001 - TIMS PO Interface Specification v12.doc.md",
+    "method": "textutil",
+    "status": "ok",
+    "error": null,
+    "extracted_at": "2026-05-03T00:06:38.164665+00:00"
+  },
+  {
+    "source_path": "/Users/gclyle/GrowDirect/Brain/raw/inbox/Interface Design Documents/Finance Interfaces (F-Prefix)/F001 (US) _ F015 (TK) PO RMS to TIMS/F001 - TIMS PO Interface Specification.doc",
+    "source_sha256": "ec774e0429f7570c5a885e8f3a34a2346018df9f772e6fc99443d87be1003942",
+    "target_path": "/Users/gclyle/GrowDirect/Brain/raw/.extract/TOM/Finance Interfaces (F-Prefix)/F001 (US) _ F015 (TK) PO RMS to TIMS/F001 - TIMS PO Interface Specification.doc.md",
+    "method": "textutil",
+    "status": "ok",
+    "error": null,
+    "extracted_at": "2026-05-03T00:06:38.250236+00:00"
+  },
+  {
+    "source_path": "/Users/gclyle/GrowDirect/Brain/raw/inbox/Interface Design Documents/Finance Interfaces (F-Prefix)/F001 (US) _ F015 (TK) PO RMS to TIMS/F015 - Purchase Order mapping document (turkey) v20.xls",
+    "source_sha256": "3fcf9c05f2d99c178b31bc53a9114fd76290f1693aacc4d082f24e564bcd7db6",
+    "target_path": "/Users/gclyle/GrowDirect/Brain/raw/.extract/TOM/Finance Interfaces (F-Prefix)/F001 (US) _ F015 (TK) PO RMS to TIMS/F015 - Purchase Order mapping document (turkey) v20.xls.md",
+    "method": "markitdown",
+    "status": "ok",
+    "error": null,
+    "extracted_at": "2026-05-03T00:06:38.331967+00:00"
+  },
+  {
+    "source_path": "/Users/gclyle/GrowDirect/Brain/raw/inbox/Interface Design Documents/Finance Interfaces (F-Prefix)/F001 (US) _ F015 (TK) PO RMS to TIMS/F015 - Purchase Order mapping document (turkey) v30.xls",
+    "source_sha256": "7cbbf14951d1bd899c973262bece204824f6ffa2546da316bad5a6af99c16f59",
+    "target_path": "/Users/gclyle/GrowDirect/Brain/raw/.extract/TOM/Finance Interfaces (F-Prefix)/F001 (US) _ F015 (TK) PO RMS to TIMS/F015 - Purchase Order mapping document (turkey) v30.xls.md",
+    "method": "markitdown",
+    "status": "ok",
+    "error": null,
+    "extracted_at": "2026-05-03T00:06:38.400639+00:00"
+  },
+  {
+    "source_path": "/Users/gclyle/GrowDirect/Brain/raw/inbox/Interface Design Documents/Finance Interfaces (F-Prefix)/F001 (US) _ F015 (TK) PO RMS to TIMS/F015 - Purchase Order mapping document (turkey) v40.xls",
+    "source_sha256": "fd6ec1e32dc4ced8c2441984eacdb3ac364da817248c6aea0f3e43a9bde460f1",
+    "target_path": "/Users/gclyle/GrowDirect/Brain/raw/.extract/TOM/Finance Interfaces (F-Prefix)/F001 (US) _ F015 (TK) PO RMS to TIMS/F015 - Purchase Order mapping document (turkey) v40.xls.md",
+    "method": "markitdown",
+    "status": "ok",
+    "error": null,
+    "extracted_at": "2026-05-03T00:06:38.468328+00:00"
+  },
+  {
+    "source_path": "/Users/gclyle/GrowDirect/Brain/raw/inbox/Interface Design Documents/Finance Interfaces (F-Prefix)/F001 (US) _ F015 (TK) PO RMS to TIMS/F015 - Purchase Order mapping document (turkey) v50.xls",
+    "source_sha256": "bd1de8a573e544954826f912596e5436f08b0ac919a3a877f26c448c3b10f28c",
+    "target_path": "/Users/gclyle/GrowDirect/Brain/raw/.extract/TOM/Finance Interfaces (F-Prefix)/F001 (US) _ F015 (TK) PO RMS to TIMS/F015 - Purchase Order mapping document (turkey) v50.xls.md",
+    "method": "markitdown",
+    "status": "ok",
+    "error": null,
+    "extracted_at": "2026-05-03T00:06:38.536647+00:00"
+  },
+  {
+    "source_path": "/Users/gclyle/GrowDirect/Brain/raw/inbox/Interface Design Documents/Finance Interfaces (F-Prefix)/F001 (US) _ F015 (TK) PO RMS to TIMS/F015 - Purchase Order mapping document (turkey) v60.xls",
+    "source_sha256": "ce559e261598b40e903b7b1831662f4d8e42cf47a74ef2f58654228ddc0073f9",
+    "target_path": "/Users/gclyle/GrowDirect/Brain/raw/.extract/TOM/Finance Interfaces (F-Prefix)/F001 (US) _ F015 (TK) PO RMS to TIMS/F015 - Purchase Order mapping document (turkey) v60.xls.md",
+    "method": "markitdown",
+    "status": "ok",
+    "error": null,
+    "extracted_at": "2026-05-03T00:06:38.615634+00:00"
+  },
+  {
+    "source_path": "/Users/gclyle/GrowDirect/Brain/raw/inbox/Interface Design Documents/Finance Interfaces (F-Prefix)/F001 (US) _ F015 (TK) PO RMS to TIMS/F015 - Purchase Order mapping document (turkey) v70.xls",
+    "source_sha256": "29b9d4bb79fdb863f69a84230e80c42f5f355d0c458020a5d2ddeff93e2f2440",
+    "target_path": "/Users/gclyle/GrowDirect/Brain/raw/.extract/TOM/Finance Interfaces (F-Prefix)/F001 (US) _ F015 (TK) PO RMS to TIMS/F015 - Purchase Order mapping document (turkey) v70.xls.md",
+    "method": "markitdown",
+    "status": "ok",
+    "error": null,
+    "extracted_at": "2026-05-03T00:06:38.684110+00:00"
+  },
+  {
+    "source_path": "/Users/gclyle/GrowDirect/Brain/raw/inbox/Interface Design Documents/Finance Interfaces (F-Prefix)/F001 (US) _ F015 (TK) PO RMS to TIMS/F015 - Purchase Order mapping document (turkey) v80.xls",
+    "source_sha256": "20a5b473e840b72be94a2e11c0b3d8df8a56a0e57355719ef48d1a04dd486355",
+    "target_path": "/Users/gclyle/GrowDirect/Brain/raw/.extract/TOM/Finance Interfaces (F-Prefix)/F001 (US) _ F015 (TK) PO RMS to TIMS/F015 - Purchase Order mapping document (turkey) v80.xls.md",
+    "method": "markitdown",
+    "status": "ok",
+    "error": null,
+    "extracted_at": "2026-05-03T00:06:38.750029+00:00"
+  },
+  {
+    "source_path": "/Users/gclyle/GrowDirect/Brain/raw/inbox/Interface Design Documents/Finance Interfaces (F-Prefix)/F001 (US) _ F015 (TK) PO RMS to TIMS/F015 - Purchase Order mapping document (turkey) v90.xls",
+    "source_sha256": "28665bc335e792fa8451a4726e19351c9625906ccdddee70db0eb102b4556634",
+    "target_path": "/Users/gclyle/GrowDirect/Brain/raw/.extract/TOM/Finance Interfaces (F-Prefix)/F001 (US) _ F015 (TK) PO RMS to TIMS/F015 - Purchase Order mapping document (turkey) v90.xls.md",
+    "method": "markitdown",
+    "status": "ok",
+    "error": null,
+    "extracted_at": "2026-05-03T00:06:38.815182+00:00"
+  },
+  {
+    "source_path": "/Users/gclyle/GrowDirect/Brain/raw/inbox/Interface Design Documents/Finance Interfaces (F-Prefix)/F001 (US) _ F015 (TK) PO RMS to TIMS/F015 - Purchase Order mapping document (turkey).xls",
+    "source_sha256": "3fcf9c05f2d99c178b31bc53a9114fd76290f1693aacc4d082f24e564bcd7db6",
+    "target_path": "/Users/gclyle/GrowDirect/Brain/raw/.extract/TOM/Finance Interfaces (F-Prefix)/F001 (US) _ F015 (TK) PO RMS to TIMS/F015 - Purchase Order mapping document (turkey).xls.md",
+    "method": "markitdown",
+    "status": "ok",
+    "error": null,
+    "extracted_at": "2026-05-03T00:06:38.889581+00:00"
+  },
+  {
+    "source_path": "/Users/gclyle/GrowDirect/Brain/raw/inbox/Interface Design Documents/Finance Interfaces (F-Prefix)/F004-Supplier Incoice from TIMS to ReIM/F004 - Invoice from Supplier Interface Document v10.doc",
+    "source_sha256": "2236e9275aa5a672b623d57fcf814aa947bd24ba456532bafc20eb3927c56b23",
+    "target_path": "/Users/gclyle/GrowDirect/Brain/raw/.extract/TOM/Finance Interfaces (F-Prefix)/F004-Supplier Incoice from TIMS to ReIM/F004 - Invoice from Supplier Interface Document v10.doc.md",
+    "method": "textutil",
+    "status": "ok",
+    "error": null,
+    "extracted_at": "2026-05-03T00:06:38.999701+00:00"
+  },
+  {
+    "source_path": "/Users/gclyle/GrowDirect/Brain/raw/inbox/Interface Design Documents/Finance Interfaces (F-Prefix)/F004-Supplier Incoice from TIMS to ReIM/F004 - Invoice from Supplier Interface Document.doc",
+    "source_sha256": "91e8b440f2fd30675efc2c557af3d449357a613e3ffddc8aa787bf0f0a45b806",
+    "target_path": "/Users/gclyle/GrowDirect/Brain/raw/.extract/TOM/Finance Interfaces (F-Prefix)/F004-Supplier Incoice from TIMS to ReIM/F004 - Invoice from Supplier Interface Document.doc.md",
+    "method": "textutil",
+    "status": "ok",
+    "error": null,
+    "extracted_at": "2026-05-03T00:06:39.103996+00:00"
+  },
+  {
+    "source_path": "/Users/gclyle/GrowDirect/Brain/raw/inbox/Interface Design Documents/Finance Interfaces (F-Prefix)/F004-Supplier Incoice from TIMS to ReIM/F004 - Invoice from Supplier Interface Documentv02D.doc",
+    "source_sha256": "319546c2a450fe9dba5073a9e961826ee0f8d0569cbbdb611ea5aa46137fe537",
+    "target_path": "/Users/gclyle/GrowDirect/Brain/raw/.extract/TOM/Finance Interfaces (F-Prefix)/F004-Supplier Incoice from TIMS to ReIM/F004 - Invoice from Supplier Interface Documentv02D.doc.md",
+    "method": "textutil",
+    "status": "ok",
+    "error": null,
+    "extracted_at": "2026-05-03T00:06:39.183765+00:00"
+  },
+  {
+    "source_path": "/Users/gclyle/GrowDirect/Brain/raw/inbox/Interface Design Documents/Finance Interfaces (F-Prefix)/F004-Supplier Incoice from TIMS to ReIM/F004 - Invoice from Supplier Mapping Document v20.xls",
+    "source_sha256": "aaf1fe06a352b82ff910fe1f8101ee87ba69281cd6861ad002b19e5a4097f375",
+    "target_path": "/Users/gclyle/GrowDirect/Brain/raw/.extract/TOM/Finance Interfaces (F-Prefix)/F004-Supplier Incoice from TIMS to ReIM/F004 - Invoice from Supplier Mapping Document v20.xls.md",
+    "method": "markitdown",
+    "status": "ok",
+    "error": null,
+    "extracted_at": "2026-05-03T00:06:39.263257+00:00"
+  },
+  {
+    "source_path": "/Users/gclyle/GrowDirect/Brain/raw/inbox/Interface Design Documents/Finance Interfaces (F-Prefix)/F004-Supplier Incoice from TIMS to ReIM/F004 - Invoice from Supplier Mapping Document.xls",
+    "source_sha256": "3ebcf494d6d3840163e3585a210241a4b498bc83af9f567289a9ca14bea1e847",
+    "target_path": "/Users/gclyle/GrowDirect/Brain/raw/.extract/TOM/Finance Interfaces (F-Prefix)/F004-Supplier Incoice from TIMS to ReIM/F004 - Invoice from Supplier Mapping Document.xls.md",
+    "method": "markitdown",
+    "status": "ok",
+    "error": null,
+    "extracted_at": "2026-05-03T00:06:39.351664+00:00"
+  },
+  {
+    "source_path": "/Users/gclyle/GrowDirect/Brain/raw/inbox/Interface Design Documents/Finance Interfaces (F-Prefix)/F004-Supplier Incoice from TIMS to ReIM/F004 - Review Interface Spec TIMS Invoice to ReIM TH 090207.xls",
+    "source_sha256": "45b2aa6fb03e1f2bef4030871562ddba5ea6441647dd4a0ece4c81c154bd7a71",
+    "target_path": "/Users/gclyle/GrowDirect/Brain/raw/.extract/TOM/Finance Interfaces (F-Prefix)/F004-Supplier Incoice from TIMS to ReIM/F004 - Review Interface Spec TIMS Invoice to ReIM TH 090207.xls.md",
+    "method": "markitdown",
+    "status": "ok",
+    "error": null,
+    "extracted_at": "2026-05-03T00:06:39.457637+00:00"
+  },
+  {
+    "source_path": "/Users/gclyle/GrowDirect/Brain/raw/inbox/Interface Design Documents/Finance Interfaces (F-Prefix)/F012 Supplier Information OFi to RMS/TOM US - Supplier Outline Architecture v1.2.0.doc",
+    "source_sha256": "f14ba4db506402770b161344cb1107b3fb687fe9732442dd423a055d225eec18",
+    "target_path": "/Users/gclyle/GrowDirect/Brain/raw/.extract/TOM/Finance Interfaces (F-Prefix)/F012 Supplier Information OFi to RMS/TOM US - Supplier Outline Architecture v1.2.0.doc.md",
+    "method": "textutil",
+    "status": "ok",
+    "error": null,
+    "extracted_at": "2026-05-03T00:06:39.476396+00:00"
+  },
+  {
+    "source_path": "/Users/gclyle/GrowDirect/Brain/raw/inbox/Interface Design Documents/Finance Interfaces (F-Prefix)/F012 Supplier Information OFi to RMS/TOM US - Supplier Outline Architecture v1.2.10.doc",
+    "source_sha256": "3ae7929ea012836c1f2eae1f57246e02bd7ab44bcf4e3fb379041e5702a7f6b7",
+    "target_path": "/Users/gclyle/GrowDirect/Brain/raw/.extract/TOM/Finance Interfaces (F-Prefix)/F012 Supplier Information OFi to RMS/TOM US - Supplier Outline Architecture v1.2.10.doc.md",
+    "method": "textutil",
+    "status": "ok",
+    "error": null,
+    "extracted_at": "2026-05-03T00:06:39.550804+00:00"
+  },
+  {
+    "source_path": "/Users/gclyle/GrowDirect/Brain/raw/inbox/Interface Design Documents/Finance Interfaces (F-Prefix)/F012 Supplier Information OFi to RMS/TOM US - Supplier Outline Architecture v1.2.2.doc",
+    "source_sha256": "263e464c421455dbd37fe7d1591e3c0fb293f5a8f71a391913ce798acdce09c8",
+    "target_path": "/Users/gclyle/GrowDirect/Brain/raw/.extract/TOM/Finance Interfaces (F-Prefix)/F012 Supplier Information OFi to RMS/TOM US - Supplier Outline Architecture v1.2.2.doc.md",
+    "method": "textutil",
+    "status": "ok",
+    "error": null,
+    "extracted_at": "2026-05-03T00:06:39.624766+00:00"
+  },
+  {
+    "source_path": "/Users/gclyle/GrowDirect/Brain/raw/inbox/Interface Design Documents/Finance Interfaces (F-Prefix)/F012 Supplier Information OFi to RMS/TOM US - Supplier Outline Architecture v1.2.5.doc",
+    "source_sha256": "553a736d010e1d89ab5fb6ce6b1e635953e1bcad6db340a00351032cc5f48d47",
+    "target_path": "/Users/gclyle/GrowDirect/Brain/raw/.extract/TOM/Finance Interfaces (F-Prefix)/F012 Supplier Information OFi to RMS/TOM US - Supplier Outline Architecture v1.2.5.doc.md",
+    "method": "textutil",
+    "status": "ok",
+    "error": null,
+    "extracted_at": "2026-05-03T00:06:39.702808+00:00"
+  },
+  {
+    "source_path": "/Users/gclyle/GrowDirect/Brain/raw/inbox/Interface Design Documents/Finance Interfaces (F-Prefix)/F012 Supplier Information OFi to RMS/TOM US - Supplier Outline Architecture v1.2.8.doc",
+    "source_sha256": "8a23d0f734029a13728b743314b44a03c0a59f16e2e383a3d352964171903858",
+    "target_path": "/Users/gclyle/GrowDirect/Brain/raw/.extract/TOM/Finance Interfaces (F-Prefix)/F012 Supplier Information OFi to RMS/TOM US - Supplier Outline Architecture v1.2.8.doc.md",
+    "method": "textutil",
+    "status": "ok",
+    "error": null,
+    "extracted_at": "2026-05-03T00:06:39.771396+00:00"
+  },
+  {
+    "source_path": "/Users/gclyle/GrowDirect/Brain/raw/inbox/Interface Design Documents/Finance Interfaces (F-Prefix)/F012 Supplier Information OFi to RMS/TOM US - Supplier Outline Architecture v1.2.9.doc",
+    "source_sha256": "441eb4f8f3d48fda76118234a94766b66d1d9e7225786bcad696c7e72306ae3c",
+    "target_path": "/Users/gclyle/GrowDirect/Brain/raw/.extract/TOM/Finance Interfaces (F-Prefix)/F012 Supplier Information OFi to RMS/TOM US - Supplier Outline Architecture v1.2.9.doc.md",
+    "method": "textutil",
+    "status": "ok",
+    "error": null,
+    "extracted_at": "2026-05-03T00:06:39.840291+00:00"
+  },
+  {
+    "source_path": "/Users/gclyle/GrowDirect/Brain/raw/inbox/Interface Design Documents/Finance Interfaces (F-Prefix)/F012 Supplier Information OFi to RMS/Vendor_to_Supplier v1 2.doc",
+    "source_sha256": "678ba2548c979c9a8e623d5c314a6cf800069828ce630bb6e8ff8638aeed72ec",
+    "target_path": "/Users/gclyle/GrowDirect/Brain/raw/.extract/TOM/Finance Interfaces (F-Prefix)/F012 Supplier Information OFi to RMS/Vendor_to_Supplier v1 2.doc.md",
+    "method": "textutil",
+    "status": "ok",
+    "error": null,
+    "extracted_at": "2026-05-03T00:06:39.917905+00:00"
+  },
+  {
+    "source_path": "/Users/gclyle/GrowDirect/Brain/raw/inbox/Interface Design Documents/Finance Interfaces (F-Prefix)/F013 PO Acknowledgement TIMS to RMS/F013 - Purchase Order Acknowledgement Interface Specification V3.doc",
+    "source_sha256": "e18c0084ec5ffab737dd000fb96097be8df9048dc7feb7a496209d97aa8ad567",
+    "target_path": "/Users/gclyle/GrowDirect/Brain/raw/.extract/TOM/Finance Interfaces (F-Prefix)/F013 PO Acknowledgement TIMS to RMS/F013 - Purchase Order Acknowledgement Interface Specification V3.doc.md",
+    "method": "textutil",
+    "status": "ok",
+    "error": null,
+    "extracted_at": "2026-05-03T00:06:39.977058+00:00"
+  },
+  {
+    "source_path": "/Users/gclyle/GrowDirect/Brain/raw/inbox/Interface Design Documents/Finance Interfaces (F-Prefix)/F013 PO Acknowledgement TIMS to RMS/F013 - Purchase Order Acknowledgement Interface Specification V4.doc",
+    "source_sha256": "c044d3d4fab981c4b3ebbaa4b9c1b981ecde070bf8087bd220c69e89da6ee2c2",
+    "target_path": "/Users/gclyle/GrowDirect/Brain/raw/.extract/TOM/Finance Interfaces (F-Prefix)/F013 PO Acknowledgement TIMS to RMS/F013 - Purchase Order Acknowledgement Interface Specification V4.doc.md",
+    "method": "textutil",
+    "status": "ok",
+    "error": null,
+    "extracted_at": "2026-05-03T00:06:40.045609+00:00"
+  },
+  {
+    "source_path": "/Users/gclyle/GrowDirect/Brain/raw/inbox/Interface Design Documents/Finance Interfaces (F-Prefix)/F013 PO Acknowledgement TIMS to RMS/F013-Purchase Order Acknowledgement mapping documentV3.xls",
+    "source_sha256": "f06585c4b4f149af51d3851964c992f2fa6703111fafebf989025ed7bb36a9ba",
+    "target_path": "/Users/gclyle/GrowDirect/Brain/raw/.extract/TOM/Finance Interfaces (F-Prefix)/F013 PO Acknowledgement TIMS to RMS/F013-Purchase Order Acknowledgement mapping documentV3.xls.md",
+    "method": "markitdown",
+    "status": "ok",
+    "error": null,
+    "extracted_at": "2026-05-03T00:06:40.149831+00:00"
+  },
+  {
+    "source_path": "/Users/gclyle/GrowDirect/Brain/raw/inbox/Interface Design Documents/Finance Interfaces (F-Prefix)/F013 PO Acknowledgement TIMS to RMS/F013-Purchase Order Acknowledgement mapping documentV4.xls",
+    "source_sha256": "eb59a1bb9442e60dd4c5bc61fda3497e0558b6b6195517d7234f05584319edb9",
+    "target_path": "/Users/gclyle/GrowDirect/Brain/raw/.extract/TOM/Finance Interfaces (F-Prefix)/F013 PO Acknowledgement TIMS to RMS/F013-Purchase Order Acknowledgement mapping documentV4.xls.md",
+    "method": "markitdown",
+    "status": "ok",
+    "error": null,
+    "extracted_at": "2026-05-03T00:06:40.207867+00:00"
+  },
+  {
+    "source_path": "/Users/gclyle/GrowDirect/Brain/raw/inbox/Interface Design Documents/Finance Interfaces (F-Prefix)/F014 - Tesco Invoice from ReIM to TIMS/F014 - Tesco Invoice Mapping Document v20.xls",
+    "source_sha256": "ec381499ab3ae6090d378a5d6513d1d16d65ddd393031c2465c7278eb05ea654",
+    "target_path": "/Users/gclyle/GrowDirect/Brain/raw/.extract/TOM/Finance Interfaces (F-Prefix)/F014 - Tesco Invoice from ReIM to TIMS/F014 - Tesco Invoice Mapping Document v20.xls.md",
+    "method": "markitdown",
+    "status": "ok",
+    "error": null,
+    "extracted_at": "2026-05-03T00:06:40.262548+00:00"
+  },
+  {
+    "source_path": "/Users/gclyle/GrowDirect/Brain/raw/inbox/Interface Design Documents/Finance Interfaces (F-Prefix)/F014 - Tesco Invoice from ReIM to TIMS/F014 - Tesco Invoice Mapping Document v30.xls",
+    "source_sha256": "d9ebafa516e2a28af2d5ceac8e535b1c9274024f2d547a744cd5791e7497e087",
+    "target_path": "/Users/gclyle/GrowDirect/Brain/raw/.extract/TOM/Finance Interfaces (F-Prefix)/F014 - Tesco Invoice from ReIM to TIMS/F014 - Tesco Invoice Mapping Document v30.xls.md",
+    "method": "markitdown",
+    "status": "ok",
+    "error": null,
+    "extracted_at": "2026-05-03T00:06:40.321946+00:00"
+  },
+  {
+    "source_path": "/Users/gclyle/GrowDirect/Brain/raw/inbox/Interface Design Documents/Finance Interfaces (F-Prefix)/F014 - Tesco Invoice from ReIM to TIMS/F014 - Tesco Invoice Mapping Document.xls",
+    "source_sha256": "ae0964acaa6994f51429f3ceeae06f8e92f6dd3fb07f3a6519c0a2d3d43e1192",
+    "target_path": "/Users/gclyle/GrowDirect/Brain/raw/.extract/TOM/Finance Interfaces (F-Prefix)/F014 - Tesco Invoice from ReIM to TIMS/F014 - Tesco Invoice Mapping Document.xls.md",
+    "method": "markitdown",
+    "status": "ok",
+    "error": null,
+    "extracted_at": "2026-05-03T00:06:40.380548+00:00"
+  },
+  {
+    "source_path": "/Users/gclyle/GrowDirect/Brain/raw/inbox/Interface Design Documents/Finance Interfaces (F-Prefix)/F014 - Tesco Invoice from ReIM to TIMS/F014 Tesco Invoice Interface document v01.doc",
+    "source_sha256": "edc8fe0b0a6a11bca963a16510a519b657bacddf0fce57c63322b5e0934dba24",
+    "target_path": "/Users/gclyle/GrowDirect/Brain/raw/.extract/TOM/Finance Interfaces (F-Prefix)/F014 - Tesco Invoice from ReIM to TIMS/F014 Tesco Invoice Interface document v01.doc.md",
+    "method": "textutil",
+    "status": "ok",
+    "error": null,
+    "extracted_at": "2026-05-03T00:06:40.423207+00:00"
+  },
+  {
+    "source_path": "/Users/gclyle/GrowDirect/Brain/raw/inbox/Interface Design Documents/Finance Interfaces (F-Prefix)/F014 - Tesco Invoice from ReIM to TIMS/F014 Tesco Invoice Interface document.doc",
+    "source_sha256": "3bfab31812265276b05eb6c97dc990196920382fd05e23e90bd5be26a602f2e0",
+    "target_path": "/Users/gclyle/GrowDirect/Brain/raw/.extract/TOM/Finance Interfaces (F-Prefix)/F014 - Tesco Invoice from ReIM to TIMS/F014 Tesco Invoice Interface document.doc.md",
+    "method": "textutil",
+    "status": "ok",
+    "error": null,
+    "extracted_at": "2026-05-03T00:06:40.497257+00:00"
+  },
+  {
+    "source_path": "/Users/gclyle/GrowDirect/Brain/raw/inbox/Interface Design Documents/Finance Interfaces (F-Prefix)/F014 - Tesco Invoice from ReIM to TIMS/InterfaceSpecF014_Mapping_Review.xls",
+    "source_sha256": "75c0b5a30cad326700028082855a6788092d699c8c695f4a41e4e6eab80da57f",
+    "target_path": "/Users/gclyle/GrowDirect/Brain/raw/.extract/TOM/Finance Interfaces (F-Prefix)/F014 - Tesco Invoice from ReIM to TIMS/InterfaceSpecF014_Mapping_Review.xls.md",
+    "method": "markitdown",
+    "status": "ok",
+    "error": null,
+    "extracted_at": "2026-05-03T00:06:40.582511+00:00"
+  },
+  {
+    "source_path": "/Users/gclyle/GrowDirect/Brain/raw/inbox/Interface Design Documents/Finance Interfaces (F-Prefix)/F014 - Tesco Invoice from ReIM to TIMS/InterfaceSpec_Mapping_Issues_F014_V10.xls",
+    "source_sha256": "8e848128e69aefd1e71d8291b578d53e9c8fe90536fdca955f3362f170eb0f5b",
+    "target_path": "/Users/gclyle/GrowDirect/Brain/raw/.extract/TOM/Finance Interfaces (F-Prefix)/F014 - Tesco Invoice from ReIM to TIMS/InterfaceSpec_Mapping_Issues_F014_V10.xls.md",
+    "method": "markitdown",
+    "status": "ok",
+    "error": null,
+    "extracted_at": "2026-05-03T00:06:40.598439+00:00"
+  },
+  {
+    "source_path": "/Users/gclyle/GrowDirect/Brain/raw/inbox/Interface Design Documents/GFO Interfaces (J-Prefix)/J001 Allocations from RMS to GFO/J001 - Interface Specification - Allocations from RMS to GFO V0.2.doc",
+    "source_sha256": "02e5761dd9c35f57791c656adc49095af3e63d9d0b86c880604af4483cb5e280",
+    "target_path": "/Users/gclyle/GrowDirect/Brain/raw/.extract/TOM/GFO Interfaces (J-Prefix)/J001 Allocations from RMS to GFO/J001 - Interface Specification - Allocations from RMS to GFO V0.2.doc.md",
+    "method": "textutil",
+    "status": "ok",
+    "error": null,
+    "extracted_at": "2026-05-03T00:06:40.630227+00:00"
+  },
+  {
+    "source_path": "/Users/gclyle/GrowDirect/Brain/raw/inbox/Interface Design Documents/GFO Interfaces (J-Prefix)/J001 Allocations from RMS to GFO/J001 - Interface Specification - Allocations from RMS to GFO.doc",
+    "source_sha256": "5585ac0864845e231d8801cc5040ed81903320bb2e86c675a17b48521262ab97",
+    "target_path": "/Users/gclyle/GrowDirect/Brain/raw/.extract/TOM/GFO Interfaces (J-Prefix)/J001 Allocations from RMS to GFO/J001 - Interface Specification - Allocations from RMS to GFO.doc.md",
+    "method": "textutil",
+    "status": "ok",
+    "error": null,
+    "extracted_at": "2026-05-03T00:06:40.693899+00:00"
+  },
+  {
+    "source_path": "/Users/gclyle/GrowDirect/Brain/raw/inbox/Interface Design Documents/GFO Interfaces (J-Prefix)/J002 Location Hierarchy from IDS to UDD/J002 -  Location Hierarchy from IDS to UDD - Mappings V1.1.xls",
+    "source_sha256": "6679a96c14ffb021bf1ce166a83501351fb8c37a3245b544ede09d06eb5bdd0b",
+    "target_path": "/Users/gclyle/GrowDirect/Brain/raw/.extract/TOM/GFO Interfaces (J-Prefix)/J002 Location Hierarchy from IDS to UDD/J002 -  Location Hierarchy from IDS to UDD - Mappings V1.1.xls.md",
+    "method": "markitdown",
+    "status": "ok",
+    "error": null,
+    "extracted_at": "2026-05-03T00:06:40.755072+00:00"
+  },
+  {
+    "source_path": "/Users/gclyle/GrowDirect/Brain/raw/inbox/Interface Design Documents/GFO Interfaces (J-Prefix)/J002 Location Hierarchy from IDS to UDD/J002 -  Location Hierarchy from IDS to UDD - Mappings.xls",
+    "source_sha256": "a1a208cfe6e2c7478fdabac779393cccd1fe1ec33cd2259d8739ae5bdee0fb67",
+    "target_path": "/Users/gclyle/GrowDirect/Brain/raw/.extract/TOM/GFO Interfaces (J-Prefix)/J002 Location Hierarchy from IDS to UDD/J002 -  Location Hierarchy from IDS to UDD - Mappings.xls.md",
+    "method": "markitdown",
+    "status": "ok",
+    "error": null,
+    "extracted_at": "2026-05-03T00:06:40.783756+00:00"
+  },
+  {
+    "source_path": "/Users/gclyle/GrowDirect/Brain/raw/inbox/Interface Design Documents/GFO Interfaces (J-Prefix)/J002 Location Hierarchy from IDS to UDD/J002 - Interface Specification - Location Hierarchy from IDS to UDD.doc",
+    "source_sha256": "24970007211356b3cea5bd46b7d2aa7dc99039cb220d2750a84a8d54938d1ddb",
+    "target_path": "/Users/gclyle/GrowDirect/Brain/raw/.extract/TOM/GFO Interfaces (J-Prefix)/J002 Location Hierarchy from IDS to UDD/J002 - Interface Specification - Location Hierarchy from IDS to UDD.doc.md",
+    "method": "textutil",
+    "status": "ok",
+    "error": null,
+    "extracted_at": "2026-05-03T00:06:40.810419+00:00"
+  },
+  {
+    "source_path": "/Users/gclyle/GrowDirect/Brain/raw/inbox/Interface Design Documents/GFO Interfaces (J-Prefix)/J003 Supplier Authority Data from GFO to UDD/J003 - Interface Specification - Supplier Authority Data from GFO to UDD.doc",
+    "source_sha256": "a640b8e9ab9ab7e0b2429552cae12448b8c3dee32a8d26af400e2cd5714e0947",
+    "target_path": "/Users/gclyle/GrowDirect/Brain/raw/.extract/TOM/GFO Interfaces (J-Prefix)/J003 Supplier Authority Data from GFO to UDD/J003 - Interface Specification - Supplier Authority Data from GFO to UDD.doc.md",
+    "method": "textutil",
+    "status": "ok",
+    "error": null,
+    "extracted_at": "2026-05-03T00:06:40.868938+00:00"
+  },
+  {
+    "source_path": "/Users/gclyle/GrowDirect/Brain/raw/inbox/Interface Design Documents/GFO Interfaces (J-Prefix)/J004 Sales from Till Data Store to UDD/J004 - Interface Specification - TDS Data from IDS to UDD v02.doc",
+    "source_sha256": "550b750fa6c3468c56f59b902f23c480969568f944177e7af754c6c53c7d0c4a",
+    "target_path": "/Users/gclyle/GrowDirect/Brain/raw/.extract/TOM/GFO Interfaces (J-Prefix)/J004 Sales from Till Data Store to UDD/J004 - Interface Specification - TDS Data from IDS to UDD v02.doc.md",
+    "method": "textutil",
+    "status": "ok",
+    "error": null,
+    "extracted_at": "2026-05-03T00:06:40.932546+00:00"
+  },
+  {
+    "source_path": "/Users/gclyle/GrowDirect/Brain/raw/inbox/Interface Design Documents/GFO Interfaces (J-Prefix)/J004 Sales from Till Data Store to UDD/J004 - Interface Specification - TDS Data from IDS to UDD.doc",
+    "source_sha256": "66c9f25593d403088c055db1ec027b7f403ff446427fa31e273dec2310cc1303",
+    "target_path": "/Users/gclyle/GrowDirect/Brain/raw/.extract/TOM/GFO Interfaces (J-Prefix)/J004 Sales from Till Data Store to UDD/J004 - Interface Specification - TDS Data from IDS to UDD.doc.md",
+    "method": "textutil",
+    "status": "ok",
+    "error": null,
+    "extracted_at": "2026-05-03T00:06:40.997924+00:00"
+  },
+  {
+    "source_path": "/Users/gclyle/GrowDirect/Brain/raw/inbox/Interface Design Documents/GFO Interfaces (J-Prefix)/J004 Sales from Till Data Store to UDD/J004 - Sales Data from TDS to UDD - Mappings.xls",
+    "source_sha256": "9d1a1161a4a470a4ac4a64d07205e75265d424353fcaf1bfeee4a47015717141",
+    "target_path": "/Users/gclyle/GrowDirect/Brain/raw/.extract/TOM/GFO Interfaces (J-Prefix)/J004 Sales from Till Data Store to UDD/J004 - Sales Data from TDS to UDD - Mappings.xls.md",
+    "method": "markitdown",
+    "status": "ok",
+    "error": null,
+    "extracted_at": "2026-05-03T00:06:41.062377+00:00"
+  },
+  {
+    "source_path": "/Users/gclyle/GrowDirect/Brain/raw/inbox/Interface Design Documents/GFO Interfaces (J-Prefix)/J006 Commercial Hierarchy from IDS to UDD/J006 -  Product Commercial and Hierarchy from IDS to UDD - Mappings V1.1.xls",
+    "source_sha256": "525ee808d96f8caa1f3577aa8cbf9365ffbb5b429ba25c70d8151732a5a11b6b",
+    "target_path": "/Users/gclyle/GrowDirect/Brain/raw/.extract/TOM/GFO Interfaces (J-Prefix)/J006 Commercial Hierarchy from IDS to UDD/J006 -  Product Commercial and Hierarchy from IDS to UDD - Mappings V1.1.xls.md",
+    "method": "markitdown",
+    "status": "ok",
+    "error": null,
+    "extracted_at": "2026-05-03T00:06:41.091911+00:00"
+  },
+  {
+    "source_path": "/Users/gclyle/GrowDirect/Brain/raw/inbox/Interface Design Documents/GFO Interfaces (J-Prefix)/J006 Commercial Hierarchy from IDS to UDD/J006 -  Product Commercial and Hierarchy from IDS to UDD - Mappings.xls",
+    "source_sha256": "96a04663b810f2ce7ef2d6eb65636d174f8e3bda6f9e3f3c187a6cdb5e75c9b7",
+    "target_path": "/Users/gclyle/GrowDirect/Brain/raw/.extract/TOM/GFO Interfaces (J-Prefix)/J006 Commercial Hierarchy from IDS to UDD/J006 -  Product Commercial and Hierarchy from IDS to UDD - Mappings.xls.md",
+    "method": "markitdown",
+    "status": "ok",
+    "error": null,
+    "extracted_at": "2026-05-03T00:06:41.120954+00:00"
+  },
+  {
+    "source_path": "/Users/gclyle/GrowDirect/Brain/raw/inbox/Interface Design Documents/GFO Interfaces (J-Prefix)/J009 Authorised Range and Shelf Capacities from GFO to UDD/J009TR - Interface Specification - Authorised Range and SC DatafromGFO to UDD.doc",
+    "source_sha256": "b38d1545a38baa049b0f1657e30fa9b7a16e92ecc7c4cf678e580018144907fb",
+    "target_path": "/Users/gclyle/GrowDirect/Brain/raw/.extract/TOM/GFO Interfaces (J-Prefix)/J009 Authorised Range and Shelf Capacities from GFO to UDD/J009TR - Interface Specification - Authorised Range and SC DatafromGFO to UDD.doc.md",
+    "method": "textutil",
+    "status": "ok",
+    "error": null,
+    "extracted_at": "2026-05-03T00:06:41.149951+00:00"
+  },
+  {
+    "source_path": "/Users/gclyle/GrowDirect/Brain/raw/inbox/Interface Design Documents/GFO Interfaces (J-Prefix)/J010 Current SOH Data from GFO to UDD/J010 - Interface Specification - Current SOH Data from GFO to UDD.doc",
+    "source_sha256": "0035c697f30d97c218ac6ff6aef238e9096f38d49470ebcd80ceeb313189abf9",
+    "target_path": "/Users/gclyle/GrowDirect/Brain/raw/.extract/TOM/GFO Interfaces (J-Prefix)/J010 Current SOH Data from GFO to UDD/J010 - Interface Specification - Current SOH Data from GFO to UDD.doc.md",
+    "method": "textutil",
+    "status": "ok",
+    "error": null,
+    "extracted_at": "2026-05-03T00:06:41.211564+00:00"
+  },
+  {
+    "source_path": "/Users/gclyle/GrowDirect/Brain/raw/inbox/Interface Design Documents/GFO Interfaces (J-Prefix)/J015 Sales Forecast Data from GFO to ORMS/J015 - GFO Review Interface Spec Sales Forecast (GFO to RMSupplyAuthority.xls",
+    "source_sha256": "84c8dd87efaa8b2d438b0bfecbb37cafbbebb3ced1109d7335f33c2c0d60b626",
+    "target_path": "/Users/gclyle/GrowDirect/Brain/raw/.extract/TOM/GFO Interfaces (J-Prefix)/J015 Sales Forecast Data from GFO to ORMS/J015 - GFO Review Interface Spec Sales Forecast (GFO to RMSupplyAuthority.xls.md",
+    "method": "markitdown",
+    "status": "ok",
+    "error": null,
+    "extracted_at": "2026-05-03T00:06:41.272243+00:00"
+  },
+  {
+    "source_path": "/Users/gclyle/GrowDirect/Brain/raw/inbox/Interface Design Documents/GFO Interfaces (J-Prefix)/J015 Sales Forecast Data from GFO to ORMS/J015 - Interface Specification - Sales Forecast (GFO to RMS) .doc",
+    "source_sha256": "580960835424ab1864120cbdc2704f9161aea69d40afdc8f5e9ef3e69c2b8725",
+    "target_path": "/Users/gclyle/GrowDirect/Brain/raw/.extract/TOM/GFO Interfaces (J-Prefix)/J015 Sales Forecast Data from GFO to ORMS/J015 - Interface Specification - Sales Forecast (GFO to RMS) .doc.md",
+    "method": "textutil",
+    "status": "ok",
+    "error": null,
+    "extracted_at": "2026-05-03T00:06:41.294966+00:00"
+  },
+  {
+    "source_path": "/Users/gclyle/GrowDirect/Brain/raw/inbox/Interface Design Documents/GFO Interfaces (J-Prefix)/J015 Sales Forecast Data from GFO to ORMS/J015TR - Sales Forecast (GFO to RMS) Mappings.xls",
+    "source_sha256": "6740a3eb0ea4480117315ca4ca5f3609daa976a5117da43e1b6c1ee4adb35cee",
+    "target_path": "/Users/gclyle/GrowDirect/Brain/raw/.extract/TOM/GFO Interfaces (J-Prefix)/J015 Sales Forecast Data from GFO to ORMS/J015TR - Sales Forecast (GFO to RMS) Mappings.xls.md",
+    "method": "markitdown",
+    "status": "ok",
+    "error": null,
+    "extracted_at": "2026-05-03T00:06:41.351171+00:00"
+  },
+  {
+    "source_path": "/Users/gclyle/GrowDirect/Brain/raw/inbox/Interface Design Documents/GFO Interfaces (J-Prefix)/J015 Sales Forecast Data from GFO to ORMS/J015US - Sales Forecast (GFO to RMS) Mappings.xls",
+    "source_sha256": "ce7d9879fe3f3892be6d47743fb2d46754d908fa96c79bf18081f94127b6e114",
+    "target_path": "/Users/gclyle/GrowDirect/Brain/raw/.extract/TOM/GFO Interfaces (J-Prefix)/J015 Sales Forecast Data from GFO to ORMS/J015US - Sales Forecast (GFO to RMS) Mappings.xls.md",
+    "method": "markitdown",
+    "status": "ok",
+    "error": null,
+    "extracted_at": "2026-05-03T00:06:41.377140+00:00"
+  },
+  {
+    "source_path": "/Users/gclyle/GrowDirect/Brain/raw/inbox/Interface Design Documents/GFO Interfaces (J-Prefix)/J017 PBS Stock Order GFO to RMS/J017-Interface Specification Document for PBS Stock Order Data GFO to RMS v02D.doc",
+    "source_sha256": "a91a554395ff9f0af8d26000482074b1c75b931bf0baf160a97f4a753792aced",
+    "target_path": "/Users/gclyle/GrowDirect/Brain/raw/.extract/TOM/GFO Interfaces (J-Prefix)/J017 PBS Stock Order GFO to RMS/J017-Interface Specification Document for PBS Stock Order Data GFO to RMS v02D.doc.md",
+    "method": "textutil",
+    "status": "ok",
+    "error": null,
+    "extracted_at": "2026-05-03T00:06:41.401064+00:00"
+  },
+  {
+    "source_path": "/Users/gclyle/GrowDirect/Brain/raw/inbox/Interface Design Documents/GFO Interfaces (J-Prefix)/J017 PBS Stock Order GFO to RMS/J017-Interface Specification Document for PBS Stock Order Data GFO to RMS v03D.doc",
+    "source_sha256": "a7bf09c37e41b01c7f99d2668645544b0a5a9c63db25a0a6d833525043549443",
+    "target_path": "/Users/gclyle/GrowDirect/Brain/raw/.extract/TOM/GFO Interfaces (J-Prefix)/J017 PBS Stock Order GFO to RMS/J017-Interface Specification Document for PBS Stock Order Data GFO to RMS v03D.doc.md",
+    "method": "textutil",
+    "status": "ok",
+    "error": null,
+    "extracted_at": "2026-05-03T00:06:41.461839+00:00"
+  },
+  {
+    "source_path": "/Users/gclyle/GrowDirect/Brain/raw/inbox/Interface Design Documents/GFO Interfaces (J-Prefix)/J017 PBS Stock Order GFO to RMS/J019 - Interface Specification Document for Direct Store Order Data GFO to RMS v04D.doc",
+    "source_sha256": "ba687521e5a085404aa1438e71e8ee3d7f63cd585c8f82a9f80a1e87982653a5",
+    "target_path": "/Users/gclyle/GrowDirect/Brain/raw/.extract/TOM/GFO Interfaces (J-Prefix)/J017 PBS Stock Order GFO to RMS/J019 - Interface Specification Document for Direct Store Order Data GFO to RMS v04D.doc.md",
+    "method": "textutil",
+    "status": "ok",
+    "error": null,
+    "extracted_at": "2026-05-03T00:06:41.522084+00:00"
+  },
+  {
+    "source_path": "/Users/gclyle/GrowDirect/Brain/raw/inbox/Interface Design Documents/GFO Interfaces (J-Prefix)/J019 Direct Store Order GFO to RMS/J019 - Interface Specification Document for Direct Store Order Data GFO to RMS v02D.doc",
+    "source_sha256": "cc5de8bd86307de558806dd23c99bf2f59dc212bd4b564fe4be9066d803ddb8f",
+    "target_path": "/Users/gclyle/GrowDirect/Brain/raw/.extract/TOM/GFO Interfaces (J-Prefix)/J019 Direct Store Order GFO to RMS/J019 - Interface Specification Document for Direct Store Order Data GFO to RMS v02D.doc.md",
+    "method": "textutil",
+    "status": "ok",
+    "error": null,
+    "extracted_at": "2026-05-03T00:06:41.583119+00:00"
+  },
+  {
+    "source_path": "/Users/gclyle/GrowDirect/Brain/raw/inbox/Interface Design Documents/GFO Interfaces (J-Prefix)/J019 Direct Store Order GFO to RMS/J019 - Interface Specification Document for Direct Store Order Data GFO to RMS v03D.doc",
+    "source_sha256": "15bf6d3c66728762147e24d5223cee7fb37340164cbd62165798157b61ba6779",
+    "target_path": "/Users/gclyle/GrowDirect/Brain/raw/.extract/TOM/GFO Interfaces (J-Prefix)/J019 Direct Store Order GFO to RMS/J019 - Interface Specification Document for Direct Store Order Data GFO to RMS v03D.doc.md",
+    "method": "textutil",
+    "status": "ok",
+    "error": null,
+    "extracted_at": "2026-05-03T00:06:41.645275+00:00"
+  },
+  {
+    "source_path": "/Users/gclyle/GrowDirect/Brain/raw/inbox/Interface Design Documents/GFO Interfaces (J-Prefix)/J019 Direct Store Order GFO to RMS/J019 - Interface Specification Document for Direct Store Order Data GFO to RMS v04D.doc",
+    "source_sha256": "ba687521e5a085404aa1438e71e8ee3d7f63cd585c8f82a9f80a1e87982653a5",
+    "target_path": "/Users/gclyle/GrowDirect/Brain/raw/.extract/TOM/GFO Interfaces (J-Prefix)/J019 Direct Store Order GFO to RMS/J019 - Interface Specification Document for Direct Store Order Data GFO to RMS v04D.doc.md",
+    "method": "textutil",
+    "status": "ok",
+    "error": null,
+    "extracted_at": "2026-05-03T00:06:41.714621+00:00"
+  },
+  {
+    "source_path": "/Users/gclyle/GrowDirect/Brain/raw/inbox/Interface Design Documents/GFO Interfaces (J-Prefix)/J020 PBL Procurement order GFO to RMS/J020 - Interface Specification Document for PBL Procurement Order Data GFO to RMS v02D.doc",
+    "source_sha256": "32adbdfe53989099cc7592db16447ad363628275970516a8903dc7df514c2e5a",
+    "target_path": "/Users/gclyle/GrowDirect/Brain/raw/.extract/TOM/GFO Interfaces (J-Prefix)/J020 PBL Procurement order GFO to RMS/J020 - Interface Specification Document for PBL Procurement Order Data GFO to RMS v02D.doc.md",
+    "method": "textutil",
+    "status": "ok",
+    "error": null,
+    "extracted_at": "2026-05-03T00:06:41.804223+00:00"
+  },
+  {
+    "source_path": "/Users/gclyle/GrowDirect/Brain/raw/inbox/Interface Design Documents/GFO Interfaces (J-Prefix)/J020 PBL Procurement order GFO to RMS/J020 - Interface Specification Document for PBL Procurement Order Data GFO to RMS v03D.doc",
+    "source_sha256": "9b3703dfc8a2f024979a6394fede94314591f51e16b0cd271b43a2f2cfa2ec60",
+    "target_path": "/Users/gclyle/GrowDirect/Brain/raw/.extract/TOM/GFO Interfaces (J-Prefix)/J020 PBL Procurement order GFO to RMS/J020 - Interface Specification Document for PBL Procurement Order Data GFO to RMS v03D.doc.md",
+    "method": "textutil",
+    "status": "ok",
+    "error": null,
+    "extracted_at": "2026-05-03T00:06:41.898274+00:00"
+  },
+  {
+    "source_path": "/Users/gclyle/GrowDirect/Brain/raw/inbox/Interface Design Documents/GFO Interfaces (J-Prefix)/J020 PBL Procurement order GFO to RMS/J020 - Interface Specification Document for PBL Procurement Order Data GFO to RMS v05D.doc",
+    "source_sha256": "810f72cb2a1403c8f16cd082b4883089afc39465c78f18897548dae51becfc1e",
+    "target_path": "/Users/gclyle/GrowDirect/Brain/raw/.extract/TOM/GFO Interfaces (J-Prefix)/J020 PBL Procurement order GFO to RMS/J020 - Interface Specification Document for PBL Procurement Order Data GFO to RMS v05D.doc.md",
+    "method": "textutil",
+    "status": "ok",
+    "error": null,
+    "extracted_at": "2026-05-03T00:06:41.965942+00:00"
+  },
+  {
+    "source_path": "/Users/gclyle/GrowDirect/Brain/raw/inbox/Interface Design Documents/GFO Interfaces (J-Prefix)/J023 PO ASN IN (TIMS to RMS)/J023 - Purchase Order ASN Interface Specification.doc",
+    "source_sha256": "550b40769a664f6cad05b2cd27564de92757acd45638eecb73d2fca4919875e2",
+    "target_path": "/Users/gclyle/GrowDirect/Brain/raw/.extract/TOM/GFO Interfaces (J-Prefix)/J023 PO ASN IN (TIMS to RMS)/J023 - Purchase Order ASN Interface Specification.doc.md",
+    "method": "textutil",
+    "status": "ok",
+    "error": null,
+    "extracted_at": "2026-05-03T00:06:42.031472+00:00"
+  },
+  {
+    "source_path": "/Users/gclyle/GrowDirect/Brain/raw/inbox/Interface Design Documents/GFO Interfaces (J-Prefix)/J023 PO ASN IN (TIMS to RMS)/J023-ASN Mapping Document.xls",
+    "source_sha256": "4ea1c28da0096a03925bc64cc8ca33f29e64d349e7b1ae267081a4116bad01cf",
+    "target_path": "/Users/gclyle/GrowDirect/Brain/raw/.extract/TOM/GFO Interfaces (J-Prefix)/J023 PO ASN IN (TIMS to RMS)/J023-ASN Mapping Document.xls.md",
+    "method": "markitdown",
+    "status": "ok",
+    "error": null,
+    "extracted_at": "2026-05-03T00:06:42.100633+00:00"
+  },
+  {
+    "source_path": "/Users/gclyle/GrowDirect/Brain/raw/inbox/Interface Design Documents/GFO Interfaces (J-Prefix)/J023 PO ASN IN (TIMS to RMS)/J023_InterfaceSpec_Issues.xls",
+    "source_sha256": "6191d8f8035e7f44d5f59b361e76a0ce90efe71d746b6ec59e05744ae71d04c5",
+    "target_path": "/Users/gclyle/GrowDirect/Brain/raw/.extract/TOM/GFO Interfaces (J-Prefix)/J023 PO ASN IN (TIMS to RMS)/J023_InterfaceSpec_Issues.xls.md",
+    "method": "markitdown",
+    "status": "ok",
+    "error": null,
+    "extracted_at": "2026-05-03T00:06:42.167865+00:00"
+  },
+  {
+    "source_path": "/Users/gclyle/GrowDirect/Brain/raw/inbox/Interface Design Documents/GFO Interfaces (J-Prefix)/J024 PBL Final Order (GFO to RMS)/J024 - Interface Specification Document for PBL Final Store Order Data GFO to RMS v01.doc",
+    "source_sha256": "9b99931183b2428e8df2eca5fa81b5363cd3a365f4838d2310ae3311189452a6",
+    "target_path": "/Users/gclyle/GrowDirect/Brain/raw/.extract/TOM/GFO Interfaces (J-Prefix)/J024 PBL Final Order (GFO to RMS)/J024 - Interface Specification Document for PBL Final Store Order Data GFO to RMS v01.doc.md",
+    "method": "textutil",
+    "status": "ok",
+    "error": null,
+    "extracted_at": "2026-05-03T00:06:42.186193+00:00"
+  },
+  {
+    "source_path": "/Users/gclyle/GrowDirect/Brain/raw/inbox/Interface Design Documents/GFO Interfaces (J-Prefix)/J024 PBL Final Order (GFO to RMS)/J024 - Interface Specification Document for PBL Final Store Order Data GFO to RMS v02.doc",
+    "source_sha256": "bcfa40ef27f0cce12926952fedb9104103401ae1e877f9cd2c71816272a80056",
+    "target_path": "/Users/gclyle/GrowDirect/Brain/raw/.extract/TOM/GFO Interfaces (J-Prefix)/J024 PBL Final Order (GFO to RMS)/J024 - Interface Specification Document for PBL Final Store Order Data GFO to RMS v02.doc.md",
+    "method": "textutil",
+    "status": "ok",
+    "error": null,
+    "extracted_at": "2026-05-03T00:06:42.252399+00:00"
+  },
+  {
+    "source_path": "/Users/gclyle/GrowDirect/Brain/raw/inbox/Interface Design Documents/GFO Interfaces (J-Prefix)/J032 - J0110 J0111 J0112 - RMS doc nos in interfaces (RMS to GFO)/J032 - RMS document numbers ...J0110 J0111 J0112 (RMS to GFO) v02D.doc",
+    "source_sha256": "2258939f6570b8103e18df8ba86e0c1bf284b65dd572a214bb511459e0035b98",
+    "target_path": "/Users/gclyle/GrowDirect/Brain/raw/.extract/TOM/GFO Interfaces (J-Prefix)/J032 - J0110 J0111 J0112 - RMS doc nos in interfaces (RMS to GFO)/J032 - RMS document numbers ...J0110 J0111 J0112 (RMS to GFO) v02D.doc.md",
+    "method": "textutil",
+    "status": "ok",
+    "error": null,
+    "extracted_at": "2026-05-03T00:06:42.316809+00:00"
+  },
+  {
+    "source_path": "/Users/gclyle/GrowDirect/Brain/raw/inbox/Interface Design Documents/GFO Interfaces (J-Prefix)/J032 - J0110 J0111 J0112 - RMS doc nos in interfaces (RMS to GFO)/J032-RMS document numbers placement in J0110 J0111 J0112 (RMStoGFO).doc",
+    "source_sha256": "70d98d8843191a5e735e64dd66af8fbb3d9b89b90b5898925e7f31b217aaf5c6",
+    "target_path": "/Users/gclyle/GrowDirect/Brain/raw/.extract/TOM/GFO Interfaces (J-Prefix)/J032 - J0110 J0111 J0112 - RMS doc nos in interfaces (RMS to GFO)/J032-RMS document numbers placement in J0110 J0111 J0112 (RMStoGFO).doc.md",
+    "method": "textutil",
+    "status": "ok",
+    "error": null,
+    "extracted_at": "2026-05-03T00:06:42.382938+00:00"
+  },
+  {
+    "source_path": "/Users/gclyle/GrowDirect/Brain/raw/inbox/Interface Design Documents/GFO Interfaces (J-Prefix)/J032 - J0110 J0111 J0112 - RMS doc nos in interfaces (RMS to GFO)/J032_InterfaceSpec_Issues_V10.xls",
+    "source_sha256": "fab7371a6ebed691872c2d428689ff1f94d7a000de05f1691025ca7b25c581d4",
+    "target_path": "/Users/gclyle/GrowDirect/Brain/raw/.extract/TOM/GFO Interfaces (J-Prefix)/J032 - J0110 J0111 J0112 - RMS doc nos in interfaces (RMS to GFO)/J032_InterfaceSpec_Issues_V10.xls.md",
+    "method": "markitdown",
+    "status": "ok",
+    "error": null,
+    "extracted_at": "2026-05-03T00:06:42.446298+00:00"
+  },
+  {
+    "source_path": "/Users/gclyle/GrowDirect/Brain/raw/inbox/Interface Design Documents/GFO Interfaces (J-Prefix)/J032 RMS document numbers placement in interfaces (RMS to GFO)/J032 - RMS document numbers placement in interfaces J0110 J0111 J0112 (RMS to GFO) v01D.doc",
+    "source_sha256": "70d98d8843191a5e735e64dd66af8fbb3d9b89b90b5898925e7f31b217aaf5c6",
+    "target_path": "/Users/gclyle/GrowDirect/Brain/raw/.extract/TOM/GFO Interfaces (J-Prefix)/J032 RMS document numbers placement in interfaces (RMS to GFO)/J032 - RMS document numbers placement in interfaces J0110 J0111 J0112 (RMS to GFO) v01D.doc.md",
+    "method": "textutil",
+    "status": "ok",
+    "error": null,
+    "extracted_at": "2026-05-03T00:06:42.491878+00:00"
+  },
+  {
+    "source_path": "/Users/gclyle/GrowDirect/Brain/raw/inbox/Interface Design Documents/GFO Interfaces (J-Prefix)/J032 RMS document numbers placement in interfaces (RMS to GFO)/J032 - RMS document numbers placement in interfaces J0110 J0111 J0112 (RMS to GFO) v02D.doc",
+    "source_sha256": "2258939f6570b8103e18df8ba86e0c1bf284b65dd572a214bb511459e0035b98",
+    "target_path": "/Users/gclyle/GrowDirect/Brain/raw/.extract/TOM/GFO Interfaces (J-Prefix)/J032 RMS document numbers placement in interfaces (RMS to GFO)/J032 - RMS document numbers placement in interfaces J0110 J0111 J0112 (RMS to GFO) v02D.doc.md",
+    "method": "textutil",
+    "status": "ok",
+    "error": null,
+    "extracted_at": "2026-05-03T00:06:42.555059+00:00"
+  },
+  {
+    "source_path": "/Users/gclyle/GrowDirect/Brain/raw/inbox/Interface Design Documents/GFO Interfaces (J-Prefix)/J035 Actual Sales TDS to GFO/J035 - Interface Specification.doc",
+    "source_sha256": "ff19eaf7f2801c4ea7e33e8853329c0ebfa74567c106aa0f457403bb9841b2aa",
+    "target_path": "/Users/gclyle/GrowDirect/Brain/raw/.extract/TOM/GFO Interfaces (J-Prefix)/J035 Actual Sales TDS to GFO/J035 - Interface Specification.doc.md",
+    "method": "textutil",
+    "status": "ok",
+    "error": null,
+    "extracted_at": "2026-05-03T00:06:42.621301+00:00"
+  },
+  {
+    "source_path": "/Users/gclyle/GrowDirect/Brain/raw/inbox/Interface Design Documents/GFO Interfaces (J-Prefix)/J052 Base Product details IL to GFO/J0052 - Inbound File.xls",
+    "source_sha256": "d7d2920892bb55ba74c3d5de65834c477ad6cdc72da98046d502740dc8b467d4",
+    "target_path": "/Users/gclyle/GrowDirect/Brain/raw/.extract/TOM/GFO Interfaces (J-Prefix)/J052 Base Product details IL to GFO/J0052 - Inbound File.xls.md",
+    "method": "markitdown",
+    "status": "ok",
+    "error": null,
+    "extracted_at": "2026-05-03T00:06:42.702419+00:00"
+  },
+  {
+    "source_path": "/Users/gclyle/GrowDirect/Brain/raw/inbox/Interface Design Documents/GFO Interfaces (J-Prefix)/J052 Base Product details IL to GFO/J0052 - Item-Region Interface Specification v11.doc",
+    "source_sha256": "86c153676c0a44ceddc99e387e624f807480fb9727ab601eb05c193a46a27afc",
+    "target_path": "/Users/gclyle/GrowDirect/Brain/raw/.extract/TOM/GFO Interfaces (J-Prefix)/J052 Base Product details IL to GFO/J0052 - Item-Region Interface Specification v11.doc.md",
+    "method": "textutil",
+    "status": "ok",
+    "error": null,
+    "extracted_at": "2026-05-03T00:06:42.725226+00:00"
+  },
+  {
+    "source_path": "/Users/gclyle/GrowDirect/Brain/raw/inbox/Interface Design Documents/GFO Interfaces (J-Prefix)/J052 Base Product details IL to GFO/J0052 - Item-Region Interface Specification v12.doc",
+    "source_sha256": "d1a880ea1a0d344eb1d3b46d43ed660cae3180495abc7c712658703a4b22310c",
+    "target_path": "/Users/gclyle/GrowDirect/Brain/raw/.extract/TOM/GFO Interfaces (J-Prefix)/J052 Base Product details IL to GFO/J0052 - Item-Region Interface Specification v12.doc.md",
+    "method": "textutil",
+    "status": "ok",
+    "error": null,
+    "extracted_at": "2026-05-03T00:06:42.799209+00:00"
+  },
+  {
+    "source_path": "/Users/gclyle/GrowDirect/Brain/raw/inbox/Interface Design Documents/GFO Interfaces (J-Prefix)/J052 Base Product details IL to GFO/J0052 - Item-Region Interface Specification v13.doc",
+    "source_sha256": "12f24df8f875e24160f64f97a68611187227f21d2e1eb43f0ace7bf2ca64b7f8",
+    "target_path": "/Users/gclyle/GrowDirect/Brain/raw/.extract/TOM/GFO Interfaces (J-Prefix)/J052 Base Product details IL to GFO/J0052 - Item-Region Interface Specification v13.doc.md",
+    "method": "textutil",
+    "status": "ok",
+    "error": null,
+    "extracted_at": "2026-05-03T00:06:42.868045+00:00"
+  },
+  {
+    "source_path": "/Users/gclyle/GrowDirect/Brain/raw/inbox/Interface Design Documents/GFO Interfaces (J-Prefix)/J052 Base Product details IL to GFO/J0052 - Item-Region Interface Specification.doc",
+    "source_sha256": "af4f972d42c96f21d81b150f5c9b0dfe71f7e3c301e3e9c3856fb83036d9acba",
+    "target_path": "/Users/gclyle/GrowDirect/Brain/raw/.extract/TOM/GFO Interfaces (J-Prefix)/J052 Base Product details IL to GFO/J0052 - Item-Region Interface Specification.doc.md",
+    "method": "textutil",
+    "status": "ok",
+    "error": null,
+    "extracted_at": "2026-05-03T00:06:42.935658+00:00"
+  },
+  {
+    "source_path": "/Users/gclyle/GrowDirect/Brain/raw/inbox/Interface Design Documents/GFO Interfaces (J-Prefix)/J052 Base Product details IL to GFO/J0052 - Item-Region to GFO Mappings v20.xls",
+    "source_sha256": "3e07acbbe24f17ed335675343c775025fde7065c52eaf12606d2350d44b64781",
+    "target_path": "/Users/gclyle/GrowDirect/Brain/raw/.extract/TOM/GFO Interfaces (J-Prefix)/J052 Base Product details IL to GFO/J0052 - Item-Region to GFO Mappings v20.xls.md",
+    "method": "markitdown",
+    "status": "ok",
+    "error": null,
+    "extracted_at": "2026-05-03T00:06:43.005222+00:00"
+  },
+  {
+    "source_path": "/Users/gclyle/GrowDirect/Brain/raw/inbox/Interface Design Documents/GFO Interfaces (J-Prefix)/J052 Base Product details IL to GFO/J0052 - Item-Region to GFO Mappings v30.xls",
+    "source_sha256": "a235339b976fbe6b6203b8a51454b4fd6a654be5bfa4d0d18c3900a305c0d8ea",
+    "target_path": "/Users/gclyle/GrowDirect/Brain/raw/.extract/TOM/GFO Interfaces (J-Prefix)/J052 Base Product details IL to GFO/J0052 - Item-Region to GFO Mappings v30.xls.md",
+    "method": "markitdown",
+    "status": "ok",
+    "error": null,
+    "extracted_at": "2026-05-03T00:06:43.074034+00:00"
+  },
+  {
+    "source_path": "/Users/gclyle/GrowDirect/Brain/raw/inbox/Interface Design Documents/GFO Interfaces (J-Prefix)/J052 Base Product details IL to GFO/J0052 - Item-Region to GFO Mappings v40.xls",
+    "source_sha256": "3e75a9a2c4dc6f12d1b9b7f70417c8649ce0cfc79de72a82422484c16acca783",
+    "target_path": "/Users/gclyle/GrowDirect/Brain/raw/.extract/TOM/GFO Interfaces (J-Prefix)/J052 Base Product details IL to GFO/J0052 - Item-Region to GFO Mappings v40.xls.md",
+    "method": "markitdown",
+    "status": "ok",
+    "error": null,
+    "extracted_at": "2026-05-03T00:06:43.146803+00:00"
+  },
+  {
+    "source_path": "/Users/gclyle/GrowDirect/Brain/raw/inbox/Interface Design Documents/GFO Interfaces (J-Prefix)/J052 Base Product details IL to GFO/J0052 - Item-Region to GFO Mappings.xls",
+    "source_sha256": "3b4ac55c57841b53f4cd2f37dffd12afce9f2b64940845428d212ca300c7461e",
+    "target_path": "/Users/gclyle/GrowDirect/Brain/raw/.extract/TOM/GFO Interfaces (J-Prefix)/J052 Base Product details IL to GFO/J0052 - Item-Region to GFO Mappings.xls.md",
+    "method": "markitdown",
+    "status": "ok",
+    "error": null,
+    "extracted_at": "2026-05-03T00:06:43.212960+00:00"
+  },
+  {
+    "source_path": "/Users/gclyle/GrowDirect/Brain/raw/inbox/Interface Design Documents/GFO Interfaces (J-Prefix)/J052 Base Product details IL to GFO/J052 - GFO Review Interface Spec Item-Region.xls",
+    "source_sha256": "767a1cc32bc0c4f096243f4c7746fe1ddb445d12c77fb70b9a64de026e4614e2",
+    "target_path": "/Users/gclyle/GrowDirect/Brain/raw/.extract/TOM/GFO Interfaces (J-Prefix)/J052 Base Product details IL to GFO/J052 - GFO Review Interface Spec Item-Region.xls.md",
+    "method": "markitdown",
+    "status": "ok",
+    "error": null,
+    "extracted_at": "2026-05-03T00:06:43.278849+00:00"
+  },
+  {
+    "source_path": "/Users/gclyle/GrowDirect/Brain/raw/inbox/Interface Design Documents/GFO Interfaces (J-Prefix)/J054 Item Traded Unit details IL to GFO/J0054  - Inbound File.xls",
+    "source_sha256": "20786dbe6c4b5b36beda3491c8605434285c5dd6da7e324b8e34fbc7437a76e2",
+    "target_path": "/Users/gclyle/GrowDirect/Brain/raw/.extract/TOM/GFO Interfaces (J-Prefix)/J054 Item Traded Unit details IL to GFO/J0054  - Inbound File.xls.md",
+    "method": "markitdown",
+    "status": "ok",
+    "error": null,
+    "extracted_at": "2026-05-03T00:06:43.300813+00:00"
+  },
+  {
+    "source_path": "/Users/gclyle/GrowDirect/Brain/raw/inbox/Interface Design Documents/GFO Interfaces (J-Prefix)/J054 Item Traded Unit details IL to GFO/J0054 - GFO Items Interface Specification v02.doc",
+    "source_sha256": "05e71fd3d512af1301a7c1b48e1c74486d3c3b1b637a0c8db31914380e402309",
+    "target_path": "/Users/gclyle/GrowDirect/Brain/raw/.extract/TOM/GFO Interfaces (J-Prefix)/J054 Item Traded Unit details IL to GFO/J0054 - GFO Items Interface Specification v02.doc.md",
+    "method": "textutil",
+    "status": "ok",
+    "error": null,
+    "extracted_at": "2026-05-03T00:06:43.314033+00:00"
+  },
+  {
+    "source_path": "/Users/gclyle/GrowDirect/Brain/raw/inbox/Interface Design Documents/GFO Interfaces (J-Prefix)/J054 Item Traded Unit details IL to GFO/J0054 - GFO Items Interface Specification v1.doc",
+    "source_sha256": "e180356952ae07e12fa76c464e7562b90c00d744f602f3214743df19f4777d43",
+    "target_path": "/Users/gclyle/GrowDirect/Brain/raw/.extract/TOM/GFO Interfaces (J-Prefix)/J054 Item Traded Unit details IL to GFO/J0054 - GFO Items Interface Specification v1.doc.md",
+    "method": "textutil",
+    "status": "ok",
+    "error": null,
+    "extracted_at": "2026-05-03T00:06:43.380755+00:00"
+  },
+  {
+    "source_path": "/Users/gclyle/GrowDirect/Brain/raw/inbox/Interface Design Documents/GFO Interfaces (J-Prefix)/J054 Item Traded Unit details IL to GFO/J0054 - GFO Items Interface Specification v11.doc",
+    "source_sha256": "06ff7aed22ab6e9a3143a754eb9a0fa4653cb47c3aa32befc8eed3517775f4d1",
+    "target_path": "/Users/gclyle/GrowDirect/Brain/raw/.extract/TOM/GFO Interfaces (J-Prefix)/J054 Item Traded Unit details IL to GFO/J0054 - GFO Items Interface Specification v11.doc.md",
+    "method": "textutil",
+    "status": "ok",
+    "error": null,
+    "extracted_at": "2026-05-03T00:06:43.446837+00:00"
+  },
+  {
+    "source_path": "/Users/gclyle/GrowDirect/Brain/raw/inbox/Interface Design Documents/GFO Interfaces (J-Prefix)/J054 Item Traded Unit details IL to GFO/J0054 - GFO Items Interface Specification.doc",
+    "source_sha256": "05e71fd3d512af1301a7c1b48e1c74486d3c3b1b637a0c8db31914380e402309",
+    "target_path": "/Users/gclyle/GrowDirect/Brain/raw/.extract/TOM/GFO Interfaces (J-Prefix)/J054 Item Traded Unit details IL to GFO/J0054 - GFO Items Interface Specification.doc.md",
+    "method": "textutil",
+    "status": "ok",
+    "error": null,
+    "extracted_at": "2026-05-03T00:06:43.512563+00:00"
+  },
+  {
+    "source_path": "/Users/gclyle/GrowDirect/Brain/raw/inbox/Interface Design Documents/GFO Interfaces (J-Prefix)/J054 Item Traded Unit details IL to GFO/J0054 - Pack-Item to GFO Mappings v20.xls",
+    "source_sha256": "1af3b2f77e5050ce76e48dfd812ce2ab1df3b80530e8e1cd2bb333d67f5b8f0c",
+    "target_path": "/Users/gclyle/GrowDirect/Brain/raw/.extract/TOM/GFO Interfaces (J-Prefix)/J054 Item Traded Unit details IL to GFO/J0054 - Pack-Item to GFO Mappings v20.xls.md",
+    "method": "markitdown",
+    "status": "ok",
+    "error": null,
+    "extracted_at": "2026-05-03T00:06:43.581203+00:00"
+  },
+  {
+    "source_path": "/Users/gclyle/GrowDirect/Brain/raw/inbox/Interface Design Documents/GFO Interfaces (J-Prefix)/J054 Item Traded Unit details IL to GFO/J0054 - Pack-Item to GFO Mappings v30.xls",
+    "source_sha256": "a6e492ee3b85147bac0d85d859e912156493492618536800ed29720568a528ef",
+    "target_path": "/Users/gclyle/GrowDirect/Brain/raw/.extract/TOM/GFO Interfaces (J-Prefix)/J054 Item Traded Unit details IL to GFO/J0054 - Pack-Item to GFO Mappings v30.xls.md",
+    "method": "markitdown",
+    "status": "ok",
+    "error": null,
+    "extracted_at": "2026-05-03T00:06:43.623374+00:00"
+  },
+  {
+    "source_path": "/Users/gclyle/GrowDirect/Brain/raw/inbox/Interface Design Documents/GFO Interfaces (J-Prefix)/J054 Item Traded Unit details IL to GFO/J0054 - Pack-Item to GFO Mappings.xls",
+    "source_sha256": "3b899b1df72f6c2fcb5eb88ac32e9e8fe204df3c9961325f6f6ee3de0405f696",
+    "target_path": "/Users/gclyle/GrowDirect/Brain/raw/.extract/TOM/GFO Interfaces (J-Prefix)/J054 Item Traded Unit details IL to GFO/J0054 - Pack-Item to GFO Mappings.xls.md",
+    "method": "markitdown",
+    "status": "ok",
+    "error": null,
+    "extracted_at": "2026-05-03T00:06:43.663888+00:00"
+  },
+  {
+    "source_path": "/Users/gclyle/GrowDirect/Brain/raw/inbox/Interface Design Documents/GFO Interfaces (J-Prefix)/J057 Product Hieracrchy IL to GFO/J0057 - GFO Item-Subgroup Interface Specification 1.0.doc",
+    "source_sha256": "a74ae1f55d797b9d69854739e4b9c060e3cf2eafdd35fb8a4743aa3a1522eccb",
+    "target_path": "/Users/gclyle/GrowDirect/Brain/raw/.extract/TOM/GFO Interfaces (J-Prefix)/J057 Product Hieracrchy IL to GFO/J0057 - GFO Item-Subgroup Interface Specification 1.0.doc.md",
+    "method": "textutil",
+    "status": "ok",
+    "error": null,
+    "extracted_at": "2026-05-03T00:06:43.704807+00:00"
+  },
+  {
+    "source_path": "/Users/gclyle/GrowDirect/Brain/raw/inbox/Interface Design Documents/GFO Interfaces (J-Prefix)/J057 Product Hieracrchy IL to GFO/J0057 - GFO Item-Subgroup Interface Specification 11.doc",
+    "source_sha256": "5218464a5bef95e4f6a2b47fd0bb0f2c9127e6b734c1eb583be8be9613c480ff",
+    "target_path": "/Users/gclyle/GrowDirect/Brain/raw/.extract/TOM/GFO Interfaces (J-Prefix)/J057 Product Hieracrchy IL to GFO/J0057 - GFO Item-Subgroup Interface Specification 11.doc.md",
+    "method": "textutil",
+    "status": "ok",
+    "error": null,
+    "extracted_at": "2026-05-03T00:06:43.769955+00:00"
+  },
+  {
+    "source_path": "/Users/gclyle/GrowDirect/Brain/raw/inbox/Interface Design Documents/GFO Interfaces (J-Prefix)/J057 Product Hieracrchy IL to GFO/J0057 - GFO Item-Subgroup Interface Specification.doc",
+    "source_sha256": "bae72b1b7b76a924acb126239b5d39723019423d28539620b82020766d30fbc2",
+    "target_path": "/Users/gclyle/GrowDirect/Brain/raw/.extract/TOM/GFO Interfaces (J-Prefix)/J057 Product Hieracrchy IL to GFO/J0057 - GFO Item-Subgroup Interface Specification.doc.md",
+    "method": "textutil",
+    "status": "ok",
+    "error": null,
+    "extracted_at": "2026-05-03T00:06:43.833311+00:00"
+  },
+  {
+    "source_path": "/Users/gclyle/GrowDirect/Brain/raw/inbox/Interface Design Documents/GFO Interfaces (J-Prefix)/J057 Product Hieracrchy IL to GFO/J0057 - Inbound File.xls",
+    "source_sha256": "5b72c3f8e2b2832f40a61150ed80379aab87625b9b0183708c714dfd534782d8",
+    "target_path": "/Users/gclyle/GrowDirect/Brain/raw/.extract/TOM/GFO Interfaces (J-Prefix)/J057 Product Hieracrchy IL to GFO/J0057 - Inbound File.xls.md",
+    "method": "markitdown",
+    "status": "ok",
+    "error": null,
+    "extracted_at": "2026-05-03T00:06:43.898064+00:00"
+  },
+  {
+    "source_path": "/Users/gclyle/GrowDirect/Brain/raw/inbox/Interface Design Documents/GFO Interfaces (J-Prefix)/J057 Product Hieracrchy IL to GFO/J0057- Pack-Item to GFO Mappings 2 0.xls",
+    "source_sha256": "7138aaee2b4aec63252a6d38e887f614e45af7058664d246f4090e35afd36e5a",
+    "target_path": "/Users/gclyle/GrowDirect/Brain/raw/.extract/TOM/GFO Interfaces (J-Prefix)/J057 Product Hieracrchy IL to GFO/J0057- Pack-Item to GFO Mappings 2 0.xls.md",
+    "method": "markitdown",
+    "status": "ok",
+    "error": null,
+    "extracted_at": "2026-05-03T00:06:43.919916+00:00"
+  },
+  {
+    "source_path": "/Users/gclyle/GrowDirect/Brain/raw/inbox/Interface Design Documents/GFO Interfaces (J-Prefix)/J057 Product Hieracrchy IL to GFO/J0057- Pack-Item to GFO Mappings 3 0.xls",
+    "source_sha256": "d93488c3e7b0bb7661dceef12348470b3e92113d4f9343bcdc8fb4f1f6a3b2ca",
+    "target_path": "/Users/gclyle/GrowDirect/Brain/raw/.extract/TOM/GFO Interfaces (J-Prefix)/J057 Product Hieracrchy IL to GFO/J0057- Pack-Item to GFO Mappings 3 0.xls.md",
+    "method": "markitdown",
+    "status": "ok",
+    "error": null,
+    "extracted_at": "2026-05-03T00:06:43.959773+00:00"
+  },
+  {
+    "source_path": "/Users/gclyle/GrowDirect/Brain/raw/inbox/Interface Design Documents/GFO Interfaces (J-Prefix)/J057 Product Hieracrchy IL to GFO/J0057- Pack-Item to GFO Mappings.xls",
+    "source_sha256": "bfdad7750e4c4d0108165d28f880b12408b37678791d162078783821db4afc24",
+    "target_path": "/Users/gclyle/GrowDirect/Brain/raw/.extract/TOM/GFO Interfaces (J-Prefix)/J057 Product Hieracrchy IL to GFO/J0057- Pack-Item to GFO Mappings.xls.md",
+    "method": "markitdown",
+    "status": "ok",
+    "error": null,
+    "extracted_at": "2026-05-03T00:06:44.010307+00:00"
+  },
+  {
+    "source_path": "/Users/gclyle/GrowDirect/Brain/raw/inbox/Interface Design Documents/GFO Interfaces (J-Prefix)/J076 Supply Authority IDS to GFO/J076 - GFO Review Interface Spec SupplyAuthority.xls",
+    "source_sha256": "0d615f5c729408c81a5240fc7f8822275d10c8943fdaea99ece3abd99bc3e7e8",
+    "target_path": "/Users/gclyle/GrowDirect/Brain/raw/.extract/TOM/GFO Interfaces (J-Prefix)/J076 Supply Authority IDS to GFO/J076 - GFO Review Interface Spec SupplyAuthority.xls.md",
+    "method": "markitdown",
+    "status": "ok",
+    "error": null,
+    "extracted_at": "2026-05-03T00:06:44.047336+00:00"
+  },
+  {
+    "source_path": "/Users/gclyle/GrowDirect/Brain/raw/inbox/Interface Design Documents/GFO Interfaces (J-Prefix)/J076 Supply Authority IDS to GFO/J076 - GFO Review Interface Spec SupplyAuthority_review.xls",
+    "source_sha256": "3b51d43dde5c90a8cc1c2905b8bf0246b1c77c9bb91f176c618f01c3ae219471",
+    "target_path": "/Users/gclyle/GrowDirect/Brain/raw/.extract/TOM/GFO Interfaces (J-Prefix)/J076 Supply Authority IDS to GFO/J076 - GFO Review Interface Spec SupplyAuthority_review.xls.md",
+    "method": "markitdown",
+    "status": "ok",
+    "error": null,
+    "extracted_at": "2026-05-03T00:06:44.066835+00:00"
+  },
+  {
+    "source_path": "/Users/gclyle/GrowDirect/Brain/raw/inbox/Interface Design Documents/GFO Interfaces (J-Prefix)/J076 Supply Authority IDS to GFO/J076 - Supply Authority Interface Specification v11.doc",
+    "source_sha256": "95e9e596dd356eff53c3d37170e11eb990a2358bb97af436249706fecfb7deb6",
+    "target_path": "/Users/gclyle/GrowDirect/Brain/raw/.extract/TOM/GFO Interfaces (J-Prefix)/J076 Supply Authority IDS to GFO/J076 - Supply Authority Interface Specification v11.doc.md",
+    "method": "textutil",
+    "status": "ok",
+    "error": null,
+    "extracted_at": "2026-05-03T00:06:44.087297+00:00"
+  },
+  {
+    "source_path": "/Users/gclyle/GrowDirect/Brain/raw/inbox/Interface Design Documents/GFO Interfaces (J-Prefix)/J076 Supply Authority IDS to GFO/J076 - Supply Authority Interface Specification v12.doc",
+    "source_sha256": "780239910df9ba2e54e74b5c11bd86cc9b50c4602133d12fcb9e0647d53433b6",
+    "target_path": "/Users/gclyle/GrowDirect/Brain/raw/.extract/TOM/GFO Interfaces (J-Prefix)/J076 Supply Authority IDS to GFO/J076 - Supply Authority Interface Specification v12.doc.md",
+    "method": "textutil",
+    "status": "ok",
+    "error": null,
+    "extracted_at": "2026-05-03T00:06:44.150514+00:00"
+  },
+  {
+    "source_path": "/Users/gclyle/GrowDirect/Brain/raw/inbox/Interface Design Documents/GFO Interfaces (J-Prefix)/J076 Supply Authority IDS to GFO/J076 - Supply Authority Interface Specification.doc",
+    "source_sha256": "eb81d15190d8094a1fd5c9a9cd0ab9f40e9069169417e68a111fc28b6e7980e5",
+    "target_path": "/Users/gclyle/GrowDirect/Brain/raw/.extract/TOM/GFO Interfaces (J-Prefix)/J076 Supply Authority IDS to GFO/J076 - Supply Authority Interface Specification.doc.md",
+    "method": "textutil",
+    "status": "ok",
+    "error": null,
+    "extracted_at": "2026-05-03T00:06:44.217429+00:00"
+  },
+  {
+    "source_path": "/Users/gclyle/GrowDirect/Brain/raw/inbox/Interface Design Documents/GFO Interfaces (J-Prefix)/J076 Supply Authority IDS to GFO/J076 - Supply Authority to GFO Mappings V20.xls",
+    "source_sha256": "eac8a726c14a46972fb02b0bb714a78e309067e627cbf4ea19330a6449f8a1d3",
+    "target_path": "/Users/gclyle/GrowDirect/Brain/raw/.extract/TOM/GFO Interfaces (J-Prefix)/J076 Supply Authority IDS to GFO/J076 - Supply Authority to GFO Mappings V20.xls.md",
+    "method": "markitdown",
+    "status": "ok",
+    "error": null,
+    "extracted_at": "2026-05-03T00:06:44.286196+00:00"
+  },
+  {
+    "source_path": "/Users/gclyle/GrowDirect/Brain/raw/inbox/Interface Design Documents/GFO Interfaces (J-Prefix)/J076 Supply Authority IDS to GFO/J076 - Supply Authority to GFO Mappings V30.xls",
+    "source_sha256": "45d9d0437d98a1d5ef567fa532cd56b9e4e6336de963dfd8a5798f803444b0d8",
+    "target_path": "/Users/gclyle/GrowDirect/Brain/raw/.extract/TOM/GFO Interfaces (J-Prefix)/J076 Supply Authority IDS to GFO/J076 - Supply Authority to GFO Mappings V30.xls.md",
+    "method": "markitdown",
+    "status": "ok",
+    "error": null,
+    "extracted_at": "2026-05-03T00:06:44.348102+00:00"
+  },
+  {
+    "source_path": "/Users/gclyle/GrowDirect/Brain/raw/inbox/Interface Design Documents/GFO Interfaces (J-Prefix)/J076 Supply Authority IDS to GFO/J076 - Supply Authority to GFO Mappings.xls",
+    "source_sha256": "447b774a327c7200f0be4a08e2352a7878946342b3e2e7ef815f459a58e33c25",
+    "target_path": "/Users/gclyle/GrowDirect/Brain/raw/.extract/TOM/GFO Interfaces (J-Prefix)/J076 Supply Authority IDS to GFO/J076 - Supply Authority to GFO Mappings.xls.md",
+    "method": "markitdown",
+    "status": "ok",
+    "error": null,
+    "extracted_at": "2026-05-03T00:06:44.412405+00:00"
+  },
+  {
+    "source_path": "/Users/gclyle/GrowDirect/Brain/raw/inbox/Interface Design Documents/GFO Interfaces (J-Prefix)/J076 Supply Authority IDS to GFO/Product set-up in ORMS wrt Supply Authority.doc",
+    "source_sha256": "c6a25ded1230ffb0eeda10800e5e2a04d80e9acbc0ea5713712109c6f6e65fd6",
+    "target_path": "/Users/gclyle/GrowDirect/Brain/raw/.extract/TOM/GFO Interfaces (J-Prefix)/J076 Supply Authority IDS to GFO/Product set-up in ORMS wrt Supply Authority.doc.md",
+    "method": "textutil",
+    "status": "ok",
+    "error": null,
+    "extracted_at": "2026-05-03T00:06:44.472836+00:00"
+  },
+  {
+    "source_path": "/Users/gclyle/GrowDirect/Brain/raw/inbox/Interface Design Documents/GFO Interfaces (J-Prefix)/J087 Store Info IL to GFO/J0087 -StoreLocations to GFO Mappings v30.xls",
+    "source_sha256": "d659ed5b4d4fc36e53a8714c4136b0c964d0a088d7590004af439a1482221c52",
+    "target_path": "/Users/gclyle/GrowDirect/Brain/raw/.extract/TOM/GFO Interfaces (J-Prefix)/J087 Store Info IL to GFO/J0087 -StoreLocations to GFO Mappings v30.xls.md",
+    "method": "markitdown",
+    "status": "ok",
+    "error": null,
+    "extracted_at": "2026-05-03T00:06:44.531745+00:00"
+  },
+  {
+    "source_path": "/Users/gclyle/GrowDirect/Brain/raw/inbox/Interface Design Documents/GFO Interfaces (J-Prefix)/J087 Store Info IL to GFO/J087 - GFO Store Inbound File.xls",
+    "source_sha256": "8895e0d09a920eee6849138640827ee7b6642e88f6f323e1e4ed4dbd017d5afe",
+    "target_path": "/Users/gclyle/GrowDirect/Brain/raw/.extract/TOM/GFO Interfaces (J-Prefix)/J087 Store Info IL to GFO/J087 - GFO Store Inbound File.xls.md",
+    "method": "markitdown",
+    "status": "ok",
+    "error": null,
+    "extracted_at": "2026-05-03T00:06:44.628662+00:00"
+  },
+  {
+    "source_path": "/Users/gclyle/GrowDirect/Brain/raw/inbox/Interface Design Documents/GFO Interfaces (J-Prefix)/J087 Store Info IL to GFO/J087 - GFO Store Interface Specification v10.doc",
+    "source_sha256": "b30b875a664fafc9172765bb2c3f09f3988f852d7879f052263e973967721085",
+    "target_path": "/Users/gclyle/GrowDirect/Brain/raw/.extract/TOM/GFO Interfaces (J-Prefix)/J087 Store Info IL to GFO/J087 - GFO Store Interface Specification v10.doc.md",
+    "method": "textutil",
+    "status": "ok",
+    "error": null,
+    "extracted_at": "2026-05-03T00:06:44.652843+00:00"
+  },
+  {
+    "source_path": "/Users/gclyle/GrowDirect/Brain/raw/inbox/Interface Design Documents/GFO Interfaces (J-Prefix)/J087 Store Info IL to GFO/J087 - GFO Store Interface Specification v11.doc",
+    "source_sha256": "de1bcd535a92318108d241d81a25e96a11a0bf304a127d9d1d837990c40721e5",
+    "target_path": "/Users/gclyle/GrowDirect/Brain/raw/.extract/TOM/GFO Interfaces (J-Prefix)/J087 Store Info IL to GFO/J087 - GFO Store Interface Specification v11.doc.md",
+    "method": "textutil",
+    "status": "ok",
+    "error": null,
+    "extracted_at": "2026-05-03T00:06:44.715491+00:00"
+  },
+  {
+    "source_path": "/Users/gclyle/GrowDirect/Brain/raw/inbox/Interface Design Documents/GFO Interfaces (J-Prefix)/J087 Store Info IL to GFO/J087 - GFO Store Interface Specification.doc",
+    "source_sha256": "3652958f4b8178d77a705abb612633a8adf8ea8ae6e43505280726b33c86aba6",
+    "target_path": "/Users/gclyle/GrowDirect/Brain/raw/.extract/TOM/GFO Interfaces (J-Prefix)/J087 Store Info IL to GFO/J087 - GFO Store Interface Specification.doc.md",
+    "method": "textutil",
+    "status": "ok",
+    "error": null,
+    "extracted_at": "2026-05-03T00:06:44.784155+00:00"
+  },
+  {
+    "source_path": "/Users/gclyle/GrowDirect/Brain/raw/inbox/Interface Design Documents/GFO Interfaces (J-Prefix)/J087 Store Info IL to GFO/J087 -StoreLocations to GFO Mappings v20.xls",
+    "source_sha256": "0bc04cf5662328511a8d6474d1b838d1e46051f8eed0d77bc344c004cd4ce31f",
+    "target_path": "/Users/gclyle/GrowDirect/Brain/raw/.extract/TOM/GFO Interfaces (J-Prefix)/J087 Store Info IL to GFO/J087 -StoreLocations to GFO Mappings v20.xls.md",
+    "method": "markitdown",
+    "status": "ok",
+    "error": null,
+    "extracted_at": "2026-05-03T00:06:44.853376+00:00"
+  },
+  {
+    "source_path": "/Users/gclyle/GrowDirect/Brain/raw/inbox/Interface Design Documents/GFO Interfaces (J-Prefix)/J087 Store Info IL to GFO/J087 -StoreLocations to GFO Mappings.xls",
+    "source_sha256": "a6d2823464218678037c120d99105b4d06f856f367d481b83b3a8d8f351da606",
+    "target_path": "/Users/gclyle/GrowDirect/Brain/raw/.extract/TOM/GFO Interfaces (J-Prefix)/J087 Store Info IL to GFO/J087 -StoreLocations to GFO Mappings.xls.md",
+    "method": "markitdown",
+    "status": "ok",
+    "error": null,
+    "extracted_at": "2026-05-03T00:06:44.936118+00:00"
+  },
+  {
+    "source_path": "/Users/gclyle/GrowDirect/Brain/raw/inbox/Interface Design Documents/GFO Interfaces (J-Prefix)/J088 Stock centres IL to GFO/J0088 - GFO Stock Centre Interface Specification.doc",
+    "source_sha256": "652ae9ffef8f58ade832bc4bb4a1b848fd817891c3fceb94efbfc787318dc320",
+    "target_path": "/Users/gclyle/GrowDirect/Brain/raw/.extract/TOM/GFO Interfaces (J-Prefix)/J088 Stock centres IL to GFO/J0088 - GFO Stock Centre Interface Specification.doc.md",
+    "method": "textutil",
+    "status": "ok",
+    "error": null,
+    "extracted_at": "2026-05-03T00:06:45.011071+00:00"
+  },
+  {
+    "source_path": "/Users/gclyle/GrowDirect/Brain/raw/inbox/Interface Design Documents/GFO Interfaces (J-Prefix)/J088 Stock centres IL to GFO/J0088 - Inbound File.xls",
+    "source_sha256": "a365d8b5b4068e06844bf082aa2145cbfd2a5c4d5ce6f12a929e5d6fefe0910f",
+    "target_path": "/Users/gclyle/GrowDirect/Brain/raw/.extract/TOM/GFO Interfaces (J-Prefix)/J088 Stock centres IL to GFO/J0088 - Inbound File.xls.md",
+    "method": "markitdown",
+    "status": "ok",
+    "error": null,
+    "extracted_at": "2026-05-03T00:06:45.068680+00:00"
+  },
+  {
+    "source_path": "/Users/gclyle/GrowDirect/Brain/raw/inbox/Interface Design Documents/GFO Interfaces (J-Prefix)/J088 Stock centres IL to GFO/J0088 - WareHouse to GFO Mappings.xls",
+    "source_sha256": "4e07677f477145b5528227642b77815b4af83dfc4e0eaf50d51e8afcee4a90c6",
+    "target_path": "/Users/gclyle/GrowDirect/Brain/raw/.extract/TOM/GFO Interfaces (J-Prefix)/J088 Stock centres IL to GFO/J0088 - WareHouse to GFO Mappings.xls.md",
+    "method": "markitdown",
+    "status": "ok",
+    "error": null,
+    "extracted_at": "2026-05-03T00:06:45.084602+00:00"
+  },
+  {
+    "source_path": "/Users/gclyle/GrowDirect/Brain/raw/inbox/Interface Design Documents/GFO Interfaces (J-Prefix)/J097 BOL (Picking Details) ORWMS to GFO/J097 - BOL to GFO Picking Details (JLPMREC) Interface Specification.doc",
+    "source_sha256": "efc303ffd02c7463ca79e8d3390b3d5293faae527b96a19a4538f4b01a6c8ce9",
+    "target_path": "/Users/gclyle/GrowDirect/Brain/raw/.extract/TOM/GFO Interfaces (J-Prefix)/J097 BOL (Picking Details) ORWMS to GFO/J097 - BOL to GFO Picking Details (JLPMREC) Interface Specification.doc.md",
+    "method": "textutil",
+    "status": "ok",
+    "error": null,
+    "extracted_at": "2026-05-03T00:06:45.115267+00:00"
+  },
+  {
+    "source_path": "/Users/gclyle/GrowDirect/Brain/raw/inbox/Interface Design Documents/GFO Interfaces (J-Prefix)/J097 BOL (Picking Details) ORWMS to GFO/J097 - Mapping document for BOL to GFO Picking Details v1.xls",
+    "source_sha256": "5e04dd8db5925553a4debc42d3a55b17e46e02e248df779b485ee10cc48a3a59",
+    "target_path": "/Users/gclyle/GrowDirect/Brain/raw/.extract/TOM/GFO Interfaces (J-Prefix)/J097 BOL (Picking Details) ORWMS to GFO/J097 - Mapping document for BOL to GFO Picking Details v1.xls.md",
+    "method": "markitdown",
+    "status": "ok",
+    "error": null,
+    "extracted_at": "2026-05-03T00:06:45.175506+00:00"
+  },
+  {
+    "source_path": "/Users/gclyle/GrowDirect/Brain/raw/inbox/Interface Design Documents/GFO Interfaces (J-Prefix)/J097.5 BOL (Load and Left-Off) ORWMS to GFO/J097.5 - BOL to GFO Load and Left Off (JLLDLF) Interface Specification.doc",
+    "source_sha256": "45bf4040e935c09ebb8c267d65a76a7fe1a80ac8be1d1785b546a1d0b7aed904",
+    "target_path": "/Users/gclyle/GrowDirect/Brain/raw/.extract/TOM/GFO Interfaces (J-Prefix)/J097.5 BOL (Load and Left-Off) ORWMS to GFO/J097.5 - BOL to GFO Load and Left Off (JLLDLF) Interface Specification.doc.md",
+    "method": "textutil",
+    "status": "ok",
+    "error": null,
+    "extracted_at": "2026-05-03T00:06:45.202162+00:00"
+  },
+  {
+    "source_path": "/Users/gclyle/GrowDirect/Brain/raw/inbox/Interface Design Documents/GFO Interfaces (J-Prefix)/J097.5 BOL (Load and Left-Off) ORWMS to GFO/J097.5 - Mapping document for BOL to GFO Load and Left Off v1.xls",
+    "source_sha256": "4ac4dfeef3cd594ef965f6219b451bd6ba07feeb5d599e2b2b2f7c9d33f59543",
+    "target_path": "/Users/gclyle/GrowDirect/Brain/raw/.extract/TOM/GFO Interfaces (J-Prefix)/J097.5 BOL (Load and Left-Off) ORWMS to GFO/J097.5 - Mapping document for BOL to GFO Load and Left Off v1.xls.md",
+    "method": "markitdown",
+    "status": "ok",
+    "error": null,
+    "extracted_at": "2026-05-03T00:06:45.264793+00:00"
+  },
+  {
+    "source_path": "/Users/gclyle/GrowDirect/Brain/raw/inbox/Interface Design Documents/GFO Interfaces (J-Prefix)/J100 Item-Warehouse-Supplier Data (IDS to GFO)/J100 - Interface Specification document for Item-Warehouse-Supplier from IDS to GFO v01.doc",
+    "source_sha256": "75d0968c3777772644937a047d3d9bedd06dc74d7b61052dfee949bace33e3a1",
+    "target_path": "/Users/gclyle/GrowDirect/Brain/raw/.extract/TOM/GFO Interfaces (J-Prefix)/J100 Item-Warehouse-Supplier Data (IDS to GFO)/J100 - Interface Specification document for Item-Warehouse-Supplier from IDS to GFO v01.doc.md",
+    "method": "textutil",
+    "status": "ok",
+    "error": null,
+    "extracted_at": "2026-05-03T00:06:45.281186+00:00"
+  },
+  {
+    "source_path": "/Users/gclyle/GrowDirect/Brain/raw/inbox/Interface Design Documents/GFO Interfaces (J-Prefix)/J100 Item-Warehouse-Supplier Data (IDS to GFO)/J100 - Interface Specification document for Item-Warehouse-Supplier from IDS to GFO v02.doc",
+    "source_sha256": "5ac237c4404b3369f7bd1167e521df262a85a17c1d9ddce73b15623c54f7d25e",
+    "target_path": "/Users/gclyle/GrowDirect/Brain/raw/.extract/TOM/GFO Interfaces (J-Prefix)/J100 Item-Warehouse-Supplier Data (IDS to GFO)/J100 - Interface Specification document for Item-Warehouse-Supplier from IDS to GFO v02.doc.md",
+    "method": "textutil",
+    "status": "ok",
+    "error": null,
+    "extracted_at": "2026-05-03T00:06:45.349552+00:00"
+  },
+  {
+    "source_path": "/Users/gclyle/GrowDirect/Brain/raw/inbox/Interface Design Documents/GFO Interfaces (J-Prefix)/J100 Item-Warehouse-Supplier Data (IDS to GFO)/J100 - Interface Specification document for Item-Warehouse-Supplier from IDS to GFO v03.doc",
+    "source_sha256": "8c233045280fb630c2d7e9085400aa45c1fc4d6bfd9d63d83da31eecad1c690f",
+    "target_path": "/Users/gclyle/GrowDirect/Brain/raw/.extract/TOM/GFO Interfaces (J-Prefix)/J100 Item-Warehouse-Supplier Data (IDS to GFO)/J100 - Interface Specification document for Item-Warehouse-Supplier from IDS to GFO v03.doc.md",
+    "method": "textutil",
+    "status": "ok",
+    "error": null,
+    "extracted_at": "2026-05-03T00:06:45.415171+00:00"
+  },
+  {
+    "source_path": "/Users/gclyle/GrowDirect/Brain/raw/inbox/Interface Design Documents/GFO Interfaces (J-Prefix)/J100 Item-Warehouse-Supplier Data (IDS to GFO)/J100 - Interface Specification document for Item-Warehouse-Supplier from IDS to GFO v04.doc",
+    "source_sha256": "504a78561eb4b3a593b2d58aea31c7121c71d080d8c511f37156f39e715a9a3e",
+    "target_path": "/Users/gclyle/GrowDirect/Brain/raw/.extract/TOM/GFO Interfaces (J-Prefix)/J100 Item-Warehouse-Supplier Data (IDS to GFO)/J100 - Interface Specification document for Item-Warehouse-Supplier from IDS to GFO v04.doc.md",
+    "method": "textutil",
+    "status": "ok",
+    "error": null,
+    "extracted_at": "2026-05-03T00:06:45.480173+00:00"
+  },
+  {
+    "source_path": "/Users/gclyle/GrowDirect/Brain/raw/inbox/Interface Design Documents/GFO Interfaces (J-Prefix)/J100 Item-Warehouse-Supplier Data (IDS to GFO)/J100 - Interface Specification document for Item-Warehouse-Supplier from IDS to GFO v10.doc",
+    "source_sha256": "cdb2a4c77b6efef87f402f2ce9720533a537c25550656ecbf07258d0a048b56a",
+    "target_path": "/Users/gclyle/GrowDirect/Brain/raw/.extract/TOM/GFO Interfaces (J-Prefix)/J100 Item-Warehouse-Supplier Data (IDS to GFO)/J100 - Interface Specification document for Item-Warehouse-Supplier from IDS to GFO v10.doc.md",
+    "method": "textutil",
+    "status": "ok",
+    "error": null,
+    "extracted_at": "2026-05-03T00:06:45.548082+00:00"
+  },
+  {
+    "source_path": "/Users/gclyle/GrowDirect/Brain/raw/inbox/Interface Design Documents/GFO Interfaces (J-Prefix)/J100 Item-Warehouse-Supplier Data (IDS to GFO)/J100 - Mapping document for Item-Warehouse-Suppier from IDS to GFO v01.xls",
+    "source_sha256": "4284da353be78986922064f48339e0ba6ace8356939176c78f0c3fe92c63eda9",
+    "target_path": "/Users/gclyle/GrowDirect/Brain/raw/.extract/TOM/GFO Interfaces (J-Prefix)/J100 Item-Warehouse-Supplier Data (IDS to GFO)/J100 - Mapping document for Item-Warehouse-Suppier from IDS to GFO v01.xls.md",
+    "method": "markitdown",
+    "status": "ok",
+    "error": null,
+    "extracted_at": "2026-05-03T00:06:45.619061+00:00"
+  },
+  {
+    "source_path": "/Users/gclyle/GrowDirect/Brain/raw/inbox/Interface Design Documents/GFO Interfaces (J-Prefix)/J100 Item-Warehouse-Supplier Data (IDS to GFO)/J100 - Mapping document for Item-Warehouse-Suppier from IDS to GFO v02.xls",
+    "source_sha256": "c44382b0d2844da0c341af5e084bf92b86babb30ad83ee9d85cca3c26224b9a2",
+    "target_path": "/Users/gclyle/GrowDirect/Brain/raw/.extract/TOM/GFO Interfaces (J-Prefix)/J100 Item-Warehouse-Supplier Data (IDS to GFO)/J100 - Mapping document for Item-Warehouse-Suppier from IDS to GFO v02.xls.md",
+    "method": "markitdown",
+    "status": "ok",
+    "error": null,
+    "extracted_at": "2026-05-03T00:06:45.657368+00:00"
+  },
+  {
+    "source_path": "/Users/gclyle/GrowDirect/Brain/raw/inbox/Interface Design Documents/GFO Interfaces (J-Prefix)/J100 Item-Warehouse-Supplier Data (IDS to GFO)/J100 - Mapping document for Item-Warehouse-Suppier from IDS to GFO v03.xls",
+    "source_sha256": "4b9d8545eb07e43329f9220a3df895d9162d263104f4669af5cb74f7ed0a0167",
+    "target_path": "/Users/gclyle/GrowDirect/Brain/raw/.extract/TOM/GFO Interfaces (J-Prefix)/J100 Item-Warehouse-Supplier Data (IDS to GFO)/J100 - Mapping document for Item-Warehouse-Suppier from IDS to GFO v03.xls.md",
+    "method": "markitdown",
+    "status": "ok",
+    "error": null,
+    "extracted_at": "2026-05-03T00:06:45.693702+00:00"
+  },
+  {
+    "source_path": "/Users/gclyle/GrowDirect/Brain/raw/inbox/Interface Design Documents/GFO Interfaces (J-Prefix)/J113 Allocation Details to IDS/J113-Allocation Information to IDS Interface Specification Document.doc",
+    "source_sha256": "b53fc1d068c99d0aad3b0a83c33d1a6e29ebed25b9106f6e5bb6fc4bcb2eb0a3",
+    "target_path": "/Users/gclyle/GrowDirect/Brain/raw/.extract/TOM/GFO Interfaces (J-Prefix)/J113 Allocation Details to IDS/J113-Allocation Information to IDS Interface Specification Document.doc.md",
+    "method": "textutil",
+    "status": "ok",
+    "error": null,
+    "extracted_at": "2026-05-03T00:06:45.729121+00:00"
+  },
+  {
+    "source_path": "/Users/gclyle/GrowDirect/Brain/raw/inbox/Interface Design Documents/GFO Interfaces (J-Prefix)/J113 Allocation Details to IDS/J113-Allocation Information to IDS Mapping Document.xls",
+    "source_sha256": "16015bce87ea0d98419d28e9db63996b70d745db897ff7dabe45b05a90f8abf0",
+    "target_path": "/Users/gclyle/GrowDirect/Brain/raw/.extract/TOM/GFO Interfaces (J-Prefix)/J113 Allocation Details to IDS/J113-Allocation Information to IDS Mapping Document.xls.md",
+    "method": "markitdown",
+    "status": "ok",
+    "error": null,
+    "extracted_at": "2026-05-03T00:06:45.799036+00:00"
+  },
+  {
+    "source_path": "/Users/gclyle/GrowDirect/Brain/raw/inbox/Interface Design Documents/GFO Interfaces (J-Prefix)/J114 Promotions Interface to GFO/Requirements for Promotions Interface IDS to GFO V0.1.doc",
+    "source_sha256": "d13e114247e5b3be82fdde5dcf2f9a72e297256b6c539d9daaa3b475c6343196",
+    "target_path": "/Users/gclyle/GrowDirect/Brain/raw/.extract/TOM/GFO Interfaces (J-Prefix)/J114 Promotions Interface to GFO/Requirements for Promotions Interface IDS to GFO V0.1.doc.md",
+    "method": "textutil",
+    "status": "ok",
+    "error": null,
+    "extracted_at": "2026-05-03T00:06:45.845375+00:00"
+  },
+  {
+    "source_path": "/Users/gclyle/GrowDirect/Brain/raw/inbox/Interface Design Documents/GFO Interfaces (J-Prefix)/J114 Promotions Interface to GFO/Requirements for Promotions Interface IDS to GFO V1.0.doc",
+    "source_sha256": "cb82482e6d7784b1e5756568768606ba6c006f60b9dcd77fa83303308e55850c",
+    "target_path": "/Users/gclyle/GrowDirect/Brain/raw/.extract/TOM/GFO Interfaces (J-Prefix)/J114 Promotions Interface to GFO/Requirements for Promotions Interface IDS to GFO V1.0.doc.md",
+    "method": "textutil",
+    "status": "ok",
+    "error": null,
+    "extracted_at": "2026-05-03T00:06:45.905036+00:00"
+  },
+  {
+    "source_path": "/Users/gclyle/GrowDirect/Brain/raw/inbox/Interface Design Documents/GFO Interfaces (J-Prefix)/J114 Promotions Interface to GFO/Requirements for Promotions Interface to GFO V0.1.doc",
+    "source_sha256": "26187502356a3e2714fdb510d4d8e17046dda25dc712534e12db98b25f97627f",
+    "target_path": "/Users/gclyle/GrowDirect/Brain/raw/.extract/TOM/GFO Interfaces (J-Prefix)/J114 Promotions Interface to GFO/Requirements for Promotions Interface to GFO V0.1.doc.md",
+    "method": "textutil",
+    "status": "ok",
+    "error": null,
+    "extracted_at": "2026-05-03T00:06:45.962863+00:00"
+  },
+  {
+    "source_path": "/Users/gclyle/GrowDirect/Brain/raw/inbox/Interface Design Documents/GFO Interfaces (J-Prefix)/J115 Transfer Details to IDS/J115-Transfer Information to IDS Interface Specification Document.doc",
+    "source_sha256": "4868ac93ae54adefc13a28a4e8923749d9bf8f244695b84947ccc9cf9cb1dc59",
+    "target_path": "/Users/gclyle/GrowDirect/Brain/raw/.extract/TOM/GFO Interfaces (J-Prefix)/J115 Transfer Details to IDS/J115-Transfer Information to IDS Interface Specification Document.doc.md",
+    "method": "textutil",
+    "status": "ok",
+    "error": null,
+    "extracted_at": "2026-05-03T00:06:46.024095+00:00"
+  },
+  {
+    "source_path": "/Users/gclyle/GrowDirect/Brain/raw/inbox/Interface Design Documents/GFO Interfaces (J-Prefix)/J115 Transfer Details to IDS/J115-Transfer Information to IDS Mapping Document.xls",
+    "source_sha256": "0edac64451df4c19d3d4b01e14950a81ec0402b3bb655c50479ef19cc27352b0",
+    "target_path": "/Users/gclyle/GrowDirect/Brain/raw/.extract/TOM/GFO Interfaces (J-Prefix)/J115 Transfer Details to IDS/J115-Transfer Information to IDS Mapping Document.xls.md",
+    "method": "markitdown",
+    "status": "ok",
+    "error": null,
+    "extracted_at": "2026-05-03T00:06:46.092521+00:00"
+  },
+  {
+    "source_path": "/Users/gclyle/GrowDirect/Brain/raw/inbox/Interface Design Documents/GFO Interfaces (J-Prefix)/J115 Transfer Details to IDS/J115_InterfaceSpecIssuesTemplate.xls",
+    "source_sha256": "5008c643a47d665f9ccd8bd5f3d2287649f42eaa669776652371722abd5eb16e",
+    "target_path": "/Users/gclyle/GrowDirect/Brain/raw/.extract/TOM/GFO Interfaces (J-Prefix)/J115 Transfer Details to IDS/J115_InterfaceSpecIssuesTemplate.xls.md",
+    "method": "markitdown",
+    "status": "ok",
+    "error": null,
+    "extracted_at": "2026-05-03T00:06:46.128995+00:00"
+  },
+  {
+    "source_path": "/Users/gclyle/GrowDirect/Brain/raw/inbox/Interface Design Documents/GFO Interfaces (J-Prefix)/J115 Transfer Details to IDS/J115_InterfaceSpec_Mapping_Issues_Template_V10.xls",
+    "source_sha256": "0b38aa1c4035ac54502699b715fc36587fa7a483b0dbe6177b7e458326479c24",
+    "target_path": "/Users/gclyle/GrowDirect/Brain/raw/.extract/TOM/GFO Interfaces (J-Prefix)/J115 Transfer Details to IDS/J115_InterfaceSpec_Mapping_Issues_Template_V10.xls.md",
+    "method": "markitdown",
+    "status": "ok",
+    "error": null,
+    "extracted_at": "2026-05-03T00:06:46.149198+00:00"
+  },
+  {
+    "source_path": "/Users/gclyle/GrowDirect/Brain/raw/inbox/Interface Design Documents/Space Range and Display (SRD) Interfaces (S-Prefix)/S003,S082 - Historical Sales, Margin and Waste - SAE to RPAS/S003, S082- Sales History,Margin and Wastes- Mapping document.xls",
+    "source_sha256": "a5dec37b6303b307280cac7a976c1499fa4a697225aa46e370c9e364e0a784c4",
+    "target_path": "/Users/gclyle/GrowDirect/Brain/raw/.extract/TOM/Space Range and Display (SRD) Interfaces (S-Prefix)/S003,S082 - Historical Sales, Margin and Waste - SAE to RPAS/S003, S082- Sales History,Margin and Wastes- Mapping document.xls.md",
+    "method": "markitdown",
+    "status": "ok",
+    "error": null,
+    "extracted_at": "2026-05-03T00:06:46.170671+00:00"
+  },
+  {
+    "source_path": "/Users/gclyle/GrowDirect/Brain/raw/inbox/Interface Design Documents/Space Range and Display (SRD) Interfaces (S-Prefix)/S003,S082 - Historical Sales, Margin and Waste - SAE to RPAS/S003S082- Sales HistoryMarginWastes- Interface Specification V0.2D.doc",
+    "source_sha256": "89c14cd53eb160450dbe3fded7af7abbc1760079df484b6b7837e01627593833",
+    "target_path": "/Users/gclyle/GrowDirect/Brain/raw/.extract/TOM/Space Range and Display (SRD) Interfaces (S-Prefix)/S003,S082 - Historical Sales, Margin and Waste - SAE to RPAS/S003S082- Sales HistoryMarginWastes- Interface Specification V0.2D.doc.md",
+    "method": "textutil",
+    "status": "ok",
+    "error": null,
+    "extracted_at": "2026-05-03T00:06:46.217313+00:00"
+  },
+  {
+    "source_path": "/Users/gclyle/GrowDirect/Brain/raw/inbox/Interface Design Documents/Space Range and Display (SRD) Interfaces (S-Prefix)/S003,S082 - Historical Sales, Margin and Waste - SAE to RPAS/S003_S~1.DOC",
+    "source_sha256": "33611e7615080dff948cfd16f888a5f598cf036cec76abb08d0802291892c445",
+    "target_path": "/Users/gclyle/GrowDirect/Brain/raw/.extract/TOM/Space Range and Display (SRD) Interfaces (S-Prefix)/S003,S082 - Historical Sales, Margin and Waste - SAE to RPAS/S003_S~1.DOC.md",
+    "method": "textutil",
+    "status": "ok",
+    "error": null,
+    "extracted_at": "2026-05-03T00:06:46.280408+00:00"
+  },
+  {
+    "source_path": "/Users/gclyle/GrowDirect/Brain/raw/inbox/Interface Design Documents/Space Range and Display (SRD) Interfaces (S-Prefix)/S004-SalesInformationUpdate(ORMStoSalesEngine)/S004- SalesInformationUpdate(ORMStoSalesEngine)InterfaceSpecification.doc",
+    "source_sha256": "76e4d6ada5fc5213eee37f2e8abfcc6ad41e9d5d30171475e63657a2c8e5c6c5",
+    "target_path": "/Users/gclyle/GrowDirect/Brain/raw/.extract/TOM/Space Range and Display (SRD) Interfaces (S-Prefix)/S004-SalesInformationUpdate(ORMStoSalesEngine)/S004- SalesInformationUpdate(ORMStoSalesEngine)InterfaceSpecification.doc.md",
+    "method": "textutil",
+    "status": "ok",
+    "error": null,
+    "extracted_at": "2026-05-03T00:06:46.352011+00:00"
+  },
+  {
+    "source_path": "/Users/gclyle/GrowDirect/Brain/raw/inbox/Interface Design Documents/Space Range and Display (SRD) Interfaces (S-Prefix)/S004-SalesInformationUpdate(ORMStoSalesEngine)/S004- SalesInformationUpdate(ORMStoSalesEngine)MappingRMSV10.xls",
+    "source_sha256": "e424521ffef3882a6d5a756bb7273e186c2a89292af7ee52f5614f8e4f5fb88d",
+    "target_path": "/Users/gclyle/GrowDirect/Brain/raw/.extract/TOM/Space Range and Display (SRD) Interfaces (S-Prefix)/S004-SalesInformationUpdate(ORMStoSalesEngine)/S004- SalesInformationUpdate(ORMStoSalesEngine)MappingRMSV10.xls.md",
+    "method": "markitdown",
+    "status": "ok",
+    "error": null,
+    "extracted_at": "2026-05-03T00:06:46.416802+00:00"
+  },
+  {
+    "source_path": "/Users/gclyle/GrowDirect/Brain/raw/inbox/Interface Design Documents/Space Range and Display (SRD) Interfaces (S-Prefix)/S004-SalesInformationUpdate(ORMStoSalesEngine)/S004- SalesInformationUpdate(ORMStoSalesEngine)Mappings.xls",
+    "source_sha256": "26920291d9c9b67c5236577f99963c0a8ed54a64adacfebf6234f1edbb4b647b",
+    "target_path": "/Users/gclyle/GrowDirect/Brain/raw/.extract/TOM/Space Range and Display (SRD) Interfaces (S-Prefix)/S004-SalesInformationUpdate(ORMStoSalesEngine)/S004- SalesInformationUpdate(ORMStoSalesEngine)Mappings.xls.md",
+    "method": "markitdown",
+    "status": "ok",
+    "error": null,
+    "extracted_at": "2026-05-03T00:06:46.460396+00:00"
+  },
+  {
+    "source_path": "/Users/gclyle/GrowDirect/Brain/raw/inbox/Interface Design Documents/Space Range and Display (SRD) Interfaces (S-Prefix)/S008-StoreDetailUpdate(IDStoCRDB)/S008-StoreDetailsUpdate(IDStoCRDB)Interface Specification.doc",
+    "source_sha256": "932c7f109e5fc88c97f4b539c477636c32fb3872148b0d9a435cad0b46c132ff",
+    "target_path": "/Users/gclyle/GrowDirect/Brain/raw/.extract/TOM/Space Range and Display (SRD) Interfaces (S-Prefix)/S008-StoreDetailUpdate(IDStoCRDB)/S008-StoreDetailsUpdate(IDStoCRDB)Interface Specification.doc.md",
+    "method": "textutil",
+    "status": "ok",
+    "error": null,
+    "extracted_at": "2026-05-03T00:06:46.490833+00:00"
+  },
+  {
+    "source_path": "/Users/gclyle/GrowDirect/Brain/raw/inbox/Interface Design Documents/Space Range and Display (SRD) Interfaces (S-Prefix)/S008-StoreDetailUpdate(IDStoCRDB)/S008-StoreDetailsUpdate(IDStoCRDB)Mappings.xls",
+    "source_sha256": "4b86c471d61020c70adb1377731d5b1f26440734d08396afe4629ea62af9917b",
+    "target_path": "/Users/gclyle/GrowDirect/Brain/raw/.extract/TOM/Space Range and Display (SRD) Interfaces (S-Prefix)/S008-StoreDetailUpdate(IDStoCRDB)/S008-StoreDetailsUpdate(IDStoCRDB)Mappings.xls.md",
+    "method": "markitdown",
+    "status": "ok",
+    "error": null,
+    "extracted_at": "2026-05-03T00:06:46.554823+00:00"
+  },
+  {
+    "source_path": "/Users/gclyle/GrowDirect/Brain/raw/inbox/Interface Design Documents/Space Range and Display (SRD) Interfaces (S-Prefix)/S009 - Base Products (approved) from IDS to CRDB/S009- Base Product (approved)- IDS to CRDB - Interface Specification v01.doc",
+    "source_sha256": "76ac6be223d43e62a85ee2d10875bb9b68b962057dd179659caa3771dd27fa22",
+    "target_path": "/Users/gclyle/GrowDirect/Brain/raw/.extract/TOM/Space Range and Display (SRD) Interfaces (S-Prefix)/S009 - Base Products (approved) from IDS to CRDB/S009- Base Product (approved)- IDS to CRDB - Interface Specification v01.doc.md",
+    "method": "textutil",
+    "status": "ok",
+    "error": null,
+    "extracted_at": "2026-05-03T00:06:46.590933+00:00"
+  },
+  {
+    "source_path": "/Users/gclyle/GrowDirect/Brain/raw/inbox/Interface Design Documents/Space Range and Display (SRD) Interfaces (S-Prefix)/S009 - Base Products (approved) from IDS to CRDB/S009- Base Products(approved) - IDS to CRDB Mappings.xls",
+    "source_sha256": "b02e193200c23af692d1d4dc7e2c3fce41b812331fee4fcc5f464fda29f02f24",
+    "target_path": "/Users/gclyle/GrowDirect/Brain/raw/.extract/TOM/Space Range and Display (SRD) Interfaces (S-Prefix)/S009 - Base Products (approved) from IDS to CRDB/S009- Base Products(approved) - IDS to CRDB Mappings.xls.md",
+    "method": "markitdown",
+    "status": "ok",
+    "error": null,
+    "extracted_at": "2026-05-03T00:06:46.655604+00:00"
+  },
+  {
+    "source_path": "/Users/gclyle/GrowDirect/Brain/raw/inbox/Interface Design Documents/Space Range and Display (SRD) Interfaces (S-Prefix)/S009 - Base Products (approved) from IDS to CRDB/S009_InterfaceSpec_Issues.xls",
+    "source_sha256": "375cef276a3949952418d6af5173497732bdccc36cc7853488d25bb27678920b",
+    "target_path": "/Users/gclyle/GrowDirect/Brain/raw/.extract/TOM/Space Range and Display (SRD) Interfaces (S-Prefix)/S009 - Base Products (approved) from IDS to CRDB/S009_InterfaceSpec_Issues.xls.md",
+    "method": "markitdown",
+    "status": "ok",
+    "error": null,
+    "extracted_at": "2026-05-03T00:06:46.694225+00:00"
+  },
+  {
+    "source_path": "/Users/gclyle/GrowDirect/Brain/raw/inbox/Interface Design Documents/Space Range and Display (SRD) Interfaces (S-Prefix)/S032 Sales Aggregation Data from SAE to IKB/S032 - Sales Aggregation - Planogram (SAE to IKB) Mapping Specification.xls",
+    "source_sha256": "0ea84372cd06f8c2bfe53600139928a5da4f938a6832b46108152a964a2be7e4",
+    "target_path": "/Users/gclyle/GrowDirect/Brain/raw/.extract/TOM/Space Range and Display (SRD) Interfaces (S-Prefix)/S032 Sales Aggregation Data from SAE to IKB/S032 - Sales Aggregation - Planogram (SAE to IKB) Mapping Specification.xls.md",
+    "method": "markitdown",
+    "status": "ok",
+    "error": null,
+    "extracted_at": "2026-05-03T00:06:46.710939+00:00"
+  },
+  {
+    "source_path": "/Users/gclyle/GrowDirect/Brain/raw/inbox/Interface Design Documents/Space Range and Display (SRD) Interfaces (S-Prefix)/S032 Sales Aggregation Data from SAE to IKB/S032 - Sales Aggregation - Planogram Store (SAE to IKB) Mapping Specification.xls",
+    "source_sha256": "6f6955ea9ee847fbc4131fc0f32c59f0373c44172ca543d04e81031c7eeec17f",
+    "target_path": "/Users/gclyle/GrowDirect/Brain/raw/.extract/TOM/Space Range and Display (SRD) Interfaces (S-Prefix)/S032 Sales Aggregation Data from SAE to IKB/S032 - Sales Aggregation - Planogram Store (SAE to IKB) Mapping Specification.xls.md",
+    "method": "markitdown",
+    "status": "ok",
+    "error": null,
+    "extracted_at": "2026-05-03T00:06:46.742597+00:00"
+  },
+  {
+    "source_path": "/Users/gclyle/GrowDirect/Brain/raw/inbox/Interface Design Documents/Space Range and Display (SRD) Interfaces (S-Prefix)/S032 Sales Aggregation Data from SAE to IKB/S032 - Sales Aggregation - Product (SAE to IKB) Mapping Specification.xls",
+    "source_sha256": "b5dd12755b5570eda921e86882abf76988b902dd64fcb1b6e1914803ba4a86b5",
+    "target_path": "/Users/gclyle/GrowDirect/Brain/raw/.extract/TOM/Space Range and Display (SRD) Interfaces (S-Prefix)/S032 Sales Aggregation Data from SAE to IKB/S032 - Sales Aggregation - Product (SAE to IKB) Mapping Specification.xls.md",
+    "method": "markitdown",
+    "status": "ok",
+    "error": null,
+    "extracted_at": "2026-05-03T00:06:46.773941+00:00"
+  },
+  {
+    "source_path": "/Users/gclyle/GrowDirect/Brain/raw/inbox/Interface Design Documents/Space Range and Display (SRD) Interfaces (S-Prefix)/S032 Sales Aggregation Data from SAE to IKB/S032 - Sales Aggregation - Product - Planogram (SAE to IKB) Mapping Specification.xls",
+    "source_sha256": "70f57272b54306cd01508c5ddb0dab90ab3cea691da244fb985f3559e7a0a0c1",
+    "target_path": "/Users/gclyle/GrowDirect/Brain/raw/.extract/TOM/Space Range and Display (SRD) Interfaces (S-Prefix)/S032 Sales Aggregation Data from SAE to IKB/S032 - Sales Aggregation - Product - Planogram (SAE to IKB) Mapping Specification.xls.md",
+    "method": "markitdown",
+    "status": "ok",
+    "error": null,
+    "extracted_at": "2026-05-03T00:06:46.804500+00:00"
+  },
+  {
+    "source_path": "/Users/gclyle/GrowDirect/Brain/raw/inbox/Interface Design Documents/Space Range and Display (SRD) Interfaces (S-Prefix)/S032 Sales Aggregation Data from SAE to IKB/S032 - Sales Aggregation Actual and Historic Sales (SAE to IKB) Interface Spec.doc",
+    "source_sha256": "b952a5a1a66454ce7e1e930ef95edd06f390e5a6a05d707eaadfcf0b881b683f",
+    "target_path": "/Users/gclyle/GrowDirect/Brain/raw/.extract/TOM/Space Range and Display (SRD) Interfaces (S-Prefix)/S032 Sales Aggregation Data from SAE to IKB/S032 - Sales Aggregation Actual and Historic Sales (SAE to IKB) Interface Spec.doc.md",
+    "method": "textutil",
+    "status": "ok",
+    "error": null,
+    "extracted_at": "2026-05-03T00:06:46.835337+00:00"
+  },
+  {
+    "source_path": "/Users/gclyle/GrowDirect/Brain/raw/inbox/Interface Design Documents/Space Range and Display (SRD) Interfaces (S-Prefix)/S032 Sales Aggregation Data from SAE to IKB/S032-SalesAggregation-Planogram (SAE to IKB) Mapping Specification.xls",
+    "source_sha256": "e5374e2571b74d0c134021183397838a44f52c3dfe6f8965605e246c563e7ac5",
+    "target_path": "/Users/gclyle/GrowDirect/Brain/raw/.extract/TOM/Space Range and Display (SRD) Interfaces (S-Prefix)/S032 Sales Aggregation Data from SAE to IKB/S032-SalesAggregation-Planogram (SAE to IKB) Mapping Specification.xls.md",
+    "method": "markitdown",
+    "status": "ok",
+    "error": null,
+    "extracted_at": "2026-05-03T00:06:46.906764+00:00"
+  },
+  {
+    "source_path": "/Users/gclyle/GrowDirect/Brain/raw/inbox/Interface Design Documents/Space Range and Display (SRD) Interfaces (S-Prefix)/S032 Sales Aggregation Data from SAE to IKB/S032-SalesAggregation-Product (SAE to IKB) Mapping Specs.xls",
+    "source_sha256": "05fe23def6af9a3ae0b1e9d33afea98e6f50510edb2789e04c7822a644fd1a38",
+    "target_path": "/Users/gclyle/GrowDirect/Brain/raw/.extract/TOM/Space Range and Display (SRD) Interfaces (S-Prefix)/S032 Sales Aggregation Data from SAE to IKB/S032-SalesAggregation-Product (SAE to IKB) Mapping Specs.xls.md",
+    "method": "markitdown",
+    "status": "ok",
+    "error": null,
+    "extracted_at": "2026-05-03T00:06:46.940606+00:00"
+  },
+  {
+    "source_path": "/Users/gclyle/GrowDirect/Brain/raw/inbox/Interface Design Documents/Space Range and Display (SRD) Interfaces (S-Prefix)/S033/S033- Department (IDS to IKB) Interface Specification.doc",
+    "source_sha256": "358143aac9ee16f173eff788613769d8e55cfe96819a85f4456c1e4ab779f5b6",
+    "target_path": "/Users/gclyle/GrowDirect/Brain/raw/.extract/TOM/Space Range and Display (SRD) Interfaces (S-Prefix)/S033/S033- Department (IDS to IKB) Interface Specification.doc.md",
+    "method": "textutil",
+    "status": "ok",
+    "error": null,
+    "extracted_at": "2026-05-03T00:06:46.972252+00:00"
+  },
+  {
+    "source_path": "/Users/gclyle/GrowDirect/Brain/raw/inbox/Interface Design Documents/Space Range and Display (SRD) Interfaces (S-Prefix)/S033/S033- Department (IDS to IKB) Mappings.xls",
+    "source_sha256": "5bb612e6ce140b12e878492e430f124960cd09c4b4aebbd39df70b6fbe00d384",
+    "target_path": "/Users/gclyle/GrowDirect/Brain/raw/.extract/TOM/Space Range and Display (SRD) Interfaces (S-Prefix)/S033/S033- Department (IDS to IKB) Mappings.xls.md",
+    "method": "markitdown",
+    "status": "ok",
+    "error": null,
+    "extracted_at": "2026-05-03T00:06:47.031505+00:00"
+  },
+  {
+    "source_path": "/Users/gclyle/GrowDirect/Brain/raw/inbox/Interface Design Documents/Space Range and Display (SRD) Interfaces (S-Prefix)/S033 Department from IDS to IKB/S033- Department (IDS to IKB) Interface Specification.doc",
+    "source_sha256": "358143aac9ee16f173eff788613769d8e55cfe96819a85f4456c1e4ab779f5b6",
+    "target_path": "/Users/gclyle/GrowDirect/Brain/raw/.extract/TOM/Space Range and Display (SRD) Interfaces (S-Prefix)/S033 Department from IDS to IKB/S033- Department (IDS to IKB) Interface Specification.doc.md",
+    "method": "textutil",
+    "status": "ok",
+    "error": null,
+    "extracted_at": "2026-05-03T00:06:47.058113+00:00"
+  },
+  {
+    "source_path": "/Users/gclyle/GrowDirect/Brain/raw/inbox/Interface Design Documents/Space Range and Display (SRD) Interfaces (S-Prefix)/S033 Department from IDS to IKB/S033- Department (IDS to IKB) Mappings.xls",
+    "source_sha256": "5bb612e6ce140b12e878492e430f124960cd09c4b4aebbd39df70b6fbe00d384",
+    "target_path": "/Users/gclyle/GrowDirect/Brain/raw/.extract/TOM/Space Range and Display (SRD) Interfaces (S-Prefix)/S033 Department from IDS to IKB/S033- Department (IDS to IKB) Mappings.xls.md",
+    "method": "markitdown",
+    "status": "ok",
+    "error": null,
+    "extracted_at": "2026-05-03T00:06:47.122671+00:00"
+  },
+  {
+    "source_path": "/Users/gclyle/GrowDirect/Brain/raw/inbox/Interface Design Documents/Space Range and Display (SRD) Interfaces (S-Prefix)/S033 Department from IDS to IKB/S033_InterfaceSpec_Issues_Template_V10.xls",
+    "source_sha256": "e1aa2fbce6b3356ca9c7ed5e618512660dbe6a0458f1f4ca1a3c320d250ba89a",
+    "target_path": "/Users/gclyle/GrowDirect/Brain/raw/.extract/TOM/Space Range and Display (SRD) Interfaces (S-Prefix)/S033 Department from IDS to IKB/S033_InterfaceSpec_Issues_Template_V10.xls.md",
+    "method": "markitdown",
+    "status": "ok",
+    "error": null,
+    "extracted_at": "2026-05-03T00:06:47.168042+00:00"
+  },
+  {
+    "source_path": "/Users/gclyle/GrowDirect/Brain/raw/inbox/Interface Design Documents/Space Range and Display (SRD) Interfaces (S-Prefix)/S035/S035- Store (IDS to IKB) Interface Specification.doc",
+    "source_sha256": "95f76dfcf33205214d3d9bca77d904e80fa71157bc052d983459267bf4a17eb4",
+    "target_path": "/Users/gclyle/GrowDirect/Brain/raw/.extract/TOM/Space Range and Display (SRD) Interfaces (S-Prefix)/S035/S035- Store (IDS to IKB) Interface Specification.doc.md",
+    "method": "textutil",
+    "status": "ok",
+    "error": null,
+    "extracted_at": "2026-05-03T00:06:47.188748+00:00"
+  },
+  {
+    "source_path": "/Users/gclyle/GrowDirect/Brain/raw/inbox/Interface Design Documents/Space Range and Display (SRD) Interfaces (S-Prefix)/S035/S035- Store Interface (IDS to IKB) Mappings.xls",
+    "source_sha256": "1d8cfa4beebb5310f0e06dd0df922f88877e0bef5d20c361327c5c684c67edd5",
+    "target_path": "/Users/gclyle/GrowDirect/Brain/raw/.extract/TOM/Space Range and Display (SRD) Interfaces (S-Prefix)/S035/S035- Store Interface (IDS to IKB) Mappings.xls.md",
+    "method": "markitdown",
+    "status": "ok",
+    "error": null,
+    "extracted_at": "2026-05-03T00:06:47.250755+00:00"
+  },
+  {
+    "source_path": "/Users/gclyle/GrowDirect/Brain/raw/inbox/Interface Design Documents/Space Range and Display (SRD) Interfaces (S-Prefix)/S035/S035_InterfaceSpec_Issues_Template_V10.xls",
+    "source_sha256": "6f1d07b1f581677d47cfdbd40b9f64f6f03e54bf133302e0cf1e71f0f9ffc491",
+    "target_path": "/Users/gclyle/GrowDirect/Brain/raw/.extract/TOM/Space Range and Display (SRD) Interfaces (S-Prefix)/S035/S035_InterfaceSpec_Issues_Template_V10.xls.md",
+    "method": "markitdown",
+    "status": "ok",
+    "error": null,
+    "extracted_at": "2026-05-03T00:06:47.287223+00:00"
+  },
+  {
+    "source_path": "/Users/gclyle/GrowDirect/Brain/raw/inbox/Interface Design Documents/Space Range and Display (SRD) Interfaces (S-Prefix)/S035/s0358Mapping_Issues_Template_V10.xls",
+    "source_sha256": "6d560a995cf58bd55c947da280b0bd2abba3b109f80a55aeb071d2204b320e9b",
+    "target_path": "/Users/gclyle/GrowDirect/Brain/raw/.extract/TOM/Space Range and Display (SRD) Interfaces (S-Prefix)/S035/s0358Mapping_Issues_Template_V10.xls.md",
+    "method": "markitdown",
+    "status": "ok",
+    "error": null,
+    "extracted_at": "2026-05-03T00:06:47.307639+00:00"
+  },
+  {
+    "source_path": "/Users/gclyle/GrowDirect/Brain/raw/inbox/Interface Design Documents/Space Range and Display (SRD) Interfaces (S-Prefix)/S035 Store's Update from IDS to IKB/S035- Store (IDS to IKB) Interface Specification.doc",
+    "source_sha256": "2b7dd4561cdd15993ce53cd97fadc8b067e41b136f578766ac175e55bb9884f2",
+    "target_path": "/Users/gclyle/GrowDirect/Brain/raw/.extract/TOM/Space Range and Display (SRD) Interfaces (S-Prefix)/S035 Store's Update from IDS to IKB/S035- Store (IDS to IKB) Interface Specification.doc.md",
+    "method": "textutil",
+    "status": "ok",
+    "error": null,
+    "extracted_at": "2026-05-03T00:06:47.328392+00:00"
+  },
+  {
+    "source_path": "/Users/gclyle/GrowDirect/Brain/raw/inbox/Interface Design Documents/Space Range and Display (SRD) Interfaces (S-Prefix)/S035 Store's Update from IDS to IKB/S035- Store Interface (IDS to IKB) Mappings.xls",
+    "source_sha256": "9e9c072200a2523ebe41ab50fec0359a46ee6dcb9f449af33e3ba9d8f414c3fb",
+    "target_path": "/Users/gclyle/GrowDirect/Brain/raw/.extract/TOM/Space Range and Display (SRD) Interfaces (S-Prefix)/S035 Store's Update from IDS to IKB/S035- Store Interface (IDS to IKB) Mappings.xls.md",
+    "method": "markitdown",
+    "status": "ok",
+    "error": null,
+    "extracted_at": "2026-05-03T00:06:47.399308+00:00"
+  },
+  {
+    "source_path": "/Users/gclyle/GrowDirect/Brain/raw/inbox/Interface Design Documents/Space Range and Display (SRD) Interfaces (S-Prefix)/S035 Store's Update from IDS to IKB/S035_InterfaceSpec_Issues.xls",
+    "source_sha256": "c040b4e0e76922310000b986e670a9146c31b59b5d93e5b5bd480c45013a4179",
+    "target_path": "/Users/gclyle/GrowDirect/Brain/raw/.extract/TOM/Space Range and Display (SRD) Interfaces (S-Prefix)/S035 Store's Update from IDS to IKB/S035_InterfaceSpec_Issues.xls.md",
+    "method": "markitdown",
+    "status": "ok",
+    "error": null,
+    "extracted_at": "2026-05-03T00:06:47.449485+00:00"
+  },
+  {
+    "source_path": "/Users/gclyle/GrowDirect/Brain/raw/inbox/Interface Design Documents/Space Range and Display (SRD) Interfaces (S-Prefix)/S036/S036- Product Information Update (IDS to IKB) Interface Specification.doc",
+    "source_sha256": "4304bc895e3b17c2e2fe646a1867b21cca9f7174321c0bab3620b0a1537a5ef3",
+    "target_path": "/Users/gclyle/GrowDirect/Brain/raw/.extract/TOM/Space Range and Display (SRD) Interfaces (S-Prefix)/S036/S036- Product Information Update (IDS to IKB) Interface Specification.doc.md",
+    "method": "textutil",
+    "status": "ok",
+    "error": null,
+    "extracted_at": "2026-05-03T00:06:47.477234+00:00"
+  },
+  {
+    "source_path": "/Users/gclyle/GrowDirect/Brain/raw/inbox/Interface Design Documents/Space Range and Display (SRD) Interfaces (S-Prefix)/S036/S036- Product Information Update (IDS to IKB) Mappings.xls",
+    "source_sha256": "3549063d89c8a5f02f63c64f72dc51071035bed3505f104e5f44c7e9b8ec88b1",
+    "target_path": "/Users/gclyle/GrowDirect/Brain/raw/.extract/TOM/Space Range and Display (SRD) Interfaces (S-Prefix)/S036/S036- Product Information Update (IDS to IKB) Mappings.xls.md",
+    "method": "markitdown",
+    "status": "ok",
+    "error": null,
+    "extracted_at": "2026-05-03T00:06:47.541277+00:00"
+  },
+  {
+    "source_path": "/Users/gclyle/GrowDirect/Brain/raw/inbox/Interface Design Documents/Space Range and Display (SRD) Interfaces (S-Prefix)/S036 Base Product Update from IDS to IKB/S036 - Product Information Update (IDS to IKB)  Specification Review.xls",
+    "source_sha256": "58f3ac6efedd73b28bb24dd53c46464b331eff849973dba11daa65b1aaadca8c",
+    "target_path": "/Users/gclyle/GrowDirect/Brain/raw/.extract/TOM/Space Range and Display (SRD) Interfaces (S-Prefix)/S036 Base Product Update from IDS to IKB/S036 - Product Information Update (IDS to IKB)  Specification Review.xls.md",
+    "method": "markitdown",
+    "status": "ok",
+    "error": null,
+    "extracted_at": "2026-05-03T00:06:47.594707+00:00"
+  },
+  {
+    "source_path": "/Users/gclyle/GrowDirect/Brain/raw/inbox/Interface Design Documents/Space Range and Display (SRD) Interfaces (S-Prefix)/S036 Base Product Update from IDS to IKB/S036- Product Information Update (IDS to IKB) Interface Speci.doc",
+    "source_sha256": "b3acb6ab0b2387f6f49e5aeb75edbbb236c72144adf32c26871ee0605ad44dfe",
+    "target_path": "/Users/gclyle/GrowDirect/Brain/raw/.extract/TOM/Space Range and Display (SRD) Interfaces (S-Prefix)/S036 Base Product Update from IDS to IKB/S036- Product Information Update (IDS to IKB) Interface Speci.doc.md",
+    "method": "textutil",
+    "status": "ok",
+    "error": null,
+    "extracted_at": "2026-05-03T00:06:47.621228+00:00"
+  },
+  {
+    "source_path": "/Users/gclyle/GrowDirect/Brain/raw/inbox/Interface Design Documents/Space Range and Display (SRD) Interfaces (S-Prefix)/S036 Base Product Update from IDS to IKB/S036- Product Information Update (IDS to IKB) Mappings.xls",
+    "source_sha256": "4f9ade350367f419f5de3d7167ffda31e98ea474a6c38f44f3463ce3d9daed4c",
+    "target_path": "/Users/gclyle/GrowDirect/Brain/raw/.extract/TOM/Space Range and Display (SRD) Interfaces (S-Prefix)/S036 Base Product Update from IDS to IKB/S036- Product Information Update (IDS to IKB) Mappings.xls.md",
+    "method": "markitdown",
+    "status": "ok",
+    "error": null,
+    "extracted_at": "2026-05-03T00:06:47.688382+00:00"
+  },
+  {
+    "source_path": "/Users/gclyle/GrowDirect/Brain/raw/inbox/Interface Design Documents/Space Range and Display (SRD) Interfaces (S-Prefix)/S047 Store range, capacity from SR to GFO/S047- StoreRangeCapacityInformationUpdate(StoreRangetoGFO)Mappings.xls",
+    "source_sha256": "5cc596f0284949761bebe6eaf5771aa93c70350cc0411200820eb41577d1fe3d",
+    "target_path": "/Users/gclyle/GrowDirect/Brain/raw/.extract/TOM/Space Range and Display (SRD) Interfaces (S-Prefix)/S047 Store range, capacity from SR to GFO/S047- StoreRangeCapacityInformationUpdate(StoreRangetoGFO)Mappings.xls.md",
+    "method": "markitdown",
+    "status": "ok",
+    "error": null,
+    "extracted_at": "2026-05-03T00:06:47.764758+00:00"
+  },
+  {
+    "source_path": "/Users/gclyle/GrowDirect/Brain/raw/inbox/Interface Design Documents/Space Range and Display (SRD) Interfaces (S-Prefix)/S047 Store range, capacity from SR to GFO/S047- StoreRangeCapacityandProductUpdate(SRToGFO)InterfaceSpec.doc",
+    "source_sha256": "7aabe5880d4ee116d0f176844869c43ae2525f621fdce5269356218483d8145b",
+    "target_path": "/Users/gclyle/GrowDirect/Brain/raw/.extract/TOM/Space Range and Display (SRD) Interfaces (S-Prefix)/S047 Store range, capacity from SR to GFO/S047- StoreRangeCapacityandProductUpdate(SRToGFO)InterfaceSpec.doc.md",
+    "method": "textutil",
+    "status": "ok",
+    "error": null,
+    "extracted_at": "2026-05-03T00:06:47.794369+00:00"
+  },
+  {
+    "source_path": "/Users/gclyle/GrowDirect/Brain/raw/inbox/Interface Design Documents/Space Range and Display (SRD) Interfaces (S-Prefix)/S047 Store range, capacity from SR to GFO/S047-NewAndDiscontinuedProductUpdate(StoreRangetoGFO)Mappings.xls",
+    "source_sha256": "622ca5dc18f63d5c3cbeeb4db0a682d812aeabb0fadcb456b370f01018374fc4",
+    "target_path": "/Users/gclyle/GrowDirect/Brain/raw/.extract/TOM/Space Range and Display (SRD) Interfaces (S-Prefix)/S047 Store range, capacity from SR to GFO/S047-NewAndDiscontinuedProductUpdate(StoreRangetoGFO)Mappings.xls.md",
+    "method": "markitdown",
+    "status": "ok",
+    "error": null,
+    "extracted_at": "2026-05-03T00:06:47.865319+00:00"
+  },
+  {
+    "source_path": "/Users/gclyle/GrowDirect/Brain/raw/inbox/Interface Design Documents/Space Range and Display (SRD) Interfaces (S-Prefix)/S057-Store Range Data from IKB to SR/S057 - Replenishment Data (IKB to SAE) Mapping Specification.xls",
+    "source_sha256": "44e8a666d9f3bb8e2dd1dcecce6ac4113fb10788219f972ee752e6c1a3fc6a91",
+    "target_path": "/Users/gclyle/GrowDirect/Brain/raw/.extract/TOM/Space Range and Display (SRD) Interfaces (S-Prefix)/S057-Store Range Data from IKB to SR/S057 - Replenishment Data (IKB to SAE) Mapping Specification.xls.md",
+    "method": "markitdown",
+    "status": "ok",
+    "error": null,
+    "extracted_at": "2026-05-03T00:06:47.903479+00:00"
+  },
+  {
+    "source_path": "/Users/gclyle/GrowDirect/Brain/raw/inbox/Interface Design Documents/Space Range and Display (SRD) Interfaces (S-Prefix)/S057-Store Range Data from IKB to SR/S057 - Store Range (IKB to SR) Interface Specification V 0.2.doc",
+    "source_sha256": "29fa3925267b54d23cbc8746dc841799a7e70337ad158745adccb914901ba3fc",
+    "target_path": "/Users/gclyle/GrowDirect/Brain/raw/.extract/TOM/Space Range and Display (SRD) Interfaces (S-Prefix)/S057-Store Range Data from IKB to SR/S057 - Store Range (IKB to SR) Interface Specification V 0.2.doc.md",
+    "method": "textutil",
+    "status": "ok",
+    "error": null,
+    "extracted_at": "2026-05-03T00:06:47.938686+00:00"
+  },
+  {
+    "source_path": "/Users/gclyle/GrowDirect/Brain/raw/inbox/Interface Design Documents/Space Range and Display (SRD) Interfaces (S-Prefix)/S057-Store Range Data from IKB to SR/S057 - Store Range (IKB to SR) Interface Specification.doc",
+    "source_sha256": "1f69e34a396fcee01d25bf15f39c48e918126acbb8cfe6f50fe3cf3acf4d2945",
+    "target_path": "/Users/gclyle/GrowDirect/Brain/raw/.extract/TOM/Space Range and Display (SRD) Interfaces (S-Prefix)/S057-Store Range Data from IKB to SR/S057 - Store Range (IKB to SR) Interface Specification.doc.md",
+    "method": "textutil",
+    "status": "ok",
+    "error": null,
+    "extracted_at": "2026-05-03T00:06:48.007018+00:00"
+  },
+  {
+    "source_path": "/Users/gclyle/GrowDirect/Brain/raw/inbox/Interface Design Documents/Space Range and Display (SRD) Interfaces (S-Prefix)/S057-Store Range Data from IKB to SR/S057 - Store Range (IKB to SR) Mapping Specification.xls",
+    "source_sha256": "2509d9d8eff6f9d918bd67fd2e4860429ef9d7d27a5962f119fee4b162764733",
+    "target_path": "/Users/gclyle/GrowDirect/Brain/raw/.extract/TOM/Space Range and Display (SRD) Interfaces (S-Prefix)/S057-Store Range Data from IKB to SR/S057 - Store Range (IKB to SR) Mapping Specification.xls.md",
+    "method": "markitdown",
+    "status": "ok",
+    "error": null,
+    "extracted_at": "2026-05-03T00:06:48.073291+00:00"
+  },
+  {
+    "source_path": "/Users/gclyle/GrowDirect/Brain/raw/inbox/Interface Design Documents/Space Range and Display (SRD) Interfaces (S-Prefix)/S058 -Product Information from IDS to GPM/S058- Product Information Update (IDS to GPM) Interface Spec.doc",
+    "source_sha256": "bb197b92df2555ca7782ed6a0b45661f13d2d1af4fc666b46d40aeaa0c240c68",
+    "target_path": "/Users/gclyle/GrowDirect/Brain/raw/.extract/TOM/Space Range and Display (SRD) Interfaces (S-Prefix)/S058 -Product Information from IDS to GPM/S058- Product Information Update (IDS to GPM) Interface Spec.doc.md",
+    "method": "textutil",
+    "status": "ok",
+    "error": null,
+    "extracted_at": "2026-05-03T00:06:48.110394+00:00"
+  },
+  {
+    "source_path": "/Users/gclyle/GrowDirect/Brain/raw/inbox/Interface Design Documents/Space Range and Display (SRD) Interfaces (S-Prefix)/S058 -Product Information from IDS to GPM/S058- Product Information Update (IDS to GPM) Mappings.xls",
+    "source_sha256": "6efe3e39cfaa3e6ce40c27c32a6d62daf75f6d5a49fe5fe4d9fbdcf3d90a7b94",
+    "target_path": "/Users/gclyle/GrowDirect/Brain/raw/.extract/TOM/Space Range and Display (SRD) Interfaces (S-Prefix)/S058 -Product Information from IDS to GPM/S058- Product Information Update (IDS to GPM) Mappings.xls.md",
+    "method": "markitdown",
+    "status": "ok",
+    "error": null,
+    "extracted_at": "2026-05-03T00:06:48.172459+00:00"
+  },
+  {
+    "source_path": "/Users/gclyle/GrowDirect/Brain/raw/inbox/Interface Design Documents/Space Range and Display (SRD) Interfaces (S-Prefix)/S059 Valid Mod Number range/S059 - Valid Mod Range  (IKB to GPM) Interface Specification.doc",
+    "source_sha256": "c4617efb16f6be9c7f44251d47a1d4e7c02048586c71e128955317e515c339f6",
+    "target_path": "/Users/gclyle/GrowDirect/Brain/raw/.extract/TOM/Space Range and Display (SRD) Interfaces (S-Prefix)/S059 Valid Mod Number range/S059 - Valid Mod Range  (IKB to GPM) Interface Specification.doc.md",
+    "method": "textutil",
+    "status": "ok",
+    "error": null,
+    "extracted_at": "2026-05-03T00:06:48.200940+00:00"
+  },
+  {
+    "source_path": "/Users/gclyle/GrowDirect/Brain/raw/inbox/Interface Design Documents/Space Range and Display (SRD) Interfaces (S-Prefix)/S059 Valid Mod Number range/S059 - Valid Mod Range (IKB to GPM) Mapping Specification.xls",
+    "source_sha256": "c1650b523f0a8a2fa187e949be59cad8b092e44edd8ed430f6feffaecc8fbff7",
+    "target_path": "/Users/gclyle/GrowDirect/Brain/raw/.extract/TOM/Space Range and Display (SRD) Interfaces (S-Prefix)/S059 Valid Mod Number range/S059 - Valid Mod Range (IKB to GPM) Mapping Specification.xls.md",
+    "method": "markitdown",
+    "status": "ok",
+    "error": null,
+    "extracted_at": "2026-05-03T00:06:48.265252+00:00"
+  },
+  {
+    "source_path": "/Users/gclyle/GrowDirect/Brain/raw/inbox/Interface Design Documents/Space Range and Display (SRD) Interfaces (S-Prefix)/S059 Valid Mod Number range/S059_InterfaceSpecMapping_Issues.xls",
+    "source_sha256": "c69e9eacb4c0da250374409cf2c936a13800fa93666f861d66f135ece91b1ed0",
+    "target_path": "/Users/gclyle/GrowDirect/Brain/raw/.extract/TOM/Space Range and Display (SRD) Interfaces (S-Prefix)/S059 Valid Mod Number range/S059_InterfaceSpecMapping_Issues.xls.md",
+    "method": "markitdown",
+    "status": "ok",
+    "error": null,
+    "extracted_at": "2026-05-03T00:06:48.293141+00:00"
+  },
+  {
+    "source_path": "/Users/gclyle/GrowDirect/Brain/raw/inbox/Interface Design Documents/Space Range and Display (SRD) Interfaces (S-Prefix)/S074 Store Details from IDS to GPM/S074 Store Details from IDS to GPM Interface Specification.doc",
+    "source_sha256": "748d7632188e6ba2e45bffa09d05b173657f1e9ee1b70dcdc3ef3ddd89730622",
+    "target_path": "/Users/gclyle/GrowDirect/Brain/raw/.extract/TOM/Space Range and Display (SRD) Interfaces (S-Prefix)/S074 Store Details from IDS to GPM/S074 Store Details from IDS to GPM Interface Specification.doc.md",
+    "method": "textutil",
+    "status": "ok",
+    "error": null,
+    "extracted_at": "2026-05-03T00:06:48.313392+00:00"
+  },
+  {
+    "source_path": "/Users/gclyle/GrowDirect/Brain/raw/inbox/Interface Design Documents/Space Range and Display (SRD) Interfaces (S-Prefix)/S074 Store Details from IDS to GPM/S074 Store Details from IDS to GPM Mapping Document.xls",
+    "source_sha256": "7de2a7664d82106a921d2528dad0683c19827903a4581b43d84d12060431fdd7",
+    "target_path": "/Users/gclyle/GrowDirect/Brain/raw/.extract/TOM/Space Range and Display (SRD) Interfaces (S-Prefix)/S074 Store Details from IDS to GPM/S074 Store Details from IDS to GPM Mapping Document.xls.md",
+    "method": "markitdown",
+    "status": "ok",
+    "error": null,
+    "extracted_at": "2026-05-03T00:06:48.381419+00:00"
+  },
+  {
+    "source_path": "/Users/gclyle/GrowDirect/Brain/raw/inbox/Interface Design Documents/Space Range and Display (SRD) Interfaces (S-Prefix)/S075 - Capacity Information from GPM to Store Range/S075 - Mapping Document Issues Log.xls",
+    "source_sha256": "236350ee6bdb908f5cef27eade9b41c809a0167298c514ffff1aaae5bf97a49b",
+    "target_path": "/Users/gclyle/GrowDirect/Brain/raw/.extract/TOM/Space Range and Display (SRD) Interfaces (S-Prefix)/S075 - Capacity Information from GPM to Store Range/S075 - Mapping Document Issues Log.xls.md",
+    "method": "markitdown",
+    "status": "ok",
+    "error": null,
+    "extracted_at": "2026-05-03T00:06:48.410197+00:00"
+  },
+  {
+    "source_path": "/Users/gclyle/GrowDirect/Brain/raw/inbox/Interface Design Documents/Space Range and Display (SRD) Interfaces (S-Prefix)/S075 - Capacity Information from GPM to Store Range/S075- CapacityInformationUpdate(GPMtoStoreRange)Mappings.xls",
+    "source_sha256": "45d4588c5e9e5073b4f78a9504caee4829246b3bcee248cea3aaec25d42fec4d",
+    "target_path": "/Users/gclyle/GrowDirect/Brain/raw/.extract/TOM/Space Range and Display (SRD) Interfaces (S-Prefix)/S075 - Capacity Information from GPM to Store Range/S075- CapacityInformationUpdate(GPMtoStoreRange)Mappings.xls.md",
+    "method": "markitdown",
+    "status": "ok",
+    "error": null,
+    "extracted_at": "2026-05-03T00:06:48.426867+00:00"
+  },
+  {
+    "source_path": "/Users/gclyle/GrowDirect/Brain/raw/inbox/Interface Design Documents/Space Range and Display (SRD) Interfaces (S-Prefix)/S077 - Actual Range in Store from GFO to SR/S077 Actual Range in Store  (GFO to SR) Interface Spec.doc",
+    "source_sha256": "99949f56a1157ed867ecb4f7f676fc63c1165f915096e6772a3d846fb3434045",
+    "target_path": "/Users/gclyle/GrowDirect/Brain/raw/.extract/TOM/Space Range and Display (SRD) Interfaces (S-Prefix)/S077 - Actual Range in Store from GFO to SR/S077 Actual Range in Store  (GFO to SR) Interface Spec.doc.md",
+    "method": "textutil",
+    "status": "ok",
+    "error": null,
+    "extracted_at": "2026-05-03T00:06:48.465807+00:00"
+  },
+  {
+    "source_path": "/Users/gclyle/GrowDirect/Brain/raw/inbox/Interface Design Documents/Space Range and Display (SRD) Interfaces (S-Prefix)/S077 - Actual Range in Store from GFO to SR/S077 Actual Range in Store (GFO to SR) Mapping Spec.xls",
+    "source_sha256": "b8287fa6c29d1c00661eaa21ac2ef96ae1d0e402e34e86b10f6f3c08ae31f5db",
+    "target_path": "/Users/gclyle/GrowDirect/Brain/raw/.extract/TOM/Space Range and Display (SRD) Interfaces (S-Prefix)/S077 - Actual Range in Store from GFO to SR/S077 Actual Range in Store (GFO to SR) Mapping Spec.xls.md",
+    "method": "markitdown",
+    "status": "ok",
+    "error": null,
+    "extracted_at": "2026-05-03T00:06:48.528513+00:00"
+  },
+  {
+    "source_path": "/Users/gclyle/GrowDirect/Brain/raw/inbox/Interface Design Documents/Space Range and Display (SRD) Interfaces (S-Prefix)/S077 - Actual Range in Store from GFO to SR/S077_InterfaceSpec_Mapping_Issues.xls",
+    "source_sha256": "6cf3fb87a93189bf875cfe0b4bd5524cc368cdb916025f5ba4d269942ba8a015",
+    "target_path": "/Users/gclyle/GrowDirect/Brain/raw/.extract/TOM/Space Range and Display (SRD) Interfaces (S-Prefix)/S077 - Actual Range in Store from GFO to SR/S077_InterfaceSpec_Mapping_Issues.xls.md",
+    "method": "markitdown",
+    "status": "ok",
+    "error": null,
+    "extracted_at": "2026-05-03T00:06:48.579869+00:00"
+  },
+  {
+    "source_path": "/Users/gclyle/GrowDirect/Brain/raw/inbox/Interface Design Documents/Space Range and Display (SRD) Interfaces (S-Prefix)/S078 Product Map from IKB to GPM and SR/S078 - Product Map by Store by Planogram (IKB to GPM) Mapping Specification V0.1.xls",
+    "source_sha256": "6a5991fa0e32f595c987576cb10e9b855c4218928f373a29f54a1216462c5802",
+    "target_path": "/Users/gclyle/GrowDirect/Brain/raw/.extract/TOM/Space Range and Display (SRD) Interfaces (S-Prefix)/S078 Product Map from IKB to GPM and SR/S078 - Product Map by Store by Planogram (IKB to GPM) Mapping Specification V0.1.xls.md",
+    "method": "markitdown",
+    "status": "ok",
+    "error": null,
+    "extracted_at": "2026-05-03T00:06:48.597495+00:00"
+  },
+  {
+    "source_path": "/Users/gclyle/GrowDirect/Brain/raw/inbox/Interface Design Documents/Space Range and Display (SRD) Interfaces (S-Prefix)/S078 Product Map from IKB to GPM and SR/S078 - Product Map by Store by Planogram (IKB to GPM) Mapping Specs.xls",
+    "source_sha256": "26692a44735346c454cb1daef37c06662a08c94503af64c83abe408a4bf3f5f1",
+    "target_path": "/Users/gclyle/GrowDirect/Brain/raw/.extract/TOM/Space Range and Display (SRD) Interfaces (S-Prefix)/S078 Product Map from IKB to GPM and SR/S078 - Product Map by Store by Planogram (IKB to GPM) Mapping Specs.xls.md",
+    "method": "markitdown",
+    "status": "ok",
+    "error": null,
+    "extracted_at": "2026-05-03T00:06:48.625757+00:00"
+  },
+  {
+    "source_path": "/Users/gclyle/GrowDirect/Brain/raw/inbox/Interface Design Documents/Space Range and Display (SRD) Interfaces (S-Prefix)/S078 Product Map from IKB to GPM and SR/S078 - Product Map by Store by Planogram (IKB to Integration Layer) Mappings V0.2.xls",
+    "source_sha256": "486c706343efb389e969990afb6364f6f24739ae05bd0229a469f0de1b6f619f",
+    "target_path": "/Users/gclyle/GrowDirect/Brain/raw/.extract/TOM/Space Range and Display (SRD) Interfaces (S-Prefix)/S078 Product Map from IKB to GPM and SR/S078 - Product Map by Store by Planogram (IKB to Integration Layer) Mappings V0.2.xls.md",
+    "method": "markitdown",
+    "status": "ok",
+    "error": null,
+    "extracted_at": "2026-05-03T00:06:48.653828+00:00"
+  },
+  {
+    "source_path": "/Users/gclyle/GrowDirect/Brain/raw/inbox/Interface Design Documents/Space Range and Display (SRD) Interfaces (S-Prefix)/S078 Product Map from IKB to GPM and SR/S078 - Product Map by Store by Planogram (Integration Layer to GPM) Mappings V0.2.xls",
+    "source_sha256": "50a5a836f973731dd532e9bd2c7063543085ac225bd2c8c20f6ed3d4e92221dd",
+    "target_path": "/Users/gclyle/GrowDirect/Brain/raw/.extract/TOM/Space Range and Display (SRD) Interfaces (S-Prefix)/S078 Product Map from IKB to GPM and SR/S078 - Product Map by Store by Planogram (Integration Layer to GPM) Mappings V0.2.xls.md",
+    "method": "markitdown",
+    "status": "ok",
+    "error": null,
+    "extracted_at": "2026-05-03T00:06:48.685966+00:00"
+  },
+  {
+    "source_path": "/Users/gclyle/GrowDirect/Brain/raw/inbox/Interface Design Documents/Space Range and Display (SRD) Interfaces (S-Prefix)/S078 Product Map from IKB to GPM and SR/S078 - Product Map by Store by Planogram from IKB to GPM and SR Interface Spec 0.5.doc",
+    "source_sha256": "7de93fe43c6efe907efd8b4730c553502544de7dcdf486b9dc3b4e3fc7a08644",
+    "target_path": "/Users/gclyle/GrowDirect/Brain/raw/.extract/TOM/Space Range and Display (SRD) Interfaces (S-Prefix)/S078 Product Map from IKB to GPM and SR/S078 - Product Map by Store by Planogram from IKB to GPM and SR Interface Spec 0.5.doc.md",
+    "method": "textutil",
+    "status": "ok",
+    "error": null,
+    "extracted_at": "2026-05-03T00:06:48.719618+00:00"
+  },
+  {
+    "source_path": "/Users/gclyle/GrowDirect/Brain/raw/inbox/Interface Design Documents/Space Range and Display (SRD) Interfaces (S-Prefix)/S078 Product Map from IKB to GPM and SR/S078 - Product Map by Store by Planogram from IKB to GPM and SR Interface Spec 0.6.doc",
+    "source_sha256": "1f8932f0f937525521c2cab17125304b0f79d096b6702f48d7db7b8a3dc95f11",
+    "target_path": "/Users/gclyle/GrowDirect/Brain/raw/.extract/TOM/Space Range and Display (SRD) Interfaces (S-Prefix)/S078 Product Map from IKB to GPM and SR/S078 - Product Map by Store by Planogram from IKB to GPM and SR Interface Spec 0.6.doc.md",
+    "method": "textutil",
+    "status": "ok",
+    "error": null,
+    "extracted_at": "2026-05-03T00:06:48.784635+00:00"
+  },
+  {
+    "source_path": "/Users/gclyle/GrowDirect/Brain/raw/inbox/Interface Design Documents/Space Range and Display (SRD) Interfaces (S-Prefix)/S078 Product Map from IKB to GPM and SR/S078 – Planogram Product Position (IKB to Store range) Mappings.xls",
+    "source_sha256": "d0bcdc124eef65e830f80a6bfed81ad9ccc363d5578d86c84f2ca5be8ff8b581",
+    "target_path": "/Users/gclyle/GrowDirect/Brain/raw/.extract/TOM/Space Range and Display (SRD) Interfaces (S-Prefix)/S078 Product Map from IKB to GPM and SR/S078 – Planogram Product Position (IKB to Store range) Mappings.xls.md",
+    "method": "markitdown",
+    "status": "ok",
+    "error": null,
+    "extracted_at": "2026-05-03T00:06:48.854476+00:00"
+  },
+  {
+    "source_path": "/Users/gclyle/GrowDirect/Brain/raw/inbox/Interface Design Documents/Space Range and Display (SRD) Interfaces (S-Prefix)/S078 Product Map from IKB to GPM and SR/S078-ProductMap byStorebyPlanogram from toGPMandSR Interface Spec V0.2.doc",
+    "source_sha256": "937a20c623fd04141a7b800676a7947a55c07e7da29ca7170dd9fd82f4755128",
+    "target_path": "/Users/gclyle/GrowDirect/Brain/raw/.extract/TOM/Space Range and Display (SRD) Interfaces (S-Prefix)/S078 Product Map from IKB to GPM and SR/S078-ProductMap byStorebyPlanogram from toGPMandSR Interface Spec V0.2.doc.md",
+    "method": "textutil",
+    "status": "ok",
+    "error": null,
+    "extracted_at": "2026-05-03T00:06:48.889775+00:00"
+  },
+  {
+    "source_path": "/Users/gclyle/GrowDirect/Brain/raw/inbox/Interface Design Documents/Space Range and Display (SRD) Interfaces (S-Prefix)/S078 Product Map from IKB to GPM and SR/S078-ProductMap byStorebyPlanogramfromIKBtoGPMandSR Interface Spec 0.3.doc",
+    "source_sha256": "83a6915c3c9eb19629550e59024bbdf11886b46bbd5101d6a4e42f1c44198c9c",
+    "target_path": "/Users/gclyle/GrowDirect/Brain/raw/.extract/TOM/Space Range and Display (SRD) Interfaces (S-Prefix)/S078 Product Map from IKB to GPM and SR/S078-ProductMap byStorebyPlanogramfromIKBtoGPMandSR Interface Spec 0.3.doc.md",
+    "method": "textutil",
+    "status": "ok",
+    "error": null,
+    "extracted_at": "2026-05-03T00:06:48.965906+00:00"
+  },
+  {
+    "source_path": "/Users/gclyle/GrowDirect/Brain/raw/inbox/Interface Design Documents/Space Range and Display (SRD) Interfaces (S-Prefix)/SRD Interface Issue Log.xls",
+    "source_sha256": "12245213caa0d02730b2534ad3cddbe8105ad530d47b8654d78f4a78db2808c4",
+    "target_path": "/Users/gclyle/GrowDirect/Brain/raw/.extract/TOM/Space Range and Display (SRD) Interfaces (S-Prefix)/SRD Interface Issue Log.xls.md",
+    "method": "markitdown",
+    "status": "ok",
+    "error": null,
+    "extracted_at": "2026-05-03T00:06:49.031288+00:00"
+  }
+]

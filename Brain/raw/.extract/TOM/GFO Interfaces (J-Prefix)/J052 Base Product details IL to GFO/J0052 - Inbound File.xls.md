@@ -1,0 +1,68 @@
+## GFO Format
+| File 261 - JLL.IL.JLBPO.PROD.CTRY | File length 170 | Unnamed: 2 | Unnamed: 3 | Unnamed: 4 | Unnamed: 5 | Unnamed: 6 | Unnamed: 7 |
+| --- | --- | --- | --- | --- | --- | --- | --- |
+| \*\*\* GFO Format - Different from UK \*\*\* | NaN | NaN | NaN | NaN | NaN | NaN | NaN |
+| Field Name | Referenced in CR? | Insync format | Start | Length | COBOL \nFormat | Description | Mappings |
+| NaN | NaN | NaN | NaN | NaN | NaN | NaN | NaN |
+| NaN | NaN | NaN | NaN | NaN | NaN | NaN | NaN |
+| Header Record | (needs to exist) | G | 1 | 170 | NaN | NaN | NaN |
+| JLBOA-REC-TYPE | Y | C 1 | 1 | 1 | X | Record type (‘0’ for Header) | NaN |
+| JLBOA-DATE | Y | C 10 | 2 | 10 | X(10) | Current date when file created. CCYY-MM-DD format.\n | NaN |
+| FILLER | N | C 159 | 12 | 159 | X(159) | Set to spaces | Set to spaces |
+| NaN | NaN | NaN | NaN | NaN | NaN | NaN | NaN |
+| NaN | NaN | NaN | NaN | NaN | NaN | NaN | NaN |
+| Detail Record | (needs to exist) | G | 1 | 170 | NaN | NaN | NaN |
+| JLBOB-REC-TYPE | Y | C 1 | 1 | 1 | X | Record type (‘1’ for Detail) | NaN |
+| JLBOB-BASE-PRODUCT-NO | Y | Z 9 | 2 | 9 | 9(9) | Base product number | SKUItemLevel2  ->> ItemNo |
+| JLBOB-BPR-REGN | Y | C 2 | 11 | 2 | X(2) | Country code.  In the UK this either 'UK' or 'RI'.\n\nThis relates to how data is split between UK and ROI.  The situation in the UK is that a product can exist in both the UK and ROI but some fields can have different values between the 2 counties.  For international we don’t intend to deal with multiple countries (at the moment anyway). \n\nTherefore this field will be supplied as SPACES and CR will default it. | NaN |
+| JLBOB-BASE-PROD-RNGE-CLASS | Y | C 2 | 13 | 2 | X(2) | Range class for the product.\n\nNot relevant for International so supply SPACES. | NaN |
+| JLBOB-BPR-METRO-RCLASS | Y | C 2 | 15 | 2 | X(2) | Metro range class for the product\n\nNot relevant for International so supply SPACES. | NaN |
+| JLBOB-STORE-ORDERABLE-IND | Y | C 1 | 17 | 1 | X | Store orderable indicator.\n\nThis indicator is used to destock and then restock store/products automatically.  It tends to get used where there is a long term out of stock at a DC.  There has been suggestion that this should be supplied by range.  This is something supplied by NBS; do you know where this is obtained from?\n\nCR will probably default this field to 'Y'.\n\nThe SRCE-TYPE-IND is used in this processing.\n\nSet to SPACE | NaN |
+| JLBOB-DEVELOPMENT-LINE | Y | C 1 | 18 | 1 | X | Development line.  UK CR currently picks up 'Y' or 'N'.\n\nCR will default to 'N', but I suspect this could well be a field that may need to be manually overridden for certain products.\n\nSet to SPACE. | NaN |
+| JLBOB-DIAMOND-PROD-IND | Y | C 1 | 19 | 1 | X | Diamond product.  \n\nCurrently supplied by NBS as a space and then set to 'N' in CR.\n\nSet to SPACE. | NaN |
+| JLBOB-SRCE-TYPE-IND | Y | C 1 | 20 | 1 | X | Source type indicator.  \n\nUK CR picks up the following: W - Warehouse, D - Direct, B - Both\n\nWhere the indicator is 'B' or 'D' than additional processing is applied to the store orderable indicator to check the product is still orderable from a direct (a check is made against the CR BTS table that holds supplier/TPND data).  CR will probably default to 'B'.\n\nSet to SPACE. | NaN |
+| JLBOB-ORDER-GROUP | Y | C 2 | 21 | 2 | X(2) | Order Group.  \n\nShould be available as a UDA in RMS.\n\nThis solution has still not been worked out so for time being set to SPACES | NaN |
+| JLBOB-RMS-COMM-HIER | Y | G | 23 | 20 | NaN | The RMS commercial hierarchy.  This is the equivalent of the CR Sub group code.  It is a 20 character string split into 5 fields as follows.  CR will translate this into the appropriate CR 5 character Subgroup code. | NaN |
+| JLBOB-RMS-DIVISION | Y | Z 4 | 23 | 4 | 9(4) | RMS Division for this product.  Equivalent to the UK Division.  Supply as a number with leading zeroes. | Division - >>Division |
+| JLBOB-RMS-GROUP | Y | Z 4 | 27 | 4 | 9(4) | RMS Group for this product.  Equivalent to the UK Department.  Supply as a number with leading zeroes. | Department - >>Department |
+| JLBOB-RMS-DEPT | Y | Z 4 | 31 | 4 | 9(4) | RMS Department for this product.  Equivalent to the UK Section.  Supply as a number with leading zeroes. | Section - >>Section |
+| JLBOB-RMS-CLASS | Y | Z 4 | 35 | 4 | 9(4) | RMS Class for this product.  Equivalent to the UK Product Group.  Supply as a number with leading zeroes. | Class - >>Class |
+| JLBOB-RMS-SUBCLASS | Y | Z 4 | 39 | 4 | 9(4) | RMS Sub Class for this product.  Equivalent to the UK Sub Group.  Supply as a number with leading zeroes. | SubClass - >>SubClass |
+| JLBOB-BASE-PROD-DESCRIPTION | Y | C 48 | 43 | 48 | X(48) | Product description | SKUItemLevel2  ->> ITEM\_desc |
+| JLBOB-SELL-WT-ITEM-IND | Y | C 1 | 91 | 1 | X | Sell by weight indicator.  Currently assumed to be:\n\nI - Item\nS - Single\nP - Sell by Pack\nW - Sell by Weight\nB - Bird\n\nThe main logic in CR doesn’t appear to differentiate between Item and Single.  Some specific B logic does exist. Seperate Pack and Weight logic does exist. | if(SKUItemLevel2 ->> Standard\_UOM)== "EA" then "I"\nelse "W" |
+| JLBOB-SALEABLE-EFF-DATE | Y | C 10 | 92 | 10 | X(10) | Sale start date (format ccyy-mm-dd).\n\nCR does use this date in a PFS Sales Extract and as a display field in the online Product mainteneance screen.  The PFS Sales extract doesn't appear to be impacted by removing the Sale Start Date. \n\nCR will probably default to '0001-01-01'.\n\nData Dictionary Description: THE DATE ON WHICH A BASE PRODUCT FIRST BECOMES "SALEABLE" BY STORES. SET BY THE BUYERS VIA ONLINE CW. USED BY BRANCH REPLENISHMENT SYSTEMS.\n\nSet to SPACES. | NaN |
+| JLBOB-S-B-W-UNIT-MEASURE | Y | C 4 | 102 | 4 | X(4) | Sell by weight units.  Currently the only values supplied to CR are: SNGL or KG.\n\nCR appears to only check for a specific value of 'KG'.\n\nFor Sell by EACH set to 'SNGL'.  \nFor Sell by Weight, For TURKEY - Set to 'KG', For USA - Set to 'LB'\n\nThe product maintenance process in CR will be changed to reference a system wide parameter that identifies the mode that CR will run in (i.e. LB or KG).  Deli counter products (such as Scotch eggs) are currently handled by the sales program that divides the value of products in the bag by the selling price to obtain a number of singles.  This type of processing will be handled by Storeline in TOM. | if(SKUItemLevel2 ->> Standard\_UOM)== "EA" then "SNGL"\nelse\nSKUItemLevel2 ->> Standard\_UOM |
+| JLBOB-UNIT-SIZE | Y | Z 5, 2 | 106 | 7 | 9(5)V99 | The unit size of the preferred TPND in the format displayed by CR screens, i.e.\n\nFor sale by weight items this field holds the case weight\nFor sell by pack this field holds the contained quantity\nFor all other products it is the unit size\n\nIt seems there is not a concept of preferred TPND in RMS.  If this is the case, then use the first active TPND for the TPNB that is found in RMS.  This data item is used as a default in the event that a store specific TPND is not known (based on the supplying stock centre/supplier). \n\nNote - For Turkey the case weight will be in 'KG's.  For USA it will be in 'LB's (and decimal places of a LB - not ounces). | NaN |
+| JLBOB-LOW-LEVEL-GRP-CD | Y | C 2 | 113 | 2 | X(2) | Data Dictionary Description: THE LOW LEVEL GROUP CODE IS USED TO GROUP "LIKE" BASE PRODUCTS WITHIN THE SUBGROUP FOR\nREPORTING PURPOSES. THE DEFINITION OF "LIKE" WILL VARY FROM SUBGROUP TO SUBGROUP DEPENDING ON THE NATURE OF THE PRODUCTS WITHIN THE SUBGROUP AND THE REPORTING REQUIREMENTS.\n\nSet to SPACES. | NaN |
+| JLBOB-BASE-PROD-SEQ-NO | Y | C 3 | 115 | 3 | X(3) | Data Dictionary Description: A NUMBER TO SEQUENCE BASE PRODUCTS WITHIN THEIR BASE PRODUCT GROUPING. THE SEQUENCE WILL BE DETERMINED BY THE REPORTING REQUIREMENTS.\n\nSet to SPACES. | NaN |
+| JLBOB-DGRP-CODE | Y | C 3 | 118 | 3 | X(3) | This data item is reliant on the supply authority solution.  \n\nData Dictionary Description: A NATIONALLY DEFINED GROUP CONTAINING ONE OR MORE BASE PRODUCTS WHICH WILL BE SUPPLIED TO ANY GIVEN STORE FROM A SINGLE SOURCE OF SUPPLY.                                     \n                                            \nTHIS SINGLE SOURCE OF SUPPLY WILL BE A TESCO DEPOT OR A DIRECTS SUPPLIER AND IS VARIABLE BY STORE.\n                                            \nTHE COMBINATION OF DISTRIBUTION GROUP AND STORE WILL GIVE THE SOURCE OF SUPPLY FOR THE PRODUCT OR NOT, DEPENDING ON WHETHER THE STORE IS AUTHORISED TO RECEIVE THE PRODUCTS WHICH BELONG TO THE DISTRIBUTION GROUP.\n\nAssume to set as SPACES. | NaN |
+| JLBOB-MERCH-GRP-CODE | Y | C 3 | 121 | 3 | X(3) | Merchandising code.  Also known as Display Group in International Range.\n\nSet to SPACES | NaN |
+| JLBOB-SUPP-MERCHG-GRP-CODE | Y | C 3 | 124 | 3 | X(3) | Alternative merchandising code - (for Metro stores)\n\nSet to SPACES | NaN |
+| JLBOB-MIN-SHELF-LIFE+A36 | Y | Z 3 | 127 | 3 | 9(3) | Minimum shelf life.  If the minimum shelf life is zero and all daily expected shelf live values are zero, then set this field to 999, otherwise set to the minimum shelf life.\n\nNot known at this stage so set to SPACES for time being.  Will need to be resolved longer term. | NaN |
+| JLBOB-EXPCTD-SHELF-LIFE-1 | Y | Z 3 | 130 | 3 | 9(3) | Day 1 Expected Shelf Life\n\nNot known at this stage so set to SPACES for time being.  Will need to be resolved longer term. Same applies to the other days. | NaN |
+| JLBOB-DELY-AVAILABLE-IND-1 | Y | C 1 | 133 | 1 | X | Day 1 Delivery available indicator.\n\nCR assumes a value of 'Y' or 'N'.  NBS logic says If ‘X’ set to ‘N’ otherwise set to ‘Y’.  CR will probably default to 'Y'. \n\nSet to SPACE | NaN |
+| JLBOB-EXPCTD-SHELF-LIFE-2 | Y | Z 3 | 134 | 3 | 9(3) | Day 2 Expected Shelf Life | NaN |
+| JLBOB-DELY-AVAILABLE-IND-2 | Y | C 1 | 137 | 1 | X | Day 2 Delivery available indicator.\n\nCR assumes a value of 'Y' or 'N'.  NBS logic says If ‘X’ set to ‘N’ otherwise set to ‘Y’.  CR will probably default to 'Y'.\n\nSet to SPACE | NaN |
+| JLBOB-EXPCTD-SHELF-LIFE-3 | Y | Z 3 | 138 | 3 | 9(3) | Day 3 Expected Shelf Life | NaN |
+| JLBOB-DELY-AVAILABLE-IND-3 | Y | C 1 | 141 | 1 | X | Day 3 Delivery available indicator.\n\nCR assumes a value of 'Y' or 'N'.  NBS logic says If ‘X’ set to ‘N’ otherwise set to ‘Y’.  CR will probably default to 'Y'.\n\nSet to SPACE | NaN |
+| JLBOB-EXPCTD-SHELF-LIFE-4 | Y | Z 3 | 142 | 3 | 9(3) | Day 4 Expected Shelf Life | NaN |
+| JLBOB-DELY-AVAILABLE-IND-4 | Y | C 1 | 145 | 1 | X | Day 4 Delivery available indicator.\n\nCR assumes a value of 'Y' or 'N'.  NBS logic says If ‘X’ set to ‘N’ otherwise set to ‘Y’.  CR will probably default to 'Y'.\n\nSet to SPACE | NaN |
+| JLBOB-EXPCTD-SHELF-LIFE-5 | Y | Z 3 | 146 | 3 | 9(3) | Day 5 Expected Shelf Life | NaN |
+| JLBOB-DELY-AVAILABLE-IND-5 | Y | C 1 | 149 | 1 | X | Day 5 Delivery available indicator.\n\nCR assumes a value of 'Y' or 'N'.  NBS logic says If ‘X’ set to ‘N’ otherwise set to ‘Y’.  CR will probably default to 'Y'.\n\nSet to SPACE | NaN |
+| JLBOB-EXPCTD-SHELF-LIFE-6 | Y | Z 3 | 150 | 3 | 9(3) | Day 6 Expected Shelf Life | NaN |
+| JLBOB-DELY-AVAILABLE-IND-6 | Y | C 1 | 153 | 1 | X | Day 6 Delivery available indicator.\n\nCR assumes a value of 'Y' or 'N'.  NBS logic says If ‘X’ set to ‘N’ otherwise set to ‘Y’.  CR will probably default to 'Y'.\n\nSet to SPACE | NaN |
+| JLBOB-EXPCTD-SHELF-LIFE-7 | Y | Z 3 | 154 | 3 | 9(3) | Day 7 Expected Shelf Life | NaN |
+| JLBOB-DELY-AVAILABLE-IND-7 | Y | C 1 | 157 | 1 | X | Day 7 Delivery available indicator.\n\nCR assumes a value of 'Y' or 'N'.  NBS logic says If ‘X’ set to ‘N’ otherwise set to ‘Y’.\n\nSet to SPACE | NaN |
+| JLBOB-DIR-ORD-GRP | Y | C 2 | 158 | 2 | X(2) | Directs order group\n\nIn UK this field is usually 'Z' except for bakery products that are not in scope for International.  CR will default this field to 'Z'.\n\nSet to SPACES | NaN |
+| JLBOB-NOM-PACK-WEIGHT | Y | Z 3,2 | 160 | 5 | 9(3)V99 | Nominal pack weight of the preferred TPND.\n\nIf  SELL\_BY\_WGT\_ITEM\_IND != ‘P’  set NOM-PACK-WEIGHT to zero otherwise\n\nCalculate NOM-PACK-WEIGHT as CASE WEIGHT divided by CONTAINMENT QTY\n\nIt seems there is not a concept of preferred TPND in RMS.  If this is the case, then use the first active TPND for the TPNB that is found in RMS.  This data item is used as a default in the event that a store specific TPND is not known (based on the supplying stock centre/supplier). \n\nNote - For Turkey this will be in 'KG's.  For USA it will be in 'LB's (and decimal places of a LB - not ounces). \n\nNot known at this stage so set to ZEROES for time being.  Will need to be resolved longer term. | NaN |
+| JLBOB-TU-NOTIONAL-WT | Y | Z 4,2 | 165 | 6 | 9(4)V99 | Notional case weight of the preferred TPND.\n\nIf none exists set to zero.\n\nIt seems there is not a concept of preferred TPND in RMS.  If this is the case, then use the first active TPND for the TPNB that is found in RMS.  This data item is used as a default in the event that a store specific TPND is not known (based on the supplying stock centre/supplier). \n\nNote - For Turkey this will be in 'KG's.  For USA it will be in 'LB's (and decimal places of a LB - not ounces).  \n\nNot known at this stage so set to ZEROES for time being.  Will need to be resolved longer term. | NaN |
+| NaN | NaN | NaN | NaN | NaN | NaN | NaN | NaN |
+| NaN | NaN | NaN | NaN | NaN | NaN | NaN | NaN |
+| Trailer Record | (needs to exist) | NaN | NaN | NaN | NaN | NaN | NaN |
+| JLBOZ-REC-TYPE | Y | C 1 | 1 | 1 | X | Record type (‘9’ for Trailer) | NaN |
+| JLBOZ-REC-COUNT | Y | Z 8 | 2 | 8 | 9(8) | Record count including the header and trailer records. | NaN |
+| FILLER | N | C 161 | 10 | 161 | X(161) | NaN | NaN |
+
+## Sheet3
+|
+|  |

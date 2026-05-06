@@ -1,0 +1,756 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<title>Weekly Status — 2026-W18</title>
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<style>
+:root {
+  color-scheme: light dark;
+  --bg: #fafaf9; --fg: #1c1917; --muted: #57534e;
+  --border: #e7e5e4; --card-bg: #ffffff; --rail-bg: #f5f5f4;
+  --a-color: #059669; --b-color: #0284c7;
+  --c-color: #d97706; --d-color: #7c3aed;
+}
+@media (prefers-color-scheme: dark) {
+  :root {
+    --bg: #0c0a09; --fg: #fafaf9; --muted: #a8a29e;
+    --border: #292524; --card-bg: #1c1917; --rail-bg: #292524;
+  }
+}
+* { box-sizing: border-box; }
+html, body { background: var(--bg); color: var(--fg); }
+body {
+  font-family: ui-sans-serif, -apple-system, BlinkMacSystemFont, "Segoe UI", system-ui, sans-serif;
+  font-size: 16px; line-height: 1.55; margin: 0;
+  padding: 2.5rem 1.5rem 4rem;
+}
+.container { max-width: 1100px; margin: 0 auto; }
+header {
+  margin-bottom: 2.5rem; padding-bottom: 1.5rem;
+  border-bottom: 1px solid var(--border);
+}
+header .meta {
+  color: var(--muted); font-size: 0.8rem;
+  letter-spacing: 0.08em; text-transform: uppercase;
+  margin-bottom: 0.5rem;
+}
+header h1 {
+  font-size: 2.5rem; font-weight: 700; margin: 0;
+  letter-spacing: -0.02em;
+}
+header .subtitle {
+  margin-top: 0.75rem; color: var(--muted); font-style: italic;
+  border-left: 2px solid var(--border); padding-left: 0.75rem;
+  font-size: 0.95rem;
+}
+section { margin-bottom: 2rem; }
+h2 {
+  font-size: 1.15rem; font-weight: 600; margin: 0 0 0.75rem;
+  letter-spacing: -0.01em;
+}
+h3 {
+  font-size: 0.95rem; font-weight: 600; margin: 1.25rem 0 0.5rem;
+  color: var(--muted);
+}
+.thesis {
+  background: var(--card-bg);
+  border: 1px solid var(--border); border-left: 4px solid var(--fg);
+  padding: 1.25rem 1.5rem; border-radius: 4px;
+}
+.abcd-grid {
+  display: grid; grid-template-columns: 1fr 1fr; gap: 1rem;
+  margin-bottom: 2rem;
+}
+@media (max-width: 720px) { .abcd-grid { grid-template-columns: 1fr; } }
+.box {
+  background: var(--card-bg); border: 1px solid var(--border);
+  border-left-width: 4px; border-radius: 4px;
+  padding: 1.25rem 1.5rem;
+}
+.box-a { border-left-color: var(--a-color); }
+.box-b { border-left-color: var(--b-color); }
+.box-c { border-left-color: var(--c-color); }
+.box-d { border-left-color: var(--d-color); }
+.box-a h2 { color: var(--a-color); }
+.box-b h2 { color: var(--b-color); }
+.box-c h2 { color: var(--c-color); }
+.box-d h2 { color: var(--d-color); }
+.content ul, .content ol { margin: 0; padding-left: 1.25rem; }
+.content li { margin-bottom: 0.4rem; }
+.content p:first-child { margin-top: 0; }
+.content p:last-child { margin-bottom: 0; }
+.content a {
+  color: inherit; text-decoration: underline;
+  text-decoration-thickness: 1px; text-underline-offset: 2px;
+}
+.content code {
+  background: var(--rail-bg); padding: 0.1em 0.35em;
+  border-radius: 3px; font-size: 0.875em;
+  font-family: ui-monospace, SFMono-Regular, Menlo, monospace;
+}
+.content em { color: var(--muted); }
+.content blockquote {
+  margin: 0.5rem 0; padding: 0.5rem 0.9rem;
+  border-left: 2px solid var(--border); color: var(--muted);
+}
+.rails {
+  background: var(--rail-bg); border-radius: 4px;
+  padding: 1.25rem 1.5rem;
+}
+.rails h2 { color: var(--muted); }
+.rails h3:first-of-type { margin-top: 0; }
+.thread { padding: 0 0.25rem; color: var(--muted); }
+footer {
+  margin-top: 3rem; padding-top: 1rem;
+  border-top: 1px solid var(--border);
+  color: var(--muted); font-size: 0.8rem;
+  display: flex; justify-content: space-between;
+  flex-wrap: wrap; gap: 0.5rem;
+}
+.placeholder {
+  color: var(--muted); font-style: italic; font-size: 0.95rem;
+}
+@media print {
+  body { padding: 0; background: white; color: black; }
+  .container { max-width: none; padding: 1cm; }
+  .box, .thesis, .rails {
+    background: white; border-color: #ccc;
+    page-break-inside: avoid;
+  }
+  .abcd-grid { page-break-inside: avoid; }
+  footer { color: #666; }
+}
+</style>
+</head>
+<body>
+<div class="container">
+<header>
+  <div class="meta">2026-W18 · 2026-04-27 → 2026-05-03 · Alejandro</div>
+  <h1>Weekly Status — 2026-W18</h1>
+  <div class="subtitle">ABCD — Accomplishments · Benefits · Concerns · Do Next. The four-box is the narrative layer. The auto-rails below are the inventory layer. If the box at the top reads as a duplicate of the rails, the box failed.</div>
+</header>
+
+<section class="thesis">
+  <h2>Governing thesis</h2>
+  <div class="content"><p>First instance of the weekly ABCD format. The capture system itself is now<br>
+in place — template, Bases trackers, auto-rail script. Next week's report<br>
+is the first one that exercises the system end-to-end.</p></div>
+</section>
+
+<section class="abcd-grid">
+  <article class="box box-a">
+    <h2>A · Accomplishments</h2>
+    <div class="content"><ul>
+<li>Shipped weekly status capture system: ABCD template, SDLC Tracker base,<br>
+  NFR Matrix base, <code>engine.py weekly</code> command (this dispatch).</li>
+<li>ALXjr sunset confirmed (per CLAUDE.md deprecation note dated 2026-05-01).</li>
+<li>Mini Docker stack parked (GRO-700 v3 drop-zone reframe, 2026-05-01).</li>
+</ul></div>
+  </article>
+  <article class="box box-b">
+    <h2>B · Benefits</h2>
+    <div class="content"><ul>
+<li>Friday cadence now has a single artifact rather than a mental note. Three<br>
+  weeks from now there's a trend line instead of a memory.</li>
+<li>Module-level SDLC visibility: 13 spine modules + cross-cutting NFR<br>
+  concerns rendered in one Bases view. No more "what state is module X in"<br>
+  ambiguity at the start of a planning session.</li>
+<li>ALXjr sunset and mini Docker park reduce operational surface area<br>
+  by one entire agent identity and one Docker stack — both were carrying<br>
+  weight without proportional output.</li>
+</ul></div>
+  </article>
+  <article class="box box-c">
+    <h2>C · Concerns</h2>
+    <div class="content"><ul>
+<li><strong>MED:</strong> Only 1 of 13 module entity cards exists (T as the worked<br>
+  example). The SDLC Tracker base will look sparse until the other 12 are<br>
+  scaffolded. Follow-up dispatch needed.</li>
+<li><strong>MED:</strong> <code>engine.py weekly</code> Linear integration is stubbed — closed<br>
+  dispatches still need to be hand-pasted from Linear into the rail.<br>
+  Acceptable for v0.1; plan a v0.2 with <code>--linear-token</code> flag.</li>
+<li><strong>LOW:</strong> Bases formula syntax (<code>if(...)</code>) for the NFR composite score is<br>
+  untested against current Obsidian Bases version. May need to fall back<br>
+  to flat columns if the formula doesn't parse.</li>
+</ul></div>
+  </article>
+  <article class="box box-d">
+    <h2>D · Do Next</h2>
+    <div class="content"><ol>
+<li>Scaffold the remaining 12 module entity cards (R, N, A, Q, C, D, F, J, S, P, L, W) — quick batch, ~30 min.</li>
+<li>Validate Bases formula syntax in Obsidian — if <code>if(...)</code> chains don't render, simplify NFR Matrix.</li>
+<li>Wire <code>engine.py weekly --with-linear</code> against the Linear MCP for the dispatch rail (v0.2).</li>
+<li>First real Friday run of the weekly process — W19 status, end-to-end with auto-rails.</li>
+</ol></div>
+  </article>
+</section>
+
+<section class="rails">
+  <h2>Activity (auto-rails)</h2>
+  <div class="content"><h3>Dispatches closed this week</h3>
+<p><em>Hand-paste from Linear's Dispatch project, status=Done, completed-at between 2026-04-27 and 2026-05-03.</em></p>
+<h3>Wiki cards added or updated</h3>
+<ul>
+<li><a href="agent-card-format.md">agent-card-format</a> (<code>Brain/wiki/agent-card-format.md</code>)</li>
+<li><a href="armstrong-garden-centers-proof-case.md">armstrong-garden-centers-proof-case</a> (<code>Brain/wiki/armstrong-garden-centers-proof-case.md</code>)</li>
+<li><a href="bart-mccleskey-rapid-garden-pos.md">bart-mccleskey-rapid-garden-pos</a> (<code>Brain/wiki/bart-mccleskey-rapid-garden-pos.md</code>)</li>
+<li><a href="brain-broken-links-baseline-2026-05-01.md">brain-broken-links-baseline-2026-05-01</a> (<code>Brain/wiki/brain-broken-links-baseline-2026-05-01.md</code>)</li>
+<li><a href="canary-agent-roadmap-batch-to-realtime.md">canary-agent-roadmap-batch-to-realtime</a> (<code>Brain/wiki/canary-agent-roadmap-batch-to-realtime.md</code>)</li>
+<li><a href="canary-alerts-guide.md">canary-alerts-guide</a> (<code>Brain/wiki/canary-alerts-guide.md</code>)</li>
+<li><a href="canary-architecture-decisions-index.md">canary-architecture-decisions-index</a> (<code>Brain/wiki/canary-architecture-decisions-index.md</code>)</li>
+<li><a href="canary-architecture.md">canary-architecture</a> (<code>Brain/wiki/canary-architecture.md</code>)</li>
+<li><a href="canary-canonical-positioning.md">canary-canonical-positioning</a> (<code>Brain/wiki/canary-canonical-positioning.md</code>)</li>
+<li><a href="canary-chirp-rules.md">canary-chirp-rules</a> (<code>Brain/wiki/canary-chirp-rules.md</code>)</li>
+<li><a href="canary-closed-loop-cost-attribution.md">canary-closed-loop-cost-attribution</a> (<code>Brain/wiki/canary-closed-loop-cost-attribution.md</code>)</li>
+<li><a href="canary-commercial-context.md">canary-commercial-context</a> (<code>Brain/wiki/canary-commercial-context.md</code>)</li>
+<li><a href="canary-control-state-fit.md">canary-control-state-fit</a> (<code>Brain/wiki/canary-control-state-fit.md</code>)</li>
+<li><a href="canary-data-model.md">canary-data-model</a> (<code>Brain/wiki/canary-data-model.md</code>)</li>
+<li><a href="canary-detection.md">canary-detection</a> (<code>Brain/wiki/canary-detection.md</code>)</li>
+<li><a href="canary-ej-spine-and-sales-audit.md">canary-ej-spine-and-sales-audit</a> (<code>Brain/wiki/canary-ej-spine-and-sales-audit.md</code>)</li>
+<li><a href="canary-fox-case-management.md">canary-fox-case-management</a> (<code>Brain/wiki/canary-fox-case-management.md</code>)</li>
+<li><a href="canary-franchise-play.md">canary-franchise-play</a> (<code>Brain/wiki/canary-franchise-play.md</code>)</li>
+<li><a href="canary-functional-decomp-gap-ledger.md">canary-functional-decomp-gap-ledger</a> (<code>Brain/wiki/canary-functional-decomp-gap-ledger.md</code>)</li>
+<li><a href="canary-go-cadence-ladder.md">canary-go-cadence-ladder</a> (<code>Brain/wiki/canary-go-cadence-ladder.md</code>)</li>
+<li><a href="canary-go-endpoint-library.md">canary-go-endpoint-library</a> (<code>Brain/wiki/canary-go-endpoint-library.md</code>)</li>
+<li><a href="canary-go-ncr-counterpoint-crosswalk.md">canary-go-ncr-counterpoint-crosswalk</a> (<code>Brain/wiki/canary-go-ncr-counterpoint-crosswalk.md</code>)</li>
+<li><a href="canary-go-portal.md">canary-go-portal</a> (<code>Brain/wiki/canary-go-portal.md</code>)</li>
+<li><a href="canary-go-rapidpos-crosswalk.md">canary-go-rapidpos-crosswalk</a> (<code>Brain/wiki/canary-go-rapidpos-crosswalk.md</code>)</li>
+<li><a href="canary-go-satoshi-cost-model.md">canary-go-satoshi-cost-model</a> (<code>Brain/wiki/canary-go-satoshi-cost-model.md</code>)</li>
+<li><a href="canary-go-square-crosswalk.md">canary-go-square-crosswalk</a> (<code>Brain/wiki/canary-go-square-crosswalk.md</code>)</li>
+<li><a href="canary-go-vs-gk-pos-gap-analysis.md">canary-go-vs-gk-pos-gap-analysis</a> (<code>Brain/wiki/canary-go-vs-gk-pos-gap-analysis.md</code>)</li>
+<li><a href="canary-location-item-data-model.md">canary-location-item-data-model</a> (<code>Brain/wiki/canary-location-item-data-model.md</code>)</li>
+<li><a href="canary-long-arc-atlas.md">canary-long-arc-atlas</a> (<code>Brain/wiki/canary-long-arc-atlas.md</code>)</li>
+<li><a href="canary-market-positioning.md">canary-market-positioning</a> (<code>Brain/wiki/canary-market-positioning.md</code>)</li>
+<li><a href="canary-mcp-stack-architecture.md">canary-mcp-stack-architecture</a> (<code>Brain/wiki/canary-mcp-stack-architecture.md</code>)</li>
+<li><a href="canary-module-a-asset-management.md">canary-module-a-asset-management</a> (<code>Brain/wiki/canary-module-a-asset-management.md</code>)</li>
+<li><a href="canary-module-a-functional-decomposition.md">canary-module-a-functional-decomposition</a> (<code>Brain/wiki/canary-module-a-functional-decomposition.md</code>)</li>
+<li><a href="canary-module-c-commercial.md">canary-module-c-commercial</a> (<code>Brain/wiki/canary-module-c-commercial.md</code>)</li>
+<li><a href="canary-module-c-customer.md">canary-module-c-customer</a> (<code>Brain/wiki/canary-module-c-customer.md</code>)</li>
+<li><a href="canary-module-c-functional-decomposition.md">canary-module-c-functional-decomposition</a> (<code>Brain/wiki/canary-module-c-functional-decomposition.md</code>)</li>
+<li><a href="canary-module-d-distribution.md">canary-module-d-distribution</a> (<code>Brain/wiki/canary-module-d-distribution.md</code>)</li>
+<li><a href="canary-module-d-functional-decomposition.md">canary-module-d-functional-decomposition</a> (<code>Brain/wiki/canary-module-d-functional-decomposition.md</code>)</li>
+<li><a href="canary-module-e-execution.md">canary-module-e-execution</a> (<code>Brain/wiki/canary-module-e-execution.md</code>)</li>
+<li><a href="canary-module-f-finance.md">canary-module-f-finance</a> (<code>Brain/wiki/canary-module-f-finance.md</code>)</li>
+<li><a href="canary-module-f-functional-decomposition.md">canary-module-f-functional-decomposition</a> (<code>Brain/wiki/canary-module-f-functional-decomposition.md</code>)</li>
+<li><a href="canary-module-j-forecast-order.md">canary-module-j-forecast-order</a> (<code>Brain/wiki/canary-module-j-forecast-order.md</code>)</li>
+<li><a href="canary-module-l-labor-workforce.md">canary-module-l-labor-workforce</a> (<code>Brain/wiki/canary-module-l-labor-workforce.md</code>)</li>
+<li><a href="canary-module-l-labor.md">canary-module-l-labor</a> (<code>Brain/wiki/canary-module-l-labor.md</code>)</li>
+<li><a href="canary-module-m-functional-decomposition.md">canary-module-m-functional-decomposition</a> (<code>Brain/wiki/canary-module-m-functional-decomposition.md</code>)</li>
+<li><a href="canary-module-m-merchandising.md">canary-module-m-merchandising</a> (<code>Brain/wiki/canary-module-m-merchandising.md</code>)</li>
+<li><a href="canary-module-n-device.md">canary-module-n-device</a> (<code>Brain/wiki/canary-module-n-device.md</code>)</li>
+<li><a href="canary-module-n-functional-decomposition.md">canary-module-n-functional-decomposition</a> (<code>Brain/wiki/canary-module-n-functional-decomposition.md</code>)</li>
+<li><a href="canary-module-o-functional-decomposition.md">canary-module-o-functional-decomposition</a> (<code>Brain/wiki/canary-module-o-functional-decomposition.md</code>)</li>
+<li><a href="canary-module-o-orders.md">canary-module-o-orders</a> (<code>Brain/wiki/canary-module-o-orders.md</code>)</li>
+<li><a href="canary-module-p-functional-decomposition.md">canary-module-p-functional-decomposition</a> (<code>Brain/wiki/canary-module-p-functional-decomposition.md</code>)</li>
+<li><a href="canary-module-p-pricing-promotion.md">canary-module-p-pricing-promotion</a> (<code>Brain/wiki/canary-module-p-pricing-promotion.md</code>)</li>
+<li><a href="canary-module-q-counterpoint-rule-catalog.md">canary-module-q-counterpoint-rule-catalog</a> (<code>Brain/wiki/canary-module-q-counterpoint-rule-catalog.md</code>)</li>
+<li><a href="canary-module-q-functional-decomposition.md">canary-module-q-functional-decomposition</a> (<code>Brain/wiki/canary-module-q-functional-decomposition.md</code>)</li>
+<li><a href="canary-module-q-loss-prevention.md">canary-module-q-loss-prevention</a> (<code>Brain/wiki/canary-module-q-loss-prevention.md</code>)</li>
+<li><a href="canary-module-r-customer.md">canary-module-r-customer</a> (<code>Brain/wiki/canary-module-r-customer.md</code>)</li>
+<li><a href="canary-module-r-functional-decomposition.md">canary-module-r-functional-decomposition</a> (<code>Brain/wiki/canary-module-r-functional-decomposition.md</code>)</li>
+<li><a href="canary-module-s-functional-decomposition.md">canary-module-s-functional-decomposition</a> (<code>Brain/wiki/canary-module-s-functional-decomposition.md</code>)</li>
+<li><a href="canary-module-s-space-range-display.md">canary-module-s-space-range-display</a> (<code>Brain/wiki/canary-module-s-space-range-display.md</code>)</li>
+<li><a href="canary-module-s-space.md">canary-module-s-space</a> (<code>Brain/wiki/canary-module-s-space.md</code>)</li>
+<li><a href="canary-module-t-transactions.md">canary-module-t-transactions</a> (<code>Brain/wiki/canary-module-t-transactions.md</code>)</li>
+<li><a href="canary-module-w-work-execution.md">canary-module-w-work-execution</a> (<code>Brain/wiki/canary-module-w-work-execution.md</code>)</li>
+<li><a href="canary-sales-strategy.md">canary-sales-strategy</a> (<code>Brain/wiki/canary-sales-strategy.md</code>)</li>
+<li><a href="canary-site-update-instructions.md">canary-site-update-instructions</a> (<code>Brain/wiki/canary-site-update-instructions.md</code>)</li>
+<li><a href="canary-tsp-pipeline.md">canary-tsp-pipeline</a> (<code>Brain/wiki/canary-tsp-pipeline.md</code>)</li>
+<li><a href="accelerator-pack.md">accelerator-pack</a> (<code>Brain/wiki/canary/accelerator-pack.yaml</code>)</li>
+<li><a href="investor-deck-recovery-2026-05-03.md">investor-deck-recovery-2026-05-03</a> (<code>Brain/wiki/canary/investor-deck-recovery-2026-05-03.md</code>)</li>
+<li><a href="joint-product-positioning-pwc.md">joint-product-positioning-pwc</a> (<code>Brain/wiki/canary/partnership-research/joint-product-positioning-pwc.md</code>)</li>
+<li><a href="rapidpos-feature-map.md">rapidpos-feature-map</a> (<code>Brain/wiki/canary/partnership-research/rapidpos-feature-map.md</code>)</li>
+<li><a href="rapidpos-subbrand-feature-map.md">rapidpos-subbrand-feature-map</a> (<code>Brain/wiki/canary/partnership-research/rapidpos-subbrand-feature-map.md</code>)</li>
+<li><a href="agent-alxjr-decision.md">agent-alxjr-decision</a> (<code>Brain/wiki/cards/agent-alxjr-decision.md</code>)</li>
+<li><a href="agent-auditor.md">agent-auditor</a> (<code>Brain/wiki/cards/agent-auditor.md</code>)</li>
+<li><a href="agent-canary-builder.md">agent-canary-builder</a> (<code>Brain/wiki/cards/agent-canary-builder.md</code>)</li>
+<li><a href="agent-cove-builder.md">agent-cove-builder</a> (<code>Brain/wiki/cards/agent-cove-builder.md</code>)</li>
+<li><a href="axis-adapter.md">axis-adapter</a> (<code>Brain/wiki/cards/axis-adapter.md</code>)</li>
+<li><a href="axis-agent.md">axis-agent</a> (<code>Brain/wiki/cards/axis-agent.md</code>)</li>
+<li><a href="axis-resource.md">axis-resource</a> (<code>Brain/wiki/cards/axis-resource.md</code>)</li>
+<li><a href="canary-asset.md">canary-asset</a> (<code>Brain/wiki/cards/canary-asset.md</code>)</li>
+<li><a href="canary-blockchain-anchor.md">canary-blockchain-anchor</a> (<code>Brain/wiki/cards/canary-blockchain-anchor.md</code>)</li>
+<li><a href="canary-commercial.md">canary-commercial</a> (<code>Brain/wiki/cards/canary-commercial.md</code>)</li>
+<li><a href="canary-compliance.md">canary-compliance</a> (<code>Brain/wiki/cards/canary-compliance.md</code>)</li>
+<li><a href="canary-cost-center-cross-charge.md">canary-cost-center-cross-charge</a> (<code>Brain/wiki/cards/canary-cost-center-cross-charge.md</code>)</li>
+<li><a href="canary-customer.md">canary-customer</a> (<code>Brain/wiki/cards/canary-customer.md</code>)</li>
+<li><a href="canary-device-contracts.md">canary-device-contracts</a> (<code>Brain/wiki/cards/canary-device-contracts.md</code>)</li>
+<li><a href="canary-ecom-channel.md">canary-ecom-channel</a> (<code>Brain/wiki/cards/canary-ecom-channel.md</code>)</li>
+<li><a href="canary-employee.md">canary-employee</a> (<code>Brain/wiki/cards/canary-employee.md</code>)</li>
+<li><a href="canary-field-capture.md">canary-field-capture</a> (<code>Brain/wiki/cards/canary-field-capture.md</code>)</li>
+<li><a href="canary-hawk.md">canary-hawk</a> (<code>Brain/wiki/cards/canary-hawk.md</code>)</li>
+<li><a href="canary-ildwac.md">canary-ildwac</a> (<code>Brain/wiki/cards/canary-ildwac.md</code>)</li>
+<li><a href="canary-inventory-as-a-service.md">canary-inventory-as-a-service</a> (<code>Brain/wiki/cards/canary-inventory-as-a-service.md</code>)</li>
+<li><a href="canary-inventory.md">canary-inventory</a> (<code>Brain/wiki/cards/canary-inventory.md</code>)</li>
+<li><a href="canary-item.md">canary-item</a> (<code>Brain/wiki/cards/canary-item.md</code>)</li>
+<li><a href="canary-l402-otb.md">canary-l402-otb</a> (<code>Brain/wiki/cards/canary-l402-otb.md</code>)</li>
+<li><a href="canary-meter-model-token-plan.md">canary-meter-model-token-plan</a> (<code>Brain/wiki/cards/canary-meter-model-token-plan.md</code>)</li>
+<li><a href="canary-ops-dashboard.md">canary-ops-dashboard</a> (<code>Brain/wiki/cards/canary-ops-dashboard.md</code>)</li>
+<li><a href="canary-pricing.md">canary-pricing</a> (<code>Brain/wiki/cards/canary-pricing.md</code>)</li>
+<li><a href="canary-protocol-gateway-live-on-gcp.md">canary-protocol-gateway-live-on-gcp</a> (<code>Brain/wiki/cards/canary-protocol-gateway-live-on-gcp.md</code>)</li>
+<li><a href="canary-raas.md">canary-raas</a> (<code>Brain/wiki/cards/canary-raas.md</code>)</li>
+<li><a href="canary-receiving.md">canary-receiving</a> (<code>Brain/wiki/cards/canary-receiving.md</code>)</li>
+<li><a href="canary-report.md">canary-report</a> (<code>Brain/wiki/cards/canary-report.md</code>)</li>
+<li><a href="canary-returns.md">canary-returns</a> (<code>Brain/wiki/cards/canary-returns.md</code>)</li>
+<li><a href="canary-store-brain.md">canary-store-brain</a> (<code>Brain/wiki/cards/canary-store-brain.md</code>)</li>
+<li><a href="canary-store-network-integrity.md">canary-store-network-integrity</a> (<code>Brain/wiki/cards/canary-store-network-integrity.md</code>)</li>
+<li><a href="canary-transfer.md">canary-transfer</a> (<code>Brain/wiki/cards/canary-transfer.md</code>)</li>
+<li><a href="category-hierarchy.md">category-hierarchy</a> (<code>Brain/wiki/cards/category-hierarchy.md</code>)</li>
+<li><a href="channel-revshare-architecture.md">channel-revshare-architecture</a> (<code>Brain/wiki/cards/channel-revshare-architecture.md</code>)</li>
+<li><a href="concept-agent-parenting-discipline.md">concept-agent-parenting-discipline</a> (<code>Brain/wiki/cards/concept-agent-parenting-discipline.md</code>)</li>
+<li><a href="concept-decision-substrate.md">concept-decision-substrate</a> (<code>Brain/wiki/cards/concept-decision-substrate.md</code>)</li>
+<li><a href="concept-identity-layer-triad.md">concept-identity-layer-triad</a> (<code>Brain/wiki/cards/concept-identity-layer-triad.md</code>)</li>
+<li><a href="concept-party-taxonomy.md">concept-party-taxonomy</a> (<code>Brain/wiki/cards/concept-party-taxonomy.md</code>)</li>
+<li><a href="concept-substrate-discipline.md">concept-substrate-discipline</a> (<code>Brain/wiki/cards/concept-substrate-discipline.md</code>)</li>
+<li><a href="counterpoint-product-state-2026.md">counterpoint-product-state-2026</a> (<code>Brain/wiki/cards/counterpoint-product-state-2026.md</code>)</li>
+<li><a href="counterpoint-var-landscape.md">counterpoint-var-landscape</a> (<code>Brain/wiki/cards/counterpoint-var-landscape.md</code>)</li>
+<li><a href="diagnostic-five-input-forecast.md">diagnostic-five-input-forecast</a> (<code>Brain/wiki/cards/diagnostic-five-input-forecast.md</code>)</li>
+<li><a href="fireball-demand-signal-origin.md">fireball-demand-signal-origin</a> (<code>Brain/wiki/cards/fireball-demand-signal-origin.md</code>)</li>
+<li><a href="gap-backbone-architecture.md">gap-backbone-architecture</a> (<code>Brain/wiki/cards/gap-backbone-architecture.md</code>)</li>
+<li><a href="gcp-foundation-runbook.md">gcp-foundation-runbook</a> (<code>Brain/wiki/cards/gcp-foundation-runbook.md</code>)</li>
+<li><a href="geography-hierarchy.md">geography-hierarchy</a> (<code>Brain/wiki/cards/geography-hierarchy.md</code>)</li>
+<li><a href="gslm-coverage-report-2026-05-03.md">gslm-coverage-report-2026-05-03</a> (<code>Brain/wiki/cards/gslm-coverage-report-2026-05-03.md</code>)</li>
+<li><a href="icp-murdochs-reference.md">icp-murdochs-reference</a> (<code>Brain/wiki/cards/icp-murdochs-reference.md</code>)</li>
+<li><a href="ilwac-extended-bitcoin-standard.md">ilwac-extended-bitcoin-standard</a> (<code>Brain/wiki/cards/ilwac-extended-bitcoin-standard.md</code>)</li>
+<li><a href="infra-blockchain-evidence-anchor.md">infra-blockchain-evidence-anchor</a> (<code>Brain/wiki/cards/infra-blockchain-evidence-anchor.md</code>)</li>
+<li><a href="infra-cadence-ladder.md">infra-cadence-ladder</a> (<code>Brain/wiki/cards/infra-cadence-ladder.md</code>)</li>
+<li><a href="infra-dns-topology.md">infra-dns-topology</a> (<code>Brain/wiki/cards/infra-dns-topology.md</code>)</li>
+<li><a href="infra-feed-tier-contract.md">infra-feed-tier-contract</a> (<code>Brain/wiki/cards/infra-feed-tier-contract.md</code>)</li>
+<li><a href="infra-l402-otb-settlement.md">infra-l402-otb-settlement</a> (<code>Brain/wiki/cards/infra-l402-otb-settlement.md</code>)</li>
+<li><a href="infra-satoshi-cost-rollup.md">infra-satoshi-cost-rollup</a> (<code>Brain/wiki/cards/infra-satoshi-cost-rollup.md</code>)</li>
+<li><a href="local-market-agent.md">local-market-agent</a> (<code>Brain/wiki/cards/local-market-agent.md</code>)</li>
+<li><a href="loop2-build-report.md">loop2-build-report</a> (<code>Brain/wiki/cards/loop2-build-report.md</code>)</li>
+<li><a href="loop3-decimal-standard.md">loop3-decimal-standard</a> (<code>Brain/wiki/cards/loop3-decimal-standard.md</code>)</li>
+<li><a href="lp-device-intelligence-substrate.md">lp-device-intelligence-substrate</a> (<code>Brain/wiki/cards/lp-device-intelligence-substrate.md</code>)</li>
+<li><a href="merchant-org-hierarchy.md">merchant-org-hierarchy</a> (<code>Brain/wiki/cards/merchant-org-hierarchy.md</code>)</li>
+<li><a href="mission-main-street.md">mission-main-street</a> (<code>Brain/wiki/cards/mission-main-street.md</code>)</li>
+<li><a href="ncr-ecosystem-2026.md">ncr-ecosystem-2026</a> (<code>Brain/wiki/cards/ncr-ecosystem-2026.md</code>)</li>
+<li><a href="platform-alx-vsm.md">platform-alx-vsm</a> (<code>Brain/wiki/cards/platform-alx-vsm.md</code>)</li>
+<li><a href="platform-architectural-continuity.md">platform-architectural-continuity</a> (<code>Brain/wiki/cards/platform-architectural-continuity.md</code>)</li>
+<li><a href="platform-case-type-registry-pattern.md">platform-case-type-registry-pattern</a> (<code>Brain/wiki/cards/platform-case-type-registry-pattern.md</code>)</li>
+<li><a href="platform-closed-loop-attribution.md">platform-closed-loop-attribution</a> (<code>Brain/wiki/cards/platform-closed-loop-attribution.md</code>)</li>
+<li><a href="platform-cryptographic-erasure.md">platform-cryptographic-erasure</a> (<code>Brain/wiki/cards/platform-cryptographic-erasure.md</code>)</li>
+<li><a href="platform-data-classification.md">platform-data-classification</a> (<code>Brain/wiki/cards/platform-data-classification.md</code>)</li>
+<li><a href="platform-enterprise-document-services.md">platform-enterprise-document-services</a> (<code>Brain/wiki/cards/platform-enterprise-document-services.md</code>)</li>
+<li><a href="platform-federal-compliance-spine.md">platform-federal-compliance-spine</a> (<code>Brain/wiki/cards/platform-federal-compliance-spine.md</code>)</li>
+<li><a href="platform-field-capture.md">platform-field-capture</a> (<code>Brain/wiki/cards/platform-field-capture.md</code>)</li>
+<li><a href="platform-gateway-thesis.md">platform-gateway-thesis</a> (<code>Brain/wiki/cards/platform-gateway-thesis.md</code>)</li>
+<li><a href="platform-general-store-test-lab.md">platform-general-store-test-lab</a> (<code>Brain/wiki/cards/platform-general-store-test-lab.md</code>)</li>
+<li><a href="platform-geographic-compliance-resolver.md">platform-geographic-compliance-resolver</a> (<code>Brain/wiki/cards/platform-geographic-compliance-resolver.md</code>)</li>
+<li><a href="platform-inventory-2026-04.md">platform-inventory-2026-04</a> (<code>Brain/wiki/cards/platform-inventory-2026-04.md</code>)</li>
+<li><a href="platform-l402-ildwac-moat.md">platform-l402-ildwac-moat</a> (<code>Brain/wiki/cards/platform-l402-ildwac-moat.md</code>)</li>
+<li><a href="platform-multi-tier-assortment.md">platform-multi-tier-assortment</a> (<code>Brain/wiki/cards/platform-multi-tier-assortment.md</code>)</li>
+<li><a href="platform-parcel-as-anchor.md">platform-parcel-as-anchor</a> (<code>Brain/wiki/cards/platform-parcel-as-anchor.md</code>)</li>
+<li><a href="platform-performance-nfrs.md">platform-performance-nfrs</a> (<code>Brain/wiki/cards/platform-performance-nfrs.md</code>)</li>
+<li><a href="platform-pii-hashing.md">platform-pii-hashing</a> (<code>Brain/wiki/cards/platform-pii-hashing.md</code>)</li>
+<li><a href="platform-proof-case.md">platform-proof-case</a> (<code>Brain/wiki/cards/platform-proof-case.md</code>)</li>
+<li><a href="platform-property-pack-methodology.md">platform-property-pack-methodology</a> (<code>Brain/wiki/cards/platform-property-pack-methodology.md</code>)</li>
+<li><a href="platform-pwc-benchmarks.md">platform-pwc-benchmarks</a> (<code>Brain/wiki/cards/platform-pwc-benchmarks.md</code>)</li>
+<li><a href="platform-retailer-lifecycle-test.md">platform-retailer-lifecycle-test</a> (<code>Brain/wiki/cards/platform-retailer-lifecycle-test.md</code>)</li>
+<li><a href="platform-stack-commitment.md">platform-stack-commitment</a> (<code>Brain/wiki/cards/platform-stack-commitment.md</code>)</li>
+<li><a href="platform-thesis.md">platform-thesis</a> (<code>Brain/wiki/cards/platform-thesis.md</code>)</li>
+<li><a href="platform-wyoming-ecosystem.md">platform-wyoming-ecosystem</a> (<code>Brain/wiki/cards/platform-wyoming-ecosystem.md</code>)</li>
+<li><a href="portable-store-founder-intent.md">portable-store-founder-intent</a> (<code>Brain/wiki/cards/portable-store-founder-intent.md</code>)</li>
+<li><a href="professor-adrian-beck-total-retail-loss.md">professor-adrian-beck-total-retail-loss</a> (<code>Brain/wiki/cards/professor-adrian-beck-total-retail-loss.md</code>)</li>
+<li><a href="raas-receipt-as-a-service.md">raas-receipt-as-a-service</a> (<code>Brain/wiki/cards/raas-receipt-as-a-service.md</code>)</li>
+<li><a href="retail-ap-vendor-terms.md">retail-ap-vendor-terms</a> (<code>Brain/wiki/cards/retail-ap-vendor-terms.md</code>)</li>
+<li><a href="retail-assortment-management.md">retail-assortment-management</a> (<code>Brain/wiki/cards/retail-assortment-management.md</code>)</li>
+<li><a href="retail-backroom-cost-transfer.md">retail-backroom-cost-transfer</a> (<code>Brain/wiki/cards/retail-backroom-cost-transfer.md</code>)</li>
+<li><a href="retail-chargeback-matrix.md">retail-chargeback-matrix</a> (<code>Brain/wiki/cards/retail-chargeback-matrix.md</code>)</li>
+<li><a href="retail-demand-forecasting.md">retail-demand-forecasting</a> (<code>Brain/wiki/cards/retail-demand-forecasting.md</code>)</li>
+<li><a href="retail-event-management.md">retail-event-management</a> (<code>Brain/wiki/cards/retail-event-management.md</code>)</li>
+<li><a href="retail-import-management.md">retail-import-management</a> (<code>Brain/wiki/cards/retail-import-management.md</code>)</li>
+<li><a href="retail-inventory-audit.md">retail-inventory-audit</a> (<code>Brain/wiki/cards/retail-inventory-audit.md</code>)</li>
+<li><a href="retail-inventory-valuation-mac.md">retail-inventory-valuation-mac</a> (<code>Brain/wiki/cards/retail-inventory-valuation-mac.md</code>)</li>
+<li><a href="retail-item-authorization.md">retail-item-authorization</a> (<code>Brain/wiki/cards/retail-item-authorization.md</code>)</li>
+<li><a href="retail-merchandise-financial-planning.md">retail-merchandise-financial-planning</a> (<code>Brain/wiki/cards/retail-merchandise-financial-planning.md</code>)</li>
+<li><a href="retail-merchandise-hierarchy.md">retail-merchandise-hierarchy</a> (<code>Brain/wiki/cards/retail-merchandise-hierarchy.md</code>)</li>
+<li><a href="retail-operations-kpis.md">retail-operations-kpis</a> (<code>Brain/wiki/cards/retail-operations-kpis.md</code>)</li>
+<li><a href="retail-purchase-order-model.md">retail-purchase-order-model</a> (<code>Brain/wiki/cards/retail-purchase-order-model.md</code>)</li>
+<li><a href="retail-receiving-disposition.md">retail-receiving-disposition</a> (<code>Brain/wiki/cards/retail-receiving-disposition.md</code>)</li>
+<li><a href="retail-replenishment-model.md">retail-replenishment-model</a> (<code>Brain/wiki/cards/retail-replenishment-model.md</code>)</li>
+<li><a href="retail-sales-audit.md">retail-sales-audit</a> (<code>Brain/wiki/cards/retail-sales-audit.md</code>)</li>
+<li><a href="retail-site-management.md">retail-site-management</a> (<code>Brain/wiki/cards/retail-site-management.md</code>)</li>
+<li><a href="retail-space-range-management.md">retail-space-range-management</a> (<code>Brain/wiki/cards/retail-space-range-management.md</code>)</li>
+<li><a href="retail-three-way-match.md">retail-three-way-match</a> (<code>Brain/wiki/cards/retail-three-way-match.md</code>)</li>
+<li><a href="retail-vendor-compliance-standards.md">retail-vendor-compliance-standards</a> (<code>Brain/wiki/cards/retail-vendor-compliance-standards.md</code>)</li>
+<li><a href="retail-vendor-lifecycle.md">retail-vendor-lifecycle</a> (<code>Brain/wiki/cards/retail-vendor-lifecycle.md</code>)</li>
+<li><a href="retail-vendor-scorecard.md">retail-vendor-scorecard</a> (<code>Brain/wiki/cards/retail-vendor-scorecard.md</code>)</li>
+<li><a href="role-binding-model.md">role-binding-model</a> (<code>Brain/wiki/cards/role-binding-model.md</code>)</li>
+<li><a href="runbook-brain-wiki-commit.md">runbook-brain-wiki-commit</a> (<code>Brain/wiki/cards/runbook-brain-wiki-commit.md</code>)</li>
+<li><a href="runbook-cowork-memory-bus-setup.md">runbook-cowork-memory-bus-setup</a> (<code>Brain/wiki/cards/runbook-cowork-memory-bus-setup.md</code>)</li>
+<li><a href="runbook-create-runbook.md">runbook-create-runbook</a> (<code>Brain/wiki/cards/runbook-create-runbook.md</code>)</li>
+<li><a href="runbook-docker-startup.md">runbook-docker-startup</a> (<code>Brain/wiki/cards/runbook-docker-startup.md</code>)</li>
+<li><a href="runbook-memory-bus-seed.md">runbook-memory-bus-seed</a> (<code>Brain/wiki/cards/runbook-memory-bus-seed.md</code>)</li>
+<li><a href="runbook-vault-publish.md">runbook-vault-publish</a> (<code>Brain/wiki/cards/runbook-vault-publish.md</code>)</li>
+<li><a href="shelf-edge-demand-heartbeat.md">shelf-edge-demand-heartbeat</a> (<code>Brain/wiki/cards/shelf-edge-demand-heartbeat.md</code>)</li>
+<li><a href="signal-civil-services.md">signal-civil-services</a> (<code>Brain/wiki/cards/signal-civil-services.md</code>)</li>
+<li><a href="signal-community-intel.md">signal-community-intel</a> (<code>Brain/wiki/cards/signal-community-intel.md</code>)</li>
+<li><a href="signal-property-landlord.md">signal-property-landlord</a> (<code>Brain/wiki/cards/signal-property-landlord.md</code>)</li>
+<li><a href="signal-seasonality.md">signal-seasonality</a> (<code>Brain/wiki/cards/signal-seasonality.md</code>)</li>
+<li><a href="signal-social-threat.md">signal-social-threat</a> (<code>Brain/wiki/cards/signal-social-threat.md</code>)</li>
+<li><a href="signal-weather-seo.md">signal-weather-seo</a> (<code>Brain/wiki/cards/signal-weather-seo.md</code>)</li>
+<li><a href="store-network-integrity.md">store-network-integrity</a> (<code>Brain/wiki/cards/store-network-integrity.md</code>)</li>
+<li><a href="tier-bulk-window.md">tier-bulk-window</a> (<code>Brain/wiki/cards/tier-bulk-window.md</code>)</li>
+<li><a href="tier-change-feed.md">tier-change-feed</a> (<code>Brain/wiki/cards/tier-change-feed.md</code>)</li>
+<li><a href="tier-daily-batch.md">tier-daily-batch</a> (<code>Brain/wiki/cards/tier-daily-batch.md</code>)</li>
+<li><a href="tier-reference.md">tier-reference</a> (<code>Brain/wiki/cards/tier-reference.md</code>)</li>
+<li><a href="tier-stream.md">tier-stream</a> (<code>Brain/wiki/cards/tier-stream.md</code>)</li>
+<li><a href="var-acquisition-thesis.md">var-acquisition-thesis</a> (<code>Brain/wiki/cards/var-acquisition-thesis.md</code>)</li>
+<li><a href="vertical-smb-health-hypothesis.md">vertical-smb-health-hypothesis</a> (<code>Brain/wiki/cards/vertical-smb-health-hypothesis.md</code>)</li>
+<li><a href="workspace-admin-runbook.md">workspace-admin-runbook</a> (<code>Brain/wiki/cards/workspace-admin-runbook.md</code>)</li>
+<li><a href="category-management-engagement-pattern.md">category-management-engagement-pattern</a> (<code>Brain/wiki/category-management-engagement-pattern.md</code>)</li>
+<li><a href="catz-rapidpos-alignment-notes.md">catz-rapidpos-alignment-notes</a> (<code>Brain/wiki/catz-rapidpos-alignment-notes.md</code>)</li>
+<li><a href="control-state-procurement-requirements.md">control-state-procurement-requirements</a> (<code>Brain/wiki/control-state-procurement-requirements.md</code>)</li>
+<li><a href="counterpoint-market-gtm-proposal.md">counterpoint-market-gtm-proposal</a> (<code>Brain/wiki/counterpoint-market-gtm-proposal.md</code>)</li>
+<li><a href="crb-fresh-product-support.md">crb-fresh-product-support</a> (<code>Brain/wiki/crb-fresh-product-support.md</code>)</li>
+<li><a href="crb-rapidpos-alignment-notes.md">crb-rapidpos-alignment-notes</a> (<code>Brain/wiki/crb-rapidpos-alignment-notes.md</code>)</li>
+<li><a href="delivery-framework-cross-engagement.md">delivery-framework-cross-engagement</a> (<code>Brain/wiki/delivery-framework-cross-engagement.md</code>)</li>
+<li><a href="engagement-resource-model-fte-by-week.md">engagement-resource-model-fte-by-week</a> (<code>Brain/wiki/engagement-resource-model-fte-by-week.md</code>)</li>
+<li><a href="engagement-shape-100-day-deployment.md">engagement-shape-100-day-deployment</a> (<code>Brain/wiki/engagement-shape-100-day-deployment.md</code>)</li>
+<li><a href="garden-center-operating-reality.md">garden-center-operating-reality</a> (<code>Brain/wiki/garden-center-operating-reality.md</code>)</li>
+<li><a href="growdirect-the-article.md">growdirect-the-article</a> (<code>Brain/wiki/growdirect-the-article.md</code>)</li>
+<li><a href="growdirect-the-ask.md">growdirect-the-ask</a> (<code>Brain/wiki/growdirect-the-ask.md</code>)</li>
+<li><a href="growdirect-the-chirp.md">growdirect-the-chirp</a> (<code>Brain/wiki/growdirect-the-chirp.md</code>)</li>
+<li><a href="growdirect-the-crdm.md">growdirect-the-crdm</a> (<code>Brain/wiki/growdirect-the-crdm.md</code>)</li>
+<li><a href="growdirect-the-demo.md">growdirect-the-demo</a> (<code>Brain/wiki/growdirect-the-demo.md</code>)</li>
+<li><a href="growdirect-the-fox.md">growdirect-the-fox</a> (<code>Brain/wiki/growdirect-the-fox.md</code>)</li>
+<li><a href="growdirect-the-gate.md">growdirect-the-gate</a> (<code>Brain/wiki/growdirect-the-gate.md</code>)</li>
+<li><a href="growdirect-the-glog.md">growdirect-the-glog</a> (<code>Brain/wiki/growdirect-the-glog.md</code>)</li>
+<li><a href="growdirect-the-goose.md">growdirect-the-goose</a> (<code>Brain/wiki/growdirect-the-goose.md</code>)</li>
+<li><a href="growdirect-the-l402.md">growdirect-the-l402</a> (<code>Brain/wiki/growdirect-the-l402.md</code>)</li>
+<li><a href="growdirect-the-market.md">growdirect-the-market</a> (<code>Brain/wiki/growdirect-the-market.md</code>)</li>
+<li><a href="growdirect-the-mining-moat.md">growdirect-the-mining-moat</a> (<code>Brain/wiki/growdirect-the-mining-moat.md</code>)</li>
+<li><a href="growdirect-the-network.md">growdirect-the-network</a> (<code>Brain/wiki/growdirect-the-network.md</code>)</li>
+<li><a href="growdirect-the-notary.md">growdirect-the-notary</a> (<code>Brain/wiki/growdirect-the-notary.md</code>)</li>
+<li><a href="growdirect-the-owl.md">growdirect-the-owl</a> (<code>Brain/wiki/growdirect-the-owl.md</code>)</li>
+<li><a href="growdirect-the-patent.md">growdirect-the-patent</a> (<code>Brain/wiki/growdirect-the-patent.md</code>)</li>
+<li><a href="growdirect-the-pipe.md">growdirect-the-pipe</a> (<code>Brain/wiki/growdirect-the-pipe.md</code>)</li>
+<li><a href="growdirect-the-pitch.md">growdirect-the-pitch</a> (<code>Brain/wiki/growdirect-the-pitch.md</code>)</li>
+<li><a href="growdirect-the-pool.md">growdirect-the-pool</a> (<code>Brain/wiki/growdirect-the-pool.md</code>)</li>
+<li><a href="growdirect-the-rollout.md">growdirect-the-rollout</a> (<code>Brain/wiki/growdirect-the-rollout.md</code>)</li>
+<li><a href="growdirect-the-scale.md">growdirect-the-scale</a> (<code>Brain/wiki/growdirect-the-scale.md</code>)</li>
+<li><a href="growdirect-the-team.md">growdirect-the-team</a> (<code>Brain/wiki/growdirect-the-team.md</code>)</li>
+<li><a href="growdirect-the-vision.md">growdirect-the-vision</a> (<code>Brain/wiki/growdirect-the-vision.md</code>)</li>
+<li><a href="growdirect-viewpoint-virtual-store-manager.md">growdirect-viewpoint-virtual-store-manager</a> (<code>Brain/wiki/growdirect-viewpoint-virtual-store-manager.md</code>)</li>
+<li><a href="methodology-ibm-retail-diagnostic.md">methodology-ibm-retail-diagnostic</a> (<code>Brain/wiki/methodology-ibm-retail-diagnostic.md</code>)</li>
+<li><a href="murdochs-ranch-home-supply-proof-case.md">murdochs-ranch-home-supply-proof-case</a> (<code>Brain/wiki/murdochs-ranch-home-supply-proof-case.md</code>)</li>
+<li><a href="murdochs-workflow-cards-user-stories-scenarios.md">murdochs-workflow-cards-user-stories-scenarios</a> (<code>Brain/wiki/murdochs-workflow-cards-user-stories-scenarios.md</code>)</li>
+<li><a href="ncr-counterpoint-api-reference.md">ncr-counterpoint-api-reference</a> (<code>Brain/wiki/ncr-counterpoint-api-reference.md</code>)</li>
+<li><a href="ncr-counterpoint-connection-runbook.md">ncr-counterpoint-connection-runbook</a> (<code>Brain/wiki/ncr-counterpoint-connection-runbook.md</code>)</li>
+<li><a href="ncr-counterpoint-document-model.md">ncr-counterpoint-document-model</a> (<code>Brain/wiki/ncr-counterpoint-document-model.md</code>)</li>
+<li><a href="ncr-counterpoint-endpoint-spine-map.md">ncr-counterpoint-endpoint-spine-map</a> (<code>Brain/wiki/ncr-counterpoint-endpoint-spine-map.md</code>)</li>
+<li><a href="ncr-counterpoint-modernization-path.md">ncr-counterpoint-modernization-path</a> (<code>Brain/wiki/ncr-counterpoint-modernization-path.md</code>)</li>
+<li><a href="ncr-counterpoint-phase-0-context-brief.md">ncr-counterpoint-phase-0-context-brief</a> (<code>Brain/wiki/ncr-counterpoint-phase-0-context-brief.md</code>)</li>
+<li><a href="ncr-counterpoint-rapid-pos-relationship.md">ncr-counterpoint-rapid-pos-relationship</a> (<code>Brain/wiki/ncr-counterpoint-rapid-pos-relationship.md</code>)</li>
+<li><a href="ncr-counterpoint-sandbox-setup-checklist.md">ncr-counterpoint-sandbox-setup-checklist</a> (<code>Brain/wiki/ncr-counterpoint-sandbox-setup-checklist.md</code>)</li>
+<li><a href="ncr-rapidpos-alignment-notes.md">ncr-rapidpos-alignment-notes</a> (<code>Brain/wiki/ncr-rapidpos-alignment-notes.md</code>)</li>
+<li><a href="ncr-vault-gap-ledger.md">ncr-vault-gap-ledger</a> (<code>Brain/wiki/ncr-vault-gap-ledger.md</code>)</li>
+<li><a href="rapid-pos-counterpoint-market-research-tam.md">rapid-pos-counterpoint-market-research-tam</a> (<code>Brain/wiki/rapid-pos-counterpoint-market-research-tam.md</code>)</li>
+<li><a href="rapid-pos-counterpoint-user-pain-points.md">rapid-pos-counterpoint-user-pain-points</a> (<code>Brain/wiki/rapid-pos-counterpoint-user-pain-points.md</code>)</li>
+<li><a href="rapidpos-driftpos-platform-brief.md">rapidpos-driftpos-platform-brief</a> (<code>Brain/wiki/rapidpos-driftpos-platform-brief.md</code>)</li>
+<li><a href="retail-architecture-patterns.md">retail-architecture-patterns</a> (<code>Brain/wiki/retail-architecture-patterns.md</code>)</li>
+<li><a href="retail-data-model-patterns.md">retail-data-model-patterns</a> (<code>Brain/wiki/retail-data-model-patterns.md</code>)</li>
+<li><a href="retail-foundation-data.md">retail-foundation-data</a> (<code>Brain/wiki/retail-foundation-data.md</code>)</li>
+<li><a href="retail-implementation-methodology.md">retail-implementation-methodology</a> (<code>Brain/wiki/retail-implementation-methodology.md</code>)</li>
+<li><a href="retail-integration-patterns.md">retail-integration-patterns</a> (<code>Brain/wiki/retail-integration-patterns.md</code>)</li>
+<li><a href="retail-integration-spine.md">retail-integration-spine</a> (<code>Brain/wiki/retail-integration-spine.md</code>)</li>
+<li><a href="retail-merchandise-planning-otb.md">retail-merchandise-planning-otb</a> (<code>Brain/wiki/retail-merchandise-planning-otb.md</code>)</li>
+<li><a href="retail-module-decomposition.md">retail-module-decomposition</a> (<code>Brain/wiki/retail-module-decomposition.md</code>)</li>
+<li><a href="retail-po-from-plan.md">retail-po-from-plan</a> (<code>Brain/wiki/retail-po-from-plan.md</code>)</li>
+<li><a href="retail-promotion-workflow.md">retail-promotion-workflow</a> (<code>Brain/wiki/retail-promotion-workflow.md</code>)</li>
+<li><a href="retail-restart-recovery-patterns.md">retail-restart-recovery-patterns</a> (<code>Brain/wiki/retail-restart-recovery-patterns.md</code>)</li>
+<li><a href="retail-security-controls.md">retail-security-controls</a> (<code>Brain/wiki/retail-security-controls.md</code>)</li>
+<li><a href="retail-sizing-methodology.md">retail-sizing-methodology</a> (<code>Brain/wiki/retail-sizing-methodology.md</code>)</li>
+<li><a href="retail-transaction-volume-benchmarks.md">retail-transaction-volume-benchmarks</a> (<code>Brain/wiki/retail-transaction-volume-benchmarks.md</code>)</li>
+<li><a href="retail-vendor-evaluation-criteria.md">retail-vendor-evaluation-criteria</a> (<code>Brain/wiki/retail-vendor-evaluation-criteria.md</code>)</li>
+<li><a href="socal-home-garden-target-customers-brief.md">socal-home-garden-target-customers-brief</a> (<code>Brain/wiki/socal-home-garden-target-customers-brief.md</code>)</li>
+<li><a href="solex-square-integration-notes.md">solex-square-integration-notes</a> (<code>Brain/wiki/solex-square-integration-notes.md</code>)</li>
+<li><a href="state-liquor-chain-proof-case.md">state-liquor-chain-proof-case</a> (<code>Brain/wiki/state-liquor-chain-proof-case.md</code>)</li>
+<li><a href="store-of-the-future-fresh-planning.md">store-of-the-future-fresh-planning</a> (<code>Brain/wiki/store-of-the-future-fresh-planning.md</code>)</li>
+<li><a href="voyix-counterpoint-rapid-pos-engagement-context.md">voyix-counterpoint-rapid-pos-engagement-context</a> (<code>Brain/wiki/voyix-counterpoint-rapid-pos-engagement-context.md</code>)</li>
+</ul>
+<h3>Commits of substance</h3>
+<ul>
+<li><code>29da90f</code> fix(auth): GRO-753 review fixes — uuid v5, updated_at, op order, LNURL_SCHEME, sync.Map comment</li>
+<li><code>a25b5bd</code> fix(auth): GRO-753 spec fix — pollSession ErrNotFound returns 410 not 404</li>
+<li><code>6ab615d</code> feat(auth): GRO-753 LNURL-auth — migration 023, internal/auth/lnurl/, secp256k1 verify, JWT session, gateway mount</li>
+<li><code>dfd4e52</code> fix(protocol): GRO-752 review fixes — MaxBytesReader, error envelope, updated_at, nil-guards, logger</li>
+<li><code>9bf666b</code> feat(protocol): GRO-752 L402 sat-gated Validation API — migration 022, internal/protocol/validate/, gateway mount</li>
+<li><code>bd4a73b</code> outputs: wave session deliverable — retail vertical proposal</li>
+<li><code>fdf9874</code> plan: Wave G — L402 validation, LNURL-auth, Cockroach proofs (GRO-752/753/754/745)</li>
+<li><code>7f84d5b</code> fix(protocol): GRO-751 review fixes — migration, store interface, updated_at</li>
+<li><code>2efa9e0</code> feat(protocol): GRO-751 .jeffe namespace registration — mint, inscribe, verify</li>
+<li><code>9375410</code> fix(protocol): sub3 review fixes — tx isolation, byte-hash, failed-anchor audit (GRO-750)</li>
+<li><code>af80acb</code> feat(protocol): Sub 3 Merkle &amp; Ordinal anchor worker (GRO-750)</li>
+<li><code>344217f</code> loop4-wave-e: GRO-767 Wave E complete — MCP route group, 28 tools, report migration 019</li>
+<li><code>fe1d380</code> feat(gateway): mount MCP route group — 26 tools, 7 modules (GRO-767)</li>
+<li><code>5b656fa</code> feat(report): Storer interface + PgxStore + migration 019 (GRO-767)</li>
+<li><code>f73d7ca</code> feat(mcp): returns + report tools (GRO-767)</li>
+<li><code>0b1b404</code> feat(mcp): customer + employee tools (GRO-767)</li>
+<li><code>a60fe52</code> feat(mcp): asset tools — list/get_item/shrink_movements/flag (GRO-767)</li>
+<li><code>a219586</code> feat(mcp): analytics tools — sales/basket/cohort/velocity/shrink (GRO-767)</li>
+<li><code>993b455</code> feat(mcp): alert tools — list/get/stats/acknowledge/resolve/suppress (GRO-767)</li>
+<li><code>5b096f2</code> feat(mcp): registry + JSON-RPC 2.0 handler skeleton (GRO-767)</li>
+<li><code>78324f5</code> loop4-wave-d: Phase F port assignments for Wave D services</li>
+<li><code>2fe6b3f</code> loop4-wave-d: Phase E returns + report modules</li>
+<li><code>84f23d0</code> loop4-wave-d: Phase D customer + employee modules</li>
+<li><code>98915b0</code> loop4-wave-d: Phase C asset module (inventory positions + flag write)</li>
+<li><code>ea366af</code> loop4-wave-d: Phase B analytics module (sales/basket/cohort/velocity/shrink)</li>
+<li><code>b41029b</code> loop4-wave-d: Phase A alert module (lifecycle + threshold engine)</li>
+<li><code>f85c788</code> loop4-wave-c: Phase D carry-forwards (credential store + sqlc retrofit)</li>
+<li><code>b9e28ab</code> loop4-wave-c: Phase C.3 Owl dashboard surface + obs wiring</li>
+<li><code>f000d15</code> loop4-wave-c: case management + Hawk read-side wiring (Phase B)</li>
+<li><code>379e3f1</code> loop4-wave-c: Bull billing — L402 + OTB + cost rollup (Phase A)</li>
+<li><code>3dc50fe</code> loop4-wave-b: chirp rules + party-based subject resolution (Phase C.1+C.2)</li>
+<li><code>82a31d8</code> loop4-wave-b: transaction module + three-way-match workflow (Phase B.1+B.4)</li>
+<li><code>2c0aa53</code> loop4-wave-b: gateway admin endpoints — DLQ list + replay (Phase A.3)</li>
+<li><code>27f708c</code> loop4-wave-b: internal/tsp sequence tracking + gap detection (Phase A.2)</li>
+<li><code>2ac295e</code> loop4-wave-b: webhook substrate — DLQ + idempotency + backpressure (Phase A.1)</li>
+<li><code>e1e21ce</code> loop4-wave-a: identity, auth, tenant model rebuild (Phase C)</li>
+<li><code>912d3c8</code> loop4-wave-a: party substrate schema (Phase B.5)</li>
+<li><code>d238eb3</code> loop4-wave-a: workflow substrate (schema + Go package, Phase B.4)</li>
+<li><code>d762a52</code> loop4-wave-a: app.merchant_settings.de_merge_audit_visibility (Phase B.3)</li>
+<li><code>fecf8ce</code> loop4-wave-a: f.markup_envelope_tiers config table + seed (Phase B.2)</li>
+<li><code>b4b96d2</code> loop4-wave-a: GSLM 9-domain coverage runner + 2026-05-03 report (Phase B.1)</li>
+<li><code>b78eb7a</code> loop4-wave-a: canary-go CI workflow (Phase A.3)</li>
+<li><code>aa19831</code> loop4-wave-a: internal/obs observability scaffold (Phase A.2)</li>
+<li><code>b6fc5a6</code> loop4-wave-a: codify monorepo conventions + amend sqlc rule (Phase A.1)</li>
+<li><code>503f6cd</code> GRO-762 Phase D: Loop 3 backlog — 15 items prioritized</li>
+<li><code>f8a295a</code> GRO-762 Phase C: Bart conversation prep — 12 DriftPOS OQs structured for 90-min Zoom</li>
+<li><code>1975923</code> loop3-wave1: shopspring/decimal substrate + retrofit roadmap (B.4)</li>
+<li><code>66f556e</code> loop3-wave1: fox.SubjectResolver + lazy-mode subjectFromDetection (B.3)</li>
+<li><code>57cd2ce</code> loop3-wave1: f.tender_types source-default seed + Sub2 wiring (B.2)</li>
+<li><code>67f98b6</code> loop3-wave1: l.locations.timezone wired into Chirp after-hours rule (B.1)</li>
+<li><code>8ce8386</code> GRO-762 Phase A: OQ Resolution Pack — 22 founder-approved decisions</li>
+<li><code>26386f6</code> gitignore: block .nsf files (folded GRO-736 NSF history strip)</li>
+<li><code>2fb17fe</code> deposit: regulation-spec template + 4 filled regulations + 3 federal case-types</li>
+<li><code>21e3472</code> GRO-733: cloud architecture + workload SDD + portability code-review</li>
+<li><code>99247d7</code> GRO-760: RapidPOS sub-brand feature map — gun, garden, liquor, feed &amp; tack (CAN-RES-002)</li>
+<li><code>5aab99d</code> GRO-726: Counterpoint VAR landscape — Card 3 market intelligence</li>
+<li><code>e442cf0</code> GRO-759: DriftPOS ↔ Canary integration contract spec (CAN-DESIGN-001)</li>
+<li><code>6d7f7fb</code> GRO-734: Party identity + fingerprinting + householding SDD</li>
+<li><code>53ae761</code> deposit: parcel-as-anchor + geo-compliance + property-pack methodology + federal-compliance spine</li>
+<li><code>8e69a15</code> GRO-684: M1/M2/M3 coverage assessment post-Loop-2</li>
+<li><code>f3854ff</code> loop2-wave4: closure report — 7 modules shipped, ~47 SDD findings, Loop 3 regen targets prioritized</li>
+<li><code>586c912</code> loop2-wave3i: integration-test seed fixes + fox FK bug fix</li>
+<li><code>248f757</code> loop2-wave3: gate cmd/identity tests under integration tag (Tier-3 known-broken pre-Loop 2)</li>
+<li><code>69b39a6</code> loop2-owl: read-only merchant intelligence aggregator (GRO-761 Wave 2)</li>
+<li><code>8808613</code> deposit: canary-hawk universal envelope + case-type registry pattern</li>
+<li><code>b927c43</code> loop2-sub2: dispatcher + Square + Counterpoint + Clover adapter substrate</li>
+<li><code>d2e76c7</code> loop2-pricing: price-resolve service end-to-end (Wave 2)</li>
+<li><code>ba7918e</code> loop2-chirp: 7 baseline rules + evaluator engine (Wave 2)</li>
+<li><code>9cc5d4c</code> loop2-inventory: position read + movement append over canonical i.* tables</li>
+<li><code>a7af9e2</code> loop2-fox: case-management module wired to q.cases / q.case_evidence / q.case_actions</li>
+<li><code>f87bcd1</code> loop2-item: master-data CRUD + barcode resolve keystone</li>
+<li><code>ebb3d27</code> loop2-wave1: hand-written Go types for 14 canonical schemas (88 tables)</li>
+<li><code>2b9c00b</code> session-cleanup: pending Brain wiki + plan files before Loop 2 dispatch</li>
+<li><code>5690a7d</code> loop1: declarative schema replaces migration discipline (88 tables, 14 schemas)</li>
+<li><code>6697bbf</code> brain: capture canary-protocol-gateway-live-on-gcp runbook card after Wave 4 deploy</li>
+<li><code>a5e8171</code> analysis: joint product positioning — PwC three-phase on GRO-721 findings</li>
+<li><code>4564a73</code> GRO-756: deploy-gateway.sh fixes (5 issues from Wave 4 deploy) + Dockerfile go 1.24-&gt;1.25</li>
+<li><code>3fa74c9</code> strategy: lock OQ-6 — Apache License, Version 2.0 for open-protocol leave-behind</li>
+<li><code>8c17666</code> strategy: substrate captures v2 + identity layer + SMB Health hypothesis</li>
+<li><code>4df49bf</code> strategy: lock gateway thesis + accelerator pack manifest</li>
+<li><code>b74f71f</code> GRO-756: Phase 1.J GCP deployment design + scripts + runbook</li>
+<li><code>8491350</code> GRO-687: SDD — Secrets Manager integration for canary-gateway</li>
+<li><code>ecbc7ad</code> GRO-687: SmResolver — GCP Secret Manager-backed Resolver</li>
+<li><code>ff5da9d</code> GRO-687: migration 018 — add secret_sm_ref column to protocol.source_secrets</li>
+<li><code>3946909</code> GRO-748: bilateral verification API — GET /v1/protocol/evidence/{event_hash}</li>
+<li><code>c368dc3</code> GRO-748: Sub 1 (Hash &amp; Seal) — chain library + worker + tests</li>
+<li><code>cba31a6</code> GRO-748: migration 017 — protocol.evidence (write-once L1 Index)</li>
+<li><code>dba425d</code> legal: GRO-693 — v0.1 DPA + subprocessor list + breach runbook + IR plan</li>
+<li><code>44c7144</code> GRO-694: wire audit middleware into gateway protocol routes</li>
+<li><code>7324414</code> GRO-694: protocol audit middleware (chi-compatible)</li>
+<li><code>8aeb133</code> GRO-694: extend app.audit_log with protocol-specific columns</li>
+<li><code>a6d83a3</code> plans: next-session kickoff for the GCP-API-Blinking MVP</li>
+<li><code>f71e123</code> GRO-746: integration smoke test + latency baseline against real Postgres + Valkey</li>
+<li><code>3336876</code> GRO-746: API Gateway (Node 2) — HMAC verify + payload hash + queue publish</li>
+<li><code>d711142</code> phase-1-plan: capture Canary Protocol Phase 1 execution plan + kickoff deck draft</li>
+<li><code>22faff3</code> brain: platform-thesis card-version 3 — fourth accountability rail</li>
+<li><code>1228305</code> canonical-data-model: Chunk 10 — final SDDs rendered</li>
+<li><code>cb8c832</code> canonical-data-model: Chunk 9b — MCP Service Junction Inventory (166 junctions)</li>
+<li><code>bef4c78</code> canonical-data-model: Chunk 9 — Module ownership matrix (65 entities)</li>
+<li><code>fae3276</code> canonical-data-model: Chunk 8 — Canary platform mechanics (15 entities)</li>
+<li><code>8b1c829</code> canonical-data-model: Chunk 7 — POSLog + Sales Audit (t schema, 9 entities)</li>
+<li><code>20b30f4</code> canonical-data-model: Chunk 6 — Pricing + Financial (p+f schemas, 10 entities)</li>
+<li><code>88e05d6</code> canonical-data-model: Chunk 5b — Orders (o schema, 8 entities, greenfield closure)</li>
+<li><code>bdd5772</code> canonical-data-model: Chunk 5 — Inventory + Distribution (i schema, 5 entities)</li>
+<li><code>765fce2</code> canonical-data-model: Chunk 4 — Party (Customer + Employee, c+e schemas, 6 entities)</li>
+<li><code>0cdeaa8</code> canonical-data-model: Chunk 3 — Location + Space (l, s schemas, 6 entities)</li>
+<li><code>a4601c5</code> canonical-data-model: Chunk 2 — Item domain (m schema, 6 entities)</li>
+<li><code>158fcdd</code> canonical-data-model: Chunk 1.6 — design principles + ARTS anchor</li>
+<li><code>44aa2b7</code> canonical-data-model: ARTS pivot — S10 added, Chunk 1.6 next</li>
+<li><code>a859037</code> canonical-data-model: Chunk 1.5 — 79 operational fingerprints captured</li>
+<li><code>e17aa80</code> canonical-data-model: Chunk 1 — add S9 (TOM Interface Design Docs)</li>
+<li><code>1da62eb</code> canonical-data-model: Chunk 1 revised — discovered GSLM MDM site</li>
+<li><code>555d243</code> canonical-data-model: Chunk 1 — source inventory + alias map</li>
+<li><code>cbcce46</code> brain: Bart-call deployment questions for RAAS / Counterpoint / RapidPOS</li>
+<li><code>24e9a57</code> fix: Q-rule count reconciliation — 23→24 rules, 10→11 categories (GRO-603)</li>
+<li><code>c12d903</code> research: Gap Backbone architecture + RaaS product + VAR acquisition thesis cards</li>
+<li><code>295714a</code> research: NCR ecosystem + Counterpoint product state 2026 intelligence cards</li>
+<li><code>c8ec85d</code> brain: ALXjr sunset (decision approved) + mini housekeeping followup note</li>
+<li><code>de57088</code> sdd: reconcile cross-SDD classification drift (GRO-720)</li>
+<li><code>0f081ed</code> test: trigger redeploy</li>
+<li><code>e070d83</code> research: RapidPOS feature map — DriftPOS/Canary boundary (CAN-RES-001)</li>
+<li><code>1a033b1</code> docs: DEPLOY.md update — Cloud SQL + dbcheck details</li>
+<li><code>97a05a6</code> ci: add cmd/dbcheck Cloud SQL connectivity smoke-test service</li>
+<li><code>3a2fdef</code> docs: DEPLOY.md — drop-zone CI/CD workflow for collaborators</li>
+<li><code>9a79b09</code> ci: rename /healthz to /health + deploy authenticated-only</li>
+<li><code>bb5ec54</code> ci: add --quiet to gcloud run deploy in cloudbuild.yaml</li>
+<li><code>2797b5e</code> ci: cloudbuild.yaml + cmd/hello smoke-test service for the drop-zone pipeline</li>
+<li><code>5f8e0cc</code> chore: archive Condor redirect stub from team folder</li>
+<li><code>e62241b</code> sweep: agent card cleanup — ALX VSM rewrite + Canary/Cove Builder cards + ALXjr decision</li>
+<li><code>1748022</code> sweep: GRO-700 Phase 0.5 — strategic surface alignment with GCP shift</li>
+<li><code>8f0f38e</code> brain: GRO-700 Phase 0 audit memos (laptop + mini)</li>
+<li><code>1923677</code> brain: GCP foundation runbook — org, project canary-rapidpos, APIs, SA baseline (2026-05-01)</li>
+<li><code>8a926b9</code> brain: add workspace-admin-runbook card (GRO-719)</li>
+<li><code>a1035b4</code> refactor: module letter rename — Brain + SDDs (C→M, J→O, R→C, W→E)</li>
+<li><code>71bb9be</code> spec: module letter rename canonical mapping (C→M, J→O, R→C, W→E)</li>
+<li><code>4cf7b2c</code> content: reframe EJ Spine and Sales Audit article as Canary IP</li>
+<li><code>ffda6a0</code> content: scrub residual sales-claim phrasing from internal wiki</li>
+<li><code>7f0ccef</code> wiki: broken-links categorization baseline + canonical-positioning stub + path fix</li>
+<li><code>7111db1</code> wiki+sdd: vendor crosswalks (Square / RapidPOS / NCR) + multi-VAR rev-share refinement</li>
+<li><code>884eb0d</code> sdd+wiki+cards: satoshi cost rollup — full pricing model + buildable spec</li>
+<li><code>0b610a9</code> cards: 23 domain-module cards for newly-documented services</li>
+<li><code>cfd6ae6</code> sdd+cards: feed-tier-contract buildable spec + 10 cadence-ladder cards</li>
+<li><code>809f690</code> sdd: 23 service endpoint contracts — tier-shaped, external-quality</li>
+<li><code>7dcb65d</code> wiki: cadence ladder + tier dimension across endpoint strategy</li>
+<li><code>5406542</code> wiki: GK-POS gap analysis + Canary Go endpoint library</li>
+<li><code>ceed24b</code> wiki: long-arc atlas — 12 mermaids spanning strategic spine, compliance, architecture</li>
+<li><code>c2b3948</code> brain: adopt kepano obsidian-skills method — Bases + 6 DevOps entity templates</li>
+<li><code>275b19d</code> ncr-publish: stage 6 foundational specs alongside modernization article</li>
+<li><code>ceb7398</code> wiki: scrub NCR modernization article — kill bravado, jargon, AI tells</li>
+<li><code>32c52c7</code> memory-bus: §11 engine applicability — migration 006 + curation allowlist</li>
+<li><code>910da7f</code> wiki: DriftPOS platform brief + NCR modernization path</li>
+<li><code>1109292</code> Clarify Kroger engagement scope: near-real-time, all divisions, LP-scoped</li>
+<li><code>0f53113</code> Beck card: add Fakety → McCarrek → Kroger practitioner chain</li>
+<li><code>4feac8a</code> Extend Beck card: SEG/BI-LO implementation + agent training significance</li>
+<li><code>a1ead29</code> Add Professor Adrian Beck reference card and recruiter brief v0.1</li>
+<li><code>b41ba0e</code> church: store of the future — grocery and fresh planning implications deep dive</li>
+<li><code>4893230</code> brain: platform-state inventory and Wave 1 gap analysis (GRO-703)</li>
+<li><code>1e6b4c1</code> church: bitcoin standard — cost center cross-charge and meter model cards</li>
+<li><code>ca9fef4</code> brain: PA LCB intake + control-state synthesis</li>
+<li><code>83080d2</code> brain: Murdoch's recon — 4,021 PDPs, 47 stores, full site map</li>
+<li><code>7d4e974</code> sdds: Wave 4 polish — retail-lifecycle-test-data scaffold</li>
+<li><code>db0d720</code> sdds: Wave 3 Batch 4 polish — cross-cutting + ops</li>
+<li><code>c8aa10b</code> sdds: Wave 3 Batch 3 polish — POS adapters + ecom</li>
+<li><code>f38de99</code> sdds: Wave 3 Batch 2 polish — commercial / operational cluster</li>
+<li><code>48a8db6</code> sdds: Wave 3 Batch 1 polish — detection / LP cluster</li>
+<li><code>a55056b</code> sdds: Wave 2 polish session log</li>
+<li><code>a315f34</code> sdds: Wave 2 Batch 3 polish — Optional Features (ildwac, blockchain-anchor)</li>
+<li><code>c8c413c</code> sdds: Wave 2 Batch 2 polish — receipt chain (raas, factory, agent-contracts)</li>
+<li><code>904f735</code> sdds: Wave 1 + Wave 2 Batch 1 polish — substrate + architecture spine</li>
+<li><code>68ed2d1</code> brain: GCP commitment thread — 3 platform cards capturing stack, continuity, moat</li>
+<li><code>fc7c6ca</code> brain: 4 platform cards — PII hashing, multi-tier assortment, crypto erasure, data classification</li>
+<li><code>4d3cd31</code> sdds: fix low-entropy PII hash; add data classification inventory</li>
+<li><code>c810527</code> sdds: reconcile go-handoff ports; reframe Solex; add multi-tier assortment</li>
+<li><code>bd864d0</code> sdds: rename hawk.md → hawk-case-management.md</li>
+<li><code>55af26a</code> sdds: complete go-handoff SDD library — 25 new files</li>
+<li><code>883d43f</code> license: Apache 2.0 for CanaryGo; SPDX headers on all go-handoff SDDs; add sdd-writer skill</li>
+<li><code>3442596</code> sdds: add ops-dashboard, store-brain</li>
+<li><code>5c68938</code> sdds: add ildwac, device-contracts; update inventory-as-a-service</li>
+<li><code>432fc99</code> sdds: add inventory-as-a-service</li>
+<li><code>e1ffb82</code> sdds: add raas, settings, ecom-channel, factory-pipeline, retail-lifecycle-test-data</li>
+<li><code>f947315</code> brain: add NFRs, PwC benchmarks, store network integrity, vault publish runbook; update card directory</li>
+<li><code>5a5f1ff</code> brain: add performance NFRs, PwC benchmarks, store network integrity; update card directory</li>
+<li><code>b670927</code> church: EDS architecture, RaaS rewrite, field capture, Wyoming ecosystem, Murdoch's ICP, platform proof case, infrastructure displacement</li>
+<li><code>826ebe8</code> feat: gap-fill sprint — 5 new retail domain cards + index update</li>
+<li><code>160b1fc</code> feat: modernization pass — Platform (2030) sections on all 17 retail domain cards</li>
+<li><code>eb4d638</code> knowledge: add 17 retail domain cards from Retek corpus, scrubbed</li>
+<li><code>83c42d2</code> feat(brain): add meta-runbook — when and how to create a runbook card</li>
+<li><code>b0a14df</code> feat(brain): add runbook card-type + three starter runbooks</li>
+<li><code>a958d43</code> fix(memory-bus): seed_standalone writes to alx_memories, not seed_embeddings</li>
+<li><code>d6ac108</code> feat(memory-bus): seed lock + cards/ + specs/ scope; add franchise-play, market-positioning, ilwac, portable-store cards</li>
+<li><code>cc895f1</code> feat(memory-bus): add docs/sdds/go-handoff to seed scope — layer canary-go</li>
+<li><code>600fe7a</code> feat(sdds): Canary Go SDD corpus v1.1 — ILDWAC, RaaS, agent contracts, attack plan (GRO-668)</li>
+<li><code>1fb05b0</code> feat(canarygo): M1 Foundation complete — all gate checks passed</li>
+<li><code>fa89f2b</code> fix(canarygo): Makefile test target — add Valkey password and extend SESSION_SECRET to 32+ bytes</li>
+<li><code>101c428</code> feat(canarygo): all 19 service stubs compiling — M1 service skeleton complete</li>
+<li><code>e45246e</code> fix(canarygo): use r.Context() for Valkey revocation check — honor request cancellation</li>
+<li><code>99f8790</code> chore(canarygo): identity service verified running in Docker — curl :8086/health → ok</li>
+<li><code>8ce101a</code> fix(canarygo): Dockerfile Go 1.24, Valkey auth URL, remove broken migrate image dep</li>
+<li><code>b711a1b</code> feat(canarygo): identity service — /health + /sessions/validate, all stubs wired</li>
+<li><code>91622be</code> chore(canarygo): pin pgvector-go v0.2.1 — required for sqlc vector type override</li>
+<li><code>211d575</code> feat(canarygo): auth package — JWT sign/verify, bearer middleware</li>
+<li><code>4d547f5</code> feat(canarygo): internal packages — crdm, arts, tenant, pagination, testutil</li>
+<li><code>5e69e11</code> feat(canarygo): db package with pgxpool Connect helper</li>
+<li><code>17accb5</code> feat(canarygo): config package with fail-fast env loader</li>
+<li><code>4c36d9a</code> feat(canarygo): sqlc v2 config + seed queries for identity and tsp</li>
+<li><code>375d708</code> feat(canarygo): 14 DDL migrations — CRDM, identity, multi-POS substrate, fox evidence chain</li>
+<li><code>33351eb</code> fix(claude): Mini Docker Gate startup — CanaryGo compose is deploy/ not devops/</li>
+<li><code>f41403a</code> feat(canarygo): Dockerfile.identity + docker-compose.yml with shared growdirect network</li>
+<li><code>7391ab2</code> feat(canarygo): Makefile with migrate, sqlc-gen, test, build targets</li>
+<li><code>0b67e7a</code> feat(canarygo): agent context CLAUDE.md</li>
+<li><code>2cd5abf</code> feat(canarygo): directory scaffold per go-module-layout SDD</li>
+<li><code>c957247</code> chore(canarygo): pin go directive to 1.22 minimum — avoids toolchain floor constraint</li>
+<li><code>e8ea371</code> chore(canarygo): remove root main.go stub — deps anchored by cmd/ packages</li>
+<li><code>4a8fbfb</code> feat(canarygo): initialize Go module github.com/growdirect-llc/rapidpos</li>
+<li><code>da2758c</code> feat(brain): ALX as VSM card — store systems architect, S1-S5 spine mapping, brain-as-runtime framing</li>
+<li><code>7ef3a8f</code> fix(repo): GRO-555 — remove broken ownpalosverdes symlink; add closed-loop cost attribution wiki card</li>
+<li><code>e74680f</code> fix(devops): GRO-555 — fix Ollama healthcheck (ollama list, not curl)</li>
+<li><code>0843382</code> docs(brain): GRO-601 — rename Q-RESTRICTED-ITEM-SALE to Q-CP-01</li>
+<li><code>b1b33c1</code> docs(sdd): GRO-587 — remove pre-revision §6.12/§6.13 duplicates, fix Phase 3 removes Module W</li>
+<li><code>17df34e</code> feat(canarygo): M1 Foundation implementation plan</li>
+<li><code>43a2e4e</code> feat(specs): Canary Go M1 Foundation design — skeleton-first approach</li>
+<li><code>1573e11</code> docs(brain): canary-go-portal — add agent card network section</li>
+<li><code>902a7a7</code> chore(claude): full audit pass — Canary frozen, Go active, SDD paths, memory examples</li>
+<li><code>97e6a33</code> docs(brain): repair agent card index — add 3 missing cards, platform-thesis type</li>
+<li><code>2c9cad7</code> feat(brain): GRO-604 MOC trickle-down — platform thesis + Canary Go + edge arch</li>
+<li><code>1076888</code> feat(brain): GRO-616 NCR Counterpoint + Rapid POS wiki expansion</li>
+<li><code>cea1f42</code> chore(claude): session types + platform mission + Canary Go clean break</li>
+<li><code>1c2b332</code> feat(brain): retailer lifecycle test methodology card</li>
+<li><code>1ae0c50</code> feat(brain): platform thesis — SMB ICP positioning + four beats</li>
+<li><code>db43019</code> feat(brain): platform thesis card + L402 OTB settlement stub</li>
+<li><code>dfe4ead</code> feat(brain): blockchain evidence anchor card + format spec update</li>
+<li><code>915e7df</code> feat(brain): agent card format + 11 local market intelligence cards</li>
+<li><code>bca40b4</code> feat(agent-pmo): extend architecture design — org hierarchy, local market intelligence layer</li>
+<li><code>0ca69f6</code> feat(canary-go): agent PMO architecture design + Brain wiki portal</li>
+<li><code>d6d709f</code> docs(canary): canary.growdirect.io content brief + site update instructions</li>
+<li><code>e4c70de</code> sdd(go-handoff): go-module-layout + platform reframe — full spine, ARTS-native, GCP, whitelabel</li>
+<li><code>ad292b1</code> feat(go-handoff): Canary Go build specification — 16 SDDs + microservice architecture</li>
+<li><code>602eb7a</code> plan(sales): GRO-626 + GRO-627 implementation plan — ARTS alignment + TransactionFact</li>
+<li><code>e9c5b46</code> fix(seed): align memory_type values with alx_memories CHECK constraint</li>
+<li><code>e8cd885</code> sdd(analytics): Phase 3 Bull distribution metrics stub</li>
+<li><code>2695ea9</code> sdd(platform-overview): POS-agnostic product definition, Hawk+Bull in module map</li>
+<li><code>f0e1109</code> sdd(architecture): multi-POS purpose, Hawk+Bull in domain table</li>
+<li><code>f0bef70</code> sdd(alx): hawk card context + multi-POS cutover-aware VSM routing</li>
+<li><code>13ab8a4</code> sdd(data-model): add hawk schema (8 tables) and bull schema stub (4 planned)</li>
+<li><code>ed8a3ca</code> sdd(raas): multi-source namespace model — Counterpoint alongside Square</li>
+<li><code>6687968</code> sdd(owl): Phase 4 stub — Hawk card corpus as recall surface</li>
+<li><code>24267ca</code> sdd(chirp): multi-POS rule substrate — Counterpoint audit surface addendum</li>
+<li><code>24037e3</code> sdd(tsp): multi-POS ingress model — Counterpoint poll alongside Square webhook</li>
+<li><code>e110a0a</code> sdd(bull): new — Phase 3 stub for distribution intelligence (Module D native)</li>
+<li><code>837f152</code> sdd(hawk): new — ops contract for case management card factory</li>
+<li><code>bf9b74b</code> sdd(fox): hawk positioning addendum — fox is EBR class inside hawk</li>
+<li><code>6a2618e</code> brain(ncr): NCR vault alignment notes — VAR positioning vs RapidPOS delivery partner split</li>
+<li><code>bdc6107</code> brain(crb): module alignment notes — fox/hawk drift, module D gating</li>
+<li><code>15c9291</code> brain(catz): RapidPOS alignment notes — read pass observations</li>
+<li><code>7a91632</code> docs: hawk phase-1 plan, canary site vaults spec, rapidpos site brief, devops backup script</li>
+<li><code>f15081c</code> fix: engine.py Python 3.9 compat (Path|None -&gt; Optional[Path]), CATz CLAUDE.md markdown</li>
+<li><code>11d0784</code> brain: health scan 2026-04-27 — frontmatter pass (67 articles), CATz wiki init (58 articles)</li>
+<li><code>dcf4df5</code> brain(ncr): wire NCR vault — gap analysis, 3 back-fills, CLAUDE.md, seed incremental mode</li>
+<li><code>6625f21</code> spec(hawk+bull): second-pass reviewer fixes — vendor FK removal, entity_id format, Phase 2 DDL step</li>
+<li><code>1991d12</code> spec(hawk+bull): fix 7 reviewer issues — schema FKs, circular dep, action counts, evidence chain</li>
+<li><code>8520427</code> spec(hawk+bull): Hawk case management factory + Bull DSD vendor analytics design</li>
+<li><code>e5658c0</code> spec(ncr): tighten NCR vault wiring spec after two review passes</li>
+<li><code>c7366e4</code> spec(ncr): NCR vault framework wiring design</li>
+<li><code>9709559</code> skill(canary): alx-startup — mini UAT site startup checklist</li>
+<li><code>2870efc</code> moc(canary): add NCR Counterpoint SDD section + solution guide entry point</li>
+<li><code>f55a27b</code> sdd(canary): Counterpoint solution guide — Frame/People/Agents/Model/Blueprint</li>
+</ul></div>
+</section>
+
+<section class="thread">
+  <h2>Cross-week thread</h2>
+  <div class="content"><p><em>First instance — no prior week to thread against. Threading begins W19.</em></p></div>
+</section>
+
+<footer>
+  <span>Generated 2026-05-04 07:16 UTC by <code>content-engine/engine.py weekly</code></span>
+  <span>Source: <code>Brain/status/weekly/2026-W18-status.md</code></span>
+</footer>
+</div>
+</body>
+</html>

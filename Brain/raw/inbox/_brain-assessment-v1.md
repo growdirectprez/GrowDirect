@@ -3,13 +3,13 @@ type: scratch
 status: phase-1-output
 tags: [brain-federation, gro-520, assessment, scratch]
 created: 2026-04-23
-playbook: docs/playbook-brain-scaffold-design.md
-dispatch: docs/dispatch-brain-scaffold-design.md
+playbook: docs/playbooks/playbook-brain-scaffold-design.md
+dispatch: docs/dispatches/dispatch-brain-scaffold-design.md
 ---
 
 # Brain Federation — Phase 1 Assessment (v1)
 
-Phase 1 deliverable per `docs/playbook-brain-scaffold-design.md`. Scratch
+Phase 1 deliverable per `docs/playbooks/playbook-brain-scaffold-design.md`. Scratch
 artifact — deletes at Phase 7. Feeds the Federation SDD as cited evidence.
 Two pages, not a design. Observations only.
 
