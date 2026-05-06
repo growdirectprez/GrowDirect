@@ -676,7 +676,7 @@ class MemoryStore:
                 text(
                     """INSERT INTO audit_events
                        (id, artifact_id, event_type, layer, payload)
-                       VALUES (:id, :artifact_id, :event_type, :layer, :payload::jsonb)"""
+                       VALUES (:id, :artifact_id, :event_type, :layer, CAST(:payload AS jsonb))"""
                 ),
                 {
                     "id": str(row_id),

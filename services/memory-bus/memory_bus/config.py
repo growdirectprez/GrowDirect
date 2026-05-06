@@ -15,6 +15,6 @@ class Config:
             "EMBEDDING_MODEL", "qwen3-embedding:8b"
         )
         self.port: int = int(os.environ.get("PORT", "8003"))
-        self.embedding_dimensions: int = 1024
+        self.embedding_dimensions: int = int(os.environ.get("EMBEDDING_DIM", "1024"))
         self.max_text_length: int = 6000
         self.mcp_api_key: str = os.environ.get("MCP_API_KEY", "")
