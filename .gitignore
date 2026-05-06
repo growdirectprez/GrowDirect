@@ -77,3 +77,4 @@ devops/.env
 # Lotus Notes archives — exceed GitHub file-size limits (folded GRO-736)
 *.nsf
 *.NSF
+services/alx-agent/.env
