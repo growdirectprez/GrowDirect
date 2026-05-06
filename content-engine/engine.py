@@ -1291,6 +1291,677 @@ def lint(paths: tuple[Path, ...], fix: bool, scan_all: bool):
     raise SystemExit(1)
 
 
+# ── Weekly status ───────────────────────────────────────────────────
+
+# ABCD weekly status reports live here. Friday-cadence: scaffold the file,
+# auto-populate the inventory rails (closed dispatches, wiki adds, commits),
+# fill the four boxes by hand. See Brain/status/weekly/_index.md.
+
+BRAIN_STATUS_WEEKLY = "Brain/status/weekly"
+
+
+def _iso_week_range(week_str: str | None) -> tuple[str, str, str]:
+    """Resolve a YYYY-Www string to (week_label, monday_iso, sunday_iso).
+
+    Pass None to use the current week. Week boundaries are ISO-8601:
+    Monday is day 1, Sunday is day 7.
+    """
+    from datetime import date, timedelta
+
+    if week_str is None:
+        today = date.today()
+        iso_year, iso_week, _ = today.isocalendar()
+    else:
+        m = re.match(r"^(\d{4})-W(\d{1,2})$", week_str)
+        if not m:
+            raise click.BadParameter(
+                f"--week must be YYYY-Www (e.g. 2026-W18), got {week_str!r}"
+            )
+        iso_year = int(m.group(1))
+        iso_week = int(m.group(2))
+
+    # ISO week N starts on the Monday of that week. date.fromisocalendar
+    # is the canonical resolver (Python 3.8+).
+    monday = date.fromisocalendar(iso_year, iso_week, 1)
+    sunday = monday + timedelta(days=6)
+    label = f"{iso_year}-W{iso_week:02d}"
+    return label, monday.isoformat(), sunday.isoformat()
+
+
+def _git_log_lines(gd_root: Path, since: str, until: str, paths: list[str] | None = None) -> list[str]:
+    """Run git log over a date range, return formatted lines.
+
+    Returns empty list if git fails (e.g. not in a repo). Filters merge
+    commits and one-line commits whose subject is purely formatting noise.
+    """
+    import subprocess
+
+    cmd = [
+        "git", "-C", str(gd_root),
+        "log",
+        f"--since={since}",
+        f"--until={until} 23:59:59",
+        "--no-merges",
+        "--pretty=format:%h\t%s",
+    ]
+    if paths:
+        cmd.append("--")
+        cmd.extend(paths)
+
+    try:
+        out = subprocess.check_output(cmd, stderr=subprocess.DEVNULL, text=True)
+    except Exception:
+        return []
+
+    lines = []
+    for raw in out.strip().splitlines():
+        if not raw.strip():
+            continue
+        if "\t" in raw:
+            sha, subj = raw.split("\t", 1)
+        else:
+            sha, subj = raw[:7], raw[8:]
+        # Skip pure noise — typo-only and whitespace-only commits.
+        subj_lower = subj.lower().strip()
+        if subj_lower in ("typo", "whitespace", "format", "formatting"):
+            continue
+        lines.append(f"- `{sha}` {subj}")
+    return lines
+
+
+def _git_changed_files(gd_root: Path, since: str, until: str, path_prefix: str) -> list[str]:
+    """Files under path_prefix that changed in the given range. One bullet per file."""
+    import subprocess
+
+    try:
+        out = subprocess.check_output(
+            [
+                "git", "-C", str(gd_root),
+                "log",
+                f"--since={since}",
+                f"--until={until} 23:59:59",
+                "--name-only",
+                "--no-merges",
+                "--pretty=format:",
+                "--", path_prefix,
+            ],
+            stderr=subprocess.DEVNULL,
+            text=True,
+        )
+    except Exception:
+        return []
+
+    files = sorted({line.strip() for line in out.splitlines() if line.strip()})
+    return [f"- [[{Path(f).stem}]] (`{f}`)" for f in files]
+
+
+def _replace_section(content: str, heading: str, replacement: str) -> str:
+    """Replace the body of a markdown section identified by its heading.
+
+    Walks until the next heading at the same level and replaces the body.
+    The heading itself is preserved. If the heading is not found, returns
+    the content unchanged.
+    """
+    # Find the heading line. Must match exactly (case-sensitive).
+    pattern = re.compile(
+        rf"(^{re.escape(heading)}\s*\n)(.*?)(?=^#{{1,6}}\s|\Z)",
+        re.MULTILINE | re.DOTALL,
+    )
+    if not pattern.search(content):
+        return content
+    return pattern.sub(rf"\1{replacement}\n", content, count=1)
+
+
+# ── HTML rendering for weekly status ────────────────────────────────
+
+_HTML_STYLE = """
+:root {
+  color-scheme: light dark;
+  --bg: #fafaf9; --fg: #1c1917; --muted: #57534e;
+  --border: #e7e5e4; --card-bg: #ffffff; --rail-bg: #f5f5f4;
+  --a-color: #059669; --b-color: #0284c7;
+  --c-color: #d97706; --d-color: #7c3aed;
+}
+@media (prefers-color-scheme: dark) {
+  :root {
+    --bg: #0c0a09; --fg: #fafaf9; --muted: #a8a29e;
+    --border: #292524; --card-bg: #1c1917; --rail-bg: #292524;
+  }
+}
+* { box-sizing: border-box; }
+html, body { background: var(--bg); color: var(--fg); }
+body {
+  font-family: ui-sans-serif, -apple-system, BlinkMacSystemFont, "Segoe UI", system-ui, sans-serif;
+  font-size: 16px; line-height: 1.55; margin: 0;
+  padding: 2.5rem 1.5rem 4rem;
+}
+.container { max-width: 1100px; margin: 0 auto; }
+header {
+  margin-bottom: 2.5rem; padding-bottom: 1.5rem;
+  border-bottom: 1px solid var(--border);
+}
+header .meta {
+  color: var(--muted); font-size: 0.8rem;
+  letter-spacing: 0.08em; text-transform: uppercase;
+  margin-bottom: 0.5rem;
+}
+header h1 {
+  font-size: 2.5rem; font-weight: 700; margin: 0;
+  letter-spacing: -0.02em;
+}
+header .subtitle {
+  margin-top: 0.75rem; color: var(--muted); font-style: italic;
+  border-left: 2px solid var(--border); padding-left: 0.75rem;
+  font-size: 0.95rem;
+}
+section { margin-bottom: 2rem; }
+h2 {
+  font-size: 1.15rem; font-weight: 600; margin: 0 0 0.75rem;
+  letter-spacing: -0.01em;
+}
+h3 {
+  font-size: 0.95rem; font-weight: 600; margin: 1.25rem 0 0.5rem;
+  color: var(--muted);
+}
+.thesis {
+  background: var(--card-bg);
+  border: 1px solid var(--border); border-left: 4px solid var(--fg);
+  padding: 1.25rem 1.5rem; border-radius: 4px;
+}
+.abcd-grid {
+  display: grid; grid-template-columns: 1fr 1fr; gap: 1rem;
+  margin-bottom: 2rem;
+}
+@media (max-width: 720px) { .abcd-grid { grid-template-columns: 1fr; } }
+.box {
+  background: var(--card-bg); border: 1px solid var(--border);
+  border-left-width: 4px; border-radius: 4px;
+  padding: 1.25rem 1.5rem;
+}
+.box-a { border-left-color: var(--a-color); }
+.box-b { border-left-color: var(--b-color); }
+.box-c { border-left-color: var(--c-color); }
+.box-d { border-left-color: var(--d-color); }
+.box-a h2 { color: var(--a-color); }
+.box-b h2 { color: var(--b-color); }
+.box-c h2 { color: var(--c-color); }
+.box-d h2 { color: var(--d-color); }
+.content ul, .content ol { margin: 0; padding-left: 1.25rem; }
+.content li { margin-bottom: 0.4rem; }
+.content p:first-child { margin-top: 0; }
+.content p:last-child { margin-bottom: 0; }
+.content a {
+  color: inherit; text-decoration: underline;
+  text-decoration-thickness: 1px; text-underline-offset: 2px;
+}
+.content code {
+  background: var(--rail-bg); padding: 0.1em 0.35em;
+  border-radius: 3px; font-size: 0.875em;
+  font-family: ui-monospace, SFMono-Regular, Menlo, monospace;
+}
+.content em { color: var(--muted); }
+.content blockquote {
+  margin: 0.5rem 0; padding: 0.5rem 0.9rem;
+  border-left: 2px solid var(--border); color: var(--muted);
+}
+.rails {
+  background: var(--rail-bg); border-radius: 4px;
+  padding: 1.25rem 1.5rem;
+}
+.rails h2 { color: var(--muted); }
+.rails h3:first-of-type { margin-top: 0; }
+.thread { padding: 0 0.25rem; color: var(--muted); }
+footer {
+  margin-top: 3rem; padding-top: 1rem;
+  border-top: 1px solid var(--border);
+  color: var(--muted); font-size: 0.8rem;
+  display: flex; justify-content: space-between;
+  flex-wrap: wrap; gap: 0.5rem;
+}
+.placeholder {
+  color: var(--muted); font-style: italic; font-size: 0.95rem;
+}
+@media print {
+  body { padding: 0; background: white; color: black; }
+  .container { max-width: none; padding: 1cm; }
+  .box, .thesis, .rails {
+    background: white; border-color: #ccc;
+    page-break-inside: avoid;
+  }
+  .abcd-grid { page-break-inside: avoid; }
+  footer { color: #666; }
+}
+"""
+
+_HTML_TEMPLATE = """<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<title>Weekly Status — {label}</title>
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<style>{style}</style>
+</head>
+<body>
+<div class="container">
+<header>
+  <div class="meta">{week_label} · {date_range} · {author}</div>
+  <h1>{title}</h1>
+  {subtitle_html}
+</header>
+
+<section class="thesis">
+  <h2>Governing thesis</h2>
+  <div class="content">{thesis_html}</div>
+</section>
+
+<section class="abcd-grid">
+  <article class="box box-a">
+    <h2>A · Accomplishments</h2>
+    <div class="content">{a_html}</div>
+  </article>
+  <article class="box box-b">
+    <h2>B · Benefits</h2>
+    <div class="content">{b_html}</div>
+  </article>
+  <article class="box box-c">
+    <h2>C · Concerns</h2>
+    <div class="content">{c_html}</div>
+  </article>
+  <article class="box box-d">
+    <h2>D · Do Next</h2>
+    <div class="content">{d_html}</div>
+  </article>
+</section>
+
+<section class="rails">
+  <h2>Activity (auto-rails)</h2>
+  <div class="content">{rails_html}</div>
+</section>
+
+<section class="thread">
+  <h2>Cross-week thread</h2>
+  <div class="content">{thread_html}</div>
+</section>
+
+<footer>
+  <span>Generated {generated_at} by <code>content-engine/engine.py weekly</code></span>
+  <span>Source: <code>{source_path}</code></span>
+</footer>
+</div>
+</body>
+</html>
+"""
+
+
+def _md_to_html(md: str) -> str:
+    """Render a markdown fragment to HTML.
+
+    Strips HTML comments first (they leak <!-- … --> if not removed),
+    then runs python-markdown with extras for tables and sane lists.
+    """
+    if not md or not md.strip():
+        return '<p class="placeholder">_(empty)_</p>'
+
+    # Strip HTML comments — they're notes to the author, not for rendering.
+    cleaned = re.sub(r"<!--.*?-->", "", md, flags=re.DOTALL).strip()
+    if not cleaned:
+        return '<p class="placeholder">_(no content)_</p>'
+
+    # Convert wikilinks [[Foo]] / [[Foo|Bar]] to plain HTML links so they
+    # don't render as literal text. Target points at .md (Obsidian-style).
+    def _wikilink(m: re.Match) -> str:
+        target = m.group(1)
+        label = m.group(2) or target
+        return f'<a href="{target}.md">{label}</a>'
+    cleaned = re.sub(r"\[\[([^\]|]+)(?:\|([^\]]+))?\]\]", _wikilink, cleaned)
+
+    try:
+        import markdown as md_lib
+        html = md_lib.markdown(
+            cleaned,
+            extensions=["extra", "sane_lists", "nl2br"],
+            output_format="html5",
+        )
+    except ImportError:
+        # Minimal fallback — paragraphs + bullets + bold/italic + code + links.
+        html = _minimal_md_to_html(cleaned)
+    return html
+
+
+def _minimal_md_to_html(md: str) -> str:
+    """Fallback markdown converter for when python-markdown isn't available.
+
+    Handles the small subset that weekly status reports actually use.
+    """
+    lines = md.splitlines()
+    out: list[str] = []
+    in_list = False
+    in_para: list[str] = []
+
+    def _flush_para():
+        if in_para:
+            text = " ".join(in_para)
+            text = _inline_md(text)
+            out.append(f"<p>{text}</p>")
+            in_para.clear()
+
+    for line in lines:
+        stripped = line.strip()
+        if not stripped:
+            _flush_para()
+            if in_list:
+                out.append("</ul>")
+                in_list = False
+            continue
+        # Headings (h3 only — h2 is the section)
+        if stripped.startswith("### "):
+            _flush_para()
+            if in_list:
+                out.append("</ul>")
+                in_list = False
+            out.append(f"<h3>{_inline_md(stripped[4:])}</h3>")
+            continue
+        # Bullets
+        m = re.match(r"^[-*]\s+(.*)$", stripped)
+        if m:
+            _flush_para()
+            if not in_list:
+                out.append("<ul>")
+                in_list = True
+            out.append(f"<li>{_inline_md(m.group(1))}</li>")
+            continue
+        # Numbered
+        m = re.match(r"^(\d+)\.\s+(.*)$", stripped)
+        if m:
+            _flush_para()
+            if not in_list:
+                out.append("<ol>")
+                in_list = True
+            out.append(f"<li>{_inline_md(m.group(2))}</li>")
+            continue
+        # Otherwise paragraph line
+        in_para.append(stripped)
+
+    _flush_para()
+    if in_list:
+        out.append("</ul>")
+    return "\n".join(out)
+
+
+def _inline_md(text: str) -> str:
+    """Inline markdown — bold, italic, code, links."""
+    text = re.sub(r"`([^`]+)`", r"<code>\1</code>", text)
+    text = re.sub(r"\*\*([^*]+)\*\*", r"<strong>\1</strong>", text)
+    text = re.sub(r"\*([^*]+)\*", r"<em>\1</em>", text)
+    text = re.sub(r"\[([^\]]+)\]\(([^)]+)\)", r'<a href="\2">\1</a>', text)
+    return text
+
+
+def _parse_weekly_sections(content: str) -> dict:
+    """Parse a weekly status markdown file into named sections.
+
+    Returns a dict with keys: frontmatter (dict), title (str), subtitle (str),
+    thesis, a, b, c, d, rails, thread (each a body string, possibly empty).
+    """
+    out = {
+        "frontmatter": {},
+        "title": "Weekly Status",
+        "subtitle": "",
+        "thesis": "", "a": "", "b": "", "c": "", "d": "",
+        "rails": "", "thread": "",
+    }
+
+    body = content
+    fm_match = re.match(r"^---\n(.*?)\n---\n", body, re.DOTALL)
+    if fm_match:
+        try:
+            import yaml
+            out["frontmatter"] = yaml.safe_load(fm_match.group(1)) or {}
+        except Exception:
+            out["frontmatter"] = {}
+        body = body[fm_match.end():]
+
+    h1_match = re.match(r"^\s*# (.+)\n", body)
+    if h1_match:
+        out["title"] = h1_match.group(1).strip()
+        body = body[h1_match.end():]
+
+    # Blockquote subtitle (consecutive lines starting with >)
+    bq_match = re.match(r"^\s*((?:>.*\n)+)", body)
+    if bq_match:
+        sub = re.sub(r"^>\s?", "", bq_match.group(1), flags=re.MULTILINE).strip()
+        out["subtitle"] = sub
+        body = body[bq_match.end():]
+
+    # Split by H2 headings. Strip horizontal rules.
+    body = re.sub(r"^---\s*$", "", body, flags=re.MULTILINE)
+
+    # Collect H2 sections including their bodies.
+    sections = re.split(r"^## (.+)$", body, flags=re.MULTILINE)
+    # sections[0] is whatever came before the first H2
+    for i in range(1, len(sections), 2):
+        heading = sections[i].strip()
+        section_body = sections[i + 1] if i + 1 < len(sections) else ""
+        section_body = section_body.strip()
+        key = _weekly_section_key(heading)
+        if key in out:
+            out[key] = section_body
+        elif key == "rails-with-children":
+            # Auto-rails section — its H3 children become the rails body
+            out["rails"] = section_body
+
+    return out
+
+
+def _weekly_section_key(heading: str) -> str:
+    """Map a section heading to a canonical key in the parsed dict."""
+    h = heading.lower()
+    if "governing thesis" in h:
+        return "thesis"
+    if h.startswith("a ·") or "accomplishments" in h:
+        return "a"
+    if h.startswith("b ·") or "benefits" in h:
+        return "b"
+    if h.startswith("c ·") or "concerns" in h:
+        return "c"
+    if h.startswith("d ·") or "do next" in h:
+        return "d"
+    if "auto-rails" in h or "activity" in h:
+        return "rails-with-children"
+    if "cross-week" in h or "thread" in h:
+        return "thread"
+    return ""
+
+
+def _render_weekly_html(md_path: Path, gd_root: Path) -> str:
+    """Render a weekly status markdown file as a self-contained HTML page."""
+    content = md_path.read_text(encoding="utf-8")
+    parsed = _parse_weekly_sections(content)
+    fm = parsed["frontmatter"]
+
+    week_label = fm.get("week", parsed["title"].replace("Weekly Status — ", "").strip() or "—")
+    week_start = fm.get("week-start", "")
+    week_end = fm.get("week-end", "")
+    if week_start and week_end:
+        date_range = f"{week_start} → {week_end}"
+    elif fm.get("date"):
+        date_range = str(fm["date"])
+    else:
+        date_range = ""
+    author = fm.get("author", "")
+
+    subtitle_html = ""
+    if parsed["subtitle"]:
+        # Render subtitle as a simple div, not full markdown
+        sub = re.sub(r"\s+", " ", parsed["subtitle"]).strip()
+        subtitle_html = f'<div class="subtitle">{sub}</div>'
+
+    try:
+        rel_source = md_path.relative_to(gd_root)
+    except ValueError:
+        rel_source = md_path
+
+    return _HTML_TEMPLATE.format(
+        label=week_label,
+        style=_HTML_STYLE,
+        week_label=week_label,
+        date_range=date_range,
+        author=author,
+        title=parsed["title"],
+        subtitle_html=subtitle_html,
+        thesis_html=_md_to_html(parsed["thesis"]),
+        a_html=_md_to_html(parsed["a"]),
+        b_html=_md_to_html(parsed["b"]),
+        c_html=_md_to_html(parsed["c"]),
+        d_html=_md_to_html(parsed["d"]),
+        rails_html=_md_to_html(parsed["rails"]),
+        thread_html=_md_to_html(parsed["thread"]),
+        generated_at=datetime.now(timezone.utc).strftime("%Y-%m-%d %H:%M UTC"),
+        source_path=str(rel_source),
+    )
+
+
+@cli.command()
+@click.option("--week", default=None,
+              help="ISO week label like 2026-W18 (default: current week)")
+@click.option("--force", is_flag=True,
+              help="Overwrite existing markdown if present")
+@click.option("--dry-run", is_flag=True,
+              help="Preview rails without writing")
+@click.option("--html/--no-html", default=True,
+              help="Also render an HTML companion (default: yes)")
+@click.option("--html-only", is_flag=True,
+              help="Re-render HTML from existing markdown only — don't touch md")
+def weekly(week: str | None, force: bool, dry_run: bool,
+           html: bool, html_only: bool):
+    """Scaffold a weekly ABCD status file with auto-populated rails.
+
+    Creates Brain/status/weekly/YYYY-Www-status.md from the template if it
+    doesn't exist, then populates three rails by querying git:
+
+      - Wiki cards added or updated     (Brain/wiki/ commits in week range)
+      - Commits of substance            (all non-merge commits in range)
+      - Dispatches closed this week     (placeholder — Linear MCP needed)
+
+    Run on Friday afternoon. Fill the ABCD boxes by hand once the rails
+    are in place.
+
+    Examples:
+        engine.py weekly                    # current week
+        engine.py weekly --week 2026-W18    # specific week
+        engine.py weekly --dry-run          # preview only
+        engine.py weekly --force            # re-scaffold even if file exists
+    """
+    gd_root = _find_growdirect_root(Path.cwd())
+    if not gd_root:
+        click.echo("ERROR: Run from within GrowDirect (need CLAUDE.md + Brain/)")
+        raise SystemExit(1)
+
+    label, monday_iso, sunday_iso = _iso_week_range(week)
+    out_dir = gd_root / BRAIN_STATUS_WEEKLY
+    out_dir.mkdir(parents=True, exist_ok=True)
+    out_path = out_dir / f"{label}-status.md"
+    html_path = out_dir / f"{label}-status.html"
+
+    click.echo(f"Weekly status — {label}")
+    click.echo(f"  Range:    {monday_iso} → {sunday_iso}")
+    click.echo(f"  MD file:  {out_path.relative_to(gd_root)}")
+    if html or html_only:
+        click.echo(f"  HTML:     {html_path.relative_to(gd_root)}")
+
+    # --html-only: re-render html from existing md, skip everything else.
+    if html_only:
+        if not out_path.exists():
+            click.echo(f"ERROR: --html-only requires existing markdown at {out_path}")
+            raise SystemExit(1)
+        html_doc = _render_weekly_html(out_path, gd_root)
+        html_path.write_text(html_doc, encoding="utf-8")
+        click.echo(f"\n  Wrote {html_path.relative_to(gd_root)} ({len(html_doc):,} bytes)")
+        return
+
+    # Compute the auto-rails first so we can show them in dry-run mode.
+    wiki_lines = _git_changed_files(gd_root, monday_iso, sunday_iso, "Brain/wiki")
+    commit_lines = _git_log_lines(gd_root, monday_iso, sunday_iso)
+
+    rails = {
+        "### Dispatches closed this week": (
+            "<!-- Linear MCP integration pending — see GRO dispatch. -->\n"
+            "_Hand-paste from Linear's Dispatch project, "
+            f"status=Done, completed-at between {monday_iso} and {sunday_iso}._\n"
+        ),
+        "### Wiki cards added or updated": (
+            "\n".join(wiki_lines) + "\n" if wiki_lines else "_No wiki changes in range._\n"
+        ),
+        "### Commits of substance": (
+            "\n".join(commit_lines) + "\n" if commit_lines else "_No commits in range._\n"
+        ),
+    }
+
+    if dry_run:
+        click.echo("\n[DRY RUN] Rail preview:\n")
+        for heading, body in rails.items():
+            click.echo(heading)
+            click.echo(body)
+        click.echo("  To write: re-run without --dry-run")
+        return
+
+    # Scaffold from template if file doesn't exist (or --force given).
+    template_path = gd_root / "Brain/templates/weekly-status.md"
+
+    if out_path.exists() and not force:
+        click.echo("  Status:   exists — populating rails only")
+        content = out_path.read_text(encoding="utf-8")
+    else:
+        if not template_path.exists():
+            click.echo(f"ERROR: template not found: {template_path}")
+            raise SystemExit(1)
+        click.echo("  Status:   scaffolding from template")
+        content = template_path.read_text(encoding="utf-8")
+        # Substitute Templater placeholders with concrete dates.
+        content = re.sub(
+            r"<%\s*tp\.date\.now\([^)]*\)\s*%>",
+            "REPLACE_ME",  # placeholder — we'll patch known fields below
+            content,
+        )
+        # Patch known frontmatter fields to concrete values.
+        replacements = {
+            "date: REPLACE_ME": f"date: {sunday_iso}",
+            "week: REPLACE_ME-WREPLACE_ME": f"week: {label}",
+            "week-start: REPLACE_ME": f"week-start: {monday_iso}",
+            "week-end: REPLACE_ME": f"week-end: {sunday_iso}",
+            "last-compiled: REPLACE_ME": f"last-compiled: {sunday_iso}",
+            "needs-review: REPLACE_ME": f"needs-review: {_add_days(sunday_iso, 14)}",
+        }
+        for old, new in replacements.items():
+            content = content.replace(old, new)
+        # Patch the H1 too.
+        content = re.sub(
+            r"^# Weekly Status — REPLACE_ME-WREPLACE_ME",
+            f"# Weekly Status — {label}",
+            content,
+            count=1,
+            flags=re.MULTILINE,
+        )
+
+    # Replace the rail sections.
+    for heading, body in rails.items():
+        content = _replace_section(content, heading, body)
+
+    out_path.write_text(content, encoding="utf-8")
+    click.echo(f"\n  Wrote {out_path.relative_to(gd_root)}")
+    click.echo(f"  Wiki adds:  {len(wiki_lines)}")
+    click.echo(f"  Commits:    {len(commit_lines)}")
+
+    if html:
+        html_doc = _render_weekly_html(out_path, gd_root)
+        html_path.write_text(html_doc, encoding="utf-8")
+        click.echo(f"  Wrote {html_path.relative_to(gd_root)} ({len(html_doc):,} bytes)")
+
+    click.echo(f"\n  Next: open the file and fill the ABCD boxes (~15 min).")
+    if html:
+        click.echo(f"  After editing md, refresh html with: engine.py weekly --week {label} --html-only")
+
+
 # ── Method queries ──────────────────────────────────────────────────
 
 # Repo-relative defaults; overridable in tests via monkeypatch.

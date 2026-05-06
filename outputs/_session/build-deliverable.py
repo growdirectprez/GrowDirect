@@ -1,13 +1,10 @@
 #!/usr/bin/env python3
 """
-Build the single-site HTML deliverable for the wave session.
-
-Reads all artifacts produced under /sessions/lucid-peaceful-tesla/mnt/GrowDirect/outputs/
-and consolidates them into one navigable HTML document at
-/sessions/lucid-peaceful-tesla/mnt/GrowDirect/outputs/wave-deliverable.html.
-
-Includes B1 (Tim conversation prep package) inline since the single-site HTML
-*is* the collation B1 was supposed to produce.
+Build the single-site HTML deliverable — restructured around four questions:
+1. What we're forming
+2. What we're buying
+3. What it's worth
+4. How we go get it
 """
 
 import markdown
@@ -26,47 +23,57 @@ WHITE = "#FFFFFF"
 CHARCOAL = "#36454F"
 
 # ---------------------------------------------------------------------------
-# Section definitions — id, title, source path (or inline content), category
+# Section definitions — id, title, source path (or None for inline), category
 # ---------------------------------------------------------------------------
 
 SECTIONS = [
-    # Cover and overview
+    # Cover and exec summary
     ("cover", "Cover", None, "overview"),
-    ("foundation", "Foundation synthesis", "_session/foundation-synthesis.md", "overview"),
+    ("executive", "Executive proposal package", None, "overview"),
 
-    # External-facing artifacts (the public ones)
-    ("position", "A5 — Position paper for eljeffe.io/position", "position-paper-eljeffe-io.md", "external"),
-    ("investor", "F1-F2 — Investor brief", "investor-brief-eljeffe-io.md", "external"),
+    # 1. WHAT WE'RE FORMING
+    ("memo", "Memo to principals", "memo-to-principals-retail-vertical.md", "forming"),
+    ("position", "Position paper — eljeffe Hash and Seal Protocol", "position-paper-eljeffe-io.md", "forming"),
+    ("bylaws-skill", "Bylaws skill — namespace governance", None, "forming"),
+    ("addendum", "Forward architecture — what the substrate adds next", None, "forming"),
 
-    # Core proposal artifacts (the principal-facing set)
-    ("memo", "D5a — Memo to principals (retail vertical)", "memo-to-principals-retail-vertical.md", "proposal"),
-    ("deck", "D5b — Shore Club retail-vertical deck", None, "proposal"),
-    ("tim-prep", "B1 — Tim conversation prep package", None, "proposal"),
+    # 2. WHAT WE'RE BUYING
+    ("buying-overview", "RapidPOS — what we're buying (overview)", None, "buying"),
+    ("hypothesis-grid", "Hypothesis grid — RapidPOS profile", "diligence/rapidpos/01-hypothesis-grid.md", "buying"),
+    ("iso-gap", "ISO 27001 gap assessment", "diligence/rapidpos/02-iso27001-gap-assessment.md", "buying"),
+    ("gcp-onramp", "GCP onramp architecture", "diligence/rapidpos/03-gcp-onramp-architecture.md", "buying"),
+    ("driftpos-readiness", "DriftPOS launch readiness", "diligence/rapidpos/05-driftpos-launch-readiness.md", "buying"),
+    ("deal-memo", "Internal deal memo", "diligence/rapidpos/06-internal-deal-memo.md", "buying"),
+    ("glide-path", "Managed-services glide path (external)", "diligence/rapidpos/07-managed-services-glide-path.md", "buying"),
 
-    # Substrate skill
-    ("bylaws-skill", "C1 — namespace-bylaws skill", None, "substrate"),
+    # 3. WHAT IT'S WORTH
+    ("deal-economics", "Deal economics — what it's worth", None, "worth"),
+    ("valuation", "Valuation impact (full math)", "diligence/rapidpos/04-valuation-impact.md", "worth"),
+    ("investor", "Investor brief — Genesis Pool & Metcalfe model", "investor-brief-eljeffe-io.md", "worth"),
 
-    # Addendum — forward architectural design notes
-    ("addendum", "Addendum — what the substrate adds next", None, "addendum"),
+    # 4. HOW WE GO GET IT
+    ("hundred-day", "The 100-day plan", None, "execution"),
+    ("day1-ops", "Day-1 agentic ops plan (A1-A5)", "diligence/rapidpos/09-day1-agentic-ops-plan.md", "execution"),
+    ("burndown", "Burn-down → repeatability flywheel", "diligence/rapidpos/10-burndown-flywheel.md", "execution"),
+    ("tim-prep", "Tim conversation prep", None, "execution"),
+    ("wyoming", "Wyoming counsel engagement", "dispatches/A1-wyoming-counsel-scope.md", "execution"),
+    ("compliance-role", "Compliance-architecture role", "dispatches/B4-compliance-architecture-role.md", "execution"),
+    ("dns", "DNS / position-paper publication", "dispatches/A4-dns-publication-scope.md", "execution"),
+    ("uw", "UW academic engagement", "dispatches/G1-uw-engagement-scope.md", "execution"),
 
-    # Engagement scopes (the Phase A counterparty-action artifacts)
-    ("compliance-role", "B4 — Compliance-architecture role scope", "dispatches/B4-compliance-architecture-role.md", "engagement"),
-    ("wyoming", "A1 — Wyoming counsel engagement scope", "dispatches/A1-wyoming-counsel-scope.md", "engagement"),
-    ("dns", "A4 — DNS / publication scope", "dispatches/A4-dns-publication-scope.md", "engagement"),
-    ("uw", "G1 — UW engagement scope", "dispatches/G1-uw-engagement-scope.md", "engagement"),
-
-    # Session close
-    ("close", "Session close — artifacts produced, decisions, next steps", None, "close"),
+    # Reference & close
+    ("deck", "Deck content — proposal in slides", None, "reference"),
+    ("foundation", "Foundation synthesis — corpus inventory", "_session/foundation-synthesis.md", "reference"),
+    ("close", "Session close — artifacts, decisions, next", None, "reference"),
 ]
 
 CATEGORY_LABELS = {
     "overview": "Overview",
-    "external": "External-facing",
-    "proposal": "Principal-facing proposal",
-    "substrate": "Substrate skill",
-    "addendum": "Forward design",
-    "engagement": "Engagement scopes",
-    "close": "Session close",
+    "forming": "1 · What we're forming",
+    "buying": "2 · What we're buying",
+    "worth": "3 · What it's worth",
+    "execution": "4 · How we go get it",
+    "reference": "Reference",
 }
 
 # ---------------------------------------------------------------------------
@@ -80,12 +87,10 @@ def md_to_html(text: str) -> str:
     return md.convert(text)
 
 def read_section(path: str) -> str:
-    """Read a markdown source file and return its rendered HTML body."""
     full = OUTPUTS / path
     if not full.exists():
         return f"<p><em>Source not found: {path}</em></p>"
     text = full.read_text()
-    # Strip YAML frontmatter if present
     if text.startswith("---"):
         end = text.find("---", 3)
         if end >= 0:
@@ -93,722 +98,476 @@ def read_section(path: str) -> str:
     return md_to_html(text)
 
 # ---------------------------------------------------------------------------
-# Inline content (artifacts not on disk as standalone .md files)
+# Inline content
 # ---------------------------------------------------------------------------
 
-INLINE_DECK_CONTENT = """
-# Retail-vertical deck — content rendered for the single-site
+INLINE_EXECUTIVE = """
+# Executive proposal package
 
-The .pptx version is also available at
-`outputs/Brain/decks/shore-club-retail-vertical/shore-club-retail-vertical-deck.pptx`
-for the slide-format use case (Tim conversation, in-person walk-through).
-The content rendered below is the same; the slide-deck and the HTML serve
-different read postures.
+The whole package on one page. Each of the four questions answered tight. Detail in the sections below.
 
----
+## 1. What we're forming
 
-## Slide 1 — Cover
+A Wyoming-anchored venture (LLC + DAO LLC) running the eljeffe Hash and Seal Protocol — a substrate that hashes commercial events, batches them into Merkle trees, and inscribes the roots on the Bitcoin time chain. Three principals at genesis tier: Domain (founder, brings Canary IP stack and serves as President of Retail / CTO of RapidPOS during transition), Governance (Tim, bylaws steward), Ops/Cloud (TBD — third principal to be named per Tim's calibration). No HR, no shared services, no PE-style mechanisms. Anti-extraction by construction. The structure protects the customer (data sovereignty), the contributor (permanent token-earn), and the operator (un-cullable genesis stake).
 
-**Retail vertical.** Proposed approach, structure, and 100-day plan.
-A proposal to the principals.
+The substrate's first commercial application is the retail vertical, anchored at RapidPOS as channel partner — *not* an acquisition target.
 
-eljeffe Hash and Seal Protocol — Wyoming-anchored. BTC-native.
-Anti-extraction by construction.
+## 2. What we're buying
 
-*Tell me where I'm wrong.*
+RapidPOS LLC — Counterpoint VAR with ~50 customers across specialty verticals (garden, gun, wine, specialty food, feed-and-tack), ~$2.7M aggregate ARR, 6-12 person team with 2-3 senior engineers carrying 15-20-year Counterpoint configuration knowledge, 20 years of customer relationships, NCR-authorized status. The book is the asset; the team is the second asset; the ATF / wine / state-tax compliance experience is the third.
 
----
+We are not paying SaaS-modernized multiples for a legacy services business. We are paying the legacy multiple, minus the modernization work we'll absorb, plus a fair earnout for the customer continuity that makes the deal economics work. The 24-month managed-services glide-path lets the seller exit clean by Year 3-5 while customer relationships stay intact through transition. DriftPOS partnership is preserved through the transition; Bart's team becomes our onboarding pipeline once the agentic ops fabric absorbs the support-queue treadmill.
 
-## Slide 2 — The moment
+## 3. What it's worth
 
-A once-in-a-decade inflection.
+Three numbers on the deal:
 
-- **Square pushes BTC.** Bitcoin functionality reaching the merchant. The
-  back-end question — where do my numbers live, what does my P&L denominate
-  in — has exactly one answer.
-- **Counterpoint VARs aging out.** RapidPOS and the broader cohort.
-  2015 architecture. 20-year owners looking to exit clean. Channel
-  partnership beats acquisition.
-- **Compliance fragmenting.** State-by-state privacy laws. ATF, NICS,
-  alcohol direct-shipping, age-verification. Compliance-by-architecture is
-  the differentiator.
-- **Operators want sovereignty.** Gun-store owners, ranchers, wine retailers,
-  garden centers, multi-generational family operators. Same values stack.
-  Nobody is building for them.
+| | Amount | Source |
+| --- | --- | --- |
+| **Walking price** | $2.41M | Adjusted EBITDA $740k × 4.5x current-state multiple, less $341k ISMS-gap discount, less $370k modernization-premium offset, less $207k opportunity-cost cushion |
+| **Target close** | $3.5M total package | $2.7M base + $0.8M earnout over 24 months tied to customer-retention milestones |
+| **Anchor upside (Y3 NPV)** | +$11.25M | $50M anchor ARR × 30% landing probability × 0.75 NPV factor — option value, not in base price |
 
----
+Three numbers on the program (post-close investment over 36 months):
 
-## Slide 3 — What the substrate does
+| | Amount | Source |
+| --- | --- | --- |
+| **ISO 27001 remediation (DriftPOS-blocking)** | $487k all-in | 520 engineering hours for 15 critical controls + ISMS framework + Stage 1/2 audit fees + surveillance |
+| **GCP run-rate at T1 (eager-cohort migrated)** | ~$668k/year | 18 workloads sized at T1; ~$55,700/month; scales with revenue |
+| **Genesis Pool network value at month 18 (350 merchants)** | $785k (69× static BTC) | Metcalfe model crossover at month 9; conservative k = $0.667 per connection |
 
-Four operations. The proof is the proof.
+Investor allocation: 3M ordinals (30% of the 10M Genesis Pool) sold at BTC market rate × sat allocation per ordinal. No preferred shares. No board control. No exit machinery. Returns come from ordinal appreciation (Metcalfe-driven), validation revenue accrual, treasury participation, and L402 marketplace flow.
 
-1. **Hash.** Every consequential event — sale, transfer, vote, license,
-   attestation — hashed cryptographically. Deterministic. Irreversible.
-2. **Batch.** Hashes assembled into a Merkle tree. The root represents every
-   event in the batch with a single cryptographic fingerprint.
-3. **Inscribe.** Merkle root sealed onto a Bitcoin satoshi as an Ordinal at
-   a specific block height. Permanent. No re-issuance possible.
-4. **Verify.** Anyone with a Bitcoin node verifies existence + ordering +
-   integrity by Merkle proof against the immutable chain. No notary, no
-   clerk, no goodwill.
+## 4. How we go get it
+
+A 100-day intensive in three months, ending with a demonstrably-positioned venture ready to capitalize Phase B.
+
+**Month 1 (Days 1-30) — Foundation.** Engage Wyoming counsel and file LLC + DAO LLC. Configure DNS for `eljeffe.io`; publish the position paper at `/position`; inscribe its content hash on chain. Refine memo + deck for the Tim conversation. Complete the bylaws skill. Founder reviews each artifact before external use.
+
+**Month 2 (Days 31-60) — Communication + Genesis.** Tim conversation executed. Third principal identified and brought in. Bart partnership update. Compliance-architecture lead onboarded. Bylaws v1 ratified. Genesis block inscribed. Founder smart contract deployed. Position paper goes live.
+
+**Month 3 (Days 61-100) — Substrate + first customer.** L402 gates scaffolded around MCP ports. Lightning consume rails live. CRB.ai product surface specified. RapidPOS engagement formalized (founder operational as CTO; channel-partner license terms drafted). PCI scope analysis complete. ISO 27001 readiness assessment complete. First firearms-vertical pilot customer identified.
+
+**Day-100 review.** All Category A dispatches complete. Tim, Bart, compliance-architecture lead aligned. Substrate live. First customers in pipeline. Compliance baseline clean. That's the gate to capitalize Phase B.
+
+## What's missing from this package
+
+The cost-model output (the `.xlsx` with 230 formulas referenced in the prior session epic) is not on disk. The deal economics in section 3 above are synthesized from the valuation-impact, GCP-onramp, and ISO 27001 gap-assessment documents — accurate but not dynamic. To produce a fully-flexible cost model the founder can run sensitivity analysis against, the cost-model skill needs to be built or surfaced. That's a discrete next-wave deliverable.
 
 ---
 
-## Slide 4 — The structure
+*The proposal continues in the four sections below.*
+"""
 
-Parent → GrowDirect → IP → RapidPOS license. Substrate underneath.
+INLINE_BUYING_OVERVIEW = """
+# RapidPOS — what we're buying (overview)
 
-1. **Parent operating company.** Three principals at genesis tier —
-   Governance, Domain, Ops/Cloud. Holds equity in GrowDirect.
-2. **GrowDirect.** Owns the Canary IP stack (ILDWAC #63/991,596 +
-   methodology + codebase). Founder serves as President of Retail.
-3. **RapidPOS — channel partner.** Licenses Canary from GrowDirect.
-   Customer base flows onto the platform via partnership, not acquisition.
-   Founder serves concurrently as CTO.
-4. **eljeffe Hash and Seal Protocol — substrate.** Wyoming LLC + DAO LLC.
-   Smart contracts, lineage-weighted ordinals, L402 micropayments,
-   customer-owned data with DAO governance, BTC-denominated cost basis.
-   Anti-extraction by construction.
+The five sections that follow are the diligence run on RapidPOS-as-target. They were produced by the saas-acquisition-diligence skill in the prior session. The framing is acquisition-cost / valuation-discount / glide-path because that's the skill's posture.
 
----
+The current venture-instance reframes RapidPOS as **channel partner**, not acquisition target. Most of the diligence content carries forward (the ISO 27001 gap is the same gap; the GCP onramp is the same architecture; the DriftPOS launch readiness is the same gate; the day-1 agentic ops plan is the same plan). What changes is the *commercial frame*: instead of paying acquisition price for the customer book, we license Canary to RapidPOS via channel-partner agreement and the founder serves as CTO during the transition. The economic effect is similar (modernization work happens on the same timeline; revenue flows through the transition); the structural form is partnership-shaped rather than M&A-shaped.
 
-## Slide 5 — Three-pillar genesis
+## What's in this section
 
-Roles, not names. Each pillar carries a specific kind of authority.
+| Document | What it answers |
+| --- | --- |
+| Hypothesis grid | What do we think is true about RapidPOS LLC? Confidence labels per assumption |
+| ISO 27001 gap assessment | What does it cost to make the platform certifiable? |
+| GCP onramp architecture | What does the modernized stack look like at each scale tier? |
+| DriftPOS launch readiness | What stands between today and DriftPOS GA at month 12? |
+| Internal deal memo | Frank Growdirect-only assessment — thesis, walking price, walk-away conditions |
+| Managed-services glide path | External pitch document — peer-to-peer voice, 24-month transition narrative |
 
-**Domain principal — you.** 25+ years retail-tech expertise. Canary IP
-stack contribution. Strategic leadership of the retail vertical.
-President of Retail at GrowDirect; CTO of RapidPOS during transition.
-The dual role keeps strategy and operations in the same hands.
+## Reconciliation note
 
-**Governance principal — Tim.** Bylaws stewardship. DAO-process oversight.
-Compliance-architecture sign-off at the principal level. Co-founder of the
-parent operating company. The long-term governance signal.
+The diligence run was produced under the v1 framing (acquire RapidPOS). The v2 venture-instance pivot (channel partner, no acquisition) hasn't been re-run through the diligence skill yet. The financial substance survives the reframe; the legal/structural framing needs adjustment. Treat the docs below as substantive on the operational and economic content, and apply the channel-partnership reframe at the structural level.
+"""
 
-**Ops principal — third, TBD.** GCP architecture. Substrate operation.
-The infrastructure layer that runs the protocol. Tim's existing partner,
-a separately-recruited cloud-architecture lead, or the compliance-architecture
-lead elevated. Founder + Tim alignment to name.
+INLINE_DEAL_ECONOMICS = """
+# Deal economics — what it's worth
 
----
+Tight summary. Detail in `Valuation impact (full math)` below. The investor brief covers the Genesis Pool / Metcalfe network valuation separately.
 
-## Slide 6 — Economics in shape
+## Deal pricing
 
-Three-year sketch. Illustrative ranges. Why the numbers work.
+The acquisition (or channel-partnership equivalent) is priced as: current-state value − cost we'll incur to make the asset productive − opportunity-cost cushion. Anchor-account upside is option value, *not* in the base price.
 
-| Year | Revenue | Net | What's happening |
+**Inputs (founder verification needed before walking-price commits):**
+
+- Annual revenue: ~$3-6M (target-profile midpoint $4.5M)
+- EBITDA margin: ~22%
+- Current-state EBITDA: $4.5M × 22% = **$990k**
+- Owner compensation in EBITDA: yes (founder-owned operator). Adjusted EBITDA after replacement-CEO comp ($250k): **$740k**
+
+**The negotiation:**
+
+| Framing | Multiple | Implied price (at adjusted EBITDA $740k) |
+| --- | --- | --- |
+| Legacy SMB services VAR | 3-4× | $2.2M-$3.0M |
+| Legacy specialty-retail VAR | 4-5× | $3.0M-$3.7M |
+| Modernized retail platform | 6-10× | $4.4M-$7.4M |
+| Platform-SaaS comparable | 8-15× ARR | $36M-$67M |
+
+Sellers like the bottom row. Buyers price toward the top. Our positioning: **legacy specialty-retail VAR at 4.5× adjusted EBITDA, minus modernization cost we absorb, plus fair earnout for customer continuity.**
+
+**Walking price math:**
+
+| Line | $ |
+| --- | --- |
+| Base value ($740k × 4.5×) | $3,330,000 |
+| Less: ISMS-gap discount (Formula 1: $487k × 0.7 compliance-pressure factor) | -$341,000 |
+| Less: modernization-premium offset (Formula 2: $740k × 2.5 multiple delta × 0.2 prob without us) | -$370,000 |
+| Less: opportunity-cost cushion (Formula 3: 6-month delay × $450k incremental ARR × 0.92 NPV) | -$207,000 |
+| **Walking price** | **$2,412,000** |
+
+**Negotiation positions:**
+
+| Scenario | Base | Earnout | Total package |
 | --- | --- | --- | --- |
-| Y1 | $1-2M | ~breakeven | Eager-cohort migrating; first Square-BTC merchants; foundation built |
-| Y2 | $5-10M | $1-4M positive | Steady cohort migrating; ISO 27001 cert; DriftPOS GA; new-logo wins |
-| Y3 | $15-40M | $7-22M positive | Full cohort migration; possible first anchor; channel-partner momentum |
+| **Walking** | $2.4M | $0 | $2.4M |
+| **Floor** | $2.4M | $0.6M | $3.0M |
+| **Target** | $2.7M | $0.8M | $3.5M |
+| **Stretch** | $3.0M | $1.2M | $4.2M |
 
-**Why this works where typical SaaS doesn't:**
+Seller's likely opening: $4M-$6M. Anchor near floor; let seller close themselves toward target after seeing the gap math.
 
-- **No acquisition cost.** RapidPOS is a channel partner; ~$2-3M not paid.
+**Anchor upside (Y3 option value, NOT in base):**
+
+$50M hypothetical anchor ARR × 30% landing probability × 0.75 Y3 NPV factor = **+$11.25M of NPV-adjusted Y3 upside**.
+
+## Program cost (post-close, 36 months)
+
+The investment to make the asset productive — what we're absorbing on top of the purchase price.
+
+**ISO 27001 remediation:**
+
+| Component | Hours | $ |
+| --- | --- | --- |
+| 15 critical-mass DriftPOS-blocking controls | 520 | $104k |
+| Remaining 78 Annex A controls | ~1,164 | $233k |
+| ISMS framework (policy + governance) | 200-400 | $40-80k |
+| Stage 1 + Stage 2 audit fees | — | $20-50k |
+| Surveillance (annual ongoing) | — | $10-20k/year |
+| **Total all-in over 18 months** | **~1,684** | **~$487k** |
+
+Compliance-pressure factor 0.7 (moderate — specialty retail with growing pressure but not acute). The seller absorbs ~$341k as a price reduction; the rest (~$146k) is our investment in modernization.
+
+**GCP run-rate (steady-state per scale tier):**
+
+| Tier | Profile | Customers | Stores | Monthly | Annualized |
+| --- | --- | --- | --- | --- | --- |
+| T0 | RapidPOS today | ~50 | ~500-2,500 | — | — |
+| **T1** | **Eager-cohort migrated** | **~T0 × 25-40%** | **~thousands** | **~$55,700** | **~$668k** |
+| T2 | Steady cohort + new-logo | ~T0 + new | ~5K-15K | ~$120-180k | ~$1.4-2.2M |
+| T3 | Global-50 anchor | ~T2 + 1 anchor | ~50K+ at peak | ~$1.5M+ | ~$18M+ |
+
+T3 only triggers if a Global-50 anchor lands. Without anchor, we stay at T2 steady-state and the math also works (~$7.6M net 3-year per the internal deal memo).
+
+**Day-1 agentic ops cost (workload #18 in the GCP onramp):**
+
+| Component | Phase A monthly |
+| --- | --- |
+| Vertex AI inference (A1-A5 agents) | ~$3-5k |
+| GKE / Cloud Run agent runtimes | ~$2k |
+| Pub/Sub event triggers + Cloud SQL state | ~$500 |
+| Cloud Storage (wiki + playbook output) | ~$500 |
+| **Subtotal** | **~$8k/month** |
+
+This compute spend substitutes for FTE-hours across the support queue per the burndown flywheel — the cost-model shows the substitution explicitly.
+
+## Total package economics (illustrative 3-year)
+
+| Year | Revenue | Cost | Net | What's happening |
+| --- | --- | --- | --- | --- |
+| Y1 | $1-2M | ~$1.5-2M | ~breakeven | Eager-cohort migrating; first Square-BTC merchants; ISO Phase A |
+| Y2 | $5-10M | ~$3-6M | $1-4M positive | Steady cohort migrating; ISO 27001 cert; DriftPOS GA; new-logo wins |
+| Y3 | $15-40M | ~$8-18M | $7-22M positive | Full cohort migration; possible first anchor; channel-partner momentum; multi-cohort revenue |
+
+Why these numbers work where typical SaaS doesn't:
+
+- **No acquisition cost.** RapidPOS is channel partner. ~$2-3M not paid (the walking price above is the M&A frame; the channel-partner frame avoids it entirely).
 - **No HR overhead.** ~$1M+/year structurally avoided.
-- **Variable contributor comp.** L402 pay-per-use; low-rev periods don't burn fixed payroll.
+- **Variable contributor comp.** L402 pay-per-use; low-revenue periods don't burn fixed payroll.
 - **No T3 forced ramp.** GCP scales with revenue.
 - **Five customer cohorts.** VAR roll-up, DriftPOS pilots, Square BTC, future channel partners, direct independent retail. Diversified.
 
----
+## Genesis Pool valuation (separate accounting)
 
-## Slide 7 — Compliance-by-architecture
+The Genesis Pool — 10,000,000 satoshis from the founder's F2Pool mining reward — is a network asset, not a treasury holding. Static BTC value at $85K/BTC ≈ $8,500. Metcalfe network value at month 18 (350 merchants) ≈ **$785,409 — a 69× multiple**. Crossover happens at ~50 merchants (month 9). After that, the network valuation accelerates quadratically while BTC appreciation remains roughly linear.
 
-The substrate produces audit-defensible evidence by construction.
+Investor allocation: 3M ordinals (30% of the Genesis Pool) sold at BTC market rate × sat allocation per ordinal. Same satoshis, different frame. Investors are not buying BTC at market rate — they are buying first-mover network position in a namespace whose value compounds with adoption.
 
-**What the substrate does:**
+See `Investor brief` and `Valuation impact (full math)` for the full math and sensitivity analysis.
 
-- **Hash.** Every consequential event hashed cryptographically.
-- **Batch.** Hashes assembled into a Merkle tree.
-- **Inscribe.** Merkle root sealed onto a Bitcoin sat as an Ordinal at a
-  specific block height.
-- **Verify.** Existence + ordering + integrity, by Merkle proof, against
-  the immutable chain.
+## What's not in this summary
 
-ISO 27001:2022 — substrate-to-auditor translation per the
-compliance-architecture role. PCI-DSS — Ingenico tokenization keeps
-cardholder data out of substrate scope. SOC 2 Type II — observation period
-start month 18.
+The cost-model `.xlsx` with 230 formulas (referenced in the prior session epic) — would let the founder flex assumptions live (revenue, EBITDA, cohort split, GCP scale tier, ISO remediation pace) and watch deal price + program cost re-cross-foot. **Not on disk.** Would be produced by running the cost-model skill against the venture-instance — discrete next-wave work. Until that ships, the numbers above are the synthesized point-estimates.
+"""
 
-**Concrete: NICS attestation.** A buyer wants to purchase a firearm.
-Federal law requires a NICS background check. *Today:* Paper Form 4473.
-Twenty-year binder. PII sitting in the dealer's basement. *On the
-substrate:* Cryptographic proof of clearance, sealed onto the chain. Dealer
-receives confirmation; PII never leaves the buyer. ATF-defensible.
-Customer-privacy-preserving. Same architecture extends to alcohol
-direct-shipping, age-verification, controlled substances, regulated gaming.
+INLINE_HUNDRED_DAY = """
+# The 100-day plan
 
----
+Three months. Solo. Founder full-in. Day 100 = either demonstrably-positioned (Phase B capitalization gate) or honestly-not (everyone's learned without burning runway).
 
-## Slide 8 — How we recruit and operate
+## Month 1 (Days 1-30) — Foundation
 
-No HR. No finance department. No legal department. Substrate handles what
-each function used to do.
+| Dispatch | What | Owner | Acceptance |
+| --- | --- | --- | --- |
+| **A1** | Wyoming entity formation engagement (LLC + DAO LLC) | Founder + Wyoming counsel | Both entities in good standing; banking relationship live |
+| **A4** | DNS for `eljeffe.io`; minimal site stand-up; position paper at `/position` | Founder | Site live; block-height anchor in footer |
+| **A5** | Position paper drafted | Claude | Passes founder review; ready for A4 publication |
+| **D5** | Memo + deck final refinement | Claude | Both pass ranch test; ready for Tim conversation |
+| **B1** | Tim conversation prep package | Founder + Claude | Conversation scheduled; collated single-site HTML in Tim's hands |
+| **C1** | Bylaws skill completion (8/9 → 9/9 + 5 templates) | Claude | Skill complete; runs cleanly against synthetic second namespace |
 
-**No resumes. Ever.** Read the wiki, pick up a ticket, demonstrate fit by
-doing the work. Smart contract auto-issues. Token-earn begins. Self-selection
-is the primary filter.
+## Month 2 (Days 31-60) — Communication + Genesis
 
-**Trusted-network model.** Founders invite their trusted core; the core
-invites their networks. Each invitation is a stake — bringing someone in
-poorly hurts the inviter's standing. The trust filter is structural, not
-procedural.
+| Dispatch | What | Owner | Acceptance |
+| --- | --- | --- | --- |
+| **B1** | Tim conversation executed (week 5-6) | Founder | Tim's stated alignment / pushback / counter-proposals captured |
+| **B2** | Third principal identification + outreach (week 6-8) | Founder | Third principal candidate named; preliminary commitment |
+| **B3** | Bart partnership update (week 7-8) | Founder | Bart aligned on partnership shape; OQ resolution path agreed |
+| **B4** | Compliance-architecture lead onboarding (week 6) | Founder | Role agreed and documented; first deliverables scoped |
+| **A2** | Genesis block inscription (week 8, after bylaws v1 ratified) | Founder + tech | Namespace identifier live on chain; founder ordinals in principal wallets |
+| **A3** | Founder smart contract deployment (week 8-9) | Tech contributor | Smart contract addressable; first test transaction stamped |
+| **A5 → A4** | Position paper published at eljeffe.io/position (week 8-9) | Founder | Site live with content hash inscribed; block-height anchor recorded |
 
-**Two contributor segments.** Young go-getters (early-career, hungry,
-values-aligned). 45+ second/third-career professionals (ex-devs stuck in
-middle management or out of work despite huge talent). New AI tools let that
-45+ segment earn equity bit by byte.
+## Month 3 (Days 61-100) — Substrate + First Customer
 
-**Sales: public highscore leaderboard.** Token-generating value to the
-ecosystem — L402 throughput, retention, network effects — not just bookings
-revenue. Aligns the sales motion with ecosystem health, not
-gross-revenue-at-any-cost.
+| Dispatch | What | Owner | Acceptance |
+| --- | --- | --- | --- |
+| **C2** | eljeffe Hash and Seal Protocol formal specification | Claude (drafts); founder reviews | Spec complete; ready for publication adjacent to position paper |
+| **C3** | L402 gate scaffolding for MCP ports | Tech contributor | At least one MCP port gated by L402; sat payment routes to wallet |
+| **C5** | Lightning consume setup | Tech contributor | Rails live; first L402 transaction confirmed |
+| **D1** | CRB.ai product surface spec (v0) | Founder + Claude | Spec complete; reviewed by founder |
+| **D4** | RapidPOS engagement plan formalized | Founder + RapidPOS | Dual-role agreement documented; channel-partner license drafted |
+| **E1** | PCI-DSS scope analysis | Compliance-architecture lead | PCI scope position documented; auditor-readable |
+| **E2** | ISO 27001 readiness assessment | Compliance-architecture lead | Gap inventory complete; critical-mass 15 sequenced |
+| **D2** | Firearms-vertical beachhead plan + first-pilot customer | Founder | Beachhead plan complete; first-pilot customer identified |
 
-**Office: King Harbor / Redondo Beach / pier.** Gold's Gym private
-membership; nodes wherever a trusted contributor is; remote-friendly;
-in-person when it makes sense. The architecture is distributed; the culture
-is in-person-when-possible.
+## Day-100 review — Phase B capitalization gate
 
----
+If the day-100 state looks like the table above, the venture is *demonstrably positioned*: entity formed, principals aligned, substrate live, first customers in pipeline, compliance baseline clean. That's the gate to capitalize Phase B (months 4-12).
 
-## Slide 9 — What this protects
+If it doesn't, we've learned something honestly. The eljeffe wallet contribution stays on chain; nobody's runway has been burned; the architecture and the corpus persist for whatever comes next.
 
-Three protections, by construction.
+## Open decisions still pending founder calibration
 
-**CUSTOMER.** Their data is theirs. The substrate doesn't hold it; doesn't
-see it; doesn't broker it. Cross-customer use requires their explicit,
-on-chain ratification. Withdrawal works cleanly.
-
-**CONTRIBUTOR.** Their work earns continuously and permanently. No vesting
-cliff. No clawback. No off-chain reputation score that can be re-keyed by
-a sponsor. What they earned is what they hold.
-
-**OPERATOR.** Their stake at genesis cannot be diluted by issuing new
-tokens. Their authority sunsets gracefully when the substrate matures, but
-their position in the chain is permanent. They cannot be culled.
-
-*Tell me where I'm wrong. Let's align.*
-
----
-
-## Slide 10 — Appendix A: Throwaway-key / agent-mediated interaction
-
-Forward optionality. Not part of the 100-day ask.
-
-*A name is permanent. A pen is borrowed for an afternoon.*
-
-**Satoshi-as-key.** The satoshi an operator holds is their identity in the
-namespace, permanently. Lineage on chain. History stamped into the ordinal
-— every vote cast, every proposal submitted, every transfer signed.
-Reading the ordinal tells you who its holder is and what they have done.
-Reputation is the substrate, not a separate score.
-
-**Serialization-as-throwaway.** A specific interaction (a single payment, a
-single attestation, a single document signature) uses a leased key that
-exists only for that interaction. DHCP-style: bounded, scoped, expires when
-the work is done. The persistent identity authorizes the lease; the lease
-does the work; the lease cannot reach beyond its scope.
-
-Architectural answer to: "How does a person prove they are who they say
-they are without handing over a copy of their driver's license at every
-step?" The ordinal proves the person. The lease does the transaction. The
-two are connected and the connection is inspectable, but the lease doesn't
-carry the driver's license.
-
----
-
-## Slide 11 — Appendix B: Lightning operator forward path
-
-Three-phase progression. Same arc the Wyoming mining-mini-op partnership
-gives us for chain writes.
-
-**Phase 0 — Consume (now → Phase A).** Lightning rails for L402
-micropayments. Someone else operates the nodes; we are a customer. LND or
-Voltage as the rails. Sufficient channel capacity for 100-day Phase A
-traffic.
-
-**Phase 1 — Internal (month 12+).** Stand up our own nodes for internal
-traffic. Contributor-cohort-only. Our sat-flow stays on our infrastructure.
-Begin running routes for the namespace's own L402 payments.
-
-**Phase 2 — External (month 24+).** Serve external customers as a Lightning
-operator at scale. Routing fee revenue. Substrate sovereignty across the
-routing layer. US state money-transmission licensing per the regulatory
-analysis.
+The 8 items from the company-formation epic Part 5, plus the 4 from the addendum. Tim's calibration on items 1, 5, 8 (third principal, Heal's role, founder compensation) is the priority for the first conversation. Items 9-12 (lease vs subdivision, Council Port liability, bridged-officer precedence, Audit Port admission) wait for the formation-documents skill.
 """
 
 INLINE_TIM_PREP = """
-# B1 — Tim conversation prep package
+# Tim conversation prep
 
-**Status:** Ready for the Tim conversation. This single-site HTML *is* the
-collation. Tim opens this URL (or the file), reads top-to-bottom or jumps
-via the navigation, and arrives at the conversation with the same context
-the founder has.
-
-**Format note:** Per the deliverable directive, the package is the
-single-site HTML wrapping every relevant artifact rather than a separate
-collation document. The four sections that matter for the Tim conversation
-specifically are linked below; the rest of the HTML is supporting context.
-
----
+This single-site HTML *is* the collation. Tim opens it, reads top-to-bottom or jumps via the navigation, arrives at the conversation with the context the founder has.
 
 ## What Tim should read before the conversation
 
-In order of priority (skip-allowed if Tim is short on time):
+In priority order (skip-allowed if Tim is short on time):
 
-1. **The memo (D5a)** — `#memo` — the full proposed approach and ask.
-   This is the document the conversation is about.
-2. **The position paper (A5)** — `#position` — the protocol the venture
-   operationalizes, as it would publish at eljeffe.io/position.
-3. **The deck content (D5b)** — `#deck` — same content as the memo in slide
-   form; the .pptx version at
-   `outputs/Brain/decks/shore-club-retail-vertical/shore-club-retail-vertical-deck.pptx`
-   is for the in-person walk-through.
-4. **The investor brief (F1-F2)** — `#investor` — for the capital-allocator
-   conversation that follows the principal alignment.
-5. **The compliance-architecture role scope (B4)** — `#compliance-role` —
-   the role Tim's read on shapes the third-principal candidate decision.
-6. **The Wyoming counsel scope (A1)** — `#wyoming` — the engagement Tim
-   approves at conversation close, if alignment is reached.
+1. **Executive proposal package** (`#executive`) — the four answers in one page. Read this first.
+2. **Memo to principals** (`#memo`) — the full proposed approach and ask. This is the document the conversation is about.
+3. **Deal economics** (`#deal-economics`) — what the deal costs and what it's worth.
+4. **Position paper** (`#position`) — the protocol the venture operationalizes.
+5. **Compliance-architecture role** (`#compliance-role`) — Tim's read on this shapes the third-principal candidate decision.
+6. **Wyoming counsel scope** (`#wyoming`) — the engagement Tim approves at conversation close, if alignment is reached.
 
-The bylaws skill (`#bylaws-skill`), the DNS scope (`#dns`), and the UW
-engagement (`#uw`) are reference; Tim doesn't need to read these for the
-conversation but can refer to them later.
-
----
+The 100-day plan (`#hundred-day`) is the execution map; reference during the conversation.
 
 ## Conversation agenda (90 minutes recommended)
 
-**0-10 min — context.** Founder briefly: where the thinking has landed since
-the last conversation. The session-summary epic
-(`outputs/session-summary-and-company-formation-epic.md`) is the underlying
-work product if Tim wants to see the dispatch list.
-
-**10-30 min — the structure.** Walk through the proposed structure
-(parent / GrowDirect / RapidPOS / Substrate); the three-pillar genesis;
-Tim's role as Governance principal; the dual-role founder-CTO commitment;
-the eljeffe wallet contribution as the founder's principal-stake; the
-100-day intensive frame.
-
-**30-50 min — the open decisions.** Eight items below. Tim's calibration
-on each shapes downstream dispatches.
-
-**50-70 min — Tim's questions.** Open the floor for what Tim wants
-to push back on, deepen, redirect, or veto.
-
-**70-85 min — alignment check.** Where are we — proceed to formalization,
-iterate, or pause? If proceed: which dispatches kick off this week, who
-owns each, what's the next checkpoint.
-
-**85-90 min — wrap.** Confirm next conversation date; confirm any specific
-artifacts Tim wants in his hands before B3 (Bart partnership update) or B2
-(third principal outreach); confirm Tim's communication preference for
-between-checkpoint updates.
-
----
+- **0-10 min — context.** Founder briefly: where the thinking has landed since the last conversation
+- **10-30 min — the structure.** Walk through the proposed structure, three-pillar genesis, dual-role founder commitment, eljeffe wallet contribution, 100-day intensive frame
+- **30-50 min — the open decisions.** Eight items below. Tim's calibration on each shapes downstream dispatches
+- **50-70 min — Tim's questions.** Open the floor for what Tim wants to push back on, deepen, redirect, or veto
+- **70-85 min — alignment check.** Where are we — proceed to formalization, iterate, or pause?
+- **85-90 min — wrap.** Confirm next checkpoint date; confirm any specific artifacts Tim wants in his hands before B3 or B2
 
 ## Open decisions for Tim's calibration
 
-These are the eight items from the company-formation epic Part 5. Each
-needs Tim's read; none should block the 100-day sequence by themselves but
-all need answers as the relevant dispatches reach execution.
-
-1. **Third principal identity.** Tim's existing partner, a separately-
-   recruited cloud-architecture lead, or the compliance-architecture lead
-   elevated? Tim's preference shapes the cap-table mechanics and
-   the B2 outreach.
-2. **Per-pillar mint authority vs. multi-sig joint mints during Phase 1.**
-   Can each principal mint within their pillar independently, or do all
-   mints require multi-sig from genesis-tier? Affects the smart contract
-   design (A3) and bylaws (C1).
-3. **`jefe.io` vs. `eljeffe.io` as primary canonical namespace identifier.**
-   Domain portfolio shows both. Affects the position paper publication
-   (A4) and the DNS configuration.
-4. **Open-source vs. proprietary line.** What is open-sourced (the protocol)?
-   What stays proprietary (the implementation)? Affects the eljeffe Hash and
-   Seal Protocol formal specification (C2) and the IP contribution agreement.
-5. **Heal's role and audience inclusion.** Is Heal a principal-tier
-   participant, partner, advisor, or audience for the deck? Shapes B5
-   (Heal conversation + King Harbor mailing-address registration).
-6. **Lightning operator commitment timing.** Phase 1 internal-only at
-   month 12+, or earlier? Affects C5 (Lightning consume setup) and the
-   partner-evaluation strategy.
-7. **DriftPOS naming evolution.** Bart's call. Does the surfer-drift
-   tension resolve through Bart's preference, a rebrand, or stays as-is?
-   We don't push.
-8. **Founder compensation specifics.** RapidPOS-CTO salary range,
-   GrowDirect-equity vesting terms, ops-cash-out per the founder-benefits
-   taxonomy. Resolved in D4 (RapidPOS engagement plan).
-
----
-
-## Counterparty questions — what we need from Tim to unblock the next wave
-
-Specific items Tim's response unblocks:
-
-- **B2 third principal outreach** — Tim's preference shape (his existing
-  partner first, separate recruit, compliance-architecture lead elevated)
-  determines the outreach plan
-- **B3 Bart partnership update** — Tim's alignment shapes what Bart hears;
-  if Tim wants Bart looped in earlier (Phase A weeks 6-8), the B3 dispatch
-  accelerates
-- **A1 Wyoming counsel selection** — Tim's existing Wyoming-counsel
-  relationships (if any) shorten the counsel-selection cycle
-- **F1 investor target identification** — Tim's network may include
-  Tier-1 (Bitcoin-native) or Tier-2 (values-aligned independent operators)
-  candidates; founder + Tim cross-reference target lists
-
----
+| # | Decision | Affects |
+| --- | --- | --- |
+| 1 | Third principal identity — Tim's existing partner / separate cloud-architecture recruit / compliance-architecture lead elevated? | Cap-table mechanics; B2 outreach |
+| 2 | Per-pillar mint authority vs. multi-sig joint mints during Phase 1 | Smart contract design (A3); bylaws (C1) |
+| 3 | `jefe.io` vs. `eljeffe.io` as primary canonical namespace identifier | Position paper publication (A4); DNS configuration |
+| 4 | Open-source vs. proprietary line | Protocol formal specification (C2); IP contribution agreement |
+| 5 | Heal's role and audience inclusion | B5 (Heal conversation + King Harbor mailing-address registration) |
+| 6 | Lightning operator commitment timing — Phase 1 internal-only at month 12+, or earlier? | C5; partner-evaluation strategy |
+| 7 | DriftPOS naming evolution — Bart's call | B3 |
+| 8 | Founder compensation specifics — RapidPOS-CTO salary range, GrowDirect-equity vesting terms | D4 (RapidPOS engagement plan) |
 
 ## What success looks like at conversation close
 
-- Tim has read the memo, position paper, and (at minimum) skimmed the deck
-- Tim's stated alignment / pushback / counter-proposals on the structure
-  are captured in writing
-- Open decisions 1, 5, 8 have at least preliminary answers (the others can
-  be deferred to follow-up conversations)
+- Tim has read the executive package, memo, position paper, and deal economics
+- Tim's stated alignment / pushback / counter-proposals are captured in writing
+- Open decisions 1, 5, 8 have at least preliminary answers
 - A specific next-checkpoint date is set
-- A specific list of which Phase A dispatches kick off this week is agreed,
-  with named owner per dispatch
-- If the answer is "proceed": Tim approves engaging Wyoming counsel (A1)
-  and Tim approves the founder beginning the third-principal outreach (B2)
+- Tim approves engaging Wyoming counsel (A1) and the third-principal outreach (B2)
 
-If alignment is reached at conversation close, the wave moves from staging
-into execution within 48 hours.
+If alignment is reached, the wave moves from staging into execution within 48 hours.
+"""
 
----
+INLINE_DECK_CONTENT = """
+# Deck content — proposal in slides
 
-## Appendix — what's in this single-site HTML
+The .pptx version is at `outputs/Brain/decks/shore-club-retail-vertical/shore-club-retail-vertical-deck.pptx` for the in-person walk-through. Content rendered below; deck and HTML serve different read postures.
 
-| Section | What it is | Read for the Tim conversation? |
-| --- | --- | --- |
-| Foundation synthesis | What the wave loaded; corpus inventory | Optional — for context |
-| A5 — Position paper | The public-facing protocol document | YES |
-| F1-F2 — Investor brief | Capital-allocator extension | YES — for follow-on conversation |
-| D5a — Memo to principals | The proposal | YES — primary |
-| D5b — Shore Club deck | Slide-form proposal | YES — alternate format |
-| **B1 — This page** | Conversation prep collation | — |
-| C1 — Bylaws skill | The substrate's governance mechanics | Reference; not required for first conversation |
-| B4 — Compliance-architecture role | Role definition | YES |
-| A1 — Wyoming counsel scope | Counsel engagement | YES — for the proceed/iterate decision |
-| A4 — DNS / publication scope | Phase A publication mechanics | Reference |
-| G1 — UW engagement scope | Academic credibility track | Reference |
-| Session close | Artifacts produced; reconciliation list | Reference |
+## Slide 1 — Cover
+**Retail vertical.** Proposed approach, structure, and 100-day plan. eljeffe Hash and Seal Protocol — Wyoming-anchored. BTC-native. Anti-extraction by construction. *Tell me where I'm wrong.*
 
----
+## Slide 2 — The moment
+A once-in-a-decade inflection. Square pushes BTC. Counterpoint VARs aging out. Compliance fragmenting. Operators want sovereignty.
 
-*King Harbor — Redondo Beach — pier.*
+## Slide 3 — What the substrate does
+Hash → Batch → Inscribe → Verify. The proof is the proof.
+
+## Slide 4 — The structure
+Parent → GrowDirect → IP → RapidPOS license. Substrate underneath.
+
+## Slide 5 — Three-pillar genesis
+Domain principal (founder). Governance principal (Tim). Ops/Cloud principal (TBD).
+
+## Slide 6 — Economics
+Y1 ~breakeven on $1-2M. Y2 $1-4M positive on $5-10M. Y3 $7-22M positive on $15-40M.
+
+## Slide 7 — Compliance-by-architecture
+The substrate produces audit-defensible evidence by construction. NICS attestation as concrete instantiation.
+
+## Slide 8 — How we recruit and operate
+No HR. Trusted-network model. Two contributor segments. King Harbor / Redondo Beach.
+
+## Slide 9 — What this protects
+Customer (data sovereignty). Contributor (permanent token-earn). Operator (un-cullable genesis stake).
+
+## Slide 10 — Appendix A: Throwaway-key / agent-mediated interaction
+Persistent identity at the ordinal; ephemeral capability via leased keys.
+
+## Slide 11 — Appendix B: Lightning operator forward path
+Phase 0 consume → Phase 1 internal → Phase 2 external service.
+"""
+
+INLINE_BYLAWS_INDEX = """
+# Bylaws skill — namespace governance
+
+The complete skill at `outputs/crb-skills/namespace-bylaws/`:
+
+- **`SKILL.md`** — entry point; trigger phrases; voice rules; reference contents map
+- **`reference/01-shore-club-lineage.md`** — Article-by-Article modernization (canonical from prior session)
+- **`reference/02-genesis-ordinal-mechanics.md`** — substrate primitives; DAO-action stamping; founder-mint authority
+- **`reference/03-dao-treasury-patterns.md`** — categorized cash-out; thresholds; multi-sig
+- **`reference/04-lineage-weighted-voting.md`** — formula `w(d) = 1 / (1 + α·d)`; quorum mechanics
+- **`reference/05-phase-transitions.md`** — four-phase progression
+- **`reference/06-cultural-technical-mapping.md`** — two-layer mapping
+- **`reference/07-alignment-checks.md`** — 23 checks across 7 categories
+- **`reference/08-iteration-loop.md`** — comment-and-revision loop; Cove as reference engine
+- **`reference/09-anti-patterns.md`** — *NEW.* Ten failure modes (HR-as-PE-culling, vesting-cliff dilution, etc.)
+- **`templates/bylaws-document.md`** — Articles I-XIV in two-layer form
+- **`templates/namespace-genesis-record.md`** — birth-event record
+- **`templates/amendment-proposal.md`** — clause delta with alignment-check table
+- **`templates/alignment-review.md`** — periodic review (all 23 checks)
+- **`templates/comment-ledger.md`** — comment tracking with five shapes
+
+The skill is complete (9/9 reference docs + 5 templates). Forward design for Articles XV/XVI/revised V/VIII/XI/XIV-or-XVII lives in the addendum (`#addendum`).
 """
 
 INLINE_ADDENDUM = """
-# Addendum — what the substrate adds next
+# Forward architecture — what the substrate adds next
 
-Forward design for the formation-documents skill. The bylaws skill (`#bylaws-skill`) ships now with what's already operationally needed for Phase A. The addendum specifies the architectural extensions — three new or revised articles, three drafting-discipline additions, four open questions — that the formation-documents skill operationalizes in the next wave.
-
-The full design notes (with structural rationale per decision) live at `outputs/addendum-substrate-port-and-officer-architecture.md` and are the input to the formation-documents skill in a separate Cowork session. What follows is the structural summary — what changes, why, and which open questions Tim's calibration eventually resolves.
+Forward design for the formation-documents skill. Bylaws skill ships now with what's needed for Phase A; the addendum specifies the architectural extensions for the next wave. Full design notes at `outputs/addendum-substrate-port-and-officer-architecture.md`.
 
 ## Architectural decisions (10)
 
-### 1. Three port classes — Member, Council, Audit
+**1. Three port classes — Member, Council, Audit.** Same physical mechanism (an MCP service plugged into a port) routes to three different financial and constitutional rails. Member ports L402-gated, packets-served compensation. Council ports treasury-paid (oversight is not metered). Audit ports for external compliance entities (regulators, security firms) holding no ordinal but with defined inspection rights.
 
-Every service plugging into the substrate declares a port class. Same physical mechanism (an MCP service plugged into a port) routes to three different financial and constitutional rails:
+**2. Introduction-accountability-revocation contract.** Every entity plugging into a port emits a port declaration with identity / provenance commitment / intent stream / revocation conformance. Three revocation tiers: Pause / Revoke / Quarantine.
 
-- **Member Ports** — services published by ordinal-holders. L402-gated. Compensation flows per packets-served to the contributor's wallet. Constitutional basis: existing Article XI.
-- **Council Ports** — formally seated advisors that participate in governance or operational flow. Output recorded on chain. Treasury-paid per Article VII (operations category) — oversight is not a metered service. Constitutional basis: new Article XV.
-- **Audit Ports** — external compliance entities holding no ordinal, no equity, with limited and defined inspection rights. Government regulators, contracted security firms, external attestation entities. Constitutional basis: new Article XV.
+**3. Packets-served equity model — formalized via Article XI.** Three principles: acceptance signal, packet-type definitions (platform-wide), retroactive unwinding.
 
-### 2. Introduction-accountability-revocation contract
+**4. Annexation Article (XVI) — substrate-namespace relationship.** Two valid models, namespace electing at constitution: lease (operationally independent) or subdivision-with-root-operating-company (substrate retains active operational presence).
 
-Every entity plugging into a port emits a port declaration at registration block height with four fields: identity, provenance commitment, intent stream (required for Audit; optional-recommended for Council; not required for Member because L402 payment flow already serves), revocation conformance.
+**5. Officer Ordinal class — held by namespace contract address.** New ordinal class held by the namespace's smart contract address rather than by individuals. Solves agentic-officer constitutional standing cleanly.
 
-Three revocation tiers: **Pause** (stop new work, finish in-flight, report done), **Revoke** (stop immediately, drop in-flight, report what dropped), **Quarantine** (stop, all prior outputs flagged in findings store as from a revoked source, downstream consumers notified).
+**6. Bridged-accountability — officers serving substrate-and-namespace simultaneously.** Officer operates two officer ordinals. Accountable to namespace board for operational performance, to substrate bylaws for structural conformance. Structural safeguard against rogue subDAOs.
 
-### 3. Packets-served equity model — formalized via Article XI
+**7. Agentic Secretary — canonical bridged-officer instance.** Secretary role implemented agentically: continuous on-chain ledger maintenance, conclusive-evidence certificates, delinquency notices, periodic disclosures.
 
-L402 micropayments wrap every Member Port. Three principles must hold for the model to function as equity rather than mere payment: **acceptance signal** (packets served *and accepted as useful* constitute the equity ledger entry), **packet-type definitions** (defined platform-wide so equity comparisons across members are not apples-to-oranges), **retroactive unwinding** (quarantine revokes accepted status of packets served; equity accrued from those packets unwinds).
+**8. Reversion-on-material-breach — added to Article VIII.** Strongest enforcement mechanism. Defined material breach categories, adjudication procedure, high invocation threshold.
 
-### 4. Annexation Article (XVI) — substrate-namespace relationship
+**9. Voided-but-preserved documentary discipline.** Preserve verbatim; mark visibly void; inscribe override rationale; cite override authority; do not erase. Amendment never overwrites.
 
-Two valid models, with the namespace electing at constitution:
-
-- **Lease model.** Namespace occupies the substrate's governance framework under defined terms, defined initial period with auto-renewal, substrate retains reversion rights on material breach, modifications inside the lease require lessor consent at defined thresholds. Suitable when the namespace is operationally independent.
-- **Subdivision-with-root-operating-company model.** Substrate persists as the root operating company with reserved rights inside every namespace. Suitable when the substrate retains active operational presence.
-
-Article enumerates: must-inherit articles (constitutional surface every namespace must carry in structurally equivalent form), permitted variation surface (cultural-layer prose, treasury thresholds, lineage-decay coefficient, committee composition), term and renewal mechanics, reversion conditions, modification thresholds. Election is recorded on chain at constitution.
-
-### 5. Officer Ordinal class — held by namespace contract address
-
-A new ordinal class held by the namespace's smart contract address rather than by individuals. Operated by named delegates (human, agentic, or hybrid). Membership is coextensive with the role. Ending the role returns the ordinal to the namespace, available for re-issuance.
-
-This solves the agentic-officer constitutional standing problem cleanly: the role is the constitutional unit, not the individual. Wyoming DAO LLC entity bears responsibility for the agent's acts; the agent operates the ordinal during its tenure; revocation is a clean substitution rather than a forfeiture of personal property.
-
-### 6. Bridged-accountability — officers serving substrate-and-namespace simultaneously
-
-When the same officer serves at both substrate and namespace levels, it operates two officer ordinals — one held by the substrate's contract address, one held by the namespace's contract address. The officer is accountable to the namespace's board for operational performance, accountable to the substrate's bylaws for structural conformance, and has standing in both layers to escalate breach.
-
-This is the structural safeguard against rogue subDAOs: drift from substrate principles surfaces from inside the namespace through the officer's substrate accountability, not requiring substrate-level monitoring of namespace behavior.
-
-### 7. Agentic Secretary — canonical bridged-officer instance
-
-The Secretary role — defined functionally as the officer who maintains records, signs delinquency notices, and issues conclusive-evidence certificates relied upon by external parties — is the canonical first instance of the bridged-officer pattern.
-
-Implemented agentically, the Secretary maintains the on-chain ledger continuously (rather than periodically), issues conclusive-evidence certificates downstream consumers can rely on, handles delinquency notices and lien recording, generates periodic disclosures at the cadence specified in the bylaws, operates continuously rather than only when called.
-
-The cleanest first instance because the function is essentially attestation — bounded, well-defined, maps cleanly to deterministic agentic operation. More complex officer roles (Treasurer, President) involve discretionary judgment less suited to early agentic deployment.
-
-### 8. Reversion-on-material-breach — added to Article VIII
-
-Strongest enforcement mechanism available against a member whose acts constitute material breach.
-
-The clause defines material breach (treasury raid attempt, alignment-check sabotage, identity fraud at registration, knowing publication of a malicious port, willful violation of substrate-level constraints), establishes adjudication procedure (Council Port-class review independent of the alleged breaching member, recommendation to Board, Board vote at structural-amendment threshold, founder consent during Phase 1 / lineage-weighted ratification during Phase 2), sets invocation threshold high so the clause is a backstop not an everyday mechanism, inscribes the breach finding and reversion event on chain per Article IX.
-
-### 9. Voided-but-preserved documentary discipline
-
-When a clause becomes unenforceable due to subsequent law or substrate change, or when an alignment check fails and is overridden: preserve the prior text verbatim in the historical record, mark it visibly void through formatting, inscribe the override rationale, cite the override authority, do not erase. Amendment never overwrites; it inscribes the prior state and the override rationale on chain.
-
-This is the explicit drafting standard that prevents drift toward retroactive editing of the bylaws record over decades of amendment cycles.
-
-### 10. External-validation council loop — active operational pattern
-
-External review is not a one-time pre-ratification check but a continuous operational pattern executed via Audit Ports. Findings from external reviewers route through a defined acceptance process: triage by operator-of-record (classify as external-validation language to bank, real finding to action, or context-blind suggestion to discount), inscribe on chain per Article IX (both finding and triage decision), multi-reviewer reconciliation (port-declaration schema enables structured deduplication and conflict surfacing; findings flagged by multiple reviewers acquire higher confidence; disagreements surfaced as design tensions rather than collapsed to consensus), acceptance loop (operator triage decisions are themselves auditable; the substrate can ask "did the reviewer we discounted turn out to be right" by querying inscribed acts against subsequent outcomes).
+**10. External-validation council loop — active operational pattern.** External review continuous via Audit Ports. Findings route through triage by operator-of-record, inscription, multi-reviewer reconciliation, acceptance loop.
 
 ## Drafting order recommended
 
-1. **XVI** first (load-bearing for everything else; the lease-vs-subdivision election determines structural posture)
-2. **V** (Officers, including officer-ordinal class and bridged-accountability)
-3. **XV** (Service Ports, building on the officer infrastructure from V)
-4. **VIII** (reversion clause)
-5. **XI** extension (packets-served equity formalization)
-6. **XIV** extension or new **XVII** (voided-but-preserved drafting discipline)
+XVI → V → XV → VIII → XI extension → XIV extension or new XVII.
 
-Each article in the substrate's two-layer style (cultural clause + technical clause + cross-references). Each passes through the alignment checks per Article XIV before ratification with the alignment-check report appended per the existing Appendix A pattern.
-
-## Open questions for resolution
+## Open questions (4)
 
 | # | Question | Default lean |
 | --- | --- | --- |
 | Q1 | Lease vs subdivision — substrate-default or namespace-choice? | Mandatory election at constitution |
-| Q2 | Operator-of-record liability for Council Ports — namespace indemnifies from treasury, or operators bear individual risk? | Open |
-| Q3 | Bridged-officer revocation when substrate and namespace disagree — which authority prevails? | Substrate (with explicit precedence rules per officer role) |
-| Q4 | Audit Port admission threshold — voluntary path (founder/DAO ratified) and required path (regulatory necessity) likely both need specification | Both paths specified |
+| Q2 | Operator-of-record liability for Council Ports | Open |
+| Q3 | Bridged-officer revocation when substrate and namespace disagree | Substrate (with explicit precedence per role) |
+| Q4 | Audit Port admission — voluntary and required paths | Both paths specified |
 
 ## Why this matters for the wave
 
-Three of the wave's open decisions are materially affected by the addendum:
-
-- **Open decision #1 (third principal identity).** If the third principal is a candidate for the bridged-officer role, the role definition changes shape — they hold both a personal genesis-tier ordinal AND operate (during their role tenure) a substrate-level officer ordinal. Tim's calibration on the third principal candidate should be informed by which model the candidate fits.
-- **Open decision #4 (open-source vs proprietary line).** The Service Ports article's port declaration schema is a candidate for open-source publication (the protocol); the specific Audit Port admission criteria for regulated markets stay proprietary (the implementation).
-- **Open decision #5 (Heal's role).** If Heal is principal-tier, they get a genesis ordinal. If Heal is in a Council Port advisory role, they enter via the Council Port mechanism — different constitutional standing, different compensation rail.
-
-These addendum-driven implications surface as Tim's calibration on the original 8 open decisions, not as new asks.
-
-## Cross-references
-
-- Full design notes: `outputs/addendum-substrate-port-and-officer-architecture.md`
-- Bylaws skill (current state): `outputs/crb-skills/namespace-bylaws/`
-- Formation-documents skill: separate Cowork session; this addendum is its primary input
-"""
-
-INLINE_BYLAWS_INDEX = """
-# C1 — namespace-bylaws skill
-
-The bylaws skill is a multi-file artifact. The complete skill lives at
-`outputs/crb-skills/namespace-bylaws/` with the following structure:
-
-- **`SKILL.md`** — the skill entry point; trigger phrases; voice and posture
-  rules; reference contents map; quality bar (the second-namespace test).
-- **`reference/01-shore-club-lineage.md`** — Article-by-Article 1963 Shore
-  Club bylaws with modern equivalents (canonical from prior session).
-- **`reference/02-genesis-ordinal-mechanics.md`** — substrate primitives;
-  DAO-action stamping; founder-mint authority; transfer rules
-  (canonical from prior session).
-- **`reference/03-dao-treasury-patterns.md`** — categorized cash-out;
-  approval thresholds; multi-sig; transparency-by-default
-  (canonical from prior session).
-- **`reference/04-lineage-weighted-voting.md`** — formula `w(d) = 1 / (1 + α·d)`;
-  quorum mechanics; vote types (canonical from prior session).
-- **`reference/05-phase-transitions.md`** — four-phase progression
-  (canonical from prior session).
-- **`reference/06-cultural-technical-mapping.md`** — two-layer mapping table;
-  layer divergence handling (canonical from prior session).
-- **`reference/07-alignment-checks.md`** — 23 self-questioning prompts across
-  7 categories (canonical from prior session).
-- **`reference/08-iteration-loop.md`** — comment-and-revision loop; Cove as
-  reference proposal engine (canonical from prior session).
-- **`reference/09-anti-patterns.md`** — *NEW this wave.* Ten failure modes
-  (HR-as-PE-culling, vesting-cliff dilution, retainer-legal extraction,
-  shared-services-as-extraction, founder-displacement-by-board-engineering,
-  whale-capture-via-token-accumulation, governance-by-quorum-manipulation,
-  customer-data harvesting under TOS cover, vest-then-strip on transition,
-  anti-trust-as-pretext-for-extraction) with structural corrections
-  cross-referenced.
-- **`templates/bylaws-document.md`** — *NEW this wave.* Articles I-XIV in
-  two-layer form, namespace-specific fields fillable.
-- **`templates/namespace-genesis-record.md`** — *NEW this wave.* The
-  birth-event record for a namespace (block height, founding ordinals,
-  bylaws v1 hash, founding-cohort roster).
-- **`templates/amendment-proposal.md`** — *NEW this wave.* The
-  amendment-proposal artifact with full alignment-check table.
-- **`templates/alignment-review.md`** — *NEW this wave.* The periodic
-  alignment-review artifact (all 23 checks against current state).
-- **`templates/comment-ledger.md`** — *NEW this wave.* The comment-tracking
-  artifact with five comment shapes and resolution status.
-
-The skill is complete (9/9 reference docs + 5 templates). Run against a
-synthetic second namespace to validate the reusability bar before declaring
-production-ready.
-
-For the in-line text of any specific reference doc or template, open the
-file directly. The HTML deliverable references rather than embeds the skill
-because (a) the skill is operational tooling, not a deliverable for the Tim
-conversation, and (b) embedding ~3000 lines of substrate-specification
-content would dominate the navigable surface beyond proportion.
+Three of the wave's open decisions are materially affected: third principal identity (open #1 — bridged-officer model changes role definition), open-source vs proprietary line (open #4 — Service Ports schema candidate for open-source), Heal's role (open #5 — principal-tier vs Council Port advisory).
 """
 
 INLINE_SESSION_CLOSE = """
-# Session close
+# Session close — artifacts, decisions, next
 
 ## Artifacts produced this wave
 
-| # | Artifact | Path | Status |
-| --- | --- | --- | --- |
-| 1 | Foundation synthesis | `outputs/_session/foundation-synthesis.md` | Shipped |
-| 2 | A5 — Position paper | `outputs/position-paper-eljeffe-io.md` | Shipped |
-| 3 | D5a — Memo to principals | `outputs/memo-to-principals-retail-vertical.md` | Shipped (refinement of v1) |
-| 4 | D5b — Shore Club deck | `outputs/Brain/decks/shore-club-retail-vertical/shore-club-retail-vertical-deck.pptx` | Shipped (first-draft; flagged for v1 reconciliation) |
-| 5 | C1 — Bylaws skill (SKILL + ref/09 + 5 templates) | `outputs/crb-skills/namespace-bylaws/` | Shipped (8/9 → 9/9 + 5 templates) |
-| 6 | B4 — Compliance-architecture role | `outputs/dispatches/B4-compliance-architecture-role.md` | Shipped |
-| 7 | F1-F2 — Investor brief | `outputs/investor-brief-eljeffe-io.md` | Shipped |
-| 8 | B1 — Tim conversation prep | (this single-site HTML) | Shipped (collation form) |
-| 9 | A1 — Wyoming counsel scope | `outputs/dispatches/A1-wyoming-counsel-scope.md` | Shipped |
-| 10 | A4 — DNS / publication scope | `outputs/dispatches/A4-dns-publication-scope.md` | Shipped |
-| 11 | G1 — UW engagement scope | `outputs/dispatches/G1-uw-engagement-scope.md` | Shipped |
-| 12 | **Wave deliverable (this HTML)** | `outputs/wave-deliverable.html` | Shipped |
-| 13 | **Claude.ai design-mode prompt** | `outputs/wave-deliverable-claude-design-prompt.md` | Shipped |
-| 14 | **Addendum — Substrate Port and Officer Architecture** | `outputs/addendum-substrate-port-and-officer-architecture.md` | Shipped — forward design input for the formation-documents skill |
+| # | Artifact | Path |
+| --- | --- | --- |
+| 1 | Wave deliverable HTML (this document) | `outputs/wave-deliverable.html` |
+| 2 | Claude.ai design-mode prompt | `outputs/wave-deliverable-claude-design-prompt.md` |
+| 3 | Position paper (A5) | `outputs/position-paper-eljeffe-io.md` |
+| 4 | Memo to principals (D5a — refined) | `outputs/memo-to-principals-retail-vertical.md` |
+| 5 | Investor brief (F1-F2) | `outputs/investor-brief-eljeffe-io.md` |
+| 6 | Shore Club deck (D5b) | `outputs/Brain/decks/shore-club-retail-vertical/shore-club-retail-vertical-deck.pptx` |
+| 7 | Bylaws skill (C1 — 9/9 + 5 templates) | `outputs/crb-skills/namespace-bylaws/` |
+| 8 | RapidPOS diligence run (10 docs from prior session, integrated) | `outputs/diligence/rapidpos/` |
+| 9 | B4 — Compliance-architecture role | `outputs/dispatches/B4-compliance-architecture-role.md` |
+| 10 | A1 — Wyoming counsel scope | `outputs/dispatches/A1-wyoming-counsel-scope.md` |
+| 11 | A4 — DNS / publication scope | `outputs/dispatches/A4-dns-publication-scope.md` |
+| 12 | G1 — UW engagement scope | `outputs/dispatches/G1-uw-engagement-scope.md` |
+| 13 | Substrate-port-and-officer architecture addendum | `outputs/addendum-substrate-port-and-officer-architecture.md` |
+| 14 | Foundation synthesis | `outputs/_session/foundation-synthesis.md` |
+
+## What's still missing
+
+- **Cost-model `.xlsx` with 230 formulas.** Referenced in the prior session epic; not on disk. Would let the founder flex assumptions live (revenue, EBITDA, cohort split, GCP scale tier, ISO remediation pace) and watch deal price + program cost re-cross-foot. Discrete next-wave deliverable — requires the cost-model skill on disk first.
+- **Diligence run reframed for v2 venture-instance.** Current diligence docs were produced under the v1 acquisition framing. Substantive content survives the channel-partnership reframe; structural framing needs adjustment. Worth a delta-pass when bandwidth allows.
+- **Formation-documents skill.** Operationalizes the addendum's 10 architectural decisions into bylaws Articles XV/XVI/revised V/VIII/XI/XIV-or-XVII. Separate Cowork session per the addendum's own handoff note.
 
 ## Reconciliation list — when prior-session outputs surface
 
-Three artifacts in this wave are first-draft builds that should be reconciled
-against the prior session's v1 if/when the v1 surfaces:
+- D5b Shore Club deck v1
+- B1 Tim conversation prep v1 (collated as HTML this wave)
+- C1 SKILL.md and 5 templates v1 (built this wave)
+- D5a memo v1 reconciled (the v1 surfaced; this wave's version is a refinement)
+- Diligence run reconciled (the prior session's 10 docs surfaced and are integrated)
+- Bylaws skill 8 reference docs reconciled (canonical from prior session; not modified)
 
-- **D5b Shore Club deck** — built from scratch from the launch-prompt
-  required structure. The prior session's v1 deck content was not surfaced
-  in the corpus uploads. Reconcile structure and visual treatment when v1
-  appears.
-- **B1 Tim conversation prep** — collated as the single-site HTML rather
-  than as a standalone document. The prior session's v1 (if any existed)
-  may have a different collation shape; reconcile if surfaced.
-- **C1 SKILL.md and the 5 templates** — written this wave to complete the
-  bylaws skill. The prior session's `outputs/crb-skills/namespace-bylaws/`
-  contained 8/9 reference docs (which surfaced and were absorbed); the
-  SKILL.md and templates were not surfaced. Reconcile the SKILL.md voice
-  and any pre-existing template structure if surfaced.
+## Open decisions
 
-**Addendum-driven amendments to C1.** The substrate port and officer
-architecture addendum (`#addendum`) specifies new and revised articles
-the bylaws skill must incorporate: new Article XV (Service Ports and
-Pluggable Council), new Article XVI (Annexation / Namespace Spawn),
-revisions to Article V (Officers — officer-ordinal class + bridged-officer
-pattern + agentic Secretary), revisions to Article VIII (Membership Tokens
-— reversion-on-material-breach), an extension to Article XI (Dues / Earnings
-— packets-served equity formalization), and either a new Article XVII or
-an extension to Article XIV (Documentary Discipline — voided-but-preserved
-standard). These amendments are specified as input to the
-formation-documents skill in a separate Cowork session; they are NOT yet
-incorporated into the C1 deliverable. When the formation-documents skill
-ships the amended bylaws templates, reconcile against C1.
-
-The 8 reference docs (01-08) absorbed from the prior-session uploads are
-canonical and were not modified.
-
-## Open-decision list updated
-
-No new resolutions reached for the original 8 open decisions; they carry
-forward unchanged into the Tim conversation (see `#tim-prep`).
-
-The addendum surfaces 4 additional open questions that need resolution as
-the formation-documents skill ships:
-
-9.  **Lease vs subdivision election — substrate-default or namespace-choice?**
-    The annexation article allows namespaces to elect lease or
-    subdivision-with-root-operating-company at constitution. Default-with-
-    opt-out is faster; mandatory election forces clarity. Lean: mandatory
-    election. Worth confirming.
-10. **Operator-of-record liability for Council Ports.** Does the namespace
-    indemnify operators of Council seats from treasury, or do operators
-    bear the full risk individually?
-11. **Bridged-officer revocation when substrate and namespace disagree.**
-    When the substrate's bylaws and the namespace's bylaws produce
-    conflicting instructions, which authority prevails? Default lean:
-    substrate. Critical for the agentic Secretary specifically.
-12. **External-member admission threshold for Audit Ports.** Voluntary
-    (founder-or-DAO-ratified) vs. required (regulatory necessity) admission
-    paths likely both need specification.
-
-Tim's calibration on items 1, 5, 8 is still the priority for the first
-conversation; items 9-12 can wait until the formation-documents skill is
-ready to ratify the new articles.
+12 items total — 8 from the company-formation epic, 4 from the addendum. Tim's calibration on items 1, 5, 8 is the priority for the first conversation. See `#tim-prep` for the full list.
 
 ## Next-session priorities
 
-**Month 1 finishing items (Phase A weeks 4-8):**
+**Month 1 finishing items** (Phase A weeks 4-8): Tim conversation; Wyoming counsel selection; DNS configuration + position paper publication; UW outreach; compliance-architecture lead candidate identification.
 
-- B1 Tim conversation execution (this HTML supports it; conversation needs to happen)
-- A1 Wyoming counsel selection and engagement (counsel-selection cycle starts week 1-2 of Phase A)
-- A4 DNS configuration + position paper publication at eljeffe.io/position
-- A5 → A4 inscription event (position paper hash inscribed; block-height anchor recorded; footer updated)
-- G1 UW outreach (founder names specific contact; first conversation Phase A weeks 6-10)
-- B4 compliance-architecture role candidate identification (per Tim's preference from B1)
+**Month 2 setup** (Phase A weeks 9-12): Third principal outreach; Bart partnership update; Genesis block inscription; founder smart contract deployment; eljeffe Hash and Seal Protocol formal specification; first investor outreach.
 
-**Month 2 setup (Phase A weeks 9-12):**
-
-- B2 third principal identification + outreach (per Tim's calibration from B1)
-- B3 Bart partnership update (per Tim's alignment shape from B1)
-- A2 Genesis block inscription (depends on bylaws v1 ratified — C1 + Tim alignment from B1)
-- A3 founder smart contract deployment (depends on A2)
-- C2 eljeffe Hash and Seal Protocol formal specification (parallel through Month 3)
-- F1-F2 → F3 first investor outreach + first close (target Phase A end at month 6)
-- **Formation-documents skill build** (separate Cowork session) — operationalize the addendum's 10 architectural decisions into bylaws Articles XV, XVI, revised V, revised VIII, extended XI, and either new XVII or extended XIV. Pre-cursor to amending C1 with the new articles.
-
-## Founder review pass
-
-The artifacts that warrant founder review before any external use:
-
-- **A5 Position paper** — before publication at eljeffe.io/position
-- **D5a Memo + D5b Deck** — before the Tim conversation
-- **F1-F2 Investor brief** — before any investor outreach
-- **B4 Compliance-architecture role scope** — before naming the role's
-  candidate
-- **A1 Wyoming counsel scope** — before sending to selected counsel
-- **G1 UW engagement scope** — before founder identifies the specific
-  UW contact and sends the outreach email
-
-The substrate-internal artifacts (bylaws skill SKILL.md, 09-anti-patterns,
-the 5 templates, the foundation synthesis) can be reviewed at the founder's
-pace; they don't gate any external action.
-
-## Block-height anchor for this wave session
-
-This single-site HTML deliverable is itself a candidate for inscription
-(content hash → Bitcoin block). The position paper (A5) is the higher-priority
-inscription per the launch prompt's done definition; the wave-deliverable
-HTML can be inscribed alongside or after.
+**Cross-wave priorities:**
+- Build (or surface) the cost-model skill → produce the cost-model `.xlsx`
+- Build the formation-documents skill → operationalize the addendum's architectural decisions
 
 ## Session close
 
-The wave is complete. Fourteen artifacts shipped — eleven content files,
-the consolidated single-site HTML, the Claude.ai design-mode prompt, and
-the substrate-port-and-officer-architecture addendum. Foundation synthesis
-written; A5 + F1-F2 external-facing artifacts ready for review-and-publish;
-D5a memo refined and D5b deck built; C1 bylaws skill completed (with
-amendment plan documented in the addendum for the formation-documents skill
-to operationalize); B4, A1, A4, G1 engagement scopes ready for counterparty
-action; B1 collated as the HTML; reconciliation list flagged for
-prior-session output reconciliation when surfaced; addendum integrated as a
-forward-design first-class section.
-
-The 100-day intensive begins on Tim's go.
+Fourteen artifacts shipped, organized around the four questions: what we're forming, what we're buying, what it's worth, how we go get it. The 100-day intensive begins on Tim's go.
 """
 
 # ---------------------------------------------------------------------------
@@ -834,8 +593,8 @@ def cover_html() -> str:
   <div class="cover-inner">
     <p class="cover-eyebrow">Wave session deliverable · 2026-05-03</p>
     <h1>Retail vertical</h1>
-    <p class="cover-sub">Proposed approach, structure, and 100-day plan.<br/>
-    eljeffe Hash and Seal Protocol · Wyoming-anchored · BTC-native · anti-extraction by construction.</p>
+    <p class="cover-sub">A complete proposal package answering four questions:<br/>
+    <strong>what we&rsquo;re forming · what we&rsquo;re buying · what it&rsquo;s worth · how we go get it.</strong></p>
     <p class="cover-tag"><em>Tell me where I&rsquo;m wrong.</em></p>
     <p class="cover-meta">Anchored to BTC block height: <span class="block-anchor">TBD</span></p>
   </div>
@@ -851,12 +610,11 @@ for sec_id, title, _path, category in SECTIONS:
 
 nav_html = '<nav class="sidebar"><div class="brand"><strong>Wave</strong><br/><span>2026-05-03</span></div>\n<ul class="nav">\n'
 nav_html += '<li class="nav-cat-cover"><a href="#cover">Cover</a></li>\n'
-for cat in ["overview", "external", "proposal", "substrate", "addendum", "engagement", "close"]:
+for cat in ["overview", "forming", "buying", "worth", "execution", "reference"]:
     if cat not in nav_groups:
         continue
     nav_html += f'<li class="nav-cat"><span>{CATEGORY_LABELS[cat]}</span><ul>\n'
     for sec_id, title in nav_groups[cat]:
-        # Trim title for nav
         nav_html += f'    <li><a href="#{sec_id}">{html_lib.escape(title)}</a></li>\n'
     nav_html += '</ul></li>\n'
 nav_html += '</ul></nav>\n'
@@ -869,11 +627,18 @@ for sec_id, title, source, category in SECTIONS:
     if source is not None:
         body = read_section(source)
     else:
-        # Inline content
-        if sec_id == "deck":
-            body = md_to_html(INLINE_DECK_CONTENT)
+        if sec_id == "executive":
+            body = md_to_html(INLINE_EXECUTIVE)
+        elif sec_id == "buying-overview":
+            body = md_to_html(INLINE_BUYING_OVERVIEW)
+        elif sec_id == "deal-economics":
+            body = md_to_html(INLINE_DEAL_ECONOMICS)
+        elif sec_id == "hundred-day":
+            body = md_to_html(INLINE_HUNDRED_DAY)
         elif sec_id == "tim-prep":
             body = md_to_html(INLINE_TIM_PREP)
+        elif sec_id == "deck":
+            body = md_to_html(INLINE_DECK_CONTENT)
         elif sec_id == "bylaws-skill":
             body = md_to_html(INLINE_BYLAWS_INDEX)
         elif sec_id == "addendum":
@@ -926,7 +691,6 @@ a:hover {{ border-bottom-color: var(--deep); }}
   .sidebar {{ position: static !important; height: auto !important; border-right: none !important; border-bottom: 1px solid #e0e0e0; }}
 }}
 
-/* Sidebar */
 .sidebar {{
   position: sticky; top: 0; height: 100vh; overflow-y: auto;
   background: var(--navy); color: var(--cream);
@@ -961,8 +725,8 @@ a:hover {{ border-bottom-color: var(--deep); }}
 }}
 .sidebar a:hover {{ background: rgba(236, 226, 208, 0.1); color: var(--white); }}
 .sidebar .nav-cat-cover a {{ font-family: var(--serif); font-size: 16px; color: var(--white); font-weight: bold; }}
+.sidebar a.active {{ background: var(--cream); color: var(--navy); font-weight: bold; }}
 
-/* Main */
 main {{ padding: 0; }}
 
 section {{
@@ -978,13 +742,11 @@ section:last-child {{ border-bottom: none; }}
   margin-bottom: 8px;
 }}
 
-/* Cover slide */
 .cover {{
   background: var(--navy); color: var(--cream);
   max-width: none; min-height: 80vh; padding: 0;
   display: flex; align-items: center; justify-content: center;
-  border-bottom: none;
-  margin: 0;
+  border-bottom: none; margin: 0;
 }}
 .cover-inner {{ max-width: 720px; padding: 64px 32px; text-align: left; width: 100%; }}
 .cover-eyebrow {{ font-size: 12px; letter-spacing: 0.15em; text-transform: uppercase; color: var(--cream); opacity: 0.7; margin: 0 0 24px; }}
@@ -994,7 +756,6 @@ section:last-child {{ border-bottom: none; }}
 .cover-meta {{ font-size: 12px; color: var(--cream); opacity: 0.6; letter-spacing: 0.05em; margin: 0; }}
 .block-anchor {{ font-family: var(--mono); }}
 
-/* Typography in main content */
 section h1 {{
   font-family: var(--serif); font-size: 36px; line-height: 1.15;
   color: var(--navy); margin: 0 0 16px; font-weight: bold;
@@ -1035,9 +796,8 @@ section h2 {{
 
 .section-body blockquote {{
   border-left: 3px solid var(--teal); margin: 16px 0;
-  padding: 4px 0 4px 16px; color: var(--charcoal);
+  padding: 12px 16px; color: var(--charcoal);
   font-style: italic; background: var(--sand); border-radius: 0 4px 4px 0;
-  padding: 12px 16px;
 }}
 
 .section-body table {{
@@ -1060,7 +820,6 @@ section h2 {{
   margin: 32px 0;
 }}
 
-/* Footer */
 footer {{
   text-align: center; padding: 48px 32px;
   font-size: 12px; color: var(--charcoal); opacity: 0.7;
@@ -1068,7 +827,6 @@ footer {{
   font-style: italic;
 }}
 
-/* Print */
 @media print {{
   .sidebar {{ display: none; }}
   .layout {{ grid-template-columns: 1fr; }}
@@ -1078,7 +836,6 @@ footer {{
 """
 
 js = """
-// Active-section highlighting in the sidebar
 (function() {
   var sections = Array.from(document.querySelectorAll('section[id]'));
   var navLinks = Array.from(document.querySelectorAll('.sidebar a'));
@@ -1102,11 +859,8 @@ html = f"""<!DOCTYPE html>
 <head>
 <meta charset="UTF-8" />
 <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-<title>Wave Deliverable — Retail Vertical · 2026-05-03</title>
-<style>
-{css}
-.sidebar a.active {{ background: var(--cream); color: var(--navy); font-weight: bold; }}
-</style>
+<title>Retail vertical — proposal package · 2026-05-03</title>
+<style>{css}</style>
 </head>
 <body>
 <div class="layout">
@@ -1114,13 +868,11 @@ html = f"""<!DOCTYPE html>
 <main>
 {sections_html}
 <footer>
-King Harbor — Redondo Beach — pier · Wave session 2026-05-03 · eljeffe Hash and Seal Protocol
+Wave session 2026-05-03 · eljeffe Hash and Seal Protocol · King Harbor — Redondo Beach — pier
 </footer>
 </main>
 </div>
-<script>
-{js}
-</script>
+<script>{js}</script>
 </body>
 </html>
 """
@@ -1129,3 +881,4 @@ out = OUTPUTS / "wave-deliverable.html"
 out.write_text(html)
 print(f"WROTE: {out}")
 print(f"Size: {len(html):,} bytes")
+print(f"Sections: {len(SECTIONS)}")

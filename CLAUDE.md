@@ -9,6 +9,33 @@ scaffolding. Ship features.
 
 ---
 
+## Fresh Session Protocol — No Assumed Chat State
+
+Every Claude/Cursor session in this repo starts with no assumed state from
+prior chat threads. Load context **only** from canonical sources:
+
+1. The active delivery prompt (e.g. `docs/prompts/2026-05-05-may-12-delivery-prompt.md`)
+2. Files listed in the active prompt's "Context to load before working" table — read in order
+3. `AGENTS.md` and this `CLAUDE.md` (root) — always in scope
+4. Brain wiki articles, SDDs, and capability cards reachable via `memory_recall` and `context_assemble`
+5. Linear dispatch description and comments for the active ticket
+6. Repository state at session start (fresh clone or pulled `main`)
+
+**Rules:**
+
+- If a fact is not grounded in a canonical source, ask rather than guess. "I think we decided X last session" is not a canonical source.
+- Decisions that matter live in Brain, in Linear comments, in wiki articles, in SDDs, in commits — not in chat memory. If it's not committed, it doesn't exist.
+- `memory_recall()` and `context_assemble()` calls are mandatory at session start for domain work, per the memory bus section below. Do not skip them in the name of "fresh start" — fresh chat is not fresh corpus.
+- Never reference "previous Claude responses," "earlier iterations," or "what we decided last week" unless that decision is grounded in Brain, Linear, an SDD, or a commit. If you can't cite it, it didn't happen.
+
+**Convention:** prompts go to `docs/prompts/`. Plans go to `docs/superpowers/plans/`.
+Prompts orient sessions; plans capture execution sequence.
+
+This protocol applies to all sessions in this repo, including senior-dev
+onboarding (gated to May 13+ per `docs/prompts/2026-05-05-may-12-delivery-prompt.md`).
+
+---
+
 ## Flow In, Filtered Out
 
 The founder flows. Claude filters. That's the operating posture.
