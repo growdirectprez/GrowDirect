@@ -1,5 +1,5 @@
 import pytest
-from langchain_core.language_models.fake import FakeListChatModel
+from langchain_core.language_models.fake_chat_models import FakeListChatModel
 
 
 def make_mock_llm(responses: list[str]) -> FakeListChatModel:
