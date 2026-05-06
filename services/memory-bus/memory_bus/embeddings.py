@@ -10,20 +10,16 @@ from memory_bus.config import Config
 
 logger = logging.getLogger(__name__)
 
-_vertex_credentials = None
-
 
 def _vertex_token() -> str:
-    global _vertex_credentials
-    import google.auth
-    import google.auth.transport.requests
-    if _vertex_credentials is None:
-        _vertex_credentials, _ = google.auth.default(
-            scopes=["https://www.googleapis.com/auth/cloud-platform"]
-        )
-    req = google.auth.transport.requests.Request()
-    _vertex_credentials.refresh(req)
-    return _vertex_credentials.token
+    """Fetch access token from GCP metadata server (works in Cloud Run/GCE)."""
+    r = httpx.get(
+        "http://metadata.google.internal/computeMetadata/v1/instance/service-accounts/default/token",
+        headers={"Metadata-Flavor": "Google"},
+        timeout=5.0,
+    )
+    r.raise_for_status()
+    return r.json()["access_token"]
 
 
 def get_embedding(text: str, config: Config) -> Optional[list[float]]:
