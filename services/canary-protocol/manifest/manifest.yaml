@@ -1,8 +1,8 @@
 version: '1.0'
 generated_from:
 - path: Brain/wiki/canary-go-portal.md
-  sha256: b37f7ddd7f2c0c6ad85db534ad342f95f4da9bc6c9170f82d0e94e100aef9527
-  bytes: 29691
+  sha256: f4185f990c63cf08c50e1acbdd0f672a97fa569e117eefc97c1c96ef6b623db2
+  bytes: 35953
 - path: docs/sdds/go-handoff/microservice-architecture.md
   sha256: 1f79a8f0258eb7cf663252423a3bcb07b9228f8900ef59097477fbc042f760cc
   bytes: 105768
@@ -1342,6 +1342,512 @@ services:
     auth: session
     status: mounted
     notes: log task exception
+    rate_limit: null
+    cache_ttl: null
+    handler: null
+- name: asset
+  port: 8089
+  owner: ALX
+  card: Brain/wiki/cards/asset.md
+  priority: P1
+  scope: tenant-scoped
+  category: merchant-facing
+  python_prior_art: Canary/canary/blueprints/assets.py
+  cells:
+  - "B\xD7reference"
+  depends_on: []
+  endpoints:
+  - method: GET
+    path: /assets
+    tier: reference
+    axis: B
+    auth: session
+    status: mounted
+    notes: asset registry list (W8)
+    rate_limit: null
+    cache_ttl: null
+    handler: null
+  - method: GET
+    path: /assets/{id}
+    tier: reference
+    axis: B
+    auth: session
+    status: mounted
+    notes: asset detail + lifecycle + location
+    rate_limit: null
+    cache_ttl: null
+    handler: null
+- name: report
+  port: 8098
+  owner: ALX
+  card: Brain/wiki/cards/report.md
+  priority: P1
+  scope: tenant-scoped
+  category: merchant-facing
+  python_prior_art: Canary/canary/blueprints/reports.py
+  cells:
+  - "B\xD7reference"
+  depends_on: []
+  endpoints:
+  - method: GET
+    path: /reports
+    tier: reference
+    axis: B
+    auth: session
+    status: mounted
+    notes: reports index (stub)
+    rate_limit: null
+    cache_ttl: null
+    handler: null
+  - method: GET
+    path: /reports/distribution
+    tier: reference
+    axis: B
+    auth: session
+    status: mounted
+    notes: distribution rebalancing report (W2b)
+    rate_limit: null
+    cache_ttl: null
+    handler: null
+  - method: GET
+    path: /reports/inventory
+    tier: reference
+    axis: B
+    auth: session
+    status: mounted
+    notes: inventory health report (W2b)
+    rate_limit: null
+    cache_ttl: null
+    handler: null
+  - method: GET
+    path: /reports/category
+    tier: reference
+    axis: B
+    auth: session
+    status: mounted
+    notes: category performance report (W2c)
+    rate_limit: null
+    cache_ttl: null
+    handler: null
+  - method: GET
+    path: /reports/finance
+    tier: reference
+    axis: B
+    auth: session
+    status: mounted
+    notes: finance summary report (W2e)
+    rate_limit: null
+    cache_ttl: null
+    handler: null
+  - method: GET
+    path: /reports/payments
+    tier: reference
+    axis: B
+    auth: session
+    status: mounted
+    notes: "tender mix report (stub \u2014 needs aggregation)"
+    rate_limit: null
+    cache_ttl: null
+    handler: null
+  - method: GET
+    path: /reports/tax
+    tier: reference
+    axis: B
+    auth: session
+    status: mounted
+    notes: tax remit report (W2e)
+    rate_limit: null
+    cache_ttl: null
+    handler: null
+  - method: GET
+    path: /reports/otb
+    tier: reference
+    axis: B
+    auth: session
+    status: mounted
+    notes: open-to-buy budget report (W2e)
+    rate_limit: null
+    cache_ttl: null
+    handler: null
+  - method: GET
+    path: /reports/labor
+    tier: reference
+    axis: B
+    auth: session
+    status: mounted
+    notes: labor utilization report (W2g)
+    rate_limit: null
+    cache_ttl: null
+    handler: null
+  - method: GET
+    path: /reports/cases
+    tier: reference
+    axis: B
+    auth: session
+    status: mounted
+    notes: cases analytics report (W2e)
+    rate_limit: null
+    cache_ttl: null
+    handler: null
+  - method: GET
+    path: /reports/range
+    tier: reference
+    axis: B
+    auth: session
+    status: mounted
+    notes: range performance report (stub)
+    rate_limit: null
+    cache_ttl: null
+    handler: null
+  - method: GET
+    path: /reports/pricing
+    tier: reference
+    axis: B
+    auth: session
+    status: mounted
+    notes: pricing position report (stub)
+    rate_limit: null
+    cache_ttl: null
+    handler: null
+  - method: GET
+    path: /reports/price-history
+    tier: reference
+    axis: B
+    auth: session
+    status: mounted
+    notes: price-history report (stub)
+    rate_limit: null
+    cache_ttl: null
+    handler: null
+  - method: GET
+    path: /reports/markdowns
+    tier: reference
+    axis: B
+    auth: session
+    status: mounted
+    notes: markdown effectiveness report (stub)
+    rate_limit: null
+    cache_ttl: null
+    handler: null
+  - method: POST
+    path: /reports/otb/{budgetID}/lock
+    tier: reference
+    axis: B
+    auth: session
+    status: mounted
+    notes: lock OTB budget (W5 action)
+    rate_limit: null
+    cache_ttl: null
+    handler: null
+- name: billing
+  port: 9312
+  owner: ALX
+  card: Brain/wiki/cards/billing.md
+  priority: P1
+  scope: tenant-scoped
+  category: merchant-facing
+  python_prior_art: Canary/canary/blueprints/billing.py
+  cells:
+  - "B\xD7reference"
+  depends_on: []
+  endpoints:
+  - method: GET
+    path: /billing/overview
+    tier: reference
+    axis: B
+    auth: session
+    status: mounted
+    notes: "billing portal home (meter rollup) \u2014 W8"
+    rate_limit: null
+    cache_ttl: null
+    handler: null
+  - method: GET
+    path: /billing/invoices
+    tier: reference
+    axis: B
+    auth: session
+    status: mounted
+    notes: invoice history
+    rate_limit: null
+    cache_ttl: null
+    handler: null
+  - method: GET
+    path: /billing/payment-method
+    tier: reference
+    axis: B
+    auth: session
+    status: mounted
+    notes: payment-method viewer
+    rate_limit: null
+    cache_ttl: null
+    handler: null
+- name: supplier
+  port: 9313
+  owner: ALX
+  card: Brain/wiki/cards/supplier.md
+  priority: P1
+  scope: tenant-scoped
+  category: merchant-facing
+  python_prior_art: Canary/canary/blueprints/suppliers.py
+  cells:
+  - "B\xD7change-feed"
+  depends_on: []
+  endpoints:
+  - method: GET
+    path: /suppliers
+    tier: change-feed
+    axis: B
+    auth: session
+    status: mounted
+    notes: supplier directory (W11)
+    rate_limit: null
+    cache_ttl: null
+    handler: null
+  - method: POST
+    path: /suppliers
+    tier: change-feed
+    axis: B
+    auth: session
+    status: mounted
+    notes: create supplier
+    rate_limit: null
+    cache_ttl: null
+    handler: null
+  - method: GET
+    path: /suppliers/{id}
+    tier: change-feed
+    axis: B
+    auth: session
+    status: mounted
+    notes: supplier detail
+    rate_limit: null
+    cache_ttl: null
+    handler: null
+  - method: GET
+    path: /suppliers/{id}/scorecard
+    tier: change-feed
+    axis: B
+    auth: session
+    status: mounted
+    notes: supplier performance scorecard
+    rate_limit: null
+    cache_ttl: null
+    handler: null
+- name: po
+  port: 9314
+  owner: ALX
+  card: Brain/wiki/cards/po.md
+  priority: P1
+  scope: tenant-scoped
+  category: merchant-facing
+  python_prior_art: Canary/canary/blueprints/po.py
+  cells:
+  - "B\xD7change-feed"
+  depends_on: []
+  endpoints:
+  - method: GET
+    path: /po
+    tier: change-feed
+    axis: B
+    auth: session
+    status: mounted
+    notes: purchase-order list (W11)
+    rate_limit: null
+    cache_ttl: null
+    handler: null
+  - method: POST
+    path: /po
+    tier: change-feed
+    axis: B
+    auth: session
+    status: mounted
+    notes: create PO
+    rate_limit: null
+    cache_ttl: null
+    handler: null
+  - method: GET
+    path: /po/{id}
+    tier: change-feed
+    axis: B
+    auth: session
+    status: mounted
+    notes: PO detail
+    rate_limit: null
+    cache_ttl: null
+    handler: null
+  - method: GET
+    path: /po/{id}/match
+    tier: change-feed
+    axis: B
+    auth: session
+    status: mounted
+    notes: three-way match viewer
+    rate_limit: null
+    cache_ttl: null
+    handler: null
+  - method: POST
+    path: /po/{id}/status
+    tier: change-feed
+    axis: B
+    auth: session
+    status: mounted
+    notes: advance PO status
+    rate_limit: null
+    cache_ttl: null
+    handler: null
+- name: order
+  port: 9315
+  owner: ALX
+  card: Brain/wiki/cards/order.md
+  priority: P1
+  scope: tenant-scoped
+  category: merchant-facing
+  python_prior_art: Canary/canary/blueprints/orders.py
+  cells:
+  - "B\xD7change-feed"
+  depends_on: []
+  endpoints:
+  - method: GET
+    path: /orders/suggested
+    tier: change-feed
+    axis: B
+    auth: session
+    status: mounted
+    notes: replenishment suggestions queue
+    rate_limit: null
+    cache_ttl: null
+    handler: null
+  - method: POST
+    path: /orders/suggested/{id}/approve
+    tier: change-feed
+    axis: B
+    auth: session
+    status: mounted
+    notes: approve suggested order
+    rate_limit: null
+    cache_ttl: null
+    handler: null
+  - method: POST
+    path: /orders/suggested/{id}/reject
+    tier: change-feed
+    axis: B
+    auth: session
+    status: mounted
+    notes: reject suggested order
+    rate_limit: null
+    cache_ttl: null
+    handler: null
+  - method: POST
+    path: /orders/suggested/{id}/send
+    tier: change-feed
+    axis: B
+    auth: session
+    status: mounted
+    notes: send approved order to supplier
+    rate_limit: null
+    cache_ttl: null
+    handler: null
+- name: onboarding
+  port: 9316
+  owner: ALX
+  card: Brain/wiki/cards/onboarding.md
+  priority: P1
+  scope: tenant-scoped
+  category: merchant-facing
+  python_prior_art: null
+  cells:
+  - "B\xD7reference"
+  depends_on: []
+  endpoints:
+  - method: GET
+    path: /onboarding
+    tier: reference
+    axis: B
+    auth: session
+    status: mounted
+    notes: onboarding wizard index (W13)
+    rate_limit: null
+    cache_ttl: null
+    handler: null
+  - method: GET
+    path: /onboarding/connect
+    tier: reference
+    axis: B
+    auth: session
+    status: mounted
+    notes: POS connection step
+    rate_limit: null
+    cache_ttl: null
+    handler: null
+  - method: GET
+    path: /onboarding/import
+    tier: reference
+    axis: B
+    auth: session
+    status: mounted
+    notes: data import step
+    rate_limit: null
+    cache_ttl: null
+    handler: null
+  - method: GET
+    path: /onboarding/rules
+    tier: reference
+    axis: B
+    auth: session
+    status: mounted
+    notes: rule selection step
+    rate_limit: null
+    cache_ttl: null
+    handler: null
+  - method: POST
+    path: /onboarding/rules/enable
+    tier: reference
+    axis: B
+    auth: session
+    status: mounted
+    notes: enable selected rule pack
+    rate_limit: null
+    cache_ttl: null
+    handler: null
+  - method: GET
+    path: /onboarding/welcome
+    tier: reference
+    axis: B
+    auth: session
+    status: mounted
+    notes: onboarding completion
+    rate_limit: null
+    cache_ttl: null
+    handler: null
+- name: ecom
+  port: 9317
+  owner: ALX
+  card: Brain/wiki/cards/ecom.md
+  priority: P1
+  scope: tenant-scoped
+  category: merchant-facing
+  python_prior_art: null
+  cells:
+  - "B\xD7reference"
+  depends_on: []
+  endpoints:
+  - method: GET
+    path: /ecom/orders
+    tier: reference
+    axis: B
+    auth: session
+    status: mounted
+    notes: ecom channel order list (W15)
+    rate_limit: null
+    cache_ttl: null
+    handler: null
+  - method: GET
+    path: /ecom/sync
+    tier: reference
+    axis: B
+    auth: session
+    status: mounted
+    notes: ecom sync status
     rate_limit: null
     cache_ttl: null
     handler: null

@@ -498,3 +498,108 @@ tenant-scoped  ·  Python prior art: none
 | /tasks/{id}/claim | POST | change-feed | B | session | mounted | claim task for current operator |
 | /tasks/{id}/complete | POST | change-feed | B | session | mounted | mark task complete |
 | /tasks/{id}/exception | POST | change-feed | B | session | mounted | log task exception |
+
+## asset · :8089 · merchant-facing · P1
+
+Owner: ALX  ·  Card: Brain/wiki/cards/asset.md  ·  Cells: [B × reference]
+tenant-scoped  ·  Python prior art: Canary/canary/blueprints/assets.py
+
+| Endpoint | Method | Tier | Axis | Auth | Status | Notes |
+|----------|--------|------|------|------|--------|-------|
+| /assets | GET | reference | B | session | mounted | asset registry list (W8) |
+| /assets/{id} | GET | reference | B | session | mounted | asset detail + lifecycle + location |
+
+## report · :8098 · merchant-facing · P1
+
+Owner: ALX  ·  Card: Brain/wiki/cards/report.md  ·  Cells: [B × reference]
+tenant-scoped  ·  Python prior art: Canary/canary/blueprints/reports.py
+
+| Endpoint | Method | Tier | Axis | Auth | Status | Notes |
+|----------|--------|------|------|------|--------|-------|
+| /reports | GET | reference | B | session | mounted | reports index (stub) |
+| /reports/distribution | GET | reference | B | session | mounted | distribution rebalancing report (W2b) |
+| /reports/inventory | GET | reference | B | session | mounted | inventory health report (W2b) |
+| /reports/category | GET | reference | B | session | mounted | category performance report (W2c) |
+| /reports/finance | GET | reference | B | session | mounted | finance summary report (W2e) |
+| /reports/payments | GET | reference | B | session | mounted | tender mix report (stub — needs aggregation) |
+| /reports/tax | GET | reference | B | session | mounted | tax remit report (W2e) |
+| /reports/otb | GET | reference | B | session | mounted | open-to-buy budget report (W2e) |
+| /reports/labor | GET | reference | B | session | mounted | labor utilization report (W2g) |
+| /reports/cases | GET | reference | B | session | mounted | cases analytics report (W2e) |
+| /reports/range | GET | reference | B | session | mounted | range performance report (stub) |
+| /reports/pricing | GET | reference | B | session | mounted | pricing position report (stub) |
+| /reports/price-history | GET | reference | B | session | mounted | price-history report (stub) |
+| /reports/markdowns | GET | reference | B | session | mounted | markdown effectiveness report (stub) |
+| /reports/otb/{budgetID}/lock | POST | reference | B | session | mounted | lock OTB budget (W5 action) |
+
+## billing · :9312 · merchant-facing · P1
+
+Owner: ALX  ·  Card: Brain/wiki/cards/billing.md  ·  Cells: [B × reference]
+tenant-scoped  ·  Python prior art: Canary/canary/blueprints/billing.py
+
+| Endpoint | Method | Tier | Axis | Auth | Status | Notes |
+|----------|--------|------|------|------|--------|-------|
+| /billing/overview | GET | reference | B | session | mounted | billing portal home (meter rollup) — W8 |
+| /billing/invoices | GET | reference | B | session | mounted | invoice history |
+| /billing/payment-method | GET | reference | B | session | mounted | payment-method viewer |
+
+## supplier · :9313 · merchant-facing · P1
+
+Owner: ALX  ·  Card: Brain/wiki/cards/supplier.md  ·  Cells: [B × change-feed]
+tenant-scoped  ·  Python prior art: Canary/canary/blueprints/suppliers.py
+
+| Endpoint | Method | Tier | Axis | Auth | Status | Notes |
+|----------|--------|------|------|------|--------|-------|
+| /suppliers | GET | change-feed | B | session | mounted | supplier directory (W11) |
+| /suppliers | POST | change-feed | B | session | mounted | create supplier |
+| /suppliers/{id} | GET | change-feed | B | session | mounted | supplier detail |
+| /suppliers/{id}/scorecard | GET | change-feed | B | session | mounted | supplier performance scorecard |
+
+## po · :9314 · merchant-facing · P1
+
+Owner: ALX  ·  Card: Brain/wiki/cards/po.md  ·  Cells: [B × change-feed]
+tenant-scoped  ·  Python prior art: Canary/canary/blueprints/po.py
+
+| Endpoint | Method | Tier | Axis | Auth | Status | Notes |
+|----------|--------|------|------|------|--------|-------|
+| /po | GET | change-feed | B | session | mounted | purchase-order list (W11) |
+| /po | POST | change-feed | B | session | mounted | create PO |
+| /po/{id} | GET | change-feed | B | session | mounted | PO detail |
+| /po/{id}/match | GET | change-feed | B | session | mounted | three-way match viewer |
+| /po/{id}/status | POST | change-feed | B | session | mounted | advance PO status |
+
+## order · :9315 · merchant-facing · P1
+
+Owner: ALX  ·  Card: Brain/wiki/cards/order.md  ·  Cells: [B × change-feed]
+tenant-scoped  ·  Python prior art: Canary/canary/blueprints/orders.py
+
+| Endpoint | Method | Tier | Axis | Auth | Status | Notes |
+|----------|--------|------|------|------|--------|-------|
+| /orders/suggested | GET | change-feed | B | session | mounted | replenishment suggestions queue |
+| /orders/suggested/{id}/approve | POST | change-feed | B | session | mounted | approve suggested order |
+| /orders/suggested/{id}/reject | POST | change-feed | B | session | mounted | reject suggested order |
+| /orders/suggested/{id}/send | POST | change-feed | B | session | mounted | send approved order to supplier |
+
+## onboarding · :9316 · merchant-facing · P1
+
+Owner: ALX  ·  Card: Brain/wiki/cards/onboarding.md  ·  Cells: [B × reference]
+tenant-scoped  ·  Python prior art: none
+
+| Endpoint | Method | Tier | Axis | Auth | Status | Notes |
+|----------|--------|------|------|------|--------|-------|
+| /onboarding | GET | reference | B | session | mounted | onboarding wizard index (W13) |
+| /onboarding/connect | GET | reference | B | session | mounted | POS connection step |
+| /onboarding/import | GET | reference | B | session | mounted | data import step |
+| /onboarding/rules | GET | reference | B | session | mounted | rule selection step |
+| /onboarding/rules/enable | POST | reference | B | session | mounted | enable selected rule pack |
+| /onboarding/welcome | GET | reference | B | session | mounted | onboarding completion |
+
+## ecom · :9317 · merchant-facing · P1
+
+Owner: ALX  ·  Card: Brain/wiki/cards/ecom.md  ·  Cells: [B × reference]
+tenant-scoped  ·  Python prior art: none
+
+| Endpoint | Method | Tier | Axis | Auth | Status | Notes |
+|----------|--------|------|------|------|--------|-------|
+| /ecom/orders | GET | reference | B | session | mounted | ecom channel order list (W15) |
+| /ecom/sync | GET | reference | B | session | mounted | ecom sync status |

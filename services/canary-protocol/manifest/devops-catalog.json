@@ -63,7 +63,7 @@
     {
       "axis": "B",
       "tier": "change-feed",
-      "endpoint_count": 35,
+      "endpoint_count": 48,
       "services": [
         "observability",
         "pipeline",
@@ -73,7 +73,10 @@
         "transfer",
         "receiving",
         "returns",
-        "task"
+        "task",
+        "supplier",
+        "po",
+        "order"
       ]
     },
     {
@@ -91,7 +94,7 @@
     {
       "axis": "B",
       "tier": "reference",
-      "endpoint_count": 57,
+      "endpoint_count": 85,
       "services": [
         "catalog",
         "manifest",
@@ -105,7 +108,12 @@
         "lp-settings",
         "employee",
         "item",
-        "pricing"
+        "pricing",
+        "asset",
+        "report",
+        "billing",
+        "onboarding",
+        "ecom"
       ]
     },
     {
@@ -482,10 +490,122 @@
       ],
       "endpoint_count": 4,
       "python_prior_art": null
+    },
+    {
+      "name": "asset",
+      "port": 8089,
+      "priority": "P1",
+      "category": "merchant-facing",
+      "scope": "tenant-scoped",
+      "owner": "ALX",
+      "card": "Brain/wiki/cards/asset.md",
+      "cells": [
+        "B×reference"
+      ],
+      "endpoint_count": 2,
+      "python_prior_art": "Canary/canary/blueprints/assets.py"
+    },
+    {
+      "name": "report",
+      "port": 8098,
+      "priority": "P1",
+      "category": "merchant-facing",
+      "scope": "tenant-scoped",
+      "owner": "ALX",
+      "card": "Brain/wiki/cards/report.md",
+      "cells": [
+        "B×reference"
+      ],
+      "endpoint_count": 15,
+      "python_prior_art": "Canary/canary/blueprints/reports.py"
+    },
+    {
+      "name": "billing",
+      "port": 9312,
+      "priority": "P1",
+      "category": "merchant-facing",
+      "scope": "tenant-scoped",
+      "owner": "ALX",
+      "card": "Brain/wiki/cards/billing.md",
+      "cells": [
+        "B×reference"
+      ],
+      "endpoint_count": 3,
+      "python_prior_art": "Canary/canary/blueprints/billing.py"
+    },
+    {
+      "name": "supplier",
+      "port": 9313,
+      "priority": "P1",
+      "category": "merchant-facing",
+      "scope": "tenant-scoped",
+      "owner": "ALX",
+      "card": "Brain/wiki/cards/supplier.md",
+      "cells": [
+        "B×change-feed"
+      ],
+      "endpoint_count": 4,
+      "python_prior_art": "Canary/canary/blueprints/suppliers.py"
+    },
+    {
+      "name": "po",
+      "port": 9314,
+      "priority": "P1",
+      "category": "merchant-facing",
+      "scope": "tenant-scoped",
+      "owner": "ALX",
+      "card": "Brain/wiki/cards/po.md",
+      "cells": [
+        "B×change-feed"
+      ],
+      "endpoint_count": 5,
+      "python_prior_art": "Canary/canary/blueprints/po.py"
+    },
+    {
+      "name": "order",
+      "port": 9315,
+      "priority": "P1",
+      "category": "merchant-facing",
+      "scope": "tenant-scoped",
+      "owner": "ALX",
+      "card": "Brain/wiki/cards/order.md",
+      "cells": [
+        "B×change-feed"
+      ],
+      "endpoint_count": 4,
+      "python_prior_art": "Canary/canary/blueprints/orders.py"
+    },
+    {
+      "name": "onboarding",
+      "port": 9316,
+      "priority": "P1",
+      "category": "merchant-facing",
+      "scope": "tenant-scoped",
+      "owner": "ALX",
+      "card": "Brain/wiki/cards/onboarding.md",
+      "cells": [
+        "B×reference"
+      ],
+      "endpoint_count": 6,
+      "python_prior_art": null
+    },
+    {
+      "name": "ecom",
+      "port": 9317,
+      "priority": "P1",
+      "category": "merchant-facing",
+      "scope": "tenant-scoped",
+      "owner": "ALX",
+      "card": "Brain/wiki/cards/ecom.md",
+      "cells": [
+        "B×reference"
+      ],
+      "endpoint_count": 2,
+      "python_prior_art": null
     }
   ],
   "totals": {
-    "service_count": 24,
-    "endpoint_count": 103
+    "service_count": 32,
+    "endpoint_count": 144
   }
 }
