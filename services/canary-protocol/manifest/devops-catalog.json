@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-05-07T13:46:15+00:00",
+  "generated_at": "2026-05-07T13:51:50+00:00",
   "axes": [
     {
       "key": "A",
@@ -85,11 +85,13 @@
     {
       "axis": "B",
       "tier": "reference",
-      "endpoint_count": 7,
+      "endpoint_count": 11,
       "services": [
         "catalog",
         "manifest",
-        "observability"
+        "observability",
+        "evidence",
+        "anchor"
       ]
     },
     {
@@ -101,9 +103,10 @@
     {
       "axis": "C",
       "tier": "change-feed",
-      "endpoint_count": 4,
+      "endpoint_count": 6,
       "services": [
-        "qa-agent"
+        "qa-agent",
+        "mcp"
       ]
     },
     {
@@ -121,8 +124,10 @@
     {
       "axis": "C",
       "tier": "reference",
-      "endpoint_count": 0,
-      "services": []
+      "endpoint_count": 1,
+      "services": [
+        "mcp"
+      ]
     }
   ],
   "services": [
@@ -196,10 +201,52 @@
       ],
       "endpoint_count": 4,
       "python_prior_art": "Canary/canary/qa_agent/"
+    },
+    {
+      "name": "evidence",
+      "port": 9201,
+      "priority": "P0",
+      "category": "cross-tenant infra",
+      "scope": "cross-tenant",
+      "owner": "ALX",
+      "card": "Brain/wiki/cards/evidence.md",
+      "cells": [
+        "B×reference"
+      ],
+      "endpoint_count": 2,
+      "python_prior_art": "Canary/canary/services/evidence_service.py"
+    },
+    {
+      "name": "anchor",
+      "port": 9202,
+      "priority": "P0",
+      "category": "cross-tenant infra",
+      "scope": "cross-tenant",
+      "owner": "ALX",
+      "card": "Brain/wiki/cards/anchor.md",
+      "cells": [
+        "B×reference"
+      ],
+      "endpoint_count": 2,
+      "python_prior_art": "Canary/canary/services/anchor_service.py"
+    },
+    {
+      "name": "mcp",
+      "port": 9203,
+      "priority": "P0",
+      "category": "cross-tenant infra",
+      "scope": "cross-tenant",
+      "owner": "ALX",
+      "card": "Brain/wiki/cards/mcp.md",
+      "cells": [
+        "C×change-feed"
+      ],
+      "endpoint_count": 3,
+      "python_prior_art": null
     }
   ],
   "totals": {
-    "service_count": 5,
-    "endpoint_count": 16
+    "service_count": 8,
+    "endpoint_count": 23
   }
 }

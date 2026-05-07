@@ -1,9 +1,9 @@
 version: '1.0'
-generated_at: '2026-05-07T13:46:15+00:00'
+generated_at: '2026-05-07T13:51:50+00:00'
 generated_from:
 - path: Brain/wiki/canary-go-portal.md
-  sha256: 7fa51255c66263bbe746921649bfc3ece9f942eb3532e7586e09761d24718720
-  bytes: 15218
+  sha256: 2fcf6489001eb20f533773a8d87882fb8820b3f4f4d82f24262f92900430f6ba
+  bytes: 16818
 - path: docs/sdds/go-handoff/microservice-architecture.md
   sha256: 1f79a8f0258eb7cf663252423a3bcb07b9228f8900ef59097477fbc042f760cc
   bytes: 105768
@@ -245,6 +245,112 @@ services:
     auth: apikey
     status: proposed
     notes: bug findings + Linear filings
+    rate_limit: null
+    cache_ttl: null
+    handler: null
+- name: evidence
+  port: 9201
+  owner: ALX
+  card: Brain/wiki/cards/evidence.md
+  priority: P0
+  scope: cross-tenant
+  category: cross-tenant infra
+  python_prior_art: Canary/canary/services/evidence_service.py
+  cells:
+  - "B\xD7reference"
+  depends_on: []
+  endpoints:
+  - method: GET
+    path: /v1/protocol/evidence/{event_hash}
+    tier: reference
+    axis: B
+    auth: none
+    status: mounted
+    notes: append-only audit lookup
+    rate_limit: null
+    cache_ttl: null
+    handler: null
+  - method: GET
+    path: /devops/evidence
+    tier: reference
+    axis: B
+    auth: apikey
+    status: proposed
+    notes: evidence query UI
+    rate_limit: null
+    cache_ttl: null
+    handler: null
+- name: anchor
+  port: 9202
+  owner: ALX
+  card: Brain/wiki/cards/anchor.md
+  priority: P0
+  scope: cross-tenant
+  category: cross-tenant infra
+  python_prior_art: Canary/canary/services/anchor_service.py
+  cells:
+  - "B\xD7reference"
+  depends_on: []
+  endpoints:
+  - method: GET
+    path: /v1/protocol/anchor/{event_hash}
+    tier: reference
+    axis: B
+    auth: none
+    status: mounted
+    notes: Merkle proof for blockchain anchor
+    rate_limit: null
+    cache_ttl: null
+    handler: null
+  - method: GET
+    path: /devops/anchor
+    tier: reference
+    axis: B
+    auth: apikey
+    status: proposed
+    notes: anchor batch viewer
+    rate_limit: null
+    cache_ttl: null
+    handler: null
+- name: mcp
+  port: 9203
+  owner: ALX
+  card: Brain/wiki/cards/mcp.md
+  priority: P0
+  scope: cross-tenant
+  category: cross-tenant infra
+  python_prior_art: null
+  cells:
+  - "C\xD7change-feed"
+  depends_on: []
+  endpoints:
+  - method: POST
+    path: /mcp
+    tier: change-feed
+    axis: C
+    auth: apikey
+    status: mounted
+    notes: MCP JSON-RPC 2.0 invocation surface
+    rate_limit: null
+    cache_ttl: null
+    handler: null
+  - method: GET
+    path: /.well-known/mcp.json
+    tier: reference
+    axis: C
+    auth: none
+    status: mounted
+    notes: MCP discovery document
+    rate_limit: null
+    cache_ttl: null
+    handler: null
+  - method: GET
+    path: /devops/mcp
+    tier: change-feed
+    axis: C
+    auth: apikey
+    status: proposed
+    notes: tool catalog + usage drill-down
     rate_limit: null
     cache_ttl: null
     handler: null

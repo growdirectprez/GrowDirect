@@ -259,3 +259,34 @@ cross-tenant  ·  Python prior art: Canary/canary/qa_agent/
 | /v1/qa-agent/sessions | GET | change-feed | C | apikey | proposed | active session list |
 | /v1/qa-agent/sessions | POST | change-feed | C | apikey | proposed | start a QA session |
 | /v1/qa-agent/findings | GET | change-feed | C | apikey | proposed | bug findings + Linear filings |
+
+## evidence · :9201 · cross-tenant infra · P0
+
+Owner: ALX  ·  Card: Brain/wiki/cards/evidence.md  ·  Cells: [B × reference]
+cross-tenant  ·  Python prior art: Canary/canary/services/evidence_service.py
+
+| Endpoint | Method | Tier | Axis | Auth | Status | Notes |
+|----------|--------|------|------|------|--------|-------|
+| /v1/protocol/evidence/{event_hash} | GET | reference | B | none | mounted | append-only audit lookup |
+| /devops/evidence | GET | reference | B | apikey | proposed | evidence query UI |
+
+## anchor · :9202 · cross-tenant infra · P0
+
+Owner: ALX  ·  Card: Brain/wiki/cards/anchor.md  ·  Cells: [B × reference]
+cross-tenant  ·  Python prior art: Canary/canary/services/anchor_service.py
+
+| Endpoint | Method | Tier | Axis | Auth | Status | Notes |
+|----------|--------|------|------|------|--------|-------|
+| /v1/protocol/anchor/{event_hash} | GET | reference | B | none | mounted | Merkle proof for blockchain anchor |
+| /devops/anchor | GET | reference | B | apikey | proposed | anchor batch viewer |
+
+## mcp · :9203 · cross-tenant infra · P0
+
+Owner: ALX  ·  Card: Brain/wiki/cards/mcp.md  ·  Cells: [C × change-feed]
+cross-tenant  ·  Python prior art: none
+
+| Endpoint | Method | Tier | Axis | Auth | Status | Notes |
+|----------|--------|------|------|------|--------|-------|
+| /mcp | POST | change-feed | C | apikey | mounted | MCP JSON-RPC 2.0 invocation surface |
+| /.well-known/mcp.json | GET | reference | C | none | mounted | MCP discovery document |
+| /devops/mcp | GET | change-feed | C | apikey | proposed | tool catalog + usage drill-down |
