@@ -83,3 +83,4 @@ devops/.env
 .codex/
 .cursor/
 CanaryGo/.superpowers/
+.superpowers/
