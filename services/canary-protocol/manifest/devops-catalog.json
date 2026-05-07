@@ -63,13 +63,17 @@
     {
       "axis": "B",
       "tier": "change-feed",
-      "endpoint_count": 21,
+      "endpoint_count": 35,
       "services": [
         "observability",
         "pipeline",
         "alert",
         "chirp",
-        "casemgmt"
+        "casemgmt",
+        "transfer",
+        "receiving",
+        "returns",
+        "task"
       ]
     },
     {
@@ -87,7 +91,7 @@
     {
       "axis": "B",
       "tier": "reference",
-      "endpoint_count": 52,
+      "endpoint_count": 57,
       "services": [
         "catalog",
         "manifest",
@@ -98,7 +102,10 @@
         "customer",
         "transaction",
         "rule",
-        "lp-settings"
+        "lp-settings",
+        "employee",
+        "item",
+        "pricing"
       ]
     },
     {
@@ -110,10 +117,11 @@
     {
       "axis": "C",
       "tier": "change-feed",
-      "endpoint_count": 6,
+      "endpoint_count": 10,
       "services": [
         "qa-agent",
-        "mcp"
+        "mcp",
+        "owl"
       ]
     },
     {
@@ -362,10 +370,122 @@
       ],
       "endpoint_count": 31,
       "python_prior_art": "Canary/canary/blueprints/settings.py"
+    },
+    {
+      "name": "owl",
+      "port": 8084,
+      "priority": "P1",
+      "category": "merchant-facing",
+      "scope": "tenant-scoped",
+      "owner": "ALX",
+      "card": "Brain/wiki/cards/owl.md",
+      "cells": [
+        "C×change-feed"
+      ],
+      "endpoint_count": 4,
+      "python_prior_art": "Canary/canary/blueprints/owl.py"
+    },
+    {
+      "name": "employee",
+      "port": 8095,
+      "priority": "P1",
+      "category": "merchant-facing",
+      "scope": "tenant-scoped",
+      "owner": "ALX",
+      "card": "Brain/wiki/cards/employee.md",
+      "cells": [
+        "B×reference"
+      ],
+      "endpoint_count": 2,
+      "python_prior_art": "Canary/canary/blueprints/employees.py"
+    },
+    {
+      "name": "item",
+      "port": 8090,
+      "priority": "P1",
+      "category": "merchant-facing",
+      "scope": "tenant-scoped",
+      "owner": "ALX",
+      "card": "Brain/wiki/cards/item.md",
+      "cells": [
+        "B×reference"
+      ],
+      "endpoint_count": 2,
+      "python_prior_art": "Canary/canary/blueprints/items.py"
+    },
+    {
+      "name": "transfer",
+      "port": 8093,
+      "priority": "P1",
+      "category": "merchant-facing",
+      "scope": "tenant-scoped",
+      "owner": "ALX",
+      "card": "Brain/wiki/cards/transfer.md",
+      "cells": [
+        "B×change-feed"
+      ],
+      "endpoint_count": 3,
+      "python_prior_art": "Canary/canary/blueprints/transfers.py"
+    },
+    {
+      "name": "receiving",
+      "port": 8092,
+      "priority": "P1",
+      "category": "merchant-facing",
+      "scope": "tenant-scoped",
+      "owner": "ALX",
+      "card": "Brain/wiki/cards/receiving.md",
+      "cells": [
+        "B×change-feed"
+      ],
+      "endpoint_count": 5,
+      "python_prior_art": "Canary/canary/blueprints/receiving.py"
+    },
+    {
+      "name": "returns",
+      "port": 8097,
+      "priority": "P1",
+      "category": "merchant-facing",
+      "scope": "tenant-scoped",
+      "owner": "ALX",
+      "card": "Brain/wiki/cards/returns.md",
+      "cells": [
+        "B×change-feed"
+      ],
+      "endpoint_count": 2,
+      "python_prior_art": "Canary/canary/blueprints/returns.py"
+    },
+    {
+      "name": "pricing",
+      "port": 8094,
+      "priority": "P1",
+      "category": "merchant-facing",
+      "scope": "tenant-scoped",
+      "owner": "ALX",
+      "card": "Brain/wiki/cards/pricing.md",
+      "cells": [
+        "B×reference"
+      ],
+      "endpoint_count": 1,
+      "python_prior_art": "Canary/canary/blueprints/promotions.py"
+    },
+    {
+      "name": "task",
+      "port": 9311,
+      "priority": "P1",
+      "category": "merchant-facing",
+      "scope": "tenant-scoped",
+      "owner": "ALX",
+      "card": "Brain/wiki/cards/task.md",
+      "cells": [
+        "B×change-feed"
+      ],
+      "endpoint_count": 4,
+      "python_prior_art": null
     }
   ],
   "totals": {
-    "service_count": 16,
-    "endpoint_count": 80
+    "service_count": 24,
+    "endpoint_count": 103
   }
 }

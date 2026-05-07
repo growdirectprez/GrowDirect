@@ -1,8 +1,8 @@
 version: '1.0'
 generated_from:
 - path: Brain/wiki/canary-go-portal.md
-  sha256: 267b6633cff03ce0d0dc34d86002d3aba520cdbcdd82f4039c8d674459463537
-  bytes: 24730
+  sha256: b37f7ddd7f2c0c6ad85db534ad342f95f4da9bc6c9170f82d0e94e100aef9527
+  bytes: 29691
 - path: docs/sdds/go-handoff/microservice-architecture.md
   sha256: 1f79a8f0258eb7cf663252423a3bcb07b9228f8900ef59097477fbc042f760cc
   bytes: 105768
@@ -1016,6 +1016,332 @@ services:
     auth: session
     status: mounted
     notes: delete alert routing rule
+    rate_limit: null
+    cache_ttl: null
+    handler: null
+- name: owl
+  port: 8084
+  owner: ALX
+  card: Brain/wiki/cards/owl.md
+  priority: P1
+  scope: tenant-scoped
+  category: merchant-facing
+  python_prior_art: Canary/canary/blueprints/owl.py
+  cells:
+  - "C\xD7change-feed"
+  depends_on: []
+  endpoints:
+  - method: GET
+    path: /owl
+    tier: change-feed
+    axis: C
+    auth: session
+    status: mounted
+    notes: semantic search home (pgvector + EJ spine)
+    rate_limit: null
+    cache_ttl: null
+    handler: null
+  - method: GET
+    path: /owl/dashboards
+    tier: change-feed
+    axis: C
+    auth: session
+    status: mounted
+    notes: saved dashboard registry
+    rate_limit: null
+    cache_ttl: null
+    handler: null
+  - method: GET
+    path: /owl/parties
+    tier: change-feed
+    axis: C
+    auth: session
+    status: mounted
+    notes: party (entity) directory + risk dictionary
+    rate_limit: null
+    cache_ttl: null
+    handler: null
+  - method: GET
+    path: /owl/lp-performance
+    tier: change-feed
+    axis: C
+    auth: session
+    status: mounted
+    notes: LP rule performance rollup
+    rate_limit: null
+    cache_ttl: null
+    handler: null
+- name: employee
+  port: 8095
+  owner: ALX
+  card: Brain/wiki/cards/employee.md
+  priority: P1
+  scope: tenant-scoped
+  category: merchant-facing
+  python_prior_art: Canary/canary/blueprints/employees.py
+  cells:
+  - "B\xD7reference"
+  depends_on: []
+  endpoints:
+  - method: GET
+    path: /employees
+    tier: reference
+    axis: B
+    auth: session
+    status: mounted
+    notes: employee directory (stub, W2 wired)
+    rate_limit: null
+    cache_ttl: null
+    handler: null
+  - method: GET
+    path: /employees/{id}
+    tier: reference
+    axis: B
+    auth: session
+    status: mounted
+    notes: employee detail + risk score
+    rate_limit: null
+    cache_ttl: null
+    handler: null
+- name: item
+  port: 8090
+  owner: ALX
+  card: Brain/wiki/cards/item.md
+  priority: P1
+  scope: tenant-scoped
+  category: merchant-facing
+  python_prior_art: Canary/canary/blueprints/items.py
+  cells:
+  - "B\xD7reference"
+  depends_on: []
+  endpoints:
+  - method: GET
+    path: /items
+    tier: reference
+    axis: B
+    auth: session
+    status: mounted
+    notes: item master list (catalog browse)
+    rate_limit: null
+    cache_ttl: null
+    handler: null
+  - method: GET
+    path: /items/{id}
+    tier: reference
+    axis: B
+    auth: session
+    status: mounted
+    notes: item detail + UPC + pricing tier
+    rate_limit: null
+    cache_ttl: null
+    handler: null
+- name: transfer
+  port: 8093
+  owner: ALX
+  card: Brain/wiki/cards/transfer.md
+  priority: P1
+  scope: tenant-scoped
+  category: merchant-facing
+  python_prior_art: Canary/canary/blueprints/transfers.py
+  cells:
+  - "B\xD7change-feed"
+  depends_on: []
+  endpoints:
+  - method: GET
+    path: /transfers
+    tier: change-feed
+    axis: B
+    auth: session
+    status: mounted
+    notes: inter-store transfer list
+    rate_limit: null
+    cache_ttl: null
+    handler: null
+  - method: GET
+    path: /transfers/{id}
+    tier: change-feed
+    axis: B
+    auth: session
+    status: mounted
+    notes: transfer detail + line items
+    rate_limit: null
+    cache_ttl: null
+    handler: null
+  - method: GET
+    path: /transfers/{id}/variance
+    tier: change-feed
+    axis: B
+    auth: session
+    status: mounted
+    notes: variance reconciliation
+    rate_limit: null
+    cache_ttl: null
+    handler: null
+- name: receiving
+  port: 8092
+  owner: ALX
+  card: Brain/wiki/cards/receiving.md
+  priority: P1
+  scope: tenant-scoped
+  category: merchant-facing
+  python_prior_art: Canary/canary/blueprints/receiving.py
+  cells:
+  - "B\xD7change-feed"
+  depends_on: []
+  endpoints:
+  - method: GET
+    path: /receiving
+    tier: change-feed
+    axis: B
+    auth: session
+    status: mounted
+    notes: open receiving queue
+    rate_limit: null
+    cache_ttl: null
+    handler: null
+  - method: GET
+    path: /receiving/{id}
+    tier: change-feed
+    axis: B
+    auth: session
+    status: mounted
+    notes: receiving detail + line items
+    rate_limit: null
+    cache_ttl: null
+    handler: null
+  - method: GET
+    path: /receiving/{id}/close
+    tier: change-feed
+    axis: B
+    auth: session
+    status: mounted
+    notes: close-receipt confirmation
+    rate_limit: null
+    cache_ttl: null
+    handler: null
+  - method: POST
+    path: /receiving/{id}/close
+    tier: change-feed
+    axis: B
+    auth: session
+    status: mounted
+    notes: close receipt + post variance
+    rate_limit: null
+    cache_ttl: null
+    handler: null
+  - method: POST
+    path: /receiving/{id}/lines/{lineID}/discrepancy
+    tier: change-feed
+    axis: B
+    auth: session
+    status: mounted
+    notes: log line-item discrepancy
+    rate_limit: null
+    cache_ttl: null
+    handler: null
+- name: returns
+  port: 8097
+  owner: ALX
+  card: Brain/wiki/cards/returns.md
+  priority: P1
+  scope: tenant-scoped
+  category: merchant-facing
+  python_prior_art: Canary/canary/blueprints/returns.py
+  cells:
+  - "B\xD7change-feed"
+  depends_on: []
+  endpoints:
+  - method: GET
+    path: /returns
+    tier: change-feed
+    axis: B
+    auth: session
+    status: mounted
+    notes: returns queue
+    rate_limit: null
+    cache_ttl: null
+    handler: null
+  - method: GET
+    path: /returns/{id}
+    tier: change-feed
+    axis: B
+    auth: session
+    status: mounted
+    notes: return detail + refund authorization
+    rate_limit: null
+    cache_ttl: null
+    handler: null
+- name: pricing
+  port: 8094
+  owner: ALX
+  card: Brain/wiki/cards/pricing.md
+  priority: P1
+  scope: tenant-scoped
+  category: merchant-facing
+  python_prior_art: Canary/canary/blueprints/promotions.py
+  cells:
+  - "B\xD7reference"
+  depends_on: []
+  endpoints:
+  - method: GET
+    path: /promotions
+    tier: reference
+    axis: B
+    auth: session
+    status: mounted
+    notes: promotions calendar (W2f)
+    rate_limit: null
+    cache_ttl: null
+    handler: null
+- name: task
+  port: 9311
+  owner: ALX
+  card: Brain/wiki/cards/task.md
+  priority: P1
+  scope: tenant-scoped
+  category: merchant-facing
+  python_prior_art: null
+  cells:
+  - "B\xD7change-feed"
+  depends_on: []
+  endpoints:
+  - method: GET
+    path: /tasks
+    tier: change-feed
+    axis: B
+    auth: session
+    status: mounted
+    notes: directed-task queue (W5)
+    rate_limit: null
+    cache_ttl: null
+    handler: null
+  - method: POST
+    path: /tasks/{id}/claim
+    tier: change-feed
+    axis: B
+    auth: session
+    status: mounted
+    notes: claim task for current operator
+    rate_limit: null
+    cache_ttl: null
+    handler: null
+  - method: POST
+    path: /tasks/{id}/complete
+    tier: change-feed
+    axis: B
+    auth: session
+    status: mounted
+    notes: mark task complete
+    rate_limit: null
+    cache_ttl: null
+    handler: null
+  - method: POST
+    path: /tasks/{id}/exception
+    tier: change-feed
+    axis: B
+    auth: session
+    status: mounted
+    notes: log task exception
     rate_limit: null
     cache_ttl: null
     handler: null
