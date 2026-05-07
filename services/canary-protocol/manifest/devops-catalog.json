@@ -63,7 +63,7 @@
     {
       "axis": "B",
       "tier": "change-feed",
-      "endpoint_count": 52,
+      "endpoint_count": 55,
       "services": [
         "observability",
         "pipeline",
@@ -79,7 +79,9 @@
         "order",
         "hierarchy",
         "network-integrity",
-        "cross-store"
+        "cross-store",
+        "exception",
+        "workflow"
       ]
     },
     {
@@ -97,7 +99,7 @@
     {
       "axis": "B",
       "tier": "reference",
-      "endpoint_count": 89,
+      "endpoint_count": 94,
       "services": [
         "catalog",
         "manifest",
@@ -120,7 +122,9 @@
         "audit",
         "compliance",
         "users",
-        "config"
+        "config",
+        "mobile",
+        "protocol-portal"
       ]
     },
     {
@@ -132,7 +136,7 @@
     {
       "axis": "C",
       "tier": "change-feed",
-      "endpoint_count": 10,
+      "endpoint_count": 11,
       "services": [
         "qa-agent",
         "mcp",
@@ -271,7 +275,7 @@
       "cells": [
         "C×change-feed"
       ],
-      "endpoint_count": 3,
+      "endpoint_count": 4,
       "python_prior_art": null
     },
     {
@@ -707,10 +711,66 @@
       ],
       "endpoint_count": 1,
       "python_prior_art": "Canary/canary/blueprints/dashboards.py"
+    },
+    {
+      "name": "mobile",
+      "port": 9325,
+      "priority": "P1",
+      "category": "merchant-facing",
+      "scope": "tenant-scoped",
+      "owner": "ALX",
+      "card": "Brain/wiki/cards/mobile.md",
+      "cells": [
+        "B×reference"
+      ],
+      "endpoint_count": 4,
+      "python_prior_art": null
+    },
+    {
+      "name": "exception",
+      "port": 9326,
+      "priority": "P1",
+      "category": "merchant-facing",
+      "scope": "tenant-scoped",
+      "owner": "ALX",
+      "card": "Brain/wiki/cards/exception.md",
+      "cells": [
+        "B×change-feed"
+      ],
+      "endpoint_count": 2,
+      "python_prior_art": "Canary/canary/blueprints/exceptions.py"
+    },
+    {
+      "name": "workflow",
+      "port": 9327,
+      "priority": "P1",
+      "category": "merchant-facing",
+      "scope": "tenant-scoped",
+      "owner": "ALX",
+      "card": "Brain/wiki/cards/workflow.md",
+      "cells": [
+        "B×change-feed"
+      ],
+      "endpoint_count": 1,
+      "python_prior_art": null
+    },
+    {
+      "name": "protocol-portal",
+      "port": 9328,
+      "priority": "P1",
+      "category": "merchant-facing",
+      "scope": "tenant-scoped",
+      "owner": "ALX",
+      "card": "Brain/wiki/cards/protocol-portal.md",
+      "cells": [
+        "B×reference"
+      ],
+      "endpoint_count": 1,
+      "python_prior_art": null
     }
   ],
   "totals": {
-    "service_count": 39,
-    "endpoint_count": 152
+    "service_count": 43,
+    "endpoint_count": 161
   }
 }

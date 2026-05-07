@@ -1,8 +1,8 @@
 version: '1.0'
 generated_from:
 - path: Brain/wiki/canary-go-portal.md
-  sha256: 993038c635093a4c14e987a96e446d38d32e22c19be6ee2d1fc9639e65688fb1
-  bytes: 39066
+  sha256: cd22f45061a2c13540b069cadc07b6c0f36128e98e44ac1cd235ec547520513f
+  bytes: 41145
 - path: docs/sdds/go-handoff/microservice-architecture.md
   sha256: 1f79a8f0258eb7cf663252423a3bcb07b9228f8900ef59097477fbc042f760cc
   bytes: 105768
@@ -350,6 +350,16 @@ services:
     auth: apikey
     status: proposed
     notes: tool catalog + usage drill-down
+    rate_limit: null
+    cache_ttl: null
+    handler: null
+  - method: GET
+    path: /mcp/tools
+    tier: change-feed
+    axis: C
+    auth: session
+    status: mounted
+    notes: "MCP tool catalog (W12 \u2014 in-process registry)"
     rate_limit: null
     cache_ttl: null
     handler: null
@@ -2012,6 +2022,134 @@ services:
     auth: session
     status: mounted
     notes: multi-store intelligence dashboard (W10)
+    rate_limit: null
+    cache_ttl: null
+    handler: null
+- name: mobile
+  port: 9325
+  owner: ALX
+  card: Brain/wiki/cards/mobile.md
+  priority: P1
+  scope: tenant-scoped
+  category: merchant-facing
+  python_prior_art: null
+  cells:
+  - "B\xD7reference"
+  depends_on: []
+  endpoints:
+  - method: GET
+    path: /m/tasks
+    tier: reference
+    axis: B
+    auth: session
+    status: mounted
+    notes: "mobile task queue (W14 \u2014 Android POS UX)"
+    rate_limit: null
+    cache_ttl: null
+    handler: null
+  - method: GET
+    path: /m/receiving
+    tier: reference
+    axis: B
+    auth: session
+    status: mounted
+    notes: mobile receiving form
+    rate_limit: null
+    cache_ttl: null
+    handler: null
+  - method: GET
+    path: /m/cycle-count
+    tier: reference
+    axis: B
+    auth: session
+    status: mounted
+    notes: mobile cycle-count entry
+    rate_limit: null
+    cache_ttl: null
+    handler: null
+  - method: GET
+    path: /m/alerts/{id}
+    tier: reference
+    axis: B
+    auth: session
+    status: mounted
+    notes: mobile alert detail
+    rate_limit: null
+    cache_ttl: null
+    handler: null
+- name: exception
+  port: 9326
+  owner: ALX
+  card: Brain/wiki/cards/exception.md
+  priority: P1
+  scope: tenant-scoped
+  category: merchant-facing
+  python_prior_art: Canary/canary/blueprints/exceptions.py
+  cells:
+  - "B\xD7change-feed"
+  depends_on: []
+  endpoints:
+  - method: GET
+    path: /exceptions
+    tier: change-feed
+    axis: B
+    auth: session
+    status: mounted
+    notes: cross-domain exception queue
+    rate_limit: null
+    cache_ttl: null
+    handler: null
+  - method: GET
+    path: /exceptions/{id}
+    tier: change-feed
+    axis: B
+    auth: session
+    status: mounted
+    notes: exception detail + remediation
+    rate_limit: null
+    cache_ttl: null
+    handler: null
+- name: workflow
+  port: 9327
+  owner: ALX
+  card: Brain/wiki/cards/workflow.md
+  priority: P1
+  scope: tenant-scoped
+  category: merchant-facing
+  python_prior_art: null
+  cells:
+  - "B\xD7change-feed"
+  depends_on: []
+  endpoints:
+  - method: GET
+    path: /workflows
+    tier: change-feed
+    axis: B
+    auth: session
+    status: mounted
+    notes: "workflow engine surface (W4 \u2014 unified list)"
+    rate_limit: null
+    cache_ttl: null
+    handler: null
+- name: protocol-portal
+  port: 9328
+  owner: ALX
+  card: Brain/wiki/cards/protocol-portal.md
+  priority: P1
+  scope: tenant-scoped
+  category: merchant-facing
+  python_prior_art: null
+  cells:
+  - "B\xD7reference"
+  depends_on: []
+  endpoints:
+  - method: GET
+    path: /protocol
+    tier: reference
+    axis: B
+    auth: session
+    status: mounted
+    notes: unified Bitcoin L2 + .jeffe + L402 overview (W7)
     rate_limit: null
     cache_ttl: null
     handler: null

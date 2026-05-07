@@ -290,6 +290,7 @@ cross-tenant  ·  Python prior art: none
 | /mcp | POST | change-feed | C | apikey | mounted | MCP JSON-RPC 2.0 invocation surface |
 | /.well-known/mcp.json | GET | reference | C | none | mounted | MCP discovery document |
 | /devops/mcp | GET | change-feed | C | apikey | proposed | tool catalog + usage drill-down |
+| /mcp/tools | GET | change-feed | C | session | mounted | MCP tool catalog (W12 — in-process registry) |
 
 ## dashboard · :9300 · merchant-facing · P1
 
@@ -667,3 +668,43 @@ tenant-scoped  ·  Python prior art: Canary/canary/blueprints/dashboards.py
 | Endpoint | Method | Tier | Axis | Auth | Status | Notes |
 |----------|--------|------|------|------|--------|-------|
 | /dashboards/cross-store | GET | change-feed | B | session | mounted | multi-store intelligence dashboard (W10) |
+
+## mobile · :9325 · merchant-facing · P1
+
+Owner: ALX  ·  Card: Brain/wiki/cards/mobile.md  ·  Cells: [B × reference]
+tenant-scoped  ·  Python prior art: none
+
+| Endpoint | Method | Tier | Axis | Auth | Status | Notes |
+|----------|--------|------|------|------|--------|-------|
+| /m/tasks | GET | reference | B | session | mounted | mobile task queue (W14 — Android POS UX) |
+| /m/receiving | GET | reference | B | session | mounted | mobile receiving form |
+| /m/cycle-count | GET | reference | B | session | mounted | mobile cycle-count entry |
+| /m/alerts/{id} | GET | reference | B | session | mounted | mobile alert detail |
+
+## exception · :9326 · merchant-facing · P1
+
+Owner: ALX  ·  Card: Brain/wiki/cards/exception.md  ·  Cells: [B × change-feed]
+tenant-scoped  ·  Python prior art: Canary/canary/blueprints/exceptions.py
+
+| Endpoint | Method | Tier | Axis | Auth | Status | Notes |
+|----------|--------|------|------|------|--------|-------|
+| /exceptions | GET | change-feed | B | session | mounted | cross-domain exception queue |
+| /exceptions/{id} | GET | change-feed | B | session | mounted | exception detail + remediation |
+
+## workflow · :9327 · merchant-facing · P1
+
+Owner: ALX  ·  Card: Brain/wiki/cards/workflow.md  ·  Cells: [B × change-feed]
+tenant-scoped  ·  Python prior art: none
+
+| Endpoint | Method | Tier | Axis | Auth | Status | Notes |
+|----------|--------|------|------|------|--------|-------|
+| /workflows | GET | change-feed | B | session | mounted | workflow engine surface (W4 — unified list) |
+
+## protocol-portal · :9328 · merchant-facing · P1
+
+Owner: ALX  ·  Card: Brain/wiki/cards/protocol-portal.md  ·  Cells: [B × reference]
+tenant-scoped  ·  Python prior art: none
+
+| Endpoint | Method | Tier | Axis | Auth | Status | Notes |
+|----------|--------|------|------|------|--------|-------|
+| /protocol | GET | reference | B | session | mounted | unified Bitcoin L2 + .jeffe + L402 overview (W7) |
