@@ -25,6 +25,7 @@ from __future__ import annotations
 import argparse
 import datetime as dt
 import hashlib
+import json
 import re
 import sys
 from dataclasses import dataclass, field
@@ -38,6 +39,7 @@ DEFAULT_PORTAL = REPO_ROOT / "Brain/wiki/canary-go-portal.md"
 DEFAULT_MICROSVC = REPO_ROOT / "docs/sdds/go-handoff/microservice-architecture.md"
 DEFAULT_CANONICAL = REPO_ROOT / "docs/sdds/go-handoff/canonical-data-model.md"
 DEFAULT_OUTPUT = REPO_ROOT / "services/canary-protocol/manifest/manifest.yaml"
+DEFAULT_CATALOG = REPO_ROOT / "services/canary-protocol/manifest/devops-catalog.json"
 
 VALID_TIERS = ("stream", "change-feed", "daily-batch", "bulk-window", "reference")
 VALID_AXES = ("A", "B", "C")
@@ -403,6 +405,70 @@ def to_dict(svc: Service) -> dict:
     }
 
 
+def build_catalog(services: list[Service], generated_at: str) -> dict:
+    """UI-optimized projection of the manifest, consumed by the
+    /devops/catalog page. Pre-computes axis × tier cell occupancy plus
+    per-service summaries so the Go handler can render the grid heat-map
+    via stdlib encoding/json (no Go YAML dep needed)."""
+    cells: dict[tuple[str, str], dict] = {}
+    for axis in VALID_AXES:
+        for tier in VALID_TIERS:
+            cells[(axis, tier)] = {
+                "axis": axis,
+                "tier": tier,
+                "endpoint_count": 0,
+                "services": [],
+            }
+    service_summaries: list[dict] = []
+    for svc in services:
+        cell_set: set[tuple[str, str]] = set()
+        for ep in svc.endpoints:
+            if ep.axis in VALID_AXES and ep.tier in VALID_TIERS:
+                key = (ep.axis, ep.tier)
+                cells[key]["endpoint_count"] += 1
+                cell_set.add(key)
+        for key in cell_set:
+            if svc.name not in cells[key]["services"]:
+                cells[key]["services"].append(svc.name)
+        service_summaries.append(
+            {
+                "name": svc.name,
+                "port": svc.port,
+                "priority": svc.priority,
+                "category": svc.category,
+                "scope": svc.scope,
+                "owner": svc.owner,
+                "card": svc.card,
+                "cells": [c.to_str() for c in svc.cells],
+                "endpoint_count": len(svc.endpoints),
+                "python_prior_art": svc.python_prior_art,
+            }
+        )
+    cell_list = [cells[(a, t)] for a in VALID_AXES for t in VALID_TIERS]
+    return {
+        "generated_at": generated_at,
+        "axes": [
+            {"key": "A", "name": "Adapter", "direction": "POS → Canary"},
+            {"key": "B", "name": "Resource", "direction": "Canary → external"},
+            {"key": "C", "name": "Agent", "direction": "Canary → AI agents"},
+        ],
+        "tiers": list(VALID_TIERS),
+        "cells": cell_list,
+        "services": service_summaries,
+        "totals": {
+            "service_count": len(services),
+            "endpoint_count": sum(len(s.endpoints) for s in services),
+        },
+    }
+
+
+def emit_catalog(catalog: dict, output: Path) -> None:
+    output.parent.mkdir(parents=True, exist_ok=True)
+    with output.open("w") as f:
+        json.dump(catalog, f, indent=2, ensure_ascii=False)
+        f.write("\n")
+
+
 def emit_manifest(services: list[Service], inputs: list[Path], output: Path) -> dict:
     generated_from = []
     for p in inputs:
@@ -446,6 +512,8 @@ def main(argv: list[str] | None = None) -> int:
     parser.add_argument("--microsvc", default=str(DEFAULT_MICROSVC))
     parser.add_argument("--canonical", default=str(DEFAULT_CANONICAL))
     parser.add_argument("--output", default=str(DEFAULT_OUTPUT))
+    parser.add_argument("--catalog", default=str(DEFAULT_CATALOG),
+                        help="Path for devops-catalog.json (UI-optimized projection)")
     parser.add_argument(
         "--strict",
         action="store_true",
@@ -472,9 +540,13 @@ def main(argv: list[str] | None = None) -> int:
         print(f"{prefix} {i.rule}{loc}: {i.message}", file=sys.stderr)
 
     output = Path(args.output)
+    catalog_out = Path(args.catalog)
     inputs = [Path(args.portal), Path(args.microsvc), Path(args.canonical)]
-    emit_manifest(services, inputs, output)
+    payload = emit_manifest(services, inputs, output)
+    catalog = build_catalog(services, payload["generated_at"])
+    emit_catalog(catalog, catalog_out)
     print(f"wrote {output}", file=sys.stderr)
+    print(f"wrote {catalog_out}", file=sys.stderr)
     print(f"  services:  {len(services)}", file=sys.stderr)
     print(
         f"  endpoints: {sum(len(s.endpoints) for s in services)}", file=sys.stderr

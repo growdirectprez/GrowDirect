@@ -1,0 +1,205 @@
+{
+  "generated_at": "2026-05-07T13:46:15+00:00",
+  "axes": [
+    {
+      "key": "A",
+      "name": "Adapter",
+      "direction": "POS → Canary"
+    },
+    {
+      "key": "B",
+      "name": "Resource",
+      "direction": "Canary → external"
+    },
+    {
+      "key": "C",
+      "name": "Agent",
+      "direction": "Canary → AI agents"
+    }
+  ],
+  "tiers": [
+    "stream",
+    "change-feed",
+    "daily-batch",
+    "bulk-window",
+    "reference"
+  ],
+  "cells": [
+    {
+      "axis": "A",
+      "tier": "stream",
+      "endpoint_count": 0,
+      "services": []
+    },
+    {
+      "axis": "A",
+      "tier": "change-feed",
+      "endpoint_count": 0,
+      "services": []
+    },
+    {
+      "axis": "A",
+      "tier": "daily-batch",
+      "endpoint_count": 0,
+      "services": []
+    },
+    {
+      "axis": "A",
+      "tier": "bulk-window",
+      "endpoint_count": 0,
+      "services": []
+    },
+    {
+      "axis": "A",
+      "tier": "reference",
+      "endpoint_count": 0,
+      "services": []
+    },
+    {
+      "axis": "B",
+      "tier": "stream",
+      "endpoint_count": 0,
+      "services": []
+    },
+    {
+      "axis": "B",
+      "tier": "change-feed",
+      "endpoint_count": 5,
+      "services": [
+        "observability",
+        "pipeline"
+      ]
+    },
+    {
+      "axis": "B",
+      "tier": "daily-batch",
+      "endpoint_count": 0,
+      "services": []
+    },
+    {
+      "axis": "B",
+      "tier": "bulk-window",
+      "endpoint_count": 0,
+      "services": []
+    },
+    {
+      "axis": "B",
+      "tier": "reference",
+      "endpoint_count": 7,
+      "services": [
+        "catalog",
+        "manifest",
+        "observability"
+      ]
+    },
+    {
+      "axis": "C",
+      "tier": "stream",
+      "endpoint_count": 0,
+      "services": []
+    },
+    {
+      "axis": "C",
+      "tier": "change-feed",
+      "endpoint_count": 4,
+      "services": [
+        "qa-agent"
+      ]
+    },
+    {
+      "axis": "C",
+      "tier": "daily-batch",
+      "endpoint_count": 0,
+      "services": []
+    },
+    {
+      "axis": "C",
+      "tier": "bulk-window",
+      "endpoint_count": 0,
+      "services": []
+    },
+    {
+      "axis": "C",
+      "tier": "reference",
+      "endpoint_count": 0,
+      "services": []
+    }
+  ],
+  "services": [
+    {
+      "name": "catalog",
+      "port": 9100,
+      "priority": "P0",
+      "category": "cross-tenant infra",
+      "scope": "cross-tenant",
+      "owner": "ALX",
+      "card": "Brain/wiki/cards/catalog.md",
+      "cells": [
+        "B×reference"
+      ],
+      "endpoint_count": 3,
+      "python_prior_art": null
+    },
+    {
+      "name": "manifest",
+      "port": 9101,
+      "priority": "P0",
+      "category": "cross-tenant infra",
+      "scope": "cross-tenant",
+      "owner": "ALX",
+      "card": "Brain/wiki/cards/manifest.md",
+      "cells": [
+        "B×reference"
+      ],
+      "endpoint_count": 3,
+      "python_prior_art": null
+    },
+    {
+      "name": "observability",
+      "port": 9102,
+      "priority": "P0",
+      "category": "cross-tenant infra",
+      "scope": "cross-tenant",
+      "owner": "ALX",
+      "card": "Brain/wiki/cards/observability.md",
+      "cells": [
+        "B×change-feed",
+        "B×reference"
+      ],
+      "endpoint_count": 3,
+      "python_prior_art": null
+    },
+    {
+      "name": "pipeline",
+      "port": 9103,
+      "priority": "P0",
+      "category": "cross-tenant infra",
+      "scope": "cross-tenant",
+      "owner": "ALX",
+      "card": "Brain/wiki/cards/pipeline.md",
+      "cells": [
+        "B×change-feed"
+      ],
+      "endpoint_count": 3,
+      "python_prior_art": "Canary/canary/services/devops_monitor.py"
+    },
+    {
+      "name": "qa-agent",
+      "port": 9104,
+      "priority": "P0",
+      "category": "cross-tenant infra",
+      "scope": "cross-tenant",
+      "owner": "ALX",
+      "card": "Brain/wiki/cards/qa-agent.md",
+      "cells": [
+        "C×change-feed"
+      ],
+      "endpoint_count": 4,
+      "python_prior_art": "Canary/canary/qa_agent/"
+    }
+  ],
+  "totals": {
+    "service_count": 5,
+    "endpoint_count": 16
+  }
+}
