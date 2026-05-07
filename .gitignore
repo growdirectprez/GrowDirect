@@ -77,3 +77,9 @@ devops/.env
 # Lotus Notes archives — exceed GitHub file-size limits (folded GRO-736)
 *.nsf
 *.NSF
+
+# Tool/session state directories — added 2026-05-07 to keep main clean
+.claude/worktrees/
+.codex/
+.cursor/
+CanaryGo/.superpowers/
