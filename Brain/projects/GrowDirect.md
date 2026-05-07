@@ -115,6 +115,7 @@ Active. Manifesto v1.2 is the master source. War Chest v3.x is the current IP tr
 - [[Brain/wiki/growdirect-patent-visual-namespace-lifecycle|Namespace Lifecycle v1.0]] — FIG. 5 (RaaS + Lightning wallet)
 - [[Brain/wiki/growdirect-patent-visual-rebuild-recovery|Rebuild & Recovery Path v1.0]] — FIG. 6 (cockroach principle)
 - [[Brain/wiki/growdirect-patent-visual-six-node-v2|Six-Node Architecture v2.0 (historical)]] — FIG. 1, superseded
+- [[Brain/wiki/raas-namespace-design-review-2026-05-05|RaaS / Namespace Design Review (2026-05-05)]] — three designs vs. the build; FIG. 5 currency assessment
 
 ### Press (legal-review-gated)
 

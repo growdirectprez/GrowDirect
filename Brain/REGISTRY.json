@@ -1,7 +1,7 @@
 {
-  "generated": "2026-05-04T08:31:10.054297+00:00",
-  "article_count": 377,
-  "topic_count": 4557,
+  "generated": "2026-05-06T13:18:56.683593+00:00",
+  "article_count": 379,
+  "topic_count": 4585,
   "articles": [
     {
       "path": "Brain/wiki/501c-advocacy-arm.md",
@@ -3929,6 +3929,8 @@
         "adapters",
         "agent",
         "architecture",
+        "brief",
+        "build",
         "canary",
         "cases",
         "crosswalks",
@@ -3942,6 +3944,7 @@
         "knowledge",
         "layer",
         "layout",
+        "library",
         "moc",
         "model",
         "module",
@@ -3956,7 +3959,10 @@
         "store",
         "substrate",
         "system",
-        "vendor"
+        "track",
+        "vendor",
+        "wave",
+        "wireframe"
       ],
       "type": "wiki"
     },
@@ -6461,6 +6467,91 @@
         "substrate",
         "summary",
         "what"
+      ],
+      "type": "wiki"
+    },
+    {
+      "path": "Brain/wiki/catz-sop-playbook.md",
+      "title": "CATz SOP Playbook — From Tribal Knowledge to OS Spine",
+      "summary": "SOPs are the content of the Canary OS spine. Anyone can ship a kernel — L402, ILDWAC, hash anchoring, the agent-PMO orchestrator are the engineered core. The moat is the **catalog of operating procedu",
+      "tags": [
+        "catz",
+        "sop",
+        "methodology",
+        "content-engine",
+        "expert-network",
+        "rapidpos",
+        "workforce-processes",
+        "package-maintainer-royalty",
+        "l402",
+        "memory-bus"
+      ],
+      "keywords": [
+        "adapt",
+        "attribution",
+        "breaking",
+        "catz",
+        "content-engine",
+        "cross",
+        "diagram",
+        "domain",
+        "eleven",
+        "every",
+        "expert-network",
+        "expires",
+        "fits",
+        "five",
+        "from",
+        "gets",
+        "gloss",
+        "governing",
+        "harvest",
+        "initial",
+        "insight",
+        "inventory",
+        "knowledge",
+        "l402",
+        "layer",
+        "leaves",
+        "maintainer",
+        "memory-bus",
+        "merchant",
+        "merchants",
+        "methodology",
+        "module",
+        "need",
+        "operational",
+        "over",
+        "package",
+        "package-maintainer-royalty",
+        "phase",
+        "playbook",
+        "practitioner",
+        "processes",
+        "rapidpos",
+        "related",
+        "royalty",
+        "shape",
+        "sop",
+        "sources",
+        "sovereignty",
+        "spine",
+        "start",
+        "steps",
+        "tensions",
+        "thesis",
+        "this",
+        "through",
+        "tribal",
+        "versioning",
+        "we'll",
+        "what",
+        "when",
+        "where",
+        "without",
+        "work",
+        "workforce",
+        "workforce-processes"
       ],
       "type": "wiki"
     },
@@ -17305,6 +17396,77 @@
       "type": "wiki"
     },
     {
+      "path": "Brain/wiki/raas-namespace-design-review-2026-05-05.md",
+      "title": "RaaS / Namespace Design Review — Three Designs, One Build",
+      "summary": "> **Open in Obsidian** — mermaid renders inline. Terminal view shows raw mermaid text only.",
+      "tags": [
+        "raas",
+        "namespace",
+        "eljeffe",
+        "jeffe",
+        "fig-5",
+        "patent",
+        "design-review",
+        "architecture",
+        "lightning",
+        "l402"
+      ],
+      "keywords": [
+        "2026",
+        "`raas.md`",
+        "architecture",
+        "build",
+        "built",
+        "canonical",
+        "claim",
+        "code",
+        "days",
+        "derivative",
+        "design",
+        "design-review",
+        "designs",
+        "disagrees",
+        "docs",
+        "each",
+        "eljeffe",
+        "fig-5",
+        "fig.",
+        "filed",
+        "founder",
+        "four",
+        "happen",
+        "jeffe",
+        "l402",
+        "later",
+        "lightning",
+        "namespace",
+        "needs",
+        "once",
+        "open",
+        "patent",
+        "pick",
+        "question",
+        "questions",
+        "raas",
+        "raises",
+        "read",
+        "related",
+        "review",
+        "said",
+        "side",
+        "status",
+        "this",
+        "three",
+        "timeline",
+        "update",
+        "visual",
+        "what",
+        "when",
+        "where"
+      ],
+      "type": "wiki"
+    },
+    {
       "path": "Brain/wiki/rapid-pos-counterpoint-market-research-tam.md",
       "title": "Rapid POS / NCR Counterpoint — Market Research + TAM",
       "summary": "Public-source TAM estimate for the addressable market of \"Counterpoint-running",
@@ -22458,6 +22620,10 @@
         "title": "Kids Water Activities — Palos Verdes Peninsula & South Bay"
       },
       {
+        "path": "Brain/wiki/raas-namespace-design-review-2026-05-05.md",
+        "title": "RaaS / Namespace Design Review — Three Designs, One Build"
+      },
+      {
         "path": "Brain/wiki/solex-square-integration-notes.md",
         "title": "Solex — Square Integration Notes"
       },
@@ -22714,6 +22880,12 @@
       {
         "path": "Brain/wiki/canary-location-item-data-model.md",
         "title": "Canary Location & Item Data Model"
+      }
+    ],
+    "`raas.md`": [
+      {
+        "path": "Brain/wiki/raas-namespace-design-review-2026-05-05.md",
+        "title": "RaaS / Namespace Design Review — Three Designs, One Build"
       }
     ],
     "`restricted": [
@@ -23440,6 +23612,12 @@
       {
         "path": "Brain/wiki/third-branch.md",
         "title": "The Third Branch"
+      }
+    ],
+    "adapt": [
+      {
+        "path": "Brain/wiki/catz-sop-playbook.md",
+        "title": "CATz SOP Playbook — From Tribal Knowledge to OS Spine"
       }
     ],
     "adapter": [
@@ -25760,6 +25938,10 @@
         "title": "Methodology · IBM IT Architecture Options (Morrisons pattern)"
       },
       {
+        "path": "Brain/wiki/raas-namespace-design-review-2026-05-05.md",
+        "title": "RaaS / Namespace Design Review — Three Designs, One Build"
+      },
+      {
         "path": "Brain/wiki/retail-architecture-patterns.md",
         "title": "Retail Platform Architecture Patterns"
       },
@@ -26612,6 +26794,10 @@
       {
         "path": "Brain/wiki/canary-module-d-functional-decomposition.md",
         "title": "Module D (Distribution) — Functional Decomposition"
+      },
+      {
+        "path": "Brain/wiki/catz-sop-playbook.md",
+        "title": "CATz SOP Playbook — From Tribal Knowledge to OS Spine"
       }
     ],
     "audience": [
@@ -28176,6 +28362,12 @@
         "title": "Token Consumption Analysis — February 20, 2026"
       }
     ],
+    "breaking": [
+      {
+        "path": "Brain/wiki/catz-sop-playbook.md",
+        "title": "CATz SOP Playbook — From Tribal Knowledge to OS Spine"
+      }
+    ],
     "bridge": [
       {
         "path": "Brain/wiki/angel-data-platform.md",
@@ -28205,6 +28397,10 @@
       }
     ],
     "brief": [
+      {
+        "path": "Brain/wiki/canary-go-portal.md",
+        "title": "Canary Go — Project Portal"
+      },
       {
         "path": "Brain/wiki/growdirect-investment-thesis.md",
         "title": "The Investment Thesis"
@@ -28388,6 +28584,10 @@
         "title": "Canary — Commercial Context & Go Build Direction"
       },
       {
+        "path": "Brain/wiki/canary-go-portal.md",
+        "title": "Canary Go — Project Portal"
+      },
+      {
         "path": "Brain/wiki/cove-art-jury-vs-wpbca-arc.md",
         "title": "Art Jury (Declaration 100, 1929) vs. WPBCA Architectural Committee"
       },
@@ -28410,6 +28610,10 @@
       {
         "path": "Brain/wiki/growdirect-white-paper.md",
         "title": "**1. The $112 Billion Problem**"
+      },
+      {
+        "path": "Brain/wiki/raas-namespace-design-review-2026-05-05.md",
+        "title": "RaaS / Namespace Design Review — Three Designs, One Build"
       },
       {
         "path": "Brain/wiki/socal-home-garden-target-customers-brief.md",
@@ -28534,6 +28738,10 @@
       {
         "path": "Brain/wiki/katz-scm-2003-archetype.md",
         "title": "Mid-Market Drug/Pharmacy SCM Engagement, 2003 — Branch B Archetype"
+      },
+      {
+        "path": "Brain/wiki/raas-namespace-design-review-2026-05-05.md",
+        "title": "RaaS / Namespace Design Review — Three Designs, One Build"
       },
       {
         "path": "Brain/wiki/rapid-pos-counterpoint-user-pain-points.md",
@@ -29602,6 +29810,10 @@
         "title": "Intactix 2006 — Canonical Validation of RetailSpine"
       },
       {
+        "path": "Brain/wiki/raas-namespace-design-review-2026-05-05.md",
+        "title": "RaaS / Namespace Design Review — Three Designs, One Build"
+      },
+      {
         "path": "Brain/wiki/retail-architecture-patterns.md",
         "title": "Retail Platform Architecture Patterns"
       },
@@ -30276,6 +30488,10 @@
       {
         "path": "Brain/wiki/catz-rapidpos-alignment-notes.md",
         "title": "CATz–RapidPOS Alignment Notes"
+      },
+      {
+        "path": "Brain/wiki/catz-sop-playbook.md",
+        "title": "CATz SOP Playbook — From Tribal Knowledge to OS Spine"
       },
       {
         "path": "Brain/wiki/founder-context-secure-engagement-archive.md",
@@ -31404,6 +31620,10 @@
       {
         "path": "Brain/wiki/growdirect-compliance.md",
         "title": "Compliance"
+      },
+      {
+        "path": "Brain/wiki/raas-namespace-design-review-2026-05-05.md",
+        "title": "RaaS / Namespace Design Review — Three Designs, One Build"
       }
     ],
     "claim:": [
@@ -32264,6 +32484,10 @@
       {
         "path": "Brain/wiki/ncr-counterpoint-endpoint-spine-map.md",
         "title": "NCR Counterpoint API — Endpoint × CRDM × Spine Map"
+      },
+      {
+        "path": "Brain/wiki/raas-namespace-design-review-2026-05-05.md",
+        "title": "RaaS / Namespace Design Review — Three Designs, One Build"
       },
       {
         "path": "Brain/wiki/srd-shelf-edge-label.md",
@@ -34118,6 +34342,10 @@
       {
         "path": "Brain/wiki/angel-content-engine.md",
         "title": "Angel Content Engine"
+      },
+      {
+        "path": "Brain/wiki/catz-sop-playbook.md",
+        "title": "CATz SOP Playbook — From Tribal Knowledge to OS Spine"
       },
       {
         "path": "Brain/wiki/document-management.md",
@@ -36316,6 +36544,10 @@
         "title": "Module T (Transaction Pipeline) — Functional Decomposition"
       },
       {
+        "path": "Brain/wiki/catz-sop-playbook.md",
+        "title": "CATz SOP Playbook — From Tribal Knowledge to OS Spine"
+      },
+      {
         "path": "Brain/wiki/coac-pv-endangered-species.md",
         "title": "COAC: Palos Verdes Endangered Species & Habitat — Scientific Foundation"
       },
@@ -37472,6 +37704,10 @@
       {
         "path": "Brain/wiki/murdochs-workflow-cards-user-stories-scenarios.md",
         "title": "Murdoch's Ranch & Home Supply — In-Store Workflow Cards, User Stories & Scenarios"
+      },
+      {
+        "path": "Brain/wiki/raas-namespace-design-review-2026-05-05.md",
+        "title": "RaaS / Namespace Design Review — Three Designs, One Build"
       }
     ],
     "days\"": [
@@ -38598,6 +38834,12 @@
         "title": "Module P (Pricing & Promotion) — Functional Decomposition"
       }
     ],
+    "derivative": [
+      {
+        "path": "Brain/wiki/raas-namespace-design-review-2026-05-05.md",
+        "title": "RaaS / Namespace Design Review — Three Designs, One Build"
+      }
+    ],
     "derived": [
       {
         "path": "Brain/wiki/ncr-counterpoint-endpoint-spine-map.md",
@@ -38708,6 +38950,10 @@
         "title": "PwC eBusiness Web Implementation Guide (Definition / Design / Development)"
       },
       {
+        "path": "Brain/wiki/raas-namespace-design-review-2026-05-05.md",
+        "title": "RaaS / Namespace Design Review — Three Designs, One Build"
+      },
+      {
         "path": "Brain/wiki/retail-architecture-patterns.md",
         "title": "Retail Platform Architecture Patterns"
       },
@@ -38726,6 +38972,12 @@
       {
         "path": "Brain/wiki/secure-heartbeat-fireball-2002.md",
         "title": "Heartbeat / Fireball (2002) — Essential Design"
+      }
+    ],
+    "design-review": [
+      {
+        "path": "Brain/wiki/raas-namespace-design-review-2026-05-05.md",
+        "title": "RaaS / Namespace Design Review — Three Designs, One Build"
       }
     ],
     "design-validation": [
@@ -38748,6 +39000,12 @@
       {
         "path": "Brain/wiki/growdirect-data-strategy.md",
         "title": "Canary Data Strategy — North Star"
+      }
+    ],
+    "designs": [
+      {
+        "path": "Brain/wiki/raas-namespace-design-review-2026-05-05.md",
+        "title": "RaaS / Namespace Design Review — Three Designs, One Build"
       }
     ],
     "desk": [
@@ -39112,6 +39370,10 @@
     ],
     "diagram": [
       {
+        "path": "Brain/wiki/catz-sop-playbook.md",
+        "title": "CATz SOP Playbook — From Tribal Knowledge to OS Spine"
+      },
+      {
         "path": "Brain/wiki/secure-customer-order-management-flow-2017.md",
         "title": "Secure — Customer Order Management Data Flow (2017)"
       }
@@ -39420,6 +39682,12 @@
       {
         "path": "Brain/wiki/agent-card-format.md",
         "title": "Agent Card Format"
+      }
+    ],
+    "disagrees": [
+      {
+        "path": "Brain/wiki/raas-namespace-design-review-2026-05-05.md",
+        "title": "RaaS / Namespace Design Review — Three Designs, One Build"
       }
     ],
     "disambiguation": [
@@ -39822,6 +40090,10 @@
       {
         "path": "Brain/wiki/growdirect-attack-plan.md",
         "title": "Canary LP — Attack Plan v3.0"
+      },
+      {
+        "path": "Brain/wiki/raas-namespace-design-review-2026-05-05.md",
+        "title": "RaaS / Namespace Design Review — Three Designs, One Build"
       }
     ],
     "doctrine": [
@@ -40136,6 +40408,10 @@
       {
         "path": "Brain/wiki/armstrong-garden-centers-proof-case.md",
         "title": "Armstrong Garden Centers — Proof Case"
+      },
+      {
+        "path": "Brain/wiki/catz-sop-playbook.md",
+        "title": "CATz SOP Playbook — From Tribal Knowledge to OS Spine"
       },
       {
         "path": "Brain/wiki/coac-2026-civic-problems-memorandum.md",
@@ -40674,6 +40950,10 @@
         "title": "NCR Counterpoint Sandbox Setup — Operator Action Checklist"
       },
       {
+        "path": "Brain/wiki/raas-namespace-design-review-2026-05-05.md",
+        "title": "RaaS / Namespace Design Review — Three Designs, One Build"
+      },
+      {
         "path": "Brain/wiki/retail-spine-secure-crosswalk.md",
         "title": "Retail Spine — Prior-Art Cards Crosswalk"
       },
@@ -41206,6 +41486,12 @@
         "title": "Riviera Village — Content Pool (Raw)"
       }
     ],
+    "eleven": [
+      {
+        "path": "Brain/wiki/catz-sop-playbook.md",
+        "title": "CATz SOP Playbook — From Tribal Knowledge to OS Spine"
+      }
+    ],
     "elite": [
       {
         "path": "Brain/wiki/peninsula-youth-sports-summer.md",
@@ -41234,6 +41520,10 @@
       {
         "path": "Brain/wiki/growdirect-the-glog.md",
         "title": "elJeffe"
+      },
+      {
+        "path": "Brain/wiki/raas-namespace-design-review-2026-05-05.md",
+        "title": "RaaS / Namespace Design Review — Three Designs, One Build"
       }
     ],
     "elsewhere": [
@@ -42344,6 +42634,10 @@
         "title": "Peninsula School Guide — Content Pool (Raw)"
       },
       {
+        "path": "Brain/wiki/catz-sop-playbook.md",
+        "title": "CATz SOP Playbook — From Tribal Knowledge to OS Spine"
+      },
+      {
         "path": "Brain/wiki/growdirect-data-strategy.md",
         "title": "Canary Data Strategy — North Star"
       },
@@ -42896,10 +43190,22 @@
         "title": "Community of Abalone Cove (formerly WPBCA) — Payments Platform and Assessment Collection"
       }
     ],
+    "expert-network": [
+      {
+        "path": "Brain/wiki/catz-sop-playbook.md",
+        "title": "CATz SOP Playbook — From Tribal Knowledge to OS Spine"
+      }
+    ],
     "expertise": [
       {
         "path": "Brain/wiki/rapid-pos-counterpoint-user-pain-points.md",
         "title": "Rapid POS / NCR Counterpoint — User Pain Points + FAQs"
+      }
+    ],
+    "expires": [
+      {
+        "path": "Brain/wiki/catz-sop-playbook.md",
+        "title": "CATz SOP Playbook — From Tribal Knowledge to OS Spine"
       }
     ],
     "explicit": [
@@ -43744,6 +44050,12 @@
         "title": "NCR Counterpoint Document Model"
       }
     ],
+    "fig-5": [
+      {
+        "path": "Brain/wiki/raas-namespace-design-review-2026-05-05.md",
+        "title": "RaaS / Namespace Design Review — Three Designs, One Build"
+      }
+    ],
     "fig.": [
       {
         "path": "Brain/wiki/growdirect-patent-visual-architecture-v3.md",
@@ -43772,6 +44084,10 @@
       {
         "path": "Brain/wiki/growdirect-patent-visual-triple-subscriber.md",
         "title": "Patent Schematic — Triple Subscriber Component v2.0 (FIG. 3)"
+      },
+      {
+        "path": "Brain/wiki/raas-namespace-design-review-2026-05-05.md",
+        "title": "RaaS / Namespace Design Review — Three Designs, One Build"
       }
     ],
     "fight": [
@@ -43864,6 +44180,12 @@
       {
         "path": "Brain/wiki/seacove-arc-module.md",
         "title": "Seacove → Cove ARC Module"
+      }
+    ],
+    "filed": [
+      {
+        "path": "Brain/wiki/raas-namespace-design-review-2026-05-05.md",
+        "title": "RaaS / Namespace Design Review — Three Designs, One Build"
       }
     ],
     "files": [
@@ -44398,6 +44720,10 @@
         "title": "Canary Module — T (Transaction Pipeline)"
       },
       {
+        "path": "Brain/wiki/catz-sop-playbook.md",
+        "title": "CATz SOP Playbook — From Tribal Knowledge to OS Spine"
+      },
+      {
         "path": "Brain/wiki/foundation-blockchain-proof-layer.md",
         "title": "Foundation Blockchain Proof Layer"
       },
@@ -44438,6 +44764,10 @@
       {
         "path": "Brain/wiki/canary-mcp-stack-architecture.md",
         "title": "Canary MCP Stack Architecture"
+      },
+      {
+        "path": "Brain/wiki/catz-sop-playbook.md",
+        "title": "CATz SOP Playbook — From Tribal Knowledge to OS Spine"
       },
       {
         "path": "Brain/wiki/coac-1967-portuguese-bend-clay-mineralogy.md",
@@ -45120,6 +45450,10 @@
         "title": "The Team"
       },
       {
+        "path": "Brain/wiki/raas-namespace-design-review-2026-05-05.md",
+        "title": "RaaS / Namespace Design Review — Three Designs, One Build"
+      },
+      {
         "path": "Brain/wiki/tesco-technical-library.md",
         "title": "Tesco Technical Library — The Third Canonical Layer at F&E"
       },
@@ -45276,6 +45610,10 @@
       {
         "path": "Brain/wiki/growdirect-the-glog.md",
         "title": "elJeffe"
+      },
+      {
+        "path": "Brain/wiki/raas-namespace-design-review-2026-05-05.md",
+        "title": "RaaS / Namespace Design Review — Three Designs, One Build"
       },
       {
         "path": "Brain/wiki/rapidpos-driftpos-platform-brief.md",
@@ -45804,6 +46142,10 @@
       {
         "path": "Brain/wiki/canary-module-q-counterpoint-rule-catalog.md",
         "title": "Canary Module Q — Counterpoint Rule Catalog"
+      },
+      {
+        "path": "Brain/wiki/catz-sop-playbook.md",
+        "title": "CATz SOP Playbook — From Tribal Knowledge to OS Spine"
       },
       {
         "path": "Brain/wiki/cove-baughey-1947.md",
@@ -46642,6 +46984,10 @@
     ],
     "gets": [
       {
+        "path": "Brain/wiki/catz-sop-playbook.md",
+        "title": "CATz SOP Playbook — From Tribal Knowledge to OS Spine"
+      },
+      {
         "path": "Brain/wiki/garden-center-operating-reality.md",
         "title": "Garden Center Operating Reality"
       },
@@ -46786,6 +47132,12 @@
       {
         "path": "Brain/wiki/growdirect-timelog-alx-cowork-capture-feb27.md",
         "title": "Session — ALX Cowork Capture (Feb 27, 2026)"
+      }
+    ],
+    "gloss": [
+      {
+        "path": "Brain/wiki/catz-sop-playbook.md",
+        "title": "CATz SOP Playbook — From Tribal Knowledge to OS Spine"
       }
     ],
     "glossary": [
@@ -47198,6 +47550,10 @@
       {
         "path": "Brain/wiki/catz-method.md",
         "title": "CATz — Counterpoint Architecture & Transformation Method"
+      },
+      {
+        "path": "Brain/wiki/catz-sop-playbook.md",
+        "title": "CATz SOP Playbook — From Tribal Knowledge to OS Spine"
       },
       {
         "path": "Brain/wiki/coac-bylaws-moc.md",
@@ -48064,6 +48420,10 @@
       {
         "path": "Brain/wiki/growdirect-data-strategy.md",
         "title": "Canary Data Strategy — North Star"
+      },
+      {
+        "path": "Brain/wiki/raas-namespace-design-review-2026-05-05.md",
+        "title": "RaaS / Namespace Design Review — Three Designs, One Build"
       }
     ],
     "happened": [
@@ -48116,6 +48476,12 @@
       {
         "path": "Brain/wiki/retail-sizing-methodology.md",
         "title": "Retail System Sizing Methodology"
+      }
+    ],
+    "harvest": [
+      {
+        "path": "Brain/wiki/catz-sop-playbook.md",
+        "title": "CATz SOP Playbook — From Tribal Knowledge to OS Spine"
       }
     ],
     "hash": [
@@ -50160,6 +50526,10 @@
     ],
     "initial": [
       {
+        "path": "Brain/wiki/catz-sop-playbook.md",
+        "title": "CATz SOP Playbook — From Tribal Knowledge to OS Spine"
+      },
+      {
         "path": "Brain/wiki/coac-aclad-partnership.md",
         "title": "ACLAD Partnership — Same-Side Public-Private Defense"
       },
@@ -50295,6 +50665,10 @@
       }
     ],
     "insight": [
+      {
+        "path": "Brain/wiki/catz-sop-playbook.md",
+        "title": "CATz SOP Playbook — From Tribal Knowledge to OS Spine"
+      },
       {
         "path": "Brain/wiki/coac-1984-gp-amendment-14-eastview.md",
         "title": "COAC: 1984 GP Amendment 14 — Eastview Annexation (Jurisdictional-Continuity Precedent)"
@@ -50988,6 +51362,10 @@
         "title": "Canary Module Q — Counterpoint Rule Catalog"
       },
       {
+        "path": "Brain/wiki/catz-sop-playbook.md",
+        "title": "CATz SOP Playbook — From Tribal Knowledge to OS Spine"
+      },
+      {
         "path": "Brain/wiki/coac-rpv-housing-elements.md",
         "title": "COAC: RPV Housing Elements (1990, 2001) — Annotated for Cove"
       },
@@ -51568,6 +51946,10 @@
       {
         "path": "Brain/wiki/growdirect-team-jeffe-quotes.md",
         "title": "Jeffe Quotes — CEO, GrowDirect"
+      },
+      {
+        "path": "Brain/wiki/raas-namespace-design-review-2026-05-05.md",
+        "title": "RaaS / Namespace Design Review — Three Designs, One Build"
       }
     ],
     "jeffe's": [
@@ -51950,6 +52332,10 @@
         "title": "Canary Go — Project Portal"
       },
       {
+        "path": "Brain/wiki/catz-sop-playbook.md",
+        "title": "CATz SOP Playbook — From Tribal Knowledge to OS Spine"
+      },
+      {
         "path": "Brain/wiki/coac-1984-gp-amendment-14-eastview.md",
         "title": "COAC: 1984 GP Amendment 14 — Eastview Annexation (Jurisdictional-Continuity Precedent)"
       },
@@ -52034,6 +52420,10 @@
         "title": "Canary Go — Satoshi Cost Model"
       },
       {
+        "path": "Brain/wiki/catz-sop-playbook.md",
+        "title": "CATz SOP Playbook — From Tribal Knowledge to OS Spine"
+      },
+      {
         "path": "Brain/wiki/growdirect-manifesto-v1.md",
         "title": "GrowDirect Manifesto"
       },
@@ -52064,6 +52454,10 @@
       {
         "path": "Brain/wiki/growdirect-white-paper-micropayment.md",
         "title": "Executive Summary"
+      },
+      {
+        "path": "Brain/wiki/raas-namespace-design-review-2026-05-05.md",
+        "title": "RaaS / Namespace Design Review — Three Designs, One Build"
       }
     ],
     "la-cresta": [
@@ -52450,6 +52844,12 @@
         "title": "Canary Data Strategy — North Star"
       }
     ],
+    "later": [
+      {
+        "path": "Brain/wiki/raas-namespace-design-review-2026-05-05.md",
+        "title": "RaaS / Namespace Design Review — Three Designs, One Build"
+      }
+    ],
     "launch": [
       {
         "path": "Brain/wiki/angel-listing-process.md",
@@ -52544,6 +52944,10 @@
       {
         "path": "Brain/wiki/catz-rapidpos-alignment-notes.md",
         "title": "CATz–RapidPOS Alignment Notes"
+      },
+      {
+        "path": "Brain/wiki/catz-sop-playbook.md",
+        "title": "CATz SOP Playbook — From Tribal Knowledge to OS Spine"
       },
       {
         "path": "Brain/wiki/cove-legal-framework.md",
@@ -52808,6 +53212,10 @@
       {
         "path": "Brain/wiki/canary-go-satoshi-cost-model.md",
         "title": "Canary Go — Satoshi Cost Model"
+      },
+      {
+        "path": "Brain/wiki/catz-sop-playbook.md",
+        "title": "CATz SOP Playbook — From Tribal Knowledge to OS Spine"
       }
     ],
     "leaving": [
@@ -53096,6 +53504,10 @@
       {
         "path": "Brain/wiki/canary-go-endpoint-library.md",
         "title": "Canary Go Endpoint Library"
+      },
+      {
+        "path": "Brain/wiki/canary-go-portal.md",
+        "title": "Canary Go — Project Portal"
       },
       {
         "path": "Brain/wiki/growdirect-research-reference-library.md",
@@ -53394,6 +53806,10 @@
       {
         "path": "Brain/wiki/growdirect-white-paper.md",
         "title": "**1. The $112 Billion Problem**"
+      },
+      {
+        "path": "Brain/wiki/raas-namespace-design-review-2026-05-05.md",
+        "title": "RaaS / Namespace Design Review — Three Designs, One Build"
       },
       {
         "path": "Brain/wiki/wpbca-investment-policy.md",
@@ -54436,6 +54852,12 @@
       {
         "path": "Brain/wiki/growdirect-attack-plan.md",
         "title": "Canary LP — Attack Plan v3.0"
+      }
+    ],
+    "maintainer": [
+      {
+        "path": "Brain/wiki/catz-sop-playbook.md",
+        "title": "CATz SOP Playbook — From Tribal Knowledge to OS Spine"
       }
     ],
     "maintenance": [
@@ -55780,6 +56202,12 @@
         "title": "Agent Card Format"
       }
     ],
+    "memory-bus": [
+      {
+        "path": "Brain/wiki/catz-sop-playbook.md",
+        "title": "CATz SOP Playbook — From Tribal Knowledge to OS Spine"
+      }
+    ],
     "mention": [
       {
         "path": "Brain/wiki/angel-compass-concierge.md",
@@ -55874,6 +56302,10 @@
         "title": "canary.growdirect.io — Site Update Instructions"
       },
       {
+        "path": "Brain/wiki/catz-sop-playbook.md",
+        "title": "CATz SOP Playbook — From Tribal Knowledge to OS Spine"
+      },
+      {
         "path": "Brain/wiki/growdirect-data-strategy.md",
         "title": "Canary Data Strategy — North Star"
       },
@@ -55922,6 +56354,10 @@
       {
         "path": "Brain/wiki/canary-sales-strategy.md",
         "title": "Canary Sales Strategy"
+      },
+      {
+        "path": "Brain/wiki/catz-sop-playbook.md",
+        "title": "CATz SOP Playbook — From Tribal Knowledge to OS Spine"
       },
       {
         "path": "Brain/wiki/growdirect-manifesto.md",
@@ -56066,6 +56502,10 @@
       {
         "path": "Brain/wiki/catz-method.md",
         "title": "CATz — Counterpoint Architecture & Transformation Method"
+      },
+      {
+        "path": "Brain/wiki/catz-sop-playbook.md",
+        "title": "CATz SOP Playbook — From Tribal Knowledge to OS Spine"
       },
       {
         "path": "Brain/wiki/coac-1984-gp-amendment-14-eastview.md",
@@ -57044,6 +57484,10 @@
         "title": "CATz–RapidPOS Alignment Notes"
       },
       {
+        "path": "Brain/wiki/catz-sop-playbook.md",
+        "title": "CATz SOP Playbook — From Tribal Knowledge to OS Spine"
+      },
+      {
         "path": "Brain/wiki/cove-art-jury-vs-wpbca-arc.md",
         "title": "Art Jury (Declaration 100, 1929) vs. WPBCA Architectural Committee"
       },
@@ -57880,6 +58324,10 @@
       {
         "path": "Brain/wiki/growdirect-timelog-alx-raas-architecture-mar01.md",
         "title": "Session — RaaS Strategic Reframe + Investor Deck QA (Mar 1, 2026)"
+      },
+      {
+        "path": "Brain/wiki/raas-namespace-design-review-2026-05-05.md",
+        "title": "RaaS / Namespace Design Review — Three Designs, One Build"
       }
     ],
     "namespace:": [
@@ -58182,6 +58630,10 @@
         "title": "CATz–RapidPOS Alignment Notes"
       },
       {
+        "path": "Brain/wiki/catz-sop-playbook.md",
+        "title": "CATz SOP Playbook — From Tribal Knowledge to OS Spine"
+      },
+      {
         "path": "Brain/wiki/growdirect-manifesto.md",
         "title": "GrowDirect Manifesto"
       },
@@ -58232,6 +58684,10 @@
       {
         "path": "Brain/wiki/growdirect-workflow.md",
         "title": "GrowDirect Workflow"
+      },
+      {
+        "path": "Brain/wiki/raas-namespace-design-review-2026-05-05.md",
+        "title": "RaaS / Namespace Design Review — Three Designs, One Build"
       }
     ],
     "negative": [
@@ -59476,6 +59932,12 @@
         "title": "Cannabis Retail Risk Dictionary & Integration Spec"
       }
     ],
+    "once": [
+      {
+        "path": "Brain/wiki/raas-namespace-design-review-2026-05-05.md",
+        "title": "RaaS / Namespace Design Review — Three Designs, One Build"
+      }
+    ],
     "ongoing": [
       {
         "path": "Brain/wiki/control-state-procurement-requirements.md",
@@ -59776,6 +60238,10 @@
         "title": "Prototype Prep Master Dispatch"
       },
       {
+        "path": "Brain/wiki/raas-namespace-design-review-2026-05-05.md",
+        "title": "RaaS / Namespace Design Review — Three Designs, One Build"
+      },
+      {
         "path": "Brain/wiki/rapid-pos-counterpoint-market-research-tam.md",
         "title": "Rapid POS / NCR Counterpoint — Market Research + TAM"
       },
@@ -60008,6 +60474,10 @@
       {
         "path": "Brain/wiki/canary-long-arc-atlas.md",
         "title": "Canary Long-Arc Atlas"
+      },
+      {
+        "path": "Brain/wiki/catz-sop-playbook.md",
+        "title": "CATz SOP Playbook — From Tribal Knowledge to OS Spine"
       },
       {
         "path": "Brain/wiki/coac-declaration-100-article-ii-section-5.md",
@@ -60794,6 +61264,10 @@
         "title": "Canary Sales Strategy"
       },
       {
+        "path": "Brain/wiki/catz-sop-playbook.md",
+        "title": "CATz SOP Playbook — From Tribal Knowledge to OS Spine"
+      },
+      {
         "path": "Brain/wiki/growdirect-manifesto.md",
         "title": "GrowDirect Manifesto"
       },
@@ -61024,6 +61498,18 @@
       {
         "path": "Brain/wiki/tesco-technical-library.md",
         "title": "Tesco Technical Library — The Third Canonical Layer at F&E"
+      }
+    ],
+    "package": [
+      {
+        "path": "Brain/wiki/catz-sop-playbook.md",
+        "title": "CATz SOP Playbook — From Tribal Knowledge to OS Spine"
+      }
+    ],
+    "package-maintainer-royalty": [
+      {
+        "path": "Brain/wiki/catz-sop-playbook.md",
+        "title": "CATz SOP Playbook — From Tribal Knowledge to OS Spine"
       }
     ],
     "packages": [
@@ -61748,6 +62234,10 @@
       {
         "path": "Brain/wiki/growdirect-white-paper-micropayment.md",
         "title": "Executive Summary"
+      },
+      {
+        "path": "Brain/wiki/raas-namespace-design-review-2026-05-05.md",
+        "title": "RaaS / Namespace Design Review — Three Designs, One Build"
       }
     ],
     "patent-visuals": [
@@ -62608,6 +63098,10 @@
         "title": "CATz — Counterpoint Architecture & Transformation Method"
       },
       {
+        "path": "Brain/wiki/catz-sop-playbook.md",
+        "title": "CATz SOP Playbook — From Tribal Knowledge to OS Spine"
+      },
+      {
         "path": "Brain/wiki/coac-reactivation-framework.md",
         "title": "CoAC Reactivation Framework — MOC"
       },
@@ -62816,6 +63310,12 @@
       {
         "path": "Brain/wiki/secure-architecture.md",
         "title": "Secure Architecture"
+      }
+    ],
+    "pick": [
+      {
+        "path": "Brain/wiki/raas-namespace-design-review-2026-05-05.md",
+        "title": "RaaS / Namespace Design Review — Three Designs, One Build"
       }
     ],
     "pickleball": [
@@ -63462,6 +63962,10 @@
       {
         "path": "Brain/wiki/canary-canonical-positioning.md",
         "title": "Canary — Canonical Positioning"
+      },
+      {
+        "path": "Brain/wiki/catz-sop-playbook.md",
+        "title": "CATz SOP Playbook — From Tribal Knowledge to OS Spine"
       },
       {
         "path": "Brain/wiki/growdirect-data-strategy.md",
@@ -64285,6 +64789,10 @@
       }
     ],
     "practitioner": [
+      {
+        "path": "Brain/wiki/catz-sop-playbook.md",
+        "title": "CATz SOP Playbook — From Tribal Knowledge to OS Spine"
+      },
       {
         "path": "Brain/wiki/retail-merchandise-planning-otb.md",
         "title": "Retail Merchandise Planning and Open-to-Buy"
@@ -65316,6 +65824,10 @@
       {
         "path": "Brain/wiki/canary-module-t-functional-decomposition.md",
         "title": "Module T (Transaction Pipeline) — Functional Decomposition"
+      },
+      {
+        "path": "Brain/wiki/catz-sop-playbook.md",
+        "title": "CATz SOP Playbook — From Tribal Knowledge to OS Spine"
       }
     ],
     "processing": [
@@ -66848,6 +67360,10 @@
         "title": "Declaration 100 Scope — The Open Question"
       },
       {
+        "path": "Brain/wiki/raas-namespace-design-review-2026-05-05.md",
+        "title": "RaaS / Namespace Design Review — Three Designs, One Build"
+      },
+      {
         "path": "Brain/wiki/reference-hoa-disclosure-sample-2018.md",
         "title": "Reference — HOA Disclosure Documents (Sample, 2018)"
       }
@@ -66996,6 +67512,10 @@
         "title": "PwC eBusiness Web Implementation Guide (Definition / Design / Development)"
       },
       {
+        "path": "Brain/wiki/raas-namespace-design-review-2026-05-05.md",
+        "title": "RaaS / Namespace Design Review — Three Designs, One Build"
+      },
+      {
         "path": "Brain/wiki/rapid-pos-counterpoint-market-research-tam.md",
         "title": "Rapid POS / NCR Counterpoint — Market Research + TAM"
       },
@@ -67140,6 +67660,10 @@
       {
         "path": "Brain/wiki/growdirect-timelog-alx-raas-architecture-mar01.md",
         "title": "Session — RaaS Strategic Reframe + Investor Deck QA (Mar 1, 2026)"
+      },
+      {
+        "path": "Brain/wiki/raas-namespace-design-review-2026-05-05.md",
+        "title": "RaaS / Namespace Design Review — Three Designs, One Build"
       }
     ],
     "raci": [
@@ -67190,6 +67714,12 @@
       {
         "path": "Brain/wiki/ncr-counterpoint-modernization-path.md",
         "title": "Counterpoint Modernization — Without the Rip-and-Replace"
+      }
+    ],
+    "raises": [
+      {
+        "path": "Brain/wiki/raas-namespace-design-review-2026-05-05.md",
+        "title": "RaaS / Namespace Design Review — Three Designs, One Build"
       }
     ],
     "raising": [
@@ -67346,6 +67876,10 @@
       {
         "path": "Brain/wiki/catz-rapidpos-alignment-notes.md",
         "title": "CATz–RapidPOS Alignment Notes"
+      },
+      {
+        "path": "Brain/wiki/catz-sop-playbook.md",
+        "title": "CATz SOP Playbook — From Tribal Knowledge to OS Spine"
       },
       {
         "path": "Brain/wiki/crb-fresh-product-support.md",
@@ -67556,6 +68090,10 @@
       {
         "path": "Brain/wiki/ncr-counterpoint-phase-0-context-brief.md",
         "title": "NCR Counterpoint Phase 0 — Session Context Brief"
+      },
+      {
+        "path": "Brain/wiki/raas-namespace-design-review-2026-05-05.md",
+        "title": "RaaS / Namespace Design Review — Three Designs, One Build"
       }
     ],
     "readiness": [
@@ -69252,6 +69790,10 @@
         "title": "CATz–RapidPOS Alignment Notes"
       },
       {
+        "path": "Brain/wiki/catz-sop-playbook.md",
+        "title": "CATz SOP Playbook — From Tribal Knowledge to OS Spine"
+      },
+      {
         "path": "Brain/wiki/coac-15-owner-network.md",
         "title": "15-Owner Network — Parcel Identification and Owner Recruitment"
       },
@@ -69866,6 +70408,10 @@
       {
         "path": "Brain/wiki/prototype-prep-master-dispatch.md",
         "title": "Prototype Prep Master Dispatch"
+      },
+      {
+        "path": "Brain/wiki/raas-namespace-design-review-2026-05-05.md",
+        "title": "RaaS / Namespace Design Review — Three Designs, One Build"
       },
       {
         "path": "Brain/wiki/rapid-pos-counterpoint-market-research-tam.md",
@@ -71706,6 +72252,10 @@
         "title": "**Executive Summary: The Quant’s Verdict**"
       },
       {
+        "path": "Brain/wiki/raas-namespace-design-review-2026-05-05.md",
+        "title": "RaaS / Namespace Design Review — Three Designs, One Build"
+      },
+      {
         "path": "Brain/wiki/rapid-pos-counterpoint-user-pain-points.md",
         "title": "Rapid POS / NCR Counterpoint — User Pain Points + FAQs"
       },
@@ -72438,6 +72988,10 @@
     ],
     "royalty": [
       {
+        "path": "Brain/wiki/catz-sop-playbook.md",
+        "title": "CATz SOP Playbook — From Tribal Knowledge to OS Spine"
+      },
+      {
         "path": "Brain/wiki/growdirect-the-glog.md",
         "title": "elJeffe"
       }
@@ -72812,6 +73366,10 @@
       {
         "path": "Brain/wiki/academic-frame-1999-hbs.md",
         "title": "The Academic Frame — HBS 9-599-101 (Moon, 1999) and the Third Branch"
+      },
+      {
+        "path": "Brain/wiki/raas-namespace-design-review-2026-05-05.md",
+        "title": "RaaS / Namespace Design Review — Three Designs, One Build"
       }
     ],
     "sale": [
@@ -74704,6 +75262,10 @@
         "title": "Category Management Engagement Pattern (2005–2006 Enterprise Era)"
       },
       {
+        "path": "Brain/wiki/catz-sop-playbook.md",
+        "title": "CATz SOP Playbook — From Tribal Knowledge to OS Spine"
+      },
+      {
         "path": "Brain/wiki/cove-arc-posture.md",
         "title": "WPBCA ARC Posture — Concierge + Transparency, Not Reviewer"
       },
@@ -75238,6 +75800,10 @@
       {
         "path": "Brain/wiki/ncr-counterpoint-sandbox-setup-checklist.md",
         "title": "NCR Counterpoint Sandbox Setup — Operator Action Checklist"
+      },
+      {
+        "path": "Brain/wiki/raas-namespace-design-review-2026-05-05.md",
+        "title": "RaaS / Namespace Design Review — Three Designs, One Build"
       }
     ],
     "side\"": [
@@ -75854,6 +76420,12 @@
         "title": "Angel Brand & Team — AREA at Compass"
       }
     ],
+    "sop": [
+      {
+        "path": "Brain/wiki/catz-sop-playbook.md",
+        "title": "CATz SOP Playbook — From Tribal Knowledge to OS Spine"
+      }
+    ],
     "sophistication": [
       {
         "path": "Brain/wiki/garden-center-operating-reality.md",
@@ -76246,6 +76818,10 @@
       {
         "path": "Brain/wiki/category-management-engagement-pattern.md",
         "title": "Category Management Engagement Pattern (2005–2006 Enterprise Era)"
+      },
+      {
+        "path": "Brain/wiki/catz-sop-playbook.md",
+        "title": "CATz SOP Playbook — From Tribal Knowledge to OS Spine"
       },
       {
         "path": "Brain/wiki/coac-bylaws-moc.md",
@@ -76854,6 +77430,10 @@
     ],
     "sovereignty": [
       {
+        "path": "Brain/wiki/catz-sop-playbook.md",
+        "title": "CATz SOP Playbook — From Tribal Knowledge to OS Spine"
+      },
+      {
         "path": "Brain/wiki/growdirect-patent-visual-data-sovereignty.md",
         "title": "Patent Schematic — Data Sovereignty Stack v1.0 (FIG. 4)"
       },
@@ -77284,6 +77864,10 @@
       {
         "path": "Brain/wiki/canary-module-t-transactions.md",
         "title": "Canary Module — T (Transaction Pipeline)"
+      },
+      {
+        "path": "Brain/wiki/catz-sop-playbook.md",
+        "title": "CATz SOP Playbook — From Tribal Knowledge to OS Spine"
       },
       {
         "path": "Brain/wiki/crb-fresh-product-support.md",
@@ -77886,6 +78470,10 @@
         "title": "Ninja Selling — Sales Methodology for Angel"
       },
       {
+        "path": "Brain/wiki/catz-sop-playbook.md",
+        "title": "CATz SOP Playbook — From Tribal Knowledge to OS Spine"
+      },
+      {
         "path": "Brain/wiki/ncr-counterpoint-modernization-path.md",
         "title": "Counterpoint Modernization — Without the Rip-and-Replace"
       }
@@ -78142,6 +78730,10 @@
         "title": "NCR Counterpoint API — Connection Runbook"
       },
       {
+        "path": "Brain/wiki/raas-namespace-design-review-2026-05-05.md",
+        "title": "RaaS / Namespace Design Review — Three Designs, One Build"
+      },
+      {
         "path": "Brain/wiki/south-bay-wiki-architecture.md",
         "title": "South Bay Wiki — Content Architecture"
       },
@@ -78228,6 +78820,10 @@
       {
         "path": "Brain/wiki/angel-listing-process.md",
         "title": "Angel Listing Process"
+      },
+      {
+        "path": "Brain/wiki/catz-sop-playbook.md",
+        "title": "CATz SOP Playbook — From Tribal Knowledge to OS Spine"
       },
       {
         "path": "Brain/wiki/cove-rpv-redevelopment-conveyance.md",
@@ -81256,6 +81852,12 @@
         "title": "Youth Sports, Summer & Enrichment — Palos Verdes Peninsula"
       }
     ],
+    "tensions": [
+      {
+        "path": "Brain/wiki/catz-sop-playbook.md",
+        "title": "CATz SOP Playbook — From Tribal Knowledge to OS Spine"
+      }
+    ],
     "term": [
       {
         "path": "Brain/wiki/intactix-canonical-validation.md",
@@ -81774,6 +82376,10 @@
         "title": "CATz — Counterpoint Architecture & Transformation Method"
       },
       {
+        "path": "Brain/wiki/catz-sop-playbook.md",
+        "title": "CATz SOP Playbook — From Tribal Knowledge to OS Spine"
+      },
+      {
         "path": "Brain/wiki/growdirect-canary.md",
         "title": "The Play"
       },
@@ -82090,6 +82696,10 @@
         "title": "Canary RaaS — Positioning Guardrail"
       },
       {
+        "path": "Brain/wiki/catz-sop-playbook.md",
+        "title": "CATz SOP Playbook — From Tribal Knowledge to OS Spine"
+      },
+      {
         "path": "Brain/wiki/cio-leave-behind-wedge.md",
         "title": "The CIO Leave-Behind Wedge"
       },
@@ -82328,6 +82938,10 @@
       {
         "path": "Brain/wiki/pwc-ebiz-web-implementation-guide.md",
         "title": "PwC eBusiness Web Implementation Guide (Definition / Design / Development)"
+      },
+      {
+        "path": "Brain/wiki/raas-namespace-design-review-2026-05-05.md",
+        "title": "RaaS / Namespace Design Review — Three Designs, One Build"
       },
       {
         "path": "Brain/wiki/rapidpos-driftpos-platform-brief.md",
@@ -82708,6 +83322,10 @@
         "title": "PwC eBusiness Web Implementation Guide (Definition / Design / Development)"
       },
       {
+        "path": "Brain/wiki/raas-namespace-design-review-2026-05-05.md",
+        "title": "RaaS / Namespace Design Review — Three Designs, One Build"
+      },
+      {
         "path": "Brain/wiki/retek-rms-perpetual-inventory.md",
         "title": "Retek RMS — the Perpetual-Inventory Movement Ledger"
       },
@@ -82812,6 +83430,10 @@
       {
         "path": "Brain/wiki/501c-advocacy-arm.md",
         "title": "501(c)(4) Advocacy Arm — New Entity Decision (Parking)"
+      },
+      {
+        "path": "Brain/wiki/catz-sop-playbook.md",
+        "title": "CATz SOP Playbook — From Tribal Knowledge to OS Spine"
       },
       {
         "path": "Brain/wiki/coac-1975-general-plan-eir.md",
@@ -83176,6 +83798,10 @@
       {
         "path": "Brain/wiki/growdirect-the-fox.md",
         "title": "The Fox — Case Management"
+      },
+      {
+        "path": "Brain/wiki/raas-namespace-design-review-2026-05-05.md",
+        "title": "RaaS / Namespace Design Review — Three Designs, One Build"
       },
       {
         "path": "Brain/wiki/secure-dv-private-label-2006.md",
@@ -83645,6 +84271,10 @@
       }
     ],
     "track": [
+      {
+        "path": "Brain/wiki/canary-go-portal.md",
+        "title": "Canary Go — Project Portal"
+      },
       {
         "path": "Brain/wiki/canary-long-arc-atlas.md",
         "title": "Canary Long-Arc Atlas"
@@ -84186,6 +84816,12 @@
       {
         "path": "Brain/wiki/growdirect-attack-plan.md",
         "title": "Canary LP — Attack Plan v3.0"
+      }
+    ],
+    "tribal": [
+      {
+        "path": "Brain/wiki/catz-sop-playbook.md",
+        "title": "CATz SOP Playbook — From Tribal Knowledge to OS Spine"
       }
     ],
     "trifold": [
@@ -84818,6 +85454,10 @@
       {
         "path": "Brain/wiki/growdirect-research-worm-exposure.md",
         "title": "WORM Exposure Sprint Deliverables"
+      },
+      {
+        "path": "Brain/wiki/raas-namespace-design-review-2026-05-05.md",
+        "title": "RaaS / Namespace Design Review — Three Designs, One Build"
       },
       {
         "path": "Brain/wiki/secure-5-inventory.md",
@@ -85998,6 +86638,10 @@
         "title": "Agent Card Format"
       },
       {
+        "path": "Brain/wiki/catz-sop-playbook.md",
+        "title": "CATz SOP Playbook — From Tribal Knowledge to OS Spine"
+      },
+      {
         "path": "Brain/wiki/solution-description-document-template.md",
         "title": "Solution Description — Document Template"
       }
@@ -86406,6 +87050,10 @@
       {
         "path": "Brain/wiki/growdirect-patent-visual-triple-subscriber.md",
         "title": "Patent Schematic — Triple Subscriber Component v2.0 (FIG. 3)"
+      },
+      {
+        "path": "Brain/wiki/raas-namespace-design-review-2026-05-05.md",
+        "title": "RaaS / Namespace Design Review — Three Designs, One Build"
       }
     ],
     "vital": [
@@ -86914,6 +87562,10 @@
     ],
     "wave": [
       {
+        "path": "Brain/wiki/canary-go-portal.md",
+        "title": "Canary Go — Project Portal"
+      },
+      {
         "path": "Brain/wiki/growdirect-timelog-alx-b072-symbiosis-dispatch-mar01.md",
         "title": "Session — B-072 Symbiosis Thesis: Full 6-Agent Dispatch (Mar 1, 2026)"
       }
@@ -86928,6 +87580,12 @@
       {
         "path": "Brain/wiki/ncr-counterpoint-modernization-path.md",
         "title": "Counterpoint Modernization — Without the Rip-and-Replace"
+      }
+    ],
+    "we'll": [
+      {
+        "path": "Brain/wiki/catz-sop-playbook.md",
+        "title": "CATz SOP Playbook — From Tribal Knowledge to OS Spine"
       }
     ],
     "we're": [
@@ -87282,6 +87940,10 @@
         "title": "CATz–RapidPOS Alignment Notes"
       },
       {
+        "path": "Brain/wiki/catz-sop-playbook.md",
+        "title": "CATz SOP Playbook — From Tribal Knowledge to OS Spine"
+      },
+      {
         "path": "Brain/wiki/cio-leave-behind-wedge.md",
         "title": "The CIO Leave-Behind Wedge"
       },
@@ -87582,6 +88244,10 @@
         "title": "PwC eBusiness Web Implementation Guide (Definition / Design / Development)"
       },
       {
+        "path": "Brain/wiki/raas-namespace-design-review-2026-05-05.md",
+        "title": "RaaS / Namespace Design Review — Three Designs, One Build"
+      },
+      {
         "path": "Brain/wiki/rapidpos-driftpos-platform-brief.md",
         "title": "Rapid POS — DriftPOS Platform Brief"
       },
@@ -87790,6 +88456,10 @@
         "title": "Canary RaaS — Positioning Guardrail"
       },
       {
+        "path": "Brain/wiki/catz-sop-playbook.md",
+        "title": "CATz SOP Playbook — From Tribal Knowledge to OS Spine"
+      },
+      {
         "path": "Brain/wiki/growdirect-attack-plan.md",
         "title": "Canary LP — Attack Plan v3.0"
       },
@@ -87816,6 +88486,10 @@
       {
         "path": "Brain/wiki/ncr-counterpoint-sandbox-setup-checklist.md",
         "title": "NCR Counterpoint Sandbox Setup — Operator Action Checklist"
+      },
+      {
+        "path": "Brain/wiki/raas-namespace-design-review-2026-05-05.md",
+        "title": "RaaS / Namespace Design Review — Three Designs, One Build"
       },
       {
         "path": "Brain/wiki/rapid-pos-counterpoint-user-pain-points.md",
@@ -87908,6 +88582,10 @@
         "title": "Category Management Engagement Pattern (2005–2006 Enterprise Era)"
       },
       {
+        "path": "Brain/wiki/catz-sop-playbook.md",
+        "title": "CATz SOP Playbook — From Tribal Knowledge to OS Spine"
+      },
+      {
         "path": "Brain/wiki/cove-case-law-lessons.md",
         "title": "Case-Law Synthesis — Rules That Bind WPBCA"
       },
@@ -87942,6 +88620,10 @@
       {
         "path": "Brain/wiki/ncr-counterpoint-functional-decomposition.md",
         "title": "NCR Counterpoint — Full Functional Decomposition"
+      },
+      {
+        "path": "Brain/wiki/raas-namespace-design-review-2026-05-05.md",
+        "title": "RaaS / Namespace Design Review — Three Designs, One Build"
       },
       {
         "path": "Brain/wiki/rapid-pos-counterpoint-user-pain-points.md",
@@ -88242,6 +88924,12 @@
         "title": "Session — Jeremy: B-076 Wire & Seed Smoke Test (Mar 1, 2026)"
       }
     ],
+    "wireframe": [
+      {
+        "path": "Brain/wiki/canary-go-portal.md",
+        "title": "Canary Go — Project Portal"
+      }
+    ],
     "with": [
       {
         "path": "Brain/wiki/angel-peninsula-school-guide.md",
@@ -88386,6 +89074,10 @@
         "title": "Canary Alerts — A Plain-English Guide"
       },
       {
+        "path": "Brain/wiki/catz-sop-playbook.md",
+        "title": "CATz SOP Playbook — From Tribal Knowledge to OS Spine"
+      },
+      {
         "path": "Brain/wiki/coac-aclad-partnership.md",
         "title": "ACLAD Partnership — Same-Side Public-Private Defense"
       },
@@ -88444,6 +89136,10 @@
       {
         "path": "Brain/wiki/catz-method.md",
         "title": "CATz — Counterpoint Architecture & Transformation Method"
+      },
+      {
+        "path": "Brain/wiki/catz-sop-playbook.md",
+        "title": "CATz SOP Playbook — From Tribal Knowledge to OS Spine"
       },
       {
         "path": "Brain/wiki/coac-rpv-scotus-petitions.md",
@@ -88582,6 +89278,10 @@
         "title": "Canary Module — L (Labor)"
       },
       {
+        "path": "Brain/wiki/catz-sop-playbook.md",
+        "title": "CATz SOP Playbook — From Tribal Knowledge to OS Spine"
+      },
+      {
         "path": "Brain/wiki/ncr-counterpoint-api-reference.md",
         "title": "NCR Counterpoint API Reference"
       },
@@ -88592,6 +89292,12 @@
       {
         "path": "Brain/wiki/socal-home-garden-target-customers-brief.md",
         "title": "SoCal Home & Garden Target Customers — Brief for Monday Bart Call"
+      }
+    ],
+    "workforce-processes": [
+      {
+        "path": "Brain/wiki/catz-sop-playbook.md",
+        "title": "CATz SOP Playbook — From Tribal Knowledge to OS Spine"
       }
     ],
     "workgroup": [
