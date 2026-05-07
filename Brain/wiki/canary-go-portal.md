@@ -182,3 +182,80 @@ Wave 1 = LP Core — the 25 screens that form the operational detection + invest
 | Vector store | pgvector |
 | Cache / queue | go-redis (Valkey-compatible) |
 | Migrations | golang-migrate or goose |
+
+---
+
+# Service Inventory
+
+Machine-readable inventory consumed by `services/canary-protocol/manifest/gen/parse_manifest.py`. Each `## <name>` block declares a service's port, owner, capability card, cell occupancy on the cadence-ladder grid, and endpoint set. Phase 2 backfills the remaining 28 services (one PR per service); the 5 below are the Phase 1 skeleton.
+
+Grammar (per design spec §"Manifest schema"):
+
+```
+## <name> · :<port> · <category> · <P0|P1|P2>
+
+Owner: <agent>  ·  Card: Brain/wiki/cards/<name>.md  ·  Cells: [<axis> × <tier>] [<axis> × <tier>]
+<scope>  ·  Python prior art: <path or "none">
+
+| Endpoint | Method | Tier | Axis | Auth | Status | Notes |
+| /v1/... | METHOD | tier | axis | auth | mounted|proposed|drift | one line |
+```
+
+Tier values: `stream` · `change-feed` · `daily-batch` · `bulk-window` · `reference`.
+Axis values: `A` (Adapter — POS → Canary) · `B` (Resource — Canary → external) · `C` (Agent — Canary → AI agents).
+
+## catalog · :9100 · cross-tenant infra · P0
+
+Owner: ALX  ·  Card: Brain/wiki/cards/catalog.md  ·  Cells: [B × reference]
+cross-tenant  ·  Python prior art: none
+
+| Endpoint | Method | Tier | Axis | Auth | Status | Notes |
+|----------|--------|------|------|------|--------|-------|
+| /devops/catalog | GET | reference | B | apikey | proposed | 3×5 grid heat-map UI |
+| /v1/catalog/services | GET | reference | B | apikey | proposed | service list (JSON) |
+| /v1/catalog/cells | GET | reference | B | apikey | proposed | endpoints per cell |
+
+## manifest · :9101 · cross-tenant infra · P0
+
+Owner: ALX  ·  Card: Brain/wiki/cards/manifest.md  ·  Cells: [B × reference]
+cross-tenant  ·  Python prior art: none
+
+| Endpoint | Method | Tier | Axis | Auth | Status | Notes |
+|----------|--------|------|------|------|--------|-------|
+| /devops/manifest | GET | reference | B | apikey | proposed | manifest editor + validator |
+| /v1/manifest/yaml | GET | reference | B | apikey | proposed | raw manifest.yaml |
+| /v1/manifest/history | GET | reference | B | apikey | proposed | version history |
+
+## observability · :9102 · cross-tenant infra · P0
+
+Owner: ALX  ·  Card: Brain/wiki/cards/observability.md  ·  Cells: [B × change-feed] [B × reference]
+cross-tenant  ·  Python prior art: none
+
+| Endpoint | Method | Tier | Axis | Auth | Status | Notes |
+|----------|--------|------|------|------|--------|-------|
+| /devops/observability | GET | reference | B | apikey | proposed | five-tier health rollup UI |
+| /v1/observability/health | GET | change-feed | B | apikey | proposed | per-tier health JSON |
+| /v1/observability/lag | GET | change-feed | B | apikey | proposed | queue lag + watermark |
+
+## pipeline · :9103 · cross-tenant infra · P0
+
+Owner: ALX  ·  Card: Brain/wiki/cards/pipeline.md  ·  Cells: [B × change-feed]
+cross-tenant  ·  Python prior art: Canary/canary/services/devops_monitor.py
+
+| Endpoint | Method | Tier | Axis | Auth | Status | Notes |
+|----------|--------|------|------|------|--------|-------|
+| /devops/pipeline | GET | change-feed | B | apikey | proposed | TSP pipeline visualization |
+| /v1/pipeline/runs | GET | change-feed | B | apikey | proposed | recent webhook → sub3 traces |
+| /v1/pipeline/sub3 | GET | change-feed | B | apikey | proposed | anchor batch status |
+
+## qa-agent · :9104 · cross-tenant infra · P0
+
+Owner: ALX  ·  Card: Brain/wiki/cards/qa-agent.md  ·  Cells: [C × change-feed]
+cross-tenant  ·  Python prior art: Canary/canary/qa_agent/
+
+| Endpoint | Method | Tier | Axis | Auth | Status | Notes |
+|----------|--------|------|------|------|--------|-------|
+| /devops/qa-agent | GET | change-feed | C | apikey | proposed | page-aware operator agent UI |
+| /v1/qa-agent/sessions | GET | change-feed | C | apikey | proposed | active session list |
+| /v1/qa-agent/sessions | POST | change-feed | C | apikey | proposed | start a QA session |
+| /v1/qa-agent/findings | GET | change-feed | C | apikey | proposed | bug findings + Linear filings |
