@@ -1,0 +1,1506 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>RapidPOS — diligence run · 2026-05-03</title>
+<style>
+:root {
+  --navy: #21295C; --deep: #065A82; --teal: #1C7293; --cream: #ECE2D0;
+  --sand: #F5F1E8; --white: #FFFFFF; --charcoal: #36454F;
+  --serif: Georgia, "Iowan Old Style", "Times New Roman", serif;
+  --sans: -apple-system, BlinkMacSystemFont, "Segoe UI", Calibri, Roboto, sans-serif;
+  --mono: "SF Mono", Menlo, Monaco, Consolas, monospace;
+  --col: 760px;
+}
+* { box-sizing: border-box; }
+html, body { margin: 0; padding: 0; font-family: var(--sans); background: var(--white); color: var(--charcoal); line-height: 1.55; font-size: 16px; scroll-behavior: smooth; }
+a { color: var(--deep); text-decoration: none; border-bottom: 1px solid transparent; transition: border-color 0.15s; }
+a:hover { border-bottom-color: var(--deep); }
+.layout { display: grid; grid-template-columns: 280px 1fr; min-height: 100vh; }
+@media (max-width: 900px) { .layout { grid-template-columns: 1fr; } .sidebar { position: static !important; height: auto !important; } }
+.sidebar { position: sticky; top: 0; height: 100vh; overflow-y: auto; background: var(--navy); color: var(--cream); padding: 32px 24px; font-size: 14px; }
+.sidebar .brand { font-family: var(--serif); font-size: 22px; line-height: 1.1; color: var(--white); margin-bottom: 24px; padding-bottom: 16px; border-bottom: 1px solid rgba(236, 226, 208, 0.2); }
+.sidebar .brand span { font-family: var(--sans); font-size: 11px; color: var(--cream); opacity: 0.7; letter-spacing: 0.05em; }
+.sidebar ul { list-style: none; margin: 0; padding: 0; }
+.sidebar .nav > li { margin-bottom: 16px; }
+.sidebar .nav-cat > span { display: block; font-size: 10px; letter-spacing: 0.1em; text-transform: uppercase; color: var(--cream); opacity: 0.6; margin-bottom: 6px; }
+.sidebar .nav-cat ul { padding-left: 0; }
+.sidebar .nav-cat ul li { margin: 2px 0; }
+.sidebar .nav-cat-cover { margin-bottom: 24px; }
+.sidebar a { display: block; color: var(--cream); padding: 4px 8px; border-radius: 4px; border-bottom: none !important; font-size: 13px; line-height: 1.35; }
+.sidebar a:hover { background: rgba(236, 226, 208, 0.1); color: var(--white); }
+.sidebar .nav-cat-cover a { font-family: var(--serif); font-size: 16px; color: var(--white); font-weight: bold; }
+.sidebar a.active { background: var(--cream); color: var(--navy); font-weight: bold; }
+main { padding: 0; }
+section { max-width: var(--col); margin: 0 auto; padding: 64px 32px; border-bottom: 1px solid #f0f0f0; }
+section:last-child { border-bottom: none; }
+.section-header { margin-bottom: 32px; }
+.cat-pill { display: inline-block; font-size: 10px; letter-spacing: 0.12em; text-transform: uppercase; color: var(--teal); font-weight: bold; margin-bottom: 8px; }
+.cover { background: var(--navy); color: var(--cream); max-width: none; min-height: 80vh; padding: 0; display: flex; align-items: center; justify-content: center; border-bottom: none; margin: 0; }
+.cover-inner { max-width: 720px; padding: 64px 32px; text-align: left; width: 100%; }
+.cover-eyebrow { font-size: 12px; letter-spacing: 0.15em; text-transform: uppercase; color: var(--cream); opacity: 0.7; margin: 0 0 24px; }
+.cover h1 { font-family: var(--serif); font-size: 72px; line-height: 1.0; color: var(--white); margin: 0 0 24px; font-weight: bold; }
+.cover-sub { font-family: var(--serif); font-size: 22px; line-height: 1.4; color: var(--cream); margin: 0 0 32px; }
+.cover-meta { font-size: 12px; color: var(--cream); opacity: 0.6; letter-spacing: 0.05em; margin: 0; }
+section h1 { font-family: var(--serif); font-size: 36px; line-height: 1.15; color: var(--navy); margin: 0 0 16px; font-weight: bold; }
+section h2 { font-family: var(--serif); font-size: 30px; line-height: 1.2; color: var(--navy); margin: 0; font-weight: bold; }
+.section-body h1 { font-family: var(--serif); font-size: 28px; color: var(--navy); margin: 40px 0 16px; }
+.section-body h2 { font-family: var(--serif); font-size: 24px; color: var(--navy); margin: 32px 0 12px; }
+.section-body h3 { font-family: var(--serif); font-size: 18px; color: var(--deep); margin: 24px 0 8px; }
+.section-body p { margin: 0 0 14px; }
+.section-body ul, .section-body ol { margin: 0 0 16px; padding-left: 24px; }
+.section-body li { margin-bottom: 6px; }
+.section-body strong { color: var(--navy); }
+.section-body em { color: var(--teal); font-style: italic; }
+.section-body code { font-family: var(--mono); font-size: 0.88em; background: var(--sand); color: var(--navy); padding: 1px 5px; border-radius: 3px; }
+.section-body pre { background: var(--sand); padding: 16px; border-radius: 6px; overflow-x: auto; font-size: 13px; line-height: 1.45; border-left: 3px solid var(--teal); }
+.section-body pre code { background: transparent; padding: 0; }
+.section-body blockquote { border-left: 3px solid var(--teal); margin: 16px 0; padding: 12px 16px; color: var(--charcoal); font-style: italic; background: var(--sand); border-radius: 0 4px 4px 0; }
+.section-body table { border-collapse: collapse; margin: 16px 0; width: 100%; font-size: 14px; }
+.section-body th { background: var(--navy); color: var(--white); padding: 8px 12px; text-align: left; font-family: var(--serif); font-weight: bold; }
+.section-body td { border: 1px solid #e5e5e5; padding: 8px 12px; vertical-align: top; }
+.section-body tr:nth-child(even) td { background: var(--sand); }
+.section-body hr { border: none; border-top: 1px solid #e0e0e0; margin: 32px 0; }
+footer { text-align: center; padding: 48px 32px; font-size: 12px; color: var(--charcoal); opacity: 0.7; border-top: 1px solid #f0f0f0; background: var(--sand); font-style: italic; }
+@media print { .sidebar { display: none; } .layout { grid-template-columns: 1fr; } section { break-inside: avoid; padding: 32px; max-width: none; } .cover { min-height: auto; padding: 64px 32px; } }
+</style>
+</head>
+<body>
+<div class="layout">
+<nav class="sidebar"><div class="brand"><strong>RapidPOS</strong><br/><span>Diligence run · 2026-05-03</span></div>
+<ul class="nav">
+<li class="nav-cat-cover"><a href="#cover">Cover</a></li>
+<li class="nav-cat"><span>Overview</span><ul>
+    <li><a href="#executive">Executive summary</a></li>
+</ul></li>
+<li class="nav-cat"><span>Phase 1 — Hypothesis</span><ul>
+    <li><a href="#hypothesis">Phase 1 — Hypothesis grid</a></li>
+</ul></li>
+<li class="nav-cat"><span>Phase 2 — Audit-as-diligence</span><ul>
+    <li><a href="#iso-gap">Phase 2 — ISO 27001:2022 gap assessment</a></li>
+    <li><a href="#gcp-onramp">Phase 2 — GCP onramp architecture</a></li>
+    <li><a href="#driftpos">Phase 2 — DriftPOS launch readiness</a></li>
+</ul></li>
+<li class="nav-cat"><span>Phase 3 — Valuation + glide path</span><ul>
+    <li><a href="#glide-path">Phase 3 — Managed-services glide path (external)</a></li>
+</ul></li>
+<li class="nav-cat"><span>Post-close program</span><ul>
+    <li><a href="#day1-ops">Post-close — Day-1 agentic ops plan (A1-A5)</a></li>
+    <li><a href="#burndown">Post-close — Burn-down → repeatability flywheel</a></li>
+</ul></li>
+<li class="nav-cat"><span>Close</span><ul>
+    <li><a href="#close">Report close — what&#x27;s done, what&#x27;s next</a></li>
+</ul></li>
+</ul></nav>
+
+<main>
+
+<section id="cover" data-category="overview" class="cover">
+  <div class="cover-inner">
+    <p class="cover-eyebrow">Saas-acquisition-diligence run · 2026-05-03</p>
+    <h1>RapidPOS LLC</h1>
+    <p class="cover-sub">Three-phase audit-as-diligence — hypothesis, audit, valuation + glide path.<br/>
+    Counterpoint VAR · Wyoming-channel-partnership candidate · DriftPOS gate</p>
+    <p class="cover-meta">Prepared by Growdirect · Synthesized from the saas-acquisition-diligence skill's first-run output</p>
+  </div>
+</section>
+
+<section id="executive" data-category="overview">
+  <header class="section-header">
+    <span class="cat-pill">Overview</span>
+    <h2>Executive summary</h2>
+  </header>
+  <div class="section-body"><h1>Executive summary</h1>
+<h2>Subject</h2>
+<p><strong>RapidPOS LLC</strong> — Counterpoint VAR. Specialty verticals (garden, gun, wine, specialty food, feed-and-tack). 20-year owner-operator. NCR-authorized. DriftPOS partnership in flight.</p>
+<h2>Purpose of this report</h2>
+<p>Diligence — what we need to find out before any commercial commitment. Not a deal recommendation. Not a price. The questions Tim and his team should answer; the controls we need to verify; the readiness gates we need to assess.</p>
+<h2>Diligence questions to ask</h2>
+<p><strong>Operational state.</strong>
+- Customer count, ARR, revenue concentration, customer churn over last 24 months
+- Team headcount and tenure mix; identify the senior engineers carrying tribal knowledge
+- Support-queue shape: open ticket count, weekly inflow, time-to-resolve, % repeat-cause
+- Onboarding shape: weeks to go-live for a new customer; bespoke vs. silently-repeating effort</p>
+<p><strong>Stack and deployment.</strong>
+- Customer-side Counterpoint posture: on-prem, co-lo, customer cloud, mix
+- RapidPOS-side stack: where their own engineering / support / ops infrastructure runs
+- VAR-proprietary tables and Counterpoint extensions outside the standard API
+- DriftPOS readiness: .NET stack, Ingenico integration, the 12 Bart open-questions</p>
+<p><strong>Compliance posture.</strong>
+- Customer-driven compliance pressure (PCI questionnaires, vendor due diligence, breach history)
+- Existing certifications (PCI SAQ level, SOC 2, ISO of any kind, third-party audit history)
+- ATF / NICS / state regulatory engagement on firearms-vertical customers
+- Wine direct-shipping compliance posture for wine-vertical customers</p>
+<p><strong>Strategic state.</strong>
+- Suitor landscape — competing buyers, PE rollup interest, NCR Voyix interest
+- Owner exit timing and preferred shape
+- Customer commitments in flight (DriftPOS pilots, modernization promises, contract terms)
+- Modernization appetite — does the team want this transition or does it need to be sold</p>
+<p><strong>Tim's platform proposition (separate evaluation).</strong>
+- Where customer data lives; who holds the keys
+- Cap-table / equity model
+- Revenue share, exclusivity, contract duration, termination
+- Team posture (vendor or partner)
+- Specific capabilities — what does the platform do that we'd otherwise build</p>
+<h2>Phase gates (what needs to be verified)</h2>
+<p><strong>ISO 27001:2022 — DriftPOS-blocking subset (15 critical-mass controls).</strong>
+The 15 controls below must reach passable state before any cloud-customer-data DriftPOS GA. Each is verifiable; the diligence work is to confirm RapidPOS's current state per control.</p>
+<p><strong>PCI-DSS scope position.</strong>
+Confirm Ingenico tokenization keeps cardholder data out of any cloud workload; verify DriftPOS deployment topology against the current Ingenico P2PE attestation; confirm customer SAQ inheritance doesn't change.</p>
+<p><strong>SOC 2 Type II readiness.</strong>
+Trust Services Criteria scoping; observation period planning; continuous-compliance evidence layer.</p>
+<p><strong>DriftPOS launch readiness — 12 Bart OQs.</strong>
+Four load-bearing (mTLS path, Ingenico tokenization availability, Idempotency-Key semantics, PCI scope inheritance). Eight pilot-config-deferrable.</p>
+<h2>What this report does NOT contain</h2>
+<ul>
+<li>No deal-pricing math</li>
+<li>No multiples, walking prices, target closes, or anchor upside math</li>
+<li>No commercial commitments or recommendations</li>
+<li>No negotiation positions</li>
+</ul>
+<p>The detail below is the verbatim output of the diligence skill organized by the three-phase methodology — Phase 1 hypothesis (questions to ask), Phase 2 audit-as-diligence (controls to verify), Phase 3 readiness assessment (gates to clear). Use it as a checklist. Pricing decisions wait for the assessment.</p></div>
+</section>
+
+<section id="hypothesis" data-category="phase1">
+  <header class="section-header">
+    <span class="cat-pill">Phase 1 — Hypothesis</span>
+    <h2>Phase 1 — Hypothesis grid</h2>
+  </header>
+  <div class="section-body"><h1>Hypothesis Grid — RapidPOS LLC</h1>
+<blockquote>
+<p><strong>DEMO RUN — archetype-default placeholders.</strong> Founder's verbatim answers will replace these. Every answer carries a confidence label: <strong>(confirmed)</strong> / <strong>(signal)</strong> / <strong>(guess)</strong> / <strong>(unknown)</strong>. The (guess) placeholders below are not commitments — they are starting hypotheses for the founder to correct.</p>
+</blockquote>
+<p><strong>Vendor:</strong> RapidPOS LLC
+<strong>Run date:</strong> 2026-05-03
+<strong>Captured by:</strong> ALX (demo-mode synthesis)
+<strong>Skill version:</strong> saas-acquisition-diligence v1.0</p>
+<hr />
+<h2>Q1 — Revenue &amp; customer mass</h2>
+<p><strong>Answer:</strong> ~50 customers across specialty verticals (garden, gun, wine, specialty food, feed-and-tack); ~500-2,500 stores aggregate; ARR ~$2.7M (placeholder mid-point)</p>
+<p><strong>Confidence:</strong> (guess) — archetype default; founder to specify</p>
+<p><strong>Notes:</strong> Memory-bus has Rapid POS as "medium SMB VAR" supporting "boutique H&amp;G chain (~25 stores)" as one engagement. Several similarly-sized customers across verticals would be consistent. Not validated.</p>
+<hr />
+<h2>Q2 — Stack &amp; deployment reality</h2>
+<p><strong>Answer:</strong> Most customers run NCR Counterpoint on-prem at the store; some larger customers run Counterpoint hosted in their own cloud (AWS/Azure VMs). RapidPOS's own engineering and support stack is a mix — likely on-prem fileservers + a few SaaS tools (Salesforce or HubSpot for sales, Atlassian or Monday for project tracking, M365 or G-Suite for email).</p>
+<p><strong>Confidence:</strong> (guess) — archetype default</p>
+<p><strong>Notes:</strong> Founder to confirm RapidPOS's own stack — the ISO 27001 audit applies to <em>RapidPOS's</em> operations, not the customer-side Counterpoint instances directly.</p>
+<hr />
+<h2>Q3 — Engineering team shape</h2>
+<p><strong>Answer:</strong> ~6-12 total headcount. ~3-5 senior engineers carrying deep Counterpoint config knowledge (15-20 year tenure typical). ~2-3 mid-level engineers. Junior staff minimal. No dedicated security/IT role; senior engineers wear that hat informally. No compliance-aware ops staff.</p>
+<p><strong>Confidence:</strong> (guess)</p>
+<p><strong>Notes:</strong> This is the load-bearing hypothesis for A1-A4 sizing. Founder must confirm. Especially: who are the 2-3 senior engineers carrying tribal knowledge, and are any flight risks?</p>
+<hr />
+<h2>Q4 — Customer compliance pressure</h2>
+<p><strong>Answer:</strong> Increasing. Firearms dealers (per ATF rules) and wine direct-shippers (per state regs) have active compliance demands flowing upstream. Garden-center customers in regulated states (CA, NY) starting to ask. Some standard PCI-DSS SAQ-A customer questionnaires answered ad-hoc each year. No documented breaches publicly.</p>
+<p><strong>Confidence:</strong> (guess)</p>
+<p><strong>Notes:</strong> The compliance-pressure factor in valuation-impact-formulas (Formula 1) defaults to 0.7 for moderate compliance pressure. If founder reports acute pressure, it goes to 0.85-1.0. If it's all theoretical, drops to 0.5.</p>
+<hr />
+<h2>Q5 — Existing certifications</h2>
+<p><strong>Answer:</strong> Likely none formal. Customers inherit PCI-DSS posture from their Counterpoint deployment + Square/Stripe/Heartland-style payment processors, generally at SAQ-A level. No SOC 2. No ISO. Rapid as the VAR has answered customer questionnaires but never gone through a formal third-party audit.</p>
+<p><strong>Confidence:</strong> (guess)</p>
+<p><strong>Notes:</strong> SAQ-A means card data never touches the merchant's systems (tokenized via the payment terminal directly to the processor). RapidPOS likely has been able to answer customer questions truthfully on this without needing certifications. Founder to confirm.</p>
+<hr />
+<h2>Q6 — Suitor landscape &amp; deal pressure</h2>
+<p><strong>Answer:</strong> Probably 1-2 other interested parties. PE rollup play is the most likely competitive scenario — Counterpoint VAR consolidation by Vista, Insight, or similar mid-market PE firms is a known pattern. NCR Voyix direct interest unlikely but possible. Other Counterpoint VARs (RCS, AMS, Mariner) might also consider tuck-in acquisition. Implicit clock probably 6-12 months — owner is "modernizing to sell" not "thinking about selling someday."</p>
+<p><strong>Confidence:</strong> (guess)</p>
+<p><strong>Notes:</strong> This is critical for deal-pacing. If founder confirms a hot competitive process, we move faster on Phase 1-2 to anchor first.</p>
+<hr />
+<h2>Q7 — DriftPOS rollout assumptions</h2>
+<p><strong>Answer:</strong> Bart's team plan is to land first with the most willing eager-cohort customers — likely 3-5 multi-store specialty retailers who've already asked about modernization. DriftPOS launch target: ~6 months post-RapidPOS-close (M6 from acquisition; aligns with Phase A end and the cleared support-queue + initial wiki coverage). Customer commitments in flight: assume the H&amp;G chain mentioned in earlier dispatches is one (the boutique 25-store engagement).</p>
+<p><strong>Confidence:</strong> (guess) — derived from memory-bus references to Bart conversation prep + the H&amp;G chain dispatch</p>
+<p><strong>Notes:</strong> Cross-reference Bart prep doc (GRO-762) for the actual DriftPOS GA target.</p>
+<hr />
+<h2>Q8 — Modernization appetite of the seller</h2>
+<p><strong>Answer:</strong> Senior team likely conservative on modernization but understands that the path forward requires it. Will need to be sold on the GCP onramp narrative — they don't naturally think in cloud-native terms. ISMS is foreign territory; they understand "audits" as in financial/PCI-DSS but not as in continuous-monitoring SOC-2-style ISMS. Will stay through transition under a retention package; they want a clean Y3-5 exit, not abrupt rip-and-replace.</p>
+<p><strong>Confidence:</strong> (guess)</p>
+<p><strong>Notes:</strong> This is the load-bearing assumption for the managed-services glide path. If founder confirms, it validates the 24-month-transition + Y3-5-exit pitch shape.</p>
+<hr />
+<h2>Q9 — Budget &amp; timeline reality</h2>
+<p><strong>Answer:</strong> Cash budget is <em>what the deal can fund</em>, not pre-existing. Tolerance for elapsed time post-close before certification: ~12-18 months feels right (M12 DriftPOS GA, M18 ISO 27001 cert). Growdirect FTE willing to dedicate during onramp: ~2-4 senior engineers + founder oversight + Bart's team augmenting on integration work.</p>
+<p><strong>Confidence:</strong> (guess) — Growdirect-side budget is founder's call</p>
+<p><strong>Notes:</strong> The cost-model program_cost numbers should be sized against this Growdirect-side capacity assumption.</p>
+<hr />
+<h2>Q10 — Legal posture</h2>
+<p><strong>Answer:</strong> Likely asset purchase preferred (cleaner liability inheritance, tax structure for both parties). Reps &amp; warranties standard mid-market deal terms — comprehensive but not aggressive. Earnout structure for owner over 12-24 months tied to customer-retention milestones.</p>
+<p><strong>Confidence:</strong> (guess)</p>
+<p><strong>Notes:</strong> Asset vs. stock purchase changes whether RapidPOS LLC's pre-close compliance gaps become Growdirect's post-close liability or stay with the seller's entity. Asset purchase is the cleaner path; founder + counsel to confirm.</p>
+<hr />
+<h2>Q11 — DriftPOS architectural constraints</h2>
+<p><strong>Answer:</strong> DriftPOS's .NET stack constrains where some integration components can run (Anthos GKE supports .NET Core but legacy .NET Framework needs Windows containers — verify which DriftPOS uses). Ingenico pinpad PCI scope means Canary.GO never sees raw cardholder data; only tokenized payment fingerprints. The GCP onramp design must respect this — no cardholder data flows through Pub/Sub or Cloud SQL; tokenization happens at the pinpad.</p>
+<p><strong>Confidence:</strong> (signal) — derived from Bart conversation prep doc memory recall</p>
+<p><strong>Notes:</strong> Bart prep doc OQ-2 (Ingenico network token availability) and OQ-11 (PCI scope) are load-bearing for this answer. Resolution of those two OQs in the Zoom session will tighten this hypothesis.</p>
+<hr />
+<h2>Q12 — VAR-specific tables / DB extensions</h2>
+<p><strong>Answer:</strong> Likely "light to medium" — Rapid's vertical specialization (garden mix-and-match pricing, firearms NICS workflow, wine direct-ship compliance) is mostly in Counterpoint <em>configuration</em> and UI customization, not in custom tables. Some customer-bespoke fields may use Counterpoint's stock 5×4 profile slots. Probably 5-15 customer-specific custom tables across the entire book.</p>
+<p><strong>Confidence:</strong> (guess) — from CRB wiki article on Counterpoint-Rapid relationship</p>
+<p><strong>Notes:</strong> This number drives CRDM mapping complexity per <code>cost-model/reference/02-crdm-mapping-complexity.md</code>. If founder reports significantly more (say 30+ custom tables), CRDM mapping difficulty per customer rises.</p>
+<hr />
+<h2>Q13 — Support queue shape</h2>
+<p><strong>Answer:</strong> Open ticket count: ~80-150. Weekly inflow: ~30-50 tickets. Avg time-to-resolve: 3-7 days (depends on category). % repeat-cause: high (~60-70%) — this is the load-bearing observation for the agentic-burndown thesis.</p>
+<p>Top issue categories (archetype-default):
+1. Counterpoint config questions ("how do I add a new department / vendor / pricing rule")
+2. Receipt printer / scanner / scale device issues
+3. End-of-day cash drawer reconciliation problems
+4. Vendor-portal sync errors (PO/EDI)
+5. Tax-rate updates after state changes
+6. User permission / role assignment requests
+7. Backup verification / restore questions
+8. Integration glitches with payment processor or e-comm platform
+9. Reporting questions (Crystal Reports tweaks)
+10. New-employee training requests</p>
+<p><strong>Confidence:</strong> (guess) — typical Counterpoint VAR support queue shape</p>
+<p><strong>Notes:</strong> A1 (Support-queue burndown) sizing assumes 60-80% of these are auto-resolvable once wiki coverage hits critical mass. Founder must confirm category mix and repeat-cause percentage.</p>
+<hr />
+<h2>Q14 — Configuration knowledge concentration</h2>
+<p><strong>Answer:</strong> Likely 2-3 senior engineers carrying the deep Counterpoint config + vertical-tuning expertise. ~1 of them is likely a 15-20-year-tenured "go-to" person whose departure would be a major risk. Documentation is sparse — internal wiki probably exists but is incomplete; most knowledge is in heads + email threads + ticket comments.</p>
+<p><strong>Confidence:</strong> (guess) — archetype default</p>
+<p><strong>Notes:</strong> A3 (Wiki builder) and A4 (Onboarding capture) target this directly. Retention package for the senior engineers is critical to the deal.</p>
+<hr />
+<h2>Q15 — Onboarding shape today</h2>
+<p><strong>Answer:</strong> New customer go-live: 8-16 weeks elapsed. Top three sources of delay:
+1. Counterpoint license procurement + hardware ordering (can be 3-6 weeks)
+2. Customer-side data migration (existing POS → Counterpoint export → import)
+3. Customer-specific configuration (their vertical-specific tuning)</p>
+<p>% bespoke vs. silently-repeating: likely 30% genuinely bespoke per customer, 70% silently-repeating across customers in the same vertical (especially within garden centers or firearms dealers). A4 (Onboarding capture) targets the 70%.</p>
+<p><strong>Confidence:</strong> (guess)</p>
+<p><strong>Notes:</strong> This is the leverage point for "Bart's team takes on more onboarding projects, less support projects" — once A4 has captured the silently-repeating 70% as templated playbooks, onboarding throughput goes up multiple-fold.</p>
+<hr />
+<h2>Q16 — Break-fix vs. proactive ratio</h2>
+<p><strong>Answer:</strong> Approximate split (archetype default):
+- Break-fix incidents: ~35%
+- Customer-specific customizations: ~25%
+- New-customer onboarding: ~15%
+- Internal improvement / docs / refactors: ~5%
+- Sales support / discovery: ~10%
+- DriftPOS integration spec + adapter dev: ~10% (if this is part of the team's hours; check whether DriftPOS team is separate)</p>
+<p>The leverage point per the founder's framing: shift break-fix from 35% to &lt;10% and onboarding from 15% to 50%+. That's the burn-down → repeatability flywheel.</p>
+<p><strong>Confidence:</strong> (guess)</p>
+<p><strong>Notes:</strong> Founder said this directly: "more onboarding projects and less support projects with the same people." This Q16 answer + Q13 + Q14 are the operational core of the managed-services value prop.</p>
+<hr />
+<h2>Founder ↔ analyst disagreements</h2>
+<p>(None — this is a demo run by the analyst alone. Will populate during real founder review.)</p>
+<hr />
+<h2>Archetype assignment</h2>
+<ul>
+<li>[x] <strong>Archetype A — SysRepublic 2015</strong> (default for Counterpoint VARs)</li>
+</ul>
+<p><strong>Where RapidPOS LLC may diverge from the archetype:</strong></p>
+<ul>
+<li>Vertical concentration is broader than typical (5 verticals vs. 1-2). This means more A4 playbook variants needed, but also more cohort-prioritization optionality.</li>
+<li>Active DriftPOS partnership pre-close is unusual — most archetype-A targets don't have a modern POS partner already lined up.</li>
+<li>"In my backyard" + personal founder relationship suggests the relationship advantage is stronger than typical archetype-A targets.</li>
+</ul>
+<hr />
+<h2>Open questions for Phase 2 discovery</h2>
+<ol>
+<li>Specific top-5 customers and their cohort placement (drives valuation; drives DriftPOS first-wave selection)</li>
+<li>Actual support-queue category mix and repeat-cause percentage (drives A1+A2 sizing)</li>
+<li>RapidPOS LLC's own internal IT / engineering stack details (drives ISO 27001 scope-of-audit definition)</li>
+<li>Whether Rapid-specific custom tables exist beyond Counterpoint stock (drives CRDM mapping difficulty)</li>
+<li>Owner exit pacing — 24-month, 36-month, 60-month preferred? (drives glide-path articulation)</li>
+<li>Bart's team headcount and current allocation (drives labor-trajectory math)</li>
+</ol>
+<hr />
+<h2>Cost-model linkage</h2>
+<p>After this hypothesis grid is captured, populate <code>Brain/cost-models/rapidpos/00-target-profile.md</code> (already done in demo mode) with the same answers in the structured 20-field form. Re-run the cost-model with these inputs to produce <code>02-cost-model-output.xlsx</code> and <code>03-cost-model-output.docx</code>.</p></div>
+</section>
+
+<section id="iso-gap" data-category="phase2">
+  <header class="section-header">
+    <span class="cat-pill">Phase 2 — Audit-as-diligence</span>
+    <h2>Phase 2 — ISO 27001:2022 gap assessment</h2>
+  </header>
+  <div class="section-body"><h1>ISO 27001:2022 Gap Assessment — RapidPOS LLC (Demo Run)</h1>
+<blockquote>
+<p><strong>DEMO RUN — archetype-default current-state hypothesis.</strong> Companion to <code>02-iso27001-gap-assessment.xlsx</code>. The spreadsheet is authoritative.</p>
+</blockquote>
+<p><strong>Vendor:</strong> RapidPOS LLC
+<strong>Run date:</strong> 2026-05-03
+<strong>Phase:</strong> 2 — Audit-as-diligence</p>
+<hr />
+<h2>Headline numbers</h2>
+<p>At archetype-default current-state hypothesis (none-formal ISMS, typical Counterpoint-VAR posture):</p>
+<ul>
+<li><strong>Total remediation: ~1,684 engineering hours = ~$337k</strong></li>
+<li><strong>DriftPOS-blocking subset (15 critical-mass controls): ~520 hours = ~$104k</strong></li>
+<li><strong>Calendar weeks at 3 effective FTE: ~19 weeks</strong> (close to the M6 Phase A end target)</li>
+</ul>
+<p>Theme breakdown:
+- Organizational (37 controls): ~664 hours / $133k
+- People (8 controls): ~88 hours / $18k
+- Physical (14 controls): ~84 hours / $17k (mostly inherited from GCP for cloud workloads)
+- Technological (34 controls): ~848 hours / $170k (the dominant cost)</p>
+<p>These are <em>engineering remediation hours</em>. They do not include the broader Phase-A program (A1-A5 deployment, GCP infra ramp, onboarding-playbook development, customer-cohort migration). Those live in the cost-model <code>program_cost</code> tab as separate lines.</p>
+<h2>Where the work concentrates</h2>
+<h3>High-effort gaps (DriftPOS-blocking, must clear before GA)</h3>
+<p>These 15 controls are the critical-mass for any cloud-customer-data handling. RapidPOS will need <em>all</em> of them passable before DriftPOS GA at month 12.</p>
+<table>
+<thead>
+<tr>
+<th>Control</th>
+<th>Title</th>
+<th>Hours</th>
+<th>$</th>
+<th>Notes</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>5.15</td>
+<td>Access control</td>
+<td>32</td>
+<td>$6.4k</td>
+<td>Counterpoint has access; modernization adds Cloud IAM</td>
+</tr>
+<tr>
+<td>5.17</td>
+<td>Authentication info</td>
+<td>24</td>
+<td>$4.8k</td>
+<td>Centralize secrets via Secret Manager</td>
+</tr>
+<tr>
+<td>5.23</td>
+<td>Cloud governance</td>
+<td>32</td>
+<td>$6.4k</td>
+<td>Org policies from scratch</td>
+</tr>
+<tr>
+<td>5.24</td>
+<td>IR planning</td>
+<td>24</td>
+<td>$4.8k</td>
+<td>Plan + tabletop exercise</td>
+</tr>
+<tr>
+<td>5.34</td>
+<td>PII protection</td>
+<td>32</td>
+<td>$6.4k</td>
+<td>DLP API + Cloud KMS</td>
+</tr>
+<tr>
+<td>6.5</td>
+<td>Off-boarding</td>
+<td>16</td>
+<td>$3.2k</td>
+<td>Security checklist + automation</td>
+</tr>
+<tr>
+<td>8.2</td>
+<td>Privileged access rights</td>
+<td>32</td>
+<td>$6.4k</td>
+<td>Cloud IAM + PAM (just-in-time)</td>
+</tr>
+<tr>
+<td>8.5</td>
+<td>Secure authentication (MFA)</td>
+<td>32</td>
+<td>$6.4k</td>
+<td>Cloud Identity 2SV org-wide</td>
+</tr>
+<tr>
+<td>8.9</td>
+<td>Configuration management</td>
+<td>64</td>
+<td>$12.8k</td>
+<td>Terraform + Config Connector</td>
+</tr>
+<tr>
+<td>8.13</td>
+<td>Information backup</td>
+<td>24</td>
+<td>$4.8k</td>
+<td>Cross-region snapshots + drill</td>
+</tr>
+<tr>
+<td>8.15</td>
+<td>Logging</td>
+<td>32</td>
+<td>$6.4k</td>
+<td>Cloud Logging + sinks</td>
+</tr>
+<tr>
+<td>8.16</td>
+<td>Monitoring</td>
+<td>40</td>
+<td>$8k</td>
+<td>SCC Premium + Chronicle</td>
+</tr>
+<tr>
+<td>8.20</td>
+<td>Networks security</td>
+<td>40</td>
+<td>$8k</td>
+<td>VPC + Cloud Armor</td>
+</tr>
+<tr>
+<td>8.24</td>
+<td>Use of cryptography</td>
+<td>40</td>
+<td>$8k</td>
+<td>Cloud KMS comprehensive</td>
+</tr>
+<tr>
+<td>8.25</td>
+<td>Secure SDLC</td>
+<td>56</td>
+<td>$11.2k</td>
+<td>Cloud Build + Binary Auth</td>
+</tr>
+</tbody>
+</table>
+<p><strong>Subtotal: 520 hours / $104k.</strong> This is the work that <em>must</em> be done before DriftPOS GA. Sequenced into Phase A (months 0-6).</p>
+<h3>Moderate-effort gaps (must clear for ISO 27001 cert at month 18)</h3>
+<p>The remaining 78 controls. Most are partial (some practice exists; needs documentation + formalization) rather than absent (must build from scratch). These are sequenced into Phase A end → Phase B.</p>
+<h3>Low-effort wins (already moderate or compliant)</h3>
+<p>A handful of controls are already in roughly compliant state for a 20-year operating business: NDAs (6.6), basic equipment maintenance (7.13), GCP-inherited NTP (8.17). These contribute zero or near-zero remediation cost.</p>
+<h2>What the model can't see at archetype-default</h2>
+<p>This assessment uses <em>archetype-default</em> current-state hypothesis. Founder verification of the 16 questions (especially Q4 on customer compliance pressure, Q5 on existing certifications, and Q14 on tribal knowledge concentration) will refine each control's hypothesis individually.</p>
+<p><strong>Likely refinements after founder review:</strong>
+- Several Org controls may move from "absent" to "weak" (some informal practice exists). Reduces hours.
+- Some Tech controls may move from "weak" to "absent" if the founder confirms tooling is genuinely zero. Increases hours.
+- Customer-driven compliance work that RapidPOS has done ad-hoc (vendor questionnaire responses, PCI-SAQ inheritance support) may show up as documented evidence we can leverage. Reduces hours.</p>
+<p>The expected delta from archetype-default is ±20-30%. Real number sits in the $250k-$425k range.</p>
+<h2>What's NOT remediated by this gap assessment alone</h2>
+<p>ISO 27001 certification requires not only the controls being passable but also:
+- <strong>An ISMS (Information Security Management System):</strong> the policy framework + governance that ties the controls together. Roughly 200-400 hours separate from the per-control remediation. Not in the spreadsheet.
+- <strong>Stage 1 + Stage 2 audit fees:</strong> $20k-$50k for a credentialed audit firm.
+- <strong>Stage 2 observation period:</strong> typically 3-6 months between Stage 1 and Stage 2.
+- <strong>Surveillance audits:</strong> annual after certification; ~$10k-$20k/year ongoing.</p>
+<p>Adding ISMS framework work + audit fees + ongoing surveillance: roughly +$100k-$150k beyond the per-control gap engineering. Total binding cost sits closer to <strong>$450k-$575k</strong> for the ISO 27001 work end-to-end.</p>
+<h2>Sequencing into the program</h2>
+<table>
+<thead>
+<tr>
+<th>Phase</th>
+<th>Months</th>
+<th>ISO work performed</th>
+<th>Audit milestone</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Phase A</td>
+<td>0-6</td>
+<td>All 15 critical-mass controls remediated. ISMS policy framework drafted.</td>
+<td>Internal readiness review</td>
+</tr>
+<tr>
+<td>Phase A end</td>
+<td>6</td>
+<td>Critical-mass passable. Sandbox-tier DriftPOS deployed.</td>
+<td>Pre-Stage-1 dry run</td>
+</tr>
+<tr>
+<td>Phase B early</td>
+<td>6-9</td>
+<td>Remaining 78 controls remediated to passable state.</td>
+<td>Stage 1 audit (gap analysis)</td>
+</tr>
+<tr>
+<td>Phase B mid</td>
+<td>9-12</td>
+<td>Stage 2 observation begins. DriftPOS GA at month 12.</td>
+<td>Stage 2 observation in progress</td>
+</tr>
+<tr>
+<td>Phase B end</td>
+<td>12-18</td>
+<td>Observation continues. Eager cohort fully migrated.</td>
+<td>Certificate issued at month 18</td>
+</tr>
+<tr>
+<td>Phase C</td>
+<td>18+</td>
+<td>Surveillance audits annually. SOC 2 Type II observation in parallel.</td>
+<td>Continuous compliance monitoring</td>
+</tr>
+</tbody>
+</table>
+<h2>Cross-references</h2>
+<ul>
+<li><code>02-iso27001-gap-assessment.xlsx</code> — control-by-control workload estimator (authoritative)</li>
+<li><code>crb-skills/saas-acquisition-diligence/reference/02-iso27001-2022-control-library.md</code> — full Annex A library</li>
+<li><code>crb-skills/saas-acquisition-diligence/reference/03-gcp-control-mapping.md</code> — GCP-native implementation per control</li>
+<li><code>Brain/diligence/rapidpos/03-gcp-onramp-architecture.md</code> — proposed GCP target architecture</li>
+<li><code>Brain/diligence/rapidpos/04-valuation-impact.md</code> — gap-to-discount math</li>
+<li><code>Brain/diligence/rapidpos/05-driftpos-launch-readiness.md</code> — DriftPOS-blocking subset detail</li>
+</ul></div>
+</section>
+
+<section id="gcp-onramp" data-category="phase2">
+  <header class="section-header">
+    <span class="cat-pill">Phase 2 — Audit-as-diligence</span>
+    <h2>Phase 2 — GCP onramp architecture</h2>
+  </header>
+  <div class="section-body"><h1>GCP Onramp Architecture — RapidPOS LLC (Demo Run)</h1>
+<blockquote>
+<p><strong>DEMO RUN — derived from cost-model GCP workload blueprint at T0→T1 baseline.</strong></p>
+</blockquote>
+<p><strong>Vendor:</strong> RapidPOS LLC
+<strong>Run date:</strong> 2026-05-03
+<strong>Phase:</strong> 2 — Audit-as-diligence
+<strong>Target architecture:</strong> Canary.GO + DriftPOS, hosted on GCP, ramped from T0 (RapidPOS today) to T1 (eager-cohort migrated) over 12 months</p>
+<hr />
+<h2>Architecture overview</h2>
+<p>The proposed architecture follows the 18-workload blueprint. Each workload sized for T1 (eager-cohort migrated; ~3,500 stores aggregate; mid-7-figures txn/day). T2/T3 capacity expansion happens in months 18+ as the cohort migration completes and new-logo enterprise wins land.</p>
+<h3>Foundational layer — GCP Organization</h3>
+<ul>
+<li><strong>GCP Organization:</strong> Growdirect parent + RapidPOS sub-org (or shared, depending on M&amp;A structure)</li>
+<li><strong>Folder hierarchy:</strong> <code>prod</code> / <code>nonprod</code> / <code>audit</code> / <code>shared-services</code></li>
+<li><strong>Project structure per tenant:</strong> one project per merchant for hard isolation; shared <code>shared-services</code> project for the agentic ops fabric and telemetry sinks</li>
+<li><strong>Identity:</strong> Cloud Identity (or Workspace) for staff; Identity Platform for customer-facing auth</li>
+<li><strong>IAM model:</strong> Group-based; least-privilege defaults; PAM for break-glass</li>
+</ul>
+<h3>POS adapter ingress (workload #1)</h3>
+<p>Five front-ends interchangeable. At T1 the active mix is:
+- DriftPOS (.NET) — GKE Autopilot + Pub/Sub topic <code>pos-driftpos</code>
+- Counterpoint via RapidPOS (HTTP poll) — Cloud Run jobs + Pub/Sub topic <code>pos-counterpoint</code>
+- Square (webhook) — Cloud Run service + Pub/Sub topic <code>pos-square</code> (legacy customers if any)
+- Toast / Clover — adapters available, not deployed unless RapidPOS customer requests</p>
+<p>Sizing: 12 vCPU GKE / 24 GB / 5 topics / 2 MB/sec Pub/Sub throughput aggregate.</p>
+<h3>Transaction streaming pipeline (workload #2)</h3>
+<p>Pub/Sub fanout → Memorystore Valkey (ordering + dedup) → GKE workers (parsing + CRDM event production).</p>
+<p>T1 sizing: Memorystore Standard 5GB HA, GKE workers 24 vCPU / 48 GB.</p>
+<h3>CRDM canonical store (workload #3)</h3>
+<p>T0-T1: <strong>Cloud SQL for PostgreSQL</strong>, 16 vCPU / 64 GB / 2 TB SSD HA + 1 read replica.</p>
+<p>Multi-tenant via per-tenant schemas. Plan migration to AlloyDB at T2 when write throughput exceeds Cloud SQL comfort zone.</p>
+<h3>ILDWAC service (workload #4)</h3>
+<p>T1: Cloud SQL PG 8 vCPU / 32 GB / HA + Pub/Sub change-feed (0.5 MB/sec) + GKE pods 8 vCPU / 16 GB.</p>
+<p>Patent-protected; deployed in a tightly-scoped IAM perimeter.</p>
+<h3>RIB batch + blockchain anchor (workload #5)</h3>
+<p>T1: 24-96 Cloud Run jobs/day, 200 GB Cloud Storage seal archives, 15-min anchor frequency.</p>
+<p>Bitcoin anchoring via managed gateway (Strike or similar; see <code>cost-model</code> snapshot).</p>
+<h3>Hawk — case management (workload #6)</h3>
+<p>T1: GKE 8 vCPU / Cloud SQL PG 8 vCPU HA / 500 GB GCS evidence storage.</p>
+<p>Hash-chained evidence chain — INSERT-only tables with trigger-enforced integrity.</p>
+<h3>Owl — search + RAG (workload #7)</h3>
+<p>T1: Vertex AI Search (50 QPS) + pgvector on AlloyDB (eventually) for vector search.</p>
+<h3>LLM inference (workload #8)</h3>
+<p>T1: ~100M tokens/day across the customer base. Mix: 80% Haiku / 15% Sonnet / 5% Opus. Spend ~$10k-30k/month.</p>
+<p>Vertex AI / Anthropic-on-Vertex. Enterprise commitment for the discount.</p>
+<h3>Edge agent (workload #9)</h3>
+<p>T1: ~1,000 edge nodes (one per migrated customer store). Anthos at the edge.</p>
+<p>Local Haiku-class model for sub-100ms in-store decisions; cloud sync 15-min cadence.</p>
+<h3>Identity / auth / per-tenant config (workload #10)</h3>
+<p>T1: GKE 4 vCPU / Cloud SQL HA 4 vCPU / Secret Manager (~5k secrets).</p>
+<h3>Notifications / messaging (workload #11)</h3>
+<p>T1: Pub/Sub + Cloud Tasks + SendGrid Pro + Twilio (~10k SMS/day at peak).</p>
+<h3>Reporting / BI / analytics (workload #12)</h3>
+<p>T1: BigQuery 10 TB storage / 500-slot reservation / Looker (100 users).</p>
+<h3>Object / evidence storage (workload #13)</h3>
+<p>T1: 1 TB Standard / 5 TB Nearline / 10 TB Archive.</p>
+<h3>Security &amp; audit (workload #14) — the ISMS evidence layer</h3>
+<ul>
+<li><strong>Security Command Center Premium</strong> — continuous compliance monitoring</li>
+<li><strong>Cloud Audit Logs</strong> — full data-access logs, sinked to GCS Coldline for 7-year retention</li>
+<li><strong>Chronicle Standard</strong> — SIEM for the ISMS evidence trail</li>
+<li><strong>VPC Service Controls</strong> — perimeter enforcement around CRDM + ILDWAC + Hawk</li>
+</ul>
+<p>This is the workload that produces the audit evidence ISO 27001 + SOC 2 Type II will need. Stand it up early in Phase A.</p>
+<h3>DR / backup / cross-region (workload #15)</h3>
+<p>T1: regional HA Cloud SQL + 30-day backups + cross-region read replica for the analytics tier.</p>
+<h3>Networking / interconnect (workload #16)</h3>
+<p>T1: VPC + Cloud Armor managed rules + Cloud Load Balancing 10k TPS. No dedicated interconnect at T1.</p>
+<h3>Tax &amp; regulatory compliance service (workload #17)</h3>
+<p>T1: 51 Cloud Run jobs (federal IRS + 50 state DORs) + state regulatory body pollers + 500 forms in library + 5k rules in cache.</p>
+<p>This workload is the same cost at T0/T1/T2 — constant-cost dominated. It's the compliance moat the cost-model surfaces as a competitive differentiator vs. Avalara-paying incumbents.</p>
+<h3>Agentic ops fabric — A1-A5 (workload #18)</h3>
+<p>T1: ~5k agent attempts/day. Vertex AI model serving + Cloud Run agent runtimes + Pub/Sub event triggers + Cloud SQL for state + Cloud Storage for wiki/playbook output.</p>
+<p>This is the workload that absorbs the seller-team support queue and converts it into wiki/playbook capital.</p>
+<h2>Per-workload sizing summary at T1</h2>
+<table>
+<thead>
+<tr>
+<th>Workload</th>
+<th>T1 monthly cost (placeholder)</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>1. POS adapter ingress</td>
+<td>$1,500</td>
+</tr>
+<tr>
+<td>2. TSP</td>
+<td>$1,200</td>
+</tr>
+<tr>
+<td>3. CRDM (Cloud SQL HA)</td>
+<td>$3,500</td>
+</tr>
+<tr>
+<td>4. ILDWAC</td>
+<td>$1,000</td>
+</tr>
+<tr>
+<td>5. RIB + anchor</td>
+<td>$600</td>
+</tr>
+<tr>
+<td>6. Hawk</td>
+<td>$900</td>
+</tr>
+<tr>
+<td>7. Owl</td>
+<td>$1,500</td>
+</tr>
+<tr>
+<td>8. LLM inference</td>
+<td>$20,000</td>
+</tr>
+<tr>
+<td>9. Edge agent</td>
+<td>$5,000</td>
+</tr>
+<tr>
+<td>10. Identity</td>
+<td>$700</td>
+</tr>
+<tr>
+<td>11. Notifications</td>
+<td>$1,500</td>
+</tr>
+<tr>
+<td>12. Reporting</td>
+<td>$3,000</td>
+</tr>
+<tr>
+<td>13. Storage</td>
+<td>$500</td>
+</tr>
+<tr>
+<td>14. Security &amp; audit</td>
+<td>$2,500</td>
+</tr>
+<tr>
+<td>15. DR / backup</td>
+<td>$1,000</td>
+</tr>
+<tr>
+<td>16. Networking</td>
+<td>$1,500</td>
+</tr>
+<tr>
+<td>17. Tax / compliance</td>
+<td>$1,800</td>
+</tr>
+<tr>
+<td>18. Agentic ops</td>
+<td>$8,000</td>
+</tr>
+<tr>
+<td><strong>TOTAL T1 monthly</strong></td>
+<td><strong>~$55,700</strong></td>
+</tr>
+</tbody>
+</table>
+<p>Annualized T1: ~$668k. The cost-model cross-foots this into the <code>program_cost</code> tab.</p>
+<h2>Architecture decisions worth flagging</h2>
+<h3>What we do at T1</h3>
+<ul>
+<li><strong>Multi-tenant via per-tenant projects</strong> for hard data isolation (vs. shared schemas with row-level security). Costlier in GCP project sprawl but materially safer for ISO 27001 5.23 (cloud governance) and 8.22 (network segregation).</li>
+<li><strong>Cloud SQL → AlloyDB at T2.</strong> Defer AlloyDB until throughput requires it; Cloud SQL is cheaper at T0-T1 and the migration is straightforward.</li>
+<li><strong>Vertex AI Search + pgvector hybrid for Owl</strong> until query volume justifies dedicated Vector Search at T2.</li>
+<li><strong>GKE Autopilot, not Standard.</strong> Autopilot's per-pod billing is more predictable for the SMB-customer-mix workload shape; Standard's cluster-fee economics work better at T2+.</li>
+<li><strong>Cloud Run for batch jobs (RIB, tax pollers).</strong> Lower cold-start tax than GKE for low-frequency work.</li>
+</ul>
+<h3>Where third-party tooling enters</h3>
+<ul>
+<li><strong>EDR (8.7):</strong> CrowdStrike or SentinelOne for endpoints (RapidPOS office + remote staff).</li>
+<li><strong>Vulnerability depth (8.8):</strong> Wiz or Snyk on top of Container Analysis.</li>
+<li><strong>GRC dashboards (5.36):</strong> Vanta or Drata for the ongoing-compliance evidence layer (also accelerates SOC 2 Type II).</li>
+<li><strong>Email (workload #11):</strong> SendGrid (third-party).</li>
+<li><strong>SMS/voice (workload #11):</strong> Twilio (third-party).</li>
+<li><strong>Bitcoin anchor gateway (workload #5):</strong> Strike or similar managed LN provider.</li>
+</ul>
+<h3>What we do NOT do</h3>
+<ul>
+<li><strong>Dedicated interconnect at T1.</strong> Customer demands at this scale don't require it; defer to T2 for any specific enterprise-customer requirement.</li>
+<li><strong>Multi-region active-active.</strong> Premature for SMB customers; revisit at T3 anchor-account level.</li>
+<li><strong>Self-hosted observability (Prometheus/Grafana).</strong> GCP-native monitoring + Chronicle is sufficient through T2.</li>
+</ul>
+<h2>Cost-model linkage</h2>
+<p>The 18-workload sizing flows directly into <code>02-cost-model-output.xlsx::gcp_infra</code> tab. T1 monthly aggregate ≈ $55,700 is what the model uses for its T1 column.</p>
+<h2>Open questions for Phase 2 refinement</h2>
+<ul>
+<li>What are RapidPOS's customer-side contractual obligations on data residency? (Some specialty retail customers may insist on US-only data — affects multi-region strategy)</li>
+<li>Does any RapidPOS customer require dedicated VPC peering or interconnect that would shift workload #16 sizing?</li>
+<li>Bart's team has decided on .NET Framework vs .NET Core for DriftPOS adapters — answers whether GKE supports natively or needs Windows containers</li>
+<li>Is there a contractual or regulatory reason to use a specific GCP region (e.g., us-central1 for Iowa-based customers, us-east1 for east-coast customers, multi-region from start)?</li>
+</ul>
+<h2>Cross-references</h2>
+<ul>
+<li><code>crb-skills/cost-model/reference/03-gcp-workload-blueprint.md</code> — the load-bearing 18-workload reference</li>
+<li><code>crb-skills/cost-model/reference/04-gcp-pricing-snapshot-2026-05-03.md</code> — current SKU pricing</li>
+<li><code>crb-skills/saas-acquisition-diligence/reference/03-gcp-control-mapping.md</code> — ISO 27001 → GCP service mapping per control</li>
+<li><code>Brain/cost-models/rapidpos/02-cost-model-output.xlsx::gcp_infra</code> — costed view of this architecture</li>
+</ul></div>
+</section>
+
+<section id="driftpos" data-category="phase2">
+  <header class="section-header">
+    <span class="cat-pill">Phase 2 — Audit-as-diligence</span>
+    <h2>Phase 2 — DriftPOS launch readiness</h2>
+  </header>
+  <div class="section-body"><h1>DriftPOS Launch Readiness — RapidPOS LLC (Demo Run)</h1>
+<blockquote>
+<p><strong>DEMO RUN — what stands between today and DriftPOS GA at month 12.</strong></p>
+</blockquote>
+<p><strong>Vendor:</strong> RapidPOS LLC
+<strong>DriftPOS partner contact:</strong> Bart
+<strong>Target GA:</strong> Month 12 post-acquisition close
+<strong>Run date:</strong> 2026-05-03</p>
+<hr />
+<h2>The gate, plainly</h2>
+<p>DriftPOS cannot ship customer-data-handling features in production until:</p>
+<ol>
+<li>The 15 critical-mass ISO 27001 controls are passable (per <code>02-iso27001-gap-assessment.md</code>)</li>
+<li>PCI-DSS scope inheritance is verified (Ingenico tokenization → no Canary.GO scope)</li>
+<li>The 12 Bart OQs are resolved (load-bearing four are: OQ-1, OQ-2, OQ-3, OQ-11)</li>
+</ol>
+<p>Phase 2 produces the yes/no on each. This document is the readiness summary.</p>
+<h2>Critical-mass 15 ISO 27001 controls — RapidPOS readiness</h2>
+<table>
+<thead>
+<tr>
+<th>Control</th>
+<th>RapidPOS current state (hypothesis)</th>
+<th>Hours to remediate</th>
+<th>Pre-GA required?</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>5.15 Access control</td>
+<td>Counterpoint has access; cloud needs Cloud IAM</td>
+<td>32</td>
+<td>YES</td>
+</tr>
+<tr>
+<td>5.17 Authentication info</td>
+<td>Informal; centralize via Secret Manager</td>
+<td>24</td>
+<td>YES</td>
+</tr>
+<tr>
+<td>5.23 Cloud governance</td>
+<td>From scratch; deploy Org policies</td>
+<td>32</td>
+<td>YES</td>
+</tr>
+<tr>
+<td>5.24 IR planning</td>
+<td>Informal IR; need plan + tabletop</td>
+<td>24</td>
+<td>YES</td>
+</tr>
+<tr>
+<td>5.34 PII protection</td>
+<td>Informal; deploy DLP API + Cloud KMS</td>
+<td>32</td>
+<td>YES</td>
+</tr>
+<tr>
+<td>6.5 Off-boarding</td>
+<td>Inconsistent; need security checklist</td>
+<td>16</td>
+<td>YES</td>
+</tr>
+<tr>
+<td>8.2 Privileged access</td>
+<td>Ad-hoc; deploy Cloud IAM + PAM</td>
+<td>32</td>
+<td>YES</td>
+</tr>
+<tr>
+<td>8.5 Secure auth (MFA)</td>
+<td>Not enforced; deploy Cloud Identity 2SV org-wide</td>
+<td>32</td>
+<td>YES</td>
+</tr>
+<tr>
+<td>8.9 Configuration mgmt</td>
+<td>No IaC; stand up Terraform + Config Connector</td>
+<td>64</td>
+<td>YES</td>
+</tr>
+<tr>
+<td>8.13 Backup</td>
+<td>Backups exist; no recovery test; add cross-region + drill</td>
+<td>24</td>
+<td>YES</td>
+</tr>
+<tr>
+<td>8.15 Logging</td>
+<td>Logs scattered; centralize on Cloud Logging + sinks</td>
+<td>32</td>
+<td>YES</td>
+</tr>
+<tr>
+<td>8.16 Monitoring</td>
+<td>No SIEM; deploy SCC Premium + Chronicle</td>
+<td>40</td>
+<td>YES</td>
+</tr>
+<tr>
+<td>8.20 Networks security</td>
+<td>From scratch in cloud; VPC + Cloud Armor</td>
+<td>40</td>
+<td>YES</td>
+</tr>
+<tr>
+<td>8.24 Cryptography</td>
+<td>Inconsistent; deploy Cloud KMS comprehensively</td>
+<td>40</td>
+<td>YES</td>
+</tr>
+<tr>
+<td>8.25 Secure SDLC</td>
+<td>No formal SDLC; deploy Cloud Build + Binary Auth</td>
+<td>56</td>
+<td>YES</td>
+</tr>
+</tbody>
+</table>
+<p><strong>Total: 520 hours / $104k engineering remediation.</strong></p>
+<p>At 3 effective FTEs in Phase A → ~6 weeks of Phase A engineering capacity dedicated to this critical-mass subset. Sequenced parallel to A1-A5 deployment.</p>
+<h2>PCI-DSS scope position</h2>
+<p>DriftPOS uses Ingenico pinpads. Ingenico's P2PE attestation covers cardholder data tokenization at the device. Tokenized payment fingerprints flow to Canary.GO; Canary.GO never touches raw cardholder data.</p>
+<p><strong>Position to validate:</strong>
+- Ingenico's P2PE attestation is current and covers DriftPOS's specific deployment shape
+- DriftPOS's .NET adapter does not introduce a PCI scope expansion
+- Canary.GO's tokenization-handling falls under SAQ-A or SAQ-A-EP (no scope)</p>
+<p><strong>Discovery items for Phase 2:</strong>
+- Confirm Ingenico's most recent P2PE attestation (annual)
+- Validate DriftPOS deployment topology against the attestation (sometimes attestations don't cover all configurations)
+- Verify VAR customers' inherited scope doesn't change with the Canary.GO integration</p>
+<p>If any of these is not yet confirmed, add it to the Bart OQ list.</p>
+<h2>The 12 Bart OQs — readiness mapping</h2>
+<p>From the 2026-05-03 Bart conversation prep doc. Load-bearing for posture:</p>
+<table>
+<thead>
+<tr>
+<th>OQ</th>
+<th>Topic</th>
+<th>DriftPOS-blocking?</th>
+<th>Phase 2 stance</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>OQ-1</td>
+<td>mTLS vs JWT for register↔back-half</td>
+<td>Affects 8.5 + 8.24</td>
+<td>Accept JWT for pilot; require mTLS by GA</td>
+</tr>
+<tr>
+<td>OQ-2</td>
+<td>Ingenico network token availability</td>
+<td>Affects PCI scope + party-resolution latency</td>
+<td>Self-computed fallback acceptable for v1</td>
+</tr>
+<tr>
+<td>OQ-3</td>
+<td>Idempotency-Key honor on retry</td>
+<td>Affects 8.20 + offline-replay correctness</td>
+<td>Required for any reliable wire spec</td>
+</tr>
+<tr>
+<td>OQ-4</td>
+<td>Queue cap</td>
+<td>Pilot-config</td>
+<td>Defer to pilot config</td>
+</tr>
+<tr>
+<td>OQ-5</td>
+<td>UUID assignment</td>
+<td>Wire-spec correctness</td>
+<td>Required for contract</td>
+</tr>
+<tr>
+<td>OQ-6</td>
+<td>(per Bart prep doc — verify)</td>
+<td>(per Bart prep doc)</td>
+<td>Verify at meeting</td>
+</tr>
+<tr>
+<td>OQ-7</td>
+<td>UI button</td>
+<td>Pilot-config</td>
+<td>Defer to pilot config</td>
+</tr>
+<tr>
+<td>OQ-8</td>
+<td>(per Bart prep doc — verify)</td>
+<td>(per Bart prep doc)</td>
+<td>Verify at meeting</td>
+</tr>
+<tr>
+<td>OQ-9</td>
+<td>(per Bart prep doc — verify)</td>
+<td>(per Bart prep doc)</td>
+<td>Verify at meeting</td>
+</tr>
+<tr>
+<td>OQ-10</td>
+<td>(per Bart prep doc — verify)</td>
+<td>(per Bart prep doc)</td>
+<td>Verify at meeting</td>
+</tr>
+<tr>
+<td>OQ-11</td>
+<td>PCI scope inheritance position</td>
+<td>Direct PCI scope</td>
+<td>Required for GA</td>
+</tr>
+<tr>
+<td>OQ-12</td>
+<td>(per Bart prep doc — verify)</td>
+<td>(per Bart prep doc)</td>
+<td>Verify at meeting</td>
+</tr>
+</tbody>
+</table>
+<p>The four load-bearing OQs (1, 2, 3, 11) need landing decisions before contract publication. The others can be deferred to pilot-config-time without blocking.</p>
+<h2>Pre-GA / Pilot-only / Post-GA acceptable splits</h2>
+<h3>Blockers (must resolve before DriftPOS GA at month 12)</h3>
+<ul>
+<li>All 15 critical-mass ISO 27001 controls passable</li>
+<li>OQ-1 mTLS path defined (mTLS by GA, JWT for pilot acceptable)</li>
+<li>OQ-2 Ingenico tokenization position settled</li>
+<li>OQ-3 Idempotency-Key semantics wire-spec'd</li>
+<li>OQ-11 PCI scope inheritance documented and customer-comfortable</li>
+<li>ISO 27001 Stage 2 audit observation period started (month 12 launch concurrent with observation)</li>
+<li>DriftPOS production environment passes a sandbox-tier penetration test</li>
+<li>IR plan + tabletop exercise complete</li>
+</ul>
+<h3>Pilot-only acceptable (GA later)</h3>
+<ul>
+<li>OQ-4 queue cap (pilot config; per-customer flexibility)</li>
+<li>OQ-7 UI button (pilot config)</li>
+<li>ISO 27001 certificate not yet issued (Stage 2 observation in progress at GA — acceptable for early customers; required for enterprise customers)</li>
+</ul>
+<h3>Post-GA acceptable (during Stage 2 observation period 12-18 months)</h3>
+<ul>
+<li>The remaining 78 ISO 27001 controls reach passable state</li>
+<li>SOC 2 Type II observation begins (target start month 18)</li>
+<li>Surveillance audit cadence established</li>
+<li>Vanta/Drata GRC tooling stood up for ongoing-compliance monitoring</li>
+</ul>
+<h2>DriftPOS-launch sequence</h2>
+<table>
+<thead>
+<tr>
+<th>Month</th>
+<th>Milestone</th>
+<th>Gate</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>0</td>
+<td>Acquisition close; A1-A5 deployment kickoff; ISO Phase 2 remediation underway</td>
+<td>—</td>
+</tr>
+<tr>
+<td>3</td>
+<td>First 8 of 15 critical-mass controls remediated; sandbox infra live</td>
+<td>Internal review</td>
+</tr>
+<tr>
+<td>6</td>
+<td>All 15 critical-mass controls remediated; sandbox DriftPOS deployment</td>
+<td>Pre-Stage-1 dry run</td>
+</tr>
+<tr>
+<td>9</td>
+<td>ISO Stage 1 audit clean; first eager-cohort customer in sandbox migration</td>
+<td>Stage 1 sign-off</td>
+</tr>
+<tr>
+<td>12</td>
+<td><strong>DriftPOS GA</strong>; Stage 2 observation start; eager-cohort wave 1 in production</td>
+<td>Stage 2 observation triggered</td>
+</tr>
+<tr>
+<td>18</td>
+<td>ISO 27001 certified; eager-cohort wave 2 complete</td>
+<td>Certificate in hand</td>
+</tr>
+</tbody>
+</table>
+<h2>What kills DriftPOS GA at month 12</h2>
+<ul>
+<li>Bart team turnover during Phase A</li>
+<li>Ingenico changes their attestation in a way that pushes Canary.GO into PCI scope</li>
+<li>Critical-mass control remediation runs behind schedule (&gt;8 weeks late)</li>
+<li>Discovery surfaces a previously-unknown compliance issue at RapidPOS LLC level (e.g., past breach not disclosed in Phase 1)</li>
+<li>A1 + A2 don't reach burn-down targets, so the seller team is still 60%+ on break-fix and unavailable for migration onboarding work</li>
+</ul>
+<h2>Cross-references</h2>
+<ul>
+<li><code>02-iso27001-gap-assessment.md</code> — full 93-control assessment with the critical-mass 15 highlighted</li>
+<li><code>02-iso27001-gap-assessment.xlsx</code> — control-by-control workload estimator</li>
+<li><code>03-gcp-onramp-architecture.md</code> — proposed target GCP architecture</li>
+<li><code>crb-skills/saas-acquisition-diligence/reference/07-driftpos-readiness-gate.md</code> — full readiness-gate methodology</li>
+<li><code>docs/superpowers/plans/2026-05-03-bart-conversation-prep.md</code> — Bart OQ source</li>
+<li>Linear: GRO-762 (Bart conversation prep), GRO-739 (DriftPOS integration parent)</li>
+</ul></div>
+</section>
+
+<section id="glide-path" data-category="phase3">
+  <header class="section-header">
+    <span class="cat-pill">Phase 3 — Valuation + glide path</span>
+    <h2>Phase 3 — Managed-services glide path (external)</h2>
+  </header>
+  <div class="section-body"><h1>Managed-Services Glide Path — Growdirect × RapidPOS</h1>
+<blockquote>
+<p>External pitch document. Voice is peer-to-peer, expert-to-expert. Operator language.</p>
+</blockquote>
+<p><strong>For:</strong> RapidPOS LLC ownership / leadership team
+<strong>From:</strong> Growdirect
+<strong>Date:</strong> 2026-05-03</p>
+<hr />
+<h2>What this is</h2>
+<p>A proposal to bring RapidPOS's customer base onto a modernized retail platform on a managed-services basis, with you supporting your existing customers through a 24-month transition and exiting clean by Year 3-5.</p>
+<p>This is not an acquisition pitch. It's a partnership proposal. Acquisition is the structural form; managed services is the substance.</p>
+<h2>What we both know</h2>
+<p>To put any customer's data in any cloud, with any partner, the system has to be able to pass an ISO 27001 audit. That is the table-stakes for the conversation we both want to have about cloud, about DriftPOS, about anything beyond the current model.</p>
+<p>You need an auditor. You need certifiable posture. We can be both — and we can do the work.</p>
+<p>If we can't, we'll tell you so, and you'll go find someone who can.</p>
+<h2>What we're proposing</h2>
+<p>A 24-month transition where:</p>
+<ol>
+<li>
+<p><strong>Your customers stay your customers.</strong> Throughout the transition, you remain the relationship owner. Your senior engineers remain the configuration experts. Your support team remains the front-line support team. Nothing about the customer relationship changes from their perspective until they choose to migrate.</p>
+</li>
+<li>
+<p><strong>The eager customers move first.</strong> Your customers in regulated verticals (firearms, wine direct-ship, multi-state specialty retail) who are already feeling compliance pressure get the modernization first. They migrate to Canary.GO + GCP + DriftPOS as a unified back-half. Their existing Counterpoint POS terminals continue to work; the modernization happens behind the scenes.</p>
+</li>
+<li>
+<p><strong>The steady customers move when ready.</strong> Your single-location and small-multi-location customers move on their own timeline, after the playbook is proven on the eager cohort. Most will be migrated by month 18-24. They keep using your support team, deeply familiar with their setup, throughout.</p>
+</li>
+<li>
+<p><strong>The laggard customers stay where they are.</strong> Some of your customers will never modernize, and that's fine. They stay on Counterpoint, supported by your team, until they retire from the business or until you do. The acquisition structure preserves this support track for as long as it's needed.</p>
+</li>
+<li>
+<p><strong>Your team transitions from break-fix to growth.</strong> Today your senior engineers spend most of their time on support tickets. We deploy agents that absorb the recurring-cause work — about 60-70% of your queue — and free your team to focus on customer-onboarding work. Same headcount, but doing the work that's actually rare and valuable: cloud migrations, configuration design, vertical specialization. Your team stops being a life-support shop and becomes a growth engine.</p>
+</li>
+</ol>
+<h2>What we bring</h2>
+<h3>The retail platform itself</h3>
+<p>Canary.GO is a retail operating platform built on 30 years of tier-1 retail discipline. Its data model is anchored on the Global Store Logical Model that defined Walmart International. Its inventory cost basis (ILDWAC) is patent-protected. It speaks to multiple front-ends — Counterpoint, DriftPOS, Square, Toast, Clover — interchangeably, so your customers can choose the front-end that fits their hardware and operations preferences. It carries native multi-jurisdiction tax and regulatory compliance built directly against federal and state APIs, so neither you nor your customers carry the Avalara-style ongoing fees.</p>
+<h3>The audit and modernization workload</h3>
+<p>We do the ISO 27001 audit. We design the GCP architecture. We migrate customer data. We build the runbooks. We deploy the agentic ops fabric that absorbs your support queue. We get your platform to a state where DriftPOS can launch on it and tier-1 retailers will trust it with their data.</p>
+<p>You don't carry this workload. We do.</p>
+<h3>A clean exit path</h3>
+<p>Year 3-5 is your timeline, your call. We structure the deal so that your equity converts cleanly. We retain your senior engineers under retention agreements that align with the transition timeline. We pace the work so your customer relationships are preserved through the period you choose to remain involved. When you're ready to step away, the operational handoff is already complete.</p>
+<h2>What you continue to bring</h2>
+<p>The customer relationships you've built over 20 years. The configuration knowledge in your senior engineers' heads. The vertical specialization that makes you Rapid Garden POS rather than a generic Counterpoint reseller. The trust your customers have in your support team. None of that is replaceable; none of that gets displaced.</p>
+<h2>The economic shape</h2>
+<p>This is a three-part transaction:</p>
+<ul>
+<li><strong>A purchase price</strong> for RapidPOS LLC at a multiple consistent with current-state economics, adjusted for the modernization work we'll absorb on your behalf. We're transparent that the modernization premium accrues to us, because we're the ones doing it. Conversely, we're paying for your customer book at a price that reflects our confidence we can retain and expand it.</li>
+<li><strong>An earnout structure</strong> tied to customer-retention milestones over 24 months. This aligns our interests during the transition period and reflects the genuine value of customer continuity in this business.</li>
+<li><strong>A retention pool</strong> for senior engineers and key staff, structured to keep your team motivated and engaged through the transition.</li>
+</ul>
+<p>Specific numbers and structure are part of the conversation, not the proposal. They're driven by what you actually need (clean exit) and what we actually need (customer continuity).</p>
+<h2>The standard, plainly</h2>
+<p>Without certifiable security posture, the conversation about DriftPOS doesn't happen. The conversation about Global-50 retailers doesn't happen. The conversation about getting acquired at a fair multiple by anyone serious doesn't happen. ISO 27001 isn't our requirement; it's the landscape.</p>
+<p>We're proposing to do that work for you. If our pricing isn't competitive vs. standing up an internal program, hiring a specialty consultancy, or selling to a buyer who'll do this on their own clock, that math is yours to do. We'd recommend you do it.</p>
+<h2>Timeline</h2>
+<p>If we proceed:</p>
+<ul>
+<li><strong>Months 0-6 (Phase A):</strong> Acquisition close. Day-1 deployment of agentic workflows. Burn down support queue. Capture wiki + playbook content. Start critical-mass ISO 27001 controls. Sandbox-tier DriftPOS deployment.</li>
+<li><strong>Months 6-18 (Phase B):</strong> Eager-cohort migration. ISO 27001 Stage 1 + Stage 2 audits. DriftPOS GA at month 12. ISO certification at month 18.</li>
+<li><strong>Months 18-36 (Phase C):</strong> Steady-cohort migration. SOC 2 Type II observation. New-logo enterprise wins. Founder transition pacing.</li>
+<li><strong>Year 3-5:</strong> Clean exit per your timeline.</li>
+</ul>
+<h2>What we propose as a next conversation</h2>
+<p>Three meetings, roughly two weeks apart:</p>
+<ol>
+<li>
+<p><strong>Working session — your customer book.</strong> You walk us through your eager / steady / laggard sense of your customer base. We share our cohort framework. We agree on what the migration sequence would look like.</p>
+</li>
+<li>
+<p><strong>Working session — your team.</strong> You introduce us to your senior engineers. We share the agentic ops fabric and how it would interact with their current work. We get a read on their interest and concerns.</p>
+</li>
+<li>
+<p><strong>Decision conversation.</strong> You've had time to think and check our math against alternatives. We're ready with a specific structured proposal. You decide whether to proceed.</p>
+</li>
+</ol>
+<p>We don't push past your pace. If at any point this stops feeling like the right shape for what you want, we walk and you keep your options open.</p>
+<h2>Cross-references</h2>
+<ul>
+<li><code>08-glide-path-deck.pptx</code> — visual companion for the working sessions</li>
+<li><code>09-day1-agentic-ops-plan.md</code> — operational detail on what gets deployed Day 1</li>
+<li><code>10-burndown-flywheel.md</code> — how the queue-burndown → onboarding-led-growth transition happens</li>
+</ul></div>
+</section>
+
+<section id="day1-ops" data-category="post">
+  <header class="section-header">
+    <span class="cat-pill">Post-close program</span>
+    <h2>Post-close — Day-1 agentic ops plan (A1-A5)</h2>
+  </header>
+  <div class="section-body"><h1>Day-1 Agentic Ops Plan — RapidPOS</h1>
+<blockquote>
+<p>A1-A5 deployment plan for the first 90 days post-close.</p>
+</blockquote>
+<p><strong>Vendor:</strong> RapidPOS LLC
+<strong>Phase:</strong> A (months 0-6)
+<strong>Run date:</strong> 2026-05-03</p>
+<hr />
+<h2>A1 — Support-queue burndown</h2>
+<p><strong>Mission:</strong> Triage every open ticket. Attempt auto-resolution against the contextual wiki. Cluster the residue. Escalate only the genuinely novel issues to the human team.</p>
+<p><strong>Dispatch type:</strong> Continuous, queue-driven.</p>
+<p><strong>Owner:</strong> Growdirect agent ops + RapidPOS senior support engineer (joint).</p>
+<p><strong>Deployment week:</strong> 2 (after initial wiki seeding from existing RapidPOS documentation).</p>
+<p><strong>Scaling:</strong>
+- Day 1: monitoring mode (read-only). Builds a baseline of ticket categories.
+- Week 2: triage mode (categorize + suggest resolution; human still resolves).
+- Month 1: assisted-resolution mode (proposes a resolution; human reviews + sends).
+- Month 2: auto-resolution mode for high-confidence categories.
+- Month 3: 30-50% of incoming tickets auto-resolved without human touch.
+- Month 6: 50-70% auto-resolution rate.</p>
+<p><strong>KPIs:</strong>
+- Auto-resolution rate (target 50% by M3, 70% by M6)
+- Mean time to first response (target &lt;30 min)
+- Customer satisfaction on auto-resolved tickets (&gt;4.0/5 baseline)
+- False-positive rate (auto-resolved tickets that re-open) (&lt;5%)</p>
+<p><strong>Failure modes to monitor:</strong>
+- Confidence threshold drift (auto-resolving tickets that should escalate)
+- Wiki staleness (auto-resolutions referencing outdated info)
+- Customer-perception regression (loss of "personal touch" feel)</p>
+<h2>A2 — Root-cause analysis</h2>
+<p><strong>Mission:</strong> Cluster recurring tickets by symptom and underlying cause. Surface the top 10 repeat-causes. Drive each one to a permanent fix or to a runbook.</p>
+<p><strong>Dispatch type:</strong> Weekly + on-spike.</p>
+<p><strong>Owner:</strong> Growdirect agent ops + RapidPOS engineering lead (joint).</p>
+<p><strong>Deployment week:</strong> 2.</p>
+<p><strong>Scaling:</strong>
+- Week 2: first weekly report (categorical clustering only).
+- Month 1: top-10 repeat-cause list with symptom→cause mapping.
+- Month 3: permanent-fix work-items for top repeat causes; A3 articles for the rest.
+- Month 6: monthly trend analysis showing reduction in top-10 cause volumes.</p>
+<p><strong>KPIs:</strong>
+- Top-10 repeat-cause volume reduction month-over-month (target -15% by M3, -40% by M6)
+- Time from cluster identification to permanent fix or runbook (target &lt;2 weeks)
+- Number of permanent fixes shipped (target 5 by M3, 15 by M6)</p>
+<h2>A3 — Contextual-wiki builder</h2>
+<p><strong>Mission:</strong> Every resolved ticket → wiki article. Every recurring config → playbook. Every undocumented customization → captured fact. Build the wiki the seller never had time for.</p>
+<p><strong>Dispatch type:</strong> Continuous, ticket-resolution-driven.</p>
+<p><strong>Owner:</strong> Growdirect agent ops + RapidPOS senior engineer (knowledge owner).</p>
+<p><strong>Deployment week:</strong> 1 (start seeding from existing docs immediately).</p>
+<p><strong>Scaling:</strong>
+- Week 1: seed from existing RapidPOS internal docs (whatever exists — typically email threads, Confluence, file-share documents).
+- Week 2-4: write articles from resolved-ticket data + senior-engineer interviews.
+- Month 1-3: wiki coverage reaches 30% of incoming-ticket types.
+- Month 3-6: wiki coverage reaches 60-80%.
+- Ongoing: every resolved ticket evaluated for wiki-article potential.</p>
+<p><strong>KPIs:</strong>
+- Wiki articles per week (target 50/week initially, 20/week steady-state)
+- Wiki-coverage rate (% of incoming tickets where wiki has a relevant article) — target 30% by M3, 60% by M6
+- Article quality score (1-5 rated by senior engineers + customer feedback) (target &gt;3.5)
+- Tribal-knowledge capture rate (interviews completed; topics covered)</p>
+<p><strong>Quality gates:</strong>
+- New articles reviewed by a senior engineer before going live
+- Articles flagged stale after 6 months without verification
+- Articles tagged by vertical (garden / gun / wine / specialty food / feed-and-tack)</p>
+<h2>A4 — Cloud-onboarding process capture</h2>
+<p><strong>Mission:</strong> Ride along on every customer cloud-migration. Capture the seller team's actual config moves, the gotchas, the customer-specific deviations. Codify into repeatable per-vertical onboarding playbooks.</p>
+<p><strong>Dispatch type:</strong> Continuous, migration-event-driven.</p>
+<p><strong>Owner:</strong> Growdirect agent ops + Bart's onboarding team + RapidPOS senior engineer.</p>
+<p><strong>Deployment week:</strong> Month 3 (after first sandbox migration).</p>
+<p><strong>Scaling:</strong>
+- Month 3: first migration captured (eager-cohort customer #1).
+- Month 4-5: 2-3 more migrations captured; first vertical-specific playbook drafted (likely garden-center).
+- Month 6: vertical playbook v1 complete; subsequent migrations execute against template.
+- Month 12: playbooks for all 5 verticals; new migrations are templated execution rather than bespoke craft.
+- Month 18: new-logo customers (outside RapidPOS book) onboarded against playbooks at multiples of historical pace.</p>
+<p><strong>KPIs:</strong>
+- Onboarding playbooks per vertical (target 5 by M12)
+- Per-customer onboarding hours (baseline → -40% by M12)
+- New-customer go-live elapsed weeks (baseline 8-16 → 2-4 by M18)
+- Playbook reuse rate (% of new onboardings that match a templated playbook) (target 70% by M18)</p>
+<h2>A5 — Integration-bus reverse-engineer (internal)</h2>
+<p><strong>Mission:</strong> While A1-A4 free the seller team for high-value work, Growdirect's deeper agents work the data spine: map customer Counterpoint schemas onto CRDM, profile each customer's ILDWAC-conversion difficulty, surface what's outside the standard API and needs custom adapter work.</p>
+<p><strong>Dispatch type:</strong> Parallel, founder-directed.</p>
+<p><strong>Owner:</strong> Growdirect engineering (internal — no RapidPOS team load).</p>
+<p><strong>Deployment week:</strong> 2.</p>
+<p><strong>Scaling:</strong>
+- Week 2: per-VAR-layer adapter design starts (RapidPOS-specific Counterpoint extensions).
+- Month 1-2: per-customer schema discovery via existing customer-DB connections (where permitted).
+- Month 3: VAR-layer adapter v1 complete.
+- Month 4-6: per-customer adapter specialization for eager cohort.
+- Month 6+: adapter library mature; subsequent customers in same vertical get rapid setup.</p>
+<p><strong>KPIs:</strong>
+- Customers schema-discovered (target 50 by M3 — full RapidPOS book)
+- VAR-layer adapter completeness (target 100% by M3)
+- Per-customer adapter specialization time (target &lt;8 hours by M6, &lt;4 hours by M12)
+- CRDM-mapping accuracy on first attempt (target 90%+ by M6)</p>
+<h2>Day-1 architecture summary</h2>
+<p>Visual: agentic ops fabric (workload #18 from cost-model GCP blueprint) consists of:</p>
+<pre><code>[Ticket inflow]
+      ↓
+[A1 Support burndown agent] ← reads from → [A3 Contextual wiki]
+      ↓                                            ↑
+[Resolution attempt]                              writes to
+      ↓
+[Auto-resolved] → [Customer notified]
+      ↓
+[Escalated] → [Human queue] → [Resolved] → [A3 captures resolution]
+                                              ↓
+                             [A2 Root-cause analyzer] ← reads tickets
+                                              ↓
+                             [Top-10 repeat causes] → [Permanent fix or playbook]
+
+[Migration event] → [A4 Onboarding capture] → [Vertical playbook]
+
+[Internal track]
+[Customer DB access] → [A5 Integration-bus] → [CRDM mapping] → [ILDWAC scoring]
+</code></pre>
+<p>GCP services backing each agent: Vertex AI for inference, Cloud Run / GKE for runtimes, Pub/Sub for triggers, Cloud SQL for state, Cloud Storage for wiki + playbook output.</p>
+<h2>Day-1 access requirements</h2>
+<p>For agents to function, they need (negotiated as part of deal close):
+- Read access to RapidPOS's existing ticket system (Zendesk / Freshdesk / whatever)
+- Read access to customer Counterpoint deployments (with customer permission, ride-along to A5)
+- Edit access to a Wiki destination (start with Confluence or Notion; eventually CRB.ai)
+- Memory-bus connectivity for cross-session continuity
+- Vertex AI Anthropic access on the Growdirect GCP org (already in place)</p>
+<h2>Cross-references</h2>
+<ul>
+<li><code>crb-skills/cost-model/reference/08-bart-team-labor-trajectory.md</code> — labor-mix migration the agents enable</li>
+<li><code>Brain/diligence/rapidpos/10-burndown-flywheel.md</code> — Phase A→B→C narrative</li>
+<li><code>Brain/diligence/rapidpos/04-valuation-impact.md</code> — agentic-ops cost in the deal economics</li>
+</ul></div>
+</section>
+
+<section id="burndown" data-category="post">
+  <header class="section-header">
+    <span class="cat-pill">Post-close program</span>
+    <h2>Post-close — Burn-down → repeatability flywheel</h2>
+  </header>
+  <div class="section-body"><h1>Burn-down → Repeatability Flywheel — RapidPOS</h1>
+<blockquote>
+<p>How Phase A→B→C unlocks the Year-3 throughput. Internal narrative; aligned with the external glide-path memo.</p>
+</blockquote>
+<p><strong>Vendor:</strong> RapidPOS LLC
+<strong>Run date:</strong> 2026-05-03</p>
+<hr />
+<h2>The flywheel, in one diagram</h2>
+<pre><code>PHASE A (M0-6) — BURN DOWN
+    ↓
+A1 absorbs recurring-cause tickets → backlog drops
+A3 captures resolutions as wiki articles → coverage rises
+A2 drives top causes to permanent fixes → inflow drops
+A5 maps schemas in parallel (no team load)
+    ↓
+Bart team labor mix shifts: 35% break-fix → 25%
+    ↓
+PHASE B (M6-18) — COHORT ROLLOUT
+    ↓
+Wiki coverage reaches critical mass (60%+)
+A1 auto-resolution rate hits 50%+
+A4 starts capturing onboarding playbooks during cohort migrations
+    ↓
+Bart team time freed → onboarding work expands
+DriftPOS GA at month 12 → migration revenue accelerates
+ISO 27001 certified at month 18 → enterprise gate cleared
+    ↓
+Bart team labor mix: 45% onboarding, 15% break-fix
+    ↓
+PHASE C (M18-36) — SCALE
+    ↓
+Onboarding is templated execution, not bespoke craft
+A4 playbooks cover all 5 verticals
+New-logo wins land at multiples of historical pace
+T2 → T3 capacity build for anchor accounts
+    ↓
+Bart team labor mix: 70% onboarding, 5% break-fix
+    ↓
+Same headcount, multi-fold throughput
+VAR #2 deal in active diligence using same playbook
+</code></pre>
+<h2>Phase A in detail</h2>
+<p>The first six months are about converting tribal knowledge into institutional knowledge while reducing the volume of tribal-knowledge-required work.</p>
+<p><strong>The dynamic:</strong>
+- Day 1: ~120 open tickets. Senior engineers spending ~60% of their time on tickets. Wiki effectively empty.
+- Week 4: A1 categorizing. A3 has 200 articles seeded from existing docs. A2 produces first repeat-cause report.
+- Month 1: A1 auto-resolves 15% of inflow. Wiki has 350 articles. Senior engineer time on tickets drops to 50%.
+- Month 3: A1 auto-resolves 35%. Wiki at 1,000 articles, 30% coverage rate. A2 has driven 4 permanent fixes. Senior engineers at 35% on tickets.
+- Month 6: A1 at 50%. Wiki at 2,000 articles, 60% coverage. Senior engineers at 25% on tickets, the rest available for higher-value work (cloud onboarding, vertical specialization, customer relationship management).</p>
+<p><strong>The leading indicators that say it's working:</strong>
+- Wiki-article-write rate sustained &gt;50/week
+- Repeat-cause volume down &gt;15% month-over-month
+- Senior engineer escalation rate (% of A1-handled tickets they get pulled into) &lt;20%
+- Customer satisfaction stable or rising (the modernization shouldn't degrade experience)</p>
+<p><strong>The leading indicators that say it's stalling:</strong>
+- Wiki-coverage rate plateaus below 40%
+- A1 false-positive rate (auto-resolved → re-opened) &gt;8%
+- Senior engineer pushback on agent suggestions (signals quality issues)
+- Customer-side complaints about "less personal" responses</p>
+<p>If stalling indicators trigger, the response is <em>more wiki investment</em>, not less. The agent is only as good as the knowledge it can reference.</p>
+<h2>Phase B in detail</h2>
+<p>Months 6-18 is about converting the freed capacity into customer migrations.</p>
+<p><strong>The dynamic:</strong>
+- Month 6: First eager-cohort customer in sandbox migration. A4 captures every config move.
+- Month 9: ISO Stage 1 audit clean. Three eager-cohort customers in production on Canary.GO + DriftPOS sandbox.
+- Month 12: DriftPOS GA. Stage 2 observation begins. Eager-cohort wave 1 (5-10 customers) in production. A4 has produced first vertical-specific playbook (garden-center).
+- Month 15: Eager-cohort wave 2 underway. Steady cohort begins. Garden-center playbook battle-tested; wine-direct-ship playbook drafted.
+- Month 18: ISO 27001 certified. All eager-cohort migrated. Steady cohort migrating in volume. 3 of 5 vertical playbooks production-ready.</p>
+<p><strong>The Bart-team labor-mix shift accelerates:</strong>
+- Month 6: 25% onboarding, 25% break-fix
+- Month 12: 45% onboarding, 15% break-fix
+- Month 18: 55% onboarding, 10% break-fix</p>
+<p><strong>The leading indicators:</strong>
+- Per-migration elapsed weeks dropping (target: 12 weeks at start of phase, 6 weeks at end)
+- Per-migration FTE-hours dropping (target: 60% reduction by end of phase)
+- Customer satisfaction post-migration sustained (&gt;4/5)
+- New-logo conversations starting to land</p>
+<h2>Phase C in detail</h2>
+<p>Months 18-36 is about scaling the playbook to multi-VAR throughput and landing the anchor account.</p>
+<p><strong>The dynamic:</strong>
+- Month 18-24: Steady cohort migration completes. New-logo wins from outside RapidPOS book begin. T2 capacity built. SOC 2 Type II observation begins.
+- Month 24-30: Steady cohort migrated. Volume of new-logo wins rises. SOC 2 Type II certified. VAR #2 deal in diligence using the same playbook.
+- Month 30-36: New-logo wins at full pace. Anchor account in pre-pilot or pilot. T3 capacity comes online if anchor materializes. VAR #3 candidate identified.</p>
+<p><strong>Bart team labor mix at end of Phase C:</strong>
+- 70% onboarding (the "growth-related activity" the founder named)
+- 5% break-fix
+- 10% customizations (specialty work that's actually rare and valuable)
+- 15% other (sales support, internal improvement, vertical R&amp;D)</p>
+<p><strong>Same headcount, multi-fold throughput:</strong>
+- Year 0: ~1 customer onboarding per month per team (12/year)
+- Year 3: ~10 customer onboardings per month per team (120/year)</p>
+<p>This 10× expansion is what makes the strategic horizon (T3 Global-50 footprint, VAR roll-up across 4 VARs) achievable without proportionally scaling Bart's team. It's the operational core of the unit-economics story.</p>
+<h2>What breaks the flywheel</h2>
+<ul>
+<li><strong>Wiki coverage stalls.</strong> Phase A's wiki-build is the load-bearing investment. If A3 doesn't reach 60% coverage by M6, A1's auto-resolution stays low, the queue doesn't burn down, the team stays trapped in break-fix, and Phase B can't begin in earnest. Mitigation: prioritize A3 in Phase A; measure coverage as a gate.</li>
+<li><strong>Senior engineer turnover during Phase A.</strong> The senior engineers carry the tribal knowledge A3 needs to extract. If one or two leave during the burn-down phase, wiki quality collapses. Mitigation: retention package as part of acquisition close; visibility into the better-work-coming-soon trajectory.</li>
+<li><strong>DriftPOS partnership unwinds.</strong> DriftPOS GA at M12 is the gate to cohort migration in volume. If the partnership stumbles (Bart team turnover; technical disputes; commercial breakdown), the flywheel can't enter Phase B. Mitigation: secure the partnership pre-close; maintain Counterpoint as fallback front-end.</li>
+<li><strong>Cohort migration slower than modeled.</strong> If eager customers don't actually move when given the option, A4 can't capture playbooks, B's onboarding revenue doesn't materialize, and the team doesn't have growth work to consume the capacity A1 freed up. Mitigation: customer interviews pre-close to validate the cohort hypothesis.</li>
+<li><strong>Customer-bespoke depth higher than archetype.</strong> If real RapidPOS customers have heavier per-customer customization than expected, A4 captures less reusable content per migration, and the templating efficiency gain in Phase B underperforms. Mitigation: sample several customers' actual configurations during diligence.</li>
+</ul>
+<h2>Why the flywheel matters for the deal</h2>
+<p>The deal's economic viability depends on <em>throughput expansion</em>, not <em>cost reduction</em>. Bart's team size doesn't shrink; it produces multi-fold more. RapidPOS's senior team doesn't get displaced; their work shifts to where their craft has highest leverage.</p>
+<p>The walking price math (per <code>04-valuation-impact.md</code>) reflects current-state economics. The strategic upside (per the same doc) reflects the throughput expansion the flywheel enables. The deal pays for itself on current-state alone; the flywheel is the asymmetric upside.</p>
+<p>Without the flywheel, this deal is mediocre. With the flywheel, it's the platform investment for the VAR roll-up thesis.</p>
+<h2>Cross-references</h2>
+<ul>
+<li><code>09-day1-agentic-ops-plan.md</code> — A1-A5 deployment specifics</li>
+<li><code>crb-skills/cost-model/reference/08-bart-team-labor-trajectory.md</code> — labor-mix targets per quarter</li>
+<li><code>crb-skills/saas-acquisition-diligence/templates/post-close-roadmap.md</code> — phase-by-phase milestone schedule</li>
+<li><code>Brain/diligence/rapidpos/06-internal-deal-memo.md</code> — strategic-context section</li>
+<li><code>Brain/diligence/rapidpos/07-managed-services-glide-path.md</code> — external narrative companion</li>
+</ul></div>
+</section>
+
+<section id="close" data-category="close">
+  <header class="section-header">
+    <span class="cat-pill">Close</span>
+    <h2>Report close — what&#x27;s done, what&#x27;s next</h2>
+  </header>
+  <div class="section-body"><h1>Report close — what's done, what's next</h1>
+<h2>Done in this report</h2>
+<p>The 10 diligence-skill output documents consolidated into one navigable HTML, organized by the skill's three-phase methodology (Phase 1 hypothesis → Phase 2 audit-as-diligence → Phase 3 valuation + glide path) plus the post-close agentic-ops program.</p>
+<table>
+<thead>
+<tr>
+<th>Section</th>
+<th>Source document</th>
+<th>Phase</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Hypothesis grid</td>
+<td><code>01-hypothesis-grid.md</code></td>
+<td>Phase 1</td>
+</tr>
+<tr>
+<td>ISO 27001 gap</td>
+<td><code>02-iso27001-gap-assessment.md</code> (+ <code>.xlsx</code>)</td>
+<td>Phase 2</td>
+</tr>
+<tr>
+<td>GCP onramp</td>
+<td><code>03-gcp-onramp-architecture.md</code></td>
+<td>Phase 2</td>
+</tr>
+<tr>
+<td>DriftPOS readiness</td>
+<td><code>05-driftpos-launch-readiness.md</code></td>
+<td>Phase 2</td>
+</tr>
+<tr>
+<td>Valuation impact</td>
+<td><code>04-valuation-impact.md</code></td>
+<td>Phase 3</td>
+</tr>
+<tr>
+<td>Internal deal memo</td>
+<td><code>06-internal-deal-memo.md</code></td>
+<td>Phase 3</td>
+</tr>
+<tr>
+<td>Glide path (external)</td>
+<td><code>07-managed-services-glide-path.md</code></td>
+<td>Phase 3</td>
+</tr>
+<tr>
+<td>Day-1 agentic ops</td>
+<td><code>09-day1-agentic-ops-plan.md</code></td>
+<td>Post-close</td>
+</tr>
+<tr>
+<td>Burndown flywheel</td>
+<td><code>10-burndown-flywheel.md</code></td>
+<td>Post-close</td>
+</tr>
+</tbody>
+</table>
+<p>Source files at <code>outputs/diligence/rapidpos/</code>. The companion glide-path deck at <code>outputs/diligence/rapidpos/08-glide-path-deck.pptx</code>.</p>
+<h2>What's next</h2>
+<ol>
+<li><strong>v2 reframe of the diligence run.</strong> Convert the M&amp;A-framed deal memo and glide path to channel-partnership framing per the v2 venture-instance pivot. Substantive content survives; structural framing needs adjustment.</li>
+<li><strong>Cost-model <code>.xlsx</code> build.</strong> The cost-model skill SKILL.md is now on disk at <code>outputs/crb-skills/cost-model/SKILL.md</code>; the reference docs and templates (including the 230-formula <code>.xlsx</code>) are next-wave work.</li>
+<li><strong>Re-run the saas-acquisition-diligence skill against a second target</strong> (RCS, AMS, Mariner, regional reseller) once the cost-model is operational. Validates the reusability bar.</li>
+<li><strong>Convert this report to a partner-facing pitch package</strong> by selecting the appropriate subset (executive + glide path + day-1 ops + burndown flywheel — internal deal memo and valuation impact stay internal).</li>
+</ol>
+<h2>Companion artifacts</h2>
+<ul>
+<li><strong>Skills</strong>: <code>outputs/crb-skills/cost-model/SKILL.md</code> and <code>outputs/crb-skills/saas-acquisition-diligence/SKILL.md</code> — both rebuilt 2026-05-03 from the v1 prompt spec</li>
+<li><strong>Source diligence docs</strong>: <code>outputs/diligence/rapidpos/</code></li>
+<li><strong>Wave session deliverable</strong>: <code>outputs/wave-deliverable.html</code> — the broader proposal package this report supports</li>
+</ul>
+<hr />
+<p><em>RapidPOS report — generated 2026-05-03 from the saas-acquisition-diligence skill's first-run output. Three phases, one target, audit-as-diligence.</em></p></div>
+</section>
+
+<footer>
+RapidPOS diligence run · 2026-05-03 · Saas-acquisition-diligence skill output · King Harbor — Redondo Beach — pier
+</footer>
+</main>
+</div>
+<script>
+(function() {
+  var sections = Array.from(document.querySelectorAll('section[id]'));
+  var navLinks = Array.from(document.querySelectorAll('.sidebar a'));
+  if (!('IntersectionObserver' in window)) return;
+  var obs = new IntersectionObserver(function(entries) {
+    entries.forEach(function(e) {
+      if (e.isIntersecting) {
+        var id = e.target.getAttribute('id');
+        navLinks.forEach(function(a) { a.classList.toggle('active', a.getAttribute('href') === '#' + id); });
+      }
+    });
+  }, { rootMargin: '-30% 0px -60% 0px', threshold: 0 });
+  sections.forEach(function(s) { obs.observe(s); });
+})();
+</script>
+</body>
+</html>
