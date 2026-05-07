@@ -1,8 +1,8 @@
 version: '1.0'
 generated_from:
 - path: Brain/wiki/canary-go-portal.md
-  sha256: f4185f990c63cf08c50e1acbdd0f672a97fa569e117eefc97c1c96ef6b623db2
-  bytes: 35953
+  sha256: 993038c635093a4c14e987a96e446d38d32e22c19be6ee2d1fc9639e65688fb1
+  bytes: 39066
 - path: docs/sdds/go-handoff/microservice-architecture.md
   sha256: 1f79a8f0258eb7cf663252423a3bcb07b9228f8900ef59097477fbc042f760cc
   bytes: 105768
@@ -1848,6 +1848,170 @@ services:
     auth: session
     status: mounted
     notes: ecom sync status
+    rate_limit: null
+    cache_ttl: null
+    handler: null
+- name: audit
+  port: 9320
+  owner: ALX
+  card: Brain/wiki/cards/audit.md
+  priority: P1
+  scope: tenant-scoped
+  category: tenant-scoped
+  python_prior_art: Canary/canary/blueprints/admin.py
+  cells:
+  - "B\xD7reference"
+  depends_on: []
+  endpoints:
+  - method: GET
+    path: /admin/audit
+    tier: reference
+    axis: B
+    auth: session
+    status: mounted
+    notes: append-only audit log viewer (W9)
+    rate_limit: null
+    cache_ttl: null
+    handler: null
+- name: compliance
+  port: 9091
+  owner: ALX
+  card: Brain/wiki/cards/compliance.md
+  priority: P1
+  scope: tenant-scoped
+  category: tenant-scoped
+  python_prior_art: Canary/canary/blueprints/admin.py
+  cells:
+  - "B\xD7reference"
+  depends_on: []
+  endpoints:
+  - method: GET
+    path: /admin/iso27001
+    tier: reference
+    axis: B
+    auth: session
+    status: mounted
+    notes: ISO 27001 control evidence dashboard (W9)
+    rate_limit: null
+    cache_ttl: null
+    handler: null
+- name: users
+  port: 9321
+  owner: ALX
+  card: Brain/wiki/cards/users.md
+  priority: P2
+  scope: tenant-scoped
+  category: tenant-scoped
+  python_prior_art: Canary/canary/blueprints/admin.py
+  cells:
+  - "B\xD7reference"
+  depends_on: []
+  endpoints:
+  - method: GET
+    path: /admin/users
+    tier: reference
+    axis: B
+    auth: session
+    status: mounted
+    notes: tenant user roster (blocked on GRO-769 identity middleware + GRO-770 admin module)
+    rate_limit: null
+    cache_ttl: null
+    handler: null
+- name: config
+  port: 9322
+  owner: ALX
+  card: Brain/wiki/cards/config.md
+  priority: P1
+  scope: tenant-scoped
+  category: tenant-scoped
+  python_prior_art: Canary/canary/blueprints/admin.py
+  cells:
+  - "B\xD7reference"
+  depends_on: []
+  endpoints:
+  - method: GET
+    path: /admin/config
+    tier: reference
+    axis: B
+    auth: session
+    status: mounted
+    notes: tenant configuration viewer (W9)
+    rate_limit: null
+    cache_ttl: null
+    handler: null
+- name: hierarchy
+  port: 9323
+  owner: ALX
+  card: Brain/wiki/cards/hierarchy.md
+  priority: P1
+  scope: tenant-scoped
+  category: tenant-scoped
+  python_prior_art: Canary/canary/blueprints/admin.py
+  cells:
+  - "B\xD7change-feed"
+  depends_on: []
+  endpoints:
+  - method: GET
+    path: /admin/hierarchy
+    tier: change-feed
+    axis: B
+    auth: session
+    status: mounted
+    notes: merchant org hierarchy editor (W10)
+    rate_limit: null
+    cache_ttl: null
+    handler: null
+  - method: POST
+    path: /admin/hierarchy
+    tier: change-feed
+    axis: B
+    auth: session
+    status: mounted
+    notes: create hierarchy node
+    rate_limit: null
+    cache_ttl: null
+    handler: null
+- name: network-integrity
+  port: 9088
+  owner: ALX
+  card: Brain/wiki/cards/network-integrity.md
+  priority: P1
+  scope: tenant-scoped
+  category: tenant-scoped
+  python_prior_art: Canary/canary/blueprints/admin.py
+  cells:
+  - "B\xD7change-feed"
+  depends_on: []
+  endpoints:
+  - method: GET
+    path: /admin/network-integrity
+    tier: change-feed
+    axis: B
+    auth: session
+    status: mounted
+    notes: cross-location anomaly detection (W10)
+    rate_limit: null
+    cache_ttl: null
+    handler: null
+- name: cross-store
+  port: 9324
+  owner: ALX
+  card: Brain/wiki/cards/cross-store.md
+  priority: P1
+  scope: tenant-scoped
+  category: tenant-scoped
+  python_prior_art: Canary/canary/blueprints/dashboards.py
+  cells:
+  - "B\xD7change-feed"
+  depends_on: []
+  endpoints:
+  - method: GET
+    path: /dashboards/cross-store
+    tier: change-feed
+    axis: B
+    auth: session
+    status: mounted
+    notes: multi-store intelligence dashboard (W10)
     rate_limit: null
     cache_ttl: null
     handler: null

@@ -603,3 +603,67 @@ tenant-scoped  ·  Python prior art: none
 |----------|--------|------|------|------|--------|-------|
 | /ecom/orders | GET | reference | B | session | mounted | ecom channel order list (W15) |
 | /ecom/sync | GET | reference | B | session | mounted | ecom sync status |
+
+## audit · :9320 · tenant-scoped · P1
+
+Owner: ALX  ·  Card: Brain/wiki/cards/audit.md  ·  Cells: [B × reference]
+tenant-scoped  ·  Python prior art: Canary/canary/blueprints/admin.py
+
+| Endpoint | Method | Tier | Axis | Auth | Status | Notes |
+|----------|--------|------|------|------|--------|-------|
+| /admin/audit | GET | reference | B | session | mounted | append-only audit log viewer (W9) |
+
+## compliance · :9091 · tenant-scoped · P1
+
+Owner: ALX  ·  Card: Brain/wiki/cards/compliance.md  ·  Cells: [B × reference]
+tenant-scoped  ·  Python prior art: Canary/canary/blueprints/admin.py
+
+| Endpoint | Method | Tier | Axis | Auth | Status | Notes |
+|----------|--------|------|------|------|--------|-------|
+| /admin/iso27001 | GET | reference | B | session | mounted | ISO 27001 control evidence dashboard (W9) |
+
+## users · :9321 · tenant-scoped · P2
+
+Owner: ALX  ·  Card: Brain/wiki/cards/users.md  ·  Cells: [B × reference]
+tenant-scoped  ·  Python prior art: Canary/canary/blueprints/admin.py
+
+| Endpoint | Method | Tier | Axis | Auth | Status | Notes |
+|----------|--------|------|------|------|--------|-------|
+| /admin/users | GET | reference | B | session | mounted | tenant user roster (blocked on GRO-769 identity middleware + GRO-770 admin module) |
+
+## config · :9322 · tenant-scoped · P1
+
+Owner: ALX  ·  Card: Brain/wiki/cards/config.md  ·  Cells: [B × reference]
+tenant-scoped  ·  Python prior art: Canary/canary/blueprints/admin.py
+
+| Endpoint | Method | Tier | Axis | Auth | Status | Notes |
+|----------|--------|------|------|------|--------|-------|
+| /admin/config | GET | reference | B | session | mounted | tenant configuration viewer (W9) |
+
+## hierarchy · :9323 · tenant-scoped · P1
+
+Owner: ALX  ·  Card: Brain/wiki/cards/hierarchy.md  ·  Cells: [B × change-feed]
+tenant-scoped  ·  Python prior art: Canary/canary/blueprints/admin.py
+
+| Endpoint | Method | Tier | Axis | Auth | Status | Notes |
+|----------|--------|------|------|------|--------|-------|
+| /admin/hierarchy | GET | change-feed | B | session | mounted | merchant org hierarchy editor (W10) |
+| /admin/hierarchy | POST | change-feed | B | session | mounted | create hierarchy node |
+
+## network-integrity · :9088 · tenant-scoped · P1
+
+Owner: ALX  ·  Card: Brain/wiki/cards/network-integrity.md  ·  Cells: [B × change-feed]
+tenant-scoped  ·  Python prior art: Canary/canary/blueprints/admin.py
+
+| Endpoint | Method | Tier | Axis | Auth | Status | Notes |
+|----------|--------|------|------|------|--------|-------|
+| /admin/network-integrity | GET | change-feed | B | session | mounted | cross-location anomaly detection (W10) |
+
+## cross-store · :9324 · tenant-scoped · P1
+
+Owner: ALX  ·  Card: Brain/wiki/cards/cross-store.md  ·  Cells: [B × change-feed]
+tenant-scoped  ·  Python prior art: Canary/canary/blueprints/dashboards.py
+
+| Endpoint | Method | Tier | Axis | Auth | Status | Notes |
+|----------|--------|------|------|------|--------|-------|
+| /dashboards/cross-store | GET | change-feed | B | session | mounted | multi-store intelligence dashboard (W10) |

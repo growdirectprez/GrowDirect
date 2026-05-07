@@ -63,7 +63,7 @@
     {
       "axis": "B",
       "tier": "change-feed",
-      "endpoint_count": 48,
+      "endpoint_count": 52,
       "services": [
         "observability",
         "pipeline",
@@ -76,7 +76,10 @@
         "task",
         "supplier",
         "po",
-        "order"
+        "order",
+        "hierarchy",
+        "network-integrity",
+        "cross-store"
       ]
     },
     {
@@ -94,7 +97,7 @@
     {
       "axis": "B",
       "tier": "reference",
-      "endpoint_count": 85,
+      "endpoint_count": 89,
       "services": [
         "catalog",
         "manifest",
@@ -113,7 +116,11 @@
         "report",
         "billing",
         "onboarding",
-        "ecom"
+        "ecom",
+        "audit",
+        "compliance",
+        "users",
+        "config"
       ]
     },
     {
@@ -602,10 +609,108 @@
       ],
       "endpoint_count": 2,
       "python_prior_art": null
+    },
+    {
+      "name": "audit",
+      "port": 9320,
+      "priority": "P1",
+      "category": "tenant-scoped",
+      "scope": "tenant-scoped",
+      "owner": "ALX",
+      "card": "Brain/wiki/cards/audit.md",
+      "cells": [
+        "B×reference"
+      ],
+      "endpoint_count": 1,
+      "python_prior_art": "Canary/canary/blueprints/admin.py"
+    },
+    {
+      "name": "compliance",
+      "port": 9091,
+      "priority": "P1",
+      "category": "tenant-scoped",
+      "scope": "tenant-scoped",
+      "owner": "ALX",
+      "card": "Brain/wiki/cards/compliance.md",
+      "cells": [
+        "B×reference"
+      ],
+      "endpoint_count": 1,
+      "python_prior_art": "Canary/canary/blueprints/admin.py"
+    },
+    {
+      "name": "users",
+      "port": 9321,
+      "priority": "P2",
+      "category": "tenant-scoped",
+      "scope": "tenant-scoped",
+      "owner": "ALX",
+      "card": "Brain/wiki/cards/users.md",
+      "cells": [
+        "B×reference"
+      ],
+      "endpoint_count": 1,
+      "python_prior_art": "Canary/canary/blueprints/admin.py"
+    },
+    {
+      "name": "config",
+      "port": 9322,
+      "priority": "P1",
+      "category": "tenant-scoped",
+      "scope": "tenant-scoped",
+      "owner": "ALX",
+      "card": "Brain/wiki/cards/config.md",
+      "cells": [
+        "B×reference"
+      ],
+      "endpoint_count": 1,
+      "python_prior_art": "Canary/canary/blueprints/admin.py"
+    },
+    {
+      "name": "hierarchy",
+      "port": 9323,
+      "priority": "P1",
+      "category": "tenant-scoped",
+      "scope": "tenant-scoped",
+      "owner": "ALX",
+      "card": "Brain/wiki/cards/hierarchy.md",
+      "cells": [
+        "B×change-feed"
+      ],
+      "endpoint_count": 2,
+      "python_prior_art": "Canary/canary/blueprints/admin.py"
+    },
+    {
+      "name": "network-integrity",
+      "port": 9088,
+      "priority": "P1",
+      "category": "tenant-scoped",
+      "scope": "tenant-scoped",
+      "owner": "ALX",
+      "card": "Brain/wiki/cards/network-integrity.md",
+      "cells": [
+        "B×change-feed"
+      ],
+      "endpoint_count": 1,
+      "python_prior_art": "Canary/canary/blueprints/admin.py"
+    },
+    {
+      "name": "cross-store",
+      "port": 9324,
+      "priority": "P1",
+      "category": "tenant-scoped",
+      "scope": "tenant-scoped",
+      "owner": "ALX",
+      "card": "Brain/wiki/cards/cross-store.md",
+      "cells": [
+        "B×change-feed"
+      ],
+      "endpoint_count": 1,
+      "python_prior_art": "Canary/canary/blueprints/dashboards.py"
     }
   ],
   "totals": {
-    "service_count": 32,
-    "endpoint_count": 144
+    "service_count": 39,
+    "endpoint_count": 152
   }
 }
