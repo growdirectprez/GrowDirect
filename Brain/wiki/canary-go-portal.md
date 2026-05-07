@@ -290,3 +290,124 @@ cross-tenant  ·  Python prior art: none
 | /mcp | POST | change-feed | C | apikey | mounted | MCP JSON-RPC 2.0 invocation surface |
 | /.well-known/mcp.json | GET | reference | C | none | mounted | MCP discovery document |
 | /devops/mcp | GET | change-feed | C | apikey | proposed | tool catalog + usage drill-down |
+
+## dashboard · :9300 · merchant-facing · P1
+
+Owner: ALX  ·  Card: Brain/wiki/cards/dashboard.md  ·  Cells: [B × reference]
+tenant-scoped  ·  Python prior art: Canary/canary/blueprints/dashboard.py
+
+| Endpoint | Method | Tier | Axis | Auth | Status | Notes |
+|----------|--------|------|------|------|--------|-------|
+| /dashboard | GET | reference | B | session | mounted | LP merchant home — KPI rollup |
+
+## alert · :8087 · merchant-facing · P1
+
+Owner: ALX  ·  Card: Brain/wiki/cards/alert.md  ·  Cells: [B × change-feed]
+tenant-scoped  ·  Python prior art: Canary/canary/blueprints/alerts.py
+
+| Endpoint | Method | Tier | Axis | Auth | Status | Notes |
+|----------|--------|------|------|------|--------|-------|
+| /alerts | GET | change-feed | B | session | mounted | alert list |
+| /alerts/{id} | GET | change-feed | B | session | mounted | alert detail + lineage |
+
+## chirp · :8081 · merchant-facing · P1
+
+Owner: ALX  ·  Card: Brain/wiki/cards/chirp.md  ·  Cells: [B × change-feed]
+tenant-scoped  ·  Python prior art: Canary/canary/blueprints/chirps.py
+
+| Endpoint | Method | Tier | Axis | Auth | Status | Notes |
+|----------|--------|------|------|------|--------|-------|
+| /chirps | GET | change-feed | B | session | mounted | chirp feed |
+| /chirps/{id} | GET | change-feed | B | session | mounted | chirp + transaction detail |
+
+## casemgmt · :9303 · merchant-facing · P1
+
+Owner: ALX  ·  Card: Brain/wiki/cards/casemgmt.md  ·  Cells: [B × change-feed]
+tenant-scoped  ·  Python prior art: Canary/canary/blueprints/cases.py
+
+| Endpoint | Method | Tier | Axis | Auth | Status | Notes |
+|----------|--------|------|------|------|--------|-------|
+| /cases | GET | change-feed | B | session | mounted | case list |
+| /cases/new | GET | change-feed | B | session | mounted | new case form |
+| /cases/{id}/correlation | GET | change-feed | B | session | mounted | cross-store correlation |
+| /cases/{id}/evidence | GET | change-feed | B | session | mounted | evidence chain viewer |
+| /cases/{id}/remediate | GET | change-feed | B | session | mounted | remediation workflow |
+| /cases/hawk | GET | change-feed | B | session | mounted | Hawk-flagged case queue |
+| /cases/hawk | POST | change-feed | B | session | mounted | escalate Hawk case |
+| /cases/hawk/new | GET | change-feed | B | session | mounted | new Hawk case form |
+| /cases/hawk/analytics | GET | change-feed | B | session | mounted | Hawk pattern analytics |
+| /cases/hawk/patterns | GET | change-feed | B | session | mounted | repeat-offender patterns |
+| /cases/hawk/{id} | GET | change-feed | B | session | mounted | Hawk case detail |
+| /cases/hawk/{id}/evidence | GET | change-feed | B | session | mounted | Hawk evidence viewer |
+
+## customer · :8091 · merchant-facing · P1
+
+Owner: ALX  ·  Card: Brain/wiki/cards/customer.md  ·  Cells: [B × reference]
+tenant-scoped  ·  Python prior art: Canary/canary/blueprints/customers.py
+
+| Endpoint | Method | Tier | Axis | Auth | Status | Notes |
+|----------|--------|------|------|------|--------|-------|
+| /customers | GET | reference | B | session | mounted | customer list |
+| /customers/{id} | GET | reference | B | session | mounted | customer detail |
+| /customers/{id}/context | GET | reference | B | session | mounted | purchase + return history |
+| /customers/{id}/risk | GET | reference | B | session | mounted | RFM + risk score |
+
+## transaction · :9305 · merchant-facing · P1
+
+Owner: ALX  ·  Card: Brain/wiki/cards/transaction.md  ·  Cells: [B × reference]
+tenant-scoped  ·  Python prior art: Canary/canary/blueprints/transactions.py
+
+| Endpoint | Method | Tier | Axis | Auth | Status | Notes |
+|----------|--------|------|------|------|--------|-------|
+| /transactions | GET | reference | B | session | mounted | transaction list |
+| /transactions/{id} | GET | reference | B | session | mounted | transaction detail |
+| /transactions/{id}/proof | GET | reference | B | session | mounted | protocol evidence link |
+
+## rule · :9306 · merchant-facing · P1
+
+Owner: ALX  ·  Card: Brain/wiki/cards/rule.md  ·  Cells: [B × reference]
+tenant-scoped  ·  Python prior art: Canary/canary/blueprints/detection_rules.py
+
+| Endpoint | Method | Tier | Axis | Auth | Status | Notes |
+|----------|--------|------|------|------|--------|-------|
+| /rules | GET | reference | B | session | mounted | detection rule list |
+| /rules/{id} | GET | reference | B | session | mounted | rule detail |
+
+## lp-settings · :9307 · merchant-facing · P1
+
+Owner: ALX  ·  Card: Brain/wiki/cards/lp-settings.md  ·  Cells: [B × reference]
+tenant-scoped  ·  Python prior art: Canary/canary/blueprints/settings.py
+
+| Endpoint | Method | Tier | Axis | Auth | Status | Notes |
+|----------|--------|------|------|------|--------|-------|
+| /settings/store | GET | reference | B | session | mounted | LP store config home |
+| /settings/store/drawer | GET | reference | B | session | mounted | drawer substrate list |
+| /settings/store/drawer | POST | reference | B | session | mounted | add drawer entry |
+| /settings/store/drawer/{id}/delete | POST | reference | B | session | mounted | delete drawer entry |
+| /settings/store/comp-reasons | GET | reference | B | session | mounted | comp reasons list |
+| /settings/store/comp-reasons | POST | reference | B | session | mounted | add comp reason |
+| /settings/store/comp-reasons/{id}/delete | POST | reference | B | session | mounted | delete comp reason |
+| /settings/store/void-reasons | GET | reference | B | session | mounted | void reasons list |
+| /settings/store/void-reasons | POST | reference | B | session | mounted | add void reason |
+| /settings/store/void-reasons/{id}/delete | POST | reference | B | session | mounted | delete void reason |
+| /settings/store/discounts | GET | reference | B | session | mounted | discount substrate |
+| /settings/store/discounts | POST | reference | B | session | mounted | add discount |
+| /settings/store/discounts/{id}/delete | POST | reference | B | session | mounted | delete discount |
+| /settings/allowlist/voids | GET | reference | B | session | mounted | void allow-list |
+| /settings/allowlist/voids | POST | reference | B | session | mounted | add to void allow-list |
+| /settings/allowlist/voids/{id}/delete | POST | reference | B | session | mounted | remove from void allow-list |
+| /settings/allowlist/discounts | GET | reference | B | session | mounted | discount allow-list |
+| /settings/allowlist/discounts | POST | reference | B | session | mounted | add to discount allow-list |
+| /settings/allowlist/discounts/{id}/delete | POST | reference | B | session | mounted | remove from discount allow-list |
+| /settings/allowlist/comps | GET | reference | B | session | mounted | comp allow-list |
+| /settings/allowlist/comps | POST | reference | B | session | mounted | add to comp allow-list |
+| /settings/allowlist/comps/{id}/delete | POST | reference | B | session | mounted | remove from comp allow-list |
+| /settings/allowlist/dead-count | GET | reference | B | session | mounted | dead-count allow-list |
+| /settings/allowlist/dead-count | POST | reference | B | session | mounted | add to dead-count allow-list |
+| /settings/allowlist/dead-count/{id}/delete | POST | reference | B | session | mounted | remove from dead-count allow-list |
+| /settings/training-mode | GET | reference | B | session | mounted | training-mode flag list |
+| /settings/training-mode | POST | reference | B | session | mounted | add training-mode flag |
+| /settings/training-mode/{id}/delete | POST | reference | B | session | mounted | clear training-mode flag |
+| /settings/alert-routing | GET | reference | B | session | mounted | alert routing rules |
+| /settings/alert-routing | POST | reference | B | session | mounted | add alert routing rule |
+| /settings/alert-routing/{id}/delete | POST | reference | B | session | mounted | delete alert routing rule |

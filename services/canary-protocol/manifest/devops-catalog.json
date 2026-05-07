@@ -63,10 +63,13 @@
     {
       "axis": "B",
       "tier": "change-feed",
-      "endpoint_count": 5,
+      "endpoint_count": 21,
       "services": [
         "observability",
-        "pipeline"
+        "pipeline",
+        "alert",
+        "chirp",
+        "casemgmt"
       ]
     },
     {
@@ -84,13 +87,18 @@
     {
       "axis": "B",
       "tier": "reference",
-      "endpoint_count": 11,
+      "endpoint_count": 52,
       "services": [
         "catalog",
         "manifest",
         "observability",
         "evidence",
-        "anchor"
+        "anchor",
+        "dashboard",
+        "customer",
+        "transaction",
+        "rule",
+        "lp-settings"
       ]
     },
     {
@@ -242,10 +250,122 @@
       ],
       "endpoint_count": 3,
       "python_prior_art": null
+    },
+    {
+      "name": "dashboard",
+      "port": 9300,
+      "priority": "P1",
+      "category": "merchant-facing",
+      "scope": "tenant-scoped",
+      "owner": "ALX",
+      "card": "Brain/wiki/cards/dashboard.md",
+      "cells": [
+        "B×reference"
+      ],
+      "endpoint_count": 1,
+      "python_prior_art": "Canary/canary/blueprints/dashboard.py"
+    },
+    {
+      "name": "alert",
+      "port": 8087,
+      "priority": "P1",
+      "category": "merchant-facing",
+      "scope": "tenant-scoped",
+      "owner": "ALX",
+      "card": "Brain/wiki/cards/alert.md",
+      "cells": [
+        "B×change-feed"
+      ],
+      "endpoint_count": 2,
+      "python_prior_art": "Canary/canary/blueprints/alerts.py"
+    },
+    {
+      "name": "chirp",
+      "port": 8081,
+      "priority": "P1",
+      "category": "merchant-facing",
+      "scope": "tenant-scoped",
+      "owner": "ALX",
+      "card": "Brain/wiki/cards/chirp.md",
+      "cells": [
+        "B×change-feed"
+      ],
+      "endpoint_count": 2,
+      "python_prior_art": "Canary/canary/blueprints/chirps.py"
+    },
+    {
+      "name": "casemgmt",
+      "port": 9303,
+      "priority": "P1",
+      "category": "merchant-facing",
+      "scope": "tenant-scoped",
+      "owner": "ALX",
+      "card": "Brain/wiki/cards/casemgmt.md",
+      "cells": [
+        "B×change-feed"
+      ],
+      "endpoint_count": 12,
+      "python_prior_art": "Canary/canary/blueprints/cases.py"
+    },
+    {
+      "name": "customer",
+      "port": 8091,
+      "priority": "P1",
+      "category": "merchant-facing",
+      "scope": "tenant-scoped",
+      "owner": "ALX",
+      "card": "Brain/wiki/cards/customer.md",
+      "cells": [
+        "B×reference"
+      ],
+      "endpoint_count": 4,
+      "python_prior_art": "Canary/canary/blueprints/customers.py"
+    },
+    {
+      "name": "transaction",
+      "port": 9305,
+      "priority": "P1",
+      "category": "merchant-facing",
+      "scope": "tenant-scoped",
+      "owner": "ALX",
+      "card": "Brain/wiki/cards/transaction.md",
+      "cells": [
+        "B×reference"
+      ],
+      "endpoint_count": 3,
+      "python_prior_art": "Canary/canary/blueprints/transactions.py"
+    },
+    {
+      "name": "rule",
+      "port": 9306,
+      "priority": "P1",
+      "category": "merchant-facing",
+      "scope": "tenant-scoped",
+      "owner": "ALX",
+      "card": "Brain/wiki/cards/rule.md",
+      "cells": [
+        "B×reference"
+      ],
+      "endpoint_count": 2,
+      "python_prior_art": "Canary/canary/blueprints/detection_rules.py"
+    },
+    {
+      "name": "lp-settings",
+      "port": 9307,
+      "priority": "P1",
+      "category": "merchant-facing",
+      "scope": "tenant-scoped",
+      "owner": "ALX",
+      "card": "Brain/wiki/cards/lp-settings.md",
+      "cells": [
+        "B×reference"
+      ],
+      "endpoint_count": 31,
+      "python_prior_art": "Canary/canary/blueprints/settings.py"
     }
   ],
   "totals": {
-    "service_count": 8,
-    "endpoint_count": 23
+    "service_count": 16,
+    "endpoint_count": 80
   }
 }

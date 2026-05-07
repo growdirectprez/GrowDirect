@@ -1,8 +1,8 @@
 version: '1.0'
 generated_from:
 - path: Brain/wiki/canary-go-portal.md
-  sha256: 2fcf6489001eb20f533773a8d87882fb8820b3f4f4d82f24262f92900430f6ba
-  bytes: 16818
+  sha256: 267b6633cff03ce0d0dc34d86002d3aba520cdbcdd82f4039c8d674459463537
+  bytes: 24730
 - path: docs/sdds/go-handoff/microservice-architecture.md
   sha256: 1f79a8f0258eb7cf663252423a3bcb07b9228f8900ef59097477fbc042f760cc
   bytes: 105768
@@ -350,6 +350,672 @@ services:
     auth: apikey
     status: proposed
     notes: tool catalog + usage drill-down
+    rate_limit: null
+    cache_ttl: null
+    handler: null
+- name: dashboard
+  port: 9300
+  owner: ALX
+  card: Brain/wiki/cards/dashboard.md
+  priority: P1
+  scope: tenant-scoped
+  category: merchant-facing
+  python_prior_art: Canary/canary/blueprints/dashboard.py
+  cells:
+  - "B\xD7reference"
+  depends_on: []
+  endpoints:
+  - method: GET
+    path: /dashboard
+    tier: reference
+    axis: B
+    auth: session
+    status: mounted
+    notes: "LP merchant home \u2014 KPI rollup"
+    rate_limit: null
+    cache_ttl: null
+    handler: null
+- name: alert
+  port: 8087
+  owner: ALX
+  card: Brain/wiki/cards/alert.md
+  priority: P1
+  scope: tenant-scoped
+  category: merchant-facing
+  python_prior_art: Canary/canary/blueprints/alerts.py
+  cells:
+  - "B\xD7change-feed"
+  depends_on: []
+  endpoints:
+  - method: GET
+    path: /alerts
+    tier: change-feed
+    axis: B
+    auth: session
+    status: mounted
+    notes: alert list
+    rate_limit: null
+    cache_ttl: null
+    handler: null
+  - method: GET
+    path: /alerts/{id}
+    tier: change-feed
+    axis: B
+    auth: session
+    status: mounted
+    notes: alert detail + lineage
+    rate_limit: null
+    cache_ttl: null
+    handler: null
+- name: chirp
+  port: 8081
+  owner: ALX
+  card: Brain/wiki/cards/chirp.md
+  priority: P1
+  scope: tenant-scoped
+  category: merchant-facing
+  python_prior_art: Canary/canary/blueprints/chirps.py
+  cells:
+  - "B\xD7change-feed"
+  depends_on: []
+  endpoints:
+  - method: GET
+    path: /chirps
+    tier: change-feed
+    axis: B
+    auth: session
+    status: mounted
+    notes: chirp feed
+    rate_limit: null
+    cache_ttl: null
+    handler: null
+  - method: GET
+    path: /chirps/{id}
+    tier: change-feed
+    axis: B
+    auth: session
+    status: mounted
+    notes: chirp + transaction detail
+    rate_limit: null
+    cache_ttl: null
+    handler: null
+- name: casemgmt
+  port: 9303
+  owner: ALX
+  card: Brain/wiki/cards/casemgmt.md
+  priority: P1
+  scope: tenant-scoped
+  category: merchant-facing
+  python_prior_art: Canary/canary/blueprints/cases.py
+  cells:
+  - "B\xD7change-feed"
+  depends_on: []
+  endpoints:
+  - method: GET
+    path: /cases
+    tier: change-feed
+    axis: B
+    auth: session
+    status: mounted
+    notes: case list
+    rate_limit: null
+    cache_ttl: null
+    handler: null
+  - method: GET
+    path: /cases/new
+    tier: change-feed
+    axis: B
+    auth: session
+    status: mounted
+    notes: new case form
+    rate_limit: null
+    cache_ttl: null
+    handler: null
+  - method: GET
+    path: /cases/{id}/correlation
+    tier: change-feed
+    axis: B
+    auth: session
+    status: mounted
+    notes: cross-store correlation
+    rate_limit: null
+    cache_ttl: null
+    handler: null
+  - method: GET
+    path: /cases/{id}/evidence
+    tier: change-feed
+    axis: B
+    auth: session
+    status: mounted
+    notes: evidence chain viewer
+    rate_limit: null
+    cache_ttl: null
+    handler: null
+  - method: GET
+    path: /cases/{id}/remediate
+    tier: change-feed
+    axis: B
+    auth: session
+    status: mounted
+    notes: remediation workflow
+    rate_limit: null
+    cache_ttl: null
+    handler: null
+  - method: GET
+    path: /cases/hawk
+    tier: change-feed
+    axis: B
+    auth: session
+    status: mounted
+    notes: Hawk-flagged case queue
+    rate_limit: null
+    cache_ttl: null
+    handler: null
+  - method: POST
+    path: /cases/hawk
+    tier: change-feed
+    axis: B
+    auth: session
+    status: mounted
+    notes: escalate Hawk case
+    rate_limit: null
+    cache_ttl: null
+    handler: null
+  - method: GET
+    path: /cases/hawk/new
+    tier: change-feed
+    axis: B
+    auth: session
+    status: mounted
+    notes: new Hawk case form
+    rate_limit: null
+    cache_ttl: null
+    handler: null
+  - method: GET
+    path: /cases/hawk/analytics
+    tier: change-feed
+    axis: B
+    auth: session
+    status: mounted
+    notes: Hawk pattern analytics
+    rate_limit: null
+    cache_ttl: null
+    handler: null
+  - method: GET
+    path: /cases/hawk/patterns
+    tier: change-feed
+    axis: B
+    auth: session
+    status: mounted
+    notes: repeat-offender patterns
+    rate_limit: null
+    cache_ttl: null
+    handler: null
+  - method: GET
+    path: /cases/hawk/{id}
+    tier: change-feed
+    axis: B
+    auth: session
+    status: mounted
+    notes: Hawk case detail
+    rate_limit: null
+    cache_ttl: null
+    handler: null
+  - method: GET
+    path: /cases/hawk/{id}/evidence
+    tier: change-feed
+    axis: B
+    auth: session
+    status: mounted
+    notes: Hawk evidence viewer
+    rate_limit: null
+    cache_ttl: null
+    handler: null
+- name: customer
+  port: 8091
+  owner: ALX
+  card: Brain/wiki/cards/customer.md
+  priority: P1
+  scope: tenant-scoped
+  category: merchant-facing
+  python_prior_art: Canary/canary/blueprints/customers.py
+  cells:
+  - "B\xD7reference"
+  depends_on: []
+  endpoints:
+  - method: GET
+    path: /customers
+    tier: reference
+    axis: B
+    auth: session
+    status: mounted
+    notes: customer list
+    rate_limit: null
+    cache_ttl: null
+    handler: null
+  - method: GET
+    path: /customers/{id}
+    tier: reference
+    axis: B
+    auth: session
+    status: mounted
+    notes: customer detail
+    rate_limit: null
+    cache_ttl: null
+    handler: null
+  - method: GET
+    path: /customers/{id}/context
+    tier: reference
+    axis: B
+    auth: session
+    status: mounted
+    notes: purchase + return history
+    rate_limit: null
+    cache_ttl: null
+    handler: null
+  - method: GET
+    path: /customers/{id}/risk
+    tier: reference
+    axis: B
+    auth: session
+    status: mounted
+    notes: RFM + risk score
+    rate_limit: null
+    cache_ttl: null
+    handler: null
+- name: transaction
+  port: 9305
+  owner: ALX
+  card: Brain/wiki/cards/transaction.md
+  priority: P1
+  scope: tenant-scoped
+  category: merchant-facing
+  python_prior_art: Canary/canary/blueprints/transactions.py
+  cells:
+  - "B\xD7reference"
+  depends_on: []
+  endpoints:
+  - method: GET
+    path: /transactions
+    tier: reference
+    axis: B
+    auth: session
+    status: mounted
+    notes: transaction list
+    rate_limit: null
+    cache_ttl: null
+    handler: null
+  - method: GET
+    path: /transactions/{id}
+    tier: reference
+    axis: B
+    auth: session
+    status: mounted
+    notes: transaction detail
+    rate_limit: null
+    cache_ttl: null
+    handler: null
+  - method: GET
+    path: /transactions/{id}/proof
+    tier: reference
+    axis: B
+    auth: session
+    status: mounted
+    notes: protocol evidence link
+    rate_limit: null
+    cache_ttl: null
+    handler: null
+- name: rule
+  port: 9306
+  owner: ALX
+  card: Brain/wiki/cards/rule.md
+  priority: P1
+  scope: tenant-scoped
+  category: merchant-facing
+  python_prior_art: Canary/canary/blueprints/detection_rules.py
+  cells:
+  - "B\xD7reference"
+  depends_on: []
+  endpoints:
+  - method: GET
+    path: /rules
+    tier: reference
+    axis: B
+    auth: session
+    status: mounted
+    notes: detection rule list
+    rate_limit: null
+    cache_ttl: null
+    handler: null
+  - method: GET
+    path: /rules/{id}
+    tier: reference
+    axis: B
+    auth: session
+    status: mounted
+    notes: rule detail
+    rate_limit: null
+    cache_ttl: null
+    handler: null
+- name: lp-settings
+  port: 9307
+  owner: ALX
+  card: Brain/wiki/cards/lp-settings.md
+  priority: P1
+  scope: tenant-scoped
+  category: merchant-facing
+  python_prior_art: Canary/canary/blueprints/settings.py
+  cells:
+  - "B\xD7reference"
+  depends_on: []
+  endpoints:
+  - method: GET
+    path: /settings/store
+    tier: reference
+    axis: B
+    auth: session
+    status: mounted
+    notes: LP store config home
+    rate_limit: null
+    cache_ttl: null
+    handler: null
+  - method: GET
+    path: /settings/store/drawer
+    tier: reference
+    axis: B
+    auth: session
+    status: mounted
+    notes: drawer substrate list
+    rate_limit: null
+    cache_ttl: null
+    handler: null
+  - method: POST
+    path: /settings/store/drawer
+    tier: reference
+    axis: B
+    auth: session
+    status: mounted
+    notes: add drawer entry
+    rate_limit: null
+    cache_ttl: null
+    handler: null
+  - method: POST
+    path: /settings/store/drawer/{id}/delete
+    tier: reference
+    axis: B
+    auth: session
+    status: mounted
+    notes: delete drawer entry
+    rate_limit: null
+    cache_ttl: null
+    handler: null
+  - method: GET
+    path: /settings/store/comp-reasons
+    tier: reference
+    axis: B
+    auth: session
+    status: mounted
+    notes: comp reasons list
+    rate_limit: null
+    cache_ttl: null
+    handler: null
+  - method: POST
+    path: /settings/store/comp-reasons
+    tier: reference
+    axis: B
+    auth: session
+    status: mounted
+    notes: add comp reason
+    rate_limit: null
+    cache_ttl: null
+    handler: null
+  - method: POST
+    path: /settings/store/comp-reasons/{id}/delete
+    tier: reference
+    axis: B
+    auth: session
+    status: mounted
+    notes: delete comp reason
+    rate_limit: null
+    cache_ttl: null
+    handler: null
+  - method: GET
+    path: /settings/store/void-reasons
+    tier: reference
+    axis: B
+    auth: session
+    status: mounted
+    notes: void reasons list
+    rate_limit: null
+    cache_ttl: null
+    handler: null
+  - method: POST
+    path: /settings/store/void-reasons
+    tier: reference
+    axis: B
+    auth: session
+    status: mounted
+    notes: add void reason
+    rate_limit: null
+    cache_ttl: null
+    handler: null
+  - method: POST
+    path: /settings/store/void-reasons/{id}/delete
+    tier: reference
+    axis: B
+    auth: session
+    status: mounted
+    notes: delete void reason
+    rate_limit: null
+    cache_ttl: null
+    handler: null
+  - method: GET
+    path: /settings/store/discounts
+    tier: reference
+    axis: B
+    auth: session
+    status: mounted
+    notes: discount substrate
+    rate_limit: null
+    cache_ttl: null
+    handler: null
+  - method: POST
+    path: /settings/store/discounts
+    tier: reference
+    axis: B
+    auth: session
+    status: mounted
+    notes: add discount
+    rate_limit: null
+    cache_ttl: null
+    handler: null
+  - method: POST
+    path: /settings/store/discounts/{id}/delete
+    tier: reference
+    axis: B
+    auth: session
+    status: mounted
+    notes: delete discount
+    rate_limit: null
+    cache_ttl: null
+    handler: null
+  - method: GET
+    path: /settings/allowlist/voids
+    tier: reference
+    axis: B
+    auth: session
+    status: mounted
+    notes: void allow-list
+    rate_limit: null
+    cache_ttl: null
+    handler: null
+  - method: POST
+    path: /settings/allowlist/voids
+    tier: reference
+    axis: B
+    auth: session
+    status: mounted
+    notes: add to void allow-list
+    rate_limit: null
+    cache_ttl: null
+    handler: null
+  - method: POST
+    path: /settings/allowlist/voids/{id}/delete
+    tier: reference
+    axis: B
+    auth: session
+    status: mounted
+    notes: remove from void allow-list
+    rate_limit: null
+    cache_ttl: null
+    handler: null
+  - method: GET
+    path: /settings/allowlist/discounts
+    tier: reference
+    axis: B
+    auth: session
+    status: mounted
+    notes: discount allow-list
+    rate_limit: null
+    cache_ttl: null
+    handler: null
+  - method: POST
+    path: /settings/allowlist/discounts
+    tier: reference
+    axis: B
+    auth: session
+    status: mounted
+    notes: add to discount allow-list
+    rate_limit: null
+    cache_ttl: null
+    handler: null
+  - method: POST
+    path: /settings/allowlist/discounts/{id}/delete
+    tier: reference
+    axis: B
+    auth: session
+    status: mounted
+    notes: remove from discount allow-list
+    rate_limit: null
+    cache_ttl: null
+    handler: null
+  - method: GET
+    path: /settings/allowlist/comps
+    tier: reference
+    axis: B
+    auth: session
+    status: mounted
+    notes: comp allow-list
+    rate_limit: null
+    cache_ttl: null
+    handler: null
+  - method: POST
+    path: /settings/allowlist/comps
+    tier: reference
+    axis: B
+    auth: session
+    status: mounted
+    notes: add to comp allow-list
+    rate_limit: null
+    cache_ttl: null
+    handler: null
+  - method: POST
+    path: /settings/allowlist/comps/{id}/delete
+    tier: reference
+    axis: B
+    auth: session
+    status: mounted
+    notes: remove from comp allow-list
+    rate_limit: null
+    cache_ttl: null
+    handler: null
+  - method: GET
+    path: /settings/allowlist/dead-count
+    tier: reference
+    axis: B
+    auth: session
+    status: mounted
+    notes: dead-count allow-list
+    rate_limit: null
+    cache_ttl: null
+    handler: null
+  - method: POST
+    path: /settings/allowlist/dead-count
+    tier: reference
+    axis: B
+    auth: session
+    status: mounted
+    notes: add to dead-count allow-list
+    rate_limit: null
+    cache_ttl: null
+    handler: null
+  - method: POST
+    path: /settings/allowlist/dead-count/{id}/delete
+    tier: reference
+    axis: B
+    auth: session
+    status: mounted
+    notes: remove from dead-count allow-list
+    rate_limit: null
+    cache_ttl: null
+    handler: null
+  - method: GET
+    path: /settings/training-mode
+    tier: reference
+    axis: B
+    auth: session
+    status: mounted
+    notes: training-mode flag list
+    rate_limit: null
+    cache_ttl: null
+    handler: null
+  - method: POST
+    path: /settings/training-mode
+    tier: reference
+    axis: B
+    auth: session
+    status: mounted
+    notes: add training-mode flag
+    rate_limit: null
+    cache_ttl: null
+    handler: null
+  - method: POST
+    path: /settings/training-mode/{id}/delete
+    tier: reference
+    axis: B
+    auth: session
+    status: mounted
+    notes: clear training-mode flag
+    rate_limit: null
+    cache_ttl: null
+    handler: null
+  - method: GET
+    path: /settings/alert-routing
+    tier: reference
+    axis: B
+    auth: session
+    status: mounted
+    notes: alert routing rules
+    rate_limit: null
+    cache_ttl: null
+    handler: null
+  - method: POST
+    path: /settings/alert-routing
+    tier: reference
+    axis: B
+    auth: session
+    status: mounted
+    notes: add alert routing rule
+    rate_limit: null
+    cache_ttl: null
+    handler: null
+  - method: POST
+    path: /settings/alert-routing/{id}/delete
+    tier: reference
+    axis: B
+    auth: session
+    status: mounted
+    notes: delete alert routing rule
     rate_limit: null
     cache_ttl: null
     handler: null
