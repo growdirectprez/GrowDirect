@@ -162,7 +162,7 @@ Wave 1 = LP Core — the 25 screens that form the operational detection + invest
 1. UUID primary keys everywhere — `gen_random_uuid()` default
 2. Schema-qualified writes — `app.`, `sales.`, `metrics.` — never unqualified
 3. Tenant isolation — every merchant query has `WHERE merchant_id = $1`
-4. Append-only evidence — `fox.evidence_records` has a DB trigger blocking UPDATE/DELETE
+4. Append-only evidence — `protocol.evidence` and `app.audit_log` have DB triggers blocking UPDATE/DELETE/TRUNCATE (`deploy/schema/11_protocol.sql`, `deploy/migrations/031_audit_log_append_only.up.sql`). Note: the prior wording referenced `fox.evidence_records`, which never carried the trigger — invariant claim repaired in Sprint 2 T-F (GRO-851).
 5. Idempotent pipeline — duplicate events produce the same result, not duplicate rows
 6. pgvector in-database — no external vector store
 7. REST throughout — no gRPC
