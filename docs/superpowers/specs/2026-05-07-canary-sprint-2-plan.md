@@ -105,6 +105,8 @@ Everything else is parallel work that improves the package but doesn't gate it.
 
 **T-B: Identity middleware + nil-tenant rejection** — Wire `identity.ClaimsFromContext(ctx).TenantID` through `internal/auth/middleware.go`; mount over `web.Handler.Mount`'s root; replace `tenantIDFromCtx` (handler.go:3420) and delete `merchantIDFromCtx` (handler_w10.go:37). **Add defensive `if tenantID == uuid.Nil { return ErrUnauthorized }` to every store entrypoint** so a future regression cannot reproduce the silent-leak shape. Closes: Code P0 #1, P0 #2; Sec C1, C2 (partial). Files: `internal/web/handler.go`, `cmd/gateway/main.go`, `internal/auth/middleware.go`, all 30+ store entrypoints. Effort: L. **This is the long pole of Sprint 2.**
 
+**T-B-1: AtlasView identity contract pin** — sister ticket to T-B. [GRO-848](https://linear.app/growdirect/issue/GRO-848) asks the identity-service team to confirm or amend the six contract surfaces AtlasView consumes (JWT mint, JWKS verify, WhoAmI, per-org SSO, JIT provisioning, operational SLA). The contract surfaces are the design input for T-B's implementation choices — closing the contract early in Sprint 2 lets T-B converge with AtlasView's expectations rather than diverge and reconcile later. AtlasView D-134 chose to delegate auth to canary.go's `internal/identity` (port 8086) rather than re-implement; this ticket closes the gaps. Substrate at `CanaryGo/docs/decisions/gro-771-atlasview-identity-integration.md`. Effort: S (review + sign-off, not implementation). Estimated AtlasView-side implementation post-contract: 4-7 days (separate engineer, parallel track).
+
 **T-F: Audit log append-only trigger** — Migration mirroring the protocol.evidence trigger pattern, applied to `app.audit_log`. CLAUDE.md claims this trigger exists; the schema does not have it. Migration `031_audit_log_append_only.{up,down}.sql`. Closes: H4 + SOC2 CC7.2 + GDPR Art 30. Effort: S.
 
 **T-G: pgx v5.6.0 → v5.9.0 + govulncheck in CI** — One-line `go.mod` bump, regenerate `go.sum`, add a `.github/workflows/` step running `govulncheck ./...`. Closes: H3 (CVE-2026-33815, CVE-2026-33816). Effort: S.
@@ -169,6 +171,15 @@ Effort: M (brand surfaces are concentrated; the bulk of total hits — ~3,400 in
 - **T-X: GRO reference cleanup** — 252 `GRO-NNN` references across 80 Go comments. Mechanical but high-volume. Effort: L.
 - **T-Y: Devops console phase-1 cleanup** — Remove `PythonPriorArt`, drop `Brain/wiki/cards/...` paths, rename `BodyTODO` → `Status`. Effort: S.
 - **T-Z: Sprint vocabulary sweep** — `Loop N`, `Wave A`, `Phase B.2` in 333 Go comments. Effort: L.
+
+### Architectural assessments awaiting decision (post-Sprint 2 roadmap)
+
+Two assessments landed at `CanaryGo/docs/decisions/` 2026-05-07. Each is decision-gated — **NOT** Sprint 2 work. Each will get its own sprint allocation if/when the team votes adopt or pilot.
+
+- **[GRO-846](https://linear.app/growdirect/issue/GRO-846) — Neo4j MDM read-adjunct.** Whether to introduce Neo4j alongside Postgres for graph-shaped reads (Customer 360, product variants, location hierarchies, reporting structures, merchant org). Substrate at `CanaryGo/docs/decisions/gro-769-neo4j-mdm-adjunct.md`. AtlasView already runs this pattern in production. Recommended next step per the doc: 2-week PoC on Customer 360 dedup, decide post-PoC. Pilot effort: ~1 engineer, 6-10 weeks for first domain plus ongoing Neo4j ops cost.
+- **[GRO-847](https://linear.app/growdirect/issue/GRO-847) — SQLite-on-device offline + sync layer for POS.** Whether to add on-device SQLite + sync layer for POS terminals during connectivity loss. Substrate at `CanaryGo/docs/decisions/gro-770-sqlite-offline-sync.md`. Tooling shortlist: PowerSync recommended (Postgres-native, SQL-based sync rules). Recommended next step per the doc: 4-week PoC on item-catalog read surface. Production-ready effort: 1-2 engineers, 12-16 weeks. Payment-offline policy decided ahead of PoC: queue intent, never offline-finalize.
+
+These two are **forward-looking architecture work**, not handover prep. They get scheduled separately once the Sprint 2 sprint ships and the Canary team holds the decision-gate review on each.
 
 ## Open decisions (board / counsel before sprint kickoff)
 
