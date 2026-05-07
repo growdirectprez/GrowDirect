@@ -457,7 +457,7 @@ def _sample_service() -> Service:
 
 
 def test_build_catalog_includes_full_3x5_grid():
-    catalog = build_catalog([_sample_service()], "2026-05-07T00:00:00Z")
+    catalog = build_catalog([_sample_service()])
     assert len(catalog["cells"]) == 15  # 3 axes × 5 tiers
     assert len(catalog["axes"]) == 3
     assert len(catalog["tiers"]) == 5
@@ -473,7 +473,7 @@ def test_build_catalog_includes_full_3x5_grid():
 
 
 def test_build_catalog_summarizes_each_service():
-    catalog = build_catalog([_sample_service()], "2026-05-07T00:00:00Z")
+    catalog = build_catalog([_sample_service()])
     assert len(catalog["services"]) == 1
     s = catalog["services"][0]
     assert s["name"] == "catalog"
@@ -485,20 +485,27 @@ def test_build_catalog_summarizes_each_service():
 
 def test_build_catalog_totals():
     svcs = [_sample_service()]
-    catalog = build_catalog(svcs, "2026-05-07T00:00:00Z")
+    catalog = build_catalog(svcs)
     assert catalog["totals"]["service_count"] == 1
     assert catalog["totals"]["endpoint_count"] == 2
+
+
+def test_build_catalog_has_no_timestamp():
+    catalog = build_catalog([_sample_service()])
+    # Deliberately content-addressable via input SHAs in manifest.yaml's
+    # generated_from — no wall-clock timestamp that would churn git.
+    assert "generated_at" not in catalog
 
 
 def test_emit_catalog_writes_valid_json(tmp_path: Path):
     import json
     out = tmp_path / "devops-catalog.json"
-    catalog = build_catalog([_sample_service()], "2026-05-07T00:00:00Z")
+    catalog = build_catalog([_sample_service()])
     emit_catalog(catalog, out)
     data = json.loads(out.read_text())
-    assert data["generated_at"] == "2026-05-07T00:00:00Z"
     assert data["totals"]["service_count"] == 1
     assert len(data["cells"]) == 15
+    assert "generated_at" not in data
 
 
 def test_clean_well_formed_service_has_no_errors(tmp_path: Path):

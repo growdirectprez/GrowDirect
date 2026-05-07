@@ -23,7 +23,6 @@ into the build step.
 from __future__ import annotations
 
 import argparse
-import datetime as dt
 import hashlib
 import json
 import re
@@ -405,11 +404,16 @@ def to_dict(svc: Service) -> dict:
     }
 
 
-def build_catalog(services: list[Service], generated_at: str) -> dict:
+def build_catalog(services: list[Service]) -> dict:
     """UI-optimized projection of the manifest, consumed by the
     /devops/catalog page. Pre-computes axis × tier cell occupancy plus
     per-service summaries so the Go handler can render the grid heat-map
-    via stdlib encoding/json (no Go YAML dep needed)."""
+    via stdlib encoding/json (no Go YAML dep needed).
+
+    No generated_at timestamp — the file is content-addressable via
+    `generated_from` SHA hashes in manifest.yaml. Including a timestamp
+    causes git churn on every `make manifest` run for no reproducibility
+    benefit."""
     cells: dict[tuple[str, str], dict] = {}
     for axis in VALID_AXES:
         for tier in VALID_TIERS:
@@ -446,7 +450,6 @@ def build_catalog(services: list[Service], generated_at: str) -> dict:
         )
     cell_list = [cells[(a, t)] for a in VALID_AXES for t in VALID_TIERS]
     return {
-        "generated_at": generated_at,
         "axes": [
             {"key": "A", "name": "Adapter", "direction": "POS → Canary"},
             {"key": "B", "name": "Resource", "direction": "Canary → external"},
@@ -487,7 +490,6 @@ def emit_manifest(services: list[Service], inputs: list[Path], output: Path) -> 
             )
     payload = {
         "version": MANIFEST_VERSION,
-        "generated_at": dt.datetime.now(dt.timezone.utc).isoformat(timespec="seconds"),
         "generated_from": generated_from,
         "tiers": list(VALID_TIERS),
         "axes": [
@@ -542,8 +544,8 @@ def main(argv: list[str] | None = None) -> int:
     output = Path(args.output)
     catalog_out = Path(args.catalog)
     inputs = [Path(args.portal), Path(args.microsvc), Path(args.canonical)]
-    payload = emit_manifest(services, inputs, output)
-    catalog = build_catalog(services, payload["generated_at"])
+    emit_manifest(services, inputs, output)
+    catalog = build_catalog(services)
     emit_catalog(catalog, catalog_out)
     print(f"wrote {output}", file=sys.stderr)
     print(f"wrote {catalog_out}", file=sys.stderr)
