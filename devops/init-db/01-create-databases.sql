@@ -21,6 +21,15 @@ WHERE NOT EXISTS (SELECT FROM pg_database WHERE datname = 'cove')\gexec
 SELECT 'CREATE DATABASE cove_test OWNER growdirect'
 WHERE NOT EXISTS (SELECT FROM pg_database WHERE datname = 'cove_test')\gexec
 
+-- canary_identity_gcp — identity service database. T-1.a / GRO-848.
+-- Cross-product Person + credentials; no FK into product DBs. See
+-- Brain/wiki/cards/platform-identity-database-boundary.md.
+SELECT 'CREATE DATABASE canary_identity_gcp OWNER growdirect'
+WHERE NOT EXISTS (SELECT FROM pg_database WHERE datname = 'canary_identity_gcp')\gexec
+
+SELECT 'CREATE DATABASE canary_identity_gcp_test OWNER growdirect'
+WHERE NOT EXISTS (SELECT FROM pg_database WHERE datname = 'canary_identity_gcp_test')\gexec
+
 -- Enable pgvector on all databases
 \c canary
 CREATE EXTENSION IF NOT EXISTS vector;
