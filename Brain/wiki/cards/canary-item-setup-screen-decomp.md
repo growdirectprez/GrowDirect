@@ -720,6 +720,7 @@ These need a decision before the build dispatch picks up. Filed as comments on G
 
 - [[canary-item-master-and-catalog]] — parent substrate; this card extends.
 - [[counterpoint-catalog-data-model-audit]] — Counterpoint REST IM_ITEM / IM_INV / IM_CATEG / SN_SER / VendorItem field-level shapes; gap report + prioritized migration list.
+- [[square-sample-code-mechanics-inventory]] — Square sample-code patterns to lift (catalog batch upsert, idempotency keys, error envelope, webhook URL-in-signature, CSV gotchas, OAuth revoke recovery) and anti-patterns to avoid.
 - [[canary-item]] — service card (port, axis, owned tables, cadence-ladder placement).
 - [[retail-item-authorization]] — what's NOT in scope (other 3 authorization dimensions).
 - [[canary-mobile-task-ux-flows]] — mobile UX precedent + design principles.
