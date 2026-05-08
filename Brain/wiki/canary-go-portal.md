@@ -290,6 +290,7 @@ cross-tenant  ·  Python prior art: none
 | /mcp | POST | change-feed | C | apikey | mounted | MCP JSON-RPC 2.0 invocation surface |
 | /.well-known/mcp.json | GET | reference | C | none | mounted | MCP discovery document |
 | /devops/mcp | GET | change-feed | C | apikey | proposed | tool catalog + usage drill-down |
+| /mcp/tools | GET | change-feed | C | session | mounted | MCP tool catalog (W12 — in-process registry) |
 
 ## dashboard · :9300 · merchant-facing · P1
 
@@ -411,3 +412,452 @@ tenant-scoped  ·  Python prior art: Canary/canary/blueprints/settings.py
 | /settings/alert-routing | GET | reference | B | session | mounted | alert routing rules |
 | /settings/alert-routing | POST | reference | B | session | mounted | add alert routing rule |
 | /settings/alert-routing/{id}/delete | POST | reference | B | session | mounted | delete alert routing rule |
+
+## owl · :8084 · merchant-facing · P1
+
+Owner: ALX  ·  Card: Brain/wiki/cards/owl.md  ·  Cells: [C × change-feed]
+tenant-scoped  ·  Python prior art: Canary/canary/blueprints/owl.py
+
+| Endpoint | Method | Tier | Axis | Auth | Status | Notes |
+|----------|--------|------|------|------|--------|-------|
+| /owl | GET | change-feed | C | session | mounted | semantic search home (pgvector + EJ spine) |
+| /owl/dashboards | GET | change-feed | C | session | mounted | saved dashboard registry |
+| /owl/parties | GET | change-feed | C | session | mounted | party (entity) directory + risk dictionary |
+| /owl/lp-performance | GET | change-feed | C | session | mounted | LP rule performance rollup |
+
+## employee · :8095 · merchant-facing · P1
+
+Owner: ALX  ·  Card: Brain/wiki/cards/employee.md  ·  Cells: [B × reference]
+tenant-scoped  ·  Python prior art: Canary/canary/blueprints/employees.py
+
+| Endpoint | Method | Tier | Axis | Auth | Status | Notes |
+|----------|--------|------|------|------|--------|-------|
+| /employees | GET | reference | B | session | mounted | employee directory (stub, W2 wired) |
+| /employees/{id} | GET | reference | B | session | mounted | employee detail + risk score |
+
+## item · :8090 · merchant-facing · P1
+
+Owner: ALX  ·  Card: Brain/wiki/cards/item.md  ·  Cells: [B × reference]
+tenant-scoped  ·  Python prior art: Canary/canary/blueprints/items.py
+
+| Endpoint | Method | Tier | Axis | Auth | Status | Notes |
+|----------|--------|------|------|------|--------|-------|
+| /items | GET | reference | B | session | mounted | item master list (catalog browse) |
+| /items/{id} | GET | reference | B | session | mounted | item detail + UPC + pricing tier |
+
+## transfer · :8093 · merchant-facing · P1
+
+Owner: ALX  ·  Card: Brain/wiki/cards/transfer.md  ·  Cells: [B × change-feed]
+tenant-scoped  ·  Python prior art: Canary/canary/blueprints/transfers.py
+
+| Endpoint | Method | Tier | Axis | Auth | Status | Notes |
+|----------|--------|------|------|------|--------|-------|
+| /transfers | GET | change-feed | B | session | mounted | inter-store transfer list |
+| /transfers/{id} | GET | change-feed | B | session | mounted | transfer detail + line items |
+| /transfers/{id}/variance | GET | change-feed | B | session | mounted | variance reconciliation |
+
+## receiving · :8092 · merchant-facing · P1
+
+Owner: ALX  ·  Card: Brain/wiki/cards/receiving.md  ·  Cells: [B × change-feed]
+tenant-scoped  ·  Python prior art: Canary/canary/blueprints/receiving.py
+
+| Endpoint | Method | Tier | Axis | Auth | Status | Notes |
+|----------|--------|------|------|------|--------|-------|
+| /receiving | GET | change-feed | B | session | mounted | open receiving queue |
+| /receiving/{id} | GET | change-feed | B | session | mounted | receiving detail + line items |
+| /receiving/{id}/close | GET | change-feed | B | session | mounted | close-receipt confirmation |
+| /receiving/{id}/close | POST | change-feed | B | session | mounted | close receipt + post variance |
+| /receiving/{id}/lines/{lineID}/discrepancy | POST | change-feed | B | session | mounted | log line-item discrepancy |
+
+## returns · :8097 · merchant-facing · P1
+
+Owner: ALX  ·  Card: Brain/wiki/cards/returns.md  ·  Cells: [B × change-feed]
+tenant-scoped  ·  Python prior art: Canary/canary/blueprints/returns.py
+
+| Endpoint | Method | Tier | Axis | Auth | Status | Notes |
+|----------|--------|------|------|------|--------|-------|
+| /returns | GET | change-feed | B | session | mounted | returns queue |
+| /returns/{id} | GET | change-feed | B | session | mounted | return detail + refund authorization |
+
+## pricing · :8094 · merchant-facing · P1
+
+Owner: ALX  ·  Card: Brain/wiki/cards/pricing.md  ·  Cells: [B × reference]
+tenant-scoped  ·  Python prior art: Canary/canary/blueprints/promotions.py
+
+| Endpoint | Method | Tier | Axis | Auth | Status | Notes |
+|----------|--------|------|------|------|--------|-------|
+| /promotions | GET | reference | B | session | mounted | promotions calendar (W2f) |
+
+## task · :9311 · merchant-facing · P1
+
+Owner: ALX  ·  Card: Brain/wiki/cards/task.md  ·  Cells: [B × change-feed]
+tenant-scoped  ·  Python prior art: none
+
+| Endpoint | Method | Tier | Axis | Auth | Status | Notes |
+|----------|--------|------|------|------|--------|-------|
+| /tasks | GET | change-feed | B | session | mounted | directed-task queue (W5) |
+| /tasks/{id}/claim | POST | change-feed | B | session | mounted | claim task for current operator |
+| /tasks/{id}/complete | POST | change-feed | B | session | mounted | mark task complete |
+| /tasks/{id}/exception | POST | change-feed | B | session | mounted | log task exception |
+
+## asset · :8089 · merchant-facing · P1
+
+Owner: ALX  ·  Card: Brain/wiki/cards/asset.md  ·  Cells: [B × reference]
+tenant-scoped  ·  Python prior art: Canary/canary/blueprints/assets.py
+
+| Endpoint | Method | Tier | Axis | Auth | Status | Notes |
+|----------|--------|------|------|------|--------|-------|
+| /assets | GET | reference | B | session | mounted | asset registry list (W8) |
+| /assets/{id} | GET | reference | B | session | mounted | asset detail + lifecycle + location |
+
+## report · :8098 · merchant-facing · P1
+
+Owner: ALX  ·  Card: Brain/wiki/cards/report.md  ·  Cells: [B × reference]
+tenant-scoped  ·  Python prior art: Canary/canary/blueprints/reports.py
+
+| Endpoint | Method | Tier | Axis | Auth | Status | Notes |
+|----------|--------|------|------|------|--------|-------|
+| /reports | GET | reference | B | session | mounted | reports index (stub) |
+| /reports/distribution | GET | reference | B | session | mounted | distribution rebalancing report (W2b) |
+| /reports/inventory | GET | reference | B | session | mounted | inventory health report (W2b) |
+| /reports/category | GET | reference | B | session | mounted | category performance report (W2c) |
+| /reports/finance | GET | reference | B | session | mounted | finance summary report (W2e) |
+| /reports/payments | GET | reference | B | session | mounted | tender mix report (stub — needs aggregation) |
+| /reports/tax | GET | reference | B | session | mounted | tax remit report (W2e) |
+| /reports/otb | GET | reference | B | session | mounted | open-to-buy budget report (W2e) |
+| /reports/labor | GET | reference | B | session | mounted | labor utilization report (W2g) |
+| /reports/cases | GET | reference | B | session | mounted | cases analytics report (W2e) |
+| /reports/range | GET | reference | B | session | mounted | range performance report (stub) |
+| /reports/pricing | GET | reference | B | session | mounted | pricing position report (stub) |
+| /reports/price-history | GET | reference | B | session | mounted | price-history report (stub) |
+| /reports/markdowns | GET | reference | B | session | mounted | markdown effectiveness report (stub) |
+| /reports/otb/{budgetID}/lock | POST | reference | B | session | mounted | lock OTB budget (W5 action) |
+
+## billing · :9312 · merchant-facing · P1
+
+Owner: ALX  ·  Card: Brain/wiki/cards/billing.md  ·  Cells: [B × reference]
+tenant-scoped  ·  Python prior art: Canary/canary/blueprints/billing.py
+
+| Endpoint | Method | Tier | Axis | Auth | Status | Notes |
+|----------|--------|------|------|------|--------|-------|
+| /billing/overview | GET | reference | B | session | mounted | billing portal home (meter rollup) — W8 |
+| /billing/invoices | GET | reference | B | session | mounted | invoice history |
+| /billing/payment-method | GET | reference | B | session | mounted | payment-method viewer |
+
+## supplier · :9313 · merchant-facing · P1
+
+Owner: ALX  ·  Card: Brain/wiki/cards/supplier.md  ·  Cells: [B × change-feed]
+tenant-scoped  ·  Python prior art: Canary/canary/blueprints/suppliers.py
+
+| Endpoint | Method | Tier | Axis | Auth | Status | Notes |
+|----------|--------|------|------|------|--------|-------|
+| /suppliers | GET | change-feed | B | session | mounted | supplier directory (W11) |
+| /suppliers | POST | change-feed | B | session | mounted | create supplier |
+| /suppliers/{id} | GET | change-feed | B | session | mounted | supplier detail |
+| /suppliers/{id}/scorecard | GET | change-feed | B | session | mounted | supplier performance scorecard |
+
+## po · :9314 · merchant-facing · P1
+
+Owner: ALX  ·  Card: Brain/wiki/cards/po.md  ·  Cells: [B × change-feed]
+tenant-scoped  ·  Python prior art: Canary/canary/blueprints/po.py
+
+| Endpoint | Method | Tier | Axis | Auth | Status | Notes |
+|----------|--------|------|------|------|--------|-------|
+| /po | GET | change-feed | B | session | mounted | purchase-order list (W11) |
+| /po | POST | change-feed | B | session | mounted | create PO |
+| /po/{id} | GET | change-feed | B | session | mounted | PO detail |
+| /po/{id}/match | GET | change-feed | B | session | mounted | three-way match viewer |
+| /po/{id}/status | POST | change-feed | B | session | mounted | advance PO status |
+
+## order · :9315 · merchant-facing · P1
+
+Owner: ALX  ·  Card: Brain/wiki/cards/order.md  ·  Cells: [B × change-feed]
+tenant-scoped  ·  Python prior art: Canary/canary/blueprints/orders.py
+
+| Endpoint | Method | Tier | Axis | Auth | Status | Notes |
+|----------|--------|------|------|------|--------|-------|
+| /orders/suggested | GET | change-feed | B | session | mounted | replenishment suggestions queue |
+| /orders/suggested/{id}/approve | POST | change-feed | B | session | mounted | approve suggested order |
+| /orders/suggested/{id}/reject | POST | change-feed | B | session | mounted | reject suggested order |
+| /orders/suggested/{id}/send | POST | change-feed | B | session | mounted | send approved order to supplier |
+
+## onboarding · :9316 · merchant-facing · P1
+
+Owner: ALX  ·  Card: Brain/wiki/cards/onboarding.md  ·  Cells: [B × reference]
+tenant-scoped  ·  Python prior art: none
+
+| Endpoint | Method | Tier | Axis | Auth | Status | Notes |
+|----------|--------|------|------|------|--------|-------|
+| /onboarding | GET | reference | B | session | mounted | onboarding wizard index (W13) |
+| /onboarding/connect | GET | reference | B | session | mounted | POS connection step |
+| /onboarding/import | GET | reference | B | session | mounted | data import step |
+| /onboarding/rules | GET | reference | B | session | mounted | rule selection step |
+| /onboarding/rules/enable | POST | reference | B | session | mounted | enable selected rule pack |
+| /onboarding/welcome | GET | reference | B | session | mounted | onboarding completion |
+
+## ecom · :9317 · merchant-facing · P1
+
+Owner: ALX  ·  Card: Brain/wiki/cards/ecom.md  ·  Cells: [B × reference]
+tenant-scoped  ·  Python prior art: none
+
+| Endpoint | Method | Tier | Axis | Auth | Status | Notes |
+|----------|--------|------|------|------|--------|-------|
+| /ecom/orders | GET | reference | B | session | mounted | ecom channel order list (W15) |
+| /ecom/sync | GET | reference | B | session | mounted | ecom sync status |
+
+## audit · :9320 · tenant-scoped · P1
+
+Owner: ALX  ·  Card: Brain/wiki/cards/audit.md  ·  Cells: [B × reference]
+tenant-scoped  ·  Python prior art: Canary/canary/blueprints/admin.py
+
+| Endpoint | Method | Tier | Axis | Auth | Status | Notes |
+|----------|--------|------|------|------|--------|-------|
+| /admin/audit | GET | reference | B | session | mounted | append-only audit log viewer (W9) |
+
+## compliance · :9091 · tenant-scoped · P1
+
+Owner: ALX  ·  Card: Brain/wiki/cards/compliance.md  ·  Cells: [B × reference]
+tenant-scoped  ·  Python prior art: Canary/canary/blueprints/admin.py
+
+| Endpoint | Method | Tier | Axis | Auth | Status | Notes |
+|----------|--------|------|------|------|--------|-------|
+| /admin/iso27001 | GET | reference | B | session | mounted | ISO 27001 control evidence dashboard (W9) |
+
+## users · :9321 · tenant-scoped · P2
+
+Owner: ALX  ·  Card: Brain/wiki/cards/users.md  ·  Cells: [B × reference]
+tenant-scoped  ·  Python prior art: Canary/canary/blueprints/admin.py
+
+| Endpoint | Method | Tier | Axis | Auth | Status | Notes |
+|----------|--------|------|------|------|--------|-------|
+| /admin/users | GET | reference | B | session | mounted | tenant user roster (blocked on GRO-769 identity middleware + GRO-770 admin module) |
+
+## config · :9322 · tenant-scoped · P1
+
+Owner: ALX  ·  Card: Brain/wiki/cards/config.md  ·  Cells: [B × reference]
+tenant-scoped  ·  Python prior art: Canary/canary/blueprints/admin.py
+
+| Endpoint | Method | Tier | Axis | Auth | Status | Notes |
+|----------|--------|------|------|------|--------|-------|
+| /admin/config | GET | reference | B | session | mounted | tenant configuration viewer (W9) |
+
+## hierarchy · :9323 · tenant-scoped · P1
+
+Owner: ALX  ·  Card: Brain/wiki/cards/hierarchy.md  ·  Cells: [B × change-feed]
+tenant-scoped  ·  Python prior art: Canary/canary/blueprints/admin.py
+
+| Endpoint | Method | Tier | Axis | Auth | Status | Notes |
+|----------|--------|------|------|------|--------|-------|
+| /admin/hierarchy | GET | change-feed | B | session | mounted | merchant org hierarchy editor (W10) |
+| /admin/hierarchy | POST | change-feed | B | session | mounted | create hierarchy node |
+
+## network-integrity · :9088 · tenant-scoped · P1
+
+Owner: ALX  ·  Card: Brain/wiki/cards/network-integrity.md  ·  Cells: [B × change-feed]
+tenant-scoped  ·  Python prior art: Canary/canary/blueprints/admin.py
+
+| Endpoint | Method | Tier | Axis | Auth | Status | Notes |
+|----------|--------|------|------|------|--------|-------|
+| /admin/network-integrity | GET | change-feed | B | session | mounted | cross-location anomaly detection (W10) |
+
+## cross-store · :9324 · tenant-scoped · P1
+
+Owner: ALX  ·  Card: Brain/wiki/cards/cross-store.md  ·  Cells: [B × change-feed]
+tenant-scoped  ·  Python prior art: Canary/canary/blueprints/dashboards.py
+
+| Endpoint | Method | Tier | Axis | Auth | Status | Notes |
+|----------|--------|------|------|------|--------|-------|
+| /dashboards/cross-store | GET | change-feed | B | session | mounted | multi-store intelligence dashboard (W10) |
+
+## mobile · :9325 · merchant-facing · P1
+
+Owner: ALX  ·  Card: Brain/wiki/cards/mobile.md  ·  Cells: [B × reference]
+tenant-scoped  ·  Python prior art: none
+
+| Endpoint | Method | Tier | Axis | Auth | Status | Notes |
+|----------|--------|------|------|------|--------|-------|
+| /m/tasks | GET | reference | B | session | mounted | mobile task queue (W14 — Android POS UX) |
+| /m/receiving | GET | reference | B | session | mounted | mobile receiving form |
+| /m/cycle-count | GET | reference | B | session | mounted | mobile cycle-count entry |
+| /m/alerts/{id} | GET | reference | B | session | mounted | mobile alert detail |
+
+## exception · :9326 · merchant-facing · P1
+
+Owner: ALX  ·  Card: Brain/wiki/cards/exception.md  ·  Cells: [B × change-feed]
+tenant-scoped  ·  Python prior art: Canary/canary/blueprints/exceptions.py
+
+| Endpoint | Method | Tier | Axis | Auth | Status | Notes |
+|----------|--------|------|------|------|--------|-------|
+| /exceptions | GET | change-feed | B | session | mounted | cross-domain exception queue |
+| /exceptions/{id} | GET | change-feed | B | session | mounted | exception detail + remediation |
+
+## workflow · :9327 · merchant-facing · P1
+
+Owner: ALX  ·  Card: Brain/wiki/cards/workflow.md  ·  Cells: [B × change-feed]
+tenant-scoped  ·  Python prior art: none
+
+| Endpoint | Method | Tier | Axis | Auth | Status | Notes |
+|----------|--------|------|------|------|--------|-------|
+| /workflows | GET | change-feed | B | session | mounted | workflow engine surface (W4 — unified list) |
+
+## protocol-portal · :9328 · merchant-facing · P1
+
+Owner: ALX  ·  Card: Brain/wiki/cards/protocol-portal.md  ·  Cells: [B × reference]
+tenant-scoped  ·  Python prior art: none
+
+| Endpoint | Method | Tier | Axis | Auth | Status | Notes |
+|----------|--------|------|------|------|--------|-------|
+| /protocol | GET | reference | B | session | mounted | unified Bitcoin L2 + .jeffe + L402 overview (W7) |
+
+## api-docs · :9329 · cross-tenant infra · P0
+
+Owner: ALX  ·  Card: Brain/wiki/cards/api-docs.md  ·  Cells: [B × reference]
+cross-tenant  ·  Python prior art: Canary/canary/blueprints/devops_monitor.py
+
+| Endpoint | Method | Tier | Axis | Auth | Status | Notes |
+|----------|--------|------|------|------|--------|-------|
+| /devops/api-docs | GET | reference | B | apikey | mounted | Redoc rendering of openapi.yaml (GRO-842) |
+
+## etl · :9330 · cross-tenant infra · P0
+
+Owner: ALX  ·  Card: Brain/wiki/cards/etl.md  ·  Cells: [B × daily-batch]
+cross-tenant  ·  Python prior art: Canary/canary/services/metrics_etl.py
+
+| Endpoint | Method | Tier | Axis | Auth | Status | Notes |
+|----------|--------|------|------|------|--------|-------|
+| /devops/etl | GET | daily-batch | B | apikey | proposed | star-schema metric pipeline (T3B.5 recovery) |
+
+## wallet · :9331 · cross-tenant infra · P0
+
+Owner: ALX  ·  Card: Brain/wiki/cards/wallet.md  ·  Cells: [B × reference]
+cross-tenant  ·  Python prior art: Canary/canary/goose
+
+| Endpoint | Method | Tier | Axis | Auth | Status | Notes |
+|----------|--------|------|------|------|--------|-------|
+| /devops/wallet | GET | reference | B | apikey | proposed | L402 wallet + treasury + Strike Lightning (T3B.6 recovery) |
+
+## vault · :9332 · cross-tenant infra · P1
+
+Owner: ALX  ·  Card: Brain/wiki/cards/vault.md  ·  Cells: [B × reference]
+cross-tenant  ·  Python prior art: none
+
+| Endpoint | Method | Tier | Axis | Auth | Status | Notes |
+|----------|--------|------|------|------|--------|-------|
+| /devops/vault | GET | reference | B | apikey | proposed | secrets + signed-payload store viewer |
+
+## flags · :9333 · cross-tenant infra · P1
+
+Owner: ALX  ·  Card: Brain/wiki/cards/flags.md  ·  Cells: [B × reference]
+cross-tenant  ·  Python prior art: none
+
+| Endpoint | Method | Tier | Axis | Auth | Status | Notes |
+|----------|--------|------|------|------|--------|-------|
+| /devops/flags | GET | reference | B | apikey | proposed | feature-flag registry + tenant overrides |
+
+## notifications · :9334 · cross-tenant infra · P1
+
+Owner: ALX  ·  Card: Brain/wiki/cards/notifications.md  ·  Cells: [C × change-feed]
+cross-tenant  ·  Python prior art: none
+
+| Endpoint | Method | Tier | Axis | Auth | Status | Notes |
+|----------|--------|------|------|------|--------|-------|
+| /devops/notifications | GET | change-feed | C | apikey | proposed | notification dispatch queue + delivery status |
+
+## risk-vocab · :9335 · cross-tenant infra · P1
+
+Owner: ALX  ·  Card: Brain/wiki/cards/risk-vocab.md  ·  Cells: [B × reference]
+cross-tenant  ·  Python prior art: Canary/canary/services/risk_vocab.py
+
+| Endpoint | Method | Tier | Axis | Auth | Status | Notes |
+|----------|--------|------|------|------|--------|-------|
+| /devops/risk-vocab | GET | reference | B | apikey | proposed | risk dictionary (Owl entity types, severity scales) |
+
+## parsers · :9336 · cross-tenant infra · P1
+
+Owner: ALX  ·  Card: Brain/wiki/cards/parsers.md  ·  Cells: [A × stream]
+cross-tenant  ·  Python prior art: Canary/canary/services/parsers/
+
+| Endpoint | Method | Tier | Axis | Auth | Status | Notes |
+|----------|--------|------|------|------|--------|-------|
+| /devops/parsers | GET | stream | A | apikey | proposed | POS parser registry (canonical event taxonomy) |
+
+## rule-packs · :9337 · cross-tenant infra · P1
+
+Owner: ALX  ·  Card: Brain/wiki/cards/rule-packs.md  ·  Cells: [B × reference]
+cross-tenant  ·  Python prior art: Canary/canary/services/rule_packs/
+
+| Endpoint | Method | Tier | Axis | Auth | Status | Notes |
+|----------|--------|------|------|------|--------|-------|
+| /devops/rule-packs | GET | reference | B | apikey | proposed | rule-pack catalog (Q module) |
+
+## atlas · :9338 · cross-tenant infra · P1
+
+Owner: ALX  ·  Card: Brain/wiki/cards/atlas.md  ·  Cells: [B × reference]
+cross-tenant  ·  Python prior art: Canary/canary/atlas/
+
+| Endpoint | Method | Tier | Axis | Auth | Status | Notes |
+|----------|--------|------|------|------|--------|-------|
+| /devops/atlas | GET | reference | B | apikey | proposed | Mermaid diagram engine + system map |
+
+## method · :9339 · cross-tenant infra · P1
+
+Owner: ALX  ·  Card: Brain/wiki/cards/method.md  ·  Cells: [B × reference]
+cross-tenant  ·  Python prior art: none
+
+| Endpoint | Method | Tier | Axis | Auth | Status | Notes |
+|----------|--------|------|------|------|--------|-------|
+| /devops/method | GET | reference | B | apikey | proposed | method / playbook registry (Canary methodology) |
+
+## alx-agent · :9340 · cross-tenant infra · P2
+
+Owner: ALX  ·  Card: Brain/wiki/cards/alx-agent.md  ·  Cells: [C × change-feed]
+cross-tenant  ·  Python prior art: Canary/canary/qa_agent/
+
+| Endpoint | Method | Tier | Axis | Auth | Status | Notes |
+|----------|--------|------|------|------|--------|-------|
+| /devops/alx-agent | GET | change-feed | C | apikey | proposed | ALX operator-agent surface (page-aware) |
+
+## condor · :9341 · cross-tenant infra · P2
+
+Owner: ALX  ·  Card: Brain/wiki/cards/condor.md  ·  Cells: [C × change-feed]
+cross-tenant  ·  Python prior art: none
+
+| Endpoint | Method | Tier | Axis | Auth | Status | Notes |
+|----------|--------|------|------|------|--------|-------|
+| /devops/condor | GET | change-feed | C | apikey | proposed | Condor agent surface (planned) |
+
+## integrations · :9342 · cross-tenant infra · P1
+
+Owner: ALX  ·  Card: Brain/wiki/cards/integrations.md  ·  Cells: [B × reference]
+cross-tenant  ·  Python prior art: none
+
+| Endpoint | Method | Tier | Axis | Auth | Status | Notes |
+|----------|--------|------|------|------|--------|-------|
+| /devops/integrations | GET | reference | B | apikey | proposed | external integration catalog (POS, accounting, ecom) |
+
+## devices · :9343 · cross-tenant infra · P1
+
+Owner: ALX  ·  Card: Brain/wiki/cards/devices.md  ·  Cells: [A × stream]
+cross-tenant  ·  Python prior art: Canary/canary/services/device_registry.py
+
+| Endpoint | Method | Tier | Axis | Auth | Status | Notes |
+|----------|--------|------|------|------|--------|-------|
+| /devops/devices | GET | stream | A | apikey | proposed | device registry + heartbeat NOC |
+
+## keys · :9344 · cross-tenant infra · P2
+
+Owner: ALX  ·  Card: Brain/wiki/cards/keys.md  ·  Cells: [B × reference]
+cross-tenant  ·  Python prior art: none
+
+| Endpoint | Method | Tier | Axis | Auth | Status | Notes |
+|----------|--------|------|------|------|--------|-------|
+| /devops/keys | GET | reference | B | apikey | proposed | API key admin (blocked on GRO-769 identity + GRO-770 admin module) |
+
+## tenants · :9345 · cross-tenant infra · P1
+
+Owner: ALX  ·  Card: Brain/wiki/cards/tenants.md  ·  Cells: [B × reference]
+cross-tenant  ·  Python prior art: none
+
+| Endpoint | Method | Tier | Axis | Auth | Status | Notes |
+|----------|--------|------|------|------|--------|-------|
+| /devops/tenants | GET | reference | B | apikey | proposed | tenant directory + lifecycle |

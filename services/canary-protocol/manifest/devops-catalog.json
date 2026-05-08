@@ -27,8 +27,11 @@
     {
       "axis": "A",
       "tier": "stream",
-      "endpoint_count": 0,
-      "services": []
+      "endpoint_count": 2,
+      "services": [
+        "parsers",
+        "devices"
+      ]
     },
     {
       "axis": "A",
@@ -63,20 +66,34 @@
     {
       "axis": "B",
       "tier": "change-feed",
-      "endpoint_count": 21,
+      "endpoint_count": 55,
       "services": [
         "observability",
         "pipeline",
         "alert",
         "chirp",
-        "casemgmt"
+        "casemgmt",
+        "transfer",
+        "receiving",
+        "returns",
+        "task",
+        "supplier",
+        "po",
+        "order",
+        "hierarchy",
+        "network-integrity",
+        "cross-store",
+        "exception",
+        "workflow"
       ]
     },
     {
       "axis": "B",
       "tier": "daily-batch",
-      "endpoint_count": 0,
-      "services": []
+      "endpoint_count": 1,
+      "services": [
+        "etl"
+      ]
     },
     {
       "axis": "B",
@@ -87,7 +104,7 @@
     {
       "axis": "B",
       "tier": "reference",
-      "endpoint_count": 52,
+      "endpoint_count": 105,
       "services": [
         "catalog",
         "manifest",
@@ -98,7 +115,32 @@
         "customer",
         "transaction",
         "rule",
-        "lp-settings"
+        "lp-settings",
+        "employee",
+        "item",
+        "pricing",
+        "asset",
+        "report",
+        "billing",
+        "onboarding",
+        "ecom",
+        "audit",
+        "compliance",
+        "users",
+        "config",
+        "mobile",
+        "protocol-portal",
+        "api-docs",
+        "wallet",
+        "vault",
+        "flags",
+        "risk-vocab",
+        "rule-packs",
+        "atlas",
+        "method",
+        "integrations",
+        "keys",
+        "tenants"
       ]
     },
     {
@@ -110,10 +152,14 @@
     {
       "axis": "C",
       "tier": "change-feed",
-      "endpoint_count": 6,
+      "endpoint_count": 14,
       "services": [
         "qa-agent",
-        "mcp"
+        "mcp",
+        "owl",
+        "notifications",
+        "alx-agent",
+        "condor"
       ]
     },
     {
@@ -248,7 +294,7 @@
       "cells": [
         "C×change-feed"
       ],
-      "endpoint_count": 3,
+      "endpoint_count": 4,
       "python_prior_art": null
     },
     {
@@ -362,10 +408,626 @@
       ],
       "endpoint_count": 31,
       "python_prior_art": "Canary/canary/blueprints/settings.py"
+    },
+    {
+      "name": "owl",
+      "port": 8084,
+      "priority": "P1",
+      "category": "merchant-facing",
+      "scope": "tenant-scoped",
+      "owner": "ALX",
+      "card": "Brain/wiki/cards/owl.md",
+      "cells": [
+        "C×change-feed"
+      ],
+      "endpoint_count": 4,
+      "python_prior_art": "Canary/canary/blueprints/owl.py"
+    },
+    {
+      "name": "employee",
+      "port": 8095,
+      "priority": "P1",
+      "category": "merchant-facing",
+      "scope": "tenant-scoped",
+      "owner": "ALX",
+      "card": "Brain/wiki/cards/employee.md",
+      "cells": [
+        "B×reference"
+      ],
+      "endpoint_count": 2,
+      "python_prior_art": "Canary/canary/blueprints/employees.py"
+    },
+    {
+      "name": "item",
+      "port": 8090,
+      "priority": "P1",
+      "category": "merchant-facing",
+      "scope": "tenant-scoped",
+      "owner": "ALX",
+      "card": "Brain/wiki/cards/item.md",
+      "cells": [
+        "B×reference"
+      ],
+      "endpoint_count": 2,
+      "python_prior_art": "Canary/canary/blueprints/items.py"
+    },
+    {
+      "name": "transfer",
+      "port": 8093,
+      "priority": "P1",
+      "category": "merchant-facing",
+      "scope": "tenant-scoped",
+      "owner": "ALX",
+      "card": "Brain/wiki/cards/transfer.md",
+      "cells": [
+        "B×change-feed"
+      ],
+      "endpoint_count": 3,
+      "python_prior_art": "Canary/canary/blueprints/transfers.py"
+    },
+    {
+      "name": "receiving",
+      "port": 8092,
+      "priority": "P1",
+      "category": "merchant-facing",
+      "scope": "tenant-scoped",
+      "owner": "ALX",
+      "card": "Brain/wiki/cards/receiving.md",
+      "cells": [
+        "B×change-feed"
+      ],
+      "endpoint_count": 5,
+      "python_prior_art": "Canary/canary/blueprints/receiving.py"
+    },
+    {
+      "name": "returns",
+      "port": 8097,
+      "priority": "P1",
+      "category": "merchant-facing",
+      "scope": "tenant-scoped",
+      "owner": "ALX",
+      "card": "Brain/wiki/cards/returns.md",
+      "cells": [
+        "B×change-feed"
+      ],
+      "endpoint_count": 2,
+      "python_prior_art": "Canary/canary/blueprints/returns.py"
+    },
+    {
+      "name": "pricing",
+      "port": 8094,
+      "priority": "P1",
+      "category": "merchant-facing",
+      "scope": "tenant-scoped",
+      "owner": "ALX",
+      "card": "Brain/wiki/cards/pricing.md",
+      "cells": [
+        "B×reference"
+      ],
+      "endpoint_count": 1,
+      "python_prior_art": "Canary/canary/blueprints/promotions.py"
+    },
+    {
+      "name": "task",
+      "port": 9311,
+      "priority": "P1",
+      "category": "merchant-facing",
+      "scope": "tenant-scoped",
+      "owner": "ALX",
+      "card": "Brain/wiki/cards/task.md",
+      "cells": [
+        "B×change-feed"
+      ],
+      "endpoint_count": 4,
+      "python_prior_art": null
+    },
+    {
+      "name": "asset",
+      "port": 8089,
+      "priority": "P1",
+      "category": "merchant-facing",
+      "scope": "tenant-scoped",
+      "owner": "ALX",
+      "card": "Brain/wiki/cards/asset.md",
+      "cells": [
+        "B×reference"
+      ],
+      "endpoint_count": 2,
+      "python_prior_art": "Canary/canary/blueprints/assets.py"
+    },
+    {
+      "name": "report",
+      "port": 8098,
+      "priority": "P1",
+      "category": "merchant-facing",
+      "scope": "tenant-scoped",
+      "owner": "ALX",
+      "card": "Brain/wiki/cards/report.md",
+      "cells": [
+        "B×reference"
+      ],
+      "endpoint_count": 15,
+      "python_prior_art": "Canary/canary/blueprints/reports.py"
+    },
+    {
+      "name": "billing",
+      "port": 9312,
+      "priority": "P1",
+      "category": "merchant-facing",
+      "scope": "tenant-scoped",
+      "owner": "ALX",
+      "card": "Brain/wiki/cards/billing.md",
+      "cells": [
+        "B×reference"
+      ],
+      "endpoint_count": 3,
+      "python_prior_art": "Canary/canary/blueprints/billing.py"
+    },
+    {
+      "name": "supplier",
+      "port": 9313,
+      "priority": "P1",
+      "category": "merchant-facing",
+      "scope": "tenant-scoped",
+      "owner": "ALX",
+      "card": "Brain/wiki/cards/supplier.md",
+      "cells": [
+        "B×change-feed"
+      ],
+      "endpoint_count": 4,
+      "python_prior_art": "Canary/canary/blueprints/suppliers.py"
+    },
+    {
+      "name": "po",
+      "port": 9314,
+      "priority": "P1",
+      "category": "merchant-facing",
+      "scope": "tenant-scoped",
+      "owner": "ALX",
+      "card": "Brain/wiki/cards/po.md",
+      "cells": [
+        "B×change-feed"
+      ],
+      "endpoint_count": 5,
+      "python_prior_art": "Canary/canary/blueprints/po.py"
+    },
+    {
+      "name": "order",
+      "port": 9315,
+      "priority": "P1",
+      "category": "merchant-facing",
+      "scope": "tenant-scoped",
+      "owner": "ALX",
+      "card": "Brain/wiki/cards/order.md",
+      "cells": [
+        "B×change-feed"
+      ],
+      "endpoint_count": 4,
+      "python_prior_art": "Canary/canary/blueprints/orders.py"
+    },
+    {
+      "name": "onboarding",
+      "port": 9316,
+      "priority": "P1",
+      "category": "merchant-facing",
+      "scope": "tenant-scoped",
+      "owner": "ALX",
+      "card": "Brain/wiki/cards/onboarding.md",
+      "cells": [
+        "B×reference"
+      ],
+      "endpoint_count": 6,
+      "python_prior_art": null
+    },
+    {
+      "name": "ecom",
+      "port": 9317,
+      "priority": "P1",
+      "category": "merchant-facing",
+      "scope": "tenant-scoped",
+      "owner": "ALX",
+      "card": "Brain/wiki/cards/ecom.md",
+      "cells": [
+        "B×reference"
+      ],
+      "endpoint_count": 2,
+      "python_prior_art": null
+    },
+    {
+      "name": "audit",
+      "port": 9320,
+      "priority": "P1",
+      "category": "tenant-scoped",
+      "scope": "tenant-scoped",
+      "owner": "ALX",
+      "card": "Brain/wiki/cards/audit.md",
+      "cells": [
+        "B×reference"
+      ],
+      "endpoint_count": 1,
+      "python_prior_art": "Canary/canary/blueprints/admin.py"
+    },
+    {
+      "name": "compliance",
+      "port": 9091,
+      "priority": "P1",
+      "category": "tenant-scoped",
+      "scope": "tenant-scoped",
+      "owner": "ALX",
+      "card": "Brain/wiki/cards/compliance.md",
+      "cells": [
+        "B×reference"
+      ],
+      "endpoint_count": 1,
+      "python_prior_art": "Canary/canary/blueprints/admin.py"
+    },
+    {
+      "name": "users",
+      "port": 9321,
+      "priority": "P2",
+      "category": "tenant-scoped",
+      "scope": "tenant-scoped",
+      "owner": "ALX",
+      "card": "Brain/wiki/cards/users.md",
+      "cells": [
+        "B×reference"
+      ],
+      "endpoint_count": 1,
+      "python_prior_art": "Canary/canary/blueprints/admin.py"
+    },
+    {
+      "name": "config",
+      "port": 9322,
+      "priority": "P1",
+      "category": "tenant-scoped",
+      "scope": "tenant-scoped",
+      "owner": "ALX",
+      "card": "Brain/wiki/cards/config.md",
+      "cells": [
+        "B×reference"
+      ],
+      "endpoint_count": 1,
+      "python_prior_art": "Canary/canary/blueprints/admin.py"
+    },
+    {
+      "name": "hierarchy",
+      "port": 9323,
+      "priority": "P1",
+      "category": "tenant-scoped",
+      "scope": "tenant-scoped",
+      "owner": "ALX",
+      "card": "Brain/wiki/cards/hierarchy.md",
+      "cells": [
+        "B×change-feed"
+      ],
+      "endpoint_count": 2,
+      "python_prior_art": "Canary/canary/blueprints/admin.py"
+    },
+    {
+      "name": "network-integrity",
+      "port": 9088,
+      "priority": "P1",
+      "category": "tenant-scoped",
+      "scope": "tenant-scoped",
+      "owner": "ALX",
+      "card": "Brain/wiki/cards/network-integrity.md",
+      "cells": [
+        "B×change-feed"
+      ],
+      "endpoint_count": 1,
+      "python_prior_art": "Canary/canary/blueprints/admin.py"
+    },
+    {
+      "name": "cross-store",
+      "port": 9324,
+      "priority": "P1",
+      "category": "tenant-scoped",
+      "scope": "tenant-scoped",
+      "owner": "ALX",
+      "card": "Brain/wiki/cards/cross-store.md",
+      "cells": [
+        "B×change-feed"
+      ],
+      "endpoint_count": 1,
+      "python_prior_art": "Canary/canary/blueprints/dashboards.py"
+    },
+    {
+      "name": "mobile",
+      "port": 9325,
+      "priority": "P1",
+      "category": "merchant-facing",
+      "scope": "tenant-scoped",
+      "owner": "ALX",
+      "card": "Brain/wiki/cards/mobile.md",
+      "cells": [
+        "B×reference"
+      ],
+      "endpoint_count": 4,
+      "python_prior_art": null
+    },
+    {
+      "name": "exception",
+      "port": 9326,
+      "priority": "P1",
+      "category": "merchant-facing",
+      "scope": "tenant-scoped",
+      "owner": "ALX",
+      "card": "Brain/wiki/cards/exception.md",
+      "cells": [
+        "B×change-feed"
+      ],
+      "endpoint_count": 2,
+      "python_prior_art": "Canary/canary/blueprints/exceptions.py"
+    },
+    {
+      "name": "workflow",
+      "port": 9327,
+      "priority": "P1",
+      "category": "merchant-facing",
+      "scope": "tenant-scoped",
+      "owner": "ALX",
+      "card": "Brain/wiki/cards/workflow.md",
+      "cells": [
+        "B×change-feed"
+      ],
+      "endpoint_count": 1,
+      "python_prior_art": null
+    },
+    {
+      "name": "protocol-portal",
+      "port": 9328,
+      "priority": "P1",
+      "category": "merchant-facing",
+      "scope": "tenant-scoped",
+      "owner": "ALX",
+      "card": "Brain/wiki/cards/protocol-portal.md",
+      "cells": [
+        "B×reference"
+      ],
+      "endpoint_count": 1,
+      "python_prior_art": null
+    },
+    {
+      "name": "api-docs",
+      "port": 9329,
+      "priority": "P0",
+      "category": "cross-tenant infra",
+      "scope": "cross-tenant",
+      "owner": "ALX",
+      "card": "Brain/wiki/cards/api-docs.md",
+      "cells": [
+        "B×reference"
+      ],
+      "endpoint_count": 1,
+      "python_prior_art": "Canary/canary/blueprints/devops_monitor.py"
+    },
+    {
+      "name": "etl",
+      "port": 9330,
+      "priority": "P0",
+      "category": "cross-tenant infra",
+      "scope": "cross-tenant",
+      "owner": "ALX",
+      "card": "Brain/wiki/cards/etl.md",
+      "cells": [
+        "B×daily-batch"
+      ],
+      "endpoint_count": 1,
+      "python_prior_art": "Canary/canary/services/metrics_etl.py"
+    },
+    {
+      "name": "wallet",
+      "port": 9331,
+      "priority": "P0",
+      "category": "cross-tenant infra",
+      "scope": "cross-tenant",
+      "owner": "ALX",
+      "card": "Brain/wiki/cards/wallet.md",
+      "cells": [
+        "B×reference"
+      ],
+      "endpoint_count": 1,
+      "python_prior_art": "Canary/canary/goose"
+    },
+    {
+      "name": "vault",
+      "port": 9332,
+      "priority": "P1",
+      "category": "cross-tenant infra",
+      "scope": "cross-tenant",
+      "owner": "ALX",
+      "card": "Brain/wiki/cards/vault.md",
+      "cells": [
+        "B×reference"
+      ],
+      "endpoint_count": 1,
+      "python_prior_art": null
+    },
+    {
+      "name": "flags",
+      "port": 9333,
+      "priority": "P1",
+      "category": "cross-tenant infra",
+      "scope": "cross-tenant",
+      "owner": "ALX",
+      "card": "Brain/wiki/cards/flags.md",
+      "cells": [
+        "B×reference"
+      ],
+      "endpoint_count": 1,
+      "python_prior_art": null
+    },
+    {
+      "name": "notifications",
+      "port": 9334,
+      "priority": "P1",
+      "category": "cross-tenant infra",
+      "scope": "cross-tenant",
+      "owner": "ALX",
+      "card": "Brain/wiki/cards/notifications.md",
+      "cells": [
+        "C×change-feed"
+      ],
+      "endpoint_count": 1,
+      "python_prior_art": null
+    },
+    {
+      "name": "risk-vocab",
+      "port": 9335,
+      "priority": "P1",
+      "category": "cross-tenant infra",
+      "scope": "cross-tenant",
+      "owner": "ALX",
+      "card": "Brain/wiki/cards/risk-vocab.md",
+      "cells": [
+        "B×reference"
+      ],
+      "endpoint_count": 1,
+      "python_prior_art": "Canary/canary/services/risk_vocab.py"
+    },
+    {
+      "name": "parsers",
+      "port": 9336,
+      "priority": "P1",
+      "category": "cross-tenant infra",
+      "scope": "cross-tenant",
+      "owner": "ALX",
+      "card": "Brain/wiki/cards/parsers.md",
+      "cells": [
+        "A×stream"
+      ],
+      "endpoint_count": 1,
+      "python_prior_art": "Canary/canary/services/parsers/"
+    },
+    {
+      "name": "rule-packs",
+      "port": 9337,
+      "priority": "P1",
+      "category": "cross-tenant infra",
+      "scope": "cross-tenant",
+      "owner": "ALX",
+      "card": "Brain/wiki/cards/rule-packs.md",
+      "cells": [
+        "B×reference"
+      ],
+      "endpoint_count": 1,
+      "python_prior_art": "Canary/canary/services/rule_packs/"
+    },
+    {
+      "name": "atlas",
+      "port": 9338,
+      "priority": "P1",
+      "category": "cross-tenant infra",
+      "scope": "cross-tenant",
+      "owner": "ALX",
+      "card": "Brain/wiki/cards/atlas.md",
+      "cells": [
+        "B×reference"
+      ],
+      "endpoint_count": 1,
+      "python_prior_art": "Canary/canary/atlas/"
+    },
+    {
+      "name": "method",
+      "port": 9339,
+      "priority": "P1",
+      "category": "cross-tenant infra",
+      "scope": "cross-tenant",
+      "owner": "ALX",
+      "card": "Brain/wiki/cards/method.md",
+      "cells": [
+        "B×reference"
+      ],
+      "endpoint_count": 1,
+      "python_prior_art": null
+    },
+    {
+      "name": "alx-agent",
+      "port": 9340,
+      "priority": "P2",
+      "category": "cross-tenant infra",
+      "scope": "cross-tenant",
+      "owner": "ALX",
+      "card": "Brain/wiki/cards/alx-agent.md",
+      "cells": [
+        "C×change-feed"
+      ],
+      "endpoint_count": 1,
+      "python_prior_art": "Canary/canary/qa_agent/"
+    },
+    {
+      "name": "condor",
+      "port": 9341,
+      "priority": "P2",
+      "category": "cross-tenant infra",
+      "scope": "cross-tenant",
+      "owner": "ALX",
+      "card": "Brain/wiki/cards/condor.md",
+      "cells": [
+        "C×change-feed"
+      ],
+      "endpoint_count": 1,
+      "python_prior_art": null
+    },
+    {
+      "name": "integrations",
+      "port": 9342,
+      "priority": "P1",
+      "category": "cross-tenant infra",
+      "scope": "cross-tenant",
+      "owner": "ALX",
+      "card": "Brain/wiki/cards/integrations.md",
+      "cells": [
+        "B×reference"
+      ],
+      "endpoint_count": 1,
+      "python_prior_art": null
+    },
+    {
+      "name": "devices",
+      "port": 9343,
+      "priority": "P1",
+      "category": "cross-tenant infra",
+      "scope": "cross-tenant",
+      "owner": "ALX",
+      "card": "Brain/wiki/cards/devices.md",
+      "cells": [
+        "A×stream"
+      ],
+      "endpoint_count": 1,
+      "python_prior_art": "Canary/canary/services/device_registry.py"
+    },
+    {
+      "name": "keys",
+      "port": 9344,
+      "priority": "P2",
+      "category": "cross-tenant infra",
+      "scope": "cross-tenant",
+      "owner": "ALX",
+      "card": "Brain/wiki/cards/keys.md",
+      "cells": [
+        "B×reference"
+      ],
+      "endpoint_count": 1,
+      "python_prior_art": null
+    },
+    {
+      "name": "tenants",
+      "port": 9345,
+      "priority": "P1",
+      "category": "cross-tenant infra",
+      "scope": "cross-tenant",
+      "owner": "ALX",
+      "card": "Brain/wiki/cards/tenants.md",
+      "cells": [
+        "B×reference"
+      ],
+      "endpoint_count": 1,
+      "python_prior_art": null
     }
   ],
   "totals": {
-    "service_count": 16,
-    "endpoint_count": 80
+    "service_count": 60,
+    "endpoint_count": 178
   }
 }
