@@ -685,9 +685,11 @@ For the `item.create.import` action specifically, each row's `payload_digest` co
 
 ## Open questions
 
-These need a decision before the build dispatch picks up. Filed as comments on GRO-877 OR as separate sub-tickets:
+These need a decision before the build dispatch picks up. Filed as comments on GRO-877 OR as separate sub-tickets.
 
-1. **Status lifecycle alignment.** Schema has `active | discontinued | seasonal | hidden`; parent card describes `Draft → Active → On Trial → Phase-Out → Inactive`. Recommend evolving the schema to add `draft`, `on_trial`, `phase_out`, `inactive` (a migration). The Draft → Active transition on first receiving is operationally meaningful and worth the schema change.
+> **Update 2026-05-08 (post-GRO-880):** The Counterpoint catalog data-model audit at [[counterpoint-catalog-data-model-audit]] revises several questions below. Most importantly: Counterpoint's REST surface is **narrower than its back-office UI** — Canary's schema is closer to REST altitude than initially feared. Question 4 (first-class style identity) is partially answered: Counterpoint represents grid items as flat sibling rows, not a hierarchical structure, so Canary's current sibling-rows-with-shared-attributes approach is correct. Other questions revised inline below.
+
+1. **Status lifecycle alignment.** Schema has `active | discontinued | seasonal | hidden`; parent card describes `Draft → Active → On Trial → Phase-Out → Inactive`. Recommend evolving the schema to add `draft`, `on_trial`, `phase_out`, `inactive` (a migration). The Draft → Active transition on first receiving is operationally meaningful and worth the schema change. **Counterpoint REST `STAT` data point (per GRO-880 audit): only active/inactive in REST**; richer Canary lifecycle is additive — Counterpoint sync rounds Canary states to active/inactive at the boundary.
 
 2. **`catalog.import_jobs` table.** Referenced extensively in Flow B and listed as an owned table in `canary-item.md`, but **not yet in the schema**. Migration needed before Flow B can ship: `(id, tenant_id, supplier_id, status, file_uri, column_mapping, summary, created_at, finalized_at, ...)` with the lifecycle states from the parent card.
 
@@ -717,6 +719,8 @@ These need a decision before the build dispatch picks up. Filed as comments on G
 ## See also
 
 - [[canary-item-master-and-catalog]] — parent substrate; this card extends.
+- [[counterpoint-catalog-data-model-audit]] — Counterpoint REST IM_ITEM / IM_INV / IM_CATEG / SN_SER / VendorItem field-level shapes; gap report + prioritized migration list.
+- [[square-sample-code-mechanics-inventory]] — Square sample-code patterns to lift (catalog batch upsert, idempotency keys, error envelope, webhook URL-in-signature, CSV gotchas, OAuth revoke recovery) and anti-patterns to avoid.
 - [[canary-item]] — service card (port, axis, owned tables, cadence-ladder placement).
 - [[retail-item-authorization]] — what's NOT in scope (other 3 authorization dimensions).
 - [[canary-mobile-task-ux-flows]] — mobile UX precedent + design principles.
