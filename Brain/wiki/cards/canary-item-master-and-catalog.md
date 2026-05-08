@@ -345,4 +345,6 @@ needs-review: false
 8. **Faire / NuOrder import** — Phase 2; valuable for boutique/gift operators on those platforms
 9. **Canary network catalog** — Phase 3; requires merchant scale to be useful
 
-[[Brain/wiki/cards/store-ops-capability-model]] · [[Brain/wiki/cards/canary-mobile-task-ux-flows]] · [[Brain/wiki/cards/canary-space-range-display-on-floor]] · [[Brain/wiki/cards/canary-purchase-order-lifecycle]] · [[Brain/projects/Canary]]
+The screen-by-screen specification for the three creation flows lives at [[canary-item-setup-screen-decomp]] (GRO-877). That card decomposes scan-to-lookup, supplier CSV import, and manual entry into per-screen field lists, validation rules, decision points, error states, and the table writes each screen produces — read it before opening the build dispatch for the item-setup UI.
+
+[[Brain/wiki/cards/store-ops-capability-model]] · [[Brain/wiki/cards/canary-mobile-task-ux-flows]] · [[Brain/wiki/cards/canary-item-setup-screen-decomp]] · [[Brain/wiki/cards/canary-space-range-display-on-floor]] · [[Brain/wiki/cards/canary-purchase-order-lifecycle]] · [[Brain/projects/Canary]]
