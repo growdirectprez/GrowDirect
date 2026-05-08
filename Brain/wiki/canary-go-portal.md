@@ -708,3 +708,156 @@ tenant-scoped  ·  Python prior art: none
 | Endpoint | Method | Tier | Axis | Auth | Status | Notes |
 |----------|--------|------|------|------|--------|-------|
 | /protocol | GET | reference | B | session | mounted | unified Bitcoin L2 + .jeffe + L402 overview (W7) |
+
+## api-docs · :9329 · cross-tenant infra · P0
+
+Owner: ALX  ·  Card: Brain/wiki/cards/api-docs.md  ·  Cells: [B × reference]
+cross-tenant  ·  Python prior art: Canary/canary/blueprints/devops_monitor.py
+
+| Endpoint | Method | Tier | Axis | Auth | Status | Notes |
+|----------|--------|------|------|------|--------|-------|
+| /devops/api-docs | GET | reference | B | apikey | mounted | Redoc rendering of openapi.yaml (GRO-842) |
+
+## etl · :9330 · cross-tenant infra · P0
+
+Owner: ALX  ·  Card: Brain/wiki/cards/etl.md  ·  Cells: [B × daily-batch]
+cross-tenant  ·  Python prior art: Canary/canary/services/metrics_etl.py
+
+| Endpoint | Method | Tier | Axis | Auth | Status | Notes |
+|----------|--------|------|------|------|--------|-------|
+| /devops/etl | GET | daily-batch | B | apikey | proposed | star-schema metric pipeline (T3B.5 recovery) |
+
+## wallet · :9331 · cross-tenant infra · P0
+
+Owner: ALX  ·  Card: Brain/wiki/cards/wallet.md  ·  Cells: [B × reference]
+cross-tenant  ·  Python prior art: Canary/canary/goose
+
+| Endpoint | Method | Tier | Axis | Auth | Status | Notes |
+|----------|--------|------|------|------|--------|-------|
+| /devops/wallet | GET | reference | B | apikey | proposed | L402 wallet + treasury + Strike Lightning (T3B.6 recovery) |
+
+## vault · :9332 · cross-tenant infra · P1
+
+Owner: ALX  ·  Card: Brain/wiki/cards/vault.md  ·  Cells: [B × reference]
+cross-tenant  ·  Python prior art: none
+
+| Endpoint | Method | Tier | Axis | Auth | Status | Notes |
+|----------|--------|------|------|------|--------|-------|
+| /devops/vault | GET | reference | B | apikey | proposed | secrets + signed-payload store viewer |
+
+## flags · :9333 · cross-tenant infra · P1
+
+Owner: ALX  ·  Card: Brain/wiki/cards/flags.md  ·  Cells: [B × reference]
+cross-tenant  ·  Python prior art: none
+
+| Endpoint | Method | Tier | Axis | Auth | Status | Notes |
+|----------|--------|------|------|------|--------|-------|
+| /devops/flags | GET | reference | B | apikey | proposed | feature-flag registry + tenant overrides |
+
+## notifications · :9334 · cross-tenant infra · P1
+
+Owner: ALX  ·  Card: Brain/wiki/cards/notifications.md  ·  Cells: [C × change-feed]
+cross-tenant  ·  Python prior art: none
+
+| Endpoint | Method | Tier | Axis | Auth | Status | Notes |
+|----------|--------|------|------|------|--------|-------|
+| /devops/notifications | GET | change-feed | C | apikey | proposed | notification dispatch queue + delivery status |
+
+## risk-vocab · :9335 · cross-tenant infra · P1
+
+Owner: ALX  ·  Card: Brain/wiki/cards/risk-vocab.md  ·  Cells: [B × reference]
+cross-tenant  ·  Python prior art: Canary/canary/services/risk_vocab.py
+
+| Endpoint | Method | Tier | Axis | Auth | Status | Notes |
+|----------|--------|------|------|------|--------|-------|
+| /devops/risk-vocab | GET | reference | B | apikey | proposed | risk dictionary (Owl entity types, severity scales) |
+
+## parsers · :9336 · cross-tenant infra · P1
+
+Owner: ALX  ·  Card: Brain/wiki/cards/parsers.md  ·  Cells: [A × stream]
+cross-tenant  ·  Python prior art: Canary/canary/services/parsers/
+
+| Endpoint | Method | Tier | Axis | Auth | Status | Notes |
+|----------|--------|------|------|------|--------|-------|
+| /devops/parsers | GET | stream | A | apikey | proposed | POS parser registry (canonical event taxonomy) |
+
+## rule-packs · :9337 · cross-tenant infra · P1
+
+Owner: ALX  ·  Card: Brain/wiki/cards/rule-packs.md  ·  Cells: [B × reference]
+cross-tenant  ·  Python prior art: Canary/canary/services/rule_packs/
+
+| Endpoint | Method | Tier | Axis | Auth | Status | Notes |
+|----------|--------|------|------|------|--------|-------|
+| /devops/rule-packs | GET | reference | B | apikey | proposed | rule-pack catalog (Q module) |
+
+## atlas · :9338 · cross-tenant infra · P1
+
+Owner: ALX  ·  Card: Brain/wiki/cards/atlas.md  ·  Cells: [B × reference]
+cross-tenant  ·  Python prior art: Canary/canary/atlas/
+
+| Endpoint | Method | Tier | Axis | Auth | Status | Notes |
+|----------|--------|------|------|------|--------|-------|
+| /devops/atlas | GET | reference | B | apikey | proposed | Mermaid diagram engine + system map |
+
+## method · :9339 · cross-tenant infra · P1
+
+Owner: ALX  ·  Card: Brain/wiki/cards/method.md  ·  Cells: [B × reference]
+cross-tenant  ·  Python prior art: none
+
+| Endpoint | Method | Tier | Axis | Auth | Status | Notes |
+|----------|--------|------|------|------|--------|-------|
+| /devops/method | GET | reference | B | apikey | proposed | method / playbook registry (Canary methodology) |
+
+## alx-agent · :9340 · cross-tenant infra · P2
+
+Owner: ALX  ·  Card: Brain/wiki/cards/alx-agent.md  ·  Cells: [C × change-feed]
+cross-tenant  ·  Python prior art: Canary/canary/qa_agent/
+
+| Endpoint | Method | Tier | Axis | Auth | Status | Notes |
+|----------|--------|------|------|------|--------|-------|
+| /devops/alx-agent | GET | change-feed | C | apikey | proposed | ALX operator-agent surface (page-aware) |
+
+## condor · :9341 · cross-tenant infra · P2
+
+Owner: ALX  ·  Card: Brain/wiki/cards/condor.md  ·  Cells: [C × change-feed]
+cross-tenant  ·  Python prior art: none
+
+| Endpoint | Method | Tier | Axis | Auth | Status | Notes |
+|----------|--------|------|------|------|--------|-------|
+| /devops/condor | GET | change-feed | C | apikey | proposed | Condor agent surface (planned) |
+
+## integrations · :9342 · cross-tenant infra · P1
+
+Owner: ALX  ·  Card: Brain/wiki/cards/integrations.md  ·  Cells: [B × reference]
+cross-tenant  ·  Python prior art: none
+
+| Endpoint | Method | Tier | Axis | Auth | Status | Notes |
+|----------|--------|------|------|------|--------|-------|
+| /devops/integrations | GET | reference | B | apikey | proposed | external integration catalog (POS, accounting, ecom) |
+
+## devices · :9343 · cross-tenant infra · P1
+
+Owner: ALX  ·  Card: Brain/wiki/cards/devices.md  ·  Cells: [A × stream]
+cross-tenant  ·  Python prior art: Canary/canary/services/device_registry.py
+
+| Endpoint | Method | Tier | Axis | Auth | Status | Notes |
+|----------|--------|------|------|------|--------|-------|
+| /devops/devices | GET | stream | A | apikey | proposed | device registry + heartbeat NOC |
+
+## keys · :9344 · cross-tenant infra · P2
+
+Owner: ALX  ·  Card: Brain/wiki/cards/keys.md  ·  Cells: [B × reference]
+cross-tenant  ·  Python prior art: none
+
+| Endpoint | Method | Tier | Axis | Auth | Status | Notes |
+|----------|--------|------|------|------|--------|-------|
+| /devops/keys | GET | reference | B | apikey | proposed | API key admin (blocked on GRO-769 identity + GRO-770 admin module) |
+
+## tenants · :9345 · cross-tenant infra · P1
+
+Owner: ALX  ·  Card: Brain/wiki/cards/tenants.md  ·  Cells: [B × reference]
+cross-tenant  ·  Python prior art: none
+
+| Endpoint | Method | Tier | Axis | Auth | Status | Notes |
+|----------|--------|------|------|------|--------|-------|
+| /devops/tenants | GET | reference | B | apikey | proposed | tenant directory + lifecycle |

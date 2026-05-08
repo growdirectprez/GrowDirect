@@ -1,8 +1,8 @@
 version: '1.0'
 generated_from:
 - path: Brain/wiki/canary-go-portal.md
-  sha256: cd22f45061a2c13540b069cadc07b6c0f36128e98e44ac1cd235ec547520513f
-  bytes: 41145
+  sha256: c391d679838ee9d9c8554696b6dc032148b2a00c712ed8afac8b1b055c3bd302
+  bytes: 48177
 - path: docs/sdds/go-handoff/microservice-architecture.md
   sha256: 1f79a8f0258eb7cf663252423a3bcb07b9228f8900ef59097477fbc042f760cc
   bytes: 105768
@@ -2150,6 +2150,380 @@ services:
     auth: session
     status: mounted
     notes: unified Bitcoin L2 + .jeffe + L402 overview (W7)
+    rate_limit: null
+    cache_ttl: null
+    handler: null
+- name: api-docs
+  port: 9329
+  owner: ALX
+  card: Brain/wiki/cards/api-docs.md
+  priority: P0
+  scope: cross-tenant
+  category: cross-tenant infra
+  python_prior_art: Canary/canary/blueprints/devops_monitor.py
+  cells:
+  - "B\xD7reference"
+  depends_on: []
+  endpoints:
+  - method: GET
+    path: /devops/api-docs
+    tier: reference
+    axis: B
+    auth: apikey
+    status: mounted
+    notes: Redoc rendering of openapi.yaml (GRO-842)
+    rate_limit: null
+    cache_ttl: null
+    handler: null
+- name: etl
+  port: 9330
+  owner: ALX
+  card: Brain/wiki/cards/etl.md
+  priority: P0
+  scope: cross-tenant
+  category: cross-tenant infra
+  python_prior_art: Canary/canary/services/metrics_etl.py
+  cells:
+  - "B\xD7daily-batch"
+  depends_on: []
+  endpoints:
+  - method: GET
+    path: /devops/etl
+    tier: daily-batch
+    axis: B
+    auth: apikey
+    status: proposed
+    notes: star-schema metric pipeline (T3B.5 recovery)
+    rate_limit: null
+    cache_ttl: null
+    handler: null
+- name: wallet
+  port: 9331
+  owner: ALX
+  card: Brain/wiki/cards/wallet.md
+  priority: P0
+  scope: cross-tenant
+  category: cross-tenant infra
+  python_prior_art: Canary/canary/goose
+  cells:
+  - "B\xD7reference"
+  depends_on: []
+  endpoints:
+  - method: GET
+    path: /devops/wallet
+    tier: reference
+    axis: B
+    auth: apikey
+    status: proposed
+    notes: L402 wallet + treasury + Strike Lightning (T3B.6 recovery)
+    rate_limit: null
+    cache_ttl: null
+    handler: null
+- name: vault
+  port: 9332
+  owner: ALX
+  card: Brain/wiki/cards/vault.md
+  priority: P1
+  scope: cross-tenant
+  category: cross-tenant infra
+  python_prior_art: null
+  cells:
+  - "B\xD7reference"
+  depends_on: []
+  endpoints:
+  - method: GET
+    path: /devops/vault
+    tier: reference
+    axis: B
+    auth: apikey
+    status: proposed
+    notes: secrets + signed-payload store viewer
+    rate_limit: null
+    cache_ttl: null
+    handler: null
+- name: flags
+  port: 9333
+  owner: ALX
+  card: Brain/wiki/cards/flags.md
+  priority: P1
+  scope: cross-tenant
+  category: cross-tenant infra
+  python_prior_art: null
+  cells:
+  - "B\xD7reference"
+  depends_on: []
+  endpoints:
+  - method: GET
+    path: /devops/flags
+    tier: reference
+    axis: B
+    auth: apikey
+    status: proposed
+    notes: feature-flag registry + tenant overrides
+    rate_limit: null
+    cache_ttl: null
+    handler: null
+- name: notifications
+  port: 9334
+  owner: ALX
+  card: Brain/wiki/cards/notifications.md
+  priority: P1
+  scope: cross-tenant
+  category: cross-tenant infra
+  python_prior_art: null
+  cells:
+  - "C\xD7change-feed"
+  depends_on: []
+  endpoints:
+  - method: GET
+    path: /devops/notifications
+    tier: change-feed
+    axis: C
+    auth: apikey
+    status: proposed
+    notes: notification dispatch queue + delivery status
+    rate_limit: null
+    cache_ttl: null
+    handler: null
+- name: risk-vocab
+  port: 9335
+  owner: ALX
+  card: Brain/wiki/cards/risk-vocab.md
+  priority: P1
+  scope: cross-tenant
+  category: cross-tenant infra
+  python_prior_art: Canary/canary/services/risk_vocab.py
+  cells:
+  - "B\xD7reference"
+  depends_on: []
+  endpoints:
+  - method: GET
+    path: /devops/risk-vocab
+    tier: reference
+    axis: B
+    auth: apikey
+    status: proposed
+    notes: risk dictionary (Owl entity types, severity scales)
+    rate_limit: null
+    cache_ttl: null
+    handler: null
+- name: parsers
+  port: 9336
+  owner: ALX
+  card: Brain/wiki/cards/parsers.md
+  priority: P1
+  scope: cross-tenant
+  category: cross-tenant infra
+  python_prior_art: Canary/canary/services/parsers/
+  cells:
+  - "A\xD7stream"
+  depends_on: []
+  endpoints:
+  - method: GET
+    path: /devops/parsers
+    tier: stream
+    axis: A
+    auth: apikey
+    status: proposed
+    notes: POS parser registry (canonical event taxonomy)
+    rate_limit: null
+    cache_ttl: null
+    handler: null
+- name: rule-packs
+  port: 9337
+  owner: ALX
+  card: Brain/wiki/cards/rule-packs.md
+  priority: P1
+  scope: cross-tenant
+  category: cross-tenant infra
+  python_prior_art: Canary/canary/services/rule_packs/
+  cells:
+  - "B\xD7reference"
+  depends_on: []
+  endpoints:
+  - method: GET
+    path: /devops/rule-packs
+    tier: reference
+    axis: B
+    auth: apikey
+    status: proposed
+    notes: rule-pack catalog (Q module)
+    rate_limit: null
+    cache_ttl: null
+    handler: null
+- name: atlas
+  port: 9338
+  owner: ALX
+  card: Brain/wiki/cards/atlas.md
+  priority: P1
+  scope: cross-tenant
+  category: cross-tenant infra
+  python_prior_art: Canary/canary/atlas/
+  cells:
+  - "B\xD7reference"
+  depends_on: []
+  endpoints:
+  - method: GET
+    path: /devops/atlas
+    tier: reference
+    axis: B
+    auth: apikey
+    status: proposed
+    notes: Mermaid diagram engine + system map
+    rate_limit: null
+    cache_ttl: null
+    handler: null
+- name: method
+  port: 9339
+  owner: ALX
+  card: Brain/wiki/cards/method.md
+  priority: P1
+  scope: cross-tenant
+  category: cross-tenant infra
+  python_prior_art: null
+  cells:
+  - "B\xD7reference"
+  depends_on: []
+  endpoints:
+  - method: GET
+    path: /devops/method
+    tier: reference
+    axis: B
+    auth: apikey
+    status: proposed
+    notes: method / playbook registry (Canary methodology)
+    rate_limit: null
+    cache_ttl: null
+    handler: null
+- name: alx-agent
+  port: 9340
+  owner: ALX
+  card: Brain/wiki/cards/alx-agent.md
+  priority: P2
+  scope: cross-tenant
+  category: cross-tenant infra
+  python_prior_art: Canary/canary/qa_agent/
+  cells:
+  - "C\xD7change-feed"
+  depends_on: []
+  endpoints:
+  - method: GET
+    path: /devops/alx-agent
+    tier: change-feed
+    axis: C
+    auth: apikey
+    status: proposed
+    notes: ALX operator-agent surface (page-aware)
+    rate_limit: null
+    cache_ttl: null
+    handler: null
+- name: condor
+  port: 9341
+  owner: ALX
+  card: Brain/wiki/cards/condor.md
+  priority: P2
+  scope: cross-tenant
+  category: cross-tenant infra
+  python_prior_art: null
+  cells:
+  - "C\xD7change-feed"
+  depends_on: []
+  endpoints:
+  - method: GET
+    path: /devops/condor
+    tier: change-feed
+    axis: C
+    auth: apikey
+    status: proposed
+    notes: Condor agent surface (planned)
+    rate_limit: null
+    cache_ttl: null
+    handler: null
+- name: integrations
+  port: 9342
+  owner: ALX
+  card: Brain/wiki/cards/integrations.md
+  priority: P1
+  scope: cross-tenant
+  category: cross-tenant infra
+  python_prior_art: null
+  cells:
+  - "B\xD7reference"
+  depends_on: []
+  endpoints:
+  - method: GET
+    path: /devops/integrations
+    tier: reference
+    axis: B
+    auth: apikey
+    status: proposed
+    notes: external integration catalog (POS, accounting, ecom)
+    rate_limit: null
+    cache_ttl: null
+    handler: null
+- name: devices
+  port: 9343
+  owner: ALX
+  card: Brain/wiki/cards/devices.md
+  priority: P1
+  scope: cross-tenant
+  category: cross-tenant infra
+  python_prior_art: Canary/canary/services/device_registry.py
+  cells:
+  - "A\xD7stream"
+  depends_on: []
+  endpoints:
+  - method: GET
+    path: /devops/devices
+    tier: stream
+    axis: A
+    auth: apikey
+    status: proposed
+    notes: device registry + heartbeat NOC
+    rate_limit: null
+    cache_ttl: null
+    handler: null
+- name: keys
+  port: 9344
+  owner: ALX
+  card: Brain/wiki/cards/keys.md
+  priority: P2
+  scope: cross-tenant
+  category: cross-tenant infra
+  python_prior_art: null
+  cells:
+  - "B\xD7reference"
+  depends_on: []
+  endpoints:
+  - method: GET
+    path: /devops/keys
+    tier: reference
+    axis: B
+    auth: apikey
+    status: proposed
+    notes: API key admin (blocked on GRO-769 identity + GRO-770 admin module)
+    rate_limit: null
+    cache_ttl: null
+    handler: null
+- name: tenants
+  port: 9345
+  owner: ALX
+  card: Brain/wiki/cards/tenants.md
+  priority: P1
+  scope: cross-tenant
+  category: cross-tenant infra
+  python_prior_art: null
+  cells:
+  - "B\xD7reference"
+  depends_on: []
+  endpoints:
+  - method: GET
+    path: /devops/tenants
+    tier: reference
+    axis: B
+    auth: apikey
+    status: proposed
+    notes: tenant directory + lifecycle
     rate_limit: null
     cache_ttl: null
     handler: null
