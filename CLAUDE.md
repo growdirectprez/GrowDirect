@@ -132,7 +132,7 @@ ALXjr's capabilities — memory recall, domain context, embeddings, Canary Go se
 cd ~/GrowDirect/devops && docker compose up -d
 
 # 2. Canary Go stack (compose lives in deploy/, not devops/)
-cd ~/GrowDirect/CanaryGo && docker compose -f deploy/docker-compose.yml up -d
+cd ~/CanaryGo && docker compose -f deploy/docker-compose.yml up -d
 
 # 3. Verify memory bus is reachable
 curl -s http://127.0.0.1:8003/mcp | head -1

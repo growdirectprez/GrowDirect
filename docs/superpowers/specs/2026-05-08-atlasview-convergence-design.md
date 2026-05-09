@@ -92,7 +92,7 @@ Tim PDF v3 §6 specifies fields the legacy AtlasView platform does not implement
 ## References
 
 - `~/GrowDirect/CLAUDE.md` — firm umbrella standards
-- `~/GrowDirect/CanaryGo/CLAUDE.md` — Canary Go agent rules + stack
+- `~/CanaryGo/CLAUDE.md` — Canary Go agent rules + stack
 - `~/GrowDirect/docs/sdds/go-handoff/identity.md` — identity service architecture (Tenant + Hierarchy + role binding source)
 - `~/GrowDirect/docs/sdds/go-handoff/data-model.md` — canary.go data conventions
 - `~/Cove/docs/bylaws-as-config.md` — bylaws-as-config worked example

@@ -31,8 +31,8 @@
 - [ ] **Step 1.1: Create directory and initialize module**
 
 ```bash
-mkdir -p ~/GrowDirect/CanaryGo
-cd ~/GrowDirect/CanaryGo
+mkdir -p ~/CanaryGo
+cd ~/CanaryGo
 go mod init github.com/growdirect-llc/rapidpos
 ```
 
@@ -41,7 +41,7 @@ Expected: `go.mod` created with `module github.com/growdirect-llc/rapidpos` and 
 - [ ] **Step 1.2: Add all pinned dependencies**
 
 ```bash
-cd ~/GrowDirect/CanaryGo
+cd ~/CanaryGo
 go get github.com/go-chi/chi/v5@v5.1.0
 go get github.com/jackc/pgx/v5@v5.6.0
 go get github.com/redis/go-redis/v9@v9.5.0
@@ -82,7 +82,7 @@ git commit -m "feat(canarygo): initialize Go module github.com/growdirect-llc/ra
 - [ ] **Step 2.1: Create all cmd/ directories**
 
 ```bash
-cd ~/GrowDirect/CanaryGo
+cd ~/CanaryGo
 mkdir -p cmd/identity cmd/tsp cmd/gateway cmd/chirp cmd/alert cmd/fox \
          cmd/owl cmd/analytics cmd/hawk cmd/bull cmd/asset cmd/item \
          cmd/inventory cmd/receiving cmd/transfer cmd/pricing \
@@ -256,7 +256,7 @@ lint:
 - [ ] **Step 4.2: Verify Makefile parses**
 
 ```bash
-cd ~/GrowDirect/CanaryGo
+cd ~/CanaryGo
 make lint
 ```
 
@@ -416,7 +416,7 @@ Expected: both containers running. If not: `cd ~/GrowDirect/devops && docker com
 - [ ] **Step 6.3: Run dbinit to create databases**
 
 ```bash
-cd ~/GrowDirect/CanaryGo
+cd ~/CanaryGo
 docker compose -f deploy/docker-compose.yml run --rm canarygo-dbinit
 ```
 
@@ -1201,7 +1201,7 @@ ON CONFLICT (code) DO NOTHING;
 - [ ] **Step 9.2: Apply all 14 migrations**
 
 ```bash
-cd ~/GrowDirect/CanaryGo
+cd ~/CanaryGo
 DATABASE_URL="postgres://growdirect:growdirect_dev@localhost:5432/canary_go?sslmode=disable"
 migrate -path=deploy/migrations -database="$DATABASE_URL" up
 ```
@@ -1413,7 +1413,7 @@ RETURNING id, merchant_id, external_id, arts_business_date, total_cents, created
 - [ ] **Step 10.4: Run sqlc generate**
 
 ```bash
-cd ~/GrowDirect/CanaryGo
+cd ~/CanaryGo
 sqlc generate
 ```
 
@@ -1499,7 +1499,7 @@ func getOr(key, def string) string {
 - [ ] **Step 11.2: Verify it compiles**
 
 ```bash
-cd ~/GrowDirect/CanaryGo
+cd ~/CanaryGo
 go build ./internal/config/
 ```
 
@@ -1558,7 +1558,7 @@ func Connect(ctx context.Context, databaseURL string) (*pgxpool.Pool, error) {
 - [ ] **Step 12.2: Verify it compiles**
 
 ```bash
-cd ~/GrowDirect/CanaryGo
+cd ~/CanaryGo
 go build ./internal/db/
 ```
 
@@ -1805,7 +1805,7 @@ func TruncateTables(t *testing.T, pool *pgxpool.Pool, tables ...string) {
 - [ ] **Step 13.6: Verify all packages compile**
 
 ```bash
-cd ~/GrowDirect/CanaryGo
+cd ~/CanaryGo
 go build ./internal/...
 ```
 
@@ -1895,7 +1895,7 @@ func TestInvalidSignature(t *testing.T) {
 - [ ] **Step 14.2: Run test — expect failure**
 
 ```bash
-cd ~/GrowDirect/CanaryGo
+cd ~/CanaryGo
 go test ./internal/auth/ -v
 ```
 
@@ -2002,7 +2002,7 @@ func BearerMiddleware(sessionSecret string) func(http.Handler) http.Handler {
 - [ ] **Step 14.5: Run test — expect pass**
 
 ```bash
-cd ~/GrowDirect/CanaryGo
+cd ~/CanaryGo
 go test ./internal/auth/ -v
 ```
 
@@ -2157,7 +2157,7 @@ func parseValkeyAddr(url string) string {
 - [ ] **Step 15.2: Run tests — expect compile failure**
 
 ```bash
-cd ~/GrowDirect/CanaryGo
+cd ~/CanaryGo
 DATABASE_URL="postgres://growdirect:growdirect_dev@localhost:5432/canary_go_test?sslmode=disable" \
 VALKEY_URL="redis://localhost:6379/2" \
 SESSION_SECRET="test-session-secret-at-least-32-bytes!" \
@@ -2391,7 +2391,7 @@ func parseValkeyDB(valkeyURL string) int {
 - [ ] **Step 16.4: Run identity tests — expect pass**
 
 ```bash
-cd ~/GrowDirect/CanaryGo
+cd ~/CanaryGo
 DATABASE_URL="postgres://growdirect:growdirect_dev@localhost:5432/canary_go_test?sslmode=disable" \
 VALKEY_URL="redis://localhost:6379/2" \
 SESSION_SECRET="test-session-secret-at-least-32-bytes!" \
@@ -2404,7 +2404,7 @@ Expected: `PASS` for all four tests (health, missing body, expired token, valid-
 - [ ] **Step 16.5: Build identity binary**
 
 ```bash
-cd ~/GrowDirect/CanaryGo
+cd ~/CanaryGo
 go build -o bin/identity ./cmd/identity
 ```
 
@@ -2425,7 +2425,7 @@ git commit -m "feat(canarygo): identity service — /health + /sessions/validate
 - [ ] **Step 17.1: Build and start**
 
 ```bash
-cd ~/GrowDirect/CanaryGo
+cd ~/CanaryGo
 docker compose -f deploy/docker-compose.yml up --build canarygo-identity -d
 ```
 
@@ -2530,10 +2530,10 @@ func healthHandler(cfg *config.Config) http.HandlerFunc {
 
 - [ ] **Step 18.2: Write all 19 stub files using a generation script**
 
-Apply the template above once per service. The safest approach is a shell loop — it produces one file per service with no manual substitution errors. Run from `~/GrowDirect/CanaryGo`:
+Apply the template above once per service. The safest approach is a shell loop — it produces one file per service with no manual substitution errors. Run from `~/CanaryGo`:
 
 ```bash
-cd ~/GrowDirect/CanaryGo
+cd ~/CanaryGo
 
 declare -A PORTS
 PORTS[tsp]=8080 PORTS[gateway]=8079 PORTS[chirp]=8081 PORTS[alert]=8087
@@ -2597,7 +2597,7 @@ done
 - [ ] **Step 18.2a: Verify all 19 stub files were created**
 
 ```bash
-cd ~/GrowDirect/CanaryGo
+cd ~/CanaryGo
 for svc in tsp gateway chirp alert fox owl analytics hawk bull \
            asset item inventory receiving transfer pricing employee \
            customer returns report; do
@@ -2649,7 +2649,7 @@ func main() {
 - [ ] **Step 18.3: Build all binaries**
 
 ```bash
-cd ~/GrowDirect/CanaryGo
+cd ~/CanaryGo
 make build-all
 ```
 
@@ -2680,7 +2680,7 @@ git commit -m "feat(canarygo): all 19 service stubs compiling — M1 service ske
 M1 has no down migrations (deferred to post-M1). Verify idempotency and clean state using the test database instead.
 
 ```bash
-cd ~/GrowDirect/CanaryGo
+cd ~/CanaryGo
 # Apply all 14 migrations to test DB (created during dbinit)
 TEST_DB="postgres://growdirect:growdirect_dev@localhost:5432/canary_go_test?sslmode=disable"
 migrate -path=deploy/migrations -database="$TEST_DB" up
@@ -2698,7 +2698,7 @@ Expected: `no change` — confirms all `CREATE TABLE IF NOT EXISTS` / `CREATE IN
 - [ ] **Step 19.2: Full test suite**
 
 ```bash
-cd ~/GrowDirect/CanaryGo
+cd ~/CanaryGo
 make test
 ```
 
