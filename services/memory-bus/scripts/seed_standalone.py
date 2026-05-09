@@ -110,30 +110,71 @@ DATABASE_URL = os.environ.get(
     "DATABASE_URL",
     "postgresql://growdirect:growdirect_dev@localhost:5432/growdirect_memory",
 )
-EMBEDDING_MODEL = "qwen3-embedding:8b"
-EMBEDDING_DIM = 1024
+EMBED_BACKEND = os.environ.get("EMBED_BACKEND", "ollama")  # "ollama" or "vertex"
+EMBEDDING_MODEL = os.environ.get("EMBEDDING_MODEL", "qwen3-embedding:8b")
+EMBEDDING_DIM = int(os.environ.get("EMBEDDING_DIM", "1024"))
 MAX_TEXT = 6000
+
+
+_vertex_credentials = None
+
+
+def _get_vertex_token() -> str:
+    global _vertex_credentials
+    import google.auth
+    import google.auth.transport.requests
+    if _vertex_credentials is None:
+        _vertex_credentials, _ = google.auth.default(
+            scopes=["https://www.googleapis.com/auth/cloud-platform"]
+        )
+    req = google.auth.transport.requests.Request()
+    _vertex_credentials.refresh(req)
+    return _vertex_credentials.token
 
 
 def get_embedding(text: str) -> list[float] | None:
     try:
-        r = httpx.post(
-            f"{OLLAMA_URL}/api/embed",
-            json={"model": EMBEDDING_MODEL, "input": text[:MAX_TEXT], "keep_alive": -1},
-            timeout=300.0,
-        )
-        r.raise_for_status()
-        return [float(v) for v in r.json()["embeddings"][0][:EMBEDDING_DIM]]
+        if EMBED_BACKEND == "vertex":
+            gcp_project = os.environ.get("GOOGLE_CLOUD_PROJECT", "growdirect-mercury")
+            gcp_region = os.environ.get("GOOGLE_CLOUD_REGION", "us-central1")
+            token = _get_vertex_token()
+            url = (
+                f"https://{gcp_region}-aiplatform.googleapis.com/v1"
+                f"/projects/{gcp_project}/locations/{gcp_region}"
+                f"/publishers/google/models/{EMBEDDING_MODEL}:predict"
+            )
+            r = httpx.post(
+                url,
+                headers={"Authorization": f"Bearer {token}", "Content-Type": "application/json"},
+                json={"instances": [{"content": text[:MAX_TEXT]}]},
+                timeout=60.0,
+            )
+            r.raise_for_status()
+            values = r.json()["predictions"][0]["embeddings"]["values"]
+            return [float(v) for v in values[:EMBEDDING_DIM]]
+        else:
+            r = httpx.post(
+                f"{OLLAMA_URL}/api/embed",
+                json={"model": EMBEDDING_MODEL, "input": text[:MAX_TEXT], "keep_alive": -1},
+                timeout=300.0,
+            )
+            r.raise_for_status()
+            return [float(v) for v in r.json()["embeddings"][0][:EMBEDDING_DIM]]
     except Exception as e:
         print(f"  WARN: embedding failed — {e}", file=sys.stderr)
         return None
 
 
-def collect_files() -> list[tuple[Path, dict]]:
+def collect_files(include_patterns=None) -> list[tuple[Path, dict]]:
+    import fnmatch
     rows = []
     for src in SOURCES:
-        for f in sorted(GROWDIRECT_ROOT.glob(src["glob"])):
-            rows.append((f, src))
+        for path in sorted(GROWDIRECT_ROOT.glob(src["glob"])):
+            if include_patterns:
+                rel = str(path.relative_to(GROWDIRECT_ROOT))
+                if not any(fnmatch.fnmatch(rel, p.strip()) for p in include_patterns):
+                    continue
+            rows.append((path, src))
     return rows
 
 
@@ -154,6 +195,16 @@ def main():
     parser = argparse.ArgumentParser()
     parser.add_argument("--dry-run", action="store_true")
     parser.add_argument("--drop-first", action="store_true")
+    parser.add_argument(
+        "--include-paths",
+        type=str,
+        default=None,
+        help=(
+            "Comma-separated glob patterns relative to repo root. "
+            "When set, only files matching at least one pattern are seeded. "
+            "Example: Brain/wiki/cards/canary-*.md,Brain/wiki/cards/ncr-*.md"
+        ),
+    )
     args = parser.parse_args()
 
     # --- Exclusive lock: only one seed process at a time ---
@@ -172,7 +223,12 @@ def main():
         lock_fh.flush()
     # -------------------------------------------------------
 
-    all_files = collect_files()
+    include_patterns = (
+        [p.strip() for p in args.include_paths.split(",") if p.strip()]
+        if args.include_paths
+        else None
+    )
+    all_files = collect_files(include_patterns=include_patterns)
 
     if args.dry_run:
         print(f"Found {len(all_files)} source files across {len(SOURCES)} globs")
@@ -250,7 +306,7 @@ def main():
                     engines = %s, updated_at = now()
                 WHERE session_id = %s AND metadata->>'source_file' = %s
                 """,
-                (content, str(embedding), json.dumps(meta), engines, SEED_SESSION_ID, rel),
+                (content, str(embedding), json.dumps(meta), json.dumps(engines), SEED_SESSION_ID, rel),
             )
             updated += 1
         else:
@@ -269,7 +325,7 @@ def main():
                     str(embedding),
                     json.dumps(meta),
                     src["layer"],
-                    engines,
+                    json.dumps(engines),
                 ),
             )
             inserted += 1

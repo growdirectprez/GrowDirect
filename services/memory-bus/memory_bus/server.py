@@ -178,5 +178,27 @@ def domain_context(
     return json.dumps(result, default=str)
 
 
+@mcp.tool()
+def audit_event(
+    event_type: str,
+    layer: str,
+    artifact_id: Optional[str] = None,
+    payload: Optional[dict] = None,
+    api_key: Optional[str] = None,
+) -> str:
+    """Append an audit event to the append-only audit_events table."""
+    try:
+        validate_api_key(api_key)
+    except AuthError as e:
+        return json.dumps({"error": str(e)})
+    result = store.write_audit_event(
+        event_type=event_type,
+        layer=layer,
+        artifact_id=artifact_id,
+        payload=payload or {},
+    )
+    return json.dumps(result, default=str)
+
+
 if __name__ == "__main__":
     mcp.run(transport="streamable-http")

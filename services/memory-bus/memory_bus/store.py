@@ -662,3 +662,29 @@ class MemoryStore:
                 best_block = wf
 
         return best_block or (workflows[0] if workflows else None)
+
+    def write_audit_event(
+        self,
+        event_type: str,
+        layer: str,
+        artifact_id=None,
+        payload: dict | None = None,
+    ) -> dict:
+        row_id = uuid.uuid4()
+        with self._session() as db:
+            db.execute(
+                text(
+                    """INSERT INTO audit_events
+                       (id, artifact_id, event_type, layer, payload)
+                       VALUES (:id, :artifact_id, :event_type, :layer, CAST(:payload AS jsonb))"""
+                ),
+                {
+                    "id": str(row_id),
+                    "artifact_id": str(artifact_id) if artifact_id else None,
+                    "event_type": event_type,
+                    "layer": layer,
+                    "payload": json.dumps(payload or {}),
+                },
+            )
+            db.commit()
+        return {"id": str(row_id)}

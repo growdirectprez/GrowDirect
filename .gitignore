@@ -84,3 +84,7 @@ devops/.env
 .cursor/
 CanaryGo/.superpowers/
 .superpowers/
+
+# ALX agent local state (path tracks alx-agent → alx rename)
+services/alx/.env
+services/alx/.adk/
