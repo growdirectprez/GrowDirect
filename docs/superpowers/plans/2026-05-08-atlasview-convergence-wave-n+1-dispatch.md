@@ -28,8 +28,8 @@ The SDD is the precondition for Wave N+2 (Go implementation) but Wave N+2 is not
 2. `~/GrowDirect/CanaryGo/CLAUDE.md` — Canary Go agent rules + stack
 3. `~/GrowDirect/docs/sdds/go-handoff/identity.md` — tenancy + identity pattern source (lift hierarchy-scoped role binding shape; lift federation broker pattern; lift platform JWT shape)
 4. `~/GrowDirect/docs/sdds/go-handoff/data-model.md` — canary.go data conventions (sqlc patterns; two-tier migration model; column-level conventions)
-5. `~/GrowDirect/Cove/docs/bylaws-as-config.md` — bylaws-as-config worked example
-6. `~/GrowDirect/Cove/cove/models/organization.py` — Org-as-config-envelope reference shape
+5. `~/Cove/docs/bylaws-as-config.md` — bylaws-as-config worked example
+6. `~/Cove/cove/models/organization.py` — Org-as-config-envelope reference shape
 7. `/Users/gclyle/GrowDirect/Brain/raw/inbox/Viggo Platform Prompt_20251031.pdf` — Tim PDF v3:
    - §3 Principle Statements (five canonical principles)
    - §5 Relationship Definitions (sixteen named relationships)
@@ -109,8 +109,8 @@ Lift directly from canary.go's `identity.md` §"Merchant Org Hierarchy — Role 
 ### 7. Migration strategy
 
 Lift canary.go's two-tier model:
-- Declarative: `~/GrowDirect/AtlasView/deploy/schema/*.sql` (full schema, source-of-truth at HEAD)
-- Incremental: `~/GrowDirect/AtlasView/deploy/migrations/NNN_<slug>.{up,down}.sql` (golang-migrate format)
+- Declarative: `~/AtlasView/deploy/schema/*.sql` (full schema, source-of-truth at HEAD)
+- Incremental: `~/AtlasView/deploy/migrations/NNN_<slug>.{up,down}.sql` (golang-migrate format)
 - Both must agree at HEAD.
 
 ### 8. Open questions section

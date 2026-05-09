@@ -132,7 +132,7 @@ All apps share one PostgreSQL instance and one Valkey instance. Isolation is enf
 ```bash
 cd ~/GrowDirect/devops && docker compose up -d     # shared infra
 cd ~/GrowDirect/Canary && ./devops/scripts/dev.sh up  # Canary app
-cd ~/GrowDirect/Cove/devops && docker compose up -d   # Cove app
+cd ~/Cove/devops && docker compose up -d   # Cove app
 ```
 
 **Dependency enforcement:**

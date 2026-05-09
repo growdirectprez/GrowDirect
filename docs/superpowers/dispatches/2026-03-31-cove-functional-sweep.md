@@ -10,7 +10,7 @@
 ## Paste this into a Cove Claude Code session
 
 ```
-You are the Cove builder. Read ~/GrowDirect/CLAUDE.md then ~/GrowDirect/Cove/CLAUDE.md.
+You are the Cove builder. Read ~/GrowDirect/CLAUDE.md then ~/Cove/CLAUDE.md.
 
 You have a 6-item sequential sweep to make Cove functional end-to-end. The full design spec is at:
 ~/GrowDirect/docs/superpowers/specs/2026-03-31-cove-functional-sweep-design.md

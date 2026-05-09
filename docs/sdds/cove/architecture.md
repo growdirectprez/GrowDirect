@@ -215,7 +215,7 @@ All queries are scoped by `organization_id` (FK to `organizations.id`). Routes v
 
 ```bash
 cd ~/GrowDirect/devops && docker compose up -d      # shared infra
-cd ~/GrowDirect/Cove/devops && docker compose up -d  # cove_flask + mailhog
+cd ~/Cove/devops && docker compose up -d  # cove_flask + mailhog
 ```
 
 ### Health Check

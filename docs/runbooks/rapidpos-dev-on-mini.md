@@ -66,7 +66,7 @@ Dev iterates against **shared** postgres + valkey + ollama. Use a separate datab
 |---|---|---|
 | `~/GrowDirect/` | Platform repo (this runbook lives here) | `git@github.com:growdirectprez/GrowDirect.git` |
 | `~/GrowDirect/Canary/` | Canary working tree (gitignored at platform level) | `git@github.com:growdirect-llc/canary-retail.git` |
-| `~/GrowDirect/Cove/` | Cove working tree (gitignored at platform level) | `git@github.com:growdirectprez/Cove.git` |
+| `~/Cove/` | Cove working tree (gitignored at platform level) | `git@github.com:growdirectprez/Cove.git` |
 | `~/GrowDirect/Brain/raw/inbox/rapid-pos/ncr-counterpoint-api/` | NCR Counterpoint API spec corpus (read-only reference) | `https://github.com/NCRCounterpointAPI/APIGuide.git` |
 
 ## First-time setup (idempotent)
@@ -93,7 +93,7 @@ Verify:
 
 ```bash
 git -C ~/GrowDirect/Canary status --short --branch   # → ## main...origin/main
-git -C ~/GrowDirect/Cove   status --short --branch   # → ## main...origin/main
+git -C ~/Cove   status --short --branch   # → ## main...origin/main
 ls   ~/GrowDirect/Brain/raw/inbox/rapid-pos/ncr-counterpoint-api/Endpoints/ | head -3
 ```
 

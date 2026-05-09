@@ -21,7 +21,7 @@ Two waves planned concretely. Wave N+1.5 and N+2 enumerated for context but not 
 |---|---|---|---|
 | N+1 | Substrate | SDD-NNN — Structural Backbone | `~/GrowDirect/Brain/` + `~/GrowDirect/docs/sdds/atlasview/` |
 | N+1.5 | Substrate | SDD-NNN+1 — Identity (sibling, mirrors canary.go's `identity.md`) | same |
-| N+2 | Technology | `atlasview` Go monorepo, Structural Backbone service + Identity service | `~/GrowDirect/AtlasView/` (new repo) |
+| N+2 | Technology | `atlasview` Go monorepo, Structural Backbone service + Identity service | `~/AtlasView/` (new repo) |
 
 ## Architectural decisions
 
@@ -34,7 +34,7 @@ Two waves planned concretely. Wave N+1.5 and N+2 enumerated for context but not 
 | Identity boundary | **AtlasView builds its own sibling identity service mirroring canary.go's `identity.md` wholesale** | Federation broker (OIDC / SAML / LDAP / SCIM), platform JWT HS256 with `actor_type` (human / agent / system), per-tenant claim-to-role mapping, AES-256-GCM PII field encryption. Sovereignty argument applies equally. Methodology especially needs `actor_type` for Decision provenance. |
 | Stack | **Inherit canary.go**: Go 1.22+ · Chi v5 · pgx/v5 · sqlc v2 · golang-migrate v4 · PostgreSQL 17 · Valkey 8 | Firm-level technical baseline. Already locked in wave-26 standards alignment. |
 | Graph layer | **Neo4j retained as AtlasView extension** | The 16-relationship taxonomy IS graph-shaped. Already locked as "AtlasView-only Go service with a Neo4j layer." Postgres remains system-of-record on OLTP path; CDC stream projects to Neo4j for traversal-shaped queries. |
-| Repo | **Sibling**: new `~/GrowDirect/AtlasView/` repo, module path `github.com/ruptiv/atlasview` | Matches firm pattern (Canary Go and Cove are each their own repos). Keeps legacy code visibly separate during transition. Clean methodology-derivative git history. |
+| Repo | **Sibling**: new `~/AtlasView/` repo, module path `github.com/ruptiv/atlasview` | Matches firm pattern (Canary Go and Cove are each their own repos). Keeps legacy code visibly separate during transition. Clean methodology-derivative git history. |
 | SDD home | `~/GrowDirect/docs/sdds/atlasview/` | Sibling to `go-handoff/`, `canary/`. Firm umbrella convention. |
 | Database | New `atlasview` / `atlasview_test` on shared `growdirect_postgres` | Same firm pattern as `canary_gcp` and `cove`. |
 | Valkey | DB ≥ 3 (DB 0 = Python Canary frozen, DB 1 = Cove, DB 2 = Canary Go) | Avoids collision. |
@@ -95,7 +95,7 @@ Tim PDF v3 §6 specifies fields the legacy AtlasView platform does not implement
 - `~/GrowDirect/CanaryGo/CLAUDE.md` — Canary Go agent rules + stack
 - `~/GrowDirect/docs/sdds/go-handoff/identity.md` — identity service architecture (Tenant + Hierarchy + role binding source)
 - `~/GrowDirect/docs/sdds/go-handoff/data-model.md` — canary.go data conventions
-- `~/GrowDirect/Cove/docs/bylaws-as-config.md` — bylaws-as-config worked example
-- `~/GrowDirect/Cove/cove/models/organization.py` — Org-as-config-envelope reference shape
+- `~/Cove/docs/bylaws-as-config.md` — bylaws-as-config worked example
+- `~/Cove/cove/models/organization.py` — Org-as-config-envelope reference shape
 - `/Users/gclyle/GrowDirect/Brain/raw/inbox/Viggo Platform Prompt_20251031.pdf` — Tim PDF v3 (methodology canon)
 - Wave N+1 dispatch envelope: `docs/superpowers/plans/2026-05-08-atlasview-convergence-wave-n+1-dispatch.md`

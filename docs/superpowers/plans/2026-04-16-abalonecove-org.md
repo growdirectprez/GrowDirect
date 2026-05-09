@@ -292,10 +292,10 @@ git add evidence/ && git commit -m "feat: evidence room page with document index
 mkdir -p ~/abalonecove/map/data
 ```
 
-Copy layers from `~/GrowDirect/Cove/cove/map/data/layers/`:
+Copy layers from `~/Cove/cove/map/data/layers/`:
 
 ```bash
-SRC=~/GrowDirect/Cove/cove/map/data/layers
+SRC=~/Cove/cove/map/data/layers
 DST=~/abalonecove/map/data
 cp $SRC/tract-14649-boundary.geojson $DST/
 cp $SRC/declaration-one.geojson $DST/

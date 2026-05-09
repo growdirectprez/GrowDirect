@@ -87,7 +87,7 @@ def get_session() -> Session:
 
 Run from Cove root (not in Docker — just checking import paths):
 ```bash
-cd ~/GrowDirect/Cove && python3 -c "
+cd ~/Cove && python3 -c "
 import os; os.environ['DATABASE_URL'] = 'postgresql://growdirect:growdirect_dev@localhost:5432/cove'
 from cove.services.angel_agent.db import get_session
 s = get_session()
@@ -761,7 +761,7 @@ class TestParcelLookup:
 - [ ] **Step 2: Run tests to verify they fail**
 
 ```bash
-cd ~/GrowDirect/Cove && python3 -m pytest tests/angel_agent/test_tools.py::TestParcelLookup -v 2>&1 | head -30
+cd ~/Cove && python3 -m pytest tests/angel_agent/test_tools.py::TestParcelLookup -v 2>&1 | head -30
 ```
 Expected: ImportError or ModuleNotFoundError for `handle_parcel_lookup`
 
@@ -916,7 +916,7 @@ def handle_parcel_lookup(session: Session, params: dict) -> dict:
 - [ ] **Step 4: Run parcel_lookup tests**
 
 ```bash
-cd ~/GrowDirect/Cove && python3 -m pytest tests/angel_agent/test_tools.py::TestParcelLookup -v
+cd ~/Cove && python3 -m pytest tests/angel_agent/test_tools.py::TestParcelLookup -v
 ```
 Expected: All 7 tests PASS
 
@@ -1028,7 +1028,7 @@ class TestListingSearch:
 - [ ] **Step 2: Run tests to verify they fail**
 
 ```bash
-cd ~/GrowDirect/Cove && python3 -m pytest tests/angel_agent/test_tools.py::TestListingSearch -v 2>&1 | head -20
+cd ~/Cove && python3 -m pytest tests/angel_agent/test_tools.py::TestListingSearch -v 2>&1 | head -20
 ```
 Expected: ImportError for `handle_listing_search`
 
@@ -1130,7 +1130,7 @@ def handle_listing_search(session: Session, params: dict) -> dict:
 - [ ] **Step 4: Run listing_search tests**
 
 ```bash
-cd ~/GrowDirect/Cove && python3 -m pytest tests/angel_agent/test_tools.py::TestListingSearch -v
+cd ~/Cove && python3 -m pytest tests/angel_agent/test_tools.py::TestListingSearch -v
 ```
 Expected: All 9 tests PASS
 
@@ -1203,7 +1203,7 @@ class TestMarketStats:
 - [ ] **Step 2: Run tests to verify they fail**
 
 ```bash
-cd ~/GrowDirect/Cove && python3 -m pytest tests/angel_agent/test_tools.py::TestMarketStats -v 2>&1 | head -20
+cd ~/Cove && python3 -m pytest tests/angel_agent/test_tools.py::TestMarketStats -v 2>&1 | head -20
 ```
 
 - [ ] **Step 3: Implement market_stats handler**
@@ -1286,7 +1286,7 @@ def handle_market_stats(session: Session, params: dict) -> dict:
 - [ ] **Step 4: Run market_stats tests**
 
 ```bash
-cd ~/GrowDirect/Cove && python3 -m pytest tests/angel_agent/test_tools.py::TestMarketStats -v
+cd ~/Cove && python3 -m pytest tests/angel_agent/test_tools.py::TestMarketStats -v
 ```
 Expected: All 5 tests PASS
 
@@ -1347,7 +1347,7 @@ class TestListingDetail:
 - [ ] **Step 2: Run tests to verify they fail**
 
 ```bash
-cd ~/GrowDirect/Cove && python3 -m pytest tests/angel_agent/test_tools.py::TestListingDetail -v 2>&1 | head -15
+cd ~/Cove && python3 -m pytest tests/angel_agent/test_tools.py::TestListingDetail -v 2>&1 | head -15
 ```
 
 - [ ] **Step 3: Implement listing_detail handler**
@@ -1404,14 +1404,14 @@ def handle_listing_detail(session: Session, params: dict) -> dict:
 - [ ] **Step 4: Run listing_detail tests**
 
 ```bash
-cd ~/GrowDirect/Cove && python3 -m pytest tests/angel_agent/test_tools.py::TestListingDetail -v
+cd ~/Cove && python3 -m pytest tests/angel_agent/test_tools.py::TestListingDetail -v
 ```
 Expected: All 2 tests PASS
 
 - [ ] **Step 5: Run ALL tool tests**
 
 ```bash
-cd ~/GrowDirect/Cove && python3 -m pytest tests/angel_agent/test_tools.py -v
+cd ~/Cove && python3 -m pytest tests/angel_agent/test_tools.py -v
 ```
 Expected: All 23 tests PASS
 
@@ -2096,13 +2096,13 @@ async def test_rate_limit_daily():
 - [ ] **Step 2: Install pytest-asyncio if needed**
 
 ```bash
-cd ~/GrowDirect/Cove && pip install pytest-asyncio 2>/dev/null; echo "done"
+cd ~/Cove && pip install pytest-asyncio 2>/dev/null; echo "done"
 ```
 
 - [ ] **Step 3: Run server tests**
 
 ```bash
-cd ~/GrowDirect/Cove && python3 -m pytest tests/angel_agent/test_server.py -v
+cd ~/Cove && python3 -m pytest tests/angel_agent/test_server.py -v
 ```
 Expected: All 7 tests PASS
 
@@ -2229,7 +2229,7 @@ Read the file first, then add the angel-agent service.
 - [ ] **Step 1: Read current docker-compose.yml**
 
 ```bash
-cat ~/GrowDirect/Cove/devops/docker-compose.yml
+cat ~/Cove/devops/docker-compose.yml
 ```
 
 - [ ] **Step 2: Add angel-agent service**
@@ -2260,8 +2260,8 @@ environment block so the proxy can reach the sidecar on the Docker network.
 - [ ] **Step 3: Build and test**
 
 ```bash
-cd ~/GrowDirect/Cove/devops && docker compose build angel-agent
-cd ~/GrowDirect/Cove/devops && docker compose up -d angel-agent
+cd ~/Cove/devops && docker compose build angel-agent
+cd ~/Cove/devops && docker compose up -d angel-agent
 curl -s http://localhost:8004/health | python3 -m json.tool
 ```
 Expected: `{"service": "angel-agent", "status": "healthy", "tools_loaded": 12, ...}`
@@ -2363,7 +2363,7 @@ if __name__ == "__main__":
 - [ ] **Step 2: Run smoke test (requires running sidecar + API key)**
 
 ```bash
-cd ~/GrowDirect/Cove && python3 scripts/smoke_test_angel.py
+cd ~/Cove && python3 scripts/smoke_test_angel.py
 ```
 
 - [ ] **Step 3: Commit**
@@ -2383,14 +2383,14 @@ GRO-461 GRO-462"
 - [ ] **Step 1: Run all angel_agent tests**
 
 ```bash
-cd ~/GrowDirect/Cove && python3 -m pytest tests/angel_agent/ -v
+cd ~/Cove && python3 -m pytest tests/angel_agent/ -v
 ```
 Expected: All tests PASS (23 tool tests + 7 server tests = 30 total)
 
 - [ ] **Step 2: Run existing Cove tests to verify no regressions**
 
 ```bash
-cd ~/GrowDirect/Cove && python3 -m pytest tests/ -v --timeout=60
+cd ~/Cove && python3 -m pytest tests/ -v --timeout=60
 ```
 Expected: All existing tests still pass
 

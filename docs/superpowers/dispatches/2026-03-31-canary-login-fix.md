@@ -43,9 +43,9 @@ Flask has no SESSION_TYPE configured. Sessions are werkzeug signed cookies (clie
 ## Reference implementation
 
 Look at Cove's session setup — same platform, same pattern:
-- ~/GrowDirect/Cove/cove/extensions.py (Session extension)
-- ~/GrowDirect/Cove/cove/__init__.py (Session init in factory)
-- ~/GrowDirect/Cove/cove/config.py (SESSION_TYPE config)
+- ~/Cove/cove/extensions.py (Session extension)
+- ~/Cove/cove/__init__.py (Session init in factory)
+- ~/Cove/cove/config.py (SESSION_TYPE config)
 
 Match Cove's pattern exactly. Same problem, same solution.
 

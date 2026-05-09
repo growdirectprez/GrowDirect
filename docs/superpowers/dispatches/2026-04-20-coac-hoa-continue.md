@@ -29,11 +29,11 @@ Order matters. Don't skip.
 - Docker stack running:
   ```bash
   cd ~/GrowDirect/devops && docker compose up -d
-  cd ~/GrowDirect/Cove/devops && docker compose up -d
+  cd ~/Cove/devops && docker compose up -d
   ```
 - Branch checked out:
   ```bash
-  cd ~/GrowDirect/Cove && git checkout feat/coac-hoa-qa-instance && git pull
+  cd ~/Cove && git checkout feat/coac-hoa-qa-instance && git pull
   ```
 - Database state:
   - `cove` (dev) — migration `78fc094c3225` already applied
@@ -45,7 +45,7 @@ Order matters. Don't skip.
 SSH works via `ssh mini` (IdentityFile `~/.ssh/id_canary` on the laptop, pubkey already installed on `gclyle@Geoffs-Mac-mini`). Mini state:
 - macOS 26.3.1 arm64, Docker + git + python3 installed
 - **Missing:** node, brew, cloudflared, claude, gpg, b2 — install when Chunk 9 needs them
-- No `~/GrowDirect/Cove/` checkout on the mini yet — first Chunk 9 step is `git clone`
+- No `~/Cove/` checkout on the mini yet — first Chunk 9 step is `git clone`
 - `growdirect_postgres` + `growdirect_valkey` already running
 - Existing `devops-cove-*` containers of unknown vintage running; **do not touch without user approval** (user is deliberating whether to leave them)
 
@@ -148,7 +148,7 @@ Then: point Docker at the cloned repo and follow Chunk 9's runbook (once that ch
 ## Quick sanity verification before resuming
 
 ```bash
-cd ~/GrowDirect/Cove
+cd ~/Cove
 git branch --show-current                   # → feat/coac-hoa-qa-instance
 git log --oneline | head -12                # top commit: 1f31762 (cleanup)
 docker ps --format "{{.Names}}: {{.Status}}" | grep cove_flask

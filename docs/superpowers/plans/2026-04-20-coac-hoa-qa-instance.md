@@ -3167,7 +3167,7 @@ ssh gclyle@192.168.10.102 'docker exec growdirect_postgres psql -U growdirect -c
 
 ### 2. Configure `.env.production`
 
-SSH to mini, edit `~/GrowDirect/Cove/.env.production`:
+SSH to mini, edit `~/Cove/.env.production`:
 
 ```
 SECRET_KEY=<generate with `python3 -c "import secrets; print(secrets.token_hex(32))"`>
@@ -4150,7 +4150,7 @@ links. Schedule during off-hours.
 
 ```bash
 ssh gclyle@192.168.10.102
-cd ~/GrowDirect/Cove
+cd ~/Cove
 cp .env.production .env.production.bak.$(date +%Y%m%d)
 NEW=$(python3 -c "import secrets; print(secrets.token_hex(32))")
 sed -i '' "s|SECRET_KEY=.*|SECRET_KEY=$NEW|" .env.production
@@ -4172,7 +4172,7 @@ docker compose -f devops/docker-compose.production.yml restart cove_hoa_flask
 ## File permissions
 
 ```bash
-chmod 600 ~/GrowDirect/Cove/.env.production
+chmod 600 ~/Cove/.env.production
 chmod 600 ~/.cloudflared/*.json
 ```
 
